@@ -1,0 +1,69 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Friday, February 3, 2017 3:13:02 PM
+   Source : C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Config\
+     Dest : C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\App_Data\NuGetBackup\20170203-151302\Config\
+
+    Files : *.*
+	    
+  Options : *.* /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                  18	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Config\
+	    New File  		     305	404handlers.config  0%  100%  
+	    New File  		     681	applications.config  0%  100%  
+	    New File  		     739	BaseRestExtensions.config  0%  100%  
+	    New File  		    3981	ClientDependency.config  0%  100%  
+	    New File  		    2957	Dashboard.config  0%  100%  
+	    New File  		    7088	EmbeddedMedia.config  0%  100%  
+	    New File  		    1303	ExamineIndex.config  0%  100%  
+	    New File  		    1834	ExamineSettings.config  0%  100%  
+	    New File  		     429	feedProxy.config  0%  100%  
+	    New File  		     286	FileSystemProviders.config  0%  100%  
+	    New File  		    1023	grid.editors.config.js  0%  100%  
+	    New File  		    1114	log4net.config  0%  100%  
+	    New File  		      72	metablogConfig.config  0%  100%  
+	    New File  		     837	scripting.config  0%  100%  
+	    New File  		   12446	tinyMceConfig.config  0%  100%  
+	    New File  		    5782	trees.config  0%  100%  
+	    New File  		    8778	umbracoSettings.config  0%  100%  
+	    New File  		     502	UrlRewriting.config  0%  100%  
+	  New Dir          0	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Config\imageprocessor\
+	  New Dir         18	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Config\Lang\
+	    New File  		      81	cs-CZ.user.xml  0%  100%  
+	    New File  		      79	da-DK.user.xml  0%  100%  
+	    New File  		      79	de-DE.user.xml  0%  100%  
+	    New File  		      79	en-GB.user.xml  0%  100%  
+	    New File  		      79	en-US.user.xml  0%  100%  
+	    New File  		      79	es-ES.user.xml  0%  100%  
+	    New File  		      79	fr-FR.user.xml  0%  100%  
+	    New File  		      82	he-IL.user.xml  0%  100%  
+	    New File  		      82	it-IT.user.xml  0%  100%  
+	    New File  		      79	ja-JP.user.xml  0%  100%  
+	    New File  		      82	ko-KR.user.xml  0%  100%  
+	    New File  		      82	nb-NO.user.xml  0%  100%  
+	    New File  		      79	nl-NL.user.xml  0%  100%  
+	    New File  		      82	pl-PL.user.xml  0%  100%  
+	    New File  		      82	pt-BR.user.xml  0%  100%  
+	    New File  		      79	ru-RU.user.xml  0%  100%  
+	    New File  		      82	sv-SE.user.xml  0%  100%  
+	    New File  		      78	zh-CN.user.xml  0%  100%  
+	  New Dir          0	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Config\splashes\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         4         3         1         0         0         0
+   Files :        36        36         0         0         0         0
+   Bytes :    50.3 k    50.3 k         0         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+
+   Speed :              706863 Bytes/sec.
+   Speed :              40.447 MegaBytes/min.
+   Ended : Friday, February 3, 2017 3:13:02 PM
+

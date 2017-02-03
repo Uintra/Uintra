@@ -1,0 +1,33 @@
+#
+*.orig
+*.rej
+*.user
+packages/
+src/.vs/
+src/Compent.uCommunity/bin/
+src/Compent.uCommunity/obj/
+
+# Ignore umbraco folders
+# if you want add some of umbraco files in repository use '!' syntax
+# for example '!src/Compent.uCommunity/Umbraco/umbraco.aspx'
+src/Compent.uCommunity/Umbraco/
+src/Compent.uCommunity/Umbraco_Client/
+
+#
+src/Compent.uCommunity/Media/*
+!src/Compent.uCommunity/Media/Web.config
+src/Compent.uCommunity/App_Data/*
+!src/Compent.uCommunity/App_Data/packages/
+!src/Compent.uCommunity/App_Data/Models/
+Design/TD__Intranet__(v0.2.6).psd
+src/Compent.uCommunity/Content/images/bell.png
+src/Compent.uCommunity/Content/images/logout.png
+src/Compent.uCommunity/Content/images/umbraco.png
+src/Compent.uCommunity/Content/images/user.png
+Design/TD__Intranet__(v0.jpg
+src/Compent.uCommunity/Content/images/search.png
+
+src/Compent.uCommunity/node_modules
+src/Compent.uCommunity/Content/images/home.png
+
+

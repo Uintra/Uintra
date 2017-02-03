@@ -1,0 +1,143 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Friday, February 3, 2017 3:12:54 PM
+   Source : C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\
+     Dest : C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\App_Data\NuGetBackup\20170203-151253\bin\
+
+    Files : *.*
+	    
+  Options : *.* /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                  96	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\
+	    New File  		  102912	Antlr3.Runtime.dll  0%  100%  
+	    New File  		  431616	Antlr3.Runtime.pdb  0%   30%   60%   91%  100%  
+	    New File  		  166400	AutoMapper.dll  0%   78%  100%  
+	    New File  		   28672	AutoMapper.Net4.dll  0%  100%  
+	    New File  		  118784	businesslogic.dll  0%  100%  
+	    New File  		  147456	ClientDependency.Core.dll  0%   88%  100%  
+	    New File  		   23552	ClientDependency.Core.Mvc.dll  0%  100%  
+	    New File  		  512000	cms.dll  0%   25%   51%   76%  100%  
+	    New File  		   63488	Compent.uCommunity.dll  0%  100%  
+	    New File  		    5215	Compent.uCommunity.dll.config  0%  100%  
+	    New File  		  112128	Compent.uCommunity.pdb  0%  100%  
+	    New File  		   52224	controls.dll  0%  100%  
+	    New File  		  122880	CookComputing.XmlRpcV2.dll  0%  100%  
+	    New File  		   4.9 m	EntityFramework.dll  0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100%  
+	    New File  		  621264	EntityFramework.SqlServer.dll  0%   42%   84%  100%  
+	    New File  		  154866	EntityFramework.SqlServer.xml  0%   84%  100%  
+	    New File  		   3.4 m	EntityFramework.xml  0%   14%   28%   43%   57%   71%   86%  100%  
+	    New File  		   99328	Examine.dll  0%  100%  
+	    New File  		  134656	HtmlAgilityPack.dll  0%   97%  100%  
+	    New File  		  200704	ICSharpCode.SharpZipLib.dll  0%   65%  100%  
+	    New File  		  178176	ImageProcessor.dll  0%   73%  100%  
+	    New File  		  111616	ImageProcessor.Web.dll  0%  100%  
+	    New File  		   24576	interfaces.dll  0%  100%  
+	    New File  		  258048	log4net.dll  0%   50%  100%  
+	    New File  		  786432	Lucene.Net.dll  0%   33%   66%  100%  
+	    New File  		   54784	MarkdownSharp.dll  0%  100%  
+	    New File  		   11264	Microsoft.ApplicationBlocks.Data.dll  0%  100%  
+	    New File  		  171672	Microsoft.AspNet.Identity.Core.dll  0%   76%  100%  
+	    New File  		  124939	Microsoft.AspNet.Identity.Core.xml  0%  100%  
+	    New File  		   77472	Microsoft.AspNet.Identity.EntityFramework.dll  0%  100%  
+	    New File  		   52609	Microsoft.AspNet.Identity.EntityFramework.xml  0%  100%  
+	    New File  		   54944	Microsoft.AspNet.Identity.Owin.dll  0%  100%  
+	    New File  		   32939	Microsoft.AspNet.Identity.Owin.xml  0%  100%  
+	    New File  		   3.8 m	Microsoft.CodeAnalysis.CSharp.dll  0%   13%   26%   39%   52%   65%   78%   91%  100%  
+	    New File  		   1.6 m	Microsoft.CodeAnalysis.dll  0%   15%   30%   45%   60%   76%   91%  100%  
+	    New File  		   29344	Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll  0%  100%  
+	    New File  		    1805	Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml  0%  100%  
+	    New File  		  101032	Microsoft.Owin.dll  0%  100%  
+	    New File  		  133288	Microsoft.Owin.Host.SystemWeb.dll  0%   98%  100%  
+	    New File  		   31372	Microsoft.Owin.Host.SystemWeb.xml  0%  100%  
+	    New File  		   36520	Microsoft.Owin.Security.Cookies.dll  0%  100%  
+	    New File  		   33265	Microsoft.Owin.Security.Cookies.xml  0%  100%  
+	    New File  		   53416	Microsoft.Owin.Security.dll  0%  100%  
+	    New File  		   36520	Microsoft.Owin.Security.Facebook.dll  0%  100%  
+	    New File  		   19747	Microsoft.Owin.Security.Facebook.xml  0%  100%  
+	    New File  		   55984	Microsoft.Owin.Security.Google.dll  0%  100%  
+	    New File  		   36808	Microsoft.Owin.Security.Google.xml  0%  100%  
+	    New File  		   36528	Microsoft.Owin.Security.MicrosoftAccount.dll  0%  100%  
+	    New File  		   21149	Microsoft.Owin.Security.MicrosoftAccount.xml  0%  100%  
+	    New File  		   77488	Microsoft.Owin.Security.OAuth.dll  0%  100%  
+	    New File  		  111514	Microsoft.Owin.Security.OAuth.xml  0%  100%  
+	    New File  		   44208	Microsoft.Owin.Security.Twitter.dll  0%  100%  
+	    New File  		   21961	Microsoft.Owin.Security.Twitter.xml  0%  100%  
+	    New File  		   30791	Microsoft.Owin.Security.xml  0%  100%  
+	    New File  		  166973	Microsoft.Owin.xml  0%   78%  100%  
+	    New File  		   45416	Microsoft.Web.Infrastructure.dll  0%  100%  
+	    New File  		  396288	MiniProfiler.dll  0%   33%   66%   99%  100%  
+	    New File  		  424448	MySql.Data.dll  0%   30%   61%   92%  100%  
+	    New File  		  502272	Newtonsoft.Json.dll  0%   26%   52%   78%  100%  
+	    New File  		  478726	Newtonsoft.Json.xml  0%   27%   54%   82%  100%  
+	    New File  		    4608	Owin.dll  0%  100%  
+	    New File  		   10240	Semver.dll  0%  100%  
+	    New File  		   19968	SQLCE4Umbraco.dll  0%  100%  
+	    New File  		  204544	System.Collections.Immutable.dll  0%   64%  100%  
+	    New File  		  470696	System.Data.SqlServerCe.dll  0%   27%   55%   83%  100%  
+	    New File  		  240808	System.Data.SqlServerCe.Entity.dll  0%   54%  100%  
+	    New File  		  185544	System.Net.Http.Formatting.dll  0%   70%  100%  
+	    New File  		  262896	System.Reflection.Metadata.dll  0%   49%   99%  100%  
+	    New File  		  139976	System.Web.Helpers.dll  0%   93%  100%  
+	    New File  		   74850	System.Web.Helpers.xml  0%  100%  
+	    New File  		  471240	System.Web.Http.dll  0%   27%   55%   83%  100%  
+	    New File  		   82120	System.Web.Http.WebHost.dll  0%  100%  
+	    New File  		  566472	System.Web.Mvc.dll  0%   46%   92%  100%  
+	    New File  		  952428	System.Web.Mvc.xml  0%   27%   55%   82%  100%  
+	    New File  		   70864	System.Web.Optimization.dll  0%  100%  
+	    New File  		   50585	System.Web.Optimization.xml  0%  100%  
+	    New File  		  272072	System.Web.Razor.dll  0%   48%   96%  100%  
+	    New File  		  522146	System.Web.Razor.xml  0%   25%   50%   75%  100%  
+	    New File  		   41672	System.Web.WebPages.Deployment.dll  0%  100%  
+	    New File  		    4867	System.Web.WebPages.Deployment.xml  0%  100%  
+	    New File  		  211656	System.Web.WebPages.dll  0%   61%  100%  
+	    New File  		   39624	System.Web.WebPages.Razor.dll  0%  100%  
+	    New File  		   25222	System.Web.WebPages.Razor.xml  0%  100%  
+	    New File  		  234716	System.Web.WebPages.xml  0%   55%  100%  
+	    New File  		  192512	TidyNet.dll  0%   68%  100%  
+	    New File  		   2.4 m	Umbraco.Core.dll  0%   20%   41%   62%   83%  100%  
+	    New File  		   38400	umbraco.DataLayer.dll  0%  100%  
+	    New File  		   2.1 m	umbraco.dll  0%   23%   46%   69%   93%  100%  
+	    New File  		  372736	umbraco.editorControls.dll  0%   35%   70%  100%  
+	    New File  		  131584	umbraco.MacroEngines.dll  0%   99%  100%  
+	    New File  		   98304	Umbraco.ModelsBuilder.dll  0%  100%  
+	    New File  		   38400	umbraco.providers.dll  0%  100%  
+	    New File  		   57344	Umbraco.Web.UI.dll  0%  100%  
+	    New File  		   59904	UmbracoExamine.dll  0%  100%  
+	    New File  		   22528	UrlRewritingNet.UrlRewriter.dll  0%  100%  
+	    New File  		   1.2 m	WebGrease.dll  0%   20%   41%   61%   82%  100%  
+	  New Dir          0	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\amd64\
+	  New Dir          0	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\amd64\Microsoft.VC90.CRT\
+	  New Dir         12	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\roslyn\
+	    New File  		   41608	csc.exe  0%  100%  
+	    New File  		   85192	Microsoft.Build.Tasks.CodeAnalysis.dll  0%  100%  
+	    New File  		   3.8 m	Microsoft.CodeAnalysis.CSharp.dll  0%   13%   26%   39%   52%   65%   78%   91%  100%  
+	    New File  		   1.6 m	Microsoft.CodeAnalysis.dll  0%   15%   30%   45%   60%   76%   91%  100%  
+	    New File  		   4.6 m	Microsoft.CodeAnalysis.VisualBasic.dll  0%   10%   21%   32%   42%   53%   64%   74%   85%   96%  100%  
+	    New File  		    6416	Microsoft.CSharp.Core.targets  0%  100%  
+	    New File  		    5846	Microsoft.VisualBasic.Core.targets  0%  100%  
+	    New File  		  204544	System.Collections.Immutable.dll  0%   64%  100%  
+	    New File  		  262896	System.Reflection.Metadata.dll  0%   49%   99%  100%  
+	    New File  		   41608	vbc.exe  0%  100%  
+	    New File  		   63648	VBCSCompiler.exe  0%  100%  
+	    New File  		     563	VBCSCompiler.exe.config  0%  100%  
+	  New Dir          0	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\x86\
+	  New Dir          0	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\bin\x86\Microsoft.VC90.CRT\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         6         5         1         0         0         0
+   Files :       108       108         0         0         0         0
+   Bytes :   43.95 m   43.95 m         0         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+
+   Speed :           250512298 Bytes/sec.
+   Speed :           14334.428 MegaBytes/min.
+   Ended : Friday, February 3, 2017 3:12:54 PM
+
