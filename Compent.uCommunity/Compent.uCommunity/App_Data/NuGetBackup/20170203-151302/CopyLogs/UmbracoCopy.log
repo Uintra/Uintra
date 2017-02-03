@@ -1,1914 +1,0 @@
-
--------------------------------------------------------------------------------
-   ROBOCOPY     ::     Robust File Copy for Windows                              
--------------------------------------------------------------------------------
-
-  Started : Friday, February 3, 2017 3:13:03 PM
-   Source : C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\
-     Dest : C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Umbraco\
-
-    Files : *.*
-	    
-Exc Files : UI.xml
-	    
-  Options : *.* /S /E /DCOPY:DA /COPY:DAT /IS /IT /R:1000000 /W:30 
-
-------------------------------------------------------------------------------
-
-	                  12	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\
-	    New File  		    2295	ClientRedirect.aspx  0%  100%  
-	    New File  		    1442	create.aspx  0%  100%  
-	    New File  		     792	endPreview.aspx  0%  100%  
-	    New File  		     420	helpRedirect.aspx  0%  100%  
-	    New File  		     826	installer.html  0%  100%  
-	    New File  		    1624	Logout.aspx  0%  100%  
-	    New File  		     492	macroResultWrapper.aspx  0%  100%  
-	    New File  		      61	ping.aspx  0%  100%  
-	    New File  		     891	publishStatus.aspx  0%  100%  
-	    New File  		     179	tree.aspx  0%  100%  
-	    New File  		    1887	treeInit.aspx  0%  100%  
-	    New File  		     126	umbraco.aspx  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Actions\
-	    New File  		    1155	delete.aspx  0%  100%  
-	    New File  		     480	editContent.aspx  0%  100%  
-	    New File  		     471	preview.aspx  0%  100%  
-	    New File  		    1203	publish.aspx  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\css\
-	    New File  		   40333	canvasdesigner.css  0%  100%  
-	    New File  		   39423	installer.css  0%  100%  
-	    New File  		    4342	nonodes.style.min.css  0%  100%  
-	    New File  		  270565	umbraco.css  0%   48%   96%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\fonts\
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\fonts\helveticons\
-	    New File  		  117324	helveticons.eot  0%  100%  
-	    New File  		  793966	helveticons.svg  0%   33%   66%   99%  100%  
-	    New File  		  117160	helveticons.ttf  0%  100%  
-	    New File  		  294540	helveticons.woff  0%   44%   89%  100%  
-	                   9	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\fonts\opensans\
-	    New File  		   19836	OpenSans-Regular-webfont.eot  0%  100%  
-	    New File  		  119399	OpenSans-Regular-webfont.svg  0%  100%  
-	    New File  		   38232	OpenSans-Regular-webfont.ttf  0%  100%  
-	    New File  		   22660	OpenSans-Regular-webfont.woff  0%  100%  
-	    New File  		  217360	OpenSans-Regular.ttf  0%   60%  100%  
-	    New File  		   20028	OpenSans-Semibold-webfont.eot  0%  100%  
-	    New File  		  118464	OpenSans-Semibold-webfont.svg  0%  100%  
-	    New File  		   39476	OpenSans-Semibold-webfont.ttf  0%  100%  
-	    New File  		   22908	OpenSans-Semibold-webfont.woff  0%  100%  
-	                   7	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\img\
-	    New File  		     957	checkered-background-20.png  0%  100%  
-	    New File  		     165	checkered-background.png  0%  100%  
-	    New File  		  304723	installer.jpg  0%   43%   86%  100%  
-	    New File  		   23155	loader.gif  0%  100%  
-	    New File  		    1746	logo.png  0%  100%  
-	    New File  		  237538	nonodesbg.jpg  0%   55%  100%  
-	    New File  		   14993	transparent.png  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\img\application\
-	    New File  		     367	logo.png  0%  100%  
-	    New File  		    1648	logo@2x.png  0%  100%  
-	    New File  		    2547	logo@3x.png  0%  100%  
-	    New File  		    1280	logo_black.png  0%  100%  
-	    New File  		    1333	logo_white.png  0%  100%  
-	                  11	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\img\applicationIcons\
-	    New File  		    1139	content.png  0%  100%  
-	    New File  		    1581	default.png  0%  100%  
-	    New File  		    1376	developer.png  0%  100%  
-	    New File  		    1702	help.svg  0%  100%  
-	    New File  		    7364	hlvticons-umbraco.svg  0%  100%  
-	    New File  		    1386	media.png  0%  100%  
-	    New File  		    1342	members.png  0%  100%  
-	    New File  		    1179	search.png  0%  100%  
-	    New File  		    1612	settings.png  0%  100%  
-	    New File  		    2828	tree-arrow.png  0%  100%  
-	    New File  		    1304	users.png  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\img\forms\
-	    New File  		   37864	installer-background.png  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\img\uploader\
-	    New File  		    1738	upload-illustration.png  0%  100%  
-	    New File  		    1378	upload-illustration.svg  0%  100%  
-	                  11	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\assets\less\
-	    New File  		     693	background.less  0%  100%  
-	    New File  		    1827	border.less  0%  100%  
-	    New File  		     360	color.less  0%  100%  
-	    New File  		     787	googlefontpicker.less  0%  100%  
-	    New File  		     794	gridRow.less  0%  100%  
-	    New File  		    1780	layout.less  0%  100%  
-	    New File  		    1093	margin.less  0%  100%  
-	    New File  		    1114	padding.less  0%  100%  
-	    New File  		    2185	radius.less  0%  100%  
-	    New File  		     622	shadow.less  0%  100%  
-	    New File  		     458	slider.less  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Channels\
-	    New File  		     963	rsd.aspx  0%  100%  
-	    New File  		    1912	wlwmanifest.aspx  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Config\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Config\Create\
-	                  18	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Config\Lang\
-	    New File  		   67062	cs.xml  0%  100%  
-	    New File  		   74986	da.xml  0%  100%  
-	    New File  		   72018	de.xml  0%  100%  
-	    New File  		   88904	en.xml  0%  100%  
-	    New File  		   89495	en_us.xml  0%  100%  
-	    New File  		   67752	es.xml  0%  100%  
-	    New File  		   70522	fr.xml  0%  100%  
-	    New File  		   63876	he.xml  0%  100%  
-	    New File  		   63950	it.xml  0%  100%  
-	    New File  		   88670	ja.xml  0%  100%  
-	    New File  		   60337	ko.xml  0%  100%  
-	    New File  		   66074	nb.xml  0%  100%  
-	    New File  		   68158	nl.xml  0%  100%  
-	    New File  		   59665	pl.xml  0%  100%  
-	    New File  		   58945	pt.xml  0%  100%  
-	    New File  		  131799	ru.xml  0%   99%  100%  
-	    New File  		   67837	sv.xml  0%  100%  
-	    New File  		   54852	zh.xml  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Controls\
-	    New File  		    7254	passwordChanger.ascx  0%  100%  
-	    New File  		     309	ProgressBar.ascx  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Controls\Images\
-	    New File  		    2224	ImageViewer.ascx  0%  100%  
-	    New File  		    6000	ImageViewer.js  0%  100%  
-	    New File  		     127	ImageViewerUpdater.asmx  0%  100%  
-	    New File  		    1826	UploadMediaImage.ascx  0%  100%  
-	    New File  		    2618	UploadMediaImage.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Controls\Tree\
-	    New File  		      82	CustomTreeService.asmx  0%  100%  
-	    New File  		    2725	TreeControl.ascx  0%  100%  
-	                   8	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Create\
-	    New File  		    2412	DlrScripting.ascx  0%  100%  
-	    New File  		    1039	language.ascx  0%  100%  
-	    New File  		    1867	PartialView.ascx  0%  100%  
-	    New File  		    2450	PartialViewMacro.ascx  0%  100%  
-	    New File  		    1984	script.ascx  0%  100%  
-	    New File  		    1279	simple.ascx  0%  100%  
-	    New File  		    2281	User.ascx  0%  100%  
-	    New File  		    1696	xslt.ascx  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Css\
-	    New File  		     151	background.gif  0%  100%  
-	    New File  		     674	permissionsEditor.css  0%  100%  
-	    New File  		      88	splitter.gif  0%  100%  
-	    New File  		    7686	umbracoGui.css  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Dashboard\
-	    New File  		   13245	ExamineManagement.ascx  0%  100%  
-	    New File  		     178	FeedProxy.aspx  0%  100%  
-	    New File  		     565	LatestEdits.ascx  0%  100%  
-	    New File  		    1615	UserControlProxy.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\
-	    New File  		     995	autoDoc.aspx  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\Macros\
-	    New File  		    1674	assemblyBrowser.aspx  0%  100%  
-	    New File  		   11700	editMacro.aspx  0%  100%  
-	                   9	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\Packages\
-	    New File  		     995	BrowseRepository.aspx  0%  100%  
-	    New File  		    1171	directoryBrowser.aspx  0%  100%  
-	    New File  		   12808	editPackage.aspx  0%  100%  
-	    New File  		    8458	installedPackage.aspx  0%  100%  
-	    New File  		   18426	installer.aspx  0%  100%  
-	    New File  		    1142	LoadNitros.ascx  0%  100%  
-	    New File  		    2237	proxy.htm  0%  100%  
-	    New File  		    3122	StarterKits.aspx  0%  100%  
-	    New File  		    5521	SubmitPackage.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\Python\
-	    New File  		    2701	editPython.aspx  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\RelationTypes\
-	    New File  		    6536	EditRelationType.aspx  0%  100%  
-	    New File  		    3013	NewRelationType.aspx  0%  100%  
-	    New File  		     162	RelationTypesWebService.asmx  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\RelationTypes\Images\
-	    New File  		     421	Bidirectional.png  0%  100%  
-	    New File  		     434	ParentToChild.png  0%  100%  
-	    New File  		    1053	Refresh.gif  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\RelationTypes\TreeMenu\
-	    New File  		     731	ActionDeleteRelationType.js  0%  100%  
-	    New File  		     172	ActionNewRelationType.js  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Developer\Xslt\
-	    New File  		    3579	editXslt.aspx  0%  100%  
-	    New File  		     108	getXsltStatus.asmx  0%  100%  
-	    New File  		    2160	xsltChooseExtension.aspx  0%  100%  
-	    New File  		    2588	xsltInsertValueOf.aspx  0%  100%  
-	    New File  		    2895	xsltVisualize.aspx  0%  100%  
-	                  33	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Dialogs\
-	    New File  		    1518	about.aspx  0%  100%  
-	    New File  		    2115	AssignDomain.aspx  0%  100%  
-	    New File  		    4277	AssignDomain2.aspx  0%  100%  
-	    New File  		    6285	ChangeDocType.aspx  0%  100%  
-	    New File  		    3217	create.aspx  0%  100%  
-	    New File  		    1149	cruds.aspx  0%  100%  
-	    New File  		    3654	EditMacro.aspx  0%  100%  
-	    New File  		     262	empty.htm  0%  100%  
-	    New File  		    3606	emptyTrashcan.aspx  0%  100%  
-	    New File  		     150	exportDocumenttype.aspx  0%  100%  
-	    New File  		     402	imageViewer.aspx  0%  100%  
-	    New File  		    2031	importDocumenttype.aspx  0%  100%  
-	    New File  		    4415	insertMacro.aspx  0%  100%  
-	    New File  		    1651	insertMasterpageContent.aspx  0%  100%  
-	    New File  		    1622	insertMasterpagePlaceholder.aspx  0%  100%  
-	    New File  		    7962	insertTable.aspx  0%  100%  
-	    New File  		    4127	mediaPicker.aspx  0%  100%  
-	    New File  		    4415	moveOrCopy.aspx  0%  100%  
-	    New File  		     815	notifications.aspx  0%  100%  
-	    New File  		     748	Preview.aspx  0%  100%  
-	    New File  		   10351	protectPage.aspx  0%  100%  
-	    New File  		    4197	publish.aspx  0%  100%  
-	    New File  		    2339	RegexWs.aspx  0%  100%  
-	    New File  		    1779	republish.aspx  0%  100%  
-	    New File  		    4233	rollBack.aspx  0%  100%  
-	    New File  		    1856	search.aspx  0%  100%  
-	    New File  		     809	SendPublish.aspx  0%  100%  
-	    New File  		    1638	sendToTranslation.aspx  0%  100%  
-	    New File  		    4124	sort.aspx  0%  100%  
-	    New File  		    1076	treePicker.aspx  0%  100%  
-	    New File  		    6939	umbracoField.aspx  0%  100%  
-	    New File  		    1170	uploadImage.aspx  0%  100%  
-	    New File  		    3076	viewAuditTrail.aspx  0%  100%  
-	                  98	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\
-	    New File  		    1178	aboutNew.png  0%  100%  
-	    New File  		     834	arrawBack.gif  0%  100%  
-	    New File  		     832	arrowDown.gif  0%  100%  
-	    New File  		     834	arrowForward.gif  0%  100%  
-	    New File  		     897	audit.png  0%  100%  
-	    New File  		     422	back.png  0%  100%  
-	    New File  		     144	blank.png  0%  100%  
-	    New File  		     389	close.png  0%  100%  
-	    New File  		     388	collapse.png  0%  100%  
-	    New File  		     489	copy.small.png  0%  100%  
-	    New File  		     472	cut.small.png  0%  100%  
-	    New File  		      92	c_b.gif  0%  100%  
-	    New File  		     211	c_bl.gif  0%  100%  
-	    New File  		     948	c_bl_label.gif  0%  100%  
-	    New File  		     240	c_br.gif  0%  100%  
-	    New File  		    1031	c_br_label.gif  0%  100%  
-	    New File  		      96	c_b_label.gif  0%  100%  
-	    New File  		      93	c_r.gif  0%  100%  
-	    New File  		      96	c_t.gif  0%  100%  
-	    New File  		     242	c_tl.gif  0%  100%  
-	    New File  		     434	c_tr.gif  0%  100%  
-	    New File  		     253	date.gif  0%  100%  
-	    New File  		     512	delete.gif  0%  100%  
-	    New File  		     715	delete.png  0%  100%  
-	    New File  		     374	delete.small.png  0%  100%  
-	    New File  		     582	delete_button.png  0%  100%  
-	    New File  		     255	dialogBg.png  0%  100%  
-	    New File  		     362	domain.gif  0%  100%  
-	    New File  		     472	domain_on.png  0%  100%  
-	    New File  		    1420	download.png  0%  100%  
-	    New File  		    1487	errorLayerBackground.gif  0%  100%  
-	    New File  		     400	expand.png  0%  100%  
-	    New File  		     617	exportDocumenttype.png  0%  100%  
-	    New File  		     894	false.png  0%  100%  
-	    New File  		     251	file.png  0%  100%  
-	    New File  		     390	find.small.png  0%  100%  
-	    New File  		     967	findDocument.gif  0%  100%  
-	    New File  		     617	findDocument.png  0%  100%  
-	    New File  		     413	folder.small.png  0%  100%  
-	    New File  		     229	foldericon.png  0%  100%  
-	    New File  		     418	forward.png  0%  100%  
-	    New File  		    1321	gradientBackground.png  0%  100%  
-	    New File  		    1482	gradientLine.gif  0%  100%  
-	    New File  		    1013	help.gif  0%  100%  
-	    New File  		    1018	help.png  0%  100%  
-	    New File  		     507	htmldoc.small.png  0%  100%  
-	    New File  		     601	importDocumenttype.png  0%  100%  
-	    New File  		     725	information.png  0%  100%  
-	    New File  		     114	listItemOrange.gif  0%  100%  
-	    New File  		     219	Lminus.png  0%  100%  
-	    New File  		   17566	loginBg.png  0%  100%  
-	    New File  		    1011	logout.png  0%  100%  
-	    New File  		     996	logout_small.gif  0%  100%  
-	    New File  		     592	logout_small.png  0%  100%  
-	    New File  		     224	Lplus.png  0%  100%  
-	    New File  		     115	macro.gif  0%  100%  
-	    New File  		      45	nada.gif  0%  100%  
-	    New File  		     246	new.gif  0%  100%  
-	    New File  		    1035	new.png  0%  100%  
-	    New File  		     989	newStar.gif  0%  100%  
-	    New File  		     489	notepad.png  0%  100%  
-	    New File  		    1003	notify.gif  0%  100%  
-	    New File  		    1003	notifyOld.gif  0%  100%  
-	    New File  		    1469	okLayerBackground.gif  0%  100%  
-	    New File  		     232	openfoldericon.png  0%  100%  
-	    New File  		     396	options.small.png  0%  100%  
-	    New File  		    1012	package.png  0%  100%  
-	    New File  		     966	package2.png  0%  100%  
-	    New File  		     632	paste.small.png  0%  100%  
-	    New File  		     450	pencil.png  0%  100%  
-	    New File  		    1009	permission.gif  0%  100%  
-	    New File  		     581	permission.png  0%  100%  
-	    New File  		    1023	protect.gif  0%  100%  
-	    New File  		     628	protect.png  0%  100%  
-	    New File  		     554	publish.gif  0%  100%  
-	    New File  		     717	publish.png  0%  100%  
-	    New File  		     502	refresh.png  0%  100%  
-	    New File  		     588	rollback.gif  0%  100%  
-	    New File  		     626	rollback.png  0%  100%  
-	    New File  		     549	save.png  0%  100%  
-	    New File  		    1047	sendToTranslate.png  0%  100%  
-	    New File  		     232	small_minus.png  0%  100%  
-	    New File  		     257	small_plus.png  0%  100%  
-	    New File  		     388	sort.gif  0%  100%  
-	    New File  		     400	sort.png  0%  100%  
-	    New File  		     400	sort.small.png  0%  100%  
-	    New File  		     152	T.png  0%  100%  
-	    New File  		    1844	throbber.gif  0%  100%  
-	    New File  		     959	thumbs_lrg.png  0%  100%  
-	    New File  		     967	thumbs_med.png  0%  100%  
-	    New File  		     957	thumbs_smll.png  0%  100%  
-	    New File  		     207	Tminus.png  0%  100%  
-	    New File  		     266	toggleTreeOff.png  0%  100%  
-	    New File  		     271	toggleTreeOn.png  0%  100%  
-	    New File  		     304	topGradient.gif  0%  100%  
-	    New File  		     222	Tplus.png  0%  100%  
-	    New File  		     612	true.png  0%  100%  
-	    New File  		    3134	umbracoSplash.png  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\Actions\
-	    New File  		   12301	sprites.png  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\Developer\
-	    New File  		     842	customControlIcon.png  0%  100%  
-	    New File  		   30235	pythonIcon.png  0%  100%  
-	    New File  		     775	usercontrolIcon.png  0%  100%  
-	    New File  		     776	xsltIcon.png  0%  100%  
-	                 138	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\Editor\
-	    New File  		     171	anchor.gif  0%  100%  
-	    New File  		    1152	anchor.png  0%  100%  
-	    New File  		      70	anchor_symbol.gif  0%  100%  
-	    New File  		     174	backcolor.gif  0%  100%  
-	    New File  		      76	Bold.GIF  0%  100%  
-	    New File  		      73	bold_de_se.gif  0%  100%  
-	    New File  		      80	bold_es.gif  0%  100%  
-	    New File  		      78	bold_fr.gif  0%  100%  
-	    New File  		      77	bold_ru.gif  0%  100%  
-	    New File  		     207	bold_tw.gif  0%  100%  
-	    New File  		     113	browse.gif  0%  100%  
-	    New File  		     108	bullist.GIF  0%  100%  
-	    New File  		    8399	buttons.gif  0%  100%  
-	    New File  		      57	button_menu.gif  0%  100%  
-	    New File  		     394	calendar.gif  0%  100%  
-	    New File  		     108	calendarButton.gif  0%  100%  
-	    New File  		     677	cancel_button_bg.gif  0%  100%  
-	    New File  		      73	Center.GIF  0%  100%  
-	    New File  		     245	charmap.gif  0%  100%  
-	    New File  		     256	cleanup.gif  0%  100%  
-	    New File  		     102	close.gif  0%  100%  
-	    New File  		     110	code.gif  0%  100%  
-	    New File  		     125	color.gif  0%  100%  
-	    New File  		     263	Copy.GIF  0%  100%  
-	    New File  		      76	custom_1.gif  0%  100%  
-	    New File  		     187	Cut.GIF  0%  100%  
-	    New File  		     199	DeIndent.GIF  0%  100%  
-	    New File  		     123	delcell.GIF  0%  100%  
-	    New File  		     121	delcol.GIF  0%  100%  
-	    New File  		     124	delrow.GIF  0%  100%  
-	    New File  		     294	dezoom.gif  0%  100%  
-	    New File  		    1040	dictionaryItem.gif  0%  100%  
-	    New File  		     616	doc.gif  0%  100%  
-	    New File  		     607	documentType.gif  0%  100%  
-	    New File  		     272	forecolor.gif  0%  100%  
-	    New File  		    1085	form.gif  0%  100%  
-	    New File  		     109	formButton.gif  0%  100%  
-	    New File  		     118	formCheckbox.gif  0%  100%  
-	    New File  		     131	formHidden.gif  0%  100%  
-	    New File  		     111	formRadio.gif  0%  100%  
-	    New File  		     126	formSelect.gif  0%  100%  
-	    New File  		     132	formText.gif  0%  100%  
-	    New File  		     118	formTextarea.gif  0%  100%  
-	    New File  		     134	fullscrn.GIF  0%  100%  
-	    New File  		     295	help.gif  0%  100%  
-	    New File  		     377	help.png  0%  100%  
-	    New File  		      63	hr.gif  0%  100%  
-	    New File  		     321	html.gif  0%  100%  
-	    New File  		     194	image.GIF  0%  100%  
-	    New File  		     112	indent.gif  0%  100%  
-	    New File  		     199	inindent.GIF  0%  100%  
-	    New File  		     382	insBreadcrum.gif  0%  100%  
-	    New File  		     123	inscell.GIF  0%  100%  
-	    New File  		     914	insChildTemplate.gif  0%  100%  
-	    New File  		     914	insChildTemplateNew.gif  0%  100%  
-	    New File  		     120	inscol.GIF  0%  100%  
-	    New File  		     703	insert_button_bg.gif  0%  100%  
-	    New File  		     648	insField.gif  0%  100%  
-	    New File  		     626	insFieldByLevel.gif  0%  100%  
-	    New File  		     621	insFieldByTree.gif  0%  100%  
-	    New File  		     119	insform.gif  0%  100%  
-	    New File  		     191	inshtml.GIF  0%  100%  
-	    New File  		     610	insMacro.gif  0%  100%  
-	    New File  		     474	insMacroSB.png  0%  100%  
-	    New File  		     627	insMemberItem.gif  0%  100%  
-	    New File  		     529	insRazorMacro.png  0%  100%  
-	    New File  		     124	insrow.GIF  0%  100%  
-	    New File  		     612	instable.GIF  0%  100%  
-	    New File  		      79	Italic.GIF  0%  100%  
-	    New File  		      75	italic_de_se.gif  0%  100%  
-	    New File  		      74	italic_es.gif  0%  100%  
-	    New File  		      78	italic_ru.gif  0%  100%  
-	    New File  		     274	italic_tw.gif  0%  100%  
-	    New File  		      70	justifycenter.gif  0%  100%  
-	    New File  		      71	justifyfull.gif  0%  100%  
-	    New File  		      71	justifyleft.gif  0%  100%  
-	    New File  		      70	justifyright.gif  0%  100%  
-	    New File  		      73	left.GIF  0%  100%  
-	    New File  		     175	Link.GIF  0%  100%  
-	    New File  		      87	Lock.GIF  0%  100%  
-	    New File  		     132	masterpageContent.gif  0%  100%  
-	    New File  		     286	masterpagePlaceHolder.gif  0%  100%  
-	    New File  		     260	media.gif  0%  100%  
-	    New File  		      51	menu_check.gif  0%  100%  
-	    New File  		     142	mrgcell.GIF  0%  100%  
-	    New File  		     102	newdoc.GIF  0%  100%  
-	    New File  		     170	newdocument.gif  0%  100%  
-	    New File  		     111	numlist.GIF  0%  100%  
-	    New File  		     147	opacity.png  0%  100%  
-	    New File  		     132	Open.GIF  0%  100%  
-	    New File  		     110	outdent.gif  0%  100%  
-	    New File  		     286	Paste.GIF  0%  100%  
-	    New File  		     149	project.GIF  0%  100%  
-	    New File  		     139	properties.gif  0%  100%  
-	    New File  		     983	propertiesNew.gif  0%  100%  
-	    New File  		     122	props.GIF  0%  100%  
-	    New File  		     169	Redo.GIF  0%  100%  
-	    New File  		     327	rel.gif  0%  100%  
-	    New File  		     168	removeformat.gif  0%  100%  
-	    New File  		    1336	renderbody.gif  0%  100%  
-	    New File  		      73	right.GIF  0%  100%  
-	    New File  		     633	Save.GIF  0%  100%  
-	    New File  		    1094	SaveAndPublish.gif  0%  100%  
-	    New File  		    1196	SaveAndPublish.png  0%  100%  
-	    New File  		     610	SaveToPublish.gif  0%  100%  
-	    New File  		     861	saveToPublish.png  0%  100%  
-	    New File  		      57	separator.gif  0%  100%  
-	    New File  		     197	showStyles.gif  0%  100%  
-	    New File  		     628	showStyles.png  0%  100%  
-	    New File  		    1684	skin.gif  0%  100%  
-	    New File  		      43	spacer.gif  0%  100%  
-	    New File  		     591	spellchecker.gif  0%  100%  
-	    New File  		      73	split.gif  0%  100%  
-	    New File  		     137	spltcell.GIF  0%  100%  
-	    New File  		      79	statusbar_resize.gif  0%  100%  
-	    New File  		      83	strikethrough.gif  0%  100%  
-	    New File  		     968	styleMarkEnd.gif  0%  100%  
-	    New File  		     157	styleMarkStart.gif  0%  100%  
-	    New File  		     148	sub.gif  0%  100%  
-	    New File  		     147	sup.gif  0%  100%  
-	    New File  		     287	table.gif  0%  100%  
-	    New File  		     137	TaskList.GIF  0%  100%  
-	    New File  		     120	umbracoField.gif  0%  100%  
-	    New File  		     146	umbracoScriptlet.gif  0%  100%  
-	    New File  		     560	umbracoTextGen.gif  0%  100%  
-	    New File  		      91	under.GIF  0%  100%  
-	    New File  		      88	underline.gif  0%  100%  
-	    New File  		      79	underline_es.gif  0%  100%  
-	    New File  		      79	underline_fr.gif  0%  100%  
-	    New File  		      77	underline_ru.gif  0%  100%  
-	    New File  		     245	underline_tw.gif  0%  100%  
-	    New File  		     175	Undo.GIF  0%  100%  
-	    New File  		     190	unlink.gif  0%  100%  
-	    New File  		    3113	upload.png  0%  100%  
-	    New File  		     589	vis.gif  0%  100%  
-	    New File  		     206	visualaid.gif  0%  100%  
-	    New File  		     663	xslVisualize.gif  0%  100%  
-	    New File  		     302	zoom.gif  0%  100%  
-	                   8	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\PinnedIcons\
-	    New File  		    1150	task_content.ico  0%  100%  
-	    New File  		    1150	task_default.ico  0%  100%  
-	    New File  		    1150	task_developer.ico  0%  100%  
-	    New File  		    1150	task_media.ico  0%  100%  
-	    New File  		    1150	task_member.ico  0%  100%  
-	    New File  		    1150	task_settings.ico  0%  100%  
-	    New File  		    1150	task_users.ico  0%  100%  
-	    New File  		   17542	umb.ico  0%  100%  
-	                  18	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\SpeechBubble\
-	    New File  		     582	error.gif  0%  100%  
-	    New File  		    1915	error.png  0%  100%  
-	    New File  		     630	info.gif  0%  100%  
-	    New File  		    1542	info.png  0%  100%  
-	    New File  		     562	save.gif  0%  100%  
-	    New File  		    1036	save.png  0%  100%  
-	    New File  		    9439	speechbubble.gif  0%  100%  
-	    New File  		   12444	speechbubble.png  0%  100%  
-	    New File  		     916	speechbubbleShadow.png  0%  100%  
-	    New File  		    1774	speechbubbleShadowNew.gif  0%  100%  
-	    New File  		   10694	speechbubble_body.png  0%  100%  
-	    New File  		    2891	speechbubble_bottom.png  0%  100%  
-	    New File  		     169	speechbubble_close.gif  0%  100%  
-	    New File  		     696	speechbubble_close_over.gif  0%  100%  
-	    New File  		     660	speechbubble_shadow.gif  0%  100%  
-	    New File  		    1045	speechbubble_top.png  0%  100%  
-	    New File  		    1036	success.png  0%  100%  
-	    New File  		    1188	warning.png  0%  100%  
-	                  12	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\Thumbnails\
-	    New File  		   19431	developer.png  0%  100%  
-	    New File  		    8311	doc.png  0%  100%  
-	    New File  		   21725	docWithImage.png  0%  100%  
-	    New File  		   21034	folder.png  0%  100%  
-	    New File  		   28459	folder_media.png  0%  100%  
-	    New File  		    8311	mediaFile.png  0%  100%  
-	    New File  		   21725	mediaPhoto.png  0%  100%  
-	    New File  		   15119	member.png  0%  100%  
-	    New File  		   19497	memberGroup.png  0%  100%  
-	    New File  		   19684	members.png  0%  100%  
-	    New File  		   11883	template.png  0%  100%  
-	    New File  		   12153	xml.png  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\Tray\
-	    New File  		   11965	traySprites.png  0%  100%  
-	                  54	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Images\Umbraco\
-	    New File  		    3435	bin.png  0%  100%  
-	    New File  		     363	bin_closed.png  0%  100%  
-	    New File  		     659	bin_empty.png  0%  100%  
-	    New File  		     577	developerCacheItem.gif  0%  100%  
-	    New File  		     578	developerCacheTypes.gif  0%  100%  
-	    New File  		     125	developerDatatype.gif  0%  100%  
-	    New File  		     604	developerMacro.gif  0%  100%  
-	    New File  		     618	developerPython.gif  0%  100%  
-	    New File  		     118	developerRegistry.gif  0%  100%  
-	    New File  		     123	developerRegistryItem.gif  0%  100%  
-	    New File  		     616	developerRuby.gif  0%  100%  
-	    New File  		     399	developerScript.gif  0%  100%  
-	    New File  		     410	developerXslt.gif  0%  100%  
-	    New File  		     616	doc.gif  0%  100%  
-	    New File  		     604	doc2.gif  0%  100%  
-	    New File  		     616	doc3.gif  0%  100%  
-	    New File  		     597	doc4.gif  0%  100%  
-	    New File  		     609	doc5.gif  0%  100%  
-	    New File  		     607	docPic.gif  0%  100%  
-	    New File  		    1030	folder.gif  0%  100%  
-	    New File  		    1030	folder_o.gif  0%  100%  
-	    New File  		     621	mediaFile.gif  0%  100%  
-	    New File  		     619	mediaMovie.gif  0%  100%  
-	    New File  		     618	mediaMulti.gif  0%  100%  
-	    New File  		     561	mediaPhoto.gif  0%  100%  
-	    New File  		     998	member.gif  0%  100%  
-	    New File  		    1000	memberGroup.gif  0%  100%  
-	    New File  		    1012	memberType.gif  0%  100%  
-	    New File  		    1013	newsletter.gif  0%  100%  
-	    New File  		     525	nitros.gif  0%  100%  
-	    New File  		    1021	package.gif  0%  100%  
-	    New File  		     810	package.png  0%  100%  
-	    New File  		    1062	repository.gif  0%  100%  
-	    New File  		     145	settingAgent.gif  0%  100%  
-	    New File  		     607	settingCss.gif  0%  100%  
-	    New File  		     299	settingCssItem.gif  0%  100%  
-	    New File  		     607	settingDatatype.gif  0%  100%  
-	    New File  		     144	settingDataTypeChild.gif  0%  100%  
-	    New File  		    1034	settingDomain.gif  0%  100%  
-	    New File  		     387	settingLanguage.gif  0%  100%  
-	    New File  		     587	settingMasterDatatype.gif  0%  100%  
-	    New File  		     235	settingMasterTemplate.gif  0%  100%  
-	    New File  		    1655	settingSkin.gif  0%  100%  
-	    New File  		     553	settingsScript.gif  0%  100%  
-	    New File  		     252	settingTemplate.gif  0%  100%  
-	    New File  		    1644	settingView.gif  0%  100%  
-	    New File  		     268	settingXML.gif  0%  100%  
-	    New File  		   14538	sprites.png  0%  100%  
-	    New File  		    7307	sprites_ie6.gif  0%  100%  
-	    New File  		     305	statistik.gif  0%  100%  
-	    New File  		    1035	uploadpackage.gif  0%  100%  
-	    New File  		     998	user.gif  0%  100%  
-	    New File  		    1000	userGroup.gif  0%  100%  
-	    New File  		    1012	userType.gif  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Install\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Install\Legacy\
-	    New File  		    4451	loadStarterKits.ascx  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Install\Views\
-	    New File  		    2884	Index.cshtml  0%  100%  
-	    New File  		    2812	Web.config  0%  100%  
-	                  29	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Js\
-	    New File  		    2542	app.js  0%  100%  
-	    New File  		    8041	canvasdesigner.config.js  0%  100%  
-	    New File  		   10291	canvasdesigner.front.js  0%  100%  
-	    New File  		     591	canvasdesigner.loader.js  0%  100%  
-	    New File  		   32503	canvasdesigner.palettes.js  0%  100%  
-	    New File  		   66908	canvasdesigner.panel.js  0%  100%  
-	    New File  		    1249	dualSelectBox.js  0%  100%  
-	    New File  		    2929	guiFunctions.js  0%  100%  
-	    New File  		    3575	init.js  0%  100%  
-	    New File  		     606	install.loader.js  0%  100%  
-	    New File  		     111	language.aspx  0%  100%  
-	    New File  		    8652	routes.js  0%  100%  
-	    New File  		  590834	umbraco.controllers.js  0%   44%   88%  100%  
-	    New File  		  356111	umbraco.directives.js  0%   36%   73%  100%  
-	    New File  		    1388	umbraco.filters.js  0%  100%  
-	    New File  		    1090	umbraco.httpbackend.js  0%  100%  
-	    New File  		   15092	umbraco.installer.js  0%  100%  
-	    New File  		  148594	umbraco.resources.js  0%   88%  100%  
-	    New File  		    8891	umbraco.security.js  0%  100%  
-	    New File  		    1902	umbraco.servervariables.js  0%  100%  
-	    New File  		  386934	umbraco.services.js  0%   33%   67%  100%  
-	    New File  		  139527	umbraco.testing.js  0%   93%  100%  
-	    New File  		    2926	umbracoCheckKeys.js  0%  100%  
-	    New File  		    3833	UmbracoSpeechBubble.js  0%  100%  
-	    New File  		    2738	UmbracoSpeechBubbleBackEnd.js  0%  100%  
-	    New File  		     201	UmbracoSpeechBubbleInit.js  0%  100%  
-	    New File  		     586	umbracoUpgradeChecker.js  0%  100%  
-	    New File  		    4102	xmlextras.js  0%  100%  
-	    New File  		    1951	xmlRequest.js  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\angular\
-	    New File  		   12260	angular-ui-sortable.js  0%  100%  
-	    New File  		   1.1 m	angular.js  0%   22%   44%   66%   88%  100%  
-	                  14	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\angular\1.1.5\
-	    New File  		    5399	angular-cookies.js  0%  100%  
-	    New File  		     806	angular-cookies.min.js  0%  100%  
-	    New File  		   10645	angular-loader.js  0%  100%  
-	    New File  		     933	angular-loader.min.js  0%  100%  
-	    New File  		   17504	angular-mobile.js  0%  100%  
-	    New File  		    2875	angular-mobile.min.js  0%  100%  
-	    New File  		   61335	angular-mocks.js  0%  100%  
-	    New File  		   22149	angular-resource.js  0%  100%  
-	    New File  		    2787	angular-resource.min.js  0%  100%  
-	    New File  		   18873	angular-sanitize.js  0%  100%  
-	    New File  		    3942	angular-sanitize.min.js  0%  100%  
-	    New File  		  934395	angular-scenario.js  0%   28%   56%   84%  100%  
-	    New File  		  590854	angular.js  0%   44%   88%  100%  
-	    New File  		   88852	angular.min.js  0%  100%  
-	                 287	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\angular\1.1.5\i18n\
-	    New File  		    2218	angular-locale_af-na.js  0%  100%  
-	    New File  		    2226	angular-locale_af-za.js  0%  100%  
-	    New File  		    2223	angular-locale_af.js  0%  100%  
-	    New File  		    2836	angular-locale_am-et.js  0%  100%  
-	    New File  		    2833	angular-locale_am.js  0%  100%  
-	    New File  		    3706	angular-locale_ar-001.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-ae.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-bh.js  0%  100%  
-	    New File  		    3657	angular-locale_ar-dz.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-eg.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-iq.js  0%  100%  
-	    New File  		    3869	angular-locale_ar-jo.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-kw.js  0%  100%  
-	    New File  		    3869	angular-locale_ar-lb.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-ly.js  0%  100%  
-	    New File  		    3657	angular-locale_ar-ma.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-om.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-qa.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-sa.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-sd.js  0%  100%  
-	    New File  		    3869	angular-locale_ar-sy.js  0%  100%  
-	    New File  		    3657	angular-locale_ar-tn.js  0%  100%  
-	    New File  		    3705	angular-locale_ar-ye.js  0%  100%  
-	    New File  		    3702	angular-locale_ar.js  0%  100%  
-	    New File  		    3137	angular-locale_bg-bg.js  0%  100%  
-	    New File  		    3134	angular-locale_bg.js  0%  100%  
-	    New File  		    3458	angular-locale_bn-bd.js  0%  100%  
-	    New File  		    3458	angular-locale_bn-in.js  0%  100%  
-	    New File  		    3455	angular-locale_bn.js  0%  100%  
-	    New File  		    2345	angular-locale_ca-ad.js  0%  100%  
-	    New File  		    2345	angular-locale_ca-es.js  0%  100%  
-	    New File  		    2342	angular-locale_ca.js  0%  100%  
-	    New File  		    1144	angular-locale_chr.js  0%  100%  
-	    New File  		    2445	angular-locale_cs-cz.js  0%  100%  
-	    New File  		    2442	angular-locale_cs.js  0%  100%  
-	    New File  		     938	angular-locale_cy.js  0%  100%  
-	    New File  		    2259	angular-locale_da-dk.js  0%  100%  
-	    New File  		    2256	angular-locale_da.js  0%  100%  
-	    New File  		    2261	angular-locale_de-at.js  0%  100%  
-	    New File  		    2249	angular-locale_de-be.js  0%  100%  
-	    New File  		    2240	angular-locale_de-ch.js  0%  100%  
-	    New File  		    2249	angular-locale_de-de.js  0%  100%  
-	    New File  		    2249	angular-locale_de-li.js  0%  100%  
-	    New File  		    2249	angular-locale_de-lu.js  0%  100%  
-	    New File  		    2246	angular-locale_de.js  0%  100%  
-	    New File  		    3327	angular-locale_el-cy.js  0%  100%  
-	    New File  		    3327	angular-locale_el-gr.js  0%  100%  
-	    New File  		    1495	angular-locale_el-polyton.js  0%  100%  
-	    New File  		    3324	angular-locale_el.js  0%  100%  
-	    New File  		    2212	angular-locale_en-as.js  0%  100%  
-	    New File  		    2216	angular-locale_en-au.js  0%  100%  
-	    New File  		    2212	angular-locale_en-bb.js  0%  100%  
-	    New File  		    2208	angular-locale_en-be.js  0%  100%  
-	    New File  		    2212	angular-locale_en-bm.js  0%  100%  
-	    New File  		    2215	angular-locale_en-bw.js  0%  100%  
-	    New File  		    2206	angular-locale_en-bz.js  0%  100%  
-	    New File  		    2220	angular-locale_en-ca.js  0%  100%  
-	    New File  		    4060	angular-locale_en-dsrt-us.js  0%  100%  
-	    New File  		    4057	angular-locale_en-dsrt.js  0%  100%  
-	    New File  		    2212	angular-locale_en-fm.js  0%  100%  
-	    New File  		    2216	angular-locale_en-gb.js  0%  100%  
-	    New File  		    2212	angular-locale_en-gu.js  0%  100%  
-	    New File  		    2212	angular-locale_en-gy.js  0%  100%  
-	    New File  		    2212	angular-locale_en-hk.js  0%  100%  
-	    New File  		    2224	angular-locale_en-ie.js  0%  100%  
-	    New File  		    2229	angular-locale_en-in.js  0%  100%  
-	    New File  		    2214	angular-locale_en-iso.js  0%  100%  
-	    New File  		    2212	angular-locale_en-jm.js  0%  100%  
-	    New File  		    2212	angular-locale_en-mh.js  0%  100%  
-	    New File  		    2212	angular-locale_en-mp.js  0%  100%  
-	    New File  		    2219	angular-locale_en-mt.js  0%  100%  
-	    New File  		    2212	angular-locale_en-mu.js  0%  100%  
-	    New File  		    2212	angular-locale_en-na.js  0%  100%  
-	    New File  		    2214	angular-locale_en-nz.js  0%  100%  
-	    New File  		    2212	angular-locale_en-ph.js  0%  100%  
-	    New File  		    2213	angular-locale_en-pk.js  0%  100%  
-	    New File  		    2212	angular-locale_en-pr.js  0%  100%  
-	    New File  		    2212	angular-locale_en-pw.js  0%  100%  
-	    New File  		    2212	angular-locale_en-sg.js  0%  100%  
-	    New File  		    2212	angular-locale_en-tc.js  0%  100%  
-	    New File  		    2212	angular-locale_en-tt.js  0%  100%  
-	    New File  		    2212	angular-locale_en-um.js  0%  100%  
-	    New File  		    2212	angular-locale_en-us.js  0%  100%  
-	    New File  		    2212	angular-locale_en-vg.js  0%  100%  
-	    New File  		    2212	angular-locale_en-vi.js  0%  100%  
-	    New File  		    2224	angular-locale_en-za.js  0%  100%  
-	    New File  		    2215	angular-locale_en-zw.js  0%  100%  
-	    New File  		    1242	angular-locale_en-zz.js  0%  100%  
-	    New File  		    2209	angular-locale_en.js  0%  100%  
-	    New File  		    2257	angular-locale_es-419.js  0%  100%  
-	    New File  		    2273	angular-locale_es-ar.js  0%  100%  
-	    New File  		    2273	angular-locale_es-bo.js  0%  100%  
-	    New File  		    2269	angular-locale_es-cl.js  0%  100%  
-	    New File  		    2265	angular-locale_es-co.js  0%  100%  
-	    New File  		    2273	angular-locale_es-cr.js  0%  100%  
-	    New File  		    2273	angular-locale_es-do.js  0%  100%  
-	    New File  		    2273	angular-locale_es-ea.js  0%  100%  
-	    New File  		    2269	angular-locale_es-ec.js  0%  100%  
-	    New File  		    2273	angular-locale_es-es.js  0%  100%  
-	    New File  		    2273	angular-locale_es-gq.js  0%  100%  
-	    New File  		    2269	angular-locale_es-gt.js  0%  100%  
-	    New File  		    2274	angular-locale_es-hn.js  0%  100%  
-	    New File  		    2273	angular-locale_es-ic.js  0%  100%  
-	    New File  		    2273	angular-locale_es-mx.js  0%  100%  
-	    New File  		    2273	angular-locale_es-ni.js  0%  100%  
-	    New File  		    2273	angular-locale_es-pa.js  0%  100%  
-	    New File  		    2271	angular-locale_es-pe.js  0%  100%  
-	    New File  		    2273	angular-locale_es-pr.js  0%  100%  
-	    New File  		    2273	angular-locale_es-py.js  0%  100%  
-	    New File  		    2273	angular-locale_es-sv.js  0%  100%  
-	    New File  		    2269	angular-locale_es-us.js  0%  100%  
-	    New File  		    2273	angular-locale_es-uy.js  0%  100%  
-	    New File  		    2273	angular-locale_es-ve.js  0%  100%  
-	    New File  		    2270	angular-locale_es.js  0%  100%  
-	    New File  		    2316	angular-locale_et-ee.js  0%  100%  
-	    New File  		    2313	angular-locale_et.js  0%  100%  
-	    New File  		    2267	angular-locale_eu-es.js  0%  100%  
-	    New File  		    2264	angular-locale_eu.js  0%  100%  
-	    New File  		    3249	angular-locale_fa-af.js  0%  100%  
-	    New File  		    3345	angular-locale_fa-ir.js  0%  100%  
-	    New File  		    3342	angular-locale_fa.js  0%  100%  
-	    New File  		    2392	angular-locale_fi-fi.js  0%  100%  
-	    New File  		    2389	angular-locale_fi.js  0%  100%  
-	    New File  		    2224	angular-locale_fil-ph.js  0%  100%  
-	    New File  		    2221	angular-locale_fil.js  0%  100%  
-	    New File  		    2293	angular-locale_fr-be.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-bf.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-bi.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-bj.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-bl.js  0%  100%  
-	    New File  		    2296	angular-locale_fr-ca.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-cd.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-cf.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-cg.js  0%  100%  
-	    New File  		    2296	angular-locale_fr-ch.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-ci.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-cm.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-dj.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-fr.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-ga.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-gf.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-gn.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-gp.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-gq.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-km.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-lu.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-mc.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-mf.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-mg.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-ml.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-mq.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-ne.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-re.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-rw.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-sn.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-td.js  0%  100%  
-	    New File  		    2256	angular-locale_fr-tg.js  0%  100%  
-	    New File  		    2295	angular-locale_fr-yt.js  0%  100%  
-	    New File  		    2292	angular-locale_fr.js  0%  100%  
-	    New File  		    2243	angular-locale_gl-es.js  0%  100%  
-	    New File  		    2240	angular-locale_gl.js  0%  100%  
-	    New File  		    2286	angular-locale_gsw-ch.js  0%  100%  
-	    New File  		    2283	angular-locale_gsw.js  0%  100%  
-	    New File  		    3248	angular-locale_gu-in.js  0%  100%  
-	    New File  		    3245	angular-locale_gu.js  0%  100%  
-	    New File  		     926	angular-locale_haw.js  0%  100%  
-	    New File  		    3228	angular-locale_he-il.js  0%  100%  
-	    New File  		    3225	angular-locale_he.js  0%  100%  
-	    New File  		    3266	angular-locale_hi-in.js  0%  100%  
-	    New File  		    3263	angular-locale_hi.js  0%  100%  
-	    New File  		    2556	angular-locale_hr-hr.js  0%  100%  
-	    New File  		    2553	angular-locale_hr.js  0%  100%  
-	    New File  		    2307	angular-locale_hu-hu.js  0%  100%  
-	    New File  		    2304	angular-locale_hu.js  0%  100%  
-	    New File  		    2160	angular-locale_id-id.js  0%  100%  
-	    New File  		    2157	angular-locale_id.js  0%  100%  
-	    New File  		    2157	angular-locale_in.js  0%  100%  
-	    New File  		    2372	angular-locale_is-is.js  0%  100%  
-	    New File  		    2369	angular-locale_is.js  0%  100%  
-	    New File  		    2226	angular-locale_it-ch.js  0%  100%  
-	    New File  		    2259	angular-locale_it-it.js  0%  100%  
-	    New File  		    2259	angular-locale_it-sm.js  0%  100%  
-	    New File  		    2256	angular-locale_it.js  0%  100%  
-	    New File  		    3177	angular-locale_iw.js  0%  100%  
-	    New File  		    2375	angular-locale_ja-jp.js  0%  100%  
-	    New File  		    2372	angular-locale_ja.js  0%  100%  
-	    New File  		    3242	angular-locale_kn-in.js  0%  100%  
-	    New File  		    3239	angular-locale_kn.js  0%  100%  
-	    New File  		    2389	angular-locale_ko-kr.js  0%  100%  
-	    New File  		    2386	angular-locale_ko.js  0%  100%  
-	    New File  		    2746	angular-locale_ln-cd.js  0%  100%  
-	    New File  		    2462	angular-locale_ln-cg.js  0%  100%  
-	    New File  		    2743	angular-locale_ln.js  0%  100%  
-	    New File  		    2522	angular-locale_lt-lt.js  0%  100%  
-	    New File  		    2519	angular-locale_lt.js  0%  100%  
-	    New File  		    2447	angular-locale_lv-lv.js  0%  100%  
-	    New File  		    2444	angular-locale_lv.js  0%  100%  
-	    New File  		    3515	angular-locale_ml-in.js  0%  100%  
-	    New File  		    3512	angular-locale_ml.js  0%  100%  
-	    New File  		    1387	angular-locale_mo.js  0%  100%  
-	    New File  		    3243	angular-locale_mr-in.js  0%  100%  
-	    New File  		    3240	angular-locale_mr.js  0%  100%  
-	    New File  		    2148	angular-locale_ms-bn.js  0%  100%  
-	    New File  		    2153	angular-locale_ms-my.js  0%  100%  
-	    New File  		    2150	angular-locale_ms.js  0%  100%  
-	    New File  		    2492	angular-locale_mt-mt.js  0%  100%  
-	    New File  		    2489	angular-locale_mt.js  0%  100%  
-	    New File  		    2220	angular-locale_nl-aw.js  0%  100%  
-	    New File  		    2218	angular-locale_nl-be.js  0%  100%  
-	    New File  		    2231	angular-locale_nl-cw.js  0%  100%  
-	    New File  		    2231	angular-locale_nl-nl.js  0%  100%  
-	    New File  		    2231	angular-locale_nl-sx.js  0%  100%  
-	    New File  		    2228	angular-locale_nl.js  0%  100%  
-	    New File  		    2254	angular-locale_no.js  0%  100%  
-	    New File  		    3405	angular-locale_or-in.js  0%  100%  
-	    New File  		    3402	angular-locale_or.js  0%  100%  
-	    New File  		    2586	angular-locale_pl-pl.js  0%  100%  
-	    New File  		    2583	angular-locale_pl.js  0%  100%  
-	    New File  		    2264	angular-locale_pt-ao.js  0%  100%  
-	    New File  		    2280	angular-locale_pt-br.js  0%  100%  
-	    New File  		    2264	angular-locale_pt-gw.js  0%  100%  
-	    New File  		    2264	angular-locale_pt-mz.js  0%  100%  
-	    New File  		    2304	angular-locale_pt-pt.js  0%  100%  
-	    New File  		    2264	angular-locale_pt-st.js  0%  100%  
-	    New File  		    2277	angular-locale_pt.js  0%  100%  
-	    New File  		    2344	angular-locale_ro-md.js  0%  100%  
-	    New File  		    2376	angular-locale_ro-ro.js  0%  100%  
-	    New File  		    2373	angular-locale_ro.js  0%  100%  
-	    New File  		    2755	angular-locale_ru-md.js  0%  100%  
-	    New File  		    3607	angular-locale_ru-ru.js  0%  100%  
-	    New File  		    2746	angular-locale_ru-ua.js  0%  100%  
-	    New File  		    3604	angular-locale_ru.js  0%  100%  
-	    New File  		    2379	angular-locale_sk-sk.js  0%  100%  
-	    New File  		    2376	angular-locale_sk.js  0%  100%  
-	    New File  		    2384	angular-locale_sl-si.js  0%  100%  
-	    New File  		    2381	angular-locale_sl.js  0%  100%  
-	    New File  		    2269	angular-locale_sq-al.js  0%  100%  
-	    New File  		    2266	angular-locale_sq.js  0%  100%  
-	    New File  		    2716	angular-locale_sr-cyrl-ba.js  0%  100%  
-	    New File  		    2702	angular-locale_sr-cyrl-me.js  0%  100%  
-	    New File  		    3454	angular-locale_sr-cyrl-rs.js  0%  100%  
-	    New File  		    2699	angular-locale_sr-cyrl.js  0%  100%  
-	    New File  		    2520	angular-locale_sr-latn-ba.js  0%  100%  
-	    New File  		    2519	angular-locale_sr-latn-me.js  0%  100%  
-	    New File  		    2536	angular-locale_sr-latn-rs.js  0%  100%  
-	    New File  		    2517	angular-locale_sr-latn.js  0%  100%  
-	    New File  		    1764	angular-locale_sr-rs.js  0%  100%  
-	    New File  		    3446	angular-locale_sr.js  0%  100%  
-	    New File  		    2230	angular-locale_sv-fi.js  0%  100%  
-	    New File  		    2266	angular-locale_sv-se.js  0%  100%  
-	    New File  		    2263	angular-locale_sv.js  0%  100%  
-	    New File  		    2223	angular-locale_sw-ke.js  0%  100%  
-	    New File  		    2223	angular-locale_sw-tz.js  0%  100%  
-	    New File  		    2220	angular-locale_sw.js  0%  100%  
-	    New File  		    3052	angular-locale_ta-in.js  0%  100%  
-	    New File  		    2543	angular-locale_ta-lk.js  0%  100%  
-	    New File  		    3049	angular-locale_ta.js  0%  100%  
-	    New File  		    3343	angular-locale_te-in.js  0%  100%  
-	    New File  		    3340	angular-locale_te.js  0%  100%  
-	    New File  		    3244	angular-locale_th-th.js  0%  100%  
-	    New File  		    3241	angular-locale_th.js  0%  100%  
-	    New File  		    1251	angular-locale_tl-ph.js  0%  100%  
-	    New File  		    2220	angular-locale_tl.js  0%  100%  
-	    New File  		    2227	angular-locale_tr-tr.js  0%  100%  
-	    New File  		    2224	angular-locale_tr.js  0%  100%  
-	    New File  		    3476	angular-locale_uk-ua.js  0%  100%  
-	    New File  		    3473	angular-locale_uk.js  0%  100%  
-	    New File  		    2374	angular-locale_ur-in.js  0%  100%  
-	    New File  		    3078	angular-locale_ur-pk.js  0%  100%  
-	    New File  		    3075	angular-locale_ur.js  0%  100%  
-	    New File  		    2508	angular-locale_vi-vn.js  0%  100%  
-	    New File  		    2505	angular-locale_vi.js  0%  100%  
-	    New File  		    2410	angular-locale_zh-cn.js  0%  100%  
-	    New File  		    2415	angular-locale_zh-hans-cn.js  0%  100%  
-	    New File  		    2239	angular-locale_zh-hans-hk.js  0%  100%  
-	    New File  		    2239	angular-locale_zh-hans-mo.js  0%  100%  
-	    New File  		    2245	angular-locale_zh-hans-sg.js  0%  100%  
-	    New File  		    2201	angular-locale_zh-hans.js  0%  100%  
-	    New File  		    2228	angular-locale_zh-hant-hk.js  0%  100%  
-	    New File  		    2232	angular-locale_zh-hant-mo.js  0%  100%  
-	    New File  		    2202	angular-locale_zh-hant-tw.js  0%  100%  
-	    New File  		    2199	angular-locale_zh-hant.js  0%  100%  
-	    New File  		    2465	angular-locale_zh-hk.js  0%  100%  
-	    New File  		    2404	angular-locale_zh-tw.js  0%  100%  
-	    New File  		    2407	angular-locale_zh.js  0%  100%  
-	    New File  		    2231	angular-locale_zu-za.js  0%  100%  
-	    New File  		    2228	angular-locale_zu.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\angular-bootstrap\
-	    New File  		   53004	ui-bootstrap-tpls-0.10.0.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\angular-dynamic-locale\
-	    New File  		    2976	tmhDynamicLocale.min.js  0%  100%  
-	    New File  		    4024	tmhDynamicLocale.min.js.map  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\angular-local-storage\
-	    New File  		    5315	angular-local-storage.min.js  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap\
-	                   7	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap\css\
-	    New File  		   22057	bootstrap-responsive.css  0%  100%  
-	    New File  		   16858	bootstrap-responsive.min.css  0%  100%  
-	    New File  		  114358	bootstrap.cosmo.min.css  0%  100%  
-	    New File  		  105909	bootstrap.css  0%  100%  
-	    New File  		  102593	bootstrap.min.3.0.1.css  0%  100%  
-	    New File  		  105948	bootstrap.min.css  0%  100%  
-	    New File  		   16850	responsive.css  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap\img\
-	    New File  		    8777	glyphicons-halflings-white.png  0%  100%  
-	    New File  		   12799	glyphicons-halflings.png  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap\js\
-	    New File  		   61962	bootstrap.2.3.2.js  0%  100%  
-	    New File  		   28631	bootstrap.2.3.2.min.js  0%  100%  
-	                  41	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap\less\
-	    New File  		     670	accordion.less  0%  100%  
-	    New File  		    1448	alerts.less  0%  100%  
-	    New File  		    1552	bootstrap.less  0%  100%  
-	    New File  		     455	breadcrumbs.less  0%  100%  
-	    New File  		    5938	button-groups.less  0%  100%  
-	    New File  		    4994	buttons.less  0%  100%  
-	    New File  		    2640	carousel.less  0%  100%  
-	    New File  		     675	close.less  0%  100%  
-	    New File  		    1352	code.less  0%  100%  
-	    New File  		     328	component-animations.less  0%  100%  
-	    New File  		    5730	dropdowns.less  0%  100%  
-	    New File  		   16554	forms.less  0%  100%  
-	    New File  		     450	grid.less  0%  100%  
-	    New File  		     546	hero-unit.less  0%  100%  
-	    New File  		    1968	labels-badges.less  0%  100%  
-	    New File  		     344	layouts.less  0%  100%  
-	    New File  		     915	media.less  0%  100%  
-	    New File  		   23744	mixins.less  0%  100%  
-	    New File  		    2073	modals.less  0%  100%  
-	    New File  		   12499	navbar.less  0%  100%  
-	    New File  		    8572	navs.less  0%  100%  
-	    New File  		     802	pager.less  0%  100%  
-	    New File  		    2801	pagination.less  0%  100%  
-	    New File  		    3210	popovers.less  0%  100%  
-	    New File  		    2980	progress-bars.less  0%  100%  
-	    New File  		    4417	reset.less  0%  100%  
-	    New File  		     593	responsive-1200px-min.less  0%  100%  
-	    New File  		    4113	responsive-767px-max.less  0%  100%  
-	    New File  		     482	responsive-768px-979px.less  0%  100%  
-	    New File  		    4517	responsive-navbar.less  0%  100%  
-	    New File  		    1661	responsive-utilities.less  0%  100%  
-	    New File  		    1117	responsive.less  0%  100%  
-	    New File  		     938	scaffolding.less  0%  100%  
-	    New File  		   11038	sprites.less  0%  100%  
-	    New File  		    6499	tables.less  0%  100%  
-	    New File  		    1289	thumbnails.less  0%  100%  
-	    New File  		    1754	tooltip.less  0%  100%  
-	    New File  		    5104	type.less  0%  100%  
-	    New File  		     365	utilities.less  0%  100%  
-	    New File  		    9443	variables.less  0%  100%  
-	    New File  		     581	wells.less  0%  100%  
-	                   8	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap\less\tests\
-	    New File  		    6550	buttons.html  0%  100%  
-	    New File  		    5625	css-tests.css  0%  100%  
-	    New File  		   41537	css-tests.html  0%  100%  
-	    New File  		    2433	forms-responsive.html  0%  100%  
-	    New File  		    4258	forms.html  0%  100%  
-	    New File  		    4796	navbar-fixed-top.html  0%  100%  
-	    New File  		    4818	navbar-static-top.html  0%  100%  
-	    New File  		    4904	navbar.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap-social\
-	    New File  		   20453	bootstrap-social.css  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\bootstrap-tabdrop\
-	    New File  		    3680	bootstrap-tabdrop.js  0%  100%  
-	    New File  		    1490	README.md  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\addon\
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\addon\dialog\
-	    New File  		     507	dialog.css  0%  100%  
-	    New File  		    4938	dialog.js  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\addon\edit\
-	    New File  		    6498	closebrackets.js  0%  100%  
-	    New File  		    7590	closetag.js  0%  100%  
-	    New File  		    1750	continuelist.js  0%  100%  
-	    New File  		    5254	matchbrackets.js  0%  100%  
-	    New File  		    2355	matchtags.js  0%  100%  
-	    New File  		    1003	trailingspace.js  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\addon\search\
-	    New File  		    4943	match-highlighter.js  0%  100%  
-	    New File  		     188	matchesonscrollbar.css  0%  100%  
-	    New File  		    3808	matchesonscrollbar.js  0%  100%  
-	    New File  		    7294	search.js  0%  100%  
-	    New File  		    7723	searchcursor.js  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\addon\selection\
-	    New File  		    2442	active-line.js  0%  100%  
-	    New File  		    3781	mark-selection.js  0%  100%  
-	    New File  		    3292	selection-pointer.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\lib\
-	    New File  		    7771	codemirror.css  0%  100%  
-	    New File  		  347063	codemirror.js  0%   37%   75%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\mode\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\mode\css\
-	    New File  		   34123	css.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\mode\htmlmixed\
-	    New File  		    5001	htmlmixed.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\mode\javascript\
-	    New File  		   26636	javascript.js  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\mode\razor\
-	    New File  		   22051	index.html  0%  100%  
-	    New File  		    1151	LICENSE  0%  100%  
-	    New File  		    9378	razor.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\codemirror\mode\xml\
-	    New File  		   12375	xml.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\cssparser\
-	    New File  		  175686	cssparser.js  0%   74%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\datetimepicker\
-	    New File  		   59387	bootstrap-datetimepicker.js  0%  100%  
-	    New File  		    5058	bootstrap-datetimepicker.min.css  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\font-awesome\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\font-awesome\css\
-	    New File  		   21984	font-awesome.min.css  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\font-awesome\fonts\
-	    New File  		   56006	fontawesome-webfont.eot  0%  100%  
-	    New File  		  287007	fontawesome-webfont.svg  0%   45%   91%  100%  
-	    New File  		  112160	fontawesome-webfont.ttf  0%  100%  
-	    New File  		   65452	fontawesome-webfont.woff  0%  100%  
-	    New File  		   85908	FontAwesome.otf  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\jquery\
-	    New File  		   85578	jquery.min.js  0%  100%  
-	    New File  		  129572	jquery.min.map  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\jquery-migrate\
-	    New File  		    9632	jquery-migrate.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\jquery-ui\
-	    New File  		   27244	jquery-ui-1.10.4.custom.min.css  0%  100%  
-	    New File  		  240427	jquery-ui.min.js  0%   54%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\jquery-ui-touch-punch\
-	    New File  		    4787	jquery.ui.touch-punch.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\less\
-	    New File  		  101854	less-1.7.0.min.js  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\markdown\
-	    New File  		   46410	markdown.converter.js  0%  100%  
-	    New File  		    1658	markdown.css  0%  100%  
-	    New File  		   78546	markdown.editor.js  0%  100%  
-	    New File  		    4188	markdown.sanitizer.js  0%  100%  
-	    New File  		      95	red.css  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\moment\
-	    New File  		  370101	moment-with-locales.js  0%   35%   70%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\ng-file-upload\
-	    New File  		   23766	ng-file-upload.min.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\rgrove-lazyload\
-	    New File  		   13187	lazyload.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\slider\
-	    New File  		    2210	bootstrap-slider-custom.css  0%  100%  
-	    New File  		    8238	bootstrap-slider.css  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\slider\js\
-	    New File  		   49898	bootstrap-slider.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\spectrum\
-	    New File  		   14603	spectrum.css  0%  100%  
-	    New File  		   40676	spectrum.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\
-	    New File  		  307938	tinymce.min.js  0%   42%   85%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\advlist\
-	    New File  		    2542	plugin.js  0%  100%  
-	    New File  		    1303	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\anchor\
-	    New File  		     985	plugin.js  0%  100%  
-	    New File  		     508	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\autolink\
-	    New File  		    4709	plugin.js  0%  100%  
-	    New File  		    1856	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\autoresize\
-	    New File  		    4933	plugin.js  0%  100%  
-	    New File  		    1876	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\autosave\
-	    New File  		    4135	plugin.js  0%  100%  
-	    New File  		    2185	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\bbcode\
-	    New File  		    4209	plugin.js  0%  100%  
-	    New File  		    3146	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\charmap\
-	    New File  		    9794	plugin.js  0%  100%  
-	    New File  		    7416	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\code\
-	    New File  		    1545	plugin.js  0%  100%  
-	    New File  		     721	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\codemirror\
-	    New File  		    1117	plugin.min.js  0%  100%  
-	    New File  		    7416	source.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\codemirror\langs\
-	    New File  		     216	en.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\colorpicker\
-	    New File  		    2426	plugin.js  0%  100%  
-	    New File  		    1222	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\contextmenu\
-	    New File  		    1943	plugin.js  0%  100%  
-	    New File  		     893	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\directionality\
-	    New File  		    1441	plugin.js  0%  100%  
-	    New File  		     726	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\emoticons\
-	    New File  		    1591	plugin.js  0%  100%  
-	    New File  		     911	plugin.min.js  0%  100%  
-	                  16	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\emoticons\img\
-	    New File  		     354	smiley-cool.gif  0%  100%  
-	    New File  		     329	smiley-cry.gif  0%  100%  
-	    New File  		     331	smiley-embarassed.gif  0%  100%  
-	    New File  		     342	smiley-foot-in-mouth.gif  0%  100%  
-	    New File  		     340	smiley-frown.gif  0%  100%  
-	    New File  		     336	smiley-innocent.gif  0%  100%  
-	    New File  		     338	smiley-kiss.gif  0%  100%  
-	    New File  		     343	smiley-laughing.gif  0%  100%  
-	    New File  		     321	smiley-money-mouth.gif  0%  100%  
-	    New File  		     323	smiley-sealed.gif  0%  100%  
-	    New File  		     344	smiley-smile.gif  0%  100%  
-	    New File  		     338	smiley-surprised.gif  0%  100%  
-	    New File  		     328	smiley-tongue-out.gif  0%  100%  
-	    New File  		     337	smiley-undecided.gif  0%  100%  
-	    New File  		     350	smiley-wink.gif  0%  100%  
-	    New File  		     336	smiley-yell.gif  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\fullpage\
-	    New File  		   12215	plugin.js  0%  100%  
-	    New File  		    6291	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\fullscreen\
-	    New File  		    3275	plugin.js  0%  100%  
-	    New File  		    1540	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\hr\
-	    New File  		     624	plugin.js  0%  100%  
-	    New File  		     322	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\image\
-	    New File  		   13657	plugin.js  0%  100%  
-	    New File  		    6962	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\importcss\
-	    New File  		    4951	plugin.js  0%  100%  
-	    New File  		    1872	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\insertdatetime\
-	    New File  		    3467	plugin.js  0%  100%  
-	    New File  		    1978	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\layer\
-	    New File  		    5169	plugin.js  0%  100%  
-	    New File  		    2857	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\legacyoutput\
-	    New File  		    6437	plugin.js  0%  100%  
-	    New File  		    3283	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\link\
-	    New File  		    9102	plugin.js  0%  100%  
-	    New File  		    4492	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\lists\
-	    New File  		   19358	plugin.js  0%  100%  
-	    New File  		    8113	plugin.min.js  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\media\
-	    New File  		   20017	moxieplayer.swf  0%  100%  
-	    New File  		   19214	plugin.js  0%  100%  
-	    New File  		    9971	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\nonbreaking\
-	    New File  		    1186	plugin.js  0%  100%  
-	    New File  		     655	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\noneditable\
-	    New File  		   18885	plugin.js  0%  100%  
-	    New File  		    5604	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\pagebreak\
-	    New File  		    2354	plugin.js  0%  100%  
-	    New File  		    1192	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\paste\
-	    New File  		   45835	plugin.js  0%  100%  
-	    New File  		   15078	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\preview\
-	    New File  		    2583	plugin.js  0%  100%  
-	    New File  		    1389	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\print\
-	    New File  		     600	plugin.js  0%  100%  
-	    New File  		     293	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\save\
-	    New File  		    1982	plugin.js  0%  100%  
-	    New File  		    1163	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\searchreplace\
-	    New File  		   15130	plugin.js  0%  100%  
-	    New File  		    6301	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\spellchecker\
-	    New File  		   25250	plugin.js  0%  100%  
-	    New File  		    9397	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\tabfocus\
-	    New File  		    2469	plugin.js  0%  100%  
-	    New File  		    1258	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\table\
-	    New File  		   66698	plugin.js  0%  100%  
-	    New File  		   29672	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\template\
-	    New File  		    7177	plugin.js  0%  100%  
-	    New File  		    4232	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\textcolor\
-	    New File  		    6632	plugin.js  0%  100%  
-	    New File  		    3800	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\textpattern\
-	    New File  		    6759	plugin.js  0%  100%  
-	    New File  		    2751	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracocontextmenu\
-	    New File  		    2561	editor_plugin_src.js  0%  100%  
-	    New File  		    2561	plugin.min.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracocss\
-	    New File  		    8362	plugin.min.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracocss\img\
-	    New File  		      87	example.gif  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracocss\js\
-	    New File  		     609	dialog.js  0%  100%  
-	                  14	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracocss\langs\
-	    New File  		      79	en.js  0%  100%  
-	    New File  		      82	en_dlg.js  0%  100%  
-	    New File  		      82	en_us.js  0%  100%  
-	    New File  		      85	en_us_dlg.js  0%  100%  
-	    New File  		      67	it.js  0%  100%  
-	    New File  		      71	it_dlg.js  0%  100%  
-	    New File  		      92	ja.js  0%  100%  
-	    New File  		      84	ja_dlg.js  0%  100%  
-	    New File  		      96	ru.js  0%  100%  
-	    New File  		     105	ru_dlg.js  0%  100%  
-	    New File  		      76	sv.js  0%  100%  
-	    New File  		      93	sv_dlg.js  0%  100%  
-	    New File  		      67	zh.js  0%  100%  
-	    New File  		      72	zh_dlg.js  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoembed\
-	    New File  		    3816	dialog.htm  0%  100%  
-	    New File  		     860	editor_plugin.js  0%  100%  
-	    New File  		    2984	editor_plugin_src.js  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoembed\img\
-	    New File  		    1928	ajax-loader.gif  0%  100%  
-	    New File  		     260	embed.gif  0%  100%  
-	    New File  		     537	embed.png  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoembed\js\
-	    New File  		    3260	dialog.js  0%  100%  
-	                  18	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoembed\langs\
-	    New File  		      85	da.js  0%  100%  
-	    New File  		     251	da_dlg.js  0%  100%  
-	    New File  		     272	de.js  0%  100%  
-	    New File  		     272	de_dlg.js  0%  100%  
-	    New File  		      78	en.js  0%  100%  
-	    New File  		     232	en_dlg.js  0%  100%  
-	    New File  		      81	en_us.js  0%  100%  
-	    New File  		     235	en_us_dlg.js  0%  100%  
-	    New File  		     236	it.js  0%  100%  
-	    New File  		     244	it_dlg.js  0%  100%  
-	    New File  		     267	ja.js  0%  100%  
-	    New File  		     268	ja_dlg.js  0%  100%  
-	    New File  		     329	ru.js  0%  100%  
-	    New File  		     329	ru_dlg.js  0%  100%  
-	    New File  		     260	sv.js  0%  100%  
-	    New File  		     260	sv_dlg.js  0%  100%  
-	    New File  		     235	zh.js  0%  100%  
-	    New File  		     235	zh_dlg.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoimg\
-	    New File  		    1739	editor_plugin_src.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoimg\js\
-	    New File  		   10412	image.js  0%  100%  
-	                   8	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoimg\langs\
-	    New File  		    1495	en_dlg.js  0%  100%  
-	    New File  		    1498	en_us_dlg.js  0%  100%  
-	    New File  		    1495	he_dlg.js  0%  100%  
-	    New File  		    1583	it_dlg.js  0%  100%  
-	    New File  		    1694	ja_dlg.js  0%  100%  
-	    New File  		    2314	ru_dlg.js  0%  100%  
-	    New File  		    1536	sv_dlg.js  0%  100%  
-	    New File  		    1346	zh_dlg.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracolink\
-	    New File  		    6890	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracomacro\
-	    New File  		     991	dialog.htm  0%  100%  
-	    New File  		    6151	editor_plugin_src.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracomacro\img\
-	    New File  		     603	insMacro.gif  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracomacro\js\
-	    New File  		     609	dialog.js  0%  100%  
-	                  14	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracomacro\langs\
-	    New File  		      69	en.js  0%  100%  
-	    New File  		      82	en_dlg.js  0%  100%  
-	    New File  		      72	en_us.js  0%  100%  
-	    New File  		      85	en_us_dlg.js  0%  100%  
-	    New File  		      79	he.js  0%  100%  
-	    New File  		      82	he_dlg.js  0%  100%  
-	    New File  		      75	ja.js  0%  100%  
-	    New File  		      90	ja_dlg.js  0%  100%  
-	    New File  		      86	ru.js  0%  100%  
-	    New File  		      81	ru_dlg.js  0%  100%  
-	    New File  		      69	sv.js  0%  100%  
-	    New File  		      92	sv_dlg.js  0%  100%  
-	    New File  		      66	zh.js  0%  100%  
-	    New File  		      72	zh_dlg.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracopaste\
-	    New File  		    1753	editor_plugin_src.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\umbracoshortcut\
-	    New File  		    1255	editor_plugin_src.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\visualblocks\
-	    New File  		    2120	plugin.js  0%  100%  
-	    New File  		    1153	plugin.min.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\visualblocks\css\
-	    New File  		    5070	visualblocks.css  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\visualchars\
-	    New File  		    2714	plugin.js  0%  100%  
-	    New File  		    1259	plugin.min.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\plugins\wordcount\
-	    New File  		    1831	plugin.js  0%  100%  
-	    New File  		     908	plugin.min.js  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\skins\
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\skins\umbraco\
-	    New File  		    2364	content.min.css  0%  100%  
-	    New File  		   30624	skin.classic.min.css  0%  100%  
-	    New File  		   30481	skin.ie7.min.css  0%  100%  
-	    New File  		   30624	skin.min.css  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\skins\umbraco\fonts\
-	    New File  		    8196	icomoon.eot  0%  100%  
-	    New File  		   33681	icomoon.svg  0%  100%  
-	    New File  		    8032	icomoon.ttf  0%  100%  
-	    New File  		    8340	icomoon.woff  0%  100%  
-	    New File  		      68	readme.md  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\skins\umbraco\img\
-	    New File  		      53	anchor.gif  0%  100%  
-	    New File  		    2608	loader.gif  0%  100%  
-	    New File  		     152	object.gif  0%  100%  
-	    New File  		      43	trans.gif  0%  100%  
-	    New File  		      46	wline.gif  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\themes\
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\themes\modern\
-	    New File  		   14752	theme.js  0%  100%  
-	    New File  		    6431	theme.min.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\tinymce\themes\umbraco\
-	    New File  		    4762	theme.min.js  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\typeahead.js\
-	    New File  		   29675	typeahead.bundle.min.js  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\umbraco\
-	    New File  		    1223	compat.js  0%  100%  
-	    New File  		   11364	Extensions.js  0%  100%  
-	    New File  		    2438	LegacySpeechBubble.js  0%  100%  
-	    New File  		   19027	LegacyUmbClientMgr.js  0%  100%  
-	    New File  		     839	NamespaceManager.js  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\lib\underscore\
-	    New File  		   15626	underscore-min.js  0%  100%  
-	    New File  		   25382	underscore-min.map  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Masterpages\
-	    New File  		     234	default.Master  0%  100%  
-	    New File  		    1767	umbracoDialog.Master  0%  100%  
-	    New File  		    2281	umbracoPage.Master  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Members\
-	    New File  		    1010	EditMemberGroup.aspx  0%  100%  
-	    New File  		    1838	MemberSearch.ascx  0%  100%  
-	    New File  		     798	search.aspx  0%  100%  
-	    New File  		    1913	ViewMembers.aspx  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\PartialViewMacros\
-	                  20	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\PartialViewMacros\Templates\
-	    New File  		     887	Breadcrumb.cshtml  0%  100%  
-	    New File  		    2658	EditProfile.cshtml  0%  100%  
-	    New File  		      53	Empty (ForUseWithCustomViews).cshtml  0%  100%  
-	    New File  		      49	Empty.cshtml  0%  100%  
-	    New File  		    1692	Gallery.cshtml  0%  100%  
-	    New File  		     859	ListAncestorsFromCurrentPage.cshtml  0%  100%  
-	    New File  		     994	ListChildPagesFromChangeableSource.cshtml  0%  100%  
-	    New File  		     319	ListChildPagesFromCurrentPage.cshtml  0%  100%  
-	    New File  		     338	ListChildPagesOrderedByDate.cshtml  0%  100%  
-	    New File  		     293	ListChildPagesOrderedByName.cshtml  0%  100%  
-	    New File  		     879	ListChildPagesOrderedByProperty.cshtml  0%  100%  
-	    New File  		     851	ListChildPagesWithDoctype.cshtml  0%  100%  
-	    New File  		    2083	ListDescendantsFromCurrentPage.cshtml  0%  100%  
-	    New File  		    1025	ListImagesFromMediaFolder.cshtml  0%  100%  
-	    New File  		    1310	Login.cshtml  0%  100%  
-	    New File  		    1402	LoginStatus.cshtml  0%  100%  
-	    New File  		     649	MultinodeTree-picker.cshtml  0%  100%  
-	    New File  		     608	Navigation.cshtml  0%  100%  
-	    New File  		    4538	RegisterMember.cshtml  0%  100%  
-	    New File  		    1251	SiteMap.cshtml  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Plugins\
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Plugins\Tinymce3\
-	    New File  		    1621	InsertAnchor.aspx  0%  100%  
-	    New File  		    2962	insertChar.aspx  0%  100%  
-	    New File  		    9415	insertImage.aspx  0%  100%  
-	    New File  		    6194	insertLink.aspx  0%  100%  
-	    New File  		    6617	insertMacro.aspx  0%  100%  
-	    New File  		     171	tinymce3tinymceCompress.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\preview\
-	    New File  		    8123	index.html  0%  100%  
-	                  11	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\preview\editors\
-	    New File  		    2450	background.html  0%  100%  
-	    New File  		     964	border.html  0%  100%  
-	    New File  		      91	color.html  0%  100%  
-	    New File  		    1487	googlefontpicker.html  0%  100%  
-	    New File  		     195	gridRow.html  0%  100%  
-	    New File  		     333	layout.html  0%  100%  
-	    New File  		     453	margin.html  0%  100%  
-	    New File  		     461	padding.html  0%  100%  
-	    New File  		     880	radius.html  0%  100%  
-	    New File  		     191	shadow.html  0%  100%  
-	    New File  		     211	slider.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Scripting\
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Scripting\templates\
-	                  15	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Scripting\templates\cshtml\
-	    New File  		     822	Breadcrumb.cshtml  0%  100%  
-	    New File  		     340	EmptyTemplate.cshtml  0%  100%  
-	    New File  		    1058	Gallery.cshtml  0%  100%  
-	    New File  		     545	ListAncestorsFromCurrentPage.cshtml  0%  100%  
-	    New File  		     607	ListChildPagesFromChangeableSource.cshtml  0%  100%  
-	    New File  		     529	ListChildPagesFromCurrentPage.cshtml  0%  100%  
-	    New File  		     301	ListChildPagesOrderedByDate.cshtml  0%  100%  
-	    New File  		     258	ListChildPagesOrderedByName.cshtml  0%  100%  
-	    New File  		     516	ListChildPagesOrderedByProperty.cshtml  0%  100%  
-	    New File  		     979	ListChildPagesWithDoctype.cshtml  0%  100%  
-	    New File  		    2045	ListDescendantsFromCurrentPage.cshtml  0%  100%  
-	    New File  		     679	ListImagesFromMediaFolder.cshtml  0%  100%  
-	    New File  		     647	MultinodeTree-picker.cshtml  0%  100%  
-	    New File  		     534	Navigation.cshtml  0%  100%  
-	    New File  		    1062	SiteMap.cshtml  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Search\
-	    New File  		    1100	QuickSearch.ascx  0%  100%  
-	    New File  		    3887	quickSearch.js  0%  100%  
-	    New File  		     139	QuickSearchHandler.ashx  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Settings\
-	    New File  		     688	DictionaryItemList.aspx  0%  100%  
-	    New File  		     726	EditDictionaryItem.aspx  0%  100%  
-	    New File  		     899	editLanguage.aspx  0%  100%  
-	    New File  		    8552	editTemplate.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Settings\Modals\
-	    New File  		    3355	ShowUmbracoTags.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Settings\Scripts\
-	    New File  		    2606	editScript.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Settings\Stylesheet\
-	    New File  		    2484	editstylesheet.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Settings\Stylesheet\Property\
-	    New File  		    2723	EditStyleSheetProperty.aspx  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Settings\Views\
-	    New File  		    3666	EditView.aspx  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Translation\
-	    New File  		    2595	default.aspx  0%  100%  
-	    New File  		    1856	details.aspx  0%  100%  
-	    New File  		    1325	preview.aspx  0%  100%  
-	    New File  		    1007	translationTasks.dtd  0%  100%  
-	    New File  		     220	xml.aspx  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Users\
-	    New File  		     723	EditUser.aspx  0%  100%  
-	    New File  		    1445	EditUserType.aspx  0%  100%  
-	    New File  		    1572	NodePermissions.ascx  0%  100%  
-	    New File  		    2296	PermissionEditor.aspx  0%  100%  
-	    New File  		    6683	PermissionsEditor.js  0%  100%  
-	    New File  		     130	PermissionsHandler.asmx  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\
-	    New File  		    2632	AuthorizeUpgrade.cshtml  0%  100%  
-	    New File  		    3187	Default.cshtml  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\
-	    New File  		    1588	dashboard.html  0%  100%  
-	    New File  		     198	legacy.html  0%  100%  
-	    New File  		      62	login.html  0%  100%  
-	                  15	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\dialogs\
-	    New File  		     346	approvedcolorpicker.html  0%  100%  
-	    New File  		    2424	help.html  0%  100%  
-	    New File  		    2033	iconpicker.html  0%  100%  
-	    New File  		    2109	insertmacro.html  0%  100%  
-	    New File  		     405	legacydelete.html  0%  100%  
-	    New File  		    2776	linkpicker.html  0%  100%  
-	    New File  		    7630	login.html  0%  100%  
-	    New File  		    1324	macropicker.html  0%  100%  
-	    New File  		    6091	mediapicker.html  0%  100%  
-	    New File  		    1172	membergrouppicker.html  0%  100%  
-	    New File  		      24	property.html  0%  100%  
-	    New File  		    1826	rteembed.html  0%  100%  
-	    New File  		    2450	treepicker.html  0%  100%  
-	    New File  		    4567	user.html  0%  100%  
-	    New File  		     981	ysod.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\dialogs\content\
-	    New File  		    2329	edit.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\dialogs\template\
-	    New File  		    4757	querybuilder.html  0%  100%  
-	    New File  		    1477	snippet.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\notifications\
-	    New File  		     569	confirmroutechange.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\
-	*EXTRA Dir        -1	C:\development\uCommunity\Compent.uCommunity\Compent.uCommunity\Umbraco\Views\common\overlays\mediatypepicker\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\contentpicker\
-	    New File  		    1085	contentpicker.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\contenttypeeditor\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\contenttypeeditor\compositions\
-	    New File  		    2686	compositions.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\contenttypeeditor\editorpicker\
-	    New File  		    3923	editorpicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\contenttypeeditor\editorsettings\
-	    New File  		     871	editorsettings.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\contenttypeeditor\propertysettings\
-	    New File  		    4503	propertysettings.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\copy\
-	    New File  		    1370	copy.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\embed\
-	    New File  		    1141	embed.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\help\
-	    New File  		    2382	help.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\iconpicker\
-	    New File  		    2150	iconpicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\itempicker\
-	    New File  		     883	itempicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\linkpicker\
-	    New File  		    2962	linkpicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\macropicker\
-	    New File  		    1490	macropicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\mediaPicker\
-	    New File  		    4350	mediapicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\membergrouppicker\
-	    New File  		     317	membergrouppicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\memberpicker\
-	    New File  		    1081	memberpicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\move\
-	    New File  		    1073	move.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\treepicker\
-	    New File  		    1107	treepicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\user\
-	    New File  		    4126	user.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\common\overlays\ysod\
-	    New File  		    1084	ysod.html  0%  100%  
-	                  22	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\
-	    New File  		      83	umb-avatar.html  0%  100%  
-	    New File  		    1586	umb-child-selector.html  0%  100%  
-	    New File  		     554	umb-confirm-action.html  0%  100%  
-	    New File  		     433	umb-confirm.html  0%  100%  
-	    New File  		    1374	umb-content-grid.html  0%  100%  
-	    New File  		     195	umb-empty-state.html  0%  100%  
-	    New File  		     602	umb-folder-grid.html  0%  100%  
-	    New File  		     298	umb-generate-alias.html  0%  100%  
-	    New File  		    2458	umb-grid-selector.html  0%  100%  
-	    New File  		   16851	umb-groups-builder.html  0%  100%  
-	    New File  		    2234	umb-keyboard-shortcuts-overview.html  0%  100%  
-	    New File  		     698	umb-layout-selector.html  0%  100%  
-	    New File  		     896	umb-lightbox.html  0%  100%  
-	    New File  		      74	umb-list-view-layout.html  0%  100%  
-	    New File  		    2188	umb-list-view-settings.html  0%  100%  
-	    New File  		     201	umb-load-indicator.html  0%  100%  
-	    New File  		    1535	umb-locked-field.html  0%  100%  
-	    New File  		    1951	umb-media-grid.html  0%  100%  
-	    New File  		     822	umb-pagination.html  0%  100%  
-	    New File  		     122	umb-progress-bar.html  0%  100%  
-	    New File  		    3292	umb-table.html  0%  100%  
-	    New File  		      86	umb-tooltip.html  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\application\
-	    New File  		     579	umb-contextmenu.html  0%  100%  
-	    New File  		    4654	umb-navigation.html  0%  100%  
-	    New File  		    2615	umb-sections.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\buttons\
-	    New File  		    1096	umb-button-group.html  0%  100%  
-	    New File  		    1979	umb-button.html  0%  100%  
-	                  10	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\editor\
-	    New File  		     485	umb-breadcrumbs.html  0%  100%  
-	    New File  		     265	umb-editor-container.html  0%  100%  
-	    New File  		      71	umb-editor-footer-content-left.html  0%  100%  
-	    New File  		      72	umb-editor-footer-content-right.html  0%  100%  
-	    New File  		     130	umb-editor-footer.html  0%  100%  
-	    New File  		    3027	umb-editor-header.html  0%  100%  
-	    New File  		     821	umb-editor-menu.html  0%  100%  
-	    New File  		     508	umb-editor-navigation.html  0%  100%  
-	    New File  		     281	umb-editor-sub-views.html  0%  100%  
-	    New File  		     136	umb-editor-view.html  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\editor\subheader\
-	    New File  		      70	umb-editor-sub-header-content-left.html  0%  100%  
-	    New File  		      71	umb-editor-sub-header-content-right.html  0%  100%  
-	    New File  		      65	umb-editor-sub-header-section.html  0%  100%  
-	    New File  		     129	umb-editor-sub-header.html  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\html\
-	    New File  		     494	umb-control-group.html  0%  100%  
-	    New File  		      47	umb-pane.html  0%  100%  
-	    New File  		      58	umb-panel.html  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\imaging\
-	    New File  		     553	umb-image-crop.html  0%  100%  
-	    New File  		     311	umb-image-gravity.html  0%  100%  
-	    New File  		     225	umb-image-thumbnail.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\notifications\
-	    New File  		     965	umb-notifications.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\overlays\
-	    New File  		      94	umb-overlay-backdrop.html  0%  100%  
-	    New File  		    3292	umb-overlay.html  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\property\
-	    New File  		     128	umb-property-editor.html  0%  100%  
-	    New File  		       0	umb-property-group.html100%  
-	    New File  		     711	umb-property.html  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\tabs\
-	    New File  		     130	umb-tab.html  0%  100%  
-	    New File  		      84	umb-tabs-content.html  0%  100%  
-	    New File  		     198	umb-tabs-nav.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\tree\
-	    New File  		     569	umb-tree-search-box.html  0%  100%  
-	    New File  		     802	umb-tree-search-results.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\components\upload\
-	    New File  		    3436	umb-file-dropzone.html  0%  100%  
-	                   9	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\content\
-	    New File  		    3236	copy.html  0%  100%  
-	    New File  		    1536	create.html  0%  100%  
-	    New File  		     463	delete.html  0%  100%  
-	    New File  		    2380	edit.html  0%  100%  
-	    New File  		     704	emptyrecyclebin.html  0%  100%  
-	    New File  		    2663	move.html  0%  100%  
-	    New File  		     522	recyclebin.html  0%  100%  
-	    New File  		     952	restore.html  0%  100%  
-	    New File  		     198	umbpreview.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\
-	    New File  		     587	ChangePassword.html  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\default\
-	    New File  		   22374	ourumbraco.png  0%  100%  
-	    New File  		    5231	StartupDashboardIntro.html  0%  100%  
-	    New File  		    1350	StartupDashboardKits.html  0%  100%  
-	    New File  		       0	StartupDashboardLastEdits.html100%  
-	    New File  		     828	StartupDashboardVideos.html  0%  100%  
-	    New File  		  106574	umbracotv.png  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\developer\
-	    New File  		    1254	developerdashboardintro.html  0%  100%  
-	    New File  		    1059	developerdashboardvideos.html  0%  100%  
-	    New File  		   11133	examinemanagement.html  0%  100%  
-	    New File  		    6921	healthcheck.html  0%  100%  
-	    New File  		    5138	redirecturls.html  0%  100%  
-	    New File  		    1280	xmldataintegrityreport.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\forms\
-	    New File  		    1530	formsdashboardintro.html  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\media\
-	    New File  		    1800	desktopmediauploader.html  0%  100%  
-	    New File  		     904	mediadashboardintro.html  0%  100%  
-	    New File  		     829	mediadashboardvideos.html  0%  100%  
-	    New File  		     154	mediafolderbrowser.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\members\
-	    New File  		     384	membersdashboardintro.html  0%  100%  
-	    New File  		     796	membersdashboardvideos.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\dashboard\settings\
-	    New File  		    1324	settingsdashboardintro.html  0%  100%  
-	    New File  		     829	settingsdashboardvideos.html  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\datatypes\
-	    New File  		    1862	create.html  0%  100%  
-	    New File  		    1350	delete.html  0%  100%  
-	    New File  		    2060	edit.html  0%  100%  
-	    New File  		    1933	move.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\directives\
-	                   8	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\directives\_obsolete\
-	    New File  		     738	umb-content-name.html  0%  100%  
-	    New File  		     406	umb-header.html  0%  100%  
-	    New File  		    1472	umb-item-sorter.html  0%  100%  
-	    New File  		     572	umb-login.html  0%  100%  
-	    New File  		     810	umb-optionsmenu.html  0%  100%  
-	    New File  		    1052	umb-photo-folder.html  0%  100%  
-	    New File  		     147	umb-tab-view.html  0%  100%  
-	    New File  		     239	umb-upload-dropzone.html  0%  100%  
-	                   7	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\documenttypes\
-	    New File  		    2143	copy.html  0%  100%  
-	    New File  		    2340	create.html  0%  100%  
-	    New File  		    1667	delete.html  0%  100%  
-	    New File  		    2314	edit.html  0%  100%  
-	    New File  		    2141	move.html  0%  100%  
-	    New File  		     145	property.html  0%  100%  
-	    New File  		       0	propertygroup.html100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\documenttypes\views\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\documenttypes\views\design\
-	    New File  		      95	design.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\documenttypes\views\listview\
-	    New File  		     534	listview.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\documenttypes\views\permissions\
-	    New File  		    1633	permissions.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\documenttypes\views\templates\
-	    New File  		     822	templates.html  0%  100%  
-	                   8	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\install\
-	    New File  		     391	continueinstall.html  0%  100%  
-	    New File  		    4597	database.html  0%  100%  
-	    New File  		     320	error.html  0%  100%  
-	    New File  		     983	permissionsreport.html  0%  100%  
-	    New File  		     891	starterkit.html  0%  100%  
-	    New File  		     857	upgrade.html  0%  100%  
-	    New File  		    2830	user.html  0%  100%  
-	    New File  		     997	version7upgradereport.html  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\media\
-	    New File  		    1629	create.html  0%  100%  
-	    New File  		     435	delete.html  0%  100%  
-	    New File  		    2134	edit.html  0%  100%  
-	    New File  		     695	emptyrecyclebin.html  0%  100%  
-	    New File  		    1243	move.html  0%  100%  
-	    New File  		     506	recyclebin.html  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\mediatypes\
-	    New File  		    2137	copy.html  0%  100%  
-	    New File  		    1882	create.html  0%  100%  
-	    New File  		    1610	delete.html  0%  100%  
-	    New File  		    2310	edit.html  0%  100%  
-	    New File  		    2119	move.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\mediatypes\views\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\mediatypes\views\design\
-	    New File  		      88	design.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\mediatypes\views\listview\
-	    New File  		     531	listview.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\mediatypes\views\permissions\
-	    New File  		    1630	permissions.html  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\member\
-	    New File  		     996	create.html  0%  100%  
-	    New File  		     459	delete.html  0%  100%  
-	    New File  		    2040	edit.html  0%  100%  
-	    New File  		    1057	list.html  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\membertypes\
-	    New File  		    1862	create.html  0%  100%  
-	    New File  		    1101	delete.html  0%  100%  
-	    New File  		    2311	edit.html  0%  100%  
-	    New File  		     351	move.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\membertypes\views\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\membertypes\views\design\
-	    New File  		     116	design.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\packager\
-	    New File  		     441	delete.html  0%  100%  
-	    New File  		     755	overview.html  0%  100%  
-	                   3	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\packager\views\
-	    New File  		    6616	install-local.html  0%  100%  
-	    New File  		    5420	installed.html  0%  100%  
-	    New File  		   18490	repo.html  0%  100%  
-	                  16	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\prevalueeditors\
-	    New File  		     101	boolean.html  0%  100%  
-	    New File  		     427	decimal.html  0%  100%  
-	    New File  		      84	hidden.html  0%  100%  
-	    New File  		     701	imagepicker.html  0%  100%  
-	    New File  		     868	mediapicker.html  0%  100%  
-	    New File  		     682	multivalues.html  0%  100%  
-	    New File  		     162	nodetype.html  0%  100%  
-	    New File  		     434	number.html  0%  100%  
-	    New File  		     255	radiobuttonlist.html  0%  100%  
-	    New File  		     222	readonlykeyvalues.html  0%  100%  
-	    New File  		     414	requiredfield.html  0%  100%  
-	    New File  		     101	textarea.html  0%  100%  
-	    New File  		      78	textstring.html  0%  100%  
-	    New File  		     881	treepicker.html  0%  100%  
-	    New File  		    2850	treesource.html  0%  100%  
-	    New File  		     264	valuetype.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\boolean\
-	    New File  		     187	boolean.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\changepassword\
-	    New File  		    3826	changepassword.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\checkboxlist\
-	    New File  		     468	checkboxlist.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\colorpicker\
-	    New File  		     595	colorpicker.html  0%  100%  
-	    New File  		     650	colorpicker.prevalues.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\contentpicker\
-	    New File  		    2456	contentpicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\datepicker\
-	    New File  		    1772	datepicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\decimal\
-	    New File  		     583	decimal.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\dropdown\
-	    New File  		     782	dropdown.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\email\
-	    New File  		     606	email.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\entitypicker\
-	    New File  		     661	entitypicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\fileupload\
-	    New File  		    1719	fileupload.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\folderbrowser\
-	    New File  		     149	folderbrowser.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\googlemaps\
-	    New File  		     185	googlemaps.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\grid\
-	    New File  		   16086	grid.html  0%  100%  
-	    New File  		    6902	grid.prevalues.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\grid\config\
-	    New File  		    6965	grid.default.config.js  0%  100%  
-	    New File  		     251	grid.default.rtestyles.css  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\grid\dialogs\
-	    New File  		     469	config.html  0%  100%  
-	    New File  		     458	editconfig.html  0%  100%  
-	    New File  		    4800	layoutconfig.html  0%  100%  
-	    New File  		    4047	rowconfig.html  0%  100%  
-	    New File  		     414	rowdeleteconfirm.html  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\grid\editors\
-	    New File  		     502	embed.html  0%  100%  
-	    New File  		     113	error.html  0%  100%  
-	    New File  		     580	macro.html  0%  100%  
-	    New File  		     775	media.html  0%  100%  
-	    New File  		    1000	rte.html  0%  100%  
-	    New File  		     293	textstring.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\imagecropper\
-	    New File  		    3041	imagecropper.html  0%  100%  
-	    New File  		    1925	imagecropper.prevalues.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\integer\
-	    New File  		     612	integer.html  0%  100%  
-	                   6	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\listview\
-	    New File  		    1189	bulkActionPermissions.prevalues.html  0%  100%  
-	    New File  		    2428	includeproperties.prevalues.html  0%  100%  
-	    New File  		    2240	layouts.prevalues.html  0%  100%  
-	    New File  		    8459	listview.html  0%  100%  
-	    New File  		     462	orderDirection.prevalues.html  0%  100%  
-	    New File  		     190	sortby.prevalues.html  0%  100%  
-	                   0	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\listview\layouts\
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\listview\layouts\grid\
-	    New File  		    3038	grid.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\listview\layouts\list\
-	    New File  		    2414	list.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\macrocontainer\
-	    New File  		    1268	macrocontainer.html  0%  100%  
-	    New File  		     211	macrolist.prevalues.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\markdowneditor\
-	    New File  		     538	markdowneditor.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\mediapicker\
-	    New File  		    1632	mediapicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\membergrouppicker\
-	    New File  		     851	membergrouppicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\membergroups\
-	    New File  		     598	membergroups.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\memberpicker\
-	    New File  		     997	memberpicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\multipletextbox\
-	    New File  		     904	multipletextbox.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\radiobuttons\
-	    New File  		     477	radiobuttons.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\readonlyvalue\
-	    New File  		     164	readonlyvalue.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\relatedlinks\
-	    New File  		    5873	relatedlinks.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\rte\
-	    New File  		    1010	rte.html  0%  100%  
-	    New File  		    1783	rte.prevalues.html  0%  100%  
-	                   4	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\slider\
-	    New File  		     374	handle.prevalues.html  0%  100%  
-	    New File  		     365	orientation.prevalues.html  0%  100%  
-	    New File  		     146	slider.html  0%  100%  
-	    New File  		     375	tooltip.prevalues.html  0%  100%  
-	                   2	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\tags\
-	    New File  		     962	tags.html  0%  100%  
-	    New File  		     200	tags.prevalues.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\templatepicker\
-	    New File  		     113	templatepicker.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\test\
-	    New File  		     476	test.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\textarea\
-	    New File  		     374	textarea.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\textbox\
-	    New File  		     456	textbox.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\ultrasimple\
-	    New File  		     242	ultrasimple.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\urllist\
-	    New File  		     512	urllist.html  0%  100%  
-	                   1	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Views\propertyeditors\validationtest\
-	    New File  		     561	validationtest.html  0%  100%  
-	                  20	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Webservices\
-	    New File  		   26403	ajax.js  0%  100%  
-	    New File  		     125	CacheRefresher.asmx  0%  100%  
-	    New File  		     130	CheckForUpgrade.asmx  0%  100%  
-	    New File  		     111	CMSNode.asmx  0%  100%  
-	    New File  		     125	codeEditorSave.asmx  0%  100%  
-	    New File  		     102	Developer.asmx  0%  100%  
-	    New File  		     127	legacyAjaxCalls.asmx  0%  100%  
-	    New File  		     142	MacroContainerService.asmx  0%  100%  
-	    New File  		     134	MediaUploader.ashx  0%  100%  
-	    New File  		     117	nodeSorter.asmx  0%  100%  
-	    New File  		     125	progressStatus.asmx  0%  100%  
-	    New File  		     106	publication.asmx  0%  100%  
-	    New File  		     100	Settings.asmx  0%  100%  
-	    New File  		     154	TagsAutoCompleteHandler.ashx  0%  100%  
-	    New File  		     102	templates.asmx  0%  100%  
-	    New File  		     113	trashcan.asmx  0%  100%  
-	    New File  		     134	TreeClientService.asmx  0%  100%  
-	    New File  		     130	TreeDataService.ashx  0%  100%  
-	    New File  		     174	UltimatePickerAutoCompleteHandler.ashx  0%  100%  
-	    New File  		    8404	wsdl.xslt  0%  100%  
-	                   5	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Xslt\
-	    New File  		     667	macroGetCurrent.xsl  0%  100%  
-	    New File  		    1178	macroGetSubs.xsl  0%  100%  
-	    New File  		    1114	searchResult.xslt  0%  100%  
-	    New File  		    1756	sqlNodeHierachy.xslt  0%  100%  
-	    New File  		     594	Web.config  0%  100%  
-	                  15	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Xslt\Templates\
-	    New File  		    1085	Breadcrumb.xslt  0%  100%  
-	    New File  		     527	Clean.xslt  0%  100%  
-	    New File  		    1264	ListSubPagesAsThumbnails.xslt  0%  100%  
-	    New File  		    1063	ListSubPagesByDateAndLimit.xslt  0%  100%  
-	    New File  		     918	ListSubPagesByDocumentType.xslt  0%  100%  
-	    New File  		     886	ListSubPagesByLevel.xslt  0%  100%  
-	    New File  		     956	ListSubPagesFromAChangableSource.xslt  0%  100%  
-	    New File  		     756	ListSubPagesFromCurrentPage.xslt  0%  100%  
-	    New File  		    1151	ListThumbnailsFromCurrentPage.xslt  0%  100%  
-	    New File  		     771	ListWholeStructureFromCurrentPage.xslt  0%  100%  
-	    New File  		    1280	NavigationPrototype.xslt  0%  100%  
-	    New File  		    1701	RelatedLinks.xslt  0%  100%  
-	    New File  		    3263	RSSFeed.xslt  0%  100%  
-	    New File  		    1579	Sitemap.xslt  0%  100%  
-	    New File  		    1586	TablePrototype.xslt  0%  100%  
-	                  15	C:\development\uCommunity\Compent.uCommunity\packages\UmbracoCms.7.5.4\UmbracoFiles\Umbraco\Xslt\Templates\Schema2\
-	    New File  		    1066	Breadcrumb.xslt  0%  100%  
-	    New File  		     527	Clean.xslt  0%  100%  
-	    New File  		    1015	ListSubPagesAsThumbnails.xslt  0%  100%  
-	    New File  		    1055	ListSubPagesByDateAndLimit.xslt  0%  100%  
-	    New File  		     891	ListSubPagesByDocumentType.xslt  0%  100%  
-	    New File  		     875	ListSubPagesByLevel.xslt  0%  100%  
-	    New File  		     948	ListSubPagesFromAChangableSource.xslt  0%  100%  
-	    New File  		     748	ListSubPagesFromCurrentPage.xslt  0%  100%  
-	    New File  		     893	ListThumbnailsFromCurrentPage.xslt  0%  100%  
-	    New File  		     763	ListWholeStructureFromCurrentPage.xslt  0%  100%  
-	    New File  		    1267	NavigationPrototype.xslt  0%  100%  
-	    New File  		    1714	RelatedLinks.xslt  0%  100%  
-	    New File  		    3251	RSSFeed.xslt  0%  100%  
-	    New File  		    1567	Sitemap.xslt  0%  100%  
-	    New File  		    1560	TablePrototype.xslt  0%  100%  
-
-------------------------------------------------------------------------------
-
-               Total    Copied   Skipped  Mismatch    FAILED    Extras
-    Dirs :       304         0       304         0         0         1
-   Files :      1579      1578         1         0         0         0
-   Bytes :   15.39 m   15.39 m     8.6 k         0         0         0
-   Times :   0:00:02   0:00:02                       0:00:00   0:00:00
-
-
-   Speed :             7392966 Bytes/sec.
-   Speed :             423.028 MegaBytes/min.
-   Ended : Friday, February 3, 2017 3:13:05 PM
-
