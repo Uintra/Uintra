@@ -3,31 +3,30 @@
 *.rej
 *.user
 packages/
-src/.vs/
-src/Compent.uCommunity/bin/
-src/Compent.uCommunity/obj/
+Compent.uCommunity/.vs/
+Compent.uCommunity/Compent.uCommunity/bin/*
+Compent.uCommunity/Compent.uCommunity/obj/
 
 # Ignore umbraco folders
 # if you want add some of umbraco files in repository use '!' syntax
-# for example '!src/Compent.uCommunity/Umbraco/umbraco.aspx'
-src/Compent.uCommunity/Umbraco/
-src/Compent.uCommunity/Umbraco_Client/
+# for example '!Compent.uCommunity/Compent.uCommunity/Umbraco/umbraco.aspx'
+Compent.uCommunity/Compent.uCommunity/Umbraco/
+Compent.uCommunity/Compent.uCommunity/Umbraco_Client/
 
 #
-src/Compent.uCommunity/Media/*
-!src/Compent.uCommunity/Media/Web.config
-src/Compent.uCommunity/App_Data/*
-!src/Compent.uCommunity/App_Data/packages/
-!src/Compent.uCommunity/App_Data/Models/
-Design/TD__Intranet__(v0.2.6).psd
-src/Compent.uCommunity/Content/images/bell.png
-src/Compent.uCommunity/Content/images/logout.png
-src/Compent.uCommunity/Content/images/umbraco.png
-src/Compent.uCommunity/Content/images/user.png
-Design/TD__Intranet__(v0.jpg
-src/Compent.uCommunity/Content/images/search.png
+Compent.uCommunity/Compent.uCommunity/Media/*
+!Compent.uCommunity/Compent.uCommunity/Media/Web.config
+Compent.uCommunity/Compent.uCommunity/App_Data/*
+Compent.uCommunity/Compent.uCommunity/App_Data/Logs/*
+!Compent.uCommunity/Compent.uCommunity/App_Data/packages/
+!Compent.uCommunity/Compent.uCommunity/App_Data/Models/
+Compent.uCommunity/Compent.uCommunity/Content/images/bell.png
+Compent.uCommunity/Compent.uCommunity/Content/images/logout.png
+Compent.uCommunity/Compent.uCommunity/Content/images/umbraco.png
+Compent.uCommunity/Compent.uCommunity/Content/images/user.png
+Compent.uCommunity/Compent.uCommunity/Content/images/search.png
 
-src/Compent.uCommunity/node_modules
-src/Compent.uCommunity/Content/images/home.png
+Compent.uCommunity/Compent.uCommunity/node_modules
+Compent.uCommunity/Compent.uCommunity/Content/images/home.png
 
 
