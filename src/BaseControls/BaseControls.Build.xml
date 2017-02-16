@@ -6,7 +6,7 @@
 
   <property name="Csc.Setting.Build.VisualStudioVersion" value="VS2015" />
   <property name="Csc.Setting.MSBuild.SolutionPath"
-            value="${CcnetConfig.SourcesRootDirectory}\Compent.uCommunity.sln" />
+            value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln" />
 
   <include buildfile="${CcnetConfig.BuildToolsDirectory}\BuildScripts\Creuna.BuildTools.NAnt.xml" />
 
@@ -32,9 +32,9 @@
       </fileset>
     </delete>
 
-    <exec program="${CcnetConfig.SourcesRootDirectory}\.nuget\NuGet.exe" workingdir="${Csc.Setting.Build.WorkingDirectory}" verbose="true">
+    <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\NuGet.exe" workingdir="${Csc.Setting.Build.WorkingDirectory}" verbose="true">
       <arg value="pack" />
-      <arg file="${CcnetConfig.SourcesRootDirectory}\BaseControls\BaseControls.csproj" />
+      <arg file="${CcnetConfig.SourcesRootDirectory}\src\BaseControls\BaseControls.csproj" />
       <arg value="-Build" />
       <arg line="-Verbosity detailed" />
     </exec>
