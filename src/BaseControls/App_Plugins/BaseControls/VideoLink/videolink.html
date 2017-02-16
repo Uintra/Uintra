@@ -1,0 +1,9 @@
+﻿<div class="umbraco-panel__row">
+    <input class="umbraco-panel__text-field" name="videoLinkInput" ng-model="videoLink.url" ng-change="validateLink()" type="text" placeholder="http://example.com/" ng-required="isRequired" />
+    <span class="umbraco-panel__error" ng-show="isError()">Incorrect link format</span>
+    <span class="umbraco-panel__error" ng-show="isUnknown()">Unknown video url</span>
+</div>
+<div class="umbraco-panel__row" ng-if="useAltText">
+    <label class="umbraco-panel__label control-label">Alt text:</label>
+    <input class="umbraco-panel__text-field" name="altTextInput" type="text" ng-model="videoLink.altText" placeholder="Alt text" />
+</div>

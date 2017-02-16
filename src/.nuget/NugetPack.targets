@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="NugetPack" AfterTargets="AfterBuild" DependsOnTargets="CopyReferences">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
+    </GetAssemblyIdentity>
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)"
+      ContinueOnError="False"
+      Command="$(MSBuildProjectDirectory)\..\.nuget\NuGet.exe pack Package.nuspec -Version %(AssemblyVersion.Version)"
+      IgnoreExitCode="true">
+      <Output TaskParameter="ExitCode" PropertyName="CreatingExitCode" />
+    </Exec>
+  </Target>
+  <Target Name="CopyReferences">
+    <CreateItem Include="%(ReferencePath.FullPath)" Condition="'%(ReferencePath.CopyLocal)'=='true'">
+      <Output TaskParameter="Include" ItemName="DirectReference"/>
+    </CreateItem>
+    <CreateItem Include="%(DirectReference.FullPath)" Condition="Exists('%(DirectReference.FullPath)')">
+      <Output TaskParameter="Include" ItemName="ExistingDirectReference"/>
+    </CreateItem>
+    <Copy Condition="'%(ExistingDirectReference.FullPath)'!='' And '$(NugetDstFolder)'!=''"
+          SourceFiles="%(ExistingDirectReference.FullPath)"
+          DestinationFolder="$(NugetDstFolder)"
+          SkipUnchangedFiles="true" >
+      <Output TaskParameter="CopiedFiles" ItemName="DirectReferenceCopied" />
+    </Copy>
+    <Message Importance="high" Text="Reference copied: %(DirectReferenceCopied.FullPath)"/>
+  </Target>
+</Project>

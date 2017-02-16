@@ -1,0 +1,11 @@
+﻿<div>
+
+    <ul class="options-list">
+        <li ng-repeat="type in optionTypes">
+            <label>
+                <input type="radio" ng-change="selectType(type)" ng-model="selectedType.optionValue" ng-value="type">
+                {{type}}
+            </label>
+        </li>
+    </ul>
+</div>
