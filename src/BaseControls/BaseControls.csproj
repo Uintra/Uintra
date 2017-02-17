@@ -69,10 +69,10 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
-    <Content Include="BaseControls.Build.xml" />
+    <None Include="BaseControls.Build.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <None Include="BaseControls.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
