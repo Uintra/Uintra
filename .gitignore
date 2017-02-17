@@ -29,4 +29,6 @@ src/Compent.uCommunity/Content/images/search.png
 src/Compent.uCommunity/node_modules
 src/Compent.uCommunity/Content/images/home.png
 
+src/uCommunity.BaseControls/bin/*
+src/uCommunity.BaseControls/obj/
 

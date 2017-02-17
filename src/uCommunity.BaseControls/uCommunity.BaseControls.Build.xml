@@ -35,7 +35,7 @@
 
     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\NuGet.exe" workingdir="${Csc.Setting.Build.WorkingDirectory}" verbose="true">
       <arg value="pack" />
-      <arg file="${CcnetConfig.SourcesRootDirectory}\src\BaseControls\BaseControls.csproj" />
+      <arg file="${CcnetConfig.SourcesRootDirectory}\src\uCommunity.BaseControls\uCommunity.BaseControls.csproj" />
       <arg value="-Build" />
       <arg line="-Verbosity detailed" />
     </exec>
