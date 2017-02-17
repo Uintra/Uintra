@@ -9,7 +9,7 @@
             value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln" />
 
   <include buildfile="${CcnetConfig.BuildToolsDirectory}\BuildScripts\Creuna.BuildTools.NAnt.xml" />
-	<call target="Target.RestoreNuGetPackages" />
+	<!--<call target="Target.RestoreNuGetPackages" />-->
   <target name="Target.Build" description="">
     <property name="Csc.Setting.Simian.Path" value="" />
     <property name="Csc.Setting.SourceMonitor.Path" value="" />
