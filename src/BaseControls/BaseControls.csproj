@@ -69,12 +69,13 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
-    <None Include="BaseControls.Build.xml" />
+    <Content Include="BaseControls.Build.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <None Include="BaseControls.nuspec" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
