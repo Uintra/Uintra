@@ -9,7 +9,7 @@
             value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln" />
 
   <include buildfile="${CcnetConfig.BuildToolsDirectory}\BuildScripts\Creuna.BuildTools.NAnt.xml" />
-	<!--<call target="Target.RestoreNuGetPackages" />-->
+
   <target name="Target.Build" description="">
     <property name="Csc.Setting.Simian.Path" value="" />
     <property name="Csc.Setting.SourceMonitor.Path" value="" />
@@ -45,12 +45,5 @@
       <arg value="/xx" />
     </robocopy>
 
-  </target>
-  
-  <target name="Target.RestoreNuGetPackages">
-    <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe"/>
-	<arg value="restore"/>
-    <arg value="${Csc.Setting.MSBuild.SolutionPath}"/>
-  </target>
-
+  </target> 
 </project>
