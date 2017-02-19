@@ -14,7 +14,7 @@
     <property name="Csc.Setting.Simian.Path" value="" />
     <property name="Csc.Setting.SourceMonitor.Path" value="" />
 
-   <call target="Nuget.Restore" />
+   <call target="Nuget.Restore" /> 
     <call target="Csc.Target.Rebuild" />
 
     <property name="Csc.Setting.NUnit.Path" value="C:\!BuildAccessories\Tools\NUnit-2.6.3\bin\nunit-console.exe" />
@@ -25,10 +25,7 @@
 
   </target>
    <target name="Nuget.Restore">
-    <exec program="C:\Program Files (x86)\NuGet\nuget.exe">
-      <arg value="restore"/>
-      <arg value="${Csc.Setting.MSBuild.SolutionPath}"/>
-    </exec>
+	<exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\TeamDenmark.Intranet.sln"/>
   </target>
 
   <target name="Target.NuGet">
