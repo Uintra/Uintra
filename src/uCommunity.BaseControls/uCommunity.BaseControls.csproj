@@ -10,7 +10,7 @@
     <RootNamespace>uCommunity.BaseControls</RootNamespace>
     <AssemblyName>uCommunity.BaseControls</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-	 <RestorePackages>true</RestorePackages>
+    <RestorePackages>true</RestorePackages>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,10 +41,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Plugins\BaseControls\LinksPicker\LinkTypes.cs" />
+    <Compile Include="App_Plugins\BaseControls\VideoLink\VideoSourceTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="uCommunity.BaseControls.Build.xml" />
+    <Content Include="App_Plugins\BaseControls\base.css" />
+    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.directive.js" />
+    <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
+    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptions.css" />
+    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptions.html" />
+    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptionsDirective.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.directive.js" />
+    <Content Include="App_Plugins\BaseControls\ExternalLink\externalLink.html" />
+    <Content Include="App_Plugins\BaseControls\ExternalLink\externalLinkDirective.js" />
+    <Content Include="App_Plugins\BaseControls\InternalLink\internalLink.html" />
+    <Content Include="App_Plugins\BaseControls\InternalLink\internalLinkDirective.js" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPicker.css" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPicker.html" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPickerDirective.js" />
+    <Content Include="App_Plugins\BaseControls\MediaPicker\media-picker.directive.js" />
+    <Content Include="App_Plugins\BaseControls\TextArea\textArea.html" />
+    <Content Include="App_Plugins\BaseControls\TextArea\textAreaDirective.js" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.html" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
+    <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
+    <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
