@@ -25,7 +25,6 @@
 
   </target>
    <target name="Nuget.Restore">
-	<fail message="Enter to nuget restore" />
 	<exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\TeamDenmark.Intranet.sln"/>
   </target>
 
