@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="App_Plugins\BaseControls\LinksPicker\LinkTypes.cs" />
     <Compile Include="App_Plugins\BaseControls\VideoLink\VideoSourceTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,7 +72,7 @@
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
