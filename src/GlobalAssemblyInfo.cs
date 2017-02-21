@@ -8,7 +8,6 @@
 [assembly: AssemblyCulture("")]
  
 
-[assembly: AssemblyVersion("1.0.1.1")]
 //Change MAJOR version before release
 //Change MINOR version when you add functionality in a backwards-compatible manner
 //Change PATCH version when you make backwards-compatible bugfixes

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<project name="TD.CommonApiClient" default="">
+<project name="uCommunity.BaseControls" default="">
   <loadtasks assembly="C:\Program Files (x86)\nantcontrib-0.85\bin\NAnt.Contrib.Tasks.dll" />
   <loadtasks assembly="C:\Program Files (x86)\nant-0.85\bin\NAnt.Development.Tasks.dll" />
 
