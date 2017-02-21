@@ -1,0 +1,34 @@
+﻿.file-extension{
+    width: 35px;
+    height: 35px;
+    display: block;
+    background-size: cover;
+    &.__pdf{
+        background-image: url(../images/file-type-icons/pdf.svg);
+    }
+    &.__gif{
+        background-image: url(../images/file-type-icons/gif.svg);
+    }
+    &.__jpg,
+    &.__jpeg{
+        background-image: url(../images/file-type-icons/jpg.svg);
+    }
+    &.__svg{
+        background-image: url(../images/file-type-icons/svg.svg);
+    }
+    &.__doc{
+        background-image: url(../images/file-type-icons/doc.svg);
+    }
+    &.__docx{
+        background-image: url(../images/file-type-icons/docx.svg);
+    }
+    &.__xls{
+        background-image: url(../images/file-type-icons/xls.svg);
+    }
+    &.__xls{
+        background-image: url(../images/file-type-icons/xlsx.svg);
+    }
+    &.__csv{
+        background-image: url(../images/file-type-icons/csv.svg);
+    }
+}

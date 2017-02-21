@@ -32,3 +32,11 @@ src/Compent.uCommunity/Content/images/home.png
 src/uCommunity.BaseControls/bin/*
 src/uCommunity.BaseControls/obj/
 
+src/uCommunity.Core/bin/*
+src/uCommunity.Core/obj/
+src/uCommunity.Core/Umbraco/
+src/uCommunity.Core/Umbraco_Client/
+src/uCommunity.Core/App_Data/
+src/uCommunity.Core/App_Browsers/
+src/uCommunity.Core/Web.config
+src/uCommunity.Core/Config/

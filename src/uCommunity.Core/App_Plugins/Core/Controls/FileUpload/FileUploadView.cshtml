@@ -1,0 +1,7 @@
+﻿@using uCommunity.Core.App_Plugins.Core.Extentions
+@inherits UmbracoViewPage<uCommunity.Core.App_Plugins.Core.Controls.FileUpload.Core.FileUploadSettins>
+<div>
+    <div class="dropzone js-dropzone"  data-allowed="@Model.AllowedExtentions" 
+         data-default-text="@Html.Localize("FileUploadView.UploadFiles.lbl")" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></div>
+    <input type="hidden" name="newMedia" class="js-new-media"/>
+</div>
