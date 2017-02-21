@@ -36,7 +36,7 @@
       </fileset>
     </delete>
 
-    <exec program="${CcnetConfig.SourcesRootDirectory}\.nuget\NuGet.exe" workingdir="${Csc.Setting.Build.WorkingDirectory}" verbose="true">
+    <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\NuGet.exe" workingdir="${Csc.Setting.Build.WorkingDirectory}" verbose="true">
       <arg value="pack" />
       <arg file="${CcnetConfig.SourcesRootDirectory}\src\uCommunity.Core\uCommunity.Core.csproj" />
       <arg value="-Build" />
