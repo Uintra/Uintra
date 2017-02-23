@@ -1,0 +1,8 @@
+﻿#photoswipe 4.1.1
+#bootstrap 3.3.7
+#flatpickr 2.2.5
+#quill 1.1.8
+#dropzone 4.3.0
+#mobile-detect 1.3.5
+#jquery 3.1.1
+#select2 4.0.3

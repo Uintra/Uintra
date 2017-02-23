@@ -8,7 +8,7 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "8e05c31bf59c988a")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "4bc602f790c5fe64")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
@@ -40,138 +40,9 @@ using  Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>Hidden navigation</summary>
-	[PublishedContentModel("hiddenNavigation")]
-	public partial class HiddenNavigation : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hiddenNavigation";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HiddenNavigation(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HiddenNavigation, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Hide in navigation
-		///</summary>
-		[ImplementPropertyType("hideInNavigation")]
-		public bool HideInNavigation
-		{
-			get { return this.GetPropertyValue<bool>("hideInNavigation"); }
-		}
-
-		///<summary>
-		/// Navigation name
-		///</summary>
-		[ImplementPropertyType("navigationName")]
-		public string NavigationName
-		{
-			get { return this.GetPropertyValue<string>("navigationName"); }
-		}
-
-		///<summary>
-		/// Show page in sub navigation
-		///</summary>
-		[ImplementPropertyType("showPageInSubNavigation")]
-		public bool ShowPageInSubNavigation
-		{
-			get { return this.GetPropertyValue<bool>("showPageInSubNavigation"); }
-		}
-	}
-
-	// Mixin content Type 1058 with alias "navigation"
-	/// <summary>Navigation</summary>
-	public partial interface INavigation : IPublishedContent
-	{
-		/// <summary>Hide in navigation</summary>
-		bool HideInNavigation { get; }
-
-		/// <summary>Navigation name</summary>
-		string NavigationName { get; }
-
-		/// <summary>Show page in sub navigation</summary>
-		bool ShowPageInSubNavigation { get; }
-	}
-
-	/// <summary>Navigation</summary>
-	[PublishedContentModel("navigation")]
-	public partial class Navigation : PublishedContentModel, INavigation
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "navigation";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public Navigation(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Navigation, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Hide in navigation
-		///</summary>
-		[ImplementPropertyType("hideInNavigation")]
-		public bool HideInNavigation
-		{
-			get { return GetHideInNavigation(this); }
-		}
-
-		/// <summary>Static getter for Hide in navigation</summary>
-		public static bool GetHideInNavigation(INavigation that) { return that.GetPropertyValue<bool>("hideInNavigation"); }
-
-		///<summary>
-		/// Navigation name
-		///</summary>
-		[ImplementPropertyType("navigationName")]
-		public string NavigationName
-		{
-			get { return GetNavigationName(this); }
-		}
-
-		/// <summary>Static getter for Navigation name</summary>
-		public static string GetNavigationName(INavigation that) { return that.GetPropertyValue<string>("navigationName"); }
-
-		///<summary>
-		/// Show page in sub navigation
-		///</summary>
-		[ImplementPropertyType("showPageInSubNavigation")]
-		public bool ShowPageInSubNavigation
-		{
-			get { return GetShowPageInSubNavigation(this); }
-		}
-
-		/// <summary>Static getter for Show page in sub navigation</summary>
-		public static bool GetShowPageInSubNavigation(INavigation that) { return that.GetPropertyValue<bool>("showPageInSubNavigation"); }
-	}
-
 	/// <summary>TEST TYPE</summary>
 	[PublishedContentModel("tESTTYPE")]
-	public partial class TEsttype : PublishedContentModel, INavigation
+	public partial class TEsttype : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "tESTTYPE";
@@ -192,33 +63,6 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TEsttype, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Hide in navigation
-		///</summary>
-		[ImplementPropertyType("hideInNavigation")]
-		public bool HideInNavigation
-		{
-			get { return Navigation.GetHideInNavigation(this); }
-		}
-
-		///<summary>
-		/// Navigation name
-		///</summary>
-		[ImplementPropertyType("navigationName")]
-		public string NavigationName
-		{
-			get { return Navigation.GetNavigationName(this); }
-		}
-
-		///<summary>
-		/// Show page in sub navigation
-		///</summary>
-		[ImplementPropertyType("showPageInSubNavigation")]
-		public bool ShowPageInSubNavigation
-		{
-			get { return Navigation.GetShowPageInSubNavigation(this); }
 		}
 	}
 

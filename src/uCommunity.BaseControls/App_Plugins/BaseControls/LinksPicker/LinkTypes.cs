@@ -1,5 +1,5 @@
 ﻿
-namespace TeamDenmark.Intranet.App_Plugins.BaseControls.LinksPicker
+namespace uCommunity.Core.App_Plugins.BaseControls.LinksPicker
 {
     public enum LinkTypes
     {

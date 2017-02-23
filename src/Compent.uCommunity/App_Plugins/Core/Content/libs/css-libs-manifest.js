@@ -1,0 +1,10 @@
+﻿module.exports = require('./photoswipe/photoswipe.css');
+module.exports = require('./photoswipe/default-skin.css');
+module.exports = require('./bootstrap/css/bootstrap.min.css');
+module.exports = require('./quill/quill.core.css');
+module.exports = require('./quill/quill.bubble.css');
+module.exports = require('./quill/quill.snow.css');
+module.exports = require('./dropzone/basic.min.css');
+module.exports = require('./dropzone/dropzone.min.css');
+module.exports = require('./flatpickr/flatpickr.css');
+module.exports = require("./select2/select2.min.css");

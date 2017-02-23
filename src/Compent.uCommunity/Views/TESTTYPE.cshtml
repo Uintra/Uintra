@@ -1,5 +1,11 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.TEsttype>
+@using ServiceStack.OrmLite
+@using uCommunity.Core.App_Plugins.Core.Activity.Entities
+@using uCommunity.Core.App_Plugins.Core.Persistence.Sql
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dbFactory = new OrmLiteConnectionFactory(@"server=192.168.0.208\SQL2014;database=TD_Intranet;user id=sa;password='q1w2e3r4'", SqlServerDialect.Provider);
+    var sql = new SqlRepository<IntranetActivityEntity>(dbFactory);
+    int a = 0;
 }

@@ -1,5 +1,5 @@
 ﻿
-namespace TeamDenmark.Intranet.App_Plugins.BaseControls.VideoLink
+namespace uCommunity.BaseControls.App_Plugins.BaseControls.VideoLink
 {
     public enum VideoSourceTypes
     {

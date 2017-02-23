@@ -1,0 +1,16 @@
+﻿<div class="umbraco-panel__row">
+    <div ng-show="!internalLink">
+        <i class="icon icon-add blue"></i>
+        <a href="#" ng-click="openContentPicker()" prevent-default="">
+            <div>Add</div>
+        </a>
+    </div>
+    <div ng-show="internalLink">
+        <i class="icon icon-navigation handle"></i>
+        <a href="#" prevent-default="" ng-click="removeContent()">
+            <i class="icon icon-delete red hover-show"></i>
+            <i class="icon hover-hide" ng-class="internalLink.icon"></i>
+            {{internalLink.name}}
+        </a>
+    </div>
+</div>

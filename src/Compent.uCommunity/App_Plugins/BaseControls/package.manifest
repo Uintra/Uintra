@@ -1,0 +1,17 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/BaseControls/VideoLink/videoLinkDirective.js",
+    "~/App_Plugins/BaseControls/ExternalLink/externalLinkDirective.js",
+    "~/App_Plugins/BaseControls/InternalLink/internalLinkDirective.js",
+    "~/App_Plugins/BaseControls/MediaPicker/media-picker.directive.js",
+    "~/App_Plugins/BaseControls/LinksPicker/linksPickerDirective.js",
+    "~/App_Plugins/BaseControls/TextArea/textAreaDirective.js",
+    "~/App_Plugins/BaseControls/CustomOptions/customOptionsDirective.js",
+    "~/App_Plugins/BaseControls/DatePicker/date-picker.directive.js",
+    "~/App_Plugins/BaseControls/TinyMce/tiny-mce.js",
+    "~/App_Plugins/BaseControls/ContentPicker/contentPickerController.js"
+  ],
+  "css": [
+    "~/App_Plugins/BaseControls/base.css"
+  ]
+}

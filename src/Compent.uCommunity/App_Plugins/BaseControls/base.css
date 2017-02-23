@@ -1,0 +1,89 @@
+﻿.umbraco-panel *{
+    box-sizing:border-box;
+}
+.umbraco-panel{
+    padding:10px;
+}
+.umbraco-panel__row{
+    overflow:hidden;
+    margin:0 0 20px;
+}
+.umbraco-panel .umb-search-field,
+.umbraco-panel .umbraco-panel__text-field{
+    width:100%;
+    display:block;
+    height:30px;
+}
+.umbraco-panel .datepickerinput {
+    display: inline-block;
+    height: 30px;
+}
+.umbraco-panel .datepickerinput {
+    display: inline-block;
+}
+.umbraco-panel .umbraco-panel__textarea{
+    width:100%;
+    display:block;
+    overflow: auto;
+    max-width: 100%;
+}
+.umbraco-panel .umbraco-panel__label{
+    display:block;
+    float:none;
+}
+.umbraco-panel__link{
+    cursor:pointer;
+}
+.umbraco-panel__link:hover{
+    text-decoration:underline;
+}
+
+.umbraco-panel .umbraco-panel__error {
+    /*border: 1px solid red;*/
+    color: red;
+}
+.umb-control .dummy-plugin-view-holder {
+    width: 300px;
+    height: 300px;
+    margin: 10px auto;
+}
+.umb-control .dummy-plugin-view-holder .title-holder {
+    margin: 110px 0;
+}
+/* datepcker */
+.umbraco-panel .input-append .add-on,
+.umbraco-panel .input-prepend .add-on {
+    min-width: 28px;
+    height: 30px;
+}
+.umb-datepicker {
+    position: relative;
+    min-width: 0;
+    display: inline-block;
+}
+.umb-datepicker p {
+    position: absolute;
+    top: 2px;
+    right: 30px;
+    margin: 0;
+}
+.umb-datepicker a:hover {
+    text-decoration: none;
+    opacity: 0.5;
+}
+.umb-datepicker p small {
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    height: 0;
+}
+.umb-datepicker .icon-delete:before {
+    vertical-align: top;
+    margin: 2px 0 0;
+}
+.umb-mediapicker .umb-sortable-thumbnails li {
+    margin: 0 10px 10px 0;
+}
+.ng-invalid.ng-invalid-required {
+    border-color:#dd0a2d;
+}

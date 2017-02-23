@@ -40,3 +40,12 @@ src/uCommunity.Core/App_Data/
 src/uCommunity.Core/App_Browsers/
 src/uCommunity.Core/Web.config
 src/uCommunity.Core/Config/
+
+src/uCommunity.Likes/bin/*
+src/uCommunity.Likes/obj/
+src/uCommunity.Likes/Umbraco/
+src/uCommunity.Likes/Umbraco_Client/
+src/uCommunity.Likes/App_Data/
+src/uCommunity.Likes/App_Browsers/
+src/uCommunity.Likes/Web.config
+src/uCommunity.Likes/Config/
