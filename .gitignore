@@ -49,3 +49,14 @@ src/uCommunity.Likes/App_Data/
 src/uCommunity.Likes/App_Browsers/
 src/uCommunity.Likes/Web.config
 src/uCommunity.Likes/Config/
+src/uCommunity.Likes/App_Plugins/Core/
+
+src/uCommunity.Subscribe/bin/*
+src/uCommunity.Subscribe/obj/
+src/uCommunity.Subscribe/Umbraco/
+src/uCommunity.Subscribe/Umbraco_Client/
+src/uCommunity.Subscribe/App_Data/
+src/uCommunity.Subscribe/App_Browsers/
+src/uCommunity.Subscribe/Web.config
+src/uCommunity.Subscribe/Config/
+src/uCommunity.Subscribe/App_Plugins/Core/
