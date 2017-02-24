@@ -6,6 +6,7 @@ namespace uCommunity.Core.App_Plugins.Core.User
     public interface IIntranetUserService
     {
         IEnumerable<string> GetFullNamesByIds(IEnumerable<Guid> ids);
+        Guid GetCurrentUserId();
     }
 
     public interface IIntranetUserService<out TModel> : IIntranetUserService
@@ -14,4 +15,5 @@ namespace uCommunity.Core.App_Plugins.Core.User
         IEnumerable<TModel> GetAll();
         TModel GetActivityUser(int umbracoId);
     }
+
 }
