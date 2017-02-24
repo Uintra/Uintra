@@ -278,7 +278,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Core">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.0\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.2\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco">
@@ -327,6 +327,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Plugins\Likes\ILikesService.cs" />
+    <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Likes\LikesService.cs" />
     <Compile Include="App_Plugins\Likes\Models\ActivityLikesViewModel.cs" />
     <Compile Include="App_Plugins\Likes\Sql\Like.cs" />
