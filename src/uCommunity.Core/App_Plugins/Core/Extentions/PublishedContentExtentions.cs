@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using TeamDenmark.Common.ApiClient.Utils;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

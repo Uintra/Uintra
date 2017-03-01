@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TeamDenmark.Common.ApiClient.Utils;
 
 namespace uCommunity.Core.App_Plugins.Core.Extentions
 {
@@ -42,6 +41,16 @@ namespace uCommunity.Core.App_Plugins.Core.Extentions
         public static string JoinToString<T>(this IEnumerable<T> enumerable, string separator = ",")
         {
             return string.Join(separator, enumerable);
+        }
+
+        public static string JoinWithComma(this IEnumerable<string> list)
+        {
+            return list.JoinWithSeparator(", ");
+        }
+
+        public static string JoinWithSeparator(this IEnumerable<string> list, string separator)
+        {
+            return list == null ? "" : string.Join(separator, list);
         }
     }
 }
