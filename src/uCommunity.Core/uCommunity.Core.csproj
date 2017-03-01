@@ -264,10 +264,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TeamDenmark.Common.ApiClient, Version=4.5.14.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\TeamDenmark.Common.ApiClient.4.5.14\lib\net45\TeamDenmark.Common.ApiClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
