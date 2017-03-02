@@ -313,6 +313,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App_Plugins\Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="App_Plugins\Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="App_Plugins\Core\Activity\IIntranetActivityItemServiceBase.cs" />
