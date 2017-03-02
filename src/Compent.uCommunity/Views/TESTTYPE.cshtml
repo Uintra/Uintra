@@ -4,8 +4,9 @@
 @using uCommunity.Core.App_Plugins.Core.Persistence.Sql
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     var dbFactory = new OrmLiteConnectionFactory(@"server=192.168.0.208\SQL2014;database=TD_Intranet;user id=sa;password='q1w2e3r4'", SqlServerDialect.Provider);
     var sql = new SqlRepository<IntranetActivityEntity>(dbFactory);
     int a = 0;
 }
+@Html.Action("Likes", "Likes", new { activityId = "12b5313f-bbe5-45f9-97c2-a5f6789d1103" } )

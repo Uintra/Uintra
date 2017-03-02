@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using TeamDenmark.Common.ApiClient.Utils;
 using uCommunity.Core.App_Plugins.Core.Caching;
 using uCommunity.Core.App_Plugins.Core.Controls.FileUpload.Core;
+using uCommunity.Core.App_Plugins.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
