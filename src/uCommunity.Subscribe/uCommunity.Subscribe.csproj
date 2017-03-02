@@ -336,7 +336,7 @@
     <Compile Include="App_Plugins\Subscribe\Model\SubscribeOverviewModel.cs" />
     <Compile Include="App_Plugins\Subscribe\Model\SubscribeViewModel.cs" />
     <Compile Include="App_Plugins\Subscribe\Sql\Subscribe.cs" />
-    <Compile Include="App_Plugins\Subscribe\SubscribeController.cs" />
+    <Content Include="App_Plugins\Subscribe\SubscribeController.cs" />
     <Compile Include="App_Plugins\Subscribe\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
