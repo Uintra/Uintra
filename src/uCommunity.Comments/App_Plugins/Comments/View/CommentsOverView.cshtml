@@ -1,0 +1,11 @@
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.App_Plugins.Core.Extentions
+@model uCommunity.Comments.App_Plugins.Comments.Models.CommentsOverviewModel
+
+<div id="@Model.ElementId" data-activity-id="@Model.ActivityId">
+    <h3 class="comments__title">@Html.Localize("CommentsOverView.Title.lbl")</h3>
+    @{Html.RenderAction("ListView", "Comments", new { activityId = Model.ActivityId });}
+
+    <h4 class="comments__subtitle">@Html.Localize("CommentsOverView.AddComment.lbl")</h4>
+    @{Html.RenderAction("CreateView", "Comments", new { activityId = Model.ActivityId });}
+</div>
