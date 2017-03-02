@@ -60,3 +60,13 @@ src/uCommunity.Subscribe/App_Browsers/
 src/uCommunity.Subscribe/Web.config
 src/uCommunity.Subscribe/Config/
 src/uCommunity.Subscribe/App_Plugins/Core/
+
+src/uCommunity.Comments/bin/*
+src/uCommunity.Comments/obj/
+src/uCommunity.Comments/Umbraco/
+src/uCommunity.Comments/Umbraco_Client/
+src/uCommunity.Comments/App_Data/
+src/uCommunity.Comments/App_Browsers/
+src/uCommunity.Comments/Web.config
+src/uCommunity.Comments/Config/
+src/uCommunity.Comments/App_Plugins/Core/
