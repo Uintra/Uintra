@@ -13,7 +13,7 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
 
         bool IsSubscribed(Guid userId, Guid activityId);
 
-        bool IsSubscribed(Guid userId, ISubscribe subscribers);
+        bool IsSubscribed(Guid userId, ISubscribable subscribers);
 
         long GetVersion(Guid activityId);
 
@@ -24,5 +24,7 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
         void Unsubscribe(Guid userId, Guid activityId);
 
         void UpdateNotificationDisabled(Guid subscribeId, bool newValue);
+
+        void FillSubscribers(ISubscribable entity);
     }
 }

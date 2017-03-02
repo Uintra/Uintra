@@ -6,6 +6,6 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
     {
         Sql.Subscribe Subscribe(Guid userId, Guid activityId);
 
-        Sql.Subscribe UnSubscribe(Guid userId, Guid activityId);
+        void UnSubscribe(Guid userId, Guid activityId);
     }
 }

@@ -34,7 +34,7 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
             return _subscribeRepository.Exists(s => s.UserId == userId && s.ActivityId == activityId);
         }
 
-        public bool IsSubscribed(Guid userId, ISubscribe subscribers)
+        public bool IsSubscribed(Guid userId, ISubscribable subscribers)
         {
             return subscribers.Subscribers.Any(s => s.UserId == userId);
         }
@@ -75,6 +75,11 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
             var subscribe = _subscribeRepository.Get(subscribeId);
             subscribe.IsNotificationDisabled = newValue;
             _subscribeRepository.Update(subscribe);
+        }
+
+        public void FillSubscribers(ISubscribable entity)
+        {
+            entity.Subscribers = Get(entity.Id);
         }
     }
 }
