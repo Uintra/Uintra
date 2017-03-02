@@ -14,6 +14,6 @@ namespace uCommunity.Core.App_Plugins.Core.User
     {
         IEnumerable<TModel> GetAll();
         TModel GetActivityUser(int umbracoId);
+        TModel GetCurrentUser();
     }
-
 }
