@@ -362,7 +362,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Plugins\Comments\AutoMapperProfiles\CommentAutoMapperProfile.cs" />
-    <Compile Include="App_Plugins\Comments\CommentsController.cs" />
+	<Compile Include="App_Plugins\Comments\CommentsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="App_Plugins\Comments\ICommentsService.cs" />
     <Compile Include="App_Plugins\Comments\Models\CommentCreateModel.cs" />
     <Compile Include="App_Plugins\Comments\Models\CommentEditModel.cs" />
