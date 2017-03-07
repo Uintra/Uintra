@@ -68,5 +68,6 @@ src/uCommunity.Comments/Umbraco_Client/
 src/uCommunity.Comments/App_Data/
 src/uCommunity.Comments/App_Browsers/
 src/uCommunity.Comments/Web.config
+src/uCommunity.Comments/web.config
 src/uCommunity.Comments/Config/
 src/uCommunity.Comments/App_Plugins/Core/
