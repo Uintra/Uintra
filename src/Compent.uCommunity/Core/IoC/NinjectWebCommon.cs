@@ -4,10 +4,18 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uCommunity.Core.IoC;
+using Compent.uCommunity.Core.Users;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
 using Ninject;
 using Ninject.Web.Common;
+using ServiceStack.Data;
+using ServiceStack.OrmLite;
+using uCommunity.Comments.App_Plugins.Comments;
+using uCommunity.Comments.App_Plugins.Comments.Sql;
+using uCommunity.Core.App_Plugins.Core.Localization;
+using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Core.App_Plugins.Core.User;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
@@ -23,6 +31,8 @@ namespace Compent.uCommunity.Core.IoC
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+
+        private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=TD_Intranet;user id=sa;password='q1w2e3r4'";
 
         public static void Start()
         {
@@ -71,6 +81,15 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IMediaService>().ToMethod(i => ApplicationContext.Current.Services.MediaService).InRequestScope();
             kernel.Bind<DatabaseContext>().ToMethod(i => ApplicationContext.Current.DatabaseContext).InRequestScope();
             kernel.Bind<IDataTypeService>().ToMethod(i => ApplicationContext.Current.Services.DataTypeService).InRequestScope();
+
+            // Plugin services
+            kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
+
+            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(TDIntranetConnectionString, SqlServerDialect.Provider)).InSingletonScope();
+
+            kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
+            kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
         }
 
         private static UmbracoContext CreateUmbracoContext()

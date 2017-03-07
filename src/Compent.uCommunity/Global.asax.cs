@@ -1,17 +1,19 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;
+using Compent.uCommunity.App_Start;
+using Umbraco.Web;
 
 namespace Compent.uCommunity
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class UcommunityApplication : UmbracoApplication
     {
-        protected void Application_Start()
+        protected override void OnApplicationStarting(object sender, EventArgs e)
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MapperConfig.RegisterMappings();
         }
     }
 }
