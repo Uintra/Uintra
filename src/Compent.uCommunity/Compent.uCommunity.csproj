@@ -294,9 +294,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.0.2\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.0.7\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Core">
