@@ -42,6 +42,7 @@
       <arg value="pack" />
       <arg file="${CcnetConfig.SourcesRootDirectory}\src\uCommunity.Comments\uCommunity.Comments.csproj" />
       <arg value="-Build" />
+      <arg line="-Properties Configuration=NuGet" />
       <arg line="-Verbosity detailed" />
     </exec>
 
