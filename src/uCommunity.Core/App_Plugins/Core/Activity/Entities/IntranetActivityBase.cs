@@ -17,6 +17,12 @@ namespace uCommunity.Core.App_Plugins.Core.Activity.Entities
         [JsonIgnore]
         public DateTime ModifyDate { get; set; }
 
+        public string Title { get; set; }
+
+        public string Teaser { get; set; }
+            
+        public string Description { get; set; }
+
         public bool IsHidden { get; set; }
     }
 }
