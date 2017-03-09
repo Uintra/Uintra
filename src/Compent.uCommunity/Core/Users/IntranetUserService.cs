@@ -9,8 +9,8 @@ namespace Compent.uCommunity.Core.Users
     {
         private readonly List<IntranetUserBase> users = new List<IntranetUserBase>
         {
-            new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E") },
-            new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E") }
+            new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test 1" },
+            new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test 2" }
         };
 
         public IEnumerable<string> GetFullNamesByIds(IEnumerable<Guid> ids)
