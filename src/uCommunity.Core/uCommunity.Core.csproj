@@ -330,6 +330,8 @@
     <Compile Include="App_Plugins\Core\Caching\MemoryCacheService.cs" />
     <Compile Include="App_Plugins\Core\Caching\Models\CachedItemBase.cs" />
     <Compile Include="App_Plugins\Core\Caching\Models\CachedList.cs" />
+    <Compile Include="App_Plugins\Core\Configuration\ConfigurationProvider.cs" />
+    <Compile Include="App_Plugins\Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileController.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileUploadController.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileUploadEditViewModel.cs" />
