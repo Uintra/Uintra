@@ -5,19 +5,14 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using ServiceStack;
 using uCommunity.Core.App_Plugins.Core.Activity.Entities;
+using uCommunity.Core.App_Plugins.Core.Activity.Sql;
 using uCommunity.Core.App_Plugins.Core.Caching;
+using uCommunity.Core.App_Plugins.Core.Extentions;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
 using Umbraco.Core.Models;
 
 namespace uCommunity.Core.App_Plugins.Core.Activity
 {
-    public static class CacheConstants
-    {
-        public const string ResourceKey = "Resource_";
-        public const string CentralFeedCacheKey = "CentralFeed";
-        public const string CentralFeedSettingsCacheKey = "CentralFeedSettings";
-        public const string ActivityCacheKey = "Activity";
-    }
     public abstract class IntranetActivityItemServiceBase<T> : IIntranetActivityItemServiceBase<T>
         where T : IntranetActivityBase, new()
     {
@@ -133,19 +128,19 @@ namespace uCommunity.Core.App_Plugins.Core.Activity
                 Type = ActivityType
             };
             entity.CreatedDate = entity.ModifyDate = DateTime.Now;
-            entity.JsonData = JsonConvert.SerializeObject(model, Formatting.None, GetSettings());
+            entity.JsonData = StringExtensions.ToJson(model);
             return entity;
         }
 
         protected virtual void FillPropertiesOnEdit(IntranetActivityEntity entity, T model)
         {
             entity.ModifyDate = DateTime.Now;
-            entity.JsonData = JsonConvert.SerializeObject(model, Formatting.None, GetSettings());
+            entity.JsonData = StringExtensions.ToJson(model);
         }
 
         protected virtual T FillPropertiesOnGet(IntranetActivityEntity entity)
         {
-            var model = entity.JsonData.IsNullOrEmpty() ? new T() : (T)JsonConvert.DeserializeObject(entity.JsonData, typeof(T), GetSettings());
+            var model = entity.JsonData.Deserialize<T>();
             model.Id = entity.Id;
             model.Type = entity.Type;
             model.CreatedDate = entity.CreatedDate;
@@ -173,15 +168,6 @@ namespace uCommunity.Core.App_Plugins.Core.Activity
                 var model = FillPropertiesOnGet(entity);
                 yield return model;
             }
-        }
-
-        private static JsonSerializerSettings GetSettings()
-        {
-            return new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
         }
 
         private static DateTimeOffset GetCacheExpiration()

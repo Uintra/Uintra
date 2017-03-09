@@ -19,5 +19,10 @@ namespace uCommunity.Core.App_Plugins.Core.Extentions
 
             return service;
         }
+
+        public static string GetBackLink(this HttpContextBase context, string defaultLink)
+        {
+            return context.Request.UrlReferrer?.AbsoluteUri ?? defaultLink;
+        }
     }
 }

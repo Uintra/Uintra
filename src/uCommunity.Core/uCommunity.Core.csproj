@@ -316,6 +316,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App_Plugins\Core\Activity\CacheConstants.cs" />
     <Compile Include="App_Plugins\Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="App_Plugins\Core\Activity\Entities\IntranetActivityBase.cs" />
@@ -341,6 +342,7 @@
     <Compile Include="App_Plugins\Core\Extentions\AutoMapperExtentions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\HtmlExtentions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\HttpContextExtentions.cs" />
+    <Compile Include="App_Plugins\Core\Extentions\LocalizationExtensions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\SerializationExtentions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\StringExtentions.cs" />
@@ -356,6 +358,7 @@
     <Compile Include="App_Plugins\Core\Persistence\Sql\SqlEntity.cs" />
     <Compile Include="App_Plugins\Core\Persistence\Sql\SqlRepository.cs" />
     <Compile Include="App_Plugins\Core\UmbracoAliases.cs" />
+    <Compile Include="App_Plugins\Core\User\IHasCreator.cs" />
     <Compile Include="App_Plugins\Core\User\IIntranetUserService.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetRolesEnum.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetUserBase.cs" />
@@ -543,6 +546,8 @@
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\intranet-core.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />

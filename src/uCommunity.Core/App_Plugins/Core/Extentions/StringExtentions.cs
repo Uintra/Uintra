@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace uCommunity.Core.App_Plugins.Core.Extentions
 {
@@ -51,6 +52,21 @@ namespace uCommunity.Core.App_Plugins.Core.Extentions
         public static string JoinWithSeparator(this IEnumerable<string> list, string separator)
         {
             return list == null ? "" : string.Join(separator, list);
+        }
+     
+        public static string CropText(this string text, int sizeToCrop)
+        {
+            if (!string.IsNullOrEmpty(text) && text.Length > sizeToCrop * 2 && !text.Contains(IntranetConstants.SearchConstants.HighlightPreTag))
+            {
+                return text.Substring(text.Length - sizeToCrop) + "...";
+            }
+
+            return text;
+        }
+
+        public static string StripHtml(this string input)
+        {
+            return Regex.Replace(input, "<.*?>", string.Empty);
         }
     }
 }
