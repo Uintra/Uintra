@@ -1,7 +1,6 @@
-﻿(function () {
+﻿var Lightbox = (function () {
     'use strict';
     var helpers = window.Helpers;
-    var selectors = window.lightboxSelectors || [];
     var photoswipeElement = document.querySelector('.pswp');
     var galleries = [];
     var defaultOptions = {
@@ -53,9 +52,9 @@
         return result;
     }
 
-    var initGalley = function (selector) {
+    var initGalley = function (container) {
 
-        var holder = document.querySelector(selector);
+        var holder = container;
         if (!holder) {
             console.warn("Can't find lightbox galery holder with selector: " + selector);
             return;
@@ -74,25 +73,30 @@
         }
         galleryModel.options.galleryUID = galleryModel.uId;
 
-        for (var i = 0; i < images.length; i++) {
-            var item = images[i];
-            item.addEventListener("click",
-                (ev) => {
-                    galleryModel.options.index = i;
+        var imageArray = Array.from(images);
+
+        imageArray.forEach(function (image) {
+            image.addEventListener("click",
+                () => {
+                    galleryModel.options.index = imageArray.indexOf(image);
                     createGallery(galleryModel);
                 });
-        }
+        });
 
         galleries.push(galleryModel);
     }
 
     var controller = {
         init: function () {
-            selectors.forEach(function (selector) {
-                initGalley(selector);
+            $('.js-lightbox-galley').each(function () {
+                initGalley(this);
             });
         }
     }
-
     App.AppInitializer.add(controller.init);
+
+    return controller;
 })();
+
+window.App = window.App || {};
+window.App.Lightbox = Lightbox;

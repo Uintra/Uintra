@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
-using uCommunity.Core.App_Plugins.Core.User;
+using uCommunity.Likes.App_Plugins.Likes;
 using uCommunity.Likes.App_Plugins.Likes.Models;
 using uCommunity.Likes.App_Plugins.Likes.Sql;
 
-namespace uCommunity.Likes.App_Plugins.Likes
+namespace Compent.uCommunity.Core
 {
-    public class LikesService : ILikesService
+    public class LikeableService : ILikeableService
     {
         private readonly ISqlRepository<Like> _likesRepository;
-        private readonly IIntranetUserService _intranetUserService;
 
-        public LikesService(ISqlRepository<Like> likesRepository, IIntranetUserService intranetUserService)
+        public LikeableService(ISqlRepository<Like> likesRepository)
         {
             _likesRepository = likesRepository;
-            _intranetUserService = intranetUserService;
         }
 
-        public IEnumerable<Like> Get(Guid activityId)
+        public IEnumerable<LikeModel> GetLikes(Guid activityId)
         {
-            return _likesRepository.FindAll(l => l.ActivityId == activityId);
+            var likes =  _likesRepository.FindAll(l => l.ActivityId == activityId);
+            return likes.Select(l => new LikeModel {UserId = l.UserId, User = "user"});
         }
 
         public int GetCount(Guid activityId)
@@ -51,25 +50,6 @@ namespace uCommunity.Likes.App_Plugins.Likes
         {
             var exists = _likesRepository.Exists(like => like.ActivityId == activityId && like.UserId == userId);
             return !exists;
-        }
-
-        public bool CanRemove(Guid userId, Guid activityId)
-        {
-            return !CanAdd(userId, activityId);
-        }
-
-        public void FillLikes(ILikeable entity)
-        {
-            var likes = Get(entity.Id).OrderByDescending(el => el.CreatedDate);
-            var users = likes.Any()
-                ? _intranetUserService.GetByIds(likes.Select(el => el.UserId))
-                : Enumerable.Empty<ListItemModel<Guid>>();
-
-            entity.Likes = users.Select(el => new LikeModel()
-            {
-                UserId = el.Id,
-                User = el.Name
-            });
         }
     }
 }

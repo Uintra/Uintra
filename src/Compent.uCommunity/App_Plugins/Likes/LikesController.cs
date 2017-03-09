@@ -6,74 +6,67 @@ using uCommunity.Core.App_Plugins.Core.User;
 using uCommunity.Likes.App_Plugins.Likes;
 using uCommunity.Likes.App_Plugins.Likes.Models;
 using Umbraco.Web.Mvc;
-using uCommunity.Core.App_Plugins.Core.Activity.Entities;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
-using uCommunity.Likes.App_Plugins.Likes;
+using uCommunity.Core.App_Plugins.Core.Activity;
 using ServiceStack.OrmLite;
-using uCommunity.Likes.App_Plugins.Likes.Sql;
 
 namespace uCommunity.Likes.Controllers
 {
     public class LikesController : SurfaceController
     {
-        private readonly ILikesService _likesService;
+        //private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService _intranetUserService;
+        private readonly ILikeableService likeableService;
+        
 
-        public LikesController()
+        public LikesController(
+            //IActivitiesServiceFactory activitiesServiceFactory,
+            IIntranetUserService intranetUserService,
+            ILikeableService likeableService)
         {
-            var dbFactory = new OrmLiteConnectionFactory(@"server=192.168.0.208\SQL2014;database=TD_Intranet;user id=sa;password='q1w2e3r4'", SqlServerDialect.Provider);
-
-            _likesService = new LikesService(new SqlRepository<Like>(dbFactory));
+            //_activitiesServiceFactory = activitiesServiceFactory;
+            _intranetUserService = intranetUserService;
+            this.likeableService = likeableService;
         }
 
-        public LikesController(ILikesService likesService)//, IIntranetUserService intranetUserService)
+        public PartialViewResult Likes(ILikeable likesInfo)
         {
-            _likesService = likesService;
-            //_intranetUserService = intranetUserService;
-        }
-
-        public PartialViewResult Likes(Guid activityId)
-        {
-            var actovoty = GetLikesModel(activityId);
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
-        }
-
-        [HttpPost, AllowAnonymous]
-        public PartialViewResult AddLike(Guid activityId)
-        {
-            _likesService.Add(GetCurrentUserId(), activityId);
-
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(likesInfo.Id, likesInfo.Type, likesInfo.Likes));
         }
 
         [HttpPost]
-        public PartialViewResult RemoveLike(Guid activityId)
+        public PartialViewResult AddLike(Guid activityId, IntranetActivityTypeEnum type)
         {
-            _likesService.Remove(GetCurrentUserId(), activityId);
-
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
+            //var service = _activitiesServiceFactory.GetService(type);
+            //var likeableService = (ILikeableService)service;
+            likeableService.Add(GetCurrentUserId(), activityId);
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId, type, likeableService.GetLikes(activityId)));
         }
 
-        private ActivityLikesViewModel GetLikesModel(Guid activityId)
+        //[HttpPost]
+        public PartialViewResult RemoveLike(Guid activityId, IntranetActivityTypeEnum type)
+        {
+            //var service = _activitiesServiceFactory.GetService(type);
+            //var likeableService = (ILikeableService)service;
+            likeableService.Remove(GetCurrentUserId(), activityId);
+
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId, type, likeableService.GetLikes(activityId)));
+        }
+
+        private LikesViewModel GetLikesModel(Guid activityId, IntranetActivityTypeEnum type, IEnumerable<LikeModel> likes)
         {
             var currentUserId = GetCurrentUserId();
-            var likes = _likesService.Get(activityId).OrderByDescending(like => like.CreatedDate).ToList();
-            /*var userNames = likes.Count > 0
-                ? _intranetUserService.GetFullNamesByIds(likes.Select(el => el.UserId))
-                : Enumerable.Empty<string>();*/
-            var userNames = new List<string>();
-            userNames.Add("User 1");
-            userNames.Add("user 2");
-            var canAddLike = _likesService.CanAdd(currentUserId, activityId);
 
-            var likesViewModel = new ActivityLikesViewModel()
+            var canAddLike = !likes.Any(el => el.UserId == currentUserId);
+
+            var likesViewModel = new LikesViewModel()
             {
                 ActivityId = activityId,
                 UserId = currentUserId,
-                Count = likes.Count,
+                Count = likes.Count(),
                 CanAddLike = canAddLike,
                 CanRemoveLike = !canAddLike,
-                Users = userNames
+                Users = likes.Select(el => el.User),
+                Type = type
             };
 
             return likesViewModel;
@@ -81,8 +74,7 @@ namespace uCommunity.Likes.Controllers
 
         private Guid GetCurrentUserId()
         {
-            return new Guid("f3ca93fc-b7ae-4cb3-a138-003e8725855e");
-            //return _intranetUserService.GetCurrentUserId();
+            return _intranetUserService.GetCurrentUserId();
         }
     }
 }

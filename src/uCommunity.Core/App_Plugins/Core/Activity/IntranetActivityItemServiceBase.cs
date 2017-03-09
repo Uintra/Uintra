@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using ServiceStack;
 using uCommunity.Core.App_Plugins.Core.Activity.Entities;
 using uCommunity.Core.App_Plugins.Core.Activity.Sql;
@@ -45,7 +43,7 @@ namespace uCommunity.Core.App_Plugins.Core.Activity
 
         public IEnumerable<T> GetAll(bool includeHidden = false)
         {
-            var activities = _memoryCacheService.GetOrSet(CacheConstants.ActivityCacheKey, GetAllFromSql, GetCacheExpiration(), ActivityType.ToString()).ToList();
+            var activities = _memoryCacheService.GetOrSet(CacheConstants.ActivityCacheKey, () => GetAllFromSql().ToList(), GetCacheExpiration(), ActivityType.ToString());
 
             if (!includeHidden)
             {

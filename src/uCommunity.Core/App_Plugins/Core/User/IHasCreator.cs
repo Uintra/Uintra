@@ -1,14 +1,14 @@
 ﻿using System;
-using uCommunity.Core.App_Plugins.Core.User;
 
-namespace TeamDenmark.Intranet.App_Plugins.Core.User
+namespace uCommunity.Core.App_Plugins.Core.User
 {
-    public interface IHasCreator
+    public interface IHasCreator<T>
+        where T : IntranetUserBase
     {
-        int? UmbracoCreatorId { get; set; }
+        int? UmbracoCreatorId { get; }
 
-        Guid CreatorId { get; set; }
+        Guid CreatorId { get; }
 
-        IntranetUserBase Creator { get; set; }
+        T Creator { get; set; }
     }
 }

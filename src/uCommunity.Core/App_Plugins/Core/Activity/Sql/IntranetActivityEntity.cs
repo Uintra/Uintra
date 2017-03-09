@@ -18,7 +18,5 @@ namespace uCommunity.Core.App_Plugins.Core.Activity.Sql
         public DateTime CreatedDate { get; set; }
 
         public DateTime ModifyDate { get; set; }
-
-        public bool IsHidden { get; set; }
     }
 }

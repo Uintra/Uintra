@@ -1,21 +1,21 @@
-﻿@model uCommunity.Likes.App_Plugins.Likes.Models.ActivityLikesViewModel
-@{ 
+﻿@model uCommunity.Likes.App_Plugins.Likes.Models.LikesViewModel
+@{
     Html.EnableUnobtrusiveJavaScript(true);
     var isLiked = Model.CanAddLike ? "" : "_isLiked";
 }
 <div class="content__item-like" id="likes_@Model.ActivityId">
     <div id="count_@Model.ActivityId">
-        <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@Model.ActivityId">@Model.Count</span></a>
-        
+        <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@Model.ActivityId">@Model.Users.Count()</span></a>
+
         <div class="content__item-like-set">
             @(Model.CanAddLike ?
-                Ajax.ActionLink("Add", "AddLike", "Likes", new { userId = Model.UserId, activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }) :
-                Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { userId = Model.UserId, activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) })
+                Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, type = Model.Type }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }) :
+                Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, type = Model.Type }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) })
             )
         </div>
     </div>
 
-    @if (Model.Count > 0)
+    @if (Model.Users.Any())
     {
         <div class="content__item-like-popup" id="likesPopup_@Model.ActivityId">
             @foreach (var name in Model.Users)
