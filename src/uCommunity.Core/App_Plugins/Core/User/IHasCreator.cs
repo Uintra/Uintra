@@ -1,5 +1,5 @@
 ﻿using System;
-using TeamDenmark.Intranet.Core.Users;
+using uCommunity.Core.App_Plugins.Core.User;
 
 namespace TeamDenmark.Intranet.App_Plugins.Core.User
 {
@@ -9,6 +9,6 @@ namespace TeamDenmark.Intranet.App_Plugins.Core.User
 
         Guid CreatorId { get; set; }
 
-        IntranetUser Creator { get; set; }
+        IntranetUserBase Creator { get; set; }
     }
 }
