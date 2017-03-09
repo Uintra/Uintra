@@ -16,6 +16,8 @@ using uCommunity.Comments.App_Plugins.Comments.Sql;
 using uCommunity.Core.App_Plugins.Core.Localization;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
 using uCommunity.Core.App_Plugins.Core.User;
+using uCommunity.Likes.App_Plugins.Likes;
+using uCommunity.Likes.App_Plugins.Likes.Sql;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
@@ -89,7 +91,12 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(TDIntranetConnectionString, SqlServerDialect.Provider)).InSingletonScope();
 
             kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
+            kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
+
+            kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
+            kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
+            kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
         }
 
         private static UmbracoContext CreateUmbracoContext()

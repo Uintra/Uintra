@@ -42,5 +42,13 @@ namespace Compent.uCommunity.Core.Users
         {
             throw new NotImplementedException();
         }
+        public IEnumerable<ListItemModel<Guid>> GetByIds(IEnumerable<Guid> ids)
+        {
+            return new List<ListItemModel<Guid>>
+            {
+                new ListItemModel<Guid> { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test 1" },
+                new ListItemModel<Guid> { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test 2" }
+            };
+        }
     }
 }
