@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using uCommunity.Core.App_Plugins.Core.Activity;
 
 namespace uCommunity.Likes.App_Plugins.Likes.Models
 {
-    public class ActivityLikesViewModel
+    public class LikesViewModel
     {
         public Guid UserId { get; set; }
 
@@ -16,5 +18,12 @@ namespace uCommunity.Likes.App_Plugins.Likes.Models
         public bool CanRemoveLike { get; set; }
 
         public IEnumerable<string> Users { get; set; }
+
+        public IntranetActivityTypeEnum Type { get; set; }
+
+        public LikesViewModel()
+        {
+            Users = Enumerable.Empty<string>();
+        }
     }
 }

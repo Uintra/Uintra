@@ -42,7 +42,7 @@ namespace uCommunity.Likes.Controllers
             return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
         }
 
-        private ActivityLikesViewModel GetLikesModel(Guid activityId)
+        private LikesViewModel GetLikesModel(Guid activityId)
         {
             var currentUserId = GetCurrentUserId();
             var likes = _likesService.Get(activityId).OrderByDescending(like => like.CreatedDate).ToList();
@@ -51,7 +51,7 @@ namespace uCommunity.Likes.Controllers
                 : Enumerable.Empty<string>();
             var canAddLike = _likesService.CanAdd(currentUserId, activityId);
 
-            var likesViewModel = new ActivityLikesViewModel()
+            var likesViewModel = new LikesViewModel()
             {
                 ActivityId = activityId,
                 UserId = currentUserId,

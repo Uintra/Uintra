@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Core.App_Plugins.Core.User;
+using uCommunity.Likes.App_Plugins.Likes.Models;
 using uCommunity.Likes.App_Plugins.Likes.Sql;
 
 namespace uCommunity.Likes.App_Plugins.Likes
@@ -8,10 +11,12 @@ namespace uCommunity.Likes.App_Plugins.Likes
     public class LikesService : ILikesService
     {
         private readonly ISqlRepository<Like> _likesRepository;
+        private readonly IIntranetUserService _intranetUserService;
 
-        public LikesService(ISqlRepository<Like> likesRepository)
+        public LikesService(ISqlRepository<Like> likesRepository, IIntranetUserService intranetUserService)
         {
             _likesRepository = likesRepository;
+            _intranetUserService = intranetUserService;
         }
 
         public IEnumerable<Like> Get(Guid activityId)
@@ -51,6 +56,20 @@ namespace uCommunity.Likes.App_Plugins.Likes
         public bool CanRemove(Guid userId, Guid activityId)
         {
             return !CanAdd(userId, activityId);
+        }
+
+        public void FillLikes(ILikeable entity)
+        {
+            var likes = Get(entity.Id).OrderByDescending(el => el.CreatedDate);
+            var users = likes.Any()
+                ? _intranetUserService.GetByIds(likes.Select(el => el.UserId))
+                : Enumerable.Empty<ListItemModel<Guid>>();
+
+            entity.Likes = users.Select(el => new LikeModel()
+            {
+                UserId = el.Id,
+                User = el.Name
+            });
         }
     }
 }
