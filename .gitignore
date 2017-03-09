@@ -71,4 +71,6 @@ src/uCommunity.Comments/Web.config
 src/uCommunity.Comments/web.config
 src/uCommunity.Comments/Config/
 src/uCommunity.Comments/App_Plugins/Core/
-/src/uCommunity.Navigation/obj/Debug
+
+/src/uCommunity.Navigation/obj/*
+/src/uCommunity.Navigation/bin/
