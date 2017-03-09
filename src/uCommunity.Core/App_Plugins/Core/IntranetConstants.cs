@@ -13,5 +13,11 @@
             public const string DefaultDateTimePickerFormat = "d.m.Y H:i";
 #warning this two formats related
         }
+
+        public static class SearchConstants
+        {
+            public const string HighlightPreTag = "<em style='background:#ffffc0'>";
+            public const string HighlightPostTag = "</em>";
+        }
     }
 }

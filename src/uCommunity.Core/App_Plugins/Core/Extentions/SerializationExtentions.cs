@@ -1,9 +1,5 @@
-﻿using System;
-using System.Dynamic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Umbraco.Core;
 
 namespace uCommunity.Core.App_Plugins.Core.Extentions
 {

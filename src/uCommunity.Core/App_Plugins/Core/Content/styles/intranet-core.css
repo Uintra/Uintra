@@ -25,10 +25,16 @@
     &.__xls{
         background-image: url(../images/file-type-icons/xls.svg);
     }
-    &.__xls{
+    &.__xlsx{
         background-image: url(../images/file-type-icons/xlsx.svg);
     }
     &.__csv{
         background-image: url(../images/file-type-icons/csv.svg);
+    }
+    &.__txt{
+        background-image: url(../images/file-type-icons/txt.svg);
+    }
+    &.__mp4{
+        background-image: url(../images/file-type-icons/m4v.svg);
     }
 }
