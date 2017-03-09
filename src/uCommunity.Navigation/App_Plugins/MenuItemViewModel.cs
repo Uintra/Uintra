@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace uCommunity.Navigation.App_Plugins
 {
@@ -11,11 +10,11 @@ namespace uCommunity.Navigation.App_Plugins
         public bool IsActive { get; set; }
         public bool IsHomePage { get; set; }
 
-        public IEnumerable<MenuItemViewModel> Children { get; set; }
+        public List<MenuItemViewModel> Children { get; set; }
 
         public MenuItemViewModel()
         {
-            Children = Enumerable.Empty<MenuItemViewModel>();
+            Children = new List<MenuItemViewModel>();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿{
   "HomePageAlias": "homePage",
-  "Exclude": [ "DataFolder" ],
+  "Exclude": [ "dataFolder" ],
   "IsHideFromNavigationAlias": "IsHideFromNavigation",
   "IsHideFromNavigationDefaultValue": false,
   "IsShowInHomeNavigationAlias": "IsShowInHomeNavigation",
-  "IsShowInHomeNavigationDefaultValue": true,
+  "IsShowInHomeNavigationDefaultValue": false,
   "NavigationNameAlias": "NavigationName"
 }

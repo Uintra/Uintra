@@ -274,6 +274,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\View\left-side-menu.js" />
+    <Content Include="App_Plugins\View\_leftSideMenu.css" />
     <None Include="app.config" />
     <Content Include="App_Plugins\navigationConfiguration.json" />
     <Content Include="App_Plugins\View\LeftSideMenu.cshtml" />

@@ -8,6 +8,8 @@ namespace uCommunity.Navigation
 {
     public class NavigationModelBuilder : INavigationModelBuilder
     {
+        private readonly List<string> _excludeList;
+
         private readonly UmbracoHelper _umbracoHelper;
         private readonly NavigationConfiguration _navigationConfiguration;
 
@@ -15,6 +17,8 @@ namespace uCommunity.Navigation
         {
             _umbracoHelper = umbracoHelper;
             _navigationConfiguration = navigationConfiguration;
+
+            _excludeList = _navigationConfiguration.Exclude;
         }
 
         public MenuModel GetLeftSideMenu()
@@ -27,22 +31,27 @@ namespace uCommunity.Navigation
                 return result;
             }
 
-            var items = new List<MenuItemModel>
+            var homePageMenu = GetHomePageMenuItem(homePage);
+            result.MenuItems.Add(homePageMenu);
+
+            var homePageMenuItemsIds = homePageMenu.Children.Select(mItem => mItem.Id).ToList();
+            result.MenuItems.AddRange(BuildLeftMenuTree(homePage, homePageMenuItemsIds));
+
+            return result;
+        }
+
+        private MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
+        {
+            var result = new MenuItemModel
             {
-                new MenuItemModel
-                {
-                    Id = homePage.Id,
-                    Name = GetNavigationName(homePage),
-                    Url = homePage.Url,
-                    IsActive = homePage.Id == _umbracoHelper.AssignedContentItem.Id,
-                    IsHomePage = true,
-                    Children = GetHomeSubNavigation(homePage)
-                }
+                Id = homePage.Id,
+                Name = GetNavigationName(homePage),
+                Url = homePage.Url,
+                IsActive = homePage.Id == _umbracoHelper.AssignedContentItem.Id,
+                IsHomePage = true,
+                Children = GetHomeSubNavigation(homePage)
             };
 
-            items.AddRange(BuildLeftMenuTree(homePage));
-
-            result.MenuItems = items;
             return result;
         }
 
@@ -51,7 +60,7 @@ namespace uCommunity.Navigation
             var homePage = _umbracoHelper.AssignedContentItem.AncestorOrSelf(_navigationConfiguration.HomePageAlias);
             if (homePage == null)
             {
-                throw new InconsistentDataException("Can't find root node!");
+                throw new InconsistentDataException("Could not find home page!");
             }
 
             return homePage;
@@ -61,6 +70,7 @@ namespace uCommunity.Navigation
         {
             var subNavigation = homePage.Children();
             var result = subNavigation
+                .Where(pContent => !_excludeList.Contains(pContent.DocumentTypeAlias))
                 .Where(IsContentVisible)
                 .Where(IsShowNavigation)
                 .Where(IsShowInHomeNavigation)
@@ -75,7 +85,7 @@ namespace uCommunity.Navigation
             return result;
         }
 
-        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent publishedContent)
+        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent publishedContent, List<int> excludeContentIds)
         {
             if (!publishedContent.Children.Any())
             {
@@ -84,22 +94,17 @@ namespace uCommunity.Navigation
 
             var publishedContentChildrenItems = publishedContent.Children
                 .Where(IsContentVisible)
-                .Where(IsShowNavigation);
+                .Where(IsShowNavigation)
+                .Where(pContent => !_excludeList.Contains(pContent.DocumentTypeAlias) && !excludeContentIds.Contains(pContent.Id));
 
-            var excludeList = _navigationConfiguration.Exclude;
             foreach (var publishedContentChildrenItem in publishedContentChildrenItems)
             {
-                if (excludeList.Contains(publishedContentChildrenItem.DocumentTypeAlias))
-                {
-                    continue;
-                }
-
                 var newmenuItem = new MenuItemModel
                 {
                     Id = publishedContentChildrenItem.Id,
                     Name = GetNavigationName(publishedContentChildrenItem),
                     Url = publishedContentChildrenItem.Url,
-                    Children = BuildLeftMenuTree(publishedContentChildrenItem),
+                    Children = BuildLeftMenuTree(publishedContentChildrenItem, excludeContentIds),
                     IsActive = _umbracoHelper.AssignedContentItem.Id == publishedContentChildrenItem.Id
                 };
 

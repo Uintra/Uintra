@@ -16,5 +16,10 @@ namespace uCommunity.Navigation
         public bool IsShowInHomeNavigationDefaultValue { get; set; }
 
         public string NavigationNameAlias { get; set; }
+
+        public NavigationConfiguration()
+        {
+            Exclude = new List<string>();
+        }
     }
 }
