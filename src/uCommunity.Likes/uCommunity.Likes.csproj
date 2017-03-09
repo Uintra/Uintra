@@ -327,7 +327,7 @@
     <Compile Include="App_Plugins\Likes\ILikeable.cs" />
     <Compile Include="App_Plugins\Likes\ILikeableService.cs" />
     <Compile Include="App_Plugins\Likes\ILikesService.cs" />
-    <Compile Include="App_Plugins\Likes\LikesController.cs" />
+    <Content Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Likes\LikesService.cs" />
     <Compile Include="App_Plugins\Likes\Models\LikeModel.cs" />
     <Compile Include="App_Plugins\Likes\Models\LikesViewModel.cs" />
