@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using uCommunity.Core.App_Plugins.Core.Activity;
 using uCommunity.Core.App_Plugins.Core.User;
 using uCommunity.Likes.App_Plugins.Likes;
 using uCommunity.Likes.App_Plugins.Likes.Models;
@@ -10,55 +12,57 @@ namespace uCommunity.Likes.Controllers
 {
     public class LikesController : SurfaceController
     {
-        private readonly ILikesService _likesService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService _intranetUserService;
 
+
         public LikesController(
-            ILikesService likesService,
+            IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService intranetUserService)
         {
-            _likesService = likesService;
+            _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserService = intranetUserService;
         }
 
-        public PartialViewResult Likes(Guid activityId)
+        public PartialViewResult Likes(ILikeable likesInfo)
         {
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(likesInfo.Id, likesInfo.Type, likesInfo.Likes));
         }
 
         [HttpPost]
-        public PartialViewResult AddLike(Guid activityId)
+        public PartialViewResult AddLike(Guid activityId, IntranetActivityTypeEnum type)
         {
-            _likesService.Add(GetCurrentUserId(), activityId);
-
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
+            var service = _activitiesServiceFactory.GetService(type);
+            var likeableService = (ILikeableService)service;
+            likeableService.Add(GetCurrentUserId(), activityId);
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId, type, likeableService.GetLikes(activityId)));
         }
 
         [HttpPost]
-        public PartialViewResult RemoveLike(Guid activityId)
+        public PartialViewResult RemoveLike(Guid activityId, IntranetActivityTypeEnum type)
         {
-            _likesService.Remove(GetCurrentUserId(), activityId);
+            var service = _activitiesServiceFactory.GetService(type);
+            var likeableService = (ILikeableService)service;
+            likeableService.Remove(GetCurrentUserId(), activityId);
 
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId));
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId, type, likeableService.GetLikes(activityId)));
         }
 
-        private LikesViewModel GetLikesModel(Guid activityId)
+        private LikesViewModel GetLikesModel(Guid activityId, IntranetActivityTypeEnum type, IEnumerable<LikeModel> likes)
         {
             var currentUserId = GetCurrentUserId();
-            var likes = _likesService.Get(activityId).OrderByDescending(like => like.CreatedDate).ToList();
-            var userNames = likes.Count > 0
-                ? _intranetUserService.GetFullNamesByIds(likes.Select(el => el.UserId))
-                : Enumerable.Empty<string>();
-            var canAddLike = _likesService.CanAdd(currentUserId, activityId);
+
+            var canAddLike = !likes.Any(el => el.UserId == currentUserId);
 
             var likesViewModel = new LikesViewModel()
             {
                 ActivityId = activityId,
                 UserId = currentUserId,
-                Count = likes.Count,
+                Count = likes.Count(),
                 CanAddLike = canAddLike,
                 CanRemoveLike = !canAddLike,
-                Users = userNames
+                Users = likes.Select(el => el.User),
+                Type = type
             };
 
             return likesViewModel;
