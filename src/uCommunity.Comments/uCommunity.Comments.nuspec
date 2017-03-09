@@ -12,6 +12,6 @@
     <tags>Compent uCommunity Comments Controls CommentsControls</tags>
   </metadata>
    <files>
-    <file src="App_Plugins\Comments\CommentsController.cs" target="content\App_Plugins\Comments" />
+    <file src="App_Plugins\Comments\CommentsController.cs" target="content\App_Plugins\Comments\IntranetCommentsController.cs" />
   </files>
 </package>
