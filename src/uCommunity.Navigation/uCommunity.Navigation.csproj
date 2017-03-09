@@ -263,16 +263,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="INavigationSettings.cs" />
+    <Compile Include="App_Plugins\MenuItemViewModel.cs" />
+    <Compile Include="App_Plugins\MenuViewModel.cs" />
+    <Compile Include="App_Plugins\NavigationController.cs" />
+    <Compile Include="Configuration\NavigationConfiguration.cs" />
     <Compile Include="ModelBuilders\INavigationModelBuilder.cs" />
     <Compile Include="ModelBuilders\NavigationModelBuilder.cs" />
-    <Compile Include="Models\MenuItemViewModel.cs" />
-    <Compile Include="Models\MenuViewModel.cs" />
+    <Compile Include="Models\MenuItemModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\navigationConfiguration.json" />
+    <Content Include="App_Plugins\View\LeftSideMenu.cshtml" />
     <None Include="packages.config" />
+    <Content Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
@@ -280,6 +286,7 @@
       <Name>uCommunity.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

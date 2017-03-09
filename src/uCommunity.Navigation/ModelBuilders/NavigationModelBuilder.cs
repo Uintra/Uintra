@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using uCommunity.Core.App_Plugins.Core.Exceptions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -9,17 +9,17 @@ namespace uCommunity.Navigation
     public class NavigationModelBuilder : INavigationModelBuilder
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly INavigationSettings _navigationSettings;
+        private readonly NavigationConfiguration _navigationConfiguration;
 
-        public NavigationModelBuilder(UmbracoHelper umbracoHelper, INavigationSettings navigationSettings)
+        public NavigationModelBuilder(UmbracoHelper umbracoHelper, NavigationConfiguration navigationConfiguration)
         {
             _umbracoHelper = umbracoHelper;
-            _navigationSettings = navigationSettings;
+            _navigationConfiguration = navigationConfiguration;
         }
 
-        public MenuViewModel GetLeftSideMenu()
+        public MenuModel GetLeftSideMenu()
         {
-            var result = new MenuViewModel();
+            var result = new MenuModel();
 
             var homePage = GetHomePage();
             if (!IsContentVisible(homePage))
@@ -27,9 +27,9 @@ namespace uCommunity.Navigation
                 return result;
             }
 
-            var items = new List<MenuItemViewModel>
+            var items = new List<MenuItemModel>
             {
-                new MenuItemViewModel
+                new MenuItemModel
                 {
                     Id = homePage.Id,
                     Name = GetNavigationName(homePage),
@@ -48,38 +48,34 @@ namespace uCommunity.Navigation
 
         private IPublishedContent GetHomePage()
         {
-            var homePage = _umbracoHelper.AssignedContentItem.AncestorOrSelf(_navigationSettings.HomePageAlias);
+            var homePage = _umbracoHelper.AssignedContentItem.AncestorOrSelf(_navigationConfiguration.HomePageAlias);
             if (homePage == null)
             {
-                //TODO: InconsistentDataException - common ?
-                throw new Exception("Can't find root node!");
+                throw new InconsistentDataException("Can't find root node!");
             }
 
             return homePage;
         }
 
-        //private readonly string[] HomePageSubNavigationPagesAliases = { EventsOverview.ModelTypeAlias, NewsOverview.ModelTypeAlias, IdeasOverview.ModelTypeAlias };
-        private IEnumerable<MenuItemViewModel> GetHomeSubNavigation(IPublishedContent homePage)
+        private IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
         {
-            var subNavigation = homePage.Children(); // HomePageSubNavigationPagesAliases
+            var subNavigation = homePage.Children();
             var result = subNavigation
                 .Where(IsContentVisible)
                 .Where(IsShowNavigation)
                 .Where(IsShowInHomeNavigation)
-                .Select(pContent => new MenuItemViewModel
+                .Select(pContent => new MenuItemModel
                 {
                     Id = pContent.Id,
                     Url = pContent.Url,
                     Name = GetNavigationName(pContent),
-                    // TODO: HideInNavigation ?
-                    //HideInNavigation = IsHideInNavigation(pContent),
                     IsActive = _umbracoHelper.AssignedContentItem.Id == pContent.Id || _umbracoHelper.AssignedContentItem.Parent?.Id == pContent.Id
                 });
 
             return result;
         }
 
-        private IEnumerable<MenuItemViewModel> BuildLeftMenuTree(IPublishedContent publishedContent)
+        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent publishedContent)
         {
             if (!publishedContent.Children.Any())
             {
@@ -90,7 +86,7 @@ namespace uCommunity.Navigation
                 .Where(IsContentVisible)
                 .Where(IsShowNavigation);
 
-            var excludeList = _navigationSettings.Exclude;
+            var excludeList = _navigationConfiguration.Exclude;
             foreach (var publishedContentChildrenItem in publishedContentChildrenItems)
             {
                 if (excludeList.Contains(publishedContentChildrenItem.DocumentTypeAlias))
@@ -98,13 +94,11 @@ namespace uCommunity.Navigation
                     continue;
                 }
 
-                var newmenuItem = new MenuItemViewModel
+                var newmenuItem = new MenuItemModel
                 {
                     Id = publishedContentChildrenItem.Id,
                     Name = GetNavigationName(publishedContentChildrenItem),
                     Url = publishedContentChildrenItem.Url,
-                    // TODO: HideInNavigation ?
-                    //HideInNavigation = publishedContentChildrenItem.GetHideInNavigation(), 
                     Children = BuildLeftMenuTree(publishedContentChildrenItem),
                     IsActive = _umbracoHelper.AssignedContentItem.Id == publishedContentChildrenItem.Id
                 };
@@ -120,14 +114,14 @@ namespace uCommunity.Navigation
 
         public virtual bool IsHideInNavigation(IPublishedContent publishedContent)
         {
-            var result = publishedContent.GetPropertyValue<bool?>(_navigationSettings.IsHideInNavigationAlias);
-            return result ?? _navigationSettings.IsHideInNavigationDefaultValue;
+            var result = publishedContent.GetPropertyValue<bool?>(_navigationConfiguration.IsHideFromNavigationAlias);
+            return result ?? _navigationConfiguration.IsHideFromNavigationDefaultValue;
         }
 
         public virtual bool IsShowInHomeNavigation(IPublishedContent publishedContent)
         {
-            var result = publishedContent.GetPropertyValue<bool?>(_navigationSettings.IsShowInHomeNavigationAlias);
-            return result ?? _navigationSettings.IsShowInHomeNavigationDefaultValue;
+            var result = publishedContent.GetPropertyValue<bool?>(_navigationConfiguration.IsShowInHomeNavigationAlias);
+            return result ?? _navigationConfiguration.IsShowInHomeNavigationDefaultValue;
         }
 
         public virtual bool IsContentVisible(IPublishedContent publishedContent)
@@ -137,7 +131,7 @@ namespace uCommunity.Navigation
 
         public virtual string GetNavigationName(IPublishedContent publishedContent)
         {
-            var result = publishedContent.GetPropertyValue<string>(_navigationSettings.NavigationNameAlias);
+            var result = publishedContent.GetPropertyValue<string>(_navigationConfiguration.NavigationNameAlias);
             return string.IsNullOrEmpty(result) ? publishedContent.Name : result;
         }
     }

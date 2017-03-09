@@ -4,7 +4,8 @@ namespace uCommunity.Navigation
 {
     public interface INavigationModelBuilder
     {
-        MenuViewModel GetLeftSideMenu();
+        MenuModel GetLeftSideMenu();
+
         string GetNavigationName(IPublishedContent publishedContent);
         bool IsContentVisible(IPublishedContent publishedContent);
         bool IsHideInNavigation(IPublishedContent publishedContent);
