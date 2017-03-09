@@ -10,11 +10,12 @@ namespace uCommunity.Core.App_Plugins.Core.User
         Guid GetCurrentUserId();
     }
 
-    public interface IIntranetUserService<out TModel> : IIntranetUserService
+    public interface IIntranetUserService<TModel> : IIntranetUserService
         where TModel : IntranetUserBase
     {
         IEnumerable<TModel> GetAll();
         TModel GetActivityUser(int umbracoId);
         TModel GetCurrentUser();
+        void FillCreator(IHasCreator<TModel> model);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace TeamDenmark.Intranet.App_Plugins.Core.Extentions
+﻿namespace uCommunity.Core.App_Plugins.Core.Extentions
 {
     public static class LocalizationExtensions
     {
