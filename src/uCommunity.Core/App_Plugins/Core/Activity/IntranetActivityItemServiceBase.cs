@@ -88,7 +88,7 @@ namespace uCommunity.Core.App_Plugins.Core.Activity
             _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
         }
 
-        public virtual void FillCache(Guid id)
+        public void FillCache(Guid id)
         {
             var activity = GetFromSql(id);
 
