@@ -28,7 +28,7 @@ namespace Compent.uCommunity.Core.Users
             return users;
         }
 
-        public IntranetUserBase GetActivityUser(int umbracoId)
+        public IntranetUserBase Get(int umbracoId)
         {
             throw new NotImplementedException();
         }
@@ -36,6 +36,11 @@ namespace Compent.uCommunity.Core.Users
         public IntranetUserBase GetCurrentUser()
         {
             return users.First();
+        }
+
+        public IntranetUserBase GetActivityUser(int umbracoId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
