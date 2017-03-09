@@ -6,6 +6,7 @@ namespace uCommunity.Core.App_Plugins.Core.User
     public interface IIntranetUserService
     {
         IEnumerable<string> GetFullNamesByIds(IEnumerable<Guid> ids);
+        IEnumerable<ListItemModel<Guid>> GetByIds(IEnumerable<Guid> ids);
         Guid GetCurrentUserId();
     }
 
