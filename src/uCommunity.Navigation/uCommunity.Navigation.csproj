@@ -274,7 +274,7 @@
     <Compile Include="ModelBuilders\SubNavigationModelBuilder.cs" />
     <Compile Include="Models\MenuItemModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
-    <Compile Include="Models\SubNavigationMenuViewModel.cs" />
+    <Compile Include="App_Plugins\SubNavigationMenuViewModel.cs" />
     <Compile Include="Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -286,7 +286,7 @@
     <Content Include="App_Plugins\LeftNavigation\View\LeftSideMenu.cshtml" />
     <None Include="App_Plugins\SubNavigation\View\SubNavigationMenu.cshtml" />
     <None Include="packages.config" />
-    <Content Include="App_Plugins\SubNavigation\SubNavigationMenu.js" />
+    <Content Include="App_Plugins\SubNavigation\sub-Menu.js" />
     <Content Include="App_Plugins\SubNavigation\_subNavigationMenu.css" />
     <Content Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>

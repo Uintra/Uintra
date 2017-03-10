@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using uCommunity.Navigation.App_Plugins;
 
-namespace uCommunity.Navigation
+namespace uCommunity.Navigation.App_Plugins
 {
     public class SubNavigationMenuViewModel
     {
