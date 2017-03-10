@@ -340,9 +340,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.6.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Core, Version=1.0.6.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.6.1\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.6.2\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco">
