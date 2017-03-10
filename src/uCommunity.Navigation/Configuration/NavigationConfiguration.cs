@@ -12,8 +12,14 @@ namespace uCommunity.Navigation
         public string IsHideFromNavigationAlias { get; set; }
         public bool IsHideFromNavigationDefaultValue { get; set; }
 
+        public string IsShowInLeftNavigationAlias { get; set; }
+        public bool IsShowInLeftNavigationDefaultValue { get; set; }
+
         public string IsShowInHomeNavigationAlias { get; set; }
         public bool IsShowInHomeNavigationDefaultValue { get; set; }
+
+        public string IsShowInSubNavigationAlias { get; set; }
+        public bool IsShowInSubNavigationDefaultValue { get; set; }
 
         public string NavigationNameAlias { get; set; }
 

@@ -267,19 +267,27 @@
     <Compile Include="App_Plugins\MenuViewModel.cs" />
     <Compile Include="App_Plugins\NavigationController.cs" />
     <Compile Include="Configuration\NavigationConfiguration.cs" />
-    <Compile Include="ModelBuilders\INavigationModelBuilder.cs" />
-    <Compile Include="ModelBuilders\NavigationModelBuilder.cs" />
+    <Compile Include="ModelBuilders\ILeftSideMenuModelBuilder.cs" />
+    <Compile Include="ModelBuilders\ISubNavigationModelBuilder.cs" />
+    <Compile Include="ModelBuilders\LeftSideMenuModelBuilder.cs" />
+    <Compile Include="ModelBuilders\NavigationModelBuilderBase.cs" />
+    <Compile Include="ModelBuilders\SubNavigationModelBuilder.cs" />
     <Compile Include="Models\MenuItemModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\SubNavigationMenuViewModel.cs" />
+    <Compile Include="Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\View\left-side-menu.js" />
-    <Content Include="App_Plugins\View\_leftSideMenu.css" />
+    <Content Include="App_Plugins\LeftNavigation\left-side-menu.js" />
+    <Content Include="App_Plugins\LeftNavigation\_leftSideMenu.css" />
     <None Include="app.config" />
     <Content Include="App_Plugins\navigationConfiguration.json" />
-    <Content Include="App_Plugins\View\LeftSideMenu.cshtml" />
+    <Content Include="App_Plugins\LeftNavigation\View\LeftSideMenu.cshtml" />
+    <None Include="App_Plugins\SubNavigation\View\SubNavigationMenu.cshtml" />
     <None Include="packages.config" />
+    <Content Include="App_Plugins\SubNavigation\SubNavigationMenu.js" />
+    <Content Include="App_Plugins\SubNavigation\_subNavigationMenu.css" />
     <Content Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
   <ItemGroup>

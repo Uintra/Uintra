@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
 using uCommunity.Core.App_Plugins.Core.Extentions;
 using Umbraco.Web.Mvc;
 
@@ -12,21 +6,35 @@ namespace uCommunity.Navigation.App_Plugins
 {
     public class NavigationController : SurfaceController
     {
-        private string NavigationLeftSideMenuView => "~/App_Plugins/Navigation/View/LeftSideMenu.cshtml";
+        private string LeftNavigationView => "~/App_Plugins/Navigation/LeftNavigation/View/LeftSideMenu.cshtml";
+        private string SubNavigationView => "~/App_Plugins/Navigation/SubNavigation/View/SubNavigationMenu.cshtml";
 
-        private readonly INavigationModelBuilder _navigationModelBuilder;
+        private readonly ILeftSideMenuModelBuilder _leftSideMenuModelBuilder;
+        private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
 
-        public NavigationController(INavigationModelBuilder navigationModelBuilder)
+        public NavigationController(
+            ILeftSideMenuModelBuilder leftSideMenuModelBuilder, 
+            ISubNavigationModelBuilder subNavigationModelBuilder
+            )
         {
-            _navigationModelBuilder = navigationModelBuilder;
+            _leftSideMenuModelBuilder = leftSideMenuModelBuilder;
+            _subNavigationModelBuilder = subNavigationModelBuilder;
         }
 
         public ActionResult LeftSideMenu()
         {
-            var leftNavigationMenu = _navigationModelBuilder.GetLeftSideMenu();
+            var leftNavigationMenu = _leftSideMenuModelBuilder.GetMenu();
             var result = leftNavigationMenu.Map<MenuViewModel>();
 
-            return PartialView(NavigationLeftSideMenuView, result);
+            return PartialView(LeftNavigationView, result);
+        }
+
+        public ActionResult SubNavigationMenu()
+        {
+            var subNavigation = _subNavigationModelBuilder.GetMenu();
+            var result = subNavigation.Map<SubNavigationMenuViewModel>();
+
+            return PartialView(SubNavigationView, result);
         }
     }
 }
