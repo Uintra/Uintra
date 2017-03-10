@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Likes.App_Plugins.Likes.Models
+namespace uCommunity.Likes
 {
     public class LikeModel
     {

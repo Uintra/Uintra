@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Likes.App_Plugins.Likes.Sql;
 
-namespace uCommunity.Likes.App_Plugins.Likes
+namespace uCommunity.Likes
 {
     public interface ILikesService
     {

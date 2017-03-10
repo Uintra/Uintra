@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uCommunity.Core.App_Plugins.Core.Activity;
 
-namespace uCommunity.Likes.App_Plugins.Likes.Models
+namespace uCommunity.Likes
 {
     public class LikesViewModel
     {
