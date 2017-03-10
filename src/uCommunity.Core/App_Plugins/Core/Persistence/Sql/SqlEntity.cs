@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.App_Plugins.Core.Persistence.Sql
+﻿namespace uCommunity.Core.Persistence.Sql
 {
     public abstract class SqlEntity
     {

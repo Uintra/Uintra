@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq.Expressions;
 using System.Runtime.Caching;
 
-namespace uCommunity.Core.App_Plugins.Core.Caching
+namespace uCommunity.Core.Caching
 {
     public class MemoryCacheService : IMemoryCacheService
     {

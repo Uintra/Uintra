@@ -1,6 +1,6 @@
 ﻿using ServiceStack.DataAnnotations;
 
-namespace uCommunity.Core.App_Plugins.Core.Activity
+namespace uCommunity.Core.Activity
 {
     [EnumAsInt]
     public enum IntranetActivityTypeEnum

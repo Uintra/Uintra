@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using uCommunity.Core.App_Plugins.Core.Extentions;
+using uCommunity.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uCommunity.Core.App_Plugins.Core.Controls.LightboxGalery
+namespace uCommunity.Core.Controls.LightboxGalery
 {
     public class LightboxAutoMapperProfile: Profile
     {

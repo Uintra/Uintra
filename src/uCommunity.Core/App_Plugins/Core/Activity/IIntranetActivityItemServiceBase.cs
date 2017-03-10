@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Core.App_Plugins.Core.Activity.Entities;
+using uCommunity.Core.Activity.Entities;
 using Umbraco.Core.Models;
 
-namespace uCommunity.Core.App_Plugins.Core.Activity
+namespace uCommunity.Core.Activity
 {
     public interface IIntranetActivityItemServiceBase<T> : IIntranetActivityItemServiceBase
         where T : IntranetActivityBase

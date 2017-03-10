@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.App_Plugins.Core.Exceptions;
+using uCommunity.Core.Exceptions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

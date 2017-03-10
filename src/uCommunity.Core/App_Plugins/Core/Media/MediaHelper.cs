@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using uCommunity.Core.App_Plugins.Core.Caching;
-using uCommunity.Core.App_Plugins.Core.Controls.FileUpload.Core;
-using uCommunity.Core.App_Plugins.Core.Extentions;
+using uCommunity.Core.Caching;
+using uCommunity.Core.Controls.FileUpload.Core;
+using uCommunity.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace uCommunity.Core.App_Plugins.Core.Media
+namespace uCommunity.Core.Media
 {
     public class MediaHelper : IMediaHelper
     {

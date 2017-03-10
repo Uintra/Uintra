@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web;
 
-namespace uCommunity.Core.App_Plugins.Core
+namespace uCommunity.Core
 {
     public static class ImageConstants
     {

@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.App_Plugins.Core.Localization
+﻿namespace uCommunity.Core.Localization
 {
     public interface IIntranetLocalizationService
     {

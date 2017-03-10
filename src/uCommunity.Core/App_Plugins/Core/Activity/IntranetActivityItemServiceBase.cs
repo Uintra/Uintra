@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using ServiceStack;
-using uCommunity.Core.App_Plugins.Core.Activity.Entities;
-using uCommunity.Core.App_Plugins.Core.Activity.Sql;
-using uCommunity.Core.App_Plugins.Core.Caching;
-using uCommunity.Core.App_Plugins.Core.Extentions;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Core.Activity.Entities;
+using uCommunity.Core.Activity.Sql;
+using uCommunity.Core.Caching;
+using uCommunity.Core.Extentions;
+using uCommunity.Core.Persistence.Sql;
 using Umbraco.Core.Models;
 
-namespace uCommunity.Core.App_Plugins.Core.Activity
+namespace uCommunity.Core.Activity
 {
     public abstract class IntranetActivityItemServiceBase<T> : IIntranetActivityItemServiceBase<T>
         where T : IntranetActivityBase, new()
