@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using uCommunity.Core.Extentions;
+using uCommunity.Core.App_Plugins.Core.Extentions;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.App_Plugins

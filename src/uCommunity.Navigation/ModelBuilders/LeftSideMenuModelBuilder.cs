@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Exceptions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -64,7 +63,7 @@ namespace uCommunity.Navigation
             var homePage = CurrentPage.AncestorOrSelf(_navigationConfiguration.HomePageAlias);
             if (homePage == null)
             {
-                throw new InconsistentDataException("Could not find home page!");
+                //throw new InconsistentDataException("Could not find home page!");
             }
 
             return homePage;
