@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Core.App_Plugins.Core.Activity;
-using uCommunity.Core.App_Plugins.Core.User;
-using uCommunity.Subscribe.App_Plugins.Subscribe.Model;
+using uCommunity.Core.Activity;
+using uCommunity.Core.User;
+using uCommunity.Subscribe.Model;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe
+namespace uCommunity.Subscribe
 {
     public class SubscribeController : SurfaceController
     {
@@ -93,7 +93,7 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
             var subscribs = _subscribeService.Get(activityId).ToList();
 
             var subscribersNames = subscribs.Count > 0
-                ? _intranetUserService.GetFullNamesByIds(subscribs.Select(s => s.UserId))
+                ? _intranetUserService.GetManyNames(subscribs.Select(s => s.UserId)).Select(s => s.Item2)
                 : Enumerable.Empty<string>();
 
             return PartialView("~/App_Plugins/Subscribe/View/SubscribersList.cshtml", subscribersNames);
