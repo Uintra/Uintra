@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
-using uCommunity.Core.App_Plugins.Core.User;
+using uCommunity.Core.Persistence.Sql;
+using uCommunity.Core.User;
 
 namespace uCommunity.Likes
 {
@@ -58,15 +58,17 @@ namespace uCommunity.Likes
 
         public void FillLikes(ILikeable entity)
         {
-            var likes = Get(entity.Id).OrderByDescending(el => el.CreatedDate);
-            var users = likes.Any()
-                ? _intranetUserService.GetByIds(likes.Select(el => el.UserId))
-                : Enumerable.Empty<ListItemModel<Guid>>();
+            var likes = Get(entity.Id).OrderByDescending(el => el.CreatedDate).ToList();
+            var users = Enumerable.Empty<Tuple<Guid, string>>();
+            if (likes.Count != 0)
+            {
+                users = _intranetUserService.GetManyNames(likes.Select(el => el.UserId));
+            }
 
             entity.Likes = users.Select(el => new LikeModel()
             {
-                UserId = el.Id,
-                User = el.Name
+                UserId = el.Item1,
+                User = el.Item2
             });
         }
     }

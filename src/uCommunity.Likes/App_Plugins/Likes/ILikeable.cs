@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Core.App_Plugins.Core.Activity;
+using uCommunity.Core.Activity;
 
 namespace uCommunity.Likes
 {
