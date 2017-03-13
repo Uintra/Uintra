@@ -102,7 +102,9 @@ namespace uCommunity.Subscribe
         [HttpPost]
         public void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
         {
-            _subscribeService.UpdateNotificationDisabled(model.Id, model.NewValue);
+            var service = _activitiesServiceFactory.GetService(model.Type);
+            var subscribeService = (ISubscribableService)service;
+            subscribeService.UpdateNotification(model.Id, model.NewValue);
         }
 
         public JsonResult Version(Guid activityId)

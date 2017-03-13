@@ -23,7 +23,7 @@ namespace uCommunity.Subscribe
 
         void Unsubscribe(Guid userId, Guid activityId);
 
-        void UpdateNotificationDisabled(Guid subscribeId, bool newValue);
+        Subscribe UpdateNotificationDisabled(Guid subscribeId, bool newValue);
 
         void FillSubscribers(ISubscribable entity);
     }

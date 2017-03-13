@@ -70,11 +70,12 @@ namespace uCommunity.Subscribe
             _subscribeRepository.Delete(s => s.UserId == userId && s.ActivityId == activityId);
         }
 
-        public void UpdateNotificationDisabled(Guid subscribeId, bool newValue)
+        public Subscribe UpdateNotification(Guid subscribeId, bool newValue)
         {
             var subscribe = _subscribeRepository.Get(subscribeId);
             subscribe.IsNotificationDisabled = newValue;
             _subscribeRepository.Update(subscribe);
+            return subscribe;
         }
 
         public void FillSubscribers(ISubscribable entity)
