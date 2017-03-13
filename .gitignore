@@ -66,6 +66,7 @@ src/uCommunity.Comments/App_Data/
 src/uCommunity.Comments/App_Browsers/
 src/uCommunity.Comments/Config/
 src/uCommunity.Comments/App_Plugins/Core/
+src/uCommunity.Comments/Web.config
 
 /src/uCommunity.Navigation/obj/*
 /src/uCommunity.Navigation/bin/
