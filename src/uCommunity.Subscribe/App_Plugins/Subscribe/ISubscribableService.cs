@@ -7,7 +7,5 @@ namespace uCommunity.Subscribe
         Subscribe Subscribe(Guid userId, Guid activityId);
 
         void UnSubscribe(Guid userId, Guid activityId);
-
-        bool CanSubscribe(ISubscribable entity);
     }
 }
