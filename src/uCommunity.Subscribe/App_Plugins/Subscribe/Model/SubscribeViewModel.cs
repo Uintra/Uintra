@@ -1,7 +1,7 @@
 ﻿using System;
 using uCommunity.Core.App_Plugins.Core.Activity;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe.Model
+namespace uCommunity.Subscribe.Model
 {
     public class SubscribeViewModel
     {

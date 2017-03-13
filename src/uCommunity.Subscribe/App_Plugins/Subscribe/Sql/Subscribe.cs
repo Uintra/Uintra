@@ -2,7 +2,7 @@
 using ServiceStack.DataAnnotations;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe.Sql
+namespace uCommunity.Subscribe
 {
     [CompositeIndex("UserId", "ActivityId", Unique = true, Name = "UQ_Subscribe_UserId_ActivityId")]
     public class Subscribe : SqlEntity

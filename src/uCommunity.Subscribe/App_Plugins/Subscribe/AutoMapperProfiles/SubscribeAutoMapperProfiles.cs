@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using uCommunity.Subscribe.App_Plugins.Subscribe.Model;
+using uCommunity.Subscribe.Model;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe.AutoMapperProfiles
+namespace uCommunity.Subscribe
 {
     public class SubscribeAutoMapperProfiles : Profile
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Sql.Subscribe, SubscribeItemModel>();
+            Mapper.CreateMap<Subscribe, SubscribeItemModel>();
         }
     }
 }

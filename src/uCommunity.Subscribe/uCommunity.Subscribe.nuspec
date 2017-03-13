@@ -11,4 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Subscribe Controls SubscribeControls</tags>
   </metadata>
+  <files>
+    <file src="App_Plugins\Subscribe\SubscribeController.cs" target="content\App_Plugins\Subscribe\IntranetSubscribeController.cs" />
+  </files>
 </package>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe.Model
+namespace uCommunity.Subscribe.Model
 {
     public class SubscribeOverviewModel
     {

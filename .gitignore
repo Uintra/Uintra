@@ -76,3 +76,7 @@ src/uCommunity.Navigation/App_Browsers/Form.browser
 src/uCommunity.Navigation/App_Browsers/w3cvalidator.browser
 src/uCommunity.Navigation/Config/splashes/booting.aspx
 src/uCommunity.Navigation/Config/splashes/noNodes.aspx
+src/uCommunity.Core/Web.config
+src/uCommunity.Likes/Web.config
+src/uCommunity.Navigation/Web.config
+src/uCommunity.Subscribe/Web.config

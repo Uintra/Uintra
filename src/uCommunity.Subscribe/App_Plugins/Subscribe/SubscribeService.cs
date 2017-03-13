@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe
+namespace uCommunity.Subscribe
 {
     public class SubscribeService : ISubscribeService
     {
-        private readonly ISqlRepository<Sql.Subscribe> _subscribeRepository;
+        private readonly ISqlRepository<Subscribe> _subscribeRepository;
 
-        public SubscribeService(ISqlRepository<Sql.Subscribe> subscribeRepository)
+        public SubscribeService(ISqlRepository<Subscribe> subscribeRepository)
         {
             _subscribeRepository = subscribeRepository;
         }
 
-        public Sql.Subscribe Get(Guid activityId, Guid userId)
+        public Subscribe Get(Guid activityId, Guid userId)
         {
             return _subscribeRepository.Find(s => s.ActivityId == activityId && s.UserId == userId);
         }
 
-        public IEnumerable<Sql.Subscribe> Get(Guid activityId)
+        public IEnumerable<Subscribe> Get(Guid activityId)
         {
             return _subscribeRepository.FindAll(s => s.ActivityId == activityId);
         }
 
-        public IEnumerable<Sql.Subscribe> GetByUserId(Guid userId)
+        public IEnumerable<Subscribe> GetByUserId(Guid userId)
         {
             return _subscribeRepository.FindAll(s => s.UserId == userId);
         }
@@ -50,9 +50,9 @@ namespace uCommunity.Subscribe.App_Plugins.Subscribe
             return _subscribeRepository.Exists(s => s.ActivityId == activityId);
         }
 
-        public Sql.Subscribe Subscribe(Guid userId, Guid activityId)
+        public Subscribe Subscribe(Guid userId, Guid activityId)
         {
-            var entity = new Sql.Subscribe
+            var entity = new Subscribe
             {
                 Id = Guid.NewGuid(),
                 ActivityId = activityId,

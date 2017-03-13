@@ -18,7 +18,6 @@
       <echo message="Csc.Setting.MSBuild.Configuration == NuGet" />
       <property name="Csc.Setting.MSBuild.Configuration" value="NuGet" />
     </if>
-
 	
     <call target="Nuget.Restore" />
     <call target="Csc.Target.Rebuild" />
