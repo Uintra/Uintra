@@ -15,12 +15,12 @@ namespace uCommunity.Core.Controls.FileUpload
             _umbracoHelper = umbracoHelper;
         }
 
-        public ActionResult Uploader(FileUploadSettins settings)
+        public ActionResult Uploader(FileUploadSettings settings)
         {
             return View("~/App_Plugins/Core/Controls/FileUpload/FileUploadView.cshtml", settings);
         }
 
-        public ActionResult Editor(FileUploadSettins settings, string model)
+        public ActionResult Editor(FileUploadSettings settings, string model)
         {
             var mediaIds = model.ToIntCollection();
             var media = _umbracoHelper.TypedMedia(mediaIds);
