@@ -12,6 +12,7 @@
     <tags>Compent uCommunity Likes</tags>
   </metadata>
   <files>
-    <file src="App_Plugins\Likes\LikesController.cs" target="content\App_Plugins\Likes\IntranetLikesController.cs" />
+    <file src="View\**\*.*" target="content\App_Plugins\Likes\View\" />
+    <file src="LikesController.cs" target="content\App_Plugins\Likes\" />
   </files>
 </package>
