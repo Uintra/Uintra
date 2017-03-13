@@ -1,5 +1,6 @@
-﻿@using uCommunity.Core.Extentions
-@inherits UmbracoViewPage<uCommunity.Core.Controls.FileUpload.Core.FileUploadSettins>
+﻿@using uCommunity.Core.Controls.FileUpload
+@using uCommunity.Core.Extentions
+@inherits UmbracoViewPage<FileUploadSettings>
 <div>
     <div class="dropzone js-dropzone"  data-allowed="@Model.AllowedExtentions" 
          data-default-text="@Html.Localize("FileUploadView.UploadFiles.lbl")" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></div>
