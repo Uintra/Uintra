@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace uCommunity.Core.App_Plugins.Core.Activity.Entities
+namespace uCommunity.Core.Activity.Entities
 {
     public abstract class IntranetActivityBase
     {

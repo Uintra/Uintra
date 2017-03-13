@@ -1,7 +1,7 @@
 ﻿using System;
-using uCommunity.Core.App_Plugins.Core.User;
+using uCommunity.Core.User;
 
-namespace uCommunity.Core.App_Plugins.Core.Activity.Models
+namespace uCommunity.Core.Activity.Models
 {
     public abstract class IntranetActivityModelBase
     {

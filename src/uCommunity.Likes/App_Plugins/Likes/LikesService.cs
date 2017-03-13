@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
 using uCommunity.Core.App_Plugins.Core.User;
-using uCommunity.Likes.App_Plugins.Likes.Models;
-using uCommunity.Likes.App_Plugins.Likes.Sql;
 
-namespace uCommunity.Likes.App_Plugins.Likes
+namespace uCommunity.Likes
 {
     public class LikesService : ILikesService
     {

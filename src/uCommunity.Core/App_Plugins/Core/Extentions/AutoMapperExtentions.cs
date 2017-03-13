@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace uCommunity.Core.App_Plugins.Core.Extentions
+namespace uCommunity.Core.Extentions
 {
     public static class AutoMapperExtentions
     {

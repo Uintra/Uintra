@@ -2,7 +2,7 @@
 using ServiceStack.DataAnnotations;
 using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
 
-namespace uCommunity.Likes.App_Plugins.Likes.Sql
+namespace uCommunity.Likes
 {
     [CompositeIndex("UserId", "ActivityId", Unique = true, Name = "UQ_Like_UserId_ActivityId")]
     public class Like : SqlEntity

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace uCommunity.Core.App_Plugins.Core.Extentions
+namespace uCommunity.Core.Extentions
 {
     public static class SerializationExtentions
     {

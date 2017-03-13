@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace uCommunity.Core.App_Plugins.Core.Activity.Models
+namespace uCommunity.Core.Activity.Models
 {
     public class IntranetActivitySaveModelBase
     {

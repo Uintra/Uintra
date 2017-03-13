@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.App_Plugins.Core.Controls.LightboxGalery
+﻿namespace uCommunity.Core.Controls.LightboxGalery
 {
     public class LightboxGaleryViewModel
     {

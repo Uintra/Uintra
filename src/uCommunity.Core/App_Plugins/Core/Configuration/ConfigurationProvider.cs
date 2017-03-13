@@ -3,7 +3,7 @@ using System.IO;
 using System.Web.Hosting;
 using Newtonsoft.Json;
 
-namespace uCommunity.Core.App_Plugins.Core.Configuration
+namespace uCommunity.Core.Configuration
 {
     public class ConfigurationProvider<TConfiguration> : IConfigurationProvider<TConfiguration>
     {

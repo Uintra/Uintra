@@ -341,6 +341,7 @@
     <Compile Include="App_Plugins\Core\Controls\LightboxGalery\LightboxAutomapperProfile.cs" />
     <Compile Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGaleryController.cs" />
     <Compile Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGaleryViewModel.cs" />
+    <Compile Include="App_Plugins\Core\Exceptions\InconsistentDataException.cs" />
     <Compile Include="App_Plugins\Core\Extentions\AutoMapperExtentions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\HtmlExtentions.cs" />
     <Compile Include="App_Plugins\Core\Extentions\HttpContextExtentions.cs" />
