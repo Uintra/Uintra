@@ -340,7 +340,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="uCommunity.Likes.nuspec" />
+    <None Include="uCommunity.Likes.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

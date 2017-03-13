@@ -11,7 +11,9 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Comments Controls CommentsControls</tags>
   </metadata>
-   <files>
-    <file src="App_Plugins\Comments\CommentsController.cs" target="content\App_Plugins\Comments\IntranetCommentsController.cs" />
+  <files>
+    <file src="Content\**\*.*" target="content\App_Plugins\Comments\" />
+    <file src="View\**\*.*" target="content\App_Plugins\Comments\View\" />
+    <file src="CommentsController.cs" target="content\App_Plugins\Comments\IntranetCommentsController.cs" />
   </files>
 </package>
