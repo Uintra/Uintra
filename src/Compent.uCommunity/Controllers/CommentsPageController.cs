@@ -10,10 +10,5 @@ namespace Compent.uCommunity.Controllers
         {
             return View();
         }
-
-        public override ActionResult Index(RenderModel renderModel)
-        {
-            return View();
-        }
     }
 }
