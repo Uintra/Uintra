@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Core.Controls.FileUpload.Core
+namespace uCommunity.Core.Controls.FileUpload
 {
     public class TempFile
     {

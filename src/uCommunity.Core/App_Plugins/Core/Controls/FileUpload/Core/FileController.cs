@@ -7,7 +7,7 @@ using System.Web.Http;
 using uCommunity.Core.Caching;
 using Umbraco.Web.WebApi;
 
-namespace uCommunity.Core.Controls.FileUpload.Core
+namespace uCommunity.Core.Controls.FileUpload
 {
     public class FileController : UmbracoApiController
     {
