@@ -348,14 +348,14 @@
     <Content Include="App_Plugins\Comments\_comments.css" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <None Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <None Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
-    <None Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <None Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <None Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <None Include="packages.config" />
+    <Content Include="app.config" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
