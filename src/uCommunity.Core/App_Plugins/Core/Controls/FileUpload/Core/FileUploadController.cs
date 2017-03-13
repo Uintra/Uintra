@@ -4,7 +4,7 @@ using uCommunity.Core.Extentions;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Core.Controls.FileUpload.Core
+namespace uCommunity.Core.Controls.FileUpload
 {
     public class FileUploadController : SurfaceController
     {

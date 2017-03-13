@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using uCommunity.Core.Caching;
-using uCommunity.Core.Controls.FileUpload.Core;
+using uCommunity.Core.Controls.FileUpload;
 using uCommunity.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
