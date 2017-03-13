@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Core.App_Plugins.Core.Activity;
-using uCommunity.Core.App_Plugins.Core.User;
-using uCommunity.Likes.App_Plugins.Likes;
-using uCommunity.Likes.App_Plugins.Likes.Models;
+using uCommunity.Core.Activity;
+using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Likes.Controllers
