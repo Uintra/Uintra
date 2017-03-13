@@ -30,7 +30,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Navigation", "uC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Comments", "uCommunity.Comments\uCommunity.Comments.csproj", "{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.CentralFeed", "uCommunity.CentralFeed\uCommunity.CentralFeed.csproj", "{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.News", "uCommunity.News\uCommunity.News.csproj", "{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}"
+>>>>>>> origin/master
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +91,12 @@ Global
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.NuGet|Any CPU.Build.0 = Release|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.NuGet|Any CPU.ActiveCfg = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.NuGet|Any CPU.Build.0 = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -82,7 +82,6 @@ src/uCommunity.Likes/Web.config
 src/uCommunity.Navigation/Web.config
 src/uCommunity.Subscribe/Web.config
 
-
 src/uCommunity.CentralFeed/bin/*
 src/uCommunity.CentralFeed/obj/
 src/uCommunity.CentralFeed/Umbraco/
@@ -91,3 +90,14 @@ src/uCommunity.CentralFeed/App_Data/
 src/uCommunity.CentralFeed/App_Browsers/
 src/uCommunity.CentralFeed/Config/
 src/uCommunity.CentralFeed/App_Plugins/Core/
+
+src/uCommunity.News/bin/*
+src/uCommunity.News/obj/
+src/uCommunity.News/Umbraco/
+src/uCommunity.News/Umbraco_Client/
+src/uCommunity.News/App_Data/
+src/uCommunity.News/App_Browsers/
+src/uCommunity.News/Config/
+src/uCommunity.News/App_Plugins/Core/
+src/uCommunity.News/Web.config
+
