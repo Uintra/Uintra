@@ -74,3 +74,11 @@ src/uCommunity.Comments/App_Plugins/Core/
 
 /src/uCommunity.Navigation/obj/*
 /src/uCommunity.Navigation/bin/
+src/uCommunity.Navigation/Umbraco/
+src/uCommunity.Navigation/Umbraco_Client/
+src/uCommunity.Navigation/App_Plugins/Core/
+src/uCommunity.Navigation/App_Browsers/Form.browser
+src/uCommunity.Navigation/App_Browsers/w3cvalidator.browser
+src/uCommunity.Navigation/Config/splashes/booting.aspx
+src/uCommunity.Navigation/Config/splashes/noNodes.aspx
+src/uCommunity.Navigation/Web.config
