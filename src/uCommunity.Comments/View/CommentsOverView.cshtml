@@ -4,8 +4,8 @@
 
 <div id="@Model.ElementId" data-activity-id="@Model.ActivityId">
     <h3 class="comments__title">@Html.Localize("CommentsOverView.Title.lbl")</h3>
-    @{Html.RenderAction("ListView", "Comments", new { activityId = Model.ActivityId });}
+    @Html.Action("ListView", "Comments", new { activityId = Model.ActivityId })
 
     <h4 class="comments__subtitle">@Html.Localize("CommentsOverView.AddComment.lbl")</h4>
-    @{Html.RenderAction("CreateView", "Comments", new { activityId = Model.ActivityId });}
+    @Html.Action("CreateView", "Comments", new { activityId = Model.ActivityId })
 </div>
