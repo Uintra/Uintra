@@ -11,4 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Likes</tags>
   </metadata>
+  <files>
+    <file src="App_Plugins\Likes\LikesController.cs" target="content\App_Plugins\Likes\IntranetLikesController.cs" />
+  </files>
 </package>
