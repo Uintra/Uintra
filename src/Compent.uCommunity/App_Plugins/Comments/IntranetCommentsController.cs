@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Comments.App_Plugins.Comments.Models;
-using uCommunity.Comments.App_Plugins.Comments.Sql;
-using uCommunity.Core.App_Plugins.Core.Extentions;
-using uCommunity.Core.App_Plugins.Core.User;
+using uCommunity.Core.Extentions;
+using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Comments.App_Plugins.Comments
+namespace uCommunity.Comments
 {
     public class CommentsController : SurfaceController
     {

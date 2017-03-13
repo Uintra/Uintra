@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.App_Plugins.Core.Localization;
+﻿using uCommunity.Core.Localization;
 
 namespace Compent.uCommunity.Core
 {
