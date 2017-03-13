@@ -6,6 +6,8 @@ namespace uCommunity.Core.User
     public interface IIntranetUserService
     {
         Guid GetCurrentUserId();
+
+        IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> ids);
     }
 
     public interface IIntranetUserService<TModel> : IIntranetUserService
