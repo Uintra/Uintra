@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Navigation", "uC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Comments", "uCommunity.Comments\uCommunity.Comments.csproj", "{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.News", "uCommunity.News\uCommunity.News.csproj", "{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,12 @@ Global
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.NuGet|Any CPU.Build.0 = Release|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.NuGet|Any CPU.ActiveCfg = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.NuGet|Any CPU.Build.0 = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
