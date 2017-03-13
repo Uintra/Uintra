@@ -1,5 +1,5 @@
 ﻿using System;
-using uCommunity.Core.App_Plugins.Core.Activity;
+using uCommunity.Core.Activity;
 
 namespace uCommunity.Subscribe.Model
 {

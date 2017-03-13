@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Subscribe
 {

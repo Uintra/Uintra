@@ -1,6 +1,6 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Subscribe
 {
