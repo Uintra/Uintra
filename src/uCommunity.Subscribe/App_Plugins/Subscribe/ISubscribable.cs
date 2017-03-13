@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using uCommunity.Core.Activity;
 
 namespace uCommunity.Subscribe
 {
@@ -8,5 +9,7 @@ namespace uCommunity.Subscribe
         Guid Id { get; set; }
 
         IEnumerable<Subscribe> Subscribers { get; set; }
+
+        IntranetActivityTypeEnum Type { get; set; }
     }
 }

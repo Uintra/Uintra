@@ -23,32 +23,32 @@ namespace uCommunity.Subscribe
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
-        
-        public PartialViewResult Index(ISubscribable subscribers, Guid activityId, IntranetActivityTypeEnum type)
+
+        public PartialViewResult Index(ISubscribable subscribe, Guid activityId)
         {
-            var userId = GetCurrentUserId();
-            var subscribe = subscribers.Subscribers.SingleOrDefault(s => s.UserId == userId);
+            var userId = _intranetUserService.GetCurrentUserId();
+            var subscriber = subscribe.Subscribers.SingleOrDefault(s => s.UserId == userId);
 
             var model = new SubscribeViewModel
             {
-                Id = subscribe?.Id,
+                Id = subscriber?.Id,
                 UserId = userId,
                 ActivityId = activityId,
-                IsSubscribed = subscribe != null,
-                Type = type,
-                HasNotification = HasNotification(type),
-                IsNotificationDisabled = subscribe?.IsNotificationDisabled ?? false
+                IsSubscribed = subscriber != null,
+                Type = subscribe.Type,
+                HasNotification = HasNotification(subscribe.Type),
+                IsNotificationDisabled = subscriber?.IsNotificationDisabled ?? false
             };
 
             return PartialView("~/App_Plugins/Subscribe/View/SubscribeView.cshtml", model);
         }
-        
+
         [HttpPost]
         public PartialViewResult Subscribe(Guid activityId, IntranetActivityTypeEnum type)
         {
-            var userId = GetCurrentUserId();
+            var userId = _intranetUserService.GetCurrentUserId();
             var service = _activitiesServiceFactory.GetService(type);
-            var subscribeService = (ISubscribableService) service;
+            var subscribeService = (ISubscribableService)service;
             var subscribe = subscribeService.Subscribe(userId, activityId);
             var model = new SubscribeViewModel
             {
@@ -67,7 +67,7 @@ namespace uCommunity.Subscribe
         [HttpPost]
         public PartialViewResult Unsubscribe(Guid activityId, IntranetActivityTypeEnum type)
         {
-            var userId = GetCurrentUserId();
+            var userId = _intranetUserService.GetCurrentUserId();
             var service = _activitiesServiceFactory.GetService(type);
             var subscribeService = (ISubscribableService)service;
             subscribeService.UnSubscribe(userId, activityId);
@@ -93,7 +93,7 @@ namespace uCommunity.Subscribe
             var subscribs = _subscribeService.Get(activityId).ToList();
 
             var subscribersNames = subscribs.Count > 0
-                ? _intranetUserService.GetManyNames(subscribs.Select(s => s.UserId)).Select(s => s.Item2)
+                ? _intranetUserService.GetManyNames(subscribs.Select(s => s.UserId)).Select(u => u.Item2)
                 : Enumerable.Empty<string>();
 
             return PartialView("~/App_Plugins/Subscribe/View/SubscribersList.cshtml", subscribersNames);
@@ -109,11 +109,6 @@ namespace uCommunity.Subscribe
         {
             var version = _subscribeService.GetVersion(activityId);
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
-        }
-
-        private Guid GetCurrentUserId()
-        {
-            return _intranetUserService.GetCurrentUserId();
         }
 
         private bool HasNotification(IntranetActivityTypeEnum type)
