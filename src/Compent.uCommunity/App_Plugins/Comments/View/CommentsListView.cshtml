@@ -1,10 +1,11 @@
 ﻿@using System.Web.Mvc.Html
 @model uCommunity.Comments.CommentsListModel
+
 <ul class="comments__list">
     @foreach (var comment in Model.Comments)
     {
         <li class="comments__list-item clearfix">
-            @{Html.RenderPartial("~/App_Plugins/Comments/View/CommentsView.cshtml", comment);}
+            @Html.Action("View","Comments", new { comment })
         </li>
     }
 </ul>

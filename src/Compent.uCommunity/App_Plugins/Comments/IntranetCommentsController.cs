@@ -114,6 +114,11 @@ namespace uCommunity.Comments
             return PartialView("~/App_Plugins/Comments/View/CommentsPreView.cshtml", model);
         }
 
+        public PartialViewResult View(CommentViewModel comment)
+        {
+            return PartialView("~/App_Plugins/Comments/View/CommentsView.cshtml", comment);
+        }
+
         private CommentsOverviewModel GetCommentsOverview(Guid activityId)
         {
             var model = new CommentsOverviewModel

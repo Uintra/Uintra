@@ -20,7 +20,7 @@
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-time">@(Model.CreatedDate.ToString(IntranetConstants.Common.DefaultTimeFormat))</span>
             </div>
-            
+
             @if (Model.CanDelete || Model.CanEdit)
             {
                 <div class="comments__controls">
@@ -66,25 +66,25 @@
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
                 <span class="js-comment-hideEditLink">Hide</span>
-                @{Html.RenderPartial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId });}
+                @Html.Action("EditView","Comments", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
             </div>
-        }
-        
+                    }
+
         @if (Model.Replies.Any())
         {
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@{ Html.RenderPartial("~/App_Plugins/Comments/View/CommentsView.cshtml", reply);}</li>
-                }
+                    <li class="comments__list-item clearfix">@{  Html.Action("View", "Comments", new { comment = reply });}</li>
+                        }
             </ul>
-        }
+                        }
         @if (!Model.IsReply)
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @{Html.RenderPartial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId });}
+                @Html.Action("CreateView","Comments", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
             </div>
-        }
+                    }
     </div>
 </div>
