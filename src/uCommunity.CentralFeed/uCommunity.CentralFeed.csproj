@@ -347,7 +347,6 @@
     <None Include="default.aspx" />
     <None Include="Global.asax" />
     <None Include="Plugin\View\central-feed.view.html" />
-    <None Include="Plugin\View\Web.config" />
     <None Include="Plugin\_centralFeed.css" />
     <None Include="Plugin\_feedOverview.css" />
   </ItemGroup>
