@@ -347,6 +347,7 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <None Include="App_Plugins\Web.config" />
     <None Include="packages.config" />
     <None Include="uCommunity.Subscribe.nuspec" />
   </ItemGroup>
