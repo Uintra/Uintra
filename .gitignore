@@ -81,3 +81,13 @@ src/uCommunity.Core/Web.config
 src/uCommunity.Likes/Web.config
 src/uCommunity.Navigation/Web.config
 src/uCommunity.Subscribe/Web.config
+
+
+src/uCommunity.CentralFeed/bin/*
+src/uCommunity.CentralFeed/obj/
+src/uCommunity.CentralFeed/Umbraco/
+src/uCommunity.CentralFeed/Umbraco_Client/
+src/uCommunity.CentralFeed/App_Data/
+src/uCommunity.CentralFeed/App_Browsers/
+src/uCommunity.CentralFeed/Config/
+src/uCommunity.CentralFeed/App_Plugins/Core/
