@@ -1,8 +1,8 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Core.Persistence.Sql;
 
-namespace uCommunity.Comments.App_Plugins.Comments.Sql
+namespace uCommunity.Comments
 {
     public class Comment : SqlEntity
     {

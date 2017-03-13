@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Comments.App_Plugins.Comments.Models
+﻿namespace uCommunity.Comments
 {
     public class CommentPreviewModel
     {

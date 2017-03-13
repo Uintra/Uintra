@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using uCommunity.Comments.App_Plugins.Comments.Sql;
 
-namespace uCommunity.Comments.App_Plugins.Comments
+namespace uCommunity.Comments
 {
     public interface ICommentsService
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uCommunity.Comments.App_Plugins.Comments.Models
+namespace uCommunity.Comments
 {
     public class CommentsListModel
     {

@@ -1,9 +1,9 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using uCommunity.Comments.App_Plugins.Comments.Models
-@using uCommunity.Core.App_Plugins.Core
-@using uCommunity.Core.App_Plugins.Core.Extentions
-@model uCommunity.Comments.App_Plugins.Comments.Models.CommentViewModel
+@using uCommunity.Comments
+@using uCommunity.Core
+@using uCommunity.Core.Extentions
+@model uCommunity.Comments.CommentViewModel
 
 <div id="js-comment-view-@Model.Id" class="js-comment-view" data-id="@Model.Id">
     <div class="comments__list-author">
@@ -35,8 +35,8 @@
                             @if (Model.CanDelete)
                             {
                                 @Ajax.ActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", new { id = Model.Id },
-                                new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.Replace, OnComplete = $"new CommentOverview('#{Model.ElementOverviewId}');" },
-                                new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
+                                    new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.Replace, OnComplete = $"new CommentOverview('#{Model.ElementOverviewId}');" },
+                                    new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
                             }
                         </li>
                     </ul>
