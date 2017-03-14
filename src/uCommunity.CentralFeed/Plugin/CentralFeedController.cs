@@ -26,29 +26,29 @@ namespace uCommunity.CentralFeed
             return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml", model);
         }
 
-        public ActionResult List(IntranetActivityTypeEnum? type = null, long? version = null, int page = 1)
+        public ActionResult List(CentralFeedListModel model)
         {
-            var items = (type == null ? 
+            var items = (model.Type == null ? 
                 _centralFeedService.GetFeed().OrderByDescending(s => s.SortDate.Date) : 
-                _centralFeedService.GetFeed(type.Value))
+                _centralFeedService.GetFeed(model.Type.Value))
                 .ToList();
 
             var currentVersion = _centralFeedService.GetFeedVersion(items);
 
-            if (version.HasValue && currentVersion == version.Value)
+            if (model.Version.HasValue && currentVersion == model.Version.Value)
             {
                 return null;
             }
 
-            var take = page * ItemsPerPage;
+            var take = model.Page * ItemsPerPage;
             var pagedItemsList = items.Take(take).ToList();
 
-            var centralFeedModel = new CentralFeedListModel
+            var centralFeedModel = new CentralFeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(items),
                 Items = pagedItemsList,
                 Settings = _centralFeedService.GetAllSettings(),
-                Type = type,
+                Type = model.Type,
                 BlockScrolling = items.Count < take
             };
 
