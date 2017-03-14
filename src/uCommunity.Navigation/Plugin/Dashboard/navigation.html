@@ -1,0 +1,18 @@
+﻿<div class="navigation" ng-controller="uNavigationController as uNavCtrl">
+    <div class="type-holder">
+        <input class="txt" type="text" placeholder="put parent folder Id for Navigation Compositions"
+               ng-model="uNavCtrl.folderId" />
+    </div>
+
+    <div>
+        <input class="btns btn btn-info-custom" type="button" value="Create Navigation Compositions"
+               ng-click="uNavCtrl.create()" ng-disabled="!uNavCtrl.isLoaded || uNavCtrl.isDocumentTypesAlreadyExists" />
+        <input class="btns btn btn-info-custom" type="button" value="Delete Navigation Compositions"
+               ng-disabled="!uNavCtrl.isLoaded || !uNavCtrl.isDocumentTypesAlreadyExists" />
+    </div>
+
+    <div id="result-messages" style="color: red;">
+
+    </div>
+
+</div>
