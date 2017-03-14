@@ -364,7 +364,9 @@
     <Compile Include="App_Plugins\Core\User\IHasCreator.cs" />
     <Compile Include="App_Plugins\Core\User\IIntranetUserService.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetRolesEnum.cs" />
+    <Compile Include="App_Plugins\Core\User\IntranetUser.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetUserBase.cs" />
+    <Compile Include="App_Plugins\Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
