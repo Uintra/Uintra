@@ -328,9 +328,10 @@
     <Compile Include="Core\ICentralFeedItem.cs" />
     <Compile Include="Core\ICentralFeedItemService.cs" />
     <Compile Include="Core\ICentralFeedService.cs" />
-    <Compile Include="Core\Models\CentralFeedListModel.cs" />
+    <Compile Include="Core\Models\CentralFeedListViewModel.cs" />
     <Compile Include="Core\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\CentralFeedTypeModel.cs" />
+    <None Include="Plugin\Models\CentralFeedListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
