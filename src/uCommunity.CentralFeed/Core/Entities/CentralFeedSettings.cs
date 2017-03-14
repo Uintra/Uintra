@@ -7,6 +7,8 @@ namespace uCommunity.CentralFeed.Entities
     {
         public IntranetActivityTypeEnum Type { get; set; }
 
+        public string Controller { get; set; }
+
         public IPublishedContent OverviewPage { get; set; }
         public IPublishedContent CreatePage { get; set; }
 

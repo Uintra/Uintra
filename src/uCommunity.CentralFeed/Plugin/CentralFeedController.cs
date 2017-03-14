@@ -47,6 +47,7 @@ namespace uCommunity.CentralFeed
             {
                 Version = _centralFeedService.GetFeedVersion(items),
                 Items = pagedItemsList,
+                Settings = _centralFeedService.GetAllSettings(),
                 Type = type,
                 BlockScrolling = items.Count < take
             };
@@ -67,15 +68,15 @@ namespace uCommunity.CentralFeed
 
         private IEnumerable<CentralFeedTypeModel> GetTypes()
         {
-            foreach (var type in new[] { IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.Ideas, IntranetActivityTypeEnum.Events })
+            var allSettings = _centralFeedService.GetAllSettings();
+            foreach (var singleSetting in allSettings)
             {
-                var settings = _centralFeedService.GetSettings(type);
                 yield return new CentralFeedTypeModel
                 {
-                    Type = type,
-                    CreateUrl = settings.CreatePage.Url,
-                    TabUrl = settings.OverviewPage.Url,
-                    HasSubscribersFilter = settings.HasSubscribersFitler,
+                    Type = singleSetting.Type,
+                    CreateUrl = singleSetting.CreatePage.Url,
+                    TabUrl = singleSetting.OverviewPage.Url,
+                    HasSubscribersFilter = singleSetting.HasSubscribersFitler,
                 };
             }
         }
