@@ -7,7 +7,6 @@ using uCommunity.Core;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
-using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.News
@@ -125,10 +124,10 @@ namespace uCommunity.News
         {
             FillLinks();
             model.Users = _intranetUserService.GetAll().OrderBy(user => user.Name);
-            var allowedMediaTypeAlias = NewsOverview.GetModelPropertyType(s => s.AllowedMediaExtensions).PropertyTypeAlias;
-            model.AllowedMediaExtentions = _newsService.GetOverviewPage().GetPropertyValue<string>(allowedMediaTypeAlias, "");
-            var mediaRootAlias = NewsOverview.GetModelPropertyType(s => s.MediaRootId).PropertyTypeAlias;
-            model.MediaRootId = _newsService.GetOverviewPage().GetPropertyValue<int?>(mediaRootAlias);
+
+            var mediaSettings = _newsService.GetMediaSettings();
+            model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
+            model.MediaRootId = mediaSettings.MediaRootId;
         }
 
         private IEnumerable<NewsOverviewItemModel> GetOverviewItems(IEnumerable<News> news)
