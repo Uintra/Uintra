@@ -22,16 +22,21 @@ namespace uCommunity.Core.Configuration
 
         public void Initialize()
         {
-            if (!_initialized)
+            if (_initialized)
             {
-                lock (_syncRoot)
+                return;
+            }
+
+            lock (_syncRoot)
+            {
+                if (_initialized)
                 {
-                    if (!_initialized)
-                    {
-                        LoadSettings();
-                        _initialized = true;
-                    }
+                    return;
                 }
+
+                LoadSettings();
+                _initialized = true;
+                AssertConfigurationIsValid();
             }
         }
 
@@ -52,6 +57,11 @@ namespace uCommunity.Core.Configuration
                 throw new ApplicationException("Not initialized");
             }
             return Settings;
+        }
+
+        public virtual void AssertConfigurationIsValid()
+        {
+
         }
 
         private void LoadSettings()
