@@ -39,6 +39,7 @@
       <arg value="pack" />
       <arg file="${CcnetConfig.SourcesRootDirectory}\src\uCommunity.Core\uCommunity.Core.csproj" />
       <arg value="-Build" />
+      <arg line="-Properties Configuration=${Csc.Setting.MSBuild.Configuration}" />
       <arg line="-Verbosity detailed" />
     </exec>
 
