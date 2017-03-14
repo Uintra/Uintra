@@ -10,18 +10,11 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Navigation Controls NavigationControls</tags>
+	<dependencies>
+	 <dependency id="uCommunity.Core" version="[1.0.6.2, 2.0.0)" />
+  </dependencies>
   </metadata>
    <files>
-    <file src="App_Plugins\navigationConfiguration.json" target="content\App_Plugins\Navigation\navigationConfiguration.json" />
-    <file src="App_Plugins\NavigationController.cs" target="content\App_Plugins\Navigation\NavigationController.cs" />
-    <file src="App_Plugins\MenuViewModel.cs" target="content\App_Plugins\Navigation\MenuViewModel.cs" />
-    <file src="App_Plugins\MenuItemViewModel.cs" target="content\App_Plugins\MenuItemViewModel.cs" />
-    <file src="App_Plugins\SubNavigationMenuViewModel.cs" target="content\App_Plugins\SubNavigationMenuViewModel.cs" />
-    <file src="App_Plugins\LeftNavigation\View\LeftSideMenu.cshtml" target="content\App_Plugins\Navigation\LeftNavigation\View\LeftSideMenu.cshtml" />
-    <file src="App_Plugins\LeftNavigation\_leftSideMenu.css" target="content\App_Plugins\Navigation\LeftNavigation\_leftSideMenu.css" />
-    <file src="App_Plugins\LeftNavigation\left-side-menu.js" target="content\App_Plugins\Navigation\LeftNavigation\left-side-menu.js" />
-     <file src="App_Plugins\SubNavigation\View\SubNavigationMenu.cshtml" target="content\App_Plugins\Navigation\SubNavigation\View\SubNavigationMenu.cshtml" />
-     <file src="App_Plugins\SubNavigation\_leftSideMenu.css" target="content\App_Plugins\Navigation\SubNavigation\_subNavigationMenu.css" />
-     <file src="App_Plugins\SubNavigation\left-side-menu.js" target="content\App_Plugins\Navigation\SubNavigation\sub-Menu.js" />
+    <file src="Plugin\**" target="content\App_Plugins\Navigation" />
   </files>
 </package>

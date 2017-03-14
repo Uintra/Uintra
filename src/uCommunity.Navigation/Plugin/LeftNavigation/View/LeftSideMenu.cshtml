@@ -1,0 +1,31 @@
+﻿@using uCommunity.Navigation.DefaultImplementation
+@model uCommunity.Navigation.DefaultImplementation.MenuViewModel
+
+@RenderTreeRecursive(Model.MenuItems)
+
+@helper RenderTreeRecursive(IEnumerable<MenuItemViewModel> tree)
+{
+    <ul class="side-nav js-left-side-menu">
+        @foreach (var item in tree)
+        {
+            var hasNavigableChildren = item.Children.Any();
+
+            <li class="@(item.IsActive ? "_active" : "") @(hasNavigableChildren? "_hasSubItems" : "") side-nav__item">
+                <a class="side-nav__link" href="@item.Url">
+                    @item.Name
+                    @if (item.IsHomePage)
+                    {
+                        <span class="glyphicon glyphicon-home"></span>
+                    }
+                </a>
+                @if (hasNavigableChildren && !item.IsHomePage)
+                {
+                    <img id="side-nav-arrow_@item.Id" data-id="@item.Id" data-open="false" width="15" height="15" src="~/Content/images/arrow_down.svg" />
+                    <div id="side-nav-children_@item.Id" data-id="@item.Id" style="display: none">
+                        @RenderTreeRecursive(item.Children)
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+}
