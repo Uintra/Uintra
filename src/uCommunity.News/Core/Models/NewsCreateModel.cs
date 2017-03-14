@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using uCommunity.Core.User;
-using uCommunity.News.Base;
 
 namespace uCommunity.News
 {

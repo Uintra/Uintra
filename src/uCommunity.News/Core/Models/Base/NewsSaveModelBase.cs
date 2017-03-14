@@ -4,7 +4,7 @@ using ServiceStack.DataAnnotations;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Media;
 
-namespace uCommunity.News.Base
+namespace uCommunity.News
 {
     public class NewsSaveModelBase : IntranetActivitySaveModelBase, IContentWithMediaCreateEditModel
     {

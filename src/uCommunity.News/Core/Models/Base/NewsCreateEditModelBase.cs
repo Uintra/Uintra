@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Media;
 
-namespace uCommunity.News.Base
+namespace uCommunity.News
 {
     public class NewsCreateEditModelBase : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using uCommunity.Core.Activity.Models;
 
-namespace uCommunity.News.Base
+namespace uCommunity.News
 {
     public class NewsModelBase : IntranetActivityModelBase
     {

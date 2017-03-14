@@ -1,6 +1,5 @@
 using System;
 using uCommunity.Core.User;
-using uCommunity.News.Base;
 
 namespace uCommunity.News
 {
