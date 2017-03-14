@@ -1,0 +1,12 @@
+﻿@using uCommunity.Core.Extentions
+@model uCommunity.News.DefaultImplementation.Models.NewsOverviewModel
+
+<section class="content">
+    <a class="content__item-print" href="@Model.CreatePageUrl">@Html.Localize("NewsOverview.CreateNews.lnk")</a>
+    <div class="content__list">
+        @foreach (var news in Model.Items)
+        {
+            Html.RenderAction("ItemView", "News", new { model = news });
+        }
+    </div>
+</section>
