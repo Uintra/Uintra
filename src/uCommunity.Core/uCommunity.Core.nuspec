@@ -11,4 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Core</tags>
   </metadata>
+  <files>
+    <file src="App_Plugins\Core\User\IntranetUser.cs" target="content\App_Plugins\Core\User" />
+  </files>
 </package>
