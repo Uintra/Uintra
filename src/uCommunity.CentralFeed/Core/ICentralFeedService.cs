@@ -13,5 +13,7 @@ namespace uCommunity.CentralFeed
         long GetFeedVersion(IEnumerable<ICentralFeedItem> centralFeedItems);
 
         CentralFeedSettings GetSettings(IntranetActivityTypeEnum type);
+
+        IEnumerable<CentralFeedSettings> GetAllSettings();
     }
 }
