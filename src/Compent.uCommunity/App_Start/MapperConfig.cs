@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using uCommunity.Comments.App_Plugins.Comments.AutoMapperProfiles;
+using uCommunity.Comments;
 
 namespace Compent.uCommunity.App_Start
 {

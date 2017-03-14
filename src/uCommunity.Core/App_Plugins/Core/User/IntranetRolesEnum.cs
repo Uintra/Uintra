@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.App_Plugins.Core.User
+﻿namespace uCommunity.Core.User
 {
     public enum IntranetRolesEnum
     {

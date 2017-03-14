@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.App_Plugins.Core
+﻿namespace uCommunity.Core
 {
     public enum MediaTypeEnum
     {

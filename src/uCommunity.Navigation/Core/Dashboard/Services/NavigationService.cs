@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using uCommunity.Core.App_Plugins.Core.Configuration;
+using uCommunity.Core.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 

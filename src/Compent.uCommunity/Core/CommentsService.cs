@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Comments.App_Plugins.Comments;
-using uCommunity.Comments.App_Plugins.Comments.Sql;
-using uCommunity.Core.App_Plugins.Core.Persistence.Sql;
+using uCommunity.Comments;
+using uCommunity.Core.Persistence.Sql;
 
 namespace Compent.uCommunity.Core
 {

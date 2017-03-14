@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Core.App_Plugins.Core.Activity;
-using uCommunity.Likes.App_Plugins.Likes;
-using uCommunity.Likes.App_Plugins.Likes.Models;
+using uCommunity.Core.Activity;
+using uCommunity.Likes;
 
 namespace Compent.uCommunity.App_Plugins.Likes
 {

@@ -1,11 +1,13 @@
 ﻿using System;
 
-namespace uCommunity.Subscribe.App_Plugins.Subscribe
+namespace uCommunity.Subscribe
 {
     public interface ISubscribableService
     {
-        Sql.Subscribe Subscribe(Guid userId, Guid activityId);
+        Subscribe Subscribe(Guid userId, Guid activityId);
 
         void UnSubscribe(Guid userId, Guid activityId);
+
+        void UpdateNotification(Guid id, bool value);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.App_Plugins.Core.Configuration
+﻿namespace uCommunity.Core.Configuration
 {
     public interface IConfigurationProvider<out TConfiguration>
     {

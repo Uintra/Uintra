@@ -1,0 +1,50 @@
+﻿@using uCommunity.Core.Activity
+@using uCommunity.Core.Extentions
+@inherits UmbracoViewPage<List<uCommunity.CentralFeed.Models.CentralFeedTypeModel>>
+
+@{
+    var currentTab = GetCurrentType();
+}
+
+<div class="tabset">
+    <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
+        <li class="tabset__navigation-item js-feed-type @(currentTab == null ? "_active" : "")" data-type="" data-page-url="/">
+            <a class="tabset__navigation-link " href="/"><span>@Html.Localize("CentralFeed.AllFeedType.lnk")</span></a>
+        </li>
+        @foreach (var typeModel in Model)
+        {
+            <li class="tabset__navigation-item js-feed-type @(currentTab.HasValue && currentTab.Value == typeModel.Type ? "_active" : "")" data-type="@typeModel.Type.GetHashCode()" data-page-url="@typeModel.TabUrl">
+                <a class="tabset__navigation-link " href="@typeModel.TabUrl">
+                    <span>@Html.Localize(typeModel.Type)</span>
+                </a>
+            </li>
+        }
+        <li class="tabset__navigation-item _item-add">
+            <a class="tabset__navigation-link _add">+</a>
+            <ul class="tabset__navigation-list">
+                @foreach (var typeModel in Model)
+                {
+                    <li class="tabset__navigation-list-item">
+                        <a class="tabset__navigation-list-link" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+@functions
+{
+
+    public IntranetActivityTypeEnum? GetCurrentType()
+    {
+        var path = "";
+        if (HttpContext.Current.Request.Url.AbsolutePath != "/")
+        {
+            path = HttpContext.Current.Request.Url.AbsolutePath.Split('/').FirstOrDefault(s => s.IsNotNullOrEmpty());
+        }
+        var type = Model.FirstOrDefault(s => s.TabUrl.Trim('/') == path);
+        return type?.Type;
+    }
+}

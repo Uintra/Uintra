@@ -1,4 +1,4 @@
-﻿﻿namespace uCommunity.Core.App_Plugins.Core.Activity
+﻿﻿namespace uCommunity.Core.Activity
 {
     public interface IActivitiesServiceFactory
     {

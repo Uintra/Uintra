@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace uCommunity.Core.App_Plugins.Core.Caching
+namespace uCommunity.Core.Caching
 {
     public interface IMemoryCacheService
     {

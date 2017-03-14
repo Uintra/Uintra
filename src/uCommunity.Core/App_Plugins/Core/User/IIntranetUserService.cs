@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace uCommunity.Core.App_Plugins.Core.User
+namespace uCommunity.Core.User
 {
     public interface IIntranetUserService
     {
         Guid GetCurrentUserId();
+
+        IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> ids);
     }
 
     public interface IIntranetUserService<TModel> : IIntranetUserService

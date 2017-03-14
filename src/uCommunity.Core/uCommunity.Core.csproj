@@ -335,7 +335,7 @@
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileController.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileUploadController.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileUploadEditViewModel.cs" />
-    <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileUploadSettins.cs" />
+    <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileUploadSettings.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\FileViewModel.cs" />
     <Compile Include="App_Plugins\Core\Controls\FileUpload\Core\TempFile.cs" />
     <Compile Include="App_Plugins\Core\Controls\LightboxGalery\LightboxAutomapperProfile.cs" />
@@ -572,6 +572,7 @@
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
+    <None Include="App_Plugins\Web.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

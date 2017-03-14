@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Core.App_Plugins.Core.Extentions;
+using uCommunity.Core.Extentions;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Core.App_Plugins.Core.Controls.FileUpload.Core
+namespace uCommunity.Core.Controls.FileUpload
 {
     public class FileUploadController : SurfaceController
     {
@@ -15,12 +15,12 @@ namespace uCommunity.Core.App_Plugins.Core.Controls.FileUpload.Core
             _umbracoHelper = umbracoHelper;
         }
 
-        public ActionResult Uploader(FileUploadSettins settings)
+        public ActionResult Uploader(FileUploadSettings settings)
         {
             return View("~/App_Plugins/Core/Controls/FileUpload/FileUploadView.cshtml", settings);
         }
 
-        public ActionResult Editor(FileUploadSettins settings, string model)
+        public ActionResult Editor(FileUploadSettings settings, string model)
         {
             var mediaIds = model.ToIntCollection();
             var media = _umbracoHelper.TypedMedia(mediaIds);

@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.App_Plugins.Core.User;
+﻿using uCommunity.Core.User;
 
 namespace Compent.uCommunity.Core.Users
 {

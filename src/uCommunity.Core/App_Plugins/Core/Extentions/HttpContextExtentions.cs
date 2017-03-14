@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace uCommunity.Core.App_Plugins.Core.Extentions
+namespace uCommunity.Core.Extentions
 {
     public static class HttpContextExtentions
     {

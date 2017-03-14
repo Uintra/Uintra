@@ -14,8 +14,12 @@
     <property name="Csc.Setting.Simian.Path" value="" />
     <property name="Csc.Setting.SourceMonitor.Path" value="" />
 
+	<if test="${Csc.Setting.Build.TargetEnvironment=='NuGet'}">
+      <echo message="Csc.Setting.MSBuild.Configuration == NuGet" />
+      <property name="Csc.Setting.MSBuild.Configuration" value="NuGet" />
+    </if>
+	
     <call target="Nuget.Restore" />
-    <call target="Csc.Target.Rebuild" />
 
     <property name="Csc.Setting.NUnit.Path" value="C:\!BuildAccessories\Tools\NUnit-2.6.3\bin\nunit-console.exe" />
     <!--<property name="Csc.Setting.NUnit.AssemblyList" value="TeamDenmark.Common.ApiClient.Tests.dll" />-->
@@ -40,6 +44,7 @@
       <arg value="pack" />
       <arg file="${CcnetConfig.SourcesRootDirectory}\src\uCommunity.Subscribe\uCommunity.Subscribe.csproj" />
       <arg value="-Build" />
+	  <arg line="-Properties Configuration=${Csc.Setting.MSBuild.Configuration}" />
       <arg line="-Verbosity detailed" />
     </exec>
 

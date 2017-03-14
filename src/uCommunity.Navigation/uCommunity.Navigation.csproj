@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -111,6 +114,14 @@
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.1.3.2\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\..\packages\Microsoft.CodeAnalysis.CSharp.1.3.2\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -143,8 +154,9 @@
       <HintPath>..\..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin">
@@ -155,11 +167,57 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\packages\ServiceStack.4.5.4\lib\net45\ServiceStack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client">
+      <HintPath>..\..\packages\ServiceStack.Client.4.5.4\lib\net45\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Common.4.5.4\lib\net45\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Interfaces.4.5.4\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.4.5.4\lib\net45\ServiceStack.OrmLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.4.5.4\lib\net45\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Text.4.5.4\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SQLCE4Umbraco">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\SQLCE4Umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.AppContext">
+      <HintPath>..\..\packages\System.AppContext.4.1.0\lib\net46\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console">
+      <HintPath>..\..\packages\System.Console.4.0.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -169,6 +227,22 @@
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\System.Data.SqlServerCe.Entity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+      <HintPath>..\..\packages\System.Diagnostics.FileVersionInfo.4.0.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>..\..\packages\System.Diagnostics.StackTrace.4.0.1\lib\net46\System.Diagnostics.StackTrace.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>..\..\packages\System.IO.FileSystem.4.0.1\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>..\..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -223,8 +297,25 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.XmlDocument">
+      <HintPath>..\..\packages\System.Xml.XmlDocument.4.0.1\lib\net46\System.Xml.XmlDocument.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+      <HintPath>..\..\packages\System.Xml.XPath.4.0.1\lib\net46\System.Xml.XPath.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+      <HintPath>..\..\packages\System.Xml.XPath.XDocument.4.0.1\lib\net46\System.Xml.XPath.XDocument.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TidyNet">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uCommunity.Core, Version=1.0.6.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.6.2\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco">
@@ -245,6 +336,10 @@
     </Reference>
     <Reference Include="umbraco.MacroEngines">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.MacroEngines.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Umbraco.ModelsBuilder">
+      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.4\lib\Umbraco.ModelsBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco.providers">
@@ -272,6 +367,8 @@
     <Compile Include="Core\Dashboard\Models\NavigationInitialState.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
+    <None Include="Plugin\config\navigationConfiguration.json" />
+    <None Include="Plugin\LeftNavigation\View\LeftSideMenu.cshtml" />
     <None Include="Plugin\NavigationController.cs" Condition="'$(Configuration)' == 'Debug'" />
     <Compile Include="DefaultImplementation\SubNavigationMenuViewModel.cs" />
     <Compile Include="Core\Dashboard\Services\INavigationService.cs" />
@@ -288,37 +385,36 @@
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Plugin\LeftNavigation\View\LeftSideMenu.cshtml" />
-    <None Include="Plugin\config\navigationConfiguration.json" />
     <None Include="Plugin\package.manifest" />
     <None Include="Plugin\SubNavigation\View\SubNavigationMenu.cshtml" />
-    <None Include="packages.config" />
-    <None Include="Plugin\Dashboard\navigation-controller.js" />
-    <None Include="Plugin\Dashboard\navigation-service.js" />
-    <None Include="Plugin\Dashboard\navigation.css" />
-    <None Include="Plugin\Dashboard\navigation.html" />
-    <None Include="Plugin\LeftNavigation\left-side-menu.js" />
-    <None Include="Plugin\LeftNavigation\_leftSideMenu.css" />
-    <None Include="Plugin\SubNavigation\sub-Menu.js" />
-    <None Include="Plugin\SubNavigation\_subNavigationMenu.css" />
-    <Content Include="uCommunity.Navigation.nuspec">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
-      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uCommunity.Core</Name>
-    </ProjectReference>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <Content Include="Plugin\Dashboard\navigation-controller.js" />
+    <Content Include="Plugin\Dashboard\navigation-service.js" />
+    <Content Include="Plugin\Dashboard\navigation.css" />
+    <Content Include="Plugin\Dashboard\navigation.html" />
+    <Content Include="Plugin\LeftNavigation\left-side-menu.js" />
+    <Content Include="Plugin\LeftNavigation\_leftSideMenu.css" />
+    <Content Include="Plugin\SubNavigation\sub-Menu.js" />
+    <Content Include="Plugin\SubNavigation\_subNavigationMenu.css" />
+    <Content Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

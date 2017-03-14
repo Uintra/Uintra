@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Core.App_Plugins.Core.Exceptions
+namespace uCommunity.Core.Exceptions
 {
     public class InconsistentDataException : Exception
     {

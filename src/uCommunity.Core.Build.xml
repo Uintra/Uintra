@@ -15,7 +15,6 @@
     <property name="Csc.Setting.SourceMonitor.Path" value="" />
 
     <call target="Nuget.Restore" />
-    <call target="Csc.Target.Rebuild" />
 
     <property name="Csc.Setting.NUnit.Path" value="C:\!BuildAccessories\Tools\NUnit-2.6.3\bin\nunit-console.exe" />
     <!--<property name="Csc.Setting.NUnit.AssemblyList" value="TeamDenmark.Common.ApiClient.Tests.dll" />-->

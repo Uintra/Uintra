@@ -9,11 +9,12 @@ var Subscribe = (function () {
             return;
         }
 
+        var type = holder.find('.js-subscribe-type').val();
         notificationDisableControl.on('change', function () {
             var sender = $(this);
             var id = sender.data("id");
             sender.disabled = true;
-            $.post('/umbraco/surface/Subscribe/ChangeNotificationDisabled', { Id: id, NewValue: this.checked }, function () {
+            $.post('/umbraco/surface/Subscribe/ChangeNotificationDisabled', { Id: id, NewValue: this.checked, type: type }, function () {
 
             }).always(function () {
                 sender.disabled = false;

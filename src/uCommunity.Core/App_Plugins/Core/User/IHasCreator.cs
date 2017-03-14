@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Core.App_Plugins.Core.User
+namespace uCommunity.Core.User
 {
     public interface IHasCreator<T>
         where T : IntranetUserBase

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace uCommunity.Core.App_Plugins.Core.Media
+namespace uCommunity.Core.Media
 {
     public interface IMediaHelper
     {

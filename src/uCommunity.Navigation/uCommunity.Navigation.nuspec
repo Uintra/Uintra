@@ -10,9 +10,6 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Navigation Controls NavigationControls</tags>
-	<dependencies>
-	 <dependency id="uCommunity.Core" version="[1.0.6.2, 2.0.0)" />
-  </dependencies>
   </metadata>
    <files>
     <file src="Plugin\**" target="content\App_Plugins\Navigation" />

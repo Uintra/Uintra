@@ -294,18 +294,19 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.0.9\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.1.6\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.3.3\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.6.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.6.3\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Likes, Version=1.0.2.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Likes, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Likes.1.0.2.3\lib\net452\uCommunity.Likes.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Likes.1.0.3.2\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6136.27248, Culture=neutral, processorArchitecture=MSIL">
@@ -688,12 +689,7 @@
     <Content Include="Config\applications.config" />
     <Content Include="Config\404handlers.config" />
     <Content Include="App_Plugins\Web.config" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
@@ -702,7 +698,12 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
