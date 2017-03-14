@@ -2,7 +2,7 @@
 
 namespace uCommunity.CentralFeed.Models
 {
-    class CentralFeedListModel
+    public class CentralFeedListModel
     {
         public IntranetActivityTypeEnum? Type { get; set; }
         public bool? ShowSubscribed { get; set; }
