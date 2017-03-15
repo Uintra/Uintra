@@ -59,7 +59,7 @@ namespace uCommunity.Core.Configuration
             return Settings;
         }
 
-        public virtual void AssertConfigurationIsValid()
+        protected virtual void AssertConfigurationIsValid()
         {
 
         }

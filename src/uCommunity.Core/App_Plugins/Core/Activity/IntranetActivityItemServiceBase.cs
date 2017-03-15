@@ -6,7 +6,6 @@ using uCommunity.Core.Activity.Entities;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
-using uCommunity.Core.Persistence.Sql;
 using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
@@ -14,7 +13,7 @@ namespace uCommunity.Core.Activity
     public abstract class IntranetActivityItemServiceBase<T> : IIntranetActivityItemServiceBase<T>
         where T : IntranetActivityBase, new()
     {
-        private readonly ISqlRepository<IntranetActivityEntity> _sqlRepository;
+        private readonly IIntranetActivityService _intranetActivityService;
         private readonly IMemoryCacheService _memoryCacheService;
 
         protected abstract List<string> OverviewXPath { get; }
@@ -22,10 +21,10 @@ namespace uCommunity.Core.Activity
         public abstract IntranetActivityTypeEnum ActivityType { get; }
 
         protected IntranetActivityItemServiceBase(
-            ISqlRepository<IntranetActivityEntity> sqlRepository,
+            IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService)
         {
-            _sqlRepository = sqlRepository;
+            _intranetActivityService = intranetActivityService;
             _memoryCacheService = memoryCacheService;
         }
 
@@ -62,24 +61,24 @@ namespace uCommunity.Core.Activity
         {
             var entity = FillPropertiesOnCreate(model);
 
-            _sqlRepository.Add(entity);
+            _intranetActivityService.Create(entity);
             FillCache(entity.Id);
             return entity.Id;
         }
 
         public void Save(T model)
         {
-            var entity = _sqlRepository.Get(model.Id);
+            var entity = _intranetActivityService.Get(model.Id);
 
             FillPropertiesOnEdit(entity, model);
 
-            _sqlRepository.Update(entity);
+            _intranetActivityService.Update(entity);
             FillCache(entity.Id);
         }
 
         public void Delete(Guid id)
         {
-            _sqlRepository.DeleteById(id);
+            _intranetActivityService.Delete(id);
 
             var activities = GetAll().ToList();
             activities = activities.FindAll(a => a.Id != id);
@@ -149,13 +148,13 @@ namespace uCommunity.Core.Activity
 
         protected T GetFromSql(Guid id)
         {
-            var activity = _sqlRepository.Get(id);
+            var activity = _intranetActivityService.Get(id);
             return GetMany(Enumerable.Repeat(activity, 1)).Single();
         }
 
         protected IEnumerable<T> GetAllFromSql()
         {
-            var activities = _sqlRepository.FindAll(activity => activity.Type == ActivityType).ToList();
+            var activities = _intranetActivityService.GetMany(ActivityType).ToList();
             return GetMany(activities);
         }
 

@@ -362,6 +362,8 @@
     </Compile>
     <Compile Include="App_Plugins\Core\Activity\CacheConstants.cs" />
     <Compile Include="App_Plugins\Core\Activity\IActivitiesServiceFactory.cs" />
+    <Compile Include="App_Plugins\Core\Activity\IIntranetActivityService.cs" />
+    <Compile Include="App_Plugins\Core\Activity\IntranetActivityService.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="App_Plugins\Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="App_Plugins\Core\Activity\IIntranetActivityItemServiceBase.cs" />
