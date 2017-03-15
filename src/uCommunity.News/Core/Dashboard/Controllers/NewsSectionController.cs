@@ -8,9 +8,9 @@ namespace uCommunity.News.Dashboard
 {
     public class NewsSectionController : UmbracoAuthorizedApiController
     {
-        private readonly INewsService _newsService;
+        private readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
-        public NewsSectionController(INewsService newsService)
+        public NewsSectionController(INewsService<NewsBase, NewsModelBase> newsService)
         {
             _newsService = newsService;
         }

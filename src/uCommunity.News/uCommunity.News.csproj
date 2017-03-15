@@ -467,11 +467,6 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.7\lib\net452\uCommunity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="umbraco, Version=1.0.6136.27248, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.dll</HintPath>
@@ -557,15 +552,16 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Entities\NewsModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsCreateEditModelBase.cs" />
-    <Compile Include="Core\Models\Base\NewsModelBase.cs" />
+    <Compile Include="Core\Models\Base\NewsViewModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsSaveModelBase.cs" />
     <Compile Include="Plugin\News.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Entities\NewsBase.cs" />
     <Compile Include="Core\Services\INewsService.cs" />
     <Compile Include="Core\Models\NewsCreateModel.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
-    <Compile Include="Core\Models\NewsModel.cs" />
+    <Compile Include="Core\Models\NewsViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewItemModel.cs" />
     <Compile Include="Core\Models\NewsOverviewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
@@ -607,6 +603,12 @@
     <Content Include="Plugin\Edit\edit-news.js" />
     <Content Include="Plugin\Edit\news-edit.html" />
     <Content Include="Plugin\List\news-list.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uCommunity.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

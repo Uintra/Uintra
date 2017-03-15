@@ -3,7 +3,7 @@ using uCommunity.Core.User;
 
 namespace uCommunity.News
 {
-    public class NewsModel : NewsModelBase
+    public class NewsViewModel : NewsViewModelBase
     {
         public Guid? CreatorId { get; set; }
         public IntranetUserBase Creator { get; set; }
