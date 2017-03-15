@@ -5,12 +5,14 @@ using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
 {
-    public interface IIntranetActivityItemServiceBase<T> : IIntranetActivityItemServiceBase
+    public interface IIntranetActivityItemServiceBase<in T, out TModel> : IIntranetActivityItemServiceBase
         where T : IntranetActivityBase
+        where TModel : IntranetActivityBase
     {
-        T Get(Guid id);
-        IEnumerable<T> GetManyActual();
-        IEnumerable<T> GetAll(bool includeHidden = false);
+        TModel Get(Guid id);
+        IEnumerable<TModel> GetManyActual();
+        IEnumerable<TModel> GetAll(bool includeHidden = false);
+
         bool IsActual(T activity);
         bool CanEdit(T activity);
         Guid Create(T model);
