@@ -19,5 +19,10 @@
             public const string HighlightPreTag = "<em style='background:#ffffc0'>";
             public const string HighlightPostTag = "</em>";
         }
+
+        public static class Session
+        {
+            public const string LoggedUserSessionKey = "LoggedUser";
+        }
     }
 }

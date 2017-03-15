@@ -362,6 +362,8 @@
     </Compile>
     <Compile Include="App_Plugins\Core\Activity\CacheConstants.cs" />
     <Compile Include="App_Plugins\Core\Activity\IActivitiesServiceFactory.cs" />
+    <Compile Include="App_Plugins\Core\Activity\IIntranetActivityService.cs" />
+    <Compile Include="App_Plugins\Core\Activity\IntranetActivityService.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="App_Plugins\Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="App_Plugins\Core\Activity\IIntranetActivityItemServiceBase.cs" />
@@ -401,6 +403,7 @@
     <Compile Include="App_Plugins\Core\Media\IContentWithMedia.cs" />
     <Compile Include="App_Plugins\Core\Media\IMediaHelper.cs" />
     <Compile Include="App_Plugins\Core\Media\MediaHelper.cs" />
+    <Compile Include="App_Plugins\Core\Media\MediaSettings.cs" />
     <Compile Include="App_Plugins\Core\Persistence\Sql\ISqlRepository.cs" />
     <Compile Include="App_Plugins\Core\Persistence\Sql\SqlEntity.cs" />
     <Compile Include="App_Plugins\Core\Persistence\Sql\SqlRepository.cs" />
@@ -408,7 +411,7 @@
     <Compile Include="App_Plugins\Core\User\IHasCreator.cs" />
     <Compile Include="App_Plugins\Core\User\IIntranetUserService.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetRolesEnum.cs" />
-    <Compile Include="App_Plugins\Core\User\IntranetUser.cs" Condition=" '$(Configuration)' == 'Debug' "/>
+    <Compile Include="App_Plugins\Core\User\IntranetUser.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="App_Plugins\Core\User\IntranetUserBase.cs" />
     <Compile Include="App_Plugins\Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

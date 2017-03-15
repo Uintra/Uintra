@@ -1,37 +1,19 @@
 ﻿@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model uCommunity.CentralFeed.Models.CentralFeedListModel
+@model uCommunity.CentralFeed.Models.CentralFeedListViewModel
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <input type="hidden" name="version" value="@Model.Version" />
-@if (Model.Type.HasValue && Model.Type.Value == IntranetActivityTypeEnum.Events)
-{
-    <div class="check">
-        <label class="check__label">
-            <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
-            <span class="check__fake-input icon-check"></span>
-            <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
-        </label>
-    </div>
-}
+
 @if (!Model.Items.Any())
 {
     @Html.Localize("CentralFeedList.Empty.lbl")
 }
 @foreach (var item in Model.Items)
 {
+    var itemSettings = Model.Settings.First(s => s.Type == item.Type);
+
     <div data-anchor="@item.Id">
-        @switch (item.Type)
-        {
-            case IntranetActivityTypeEnum.Events:
-                Html.RenderAction("CentralFeedItem", "Events", new { item = item });
-                break;
-            case IntranetActivityTypeEnum.Ideas:
-                Html.RenderAction("CentralFeedItem", "Ideas", new { item = item });
-                break;
-            case IntranetActivityTypeEnum.News:
-                Html.RenderAction("CentralFeedItem", "News", new { item = item });
-                break;
-        }
+        @Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item });
     </div>
 }

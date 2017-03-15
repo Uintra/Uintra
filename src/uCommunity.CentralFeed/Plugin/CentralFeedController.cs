@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.CentralFeed.Models;
-using uCommunity.Core.Activity;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.CentralFeed
@@ -26,33 +25,34 @@ namespace uCommunity.CentralFeed
             return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml", model);
         }
 
-        public ActionResult List(IntranetActivityTypeEnum? type = null, long? version = null, int page = 1)
-        {
-            var items = (type == null ? 
-                _centralFeedService.GetFeed().OrderByDescending(s => s.SortDate.Date) : 
-                _centralFeedService.GetFeed(type.Value))
-                .ToList();
+        //public ActionResult List(CentralFeedListModel model)
+        //{
+        //    var items = (model.Type == null ? 
+        //        _centralFeedService.GetFeed().OrderByDescending(s => s.SortDate.Date) : 
+        //        _centralFeedService.GetFeed(model.Type.Value))
+        //        .ToList();
 
-            var currentVersion = _centralFeedService.GetFeedVersion(items);
+        //    var currentVersion = _centralFeedService.GetFeedVersion(items);
 
-            if (version.HasValue && currentVersion == version.Value)
-            {
-                return null;
-            }
+        //    if (model.Version.HasValue && currentVersion == model.Version.Value)
+        //    {
+        //        return null;
+        //    }
 
-            var take = page * ItemsPerPage;
-            var pagedItemsList = items.Take(take).ToList();
+        //    var take = model.Page * ItemsPerPage;
+        //    var pagedItemsList = items.Take(take).ToList();
 
-            var centralFeedModel = new CentralFeedListModel
-            {
-                Version = _centralFeedService.GetFeedVersion(items),
-                Items = pagedItemsList,
-                Type = type,
-                BlockScrolling = items.Count < take
-            };
+        //    var centralFeedModel = new CentralFeedListViewModel
+        //    {
+        //        Version = _centralFeedService.GetFeedVersion(items),
+        //        Items = pagedItemsList,
+        //        Settings = _centralFeedService.GetAllSettings(),
+        //        Type = model.Type,
+        //        BlockScrolling = items.Count < take
+        //    };
 
-            return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml", centralFeedModel);
-        }
+        //    return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml", centralFeedModel);
+        //}
 
         public ActionResult Tabs()
         {
@@ -67,15 +67,15 @@ namespace uCommunity.CentralFeed
 
         private IEnumerable<CentralFeedTypeModel> GetTypes()
         {
-            foreach (var type in new[] { IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.Ideas, IntranetActivityTypeEnum.Events })
+            var allSettings = _centralFeedService.GetAllSettings();
+            foreach (var singleSetting in allSettings)
             {
-                var settings = _centralFeedService.GetSettings(type);
                 yield return new CentralFeedTypeModel
                 {
-                    Type = type,
-                    CreateUrl = settings.CreatePage.Url,
-                    TabUrl = settings.OverviewPage.Url,
-                    HasSubscribersFilter = settings.HasSubscribersFitler,
+                    Type = singleSetting.Type,
+                    CreateUrl = singleSetting.CreatePage.Url,
+                    TabUrl = singleSetting.OverviewPage.Url,
+                    HasSubscribersFilter = singleSetting.HasSubscribersFitler,
                 };
             }
         }

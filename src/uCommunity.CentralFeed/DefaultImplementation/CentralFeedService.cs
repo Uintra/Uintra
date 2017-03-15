@@ -47,7 +47,13 @@ namespace uCommunity.CentralFeed
 
         public CentralFeedSettings GetSettings(IntranetActivityTypeEnum type)
         {
-            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetAllSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type == type);
+            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type == type);
+            return settings;
+        }
+
+        public IEnumerable<CentralFeedSettings> GetAllSettings()
+        {
+            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetAllSettings, GetCacheExpiration());
             return settings;
         }
 
@@ -57,7 +63,7 @@ namespace uCommunity.CentralFeed
             return items;
         }
 
-        private IEnumerable<CentralFeedSettings> GetAllSettings()
+        private IEnumerable<CentralFeedSettings> GetFeedItemServicesSettings()
         {
             var settings = _feedItemServices.Select(service => service.GetCentralFeedSettings());
             return settings;
