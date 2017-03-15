@@ -9,6 +9,10 @@
             return $http.post(baseUrl + "createNavigationCompositions", data);
         }
 
+        self.deleteNavigationCompositions = function () {
+            return $http.post(baseUrl + "deleteNavigationCompositions");
+        }
+
         self.getInitialState = function () {
             return $http.get(baseUrl + "getInitialState");
         }

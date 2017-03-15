@@ -4,7 +4,7 @@ namespace uCommunity.Navigation.Core.Dashboard
 {
     public class CreateNavigationCompositionsModel
     {
-        [JsonProperty("folderId")]
-        public string FolderId { get; set; }
+        [JsonProperty("parentIdOrAlias")]
+        public string ParentIdOrAlias { get; set; }
     }
 }

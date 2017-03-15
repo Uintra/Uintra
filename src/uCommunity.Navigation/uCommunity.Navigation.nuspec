@@ -13,5 +13,6 @@
   </metadata>
    <files>
     <file src="Plugin\**" target="content\App_Plugins\Navigation" />
+    <file src="Content\**" target="content\**" />
   </files>
 </package>

@@ -358,18 +358,28 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
+    <Compile Include="Core\Configuration\NavigationItemTypeSettings.cs" />
+    <Compile Include="Core\Configuration\NavigationPropertySettings.cs" />
     <Compile Include="Core\Dashboard\Models\CreateNavigationCompositionsModel.cs" />
-    <Compile Include="Core\Dashboard\Models\NavigationInitialState.cs" />
+    <Compile Include="Core\Dashboard\Models\DocumentTypeState.cs" />
+    <Compile Include="Core\Dashboard\Models\NavigationState.cs" />
+    <Compile Include="Core\Dashboard\Services\DocumentTypeService.cs" />
+    <Compile Include="Core\Dashboard\Services\HomeNavigationCompositionService.cs" />
+    <Compile Include="Core\Dashboard\Services\IDocumentTypeService.cs" />
+    <Compile Include="Core\Dashboard\Services\IHomeNavigationCompositionService.cs" />
+    <Compile Include="Core\Dashboard\Services\INavigationCompositionService.cs" />
+    <Compile Include="Core\Dashboard\Services\NavigationCompositionService.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
+    <None Include="Content\config\Dashboard.config.install.xdt" />
+    <None Include="Content\config\Dashboard.config.uninstall.xdt" />
     <None Include="Plugin\config\navigationConfiguration.json" />
     <None Include="Plugin\LeftNavigation\View\LeftSideMenu.cshtml" />
     <None Include="Plugin\NavigationController.cs" Condition="'$(Configuration)' == 'Debug'" />
     <Compile Include="DefaultImplementation\SubNavigationMenuViewModel.cs" />
-    <Compile Include="Core\Dashboard\Services\INavigationService.cs" />
     <Compile Include="Core\Dashboard\UmbracoPropertyTypeEnum.cs" />
     <Compile Include="Core\Dashboard\Controllers\UNavigationApiController.cs" />
-    <Compile Include="Core\Dashboard\Services\NavigationService.cs" />
     <Compile Include="Core\Configuration\NavigationConfiguration.cs" />
     <Compile Include="Core\ModelBuilders\ILeftSideMenuModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\ISubNavigationModelBuilder.cs" />
@@ -382,6 +392,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Plugin\package.manifest" />
     <None Include="Plugin\SubNavigation\View\SubNavigationMenu.cshtml" />
+    <None Include="Plugin\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

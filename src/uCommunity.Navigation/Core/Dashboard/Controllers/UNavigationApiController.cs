@@ -5,29 +5,56 @@ namespace uCommunity.Navigation.Core.Dashboard
 {
     public class UNavigationApiController : UmbracoAuthorizedApiController
     {
-        private readonly INavigationService _navigationService;
+        private readonly IHomeNavigationCompositionService _homeNavigationCompositionService;
+        private readonly INavigationCompositionService _navigationCompositionService;
 
-        public UNavigationApiController(INavigationService navigationService)
+        public UNavigationApiController(
+            IHomeNavigationCompositionService homeNavigationCompositionService, 
+            INavigationCompositionService navigationCompositionService
+            )
         {
-            _navigationService = navigationService;
+            _homeNavigationCompositionService = homeNavigationCompositionService;
+            _navigationCompositionService = navigationCompositionService;
         }
 
         [HttpGet]
-        public NavigationInitialState GetInitialState()
+        public NavigationState GetInitialState()
         {
-            var result = new NavigationInitialState
+            var result = new NavigationState
             {
-                IsDocumentTypesAlreadyExists = _navigationService.IsNavigationCompositionExist() && _navigationService.IsHomeNavigationCompositionExist()
+                IsDocumentTypesAlreadyExists = _navigationCompositionService.IsExists() && _homeNavigationCompositionService.IsExists()
             };
 
             return result;
         }
 
         [HttpPost]
-        public void CreateNavigationCompositions(CreateNavigationCompositionsModel model)
+        public NavigationState CreateNavigationCompositions(CreateNavigationCompositionsModel model)
         {
-            _navigationService.CreateNavigationComposition(model.FolderId);
-            _navigationService.CreateHomeNavigationComposition(model.FolderId);
+            var navigationCompositionState = _navigationCompositionService.Create(model.ParentIdOrAlias);
+            var homeNavigationCompositionState = _homeNavigationCompositionService.Create(model.ParentIdOrAlias);
+
+            var result = new NavigationState
+            {
+                IsDocumentTypesAlreadyExists = navigationCompositionState.IsExists || homeNavigationCompositionState.IsExists,
+                IsUnknownParent = navigationCompositionState.IsUnknownParent || homeNavigationCompositionState.IsUnknownParent
+            };
+
+            return result;
+        }
+
+        [HttpPost]
+        public NavigationState DeleteNavigationCompositions()
+        {
+            var navigationCompositionState = _navigationCompositionService.Delete();
+            var homeNavigationCompositionState = _homeNavigationCompositionService.Delete();
+
+            var result = new NavigationState
+            {
+                IsDocumentTypesAlreadyExists = navigationCompositionState.IsExists || homeNavigationCompositionState.IsExists
+            };
+
+            return result;
         }
     }
 }

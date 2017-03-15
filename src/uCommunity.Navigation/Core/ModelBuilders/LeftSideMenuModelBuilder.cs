@@ -36,10 +36,10 @@ namespace uCommunity.Navigation.Core
             return result;
         }
 
-        protected override bool IsSpecificContent(IPublishedContent publishedContent)
+        protected override bool IsHideFromNavigation(IPublishedContent publishedContent)
         {
-            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInLeftNavigation.Alias);
-            return result ?? NavigationConfiguration.IsShowInLeftNavigation.DefaultValue;
+            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsHideFromLeftNavigation.Alias);
+            return result ?? NavigationConfiguration.IsHideFromLeftNavigation.DefaultValue;
         }
 
         private MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
@@ -70,7 +70,7 @@ namespace uCommunity.Navigation.Core
 
         private IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
         {
-            var result = GetSpecificContent(homePage.Children())
+            var result = GetAvailableContent(homePage.Children())
                 .Where(IsShowInHomeNavigation)
                 .Select(pContent => new MenuItemModel
                 {

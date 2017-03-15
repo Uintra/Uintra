@@ -6,17 +6,28 @@
 
         self.isLoaded = false;
         self.isDocumentTypesAlreadyExists = undefined;
-        self.folderId = "";
+        self.parentIdOrAlias = "";
 
         self.create = function () {
-            console.log("create");
-            uNavigationService.createNavigationCompositions({ folderId: self.folderId });
+            uNavigationService.createNavigationCompositions({ parentIdOrAlias: self.parentIdOrAlias }).then(function (response) {
+                self.isDocumentTypesAlreadyExists = response.data.isDocumentTypesAlreadyExists;
+
+                if (response.data.isUnknownParent) {
+                    alert("Unknown parent id or alias");
+                }
+            });
+        }
+
+        self.delete = function () {
+            uNavigationService.deleteNavigationCompositions().then(function (response) {
+                self.isDocumentTypesAlreadyExists = response.data.isDocumentTypesAlreadyExists;
+            });
         }
 
         function init() {
             uNavigationService.getInitialState().then(function (response) {
                 self.isLoaded = true;
-                self.isDocumentTypesAlreadyExists = response.isDocumentTypesAlreadyExists;
+                self.isDocumentTypesAlreadyExists = response.data.isDocumentTypesAlreadyExists;
             });
         }
 

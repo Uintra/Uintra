@@ -34,10 +34,10 @@ namespace uCommunity.Navigation.Core
             return model;
         }
 
-        protected override bool IsSpecificContent(IPublishedContent publishedContent)
+        protected override bool IsHideFromNavigation(IPublishedContent publishedContent)
         {
-            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInSubNavigation.Alias);
-            return result ?? NavigationConfiguration.IsShowInSubNavigation.DefaultValue;
+            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsHideFromSubNavigation.Alias);
+            return result ?? NavigationConfiguration.IsHideFromSubNavigation.DefaultValue;
         }
 
         private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent publishedContent)
@@ -46,7 +46,7 @@ namespace uCommunity.Navigation.Core
                 publishedContent.Children :
                  publishedContent.Parent.Children;
 
-            return GetSpecificContent(result);
+            return GetAvailableContent(result);
         }
 
         private bool IsHomePage(IPublishedContent content)
