@@ -25,34 +25,34 @@ namespace uCommunity.CentralFeed
             return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml", model);
         }
 
-        //public ActionResult List(CentralFeedListModel model)
-        //{
-        //    var items = (model.Type == null ? 
-        //        _centralFeedService.GetFeed().OrderByDescending(s => s.SortDate.Date) : 
-        //        _centralFeedService.GetFeed(model.Type.Value))
-        //        .ToList();
+        public ActionResult List(CentralFeedListModel model)
+        {
+            var items = (model.Type == null ?
+                _centralFeedService.GetFeed().OrderByDescending(s => s.SortDate.Date) :
+                _centralFeedService.GetFeed(model.Type.Value))
+                .ToList();
 
-        //    var currentVersion = _centralFeedService.GetFeedVersion(items);
+            var currentVersion = _centralFeedService.GetFeedVersion(items);
 
-        //    if (model.Version.HasValue && currentVersion == model.Version.Value)
-        //    {
-        //        return null;
-        //    }
+            if (model.Version.HasValue && currentVersion == model.Version.Value)
+            {
+                return null;
+            }
 
-        //    var take = model.Page * ItemsPerPage;
-        //    var pagedItemsList = items.Take(take).ToList();
+            var take = model.Page * ItemsPerPage;
+            var pagedItemsList = items.Take(take).ToList();
 
-        //    var centralFeedModel = new CentralFeedListViewModel
-        //    {
-        //        Version = _centralFeedService.GetFeedVersion(items),
-        //        Items = pagedItemsList,
-        //        Settings = _centralFeedService.GetAllSettings(),
-        //        Type = model.Type,
-        //        BlockScrolling = items.Count < take
-        //    };
+            var centralFeedModel = new CentralFeedListViewModel
+            {
+                Version = _centralFeedService.GetFeedVersion(items),
+                Items = pagedItemsList,
+                Settings = _centralFeedService.GetAllSettings(),
+                Type = model.Type,
+                BlockScrolling = items.Count < take
+            };
 
-        //    return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml", centralFeedModel);
-        //}
+            return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml", centralFeedModel);
+        }
 
         public ActionResult Tabs()
         {

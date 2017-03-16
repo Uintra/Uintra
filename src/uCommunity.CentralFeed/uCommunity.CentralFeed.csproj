@@ -321,7 +321,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Plugin\CentralFeedController.cs" />
+    <None Include="Plugin\CentralFeedController.cs" />
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
