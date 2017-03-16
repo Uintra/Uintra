@@ -113,7 +113,7 @@ namespace uCommunity.News
                 return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", saveModel);
             }
 
-            var activity = saveModel.Map<News>();
+            var activity = saveModel.Map<NewsModelBase>();
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
 
             _newsService.Save(activity);
