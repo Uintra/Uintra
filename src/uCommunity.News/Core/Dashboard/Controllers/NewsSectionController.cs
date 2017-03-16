@@ -25,7 +25,7 @@ namespace uCommunity.News.Dashboard
         [HttpPost]
         public NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
-            var newsId = _newsService.Create(createModel.Map<News>());
+            var newsId = _newsService.Create(createModel.Map<NewsModelBase>());
             var createdModel = _newsService.Get(newsId);
             var result = createdModel.Map<NewsBackofficeViewModel>();
             return result;
@@ -34,7 +34,7 @@ namespace uCommunity.News.Dashboard
         [HttpPost]
         public NewsBackofficeViewModel Save(NewsBackofficeSaveModel saveModel)
         {
-            _newsService.Save(saveModel.Map<News>());
+            _newsService.Save(saveModel.Map<NewsModelBase>());
             var updatedModel = _newsService.Get(saveModel.Id);
             var result = updatedModel.Map<NewsBackofficeViewModel>();
             return result;

@@ -556,7 +556,6 @@
     <Compile Include="Core\Models\Base\NewsCreateEditModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsViewModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsSaveModelBase.cs" />
-    <Compile Include="Plugin\News.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Entities\NewsBase.cs" />
     <Compile Include="Core\Services\INewsService.cs" />
     <Compile Include="Core\Models\NewsCreateModel.cs" />
@@ -570,7 +569,7 @@
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
-    <Compile Include="Plugin\NewsController.cs" />
+    <Compile Include="Plugin\NewsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -593,16 +592,16 @@
     <Folder Include="App_Plugins\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Plugin\backoffice\news-management.config.js" />
-    <Content Include="Plugin\backoffice\news-management.css" />
-    <Content Include="Plugin\backoffice\news-management.html" />
-    <Content Include="Plugin\backoffice\news-management.js" />
-    <Content Include="Plugin\Create\create-news.js" />
-    <Content Include="Plugin\Create\news-create.html" />
-    <Content Include="Plugin\Details\news-details.html" />
-    <Content Include="Plugin\Edit\edit-news.js" />
-    <Content Include="Plugin\Edit\news-edit.html" />
-    <Content Include="Plugin\List\news-list.html" />
+    <None Include="Plugin\backoffice\news-management.config.js" />
+    <None Include="Plugin\backoffice\news-management.css" />
+    <None Include="Plugin\backoffice\news-management.html" />
+    <None Include="Plugin\backoffice\news-management.js" />
+    <None Include="Plugin\Create\create-news.js" />
+    <None Include="Plugin\Create\news-create.html" />
+    <None Include="Plugin\Details\news-details.html" />
+    <None Include="Plugin\Edit\edit-news.js" />
+    <None Include="Plugin\Edit\news-edit.html" />
+    <None Include="Plugin\List\news-list.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
