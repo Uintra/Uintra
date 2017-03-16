@@ -574,6 +574,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Config\applications.config.install.xdt" />
+    <None Include="Content\Config\Dashboard.config.install.xdt" />
+    <None Include="Content\Config\applications.config.uninstall.xdt" />
+    <None Include="Content\Config\Dashboard.config.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\da.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\da.xml.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en.xml.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en_us.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en_us.xml.uninstall.xdt" />
     <None Include="packages.config" />
     <None Include="Plugin\Create\CreateView.cshtml" />
     <None Include="Plugin\Details\DetailsView.cshtml" />
