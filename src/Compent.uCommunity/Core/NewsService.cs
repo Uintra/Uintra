@@ -1,66 +1,66 @@
-﻿using System.Collections.Generic;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Activity.Sql;
-using uCommunity.Core.Caching;
-using uCommunity.Core.Media;
-using uCommunity.Core.User;
-using uCommunity.News;
-using Umbraco.Core.Models;
+﻿//using System.Collections.Generic;
+//using uCommunity.Core.Activity;
+//using uCommunity.Core.Activity.Sql;
+//using uCommunity.Core.Caching;
+//using uCommunity.Core.Media;
+//using uCommunity.Core.User;
+//using uCommunity.News;
+//using Umbraco.Core.Models;
 
-namespace Compent.uCommunity.Core
-{
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, NewsModelBase>, INewsService<NewsBase, NewsModelBase>
-    {
-        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
+//namespace Compent.uCommunity.Core
+//{
+//    public class NewsService : IntranetActivityItemServiceBase<NewsBase, NewsModelBase>, INewsService<NewsBase, NewsModelBase>
+//    {
+//        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
 
-        public NewsService(IIntranetActivityService intranetActivityService, IMemoryCacheService memoryCacheService, IIntranetUserService<IntranetUserBase> intranetUserService)
-            : base(intranetActivityService, memoryCacheService)
-        {
-            _intranetUserService = intranetUserService;
-        }
+//        public NewsService(IIntranetActivityService intranetActivityService, IMemoryCacheService memoryCacheService, IIntranetUserService<IntranetUserBase> intranetUserService)
+//            : base(intranetActivityService, memoryCacheService)
+//        {
+//            _intranetUserService = intranetUserService;
+//        }
 
-        public MediaSettings GetMediaSettings()
-        {
-            return new MediaSettings();
-        }
+//        public MediaSettings GetMediaSettings()
+//        {
+//            return new MediaSettings();
+//        }
 
-        public override IPublishedContent GetOverviewPage()
-        {
-            return new PublishedContentCustom(1073, "");
-        }
+//        public override IPublishedContent GetOverviewPage()
+//        {
+//            return new PublishedContentCustom(1073, "");
+//        }
 
-        public override IPublishedContent GetDetailsPage()
-        {
-            return new PublishedContentCustom(1075, "details");
-        }
+//        public override IPublishedContent GetDetailsPage()
+//        {
+//            return new PublishedContentCustom(1075, "details");
+//        }
 
-        public override IPublishedContent GetCreatePage()
-        {
-            return new PublishedContentCustom(1074, "create");
-        }
+//        public override IPublishedContent GetCreatePage()
+//        {
+//            return new PublishedContentCustom(1074, "create");
+//        }
 
-        public override IPublishedContent GetEditPage()
-        {
-            return new PublishedContentCustom(1076, "edit");
-        }
-
-
-        protected override List<string> OverviewXPath { get; }
+//        public override IPublishedContent GetEditPage()
+//        {
+//            return new PublishedContentCustom(1076, "edit");
+//        }
 
 
-        public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.News;
+//        protected override List<string> OverviewXPath { get; }
 
 
-        public override bool CanEdit(NewsBase activity)
-        {
-            return true;
-        }
+//        public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.News;
 
-        protected override NewsModelBase FillPropertiesOnGet(IntranetActivityEntity entity)
-        {
-            var activity = base.FillPropertiesOnGet(entity);
-            _intranetUserService.FillCreator(activity);
-            return activity;
-        }
-    }
-}
+
+//        public override bool CanEdit(NewsBase activity)
+//        {
+//            return true;
+//        }
+
+//        protected override NewsModelBase FillPropertiesOnGet(IntranetActivityEntity entity)
+//        {
+//            var activity = base.FillPropertiesOnGet(entity);
+//            _intranetUserService.FillCreator(activity);
+//            return activity;
+//        }
+//    }
+//}

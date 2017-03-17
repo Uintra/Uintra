@@ -300,11 +300,6 @@
       <HintPath>..\..\packages\uCommunity.Likes.1.0.3.2\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.News.1.0.0\lib\net452\uCommunity.News.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="umbraco, Version=1.0.6136.27248, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.dll</HintPath>
       <Private>True</Private>
@@ -410,7 +405,6 @@
     <Compile Include="App_Plugins\Core\User\IntranetUser.cs" />
     <Compile Include="App_Plugins\Likes\LikeableTestModel.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
-    <Compile Include="App_Plugins\News\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -642,16 +636,6 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
-    <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
-    <Content Include="App_Plugins\News\backoffice\news-management.css" />
-    <Content Include="App_Plugins\News\backoffice\news-management.html" />
-    <Content Include="App_Plugins\News\backoffice\news-management.js" />
-    <Content Include="App_Plugins\News\Create\create-news.js" />
-    <Content Include="App_Plugins\News\Create\news-create.html" />
-    <Content Include="App_Plugins\News\Details\news-details.html" />
-    <Content Include="App_Plugins\News\Edit\edit-news.js" />
-    <Content Include="App_Plugins\News\Edit\news-edit.html" />
-    <Content Include="App_Plugins\News\List\news-list.html" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -722,12 +706,6 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
-    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dropzone.js" />
     <Content Include="Scripts\flatpickr\flatpickr.js" />
