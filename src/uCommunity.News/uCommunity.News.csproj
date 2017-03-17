@@ -468,6 +468,11 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uCommunity.Core, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.9\lib\net452\uCommunity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="umbraco, Version=1.0.6136.27248, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.dll</HintPath>
@@ -614,12 +619,6 @@
     <None Include="Plugin\Edit\edit-news.js" />
     <None Include="Plugin\Edit\news-edit.html" />
     <None Include="Plugin\List\news-list.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
-      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uCommunity.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\" />
