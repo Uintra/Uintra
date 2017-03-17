@@ -1,5 +1,6 @@
-﻿@using uCommunity.Core.Extentions
-@model uCommunity.News.DefaultImplementation.Models.NewsOverviewModel
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Extentions
+@model uCommunity.News.NewsOverviewModel
 
 <section class="content">
     <a class="content__item-print" href="@Model.CreatePageUrl">@Html.Localize("NewsOverview.CreateNews.lnk")</a>

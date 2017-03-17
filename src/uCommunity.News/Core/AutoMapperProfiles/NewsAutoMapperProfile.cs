@@ -8,7 +8,7 @@ namespace uCommunity.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<NewsBase, NewsOverviewItemModel>()
+            Mapper.CreateMap<NewsModelBase, NewsOverviewItemModel>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore());
 
             Mapper.CreateMap<NewsBase, NewsCreateModel>()

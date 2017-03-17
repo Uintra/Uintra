@@ -5,7 +5,7 @@ using uCommunity.Core.Activity.Entities;
 
 namespace uCommunity.News
 {
-    public abstract class NewsBase : IntranetActivityBase
+    public class NewsBase : IntranetActivityModelBase
     {
         public int? UmbracoCreatorId { get; set; }
         public Guid CreatorId { get; set; }

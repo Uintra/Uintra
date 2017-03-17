@@ -130,7 +130,7 @@ namespace uCommunity.News
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        private IEnumerable<NewsOverviewItemModel> GetOverviewItems(IEnumerable<NewsBase> news)
+        private IEnumerable<NewsOverviewItemModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
             foreach (var item in news)
             {

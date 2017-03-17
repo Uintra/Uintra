@@ -1,10 +1,11 @@
 ﻿@using uCommunity.Core
-@using uCommunity.Core.Controls.FileUpload.Core
+@using uCommunity.Core.Controls.FileUpload
 @using uCommunity.Core.Extentions
 @using uCommunity.Core.User
-@model uCommunity.News.DefaultImplementation.Models.NewsCreateModel
+@using Umbraco.Web
+@model uCommunity.News.NewsCreateModel
 @{
-    var currentUser = HttpContext.Current.GetCurrentUser();
+    var currentUser = HttpContext.Current.GetCurrentUser<IntranetUserBase>();
     var cultureDateFormat = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 
@@ -14,19 +15,7 @@
         <h1 class="form__title">@Html.Localize("NewsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label" for="js-user-select">@Html.Localize("NewsCreate.Creator.lbl")</label>
-            @if (currentUser.Role == IntranetRolesEnum.WebMaster)
-            {
-                <select class="form-control" name="creatorId" id="js-user-select">
-                    @foreach (var user in Model.Users)
-                    {
-                        <option value="@user.Id" selected="@(user.Id == currentUser.Id)">@user.Name</option>
-                    }
-                </select>
-            }
-            else
-            {
-                @RenderStaticUser(currentUser)
-            }
+            @RenderStaticUser(currentUser)
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("NewsCreate.Title.lbl") <span class="form__required">*</span></label>
@@ -51,13 +40,13 @@
                 var publishDate = Model.PublishDate == default(DateTime) ? DateTime.Now.Date : Model.PublishDate.Date;                
             }
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@publishDate" data-date-format="@GlobalConstants.Common.DefaultDatePickerFormat" />
+            <input class="form__input" id="js-publish-date" data-default-date="@publishDate" data-date-format="@IntranetConstants.Common.DefaultDatePickerFormat" />
             <input type="hidden" id="js-publish-date-value" name="publishDate" value="@publishDate.ToString(cultureDateFormat)" data-date-format="@cultureDateFormat" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>
             @{
-                var settings = new FileUploadSettins { AllowedExtentions = Model.AllowedMediaExtentions };
+                var settings = new FileUploadSettings { AllowedExtentions = Model.AllowedMediaExtentions };
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
@@ -72,10 +61,9 @@
     }
 </div>
 
-@helper RenderStaticUser(IntranetUser user)
+@helper RenderStaticUser(IntranetUserBase user)
 {
     <input type="hidden" name="creatorId" value="@user.Id" />
     <img src="@ImageHelper.GetImageSrcOrDefaultAsBase64(user.Photo)" />
     <span>@user.Name</span>
-    <span>@user.Jobs.JoinWithSeparator(", ") @(user.Jobs.Any() && user.Teams.Any() ? "|" : "") @user.Teams.JoinWithSeparator(", ")</span>
 }

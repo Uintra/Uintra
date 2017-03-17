@@ -1,8 +1,8 @@
-﻿@using TeamDenmark.Intranet.Core
+﻿@using System.Web.Mvc.Html
 @using uCommunity.Core
 @using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model uCommunity.News.DefaultImplementation.Models.NewsModel
+@model uCommunity.News.NewsViewModel
 @{
     if (Model == null)
     {
@@ -11,7 +11,6 @@
     }
 
     <section class="content">
-        @{ Html.RenderAction("Tabs", "CentralFeed");}
         <div class="row clearfix">
             <div class="col-md-9">
                 <div class="content__btns clearfix">
@@ -36,18 +35,12 @@
                         }
                         <div class="content__item-title-holder">
                             <p class="content__item-meta">
-                                <span class="content__item-date">@(Model.PublishDate.ToString(GlobalConstants.Common.DefaultDateFormat))</span>
+                                <span class="content__item-date">@(Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat))</span>
                                 <span class="content__item-divider"> - </span>
                                 <span class="content__item-category">@Html.Localize(IntranetActivityTypeEnum.News), </span>
                                 <span class="content__item-name">@Model.Creator.Name</span>
                                 <span class="content__item-divider"> - </span>
-                                <span class="content__item-department">
-                                    @Model.Creator.Teams.JoinToString(", ") 
-                                    @if (!string.IsNullOrEmpty(Model.Creator.Jobs.JoinToString(", ")))
-                                    {
-                                        <span> | @Model.Creator.Jobs.JoinToString(", ")</span>
-                                    }
-                                </span>
+ 
                             </p>
                         </div>
                     </header>
@@ -60,14 +53,6 @@
                     </div>
                     <div class="content__item-images">
                         @{ Html.RenderAction("RenderGalery", "LightboxGalery", new {mediaIds = Model.Media}); }
-                    </div>
-                    <div class="content__item-feed">
-                        <span class="content__item-like">
-                            @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo}); }
-                        </span>
-                    </div>
-                    <div class="comments">
-                        @{ Html.RenderAction("OverView", "Comments", new {activityId = Model.Id});}
                     </div>
                 </div>
             </div>
