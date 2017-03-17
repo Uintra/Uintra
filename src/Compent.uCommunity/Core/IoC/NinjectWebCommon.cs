@@ -20,6 +20,7 @@ using uCommunity.Core.Media;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
 using uCommunity.Likes;
+using uCommunity.News;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
@@ -89,7 +90,7 @@ namespace Compent.uCommunity.Core.IoC
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
-          //  kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
+            kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
             kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();

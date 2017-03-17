@@ -1,0 +1,69 @@
+﻿@using uCommunity.Core
+@using uCommunity.Core.Controls.FileUpload
+@using uCommunity.Core.Extentions
+@using uCommunity.Core.User
+@using Umbraco.Web
+@model uCommunity.News.NewsCreateModel
+@{
+    var currentUser = HttpContext.Current.GetCurrentUser<IntranetUserBase>();
+    var cultureDateFormat = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+}
+
+<div class="form" id="js-news-create-page">
+    @using (Html.BeginUmbracoForm("Create", "News"))
+    {
+        <h1 class="form__title">@Html.Localize("NewsCreate.Title.lbl")</h1>
+        <div class="form__row clearfix">
+            <label class="form__label" for="js-user-select">@Html.Localize("NewsCreate.Creator.lbl")</label>
+            @RenderStaticUser(currentUser)
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="title">@Html.Localize("NewsCreate.Title.lbl") <span class="form__required">*</span></label>
+            <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
+                   data-val-required="@Html.Localize("CreateNews.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@Html.Localize("CreateNews.TitleMaxLength.lbl")" data-val="true"/>
+            
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="teaser">@Html.Localize("NewsCreate.Teaser.lbl") <span class="form__required">*</span></label>
+            <textarea class="form__textarea" id="teaser" name="teaser" data-val-required="@Html.Localize("CreateNews.TeaserRequired.lbl")" data-val-length-max="4000" data-val-length="@Html.Localize("CreateNews.TeaserMaxLength.lbl")" data-val="true">@Html.Raw(Model.Teaser)</textarea>
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="description">@Html.Localize("NewsCreate.Description.lbl") <span class="form__required">*</span></label>
+            <div id="description">
+                @Html.Raw(Model.Description)
+            </div>
+            <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
+                    data-val-required="@Html.Localize("CreateNews.DescriptionRequired.lbl")" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            @{
+                var publishDate = Model.PublishDate == default(DateTime) ? DateTime.Now.Date : Model.PublishDate.Date;                
+            }
+            <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
+            <input class="form__input" id="js-publish-date" data-default-date="@publishDate" data-date-format="@IntranetConstants.Common.DefaultDatePickerFormat" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" value="@publishDate.ToString(cultureDateFormat)" data-date-format="@cultureDateFormat" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtentions = Model.AllowedMediaExtentions };
+                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
+            }
+        </div>
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form__row clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _black _submit" type="submit" value="@Html.Localize("NewsCreate.Create.btn")" />
+            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData["OverviewPageUrl"].ToString()))">@Html.Localize("Common.Cancel.lnk")</a>
+        </div>
+    }
+</div>
+
+@helper RenderStaticUser(IntranetUserBase user)
+{
+    <input type="hidden" name="creatorId" value="@user.Id" />
+    <img src="@ImageHelper.GetImageSrcOrDefaultAsBase64(user.Photo)" />
+    <span>@user.Name</span>
+}

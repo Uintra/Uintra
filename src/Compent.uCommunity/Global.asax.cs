@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using Compent.uCommunity.App_Start;
+using uCommunity.News.Dashboard;
 using Umbraco.Core;
 
 namespace Compent.uCommunity
@@ -17,7 +18,7 @@ namespace Compent.uCommunity
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-           // NewsSection.AddSectionToAllUsers(applicationContext);
+            NewsSection.AddSectionToAllUsers(applicationContext);
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }

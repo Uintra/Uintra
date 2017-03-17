@@ -1,0 +1,44 @@
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core
+@using uCommunity.Core.Activity
+@using uCommunity.Core.Extentions
+@model uCommunity.News.NewsOverviewItemModel
+@{
+    var creator = Model.Creator;
+    var detailsPageUrl = ((string)ViewData["DetailsPageUrl"]).UrlWithQueryString("id", Model.Id.ToString());
+}
+<div class="content__item">
+    <div class="row clearfix">
+        <div class="col-md-9">
+            <span class="content__item-label">VIGTIGT</span>
+            <header class="content__item-heading clearfix">
+                <div class="content__item-avatar">
+                    @if (!string.IsNullOrEmpty(creator?.Photo))
+                    {
+                        <a href="@detailsPageUrl">
+                            <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@ImageHelper.GetImageSrcAsBase64(creator.Photo)" />
+                        </a>
+                    }
+                </div>
+                <div class="content__item-title-holder">
+                    <h2 class="content__item-title"><a class="content__item-title-link" href="@detailsPageUrl">@Model.Title</a></h2>
+                    <p class="content__item-meta">
+                        <span class="content__item-date">@(Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat))</span>
+                        <span class="content__item-divider"> - </span>
+                        <span class="content__item-category">@Html.Localize(IntranetActivityTypeEnum.News), </span>
+                        <span class="content__item-name">@creator.Name</span>
+                        <span class="content__item-divider"> - </span>
+                        <span class="content__item-location"></span>
+                    </p>
+                </div>
+            </header>
+            <div class="content__item-image"> </div>
+            <div class="content__item-txt">
+                <p>@Model.Teaser</p>
+            </div>
+            <div class="content__item-images">
+                @{ Html.RenderAction("RenderGalery", "LightboxGalery", new { mediaIds = Model.MediaIds }); }
+            </div>
+        </div>
+    </div>
+</div>
