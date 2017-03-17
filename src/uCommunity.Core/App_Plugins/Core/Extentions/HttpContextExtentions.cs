@@ -1,5 +1,7 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
+using uCommunity.Core.User;
 
 namespace uCommunity.Core.Extentions
 {
@@ -23,6 +25,18 @@ namespace uCommunity.Core.Extentions
         public static string GetBackLink(this HttpContextBase context, string defaultLink)
         {
             return context.Request.UrlReferrer?.AbsoluteUri ?? defaultLink;
+        }
+
+        public static T GetCurrentUser<T>(this HttpContext context) where T : IntranetUserBase
+        {
+            var currentUser = context.Session?[IntranetConstants.Session.LoggedUserSessionKey] as T;
+
+            if (currentUser == null)
+            {
+                throw new Exception("Can't get current user from session!");
+            }
+
+            return currentUser;
         }
     }
 }

@@ -286,10 +286,6 @@
       <HintPath>..\..\packages\TeamDenmark.Common.ApiClient.4.5.14\lib\net45\TeamDenmark.Common.ApiClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TestLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\TestLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
@@ -299,14 +295,14 @@
       <HintPath>..\..\packages\uCommunity.Comments.1.0.1.6\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.6.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.6.3\lib\net452\uCommunity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Likes.1.0.3.2\lib\net452\uCommunity.Likes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uCommunity.News, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.News.1.0.0\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6136.27248, Culture=neutral, processorArchitecture=MSIL">
@@ -411,8 +407,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
+    <Compile Include="App_Plugins\Core\User\IntranetUser.cs" />
     <Compile Include="App_Plugins\Likes\LikeableTestModel.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
+    <Compile Include="App_Plugins\News\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -422,8 +420,15 @@
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewsCreateController.cs" />
+    <Compile Include="Controllers\NewsDetailsController.cs" />
+    <Compile Include="Controllers\NewsEditController.cs" />
+    <Compile Include="Controllers\NewsOverviewController.cs" />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\LikeableService.cs" />
+    <Compile Include="Core\MediaHelper.cs" />
+    <Compile Include="Core\NewsService.cs" />
+    <Compile Include="Core\PublishedContentCustom.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
@@ -637,6 +642,16 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
+    <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
+    <Content Include="App_Plugins\News\backoffice\news-management.css" />
+    <Content Include="App_Plugins\News\backoffice\news-management.html" />
+    <Content Include="App_Plugins\News\backoffice\news-management.js" />
+    <Content Include="App_Plugins\News\Create\create-news.js" />
+    <Content Include="App_Plugins\News\Create\news-create.html" />
+    <Content Include="App_Plugins\News\Details\news-details.html" />
+    <Content Include="App_Plugins\News\Edit\edit-news.js" />
+    <Content Include="App_Plugins\News\Edit\news-edit.html" />
+    <Content Include="App_Plugins\News\List\news-list.html" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -658,10 +673,13 @@
     <Content Include="Config\Lang\zh-CN.user.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dropzone.css" />
+    <Content Include="Content\flatpickr.css" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\quill.bubble.css" />
     <Content Include="Content\quill.core.css" />
     <Content Include="Content\quill.snow.css" />
+    <Content Include="Content\select2.css" />
     <Content Include="default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -690,6 +708,12 @@
     <Content Include="Config\404handlers.config" />
     <Content Include="App_Plugins\Web.config" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
@@ -698,13 +722,16 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dropzone.js" />
+    <Content Include="Scripts\flatpickr\flatpickr.js" />
+    <Content Include="Scripts\flatpickr\l10n\da.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -714,11 +741,31 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\quill.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="umbraco\Config\Lang\cs.xml" />
+    <Content Include="umbraco\Config\Lang\da.xml" />
+    <Content Include="umbraco\Config\Lang\de.xml" />
+    <Content Include="umbraco\Config\Lang\en.xml" />
+    <Content Include="umbraco\Config\Lang\en_us.xml" />
+    <Content Include="umbraco\Config\Lang\es.xml" />
+    <Content Include="umbraco\Config\Lang\fr.xml" />
+    <Content Include="umbraco\Config\Lang\he.xml" />
+    <Content Include="umbraco\Config\Lang\it.xml" />
+    <Content Include="umbraco\Config\Lang\ja.xml" />
+    <Content Include="umbraco\Config\Lang\ko.xml" />
+    <Content Include="umbraco\Config\Lang\nb.xml" />
+    <Content Include="umbraco\Config\Lang\nl.xml" />
+    <Content Include="umbraco\Config\Lang\pl.xml" />
+    <Content Include="umbraco\Config\Lang\pt.xml" />
+    <Content Include="umbraco\Config\Lang\ru.xml" />
+    <Content Include="umbraco\Config\Lang\sv.xml" />
+    <Content Include="umbraco\Config\Lang\zh.xml" />
     <Content Include="Views\TESTTYPE.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -767,13 +814,15 @@
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
+    <Content Include="Views\NewsOverview\Index.cshtml" />
+    <Content Include="Views\NewsCreate\Index.cshtml" />
+    <Content Include="Views\NewsDetails\Index.cshtml" />
+    <Content Include="Views\NewsEdit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="App_Plugins\Core\User\" />
     <Folder Include="Config\imageprocessor\" />
     <Folder Include="Config\splashes\" />
-    <Folder Include="umbraco\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -788,6 +837,12 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uCommunity.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
