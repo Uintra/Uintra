@@ -35,6 +35,7 @@ namespace Compent.uCommunity.Core.IoC
         private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=TD_Intranet;user id=sa;password='q1w2e3r4'";
 
         public static void Start()
+
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
