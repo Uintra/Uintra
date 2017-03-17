@@ -10,8 +10,8 @@ namespace Compent.uCommunity.Core.Users
     {
         private readonly List<IntranetUserBase> users = new List<IntranetUserBase>
         {
-            new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test 1" },
-            new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test 2" }
+            new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test user name 1" },
+            new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test user name 2" }
         };
 
         public IEnumerable<string> GetFullNamesByIds(IEnumerable<Guid> ids)
@@ -47,8 +47,8 @@ namespace Compent.uCommunity.Core.Users
         {
             return new List<ListItemModel<Guid>>
             {
-                new ListItemModel<Guid> { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test 1" },
-                new ListItemModel<Guid> { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test 2" }
+                new ListItemModel<Guid> { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test user name 1" },
+                new ListItemModel<Guid> { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test user name 2" }
             };
         }
 
@@ -62,9 +62,9 @@ namespace Compent.uCommunity.Core.Users
             throw new NotImplementedException();
         }
 
-        public void FillCreator(IHasCreator<IntranetUserBase> model)
+        public void FillCreator(IHasCreator<IntranetUserBase> entity)
         {
-            throw new NotImplementedException();
+            entity.Creator = entity.UmbracoCreatorId.HasValue ? users.First() : users.Last();
         }
     }
 }
