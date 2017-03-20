@@ -430,7 +430,6 @@
     <Compile Include="Controllers\NewsOverviewController.cs" />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\LikeableService.cs" />
-    <Compile Include="Core\MediaHelper.cs" />
     <Compile Include="Core\NewsService.cs" />
     <Compile Include="Core\PublishedContentCustom.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />

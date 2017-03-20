@@ -21,7 +21,10 @@ namespace Compent.uCommunity.Core
 
         public MediaSettings GetMediaSettings()
         {
-            return new MediaSettings();
+            return new MediaSettings
+            {
+                MediaRootId = 1055
+            };
         }
 
         public override IPublishedContent GetOverviewPage()
