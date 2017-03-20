@@ -4,31 +4,30 @@ using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Navigation.Content
+namespace uCommunity.Navigation.Plugin
 {
     public class NavigationController : SurfaceController
     {
-        private string LeftNavigationView => "~/App_Plugins/Navigation/LeftNavigation/View/LeftSideMenu.cshtml";
-        private string SubNavigationView => "~/App_Plugins/Navigation/SubNavigation/View/SubNavigationMenu.cshtml";
-
-        private readonly ILeftSideMenuModelBuilder _leftSideMenuModelBuilder;
+        private readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
+        private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
 
         public NavigationController(
-            ILeftSideMenuModelBuilder leftSideMenuModelBuilder, 
-            ISubNavigationModelBuilder subNavigationModelBuilder
-            )
+            ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder, 
+            ISubNavigationModelBuilder subNavigationModelBuilder, 
+            ITopNavigationModelBuilder topNavigationModelBuilder)
         {
-            _leftSideMenuModelBuilder = leftSideMenuModelBuilder;
+            _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
+            _topNavigationModelBuilder = topNavigationModelBuilder;
         }
 
         public ActionResult LeftSideMenu()
         {
-            var leftNavigationMenu = _leftSideMenuModelBuilder.GetMenu();
-            var result = leftNavigationMenu.Map<MenuViewModel>();
+            var leftNavigation = _leftSideNavigationModelBuilder.GetMenu();
+            var result = leftNavigation.Map<MenuViewModel>();
 
-            return PartialView(LeftNavigationView, result);
+            return PartialView("~/App_Plugins/Navigation/LeftNavigation/View/Navigation.cshtml", result);
         }
 
         public ActionResult SubNavigationMenu()
@@ -36,7 +35,15 @@ namespace uCommunity.Navigation.Content
             var subNavigation = _subNavigationModelBuilder.GetMenu();
             var result = subNavigation.Map<SubNavigationMenuViewModel>();
 
-            return PartialView(SubNavigationView, result);
+            return PartialView("~/App_Plugins/Navigation/SubNavigation/View/Navigation.cshtml", result);
+        }
+
+        public ActionResult TopMenu()
+        {
+            var topNavigation = _topNavigationModelBuilder.Get();
+            var result = topNavigation.Map<TopNavigationViewModel>();
+
+            return PartialView("~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml", result);
         }
     }
 }

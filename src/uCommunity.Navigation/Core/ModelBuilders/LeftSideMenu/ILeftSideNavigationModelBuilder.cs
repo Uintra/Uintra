@@ -1,6 +1,6 @@
 ﻿namespace uCommunity.Navigation.Core
 {
-    public interface ILeftSideMenuModelBuilder
+    public interface ILeftSideNavigationModelBuilder
     {
         MenuModel GetMenu();
     }

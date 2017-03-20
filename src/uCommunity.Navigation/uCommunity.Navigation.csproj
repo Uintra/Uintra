@@ -370,42 +370,51 @@
     <Compile Include="Core\Dashboard\Services\IHomeNavigationCompositionService.cs" />
     <Compile Include="Core\Dashboard\Services\INavigationCompositionService.cs" />
     <Compile Include="Core\Dashboard\Services\NavigationCompositionService.cs" />
+    <Compile Include="Core\ModelBuilders\TopMenu\ITopNavigationModelBuilder.cs" />
+    <Compile Include="Core\ModelBuilders\TopMenu\TopNavigationModelBuilder.cs" />
+    <Compile Include="Core\Models\TopMenuModel.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
     <None Include="Content\config\Dashboard.config.install.xdt" />
     <None Include="Content\config\Dashboard.config.uninstall.xdt" />
     <None Include="Plugin\config\navigationConfiguration.json" />
-    <None Include="Plugin\LeftNavigation\View\LeftSideMenu.cshtml" />
+    <None Include="Plugin\LeftNavigation\View\Navigation.cshtml" />
+    <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
+    <None Include="Plugin\NavigationAuthorizationController.cs" Condition="'$(Configuration)' == 'Debug'" />
     <None Include="Plugin\NavigationController.cs" Condition="'$(Configuration)' == 'Debug'" />
     <Compile Include="DefaultImplementation\SubNavigationMenuViewModel.cs" />
     <Compile Include="Core\Dashboard\UmbracoPropertyTypeEnum.cs" />
     <Compile Include="Core\Dashboard\Controllers\UNavigationApiController.cs" />
     <Compile Include="Core\Configuration\NavigationConfiguration.cs" />
-    <Compile Include="Core\ModelBuilders\ILeftSideMenuModelBuilder.cs" />
-    <Compile Include="Core\ModelBuilders\ISubNavigationModelBuilder.cs" />
-    <Compile Include="Core\ModelBuilders\LeftSideMenuModelBuilder.cs" />
+    <Compile Include="Core\ModelBuilders\LeftSideMenu\ILeftSideNavigationModelBuilder.cs" />
+    <Compile Include="Core\ModelBuilders\SubMenu\ISubNavigationModelBuilder.cs" />
+    <Compile Include="Core\ModelBuilders\LeftSideMenu\LeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\NavigationModelBuilderBase.cs" />
-    <Compile Include="Core\ModelBuilders\SubNavigationModelBuilder.cs" />
+    <Compile Include="Core\ModelBuilders\SubMenu\SubNavigationModelBuilder.cs" />
     <Compile Include="Core\Models\MenuItemModel.cs" />
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Plugin\package.manifest" />
-    <None Include="Plugin\SubNavigation\View\SubNavigationMenu.cshtml" />
+    <None Include="Plugin\SubNavigation\View\Navigation.cshtml" />
+    <None Include="Plugin\TopNavigation\View\Navigation.cshtml" />
     <None Include="Plugin\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Content Include="Plugin\Dashboard\navigation-controller.js" />
-    <Content Include="Plugin\Dashboard\navigation-service.js" />
-    <Content Include="Plugin\Dashboard\navigation.css" />
-    <Content Include="Plugin\Dashboard\navigation.html" />
-    <Content Include="Plugin\LeftNavigation\left-side-menu.js" />
-    <Content Include="Plugin\LeftNavigation\_leftSideMenu.css" />
-    <Content Include="Plugin\SubNavigation\sub-Menu.js" />
-    <Content Include="Plugin\SubNavigation\_subNavigationMenu.css" />
-    <Content Include="uCommunity.Navigation.nuspec" />
+    <None Include="Plugin\Dashboard\navigation-controller.js" />
+    <None Include="Plugin\Dashboard\navigation-service.js" />
+    <None Include="Plugin\Dashboard\navigation.css" />
+    <None Include="Plugin\Dashboard\navigation.html" />
+    <None Include="Plugin\LeftNavigation\left-side-menu.js" />
+    <None Include="Plugin\LeftNavigation\_leftSideMenu.css" />
+    <None Include="Plugin\SubNavigation\sub-Menu.js" />
+    <None Include="Plugin\SubNavigation\_subNavigationMenu.css" />
+    <None Include="Plugin\TopNavigation\TopMenu.js" />
+    <None Include="Plugin\TopNavigation\_topMenu.css" />
+    <None Include="Plugin\TopNavigation\_usermenu.css" />
+    <None Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

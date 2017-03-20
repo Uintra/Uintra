@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <section alias="StartupSettingsDashboardSection">
-    <tab caption="Navigation" xdt:Locator="Condition(/dashBoard/section[@alias='StartupSettingsDashboardSection']/tab[@caption='Welcome'])" xdt:Transform="Remove">
+    <tab caption="Navigation" xdt:Locator="Condition(@caption='Navigation')" xdt:Transform="Remove">
       <control>
         ~/App_Plugins/Navigation/Dashboard/navigation.html
       </control>

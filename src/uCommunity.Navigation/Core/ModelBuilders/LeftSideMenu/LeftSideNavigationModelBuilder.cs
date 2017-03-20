@@ -7,9 +7,9 @@ using Umbraco.Web;
 
 namespace uCommunity.Navigation.Core
 {
-    public class LeftSideMenuModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideMenuModelBuilder
+    public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {
-        public LeftSideMenuModelBuilder(
+        public LeftSideNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider
             ) : base(umbracoHelper, navigationConfigurationProvider)
