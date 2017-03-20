@@ -149,6 +149,11 @@ namespace uCommunity.Core.Activity
         protected T GetFromSql(Guid id)
         {
             var activity = _intranetActivityService.Get(id);
+            if (activity == null)
+            {
+                return null;
+            }
+            
             return GetMany(Enumerable.Repeat(activity, 1)).Single();
         }
 
