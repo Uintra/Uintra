@@ -79,6 +79,7 @@ namespace uCommunity.Core.Activity
         public virtual void Delete(Guid id)
         {
             _intranetActivityService.Delete(id);
+            FillCache(id);
         }
 
         public virtual void FillCache(Guid id)
