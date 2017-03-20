@@ -2,7 +2,7 @@
 
 namespace uCommunity.Core.Exceptions
 {
-    interface IExceptionLogger
+    public interface IExceptionLogger
     {
         void Log(Exception ex);
     }
