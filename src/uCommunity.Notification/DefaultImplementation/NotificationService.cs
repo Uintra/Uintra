@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using Elmah;
 using uCommunity.Notification.Exceptions;
 using uCommunity.Core.Configuration;
+using uCommunity.Core.Exceptions;
+using uCommunity.Core.Extentions;
 
 namespace uCommunity.Notification.Notifier
 {
@@ -11,13 +12,16 @@ namespace uCommunity.Notification.Notifier
     {
         private readonly IEnumerable<INotifierService> _notifiers;
         private readonly IConfigurationProvider<NotificationConfiguration> _notificationConfigurationService;
+        private readonly IExceptionLogger _exceptionLogger;
 
         public NotificationService(
             IEnumerable<INotifierService> notifiers,
-            IConfigurationProvider<NotificationConfiguration> notificationConfigurationService)
+            IConfigurationProvider<NotificationConfiguration> notificationConfigurationService,
+            IExceptionLogger exceptionLogger)
         {
             _notifiers = notifiers;
             _notificationConfigurationService = notificationConfigurationService;
+            _exceptionLogger = exceptionLogger;
         }
 
         public void ProcessNotification(NotifierData data)
@@ -26,7 +30,7 @@ namespace uCommunity.Notification.Notifier
 
             if (notifiers.Count == 0)
             {
-                //ErrorSignal.FromCurrentContext().Raise(new MissingNotificationException(data.NotificationType));
+                _exceptionLogger.Log(new MissingNotificationException(data.NotificationType));
             }
 
             foreach (var notifier in notifiers)
@@ -37,7 +41,7 @@ namespace uCommunity.Notification.Notifier
                 }
                 catch (Exception ex)
                 {
-                    //ErrorSignal.FromCurrentContext().Raise(ex);
+                    _exceptionLogger.Log(ex);
                 }
             }
         }
@@ -58,7 +62,7 @@ namespace uCommunity.Notification.Notifier
                 var notifier = _notifiers.SingleOrDefault(n => n.Type == notifierType);
                 if (notifier == null)
                 {
-                    //ErrorSignal.FromCurrentContext().Raise(new MissingNotifierException(notifierType, notificationType));
+                    _exceptionLogger.Log(new MissingNotifierException(notifierType, notificationType));
                 }
 
                 yield return notifier;
@@ -70,10 +74,9 @@ namespace uCommunity.Notification.Notifier
             var configuration = _notificationConfigurationService.GetSettings();
             var notificationTypeConfiguration = configuration.NotificationTypeConfigurations.SingleOrDefault(c => c.NotificationType == notificationType);
 
-            if (notificationTypeConfiguration == null || !notificationTypeConfiguration.NotifierTypes.Any())
+            if (notificationTypeConfiguration == null || !notificationTypeConfiguration.NotifierTypes.IsEmpty())
             {
-                return Enumerable.Repeat(configuration.DefaultNotifier, 1);
-                    //configuration.DefaultNotifier.ToEnumerableOfOne();
+                return configuration.DefaultNotifier.ToEnumerableOfOne();
             }
 
             return notificationTypeConfiguration.NotifierTypes;

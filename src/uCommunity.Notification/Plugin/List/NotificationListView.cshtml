@@ -1,5 +1,4 @@
-﻿@using TeamDenmark.Common.ApiClient.Utils
-@using uCommunity.Notification
+﻿@using uCommunity.Notification
 @using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
 @model uCommunity.Notification.Models.NotificationListViewModel
@@ -14,50 +13,59 @@
 
             <ul class="notifications__list" id="notification_list">
                 @foreach (var notification in Model.Notifications)
-            {
-                if (notification.Type == NotificationTypeEnum.LikeAdded)
                 {
-                        <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                            <h2 class="notifications__list-title">
-                                <a class="notifications__list-link" href="@notification.Value.url">
-                                    @notification.Value.title - @Html.Localize((IntranetActivityTypeEnum)notification.Value.activityType)
-                                </a>
-                            </h2>
-                            <div class="notifications__list-meta">
-                                <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
-                            </div>
-                        </li>
-
-                        continue;
-
-                    }
-
-                    if (notification.Type.In(NotificationTypeEnum.EventUpdated, NotificationTypeEnum.EventHided, NotificationTypeEnum.BeforeStart))
+                    switch (notification.Type)
                     {
-                        <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                            <h2 class="notifications__list-title">
-                                <a class="notifications__list-link" href="@notification.Value.url">
-                                    @notification.Value.title
-                                </a>
-                            </h2>
-                            <div class="notifications__list-meta">
-                                <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Type</span> - <span>@notification.Value.notifierName</span>
-                            </div>
-                        </li>
-                    }
+                        case NotificationTypeEnum.LikeAdded:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title - @Html.Localize((IntranetActivityTypeEnum)notification.Value.activityType)
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                    </div>
+                                </li>
 
-                    if (notification.Type.In(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentReplyed))
-                    {
-                        <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                            <h2 class="notifications__list-title">
-                                <a class="notifications__list-link" href="@notification.Value.url">
-                                    @notification.Value.title
-                                </a>
-                            </h2>
-                            <div class="notifications__list-meta">
-                                <span>@notification.Date.ToString(cultureDateFormat)</span> <span>@notification.Value.notifierName</span> - <span>@notification.Type</span> 
-                            </div>
-                        </li>
+                                break;
+
+                            }
+
+                        case NotificationTypeEnum.EventUpdated:
+                        case NotificationTypeEnum.EventHided:
+                        case NotificationTypeEnum.BeforeStart:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Type</span> - <span>@notification.Value.notifierName</span>
+                                    </div>
+                                </li>
+                                break;
+                            }
+
+                        case NotificationTypeEnum.CommentAdded:
+                        case NotificationTypeEnum.CommentEdited:
+                        case NotificationTypeEnum.CommentReplyed:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                    </div>
+                                </li>
+                                break;
+                            }
                     }
                 }
             </ul>

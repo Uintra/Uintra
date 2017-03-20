@@ -65,10 +65,7 @@ namespace uCommunity.Notification.Notifier
             {
                 n.IsNotified = true;
                 _notificationRepository.Update(n);
-
-
             }
-
         }
     }
 }
