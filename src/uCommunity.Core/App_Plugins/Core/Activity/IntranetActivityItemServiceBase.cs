@@ -10,8 +10,9 @@ using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
 {
-    public abstract class IntranetActivityItemServiceBase<T> : IIntranetActivityItemServiceBase<T>
+    public abstract class IntranetActivityItemServiceBase<T, TModel> : IIntranetActivityItemServiceBase<T, TModel>
         where T : IntranetActivityBase, new()
+        where TModel : IntranetActivityModelBase, new()
     {
         private readonly IIntranetActivityService _intranetActivityService;
         private readonly IMemoryCacheService _memoryCacheService;
@@ -28,19 +29,19 @@ namespace uCommunity.Core.Activity
             _memoryCacheService = memoryCacheService;
         }
 
-        public T Get(Guid id)
+        public TModel Get(Guid id)
         {
             var activity = GetAll().SingleOrDefault(a => a.Id == id);
             return activity;
         }
 
-        public IEnumerable<T> GetManyActual()
+        public IEnumerable<TModel> GetManyActual()
         {
             var activities = GetAll();
-            return activities.Where(IsActual);
+            return activities.Where(el => IsActual(el as T));
         }
 
-        public IEnumerable<T> GetAll(bool includeHidden = false)
+        public IEnumerable<TModel> GetAll(bool includeHidden = false)
         {
             var activities = _memoryCacheService.GetOrSet(CacheConstants.ActivityCacheKey, () => GetAllFromSql().ToList(), GetCacheExpiration(), ActivityType.ToString());
 
@@ -135,9 +136,9 @@ namespace uCommunity.Core.Activity
             entity.JsonData = StringExtensions.ToJson(model);
         }
 
-        protected virtual T FillPropertiesOnGet(IntranetActivityEntity entity)
+        protected virtual TModel FillPropertiesOnGet(IntranetActivityEntity entity)
         {
-            var model = entity.JsonData.Deserialize<T>();
+            var model = entity.JsonData.Deserialize<TModel>();
             model.Id = entity.Id;
             model.Type = entity.Type;
             model.CreatedDate = entity.CreatedDate;
@@ -146,19 +147,19 @@ namespace uCommunity.Core.Activity
             return model;
         }
 
-        protected T GetFromSql(Guid id)
+        protected TModel GetFromSql(Guid id)
         {
             var activity = _intranetActivityService.Get(id);
             return GetMany(Enumerable.Repeat(activity, 1)).Single();
         }
 
-        protected IEnumerable<T> GetAllFromSql()
+        protected IEnumerable<TModel> GetAllFromSql()
         {
             var activities = _intranetActivityService.GetMany(ActivityType).ToList();
             return GetMany(activities);
         }
 
-        private IEnumerable<T> GetMany(IEnumerable<IntranetActivityEntity> entities)
+        private IEnumerable<TModel> GetMany(IEnumerable<IntranetActivityEntity> entities)
         {
             foreach (var entity in entities)
             {

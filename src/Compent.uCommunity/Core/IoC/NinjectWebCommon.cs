@@ -12,10 +12,15 @@ using Ninject.Web.Common;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using uCommunity.Comments;
+using uCommunity.Core.Activity;
+using uCommunity.Core.Activity.Sql;
+using uCommunity.Core.Caching;
 using uCommunity.Core.Localization;
+using uCommunity.Core.Media;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
 using uCommunity.Likes;
+using uCommunity.News;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
@@ -32,7 +37,7 @@ namespace Compent.uCommunity.Core.IoC
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-        private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=TD_Intranet;user id=sa;password='q1w2e3r4'";
+        private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=TD_Intranet_controls;user id=sa;password='q1w2e3r4'";
 
         public static void Start()
         {
@@ -85,11 +90,16 @@ namespace Compent.uCommunity.Core.IoC
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
+            kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
+            kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
+            kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
+            kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
 
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(TDIntranetConnectionString, SqlServerDialect.Provider)).InSingletonScope();
 
             kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
             kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
+            kernel.Bind<ISqlRepository<IntranetActivityEntity>>().To<SqlRepository<IntranetActivityEntity>>().InRequestScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();

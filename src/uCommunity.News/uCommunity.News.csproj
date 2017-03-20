@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -467,9 +468,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Core, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.7\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.9\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6136.27248, Culture=neutral, processorArchitecture=MSIL">
@@ -495,6 +496,10 @@
     <Reference Include="umbraco.MacroEngines, Version=1.0.6136.27252, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.MacroEngines.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Umbraco.ModelsBuilder">
+      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.4\lib\Umbraco.ModelsBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco.providers, Version=1.0.6136.27246, Culture=neutral, processorArchitecture=MSIL">
@@ -557,15 +562,15 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Entities\NewsModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsCreateEditModelBase.cs" />
-    <Compile Include="Core\Models\Base\NewsModelBase.cs" />
+    <Compile Include="Core\Models\Base\NewsViewModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsSaveModelBase.cs" />
-    <Compile Include="Plugin\News.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Entities\NewsBase.cs" />
     <Compile Include="Core\Services\INewsService.cs" />
     <Compile Include="Core\Models\NewsCreateModel.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
-    <Compile Include="Core\Models\NewsModel.cs" />
+    <Compile Include="Core\Models\NewsViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewItemModel.cs" />
     <Compile Include="Core\Models\NewsOverviewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
@@ -574,11 +579,21 @@
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
-    <Compile Include="Plugin\NewsController.cs" />
+    <Compile Include="Plugin\NewsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Config\applications.config.install.xdt" />
+    <None Include="Content\Config\Dashboard.config.install.xdt" />
+    <None Include="Content\Config\applications.config.uninstall.xdt" />
+    <None Include="Content\Config\Dashboard.config.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\da.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\da.xml.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en.xml.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en_us.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en_us.xml.uninstall.xdt" />
     <None Include="packages.config" />
     <None Include="Plugin\Create\CreateView.cshtml" />
     <None Include="Plugin\Details\DetailsView.cshtml" />
@@ -594,22 +609,30 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <ItemGroup>
-    <Folder Include="App_Plugins\" />
+    <None Include="Plugin\backoffice\news-management.config.js" />
+    <None Include="Plugin\backoffice\news-management.css" />
+    <None Include="Plugin\backoffice\news-management.html" />
+    <None Include="Plugin\backoffice\news-management.js" />
+    <None Include="Plugin\Create\create-news.js" />
+    <None Include="Plugin\Create\news-create.html" />
+    <None Include="Plugin\Details\news-details.html" />
+    <None Include="Plugin\Edit\edit-news.js" />
+    <None Include="Plugin\Edit\news-edit.html" />
+    <None Include="Plugin\List\news-list.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Plugin\backoffice\news-management.config.js" />
-    <Content Include="Plugin\backoffice\news-management.css" />
-    <Content Include="Plugin\backoffice\news-management.html" />
-    <Content Include="Plugin\backoffice\news-management.js" />
-    <Content Include="Plugin\Create\create-news.js" />
-    <Content Include="Plugin\Create\news-create.html" />
-    <Content Include="Plugin\Details\news-details.html" />
-    <Content Include="Plugin\Edit\edit-news.js" />
-    <Content Include="Plugin\Edit\news-edit.html" />
-    <Content Include="Plugin\List\news-list.html" />
+    <Folder Include="App_Plugins\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

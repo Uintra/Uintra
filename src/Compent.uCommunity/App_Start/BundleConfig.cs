@@ -25,15 +25,20 @@ namespace Compent.uCommunity
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 "~/Scripts/quill.js",
+                "~/Scripts/select2.js",
+                "~/Scripts/dropzone.js",
+                "~/Scripts/flatpickr/flatpickr.js",
+                "~/Scripts/flatpickr/l10n/da.js",
                 "~/App_Plugins/Core/Content/scripts/*.js",
-                "~/App_Plugins/Comments/Comment.js"));
+                "~/App_Plugins/Core/Controls/FileUpload/file-upload.js",
+                "~/App_Plugins/Core/Controls/LightboxGalery/LightboxGallery.js",
+                "~/App_Plugins/Comments/Comment.js",
+                "~/App_Plugins/News/Create/create-news.js",
+                "~/App_Plugins/News/Edit/edit-news.js",
+                "~/Scripts/main.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/quill.core.css",
-                      "~/Content/quill.bubble.css",
-                      "~/Content/quill.snow.css",
+                      "~/Content/*.css",
                       "~/App_Plugins/Comments/_comments.css"));
         }
     }
