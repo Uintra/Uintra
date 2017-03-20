@@ -1,2 +1,2 @@
-﻿<%@ Application Inherits="Compent.uCommunity.UcommunityApplication" Language="C#" %>
+﻿<%@ Application Inherits="Umbraco.Web.UmbracoApplication" Language="C#" %>
           

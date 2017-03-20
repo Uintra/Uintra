@@ -1,0 +1,74 @@
+﻿@using uCommunity.Notification
+@using uCommunity.Core.Activity
+@using uCommunity.Core.Extentions
+@model uCommunity.Notification.Models.NotificationListViewModel
+@{
+    var cultureDateFormat = $"{System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern} {System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <section class="notifications">
+            <h1 class="notifications__title">@Html.Localize("NotificationList.Title.lbl")</h1>
+
+            <ul class="notifications__list" id="notification_list">
+                @foreach (var notification in Model.Notifications)
+                {
+                    switch (notification.Type)
+                    {
+                        case NotificationTypeEnum.LikeAdded:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title - @Html.Localize((IntranetActivityTypeEnum)notification.Value.activityType)
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                    </div>
+                                </li>
+
+                                break;
+
+                            }
+
+                        case NotificationTypeEnum.EventUpdated:
+                        case NotificationTypeEnum.EventHided:
+                        case NotificationTypeEnum.BeforeStart:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Type</span> - <span>@notification.Value.notifierName</span>
+                                    </div>
+                                </li>
+                                break;
+                            }
+
+                        case NotificationTypeEnum.CommentAdded:
+                        case NotificationTypeEnum.CommentEdited:
+                        case NotificationTypeEnum.CommentReplyed:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                    </div>
+                                </li>
+                                break;
+                            }
+                    }
+                }
+            </ul>
+        </section>
+    </div>
+</div>

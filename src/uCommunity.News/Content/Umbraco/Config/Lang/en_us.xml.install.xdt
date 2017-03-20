@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <area alias="sections">
+    <key alias="news" xdt:Transform="InsertAfter(/language/area[@alias='sections']/key[@alias='content'])">News</key>
+  </area>
+</language>

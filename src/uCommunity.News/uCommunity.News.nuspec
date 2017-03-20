@@ -12,5 +12,7 @@
     <tags>Compent uCommunity News Controls NewsControls</tags>
   </metadata>
   <files>
+    <file src="Plugin\**" target="content\App_Plugins\News" />
+    <file src="Content\**" target="content" />
   </files>
 </package>

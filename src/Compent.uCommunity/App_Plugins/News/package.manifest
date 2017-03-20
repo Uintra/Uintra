@@ -1,0 +1,51 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "News create",
+      "alias": "custom.NewsCreate",
+      "view": "/App_Plugins/News/Create/news-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "News",
+        "action": "Create"
+      }
+    },
+    {
+      "name": "News edit",
+      "alias": "custom.NewsEdit",
+      "view": "/App_Plugins/News/Edit/news-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "News",
+        "action": "Edit"
+      }
+    },
+    {
+      "name": "News overview",
+      "alias": "custom.NewsOverview",
+      "view": "/App_Plugins/News/List/news-list.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "News",
+        "action": "List"
+      }
+    },
+    {
+      "name": "News Details",
+      "alias": "custom.NewsDetails",
+      "view": "/App_Plugins/News/Details/news-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "News",
+        "action": "Details"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/News/backoffice/news-management.js",
+    "~/App_Plugins/News/backoffice/news-management.config.js"
+  ],
+  "css": [
+    "~/App_Plugins/News/backoffice/news-management.css"
+  ]
+}

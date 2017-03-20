@@ -101,3 +101,12 @@ src/uCommunity.News/Config/
 src/uCommunity.News/App_Plugins/Core/
 src/uCommunity.News/Web.config
 
+src/uCommunity.Notification/bin/*
+src/uCommunity.Notification/obj/
+src/uCommunity.Notification/Umbraco/
+src/uCommunity.Notification/Umbraco_Client/
+src/uCommunity.Notification/App_Data/
+src/uCommunity.Notification/App_Browsers/
+src/uCommunity.Notification/Config/
+src/uCommunity.Notification/App_Plugins/Core/
+src/uCommunity.Notification/Web.config
