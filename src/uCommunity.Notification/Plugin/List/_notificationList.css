@@ -20,6 +20,12 @@
                 border:solid var(--color-light-gray);
                 border-width:1px 0;
             }
+            &[data-viewed='true']{
+                background:var( --color-white);
+                border:solid var(--color-light-gray);
+                border-width:1px 0;
+            }
+
         }
 
         &-link{

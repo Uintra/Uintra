@@ -29,15 +29,16 @@
 
         var notifications = Array.from($('.notifications__list-item'));
         notifications.forEach(function (notification) {
-            var id = $(notification).data("id");            
+            var elem = $(notification);
+            var id = elem.data("id");
             notification.addEventListener('click',
             function () {
-                var delivered = $(notification).data("viewed");
+                var delivered = elem.data("viewed");
                 if (!delivered) {
                     $.ajax({
                         url: "/umbraco/surface/Notification/ViewNotification/" + id,
                         success: function () {
-                            $(notification).data("viewed", true);
+                            elem.attr("data-viewed", 'true');
                         }
 
                     });
