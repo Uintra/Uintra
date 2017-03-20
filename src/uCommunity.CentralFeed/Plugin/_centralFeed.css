@@ -1,4 +1,6 @@
-﻿.content{
+﻿@import "./../Core/Content/styles/intranet-core";
+
+.content{
     padding:0;
 
     &__item{
