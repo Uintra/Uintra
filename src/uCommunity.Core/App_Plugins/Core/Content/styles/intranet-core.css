@@ -37,4 +37,10 @@
     &.__mp4{
         background-image: url(../images/file-type-icons/m4v.svg);
     }
+    &.__ppt{
+        background-image: url(../images/file-type-icons/ppt.svg);
+    }
+    &.__pptx{
+        background-image: url(../images/file-type-icons/pptx.svg);
+    }
 }
