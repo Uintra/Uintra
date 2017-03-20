@@ -79,19 +79,18 @@ namespace uCommunity.Core.Activity
         public virtual void Delete(Guid id)
         {
             _intranetActivityService.Delete(id);
-
-            var activities = GetAll().ToList();
-            activities = activities.FindAll(a => a.Id != id);
-            _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
         }
 
         public virtual void FillCache(Guid id)
         {
             var activity = GetFromSql(id);
 
-            var activities = GetAll().ToList();
+            var activities = GetAll(true).ToList();
             activities = activities.FindAll(a => a.Id != id);
-            activities.Add(activity);
+            if (activity != null)
+            {
+                activities.Add(activity);
+            }
 
             _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
         }
