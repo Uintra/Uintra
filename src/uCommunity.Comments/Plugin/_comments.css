@@ -1,10 +1,12 @@
-﻿.comments{
+﻿@import "./../Core/Content/styles/intranet-core";
+
+.comments{
     margin:0;
     padding:24px 0 0;
     border-top:1px solid var(--color-light-gray);
 
     &__title{
-        font:16px/23px var(--font-general-bold);
+        font:bold 16px/23px var(--font-general);
         margin:0 0 38px;
     }
 
@@ -111,7 +113,8 @@
 
     &__author{
         &-name{
-            font-family:var(--font-general-bold);
+            font-family:var(--font-general);
+             font-weight: bold;
         }
             
         &-about{
@@ -157,6 +160,10 @@
         }
 
         &:hover {
+            > .comments__controls-list {
+                display: block;
+            }
+
             &:before {
                 transform:rotate(-135deg);
                 top:8px;
@@ -176,11 +183,6 @@
             box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.2);
             background: var(--color-white);
             z-index: 10;
-
-            :hover > & {
-                display: block;
-            }
-
             &:after {
                 position:absolute;
                 top:-4px;
@@ -221,7 +223,7 @@
     }
 
     &__subtitle{
-        font:13px/22px var(--font-general-bold);
+        font:bold 13px/22px var(--font-general);
         margin:0 0 4px;
     }
 
@@ -268,7 +270,7 @@
             min-width:170px;
             z-index:-1;
 
-            :hover > &{
+            &:hover > &{
                 opacity:1;
                 z-index:1;
             }

@@ -341,8 +341,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Comment.js" />
-    <None Include="Content\_comments.css" />
+    <None Include="Plugin\Comment.js" />
+    <None Include="Plugin\_comments.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

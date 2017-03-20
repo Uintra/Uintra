@@ -38,7 +38,8 @@
     padding:0;
     list-style:none;
     font-size:14px;
-    font-family:var(--font-general-bold);
+    font-family:var(--font-general);
+    font-weight: bold;
 
     &__link{
         display:block;
@@ -86,7 +87,7 @@
         padding:0;
         list-style:none;
         font-family:var(--font-general);
-        fnt-size:13px;
+        font-size:13px;
 
         .side-nav{
             &__link{

@@ -1,0 +1,20 @@
+﻿:root {
+    --color-white: #fff;
+    --color-red: #dd0a2d;
+    --color-black: #000;
+    --color-light-gray:#ccc;
+    --color-light-gray-2:#eee;
+    --color-light-gray-3:#c7c7c7;
+    --text-color-light: #8f8f8f;
+    --text-color-dark: #333;
+    --header-bg: #373737;
+    --font-custom: "Open Sans", Arial, Helvetica, sans-serif;
+    --font-general: "Open Sans", Arial, Helvetica, sans-serif;
+
+    @custom-media --for-phone-only (width <= 599px);
+    @custom-media --for-tablet-portrait-up (width >= 600px);
+    @custom-media --for-tablet-portrait-down (width < 900px);
+    @custom-media --for-tablet-landscape-up (width >= 900px);
+    @custom-media --for-desktop-up (width >= 1200px);
+    @custom-media --for-big-desktop-up (width >= 1800px);
+}

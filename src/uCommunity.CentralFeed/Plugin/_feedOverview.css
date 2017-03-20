@@ -56,7 +56,7 @@
 
         &-print{
             float:right;
-            font:13px/15px var(--font-TeamDanmark4Bold);
+            font:bold 13px/15px var(--font-custom);
             background:var(--color-light-gray);
             color:var(--text-color-dark);
             text-transform:uppercase;
@@ -85,7 +85,7 @@
         }
         
         &-subtitle{
-            font:16px/23px var(--font-general-bold);
+            font:bold 16px/23px var(--font-general);
             margin:0 0 11px;
         }
 
