@@ -1,10 +1,15 @@
-﻿var easeInOutQuad = function (t, b, c, d) {
+﻿var Quill = require('quill');
+
+require('quill/dist/quill.core.css');
+require('quill/dist/quill.bubble.css');
+require('quill/dist/quill.snow.css');
+
+var easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
     if (t < 1) return c / 2 * t * t + b;
     t--;
     return -c / 2 * (t * (t - 2) - 1) + b;
 };
-
 
 var helpers = {
     deepClone: function (obj) {
@@ -85,8 +90,6 @@ var helpers = {
             localStorage.removeItem(key);
         }
     },
-
 }
 
-window.App = window.App || {};
-window.App.Helpers = helpers;
+export default helpers;

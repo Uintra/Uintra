@@ -1,20 +1,15 @@
-﻿'use strict';
+﻿var queue = [];
 
-var appInitializer = (function () {
-    var initializers = [];
-
-    $(document).ready(function () {
-        setTimeout(function () {
-            initializers.forEach(function (item) { item(); });
-        });
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function () {
+        queue.forEach(function (item) { item(); });
     });
+});
 
-    return {
-        add: function (cb) {
-            initializers.push(cb);
-        }
+var appInitializer = {
+    add: function(func) {
+        queue.push(func);
     }
-})();
+}
 
-window.App = window.App || {};
-window.App.AppInitializer = appInitializer;
+export default appInitializer;

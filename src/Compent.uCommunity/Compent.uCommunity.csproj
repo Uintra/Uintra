@@ -302,14 +302,14 @@
       <HintPath>..\..\packages\uCommunity.BaseControls.1.0.1.2\lib\net452\uCommunity.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.1.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.1.7\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.1.8\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Core, Version=1.0.9.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.9\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.9.3\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes">
@@ -420,10 +420,13 @@
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
     <Content Include="App_Plugins\Comments\Comment.js" />
+    <Content Include="App_Plugins\Comments\_comments.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
+    <Content Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Plugins\Core\Content\fonts\icomoon.svg" />
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\3dm.svg" />
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\3ds.svg" />
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\3gp.svg" />
@@ -596,15 +599,22 @@
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\zip.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="App_Plugins\Core\Content\libs\css-libs-manifest.js" />
     <Content Include="App_Plugins\Core\Content\libs\dependencies.txt" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\intranet-core.css" />
+    <Content Include="App_Plugins\Core\Content\styles\_fonts.css" />
+    <Content Include="App_Plugins\Core\Content\styles\_variables.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\default-skin.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\default-skin.png" />
@@ -612,7 +622,6 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGallery.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\_lightbox.css" />
-    <Content Include="App_Plugins\Core\css-core-manifest.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -657,6 +666,7 @@
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetUser.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\News\NewsController.cs" />
@@ -719,15 +729,6 @@
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
@@ -739,6 +740,20 @@
     <Content Include="Views\NewsEdit\Index.cshtml" />
     <Content Include="Views\NewsOverview\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Core\package.manifest" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
