@@ -83,7 +83,7 @@
     &__title{
         overflow:hidden;
         margin:0 0 0 48px;
-        font:22px/30px var(--font-TeamDanmark4Bold);
+        font:bold 22px/30px var(--font-custom);
         text-transform:uppercase;
 
         &-link{
@@ -291,7 +291,7 @@
 
                 ._with-sub-nav &{
                     border-bottom:2px solid var(--color-light-gray);
-                    font:20px/22px var(--font-general-bold);
+                    font:bold 20px/22px var(--font-general);
                     padding:14px 20px 13px;
                     white-space:nowrap;
                     text-overflow:ellipsis
@@ -350,7 +350,8 @@
                     color: var(--text-color-dark);
 
                     ._active & {
-                        font-family: var(--font-general-bold);
+                        font-family: var(--font-general);
+                        font-weight: bold;
                         position: relative;
                         padding-right:40px;
                         color: var(--text-color-dark);

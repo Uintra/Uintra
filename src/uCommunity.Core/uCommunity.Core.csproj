@@ -424,6 +424,8 @@
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
+    <Content Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Plugins\Core\Content\fonts\icomoon.svg" />
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\3dm.svg" />
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\3ds.svg" />
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\3gp.svg" />
@@ -596,15 +598,22 @@
     <Content Include="App_Plugins\Core\Content\images\file-type-icons\zip.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="App_Plugins\Core\Content\libs\css-libs-manifest.js" />
     <Content Include="App_Plugins\Core\Content\libs\dependencies.txt" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\intranet-core.css" />
+    <Content Include="App_Plugins\Core\Content\styles\_fonts.css" />
+    <Content Include="App_Plugins\Core\Content\styles\_variables.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\default-skin.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\default-skin.png" />
@@ -612,7 +621,6 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGallery.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\_lightbox.css" />
-    <Content Include="App_Plugins\Core\css-core-manifest.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -624,6 +632,13 @@
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
+    <None Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="App_Plugins\Core\Content\fonts\icomoon.eot" />
+    <None Include="App_Plugins\Core\Content\fonts\icomoon.ttf" />
+    <None Include="App_Plugins\Core\Content\fonts\icomoon.woff" />
     <None Include="App_Plugins\Web.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

@@ -1,4 +1,6 @@
-﻿.content{
+﻿@import "./../Core/Content/styles/intranet-core";
+
+.content{
     padding:0;
 
     &__item{
@@ -22,7 +24,7 @@
             background:var(--color-red);
             color:var(--color-white);
             text-transform:uppercase;
-            font:13px/15px var(--font-TeamDanmark4Bold);
+            font:bold 13px/15px var(--font-custom);
             padding:6px 10px 8px;
             display:none;
 
@@ -60,7 +62,7 @@
             padding:0;
         }
         &-title{
-            font:18px/22px var(--font-general-bold);
+            font:bold 18px/22px var(--font-general);
             margin:-5px 0 5px;
 
             &-link{
@@ -107,8 +109,8 @@
             h4,
             h5,
             h6 {
-                font-weight:normal;
-                font-family:var(--font-general-bold);
+                font-weight:bold;
+                font-family:var(--font-general);
             }
         }
         &-images{
@@ -251,7 +253,7 @@
                 display:inline-block;
                 border: 1px solid #e3e3e3;
                 padding:7px 10px 8px 33px;
-                font: 12px/14px var(--font-TeamDanmark4);
+                font: 12px/14px var(--font-custom);
                 text-transform:uppercase;
                 position:relative;
                 color:var(--text-color-dark);

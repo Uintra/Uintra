@@ -15,6 +15,7 @@ src/Compent.uCommunity/Umbraco_Client/
 
 #
 src/Compent.uCommunity/Media/*
+src/Compent.uCommunity/build/*
 !src/Compent.uCommunity/Media/Web.config
 src/Compent.uCommunity/App_Data/
 src/Compent.uCommunity/App_Data/Logs/*
