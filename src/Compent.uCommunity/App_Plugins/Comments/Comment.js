@@ -1,15 +1,4 @@
-﻿require('jquery');
-
-require("./../Core/Content/libs/jquery.validate.min.js");
-require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
-require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
-
-import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import helpers from "./../Core/Content/scripts/Helpers";
-
-require("./_comments.css");
-
-var CommentOverview = function (selector) {
+﻿var CommentOverview = function (selector) {
     var commentOverviewQuillOptions = {
         theme: 'snow',
         modules: {
@@ -46,7 +35,7 @@ var CommentOverview = function (selector) {
 
             var dataStorage = $this.find('.js-hidden-comment-create-description')[0];
             var descriptionElem = $this.find('.js-comment-create-description')[0];
-            var quill = helpers.initQuill(descriptionElem, dataStorage, commentOverviewQuillOptions);
+            var quill = window.App.Helpers.initQuill(descriptionElem, dataStorage, commentOverviewQuillOptions);
             quill.on('text-change', function () {
                 if (quill.getLength() > 1) {
                     button.removeAttr("disabled");
@@ -109,7 +98,7 @@ var Comment = function (selector) {
 
         var dataStorage = findControl(holder, '.js-hidden-comment-edit-description')[0];
         var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
-        var quill = helpers.initQuill(descriptionElem, dataStorage, commentQuillOptions);
+        var quill = window.App.Helpers.initQuill(descriptionElem, dataStorage, commentQuillOptions);
         var button = holder.find('.js-comment-edit-btn');
         button.removeAttr("disabled");
         quill.on('text-change', function () {
@@ -146,7 +135,7 @@ var Comment = function (selector) {
 
         var dataStorage = findControl(holder, '.js-hidden-comment-create-description')[0];
         var descriptionElem = findControl(holder, '.js-comment-create-description')[0];
-        var quill = helpers.initQuill(descriptionElem, dataStorage, commentQuillOptions);
+        var quill = window.App.Helpers.initQuill(descriptionElem, dataStorage, commentQuillOptions);
         var button = holder.find('.js-comment-create-btn');
         quill.on('text-change', function () {
             if (quill.getLength() > 1) {
@@ -185,7 +174,7 @@ var Comment = function (selector) {
     }
 }
 
-appInitializer.add(function () {
+App.AppInitializer.add(function () {
     new CommentOverview('[id^=js-comments-overview-]');
 });
 
