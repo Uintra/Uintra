@@ -1,4 +1,6 @@
-﻿#header {
+﻿@import "./../../Core/Content/styles/intranet-core";
+
+#header {
     position:fixed;
     top:0;
     left:0;

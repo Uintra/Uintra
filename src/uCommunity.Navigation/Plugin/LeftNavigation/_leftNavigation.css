@@ -1,4 +1,6 @@
-﻿#sidebar {
+﻿@import "./../../Core/Content/styles/intranet-core";
+
+#sidebar {
     position:fixed;
     top:50px;
     left:0;

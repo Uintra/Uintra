@@ -407,12 +407,12 @@
     <None Include="Plugin\Dashboard\navigation-service.js" />
     <None Include="Plugin\Dashboard\navigation.css" />
     <None Include="Plugin\Dashboard\navigation.html" />
-    <None Include="Plugin\LeftNavigation\left-side-menu.js" />
-    <None Include="Plugin\LeftNavigation\_leftSideMenu.css" />
-    <None Include="Plugin\SubNavigation\sub-Menu.js" />
-    <None Include="Plugin\SubNavigation\_subNavigationMenu.css" />
-    <None Include="Plugin\TopNavigation\TopMenu.js" />
-    <None Include="Plugin\TopNavigation\_topMenu.css" />
+    <None Include="Plugin\LeftNavigation\LeftNavigation.js" />
+    <None Include="Plugin\LeftNavigation\_leftNavigation.css" />
+    <None Include="Plugin\SubNavigation\subNavigation.js" />
+    <None Include="Plugin\SubNavigation\_subNavigation.css" />
+    <None Include="Plugin\TopNavigation\topNavigation.js" />
+    <None Include="Plugin\TopNavigation\_topNavigation.css" />
     <None Include="Plugin\TopNavigation\_usermenu.css" />
     <None Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>

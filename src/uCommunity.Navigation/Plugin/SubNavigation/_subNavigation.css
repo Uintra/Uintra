@@ -1,4 +1,6 @@
-﻿.tabset {
+﻿@import "./../../Core/Content/styles/intranet-core";
+
+.tabset {
     position:fixed;
     padding:0 52px 0 251px;
     top:50px;

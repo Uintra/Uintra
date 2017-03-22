@@ -1,4 +1,6 @@
-﻿.user {
+﻿@import "./../../Core/Content/styles/intranet-core";
+
+.user {
     float:right;
     position:relative;
     padding:10px 10px 10px 37px;

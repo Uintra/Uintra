@@ -316,7 +316,8 @@
       <HintPath>..\..\packages\uCommunity.Likes.1.0.3.4\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News">
+    <Reference Include="uCommunity.News, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.News.1.0.1.2\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>

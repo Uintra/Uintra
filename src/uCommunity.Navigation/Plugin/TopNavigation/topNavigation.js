@@ -1,5 +1,8 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
+require("./_usermenu.css");
+require("./_topNavigation.css");
+
 var MobileDetect = require('mobile-detect');
 
 var body = document.querySelector('body');
@@ -19,7 +22,10 @@ function initMobileNav() {
         body.classList.remove('_sidebar-expanded');
 
         $(body).on("click.nav", function(ev) {
-            isOutsideClick(container, opener, ev.target, '_menu-expanded');
+            isOutsideClick(container, opener, ev.target, '_menu-expanded', function() {
+                body.classList.remove(className);
+                $(body).off("click.nav");
+            });
         });
     });
 };
@@ -43,10 +49,11 @@ var initToTop = function () {
     });
 }
 
-var isOutsideClick = function (el, opener, target, className) {
+var isOutsideClick = function (el, opener, target, className, callback) {
     if (!el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
-        body.classList.remove(className);
-        $(body).off("click.nav");
+        if (typeof callback === "function") {
+            callback();
+        }
     }
 };
 
