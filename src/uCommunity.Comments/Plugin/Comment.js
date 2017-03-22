@@ -1,6 +1,4 @@
-﻿$ = jQuery = require('jquery');
-
-require("./../Core/Content/libs/jquery.validate.min.js");
+﻿require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 
