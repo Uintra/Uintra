@@ -109,6 +109,7 @@ var Comment = function (selector) {
         var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
         var quill = helpers.initQuill(descriptionElem, dataStorage, commentQuillOptions);
         var button = holder.find('.js-comment-edit-btn');
+
         button.removeAttr("disabled");
         quill.on('text-change', function () {
             if (quill.getLength() > 1) {

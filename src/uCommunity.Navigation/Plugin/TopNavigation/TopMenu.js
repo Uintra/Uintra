@@ -1,72 +1,65 @@
-﻿'use strict';
-var topMenu = (function () {
-    var body = document.querySelector('body');
+﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-    function initMobile() {
-        initMobileNav();
-    };
+var MobileDetect = require('mobile-detect');
 
-    function initMobileNav() {
-        var opener = document.querySelector("#js-menu-opener");
-        var container = document.querySelector('#sidebar');
+var body = document.querySelector('body');
 
-        opener.addEventListener('click',
-            () => {
-                body.classList.toggle('_menu-expanded');
-                if (body.classList.contains('_search-expanded')) {
-                    body.classList.remove('_search-expanded');
-                }
-                if (body.classList.contains('_notifications-expanded')) {
-                    body.classList.remove('_notifications-expanded');
-                }
-                if (body.classList.contains('_sidebar-expanded')) {
-                    body.classList.remove('_sidebar-expanded');
-                }
+function initMobile() {
+    initMobileNav();
+};
 
-                body.addEventListener('click',
-                    function (ev) {
-                        isOutsideClick(container, opener, ev.target, '_menu-expanded');
-                    });
-            });
-    };
+function initMobileNav() {
+    var opener = document.querySelector("#js-menu-opener");
+    var container = document.querySelector('#sidebar');
 
-    var initToTop = function () {
-        var trigger = document.getElementById('toTop');
-        window.addEventListener('scroll', function (e) {
-            if (window.scrollY > 100 && !trigger.classList.contains('_visible')) {
-                trigger.classList.add('_visible');
-            }
-            else if (window.scrollY <= 100 && trigger.classList.contains('_visible')) {
-                trigger.classList.remove('_visible');
-            }
+    opener.addEventListener('click', () => {
+        body.classList.toggle('_menu-expanded');
+        body.classList.remove('_search-expanded');
+        body.classList.remove('_notifications-expanded');
+        body.classList.remove('_sidebar-expanded');
+
+        $(body).on("click.nav", function(ev) {
+            isOutsideClick(container, opener, ev.target, '_menu-expanded');
         });
+    });
+};
 
-        trigger.addEventListener('click', function () {
-            $('html, body').stop().animate({
-                scrollTop: 0
-            }, 500);
-        });
-    }
+var initToTop = function () {
+    var trigger = document.getElementById('toTop');
 
-    var isOutsideClick = function (el, opener, target, className) {
-        if (!el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
-            body.classList.remove(className);
+    window.addEventListener('scroll', function (e) {
+        if (window.scrollY > 100 && !trigger.classList.contains('_visible')) {
+            trigger.classList.add('_visible');
         }
-    };
+        else if (window.scrollY <= 100 && trigger.classList.contains('_visible')) {
+            trigger.classList.remove('_visible');
+        }
+    });
 
-    var controller = {
-        init: function () {
-            initToTop();
+    trigger.addEventListener('click', function () {
+        $('html, body').stop().animate({
+            scrollTop: 0
+        }, 500);
+    });
+}
 
-            var md = new MobileDetect(window.navigator.userAgent);
+var isOutsideClick = function (el, opener, target, className) {
+    if (!el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
+        body.classList.remove(className);
+        $(body).off("click.nav");
+    }
+};
 
-            if (md.mobile()) {
-                initMobile();
-            }
+var controller = {
+    init: function () {
+        initToTop();
+
+        var md = new MobileDetect(window.navigator.userAgent);
+
+        if (md.mobile()) {
+            initMobile();
         }
     }
+}
 
-    App.AppInitializer.add(controller.init);
-    return controller;
-})();
-
+appInitializer.add(controller.init);

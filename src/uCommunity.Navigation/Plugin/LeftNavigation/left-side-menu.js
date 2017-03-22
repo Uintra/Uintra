@@ -3,6 +3,7 @@
     function locationChagned() {
         var path = window.location.pathname;
         var links = document.querySelectorAll('.side-nav .side-nav__link');
+
         for (var i = 0; i < links.length; i++) {
             var link = links[i];
             if (link.pathname == path) {
@@ -15,6 +16,7 @@
 
     $(document).ready(function () {
         var arrows = Array.from($("img[id *= 'side-nav-arrow_']"));
+
         arrows.forEach(function (arrow) {
             arrow.addEventListener('click',
                  function () {
@@ -36,21 +38,25 @@
 
     function hideChildrenNav(id) {
         var nav = $("#side-nav-children_" + id);
-        $(nav).hide();
+        nav.hide();
     }
 
     function showChildrenNav(id) {
         var nav = $("#side-nav-children_" + id);
-        $(nav).show();
+        nav.show();
     }
 
     function showActive() {
         var active = $("._active.side-nav__item");
+
         if (active.length > 0) {
             var parentDiv = $(active).closest("div[id *= 'side-nav-children_']");
+
             parentDiv.show();
+
             var id = $(parentDiv).data("id");
             var arrow = $("#side-nav-arrow_" + id);
+
             arrow[0].src = "/Content/images/arrow_up.svg";
             $(arrow).data("open", true);
         }
