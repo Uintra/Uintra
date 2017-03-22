@@ -328,15 +328,15 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AutoMapperProfiles\CommentAutoMapperProfile.cs" />
-    <None Include="CommentsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <None Include="Plugin\CommentsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\ICommentsService.cs" />
-    <Compile Include="Models\CommentCreateModel.cs" />
-    <Compile Include="Models\CommentEditModel.cs" />
-    <Compile Include="Models\CommentPreviewModel.cs" />
-    <Compile Include="Models\CommentsListModel.cs" />
-    <Compile Include="Models\CommentsOverviewModel.cs" />
-    <Compile Include="Models\CommentViewModel.cs" />
+    <Compile Include="Core\Models\CommentCreateModel.cs" />
+    <Compile Include="Core\Models\CommentEditModel.cs" />
+    <Compile Include="Core\Models\CommentPreviewModel.cs" />
+    <Compile Include="Core\Models\CommentsListModel.cs" />
+    <Compile Include="Core\Models\CommentsOverviewModel.cs" />
+    <Compile Include="Core\Models\CommentViewModel.cs" />
     <Compile Include="Core\Sql\Comment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -346,12 +346,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="View\CommentsCreateView.cshtml" />
-    <None Include="View\CommentsEditView.cshtml" />
-    <None Include="View\CommentsListView.cshtml" />
-    <None Include="View\CommentsOverView.cshtml" />
-    <None Include="View\CommentsPreView.cshtml" />
-    <None Include="View\CommentsView.cshtml" />
+    <None Include="Plugin\View\CommentsCreateView.cshtml" />
+    <None Include="Plugin\View\CommentsEditView.cshtml" />
+    <None Include="Plugin\View\CommentsListView.cshtml" />
+    <None Include="Plugin\View\CommentsOverView.cshtml" />
+    <None Include="Plugin\View\CommentsPreView.cshtml" />
+    <None Include="Plugin\View\CommentsView.cshtml" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
