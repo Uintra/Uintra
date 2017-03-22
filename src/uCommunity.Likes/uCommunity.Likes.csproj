@@ -320,19 +320,19 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ILikeable.cs" />
-    <Compile Include="ILikeableService.cs" />
-    <Compile Include="ILikesService.cs" />
-    <None Include="LikesController.cs" Condition=" '$(Configuration)' == 'Debug' " />
-    <Compile Include="LikesService.cs" />
-    <Compile Include="Models\LikeModel.cs" />
-    <Compile Include="Models\LikesViewModel.cs" />
-    <Compile Include="Sql\Like.cs" />
+    <Compile Include="Core\ILikeable.cs" />
+    <Compile Include="Core\Services\ILikeableService.cs" />
+    <Compile Include="Core\Services\ILikesService.cs" />
+    <None Include="Plugin\LikesController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Core\Services\LikesService.cs" />
+    <Compile Include="Core\Models\LikeModel.cs" />
+    <Compile Include="Core\Models\LikesViewModel.cs" />
+    <Compile Include="Core\Sql\Like.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="View\LikesView.cshtml" />
+    <None Include="Plugin\View\LikesView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
