@@ -1,5 +1,7 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
+require("./_subNavigation.css");
+
 var MobileDetect = require('mobile-detect');
 
 var menu = $('.tabset__navigation');
