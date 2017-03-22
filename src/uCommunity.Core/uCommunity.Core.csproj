@@ -639,6 +639,7 @@
     <None Include="App_Plugins\Core\Content\fonts\icomoon.eot" />
     <None Include="App_Plugins\Core\Content\fonts\icomoon.ttf" />
     <None Include="App_Plugins\Core\Content\fonts\icomoon.woff" />
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <None Include="App_Plugins\Web.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
