@@ -17,7 +17,7 @@ namespace Compent.uCommunity.Controllers
                 HttpContext.Session?.Add(IntranetConstants.Session.LoggedUserSessionKey, new IntranetUser { Name = "Current user 2017", Id = Guid.NewGuid() });
             }
 
-            return View();
+            return View(renderModel);
         }
     }
 }

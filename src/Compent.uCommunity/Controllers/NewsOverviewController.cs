@@ -8,7 +8,7 @@ namespace Compent.uCommunity.Controllers
     {
         public override ActionResult Index(RenderModel renderModel)
         {
-            return View();
+            return View(renderModel);
         }
     }
 }

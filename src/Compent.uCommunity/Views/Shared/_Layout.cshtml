@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <script src="/build/css.js"></script>
-    <title>uCommunity</title>
-</head>
-<body>
-    some general stuff
+﻿@inherits UmbracoViewPage<IPublishedContent>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src="/build/css.js"></script>
+        <title>uCommunity</title>
+    </head>
+    <body>
+        some general stuff
+        @RenderBody()
 
-    @RenderBody()
-
-    <script src="/build/main.js"></script> 
-</body>
+        <script src="/build/main.js"></script>
+    </body>
 </html>
