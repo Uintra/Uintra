@@ -26,6 +26,7 @@ src/Compent.uCommunity/Content/images/logout.png
 src/Compent.uCommunity/Content/images/umbraco.png
 src/Compent.uCommunity/Content/images/user.png
 src/Compent.uCommunity/Content/images/search.png
+src/Compent.uCommunity/build/*
 
 src/Compent.uCommunity/node_modules
 src/Compent.uCommunity/Content/images/home.png
