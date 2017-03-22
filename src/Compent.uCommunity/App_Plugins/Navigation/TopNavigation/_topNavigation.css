@@ -39,14 +39,13 @@
 .greeting {
     color: #ccc;
     float: right;
-    font:16px/1.25em var(--font-TeamDanmark4);
+    font:16px/1.25em var(--font-custom);
     padding:13px 12px 16px 0;
     width: auto;
     text-transform:uppercase;
 
     &__username {
-        font-family: var(--font-TeamDanmark4Bold);
-        font-weight: normal;
+        font-weight: bold;
         margin: 0 0 0 15px;
         color:var(--color-white);
     }
