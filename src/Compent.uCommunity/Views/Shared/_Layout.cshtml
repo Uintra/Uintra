@@ -1,14 +1,17 @@
-﻿@inherits UmbracoViewPage<IPublishedContent>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <script src="/build/css.js"></script>
-        <title>uCommunity</title>
-    </head>
-    <body>
-        some general stuff
-        @RenderBody()
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="/build/css.js"></script>
+    <title>uCommunity</title>
+</head>
+<body>
+    @{Html.RenderAction("TopNavigation", "Navigation");}
+    @{Html.RenderAction("LeftNavigation", "Navigation"); }
+    @{Html.RenderAction("SubNavigation", "Navigation");}
 
-        <script src="/build/main.js"></script>
-    </body>
+    @RenderBody()
+
+    <script src="/build/main.js"></script>
+</body>
+>>>>>>> origin/master
 </html>

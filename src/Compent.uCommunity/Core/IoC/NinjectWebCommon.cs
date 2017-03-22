@@ -15,11 +15,14 @@ using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
+using uCommunity.Core.Configuration;
 using uCommunity.Core.Localization;
 using uCommunity.Core.Media;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
 using uCommunity.Likes;
+using uCommunity.Navigation.Core;
+using uCommunity.Navigation.Core.Dashboard;
 using uCommunity.News;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
@@ -29,6 +32,7 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace Compent.uCommunity.Core.IoC
@@ -50,6 +54,14 @@ namespace Compent.uCommunity.Core.IoC
             {
                 config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+        }
+
+        public static void PostStart()
+        {
+            var kernel = bootstrapper.Kernel;
+
+            var configurationProvider = kernel.Get<IConfigurationProvider<NavigationConfiguration>>();
+            configurationProvider.Initialize();
         }
 
         public static void Stop()
@@ -84,6 +96,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();
             kernel.Bind<IUserService>().ToMethod(i => ApplicationContext.Current.Services.UserService).InRequestScope();
             kernel.Bind<IContentService>().ToMethod(i => ApplicationContext.Current.Services.ContentService).InRequestScope();
+            kernel.Bind<IContentTypeService>().ToMethod(i => ApplicationContext.Current.Services.ContentTypeService).InRequestScope();
             kernel.Bind<IMediaService>().ToMethod(i => ApplicationContext.Current.Services.MediaService).InRequestScope();
             kernel.Bind<DatabaseContext>().ToMethod(i => ApplicationContext.Current.DatabaseContext).InRequestScope();
             kernel.Bind<IDataTypeService>().ToMethod(i => ApplicationContext.Current.Services.DataTypeService).InRequestScope();
@@ -106,6 +119,16 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
             kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
+
+            // Navigation 
+            kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()
+                .WithConstructorArgument("settingsFilePath", "~/App_Plugins/Navigation/config/navigationConfiguration.json");
+
+            kernel.Bind<INavigationCompositionService>().To<NavigationCompositionService>().InRequestScope();
+            kernel.Bind<IHomeNavigationCompositionService>().To<HomeNavigationCompositionService>().InRequestScope();
+            kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
         }
 
         private static UmbracoContext CreateUmbracoContext()
