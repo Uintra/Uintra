@@ -242,8 +242,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\SQLCE4Umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -262,9 +263,9 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reflection.Metadata, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="System.Reflection.Metadata, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\System.Reflection.Metadata.1.2.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+      <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -314,6 +315,10 @@
     </Reference>
     <Reference Include="uCommunity.Likes">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.3.4\lib\net452\uCommunity.Likes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uCommunity.Navigation">
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.0.4\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
@@ -625,6 +630,17 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\LeftNavigation.js" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\_leftNavigation.css" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\_subNavigation.css" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\_topNavigation.css" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\_usermenu.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
@@ -669,6 +685,8 @@
     <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
     <Compile Include="App_Plugins\Core\User\IntranetUser.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
+    <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
+    <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="App_Plugins\News\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
@@ -758,6 +776,12 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Navigation\Web.config" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
