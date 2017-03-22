@@ -313,8 +313,9 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.9.3\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Likes">
-      <HintPath>..\..\packages\uCommunity.Likes.1.0.3.4\lib\net452\uCommunity.Likes.dll</HintPath>
+    <Reference Include="uCommunity.Likes, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Likes.1.0.3.5\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Navigation">
@@ -712,7 +713,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
@@ -782,6 +782,7 @@
     <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
