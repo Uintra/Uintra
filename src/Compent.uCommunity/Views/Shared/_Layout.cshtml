@@ -5,10 +5,12 @@
     <title>uCommunity</title>
 </head>
 <body>
-    some general stuff
+    @{Html.RenderAction("TopNavigation", "Navigation");}
+    @{Html.RenderAction("LeftNavigation", "Navigation"); }
+    @{Html.RenderAction("SubNavigation", "Navigation");}
 
     @RenderBody()
 
-    <script src="/build/main.js"></script> 
+    <script src="/build/main.js"></script>
 </body>
 </html>
