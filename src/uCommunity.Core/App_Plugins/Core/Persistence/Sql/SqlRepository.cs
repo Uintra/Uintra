@@ -92,7 +92,7 @@ namespace uCommunity.Core.Persistence.Sql
 
         public void Update(IEnumerable<T> entities)
         {
-            Execute(conn => conn.Update(entities));
+            Execute(conn => conn.UpdateAll(entities));
         }
 
         private void Execute(Action<IDbConnection> action)
