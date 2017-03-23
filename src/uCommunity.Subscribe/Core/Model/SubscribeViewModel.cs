@@ -1,7 +1,7 @@
 ﻿using System;
 using uCommunity.Core.Activity;
 
-namespace uCommunity.Subscribe.Model
+namespace uCommunity.Subscribe
 {
     public class SubscribeViewModel
     {

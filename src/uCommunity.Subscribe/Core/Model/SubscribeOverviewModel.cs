@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Subscribe.Model
+namespace uCommunity.Subscribe
 {
     public class SubscribeOverviewModel
     {

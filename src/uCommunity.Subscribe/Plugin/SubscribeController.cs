@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
-using uCommunity.Subscribe.Model;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Subscribe

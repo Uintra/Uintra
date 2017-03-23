@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using uCommunity.Subscribe.Model;
 
-namespace uCommunity.Subscribe
+namespace uCommunity.Subscribe.AutoMapperProfiles
 {
     public class SubscribeAutoMapperProfiles : Profile
     {
