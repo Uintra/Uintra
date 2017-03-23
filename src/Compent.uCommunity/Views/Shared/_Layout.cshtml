@@ -1,17 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="/build/css.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="/build/bundle.css">
     <title>uCommunity</title>
 </head>
 <body>
-    @{Html.RenderAction("TopNavigation", "Navigation");}
-    @{Html.RenderAction("LeftNavigation", "Navigation"); }
-    @{Html.RenderAction("SubNavigation", "Navigation");}
+    <div class="header">
+        @{Html.RenderAction("TopNavigation", "Navigation");}
+        @{Html.RenderAction("LeftNavigation", "Navigation"); }
+        @{Html.RenderAction("SubNavigation", "Navigation");}
+    </div>
 
     @RenderBody()
 
     <script src="/build/main.js"></script>
 </body>
->>>>>>> origin/master
 </html>

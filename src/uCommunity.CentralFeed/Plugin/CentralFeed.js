@@ -4,8 +4,6 @@ import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGalery/LightboxGallery";
 
 require("./_centralFeed.css");
-require("./_feedOverview.css");
-
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;

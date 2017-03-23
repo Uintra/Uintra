@@ -1,6 +1,8 @@
 ﻿var Dropzone = require("dropzone");
 Dropzone.autoDiscover = false;
 
+require("./file-upload.css");
+
 var fileUploader = (function () {
     var separator = ';';
 

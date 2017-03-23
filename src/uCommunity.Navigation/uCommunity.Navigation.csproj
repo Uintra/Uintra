@@ -413,7 +413,6 @@
     <None Include="Plugin\SubNavigation\_subNavigation.css" />
     <None Include="Plugin\TopNavigation\topNavigation.js" />
     <None Include="Plugin\TopNavigation\_topNavigation.css" />
-    <None Include="Plugin\TopNavigation\_usermenu.css" />
     <None Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
   <ItemGroup>

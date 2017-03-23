@@ -1,6 +1,6 @@
 ﻿@define-mixin icon $name {
     &.__$(name){
-        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/$(name).svg);
+        background-image: url(./images/file-type-icons/$(name).svg);
     }
 }
 
@@ -25,9 +25,9 @@
 
     &.__jpg,
     &.__jpeg{
-        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/jpg.svg);
+        background-image: url(./images/file-type-icons/jpg.svg);
     }
     &.__mp4{
-        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/m4v.svg);
+        background-image: url(./images/file-type-icons/m4v.svg);
     }
 }

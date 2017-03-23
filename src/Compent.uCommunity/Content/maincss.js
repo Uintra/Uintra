@@ -1,1 +1,1 @@
-﻿
+﻿require('./../App_Plugins/Core/Content/styles/intranet-core.css');

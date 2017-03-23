@@ -1,6 +1,5 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./_usermenu.css");
 require("./_topNavigation.css");
 
 var MobileDetect = require('mobile-detect');

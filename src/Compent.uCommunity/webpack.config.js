@@ -1,8 +1,10 @@
 var Path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+//var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: {
-        css: './Content/maincss.js',
+        //css: './Content/maincss.js',
         main: './Content/main.js'
     },
     output: {
@@ -23,14 +25,35 @@ module.exports = {
                     presets: ['es2015']
                 }
             },
+            //{
+            //    test: /\.css$/,
+            //    loader: "style-loader!css-loader!resolve-url-loader!postcss-loader"
+            //},
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader!resolve-url-loader!postcss-loader"
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            //minimize: true
+                        }
+                    }, 'resolve-url-loader', 'postcss-loader']
+                })
             },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/,
                 loader: 'url-loader?limit=100000'
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin('bundle.css'),
+        /*new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /bundle.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: { discardComments: { removeAll: true } },
+            canPrint: true
+        })*/
+    ]
 };
