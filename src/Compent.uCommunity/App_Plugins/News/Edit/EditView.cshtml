@@ -1,11 +1,9 @@
 ﻿@using uCommunity.Core
 @using uCommunity.Core.Controls.FileUpload
 @using uCommunity.Core.Extentions
-@using uCommunity.Core.User
 @using Umbraco.Web
 @model uCommunity.News.NewsEditModel
 @{
-    var currentUser = HttpContext.Current.GetCurrentUser<IntranetUserBase>();
     var cultureDateFormat = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 }
 
@@ -14,10 +12,6 @@
     {
         <h1 class="form__title">@Html.Localize("NewsEdit.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id"/>
-        <div class="form__row clearfix">
-            <label class="form__label" for="js-user-select">@Html.Localize("NewsEdit.Creator.lbl")</label>
-            @RenderStaticUser(currentUser)
-        </div>
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("NewsEdit.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
@@ -58,10 +52,3 @@
         </div>
     }
 </div>
-
-@helper RenderStaticUser(IntranetUserBase user)
-{
-    <input type="hidden" name="creatorId" value="@user.Id" />
-    <img src="@ImageHelper.GetImageSrcOrDefaultAsBase64(user.Photo)" />
-    <span>@user.Name</span>
-}
