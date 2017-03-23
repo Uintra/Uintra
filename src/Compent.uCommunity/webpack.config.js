@@ -1,5 +1,4 @@
 var Path = require('path');
-//var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
     entry: {
@@ -8,13 +7,10 @@ module.exports = {
     },
     output: {
         path: Path.join(__dirname, 'build'),
-        filename: '[name].js',
-        //library: 'App',
-        //libraryTarget: 'this'
+        filename: '[name].js'
     },
     resolve: {
-        extensions: ['.Webpack.js', '.js'],
-        //modulesDirectories: ['node_modules'],
+        extensions: ['.Webpack.js', '.js']
     },
     devtool: 'source-map',
     module: {
@@ -36,8 +32,5 @@ module.exports = {
                 loader: 'url-loader?limit=100000'
             }
         ]
-    },
-    plugins: [
-    //    new WebpackNotifierPlugin()
-    ]
+    }
 };

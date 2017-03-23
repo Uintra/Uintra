@@ -578,7 +578,7 @@
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
-    <Compile Include="Plugin\NewsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <None Include="Plugin\NewsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

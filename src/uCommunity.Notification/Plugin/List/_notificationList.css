@@ -1,6 +1,6 @@
 ﻿.notifications{
     &__title{
-        font:20px/22px var(--font-TeamDanmark4Bold);
+        font:bold 20px/22px var(--font-custom);
         text-transform:uppercase;
         color:var(--text-color-dark);
         margin:0 0 28px;
