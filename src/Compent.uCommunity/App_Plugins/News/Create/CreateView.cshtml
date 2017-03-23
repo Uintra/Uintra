@@ -14,8 +14,8 @@
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("NewsCreate.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
-                   data-val-required="@Html.Localize("CreateNews.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@Html.Localize("CreateNews.TitleMaxLength.lbl")" data-val="true"/>
-            
+                   data-val-required="@Html.Localize("CreateNews.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@Html.Localize("CreateNews.TitleMaxLength.lbl")" data-val="true" />
+
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="teaser">@Html.Localize("NewsCreate.Teaser.lbl") <span class="form__required">*</span></label>
@@ -27,11 +27,11 @@
                 @Html.Raw(Model.Description)
             </div>
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
-                    data-val-required="@Html.Localize("CreateNews.DescriptionRequired.lbl")" data-val="true" />
+                   data-val-required="@Html.Localize("CreateNews.DescriptionRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             @{
-                var publishDate = Model.PublishDate == default(DateTime) ? DateTime.Now.Date : Model.PublishDate.Date;                
+                var publishDate = Model.PublishDate == default(DateTime) ? DateTime.Now.Date : Model.PublishDate.Date;
             }
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
             <input class="form__input" id="js-publish-date" data-default-date="@publishDate" data-date-format="@IntranetConstants.Common.DefaultDatePickerFormat" />
@@ -52,5 +52,5 @@
             <input class="form__btn _black _submit" type="submit" value="@Html.Localize("NewsCreate.Create.btn")" />
             <a class="form__btn _default" href="@(Context.GetBackLink(ViewData["OverviewPageUrl"].ToString()))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
-    }
+                }
 </div>
