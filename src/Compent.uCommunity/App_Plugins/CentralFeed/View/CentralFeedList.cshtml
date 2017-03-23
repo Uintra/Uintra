@@ -1,0 +1,19 @@
+﻿@using uCommunity.Core.Activity
+@using uCommunity.Core.Extentions
+@model uCommunity.CentralFeed.Models.CentralFeedListViewModel
+
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
+<input type="hidden" name="version" value="@Model.Version" />
+
+@if (!Model.Items.Any())
+{
+    @Html.Localize("CentralFeedList.Empty.lbl")
+}
+@foreach (var item in Model.Items)
+{
+    var itemSettings = Model.Settings.First(s => s.Type == item.Type);
+
+    <div data-anchor="@item.Id">
+        @Html.Action("CentralFeedItem", itemSettings.Controller, new { item = item });
+    </div>
+}

@@ -53,7 +53,7 @@ namespace uCommunity.CentralFeed
 
         public IEnumerable<CentralFeedSettings> GetAllSettings()
         {
-            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetAllSettings, GetCacheExpiration());
+            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
             return settings;
         }
 

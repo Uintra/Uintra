@@ -11,6 +11,7 @@ using Ninject;
 using Ninject.Web.Common;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
+using uCommunity.CentralFeed;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
@@ -41,7 +42,7 @@ namespace Compent.uCommunity.Core.IoC
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-        private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=TD_Intranet_controls;user id=sa;password='q1w2e3r4'";
+        private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=uCommunity_TestData;user id=sa;password='q1w2e3r4'";
 
         public static void Start()
 
@@ -119,6 +120,10 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
             kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
+
+            kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<News.News>().InRequestScope();
+            kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
 
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()

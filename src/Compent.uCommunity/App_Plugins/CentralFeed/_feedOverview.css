@@ -1,0 +1,127 @@
+﻿@import "./../Core/Content/styles/intranet-core";
+
+.content {
+    &__item{
+        &._details{
+            position:relative;
+            padding-top:25px;
+        }
+        ._details &-label{
+            position:static;
+            float:right;
+            margin:32px 0 0;
+        }
+
+        ._details &-title{
+            margin: 0 0 19px;
+
+            &-holder{
+                align-self:center;
+            }
+        }
+
+        ._details &-img{
+            margin-bottom:35px;
+        }
+
+        ._details &-info{
+            margin:0 0 21px;
+
+            .icon-pin{
+                font-size:34px;
+                line-height:44px;
+                vertical-align:top;
+                margin:0 10px 0 0;
+            }
+        }
+
+        ._details &-images-list{
+            padding:0 0 45px;
+            margin:0;
+
+            &-item{
+                padding:0 10px 10px 0;
+                margin:0;
+                max-width:33.3%;
+            }
+
+            &-image{
+                max-width:100%;
+            }
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    padding-bottom:25px;
+                }
+            }
+        }
+
+        &-print{
+            float:right;
+            font:bold 13px/15px var(--font-custom);
+            background:var(--color-light-gray);
+            color:var(--text-color-dark);
+            text-transform:uppercase;
+            max-width: 120px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding:6px 9px 7px;
+            margin:0 0 0 44px;
+
+            .glyphicon-print:before{
+                margin:0 7px 0 0;
+                font-size:16px;
+                vertical-align:top;
+            }
+
+            &:hover{
+                color:var(--text-color-dark);
+            }
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    display:none;
+                }
+            }
+        }
+        
+        &-subtitle{
+            font:bold 16px/23px var(--font-general);
+            margin:0 0 11px;
+        }
+
+        &-address{
+            display:inline-block;
+        }
+
+        &-buttons{
+            margin:-3px 0 36px;
+
+            .btn{
+                margin:0 16px 0 0;
+            }
+        }
+
+        &-about{
+            margin:0 0 34px;
+            overflow:hidden;
+
+            &-title{
+                float:left;
+                margin:0 5px 0 0;
+                clear:left;
+                font-weight:normal;
+            }
+            &-def{
+                float:left;
+            }
+        }
+
+        &-list{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+    }
+}
