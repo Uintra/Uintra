@@ -305,8 +305,9 @@
       <HintPath>..\..\packages\uCommunity.BaseControls.1.0.1.3\lib\net452\uCommunity.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.CentralFeed">
-      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.1.3\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+    <Reference Include="uCommunity.CentralFeed, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.1.4\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Comments, Version=1.0.1.9, Culture=neutral, processorArchitecture=MSIL">
@@ -788,12 +789,7 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-
-    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Core\Content\fonts\icomoon.woff" />
     <Content Include="App_Plugins\Core\Content\fonts\icomoon.ttf" />
@@ -808,7 +804,9 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-
+    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
