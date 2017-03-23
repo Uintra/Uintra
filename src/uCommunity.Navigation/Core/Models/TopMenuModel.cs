@@ -4,6 +4,6 @@ namespace uCommunity.Navigation.Core
 {
     public class TopNavigationModel
     {
-        public IntranetUserBase CurrentUser { get; set; }
+        public IIntranetUser CurrentUser { get; set; }
     }
 }

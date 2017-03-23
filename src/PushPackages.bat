@@ -1,0 +1,1 @@
+.nuget\nuget push *.nupkg -Source http://nuget.compent.dk/ !QA2ws3ed

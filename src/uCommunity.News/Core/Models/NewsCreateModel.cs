@@ -7,7 +7,7 @@ namespace uCommunity.News
 {
     public class NewsCreateModel : NewsCreateEditModelBase
     {
-        public IEnumerable<IntranetUserBase> Users { get; set; }
+        public IEnumerable<IIntranetUser> Users { get; set; }
 
         public string AllowedMediaExtentions { get; set; }
 

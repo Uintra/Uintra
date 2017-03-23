@@ -3,7 +3,7 @@ using uCommunity.Core.Activity.Models;
 
 namespace uCommunity.News
 {
-    public class NewsViewViewModelBase : IntranetActivityModelBase
+    public class NewsViewModelBase : IntranetActivityViewModelBase
     {
         public string Teaser { get; set; }
         public string Description { get; set; }

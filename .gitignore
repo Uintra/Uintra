@@ -6,6 +6,7 @@ packages/
 src/.vs/
 src/Compent.uCommunity/bin/*
 src/Compent.uCommunity/obj/
+src/*.nupkg
 
 # Ignore umbraco folders
 # if you want add some of umbraco files in repository use '!' syntax
@@ -112,3 +113,4 @@ src/uCommunity.Notification/App_Browsers/
 src/uCommunity.Notification/Config/
 src/uCommunity.Notification/App_Plugins/Core/
 src/uCommunity.Notification/Web.config
+*.lock

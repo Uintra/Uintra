@@ -13,7 +13,7 @@ namespace uCommunity.News
 
         public DateTime PublishDate { get; set; }
 
-        public IntranetUserBase Creator { get; set; }
+        public IIntranetUser Creator { get; set; }
 
         public string MediaIds { get; set; }
     }

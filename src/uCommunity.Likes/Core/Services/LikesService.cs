@@ -62,7 +62,7 @@ namespace uCommunity.Likes
             var users = Enumerable.Empty<Tuple<Guid, string>>();
             if (likes.Count != 0)
             {
-                users = _intranetUserService.GetManyNames(likes.Select(el => el.UserId));
+                users = GetManyNames(likes.Select(el => el.UserId));
             }
 
             entity.Likes = users.Select(el => new LikeModel()
@@ -70,6 +70,12 @@ namespace uCommunity.Likes
                 UserId = el.Item1,
                 User = el.Item2
             });
+        }
+
+        private IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
+        {
+            var users = _intranetUserService.GetMany(usersIds);
+            return users.Select(el => new Tuple<Guid, string>(el.Id, el.DisplayedName));
         }
     }
 }
