@@ -370,7 +370,7 @@
     <Compile Include="Core\Activity\IIntranetActivityItemServiceBase.cs" />
     <Compile Include="Core\Activity\IntranetActivityItemServiceBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
-    <Compile Include="Core\Activity\Models\IntranetActivityModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivitySaveModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\Caching\IMemoryCacheService.cs" />
@@ -411,11 +411,10 @@
     <Compile Include="Core\Persistence\Sql\SqlEntity.cs" />
     <Compile Include="Core\Persistence\Sql\SqlRepository.cs" />
     <Compile Include="Core\UmbracoAliases.cs" />
-    <Compile Include="Core\User\IHasCreator.cs" />
+    <Compile Include="Core\User\IHaveCreator.cs" />
+    <Compile Include="Core\User\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserService.cs" />
     <Compile Include="Core\User\IntranetRolesEnum.cs" />
-    <Compile Include="Plugin\User\IntranetUser.cs" Condition=" '$(Configuration)' == 'Debug' " />
-    <Compile Include="Core\User\IntranetUserBase.cs" />
     <Compile Include="Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

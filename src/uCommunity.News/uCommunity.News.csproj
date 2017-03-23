@@ -563,13 +563,13 @@
     </Compile>
     <Compile Include="Core\Entities\NewsModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsCreateEditModelBase.cs" />
-    <Compile Include="Core\Models\Base\NewsViewModelBase.cs" />
+    <Compile Include="Core\Models\Base\NewsViewViewModelBase.cs" />
     <Compile Include="Core\Models\Base\NewsSaveModelBase.cs" />
     <Compile Include="Core\Entities\NewsBase.cs" />
     <Compile Include="Core\Services\INewsService.cs" />
     <Compile Include="Core\Models\NewsCreateModel.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
-    <Compile Include="Core\Models\NewsViewModel.cs" />
+    <Compile Include="Core\Models\NewsViewViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewItemModel.cs" />
     <Compile Include="Core\Models\NewsOverviewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
