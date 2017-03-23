@@ -1,4 +1,5 @@
-﻿'use strict';
+﻿var Dropzone = require("dropzone");
+Dropzone.autoDiscover = false;
 
 var fileUploader = (function () {
     var separator = ';';
@@ -106,5 +107,7 @@ var FileUploadController = {
     }
 }
 
-window.App = window.App || {};
-window.App.FileUploadController = FileUploadController;
+export default FileUploadController;
+
+/*window.App = window.App || {};
+window.App.FileUploadController = FileUploadController;*/
