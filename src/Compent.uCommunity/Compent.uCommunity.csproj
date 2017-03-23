@@ -299,8 +299,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.BaseControls">
-      <HintPath>..\..\packages\uCommunity.BaseControls.1.0.1.2\lib\net452\uCommunity.BaseControls.dll</HintPath>
+    <Reference Include="uCommunity.BaseControls, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.BaseControls.1.0.1.3\lib\net452\uCommunity.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Comments, Version=1.0.1.9, Culture=neutral, processorArchitecture=MSIL">
@@ -716,7 +717,6 @@
     <Content Include="config\applications.config" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
     <Content Include="App_Plugins\Web.config" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -790,6 +790,7 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
