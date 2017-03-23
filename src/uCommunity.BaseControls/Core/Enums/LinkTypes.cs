@@ -1,5 +1,5 @@
 ﻿
-namespace uCommunity.Core.App_Plugins.BaseControls.LinksPicker
+namespace uCommunity.BaseControls
 {
     public enum LinkTypes
     {

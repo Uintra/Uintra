@@ -1,5 +1,5 @@
-﻿
-namespace uCommunity.BaseControls.App_Plugins.BaseControls.VideoLink
+
+namespace uCommunity.BaseControls
 {
     public enum VideoSourceTypes
     {
