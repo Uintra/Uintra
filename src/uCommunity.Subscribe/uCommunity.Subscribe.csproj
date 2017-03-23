@@ -270,10 +270,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TeamDenmark.Common.ApiClient">
-      <HintPath>..\..\packages\TeamDenmark.Common.ApiClient.4.5.14\lib\net45\TeamDenmark.Common.ApiClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="TidyNet">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
@@ -303,10 +299,6 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.MacroEngines.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.ModelsBuilder">
-      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.4\lib\Umbraco.ModelsBuilder.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="umbraco.providers">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.providers.dll</HintPath>
       <Private>True</Private>
@@ -328,31 +320,32 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Plugins\Subscribe\AutoMapperProfiles\SubscribeAutoMapperProfiles.cs" />
-    <Compile Include="App_Plugins\Subscribe\ISubscribable.cs" />
-    <Compile Include="App_Plugins\Subscribe\ISubscribableService.cs" />
-    <Compile Include="App_Plugins\Subscribe\ISubscribeService.cs" />
-    <Compile Include="App_Plugins\Subscribe\Model\SubscribeItemModel.cs" />
-    <Compile Include="App_Plugins\Subscribe\Model\SubscribeNotificationDisableUpdateModel.cs" />
-    <Compile Include="App_Plugins\Subscribe\Model\SubscribeOverviewModel.cs" />
-    <Compile Include="App_Plugins\Subscribe\Model\SubscribeViewModel.cs" />
-    <Compile Include="App_Plugins\Subscribe\Sql\Subscribe.cs" />
-    <Compile Include="App_Plugins\Subscribe\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
-    <Compile Include="App_Plugins\Subscribe\SubscribeService.cs" />
+    <Compile Include="AutoMapperProfiles\SubscribeAutoMapperProfiles.cs" />
+    <Compile Include="Core\ISubscribable.cs" />
+    <Compile Include="Core\Services\ISubscribableService.cs" />
+    <Compile Include="Core\Services\ISubscribeService.cs" />
+    <Compile Include="Core\Model\SubscribeItemModel.cs" />
+    <Compile Include="Core\Model\SubscribeNotificationDisableUpdateModel.cs" />
+    <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
+    <Compile Include="Core\Model\SubscribeViewModel.cs" />
+    <Compile Include="Core\Sql\Subscribe.cs" />
+    <None Include="Plugin\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Core\Services\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <None Include="App_Plugins\Web.config" />
+    <None Include="Plugin\View\SubscribersList.cshtml" />
+    <None Include="Plugin\View\SubscribersOverview.cshtml" />
+    <None Include="Plugin\View\SubscribeView.cshtml" />
     <None Include="packages.config" />
-    <None Include="uCommunity.Subscribe.nuspec" />
+    <None Include="uCommunity.Subscribe.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\Subscribe.js" />
-    <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
+    <None Include="Plugin\Subscribe.js" />
+    <None Include="Plugin\SubscribeList.js" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

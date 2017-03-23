@@ -12,6 +12,6 @@
     <tags>Compent uCommunity Core</tags>
   </metadata>
   <files>
-    <file src="App_Plugins\Core\User\IntranetUser.cs" target="content\App_Plugins\Core\User" />
+    <file src="Plugin\**" target="content\App_Plugins\Core\" />
   </files>
 </package>

@@ -23,7 +23,7 @@ namespace Compent.uCommunity.Core
         {
             return new MediaSettings
             {
-                MediaRootId = 1055
+                MediaRootId = 1099
             };
         }
 
