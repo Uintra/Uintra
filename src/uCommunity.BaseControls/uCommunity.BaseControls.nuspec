@@ -11,4 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Base Controls BaseControls</tags>
   </metadata>
+  <files>
+    <file src="Plugin\**" target="content\App_Plugins\BaseControls" />
+  </files>
 </package>
