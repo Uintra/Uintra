@@ -299,10 +299,6 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.MacroEngines.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.ModelsBuilder">
-      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.4\lib\Umbraco.ModelsBuilder.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="umbraco.providers">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.providers.dll</HintPath>
       <Private>True</Private>
