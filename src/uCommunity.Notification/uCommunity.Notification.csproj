@@ -269,9 +269,6 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.11\lib\net452\uCommunity.Core.dll</HintPath>
-    </Reference>
     <Reference Include="umbraco">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.dll</HintPath>
       <Private>True</Private>
@@ -355,6 +352,7 @@
     <None Include="Plugin\List\notification-list.html" />
     <None Include="Plugin\List\_notificationList.css" />
     <None Include="Plugin\Notification.js" />
+    <None Include="uCommunity.Notification.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -568,6 +566,12 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGallery.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\_lightbox.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uCommunity.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

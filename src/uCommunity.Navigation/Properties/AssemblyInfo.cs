@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("uCommunity.Navigation")]
@@ -7,5 +6,5 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("1.0.2.1")]
+[assembly: AssemblyVersion("1.0.2.2")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
