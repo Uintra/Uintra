@@ -119,7 +119,6 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
-            kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.News>().InRequestScope();

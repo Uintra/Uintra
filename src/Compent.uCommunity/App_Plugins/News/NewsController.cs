@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using uCommunity.Core;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
+using uCommunity.CentralFeed;
 using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
 
@@ -138,6 +139,18 @@ namespace uCommunity.News
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 yield return model;
             }
+        }
+
+        public ActionResult CentralFeedItem(ICentralFeedItem item)
+        {
+            FillLinks();
+            var activity = item as Compent.uCommunity.Core.News.News;
+            if (activity == null)
+            {
+                return default(ActionResult);
+            }
+
+            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
 
         private void FillLinks()
