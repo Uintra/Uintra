@@ -104,7 +104,7 @@ namespace Compent.uCommunity.Core.IoC
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
+            kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();

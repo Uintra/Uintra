@@ -5,12 +5,12 @@ using uCommunity.Core.User;
 
 namespace Compent.uCommunity.Core.Users
 {
-    public class IntranetUserService : IIntranetUserService<IntranetUserBase>
+    public class IntranetUserService : IIntranetUserService
     {
-        private readonly List<IntranetUserBase> users = new List<IntranetUserBase>
+        private readonly List<IntranetUser> users = new List<IntranetUser>
         {
-            new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test user name 1" },
-            new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test user name 2" }
+            new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), DisplayedName = "Test user name 1" },
+            new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), DisplayedName = "Test user name 2" }
         };
 
         public IEnumerable<string> GetFullNamesByIds(IEnumerable<Guid> ids)
@@ -23,22 +23,22 @@ namespace Compent.uCommunity.Core.Users
             return users.First().Id;
         }
 
-        public IEnumerable<IntranetUserBase> GetAll()
+        public IEnumerable<IIntranetUser> GetAll()
         {
             return users;
         }
 
-        public IntranetUserBase Get(int umbracoId)
+        public IIntranetUser Get(int umbracoId)
         {
             throw new NotImplementedException();
         }
 
-        public IntranetUserBase GetCurrentUser()
+        public IIntranetUser GetCurrentUser()
         {
             return users.First();
         }
 
-        public IntranetUserBase GetActivityUser(int umbracoId)
+        public IIntranetUser GetActivityUser(int umbracoId)
         {
             throw new NotImplementedException();
         }
@@ -46,8 +46,8 @@ namespace Compent.uCommunity.Core.Users
         {
             return new List<IntranetUser>
             {
-                new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), Name = "Test 1" },
-                new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), Name = "Test 2" }
+                new IntranetUser { Id = new Guid("70921E96-8C41-449B-A245-4E92CAC52B6E"), DisplayedName = "Test 1" },
+                new IntranetUser { Id = new Guid("F3CA93FC-B7AE-4CB3-A138-003E8725855E"), DisplayedName = "Test 2" }
             };
         }
 
@@ -56,12 +56,12 @@ namespace Compent.uCommunity.Core.Users
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IntranetUserBase> GetMany(IEnumerable<Guid> ids)
+        public IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids)
         {
             throw new NotImplementedException();
         }
 
-        public void FillCreator(IHasCreator<IntranetUserBase> entity)
+        public void FillCreator(IHaveCreator entity)
         {
             entity.Creator = entity.UmbracoCreatorId.HasValue ? users.First() : users.Last();
         }

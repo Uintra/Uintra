@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using uCommunity.Comments;
+using uCommunity.Comments.AutoMapperProfiles;
 using uCommunity.Core.Controls.LightboxGalery;
 using uCommunity.Navigation.AutoMapperProfiles;
 using uCommunity.News;

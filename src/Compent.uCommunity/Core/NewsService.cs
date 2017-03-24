@@ -15,9 +15,9 @@ namespace Compent.uCommunity.Core
 {
     public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.News>, INewsService<NewsBase, News.News>, ICentralFeedItemService
     {
-        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
+        private readonly IIntranetUserService _intranetUserService;
 
-        public NewsService(IIntranetActivityService intranetActivityService, IMemoryCacheService memoryCacheService, IIntranetUserService<IntranetUserBase> intranetUserService)
+        public NewsService(IIntranetActivityService intranetActivityService, IMemoryCacheService memoryCacheService, IIntranetUserService intranetUserService)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
