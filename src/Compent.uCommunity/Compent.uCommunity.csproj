@@ -305,33 +305,34 @@
       <HintPath>..\..\packages\uCommunity.BaseControls.1.0.1.3\lib\net452\uCommunity.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.CentralFeed, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.CentralFeed, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.1.4\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.3.1\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.1.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.1.9\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.3.1\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.11.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Core, Version=1.0.11.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.11.1\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.11.2\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Likes, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Likes, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Likes.1.0.3.5\lib\net452\uCommunity.Likes.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Likes.1.0.5\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Navigation">
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.0.4\lib\net452\uCommunity.Navigation.dll</HintPath>
+    <Reference Include="uCommunity.Navigation, Version=1.0.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.2.1\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.News, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.News.1.0.1.5\lib\net452\uCommunity.News.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.News.1.0.4\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
@@ -435,13 +436,184 @@
     <Content Include="App_Plugins\CentralFeed\CentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\CentralFeed\_centralFeed.css" />
-    <Content Include="App_Plugins\CentralFeed\_feedOverview.css" />
     <Content Include="App_Plugins\Comments\Comment.js" />
     <Content Include="App_Plugins\Comments\_comments.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
+    <Content Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Plugins\Core\Content\fonts\icomoon.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\3dm.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\3ds.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\3gp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\7z.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\aac.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ai.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\aif.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\apk.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\app.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\asf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\asp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\aspx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\asx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\avi.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\bak.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\bat.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\bin.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\bmp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cab.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cad.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cdr.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cer.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cfg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cfm.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cgi.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\class.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\com.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cpl.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cpp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\crx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\csr.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\css.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\csv.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cue.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\cur.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dat.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\db.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dbf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dds.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dem.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dfx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dll.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dmg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dmp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\doc.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\docx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\drv.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dtd.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\dwg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\elf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\eps.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\exe.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\fla.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\flash.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\flv.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\fnt.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\fon.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\gam.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\gbr.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ged.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\gif.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\gpx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\gz.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\gzip.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\hqz.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\html.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ibooks.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\icns.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ico.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ics.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\iff.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\indd.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\iso.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\jar.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\jpg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\js.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\jsp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\key.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\kml.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\kmz.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\lnk.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\log.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\lua.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\m3u.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\m4a.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\m4v.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mach-o.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\max.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mdb.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mdf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mid.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mim.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mov.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mp3.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mp4.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mpa.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\mpg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\msg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\msi.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\nes.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\obj.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odb.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odc.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odi.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ods.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odt.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\odx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ogg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\otf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pages.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pct.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pdb.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pdf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\photoshop.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pif.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pkg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pl.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\png.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pps.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ppt.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pptx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ps.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\pub.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\py.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ra.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\rar.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\raw.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\rm.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\rom.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\rpm.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\rss.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\rtf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\sav.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\sdf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\sitx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\sql.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\srt.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\svg.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\swf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\sys.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\tar.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\tex.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\tga.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\thm.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\tiff.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\tmp.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\torrent.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\ttf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\txt.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\uue.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\vb.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\vcd.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\vcf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\vob.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\wav.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\wma.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\wmv.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\wpd.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\wps.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\wsf.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\xhtml.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\xlr.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\xls.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\xlsx.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\xml.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\yuv.svg" />
+    <Content Include="App_Plugins\Core\Content\images\file-type-icons\zip.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="App_Plugins\Core\Content\libs\dependencies.txt" />
@@ -458,6 +630,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\intranet-core.css" />
+    <Content Include="App_Plugins\Core\Content\styles\_fonts.css" />
     <Content Include="App_Plugins\Core\Content\styles\_variables.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
@@ -650,7 +823,6 @@
     <Content Include="App_Plugins\Navigation\SubNavigation\_subNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\_topNavigation.css" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\_usermenu.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
@@ -685,177 +857,6 @@
     <Content Include="Content\maincss.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Plugin\Controls\FileUpload\file-upload.css" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\3dm.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\3ds.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\3gp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\7z.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\aac.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ai.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\aif.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\apk.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\app.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\asf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\asp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\aspx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\asx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\avi.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\bak.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\bat.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\bin.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\bmp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cab.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cad.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cdr.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cer.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cfg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cfm.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cgi.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\class.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\com.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cpl.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cpp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\crx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\csr.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\css.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\csv.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cue.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\cur.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dat.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\db.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dbf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dds.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dem.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dfx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dll.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dmg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dmp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\doc.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\docx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\drv.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dtd.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\dwg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\elf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\eps.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\exe.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\fla.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\flash.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\flv.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\fnt.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\fon.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\gam.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\gbr.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ged.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\gif.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\gpx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\gz.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\gzip.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\hqz.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\html.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ibooks.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\icns.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ico.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ics.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\iff.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\indd.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\iso.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\jar.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\jpg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\js.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\jsp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\key.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\kml.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\kmz.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\lnk.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\log.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\lua.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\m3u.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\m4a.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\m4v.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mach-o.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\max.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mdb.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mdf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mid.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mim.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mov.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mp3.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mp4.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mpa.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\mpg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\msg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\msi.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\nes.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\obj.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odb.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odc.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odi.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ods.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odt.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\odx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ogg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\otf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pages.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pct.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pdb.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pdf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\photoshop.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pif.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pkg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pl.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\png.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pps.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ppt.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pptx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ps.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\pub.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\py.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ra.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\rar.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\raw.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\rm.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\rom.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\rpm.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\rss.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\rtf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\sav.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\sdf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\sitx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\sql.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\srt.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\svg.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\swf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\sys.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\tar.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\tex.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\tga.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\thm.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\tiff.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\tmp.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\torrent.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\ttf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\txt.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\uue.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\vb.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\vcd.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\vcf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\vob.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\wav.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\wma.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\wmv.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\wpd.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\wps.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\wsf.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\xhtml.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\xlr.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\xls.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\xlsx.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\xml.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\yuv.svg" />
-    <Content Include="Plugin\Controls\FileUpload\images\file-type-icons\zip.svg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -902,11 +903,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
@@ -935,31 +931,15 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Core\Content\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
-    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGalery\LightboxGalery.cshtml" />
@@ -969,6 +949,21 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\Navigation\Web.config" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

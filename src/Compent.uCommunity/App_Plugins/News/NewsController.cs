@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.CentralFeed;
 using uCommunity.Core;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
@@ -15,11 +14,11 @@ namespace uCommunity.News
     public class NewsController : SurfaceController
     {
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
+        private readonly IIntranetUserService _intranetUserService;
         private readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
         public NewsController(
-            IIntranetUserService<IntranetUserBase> intranetUserService,
+            IIntranetUserService intranetUserService,
             INewsService<NewsBase, NewsModelBase> newsService,
             IMediaHelper mediaHelper)
         {
@@ -68,7 +67,6 @@ namespace uCommunity.News
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
             FillCreateEditModel(model);
-            model.CreatorId = _intranetUserService.GetCurrentUserId();
             return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", model);
         }
 
@@ -122,22 +120,10 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
-        public ActionResult CentralFeedItem(ICentralFeedItem item)
-        {
-            FillLinks();
-            var activity = item as Compent.uCommunity.Core.News.News;
-            if (activity == null)
-            {
-                return default(ActionResult);
-            }
-
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
-        }
-
         private void FillCreateEditModel(NewsCreateModel model)
         {
             FillLinks();
-            model.Users = _intranetUserService.GetAll().OrderBy(user => user.Name);
+            model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
 
             var mediaSettings = _newsService.GetMediaSettings();
             model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;

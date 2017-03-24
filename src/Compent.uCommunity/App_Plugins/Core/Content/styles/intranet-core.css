@@ -1,7 +1,36 @@
-﻿@define-mixin icon $name {
-    &.__$(name){
-        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/$(name).svg);
+﻿@import './../../../../node_modules/npm-font-open-sans/open-sans';
+@import "./_fonts";
+@import "./_variables";
+
+body {
+    font:14px/22px var(--font-general);
+    background:var(--color-white);
+    color:var(--text-color-dark);
+    margin:0;
+
+    @media (--for-tablet-portrait-down) {
+        & {
+            font-size: 16px;
+        }
     }
+}
+
+a{
+    &,
+    &:active,
+    &:focus{
+        color:var(--color-red);
+        text-decoration:none;
+    }
+
+    &:hover {
+        text-decoration:underline;
+        color:var(--color-red);
+    }
+}
+
+:-ms-input-placeholder {
+    color:var(--text-color-light);
 }
 
 .file-extension{
@@ -9,23 +38,36 @@
     height: 35px;
     display: block;
     background-size: cover;
-
-    @mixin icon pdf;
-    @mixin icon svg;
-    @mixin icon doc;
-    @mixin icon docx;
-    @mixin icon xls;
-    @mixin icon xlsx;
-    @mixin icon csv;
-    @mixin icon txt;
-    @mixin icon mp4;
-    @mixin icon ppt;
-    @mixin icon pptx;
-
-
+    &.__pdf{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/pdf.svg);
+    }
+    &.__gif{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/gif.svg);
+    }
     &.__jpg,
     &.__jpeg{
         background-image: url(/App_Plugins/Core/Content/images/file-type-icons/jpg.svg);
+    }
+    &.__svg{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/svg.svg);
+    }
+    &.__doc{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/doc.svg);
+    }
+    &.__docx{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/docx.svg);
+    }
+    &.__xls{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/xls.svg);
+    }
+    &.__xlsx{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/xlsx.svg);
+    }
+    &.__csv{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/csv.svg);
+    }
+    &.__txt{
+        background-image: url(/App_Plugins/Core/Content/images/file-type-icons/txt.svg);
     }
     &.__mp4{
         background-image: url(/App_Plugins/Core/Content/images/file-type-icons/m4v.svg);
