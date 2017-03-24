@@ -12,6 +12,7 @@
     <tags>Compent uCommunity Core</tags>
   </metadata>
   <files>
-    <file src="Plugin\**" target="content\App_Plugins\Core\" />
+    <file src="Plugin\**" target="content\App_Plugins\Core\" exclude="Plugin\User\UserController.cs" />
+    <file src="Plugin\User\UserController.cs" target="content\App_Plugins\Core\User\IntranetUserController.cs" />
   </files>
 </package>

@@ -416,6 +416,7 @@
     <Compile Include="Core\User\IIntranetUserService.cs" />
     <Compile Include="Core\User\IntranetRolesEnum.cs" />
     <Compile Include="Core\XPathHelper.cs" />
+    <None Include="Plugin\User\UserController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +461,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Plugin\User\UserView.cshtml" />
     <None Include="uCommunity.Core.nuspec" />
   </ItemGroup>
   <ItemGroup>
