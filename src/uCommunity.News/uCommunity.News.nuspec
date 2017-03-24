@@ -15,7 +15,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Plugin\**" target="content\App_Plugins\News" />
+    <file src="Plugin\**" target="content\App_Plugins\News" exclude="Plugin\NewsController.cs" />
+    <file src="Plugin\NewsController.cs" target="content\App_Plugins\News\IntranetNewsController.cs" />
     <file src="Content\**" target="content" />
   </files>
 </package>

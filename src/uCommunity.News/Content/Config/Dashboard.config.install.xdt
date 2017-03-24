@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <section alias="news" xdt:Transform="Insert">
+  <section alias="news" xdt:Locator="Condition(@alias='news')" xdt:Transform="InsertIfMissing">
     <areas>
       <area>news</area>
     </areas>
