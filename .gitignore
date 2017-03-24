@@ -2,23 +2,23 @@
 *.orig
 *.rej
 *.user
+*.lock
+*.nupkg
 packages/
-src/.vs/
-src/Compent.uCommunity/bin/*
-src/Compent.uCommunity/obj/
+.vs/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+node_modules/
+Umbraco/
+Umbraco_Client/
+App_Data/
+App_Browsers/
 
-# Ignore umbraco folders
-# if you want add some of umbraco files in repository use '!' syntax
-# for example '!src/Compent.uCommunity/Umbraco/umbraco.aspx'
-src/Compent.uCommunity/Umbraco/
-src/Compent.uCommunity/Umbraco_Client/
-
-#
+#========================================================================================> WEB
 src/Compent.uCommunity/Media/*
 src/Compent.uCommunity/build/*
 !src/Compent.uCommunity/Media/Web.config
-src/Compent.uCommunity/App_Data/
-src/Compent.uCommunity/App_Data/Logs/*
 !src/Compent.uCommunity/App_Data/packages/
 !src/Compent.uCommunity/App_Data/Models/
 src/Compent.uCommunity/Content/images/bell.png
@@ -26,89 +26,28 @@ src/Compent.uCommunity/Content/images/logout.png
 src/Compent.uCommunity/Content/images/umbraco.png
 src/Compent.uCommunity/Content/images/user.png
 src/Compent.uCommunity/Content/images/search.png
-src/Compent.uCommunity/build/*
-
-src/Compent.uCommunity/node_modules
 src/Compent.uCommunity/Content/images/home.png
 
-src/uCommunity.BaseControls/bin/*
-src/uCommunity.BaseControls/obj/
 
-src/uCommunity.Core/bin/*
-src/uCommunity.Core/obj/
-src/uCommunity.Core/Umbraco/
-src/uCommunity.Core/Umbraco_Client/
-src/uCommunity.Core/App_Data/
-src/uCommunity.Core/App_Browsers/
-src/uCommunity.Core/Config/
-
-src/uCommunity.Likes/bin/*
-src/uCommunity.Likes/obj/
-src/uCommunity.Likes/Umbraco/
-src/uCommunity.Likes/Umbraco_Client/
-src/uCommunity.Likes/App_Data/
-src/uCommunity.Likes/App_Browsers/
-src/uCommunity.Likes/Config/
+#========================================================================================> LIKES
 src/uCommunity.Likes/App_Plugins/Core/
 
-src/uCommunity.Subscribe/bin/*
-src/uCommunity.Subscribe/obj/
-src/uCommunity.Subscribe/Umbraco/
-src/uCommunity.Subscribe/Umbraco_Client/
-src/uCommunity.Subscribe/App_Data/
-src/uCommunity.Subscribe/App_Browsers/
-src/uCommunity.Subscribe/Config/
+#========================================================================================> SUBSCRIBE
 src/uCommunity.Subscribe/App_Plugins/Core/
 
-src/uCommunity.Comments/bin/*
-src/uCommunity.Comments/obj/
-src/uCommunity.Comments/Umbraco/
-src/uCommunity.Comments/Umbraco_Client/
-src/uCommunity.Comments/App_Data/
-src/uCommunity.Comments/App_Browsers/
-src/uCommunity.Comments/Config/
+#========================================================================================> COMMENTS
 src/uCommunity.Comments/App_Plugins/Core/
-src/uCommunity.Comments/Web.config
 
-/src/uCommunity.Navigation/obj/*
-/src/uCommunity.Navigation/bin/
-src/uCommunity.Navigation/Umbraco/
-src/uCommunity.Navigation/Umbraco_Client/
+#========================================================================================> NAVIGATION
 src/uCommunity.Navigation/App_Plugins/Core/
-src/uCommunity.Navigation/App_Browsers/Form.browser
-src/uCommunity.Navigation/App_Browsers/w3cvalidator.browser
-src/uCommunity.Navigation/Config/splashes/booting.aspx
-src/uCommunity.Navigation/Config/splashes/noNodes.aspx
-src/uCommunity.Core/Web.config
-src/uCommunity.Likes/Web.config
-src/uCommunity.Navigation/Web.config
-src/uCommunity.Subscribe/Web.config
 
-src/uCommunity.CentralFeed/bin/*
-src/uCommunity.CentralFeed/obj/
-src/uCommunity.CentralFeed/Umbraco/
-src/uCommunity.CentralFeed/Umbraco_Client/
-src/uCommunity.CentralFeed/App_Data/
-src/uCommunity.CentralFeed/App_Browsers/
+#========================================================================================> CENTRAL FEED
 src/uCommunity.CentralFeed/Config/
 src/uCommunity.CentralFeed/App_Plugins/Core/
 
-src/uCommunity.News/bin/*
-src/uCommunity.News/obj/
-src/uCommunity.News/Umbraco/
-src/uCommunity.News/Umbraco_Client/
-src/uCommunity.News/App_Data/
-src/uCommunity.News/App_Browsers/
-src/uCommunity.News/Config/
+#========================================================================================> NEWS
 src/uCommunity.News/App_Plugins/Core/
-src/uCommunity.News/Web.config
 
-src/uCommunity.Notification/bin/*
-src/uCommunity.Notification/obj/
-src/uCommunity.Notification/Umbraco/
-src/uCommunity.Notification/Umbraco_Client/
-src/uCommunity.Notification/App_Data/
-src/uCommunity.Notification/App_Browsers/
-src/uCommunity.Notification/Config/
+#========================================================================================> NOTIFICATIONS
 src/uCommunity.Notification/App_Plugins/Core/
-src/uCommunity.Notification/Web.config
+

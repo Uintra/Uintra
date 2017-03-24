@@ -1,4 +1,4 @@
-﻿@using System.Web.Mvc.Html
+﻿@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
 @model uCommunity.CentralFeed.Models.CentralFeedListViewModel
 
@@ -14,6 +14,6 @@
     var itemSettings = Model.Settings.First(s => s.Type == item.Type);
 
     <div data-anchor="@item.Id">
-        @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new {item = item}); }
+        @Html.Action("CentralFeedItem", itemSettings.Controller, new { item = item });
     </div>
 }

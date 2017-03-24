@@ -6,8 +6,8 @@ namespace uCommunity.Core.Activity.Models
     public class IntranetActivitySaveModelBase
     {
         [Required]
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
         [Required]
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
     }
 }

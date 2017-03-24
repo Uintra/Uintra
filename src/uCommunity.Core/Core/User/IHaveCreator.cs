@@ -2,13 +2,14 @@
 
 namespace uCommunity.Core.User
 {
-    public interface IHasCreator<T>
-        where T : IntranetUserBase
+    public interface IHaveCreator
     {
+        //TODO: Remove ids
+
         int? UmbracoCreatorId { get; }
 
         Guid CreatorId { get; }
 
-        T Creator { get; set; }
+        IIntranetUser Creator { get; set; }
     }
 }

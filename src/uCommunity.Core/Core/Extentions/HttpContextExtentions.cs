@@ -27,7 +27,7 @@ namespace uCommunity.Core.Extentions
             return context.Request.UrlReferrer?.AbsoluteUri ?? defaultLink;
         }
 
-        public static T GetCurrentUser<T>(this HttpContext context) where T : IntranetUserBase
+        public static T GetCurrentUser<T>(this HttpContext context) where T : class, IIntranetUser
         {
             var currentUser = context.Session?[IntranetConstants.Session.LoggedUserSessionKey] as T;
 

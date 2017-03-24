@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using uCommunity.CentralFeed;
+using uCommunity.CentralFeed.Entities;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
@@ -9,7 +13,7 @@ using Umbraco.Core.Models;
 
 namespace Compent.uCommunity.Core
 {
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, NewsModelBase>, INewsService<NewsBase, NewsModelBase>
+    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.News>, INewsService<NewsBase, News.News>, ICentralFeedItemService
     {
         private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
 
@@ -59,7 +63,37 @@ namespace Compent.uCommunity.Core
             return true;
         }
 
-        protected override NewsModelBase FillPropertiesOnGet(IntranetActivityEntity entity)
+
+        public CentralFeedSettings GetCentralFeedSettings()
+        {
+            return new CentralFeedSettings
+            {
+                Type = ActivityType,
+                Controller = "News",
+                OverviewPage = GetOverviewPage(),
+                CreatePage = GetCreatePage()
+            };
+        }
+
+        public bool IsActual(News.News activity)
+        {
+            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
+        }
+
+        public ICentralFeedItem GetItem(Guid activityId)
+        {
+            var news = Get(activityId);
+            return (ICentralFeedItem) news;
+        }
+
+        public IEnumerable<ICentralFeedItem> GetItems()
+        {
+            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+
+            return  items;
+        }
+
+        protected override News.News FillPropertiesOnGet(IntranetActivityEntity entity)
         {
             var activity = base.FillPropertiesOnGet(entity);
             _intranetUserService.FillCreator(activity);

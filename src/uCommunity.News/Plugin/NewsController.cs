@@ -14,11 +14,11 @@ namespace uCommunity.News
     public class NewsController : SurfaceController
     {
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
+        private readonly IIntranetUserService _intranetUserService;
         private readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
         public NewsController(
-            IIntranetUserService<IntranetUserBase> intranetUserService,
+            IIntranetUserService intranetUserService,
             INewsService<NewsBase, NewsModelBase> newsService,
             IMediaHelper mediaHelper)
         {
@@ -123,7 +123,7 @@ namespace uCommunity.News
         private void FillCreateEditModel(NewsCreateModel model)
         {
             FillLinks();
-            model.Users = _intranetUserService.GetAll().OrderBy(user => user.Name);
+            model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
 
             var mediaSettings = _newsService.GetMediaSettings();
             model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
