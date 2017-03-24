@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright © compent.dk 2017</copyright>
+    <tags>Compent uCommunity Users implementation</tags>
+  </metadata>
+  <files>
+    <file src="Plugin\**" target="content\App_Plugins\Users\" />
+  </files>
+</package>

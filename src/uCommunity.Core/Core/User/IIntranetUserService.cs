@@ -6,9 +6,11 @@ namespace uCommunity.Core.User
     public interface IIntranetUserService
     {
         IIntranetUser Get(int umbracoId);
-        IIntranetUser GetCurrentUser();
-        IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids);
+        IIntranetUser Get(Guid id);
         IEnumerable<IIntranetUser> GetAll();
+        IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids);
+        IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids);
+        IIntranetUser GetCurrentUser();
         void FillCreator(IHaveCreator model);
     }
 }
