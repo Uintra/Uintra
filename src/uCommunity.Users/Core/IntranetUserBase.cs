@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using uCommunity.Core.User;
 
-namespace uCommunity.Users
+namespace uCommunity.Users.Core
 {
     public class IntranetUserBase: IIntranetUser
     {

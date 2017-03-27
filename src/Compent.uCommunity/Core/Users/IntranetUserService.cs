@@ -65,5 +65,15 @@ namespace Compent.uCommunity.Core.Users
         {
             entity.Creator = entity.UmbracoCreatorId.HasValue ? users.First() : users.Last();
         }
+
+        public IIntranetUser Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
+using uCommunity.Users;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Comments
@@ -11,11 +12,11 @@ namespace uCommunity.Comments
     public class CommentsController : SurfaceController
     {
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
+        private readonly IIntranetUserService _intranetUserService;
 
         public CommentsController(
             ICommentsService commentsService,
-            IIntranetUserService<IntranetUserBase> intranetUserService)
+            IIntranetUserService intranetUserService)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
@@ -146,14 +147,14 @@ namespace uCommunity.Comments
             }
         }
 
-        private CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IntranetUserBase creator)
+        private CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
-            model.CreatorFullName = creator?.Name;
-            model.Photo = creator?.Photo;
+            model.CreatorFullName = creator?.DisplayedName;
+            //model.Photo = creator?.Photo;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             return model;
         }

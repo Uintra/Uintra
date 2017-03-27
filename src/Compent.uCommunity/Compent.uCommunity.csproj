@@ -330,6 +330,10 @@
       <HintPath>..\..\packages\uCommunity.News.1.0.4.4\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uCommunity.Users">
+      <HintPath>..\..\packages\uCommunity.Users.1.0.0\lib\net452\uCommunity.Users.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.dll</HintPath>
@@ -672,7 +676,7 @@
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
-    <Compile Include="App_Plugins\News\IntranetNewsController.cs" />
+    <None Include="App_Plugins\News\IntranetNewsController.cs" />
     <Compile Include="App_Plugins\News\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Core\CommentsService.cs" />
@@ -767,6 +771,8 @@
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="Plugin\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

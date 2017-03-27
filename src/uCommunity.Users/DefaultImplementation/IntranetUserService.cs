@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
 using uCommunity.Core.User;
+using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace uCommunity.Users
+namespace uCommunity.Users.DefaultImplementation
 {
     public class IntranetUserService : IIntranetUserService
     {

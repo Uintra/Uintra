@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace uCommunity.Users
+namespace uCommunity.Users.Core
 {
     public class IntranetUser : IntranetUserBase
     {
