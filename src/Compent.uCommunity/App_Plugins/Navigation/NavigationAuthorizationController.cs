@@ -8,11 +8,11 @@ namespace uCommunity.Navigation.Plugin
 {
     public class NavigationAuthorizationController : SurfaceController
     {
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IntranetUserBase> _intranetUserService;
         private readonly IUserService _userService;
 
         public NavigationAuthorizationController(
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IntranetUserBase> intranetUserService,
             IUserService userService)
         {
             _intranetUserService = intranetUserService;
