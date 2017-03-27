@@ -1,17 +1,24 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="/build/css.js"></script>
+    <script src="/build/head_css.js"></script>
     <title>uCommunity</title>
+    <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
+    <link type="text/css" href="/build/maincss.css" rel="stylesheet"/>
 </head>
 <body>
-    @{Html.RenderAction("TopNavigation", "Navigation");}
-    @{Html.RenderAction("LeftNavigation", "Navigation"); }
-    @{Html.RenderAction("SubNavigation", "Navigation");}
-    @*@{Html.RenderAction("Login", "Login");}*@
+    <div class="wrapper">
+        <header class="header">
+            @{Html.RenderAction("TopNavigation", "Navigation");}
+        </header>
+        @{Html.RenderAction("LeftNavigation", "Navigation"); }
+        @{Html.RenderAction("SubNavigation", "Navigation");}
+        @*@{Html.RenderAction("Login", "Login");}*@
+        <main class="main">
+            @RenderBody()
+        </main>
+    </div>
 
-    @RenderBody()
-
-    <script src="/build/main.js"></script>
+    <script src="/build/app.js"></script>
 </body>
 </html>

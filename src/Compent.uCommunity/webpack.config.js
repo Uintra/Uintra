@@ -4,8 +4,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        //css: './Content/maincss.js',
-        main: './Content/main.js'
+        head_css: './Content/head_css.js',
+        app: './Content/main.js'
     },
     output: {
         path: Path.join(__dirname, 'build'),
@@ -48,7 +48,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('bundle.css'),
+        new ExtractTextPlugin('[name].css'),
         /*new OptimizeCssAssetsPlugin({
             assetNameRegExp: /bundle.css$/g,
             cssProcessor: require('cssnano'),
