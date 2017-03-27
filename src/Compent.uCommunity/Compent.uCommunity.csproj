@@ -676,9 +676,10 @@
     <Content Include="config\Lang\ru-RU.user.xml" />
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
+    <Content Include="Content\css\styles.css" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\main.js" />
-    <Content Include="Content\maincss.js" />
+    <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
