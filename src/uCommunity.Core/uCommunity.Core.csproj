@@ -385,9 +385,9 @@
     <Compile Include="Core\Controls\FileUpload\FileUploadSettings.cs" />
     <Compile Include="Core\Controls\FileUpload\FileViewModel.cs" />
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
-    <Compile Include="Core\Controls\LightboxGalery\LightboxAutomapperProfile.cs" />
-    <Compile Include="Core\Controls\LightboxGalery\LightboxGalleryController.cs" />
-    <Compile Include="Core\Controls\LightboxGalery\LightboxGalleryViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxAutomapperProfile.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryController.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryViewModel.cs" />
     <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Core\Exceptions\InconsistentDataException.cs" />
     <Compile Include="Core\Extentions\AutoMapperExtentions.cs" />
