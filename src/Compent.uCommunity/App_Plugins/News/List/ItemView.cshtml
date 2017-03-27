@@ -37,7 +37,7 @@
                 <p>@Model.Teaser</p>
             </div>
             <div class="content__item-images">
-                @{ Html.RenderAction("RenderGalery", "LightboxGalery", new { mediaIds = Model.MediaIds }); }
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
             </div>
         </div>
     </div>
