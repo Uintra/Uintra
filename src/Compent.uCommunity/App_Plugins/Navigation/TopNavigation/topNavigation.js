@@ -29,7 +29,7 @@ function initMobileNav() {
     });
 };
 
-var initToTop = function () {
+/*var initToTop = function () {
     var trigger = document.getElementById('toTop');
 
     window.addEventListener('scroll', function (e) {
@@ -46,7 +46,7 @@ var initToTop = function () {
             scrollTop: 0
         }, 500);
     });
-}
+}*/
 
 var isOutsideClick = function (el, opener, target, className, callback) {
     if (!el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
@@ -58,7 +58,7 @@ var isOutsideClick = function (el, opener, target, className, callback) {
 
 var controller = {
     init: function () {
-        initToTop();
+        //initToTop();
 
         var md = new MobileDetect(window.navigator.userAgent);
 
