@@ -59,10 +59,10 @@ var buildPhotoswipeItems = function (imagesItems) {
     return result;
 }
 
-var initGalley = function (container) {
+var initGallery = function (container) {
     var holder = container;
     if (!holder) {
-        console.warn("Can't find lightbox galery holder with selector: " + container);
+        console.warn("Can't find lightbox gallery holder with selector: " + container);
         return;
     }
 
@@ -93,8 +93,8 @@ var initGalley = function (container) {
 
 var controller = {
     init: function () {
-        $('.js-lightbox-galley').each(function (i, el) {
-            initGalley(el);
+        $('.js-lightbox-gallery').each(function (i, el) {
+            initGallery(el);
         });
     }
 }

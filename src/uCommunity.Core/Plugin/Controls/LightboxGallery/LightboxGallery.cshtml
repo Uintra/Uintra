@@ -1,0 +1,30 @@
+﻿@using uCommunity.Core
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IEnumerable<uCommunity.Core.Controls.LightboxGallery.LightboxGalleryViewModel>>
+
+@if (Model.Any())
+{
+    <ul class="content__item-images-list js-lightbox-gallery clearfix">
+        @{
+            foreach (var media in Model)
+            {
+                switch (media.Type)
+                {
+                    case MediaTypeEnum.Image:
+                        var originalSize = $"{media.Width}x{media.Height}";
+
+                        <li class="content__item-images-list-item">
+                            <img class="content__item-images-list-image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" />
+                        </li>
+                        break;
+                    case MediaTypeEnum.Document:
+                        <li class="content__item-images-list-item">
+                            <a href="@media.Url" target="_blank">
+                                <span class="file-extension __@media.Extention"></span>
+                            </a>
+                        </li>
+                        break;
+                }
+            }
+        }
+    </ul>
+            }

@@ -3,13 +3,13 @@ using uCommunity.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uCommunity.Core.Controls.LightboxGalery
+namespace uCommunity.Core.Controls.LightboxGallery
 {
     public class LightboxAutoMapperProfile: Profile
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<IPublishedContent, LightboxGaleryViewModel>()
+            Mapper.CreateMap<IPublishedContent, LightboxGalleryViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(d => d.Extention, o => o.MapFrom(s => s.GetMediaExtention()))

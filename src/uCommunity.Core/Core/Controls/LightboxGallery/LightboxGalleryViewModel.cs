@@ -1,6 +1,6 @@
-﻿namespace uCommunity.Core.Controls.LightboxGalery
+﻿namespace uCommunity.Core.Controls.LightboxGallery
 {
-    public class LightboxGaleryViewModel
+    public class LightboxGalleryViewModel
     {
         public int Id { get; set; }
         public string Url { get; set; }

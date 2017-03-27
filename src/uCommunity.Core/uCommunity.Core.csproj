@@ -386,8 +386,8 @@
     <Compile Include="Core\Controls\FileUpload\FileViewModel.cs" />
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
     <Compile Include="Core\Controls\LightboxGalery\LightboxAutomapperProfile.cs" />
-    <Compile Include="Core\Controls\LightboxGalery\LightboxGaleryController.cs" />
-    <Compile Include="Core\Controls\LightboxGalery\LightboxGaleryViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGalery\LightboxGalleryController.cs" />
+    <Compile Include="Core\Controls\LightboxGalery\LightboxGalleryViewModel.cs" />
     <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Core\Exceptions\InconsistentDataException.cs" />
     <Compile Include="Core\Extentions\AutoMapperExtentions.cs" />
@@ -440,12 +440,12 @@
     <None Include="Plugin\Content\scripts\UmbracoAjaxForm.js" />
     <None Include="Plugin\Content\scripts\ValidationExtensions.js" />
     <None Include="Plugin\Controls\FileUpload\file-upload.js" />
-    <None Include="Plugin\Controls\LightboxGalery\default-skin.css" />
-    <None Include="Plugin\Controls\LightboxGalery\default-skin.png" />
-    <None Include="Plugin\Controls\LightboxGalery\default-skin.svg" />
-    <None Include="Plugin\Controls\LightboxGalery\LightboxGallery.js" />
-    <None Include="Plugin\Controls\LightboxGalery\preloader.gif" />
-    <None Include="Plugin\Controls\LightboxGalery\_lightbox.css" />
+    <None Include="Plugin\Controls\LightboxGallery\default-skin.css" />
+    <None Include="Plugin\Controls\LightboxGallery\default-skin.png" />
+    <None Include="Plugin\Controls\LightboxGallery\default-skin.svg" />
+    <None Include="Plugin\Controls\LightboxGallery\LightboxGallery.js" />
+    <None Include="Plugin\Controls\LightboxGallery\preloader.gif" />
+    <None Include="Plugin\Controls\LightboxGallery\_lightbox.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -455,7 +455,7 @@
     <None Include="Plugin\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Plugin\Controls\FileUpload\FileUploadEditView.cshtml" />
     <None Include="Plugin\Controls\FileUpload\FileUploadView.cshtml" />
-    <None Include="Plugin\Controls\LightboxGalery\LightboxGalery.cshtml" />
+    <None Include="Plugin\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <None Include="Plugin\package.manifest" />
     <None Include="Plugin\Grid\Grid.cshtml" />
     <None Include="packages.config">
