@@ -79,6 +79,7 @@ namespace Compent.uCommunity.Core.IoC
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                RegisterGlobalFilters(kernel);
 
                 GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
@@ -133,6 +134,11 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
+        }
+
+        private static void RegisterGlobalFilters(IKernel kernel)
+        {
+            GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
         }
 
         private static UmbracoContext CreateUmbracoContext()

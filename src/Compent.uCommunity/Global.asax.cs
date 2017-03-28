@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Routing;
 using Compent.uCommunity.App_Start;
 using uCommunity.News.Dashboard;
 using Umbraco.Core;
@@ -16,6 +17,14 @@ namespace Compent.uCommunity
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             NewsSection.AddSectionToAllUsers(applicationContext);
+            RouteTable.Routes.MapRoute(
+                "login",
+                "Login/{action}",
+                new
+                {
+                    controller = "Login",
+                    action = "Login"
+                });
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }

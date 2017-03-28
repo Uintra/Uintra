@@ -3,6 +3,7 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Users
 {
+    [AllowAnonymous]
     public class LoginController : SurfaceController
     {
         public ActionResult Login()
@@ -33,7 +34,7 @@ namespace uCommunity.Users
             }
 
             Members.Login(login, password);
-            return RedirectToCurrentUmbracoPage();
+            return Redirect("");
         }
     }
 }
