@@ -1,1 +1,25 @@
-﻿
+﻿﻿.side-nav{
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-weight:bold;
+
+    &__link{
+        display:block;
+        padding:5px 20px;
+        text-decoration:none;
+        color:#333;
+
+        &:hover{
+            background:#e5e5e5;
+        }
+    }
+
+    .side-nav{
+        font-weight:normal;
+
+        .side-nav__link{
+            padding-left:29px;
+        }
+    }
+}

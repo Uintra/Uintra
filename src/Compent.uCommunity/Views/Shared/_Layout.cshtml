@@ -1,21 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/build/head_css.js"></script>
     <title>uCommunity</title>
-    <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
-    <link type="text/css" href="/build/maincss.css" rel="stylesheet"/>
+    <link type="text/css" href="/build/head_css.css" rel="stylesheet"/>
+    <link type="text/css" href="/build/app.css" rel="stylesheet"/>
 </head>
 <body>
     <div class="wrapper">
         <header class="header">
             @{Html.RenderAction("TopNavigation", "Navigation");}
         </header>
-        @{Html.RenderAction("LeftNavigation", "Navigation"); }
-        @{Html.RenderAction("SubNavigation", "Navigation");}
-        @{Html.RenderAction("Login", "Login");}
         <main class="main">
-            @RenderBody()
+            <aside class="aside">
+                @{Html.RenderAction("LeftNavigation", "Navigation"); }
+            </aside>
+
+            @*@{Html.RenderAction("Login", "Login");}*@
+            <div class="content">
+                @{Html.RenderAction("SubNavigation", "Navigation");}
+
+                @RenderBody()
+            </div>
         </main>
     </div>
 

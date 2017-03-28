@@ -49,7 +49,7 @@ function initMobileNav() {
 }*/
 
 var isOutsideClick = function (el, opener, target, className, callback) {
-    if (!el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
+    if (el && !el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
         if (typeof callback === "function") {
             callback();
         }

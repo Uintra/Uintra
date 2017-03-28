@@ -2,8 +2,12 @@
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
+require("./../_news.css");
+require('select2');
+
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
+require('flatpickr/dist/flatpickr.min.css');
 
 var holder;
 var userSelect;
@@ -79,7 +83,3 @@ var controller =   {
 }
 
 appInitializer.add(controller.init);
-
-/*
-window.App = window.App || {};
-window.App.EditNewsController = EditNewsController;*/
