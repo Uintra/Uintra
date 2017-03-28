@@ -34,7 +34,7 @@ namespace uCommunity.Users
             }
 
             Members.Login(login, password);
-            return Redirect("");
+            return Redirect("/");
         }
     }
 }

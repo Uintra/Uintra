@@ -17,6 +17,13 @@ namespace Compent.uCommunity
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             NewsSection.AddSectionToAllUsers(applicationContext);
+            RegisterRoutes();
+
+            base.ApplicationStarted(umbracoApplication, applicationContext);
+        }
+
+        private void RegisterRoutes()
+        {
             RouteTable.Routes.MapRoute(
                 "login",
                 "Login/{action}",
@@ -25,8 +32,6 @@ namespace Compent.uCommunity
                     controller = "Login",
                     action = "Login"
                 });
-
-            base.ApplicationStarted(umbracoApplication, applicationContext);
         }
     }
 }
