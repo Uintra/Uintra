@@ -10,17 +10,26 @@
 }
 
 .header{
-    width:1000px;
     margin:0 auto;
-    padding:10px 0;
+    padding:10px 19px;
+    background:#c9c9c9;
 }
 
 .main{
-    width:1000px;
+    min-height:calc(100vh - 38px);
     margin:0 auto;
     display:flex;
+
+    > .content{
+        flex-grow:1;
+        padding-top:10px;
+        padding-left:20px;
+    }
 }
 
 .aside{
-    width:200px;
+    padding-top:10px;
+    width:250px;
+    border-right: 1px solid #c9c9c9;
+    box-shadow: 2px 0 3px rgba(0, 0, 0, 0.2);
 }

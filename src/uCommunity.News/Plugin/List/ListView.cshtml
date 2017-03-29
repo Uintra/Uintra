@@ -3,11 +3,13 @@
 @model uCommunity.News.NewsOverviewModel
 
 <section class="content">
-    <a class="content__item-print" href="@Model.CreatePageUrl">@Html.Localize("NewsOverview.CreateNews.lnk")</a>
+    <header class="content__header">
+        <a class="content__btn" href="@Model.CreatePageUrl">@Html.Localize("NewsOverview.CreateNews.lnk")</a>
+    </header>
     <div class="content__list">
         @foreach (var news in Model.Items)
         {
-            Html.RenderAction("ItemView", "News", new { model = news });
+            Html.RenderAction("ItemView", "News", new {model = news});
         }
     </div>
 </section>
