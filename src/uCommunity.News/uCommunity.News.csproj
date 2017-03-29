@@ -564,7 +564,6 @@
     <Compile Include="Core\Services\INewsService.cs" />
     <Compile Include="Core\Models\NewsCreateModel.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
-    <Compile Include="Core\Models\NewsViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewItemModel.cs" />
     <Compile Include="Core\Models\NewsOverviewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />

@@ -5,7 +5,7 @@
 @using uCommunity.Core.Extentions
 @model uCommunity.Comments.CommentViewModel
 
-<div id="js-comment-view-@Model.Id" class="js-comment-view" data-id="@Model.Id">
+<div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
     <div class="comments__list-author">
         <a href="#">
             <img class="comments__list-author-avatar" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Photo)" />
@@ -66,7 +66,7 @@
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
                 <span class="js-comment-hideEditLink">Hide</span>
-                @Html.Action("EditView","Comments", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+                @Html.RenderPartial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
             </div>
                     }
 
@@ -75,7 +75,7 @@
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@{  Html.Action("View", "Comments", new { comment = reply });}</li>
+                    <li class="comments__list-item clearfix">@{  Html.RenderPartial("~/App_Plugins/Comments/View/CommentsView.cshtml", reply);}</li>
                         }
             </ul>
                         }
@@ -83,7 +83,7 @@
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @Html.Action("CreateView","Comments", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
+                @Html.RenderPartial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
             </div>
                     }
     </div>

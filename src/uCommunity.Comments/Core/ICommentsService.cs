@@ -24,5 +24,9 @@ namespace uCommunity.Comments
         Comment Update(Guid id, string text);
 
         void Delete(Guid id);
+
+        void FillComments(ICommentable entity);
+
+        string GetCommentViewId(Guid commentId);
     }
 }

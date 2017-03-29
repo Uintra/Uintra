@@ -42,7 +42,7 @@ namespace uCommunity.News
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
-            Mapper.CreateMap<NewsModelBase, NewsViewModel>()
+            Mapper.CreateMap<NewsModelBase, NewsViewModelBase>()
                 .ForMember(dst => dst.OverviewPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.EditPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())

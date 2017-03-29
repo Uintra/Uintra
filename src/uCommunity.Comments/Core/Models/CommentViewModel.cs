@@ -28,6 +28,8 @@ namespace uCommunity.Comments
 
         public string ElementOverviewId { get; set; }
 
+        public string CommentViewId { get; set; }
+
         public IEnumerable<CommentViewModel> Replies { get; set; }
 
         public CommentViewModel()
