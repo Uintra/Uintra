@@ -1,6 +1,27 @@
-﻿
-.content{
+﻿.content{
     padding:0;
+
+    &__header{
+        overflow:hidden;
+        margin:0 0 20px;
+
+        .content__btn{
+            float:right;
+        }
+    }
+
+    &__btn{
+        background:#ccc;
+        color:#333;
+        padding:6px 9px 7px;
+        display:inline-block;
+        vertical-align:top;
+        text-decoration:none;
+
+        &:hover{
+            text-decoration:underline;
+        }
+    }
 
     &__item{
         padding:0 20px;
@@ -16,6 +37,7 @@
             position:relative;
             padding:35px 20px 39px;
         }
+
         &-label{
             position:absolute;
             top:6px;
@@ -23,7 +45,7 @@
             background:#dd0a2d;
             color:#fff;
             text-transform:uppercase;
-            font:bold 13px/15pxArial, Helvetica, sans-serif;
+            font:bold 13px/15px Arial, Helvetica, sans-serif;
             padding:6px 10px 8px;
             display:none;
 
@@ -31,6 +53,7 @@
                 display:block;
             }
         }
+
         &-heading{
             margin:0 0 11px;
             font-size:13px;
@@ -40,6 +63,7 @@
                 margin:0 0 22px;
             }
         }
+
         &-avatar{
             width:60px;
             min-width:60px;
@@ -57,9 +81,11 @@
                 transform: translate(-50%, -50%);
             }
         }
+
         &-title-holder{
             padding:0;
         }
+
         &-title{
             font:bold 18px/22px Arial, Helvetica, sans-serif;
             margin:-5px 0 5px;
@@ -74,9 +100,11 @@
                 }
             }
         }
+
         &-meta{
             margin:0;
         }
+
         &-location{
             padding:0 0 0 23px;
 
@@ -87,9 +115,11 @@
                 color:#444;
             }
         }
+
         &-img{
             margin:17px 0 16px;
         }
+
         &-info{
             color:#333;
         }
@@ -110,7 +140,6 @@
             h5,
             h6 {
                 font-weight:bold;
-                font-family:var(--font-general);
             }
 
             &._clamp{
@@ -136,6 +165,10 @@
             }
         }
 
+        &-print{
+            float:right;
+        }
+
         &-images{
 
             &-list{
@@ -157,6 +190,7 @@
                     max-width:100%;
                 }
             }
+
             &-remove{
                 position:absolute;
                 top:-10px;
@@ -182,6 +216,7 @@
             font-size:13px;
             margin: 0 0 25px;
         }
+
         &-like,
         &-comment{
             margin: 0 10px 0 0;
@@ -202,12 +237,14 @@
                     color:#333;
                 }
             }
+
             .icon-like,
             .icon-comment{
                 font-size:16px;
                 margin:0 7px 0 0;
                 vertical-align:top;
             }
+
             .icon-comment{
                 vertical-align:middle;
             }
@@ -225,6 +262,7 @@
                     display:block;
                 }
             }
+
             &-popup{
                 position:absolute;
                 top:100%;
@@ -245,16 +283,15 @@
                 }
             }
         }
+
         &-subscribe {
             display:inline-block;
             vertical-align:top;
             margin:-3px 0 30px 20px;
 
             @media (max-width:900px;){
-                & {
-                    display:block;
-                    margin:15px 0 0;
-                }
+                display:block;
+                margin:15px 0 0;
             }
 
             &-set{
@@ -262,6 +299,7 @@
                 vertical-align:top;
                 margin:0 16px 0 0;
             }
+
             &-label{
                 display:inline-block;
                 vertical-align:top;
@@ -273,16 +311,16 @@
                     margin: 0;
                 }
             }
+
             &-btn{
                 display:inline-block;
                 border: 1px solid #e3e3e3;
                 padding:7px 10px 8px 33px;
-                font: 12px/14pxArial, Helvetica, sans-serif;
+                font: 12px/14px Arial, Helvetica, sans-serif;
                 text-transform:uppercase;
                 position:relative;
                 color:#333;
                 vertical-align:top;
-
 
                 &:before{
                     font-family:icomoon;
@@ -301,6 +339,7 @@
                         content:'\e903';
                     }
                 }
+
                 &._unsubscribe{
                     &:before{
                         font-size:14px;
@@ -327,18 +366,10 @@
             position:absolute;
             top:150px;
             left:50%;
-            content:url(../../Content/images/loader.gif);
+            content:url(./loader.gif);
             width:64px;
             height:64px;
             margin:0 0 0 -32px;
-        }
-
-        @media (max-width:900px;) {
-            &{
-                width:100%;
-                top:0;
-                left:0;
-            }
         }
     }
 }
