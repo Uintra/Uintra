@@ -1,10 +1,26 @@
-
 .content{
     padding:0;
 
-    &__list{
+    &__header{
         overflow:hidden;
-        clear:both;
+        margin:0 0 20px;
+
+        .content__btn{
+            float:right;
+        }
+    }
+
+    &__btn{
+        background:#ccc;
+        color:#333;
+        padding:6px 9px 7px;
+        display:inline-block;
+        vertical-align:top;
+        text-decoration:none;
+
+        &:hover{
+            text-decoration:underline;
+        }
     }
 
     &__item{

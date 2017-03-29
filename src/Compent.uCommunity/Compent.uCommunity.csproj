@@ -331,8 +331,9 @@
       <HintPath>..\..\packages\uCommunity.News.1.0.4.4\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Users">
-      <HintPath>..\..\packages\uCommunity.Users.1.0.0\lib\net452\uCommunity.Users.dll</HintPath>
+    <Reference Include="uCommunity.Users, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Users.1.0.0.1\lib\net452\uCommunity.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
@@ -658,6 +659,7 @@
     <Content Include="App_Plugins\News\Edit\edit-news.js" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\List\news-list.html" />
+    <Content Include="App_Plugins\News\_news.css" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -696,6 +698,7 @@
     <Compile Include="App_Plugins\Core\User\IntranetUserController.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
+
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -707,6 +710,8 @@
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+
+
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Content Include="App_Plugins\Core\User\UserView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />

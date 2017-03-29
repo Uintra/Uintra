@@ -4,6 +4,10 @@
     list-style:none;
     font-weight:bold;
 
+    &__item{
+
+    }
+
     &__link{
         display:block;
         padding:5px 20px;
