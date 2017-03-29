@@ -17,6 +17,10 @@
         &:hover{
             background:#e5e5e5;
         }
+
+        .glyphicon{
+            float:right;
+        }
     }
 
     .side-nav{

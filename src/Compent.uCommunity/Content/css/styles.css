@@ -22,14 +22,15 @@
 
     > .content{
         flex-grow:1;
-        padding-top:10px;
+        padding-top:20px;
         padding-left:20px;
     }
 }
 
 .aside{
-    padding-top:10px;
+    padding-top:20px;
     width:250px;
     border-right: 1px solid #c9c9c9;
     box-shadow: 2px 0 3px rgba(0, 0, 0, 0.2);
+    flex-shrink:0;
 }
