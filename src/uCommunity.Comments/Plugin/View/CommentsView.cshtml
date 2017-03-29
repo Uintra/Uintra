@@ -66,7 +66,7 @@
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
                 <span class="js-comment-hideEditLink">Hide</span>
-                @Html.RenderPartial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
             </div>
                     }
 
@@ -83,7 +83,7 @@
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @Html.RenderPartial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
             </div>
                     }
     </div>
