@@ -58,6 +58,7 @@ namespace Compent.uCommunity.Core.Users
 
         public IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids)
         {
+            return Enumerable.Empty<IntranetUser>();
             throw new NotImplementedException();
         }
 

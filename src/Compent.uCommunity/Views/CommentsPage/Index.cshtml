@@ -3,4 +3,5 @@
 }
 
 <h1>Comments Page</h1>
-@Html.Action("OverView", "Comments", new { activityId = "6BA3C975-298D-4D2D-8CFD-CE88B4244295" })
+Html.Action("OverView", "Comments", new { activityId = "6BA3C975-298D-4D2D-8CFD-CE88B4244295" })
+@{ Html.RenderAction("Preview", "Comments", new { activityId = "6BA3C975-298D-4D2D-8CFD-CE88B4244295", link = "link" }); }

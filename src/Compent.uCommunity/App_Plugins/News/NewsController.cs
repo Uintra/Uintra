@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.uCommunity.Core.News.Models;
 using uCommunity.Core;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
@@ -42,7 +43,7 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
         }
 
-        public ActionResult ItemView(NewsOverviewItemModel model)
+        public ActionResult ItemView(NewsOverviewItemModelBase model)
         {
             return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
         }
@@ -131,7 +132,7 @@ namespace uCommunity.News
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        private IEnumerable<NewsOverviewItemModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        private IEnumerable<NewsOverviewItemModelBase> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
             foreach (var item in news)
             {
@@ -144,7 +145,7 @@ namespace uCommunity.News
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
             FillLinks();
-            var activity = item as Compent.uCommunity.Core.News.News;
+            var activity = item as Compent.uCommunity.Core.News.Entities.News;
             if (activity == null)
             {
                 return default(ActionResult);

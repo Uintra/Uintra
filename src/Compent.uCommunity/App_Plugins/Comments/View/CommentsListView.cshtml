@@ -5,7 +5,7 @@
     @foreach (var comment in Model.Comments)
     {
         <li class="comments__list-item clearfix">
-            @Html.Action("View","Comments", new { comment })
+            @Html.Partial("~/App_Plugins/Comments/View/CommentsView.cshtml", comment)
         </li>
     }
 </ul>

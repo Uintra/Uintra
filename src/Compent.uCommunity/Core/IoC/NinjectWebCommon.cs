@@ -122,7 +122,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<News.News>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
 
             // Navigation 
@@ -134,6 +134,9 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
+
+            // Factories
+            kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)

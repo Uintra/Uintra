@@ -2,7 +2,7 @@
 @using uCommunity.Core
 @using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model uCommunity.News.NewsViewModel
+@model Compent.uCommunity.Core.News.Models.NewsViewModel
 @{
     if (Model == null)
     {
@@ -13,7 +13,7 @@
     <section class="content">
         <div class="row clearfix">
             <div class="col-md-9">
-                <div class="content__header">
+                <header class="content__header">
                     @*<a href="#" class="content__item-print hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>*@
                     @if (Model.CanEdit)
                     {
@@ -21,7 +21,7 @@
                     }
                     @*<span class="content__item-label">@Html.Localize("DetailsView.Important.lbl")</span>*@
                     <a class="link__back" href="@($"{Context.GetBackLink(Model.OverviewPageUrl)}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
-                </div>
+                </header>
 
                 <div class="content__item _details">
                     <header class="content__item-heading clearfix">
@@ -53,6 +53,16 @@
                     </div>
                     <div class="content__item-images">
                         @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
+                    </div>
+                    <div class="content__item-feed">
+                        <div class="content__item-feed-holder">
+                            <span class="content__item-like">
+                                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="comments">
+                        @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
                     </div>
                 </div>
             </div>

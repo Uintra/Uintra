@@ -2,7 +2,7 @@
 @using uCommunity.Core
 @using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model uCommunity.News.NewsOverviewItemModel
+@model Compent.uCommunity.Core.News.Models.NewsOverviewItemModel
 @{
     var creator = Model.Creator;
     var detailsPageUrl = ((string)ViewData["DetailsPageUrl"]).UrlWithQueryString("id", Model.Id.ToString());
@@ -38,6 +38,16 @@
             </div>
             <div class="content__item-images">
                 @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
+            </div>
+            <div class="content__item-feed">
+                <div class="content__item-feed-holder">
+                    <span class="content__item-like">
+                        @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                    </span>
+                    <span class="content__item-comment">
+                        @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = detailsPageUrl }); }
+                    </span>
+                </div>
             </div>
         </div>
     </div>

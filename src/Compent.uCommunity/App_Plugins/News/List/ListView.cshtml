@@ -9,7 +9,7 @@
     <div class="content__list">
         @foreach (var news in Model.Items)
         {
-            Html.RenderAction("ItemView", "News", new { model = news });
+            Html.RenderAction("ItemView", "News", new {model = news});
         }
     </div>
 </section>

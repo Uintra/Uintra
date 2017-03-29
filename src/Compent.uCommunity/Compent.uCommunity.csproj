@@ -309,9 +309,9 @@
       <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.3.3\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.3.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.4.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.3.3\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.4.2\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Core, Version=1.0.11.6, Culture=neutral, processorArchitecture=MSIL">
@@ -327,8 +327,9 @@
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.2.3\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News">
-      <HintPath>..\..\packages\uCommunity.News.1.0.4.4\lib\net452\uCommunity.News.dll</HintPath>
+    <Reference Include="uCommunity.News, Version=1.0.4.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.News.1.0.4.9\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -685,6 +686,7 @@
     <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Plugin\_news.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -698,20 +700,11 @@
     <Compile Include="App_Plugins\Core\User\IntranetUserController.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
-
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-
-
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Content Include="App_Plugins\Core\User\UserView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
@@ -723,19 +716,29 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <None Include="App_Plugins\News\IntranetNewsController.cs" />
     <Compile Include="App_Plugins\News\NewsController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
+    <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
     <Compile Include="Core\LikeableService.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\NewsService.cs" />
-    <Compile Include="Core\News\News.cs" />
+    <Compile Include="Core\News\Entities\News.cs" />
+    <Compile Include="Core\News\Models\NewsOverviewItemModel.cs" />
+    <Compile Include="Core\News\Models\NewsViewModel.cs" />
+    <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\PublishedContentCustom.cs" />
     <Compile Include="Core\Users\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
@@ -788,32 +791,26 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsListView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="Plugin\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="Views\LikesPage\Index.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="Plugin\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="Views\LikesPage\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

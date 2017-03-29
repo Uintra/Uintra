@@ -3,24 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Entities;
+using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Likes;
 using uCommunity.News;
 using Umbraco.Core.Models;
 
 namespace Compent.uCommunity.Core
 {
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.News>, INewsService<NewsBase, News.News>, ICentralFeedItemService
+    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>, INewsService<NewsBase, News.Entities.News>, ICentralFeedItemService, ICommentableService, ILikeableService
     {
         private readonly IIntranetUserService _intranetUserService;
+        private readonly ICommentsService _commentsService;
+        private readonly ILikesService _likesService;
 
-        public NewsService(IIntranetActivityService intranetActivityService, IMemoryCacheService memoryCacheService, IIntranetUserService intranetUserService)
+        public NewsService(IIntranetActivityService intranetActivityService,
+            IMemoryCacheService memoryCacheService,
+            IIntranetUserService intranetUserService,
+            ICommentsService commentsService,
+            ILikesService likesService)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
+            _commentsService = commentsService;
+            _likesService = likesService;
         }
 
         public MediaSettings GetMediaSettings()
@@ -75,7 +85,7 @@ namespace Compent.uCommunity.Core
             };
         }
 
-        public bool IsActual(News.News activity)
+        public bool IsActual(News.Entities.News activity)
         {
             return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
         }
@@ -93,11 +103,66 @@ namespace Compent.uCommunity.Core
             return  items;
         }
 
-        protected override News.News FillPropertiesOnGet(IntranetActivityEntity entity)
+        protected override News.Entities.News FillPropertiesOnGet(IntranetActivityEntity entity)
         {
             var activity = base.FillPropertiesOnGet(entity);
             _intranetUserService.FillCreator(activity);
+            _commentsService.FillComments(activity);
+            _likesService.FillLikes(activity);
+
             return activity;
+        }
+
+        public void CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        {
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            FillCache(activityId);
+
+            /*if (parentId.HasValue)
+            {
+                Notify(parentId.Value, NotificationTypeEnum.CommentReplyed);
+            }
+            else
+            {
+                Notify(comment.Id, NotificationTypeEnum.CommentAdded);
+            }*/
+        }
+
+        public void UpdateComment(Guid id, string text)
+        {
+            var comment = _commentsService.Update(id, text);
+            FillCache(comment.ActivityId);
+            //Notify(comment.Id, NotificationTypeEnum.CommentEdited);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            FillCache(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId)
+        {
+            return Get(activityId);
+        }
+
+        public void Add(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            //Notify(activityId, NotificationTypeEnum.LikeAdded);
+            FillCache(activityId);
+        }
+
+        public void Remove(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            FillCache(activityId);
+        }
+
+        public IEnumerable<LikeModel> GetLikes(Guid activityId)
+        {
+            return Get(activityId).Likes;
         }
     }
 }

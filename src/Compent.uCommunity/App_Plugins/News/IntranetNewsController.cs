@@ -41,7 +41,7 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
         }
 
-        public ActionResult ItemView(NewsOverviewItemModel model)
+        public ActionResult ItemView(NewsOverviewItemModelBase model)
         {
             return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
         }
@@ -55,7 +55,7 @@ namespace uCommunity.News
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
             }
 
-            var model = news.Map<NewsViewModel>();
+            var model = news.Map<NewsViewModelBase>();
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
@@ -130,11 +130,11 @@ namespace uCommunity.News
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        private IEnumerable<NewsOverviewItemModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        private IEnumerable<NewsOverviewItemModelBase> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
             foreach (var item in news)
             {
-                var model = item.Map<NewsOverviewItemModel>();
+                var model = item.Map<NewsOverviewItemModelBase>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 yield return model;
             }

@@ -88,5 +88,16 @@ namespace Compent.uCommunity.Core
 
             _commentsRepository.Delete(comment);
         }
+
+        public void FillComments(ICommentable entity)
+        {
+            var comments = GetMany(entity.Id);
+            entity.Comments = comments;
+        }
+
+        public string GetCommentViewId(Guid commentId)
+        {
+            return $"js-comment-view-{commentId}";
+        }
     }
 }

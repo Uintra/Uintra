@@ -13,6 +13,7 @@ namespace Compent.uCommunity.App_Start
         {
             Mapper.AddProfile<CommentAutoMapperProfile>();
             Mapper.AddProfile<NewsAutoMapperProfile>();
+            Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
             Mapper.AddProfile<LightboxAutoMapperProfile>();
             Mapper.AddProfile<NavigationAutoMapperProfile>();
         }

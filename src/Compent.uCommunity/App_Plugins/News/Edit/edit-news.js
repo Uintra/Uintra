@@ -83,7 +83,3 @@ var controller =   {
 }
 
 appInitializer.add(controller.init);
-
-/*
-window.App = window.App || {};
-window.App.EditNewsController = EditNewsController;*/

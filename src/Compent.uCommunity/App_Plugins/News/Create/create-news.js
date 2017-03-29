@@ -9,6 +9,7 @@ var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
 require('flatpickr/dist/flatpickr.min.css');
 
+
 var holder;
 var userSelect;
 var datePicker;
