@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Compent.uCommunity.Core.Comments.CommentsPageTab>
+
+@foreach (var tab in Model)
+{
+    <a href="@tab.Url">@tab.Title</a>
+}

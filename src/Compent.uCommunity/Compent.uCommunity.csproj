@@ -731,10 +731,17 @@
     <Compile Include="App_Plugins\News\NewsController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
+    <Compile Include="Controllers\CommentsEditPageController.cs" />
+    <Compile Include="Controllers\CommentsPreviewPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\CommentsService.cs" />
+    <Compile Include="Core\Comments\CommentsPageHelper.cs" />
+    <Compile Include="Core\Comments\CommentsPageTab.cs" />
+    <Compile Include="Core\Comments\CommentsTestConstants.cs" />
+    <Compile Include="Core\Comments\CustomCommentable.cs" />
+    <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
     <Compile Include="Core\LikeableService.cs" />
@@ -816,6 +823,9 @@
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="Views\CommentsPreviewPage\Index.cshtml" />
+    <Content Include="Views\CommentsEditPage\Index.cshtml" />
+    <Content Include="Views\CommentsPage\Tabs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

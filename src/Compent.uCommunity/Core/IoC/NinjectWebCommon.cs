@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.IoC;
 using Compent.uCommunity.Core.Users;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -117,6 +118,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
             kernel.Bind<ISqlRepository<IntranetActivityEntity>>().To<SqlRepository<IntranetActivityEntity>>().InRequestScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
+            kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();

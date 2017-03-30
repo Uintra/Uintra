@@ -4,7 +4,7 @@ using Umbraco.Web.Mvc;
 
 namespace Compent.uCommunity.Controllers
 {
-    public class CommentsPageController : RenderMvcController
+    public class CommentsEditPageController : RenderMvcController
     {
         public override ActionResult Index(RenderModel model)
         {
