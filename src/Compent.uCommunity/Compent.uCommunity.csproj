@@ -324,7 +324,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Navigation">
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.2.3\lib\net452\uCommunity.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.2.4\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.4.9, Culture=neutral, processorArchitecture=MSIL">
