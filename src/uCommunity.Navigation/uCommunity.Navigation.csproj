@@ -375,8 +375,8 @@
     <None Include="Plugin\config\navigationConfiguration.json" />
     <None Include="Plugin\LeftNavigation\View\Navigation.cshtml" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
-    <None Include="Plugin\NavigationAuthorizationController.cs" Condition="'$(Configuration)' == 'Debug'" />
-    <None Include="Plugin\NavigationController.cs" Condition="'$(Configuration)' == 'Debug'" />
+    <Compile Include="Plugin\NavigationAuthorizationController.cs" Condition="'$(Configuration)' == 'Debug'" />
+    <Compile Include="Plugin\NavigationController.cs" Condition="'$(Configuration)' == 'Debug'" />
     <Compile Include="DefaultImplementation\SubNavigationMenuViewModel.cs" />
     <Compile Include="Core\Dashboard\UmbracoPropertyTypeEnum.cs" />
     <Compile Include="Core\Dashboard\Controllers\UNavigationApiController.cs" />
