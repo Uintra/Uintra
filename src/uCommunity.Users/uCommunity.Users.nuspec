@@ -10,10 +10,10 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Users implementation</tags>
+    <dependencies>
+      <dependency id="uCommunity.Core" version="1.0.12" />
+    </dependencies>
   </metadata>
-  <dependencies>
-    <dependency id="uCommunity.Core" version="1.0.11" />
-  </dependencies>
   <files>
     <file src="App_Plugins\**" target="content\App_Plugins\" />
   </files>
