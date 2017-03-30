@@ -11,7 +11,10 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Users implementation</tags>
   </metadata>
+  <dependencies>
+    <dependency id="uCommunity.Core" version="1.0.11" />
+  </dependencies>
   <files>
-    <file src="Plugin\**" target="content\App_Plugins\Users\" />
+    <file src="App_Plugins\**" target="content\App_Plugins\" />
   </files>
 </package>

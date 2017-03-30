@@ -4,27 +4,29 @@ using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
 using uCommunity.Core.User;
-using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace uCommunity.Users.DefaultImplementation
+namespace uCommunity.Users.Core
 {
     public class IntranetUserService : IIntranetUserService
     {
         private const string UmbracoUserIdPropertyAlias = "umbracoUserId";
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
+        private readonly UmbracoHelper _umbracoHelper;
 
         public IntranetUserService(IMemberService memberService,
-            UmbracoContext umbracoContext)
+            UmbracoContext umbracoContext, 
+            UmbracoHelper umbracoHelper)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
+            _umbracoHelper = umbracoHelper;
         }
 
-        public IIntranetUser Get(int umbracoId)
+        public virtual IIntranetUser Get(int umbracoId)
         {
             var member = _memberService.GetMembersByPropertyValue(UmbracoUserIdPropertyAlias, umbracoId).SingleOrDefault();
 
@@ -36,7 +38,7 @@ namespace uCommunity.Users.DefaultImplementation
             return null;
         }
 
-        public IIntranetUser Get(Guid id)
+        public virtual IIntranetUser Get(Guid id)
         {
             var member = _memberService.GetByKey(id);
 
@@ -48,25 +50,25 @@ namespace uCommunity.Users.DefaultImplementation
             return null;
         }
 
-        public IEnumerable<IIntranetUser> GetAll()
+        public virtual IEnumerable<IIntranetUser> GetAll()
         {
             var members = _memberService.GetAllMembers().Select(Map);
             return members;
         }
 
-        public IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids)
+        public virtual IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids)
         {
             var members = _memberService.GetAllMembers().Where(s => ids.Contains(s.Key)).Select(Map);
             return members;
         }
 
-        public IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids)
+        public virtual IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids)
         {
             var members = _memberService.GetAllMembers().Select(Map);
             return members.Where(s => s.UmbracoId.HasValue && ids.Contains(s.UmbracoId.Value));
         }
 
-        public void FillCreator(IHaveCreator model)
+        public virtual void FillCreator(IHaveCreator model)
         {
             IIntranetUser member;
 
@@ -81,7 +83,7 @@ namespace uCommunity.Users.DefaultImplementation
             model.Creator = member;
         }
 
-        public IIntranetUser GetCurrentUser()
+        public virtual IIntranetUser GetCurrentUser()
         {
             var userName = "";
             if (HostingEnvironment.IsHosted) //TODO: WTF IS THIS
@@ -102,18 +104,23 @@ namespace uCommunity.Users.DefaultImplementation
             return user;
         }
 
-        public static IntranetUser Map(IMember member)
+        public virtual IntranetUser Map(IMember member)
         {
             var user = new IntranetUser
             {
                 Id = member.Key,
                 UmbracoId = member.GetValue<int?>(UmbracoUserIdPropertyAlias),
-                DisplayedName = member.Name,
                 Email = member.GetValue<string>("email"),
                 FirstName = member.GetValue<string>("firstName"),
-                LastName = member.GetValue<string>("lastName"),
-                Photo = member.GetValue<string>("photo")
+                LastName = member.GetValue<string>("lastName")
             };
+
+            var userPhotoId = member.GetValue<int?>("photo");
+            if (userPhotoId.HasValue)
+            {
+                var media = _umbracoHelper.TypedContent(userPhotoId.Value);
+                user.Photo = media.Url;
+            }
             return user;
         }
 

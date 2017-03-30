@@ -415,6 +415,7 @@
     <Compile Include="Core\User\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserService.cs" />
     <Compile Include="Core\User\IntranetRolesEnum.cs" />
+    <Compile Include="Core\User\IntranetUserServiceExtentions.cs" />
     <Compile Include="Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

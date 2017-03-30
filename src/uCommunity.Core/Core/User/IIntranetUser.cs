@@ -7,5 +7,6 @@ namespace uCommunity.Core.User
         Guid Id { get; set; }
         int? UmbracoId { get; set; }
         string DisplayedName { get; set; }
+        string Photo { get; set; }
     }
 }

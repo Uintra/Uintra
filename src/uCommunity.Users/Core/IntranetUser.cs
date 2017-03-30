@@ -1,66 +1,21 @@
-﻿using Umbraco.Core.Models;
+﻿using System;
+using uCommunity.Core.User;
 
 namespace uCommunity.Users.Core
 {
-    public class IntranetUser : IntranetUserBase
+    public class IntranetUser : IIntranetUser
     {
-        public string Email
+        public Guid Id { get; set; }
+        public int? UmbracoId { get; set; }
+        public virtual string DisplayedName
         {
-            get { return (string)this["Email"]; }
-            set { this["Email"] = value; }
+            get { return $"{FirstName} {LastName}"; }
+            set { throw new Exception("Can't set displayed name. You should change first and last name instead."); }
         }
+        public virtual string Photo { get; set; }
 
-        public string FirstName
-        {
-            get { return (string)this["FirstName"]; }
-            set { this["FirstName"] = value; }
-        }
-
-        public string LastName
-        {
-            get { return (string)this["LastName"]; }
-            set { this["LastName"] = value; }
-        }
-
-        public string Photo
-        {
-            get { return (string)this["Photo"]; }
-            set { this["Photo"] = value; }
-        }
-
-        private readonly IntranetUserBase _wrapped;
-
-        public IntranetUser()
-        {
-        }
-
-        public IntranetUser(IntranetUserBase wrapped)
-        {
-            _wrapped = wrapped;
-        }
-
-        public override object this[string propertyName]
-        {
-            get
-            {
-                if (_wrapped == null)
-                {
-                    return base[propertyName];
-                }
-                return _wrapped[propertyName];
-            }
-
-            set
-            {
-                if (_wrapped == null)
-                {
-                    base[propertyName] = value;
-                }
-                else
-                {
-                    _wrapped[propertyName] = value;
-                }
-            }
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
     }
 }
