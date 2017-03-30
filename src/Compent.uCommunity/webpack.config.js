@@ -25,10 +25,6 @@ module.exports = {
                     presets: ['es2015']
                 }
             },
-            //{
-            //    test: /\.css$/,
-            //    loader: "style-loader!css-loader!resolve-url-loader!postcss-loader"
-            //},
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({
