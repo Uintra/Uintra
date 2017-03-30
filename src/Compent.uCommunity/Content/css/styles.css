@@ -9,10 +9,16 @@
     overflow:hidden;
 }
 
-.header{
+.header{    
     margin:0 auto;
-    padding:10px 19px;
-    background:#c9c9c9;
+    background:#373737;
+    padding:0 50px 0 30px;
+
+    &::after{
+        content:"";
+        display:block;
+        clear:both;
+    }
 }
 
 .main{
