@@ -318,7 +318,7 @@
     <Compile Include="Core\ILikeable.cs" />
     <Compile Include="Core\Services\ILikeableService.cs" />
     <Compile Include="Core\Services\ILikesService.cs" />
-    <None Include="Plugin\LikesController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Plugin\LikesController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Services\LikesService.cs" />
     <Compile Include="Core\Models\LikeModel.cs" />
     <Compile Include="Core\Models\LikesViewModel.cs" />
