@@ -89,6 +89,12 @@
     padding:10px 10px 10px 37px;
     margin:0 -10px 0 0;
 
+    &:hover {
+        .user__menu {
+            display: block;
+        }
+    }
+
     &__opener{
         color:#fff;
         display:block;
@@ -117,6 +123,7 @@
     &__menu{
         display:none;
         position:absolute;
+        z-index: 1;
         top:100%;
         right:2px;
         background:#fff;
@@ -140,10 +147,6 @@
             position:absolute;
             top:-6px;
             right:14px;
-        }
-
-        :hover > &{
-            display:block;
         }
 
         &-item{

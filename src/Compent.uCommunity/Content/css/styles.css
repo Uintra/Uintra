@@ -9,7 +9,7 @@
     overflow:hidden;
 }
 
-.header{    
+.header{
     margin:0 auto;
     background:#373737;
     padding:0 50px 0 30px;
@@ -22,7 +22,7 @@
 }
 
 .main{
-    min-height:calc(100vh - 38px);
+    min-height:calc(100vh - 50px);
     margin:0 auto;
     display:flex;
 
