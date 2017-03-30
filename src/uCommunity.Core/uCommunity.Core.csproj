@@ -439,6 +439,9 @@
     <None Include="Plugin\Content\scripts\Polyfill.js" />
     <None Include="Plugin\Content\scripts\UmbracoAjaxForm.js" />
     <None Include="Plugin\Content\scripts\ValidationExtensions.js" />
+    <None Include="Plugin\Content\styles\icomoon.eot" />
+    <None Include="Plugin\Content\styles\icomoon.ttf" />
+    <None Include="Plugin\Content\styles\icomoon.woff" />
     <None Include="Plugin\Controls\FileUpload\file-upload.js" />
     <None Include="Plugin\Controls\LightboxGallery\default-skin.css" />
     <None Include="Plugin\Controls\LightboxGallery\default-skin.png" />
@@ -639,6 +642,10 @@
     <None Include="Plugin\Controls\FileUpload\images\file-type-icons\xml.svg" />
     <None Include="Plugin\Controls\FileUpload\images\file-type-icons\yuv.svg" />
     <None Include="Plugin\Controls\FileUpload\images\file-type-icons\zip.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Plugin\Content\styles\Core.css" />
+    <Content Include="Plugin\Content\styles\icomoon.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
