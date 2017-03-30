@@ -1,4 +1,6 @@
-﻿@font-face {
+﻿/* icons */
+
+@font-face {
   font-family: 'icomoon';
   src:  url('./icomoon.eot?j18osq');
   src:  url('./icomoon.eot?j18osq#iefix') format('embedded-opentype'),
@@ -87,6 +89,9 @@
 .icon-play:before {
   content: "\e90c";
 }
+
+/* end icons */
+
 
 .form {
     padding:0;

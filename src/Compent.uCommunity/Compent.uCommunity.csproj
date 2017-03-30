@@ -461,6 +461,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\loader.gif" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3dm.svg" />
