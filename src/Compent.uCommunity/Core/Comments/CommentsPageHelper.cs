@@ -18,8 +18,8 @@ namespace Compent.uCommunity.Core.Comments
 
             var homePage = umbracoHelper.AssignedContentItem.AncestorOrSelf("homePage");
 
-            var previewPage = homePage.DescendantOrSelf("commentsPreviewPage");
-            result.Add(new CommentsPageTab { Title = previewPage.Name, Url = previewPage.Url });
+            var previewPage = homePage.DescendantOrSelf("commentsPage");
+            result.Add(new CommentsPageTab { Title = "Preview", Url = previewPage.Url });
 
             var editPage = homePage.DescendantOrSelf("commentsEditPage");
             result.Add(new CommentsPageTab { Title = editPage.Name, Url = editPage.Url });

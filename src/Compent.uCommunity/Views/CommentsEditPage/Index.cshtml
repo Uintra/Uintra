@@ -2,7 +2,7 @@
 @using uCommunity.Comments
 
 @{
-    ICommentable activity = new CustomCommentable { Id = Guid.Parse(CommentsTestConstants.ActivityId), Comments = Enumerable.Empty<Comment>() };
+    ICommentable activity = new CustomCommentable { Id = CommentsTestConstants.ActivityId, Comments = Enumerable.Empty<Comment>() };
 
     var commentsPageHelper = DependencyResolver.Current.GetService<ICommentsPageHelper>();
     var tabs = commentsPageHelper.GetCommentsPageTab();

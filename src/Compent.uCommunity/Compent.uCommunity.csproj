@@ -737,7 +737,6 @@
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
-    <Compile Include="Controllers\CommentsPreviewPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
@@ -750,6 +749,7 @@
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
     <Compile Include="Core\LikeableService.cs" />
+    <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\NewsService.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
