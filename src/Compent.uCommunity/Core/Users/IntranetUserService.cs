@@ -42,6 +42,7 @@ namespace Compent.uCommunity.Core.Users
         {
             throw new NotImplementedException();
         }
+
         public IEnumerable<IntranetUser> GetByIds(IEnumerable<Guid> ids)
         {
             return new List<IntranetUser>
@@ -58,8 +59,7 @@ namespace Compent.uCommunity.Core.Users
 
         public IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids)
         {
-            return Enumerable.Empty<IntranetUser>();
-            throw new NotImplementedException();
+            return users.Where(el => ids.Contains(el.Id));
         }
 
         public void FillCreator(IHaveCreator entity)
