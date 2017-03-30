@@ -324,7 +324,7 @@
     <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
     <Compile Include="Core\Model\SubscribeViewModel.cs" />
     <Compile Include="Core\Sql\Subscribe.cs" />
-    <None Include="Plugin\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Plugin\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Services\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

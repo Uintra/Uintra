@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Activity;
@@ -92,7 +93,7 @@ namespace uCommunity.Subscribe
             var subscribs = _subscribeService.Get(activityId).ToList();
 
             var subscribersNames = subscribs.Count > 0
-                ? _intranetUserService.GetManyNames(subscribs.Select(s => s.UserId)).Select(u => u.Item2)
+                ? GetManyNames(subscribs.Select(s => s.UserId)).Select(u => u.Item2)
                 : Enumerable.Empty<string>();
 
             return PartialView("~/App_Plugins/Subscribe/View/SubscribersList.cshtml", subscribersNames);
@@ -115,6 +116,12 @@ namespace uCommunity.Subscribe
         private bool HasNotification(IntranetActivityTypeEnum type)
         {
             return type == IntranetActivityTypeEnum.Events;
+        }
+
+        private IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
+        {
+            var users = _intranetUserService.GetMany(usersIds);
+            return users.Select(el => new Tuple<Guid, string>(el.Id, el.DisplayedName));
         }
     }
 }
