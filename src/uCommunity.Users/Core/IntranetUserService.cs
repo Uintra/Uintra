@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
+using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -109,16 +110,16 @@ namespace uCommunity.Users.Core
             var user = new IntranetUser
             {
                 Id = member.Key,
-                UmbracoId = member.GetValue<int?>(UmbracoUserIdPropertyAlias),
-                Email = member.GetValue<string>("email"),
-                FirstName = member.GetValue<string>("firstName"),
-                LastName = member.GetValue<string>("lastName")
+                UmbracoId = member.GetValueOrDefault<int?>(UmbracoUserIdPropertyAlias),
+                Email = member.GetValueOrDefault<string>("email"),
+                FirstName = member.GetValueOrDefault<string>("firstName"),
+                LastName = member.GetValueOrDefault<string>("lastName")
             };
 
-            var userPhotoId = member.GetValue<int?>("photo");
+            var userPhotoId = member.GetValueOrDefault<int?>("photo");
             if (userPhotoId.HasValue)
             {
-                var media = _umbracoHelper.TypedContent(userPhotoId.Value);
+                var media = _umbracoHelper.TypedMedia(userPhotoId.Value);
                 user.Photo = media.Url;
             }
             return user;

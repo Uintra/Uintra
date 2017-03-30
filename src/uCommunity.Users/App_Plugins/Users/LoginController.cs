@@ -4,6 +4,7 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Users
 {
+    [AllowAnonymous]
     public class LoginController : SurfaceController
     {
         private readonly IMemberService _memberService;
@@ -23,7 +24,7 @@ namespace uCommunity.Users
         }
 
         [HttpPost]
-        public ActionResult Login(string login, string password)
+        public ActionResult Login(string login, string password, string returnUrl)
         {
             var webSecurity = UmbracoContext.Security;
 
@@ -42,7 +43,7 @@ namespace uCommunity.Users
             }
 
             Members.Login(login, password);
-            return RedirectToCurrentUmbracoPage();
+            return Redirect(returnUrl ?? "/");
         }
 
         public void Logout()

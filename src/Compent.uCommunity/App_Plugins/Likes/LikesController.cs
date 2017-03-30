@@ -68,7 +68,7 @@ namespace uCommunity.Likes.Controllers
 
         private Guid GetCurrentUserId()
         {
-            return _intranetUserService.GetCurrentUser().Id;
+            return _intranetUserService.GetCurrentUserId();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Users
@@ -6,6 +7,16 @@ namespace uCommunity.Users
     [AllowAnonymous]
     public class LoginController : SurfaceController
     {
+        private readonly IMemberService _memberService;
+        private readonly IUserService _userService;
+
+        public LoginController(IMemberService memberService, 
+            IUserService userService)
+        {
+            _memberService = memberService;
+            _userService = userService;
+        }
+
         public ActionResult Login()
         {
             var loginStatus = Members.GetCurrentLoginStatus();
@@ -13,28 +24,31 @@ namespace uCommunity.Users
         }
 
         [HttpPost]
-        public ActionResult Login(string login, string password)
+        public ActionResult Login(string login, string password, string returnUrl)
         {
-            var membersService = ApplicationContext.Services.MemberService;
-            var usersService = ApplicationContext.Services.UserService;
-            var webSrcurity = UmbracoContext.Security;
+            var webSecurity = UmbracoContext.Security;
 
-            var member = membersService.GetByUsername(login);
+            var member = _memberService.GetByUsername(login);
 
             if (member == null)
             {
-                if (webSrcurity.ValidateBackOfficeCredentials(login, password))
+                if (webSecurity.ValidateBackOfficeCredentials(login, password))
                 {
-                    var user = usersService.GetByUsername(login);
-                    member = membersService.CreateMember(login, user.Email, user.Name, "Member"); //TODO:
+                    var user = _userService.GetByUsername(login);
+                    member = _memberService.CreateMember(login, user.Email, user.Name, "Member"); //TODO:
                     member.SetValue("umbracoUserId", user.Id);
-                    membersService.Save(member);
-                    membersService.SavePassword(member, password);
+                    _memberService.Save(member);
+                    _memberService.SavePassword(member, password);
                 }
             }
 
             Members.Login(login, password);
-            return Redirect("/");
+            return Redirect(returnUrl ?? "/");
+        }
+
+        public void Logout()
+        {
+            Members.Logout();
         }
     }
 }
