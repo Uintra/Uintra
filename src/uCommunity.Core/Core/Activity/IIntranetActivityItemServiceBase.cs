@@ -17,6 +17,7 @@ namespace uCommunity.Core.Activity
         bool CanEdit(T activity);
         Guid Create(T model);
         void Save(T model);
+        TModel FillCache(Guid id);
     }
 
     public interface IIntranetActivityItemServiceBase
@@ -26,6 +27,5 @@ namespace uCommunity.Core.Activity
         IPublishedContent GetCreatePage();
         IPublishedContent GetEditPage();
         void Delete(Guid id);
-        void FillCache(Guid id);
     }
 }

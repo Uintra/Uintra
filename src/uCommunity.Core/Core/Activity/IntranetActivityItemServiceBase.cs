@@ -86,7 +86,7 @@ namespace uCommunity.Core.Activity
             _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
         }
 
-        public virtual void FillCache(Guid id)
+        public virtual TModel FillCache(Guid id)
         {
             var activity = GetFromSql(id);
 
@@ -95,6 +95,7 @@ namespace uCommunity.Core.Activity
             activities.Add(activity);
 
             _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
+            return activity;
         }
 
         protected string[] GetPath(params string[] aliases)
