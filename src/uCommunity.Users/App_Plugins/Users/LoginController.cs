@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
@@ -8,13 +9,10 @@ namespace uCommunity.Users
     public class LoginController : SurfaceController
     {
         private readonly IMemberService _memberService;
-        private readonly IUserService _userService;
 
-        public LoginController(IMemberService memberService, 
-            IUserService userService)
+        public LoginController(IMemberService memberService)
         {
             _memberService = memberService;
-            _userService = userService;
         }
 
         public ActionResult Login()
@@ -26,20 +24,11 @@ namespace uCommunity.Users
         [HttpPost]
         public ActionResult Login(string login, string password, string returnUrl)
         {
-            var webSecurity = UmbracoContext.Security;
-
             var member = _memberService.GetByUsername(login);
 
             if (member == null)
             {
-                if (webSecurity.ValidateBackOfficeCredentials(login, password))
-                {
-                    var user = _userService.GetByUsername(login);
-                    member = _memberService.CreateMember(login, user.Email, user.Name, "Member"); //TODO:
-                    member.SetValue("umbracoUserId", user.Id);
-                    _memberService.Save(member);
-                    _memberService.SavePassword(member, password);
-                }
+                return Redirect(HttpContext.Request.Url?.AbsoluteUri ?? "/");
             }
 
             Members.Login(login, password);

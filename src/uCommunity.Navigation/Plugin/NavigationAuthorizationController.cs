@@ -42,7 +42,6 @@ namespace uCommunity.Navigation.Plugin
 
         public ActionResult Logout()
         {
-            UmbracoContext.Security.ClearCurrentLogin();
             FormsAuthentication.SignOut();
             Session.Abandon();
 

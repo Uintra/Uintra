@@ -13,7 +13,8 @@ namespace uCommunity.Users.Core
 {
     public class IntranetUserService : IIntranetUserService
     {
-        private const string UmbracoUserIdPropertyAlias = "umbracoUserId";
+        protected virtual string MemberTypeAlias => "Member";
+        protected virtual string UmbracoUserIdPropertyAlias => "relatedUser";
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
@@ -95,11 +96,13 @@ namespace uCommunity.Users.Core
                     userName = httpContext.User.Identity.Name;
                 }
             }
-
-            var currentPrincipal = Thread.CurrentPrincipal;
-            if (currentPrincipal?.Identity != null)
+            if (string.IsNullOrEmpty(userName))
             {
-                userName = currentPrincipal.Identity.Name;
+                var currentPrincipal = Thread.CurrentPrincipal;
+                if (currentPrincipal?.Identity != null)
+                {
+                    userName = currentPrincipal.Identity.Name;
+                }
             }
             var user = GetByName(userName);
             return user;
@@ -111,7 +114,7 @@ namespace uCommunity.Users.Core
             {
                 Id = member.Key,
                 UmbracoId = member.GetValueOrDefault<int?>(UmbracoUserIdPropertyAlias),
-                Email = member.GetValueOrDefault<string>("email"),
+                Email = member.Email,
                 FirstName = member.GetValueOrDefault<string>("firstName"),
                 LastName = member.GetValueOrDefault<string>("lastName")
             };
