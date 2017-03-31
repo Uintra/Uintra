@@ -25,10 +25,8 @@
                     <p class="content__item-meta">
                         <span class="content__item-date">@(Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat))</span>
                         <span class="content__item-divider"> - </span>
-                        <span class="content__item-category">@Html.Localize(IntranetActivityTypeEnum.News), </span>
-                        <span class="content__item-name">@creator.DisplayedName</span>
-                        <span class="content__item-divider"> - </span>
-                        <span class="content__item-location"></span>
+                        <span class="content__item-category">@Html.Localize(IntranetActivityTypeEnum.News)</span>
+                        <span class="content__item-name">, @creator?.DisplayedName</span>
                     </p>
                 </div>
             </header>

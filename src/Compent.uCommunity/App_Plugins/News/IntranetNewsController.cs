@@ -15,11 +15,11 @@ namespace uCommunity.News
     {
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
-        private readonly INewsService<NewsBase, NewsModelBase> _newsService;
+        private readonly INewsService<NewsBase, Compent.uCommunity.Core.News.Entities.News> _newsService;
 
         public NewsController(
             IIntranetUserService intranetUserService,
-            INewsService<NewsBase, NewsModelBase> newsService,
+            INewsService<NewsBase, Compent.uCommunity.Core.News.Entities.News> newsService,
             IMediaHelper mediaHelper)
         {
             _intranetUserService = intranetUserService;
@@ -120,6 +120,14 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
+        public ActionResult CentralFeedItem(uCommunity.CentralFeed.ICentralFeedItem item)
+        {
+            FillLinks();
+            var activity = item as NewsModelBase;
+
+            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
+        }
+
         private void FillCreateEditModel(NewsCreateModel model)
         {
             FillLinks();
@@ -130,11 +138,11 @@ namespace uCommunity.News
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        private IEnumerable<NewsOverviewItemModelBase> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        private IEnumerable<Compent.uCommunity.Core.News.Models.NewsOverviewItemModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
             foreach (var item in news)
             {
-                var model = item.Map<NewsOverviewItemModelBase>();
+                var model = item.Map<Compent.uCommunity.Core.News.Models.NewsOverviewItemModel>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 yield return model;
             }
