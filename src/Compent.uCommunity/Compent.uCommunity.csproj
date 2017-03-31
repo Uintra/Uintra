@@ -313,8 +313,8 @@
     <Reference Include="uCommunity.Comments, Version=1.0.4.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Comments.1.0.4.4\lib\net452\uCommunity.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.14.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.14.2\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.14.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.14.6\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>

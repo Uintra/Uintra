@@ -1,6 +1,4 @@
-﻿/* icons */
-
-@font-face {
+﻿@font-face {
   font-family: 'icomoon';
   src:  url('./icomoon.eot?j18osq');
   src:  url('./icomoon.eot?j18osq#iefix') format('embedded-opentype'),
@@ -29,51 +27,40 @@
 .icon-bell:before {
   content: "\e902";
 }
-
 .icon-logout:before {
   content: "\e909";
   font-size:22px;
 }
-
 .icon-umbraco:before {
   content: "\e90e";
   font-size:26px;
 }
-
 .icon-user:before {
   content: "\e90f";
   font-size:18px;
 }
-
 .icon-search:before {
   content: "\e90d";
 }
-
 .icon-home:before {
   content: "\e906";
 }
-
 .icon-check:before {
   content: "\e903";
 }
-
 .icon-comment:before {
   content: "\e904";
 }
-
 .icon-like:before {
   content: "\e908";
 }
-
 .icon-pin:before {
   content: "\e90a";
   color: rgb(37, 37, 37);
 }
-
 .icon-arrow-left:before {
   content: "\e900";
 }
-
 .icon-arrow-right:before {
   content: "\e901";
 }
@@ -89,9 +76,6 @@
 .icon-play:before {
   content: "\e90c";
 }
-
-/* end icons */
-
 
 .form {
     padding:0;

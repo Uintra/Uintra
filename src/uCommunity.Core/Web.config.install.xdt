@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <section name="userPermissions" type="uCommunity.Core.User.Permissions.PermissionsConfiguration" xdt:Transform="Insert"/>
+  </configSections>
+  <userPermissions xdt:Transform="Insert">
+    <roles>
+      <role key="WebMaster">
+        <permissions>
+          <permission key="CanEditNews" />
+          <permission key="CanFlyToSpace" />
+        </permissions>
+      </role>
+      <role key="UiPublisher">
+        <permissions>
+          <permission key="CanEatBanana" />
+          <permission key="CanEditNews" />
+        </permissions>
+      </role>
+      <role key="UiUser">
+        <permissions>
+          <permission key="CanFlyToSpace" />
+        </permissions>
+      </role>
+    </roles>
+  </userPermissions>
+</configuration>

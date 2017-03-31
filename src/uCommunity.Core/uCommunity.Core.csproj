@@ -361,6 +361,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Content Include="Web.config.install.xdt">
+      <SubType>Designer</SubType>
+    </Content>
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityModelBase.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
