@@ -16,7 +16,5 @@ namespace uCommunity.Subscribe
         public bool HasNotification { get; set; }
 
         public bool IsNotificationDisabled { get; set; }
-
-        public IntranetActivityTypeEnum Type { get; set; }
     }
 }

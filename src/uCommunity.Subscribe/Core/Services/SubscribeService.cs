@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Subscribe
@@ -76,6 +77,11 @@ namespace uCommunity.Subscribe
             subscribe.IsNotificationDisabled = newValue;
             _subscribeRepository.Update(subscribe);
             return subscribe;
+        }
+
+        public virtual bool HasNotification(IntranetActivityTypeEnum type)
+        {
+            return type == IntranetActivityTypeEnum.Events;
         }
 
         public void FillSubscribers(ISubscribable entity)

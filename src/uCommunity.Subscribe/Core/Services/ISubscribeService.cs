@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using uCommunity.Core.Activity;
 
 namespace uCommunity.Subscribe
 {
@@ -24,6 +25,8 @@ namespace uCommunity.Subscribe
         void Unsubscribe(Guid userId, Guid activityId);
 
         Subscribe UpdateNotification(Guid subscribeId, bool newValue);
+
+        bool HasNotification(IntranetActivityTypeEnum type);
 
         void FillSubscribers(ISubscribable entity);
     }

@@ -324,23 +324,23 @@
     <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
     <Compile Include="Core\Model\SubscribeViewModel.cs" />
     <Compile Include="Core\Sql\Subscribe.cs" />
-    <Compile Include="Plugin\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="App_Plugins\Subscribe\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Services\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Plugin\View\SubscribersList.cshtml" />
-    <None Include="Plugin\View\SubscribersOverview.cshtml" />
-    <None Include="Plugin\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <None Include="packages.config" />
     <None Include="uCommunity.Subscribe.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plugin\Subscribe.js" />
-    <None Include="Plugin\SubscribeList.js" />
+    <Content Include="App_Plugins\Subscribe\Subscribe.js" />
+    <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
@@ -352,6 +352,7 @@
       <Name>uCommunity.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
