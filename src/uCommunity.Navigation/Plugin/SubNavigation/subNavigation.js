@@ -71,7 +71,7 @@ var controller = {
             initMobileMenu();
         }
 
-        initSubMenuPosition();
+        //initSubMenuPosition();
     }
 }
 

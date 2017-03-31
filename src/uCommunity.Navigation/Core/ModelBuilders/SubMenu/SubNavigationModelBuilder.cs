@@ -17,7 +17,7 @@ namespace uCommunity.Navigation.Core
 
         public override SubNavigationMenuModel GetMenu()
         {
-            if (IsHomePage(CurrentPage))
+            if (IsHomePage(CurrentPage) || IsShowInHomeNavigation(CurrentPage))
             {
                 return null;
             }

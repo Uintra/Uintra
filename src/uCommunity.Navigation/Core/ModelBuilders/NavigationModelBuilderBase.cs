@@ -60,5 +60,11 @@ namespace uCommunity.Navigation.Core
                 .Where(pContent => !NavigationConfiguration.Exclude.Contains(pContent.DocumentTypeAlias))
                 .Where(IsContentAvailable);
         }
+
+        protected virtual bool IsShowInHomeNavigation(IPublishedContent publishedContent)
+        {
+            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInHomeNavigation.Alias);
+            return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
+        }
     }
 }
