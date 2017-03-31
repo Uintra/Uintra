@@ -15,7 +15,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Plugin\**" target="content\App_Plugins\Subscribe\" exclude="Plugin\SubscribeController.cs" />
-    <file src="Plugin\SubscribeController.cs" target="content\App_Plugins\Subscribe\IntranetSubscribeController.cs" />
+    <file src="App_Plugins\Subscribe\SubscribeController.cs" target="content\App_Plugins\Subscribe\IntranetSubscribeController.cs" />
   </files>
 </package>
