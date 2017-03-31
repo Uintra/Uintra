@@ -5,3 +5,4 @@ require('./../App_Plugins/Navigation/LeftNavigation/leftNavigation');
 require('./../App_Plugins/Comments/Comment');
 require('./../App_Plugins/News/Create/create-news');
 require('./../App_Plugins/News/Edit/edit-news');
+require('./../App_Plugins/CentralFeed/CentralFeed');
