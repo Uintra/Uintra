@@ -1,5 +1,4 @@
 ﻿using System;
-using uCommunity.Core.Activity;
 
 namespace uCommunity.Subscribe
 {
@@ -9,6 +8,6 @@ namespace uCommunity.Subscribe
 
         public bool NewValue { get; set; }
 
-        public IntranetActivityTypeEnum Type { get; set; }
+        public Guid ActivityId { get; set; }
     }
 }

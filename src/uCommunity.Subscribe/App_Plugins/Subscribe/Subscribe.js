@@ -1,4 +1,7 @@
-﻿'use strict';
+﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
+import helpers from "./../Core/Content/scripts/Helpers";
+
+'use strict';
 var Subscribe = (function () {
     var callbacks = [];
 
@@ -9,12 +12,12 @@ var Subscribe = (function () {
             return;
         }
 
-        var type = holder.find('.js-subscribe-type').val();
+        var activityId = holder.find('.js-subscribe-activity-id').val();
         notificationDisableControl.on('change', function () {
             var sender = $(this);
             var id = sender.data("id");
             sender.disabled = true;
-            $.post('/umbraco/surface/Subscribe/ChangeNotificationDisabled', { Id: id, NewValue: this.checked, type: type }).always(function () {
+            $.post('/umbraco/surface/Subscribe/ChangeNotificationDisabled', { Id: id, NewValue: this.checked, activityId: activityId }).always(function () {
                 sender.disabled = false;
             });
 
@@ -60,7 +63,7 @@ var Subscribe = (function () {
         }
     }
 
-    App.AppInitializer.add(function () {
+    appInitializer.add(function () {
         controller.initOnLoad();
     });
 

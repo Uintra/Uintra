@@ -48,10 +48,10 @@ namespace uCommunity.Subscribe
         }
 
         [HttpPost]
-        public PartialViewResult Subscribe(Guid activityId, IntranetActivityTypeEnum type)
+        public PartialViewResult Subscribe(Guid activityId)
         {
             var userId = _intranetUserService.GetCurrentUserId();
-            var service = _activitiesServiceFactory.GetService(type);
+            var service = _activitiesServiceFactory.GetService(activityId);
             var subscribeService = (ISubscribableService)service;
             var subscribe = subscribeService.Subscribe(userId, activityId);
 
@@ -72,7 +72,7 @@ namespace uCommunity.Subscribe
         [HttpPost]
         public void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
         {
-            var service = _activitiesServiceFactory.GetService(model.Type);
+            var service = _activitiesServiceFactory.GetService(model.ActivityId);
             var subscribeService = (ISubscribableService)service;
             subscribeService.UpdateNotification(model.Id, model.NewValue);
         }
