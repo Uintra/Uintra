@@ -23,9 +23,9 @@ namespace Compent.uCommunity.Controllers
             _permissionsService = permissionsService;
         }
 
-        public string Get()
+        public string Get(string key)
         {
-            return JsonConvert.SerializeObject(_permissionsService.IsRoleHasPermissions(IntranetRolesEnum.WebMaster, "CanEditNews"));
+            return JsonConvert.SerializeObject(_permissionsService.IsRoleHasPermissions(IntranetRolesEnum.WebMaster, key));
         }
     }
 }
