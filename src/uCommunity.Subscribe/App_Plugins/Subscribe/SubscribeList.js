@@ -1,4 +1,7 @@
-﻿'use strict';
+﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
+import helpers from "./../Core/Content/scripts/Helpers";
+
+'use strict';
 var SubscribeList = (function () {
 
     var holder;
@@ -63,7 +66,7 @@ var SubscribeList = (function () {
         }
     }
 
-    App.AppInitializer.add(function() {
+    appInitializer.add(function() {
         controller.init('.js-subscribe-overview');
     });
 })();
