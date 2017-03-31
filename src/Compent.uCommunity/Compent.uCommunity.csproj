@@ -316,8 +316,10 @@
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Navigation, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.2.8\lib\net452\uCommunity.Navigation.dll</HintPath>
+    <Reference Include="uCommunity.Navigation, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.3\lib\net452\uCommunity.Navigation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.News.1.0.5.1\lib\net452\uCommunity.News.dll</HintPath>
@@ -797,9 +799,6 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
@@ -809,6 +808,9 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Navigation\Web.config" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

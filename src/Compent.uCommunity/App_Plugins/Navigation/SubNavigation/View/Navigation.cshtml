@@ -1,9 +1,12 @@
 ﻿@model uCommunity.Navigation.DefaultImplementation.SubNavigationMenuViewModel
+
 @if (Model != null)
 {
     <nav class="tabset">
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
+
         <div class="tabset__holder">
+
             @if (Model.Parent != null)
             {
                 <h1 class="tabset__title">

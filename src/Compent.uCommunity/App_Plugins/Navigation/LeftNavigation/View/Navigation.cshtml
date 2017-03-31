@@ -5,18 +5,17 @@
 
 @helper RenderTreeRecursive(List<MenuItemViewModel> tree)
 {
-    <ul class="side-nav js-left-side-menu">
+    <ul class="side-nav">
         @foreach (var item in tree)
         {
             var hasNavigableChildren = item.Children.Count > 0;
 
             <li class="@(item.IsActive ? "_active" : "") @(hasNavigableChildren? "_hasSubItems" : "") side-nav__item">
-                <a class="side-nav__link" href="@item.Url">
-                    @item.Name
-                    @if (item.IsHomePage)
+                <a class="side-nav__link" href="@item.Url">@item.Name
+                    @*@if (item.IsHomePage)
                     {
                         <span class="glyphicon glyphicon-home"></span>
-                    }
+                    }*@
                 </a>
                 @if (hasNavigableChildren)
                 {
