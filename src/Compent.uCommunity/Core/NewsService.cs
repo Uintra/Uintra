@@ -12,6 +12,7 @@ using uCommunity.Core.User;
 using uCommunity.Likes;
 using uCommunity.News;
 using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace Compent.uCommunity.Core
 {
@@ -20,17 +21,21 @@ namespace Compent.uCommunity.Core
         private readonly IIntranetUserService _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
+        private readonly UmbracoHelper _umbracoHelper;
 
         public NewsService(IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
-            ILikesService likesService)
+            ILikesService likesService,
+            
+            UmbracoHelper umbracoHelper)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
+            _umbracoHelper = umbracoHelper;
         }
 
         public MediaSettings GetMediaSettings()
@@ -43,22 +48,22 @@ namespace Compent.uCommunity.Core
 
         public override IPublishedContent GetOverviewPage()
         {
-            return new PublishedContentCustom(1073, "/news");
+            return _umbracoHelper.TypedContent(1092);
         }
 
         public override IPublishedContent GetDetailsPage()
         {
-            return new PublishedContentCustom(1075, "/news/details");
+            return _umbracoHelper.TypedContent(1094);
         }
 
         public override IPublishedContent GetCreatePage()
         {
-            return new PublishedContentCustom(1074, "/news/create");
+            return _umbracoHelper.TypedContent(1093);
         }
 
         public override IPublishedContent GetEditPage()
         {
-            return new PublishedContentCustom(1076, "/news/edit");
+            return _umbracoHelper.TypedContent(1095);
         }
 
 
@@ -93,7 +98,7 @@ namespace Compent.uCommunity.Core
         public ICentralFeedItem GetItem(Guid activityId)
         {
             var news = Get(activityId);
-            return (ICentralFeedItem) news;
+            return news;
         }
 
         public IEnumerable<ICentralFeedItem> GetItems()

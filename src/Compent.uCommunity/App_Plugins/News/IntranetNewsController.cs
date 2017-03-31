@@ -55,7 +55,7 @@ namespace uCommunity.News
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
             }
 
-            var model = news.Map<NewsViewModelBase>();
+            var model = news.Map<Compent.uCommunity.Core.News.Models.NewsViewModel>();
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
