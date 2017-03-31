@@ -12,5 +12,6 @@ namespace uCommunity.Core.User
         IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids);
         IIntranetUser GetCurrentUser();
         void FillCreator(IHaveCreator model);
+        IEnumerable<IIntranetUser> GetByRole(IntranetRolesEnum role);
     }
 }

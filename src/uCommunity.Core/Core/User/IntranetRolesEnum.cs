@@ -2,9 +2,8 @@
 {
     public enum IntranetRolesEnum
     {
-        WebMaster,
+        WebMaster = 1,
         UiPublisher,
-        UiUser,
-        Admin
+        UiUser
     }
 }

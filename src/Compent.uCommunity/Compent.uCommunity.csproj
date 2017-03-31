@@ -82,6 +82,9 @@
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Examine, Version=0.1.81.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Examine.0.1.81\lib\net45\Examine.dll</HintPath>
@@ -658,6 +661,7 @@
     <Content Include="App_Plugins\News\loader.gif" />
     <Content Include="App_Plugins\News\_news.css" />
     <Content Include="App_Plugins\Subscribe\Subscribe.js" />
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
@@ -709,6 +713,7 @@
     <Compile Include="Controllers\CommentsEditPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
@@ -716,6 +721,7 @@
     <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
+    <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
     <Compile Include="Core\LikeableService.cs" />

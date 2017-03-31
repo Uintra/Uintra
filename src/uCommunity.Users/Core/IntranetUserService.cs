@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
+using uCommunity.Core.Caching;
+using uCommunity.Core.Exceptions;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using Umbraco.Core.Models;
@@ -18,14 +20,17 @@ namespace uCommunity.Users.Core
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly IExceptionLogger _exceptionLogger;
 
         public IntranetUserService(IMemberService memberService,
-            UmbracoContext umbracoContext, 
-            UmbracoHelper umbracoHelper)
+            UmbracoContext umbracoContext,
+            UmbracoHelper umbracoHelper,
+            IExceptionLogger exceptionLogger)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
+            _exceptionLogger = exceptionLogger;
         }
 
         public virtual IIntranetUser Get(int umbracoId)
@@ -116,7 +121,8 @@ namespace uCommunity.Users.Core
                 UmbracoId = member.GetValueOrDefault<int?>(UmbracoUserIdPropertyAlias),
                 Email = member.Email,
                 FirstName = member.GetValueOrDefault<string>("firstName"),
-                LastName = member.GetValueOrDefault<string>("lastName")
+                LastName = member.GetValueOrDefault<string>("lastName"),
+                Role = GetMemberRole(member)
             };
 
             var userPhotoId = member.GetValueOrDefault<int?>("photo");
@@ -126,6 +132,12 @@ namespace uCommunity.Users.Core
                 user.Photo = media.Url;
             }
             return user;
+        }
+
+        public virtual IEnumerable<IIntranetUser> GetByRole(IntranetRolesEnum role)
+        {
+            var members = _memberService.GetMembersByGroup(GetGroupNameFromRole(role));
+            return members.Select(Map);
         }
 
         private IntranetUser GetByName(string name)
@@ -138,6 +150,42 @@ namespace uCommunity.Users.Core
             }
 
             return Map(user);
+        }
+
+        protected virtual IntranetRolesEnum GetMemberRole(IMember member)
+        {
+            var roles = _memberService.GetAllRoles(member.Id).Select(GetRoleFromGroupName).ToList();
+
+            if (roles.Count != 0)
+            {
+                if (roles.Count > 1)
+                {
+                    _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has more then one role!"));
+                }
+
+                var highestRole = roles.Min();
+                return highestRole;
+            }
+
+            _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has no role!"));
+
+            return IntranetRolesEnum.UiUser;
+        }
+
+        protected virtual IntranetRolesEnum GetRoleFromGroupName(string groupName)
+        {
+            IntranetRolesEnum role;
+            if (Enum.TryParse(groupName, out role))
+            {
+                return role;
+            }
+
+            throw new Exception($"Can't map group name {groupName} to IntranetUserRole");
+        }
+
+        protected virtual string GetGroupNameFromRole(IntranetRolesEnum role)
+        {
+            return role.ToString();
         }
     }
 }

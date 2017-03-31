@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uCommunity.Core.Comments;
+using Compent.uCommunity.Core.Exceptions;
 using Compent.uCommunity.Core.IoC;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
@@ -17,6 +18,7 @@ using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Configuration;
+using uCommunity.Core.Exceptions;
 using uCommunity.Core.Localization;
 using uCommunity.Core.Media;
 using uCommunity.Core.Persistence.Sql;
@@ -140,6 +142,8 @@ namespace Compent.uCommunity.Core.IoC
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
+
+            kernel.Bind<IExceptionLogger>().To<ExceptionLogger>().InRequestScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)

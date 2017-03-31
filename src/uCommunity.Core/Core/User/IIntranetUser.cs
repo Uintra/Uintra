@@ -8,5 +8,6 @@ namespace uCommunity.Core.User
         int? UmbracoId { get; set; }
         string DisplayedName { get; set; }
         string Photo { get; set; }
+        IntranetRolesEnum Role { get; set; }
     }
 }
