@@ -11,24 +11,26 @@ using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Likes;
 using uCommunity.News;
+using uCommunity.Subscribe;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace Compent.uCommunity.Core
 {
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>, INewsService<NewsBase, News.Entities.News>, ICentralFeedItemService, ICommentableService, ILikeableService
+    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>, INewsService<NewsBase, News.Entities.News>, ICentralFeedItemService, ICommentableService, ILikeableService, ISubscribableService
     {
         private readonly IIntranetUserService _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly ISubscribeService _subscribeService;
 
         public NewsService(IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
-            ILikesService likesService,
-            
+            ILikesService likesService, 
+            ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper)
             : base(intranetActivityService, memoryCacheService)
         {
@@ -36,6 +38,7 @@ namespace Compent.uCommunity.Core
             _commentsService = commentsService;
             _likesService = likesService;
             _umbracoHelper = umbracoHelper;
+            _subscribeService = subscribeService;
         }
 
         public MediaSettings GetMediaSettings()
@@ -66,7 +69,6 @@ namespace Compent.uCommunity.Core
             return _umbracoHelper.TypedContent(1095);
         }
 
-
         protected override List<string> OverviewXPath { get; }
 
 
@@ -77,7 +79,6 @@ namespace Compent.uCommunity.Core
         {
             return true;
         }
-
 
         public CentralFeedSettings GetCentralFeedSettings()
         {
@@ -104,13 +105,13 @@ namespace Compent.uCommunity.Core
         public IEnumerable<ICentralFeedItem> GetItems()
         {
             var items = GetManyActual().OrderByDescending(i => i.PublishDate);
-
-            return  items;
+            return items;
         }
 
         protected override News.Entities.News FillPropertiesOnGet(IntranetActivityEntity entity)
         {
             var activity = base.FillPropertiesOnGet(entity);
+            _subscribeService.FillSubscribers(activity);
             _intranetUserService.FillCreator(activity);
             _commentsService.FillComments(activity);
             _likesService.FillLikes(activity);
@@ -168,6 +169,25 @@ namespace Compent.uCommunity.Core
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
         {
             return Get(activityId).Likes;
+        }
+
+        public global::uCommunity.Subscribe.Subscribe Subscribe(Guid userId, Guid activityId)
+        {
+            var subscribe = _subscribeService.Subscribe(userId, activityId);
+            FillCache(activityId);
+            return subscribe;
+        }
+
+        public void UnSubscribe(Guid userId, Guid activityId)
+        {
+            _subscribeService.Unsubscribe(userId, activityId);
+            FillCache(activityId);
+        }
+
+        public void UpdateNotification(Guid id, bool value)
+        {
+            var subscribe = _subscribeService.UpdateNotification(id, value);
+            FillCache(subscribe.ActivityId);
         }
     }
 }

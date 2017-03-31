@@ -6,3 +6,5 @@ require('./../App_Plugins/Comments/Comment');
 require('./../App_Plugins/News/Create/create-news');
 require('./../App_Plugins/News/Edit/edit-news');
 require('./../App_Plugins/CentralFeed/CentralFeed');
+require('./../App_Plugins/Subscribe/Subscribe');
+require('./../App_Plugins/Subscribe/SubscribeList');

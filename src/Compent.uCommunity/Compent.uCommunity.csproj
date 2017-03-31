@@ -326,7 +326,7 @@
       <HintPath>..\..\packages\uCommunity.News.1.0.5.1\lib\net452\uCommunity.News.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Subscribe">
-      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.6.2\lib\net452\uCommunity.Subscribe.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.6.3\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
@@ -712,6 +712,7 @@
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
+    <Compile Include="Controllers\SubscribePageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
@@ -733,6 +734,9 @@
     <Compile Include="Core\News\Models\NewsViewModel.cs" />
     <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\PublishedContentCustom.cs" />
+    <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
+    <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
+    <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -786,7 +790,6 @@
     <Content Include="Plugin\Login\Login.cshtml" />
     <Content Include="Views\LikesPage\Index.cshtml" />
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
-    <Content Include="Views\CommentsPreviewPage\Index.cshtml" />
     <Content Include="Views\CommentsEditPage\Index.cshtml" />
     <Content Include="Views\CommentsPage\Tabs.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
@@ -809,9 +812,8 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
+    <Content Include="Views\SubscribePage\Index.cshtml" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
@@ -824,6 +826,8 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

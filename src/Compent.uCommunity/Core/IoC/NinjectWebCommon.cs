@@ -6,6 +6,7 @@ using System.Web.Routing;
 using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.Exceptions;
 using Compent.uCommunity.Core.IoC;
+using Compent.uCommunity.Core.Subscribe;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
 using Ninject;
@@ -27,6 +28,7 @@ using uCommunity.Likes;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Dashboard;
 using uCommunity.News;
+using uCommunity.Subscribe;
 using uCommunity.Users.Core;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
@@ -119,6 +121,7 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
             kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
+            kernel.Bind<ISqlRepository<global::uCommunity.Subscribe.Subscribe>>().To<SqlRepository<global::uCommunity.Subscribe.Subscribe>>().InRequestScope();
             kernel.Bind<ISqlRepository<IntranetActivityEntity>>().To<SqlRepository<IntranetActivityEntity>>().InRequestScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
@@ -129,6 +132,8 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
+
+            kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
 
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()

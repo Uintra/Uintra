@@ -9,18 +9,16 @@
 @if (Model.UserId.HasValue)
 {
     <div class="content__item-subscribe js-subscribe" id="@elementId">
+        <input type="hidden" class="js-subscribe-activity-id" value="@Model.ActivityId" />
         <div class="content__item-subscribe-set">
-            @(Model.IsSubscribed ?
-                  Ajax.ActionLink(Html.Localize("SubscribeView.Unsubscribe.lnk"), "Unsubscribe", "Subscribe", new {activityId = Model.ActivityId}, new AjaxOptions {HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"App.Subscribe.init('#{elementId}');App.Subscribe.notify(true);"}, new {@class = "content__item-subscribe-btn _unsubscribe"}) :
-                  Ajax.ActionLink(Html.Localize("SubscribeView.Subscribe.lnk"), "Subscribe", "Subscribe", new {activityId = Model.ActivityId}, new AjaxOptions {HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"App.Subscribe.init('#{elementId}');App.Subscribe.notify(false);"}, new {@class = "content__item-subscribe-btn _subscribe"})
-                  )
+            @(Model.IsSubscribed ? Ajax.ActionLink(Html.Localize("SubscribeView.Unsubscribe.lnk"), "Unsubscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"App.Subscribe.init('#{elementId}');App.Subscribe.notify(true);" }, new { @class = "content__item-subscribe-btn _unsubscribe" }) : Ajax.ActionLink(Html.Localize("SubscribeView.Subscribe.lnk"), "Subscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"App.Subscribe.init('#{elementId}');App.Subscribe.notify(false);" }, new { @class = "content__item-subscribe-btn _subscribe" }))
         </div>
         <div class="content__item-subscribe-label">
             <div class="check">
                 <label class="check__label">
                     @if (Model.IsSubscribed && Model.HasNotification)
                     {
-                        @Html.CheckBoxFor(m => m.IsNotificationDisabled, new {@class = "js-subscribe-notification-disable check__box", @data_id = Model.Id})
+                        @Html.CheckBoxFor(m => m.IsNotificationDisabled, new { @class = "js-subscribe-notification-disable check__box", @data_id = Model.Id })
                         <span class="check__fake-input icon-check"></span>
                         <span class="check__fake-label js-subscribe-notification-label"
                               data-text-disabled="@Html.Localize("SubscribeView.NotificationIsDisabled.lbl")"
