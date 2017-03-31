@@ -15,8 +15,6 @@ namespace uCommunity.Likes
 
         bool CanAdd(Guid userId, Guid activityId);
 
-        bool CanRemove(Guid userId, Guid activityId);
-
         void FillLikes(ILikeable entity);
     }
 }

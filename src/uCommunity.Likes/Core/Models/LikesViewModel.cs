@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Activity;
 
 namespace uCommunity.Likes
 {
@@ -15,11 +14,7 @@ namespace uCommunity.Likes
 
         public bool CanAddLike { get; set; }
 
-        public bool CanRemoveLike { get; set; }
-
         public IEnumerable<string> Users { get; set; }
-
-        public IntranetActivityTypeEnum Type { get; set; }
 
         public LikesViewModel()
         {

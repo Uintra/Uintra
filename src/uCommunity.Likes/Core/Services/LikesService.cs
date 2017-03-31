@@ -51,11 +51,6 @@ namespace uCommunity.Likes
             return !exists;
         }
 
-        public bool CanRemove(Guid userId, Guid activityId)
-        {
-            return !CanAdd(userId, activityId);
-        }
-
         public void FillLikes(ILikeable entity)
         {
             var likes = Get(entity.Id).OrderByDescending(el => el.CreatedDate).ToList();
@@ -65,7 +60,7 @@ namespace uCommunity.Likes
                 users = GetManyNames(likes.Select(el => el.UserId));
             }
 
-            entity.Likes = users.Select(el => new LikeModel()
+            entity.Likes = users.Select(el => new LikeModel
             {
                 UserId = el.Item1,
                 User = el.Item2

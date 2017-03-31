@@ -318,7 +318,7 @@
     <Compile Include="Core\ILikeable.cs" />
     <Compile Include="Core\Services\ILikeableService.cs" />
     <Compile Include="Core\Services\ILikesService.cs" />
-    <Compile Include="Plugin\LikesController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="App_Plugins\Likes\LikesController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Services\LikesService.cs" />
     <Compile Include="Core\Models\LikeModel.cs" />
     <Compile Include="Core\Models\LikesViewModel.cs" />
@@ -327,7 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Plugin\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -345,6 +345,7 @@
       <Name>uCommunity.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

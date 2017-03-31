@@ -6,7 +6,7 @@ using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Likes.Controllers
+namespace uCommunity.Likes
 {
     public class LikesController : SurfaceController
     {
@@ -24,46 +24,44 @@ namespace uCommunity.Likes.Controllers
 
         public PartialViewResult Likes(ILikeable likesInfo)
         {
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(likesInfo.Id, likesInfo.Type, likesInfo.Likes));
+            return Likes(likesInfo.Id, likesInfo.Likes);
         }
 
         [HttpPost]
-        public PartialViewResult AddLike(Guid activityId, IntranetActivityTypeEnum type)
+        public PartialViewResult AddLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService(type);
+            var service = _activitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
-            likeableService.Add(GetCurrentUserId(), activityId);
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId, type, likeableService.GetLikes(activityId)));
+            var likeInfo = likeableService.Add(GetCurrentUserId(), activityId);
+            
+            return Likes(likeInfo.Id, likeInfo.Likes);
         }
 
         [HttpPost]
-        public PartialViewResult RemoveLike(Guid activityId, IntranetActivityTypeEnum type)
+        public PartialViewResult RemoveLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService(type);
+            var service = _activitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
-            likeableService.Remove(GetCurrentUserId(), activityId);
+            var likeInfo = likeableService.Remove(GetCurrentUserId(), activityId);
 
-            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", GetLikesModel(activityId, type, likeableService.GetLikes(activityId)));
+            return Likes(likeInfo.Id, likeInfo.Likes);
         }
 
-        private LikesViewModel GetLikesModel(Guid activityId, IntranetActivityTypeEnum type, IEnumerable<LikeModel> likes)
+        private PartialViewResult Likes(Guid activityId, IEnumerable<LikeModel> likes)
         {
             var currentUserId = GetCurrentUserId();
 
             var canAddLike = !likes.Any(el => el.UserId == currentUserId);
-
-            var likesViewModel = new LikesViewModel()
+            var model = new LikesViewModel
             {
                 ActivityId = activityId,
                 UserId = currentUserId,
                 Count = likes.Count(),
                 CanAddLike = canAddLike,
-                CanRemoveLike = !canAddLike,
-                Users = likes.Select(el => el.User),
-                Type = type
+                Users = likes.Select(el => el.User)
             };
 
-            return likesViewModel;
+            return PartialView("~/App_Plugins/Likes/View/LikesView.cshtml", model);
         }
 
         private Guid GetCurrentUserId()
