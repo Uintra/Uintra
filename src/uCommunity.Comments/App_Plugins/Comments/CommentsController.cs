@@ -28,42 +28,33 @@ namespace uCommunity.Comments
         [HttpPost]
         public PartialViewResult Add(CommentCreateModel model)
         {
-            var service = _activitiesServiceFactory.GetService(model.ActivityId);
-            var commentableService = (ICommentableService)service;
-            var commentsInfo = commentableService.GetCommentsInfo(model.ActivityId);
-
             if (!ModelState.IsValid)
             {
-                return OverView(commentsInfo);
+                return OverView(model.ActivityId);
             }
 
+            var service = _activitiesServiceFactory.GetService(model.ActivityId);
+            var commentableService = (ICommentableService)service;
             commentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
 
-            return OverView(commentsInfo);
+            return OverView(model.ActivityId);
         }
 
         [HttpPut]
         public PartialViewResult Edit(CommentEditModel model)
         {
             var comment = _commentsService.Get(model.Id);
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+
+
+            if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
+            {
+                return OverView(comment.Id);
+            }
+
             var service = _activitiesServiceFactory.GetService(comment.ActivityId);
             var commentableService = (ICommentableService)service;
-            var commentsInfo = commentableService.GetCommentsInfo(comment.ActivityId);
-
-            if (!_commentsService.CanEdit(comment, currentUserId))
-            {
-                return OverView(commentsInfo);
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return OverView(commentsInfo);
-            }
-
-
             commentableService.UpdateComment(model.Id, model.Text);
-            return OverView(commentsInfo);
+            return OverView(comment.ActivityId);
         }
 
         [HttpDelete]
@@ -72,16 +63,16 @@ namespace uCommunity.Comments
             var comment = _commentsService.Get(id);
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
 
-            var service = _activitiesServiceFactory.GetService(comment.ActivityId);
-            var commentableService = (ICommentableService)service;
-            var commentsInfo = commentableService.GetCommentsInfo(comment.ActivityId);
-
-            if (_commentsService.CanDelete(comment, currentUserId))
+            if (!_commentsService.CanDelete(comment, currentUserId))
             {
-                commentableService.DeleteComment(id);
+                return OverView(comment.ActivityId);
             }
 
-            return OverView(commentsInfo);
+            var service = _activitiesServiceFactory.GetService(comment.ActivityId);
+            var commentableService = (ICommentableService)service;
+            commentableService.DeleteComment(id);
+
+            return OverView(comment.ActivityId);
         }
 
         public PartialViewResult CreateView(Guid activityId)
@@ -106,53 +97,47 @@ namespace uCommunity.Comments
             return PartialView("~/App_Plugins/Comments/View/CommentsEditView.cshtml", model);
         }
 
-        public PartialViewResult ListView(Guid activityId)
-        {
-            var service = _activitiesServiceFactory.GetService(activityId);
-            var commentableService = (ICommentableService)service;
-            var commentsInfo = commentableService.GetCommentsInfo(activityId);
-
-            var model = new CommentsListModel
-            {
-                Comments = GetCommentViews(commentsInfo.Comments.ToList())
-            };
-
-            return PartialView("~/App_Plugins/Comments/View/CommentsListView.cshtml", model);
-        }
-
         public PartialViewResult OverView(ICommentable commentsInfo)
         {
-            return PartialView("~/App_Plugins/Comments/View/CommentsOverView.cshtml", GetCommentsOverview(commentsInfo.Id, commentsInfo.Comments));
+            return OverView(commentsInfo.Id, commentsInfo.Comments);
         }
 
-        public PartialViewResult PreView(Guid activityId, string link)
+        public PartialViewResult PreView(ICommentable commentsInfo, string link)
         {
             var model = new CommentPreviewModel
             {
-                Count = _commentsService.GetCount(activityId),
-                Link = $"{link}#{GetOverviewElementId(activityId)}"
+                Count = commentsInfo.Comments.Count(),
+                Link = $"{link}#{GetOverviewElementId(commentsInfo.Id)}"
             };
             return PartialView("~/App_Plugins/Comments/View/CommentsPreView.cshtml", model);
         }
 
-        private CommentsOverviewModel GetCommentsOverview(Guid activityId, IEnumerable<Comment> comments)
+        private PartialViewResult OverView(Guid activityId)
+        {
+            return OverView(activityId, _commentsService.GetMany(activityId));
+        }
+
+        private PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments)
         {
             var model = new CommentsOverviewModel
             {
                 ActivityId = activityId,
-                Comments = GetCommentViews(comments.ToList()),
+                Comments = GetCommentViews(comments),
                 ElementId = GetOverviewElementId(activityId)
             };
-            return model;
+
+            return PartialView("~/App_Plugins/Comments/View/CommentsOverView.cshtml", model);
         }
 
-        private IEnumerable<CommentViewModel> GetCommentViews(List<Comment> comments)
+        private IEnumerable<CommentViewModel> GetCommentViews(IEnumerable<Comment> comments)
         {
+            comments = comments.OrderBy(c => c.CreatedDate);
+            var commentsList = comments as List<Comment> ?? comments.ToList();
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             var creators = _intranetUserService.GetAll().ToList();
-            var replies = comments.FindAll(_commentsService.IsReply);
+            var replies = commentsList.FindAll(_commentsService.IsReply);
 
-            foreach (var comment in comments.FindAll(c => !_commentsService.IsReply(c)))
+            foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
                 var model = GetCommentView(comment, currentUserId, creators.SingleOrDefault(c => c.Id == comment.UserId));
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
@@ -168,7 +153,7 @@ namespace uCommunity.Comments
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
             model.CreatorFullName = creator?.DisplayedName;
-            //model.Photo = creator?.Photo;
+            model.Photo = creator?.Photo;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             return model;
