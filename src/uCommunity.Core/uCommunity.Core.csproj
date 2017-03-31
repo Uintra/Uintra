@@ -236,6 +236,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -395,6 +396,7 @@
     <Compile Include="Core\Extentions\HtmlExtentions.cs" />
     <Compile Include="Core\Extentions\HttpContextExtentions.cs" />
     <Compile Include="Core\Extentions\LocalizationExtensions.cs" />
+    <Compile Include="Core\Extentions\PermissionExtentions.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Extentions\SerializationExtentions.cs" />
     <Compile Include="Core\Extentions\StringExtentions.cs" />
@@ -416,7 +418,11 @@
     <Compile Include="Core\User\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserService.cs" />
     <Compile Include="Core\User\IntranetRolesEnum.cs" />
-    <Compile Include="Core\User\IntranetUserServiceExtentions.cs" />
+    <Compile Include="Core\IntranetUserServiceExtentions.cs" />
+    <Compile Include="Core\User\Permissions\IPermissionsConfiguration.cs" />
+    <Compile Include="Core\User\Permissions\IPermissionsService.cs" />
+    <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
+    <Compile Include="Core\User\Permissions\PermissionsService.cs" />
     <Compile Include="Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
