@@ -14,16 +14,25 @@ var Subscribe = (function () {
             var sender = $(this);
             var id = sender.data("id");
             sender.disabled = true;
-            $.post('/umbraco/surface/Subscribe/ChangeNotificationDisabled', { Id: id, NewValue: this.checked, type: type }, function () {
-
-            }).always(function () {
+            $.post('/umbraco/surface/Subscribe/ChangeNotificationDisabled', { Id: id, NewValue: this.checked, type: type }).always(function () {
                 sender.disabled = false;
             });
+
+            changeNotificationLabel(holder, this);
         });
+
+        changeNotificationLabel(holder, notificationDisableControl[0]);
     }
 
     function init(holder) {
         initNotificationDisable(holder);
+    }
+
+    function changeNotificationLabel(holder, control) {
+        var isEnabled = !control.checked;
+        var label = holder.find('.js-subscribe-notification-label');
+        var text = isEnabled ? label.data('textEnabled') : label.data('textDisabled');
+        label.html(text);
     }
 
     var controller = {
