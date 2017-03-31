@@ -77,22 +77,22 @@ namespace uCommunity.Core.Activity
             FillCache(entity.Id);
         }
 
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             _intranetActivityService.Delete(id);
-
-            var activities = GetAll().ToList();
-            activities = activities.FindAll(a => a.Id != id);
-            _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
+            FillCache(id);
         }
 
         public virtual TModel FillCache(Guid id)
         {
             var activity = GetFromSql(id);
 
-            var activities = GetAll().ToList();
+            var activities = GetAll(true).ToList();
             activities = activities.FindAll(a => a.Id != id);
-            activities.Add(activity);
+            if (activity != null)
+            {
+                activities.Add(activity);
+            }
 
             _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
             return activity;
@@ -151,6 +151,11 @@ namespace uCommunity.Core.Activity
         protected TModel GetFromSql(Guid id)
         {
             var activity = _intranetActivityService.Get(id);
+            if (activity == null)
+            {
+                return null;
+            }
+            
             return GetMany(Enumerable.Repeat(activity, 1)).Single();
         }
 
