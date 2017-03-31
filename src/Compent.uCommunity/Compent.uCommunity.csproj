@@ -313,8 +313,8 @@
     <Reference Include="uCommunity.Comments, Version=1.0.4.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Comments.1.0.4.4\lib\net452\uCommunity.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.14.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.14.1\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.14.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.14.2\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>
@@ -812,8 +812,11 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="Views\SubscribePage\Index.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
@@ -825,9 +828,6 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

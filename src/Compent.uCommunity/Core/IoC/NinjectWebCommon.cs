@@ -24,6 +24,7 @@ using uCommunity.Core.Localization;
 using uCommunity.Core.Media;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using uCommunity.Likes;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Dashboard;
@@ -98,6 +99,9 @@ namespace Compent.uCommunity.Core.IoC
 
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
+            kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
+
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();

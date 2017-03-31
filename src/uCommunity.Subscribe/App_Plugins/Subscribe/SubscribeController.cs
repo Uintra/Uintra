@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
