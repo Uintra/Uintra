@@ -322,6 +322,10 @@
     <Reference Include="uCommunity.News, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.News.1.0.5.1\lib\net452\uCommunity.News.dll</HintPath>
     </Reference>
+    <Reference Include="uCommunity.Subscribe">
+      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.6.2\lib\net452\uCommunity.Subscribe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Users.1.0.1.3\lib\net452\uCommunity.Users.dll</HintPath>
     </Reference>
@@ -653,6 +657,8 @@
     <Content Include="App_Plugins\News\List\news-list.html" />
     <Content Include="App_Plugins\News\loader.gif" />
     <Content Include="App_Plugins\News\_news.css" />
+    <Content Include="App_Plugins\Subscribe\Subscribe.js" />
+    <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -697,6 +703,7 @@
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="App_Plugins\News\IntranetNewsController.cs" />
+    <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
@@ -808,6 +815,9 @@
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
