@@ -313,9 +313,9 @@
     <Reference Include="uCommunity.Comments, Version=1.0.4.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Comments.1.0.4.4\lib\net452\uCommunity.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.14.7, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Core, Version=1.0.14.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.14.7\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.14.8\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
@@ -816,6 +816,10 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -828,10 +832,6 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
