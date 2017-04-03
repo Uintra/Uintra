@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section name="userPermissions" type="uCommunity.Core.User.Permissions.PermissionsConfiguration" xdt:Transform="Insert"/>
+    <section name="userPermissions" type="uCommunity.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
   </configSections>
-  <userPermissions xdt:Transform="Insert">
+  <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">
         <permissions>
