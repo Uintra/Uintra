@@ -1,4 +1,4 @@
-﻿//import appInitializer from "./../../Content/scripts/AppInitializer";
+﻿import appInitializer from "./../../Content/scripts/AppInitializer";
 import helpers from "./../../Content/scripts/Helpers";
 
 var Photoswipe = require('photoswipe');
@@ -99,6 +99,6 @@ var controller = {
     }
 }
 
-//appInitializer.add(controller.init);
+appInitializer.add(controller.init);
 
 export default controller;
