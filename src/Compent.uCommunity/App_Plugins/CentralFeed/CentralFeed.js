@@ -143,7 +143,7 @@ appInitializer.add(function () {
 
         lightbox.init();
 
-      //  window.App.Subscribe.initOnLoad();
+      window.App.Subscribe.initOnLoad();
     }
 
     restoreState();
