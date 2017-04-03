@@ -239,7 +239,7 @@
         font-weight:normal;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 899px) {
         margin:0 0 19px;
     }
 }
