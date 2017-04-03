@@ -2,7 +2,6 @@
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
-
 require('select2');
 
 var Flatpickr = require('flatpickr');

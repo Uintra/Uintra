@@ -10,6 +10,7 @@ namespace Compent.uCommunity.Core.News
         {
             Mapper.CreateMap<Entities.News, NewsViewModel>()
                 .IncludeBase<NewsModelBase, NewsViewModel>()
+                .IncludeBase<NewsModelBase, NewsViewModelBase>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 

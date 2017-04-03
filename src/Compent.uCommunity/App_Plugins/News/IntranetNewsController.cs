@@ -79,7 +79,7 @@ namespace uCommunity.News
                 return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", createModel);
             }
 
-            var news = createModel.Map<NewsBase>();
+            var news = createModel.Map<NewsModelBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
 
             var activityId = _newsService.Create(news);
