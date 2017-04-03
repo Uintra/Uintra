@@ -1,4 +1,5 @@
 ﻿var Quill = require('quill');
+var Delta = require('quill-delta');
 
 require('quill/dist/quill.core.css');
 require('quill/dist/quill.bubble.css');
