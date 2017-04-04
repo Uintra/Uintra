@@ -3,9 +3,6 @@
 @using uCommunity.Core.Extentions
 @using Umbraco.Web
 @model uCommunity.News.NewsCreateModel
-@{
-    var cultureDateFormat = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
-}
 
 <div class="form" id="js-news-create-page">
     @using (Html.BeginUmbracoForm("Create", "News"))
@@ -30,12 +27,9 @@
                    data-val-required="@Html.Localize("CreateNews.DescriptionRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
-            @{
-                var publishDate = Model.PublishDate == default(DateTime) ? DateTime.Now.Date : Model.PublishDate.Date;
-            }
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@publishDate" data-date-format="@IntranetConstants.Common.DefaultDatePickerFormat" />
-            <input type="hidden" id="js-publish-date-value" name="publishDate" value="@publishDate.ToString(cultureDateFormat)" data-date-format="@cultureDateFormat" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>

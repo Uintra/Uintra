@@ -5,12 +5,9 @@
 
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
-        @if (!string.IsNullOrEmpty(Model.Creator?.Photo))
-            {
-                <a href="@Model.DetailsPageUrl">
-                    <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Creator.Photo)" />
-                </a>
-            }
+        <a href="@Model.DetailsPageUrl">
+            <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Creator?.Photo)" />
+        </a>
     </div>
     <div class="content__item-title-holder">
         <h2 class="content__item-title"><a class="content__item-title-link" href="@Model.DetailsPageUrl">@Model.Title</a></h2>
