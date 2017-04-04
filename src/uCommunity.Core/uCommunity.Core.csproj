@@ -373,6 +373,8 @@
     <Compile Include="Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="Core\Activity\IIntranetActivityItemServiceBase.cs" />
     <Compile Include="Core\Activity\IntranetActivityItemServiceBase.cs" />
+    <Compile Include="Core\Activity\Models\Header\IntranetActivityHeaderBase.cs" />
+    <Compile Include="Core\Activity\Models\Header\IntranetActivityHeaderModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivitySaveModelBase.cs" />
@@ -471,6 +473,8 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
