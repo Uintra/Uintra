@@ -2,11 +2,7 @@
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
-
 require('select2');
-
-var Flatpickr = require('flatpickr');
-var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('dropzone/dist/min/dropzone.min.css');
@@ -19,32 +15,6 @@ var editor;
 
 var initUserSelect = function () {
     userSelect = holder.find('#js-user-select').select2({});
-}
-
-var initPublishDatePicker = function () {
-    var dateElem = holder.find('#js-publish-date');
-    var dateFormat = dateElem.data('dateFormat');
-    var dateElemValue = holder.find('#js-publish-date-value');
-    var defaultDate = new Date(dateElem.data('defaultDate'));
-
-    datePicker = new Flatpickr(dateElem[0], {
-        allowInput: true,
-        weekNumbers: true,
-        dateFormat: dateFormat,
-        locale: FlatpickrLang.da,
-        onChange: function (selectedDates) {
-            if (selectedDates.length === 0) {
-                dateElemValue.val('');
-            }
-
-            var format = dateElemValue.data('dateFormat');
-            var result = format.replace('d', selectedDates[0].getDate())
-                               .replace('M', selectedDates[0].getMonth() + 1)
-                               .replace('yyyy', selectedDates[0].getFullYear());
-            dateElemValue.val(result);
-        }
-    });
-    datePicker.setDate(defaultDate, true);
 }
 
 var initDescriptionControl = function () {
@@ -79,7 +49,7 @@ var controller =   {
         }
             
         initUserSelect();
-        initPublishDatePicker();
+        helpers.initPublishDatePicker(holder);
         initDescriptionControl();
         fileUploadController.init(holder);
     }

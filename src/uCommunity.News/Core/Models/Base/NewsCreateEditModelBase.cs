@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Media;
+using uCommunity.Core.ModelBinders;
 
 namespace uCommunity.News
 {
@@ -14,7 +15,7 @@ namespace uCommunity.News
         [Required, AllowHtml]
         public string Description { get; set; }
 
-        [DataType(DataType.Date)]
+        [PropertyBinder(typeof(DateTimeBinder))]
         public DateTime PublishDate { get; set; }
 
         public string Media { get; set; }
