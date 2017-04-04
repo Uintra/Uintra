@@ -1,5 +1,7 @@
 ﻿var Quill = require('quill');
 var Delta = require('quill-delta');
+var Flatpickr = require('flatpickr');
+var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
 require('quill/dist/quill.core.css');
 require('quill/dist/quill.bubble.css');
@@ -42,6 +44,39 @@ var helpers = {
         });
 
         return quill;
+    },
+    initPublishDatePicker: function (holder) {
+        var dateElem = holder.find('#js-publish-date');
+        var dateFormat = dateElem.data('dateFormat');
+        var dateElemValue = holder.find('#js-publish-date-value');
+        var defaultDate = new Date(dateElem.data('defaultDate'));
+
+        var datePicker = new Flatpickr(dateElem[0], {
+            enableTime: true,
+            time_24hr: true,
+            allowInput: false,
+            weekNumbers: true,
+            dateFormat: dateFormat,
+            locale: FlatpickrLang.da,
+            onChange: function(selectedDates) {
+                if (selectedDates.length === 0) {
+                    dateElemValue.val('');
+                    return;
+                }
+
+                var selectedDate = selectedDates[0].toISOString();
+                dateElemValue.val(selectedDate);
+            }
+        });
+
+        defaultDate = helpers.removeOffset(defaultDate);
+        datePicker.setDate(defaultDate, true);
+        var minDate = new Date();
+        if (defaultDate < minDate) {
+            minDate = defaultDate;
+        }
+
+        datePicker.set('minDate', minDate.setHours(0));
     },
     removeOffset: function (date) {
         var dateOffset = date.getTimezoneOffset() * 60000; // [min*60000 = ms]
