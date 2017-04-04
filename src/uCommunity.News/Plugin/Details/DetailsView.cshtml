@@ -22,7 +22,7 @@
                 </header>
 
                 <div class="content__item _details">
-                    @Html.Action("ActivityDetailsHeader", "News", new { Model.HeaderInfo })
+                    @Html.Action("ActivityDetailsHeader", "News", new { header = Model.HeaderInfo })
                     <div class="content__item-txt">
                         <p>
                             <b>@Model.Teaser</b>
