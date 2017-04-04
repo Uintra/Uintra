@@ -1,6 +1,4 @@
 ﻿@using System.Web.Mvc.Html
-@using uCommunity.Core
-@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
 @model uCommunity.News.NewsViewModelBase
 @{
@@ -24,27 +22,7 @@
                 </header>
 
                 <div class="content__item _details">
-                    <header class="content__item-heading clearfix">
-                        @*@if (!string.IsNullOrEmpty(Model.Creator.Photo))
-                        {
-                            <div class="content__item-avatar">
-                                <a href="#">
-                                    <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Creator.Photo)"/>
-                                </a>
-                            </div>
-                        }*@
-                        <div class="content__item-title-holder">
-                            <p class="content__item-meta">
-                                <span class="content__item-date">@(Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat))</span>
-                                <span class="content__item-divider"> - </span>
-                                <span class="content__item-category">@Html.Localize(IntranetActivityTypeEnum.News), </span>
-                                <span class="content__item-name">@Model.Creator.DisplayedName</span>
-                                <span class="content__item-divider"> - </span>
- 
-                            </p>
-                        </div>
-                    </header>
-                    <h2 class="content__item-title">@Model.Title</h2>
+                    @Html.Action("ActivityDetailsHeader", "News", new { Model.HeaderInfo })
                     <div class="content__item-txt">
                         <p>
                             <b>@Model.Teaser</b>

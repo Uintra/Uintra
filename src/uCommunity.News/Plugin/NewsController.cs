@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core;
+using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -56,6 +57,7 @@ namespace uCommunity.News
             }
 
             var model = news.Map<NewsViewModelBase>();
+            model.HeaderInfo = news.Map<IntranetActivityHeaderBase>();
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
@@ -120,6 +122,16 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
+        public ActionResult ActivityDetailsHeader(IntranetActivityHeaderBase header)
+        {
+            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", header);
+        }
+
+        public ActionResult ActivityItemHeader(IntranetActivityHeaderModel header)
+        {
+            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", header);
+        }
+
         private void FillCreateEditModel(NewsCreateModel model)
         {
             FillLinks();
@@ -132,10 +144,15 @@ namespace uCommunity.News
 
         private IEnumerable<NewsOverviewItemModelBase> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
+            var detailsPageUrl = _newsService.GetDetailsPage().Url;
             foreach (var item in news)
             {
                 var model = item.Map<NewsOverviewItemModelBase>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
+
+                model.HeaderInfo = item.Map<IntranetActivityHeaderModel>();
+                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
+
                 yield return model;
             }
         }

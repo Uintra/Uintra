@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using AutoMapper;
+using uCommunity.Core;
+using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.News.Dashboard;
 
@@ -45,13 +48,17 @@ namespace uCommunity.News
             Mapper.CreateMap<NewsModelBase, NewsViewModelBase>()
                 .ForMember(dst => dst.OverviewPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.EditPageUrl, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
 
             Mapper.CreateMap<NewsModelBase, NewsBackofficeViewModel>()
                 .ForMember(d => d.Media, o => o.MapFrom(s => StringExtentions.JoinToString(s.MediaIds, ",")));
+
+            Mapper.CreateMap<NewsModelBase, IntranetActivityHeaderBase>()
+           .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
+
+            Mapper.CreateMap<NewsModelBase, IntranetActivityHeaderModel>()
+                .IncludeBase<NewsModelBase, IntranetActivityHeaderBase>();
 
             Mapper.CreateMap<NewsBackofficeCreateModel, NewsModelBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
