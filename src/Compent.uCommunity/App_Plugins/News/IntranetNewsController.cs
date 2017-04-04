@@ -83,6 +83,7 @@ namespace uCommunity.News
 
             var news = createModel.Map<NewsModelBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _newsService.Create(news);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
@@ -117,6 +118,7 @@ namespace uCommunity.News
 
             var activity = saveModel.Map<NewsModelBase>();
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
             _newsService.Save(activity);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
