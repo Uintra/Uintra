@@ -7,33 +7,21 @@ namespace uCommunity.Core
     public static class ImageConstants
     {
         public const int DefaultActivityOverviewImagesCount = 3;
-
-        public const string DefaultAvatarPath = "~/Content/images/default-avatar.png";
     }
 
     public static class ImageHelper
     {
-        public static string GetImageSrcAsBase64(string imagePath)
-        {
-            var result = "";
-            if (File.Exists(imagePath))
-            {
-                result = ToBase64(imagePath);
-            }
-
-            return result;
-        }
+        private static string DefaultAvatarPath => AppSettingHelper.GetAppSetting<string>("DefaultAvatarPath");
 
         public static string GetImageSrcOrDefaultAsBase64(string imagePath)
         {
-            var image = GetImageSrcAsBase64(imagePath);
-            if (string.IsNullOrEmpty(image))
+            if (string.IsNullOrEmpty(imagePath))
             {
-                string path = HttpContext.Current.Server.MapPath(ImageConstants.DefaultAvatarPath);
+                string path = HttpContext.Current.Server.MapPath(DefaultAvatarPath);
                 return ToBase64(path);
             }
 
-            return image;
+            return imagePath;
         }
 
         private static string ToBase64(string imagePath)

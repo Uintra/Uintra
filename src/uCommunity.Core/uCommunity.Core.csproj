@@ -379,6 +379,7 @@
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivitySaveModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\AppSettingHelper.cs" />
     <Compile Include="Core\Caching\IMemoryCacheService.cs" />
     <Compile Include="Core\Caching\MemoryCacheService.cs" />
     <Compile Include="Core\Caching\Models\CachedItemBase.cs" />
