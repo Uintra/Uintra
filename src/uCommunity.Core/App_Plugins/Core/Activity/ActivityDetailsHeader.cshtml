@@ -4,14 +4,11 @@
 @model uCommunity.Core.Activity.Models.IntranetActivityHeaderBase
 
 <header class="content__item-heading clearfix">
-    @if (!string.IsNullOrEmpty(Model.Creator?.Photo))
-    {
-        <div class="content__item-avatar">
-            <a href="#">
-                <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Creator.Photo)" />
-            </a>
-        </div>
-    }
+    <div class="content__item-avatar">
+        <a href="#">
+            <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Creator?.Photo)" />
+        </a>
+    </div>
     <div class="content__item-title-holder">
         <p class="content__item-meta">
             @foreach (var date in Model.Dates)

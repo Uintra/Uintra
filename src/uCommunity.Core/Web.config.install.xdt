@@ -3,6 +3,9 @@
   <configSections>
     <section name="userPermissions" type="uCommunity.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
   </configSections>
+  <appSettings>
+    <add key="DefaultAvatarPath" value="~/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
+  </appSettings>
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">

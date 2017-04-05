@@ -55,7 +55,7 @@ namespace uCommunity.News
                 .ForMember(d => d.Media, o => o.MapFrom(s => StringExtentions.JoinToString(s.MediaIds, ",")));
 
             Mapper.CreateMap<NewsModelBase, IntranetActivityHeaderBase>()
-           .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
+           .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) }));
 
             Mapper.CreateMap<NewsModelBase, IntranetActivityHeaderModel>()
                 .IncludeBase<NewsModelBase, IntranetActivityHeaderBase>();

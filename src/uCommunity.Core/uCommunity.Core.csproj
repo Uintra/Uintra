@@ -379,6 +379,7 @@
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivitySaveModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\AppSettingHelper.cs" />
     <Compile Include="Core\Caching\IMemoryCacheService.cs" />
     <Compile Include="Core\Caching\MemoryCacheService.cs" />
     <Compile Include="Core\Caching\Models\CachedItemBase.cs" />
@@ -415,6 +416,10 @@
     <Compile Include="Core\Media\IMediaHelper.cs" />
     <Compile Include="Core\Media\MediaHelper.cs" />
     <Compile Include="Core\Media\MediaSettings.cs" />
+    <Compile Include="Core\ModelBinders\DateTimeModelBinder.cs" />
+    <Compile Include="Core\ModelBinders\DefaultBinder.cs" />
+    <Compile Include="Core\ModelBinders\ICustomModelBinder.cs" />
+    <Compile Include="Core\ModelBinders\PropertyBinderAttribute.cs" />
     <Compile Include="Core\Persistence\Sql\ISqlRepository.cs" />
     <Compile Include="Core\Persistence\Sql\SqlEntity.cs" />
     <Compile Include="Core\Persistence\Sql\SqlRepository.cs" />
@@ -661,6 +666,7 @@
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

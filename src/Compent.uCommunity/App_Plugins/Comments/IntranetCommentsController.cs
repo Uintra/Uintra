@@ -168,7 +168,7 @@ namespace uCommunity.Comments
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
             model.CreatorFullName = creator?.DisplayedName;
-            //model.Photo = creator?.Photo;
+            model.Photo = creator?.Photo;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             return model;

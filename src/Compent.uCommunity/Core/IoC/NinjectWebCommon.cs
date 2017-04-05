@@ -22,6 +22,7 @@ using uCommunity.Core.Configuration;
 using uCommunity.Core.Exceptions;
 using uCommunity.Core.Localization;
 using uCommunity.Core.Media;
+using uCommunity.Core.ModelBinders;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions;
@@ -51,7 +52,6 @@ namespace Compent.uCommunity.Core.IoC
         private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=uCommunity_TestData;user id=sa;password='q1w2e3r4'";
 
         public static void Start()
-
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
@@ -85,6 +85,7 @@ namespace Compent.uCommunity.Core.IoC
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                RegisterModelBinders();
                 RegisterGlobalFilters(kernel);
 
                 GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
@@ -95,6 +96,11 @@ namespace Compent.uCommunity.Core.IoC
                 kernel.Dispose();
                 throw;
             }
+        }
+
+        private static void RegisterModelBinders()
+        {
+            ModelBinders.Binders.DefaultBinder = new CustomModelBinder();
         }
 
         private static void RegisterServices(IKernel kernel)
@@ -153,6 +159,9 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
 
             kernel.Bind<IExceptionLogger>().To<ExceptionLogger>().InRequestScope();
+
+            // Model Binders
+            kernel.Bind<DateTimeBinder>().ToSelf().InSingletonScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
