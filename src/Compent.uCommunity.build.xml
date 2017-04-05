@@ -29,7 +29,7 @@
         <arg value="install" />
       </exec>
 
-	  <exec program="C:\Users\Administrator\AppData\Roaming\npm\webpack.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\TeamDenmark.Intranet" verbose="true">
+	  <exec program="C:\Users\Administrator\AppData\Roaming\npm\webpack.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" verbose="true">
       </exec>
 	  
 	   <call target="Target.Deploy" />	  
