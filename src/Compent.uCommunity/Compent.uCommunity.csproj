@@ -666,7 +666,6 @@
     <Content Include="App_Plugins\News\loader.gif" />
     <Content Include="App_Plugins\News\_news.css" />
     <Content Include="App_Plugins\Subscribe\Subscribe.js" />
-    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
