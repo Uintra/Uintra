@@ -40,7 +40,7 @@
    <target name="Target.Deploy">
      <!-- Run robocopy -->	 
 	  <property name="Csc.Setting.Robocopy.ExcludeDirectoryList" value="App_Data,umbraco,umbraco_client,media,node_modules"  />
-	  <property name="Csc.Setting.Robocopy.ExcludeFileList" value="gulpfile.js,package.json,packages.config,bower.json,.bowerrc,postcss.config.js,webpack.config.js"  />
+	  <property name="Csc.Setting.Robocopy.ExcludeFileList" value="package.json,packages.config,postcss.config.js,webpack.config.js"  />
       <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.DeployDirectory}" if="${Csc.Setting.Robocopy.ToDirectory == ''}" />
 
     <if test="${Csc.Setting.Robocopy.ToDirectory != ''}">
