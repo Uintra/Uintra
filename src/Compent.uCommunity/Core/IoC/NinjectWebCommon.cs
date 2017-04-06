@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uCommunity.Core.Comments;
+using Compent.uCommunity.Core.Events;
 using Compent.uCommunity.Core.Exceptions;
 using Compent.uCommunity.Core.IoC;
 using Compent.uCommunity.Core.Subscribe;
@@ -26,6 +27,7 @@ using uCommunity.Core.ModelBinders;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions;
+using uCommunity.Events;
 using uCommunity.Likes;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Dashboard;
@@ -123,6 +125,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
             kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
+            kernel.Bind(typeof(IEventsService<,>)).To<EventsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
             kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
@@ -142,6 +145,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
+            kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
 

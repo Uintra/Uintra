@@ -318,6 +318,11 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.14.12\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uCommunity.Events, Version=0.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Events.0.0.0.3\lib\net452\uCommunity.Events.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>
     </Reference>
@@ -639,6 +644,13 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
+    <Content Include="App_Plugins\Events\Create\create-events.js" />
+    <Content Include="App_Plugins\Events\Create\events-create.html" />
+    <Content Include="App_Plugins\Events\Details\events-details.html" />
+    <Content Include="App_Plugins\Events\Edit\edit-events.js" />
+    <Content Include="App_Plugins\Events\Edit\events-edit.html" />
+    <Content Include="App_Plugins\Events\List\edit-list.js" />
+    <Content Include="App_Plugins\Events\List\events-list.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -707,6 +719,7 @@
     <Compile Include="App_Plugins\CentralFeed\CentralFeedController.cs" />
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
+    <Compile Include="App_Plugins\Events\IntranetEventsController.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
@@ -726,6 +739,9 @@
     <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
+    <Compile Include="Core\Events\Entities\Event.cs" />
+    <Compile Include="Core\Events\EventsService.cs" />
+    <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
@@ -834,6 +850,13 @@
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\List\OverView.cshtml" />
+    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
+    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
