@@ -27,7 +27,7 @@
                         @Html.Raw(Model.Description)
                     </div>
                     <div class="content__item-images">
-                        @{ Html.RenderAction("RenderGalery", "LightboxGalery", new { mediaIds = Model.Media }); }
+                        @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
                     </div>
                 </div>
             </div>
