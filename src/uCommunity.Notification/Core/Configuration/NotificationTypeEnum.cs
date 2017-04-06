@@ -1,6 +1,6 @@
 ﻿using ServiceStack.DataAnnotations;
 
-namespace uCommunity.Notification
+namespace uCommunity.Notification.Core.Configuration
 {
     [EnumAsInt]
     public enum NotificationTypeEnum

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Notification.Exceptions;
 using uCommunity.Core.Configuration;
 using uCommunity.Core.Exceptions;
 using uCommunity.Core.Extentions;
+using uCommunity.Notification.Core.Exceptions;
+using uCommunity.Notification.Core.Services;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Entities;
 
-namespace uCommunity.Notification.Notifier
+namespace uCommunity.Notification
 {
     public class NotificationService : INotificationService
     {
@@ -26,9 +29,9 @@ namespace uCommunity.Notification.Notifier
 
         public void ProcessNotification(NotifierData data)
         {
-            var notifiers = GetNotifiers(data.NotificationType).ToList();
+            var notifiers = GetNotifiers(data.NotificationType);
 
-            if (notifiers.Count == 0)
+            if (!notifiers.Any())
             {
                 _exceptionLogger.Log(new MissingNotificationException(data.NotificationType));
             }

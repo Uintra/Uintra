@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using uCommunity.Notification.Notifier;
 
-namespace uCommunity.Notification
+namespace uCommunity.Notification.Core.Configuration
 {
     public class NotificationTypeConfiguration
     {

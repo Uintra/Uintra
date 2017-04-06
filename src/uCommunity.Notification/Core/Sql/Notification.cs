@@ -1,8 +1,9 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
 using uCommunity.Core.Persistence.Sql;
+using uCommunity.Notification.Core.Configuration;
 
-namespace uCommunity.Notification.Sql
+namespace uCommunity.Notification.Core.Sql
 {
     public class Notification : SqlEntity
     {

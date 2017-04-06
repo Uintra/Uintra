@@ -1,7 +1,7 @@
 ﻿using System;
-using uCommunity.Notification.Notifier;
+using uCommunity.Notification.Core.Configuration;
 
-namespace uCommunity.Notification.Exceptions
+namespace uCommunity.Notification.Core.Exceptions
 {
     public class MissingNotifierConfigurationException : ApplicationException
     {

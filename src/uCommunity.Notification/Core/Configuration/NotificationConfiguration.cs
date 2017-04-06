@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Notification.Notifier;
 
-namespace uCommunity.Notification
+namespace uCommunity.Notification.Core.Configuration
 {
     public class NotificationConfiguration
     {        
@@ -17,6 +16,5 @@ namespace uCommunity.Notification
             NotificationTypeConfigurations = Enumerable.Empty<NotificationTypeConfiguration>();
             NotifierConfigurations = Enumerable.Empty<NotifierConfiguration>();
         }
-
     }
 }

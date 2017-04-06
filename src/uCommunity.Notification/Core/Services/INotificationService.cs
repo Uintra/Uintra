@@ -1,4 +1,6 @@
-﻿namespace uCommunity.Notification.Notifier
+﻿using uCommunity.Notification.Core.Entities;
+
+namespace uCommunity.Notification.Core.Services
 {
     public interface INotificationService
     {

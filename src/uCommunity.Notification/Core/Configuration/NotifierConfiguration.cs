@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Notification.Notifier
+﻿namespace uCommunity.Notification.Core.Configuration
 {
     public class NotifierConfiguration
     {
