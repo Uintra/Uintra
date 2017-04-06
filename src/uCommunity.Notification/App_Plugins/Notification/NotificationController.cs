@@ -10,7 +10,7 @@ using uCommunity.Notification.Core.Models;
 using uCommunity.Notification.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Notification.App_Plugins.Notification
+namespace uCommunity.Notification
 {
     public class NotificationController : SurfaceController
     {
