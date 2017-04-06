@@ -742,6 +742,8 @@
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
+    <Compile Include="Core\Events\Models\EventOverviewItemModel2.cs" />
+    <Compile Include="Core\Events\Models\EventViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
