@@ -144,7 +144,7 @@ namespace uCommunity.Events.App_Plugins.Events
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && _eventsService.HasSubscribers(@event) });
         }
 
-        public ActionResult ItemView(EventsOverviewItemModel model)
+        public ActionResult ItemView(EventsOverviewItemModelBase model)
         {
             return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
         }
@@ -182,12 +182,12 @@ namespace uCommunity.Events.App_Plugins.Events
             ViewData["OverviewPageUrl"] = _eventsService.GetOverviewPage().Url;
         }
 
-        private IEnumerable<EventsOverviewItemModel> GetOverviewItems(IEnumerable<EventModelBase> events)
+        private IEnumerable<EventsOverviewItemModelBase> GetOverviewItems(IEnumerable<EventModelBase> events)
         {
             var detailsPageUrl = _eventsService.GetDetailsPage().Url;
             foreach (var @event in events)
             {
-                var model = @event.Map<EventsOverviewItemModel>();
+                var model = @event.Map<EventsOverviewItemModelBase>();
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 

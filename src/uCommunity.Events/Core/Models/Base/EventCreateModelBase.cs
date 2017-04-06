@@ -25,6 +25,5 @@ namespace uCommunity.Events
         public bool CanSubscribe { get; set; }
 
         public int? MediaRootId { get; set; }
-
     }
 }

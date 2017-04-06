@@ -5,11 +5,11 @@ namespace uCommunity.Events
 {
     public class EventsOverviewModel
     {
-        public IEnumerable<EventsOverviewItemModel> Items { get; set; }
+        public IEnumerable<EventsOverviewItemModelBase> Items { get; set; }
 
         public EventsOverviewModel()
         {
-            Items = Enumerable.Empty<EventsOverviewItemModel>();
+            Items = Enumerable.Empty<EventsOverviewItemModelBase>();
         }
     }
 }

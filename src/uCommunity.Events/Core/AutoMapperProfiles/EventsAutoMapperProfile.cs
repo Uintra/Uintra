@@ -10,7 +10,7 @@ namespace uCommunity.Events
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<EventModelBase, EventsOverviewItemModel>()
+            Mapper.CreateMap<EventModelBase, EventsOverviewItemModelBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore());
 

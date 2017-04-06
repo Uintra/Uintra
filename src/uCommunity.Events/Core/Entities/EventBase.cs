@@ -18,7 +18,5 @@ namespace uCommunity.Events
         {
             MediaIds = Enumerable.Empty<int>();
         }
-
-        public Guid GroupId { get; set; }
     }
 }
