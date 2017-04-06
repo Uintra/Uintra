@@ -8,3 +8,6 @@ require('./../App_Plugins/News/Edit/edit-news');
 require('./../App_Plugins/CentralFeed/CentralFeed');
 require('./../App_Plugins/Subscribe/Subscribe');
 require('./../App_Plugins/Subscribe/SubscribeList');
+require('./../App_Plugins/Events/Create/create-events');
+require('./../App_Plugins/Events/Edit/edit-events');
+require('./../App_Plugins/Events/List/edit-list');

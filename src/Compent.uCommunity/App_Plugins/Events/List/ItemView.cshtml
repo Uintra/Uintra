@@ -1,0 +1,23 @@
+﻿@model Compent.uCommunity.Core.Events.EventOverviewItemModel2
+
+<div class="content__item">
+    <div class="row clearfix">
+        <div class="col-md-9">
+            <span class="content__item-label">VIGTIGT</span>
+            @Html.Action("ActivityItemHeader", "Events", new { header = Model.HeaderInfo })
+            <div class="content__item-image"> </div>
+            <div class="content__item-images">
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
+            </div>
+            <div class="content__item-txt _clamp">
+                <p>@Html.Raw(Model.Description)</p>
+            </div>
+            <div class="content__item-feed">
+                <div class="content__item-feed-holder">
+                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

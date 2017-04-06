@@ -1,0 +1,13 @@
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Extentions
+@model IEnumerable<uCommunity.Events.EventsOverviewItemModel>
+
+@if (!Model.Any())
+{
+    @Html.Localize("EventsListView.Empty.lbl")
+}
+
+@foreach (var item in Model)
+{
+    Html.RenderAction("ItemView", "Events", new { model = item });
+}
