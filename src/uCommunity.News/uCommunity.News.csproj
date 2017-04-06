@@ -572,7 +572,7 @@
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
-    <Compile Include="Plugin\NewsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="App_Plugins\News\NewsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="uCommunity.News.nuspec" />
   </ItemGroup>
@@ -589,12 +589,12 @@
     <None Include="Content\Umbraco\Config\Lang\en_us.xml.install.xdt" />
     <None Include="Content\Umbraco\Config\Lang\en_us.xml.uninstall.xdt" />
     <None Include="packages.config" />
-    <None Include="Plugin\Create\CreateView.cshtml" />
-    <None Include="Plugin\Details\DetailsView.cshtml" />
-    <None Include="Plugin\Edit\EditView.cshtml" />
-    <None Include="Plugin\List\ItemView.cshtml" />
-    <None Include="Plugin\List\ListView.cshtml" />
-    <None Include="Plugin\package.manifest" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
@@ -603,16 +603,16 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <ItemGroup>
-    <None Include="Plugin\backoffice\news-management.config.js" />
-    <None Include="Plugin\backoffice\news-management.css" />
-    <None Include="Plugin\backoffice\news-management.html" />
-    <None Include="Plugin\backoffice\news-management.js" />
-    <None Include="Plugin\Create\create-news.js" />
-    <None Include="Plugin\Create\news-create.html" />
-    <None Include="Plugin\Details\news-details.html" />
-    <None Include="Plugin\Edit\edit-news.js" />
-    <None Include="Plugin\Edit\news-edit.html" />
-    <None Include="Plugin\List\news-list.html" />
+    <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
+    <Content Include="App_Plugins\News\backoffice\news-management.css" />
+    <Content Include="App_Plugins\News\backoffice\news-management.html" />
+    <Content Include="App_Plugins\News\backoffice\news-management.js" />
+    <Content Include="App_Plugins\News\Create\create-news.js" />
+    <Content Include="App_Plugins\News\Create\news-create.html" />
+    <Content Include="App_Plugins\News\Details\news-details.html" />
+    <Content Include="App_Plugins\News\Edit\edit-news.js" />
+    <Content Include="App_Plugins\News\Edit\news-edit.html" />
+    <Content Include="App_Plugins\News\List\news-list.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
@@ -621,8 +621,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Plugin\loader.gif" />
-    <Content Include="Plugin\_news.css" />
+    <Content Include="App_Plugins\News\loader.gif" />
+    <Content Include="App_Plugins\News\_news.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

@@ -11,12 +11,11 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity News Controls NewsControls</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.11" />
+      <dependency id="uCommunity.Core" version="1.0.14" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Plugin\**" target="content\App_Plugins\News" exclude="Plugin\NewsController.cs" />
-    <file src="Plugin\NewsController.cs" target="content\App_Plugins\News\IntranetNewsController.cs" />
+    <file src="App_Plugins\News\NewsController.cs" target="content\App_Plugins\News\IntranetNewsController.cs" />
     <file src="Content\**" target="content" />
   </files>
 </package>
