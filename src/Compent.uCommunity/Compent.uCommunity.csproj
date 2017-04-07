@@ -678,7 +678,6 @@
     <Content Include="App_Plugins\News\loader.gif" />
     <Content Include="App_Plugins\News\_news.css" />
     <Content Include="App_Plugins\Subscribe\Subscribe.js" />
-    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
@@ -705,8 +704,6 @@
     <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Plugin\loader.gif" />
-    <Content Include="Plugin\_news.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -809,7 +806,6 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="Plugin\Login\Login.cshtml" />
     <Content Include="Views\LikesPage\Index.cshtml" />
     <Content Include="Views\CommentsEditPage\Index.cshtml" />
     <Content Include="Views\CommentsPage\Tabs.cshtml" />
