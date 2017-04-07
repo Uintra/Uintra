@@ -44,14 +44,13 @@
    </target>
       
    <target name="Target.CopyRoslyn">
-    <property name="Csc.Setting.Robocopy.LogPath" value="${Csc.Setting.Build.LogDirectory}\Robocopy\CopyRoslyn.log" />
-    <property name="Csc.Setting.Robocopy.ExcludeDirectoryList" value=""  />
-    <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\roslyn" />
-    <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
-    <property name="Csc.Setting.Robocopy.Purge" value="False" />
-    <call target="Csc.Target.Robocopy" />
-  </target>
-   
+	 <exec program="C:\Program Files\Git\usr\bin\cp.exe">
+       <arg value="-r"/>
+       <arg value="${Csc.Setting.MSBuild.OutputBuildDirectory}\roslyn"/>
+       <arg value="${Csc.Setting.Build.DeployDirectory}\bin\roslyn"/>
+     </exec>
+   </target>
+ 
    <target name="Target.Deploy">
      <!-- Run robocopy -->	 
 	  <property name="Csc.Setting.Robocopy.ExcludeDirectoryList" value="App_Data,umbraco,umbraco_client,media,node_modules"  />
