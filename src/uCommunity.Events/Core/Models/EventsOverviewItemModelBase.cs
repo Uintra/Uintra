@@ -19,6 +19,6 @@ namespace uCommunity.Events
 
         public bool CanSubscribe { get; set; }
 
-        public IntranetActivityHeaderModel HeaderInfo { get; set; }
+        public IntranetActivityItemHeaderViewModel ItemHeaderViewInfo { get; set; }
     }
 }

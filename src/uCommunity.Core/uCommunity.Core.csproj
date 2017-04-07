@@ -365,6 +365,7 @@
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="App_Plugins\Core\Activity\ActivityController.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityModelBase.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
@@ -374,8 +375,8 @@
     <Compile Include="Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="Core\Activity\IIntranetActivityItemServiceBase.cs" />
     <Compile Include="Core\Activity\IntranetActivityItemServiceBase.cs" />
-    <Compile Include="Core\Activity\Models\Header\IntranetActivityHeaderBase.cs" />
-    <Compile Include="Core\Activity\Models\Header\IntranetActivityHeaderModel.cs" />
+    <Compile Include="Core\Activity\Models\Header\IntranetActivityDetailsHeaderViewModel.cs" />
+    <Compile Include="Core\Activity\Models\Header\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivitySaveModelBase.cs" />

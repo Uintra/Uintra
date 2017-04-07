@@ -51,7 +51,7 @@ namespace uCommunity.Events.App_Plugins.Events
             }
 
             var model = @event.Map<EventViewModelBase>();
-            model.HeaderInfo = @event.Map<IntranetActivityHeaderBase>();
+            model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat), @event.EndDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
             model.EditPageUrl = _eventsService.GetEditPage().Url;
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
@@ -149,14 +149,14 @@ namespace uCommunity.Events.App_Plugins.Events
             return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
         }
 
-        public ActionResult ActivityDetailsHeader(IntranetActivityHeaderBase header)
+        public ActionResult ActivityDetailsHeader(IntranetActivityDetailsHeaderViewModel detailsHeader)
         {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", header);
+            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", detailsHeader);
         }
 
-        public ActionResult ActivityItemHeader(IntranetActivityHeaderModel header)
+        public ActionResult ActivityItemHeader(IntranetActivityItemHeaderViewModel itemHeaderView)
         {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", header);
+            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", itemHeaderView);
         }
 
         private EventModelBase MapEditModel(EventEditModel saveModel)
@@ -191,8 +191,8 @@ namespace uCommunity.Events.App_Plugins.Events
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
-                model.HeaderInfo = @event.Map<IntranetActivityHeaderModel>();
-                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
+                model.ItemHeaderViewInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
+                model.ItemHeaderViewInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
 
                 yield return model;
             }

@@ -61,11 +61,11 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
 
-            Mapper.CreateMap<EventModelBase, IntranetActivityHeaderBase>()
+            Mapper.CreateMap<EventModelBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToString(IntranetConstants.Common.DefaultDateFormat), el.EndDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
 
-            Mapper.CreateMap<EventModelBase, IntranetActivityHeaderModel>()
-                .IncludeBase<EventModelBase, IntranetActivityHeaderBase>();
+            Mapper.CreateMap<EventModelBase, IntranetActivityItemHeaderViewModel>()
+                .IncludeBase<EventModelBase, IntranetActivityDetailsHeaderViewModel>();
         }
     }
 }

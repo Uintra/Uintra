@@ -1,12 +1,12 @@
 ﻿@using uCommunity.Core
 @using uCommunity.Core.Extentions
 
-@model uCommunity.Core.Activity.Models.IntranetActivityHeaderBase
+@model uCommunity.Core.Activity.Models.IntranetActivityDetailsHeaderViewModel
 
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
         <a href="#">
-            <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@ImageHelper.GetImageSrcOrDefaultAsBase64(Model.Creator?.Photo)" />
+            <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@ImageHelper.GetImageSrcOrDefaultAvatar(Model.Creator?.Photo)" />
         </a>
     </div>
     <div class="content__item-title-holder">

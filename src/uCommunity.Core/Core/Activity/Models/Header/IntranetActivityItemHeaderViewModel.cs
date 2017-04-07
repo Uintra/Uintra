@@ -1,6 +1,6 @@
 ﻿namespace uCommunity.Core.Activity.Models
 {
-    public class IntranetActivityHeaderModel : IntranetActivityHeaderBase
+    public class IntranetActivityItemHeaderViewModel : IntranetActivityDetailsHeaderViewModel
     {
         public string DetailsPageUrl { get; set; }
     }

@@ -54,11 +54,11 @@ namespace uCommunity.News
             Mapper.CreateMap<NewsModelBase, NewsBackofficeViewModel>()
                 .ForMember(d => d.Media, o => o.MapFrom(s => StringExtentions.JoinToString(s.MediaIds, ",")));
 
-            Mapper.CreateMap<NewsModelBase, IntranetActivityHeaderBase>()
+            Mapper.CreateMap<NewsModelBase, IntranetActivityDetailsHeaderViewModel>()
            .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
 
-            Mapper.CreateMap<NewsModelBase, IntranetActivityHeaderModel>()
-                .IncludeBase<NewsModelBase, IntranetActivityHeaderBase>();
+            Mapper.CreateMap<NewsModelBase, IntranetActivityItemHeaderViewModel>()
+                .IncludeBase<NewsModelBase, IntranetActivityDetailsHeaderViewModel>();
 
             Mapper.CreateMap<NewsBackofficeCreateModel, NewsModelBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
