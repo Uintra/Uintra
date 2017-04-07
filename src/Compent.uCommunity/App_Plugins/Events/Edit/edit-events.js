@@ -1,11 +1,14 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
+import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
+var Alertify = require('alertifyjs/build/alertify.min');
 
 require('select2');
+require('./../../Core/Controls/Confirm/Confirm');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('dropzone/dist/min/dropzone.min.css');
@@ -16,7 +19,6 @@ var EditEventsController = (function () {
     var userSelect;
     var editor;
     var form;
-    var umbracoAjaxForm = App.UmbracoAjaxFormFactory;
 
     var initUserSelect = function () {
         userSelect = holder.find('#js-user-select').select2({});
@@ -79,7 +81,7 @@ var EditEventsController = (function () {
             descriptionElem.removeClass('input-validation-error');
             event.preventDefault();
 
-            var data = umbracoAjaxForm.serialize(form[0]);
+            var data = umbracoAjaxForm()(form[0]).serialize();
             $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
                 
                 if (result && !result.HasConfirmation) {

@@ -77,6 +77,9 @@ function umbracoAjaxFormFactory() {
             form: form,
             reload: function () {
                 return submit(form);
+            },
+            serialize: function() {
+                return serialize(form);
             }
         }
     }

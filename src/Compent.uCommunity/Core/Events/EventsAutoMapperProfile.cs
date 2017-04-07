@@ -20,6 +20,14 @@ namespace Compent.uCommunity.Core.Events
 
             Mapper.CreateMap<Event, IntranetActivityHeaderModel>()
                  .IncludeBase<EventModelBase, IntranetActivityHeaderModel>();
+
+            Mapper.CreateMap<EventEditModel, Event>()
+                .IncludeBase<EventEditModel, EventModelBase>()
+                .ForMember(dst => dst.Type, o => o.Ignore());
+
+            Mapper.CreateMap<EventCreateModel, Event>()
+              .IncludeBase<EventCreateModel, EventModelBase>()
+              .ForMember(dst => dst.Type, o => o.Ignore());
         }
     }
 }
