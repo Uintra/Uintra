@@ -57,7 +57,7 @@ namespace uCommunity.News
             }
 
             var model = news.Map<NewsViewModelBase>();
-            model.HeaderInfo = news.Map<IntranetActivityHeaderBase>();
+            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
@@ -125,16 +125,6 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
-        public ActionResult ActivityDetailsHeader(IntranetActivityHeaderBase header)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", header);
-        }
-
-        public ActionResult ActivityItemHeader(IntranetActivityHeaderModel header)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", header);
-        }
-
         private void FillCreateEditModel(NewsCreateModel model)
         {
             FillLinks();
@@ -153,7 +143,7 @@ namespace uCommunity.News
                 var model = item.Map<NewsOverviewItemModelBase>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
 
-                model.HeaderInfo = item.Map<IntranetActivityHeaderModel>();
+                model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
 
                 yield return model;

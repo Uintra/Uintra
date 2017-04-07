@@ -4,7 +4,7 @@
     <div class="row clearfix">
         <div class="col-md-9">
             <span class="content__item-label">VIGTIGT</span>
-            @Html.Action("ActivityItemHeader", "Events", new { header = Model.HeaderInfo })
+            @Html.Action("ActivityItemHeader", "Activity", new { header = Model.HeaderInfo })
             <div class="content__item-image"> </div>
             <div class="content__item-images">
                 @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
