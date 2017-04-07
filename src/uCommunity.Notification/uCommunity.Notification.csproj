@@ -353,19 +353,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <None Include="App_Plugins\Notification\List\notification-list.html" />
-    <None Include="App_Plugins\Notification\List\_notificationList.css" />
-    <None Include="App_Plugins\Notification\Notification.js" />
-    <None Include="Core\Configuration\notificationConfiguration.json" />
-    <None Include="Core\Configuration\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\List\_notificationList.css" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\Notification.js" />
+    <Content Include="Core\Configuration\notificationConfiguration.json" />
+    <Content Include="Core\Configuration\reminderConfiguration.json" />
     <None Include="uCommunity.Notification.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <None Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

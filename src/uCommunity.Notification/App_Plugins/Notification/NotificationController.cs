@@ -44,7 +44,7 @@ namespace uCommunity.Notification
         }
 
         [System.Web.Mvc.HttpGet]
-        public int GetUnNotifiedCount()
+        public int GetNotNotifiedCount()
         {
             var userId = _intranetUserService.GetCurrentUserId();
             var count = _uiNotifierService.GetNotNotifiedCount(userId);
@@ -52,7 +52,7 @@ namespace uCommunity.Notification
         }
 
         [System.Web.Mvc.HttpPost]
-        public void Read([FromBody]Guid id)
+        public void View([FromBody]Guid id)
         {
             _uiNotifierService.ViewNotification(id);
         }
