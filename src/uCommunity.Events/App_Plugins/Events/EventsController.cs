@@ -104,7 +104,7 @@ namespace uCommunity.Events.App_Plugins.Events
             }
 
             var model = @event.Map<EventEditModel>();
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event);
+            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             FillCreateEditData(model);
             return PartialView("~/App_Plugins/Events/Edit/EditView.cshtml", model);
         }
@@ -121,7 +121,7 @@ namespace uCommunity.Events.App_Plugins.Events
             var @event = MapEditModel(saveModel);
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
 
-            if (_eventsService.CanEditSubscribe(@event))
+            if (_eventsService.CanEditSubscribe(@event.Id))
             {
                 @event.CanSubscribe = saveModel.CanSubscribe;
             }
@@ -141,7 +141,7 @@ namespace uCommunity.Events.App_Plugins.Events
         public JsonResult HasConfirmation(EventEditModel model)
         {
             var @event = MapEditModel(model);
-            return Json(new { HasConfirmation = _eventsService.IsActual(@event) && _eventsService.HasSubscribers(@event) });
+            return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
         }
 
         public ActionResult ItemView(EventsOverviewItemModelBase model)

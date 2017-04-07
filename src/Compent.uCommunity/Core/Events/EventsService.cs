@@ -71,27 +71,29 @@ namespace Compent.uCommunity.Core.Events
 
         public IEnumerable<Event> GetPastEvents()
         {
-            throw new NotImplementedException();
+            return GetAll().Where(@event => !IsActual(@event) && !@event.IsHidden);
         }
 
         public void Hide(Guid id)
         {
-            throw new NotImplementedException();
+            var @event = Get(id);
+            @event.IsHidden = true;
+            Save(@event);
         }
 
-        public bool CanEditSubscribe(EventBase activity)
+        public bool CanEditSubscribe(Event activity)
         {
-            return true;
+            return !activity.Subscribers.Any();
         }
 
         public bool CanSubscribe(EventBase activity)
         {
-            return true;
+            return IsActual(activity) && activity.CanSubscribe;
         }
 
-        public bool HasSubscribers(EventBase activity)
+        public bool HasSubscribers(Event activity)
         {
-            throw new NotImplementedException();
+            return activity.Subscribers.Any();
         }
 
         public MediaSettings GetMediaSettings()
@@ -115,7 +117,13 @@ namespace Compent.uCommunity.Core.Events
 
         public override bool CanEdit(EventBase activity)
         {
-            return true;
+            var currentUser = _intranetUserService.GetCurrentUser();
+            if (currentUser.Role == IntranetRolesEnum.WebMaster)
+            {
+                return true;
+            }
+
+            return activity.CreatorId == currentUser.Id;
         }
 
         public ICentralFeedItem GetItem(Guid activityId)
@@ -143,17 +151,21 @@ namespace Compent.uCommunity.Core.Events
 
         public global::uCommunity.Subscribe.Subscribe Subscribe(Guid userId, Guid activityId)
         {
-            throw new NotImplementedException();
+            var subscribe = _subscribeService.Subscribe(userId, activityId);
+            FillCache(activityId);
+            return subscribe;
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
         {
-            throw new NotImplementedException();
+            _subscribeService.Unsubscribe(userId, activityId);
+            FillCache(activityId);
         }
 
         public void UpdateNotification(Guid id, bool value)
         {
-            throw new NotImplementedException();
+            var subscribe = _subscribeService.UpdateNotification(id, value);
+            FillCache(subscribe.ActivityId);
         }
 
         public void Add(Guid userId, Guid activityId)
@@ -195,6 +207,11 @@ namespace Compent.uCommunity.Core.Events
         public ICommentable GetCommentsInfo(Guid activityId)
         {
             return Get(activityId);
+        }
+
+        public bool CanEditSubscribe(Guid activityId)
+        {
+            return !Get(activityId).Subscribers.Any();
         }
     }
 }
