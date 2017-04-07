@@ -318,9 +318,8 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.14.12\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=0.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Events.0.0.0.3\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events">
+      <HintPath>..\..\packages\uCommunity.Events.0.0.0.1\lib\net452\uCommunity.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
@@ -742,7 +741,7 @@
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
-    <Compile Include="Core\Events\Models\EventOverviewItemModel2.cs" />
+    <Compile Include="Core\Events\Models\EventOverviewItemModel.cs" />
     <Compile Include="Core\Events\Models\EventViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />

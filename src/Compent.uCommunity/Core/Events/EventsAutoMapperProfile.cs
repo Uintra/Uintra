@@ -14,8 +14,8 @@ namespace Compent.uCommunity.Core.Events
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Event, EventOverviewItemModel2>()
-                .IncludeBase<EventModelBase, EventOverviewItemModel2>()
+            Mapper.CreateMap<Event, EventOverviewItemModel>()
+                .IncludeBase<EventModelBase, EventOverviewItemModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Event, IntranetActivityHeaderModel>()
