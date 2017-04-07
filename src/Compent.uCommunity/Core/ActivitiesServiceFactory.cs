@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using uCommunity.Core.Activity;
+using uCommunity.Events;
 using uCommunity.News;
 
 namespace Compent.uCommunity.Core
@@ -24,8 +25,8 @@ namespace Compent.uCommunity.Core
             {
                 case IntranetActivityTypeEnum.News:
                     return _kernel.GetService<INewsService<NewsBase, NewsModelBase>>();
-                //case IntranetActivityTypeEnum.Events:
-                //    return _kernel.GetService<IEventsService<EventBase, EventModelBase>>();
+                case IntranetActivityTypeEnum.Events:
+                    return _kernel.GetService<IEventsService<EventBase, EventModelBase>>();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
