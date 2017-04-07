@@ -13,11 +13,9 @@ namespace uCommunity.Events
 
         void Hide(Guid id);
 
-        bool CanEditSubscribe(EventBase activity);
+        bool CanEditSubscribe(Guid activityId);
 
         bool CanSubscribe(EventBase activity);
-
-        bool HasSubscribers(EventBase activity);
 
         MediaSettings GetMediaSettings();
     }
