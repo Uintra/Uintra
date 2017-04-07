@@ -334,6 +334,11 @@
       <HintPath>..\..\packages\uCommunity.News.1.0.5.6\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uCommunity.Notification, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Notification.1.0.3.5\lib\net452\uCommunity.Notification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="uCommunity.Subscribe, Version=1.0.6.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Subscribe.1.0.6.4\lib\net452\uCommunity.Subscribe.dll</HintPath>
@@ -677,6 +682,9 @@
     <Content Include="App_Plugins\News\List\news-list.html" />
     <Content Include="App_Plugins\News\loader.gif" />
     <Content Include="App_Plugins\News\_news.css" />
+    <Content Include="App_Plugins\Notification\List\notification-list.html" />
+    <Content Include="App_Plugins\Notification\List\_notificationList.css" />
+    <Content Include="App_Plugins\Notification\Notification.js" />
     <Content Include="App_Plugins\Subscribe\Subscribe.js" />
     <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
     <Content Include="config\grid.editors.config.js" />
@@ -722,6 +730,7 @@
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="App_Plugins\News\IntranetNewsController.cs" />
+    <Compile Include="App_Plugins\Notification\NotificationController.cs" />
     <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
@@ -753,6 +762,7 @@
     <Compile Include="Core\News\Models\NewsOverviewItemModel.cs" />
     <Compile Include="Core\News\Models\NewsViewModel.cs" />
     <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
+    <Compile Include="Core\Notification\NotificationHelper.cs" />
     <Compile Include="Core\PublishedContentCustom.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
@@ -856,6 +866,11 @@
     <Content Include="App_Plugins\Events\List\OverView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -40,13 +40,13 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-//using uCommunity.Notification.Core.Services;
-//using uCommunity.Notification;
-//using uCommunity.Notification.Core.Configuration;
-//using SqlNotification = uCommunity.Notification.Core.Sql.Notification;
+using uCommunity.Notification.Core.Services;
+using uCommunity.Notification;
+using uCommunity.Notification.Core.Configuration;
+using SqlNotification = uCommunity.Notification.Core.Sql.Notification;
 using SqlSubscribe = uCommunity.Subscribe.Subscribe;
-//using Compent.uCommunity.Core.Notification;
-//using uCommunity.Notification.Core.Sql;
+using Compent.uCommunity.Core.Notification;
+using uCommunity.Notification.Core.Sql;
 using System.Reflection;
 using System.Linq;
 
@@ -164,16 +164,16 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
 
             // Notifications
-            //kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
-            //    .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/notificationConfiguration.json");
-            //kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
-            //    .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/reminderConfiguration.json");
-            //kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
-            //kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
-            //kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
-            //kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
-            //kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
-            //kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
+            kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
+                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/notificationConfiguration.json");
+            kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
+                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/reminderConfiguration.json");
+            kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
+            kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
+            kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
+            kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -213,8 +213,8 @@ namespace Compent.uCommunity.Core.IoC
             sqlTypes.Add(typeof(Like));
             sqlTypes.Add(typeof(SqlSubscribe));
             sqlTypes.Add(typeof(IntranetActivityEntity));
-            //sqlTypes.Add(typeof(SqlNotification));
-            //sqlTypes.Add(typeof(Reminder));
+            sqlTypes.Add(typeof(SqlNotification));
+            sqlTypes.Add(typeof(Reminder));
 
             var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
             using (var conn = connectionFactory.Open())

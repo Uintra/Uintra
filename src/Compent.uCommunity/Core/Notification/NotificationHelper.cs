@@ -15,7 +15,7 @@ namespace Compent.uCommunity.Core.Notification
 
         public IPublishedContent GetNotificationListPage()
         {
-            return _umbracoHelper.TypedContent(1170);
+            return _umbracoHelper.TypedContent(1174);
         }
     }
 }
