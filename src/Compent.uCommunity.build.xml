@@ -32,10 +32,25 @@
 	  <exec program="C:\Users\Administrator\AppData\Roaming\npm\webpack.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" verbose="true">
       </exec>
 	  
+      <call target="Target.CopyRoslyn" />
+
 	  <call target="Target.Deploy" />	  
     </if>
 	
    </target>
+
+   <target name="Target.RestoreNuGetPackages">
+     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln"/>
+   </target>
+      
+   <target name="Target.CopyRoslyn">
+    <property name="Csc.Setting.Robocopy.LogPath" value="${Csc.Setting.Build.LogDirectory}\Robocopy\CopyRoslyn.log" />
+    <property name="Csc.Setting.Robocopy.ExcludeDirectoryList" value=""  />
+    <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\roslyn" />
+    <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
+    <property name="Csc.Setting.Robocopy.Purge" value="False" />
+    <call target="Csc.Target.Robocopy" />
+  </target>
    
    <target name="Target.Deploy">
      <!-- Run robocopy -->	 
@@ -56,18 +71,6 @@
       <property name="Csc.Setting.Robocopy.Purge" value="${Csc.Property.RebuildDeploy.RobocopyPurge}" />
     </if>
 	
-	  <property name="Csc.Setting.Robocopy.LogPath" value="${Csc.Setting.Build.LogDirectory}\Robocopy\CopyRoslyn.log" />
-      <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\roslyn" />
-      <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
-      <property name="Csc.Setting.Robocopy.Purge" value="False" />
-    <call target="Csc.Target.Robocopy" />
-	
    </target>
-   
        
-   <target name="Target.RestoreNuGetPackages">
-     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln"/>
-   </target>
-   
-
 </project>
