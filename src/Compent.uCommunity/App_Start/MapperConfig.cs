@@ -17,6 +17,7 @@ namespace Compent.uCommunity.App_Start
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
             Mapper.AddProfile<LightboxAutoMapperProfile>();
             Mapper.AddProfile<NavigationAutoMapperProfile>();
+            Mapper.AddProfile<Core.Navigation.NavigationAutoMapperProfile>();
             Mapper.AddProfile<EventsAutoMapperProfile>();
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
             Mapper.AddProfile<NotificationAutoMapperProfile>();

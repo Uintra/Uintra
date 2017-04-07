@@ -757,6 +757,7 @@
     <Compile Include="Core\LikeableService.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
+    <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\NewsService.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\Models\NewsOverviewItemModel.cs" />
@@ -767,6 +768,7 @@
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
+    <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -7,10 +7,14 @@ using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
+using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Events;
 using uCommunity.Likes;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Entities;
+using uCommunity.Notification.Core.Services;
 using uCommunity.Subscribe;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -22,7 +26,8 @@ namespace Compent.uCommunity.Core.Events
         ICentralFeedItemService,
         ISubscribableService,
         ILikeableService,
-        ICommentableService
+        ICommentableService,
+        INotifyableService
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService _intranetUserService;
@@ -171,6 +176,7 @@ namespace Compent.uCommunity.Core.Events
         public void Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
+            Notify(activityId, NotificationTypeEnum.LikeAdded);
             FillCache(activityId);
         }
 
@@ -187,14 +193,24 @@ namespace Compent.uCommunity.Core.Events
 
         public void CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
-            _commentsService.Create(userId, activityId, text, parentId);
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
             FillCache(activityId);
+
+            if (parentId.HasValue)
+            {
+                Notify(parentId.Value, NotificationTypeEnum.CommentReplyed);
+            }
+            else
+            {
+                Notify(comment.Id, NotificationTypeEnum.CommentAdded);
+            }
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
             FillCache(comment.ActivityId);
+            Notify(comment.Id, NotificationTypeEnum.CommentEdited);
         }
 
         public void DeleteComment(Guid id)
@@ -212,6 +228,135 @@ namespace Compent.uCommunity.Core.Events
         public bool CanEditSubscribe(Guid activityId)
         {
             return !Get(activityId).Subscribers.Any();
+        }
+
+        public void Notify(Guid entityId, NotificationTypeEnum notificationType)
+        {
+            var notifierData = GetNotifierData(entityId, notificationType);
+
+            if (notifierData != null)
+            {
+                //_notificationService.ProcessNotification(notifierData);
+            }
+        }
+
+        private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
+        {
+            Event currentEvent;
+            
+            var data = new NotifierData
+            {
+                NotificationType = notificationType,
+                
+            };
+
+            switch (notificationType)
+            {
+                case NotificationTypeEnum.CommentReplyed:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            Title = currentEvent.Title,
+                            Url = GetUrlWithComment(currentEvent.Id, comment.Id),
+                            CommentId = comment.Id
+                        };
+                    }
+                    break;
+                case NotificationTypeEnum.CommentEdited:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = comment.UserId,
+                            NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
+                            Title = currentEvent.Title,
+                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                        };
+                        break;
+                    }
+                case NotificationTypeEnum.CommentAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = GetNotifiedSubsribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = comment.UserId,
+                            NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
+                            Title = currentEvent.Title,
+                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                        };
+                    }
+                    break;
+                case NotificationTypeEnum.LikeAdded:
+                    {
+                        currentEvent = Get(entityId);
+                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                        data.Value = new LikesNotifierDataModel
+                        {
+                            Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            Title = currentEvent?.Title,
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName
+                        };
+                    }
+                    break;
+
+                case NotificationTypeEnum.BeforeStart:
+                    {
+                        currentEvent = Get(entityId);
+                        data.ReceiverIds = GetNotifiedSubsribers(currentEvent);
+                        data.Value = new ActivityReminderDataModel
+                        {
+                            Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            Title = currentEvent.Title,
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            StartDate = currentEvent.StartDate
+                        };
+                    }
+                    break;
+
+                case NotificationTypeEnum.EventHided:
+                case NotificationTypeEnum.EventUpdated:
+                    {
+                        currentEvent = Get(entityId);
+                        data.ReceiverIds = GetNotifiedSubsribers(currentEvent);
+                        data.Value = new ActivityNotifierDataModel
+                        {
+                            ActivityType = currentEvent.Type,
+                            Title = currentEvent.Title,
+                            Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName
+                        };
+
+                        break;
+                    }
+                default:
+                   return null;
+            }
+            return data;
+        }
+
+        private string GetUrlWithComment(Guid eventId, Guid commentId)
+        {
+            return $"{GetDetailsPage().Url.UrlWithQueryString("id", eventId)}#{_commentsService.GetCommentViewId(commentId)}";
+        }
+
+        private static IEnumerable<Guid> GetNotifiedSubsribers(Event currentEvent)
+        {
+            return currentEvent.Subscribers.Where(s => !s.IsNotificationDisabled).Select(s => s.UserId);
         }
     }
 }

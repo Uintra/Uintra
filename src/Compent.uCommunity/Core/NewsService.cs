@@ -7,23 +7,34 @@ using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
+using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Likes;
 using uCommunity.News;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Entities;
+using uCommunity.Notification.Core.Services;
 using uCommunity.Subscribe;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace Compent.uCommunity.Core
 {
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>, INewsService<NewsBase, News.Entities.News>, ICentralFeedItemService, ICommentableService, ILikeableService, ISubscribableService
+    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>, 
+        INewsService<NewsBase, News.Entities.News>, 
+        ICentralFeedItemService, 
+        ICommentableService, 
+        ILikeableService, 
+        ISubscribableService,
+        INotifyableService
     {
         private readonly IIntranetUserService _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISubscribeService _subscribeService;
+        //private readonly INotificationsService _notificationService;
 
         public NewsService(IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService,
@@ -31,7 +42,8 @@ namespace Compent.uCommunity.Core
             ICommentsService commentsService,
             ILikesService likesService, 
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper)
+            UmbracoHelper umbracoHelper
+            /*INotificationsService notificationService*/)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
@@ -39,6 +51,7 @@ namespace Compent.uCommunity.Core
             _likesService = likesService;
             _umbracoHelper = umbracoHelper;
             _subscribeService = subscribeService;
+            //_notificationService = notificationService;
         }
 
         public MediaSettings GetMediaSettings()
@@ -124,21 +137,21 @@ namespace Compent.uCommunity.Core
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             FillCache(activityId);
 
-            /*if (parentId.HasValue)
+            if (parentId.HasValue)
             {
                 Notify(parentId.Value, NotificationTypeEnum.CommentReplyed);
             }
             else
             {
                 Notify(comment.Id, NotificationTypeEnum.CommentAdded);
-            }*/
+            }
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
             FillCache(comment.ActivityId);
-            //Notify(comment.Id, NotificationTypeEnum.CommentEdited);
+            Notify(comment.Id, NotificationTypeEnum.CommentEdited);
         }
 
         public void DeleteComment(Guid id)
@@ -156,7 +169,7 @@ namespace Compent.uCommunity.Core
         public void Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            //Notify(activityId, NotificationTypeEnum.LikeAdded);
+            Notify(activityId, NotificationTypeEnum.LikeAdded);
             FillCache(activityId);
         }
 
@@ -188,6 +201,83 @@ namespace Compent.uCommunity.Core
         {
             var subscribe = _subscribeService.UpdateNotification(id, value);
             FillCache(subscribe.ActivityId);
+        }
+
+        public void Notify(Guid entityId, NotificationTypeEnum notificationType)
+        {
+            var notifierData = GetNotifierData(entityId, notificationType);
+            if (notifierData != null)
+            {
+               //_notificationService.ProcessNotification(notifierData);
+            }
+        }
+
+        private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
+        {
+            News.Entities.News news;
+            var currentUser = _intranetUserService.GetCurrentUser();
+            var data = new NotifierData
+            {
+                NotificationType = notificationType
+            };
+
+            switch (notificationType)
+            {
+                case NotificationTypeEnum.LikeAdded:
+                    {
+                        news = Get(entityId);
+                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                        data.Value = new LikesNotifierDataModel()
+                        {
+                            Url = GetDetailsPage().Url.UrlWithQueryString("id", news.Id),
+                            Title = news.Title,
+                            ActivityType = IntranetActivityTypeEnum.News,
+                            NotifierId = currentUser.Id,
+                            NotifierName = currentUser.DisplayedName
+                        };
+                    }
+                    break;
+                case NotificationTypeEnum.CommentAdded:
+                case NotificationTypeEnum.CommentEdited:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        news = Get(comment.ActivityId);
+                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel()
+                        {
+                            ActivityType = IntranetActivityTypeEnum.News,
+                            NotifierId = comment.UserId,
+                            NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
+                            Title = news.Title,
+                            Url = GetUrlWithComment(news.Id, comment.Id)
+                        };
+                    }
+                    break;
+                case NotificationTypeEnum.CommentReplyed:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        news = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            ActivityType = IntranetActivityTypeEnum.Ideas,
+                            NotifierId = currentUser.Id,
+                            NotifierName = currentUser.DisplayedName,
+                            Title = news.Title,
+                            Url = GetUrlWithComment(news.Id, comment.Id),
+                            CommentId = comment.Id
+                        };
+                    }
+                    break;
+                default:
+                        return null;
+            }
+            return data;
+        }
+
+        private string GetUrlWithComment(Guid newsId, Guid commentId)
+        {
+            return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
         }
     }
 }
