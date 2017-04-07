@@ -42,11 +42,13 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 //using uCommunity.Notification.Core.Services;
 //using uCommunity.Notification;
-//using uCommunity.Notification.DefaultImplementation;
-//using INotificationService = uCommunity.Notification.Core.Services.INotificationService;
-//using NotificationService = uCommunity.Notification.NotificationService;
 //using uCommunity.Notification.Core.Configuration;
+//using SqlNotification = uCommunity.Notification.Core.Sql.Notification;
+using SqlSubscribe = uCommunity.Subscribe.Subscribe;
 //using Compent.uCommunity.Core.Notification;
+//using uCommunity.Notification.Core.Sql;
+using System.Reflection;
+using System.Linq;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -138,11 +140,6 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
 
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(TDIntranetConnectionString, SqlServerDialect.Provider)).InSingletonScope();
-
-            kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
-            kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
-            kernel.Bind<ISqlRepository<global::uCommunity.Subscribe.Subscribe>>().To<SqlRepository<global::uCommunity.Subscribe.Subscribe>>().InRequestScope();
-            kernel.Bind<ISqlRepository<IntranetActivityEntity>>().To<SqlRepository<IntranetActivityEntity>>().InRequestScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
 
@@ -174,7 +171,7 @@ namespace Compent.uCommunity.Core.IoC
             //kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
             //kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
             //kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
-            //kernel.Bind<INotificationService>().To<NotificationService>().InRequestScope();
+            //kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
             //kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
             //kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
 
@@ -185,6 +182,10 @@ namespace Compent.uCommunity.Core.IoC
 
             // Model Binders
             kernel.Bind<DateTimeBinder>().ToSelf().InSingletonScope();
+
+            //Sql 
+            kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>)).InRequestScope();
+            EnsureTablesExists(kernel);
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
@@ -201,6 +202,28 @@ namespace Compent.uCommunity.Core.IoC
             var webSecurity = new WebSecurity(httpContextWrapper, ApplicationContext.Current);
             var result = UmbracoContext.EnsureContext(httpContextWrapper, ApplicationContext.Current, webSecurity, umbracoSettings, urlProvider, false);
             return result;
+        }
+
+        private static void EnsureTablesExists(IKernel kernel)
+        {
+            var sqlTypes = Assembly.GetAssembly(typeof(SqlEntity))
+                            .GetTypes()
+                            .Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(SqlEntity))).ToList();
+            sqlTypes.Add(typeof(Comment));
+            sqlTypes.Add(typeof(Like));
+            sqlTypes.Add(typeof(SqlSubscribe));
+            sqlTypes.Add(typeof(IntranetActivityEntity));
+            //sqlTypes.Add(typeof(SqlNotification));
+            //sqlTypes.Add(typeof(Reminder));
+
+            var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
+            using (var conn = connectionFactory.Open())
+            {
+                foreach (var sqlType in sqlTypes)
+                {
+                    conn.CreateTableIfNotExists(sqlType);
+                }
+            }
         }
     }
 }

@@ -12,13 +12,13 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Notification
 {
-    public class NotificationsController : SurfaceController
+    public class NotificationController : SurfaceController
     {
         private readonly IUiNotifierService _uiNotifierService;
         private readonly IIntranetUserService _intranetUserService;
         private int ItemsPerPage = 8;
 
-        public NotificationsController(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService)
+        public NotificationController(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService)
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;

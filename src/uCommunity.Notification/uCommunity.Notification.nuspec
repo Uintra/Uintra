@@ -14,7 +14,4 @@
       <dependency id="uCommunity.Core" version="1.0.14" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="App_Plugins\Notification\NotificationsController.cs" target="content\App_Plugins\Notification\IntranetNotificationsController.cs" />
-  </files>
 </package>
