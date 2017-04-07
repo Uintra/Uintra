@@ -43,11 +43,6 @@
 	  <property name="Csc.Setting.Robocopy.ExcludeFileList" value="package.json,packages.config,postcss.config.js,webpack.config.js"  />
       <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.DeployDirectory}" if="${Csc.Setting.Robocopy.ToDirectory == ''}" />
 	  
-	  <property name="Csc.Setting.Robocopy.LogPath" value="${Csc.Setting.Build.LogDirectory}\Robocopy\CopyRoslyn.log" />
-      <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\roslyn" />
-      <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
-      <property name="Csc.Setting.Robocopy.Purge" value="False" />
-
     <if test="${Csc.Setting.Robocopy.ToDirectory != ''}">
       <fail message="The required property 'Csc.Setting.RebuildDeploy.WebProjectName' has not been defined." unless="${Csc.Setting.RebuildDeploy.WebProjectName != ''}" />
 
@@ -60,6 +55,11 @@
 
       <property name="Csc.Setting.Robocopy.Purge" value="${Csc.Property.RebuildDeploy.RobocopyPurge}" />
     </if>
+	
+	  <property name="Csc.Setting.Robocopy.LogPath" value="${Csc.Setting.Build.LogDirectory}\Robocopy\CopyRoslyn.log" />
+      <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\roslyn" />
+      <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
+      <property name="Csc.Setting.Robocopy.Purge" value="False" />
 	
    </target>
    
