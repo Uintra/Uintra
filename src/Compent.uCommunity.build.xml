@@ -60,6 +60,7 @@
       <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\roslyn" />
       <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
       <property name="Csc.Setting.Robocopy.Purge" value="False" />
+    <call target="Csc.Target.Robocopy" />
 	
    </target>
    
