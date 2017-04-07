@@ -7,7 +7,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Entities.Base;
 using uCommunity.Notification.Core.Services;
 
-namespace uCommunity.Notification.DefaultImplementation
+namespace uCommunity.Notification
 {
     public class ReminderJob : IReminderJob
     {

@@ -11,13 +11,13 @@ using uCommunity.Notification.Core.Entities;
 
 namespace uCommunity.Notification
 {
-    public class NotificationService : INotificationService
+    public class NotificationsService : INotificationsService
     {
         private readonly IEnumerable<INotifierService> _notifiers;
         private readonly IConfigurationProvider<NotificationConfiguration> _notificationConfigurationService;
         private readonly IExceptionLogger _exceptionLogger;
 
-        public NotificationService(
+        public NotificationsService(
             IEnumerable<INotifierService> notifiers,
             IConfigurationProvider<NotificationConfiguration> notificationConfigurationService,
             IExceptionLogger exceptionLogger)

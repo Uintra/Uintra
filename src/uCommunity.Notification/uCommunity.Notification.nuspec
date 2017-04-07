@@ -15,6 +15,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="App_Plugins\Notification\NotificationController.cs" target="content\App_Plugins\Notification\IntranetNotificationController.cs" />
+    <file src="App_Plugins\Notification\NotificationsController.cs" target="content\App_Plugins\Notification\IntranetNotificationsController.cs" />
   </files>
 </package>

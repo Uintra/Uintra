@@ -310,7 +310,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Plugins\Notification\NotificationController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="App_Plugins\Notification\NotificationsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />
@@ -329,7 +329,7 @@
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
     <Compile Include="Core\Services\INotificationHelper.cs" />
-    <Compile Include="Core\Services\INotificationService.cs" />
+    <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
     <Compile Include="Core\Services\INotifierService.cs" />
     <Compile Include="Core\Services\INotifyableService.cs" />
@@ -342,7 +342,7 @@
     <Compile Include="Core\Configuration\ReminderTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
-    <Compile Include="DefaultImplementation\NotificationService.cs" />
+    <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
@@ -358,8 +358,8 @@
     <Content Include="App_Plugins\Notification\List\_notificationList.css" />
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\Notification.js" />
-    <Content Include="Core\Configuration\notificationConfiguration.json" />
-    <Content Include="Core\Configuration\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <None Include="uCommunity.Notification.nuspec" />
   </ItemGroup>
   <ItemGroup>

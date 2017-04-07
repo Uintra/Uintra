@@ -40,6 +40,13 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+//using uCommunity.Notification.Core.Services;
+//using uCommunity.Notification;
+//using uCommunity.Notification.DefaultImplementation;
+//using INotificationService = uCommunity.Notification.Core.Services.INotificationService;
+//using NotificationService = uCommunity.Notification.NotificationService;
+//using uCommunity.Notification.Core.Configuration;
+//using Compent.uCommunity.Core.Notification;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -158,6 +165,18 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
+
+            // Notifications
+            //kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
+            //    .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/notificationConfiguration.json");
+            //kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
+            //    .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/reminderConfiguration.json");
+            //kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
+            //kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            //kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
+            //kernel.Bind<INotificationService>().To<NotificationService>().InRequestScope();
+            //kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
+            //kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();

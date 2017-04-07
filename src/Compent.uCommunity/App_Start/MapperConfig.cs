@@ -18,6 +18,7 @@ namespace Compent.uCommunity.App_Start
             Mapper.AddProfile<NavigationAutoMapperProfile>();
             Mapper.AddProfile<EventsAutoMapperProfile>();
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
+         //   Mapper.AddProfile<NotificationAutoMapperProfile>();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace uCommunity.Notification.Core.Services
 {
-    public interface INotificationService
+    public interface INotificationsService
     {
         void ProcessNotification(NotifierData data);
     }
