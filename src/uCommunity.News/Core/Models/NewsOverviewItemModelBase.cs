@@ -13,6 +13,6 @@ namespace uCommunity.News
 
         public string MediaIds { get; set; }
 
-        public IntranetActivityItemHeaderViewModel ItemHeaderViewInfo { get; set; }
+        public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
     }
 }

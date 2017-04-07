@@ -149,16 +149,6 @@ namespace uCommunity.Events.App_Plugins.Events
             return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
         }
 
-        public ActionResult ActivityDetailsHeader(IntranetActivityDetailsHeaderViewModel detailsHeader)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", detailsHeader);
-        }
-
-        public ActionResult ActivityItemHeader(IntranetActivityItemHeaderViewModel itemHeaderView)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", itemHeaderView);
-        }
-
         private EventModelBase MapEditModel(EventEditModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
@@ -191,8 +181,8 @@ namespace uCommunity.Events.App_Plugins.Events
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
-                model.ItemHeaderViewInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-                model.ItemHeaderViewInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
+                model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
+                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
 
                 yield return model;
             }

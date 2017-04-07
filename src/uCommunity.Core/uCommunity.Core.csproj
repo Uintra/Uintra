@@ -365,7 +365,7 @@
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
-    <Compile Include="App_Plugins\Core\Activity\ActivityController.cs" />
+    <Compile Include="App_Plugins\Core\Activity\ActivityController.cs" Condition=" '$(Configuration)' == 'Debug' "/>
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityModelBase.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />

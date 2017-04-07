@@ -57,8 +57,8 @@ namespace uCommunity.News
             }
 
             var model = news.Map<NewsViewModelBase>();
-            model.DetailsHeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.DetailsHeaderInfo.Dates = new List<string> { news.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
+            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
+            model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
@@ -125,16 +125,6 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
-        public ActionResult ActivityDetailsHeader(IntranetActivityDetailsHeaderViewModel detailsHeader)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", detailsHeader);
-        }
-
-        public ActionResult ActivityItemHeader(IntranetActivityItemHeaderViewModel itemHeaderView)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", itemHeaderView);
-        }
-
         private void FillCreateEditModel(NewsCreateModel model)
         {
             FillLinks();
@@ -153,8 +143,8 @@ namespace uCommunity.News
                 var model = item.Map<NewsOverviewItemModelBase>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
 
-                model.ItemHeaderViewInfo = item.Map<IntranetActivityItemHeaderViewModel>();
-                model.ItemHeaderViewInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
+                model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
+                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
 
                 yield return model;
             }
