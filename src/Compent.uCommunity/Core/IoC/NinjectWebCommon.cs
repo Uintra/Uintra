@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -48,8 +49,6 @@ namespace Compent.uCommunity.Core.IoC
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
-
-        private static readonly string TDIntranetConnectionString = @"server=192.168.0.208\SQL2014;database=uCommunity_TestData;user id=sa;password='q1w2e3r4'";
 
         public static void Start()
         {
@@ -127,7 +126,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
             kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
 
-            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(TDIntranetConnectionString, SqlServerDialect.Provider)).InSingletonScope();
+            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["dataDB"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
 
             kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
             kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
