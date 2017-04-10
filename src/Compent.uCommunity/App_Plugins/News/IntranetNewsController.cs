@@ -4,23 +4,26 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.News
 {
+    [ActivityController(IntranetActivityTypeEnum.News)]
     public class NewsController : SurfaceController
     {
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
-        private readonly INewsService<NewsBase, Compent.uCommunity.Core.News.Entities.News> _newsService;
+        private readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
         public NewsController(
             IIntranetUserService intranetUserService,
-            INewsService<NewsBase, Compent.uCommunity.Core.News.Entities.News> newsService,
+            INewsService<NewsBase, NewsModelBase> newsService,
             IMediaHelper mediaHelper)
         {
             _intranetUserService = intranetUserService;
@@ -66,6 +69,7 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", model);
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create()
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
@@ -74,6 +78,7 @@ namespace uCommunity.News
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create(NewsCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -90,6 +95,7 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(Guid id)
         {
             var news = _newsService.Get(id);
@@ -109,28 +115,21 @@ namespace uCommunity.News
         }
 
         [HttpPost]
-        public ActionResult Edit(NewsEditModel saveModel)
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult Edit(NewsEditModel editModel)
         {
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(saveModel);
-                return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", saveModel);
+                FillCreateEditData(editModel);
+                return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", editModel);
             }
 
-            var activity = saveModel.Map<NewsModelBase>();
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            var activity = editModel.Map<NewsModelBase>();
+            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
             _newsService.Save(activity);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
-        }
-
-        public ActionResult CentralFeedItem(CentralFeed.ICentralFeedItem item)
-        {
-            FillLinks();
-            var activity = item as NewsModelBase;
-
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
 
         private void FillCreateEditData(IContentWithMediaCreateEditModel model)

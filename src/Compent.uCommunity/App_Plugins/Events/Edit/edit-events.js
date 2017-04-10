@@ -1,24 +1,27 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
+﻿require("./../../Core/Content/libs/jquery.validate.min.js");
+require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
+require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
+
+import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
-import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
-var Alertify = require('alertifyjs/build/alertify.min');
 
 require('select2');
 require('./../../Core/Controls/Confirm/Confirm');
+require('./../../Core/Content/scripts/ValidationExtensions');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('dropzone/dist/min/dropzone.min.css');
 
-'use strict';
 var EditEventsController = (function () {
     var holder;
     var userSelect;
     var editor;
     var form;
+    var umbracoAjaxForm = App.UmbracoAjaxFormFactory;
 
     var initUserSelect = function () {
         userSelect = holder.find('#js-user-select').select2({});
@@ -81,7 +84,7 @@ var EditEventsController = (function () {
             descriptionElem.removeClass('input-validation-error');
             event.preventDefault();
 
-            var data = umbracoAjaxForm()(form[0]).serialize();
+            var data = umbracoAjaxForm.serialize(form[0]);
             $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
                 
                 if (result && !result.HasConfirmation) {
