@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace uCommunity.Core.Activity.Models
 {
-    public class IntranetActivitySaveModelBase
+    public class IntranetActivityEditModelBase
     {
         [Required]
         public virtual Guid Id { get; set; }
