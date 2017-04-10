@@ -1,4 +1,8 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
+﻿require("./../../Core/Content/libs/jquery.validate.min.js");
+require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
+require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
+
+import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
@@ -6,11 +10,11 @@ var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
 require('select2');
+require('./../../Core/Content/scripts/ValidationExtensions');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('dropzone/dist/min/dropzone.min.css');
 
-'use strict';
 var CreateEventsController = (function () {
     var holder;
     var userSelect;

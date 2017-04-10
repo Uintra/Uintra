@@ -1,5 +1,5 @@
 ﻿@using System.Web.Mvc.Html
-@model Compent.uCommunity.Core.News.Models.NewsOverviewItemModel
+@model uCommunity.News.NewsOverviewItemViewModel
 
 <div class="content__item">
     <div class="row clearfix">
@@ -12,12 +12,6 @@
             </div>
             <div class="content__item-images">
                 @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
-            </div>
-            <div class="content__item-feed">
-                <div class="content__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
-                </div>
             </div>
         </div>
     </div>

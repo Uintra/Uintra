@@ -1,4 +1,4 @@
-﻿@model Compent.uCommunity.Core.Events.EventOverviewItemModel
+﻿@model uCommunity.Events.EventsOverviewItemModelBase
 
 <div class="content__item">
     <div class="row clearfix">
@@ -11,12 +11,6 @@
             </div>
             <div class="content__item-txt _clamp">
                 <p>@Html.Raw(Model.Description)</p>
-            </div>
-            <div class="content__item-feed">
-                <div class="content__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
-                </div>
             </div>
         </div>
     </div>

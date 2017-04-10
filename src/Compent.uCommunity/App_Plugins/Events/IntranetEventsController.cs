@@ -5,24 +5,31 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using uCommunity.Core;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
+using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Events.App_Plugins.Events
 {
+    [ActivityController(IntranetActivityTypeEnum.Events)]
     public class EventsController : SurfaceController
     {
-        private readonly IEventsService<EventBase, Compent.uCommunity.Core.Events.Event> _eventsService;
+        private readonly IEventsService<EventBase, EventModelBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetUserService _intranetUserService;
 
         public EventsController(
-            IEventsService<EventBase, Compent.uCommunity.Core.Events.Event> eventsService,
-            IMediaHelper mediaHelper)
+            IEventsService<EventBase, EventModelBase> eventsService,
+            IMediaHelper mediaHelper,
+            IIntranetUserService intranetUserService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
+            _intranetUserService = intranetUserService;
         }
 
         public ActionResult OverView()
@@ -33,7 +40,7 @@ namespace uCommunity.Events.App_Plugins.Events
 
         public ActionResult List(EventType type, bool showOnlySubscribed)
         {
-            IEnumerable<Compent.uCommunity.Core.Events.Event> events = type == EventType.Actual ?
+            IEnumerable<EventModelBase> events = type == EventType.Actual ?
                 _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
@@ -61,6 +68,7 @@ namespace uCommunity.Events.App_Plugins.Events
             return PartialView("~/App_Plugins/Events/Details/DetailsView.cshtml", model);
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create()
         {
             var model = new EventCreateModel
@@ -74,6 +82,7 @@ namespace uCommunity.Events.App_Plugins.Events
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create(EventCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -82,14 +91,16 @@ namespace uCommunity.Events.App_Plugins.Events
                 return PartialView("~/App_Plugins/Events/Create/CreateView.cshtml", createModel);
             }
 
-            var @event = createModel.Map<Compent.uCommunity.Core.Events.Event>();
+            var @event = createModel.Map<EventModelBase>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(Guid id)
         {
             var @event = _eventsService.Get(id);
@@ -110,6 +121,7 @@ namespace uCommunity.Events.App_Plugins.Events
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(EventEditModel saveModel)
         {
             if (!ModelState.IsValid)
@@ -120,6 +132,7 @@ namespace uCommunity.Events.App_Plugins.Events
 
             var @event = MapEditModel(saveModel);
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
@@ -141,23 +154,15 @@ namespace uCommunity.Events.App_Plugins.Events
         public JsonResult HasConfirmation(EventEditModel model)
         {
             var @event = MapEditModel(model);
-            return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
+            return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
         }
 
-        public ActionResult ItemView(Compent.uCommunity.Core.Events.EventOverviewItemModel model)
+        public ActionResult ItemView(EventsOverviewItemModelBase model)
         {
             return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
         }
 
-        public ActionResult CentralFeedItem(CentralFeed.ICentralFeedItem item)
-        {
-            FillLinks();
-            var activity = item as Compent.uCommunity.Core.Events.Event;
-
-            return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
-        }
-
-        private Compent.uCommunity.Core.Events.Event MapEditModel(EventEditModel saveModel)
+        private EventModelBase MapEditModel(EventEditModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
@@ -180,12 +185,12 @@ namespace uCommunity.Events.App_Plugins.Events
             ViewData["OverviewPageUrl"] = _eventsService.GetOverviewPage().Url;
         }
 
-        private IEnumerable<Compent.uCommunity.Core.Events.EventOverviewItemModel> GetOverviewItems(IEnumerable<Compent.uCommunity.Core.Events.Event> events)
+        private IEnumerable<EventsOverviewItemModelBase> GetOverviewItems(IEnumerable<EventModelBase> events)
         {
             var detailsPageUrl = _eventsService.GetDetailsPage().Url;
             foreach (var @event in events)
             {
-                var model = @event.Map<Compent.uCommunity.Core.Events.EventOverviewItemModel>();
+                var model = @event.Map<EventsOverviewItemModelBase>();
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 

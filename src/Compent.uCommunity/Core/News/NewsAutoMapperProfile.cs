@@ -9,9 +9,8 @@ namespace Compent.uCommunity.Core.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Entities.News, NewsViewModel>()
-                .IncludeBase<NewsModelBase, NewsViewModel>()
-                .IncludeBase<NewsModelBase, NewsViewModelBase>()
+            Mapper.CreateMap<Entities.News, UCommunityNewsViewModel>()
+                .IncludeBase<NewsModelBase, UCommunityNewsViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 

@@ -4,7 +4,7 @@ using uCommunity.News;
 
 namespace Compent.uCommunity.Core.News.Models
 {
-    public class NewsViewModel : NewsViewModelBase
+    public class UCommunityNewsViewModel : NewsViewModel
     {
         public ILikeable LikesInfo { get; set; }
         public ICommentable CommentsInfo { get; set; }
