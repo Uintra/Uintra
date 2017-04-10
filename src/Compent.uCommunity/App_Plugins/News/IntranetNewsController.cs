@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
+using uCommunity.CentralFeed;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
@@ -67,6 +68,14 @@ namespace uCommunity.News
             model.CanEdit = _newsService.CanEdit(news);
 
             return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", model);
+        }
+
+        public ActionResult CentralFeedItem(ICentralFeedItem item)
+        {
+            FillLinks();
+            var activity = item as NewsModelBase;
+
+            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Create)]
