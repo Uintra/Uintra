@@ -3,17 +3,17 @@ using System.Linq;
 
 namespace uCommunity.News
 {
-    public class NewsOverviewModel
+    public class NewsOverviewViewModel
     {
-        public IEnumerable<NewsOverviewItemModelBase> Items { get; set; }
+        public IEnumerable<NewsOverviewItemViewModel> Items { get; set; }
 
         public string CreatePageUrl { get; set; }
 
         public string DetailsPageUrl { get; set; }
 
-        public NewsOverviewModel()
+        public NewsOverviewViewModel()
         {
-            Items = Enumerable.Empty<NewsOverviewItemModelBase>();
+            Items = Enumerable.Empty<NewsOverviewItemViewModel>();
         }
     }
 }

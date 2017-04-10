@@ -557,15 +557,13 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Entities\NewsModelBase.cs" />
-    <Compile Include="Core\Models\Base\NewsCreateEditModelBase.cs" />
-    <Compile Include="Core\Models\Base\NewsViewModelBase.cs" />
-    <Compile Include="Core\Models\Base\NewsSaveModelBase.cs" />
+    <Compile Include="Core\Models\NewsCreateModel.cs" />
+    <Compile Include="Core\Models\NewsViewModel.cs" />
     <Compile Include="Core\Entities\NewsBase.cs" />
     <Compile Include="Core\Services\INewsService.cs" />
-    <Compile Include="Core\Models\NewsCreateModel.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
-    <Compile Include="Core\Models\NewsOverviewItemModelBase.cs" />
-    <Compile Include="Core\Models\NewsOverviewModel.cs" />
+    <Compile Include="Core\Models\NewsOverviewItemViewModel.cs" />
+    <Compile Include="Core\Models\NewsOverviewViewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\Dashboard\Controllers\NewsSectionController.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeCreateModel.cs" />
