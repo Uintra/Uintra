@@ -8,6 +8,7 @@ using uCommunity.Core;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
+using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Events.App_Plugins.Events
@@ -16,13 +17,16 @@ namespace uCommunity.Events.App_Plugins.Events
     {
         private readonly IEventsService<EventBase, EventModelBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetUserService _intranetUserService;
 
         public EventsController(
             IEventsService<EventBase, EventModelBase> eventsService,
-            IMediaHelper mediaHelper)
+            IMediaHelper mediaHelper,
+            IIntranetUserService intranetUserService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
+            _intranetUserService = intranetUserService;
         }
 
         public ActionResult OverView()
@@ -84,6 +88,7 @@ namespace uCommunity.Events.App_Plugins.Events
 
             var @event = createModel.Map<EventModelBase>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
 
@@ -120,6 +125,7 @@ namespace uCommunity.Events.App_Plugins.Events
 
             var @event = MapEditModel(saveModel);
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
