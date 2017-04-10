@@ -31,7 +31,7 @@ namespace uCommunity.News
         public ActionResult List()
         {
             var news = _newsService.GetManyActual();
-            var model = new NewsOverviewModel
+            var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
                 DetailsPageUrl = _newsService.GetDetailsPage().Url,
@@ -42,7 +42,7 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
         }
 
-        public ActionResult ItemView(NewsOverviewItemModelBase model)
+        public ActionResult ItemView(NewsOverviewItemViewModel model)
         {
             return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
         }
@@ -56,7 +56,7 @@ namespace uCommunity.News
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
             }
 
-            var model = news.Map<Compent.uCommunity.Core.News.Models.NewsViewModel>();
+            var model = news.Map<Compent.uCommunity.Core.News.Models.NewsExtendedViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
             model.EditPageUrl = _newsService.GetEditPage().Url;
@@ -69,7 +69,7 @@ namespace uCommunity.News
         public ActionResult Create()
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
-            FillCreateEditModel(model);
+            FillCreateEditData(model);
             return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", model);
         }
 
@@ -78,7 +78,7 @@ namespace uCommunity.News
         {
             if (!ModelState.IsValid)
             {
-                FillCreateEditModel(createModel);
+                FillCreateEditData(createModel);
                 return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", createModel);
             }
 
@@ -104,7 +104,7 @@ namespace uCommunity.News
             }
 
             var model = news.Map<NewsEditModel>();
-            FillCreateEditModel(model);
+            FillCreateEditData(model);
             return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", model);
         }
 
@@ -113,7 +113,7 @@ namespace uCommunity.News
         {
             if (!ModelState.IsValid)
             {
-                FillCreateEditModel(saveModel);
+                FillCreateEditData(saveModel);
                 return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", saveModel);
             }
 
@@ -133,22 +133,21 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
 
-        private void FillCreateEditModel(NewsCreateModel model)
+        private void FillCreateEditData(IContentWithMediaCreateEditModel model)
         {
             FillLinks();
-            model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
 
             var mediaSettings = _newsService.GetMediaSettings();
-            model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
+            ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        private IEnumerable<Compent.uCommunity.Core.News.Models.NewsOverviewItemModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        private IEnumerable<Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
             var detailsPageUrl = _newsService.GetDetailsPage().Url;
             foreach (var item in news)
             {
-                var model = item.Map<Compent.uCommunity.Core.News.Models.NewsOverviewItemModel>();
+                var model = item.Map<Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
 
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();

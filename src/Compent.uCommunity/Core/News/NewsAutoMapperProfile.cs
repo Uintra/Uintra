@@ -9,14 +9,14 @@ namespace Compent.uCommunity.Core.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Entities.News, NewsViewModel>()
+            Mapper.CreateMap<Entities.News, NewsExtendedViewModel>()
+                .IncludeBase<NewsModelBase, NewsExtendedViewModel>()
                 .IncludeBase<NewsModelBase, NewsViewModel>()
-                .IncludeBase<NewsModelBase, NewsViewModelBase>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Entities.News, NewsOverviewItemModel>()
-                .IncludeBase<NewsModelBase, NewsOverviewItemModel>()
+            Mapper.CreateMap<Entities.News, NewsOverviewItemExtendedViewModel>()
+                .IncludeBase<NewsModelBase, NewsOverviewItemExtendedViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()

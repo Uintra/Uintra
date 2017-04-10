@@ -3,7 +3,7 @@ using uCommunity.News;
 
 namespace Compent.uCommunity.Core.News.Models
 {
-    public class NewsOverviewItemModel : NewsOverviewItemModelBase 
+    public class NewsOverviewItemExtendedViewModel : NewsOverviewItemViewModel
     {
         public ILikeable LikesInfo { get; set; }
     }
