@@ -318,8 +318,8 @@
     <Reference Include="uCommunity.Core, Version=1.0.16.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Core.1.0.16.1\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Events.1.0.0.2\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Events.1.0.1.3\lib\net452\uCommunity.Events.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>
@@ -722,7 +722,6 @@
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
-    <Compile Include="App_Plugins\Events\IntranetEventsController.cs" />
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
@@ -733,6 +732,7 @@
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\SubscribePageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -747,7 +747,7 @@
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Events\Models\EventOverviewItemModel.cs" />
-    <Compile Include="Core\Events\Models\EventViewModel.cs" />
+    <Compile Include="Core\Events\Models\IntranetEventViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />

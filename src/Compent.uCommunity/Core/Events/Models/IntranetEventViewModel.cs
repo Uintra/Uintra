@@ -4,7 +4,7 @@ using uCommunity.Likes;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class EventViewModel : EventViewModelBase
+    public class IntranetEventViewModel : EventViewModel
     {
         public ILikeable LikesInfo { get; set; }
         public ICommentable CommentsInfo { get; set; }
