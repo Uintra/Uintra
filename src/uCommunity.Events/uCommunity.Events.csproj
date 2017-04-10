@@ -330,6 +330,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uCommunity.CentralFeed\uCommunity.CentralFeed.csproj">
+      <Project>{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}</Project>
+      <Name>uCommunity.CentralFeed</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uCommunity.Core</Name>
