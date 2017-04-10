@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.CentralFeed;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
@@ -13,16 +12,16 @@ using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.News
+namespace uCommunity.News.Web
 {
     [ActivityController(IntranetActivityTypeEnum.News)]
-    public class NewsController : SurfaceController
+    public abstract class NewsControllerBase : SurfaceController
     {
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
         private readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
-        public NewsController(
+        protected NewsControllerBase(
             IIntranetUserService intranetUserService,
             INewsService<NewsBase, NewsModelBase> newsService,
             IMediaHelper mediaHelper)
@@ -32,7 +31,7 @@ namespace uCommunity.News
             _mediaHelper = mediaHelper;
         }
 
-        public ActionResult List()
+        public virtual ActionResult List()
         {
             var news = _newsService.GetManyActual();
             var model = new NewsOverviewViewModel
@@ -46,12 +45,12 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
         }
 
-        public ActionResult ItemView(NewsOverviewItemViewModel model)
+        public virtual ActionResult ItemView(NewsOverviewItemViewModel model)
         {
             return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
         }
 
-        public ActionResult Details(Guid id)
+        public virtual ActionResult Details(Guid id)
         {
             var news = _newsService.Get(id);
 
@@ -70,16 +69,8 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", model);
         }
 
-        public ActionResult CentralFeedItem(ICentralFeedItem item)
-        {
-            FillLinks();
-            var activity = item as NewsModelBase;
-
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
-        }
-
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
             FillCreateEditData(model);
@@ -88,7 +79,7 @@ namespace uCommunity.News
 
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult Create(NewsCreateModel createModel)
+        public virtual ActionResult Create(NewsCreateModel createModel)
         {
             if (!ModelState.IsValid)
             {
@@ -105,7 +96,7 @@ namespace uCommunity.News
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult Edit(Guid id)
+        public virtual ActionResult Edit(Guid id)
         {
             var news = _newsService.Get(id);
             if (news.IsHidden)
@@ -125,7 +116,7 @@ namespace uCommunity.News
 
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult Edit(NewsEditModel editModel)
+        public virtual ActionResult Edit(NewsEditModel editModel)
         {
             if (!ModelState.IsValid)
             {
@@ -141,7 +132,7 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
-        private void FillCreateEditData(IContentWithMediaCreateEditModel model)
+        protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
         {
             FillLinks();
 
@@ -150,7 +141,7 @@ namespace uCommunity.News
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        private IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        protected virtual IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
         {
             var detailsPageUrl = _newsService.GetDetailsPage().Url;
             foreach (var item in news)
@@ -165,7 +156,7 @@ namespace uCommunity.News
             }
         }
 
-        private void FillLinks()
+        protected virtual void FillLinks()
         {
             ViewData["DetailsPageUrl"] = _newsService.GetDetailsPage().Url;
             ViewData["OverviewPageUrl"] = _newsService.GetOverviewPage().Url;
