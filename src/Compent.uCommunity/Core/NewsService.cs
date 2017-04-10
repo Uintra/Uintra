@@ -10,6 +10,7 @@ using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using uCommunity.Likes;
 using uCommunity.News;
 using uCommunity.Notification.Core.Configuration;
@@ -21,11 +22,11 @@ using Umbraco.Web;
 
 namespace Compent.uCommunity.Core
 {
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>, 
-        INewsService<NewsBase, News.Entities.News>, 
-        ICentralFeedItemService, 
-        ICommentableService, 
-        ILikeableService, 
+    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>,
+        INewsService<NewsBase, News.Entities.News>,
+        ICentralFeedItemService,
+        ICommentableService,
+        ILikeableService,
         ISubscribableService,
         INotifyableService
     {
@@ -34,22 +35,23 @@ namespace Compent.uCommunity.Core
         private readonly ILikesService _likesService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISubscribeService _subscribeService;
+        private readonly IPermissionsService _permissionsService;
         //private readonly INotificationsService _notificationService;
 
         public NewsService(IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
-            ILikesService likesService, 
+            ILikesService likesService,
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper
-            /*INotificationsService notificationService*/)
+            UmbracoHelper umbracoHelper, IPermissionsService permissionsService /*INotificationsService notificationService*/)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
             _umbracoHelper = umbracoHelper;
+            this._permissionsService = permissionsService;
             _subscribeService = subscribeService;
             //_notificationService = notificationService;
         }
@@ -90,7 +92,9 @@ namespace Compent.uCommunity.Core
 
         public override bool CanEdit(NewsBase activity)
         {
-            return true;
+            var currentUser = _intranetUserService.GetCurrentUser();
+            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
+            return isAllowed;
         }
 
         public CentralFeedSettings GetCentralFeedSettings()
@@ -208,7 +212,7 @@ namespace Compent.uCommunity.Core
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
             {
-               //_notificationService.ProcessNotification(notifierData);
+                //_notificationService.ProcessNotification(notifierData);
             }
         }
 
@@ -270,7 +274,7 @@ namespace Compent.uCommunity.Core
                     }
                     break;
                 default:
-                        return null;
+                    return null;
             }
             return data;
         }

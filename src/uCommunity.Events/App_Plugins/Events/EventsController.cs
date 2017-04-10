@@ -5,14 +5,17 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using uCommunity.Core;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Events.App_Plugins.Events
 {
+    [ActivityController(IntranetActivityTypeEnum.Events)]
     public class EventsController : SurfaceController
     {
         private readonly IEventsService<EventBase, EventModelBase> _eventsService;
@@ -65,6 +68,7 @@ namespace uCommunity.Events.App_Plugins.Events
             return PartialView("~/App_Plugins/Events/Details/DetailsView.cshtml", model);
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create()
         {
             var model = new EventCreateModel
@@ -78,6 +82,7 @@ namespace uCommunity.Events.App_Plugins.Events
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create(EventCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace uCommunity.Events.App_Plugins.Events
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(Guid id)
         {
             var @event = _eventsService.Get(id);
@@ -115,6 +121,7 @@ namespace uCommunity.Events.App_Plugins.Events
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(EventEditModel editModel)
         {
             if (!ModelState.IsValid)
