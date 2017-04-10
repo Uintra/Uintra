@@ -15,6 +15,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="App_Plugins\Events\EventsController.cs" target="content\App_Plugins\Events\IntranetEventsController.cs" />
+    <file src="App_Plugins\Events\EventsController.cs" target="content\App_Plugins\Events\EventsController.cs" />
   </files>
 </package>

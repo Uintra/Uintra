@@ -301,7 +301,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Plugins\Events\EventsController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="App_Plugins\Events\EventsController.cs" Condition=" '$(Configuration)' == 'Debug' "/>
+    <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\EventBase.cs" />
     <Compile Include="Core\Entities\EventModelBase.cs" />
@@ -327,10 +328,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uCommunity.CentralFeed\uCommunity.CentralFeed.csproj">
-      <Project>{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}</Project>
-      <Name>uCommunity.CentralFeed</Name>
-    </ProjectReference>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uCommunity.Core</Name>
