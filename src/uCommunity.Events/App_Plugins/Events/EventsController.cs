@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using uCommunity.CentralFeed;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
@@ -66,6 +67,14 @@ namespace uCommunity.Events.App_Plugins.Events
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
             return PartialView("~/App_Plugins/Events/Details/DetailsView.cshtml", model);
+        }
+
+        public ActionResult CentralFeedItem(ICentralFeedItem item)
+        {
+            FillLinks();
+            var activity = item as EventModelBase;
+
+            return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Create)]
