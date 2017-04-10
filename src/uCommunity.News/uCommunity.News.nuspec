@@ -15,7 +15,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="App_Plugins\News\NewsController.cs" target="content\App_Plugins\News\IntranetNewsController.cs" />
     <file src="Content\**" target="content" />
   </files>
 </package>
