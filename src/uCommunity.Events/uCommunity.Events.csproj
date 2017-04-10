@@ -301,7 +301,6 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Plugins\Events\EventsController.cs" Condition=" '$(Configuration)' == 'Debug' "/>
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\EventBase.cs" />

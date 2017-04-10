@@ -14,7 +14,4 @@
       <dependency id="uCommunity.Core" version="1.0.16" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="App_Plugins\Events\EventsController.cs" target="content\App_Plugins\Events\EventsController.cs" />
-  </files>
 </package>
