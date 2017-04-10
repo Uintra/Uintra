@@ -10,6 +10,7 @@ using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using uCommunity.Events;
 using uCommunity.Likes;
 using uCommunity.Notification.Core.Configuration;
@@ -34,6 +35,7 @@ namespace Compent.uCommunity.Core.Events
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
+        private readonly IPermissionsService permissionsService;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityService intranetActivityService,
@@ -41,7 +43,8 @@ namespace Compent.uCommunity.Core.Events
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
-            ISubscribeService subscribeService)
+            ISubscribeService subscribeService, 
+            IPermissionsService permissionsService)
             : base(intranetActivityService, memoryCacheService)
         {
             _umbracoHelper = umbracoHelper;
@@ -49,6 +52,7 @@ namespace Compent.uCommunity.Core.Events
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
+            this.permissionsService = permissionsService;
         }
 
         protected override List<string> OverviewXPath { get; }
@@ -123,12 +127,9 @@ namespace Compent.uCommunity.Core.Events
         public override bool CanEdit(EventBase activity)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            if (currentUser.Role == IntranetRolesEnum.WebMaster)
-            {
-                return true;
-            }
 
-            return activity.CreatorId == currentUser.Id;
+            return activity.CreatorId == currentUser.Id 
+                || permissionsService.IsRoleHasPermissions(currentUser, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
         }
 
         public ICentralFeedItem GetItem(Guid activityId)

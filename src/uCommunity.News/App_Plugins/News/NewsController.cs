@@ -4,14 +4,17 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.News
 {
+    [ActivityController(IntranetActivityTypeEnum.News)]
     public class NewsController : SurfaceController
     {
         private readonly IMediaHelper _mediaHelper;
@@ -66,6 +69,7 @@ namespace uCommunity.News
             return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", model);
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create()
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
@@ -74,6 +78,7 @@ namespace uCommunity.News
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create(NewsCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -90,6 +95,7 @@ namespace uCommunity.News
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
 
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(Guid id)
         {
             var news = _newsService.Get(id);
@@ -109,6 +115,7 @@ namespace uCommunity.News
         }
 
         [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(NewsEditModel editModel)
         {
             if (!ModelState.IsValid)
