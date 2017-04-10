@@ -759,7 +759,6 @@
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\Models\NewsOverviewItemExtendedViewModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />
-    <Compile Include="Core\News\Models\UCommunityNewsViewModel.cs" />
     <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\Notification\NotificationHelper.cs" />
     <Compile Include="Core\PublishedContentCustom.cs" />
