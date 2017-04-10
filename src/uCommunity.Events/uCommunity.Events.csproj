@@ -305,14 +305,11 @@
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\EventBase.cs" />
     <Compile Include="Core\Entities\EventModelBase.cs" />
-    <Compile Include="Core\Models\Base\EventViewModelBase.cs" />
+    <Compile Include="Core\Models\EventViewModel.cs" />
     <Compile Include="Core\Services\IEventsService.cs" />
     <Compile Include="Core\Models\EventCreateModel.cs" />
-    <Compile Include="Core\Models\Base\EventCreateModelBase.cs" />
     <Compile Include="Core\Models\EventEditModel.cs" />
-    <Compile Include="Core\Models\Base\EventEditModelBase.cs" />
-    <Compile Include="Core\Models\EventsOverviewItemModelBase.cs" />
-    <Compile Include="Core\Models\EventsOverviewModel.cs" />
+    <Compile Include="Core\Models\EventsOverviewItemViewModel.cs" />
     <Compile Include="Core\Enums\EventType.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

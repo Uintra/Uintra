@@ -3,7 +3,7 @@ using uCommunity.Core.Activity.Models;
 
 namespace uCommunity.Events
 {
-    public class EventsOverviewItemModelBase
+    public class EventsOverviewItemViewModel
     {
         public Guid Id { get; set; }
 

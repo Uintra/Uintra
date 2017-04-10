@@ -3,7 +3,7 @@ using uCommunity.Core.Activity.Models;
 
 namespace uCommunity.Events
 {
-    public class EventViewModelBase : IntranetActivityViewModelBase//IntranetActivityModelBase
+    public class EventViewModel : IntranetActivityViewModelBase
     {
         public Guid? CreatorId { get; set; }
         public string OverviewPageUrl { get; set; }

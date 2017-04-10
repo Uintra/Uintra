@@ -54,7 +54,7 @@ namespace uCommunity.Events.App_Plugins.Events
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
             }
 
-            var model = @event.Map<EventViewModelBase>();
+            var model = @event.Map<EventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat), @event.EndDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
             model.EditPageUrl = _eventsService.GetEditPage().Url;
@@ -115,21 +115,21 @@ namespace uCommunity.Events.App_Plugins.Events
         }
 
         [HttpPost]
-        public ActionResult Edit(EventEditModel saveModel)
+        public ActionResult Edit(EventEditModel editModel)
         {
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(saveModel);
-                return PartialView("~/App_Plugins/Events/Edit/EditView.cshtml", saveModel);
+                FillCreateEditData(editModel);
+                return PartialView("~/App_Plugins/Events/Edit/EditView.cshtml", editModel);
             }
 
-            var @event = MapEditModel(saveModel);
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            var @event = MapEditModel(editModel);
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
-                @event.CanSubscribe = saveModel.CanSubscribe;
+                @event.CanSubscribe = editModel.CanSubscribe;
             }
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
@@ -150,15 +150,15 @@ namespace uCommunity.Events.App_Plugins.Events
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
         }
 
-        public ActionResult ItemView(EventsOverviewItemModelBase model)
+        public ActionResult ItemView(EventsOverviewItemViewModel model)
         {
             return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
         }
 
-        private EventModelBase MapEditModel(EventEditModel saveModel)
+        private EventModelBase MapEditModel(EventEditModel editModel)
         {
-            var @event = _eventsService.Get(saveModel.Id);
-            @event = Mapper.Map(saveModel, @event);
+            var @event = _eventsService.Get(editModel.Id);
+            @event = Mapper.Map(editModel, @event);
             return @event;
         }
 
@@ -178,12 +178,12 @@ namespace uCommunity.Events.App_Plugins.Events
             ViewData["OverviewPageUrl"] = _eventsService.GetOverviewPage().Url;
         }
 
-        private IEnumerable<EventsOverviewItemModelBase> GetOverviewItems(IEnumerable<EventModelBase> events)
+        private IEnumerable<EventsOverviewItemViewModel> GetOverviewItems(IEnumerable<EventModelBase> events)
         {
             var detailsPageUrl = _eventsService.GetDetailsPage().Url;
             foreach (var @event in events)
             {
-                var model = @event.Map<EventsOverviewItemModelBase>();
+                var model = @event.Map<EventsOverviewItemViewModel>();
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
