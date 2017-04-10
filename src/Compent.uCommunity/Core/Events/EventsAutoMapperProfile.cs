@@ -18,8 +18,8 @@ namespace Compent.uCommunity.Core.Events
                 .IncludeBase<EventModelBase, EventOverviewItemModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Event, IntranetActivityHeaderModel>()
-                 .IncludeBase<EventModelBase, IntranetActivityHeaderModel>();
+            Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
+                 .IncludeBase<EventModelBase, IntranetActivityItemHeaderViewModel>();
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventModelBase>()

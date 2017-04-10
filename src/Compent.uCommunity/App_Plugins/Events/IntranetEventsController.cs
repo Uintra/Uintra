@@ -51,7 +51,7 @@ namespace uCommunity.Events.App_Plugins.Events
             }
 
             var model = @event.Map<EventViewModelBase>();
-            model.HeaderInfo = @event.Map<IntranetActivityHeaderBase>();
+            model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat), @event.EndDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) };
             model.EditPageUrl = _eventsService.GetEditPage().Url;
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
@@ -149,16 +149,6 @@ namespace uCommunity.Events.App_Plugins.Events
             return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
         }
 
-        public ActionResult ActivityDetailsHeader(IntranetActivityHeaderBase header)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml", header);
-        }
-
-        public ActionResult ActivityItemHeader(IntranetActivityHeaderModel header)
-        {
-            return PartialView("~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml", header);
-        }
-
         public ActionResult CentralFeedItem(CentralFeed.ICentralFeedItem item)
         {
             FillLinks();
@@ -199,7 +189,7 @@ namespace uCommunity.Events.App_Plugins.Events
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
-                model.HeaderInfo = @event.Map<IntranetActivityHeaderModel>();
+                model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
 
                 yield return model;

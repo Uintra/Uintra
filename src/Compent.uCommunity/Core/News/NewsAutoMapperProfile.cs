@@ -19,8 +19,8 @@ namespace Compent.uCommunity.Core.News
                 .IncludeBase<NewsModelBase, NewsOverviewItemModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Entities.News, IntranetActivityHeaderModel>()
-                 .IncludeBase<NewsModelBase, IntranetActivityHeaderModel>();
+            Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
+                 .IncludeBase<NewsModelBase, IntranetActivityItemHeaderViewModel>();
         }
     }
 }

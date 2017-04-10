@@ -66,7 +66,7 @@ var EditListController = (function () {
 
             initLinks();
             initShowOnlyMy();
-          //  window.App.Subscribe.addOnSubscribe(onSubscribe);
+            //  window.App.Subscribe.addOnSubscribe(onSubscribe);
         }
     }
     appInitializer.add(controller.init);
