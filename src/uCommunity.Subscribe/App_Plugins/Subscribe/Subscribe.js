@@ -1,7 +1,5 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import helpers from "./../Core/Content/scripts/Helpers";
 
-'use strict';
 var Subscribe = (function () {
     var callbacks = [];
 
@@ -70,5 +68,4 @@ var Subscribe = (function () {
     return controller;
 })();
 
-window.App = window.App || {};
-window.App.Subscribe = Subscribe;
+export default Subscribe;
