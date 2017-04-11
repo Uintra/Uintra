@@ -12,5 +12,6 @@ if %errorlevel% equ 1 del *.nupkg
 .\.nuget\nuget pack uCommunity.News\uCommunity.News.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uCommunity.Notification\uCommunity.Notification.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uCommunity.Subscribe\uCommunity.Subscribe.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uCommunity.Events\uCommunity.Events.csproj -Build -Prop Configuration=Release
 
 pause
