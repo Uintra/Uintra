@@ -12,11 +12,13 @@ namespace Compent.uCommunity.Core.Events
                   .IncludeBase<EventModelBase, IntranetEventViewModel>()
                   .IncludeBase<EventModelBase, EventViewModel>()
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                  .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
+                  .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
+                  .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Event, EventOverviewItemModel>()
                 .IncludeBase<EventModelBase, EventOverviewItemModel>()
-                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
+                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<EventModelBase, IntranetActivityItemHeaderViewModel>();

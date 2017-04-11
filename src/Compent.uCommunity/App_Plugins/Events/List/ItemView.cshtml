@@ -14,9 +14,17 @@
             </div>
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
+                    <span class="content__item-like">
+                        @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                    </span>
+                    <span class="content__item-comment">
+                        @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
+                    </span>
                 </div>
+                @if (Model.CanSubscribe)
+                {
+                    Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
+                }
             </div>
         </div>
     </div>

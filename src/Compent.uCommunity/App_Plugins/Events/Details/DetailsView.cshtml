@@ -32,8 +32,15 @@
                     </div>
                     <div class="content__item-feed">
                         <div class="content__item-feed-holder">
-                            @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                            <span class="content__item-like">
+                                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                            </span>
                         </div>
+                        @if (Model.CanSubscribe)
+                        {
+                            Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
+                            Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });
+                        }
                     </div>
                     <div class="comments">
                         @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
