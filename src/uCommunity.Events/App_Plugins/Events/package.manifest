@@ -40,5 +40,13 @@
         "action": "Details"
       }
     }
+  ],
+  "javascript": [
+    "~/App_Plugins/Events/backoffice/events-management.js",
+    "~/App_Plugins/Events/backoffice/events-management.config.js",
+    "~/App_Plugins/Events/backoffice/date-greater-or-equal.directive.js"
+  ],
+  "css": [
+    "~/App_Plugins/Events/backoffice/events-management.css"
   ]
 }

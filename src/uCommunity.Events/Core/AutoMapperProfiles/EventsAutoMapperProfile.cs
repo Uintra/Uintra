@@ -3,6 +3,7 @@ using AutoMapper;
 using uCommunity.Core;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
+using uCommunity.Events.Dashboard;
 
 namespace uCommunity.Events
 {
@@ -61,11 +62,39 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
 
+            Mapper.CreateMap<EventModelBase, EventBackofficeViewModel>()
+                .ForMember(d => d.Media, o => o.MapFrom(s => StringExtentions.JoinToString(s.MediaIds, ",")));
+
             Mapper.CreateMap<EventModelBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToString(IntranetConstants.Common.DefaultDateFormat), el.EndDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
 
             Mapper.CreateMap<EventModelBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventModelBase, IntranetActivityDetailsHeaderViewModel>();
+
+            Mapper.CreateMap<EventBackofficeCreateModel, EventModelBase>()
+               .ForMember(d => d.MediaIds, o => o.Ignore())
+               .ForMember(d => d.Type, o => o.Ignore())
+               .ForMember(d => d.CreatorId, o => o.Ignore())
+               .ForMember(d => d.Id, o => o.Ignore())
+               .ForMember(d => d.CreatedDate, o => o.Ignore())
+               .ForMember(d => d.ModifyDate, o => o.Ignore())
+               .ForMember(d => d.Creator, o => o.Ignore())
+               .AfterMap((dst, src) =>
+               {
+                   src.MediaIds = dst.Media.ToIntCollection();
+               });
+
+            Mapper.CreateMap<EventBackofficeSaveModel, EventModelBase>()
+                .ForMember(d => d.MediaIds, o => o.Ignore())
+                .ForMember(d => d.Type, o => o.Ignore())
+                .ForMember(d => d.CreatorId, o => o.Ignore())
+                .ForMember(d => d.CreatedDate, o => o.Ignore())
+                .ForMember(d => d.ModifyDate, o => o.Ignore())
+                .ForMember(d => d.Creator, o => o.Ignore())
+                .AfterMap((dst, src) =>
+                {
+                    src.MediaIds = dst.Media.ToIntCollection();
+                });
         }
     }
 }

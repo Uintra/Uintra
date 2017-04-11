@@ -301,6 +301,11 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Dashboard\Controllers\EventsSectionController.cs" />
+    <Compile Include="Core\Dashboard\Models\EventBackofficeCreateModel.cs" />
+    <Compile Include="Core\Dashboard\Models\EventBackofficeSaveModel.cs" />
+    <Compile Include="Core\Dashboard\Models\EventBackofficeViewModel.cs" />
+    <Compile Include="Core\Dashboard\EventsSection.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\EventBase.cs" />
@@ -315,6 +320,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Events\backoffice\date-greater-or-equal.directive.js" />
+    <Content Include="App_Plugins\Events\backoffice\events-management.config.js" />
+    <Content Include="App_Plugins\Events\backoffice\events-management.css" />
+    <Content Include="App_Plugins\Events\backoffice\events-management.html" />
+    <Content Include="App_Plugins\Events\backoffice\events-management.js" />
     <Content Include="App_Plugins\Events\Create\create-events.js" />
     <Content Include="App_Plugins\Events\Create\events-create.html" />
     <Content Include="App_Plugins\Events\Details\events-details.html" />
@@ -342,6 +352,16 @@
     <Content Include="App_Plugins\Events\List\ListView.cshtml" />
     <Content Include="App_Plugins\Events\List\OverView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
+    <None Include="Content\Config\applications.config.install.xdt" />
+    <None Include="Content\Config\applications.config.uninstall.xdt" />
+    <None Include="Content\Config\Dashboard.config.install.xdt" />
+    <None Include="Content\Config\Dashboard.config.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\da.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\da.xml.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en.xml.uninstall.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en_us.xml.install.xdt" />
+    <None Include="Content\Umbraco\Config\Lang\en_us.xml.uninstall.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
