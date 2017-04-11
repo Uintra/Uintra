@@ -47,8 +47,6 @@ Invoke-Expression "$nuget pack -Build '$projFile' -Properties Configuration=$con
 $nugetFile = Get-ChildItem "$projName*.nupkg";
 
 if (Test-Path $nugetFile) {
-    $nugetsFolder = "C:\inetpub\Nuget\Packages";
-
     #Invoke-Expression "$nuget push '$nugetFile' -ApiKey !QA2ws3ed -Source http://nuget.compent.dk/ ";
     #Using copy instead of nuget push because can't authorize even with api key
     Copy-Item $nugetFile $packagesLocation -Force
