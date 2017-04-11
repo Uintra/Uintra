@@ -92,7 +92,7 @@ namespace Compent.uCommunity.Core
         public override bool CanEdit(NewsBase activity)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
+            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
             return isAllowed;
         }
 
