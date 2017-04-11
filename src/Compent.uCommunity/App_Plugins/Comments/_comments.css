@@ -1,10 +1,10 @@
 ﻿.comments{
     margin:0;
     padding:24px 0 0;
-    border-top:1px solid #ccc;
+    border-top:1px solid var(--color-light-gray);
 
     &__title{
-        font:bold 16px/23px Arial, Helvetica, sans-serif;
+        font:bold 16px/23px var(--font-general);
         margin:0 0 38px;
     }
 
@@ -17,7 +17,7 @@
         &._inner{
             margin:22px 0 0 -14px;
             padding:0 0 0 10px;
-            border-left: 2px solid #eee;
+            border-left: 2px solid var(--color-light-gray-2);
         }
 
         &-item{
@@ -38,7 +38,7 @@
             position:relative;
             overflow:hidden;
             margin:7px 0 0;
-            border:1px solid #ccc;
+            border:1px solid var(--color-light-gray);
 
             ._inner &{
                 margin:0;
@@ -97,7 +97,7 @@
         height:25px;
         text-align:center;
         border-radius:50%;
-        background:#fff;
+        background:var(--color-white);
         box-shadow:0 0 5px rgba(0,0,0,0.5);
         cursor:pointer;
 
@@ -105,14 +105,14 @@
             font-weight:bold;
             font-size:18px;
             line-height:25px;
-            color:#333;
+            color:var(--text-color-dark);
         }
     }
 
     &__author{
         &-name{
-             font-weight: bold;
-            font-family:Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-family:var(--font-general);
         }
             
         &-about{
@@ -151,7 +151,7 @@
             right:15px;
             width:7px;
             height:7px;
-            border:solid #333;
+            border:solid var(--text-color-dark);
             border-width:0 1px 1px 0;
             transform:rotate(45deg);
             content:'';
@@ -173,9 +173,9 @@
             margin: 0;
             padding: 0;
             list-style: none;
-            border: 1px solid #eee;
+            border: 1px solid var(--color-light-gray-2);
             box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.2);
-            background: #fff;
+            background: var(--color-white);
             z-index: 10;
 
             :hover > & {
@@ -188,8 +188,8 @@
                 right:14px;
                 width:7px;
                 height:7px;
-                border:solid #eee;
-                background: #fff;
+                border:solid var(--color-light-gray-2);
+                background: var(--color-white);
                 border-width:0 1px 1px 0;
                 transform:rotate(-135deg);
                 z-index: -1;
@@ -197,7 +197,7 @@
             }
 
             &-item {
-                border-top:1px solid #eee;
+                border-top:1px solid var(--color-light-gray-2);
 
                 &:first-child {
                     border: none;
@@ -207,22 +207,22 @@
             &-link {
                 display: block;
                 padding: 5px 19px 3px;
-                color: #333;
+                color: var(--text-color-dark);
                 text-decoration: none;
 
                 &:active,
                 &:focus,
                 &:hover {
-                    background: #eee;
+                    background: var(--color-light-gray-2);
                     text-decoration: none;
-                    color: #333;
+                    color: var(--text-color-dark);
                 }
             }
         }
     }
 
     &__subtitle{
-        font:bold 13px/22px Arial, Helvetica, sans-serif;
+        font:bold 13px/22px var(--font-general);
         margin:0 0 4px;
     }
 
@@ -233,7 +233,7 @@
     }
 
     &__reply {
-        color: #333;
+        color: var(--text-color-dark);
         text-decoration: underline;
         cursor: pointer;
         font-size: 12px;
@@ -242,7 +242,7 @@
         &:focus,
         &:hover {
             text-decoration: none;
-            color: #333;
+            color: var(--text-color-dark);
         }
     }
 
@@ -261,7 +261,7 @@
             top:100%;
             right:0;
             background:rgba(0,0,0,0.9);
-            color:#fff;
+            color:var(--color-white);
             border-radius:3px;
             padding:5px 10px;
             opacity:0;
