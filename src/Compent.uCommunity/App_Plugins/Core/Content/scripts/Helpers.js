@@ -3,6 +3,8 @@ var Delta = require('quill-delta');
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
+require('quill/dist/quill.core.css');
+require('quill/dist/quill.bubble.css');
 require('quill/dist/quill.snow.css');
 
 var easeInOutQuad = function (t, b, c, d) {
