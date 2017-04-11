@@ -312,8 +312,8 @@
       <HintPath>..\..\packages\uCommunity.Comments.1.0.5.1\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.17.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.17\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.16.1\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Events, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
