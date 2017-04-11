@@ -21,13 +21,13 @@ if([string]::IsNullOrEmpty($tagPrefix)){
     throw [System.ArgumentException] "Invalid tag prefix!"
 }
 
-$nuget = ".\src\.nuget\nuget";
+$nuget = ".\src\.nuget\NuGet.exe";
 
 if(-not (Test-Path $nuget)){
     throw [System.IO.FileNotFoundException] "Can't find nuget.exe. Should be in $nuget";
 }
 
-$nugetConfig = ".\src\.nuget\nuget.config";
+$nugetConfig = ".\src\.nuget\NuGet.Config";
 
 if(-not (Test-Path $nugetConfig)){
     throw [System.IO.FileNotFoundException] "Can't find nuget.config. Should be in $nugetConfig";
