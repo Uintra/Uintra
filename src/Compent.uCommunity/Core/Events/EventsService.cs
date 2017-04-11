@@ -155,13 +155,6 @@ namespace Compent.uCommunity.Core.Events
             return activity;
         }
 
-        public global::uCommunity.Subscribe.Subscribe Subscribe(Guid userId, Guid activityId)
-        {
-            var subscribe = _subscribeService.Subscribe(userId, activityId);
-            FillCache(activityId);
-            return subscribe;
-        }
-
         public void UnSubscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Unsubscribe(userId, activityId);
@@ -358,6 +351,12 @@ namespace Compent.uCommunity.Core.Events
         private static IEnumerable<Guid> GetNotifiedSubsribers(Event currentEvent)
         {
             return currentEvent.Subscribers.Where(s => !s.IsNotificationDisabled).Select(s => s.UserId);
+        }
+
+        public ISubscribable Subscribe(Guid userId, Guid activityId)
+        {
+            _subscribeService.Subscribe(userId, activityId);
+            return FillCache(activityId);
         }
     }
 }

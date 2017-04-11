@@ -337,9 +337,9 @@
       <HintPath>..\..\packages\uCommunity.Notification.1.0.3.5\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Subscribe, Version=1.0.6.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Subscribe, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.6.4\lib\net452\uCommunity.Subscribe.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.7\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
@@ -727,9 +727,9 @@
     <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
+    <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="App_Plugins\Notification\NotificationController.cs" />
-    <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
@@ -831,9 +831,6 @@
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="Views\SubscribePage\Index.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
@@ -870,6 +867,9 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

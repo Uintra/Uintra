@@ -27,7 +27,6 @@ namespace Compent.uCommunity.Core
         ICentralFeedItemService,
         ICommentableService,
         ILikeableService,
-        ISubscribableService,
         INotifyableService
     {
         private readonly IIntranetUserService _intranetUserService;
@@ -186,25 +185,6 @@ namespace Compent.uCommunity.Core
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
         {
             return Get(activityId).Likes;
-        }
-
-        public global::uCommunity.Subscribe.Subscribe Subscribe(Guid userId, Guid activityId)
-        {
-            var subscribe = _subscribeService.Subscribe(userId, activityId);
-            FillCache(activityId);
-            return subscribe;
-        }
-
-        public void UnSubscribe(Guid userId, Guid activityId)
-        {
-            _subscribeService.Unsubscribe(userId, activityId);
-            FillCache(activityId);
-        }
-
-        public void UpdateNotification(Guid id, bool value)
-        {
-            var subscribe = _subscribeService.UpdateNotification(id, value);
-            FillCache(subscribe.ActivityId);
         }
 
         public void Notify(Guid entityId, NotificationTypeEnum notificationType)
