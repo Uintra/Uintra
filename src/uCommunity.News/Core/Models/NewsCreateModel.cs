@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.ComponentModel.DataAnnotations;
-using uCommunity.Core.User;
+using System.Web.Mvc;
+using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Media;
+using uCommunity.Core.ModelBinders;
 
 namespace uCommunity.News
 {
-    public class NewsCreateModel : NewsCreateEditModelBase
+    public class NewsCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {
-        public IEnumerable<IIntranetUser> Users { get; set; }
+        [Required, StringLength(4000)]
+        public string Teaser { get; set; }
 
-        public string AllowedMediaExtentions { get; set; }
+        [Required, AllowHtml]
+        public string Description { get; set; }
 
-        [Required]
+        [PropertyBinder(typeof(DateTimeBinder))]
+        public DateTime PublishDate { get; set; }
+
+        public string Media { get; set; }
+
+        public int? MediaRootId { get; set; }
+
+        public string NewMedia { get; set; }
+
         public Guid CreatorId { get; set; }
     }
 }

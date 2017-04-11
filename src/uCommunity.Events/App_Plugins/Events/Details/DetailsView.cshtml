@@ -1,0 +1,36 @@
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core
+@using uCommunity.Core.Activity
+@using uCommunity.Core.Extentions
+@model uCommunity.Events.EventViewModel
+@{
+    if (Model == null)
+    {
+        <div>Events doesn't exists!</div>
+        return;
+    }
+    <section class="content">
+        <div class="row clearfix">
+            <div class="col-md-9">
+                <div class="content__btns clearfix">
+                    <a href="#" class="content__item-print hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+                    @if (Model.CanEdit)
+                    {
+                        <a class="content__item-print" href="@Model.EditPageUrl.UrlWithQueryString("id", @Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                    }
+                    <span class="content__item-label">@Html.Localize("DetailsView.Important.lbl")</span>
+                    <a class="link__back" href="@($"{Context.GetBackLink(Model.OverviewPageUrl)}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
+                </div>
+                <div class="content__item _details">
+                    @Html.Action("ActivityDetailsHeader", "Activity", new { header = Model.HeaderInfo })
+                    <div class="content__item-txt">
+                        @Html.Raw(Model.Description)
+                    </div>
+                    <div class="content__item-images">
+                        @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+} 

@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Notification", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Users", "uCommunity.Users\uCommunity.Users.csproj", "{3E868F15-AC47-4962-A6A5-C9084752DDE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Events", "uCommunity.Events\uCommunity.Events.csproj", "{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,13 @@ Global
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.NuGet|Any CPU.Build.0 = NuGet|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.NuGet|Any CPU.ActiveCfg = Release|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.NuGet|Any CPU.Build.0 = Release|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

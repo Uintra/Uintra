@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
+using Compent.uCommunity.Core.Navigation;
 using uCommunity.Core.Extentions;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
+using uCommunity.Notification.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.Plugin
@@ -11,15 +13,18 @@ namespace uCommunity.Navigation.Plugin
         private readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
+        private readonly INotificationHelper _notificationHelper;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder, 
             ISubNavigationModelBuilder subNavigationModelBuilder, 
-            ITopNavigationModelBuilder topNavigationModelBuilder)
+            ITopNavigationModelBuilder topNavigationModelBuilder,
+            INotificationHelper notificationHelper)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _topNavigationModelBuilder = topNavigationModelBuilder;
+            _notificationHelper = notificationHelper;
         }
 
         public ActionResult LeftNavigation()
@@ -41,7 +46,8 @@ namespace uCommunity.Navigation.Plugin
         public ActionResult TopNavigation()
         {
             var topNavigation = _topNavigationModelBuilder.Get();
-            var result = topNavigation.Map<TopNavigationViewModel>();
+            var result = topNavigation.Map<TopMenuViewModel>();
+            result.NotificationsUrl = _notificationHelper.GetNotificationListPage().Url;
 
             return PartialView("~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml", result);
         }

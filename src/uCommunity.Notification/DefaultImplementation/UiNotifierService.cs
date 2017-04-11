@@ -3,51 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Persistence.Sql;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Entities;
+using uCommunity.Notification.Core.Services;
 
-namespace uCommunity.Notification.Notifier
+namespace uCommunity.Notification
 {
     public class UiNotifierService : IUiNotifierService
     {
-        private readonly ISqlRepository<Sql.Notification> _notificationRepository;
+        private readonly ISqlRepository<Core.Sql.Notification> _notificationRepository;
 
         public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
 
-        public UiNotifierService(ISqlRepository<Sql.Notification> notificationRepository)
+        public UiNotifierService(ISqlRepository<Core.Sql.Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
         }
 
         public void Notify(NotifierData data)
         {
-            var notifications = new List<Sql.Notification>();
-
-            foreach (var receiverId in data.ReceiverIds)
+            var notifications = data.ReceiverIds
+                .Select(el=> new Core.Sql.Notification()
             {
-                var notification = new Sql.Notification()
-                {
-                    Id = Guid.NewGuid(),
-                    Date = DateTime.Now,
-                    IsNotified = false,
-                    IsViewed = false,                    
-                    Type = data.NotificationType,
-                    Value = data.Value.ToJson(),
-                    ReceiverId = receiverId
-                };
-
-                notifications.Add(notification);
-            }
+                Id = Guid.NewGuid(),
+                Date = DateTime.Now,
+                IsNotified = false,
+                IsViewed = false,
+                Type =  data.NotificationType,
+                Value = data.Value.ToJson(),
+                ReceiverId = el
+            });
 
             _notificationRepository.Add(notifications);
         }
 
-        public IEnumerable<Sql.Notification> GetNotificationsByReceiver(Guid receiverId)
-        {
-            return _notificationRepository.FindAll(el => el.ReceiverId == receiverId).OrderBy(n => !n.IsNotified).ThenBy(n => n.Date);
-        }
-
         public int GetNotNotifiedCount(Guid receiverId)
         {
-            return _notificationRepository.FindAll(el => el.ReceiverId == receiverId && !el.IsNotified).Count();
+            return (int)_notificationRepository.Count(el => el.ReceiverId == receiverId && !el.IsNotified);
         }
 
         public void ViewNotification(Guid id)
@@ -57,15 +49,24 @@ namespace uCommunity.Notification.Notifier
             _notificationRepository.Update(notification);
         }
 
-        public void NotifyUser(Guid userId)
+        public IEnumerable<Core.Sql.Notification> GetByReceiver(Guid receiverId, int count, out int totalCount)
         {
-            var notifications = _notificationRepository.FindAll(el => el.ReceiverId == userId && !el.IsNotified).ToList();
+            var allNotifications = _notificationRepository
+                                        .FindAll(el => el.ReceiverId == receiverId)
+                                        .OrderBy(n => !n.IsNotified)
+                                        .ThenBy(n => n.Date);
+            totalCount = allNotifications.Count();
 
-            foreach (var n in notifications)
+            var result = allNotifications.Take(count).ToList();
+
+            if (result.Any(n => !n.IsNotified))
             {
-                n.IsNotified = true;
-                _notificationRepository.Update(n);
+                var notNotified = result.Where(n => !n.IsNotified).ToList();
+                notNotified.ForEach(n => n.IsNotified = true);
+                _notificationRepository.Update(notNotified);
             }
+
+            return result;
         }
     }
 }

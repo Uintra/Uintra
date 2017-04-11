@@ -1,8 +1,8 @@
 ﻿using System.Web.Helpers;
 using AutoMapper;
-using uCommunity.Notification.Models;
+using uCommunity.Notification.Core.Models;
 
-namespace uCommunity.Notification.Profiles
+namespace uCommunity.Notification.Core.Profiles
 {
     public class NotificationAutoMapperProfile : Profile
     {

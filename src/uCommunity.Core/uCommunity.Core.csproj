@@ -361,23 +361,26 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="App_Plugins\Core\Activity\ActivityController.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityModelBase.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityService.cs" />
+    <Compile Include="Core\Activity\IntranetActivityActionEnum.cs" />
     <Compile Include="Core\Activity\IntranetActivityService.cs" />
     <Compile Include="Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="Core\Activity\IIntranetActivityItemServiceBase.cs" />
     <Compile Include="Core\Activity\IntranetActivityItemServiceBase.cs" />
-    <Compile Include="Core\Activity\Models\Header\IntranetActivityHeaderBase.cs" />
-    <Compile Include="Core\Activity\Models\Header\IntranetActivityHeaderModel.cs" />
+    <Compile Include="Core\Activity\Models\Header\IntranetActivityDetailsHeaderViewModel.cs" />
+    <Compile Include="Core\Activity\Models\Header\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
-    <Compile Include="Core\Activity\Models\IntranetActivitySaveModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\AppSettingHelper.cs" />
     <Compile Include="Core\Caching\IMemoryCacheService.cs" />
@@ -433,6 +436,8 @@
     <Compile Include="Core\User\Permissions\IPermissionsService.cs" />
     <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
     <Compile Include="Core\User\Permissions\PermissionsService.cs" />
+    <Compile Include="Core\User\Permissions\RestrictedActionAttribute.cs" />
+    <Compile Include="Core\User\Permissions\ActivityControllerAttribute.cs" />
     <Compile Include="Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

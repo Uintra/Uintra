@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uCommunity.Core.Comments;
+using Compent.uCommunity.Core.Events;
 using Compent.uCommunity.Core.Exceptions;
 using Compent.uCommunity.Core.IoC;
 using Compent.uCommunity.Core.Subscribe;
@@ -27,6 +28,7 @@ using uCommunity.Core.ModelBinders;
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions;
+using uCommunity.Events;
 using uCommunity.Likes;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Dashboard;
@@ -39,6 +41,15 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+using uCommunity.Notification.Core.Services;
+using uCommunity.Notification;
+using uCommunity.Notification.Core.Configuration;
+using SqlNotification = uCommunity.Notification.Core.Sql.Notification;
+using SqlSubscribe = uCommunity.Subscribe.Subscribe;
+using Compent.uCommunity.Core.Notification;
+using uCommunity.Notification.Core.Sql;
+using System.Reflection;
+using System.Linq;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -122,16 +133,12 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
             kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
+            kernel.Bind(typeof(IEventsService<,>)).To<EventsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
             kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
 
-            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["dataDB"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
-
-            kernel.Bind<ISqlRepository<Comment>>().To<SqlRepository<Comment>>().InRequestScope();
-            kernel.Bind<ISqlRepository<Like>>().To<SqlRepository<Like>>().InRequestScope();
-            kernel.Bind<ISqlRepository<global::uCommunity.Subscribe.Subscribe>>().To<SqlRepository<global::uCommunity.Subscribe.Subscribe>>().InRequestScope();
-            kernel.Bind<ISqlRepository<IntranetActivityEntity>>().To<SqlRepository<IntranetActivityEntity>>().InRequestScope();
+            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
 
@@ -141,6 +148,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
+            kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
 
@@ -154,6 +162,18 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
 
+            // Notifications
+            kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
+                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/notificationConfiguration.json");
+            kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
+                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/reminderConfiguration.json");
+            kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
+            kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
+            kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
+            kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
+
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
 
@@ -161,6 +181,10 @@ namespace Compent.uCommunity.Core.IoC
 
             // Model Binders
             kernel.Bind<DateTimeBinder>().ToSelf().InSingletonScope();
+
+            //Sql 
+            kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>)).InRequestScope();
+            EnsureTablesExists(kernel);
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
@@ -177,6 +201,28 @@ namespace Compent.uCommunity.Core.IoC
             var webSecurity = new WebSecurity(httpContextWrapper, ApplicationContext.Current);
             var result = UmbracoContext.EnsureContext(httpContextWrapper, ApplicationContext.Current, webSecurity, umbracoSettings, urlProvider, false);
             return result;
+        }
+
+        private static void EnsureTablesExists(IKernel kernel)
+        {
+            var sqlTypes = Assembly.GetAssembly(typeof(SqlEntity))
+                            .GetTypes()
+                            .Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(SqlEntity))).ToList();
+            sqlTypes.Add(typeof(Comment));
+            sqlTypes.Add(typeof(Like));
+            sqlTypes.Add(typeof(SqlSubscribe));
+            sqlTypes.Add(typeof(IntranetActivityEntity));
+            sqlTypes.Add(typeof(SqlNotification));
+            sqlTypes.Add(typeof(Reminder));
+
+            var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
+            using (var conn = connectionFactory.Open())
+            {
+                foreach (var sqlType in sqlTypes)
+                {
+                    conn.CreateTableIfNotExists(sqlType);
+                }
+            }
         }
     }
 }

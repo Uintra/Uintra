@@ -11,10 +11,10 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Notification Controls NotificationControls</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.11" />
+      <dependency id="uCommunity.Core" version="1.0.14" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Plugin\**" target="content\App_Plugins\Notification" />
+    <file src="App_Plugins\Notification\NotificationController.cs" target="content\App_Plugins\Notification\NotificationController.cs" />
   </files>
 </package>

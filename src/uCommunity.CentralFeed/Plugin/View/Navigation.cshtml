@@ -1,6 +1,6 @@
 ﻿@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@inherits UmbracoViewPage<List<uCommunity.CentralFeed.Models.CentralFeedTypeModel>>
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<List<uCommunity.CentralFeed.Models.CentralFeedTypeModel>>
 
 @{
     var currentTab = GetCurrentType();
@@ -24,9 +24,12 @@
             <ul class="tabset__navigation-list">
                 @foreach (var typeModel in Model)
                 {
-                    <li class="tabset__navigation-list-item">
-                        <a class="tabset__navigation-list-link" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
-                    </li>
+                    if (Html.IsCurrentUserHasPermission(typeModel.Type, IntranetActivityActionEnum.Create))
+                    {
+                        <li class="tabset__navigation-list-item">
+                            <a class="tabset__navigation-list-link" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
+                        </li>
+                    }
                 }
             </ul>
         </li>

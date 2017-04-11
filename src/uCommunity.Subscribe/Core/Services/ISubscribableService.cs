@@ -4,7 +4,7 @@ namespace uCommunity.Subscribe
 {
     public interface ISubscribableService
     {
-        Subscribe Subscribe(Guid userId, Guid activityId);
+        ISubscribable Subscribe(Guid userId, Guid activityId);
 
         void UnSubscribe(Guid userId, Guid activityId);
 

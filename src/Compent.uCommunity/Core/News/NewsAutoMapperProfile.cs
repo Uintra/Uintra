@@ -9,18 +9,17 @@ namespace Compent.uCommunity.Core.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Entities.News, NewsViewModel>()
-                .IncludeBase<NewsModelBase, NewsViewModel>()
-                .IncludeBase<NewsModelBase, NewsViewModelBase>()
+            Mapper.CreateMap<Entities.News, NewsExtendedViewModel>()
+                .IncludeBase<NewsModelBase, NewsExtendedViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Entities.News, NewsOverviewItemModel>()
-                .IncludeBase<NewsModelBase, NewsOverviewItemModel>()
+            Mapper.CreateMap<Entities.News, NewsOverviewItemExtendedViewModel>()
+                .IncludeBase<NewsModelBase, NewsOverviewItemExtendedViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Entities.News, IntranetActivityHeaderModel>()
-                 .IncludeBase<NewsModelBase, IntranetActivityHeaderModel>();
+            Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
+                 .IncludeBase<NewsModelBase, IntranetActivityItemHeaderViewModel>();
         }
     }
 }

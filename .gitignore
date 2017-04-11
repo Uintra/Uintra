@@ -51,3 +51,6 @@ src/uCommunity.News/App_Plugins/Core/
 #========================================================================================> NOTIFICATIONS
 src/uCommunity.Notification/App_Plugins/Core/
 
+#========================================================================================> EVENTS
+src/uCommunity.Events/App_Plugins/Core/
+
