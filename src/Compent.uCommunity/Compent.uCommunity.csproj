@@ -318,8 +318,10 @@
     <Reference Include="uCommunity.Core, Version=1.0.16.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Core.1.0.16.1\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Events.1.0.1.3\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Events.1.0.1.4\lib\net452\uCommunity.Events.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>

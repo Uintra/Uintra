@@ -2,7 +2,8 @@
 @using uCommunity.Core
 @using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model uCommunity.Events.EventViewModel
+@model Compent.uCommunity.Core.Events.IntranetEventViewModel
+
 @{
     if (Model == null)
     {
@@ -28,6 +29,14 @@
                     </div>
                     <div class="content__item-images">
                         @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+                    </div>
+                    <div class="content__item-feed">
+                        <div class="content__item-feed-holder">
+                            @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                        </div>
+                    </div>
+                    <div class="comments">
+                        @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
                     </div>
                 </div>
             </div>
