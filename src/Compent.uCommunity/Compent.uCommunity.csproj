@@ -757,7 +757,7 @@
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
-    <Compile Include="Core\NewsService.cs" />
+    <Compile Include="Core\News\NewsService.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\Models\NewsOverviewItemExtendedViewModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />
