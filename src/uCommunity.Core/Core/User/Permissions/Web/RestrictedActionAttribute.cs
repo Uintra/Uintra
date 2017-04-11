@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -7,7 +6,7 @@ using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
 using Umbraco.Core;
 
-namespace uCommunity.Core.User.Permissions
+namespace uCommunity.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {

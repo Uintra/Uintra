@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Exceptions;
 
 namespace uCommunity.Core.User.Permissions
@@ -16,7 +17,7 @@ namespace uCommunity.Core.User.Permissions
             _configuration = configuration;
             _exceptionLogger = exceptionLogger;
         }
-
+        
         public virtual bool IsRoleHasPermissions(IntranetRolesEnum role, params string[] permissions)
         {
             if (permissions.Any())
@@ -41,6 +42,11 @@ namespace uCommunity.Core.User.Permissions
             }
 
             return roleConfiguration.Permissions.Select(s => s.Key);
+        }
+
+        public virtual string GetPermissionFromTypeAndAction(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        {
+            return $"{activityType}{action}";
         }
     }
 }

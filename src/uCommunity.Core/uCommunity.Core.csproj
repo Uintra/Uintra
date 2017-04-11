@@ -436,8 +436,8 @@
     <Compile Include="Core\User\Permissions\IPermissionsService.cs" />
     <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
     <Compile Include="Core\User\Permissions\PermissionsService.cs" />
-    <Compile Include="Core\User\Permissions\RestrictedActionAttribute.cs" />
-    <Compile Include="Core\User\Permissions\ActivityControllerAttribute.cs" />
+    <Compile Include="Core\User\Permissions\Web\RestrictedActionAttribute.cs" />
+    <Compile Include="Core\User\Permissions\Web\ActivityControllerAttribute.cs" />
     <Compile Include="Core\XPathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
