@@ -54,9 +54,10 @@ namespace uCommunity.Subscribe
             var userId = _intranetUserService.GetCurrentUserId();
             var service = _activitiesServiceFactory.GetService(activityId);
             var subscribeService = (ISubscribableService)service;
-            var subscribe = subscribeService.Subscribe(userId, activityId);
+            var subscribable = subscribeService.Subscribe(userId, activityId);
+            var subscribe = subscribable.Subscribers.Single(s => s.UserId == userId);
 
-            return Index(activityId, subscribe);
+            return Index(activityId, subscribe, subscribable.Type);
         }
 
         [HttpPost]
