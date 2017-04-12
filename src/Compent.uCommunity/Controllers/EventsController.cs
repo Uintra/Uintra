@@ -20,11 +20,18 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        private readonly IEventsService<EventBase, Compent.uCommunity.Core.Events.Event> _eventsService;
+        public override string OverviewViewPath { get; set; } = "~/Views/Events/OverView.cshtml";
+        public override string ListViewPath { get; set; } = "~/Views/Events/ListView.cshtml";
+        public override string DetailsViewPath { get; set; } = "~/Views/Events/DetailsView.cshtml";
+        public override string CreateViewPath { get; set; } = "~/Views/Events/CreateView.cshtml";
+        public override string EditViewPath { get; set; } = "~/Views/Events/EditView.cshtml";
+        public override string ItemViewPath { get; set; } = "~/Views/Events/ItemView.cshtml";
+
+        private readonly IEventsService<EventBase, Event> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
 
-        public EventsController(IEventsService<EventBase, Compent.uCommunity.Core.Events.Event> eventsService, IMediaHelper mediaHelper, IIntranetUserService intranetUserService)
+        public EventsController(IEventsService<EventBase, Event> eventsService, IMediaHelper mediaHelper, IIntranetUserService intranetUserService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
@@ -35,18 +42,18 @@ namespace Compent.uCommunity.Controllers
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
             FillLinks();
-            var activity = item as Compent.uCommunity.Core.Events.Event;
-            return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
+            var activity = item as Event;
+            return PartialView(ItemViewPath, GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
 
         public override ActionResult List(EventType type, bool showOnlySubscribed)
         {
-            IEnumerable<Compent.uCommunity.Core.Events.Event> events = type == EventType.Actual ?
+            var events = type == EventType.Actual ?
                 _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
-            return PartialView("~/App_Plugins/Events/List/ListView.cshtml", GetOverviewItems(events));
+            return PartialView(ListViewPath, GetOverviewItems(events));
         }
 
         public override ActionResult Details(Guid id)
@@ -66,7 +73,7 @@ namespace Compent.uCommunity.Controllers
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
              
-            return PartialView("~/App_Plugins/Events/Details/DetailsView.cshtml", model);
+            return PartialView(DetailsViewPath, model);
         }
 
         [HttpPost]
@@ -76,10 +83,10 @@ namespace Compent.uCommunity.Controllers
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
-                return PartialView("~/App_Plugins/Events/Create/CreateView.cshtml", createModel);
+                return PartialView(CreateViewPath, createModel);
             }
 
-            var @event = createModel.Map<Compent.uCommunity.Core.Events.Event>();
+            var @event = createModel.Map<Event>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
@@ -91,28 +98,28 @@ namespace Compent.uCommunity.Controllers
         [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
         {
-            var @event = MapEditModel(model);
+            var @event = MapModel(model);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
         }
 
-        public ActionResult ItemView(Compent.uCommunity.Core.Events.EventOverviewItemModel model)
+        public ActionResult ItemView(EventOverviewItemModel model)
         {
-            return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
+            return PartialView(ItemViewPath, model);
         }
 
-        protected Compent.uCommunity.Core.Events.Event MapEditModel(EventEditModel saveModel)
+        protected Event MapModel(EventEditModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
         }
 
-        protected IEnumerable<Compent.uCommunity.Core.Events.EventOverviewItemModel> GetOverviewItems(IEnumerable<Compent.uCommunity.Core.Events.Event> events)
+        protected IEnumerable<EventOverviewItemModel> GetOverviewItems(IEnumerable<Event> events)
         {
             var detailsPageUrl = _eventsService.GetDetailsPage().Url;
             foreach (var @event in events)
             {
-                var model = @event.Map<Compent.uCommunity.Core.Events.EventOverviewItemModel>();
+                var model = @event.Map<EventOverviewItemModel>();
                 model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
