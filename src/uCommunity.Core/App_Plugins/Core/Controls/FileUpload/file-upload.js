@@ -35,9 +35,11 @@ var fileUploader = (function () {
             }
 
             var allowedExtentions = dropzoneElem.data('allowed').replace(/\s/g, '') || "";
+            var maxCount = dropzoneElem.data('maxCount');
 
             var dropzone = new Dropzone(dropzoneElem[0], {
                 url: "/Umbraco/Api/File/UploadSingle",
+                maxFiles:maxCount,
                 addRemoveLinks: true,
                 maxFilesize: 50,
                 acceptedFiles: allowedExtentions,
@@ -45,6 +47,10 @@ var fileUploader = (function () {
                 dictRemoveFile: dropzoneElem.data('removeText')
             });
 
+            dropzone.on('maxfilesexceeded',
+                function() {
+                    alert('maxfilesexceeded');
+                });
             dropzone.on('success', function (file, fileId) {
                 file.uuid = fileId;
                 addFile(hiddenInput, fileId);
