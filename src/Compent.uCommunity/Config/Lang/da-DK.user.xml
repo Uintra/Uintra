@@ -1,3 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <language>
+	<area alias="sections">
+		<key alias="events">Events</key>
+		<key alias="news">News</key>
+	</area>
 </language>

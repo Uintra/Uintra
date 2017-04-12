@@ -3,9 +3,9 @@
 
     var onError = function (error) { console.error(error); }
 
-    var controller = function ($http, authResource, $scope, newsManagementConfig) {
+    var controller = function ($http, authResource, $scope, eventsManagementConfig) {
         var self = this;
-        self.newsList = [];
+        self.eventsList = [];
         self.currentUser = null;
         self.dateFormat = "dd MMMM yyyy";
         self.selected = null;
@@ -36,11 +36,11 @@
             if (self.filterModel.title) {
                 checkList.push(compareText(item.title, self.filterModel.title));
             }
-            if (self.filterModel.teaser) {
-                checkList.push(compareText(item.teaser, self.filterModel.teaser));
+            if (self.filterModel.startDate) {
+                compareDates(item.startDate, self.filterModel.startDate);
             }
-            if (self.filterModel.publishDate) {
-                compareDates(item.publishDate, self.filterModel.publishDate);
+            if (self.filterModel.endDate) {
+                compareDates(item.endDate, self.filterModel.endDate);
             }
             if (self.filterModel.createdDate) {
                 compareDates(item.createdDate, self.filterModel.createdDate);
@@ -56,14 +56,15 @@
         self.getHeadClasses = function () {
             return {
                 '_admin-mode': self.currentUser != null && self.currentUser.id == 0,
-                '_news-selected': self.selected != null
+                '_events-selected': self.selected != null
             };
         }
 
-        self.selectNewsToEdit = function (news, index) {
+        self.selectEventsToEdit = function (events, index) {
             self.selectedIndex = index;
-            self.selected = angular.copy(news);
-            self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
+            self.selected = angular.copy(events);
+            self.selected.startDate = self.selected.startDate || new Date().toISOString();
+            self.selected.endDate = self.selected.endDate || new Date().toISOString();
             self.selected.umbracoCreatorId = self.selected.umbracoCreatorId || self.currentUser.id;
         }
 
@@ -80,28 +81,28 @@
             }
         }
 
-        self.publish = function (news, $index) {
+        self.publish = function (events, $index) {
             self.clearSelected();
-            var editedNews = angular.copy(news);
-            editedNews.isHidden = false;
-            save(editedNews, $index);
+            var editedEvents = angular.copy(events);
+            editedEvents.isHidden = false;
+            save(editedEvents, $index);
         }
 
-        self.unpublish = function (news, $index) {
+        self.unpublish = function (events, $index) {
             self.clearSelected();
-            var editedNews = angular.copy(news);
-            editedNews.isHidden = true;
-            save(editedNews, $index);
+            var editedEvents = angular.copy(events);
+            editedEvents.isHidden = true;
+            save(editedEvents, $index);
         }
 
-        self.delete = function (news, $index) {
+        self.delete = function (events, $index) {
             self.clearSelected();
             if (!confirm('Are you sure?')) {
                 return;
             }
 
-            $http.delete('/Umbraco/backoffice/Api/NewsSection/Delete?id='+ news.id).then(function (response) {
-                self.newsList.splice($index, 1);
+            $http.delete('/Umbraco/backoffice/Api/EventsSection/Delete?id=' + events.id).then(function (response) {
+                self.eventsList.splice($index, 1);
                 self.clearSelected();
             }, onError);
         }
@@ -110,24 +111,24 @@
             self.selectedIndex = self.selected = null;
         }
 
-        var create = function (news) {
-            $http.post('/Umbraco/backoffice/Api/NewsSection/Create', news).then(function (response) {
-                self.newsList.push(response.data);
+        var create = function (events) {
+            $http.post('/Umbraco/backoffice/Api/EventsSection/Create', events).then(function (response) {
+                self.eventsList.push(response.data);
                 self.clearSelected();
             }, onError);
         }
 
-        var save = function(news, index) {
-            $http.post('/Umbraco/backoffice/Api/NewsSection/Save', news).then(function (response) {
-                self.newsList.splice(index, 1, response.data);
+        var save = function (events, index) {
+            $http.post('/Umbraco/backoffice/Api/EventsSection/Save', events).then(function (response) {
+                self.eventsList.splice(index, 1, response.data);
                 self.clearSelected();
             }, onError);
         }
 
         var loadAll = function () {
-            var promise = $http.get('/Umbraco/backoffice/Api/NewsSection/GetAll');
+            var promise = $http.get('/Umbraco/backoffice/Api/EventsSection/GetAll');
             var success = function (response) {
-                self.newsList = response.data || [];
+                self.eventsList = response.data || [];
             }
             promise.then(success, onError);
         }
@@ -137,12 +138,12 @@
             authResource.getCurrentUser().then(function (data) {
                 self.currentUser = data;
             });
-            self.config = newsManagementConfig;
+            self.config = eventsManagementConfig;
         }
 
         activate();
     }
 
-    controller.$inject = ["$http", "authResource", "$scope", "newsManagementConfig"];
-    angular.module('umbraco').controller('NewManagementController', controller);
+    controller.$inject = ["$http", "authResource", "$scope", "eventsManagementConfig"];
+    angular.module('umbraco').controller('EventsManagementController', controller);
 })(angular);
