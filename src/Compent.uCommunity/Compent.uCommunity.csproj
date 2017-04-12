@@ -956,7 +956,7 @@
     <ItemGroup>
       <WebpackOutputFiles Include="$(ProjectDir)build\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(WebpackOutputFiles)" DestinationFolder="$(ProjectDir)obj\$(Configuration)\Package\PackageTmp\bundle\%(RecursiveDir)">
+    <Copy SourceFiles="@(WebpackOutputFiles)" DestinationFolder="$(ProjectDir)obj\$(Configuration)\Package\PackageTmp\build\%(RecursiveDir)">
     </Copy>
     <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
