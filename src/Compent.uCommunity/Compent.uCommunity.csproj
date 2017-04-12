@@ -715,8 +715,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="postcss.config.js" />
-    <Content Include="webpack.config.js" />
+    <None Include="postcss.config.js" />
+    <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -776,7 +776,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
@@ -786,7 +786,7 @@
     <Content Include="config\applications.config" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
     <None Include="App_Plugins\Web.config" />
-    <Content Include="package.json" />
+    <None Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
