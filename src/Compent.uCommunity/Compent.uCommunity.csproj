@@ -785,7 +785,7 @@
     <Content Include="config\Dashboard.config" />
     <Content Include="config\applications.config" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
-    <Content Include="App_Plugins\Web.config" />
+    <Content Include="App_Plugins\web.config" />
     <Content Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -826,7 +826,6 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
