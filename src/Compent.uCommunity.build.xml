@@ -32,7 +32,7 @@
 	  <exec program="C:\Users\Administrator\AppData\Roaming\npm\webpack.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" verbose="true">
       </exec>
 	  
-      <!-- <call target="Target.CopyRoslyn" /> -->
+      <call target="Target.CopyRoslyn" />
 
 	  <call target="Target.Deploy" />	  
     </if>
@@ -46,7 +46,6 @@
    <target name="Target.CopyRoslyn">
 	 <exec program="C:\Program Files\Git\usr\bin\cp.exe">
        <arg value="-r"/>
-	   <arg value="-n"/>
        <arg value="${Csc.Setting.MSBuild.OutputBuildDirectory}\roslyn"/>
        <arg value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
      </exec>
