@@ -872,7 +872,7 @@
     <Content Include="Views\Events\ListView.cshtml" />
     <Content Include="Views\Events\EditView.cshtml" />
     <Content Include="Views\Events\CreateView.cshtml" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
