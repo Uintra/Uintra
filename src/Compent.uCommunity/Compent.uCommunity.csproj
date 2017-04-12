@@ -950,13 +950,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="CopyThirdPartyFiles" AfterTargets="CopyAllFilesToSingleFolderForPackage">
-    <Message Importance="high" Text="Start target: $(TargetName)" />
+  <Target Name="CopyWebpackFiles" AfterTargets="CopyAllFilesToSingleFolderForPackage">
+    <Message Importance="high" Text="Copy webpack files" />
+    <Message Importance="high" Text="Project folder: $(ProjectDir) Config: $(Configuration)" />
     <ItemGroup>
       <WebpackOutputFiles Include="$(ProjectDir)bundle\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(WebpackOutputFiles)" DestinationFolder="$(ProjectDir)obj\$(Configuration)\Package\PackageTmp\bundle\%(RecursiveDir)">
     </Copy>
-    <Message Importance="high" Text="Finish Target: $(TargetName)" />
+    <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
 </Project>
