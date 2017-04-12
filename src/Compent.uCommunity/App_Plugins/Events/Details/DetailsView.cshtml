@@ -1,13 +1,11 @@
 ﻿@using System.Web.Mvc.Html
-@using uCommunity.Core
-@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model Compent.uCommunity.Core.Events.IntranetEventViewModel
+@model uCommunity.Events.EventViewModel
 @{
     if (Model == null)
     {
         <div>Events doesn't exists!</div>
-        return; 
+        return;
     }
     <section class="content">
         <div class="row clearfix">
