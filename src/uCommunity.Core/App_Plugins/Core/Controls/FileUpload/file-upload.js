@@ -47,17 +47,31 @@ var fileUploader = (function () {
                 dictRemoveFile: dropzoneElem.data('removeText')
             });
 
-            dropzone.on('maxfilesexceeded',
-                function() {
-                    alert('maxfilesexceeded');
-                });
+            //disable upload file
+            var editHolder = holder.find('.js-file-edit');
+            var filesElem = editHolder.find('input[type="hidden"]');
+            if (filesElem.length) {
+                var existedFiles=filesElem.val().replace(/\s/g, '').split(',').filter(function (s){ return s != null && s != ''});   
+                if (dropzone.options.maxFiles <= existedFiles.length) {
+                    dropzone.removeEventListeners();
+                }    
+            }            
+
             dropzone.on('success', function (file, fileId) {
                 file.uuid = fileId;
                 addFile(hiddenInput, fileId);
             });
 
+            dropzone.on('maxfilesreached',
+              function() {
+                  dropzone.removeEventListeners();
+              });
+            
             dropzone.on('removedfile', function (file) {
                 removeFile(hiddenInput, file.uuid);
+                if (dropzone.options.maxFiles>this.files.length) {
+                    dropzone.setupEventListeners();
+                }
             });
         }
     }
@@ -89,6 +103,12 @@ var fileEditor = (function () {
             var newModelValue = modelValue.filter(s => s != targetId);
             modelInput.val(newModelValue.join(',') || "");
             removeFileView(targetId);
+
+            // allow upload 
+            var dropzoneElem = controlHolder.siblings('div').find('.dropzone');            
+            if (dropzoneElem[0].dropzone.options.maxFiles <= modelValue.length) {
+                dropzoneElem[0].dropzone.setupEventListeners();
+            }  
         });
     }
 
