@@ -18,12 +18,12 @@ namespace uCommunity.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
-        public virtual string OverviewViewPath { get; set; } = "~/App_Plugins/Events/List/OverView.cshtml";
-        public virtual string ListViewPath { get; set; } = "~/App_Plugins/Events/List/ListView.cshtml";
-        public virtual string DetailsViewPath { get; set; } = "~/App_Plugins/Events/Details/DetailsView.cshtml";
-        public virtual string CreateViewPath { get; set; } = "~/App_Plugins/Events/Create/CreateView.cshtml";
-        public virtual string EditViewPath { get; set; } = "~/App_Plugins/Events/Edit/EditView.cshtml";
-        public virtual string ItemViewPath { get; set; } = "~/App_Plugins/Events/List/ItemView.cshtml";
+        public virtual string OverviewViewPath { get; } = "~/App_Plugins/Events/List/OverView.cshtml";
+        public virtual string ListViewPath { get; } = "~/App_Plugins/Events/List/ListView.cshtml";
+        public virtual string DetailsViewPath { get; } = "~/App_Plugins/Events/Details/DetailsView.cshtml";
+        public virtual string CreateViewPath { get; } = "~/App_Plugins/Events/Create/CreateView.cshtml";
+        public virtual string EditViewPath { get; } = "~/App_Plugins/Events/Edit/EditView.cshtml";
+        public virtual string ItemViewPath { get; } = "~/App_Plugins/Events/List/ItemView.cshtml";
 
         private readonly IEventsService<EventBase, EventModelBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
