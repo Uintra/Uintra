@@ -5,6 +5,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Core activity package.")]
 
 [assembly: AssemblyVersion("1.0.17.0")]
-[assembly: AssemblyInformationalVersion("1.0.17.1-hf")]
+[assembly: AssemblyInformationalVersion("1.0.17.2-hf")]
 [assembly: ComVisible(false)]
 [assembly: Guid("3f8c785a-48d0-41f5-9257-6f73afca41eb")]
