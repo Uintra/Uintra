@@ -18,6 +18,13 @@ namespace uCommunity.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
+        public virtual string OverviewViewPath { get; set; } = "~/App_Plugins/Events/List/OverView.cshtml";
+        public virtual string ListViewPath { get; set; } = "~/App_Plugins/Events/List/ListView.cshtml";
+        public virtual string DetailsViewPath { get; set; } = "~/App_Plugins/Events/Details/DetailsView.cshtml";
+        public virtual string CreateViewPath { get; set; } = "~/App_Plugins/Events/Create/CreateView.cshtml";
+        public virtual string EditViewPath { get; set; } = "~/App_Plugins/Events/Edit/EditView.cshtml";
+        public virtual string ItemViewPath { get; set; } = "~/App_Plugins/Events/List/ItemView.cshtml";
+
         private readonly IEventsService<EventBase, EventModelBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
@@ -35,7 +42,7 @@ namespace uCommunity.Events.Web
         public virtual ActionResult OverView()
         {
             FillLinks();
-            return PartialView("~/App_Plugins/Events/List/OverView.cshtml");
+            return PartialView(OverviewViewPath);
         }
 
         public virtual ActionResult List(EventType type, bool showOnlySubscribed)
@@ -45,7 +52,7 @@ namespace uCommunity.Events.Web
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
-            return PartialView("~/App_Plugins/Events/List/ListView.cshtml", GetOverviewItems(events));
+            return PartialView(ListViewPath, GetOverviewItems(events));
         }
 
         public virtual ActionResult Details(Guid id)
@@ -65,7 +72,7 @@ namespace uCommunity.Events.Web
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
-            return PartialView("~/App_Plugins/Events/Details/DetailsView.cshtml", model);
+            return PartialView(DetailsViewPath, model);
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Create)]
@@ -78,7 +85,7 @@ namespace uCommunity.Events.Web
                 CanSubscribe = true
             };
             FillCreateEditData(model);
-            return PartialView("~/App_Plugins/Events/Create/CreateView.cshtml", model);
+            return PartialView(CreateViewPath, model);
         }
 
         [HttpPost]
@@ -88,7 +95,7 @@ namespace uCommunity.Events.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
-                return PartialView("~/App_Plugins/Events/Create/CreateView.cshtml", createModel);
+                return PartialView(CreateViewPath, createModel);
             }
 
             var @event = createModel.Map<EventModelBase>();
@@ -117,7 +124,7 @@ namespace uCommunity.Events.Web
             var model = @event.Map<EventEditModel>();
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             FillCreateEditData(model);
-            return PartialView("~/App_Plugins/Events/Edit/EditView.cshtml", model);
+            return PartialView(EditViewPath, model);
         }
 
         [HttpPost]
@@ -127,7 +134,7 @@ namespace uCommunity.Events.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(saveModel);
-                return PartialView("~/App_Plugins/Events/Edit/EditView.cshtml", saveModel);
+                return PartialView(EditViewPath, saveModel);
             }
 
             var @event = MapEditModel(saveModel);
@@ -159,7 +166,7 @@ namespace uCommunity.Events.Web
 
         public virtual ActionResult ItemView(EventsOverviewItemViewModel model)
         {
-            return PartialView("~/App_Plugins/Events/List/ItemView.cshtml", model);
+            return PartialView(ItemViewPath, model);
         }
 
         protected virtual EventModelBase MapEditModel(EventEditModel saveModel)
