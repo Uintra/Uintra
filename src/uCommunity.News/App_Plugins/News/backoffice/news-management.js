@@ -128,7 +128,6 @@
             var promise = $http.get('/Umbraco/backoffice/Api/NewsSection/GetAll');
             var success = function (response) {
                 self.newsList = response.data || [];
-                console.debug(self.newsList);
             }
             promise.then(success, onError);
         }
