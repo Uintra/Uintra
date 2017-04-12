@@ -6,37 +6,35 @@
 
 .wrapper{
     width:100%;
-    overflow:hidden;    
-}
+    overflow:hidden;
+    padding: 137px 0 0 251px;
 
-.header{
-    margin:0 auto;
-    background:#373737;
-    padding:0 50px 0 30px;
+    ._with-sub-nav._with-subtitle &{
+        padding-top:172px;
+    } 
 
-    &::after{
-        content:"";
-        display:block;
-        clear:both;
+    @media (--for-tablet-portrait-down) {
+        ._with-sub-nav &,
+        & {
+            padding: 131px 0 0;
+        }
+
+        ._with-sub-nav._with-subtitle &{
+            padding:181px 0 0;
+        }
     }
 }
+
 
 .main{
-    min-height:calc(100vh - 50px);
-    margin:0 auto;
-    display:flex;
+    width:100%;
+    overflow:hidden;
+    padding:50px 80px 20px 70px;    
 
-    > .content{
-        flex-grow:1;
-        padding-top:20px;
-        padding-left:20px;
+    @media (--for-tablet-portrait-down) {
+        & {
+            padding: 20px;
+            overflow: visible;
+        }
     }
-}
-
-.aside{
-    padding-top:20px;
-    width:250px;
-    border-right: 1px solid #c9c9c9;
-    box-shadow: 2px 0 3px rgba(0, 0, 0, 0.2);
-    flex-shrink:0;
-}
+ }

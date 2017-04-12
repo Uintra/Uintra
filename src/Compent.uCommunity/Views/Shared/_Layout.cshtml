@@ -9,20 +9,17 @@
 </head>
 <body>
     <div class="wrapper">
-        <header class="header">
+        <header id="header">
             @{Html.RenderAction("TopNavigation", "Navigation");}
         </header>
+        <aside id="sidebar">
+            @{Html.RenderAction("LeftNavigation", "Navigation"); }
+        </aside>
         <main class="main">
-            <aside class="aside">
-                @{Html.RenderAction("LeftNavigation", "Navigation"); }
-            </aside>
-
             @*@{Html.RenderAction("Login", "Login");}*@
-            <div class="content">
-                @{Html.RenderAction("SubNavigation", "Navigation");}
+            @{Html.RenderAction("SubNavigation", "Navigation");}
 
-                @RenderBody()
-            </div>
+            @RenderBody()
         </main>
     </div>
 
