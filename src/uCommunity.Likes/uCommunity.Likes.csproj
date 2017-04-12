@@ -354,6 +354,10 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uCommunity.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uCommunity.Notification\uCommunity.Notification.csproj">
+      <Project>{774EBA5A-679C-401D-B3F1-130562785C60}</Project>
+      <Name>uCommunity.Notification</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

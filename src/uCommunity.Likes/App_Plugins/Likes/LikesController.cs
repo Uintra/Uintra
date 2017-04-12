@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Likes
@@ -34,7 +36,10 @@ namespace uCommunity.Likes
             var service = _activitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Add(GetCurrentUserId(), activityId);
-            
+
+            var notifyableService = (INotifyableService) service;
+            notifyableService.Notify(activityId, NotificationTypeEnum.LikeAdded);
+
             return Likes(likeInfo.Id, likeInfo.Likes);
         }
 
