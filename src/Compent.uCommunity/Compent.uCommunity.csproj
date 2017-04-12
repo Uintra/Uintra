@@ -785,7 +785,7 @@
     <Content Include="config\Dashboard.config" />
     <Content Include="config\applications.config" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
-    <Content Include="App_Plugins\Web.config" />
+    <None Include="App_Plugins\Web.config" />
     <Content Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
