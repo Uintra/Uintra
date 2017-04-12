@@ -45,7 +45,7 @@
       
    <target name="Target.CopyRoslyn">
 	 <exec program="C:\Program Files\Git\usr\bin\cp.exe">
-       <arg value="-r"/>
+       <arg value="-r -n"/>
        <arg value="${Csc.Setting.MSBuild.OutputBuildDirectory}\roslyn"/>
        <arg value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
      </exec>
