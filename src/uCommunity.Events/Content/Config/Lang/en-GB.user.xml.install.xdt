@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <area alias="sections" xdt:Locator="Condition(@alias='sections')" xdt:Transform="InsertIfMissing">
+    <key alias="events" xdt:Locator="Condition(@alias='events')" xdt:Transform="InsertIfMissing">Events</key>
+  </area>
+</language>
