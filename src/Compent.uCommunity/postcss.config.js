@@ -19,6 +19,16 @@ module.exports = {
                         '--font-custom': 'opensans, Arial, Helvetica, sans-serif',
                         '--font-general': 'opensans, Arial, Helvetica, sans-serif'
                     }
+                },
+                customMedia: {
+                    extensions: {
+                        '--for-phone-only': ' (width <= 599px)',
+                        '--for-tablet-portrait-up': ' (width >= 600px)',
+                        '--for-tablet-portrait-down': ' (width < 900px)',
+                        '--for-tablet-landscape-up': ' (width >= 900px)',
+                        '--for-desktop-up': '(width >= 1200px)',
+                        '--for-big-desktop-up': '(width >= 1800px)'
+                    }
                 }
             }
         }),
