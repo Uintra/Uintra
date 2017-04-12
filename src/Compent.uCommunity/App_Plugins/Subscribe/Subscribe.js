@@ -70,5 +70,4 @@ var Subscribe = (function () {
     return controller;
 })();
 
-window.App = window.App || {};
-window.App.Subscribe = Subscribe;
+export default Subscribe;

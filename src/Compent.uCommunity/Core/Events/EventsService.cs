@@ -129,7 +129,7 @@ namespace Compent.uCommunity.Core.Events
             var currentUser = _intranetUserService.GetCurrentUser();
 
             return activity.CreatorId == currentUser.Id 
-                || permissionsService.IsRoleHasPermissions(currentUser, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+                || permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
         }
 
         public ICentralFeedItem GetItem(Guid activityId)

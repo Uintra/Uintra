@@ -9,7 +9,7 @@ using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions;
+using uCommunity.Core.User.Permissions.Web;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.News.Web

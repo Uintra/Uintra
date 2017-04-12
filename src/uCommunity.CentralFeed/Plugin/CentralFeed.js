@@ -2,6 +2,7 @@
 import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
+import subscribe from "./../Subscribe/Subscribe";
 
 require("./_centralFeed.css");
 
@@ -143,7 +144,7 @@ appInitializer.add(function () {
 
         lightbox.init();
 
-        window.App.Subscribe.initOnLoad();
+        subscribe.initOnLoad();
     }
 
     restoreState();
