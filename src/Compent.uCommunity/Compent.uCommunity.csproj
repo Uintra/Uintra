@@ -785,7 +785,7 @@
     <Content Include="config\Dashboard.config" />
     <Content Include="config\applications.config" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
-    <Content Include="App_Plugins\web.config" />
+    <Content Include="App_Plugins\Web.config" />
     <Content Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -950,4 +950,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="CopyThirdPartyFiles" AfterTargets="CopyAllFilesToSingleFolderForPackage">
+    <Message Importance="high" Text="Start target: $(TargetName)" />
+    <ItemGroup>
+      <WebpackOutputFiles Include="$(ProjectDir)bundle\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(WebpackOutputFiles)" DestinationFolder="$(ProjectDir)obj\$(Configuration)\Package\PackageTmp\bundle\%(RecursiveDir)">
+    </Copy>
+    <Message Importance="high" Text="Finish Target: $(TargetName)" />
+  </Target>
 </Project>
