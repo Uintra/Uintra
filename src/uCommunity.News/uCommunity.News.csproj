@@ -572,6 +572,12 @@
     <Compile Include="Core\Dashboard\NewsSection.cs" />
     <Compile Include="Web\NewsControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Content\Config\Lang\da-DK.user.xml.install.xdt" />
+    <None Include="Content\Config\Lang\da-DK.user.xml.uninstall.xdt" />
+    <None Include="Content\Config\Lang\en-GB.user.xml.install.xdt" />
+    <None Include="Content\Config\Lang\en-GB.user.xml.uninstall.xdt" />
+    <None Include="Content\Config\Lang\en-US.user.xml.install.xdt" />
+    <None Include="Content\Config\Lang\en-US.user.xml.uninstall.xdt" />
     <None Include="uCommunity.News.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -580,12 +586,6 @@
     <None Include="Content\Config\Dashboard.config.install.xdt" />
     <None Include="Content\Config\applications.config.uninstall.xdt" />
     <None Include="Content\Config\Dashboard.config.uninstall.xdt" />
-    <None Include="Content\Umbraco\Config\Lang\da.xml.install.xdt" />
-    <None Include="Content\Umbraco\Config\Lang\da.xml.uninstall.xdt" />
-    <None Include="Content\Umbraco\Config\Lang\en.xml.install.xdt" />
-    <None Include="Content\Umbraco\Config\Lang\en.xml.uninstall.xdt" />
-    <None Include="Content\Umbraco\Config\Lang\en_us.xml.install.xdt" />
-    <None Include="Content\Umbraco\Config\Lang\en_us.xml.uninstall.xdt" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
