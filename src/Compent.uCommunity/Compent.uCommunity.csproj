@@ -715,8 +715,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="postcss.config.js" />
-    <Content Include="webpack.config.js" />
+    <None Include="postcss.config.js" />
+    <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -776,7 +776,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
@@ -785,8 +785,8 @@
     <Content Include="config\Dashboard.config" />
     <Content Include="config\applications.config" />
     <Content Include="Views\CommentsPage\Index.cshtml" />
-    <Content Include="App_Plugins\Web.config" />
-    <Content Include="package.json" />
+    <None Include="App_Plugins\Web.config" />
+    <None Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -950,13 +950,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="CopyThirdPartyFiles" AfterTargets="CopyAllFilesToSingleFolderForPackage">
-    <Message Importance="high" Text="Start target: $(TargetName)" />
+  <Target Name="CopyWebpackFiles" AfterTargets="CopyAllFilesToSingleFolderForPackage">
+    <Message Importance="high" Text="Copy webpack files" />
+    <Message Importance="high" Text="Project folder: $(ProjectDir) Config: $(Configuration)" />
     <ItemGroup>
-      <WebpackOutputFiles Include="$(ProjectDir)bundle\*.*" />
+      <WebpackOutputFiles Include="$(ProjectDir)build\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(WebpackOutputFiles)" DestinationFolder="$(ProjectDir)obj\$(Configuration)\Package\PackageTmp\bundle\%(RecursiveDir)">
+    <Copy SourceFiles="@(WebpackOutputFiles)" DestinationFolder="$(ProjectDir)obj\$(Configuration)\Package\PackageTmp\build\%(RecursiveDir)">
     </Copy>
-    <Message Importance="high" Text="Finish Target: $(TargetName)" />
+    <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
 </Project>
