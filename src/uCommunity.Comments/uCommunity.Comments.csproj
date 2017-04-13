@@ -342,7 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Comments\Comment.js" />
-    <Content Include="App_Plugins\Comments\_comments.css" />
+    <Content Include="App_Plugins\Comments\comments.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

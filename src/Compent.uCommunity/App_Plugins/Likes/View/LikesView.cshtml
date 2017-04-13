@@ -7,26 +7,19 @@
 
     var routeValues = Model.ActivityId.HasValue ? (object)new { activityId = Model.ActivityId } : (object)new { commentId = Model.CommentId };
 }
+<div class="like" id="likes_@entityId">
+    <span class="like__set @isLiked"><i class="icon-like"></i> @Model.Users.Count()</span>
 
-<div class="content__item-like" id="likes_@entityId">
-    <div id="count_@entityId">
-        <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@entityId">@Model.Users.Count()</span></a>
-
-        <div class="content__item-like-set">
-            @(Model.CanAddLike ?
-                  Ajax.ActionLink("Add", "AddLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }) :
-                  Ajax.ActionLink("Remove", "RemoveLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }))
-        </div>
-    </div>
+    @(Model.CanAddLike
+        ? Ajax.ActionLink("Add", "AddLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
+        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
 
     @if (Model.Users.Any())
     {
-        <div class="content__item-like-popup" id="likesPopup_@entityId">
+        <div class="like__popup">
             @foreach (var name in Model.Users)
-                {
-                <span>
-                    @Html.Label(name)
-                </span><br />
+            {
+                @Html.Label(name)
             }
         </div>
     }

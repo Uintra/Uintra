@@ -659,6 +659,8 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\List\edit-list.js" />
     <Content Include="App_Plugins\Events\List\events-list.html" />
+    <Content Include="App_Plugins\Likes\likes.css" />
+    <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
