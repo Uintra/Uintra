@@ -171,17 +171,17 @@ namespace Compent.uCommunity.Core.Events
             FillCache(subscribe.ActivityId);
         }
 
-        public void Add(Guid userId, Guid activityId)
+        public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
             Notify(activityId, NotificationTypeEnum.LikeAdded);
-            FillCache(activityId);
+            return FillCache(activityId);
         }
 
-        public void Remove(Guid userId, Guid activityId)
+        public ILikeable Remove(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            FillCache(activityId);
+            return FillCache(activityId);
         }
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId)

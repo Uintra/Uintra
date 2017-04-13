@@ -17,22 +17,40 @@ namespace uCommunity.Likes
             _intranetUserService = intranetUserService;
         }
 
-        public IEnumerable<Like> Get(Guid activityId)
+        public IEnumerable<Like> Get(Guid entityId)
         {
-            return _likesRepository.FindAll(l => l.ActivityId == activityId);
+            return _likesRepository.FindAll(l => l.EntityId == entityId);
         }
 
-        public int GetCount(Guid activityId)
+        public IEnumerable<LikeModel> GetLikeModels(Guid entityId)
         {
-            return (int)_likesRepository.Count(l => l.ActivityId == activityId);
+            var likes = Get(entityId).OrderByDescending(el => el.CreatedDate).ToList();
+            var users = Enumerable.Empty<Tuple<Guid, string>>();
+            if (likes.Count != 0)
+            {
+                users = GetManyNames(likes.Select(el => el.UserId));
+            }
+
+            var result = users.Select(el => new LikeModel
+            {
+                UserId = el.Item1,
+                User = el.Item2
+            });
+
+            return result;
         }
 
-        public void Add(Guid userId, Guid activityId)
+        public int GetCount(Guid entityId)
+        {
+            return (int)_likesRepository.Count(l => l.EntityId == entityId);
+        }
+
+        public void Add(Guid userId, Guid entityId)
         {
             var like = new Like
             {
                 Id = Guid.NewGuid(),
-                ActivityId = activityId,
+                EntityId = entityId,
                 UserId = userId,
                 CreatedDate = DateTime.Now
             };
@@ -40,31 +58,20 @@ namespace uCommunity.Likes
             _likesRepository.Add(like);
         }
 
-        public void Remove(Guid userId, Guid activityId)
+        public void Remove(Guid userId, Guid entityId)
         {
-            _likesRepository.Delete(like => like.ActivityId == activityId && like.UserId == userId);
+            _likesRepository.Delete(like => like.EntityId == entityId && like.UserId == userId);
         }
 
-        public bool CanAdd(Guid userId, Guid activityId)
+        public bool CanAdd(Guid userId, Guid entityId)
         {
-            var exists = _likesRepository.Exists(like => like.ActivityId == activityId && like.UserId == userId);
+            var exists = _likesRepository.Exists(like => like.EntityId == entityId && like.UserId == userId);
             return !exists;
         }
 
         public void FillLikes(ILikeable entity)
         {
-            var likes = Get(entity.Id).OrderByDescending(el => el.CreatedDate).ToList();
-            var users = Enumerable.Empty<Tuple<Guid, string>>();
-            if (likes.Count != 0)
-            {
-                users = GetManyNames(likes.Select(el => el.UserId));
-            }
-
-            entity.Likes = users.Select(el => new LikeModel
-            {
-                UserId = el.Item1,
-                User = el.Item2
-            });
+            entity.Likes = GetLikeModels(entity.Id);
         }
 
         private IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
