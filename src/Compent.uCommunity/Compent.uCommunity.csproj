@@ -320,8 +320,10 @@
     <Reference Include="uCommunity.Events, Version=1.0.1.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Events.1.0.1.8\lib\net452\uCommunity.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>
+    <Reference Include="uCommunity.Likes, Version=1.0.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Likes.1.0.6.1\lib\net452\uCommunity.Likes.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Navigation, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.3.1\lib\net452\uCommunity.Navigation.dll</HintPath>
@@ -717,6 +719,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
@@ -728,10 +731,10 @@
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
-    <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
+    <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="App_Plugins\Notification\NotificationController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
@@ -757,7 +760,6 @@
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
-    <Compile Include="Core\LikeableService.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
@@ -823,7 +825,6 @@
     <Content Include="Views\LikesPage\Index.cshtml" />
     <Content Include="Views\CommentsEditPage\Index.cshtml" />
     <Content Include="Views\CommentsPage\Tabs.cshtml" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
