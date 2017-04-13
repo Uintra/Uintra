@@ -15,9 +15,7 @@
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">
                     @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    <span class="content__item-comment">
-                        @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
-                    </span>
+                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
                 </div>
                 @if (Model.CanSubscribe)
                 {

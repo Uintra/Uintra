@@ -5,7 +5,7 @@ require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 import appInitializer from "./../Core/Content/scripts/AppInitializer";
 import helpers from "./../Core/Content/scripts/Helpers";
 
-require("./_comments.css");
+require("./comments.css");
 
 var CommentOverview = function (selector) {
     var commentOverviewQuillOptions = {
