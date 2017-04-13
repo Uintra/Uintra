@@ -9,9 +9,9 @@
         <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@Model.ActivityId">@Model.Users.Count()</span></a>
 
         <div class="content__item-like-set">
-            @(Model.CanAddLike ?
-                  Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }) :
-                  Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }))
+            @(Model.CanAddLike 
+                  ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }) 
+                  : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }))
         </div>
     </div>
 

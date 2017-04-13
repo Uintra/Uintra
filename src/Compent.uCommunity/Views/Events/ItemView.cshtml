@@ -14,9 +14,7 @@
             </div>
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">
-                    <span class="content__item-like">
-                        @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    </span>
+                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
                     <span class="content__item-comment">
                         @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
                     </span>
