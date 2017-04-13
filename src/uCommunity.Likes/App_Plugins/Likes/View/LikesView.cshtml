@@ -3,23 +3,27 @@
 @model uCommunity.Likes.LikesViewModel
 @{
     var isLiked = Model.CanAddLike ? "" : "_isLiked";
+    var entityId = Model.ActivityId ?? Model.CommentId;
+
+    var routeValues = Model.ActivityId.HasValue ? (object)new { activityId = Model.ActivityId } : (object)new { commentId = Model.CommentId };
 }
-<div class="content__item-like" id="likes_@Model.ActivityId">
-    <div id="count_@Model.ActivityId">
-        <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@Model.ActivityId">@Model.Users.Count()</span></a>
+
+<div class="content__item-like" id="likes_@entityId">
+    <div id="count_@entityId">
+        <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@entityId">@Model.Users.Count()</span></a>
 
         <div class="content__item-like-set">
             @(Model.CanAddLike ?
-                  Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }) :
-                  Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }))
+                  Ajax.ActionLink("Add", "AddLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }) :
+                  Ajax.ActionLink("Remove", "RemoveLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }))
         </div>
     </div>
 
     @if (Model.Users.Any())
     {
-        <div class="content__item-like-popup" id="likesPopup_@Model.ActivityId">
+        <div class="content__item-like-popup" id="likesPopup_@entityId">
             @foreach (var name in Model.Users)
-            {
+                {
                 <span>
                     @Html.Label(name)
                 </span><br />

@@ -4,7 +4,7 @@ using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Likes
 {
-    [CompositeIndex("UserId", "ActivityId", Unique = true, Name = "UQ_Like_UserId_ActivityId")]
+    [CompositeIndex("UserId", "EntityId", Unique = true, Name = "UQ_Like_UserId_EntityId")]
     public class Like : SqlEntity
     {
         [PrimaryKey]
@@ -14,7 +14,7 @@ namespace uCommunity.Likes
         public Guid UserId { get; set; }
 
         [Required]
-        public Guid ActivityId { get; set; }
+        public Guid EntityId { get; set; }
 
         [Required]
         public DateTime CreatedDate { get; set; }
