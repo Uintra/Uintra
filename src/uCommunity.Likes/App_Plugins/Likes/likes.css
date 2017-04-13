@@ -1,0 +1,57 @@
+﻿.like{
+    margin: 0 10px 0 0;
+    display:inline-block;
+    vertical-align:top;
+    position:relative;
+
+    &__set{
+        color: #b2b2b2;
+
+        .like:hover &,
+        &:hover{
+            text-decoration:none;
+            color:var(--text-color-dark);
+        }
+
+        &._isLiked{
+            color:var(--text-color-dark);
+        }
+    }
+
+    .icon-like{
+        font-size:16px;
+        margin:0 7px 0 0;
+        vertical-align:top;
+    }
+
+    &__link{
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        text-indent:-9999px;
+        overflow:hidden;
+    }
+
+    &__popup{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:200px;
+        margin:0 0 0 -10px;
+        background:rgba(0,0,0,0.8);
+        border-radius:5px;
+        color:var(--color-white);
+        opacity:0;
+         z-index: 999;
+        transition:opacity ease-in 200ms 200ms, visibility ease-in 200ms 200ms;
+        visibility: hidden;
+        padding:5px 10px 0;
+
+        .like:hover &{
+            opacity:1;
+            visibility: visible;
+        }
+    }
+}
