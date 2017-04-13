@@ -13,9 +13,9 @@ namespace uCommunity.Likes.Web
     {
         public virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
-        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly ILikesService _likesService;
+        protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly ILikesService _likesService;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
@@ -29,49 +29,39 @@ namespace uCommunity.Likes.Web
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
         {
-            return Likes(likesInfo.Likes, activityId: likesInfo.Id);
+            return Likes(likesInfo.Likes, likesInfo.Id);
         }
 
-        public virtual PartialViewResult CommentLikes(Guid commentId)
+        public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
         {
-            return Likes(_likesService.GetLikeModels(commentId), commentId: commentId);
+            return Likes(_likesService.GetLikeModels(commentId), activityId, commentId);
         }
 
         [HttpPost]
         public virtual PartialViewResult AddLike(AddRemoveLikeModel model)
         {
-            if (model.ActivityId.HasValue)
-            {
-                return AddActivityLike(model.ActivityId.Value);
-            }
-
             if (model.CommentId.HasValue)
             {
                 _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(_likesService.GetLikeModels(model.CommentId.Value), commentId: model.CommentId.Value);
+                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
-            throw new ArgumentException("Error while adding comment. ActivityId or CommentId should have value.");
+            return AddActivityLike(model.ActivityId);
         }
 
         [HttpPost]
         public virtual PartialViewResult RemoveLike(AddRemoveLikeModel model)
         {
-            if (model.ActivityId.HasValue)
-            {
-                return RemoveActivityLike(model.ActivityId.Value);
-            }
-
             if (model.CommentId.HasValue)
             {
                 _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(_likesService.GetLikeModels(model.CommentId.Value), commentId: model.CommentId.Value);
+                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
-            throw new ArgumentException("Error while removing comment. ActivityId or CommentId should have value.");
+            return RemoveActivityLike(model.ActivityId);
         }
 
-        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid? activityId = null, Guid? commentId = null)
+        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null)
         {
             var currentUserId = GetCurrentUserId();
 
@@ -95,7 +85,7 @@ namespace uCommunity.Likes.Web
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Add(GetCurrentUserId(), activityId);
 
-            return Likes(likeInfo.Likes, activityId: likeInfo.Id);
+            return Likes(likeInfo.Likes, likeInfo.Id);
         }
 
         protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
@@ -104,7 +94,7 @@ namespace uCommunity.Likes.Web
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Remove(GetCurrentUserId(), activityId);
 
-            return Likes(likeInfo.Likes, activityId: likeInfo.Id);
+            return Likes(likeInfo.Likes, likeInfo.Id);
         }
 
         protected virtual Guid GetCurrentUserId()
