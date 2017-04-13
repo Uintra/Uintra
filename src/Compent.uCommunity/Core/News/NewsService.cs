@@ -35,7 +35,7 @@ namespace Compent.uCommunity.Core
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
-        //private readonly INotificationsService _notificationService;
+        private readonly INotificationsService _notificationService;
 
         public NewsService(IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService,
@@ -43,7 +43,8 @@ namespace Compent.uCommunity.Core
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper, IPermissionsService permissionsService /*INotificationsService notificationService*/)
+            UmbracoHelper umbracoHelper, IPermissionsService permissionsService,
+            INotificationsService notificationService)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
@@ -52,7 +53,7 @@ namespace Compent.uCommunity.Core
             _umbracoHelper = umbracoHelper;
             this._permissionsService = permissionsService;
             _subscribeService = subscribeService;
-            //_notificationService = notificationService;
+            _notificationService = notificationService;
         }
 
         public MediaSettings GetMediaSettings()
@@ -139,15 +140,7 @@ namespace Compent.uCommunity.Core
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             FillCache(activityId);
-
-            if (parentId.HasValue)
-            {
-                Notify(parentId.Value, NotificationTypeEnum.CommentReplyed);
-            }
-            else
-            {
-                Notify(comment.Id, NotificationTypeEnum.CommentAdded);
-            }
+            Notify(parentId ?? comment.Id, parentId.HasValue ? NotificationTypeEnum.CommentReplyed: NotificationTypeEnum.CommentAdded);
         }
 
         public void UpdateComment(Guid id, string text)
@@ -192,7 +185,7 @@ namespace Compent.uCommunity.Core
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
             {
-                //_notificationService.ProcessNotification(notifierData);
+                _notificationService.ProcessNotification(notifierData);
             }
         }
 
