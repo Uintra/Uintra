@@ -356,7 +356,6 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\List\ListView.cshtml" />
-    <Content Include="App_Plugins\Events\List\OverView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <None Include="Content\Config\applications.config.install.xdt" />
     <None Include="Content\Config\applications.config.uninstall.xdt" />
