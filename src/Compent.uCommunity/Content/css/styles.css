@@ -1,7 +1,31 @@
-﻿body {
+﻿@font-face {
+    font-family: 'Open Sans';
+    src: url('/Content/fonts/opensans-regular-webfont.eot');
+    src: url('/Content/fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/opensans-regular-webfont.svg') format('svg'), 
+        url('/Content/fonts/opensans-regular-webfont.woff2') format('woff2'), 
+        url('/Content/fonts/opensans-regular-webfont.woff') format('woff'), 
+        url('/Content/fonts/opensans-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/Content/fonts/opensans-bold-webfont.eot');
+    src: url('/Content/fonts/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/Content/fonts/opensans-bold-webfont.woff2') format('woff2'),
+         url('/Content/fonts/opensans-bold-webfont.woff') format('woff'),
+         url('/Content/fonts/opensans-bold-webfont.ttf') format('truetype'),
+         url('/Content/fonts/opensans-bold-webfont.svg#open_sansbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
     margin:0;
     background:#fff;
-    font:14px/1.3 Arial, Helvetica, sans-serif;
+    font:14px/1.3 'Open Sans', Helvetica, sans-serif;
 }
 
 .wrapper{

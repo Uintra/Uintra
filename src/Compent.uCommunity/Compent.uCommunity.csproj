@@ -707,6 +707,8 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="Content\css\styles.css" />
+    <Content Include="Content\fonts\opensans-bold-webfont.svg" />
+    <Content Include="Content\fonts\opensans-regular-webfont.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\main.js" />
     <Content Include="Content\head_css.js" />
@@ -872,6 +874,14 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="Content\fonts\opensans-bold-webfont.eot" />
+    <Content Include="Content\fonts\opensans-bold-webfont.ttf" />
+    <Content Include="Content\fonts\opensans-bold-webfont.woff" />
+    <Content Include="Content\fonts\opensans-bold-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-regular-webfont.eot" />
+    <Content Include="Content\fonts\opensans-regular-webfont.ttf" />
+    <Content Include="Content\fonts\opensans-regular-webfont.woff" />
+    <Content Include="Content\fonts\opensans-regular-webfont.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

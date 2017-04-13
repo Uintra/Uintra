@@ -16,8 +16,8 @@ module.exports = {
                         '--text-color-light': '#8f8f8f',
                         '--text-color-dark': '#333',
                         '--header-bg': '#373737',
-                        '--font-custom': 'opensans, Arial, Helvetica, sans-serif',
-                        '--font-general': 'opensans, Arial, Helvetica, sans-serif'
+                        '--font-custom': '"Open Sans", Arial, Helvetica, sans-serif',
+                        '--font-general': '"Open Sans", Arial, Helvetica, sans-serif'
                     }
                 },
                 customMedia: {
