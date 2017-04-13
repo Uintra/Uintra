@@ -143,7 +143,6 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
-           // kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
