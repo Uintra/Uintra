@@ -22,20 +22,20 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        public override string OverviewViewPath { get; set; } = "~/Views/Events/OverView.cshtml";
-        public override string ListViewPath { get; set; } = "~/Views/Events/ListView.cshtml";
-        public override string DetailsViewPath { get; set; } = "~/Views/Events/DetailsView.cshtml";
-        public override string CreateViewPath { get; set; } = "~/Views/Events/CreateView.cshtml";
-        public override string EditViewPath { get; set; } = "~/Views/Events/EditView.cshtml";
-        public override string ItemViewPath { get; set; } = "~/Views/Events/ItemView.cshtml";
+        public override string OverviewViewPath { get; } = "~/Views/Events/OverView.cshtml";
+        public override string ListViewPath { get; } = "~/Views/Events/ListView.cshtml";
+        public override string DetailsViewPath { get; } = "~/Views/Events/DetailsView.cshtml";
+        public override string CreateViewPath { get; } = "~/Views/Events/CreateView.cshtml";
+        public override string EditViewPath { get; } = "~/Views/Events/EditView.cshtml";
+        public override string ItemViewPath { get; } = "~/Views/Events/ItemView.cshtml";
 
         private readonly IEventsService<EventBase, Event> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
         private readonly IReminderService _reminderService;
 
-        public EventsController(IEventsService<EventBase, Event> eventsService, 
-            IMediaHelper mediaHelper, 
+        public EventsController(IEventsService<EventBase, Event> eventsService,
+            IMediaHelper mediaHelper,
             IIntranetUserService intranetUserService,
             IReminderService reminderService)
             : base(eventsService, mediaHelper, intranetUserService)
@@ -79,7 +79,7 @@ namespace Compent.uCommunity.Controllers
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
-             
+
             return PartialView(DetailsViewPath, model);
         }
 
