@@ -45,13 +45,14 @@
         color:var(--color-white);
         opacity:0;
         z-index: 999;
-        transition:opacity ease-in 200ms 200ms, visibility ease-in 200ms 200ms;
+        transition:opacity ease-in 200ms, visibility ease-in 200ms;
         visibility: hidden;
         padding:5px 10px 0;
 
         .like:hover &{
             opacity:1;
             visibility: visible;
+            transition-delay: 200ms;
         }
     }
 }
