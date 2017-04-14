@@ -13,18 +13,18 @@ namespace uCommunity.Likes.Web
     {
         public virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
-        protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        protected readonly IIntranetUserService _intranetUserService;
-        protected readonly ILikesService _likesService;
+        protected readonly IActivitiesServiceFactory ActivitiesServiceFactory;
+        protected readonly IIntranetUserService IntranetUserService;
+        protected readonly ILikesService LikesService;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService intranetUserService,
             ILikesService likesService)
         {
-            _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserService = intranetUserService;
-            _likesService = likesService;
+            ActivitiesServiceFactory = activitiesServiceFactory;
+            IntranetUserService = intranetUserService;
+            LikesService = likesService;
         }
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
@@ -34,7 +34,7 @@ namespace uCommunity.Likes.Web
 
         public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
         {
-            return Likes(_likesService.GetLikeModels(commentId), activityId, commentId);
+            return Likes(LikesService.GetLikeModels(commentId), activityId, commentId);
         }
 
         [HttpPost]
@@ -42,8 +42,8 @@ namespace uCommunity.Likes.Web
         {
             if (model.CommentId.HasValue)
             {
-                _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
+                LikesService.Add(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(LikesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
             return AddActivityLike(model.ActivityId);
@@ -54,8 +54,8 @@ namespace uCommunity.Likes.Web
         {
             if (model.CommentId.HasValue)
             {
-                _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
+                LikesService.Remove(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(LikesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
             return RemoveActivityLike(model.ActivityId);
@@ -81,7 +81,7 @@ namespace uCommunity.Likes.Web
 
         protected virtual PartialViewResult AddActivityLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService(activityId);
+            var service = ActivitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Add(GetCurrentUserId(), activityId);
 
@@ -90,7 +90,7 @@ namespace uCommunity.Likes.Web
 
         protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService(activityId);
+            var service = ActivitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Remove(GetCurrentUserId(), activityId);
 
@@ -99,7 +99,7 @@ namespace uCommunity.Likes.Web
 
         protected virtual Guid GetCurrentUserId()
         {
-            return _intranetUserService.GetCurrentUserId();
+            return IntranetUserService.GetCurrentUserId();
         }
     }
 }
