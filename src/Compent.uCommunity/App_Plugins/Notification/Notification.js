@@ -42,7 +42,7 @@ function initInfinityScroll() {
     var holder = $('.js-notifications-overview');
     if (!holder.length) return;
     
-    var formController = umbracoAjaxForm()(holder.find("form.js-ajax-form"));
+    var formController = umbracoAjaxForm()(holder.find("form.js-ajax-form")[0]);
 
     var state = {
         get page() {

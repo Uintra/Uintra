@@ -10,32 +10,35 @@ using uCommunity.Notification.Core.Models;
 using uCommunity.Notification.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Notification
+namespace uCommunity.Notification.Web
 {
-    public class NotificationController : SurfaceController
+    public abstract class NotificationControllerBase: SurfaceController
     {
-        private readonly IUiNotifierService _uiNotifierService;
-        private readonly IIntranetUserService _intranetUserService;
-        private int ItemsPerPage = 8;
+        public virtual string OverviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationOverview.cshtml";
+        public virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
 
-        public NotificationController(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService)
+        protected readonly IUiNotifierService _uiNotifierService;
+        protected readonly IIntranetUserService _intranetUserService;
+        protected virtual int ItemsPerPage { get; } = 8;
+
+        protected NotificationControllerBase(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService)
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
         }
 
-        public ActionResult Overview()
+        public virtual ActionResult Overview()
         {
-            return PartialView("~/App_Plugins/Notification/List/NotificationOverview.cshtml");
+            return PartialView(OverviewViewPath);
         }
 
-        public ActionResult Index(int page = 1)
+        public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
             var userId = _intranetUserService.GetCurrentUserId();
             int totalCount;
             var notifications = _uiNotifierService.GetByReceiver(userId, take, out totalCount).ToList();
-            return PartialView("~/App_Plugins/Notification/List/NotificationList.cshtml",
+            return PartialView(ListViewPath,
                 new NotificationListViewModel
                 {
                     Notifications = notifications.Map<IEnumerable<NotificationViewModel>>(),
@@ -44,7 +47,7 @@ namespace uCommunity.Notification
         }
 
         [System.Web.Mvc.HttpGet]
-        public int GetNotNotifiedCount()
+        public virtual int GetNotNotifiedCount()
         {
             var userId = _intranetUserService.GetCurrentUserId();
             var count = _uiNotifierService.GetNotNotifiedCount(userId);
@@ -52,7 +55,7 @@ namespace uCommunity.Notification
         }
 
         [System.Web.Mvc.HttpPost]
-        public void View([FromBody]Guid id)
+        public virtual void View([FromBody]Guid id)
         {
             _uiNotifierService.ViewNotification(id);
         }
