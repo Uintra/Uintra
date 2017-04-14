@@ -15,6 +15,7 @@
             position:relative;
             padding:35px 20px 39px;
         }
+
         &-label{
             position:absolute;
             top:0;
@@ -30,6 +31,7 @@
                 display:block;
             }
         }
+
         &-heading{
             margin:0 0 20px;
             font-size:13px;
@@ -39,6 +41,7 @@
                 margin:0 0 22px;
             }
         }
+
         &-avatar{
             width:60px;
             min-width:60px;
@@ -56,9 +59,11 @@
                 transform: translate(-50%, -50%);
             }
         }
+
         &-title-holder{
             padding:0;
         }
+
         &-title{
             font:bold 18px/22px var(--font-general);
             margin:-5px 0 5px;
@@ -73,9 +78,11 @@
                 }
             }
         }
+
         &-meta{
             margin:0;
         }
+
         &-location{
             padding:0 0 0 23px;
 
@@ -86,11 +93,9 @@
                 color:#444;
             }
         }
+
         &-img{
             margin:17px 0 16px;
-        }
-        &-info{
-            color:var(--text-color-dark);
         }
 
         &-txt{
@@ -158,6 +163,7 @@
                     max-width:100%;
                 }
             }
+
             &-remove{
                 position:absolute;
                 top:-10px;
@@ -194,147 +200,12 @@
                 margin:0;
             }
         }
-        
-        &-comment{
-            margin: 0 10px 0 0;
-            display:inline-block;
-            vertical-align:top;
-            position:relative;
-
-            &-link{
-                color: #b2b2b2;
-
-                .content__item-like:hover &,
-                &:hover{
-                    text-decoration:none;
-                    color:var(--text-color-dark);
-                }
-
-                &._isLiked{
-                    color:var(--text-color-dark);
-                }
-            }
-            .icon-like,
-            .icon-comment{
-                font-size:16px;
-                margin:0 7px 0 0;
-                vertical-align:top;
-            }
-            .icon-comment{
-                vertical-align:middle;
-            }
-
-            &-set{
-                position:absolute;
-                top:0;
-                left:0;
-                right:0;
-                bottom:0;
-                text-indent:-9999px;
-                overflow:hidden;
-
-                a{
-                    display:block;
-                }
-            }
-            &-popup{
-                position:absolute;
-                top:100%;
-                left:0;
-                width:200px;
-                margin:0 0 0 -10px;
-                background:rgba(0,0,0,0.8);
-                border-radius:5px;
-                color:var(--color-white);
-                opacity:0;
-                z-index:-1;
-                transition:opacity ease-in 200ms 200ms;
-                padding:5px 10px 0;
-
-                .content__item-like:hover &{
-                    opacity:1;
-                    z-index:999;
-                }
-            }
-        }
-        &-subscribe {
-            display:inline-block;
-            vertical-align:middle;
-            margin:0 0 10px;
-
-            & &{
-                margin:0;
-            }
-
-            ._isPinned &{
-                margin-bottom:0;
-            }
-
-            @media (--for-tablet-portrait-down){
-                & {
-                    display:block;
-                    margin:15px 0;
-                }
-            }
-
-            &-set{
-                display:inline-block;
-                vertical-align:top;
-                margin:0 16px 0 0;
-            }
-            &-label{
-                display:inline-block;
-                vertical-align:top;
-                margin:4px 0 0;
-                color:var(--color-red);
-                font-size:12px;
-
-                .check {
-                    margin: 0;
-                }
-            }
-            &-btn{
-                display:inline-block;
-                border: 1px solid #e3e3e3;
-                padding:7px 10px 8px 33px;
-                background-color:var(--color-white);
-                font: 12px/14px var(--font-custom);
-                text-transform:uppercase;
-                position:relative;
-                color:var(--text-color-dark);
-                vertical-align:top;
-                min-width:95px;
-
-                &:before{
-                    font-family:icomoon;
-                    position:absolute;
-                    top:7px;
-                    left:11px;
-                }
-
-                &:hover{
-                    color:var(--text-color-dark);
-                }
-
-                &._subscribe{
-                    &:before{
-                        font-size:10px;
-                        content:'\e903';
-                    }
-                }
-                &._unsubscribe{
-                    &:before{
-                        font-size:14px;
-                        content:'\e907';
-                    }
-                }
-            }
-        }
 
         &._details{
             position:relative;
             padding-top:25px;
         }
+
         ._details &-label{
             position:static;
             float:right;

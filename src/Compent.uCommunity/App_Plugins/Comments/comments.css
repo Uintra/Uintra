@@ -276,3 +276,25 @@
         }
     }
 }
+
+.comments-preview{
+    margin: 0 10px 0 0;
+    display:inline-block;
+    vertical-align:top;
+    position:relative;
+
+    &__link{
+        color: #b2b2b2;
+
+        &:hover{
+            text-decoration:none;
+            color:var(--text-color-dark);
+        }
+    }
+
+    .icon-comment{
+        font-size:16px;
+        margin:0 7px 0 0;
+        vertical-align:middle;
+    }
+}

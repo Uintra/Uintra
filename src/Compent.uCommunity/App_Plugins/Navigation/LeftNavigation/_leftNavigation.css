@@ -13,26 +13,25 @@
     background:var(--color-white);
 
     @media (--for-tablet-portrait-down) {
-        & {
-            position: absolute;
-            top: 79px;
-            left: 0;
-            right: 0;
-            bottom: auto;
-            background: var(--color-light-gray-2);
-            padding: 0;
-            width: auto;
-            height: auto;
-            transform: translate(0, -100%);
-            transition: transform linear 200ms;
+        position: absolute;
+        top: 79px;
+        left: 0;
+        right: 0;
+        bottom: auto;
+        background: var(--color-light-gray-2);
+        padding: 0;
+        width: auto;
+        height: auto;
+        transform: translate(0, -100%);
+        transition: transform linear 200ms;
 
-            ._menu-expanded & {
-                transform: translate(0, 0);
-                box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            }
+        ._menu-expanded & {
+            transform: translate(0, 0);
+            box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
     }
 }
+
 .side-nav {
     margin:0;
     padding:0;
@@ -52,7 +51,7 @@
 
     &__link{
         display:block;
-        padding:3px 40px 5px 19px;
+        padding:4px 40px 4px 19px;
         color:var(--text-color-dark);
 
         :hover > &,
@@ -70,16 +69,19 @@
             pointer-events:none;
         }
     }
+
     &__arrow{
         position:absolute;
         top:10px;
         right:24px;
     }
+
     .glyphicon{
         position:absolute;
         top:8px;
         right:50px;
     }
+
     & & {
         margin:0;
         padding:0;
@@ -92,10 +94,12 @@
             &__link{
                 padding-left:29px;
             }
+
             .side-nav{
                 &__link{
                     padding-left:39px;
                 }
+
                 .side-nav{
                     &__link{
                         padding-left:49px;
@@ -107,26 +111,24 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        & {
-            font-size: 18px;
-            padding: 24px 0 38px;
+        font-size: 18px;
+        padding: 24px 0 38px;
 
-            & & {
-                padding: 3px 0 0;
-                font-size:16px;
+        & & {
+            padding: 3px 0 0;
+            font-size:16px;
 
-                &__item {
-                    margin: 0 0 5px;
-                }
-
-                &__link {
-                    padding-left: 19px;
-                }
+            &__item {
+                margin: 0 0 5px;
             }
 
             &__link {
                 padding-left: 19px;
             }
+        }
+
+        &__link {
+            padding-left: 19px;
         }
     }
 }
