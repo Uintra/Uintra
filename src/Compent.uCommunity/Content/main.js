@@ -16,4 +16,5 @@ require('./../App_Plugins/Subscribe/SubscribeList');
 require('./../App_Plugins/Events/Create/create-events');
 require('./../App_Plugins/Events/Edit/edit-events');
 require('./../App_Plugins/Events/List/edit-list');
+require('./../App_Plugins/Notification/Notification');
 require('./../App_Plugins/Likes/likes');

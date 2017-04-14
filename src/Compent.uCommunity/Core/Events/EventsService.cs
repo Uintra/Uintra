@@ -35,7 +35,8 @@ namespace Compent.uCommunity.Core.Events
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService permissionsService;
+        private readonly IPermissionsService _permissionsService;
+        private readonly INotificationsService _notificationService;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityService intranetActivityService,
@@ -44,7 +45,9 @@ namespace Compent.uCommunity.Core.Events
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService, 
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            INotificationsService notificationService
+            )
             : base(intranetActivityService, memoryCacheService)
         {
             _umbracoHelper = umbracoHelper;
@@ -52,7 +55,8 @@ namespace Compent.uCommunity.Core.Events
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
-            this.permissionsService = permissionsService;
+            _permissionsService = permissionsService;
+            _notificationService = notificationService;
         }
 
         protected override List<string> OverviewXPath { get; }
@@ -129,7 +133,7 @@ namespace Compent.uCommunity.Core.Events
             var currentUser = _intranetUserService.GetCurrentUser();
 
             return activity.CreatorId == currentUser.Id 
-                || permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+                || _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
         }
 
         public ICentralFeedItem GetItem(Guid activityId)
@@ -189,15 +193,7 @@ namespace Compent.uCommunity.Core.Events
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             FillCache(activityId);
-
-            if (parentId.HasValue)
-            {
-                Notify(parentId.Value, NotificationTypeEnum.CommentReplyed);
-            }
-            else
-            {
-                Notify(comment.Id, NotificationTypeEnum.CommentAdded);
-            }
+            Notify(parentId ?? comment.Id, parentId.HasValue ?  NotificationTypeEnum.CommentReplyed: NotificationTypeEnum.CommentAdded);
         }
 
         public void UpdateComment(Guid id, string text)
@@ -230,7 +226,7 @@ namespace Compent.uCommunity.Core.Events
 
             if (notifierData != null)
             {
-                //_notificationService.ProcessNotification(notifierData);
+                _notificationService.ProcessNotification(notifierData);
             }
         }
 

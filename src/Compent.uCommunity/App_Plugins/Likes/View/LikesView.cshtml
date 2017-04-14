@@ -3,16 +3,15 @@
 @model uCommunity.Likes.LikesViewModel
 @{
     var isLiked = Model.CanAddLike ? "" : "_isLiked";
-    var entityId = Model.ActivityId ?? Model.CommentId;
-
-    var routeValues = Model.ActivityId.HasValue ? (object)new { activityId = Model.ActivityId } : (object)new { commentId = Model.CommentId };
+    var entityId = Model.CommentId.HasValue ? Model.CommentId.Value : Model.ActivityId;
 }
+
 <div class="like" id="likes_@entityId">
     <span class="like__set @isLiked"><i class="icon-like"></i> @Model.Users.Count()</span>
 
     @(Model.CanAddLike
-        ? Ajax.ActionLink("Add", "AddLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
-        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", routeValues, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
+        ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
+        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
 
     @if (Model.Users.Any())
     {

@@ -79,6 +79,12 @@ namespace Compent.uCommunity.Core.IoC
 
             var configurationProvider = kernel.Get<IConfigurationProvider<NavigationConfiguration>>();
             configurationProvider.Initialize();
+
+            var notificationConfigurationProvider = kernel.Get<IConfigurationProvider<NotificationConfiguration>>();
+            notificationConfigurationProvider.Initialize();
+
+            var reminderConfigurationProvider = kernel.Get<IConfigurationProvider<ReminderConfiguration>>();
+            reminderConfigurationProvider.Initialize();
         }
 
         public static void Stop()
@@ -163,9 +169,9 @@ namespace Compent.uCommunity.Core.IoC
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
-                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/notificationConfiguration.json");
+                .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/notificationConfiguration.json");
             kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
-                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/reminderConfiguration.json");
+                .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
             kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
             kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();

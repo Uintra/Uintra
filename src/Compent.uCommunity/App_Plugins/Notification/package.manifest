@@ -7,7 +7,7 @@
       "icon": "icon-bell color-red",
       "config": {
         "controller": "Notification",
-        "action": "Index"
+        "action": "Overview"
       }
     }
   ]

@@ -15,6 +15,8 @@ using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions.Web;
 using uCommunity.Events;
 using uCommunity.Events.Web;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Services;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -30,13 +32,18 @@ namespace Compent.uCommunity.Controllers
         private readonly IEventsService<EventBase, Event> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
+        private readonly IReminderService _reminderService;
 
-        public EventsController(IEventsService<EventBase, Event> eventsService, IMediaHelper mediaHelper, IIntranetUserService intranetUserService)
+        public EventsController(IEventsService<EventBase, Event> eventsService, 
+            IMediaHelper mediaHelper, 
+            IIntranetUserService intranetUserService,
+            IReminderService reminderService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
+            _reminderService = reminderService;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
@@ -91,6 +98,7 @@ namespace Compent.uCommunity.Controllers
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
+            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
