@@ -751,9 +751,9 @@
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
-    <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
+    <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
@@ -762,6 +762,7 @@
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
+    <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />

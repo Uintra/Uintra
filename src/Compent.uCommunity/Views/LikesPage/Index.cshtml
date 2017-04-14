@@ -1,13 +1,3 @@
-﻿@using Compent.uCommunity.Core.Comments
-@using Compent.uCommunity.Core.Likes
-@using uCommunity.Core.Activity
-@using uCommunity.Likes
+﻿@using Compent.uCommunity.Core.Likes
 
-@{
-    var likesService = DependencyResolver.Current.GetService<ILikesService>();
-
-    ILikeable activity = new CustomLikeable { Id = CommentsTestConstants.ActivityId, Type = IntranetActivityTypeEnum.News, Likes = Enumerable.Empty<LikeModel>() };
-    likesService.FillLikes(activity);
-}
-
-@{ Html.RenderAction("Likes", "Likes", new { likesInfo = activity }); }
+@{ Html.RenderAction("CommentLikes", "Likes", new { activityId = LikesTestConstants.ActivityId, commentId = LikesTestConstants.CommentId }); }
