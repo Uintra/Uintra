@@ -1,1 +1,6 @@
-﻿<textarea ng-model="value" rows="10" class="mceNoEditor" style="overflow: hidden" id="tiny-mce-{{$id}}"></textarea>
+﻿<textarea ng-model="model" rows="10" class="mceNoEditor" style="overflow: hidden" id="tiny-mce-{{$id}}"></textarea>
+<umb-overlay ng-if="linksPickerOverlay.show"
+             model="linksPickerOverlay"
+             view="linksPickerOverlay.view"
+             position="{{linksPickerOverlay.position}}">
+</umb-overlay>

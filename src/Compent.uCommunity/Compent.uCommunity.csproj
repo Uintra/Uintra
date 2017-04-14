@@ -300,9 +300,8 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.BaseControls">
-      <HintPath>..\..\packages\uCommunity.BaseControls.1.0.2\lib\net452\uCommunity.BaseControls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uCommunity.BaseControls, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.BaseControls.2.2.0\lib\net452\uCommunity.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.CentralFeed, Version=1.0.3.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.3.4\lib\net452\uCommunity.CentralFeed.dll</HintPath>
@@ -317,8 +316,8 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.18.2\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.1.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Events.1.0.1.8\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Events.1.0.3.1\lib\net452\uCommunity.Events.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.6.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -328,8 +327,8 @@
     <Reference Include="uCommunity.Navigation, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.3.1\lib\net452\uCommunity.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.6.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.News.1.0.6.8\lib\net452\uCommunity.News.dll</HintPath>
+    <Reference Include="uCommunity.News, Version=1.0.8.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.News.1.0.8.1\lib\net452\uCommunity.News.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -422,22 +421,43 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\base.css" />
-    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.directive.js" />
+    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.js" />
     <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
-    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptions.css" />
-    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptions.html" />
-    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptionsDirective.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.directive.js" />
-    <Content Include="App_Plugins\BaseControls\ExternalLink\externalLink.html" />
-    <Content Include="App_Plugins\BaseControls\ExternalLink\externalLinkDirective.js" />
-    <Content Include="App_Plugins\BaseControls\InternalLink\internalLink.html" />
-    <Content Include="App_Plugins\BaseControls\InternalLink\internalLinkDirective.js" />
-    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPicker.css" />
-    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPicker.html" />
-    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPickerDirective.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.css" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.html" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\l10n\da.js" />
+    <Content Include="App_Plugins\BaseControls\directives.js" />
+    <Content Include="App_Plugins\BaseControls\filters.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ext-beautify.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\mode-json.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\theme-monokai.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\worker-json.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\config-editor.css" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\config-editor.html" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\config-editor.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\DataTypePicker\data-type-picker.html" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\DataTypePicker\data-type-picker.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\global-config.js" />
+    <Content Include="App_Plugins\BaseControls\hacks.js" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\links-picker.css" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\links-picker.html" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\links-picker.js" />
     <Content Include="App_Plugins\BaseControls\MediaPicker\media-picker.directive.js" />
-    <Content Include="App_Plugins\BaseControls\TextArea\textArea.html" />
-    <Content Include="App_Plugins\BaseControls\TextArea\textAreaDirective.js" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\edit-crop-overlay.html" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper-config.html" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper-config.js" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.css" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.html" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.js" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\link-picker-overlay.html" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.js" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.css" />
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.html" />
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
@@ -723,6 +743,17 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
+    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
@@ -825,7 +856,6 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="Views\LikesPage\Index.cshtml" />
     <Content Include="Views\CommentsEditPage\Index.cshtml" />
     <Content Include="Views\CommentsPage\Tabs.cshtml" />
@@ -867,12 +897,8 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="Views\Events\ItemView.cshtml" />
     <Content Include="Views\Events\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="Content\fonts\opensans-bold-webfont.eot" />
     <Content Include="Content\fonts\opensans-bold-webfont.ttf" />
     <Content Include="Content\fonts\opensans-bold-webfont.woff" />
@@ -881,7 +907,6 @@
     <Content Include="Content\fonts\opensans-regular-webfont.ttf" />
     <Content Include="Content\fonts\opensans-regular-webfont.woff" />
     <Content Include="Content\fonts\opensans-regular-webfont.woff2" />
-    <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="Views\Events\OverView.cshtml" />
     <Content Include="Views\Events\ListView.cshtml" />
     <Content Include="Views\Events\EditView.cshtml" />

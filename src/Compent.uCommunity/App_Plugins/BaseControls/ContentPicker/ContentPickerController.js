@@ -20,7 +20,6 @@
                 config: "="
             },
             link: function ($scope, $element, $attrs) {
-                debugger;
                 var contentPickerScope;
                 $scope.model = {
                     value: $scope.value,
