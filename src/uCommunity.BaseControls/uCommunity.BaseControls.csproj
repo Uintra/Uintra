@@ -51,14 +51,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Plugins\BaseControls\base.css" />
-    <None Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
-    <None Include="App_Plugins\BaseControls\MediaPicker\media-picker.directive.js" />
-    <None Include="App_Plugins\BaseControls\package.manifest" />
-    <None Include="App_Plugins\BaseControls\TinyMce\tiny-mce.html" />
-    <None Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
-    <None Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
-    <None Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
+    <Content Include="App_Plugins\BaseControls\base.css" />
+    <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
+    <Content Include="App_Plugins\BaseControls\MediaPicker\media-picker.directive.js" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.html" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
+    <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
+    <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
     <None Include="uCommunity.BaseControls.nuspec">
       <SubType>Designer</SubType>
     </None>
