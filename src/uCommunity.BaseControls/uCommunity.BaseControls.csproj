@@ -47,37 +47,59 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Enums\LinkTypes.cs" />
     <Compile Include="Core\Enums\VideoSourceTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plugin\base.css" />
-    <None Include="Plugin\ColorPicker\color-picker.directive.js" />
-    <None Include="Plugin\ContentPicker\ContentPickerController.js" />
-    <None Include="Plugin\CustomOptions\customOptions.css" />
-    <None Include="Plugin\CustomOptions\customOptions.html" />
-    <None Include="Plugin\CustomOptions\customOptionsDirective.js" />
-    <None Include="Plugin\DatePicker\date-picker.directive.js" />
-    <None Include="Plugin\ExternalLink\externalLink.html" />
-    <None Include="Plugin\ExternalLink\externalLinkDirective.js" />
-    <None Include="Plugin\InternalLink\internalLink.html" />
-    <None Include="Plugin\InternalLink\internalLinkDirective.js" />
-    <None Include="Plugin\LinksPicker\linksPicker.css" />
-    <None Include="Plugin\LinksPicker\linksPicker.html" />
-    <None Include="Plugin\LinksPicker\linksPickerDirective.js" />
-    <None Include="Plugin\MediaPicker\media-picker.directive.js" />
-    <None Include="Plugin\TextArea\textArea.html" />
-    <None Include="Plugin\TextArea\textAreaDirective.js" />
-    <None Include="Plugin\TinyMce\tiny-mce.html" />
-    <None Include="Plugin\TinyMce\tiny-mce.js" />
-    <None Include="Plugin\VideoLink\videolink.html" />
-    <None Include="Plugin\VideoLink\videoLinkDirective.js" />
+    <None Include="App_Plugin\BaseControls\base.css" />
+    <None Include="App_Plugin\BaseControls\ContentPicker\ContentPickerController.js" />
+    <None Include="App_Plugin\BaseControls\MediaPicker\media-picker.directive.js" />
+    <None Include="App_Plugin\BaseControls\package.manifest" />
+    <None Include="App_Plugin\BaseControls\TinyMce\tiny-mce.html" />
+    <None Include="App_Plugin\BaseControls\TinyMce\tiny-mce.js" />
+    <None Include="App_Plugin\BaseControls\VideoLink\videolink.html" />
+    <None Include="App_Plugin\BaseControls\VideoLink\videoLinkDirective.js" />
+    <None Include="uCommunity.BaseControls.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plugin\package.manifest" />
+    <Content Include="App_Plugin\BaseControls\ColorPicker\color-picker.js" />
+    <Content Include="App_Plugin\BaseControls\DatePicker\date-picker.css" />
+    <Content Include="App_Plugin\BaseControls\DatePicker\date-picker.html" />
+    <Content Include="App_Plugin\BaseControls\DatePicker\date-picker.js" />
+    <Content Include="App_Plugin\BaseControls\DatePicker\flatpickr\flatpickr.css" />
+    <Content Include="App_Plugin\BaseControls\DatePicker\flatpickr\flatpickr.js" />
+    <Content Include="App_Plugin\BaseControls\DatePicker\flatpickr\l10n\da.js" />
+    <Content Include="App_Plugin\BaseControls\directives.js" />
+    <Content Include="App_Plugin\BaseControls\filters.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\DataTypePicker\data-type-picker.html" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\DataTypePicker\data-type-picker.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\global-config.js" />
+    <Content Include="App_Plugin\BaseControls\hacks.js" />
+    <Content Include="App_Plugin\BaseControls\LinksPicker\links-picker.css" />
+    <Content Include="App_Plugin\BaseControls\LinksPicker\links-picker.html" />
+    <Content Include="App_Plugin\BaseControls\LinksPicker\links-picker.js" />
+    <Content Include="App_Plugin\BaseControls\MultiImageCropper\edit-crop-overlay.html" />
+    <Content Include="App_Plugin\BaseControls\MultiImageCropper\multi-image-cropper-config.html" />
+    <Content Include="App_Plugin\BaseControls\MultiImageCropper\multi-image-cropper-config.js" />
+    <Content Include="App_Plugin\BaseControls\MultiImageCropper\multi-image-cropper.css" />
+    <Content Include="App_Plugin\BaseControls\MultiImageCropper\multi-image-cropper.html" />
+    <Content Include="App_Plugin\BaseControls\MultiImageCropper\multi-image-cropper.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ext-beautify.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\aceeditor\mode-json.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\aceeditor\theme-monokai.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\aceeditor\worker-json.js" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\config-editor.css" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\config-editor.html" />
+    <Content Include="App_Plugin\BaseControls\GlobalConfig\ConfigEditor\config-editor.js" />
+    <Content Include="App_Plugin\BaseControls\TinyMce\link-picker-overlay.html" />
+    <Content Include="App_Plugin\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
+    <Content Include="App_Plugin\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
+    <Content Include="App_Plugin\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.js" />
+    <Content Include="App_Plugin\BaseControls\TinyMce\tiny-mce.css" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
