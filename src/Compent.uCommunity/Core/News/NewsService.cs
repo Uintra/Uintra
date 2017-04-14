@@ -136,18 +136,17 @@ namespace Compent.uCommunity.Core
             return activity;
         }
 
-        public void CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
-            FillCache(activityId);
-            Notify(parentId ?? comment.Id, parentId.HasValue ? NotificationTypeEnum.CommentReplyed: NotificationTypeEnum.CommentAdded);
+            FillCache(comment.ActivityId);
+            return comment;
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
             FillCache(comment.ActivityId);
-            Notify(comment.Id, NotificationTypeEnum.CommentEdited);
         }
 
         public void DeleteComment(Guid id)
@@ -165,7 +164,6 @@ namespace Compent.uCommunity.Core
         public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            Notify(activityId, NotificationTypeEnum.LikeAdded);
             return FillCache(activityId);
         }
 

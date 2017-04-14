@@ -307,11 +307,6 @@
     <Reference Include="uCommunity.CentralFeed, Version=1.0.3.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.3.4\lib\net452\uCommunity.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.5.1\lib\net452\uCommunity.Comments.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uCommunity.Core, Version=1.0.18.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Core.1.0.18.2\lib\net452\uCommunity.Core.dll</HintPath>
@@ -331,9 +326,9 @@
     <Reference Include="uCommunity.News, Version=1.0.6.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.News.1.0.6.8\lib\net452\uCommunity.News.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Notification, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Notification, Version=1.0.3.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Notification.1.0.3.5\lib\net452\uCommunity.Notification.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Notification.1.0.3.7\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Subscribe, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
@@ -722,28 +717,36 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Compile Include="App_Plugins\CentralFeed\CentralFeedController.cs" />
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
-    <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="App_Plugins\Notification\NotificationController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SubscribePageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -755,8 +758,8 @@
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Events\Entities\Event.cs" />
-    <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
+    <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\Models\EventOverviewItemModel.cs" />
     <Compile Include="Core\Events\Models\IntranetEventViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
@@ -838,15 +841,6 @@
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="Views\SubscribePage\Index.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
@@ -904,6 +898,12 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Comments\uCommunity.Comments.csproj">
+      <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
+      <Name>uCommunity.Comments</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

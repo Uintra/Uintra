@@ -62,9 +62,6 @@
         <div class="comments__list-text js-comment-description">
             @Html.Raw(Model.Text)
         </div>
-
-        @{ Html.RenderAction("CommentLikes", "Likes", new { activityId = Model.ActivityId, commentId = Model.Id }); }
-
         @if (Model.CanEdit)
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">

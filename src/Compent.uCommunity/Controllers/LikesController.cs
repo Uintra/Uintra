@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿
+using System.Web.Mvc;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using uCommunity.Likes;
 using uCommunity.Likes.Web;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Services;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -11,15 +14,19 @@ namespace Compent.uCommunity.Controllers
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, IIntranetUserService intranetUserService, ILikesService likesService)
             : base(activitiesServiceFactory, intranetUserService, likesService)
         {
-
-
         }
 
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
-            
+            var like = base.AddLike(model);
+            var service = ActivitiesServiceFactory.GetService(model.ActivityId);
+            if (service is INotifyableService)
+            {
+                var notifyableService = (INotifyableService)service;
+                notifyableService.Notify(model.ActivityId, NotificationTypeEnum.LikeAdded);
+            }
 
-            return base.AddLike(model);
+            return like;
         }
     }
 }

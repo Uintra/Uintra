@@ -14,7 +14,4 @@
       <dependency id="uCommunity.Core" version="1.0.15" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="App_Plugins\Comments\CommentsController.cs" target="content\App_Plugins\Comments\IntranetCommentsController.cs" />
-  </files>
 </package>

@@ -14,17 +14,18 @@ namespace uCommunity.Notification.Web
 {
     public abstract class NotificationControllerBase: SurfaceController
     {
-        public virtual string OverviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationOverview.cshtml";
-        public virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
-
-        protected readonly IUiNotifierService _uiNotifierService;
-        protected readonly IIntranetUserService _intranetUserService;
+        protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationOverview.cshtml";
+        protected virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
         protected virtual int ItemsPerPage { get; } = 8;
+
+        protected readonly IUiNotifierService UiNotifierService;
+        protected readonly IIntranetUserService IntranetUserService;
+        
 
         protected NotificationControllerBase(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService)
         {
-            _uiNotifierService = uiNotifierService;
-            _intranetUserService = intranetUserService;
+            UiNotifierService = uiNotifierService;
+            IntranetUserService = intranetUserService;
         }
 
         public virtual ActionResult Overview()
@@ -35,9 +36,9 @@ namespace uCommunity.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var userId = _intranetUserService.GetCurrentUserId();
+            var userId = IntranetUserService.GetCurrentUserId();
             int totalCount;
-            var notifications = _uiNotifierService.GetByReceiver(userId, take, out totalCount).ToList();
+            var notifications = UiNotifierService.GetByReceiver(userId, take, out totalCount).ToList();
             return PartialView(ListViewPath,
                 new NotificationListViewModel
                 {
@@ -49,15 +50,15 @@ namespace uCommunity.Notification.Web
         [System.Web.Mvc.HttpGet]
         public virtual int GetNotNotifiedCount()
         {
-            var userId = _intranetUserService.GetCurrentUserId();
-            var count = _uiNotifierService.GetNotNotifiedCount(userId);
+            var userId = IntranetUserService.GetCurrentUserId();
+            var count = UiNotifierService.GetNotNotifiedCount(userId);
             return count;
         }
 
         [System.Web.Mvc.HttpPost]
         public virtual void View([FromBody]Guid id)
         {
-            _uiNotifierService.ViewNotification(id);
+            UiNotifierService.ViewNotification(id);
         }
     }
 }
