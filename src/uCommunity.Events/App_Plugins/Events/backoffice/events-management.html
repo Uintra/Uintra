@@ -67,7 +67,7 @@
 
                 <div class="control-group">
                     <h5 class="control-label">Description:</h5>
-                    <tiny-mce ng-model="vm.selected.description" config="vm.config.description"></tiny-mce>
+                    <tiny-mce model="vm.selected.description" config="vm.config.description"></tiny-mce>
                     <input type="hidden" ng-model="vm.selected.description" required="" name="Description" />
                 </div>
 
@@ -79,7 +79,7 @@
 
                 <div class="control-group">
                     <h5 class="control-label">End date:</h5>
-                    <date-picker ng-model="vm.selected.endDate" config="vm.config.endDate"></date-picker>
+                    <date-picker model="vm.selected.endDate" config="vm.config.endDate"></date-picker>
                     <input type="hidden" ng-model="vm.selected.endDate" required="" name="End date" date-greater-or-equal="{{vm.selected.startDate | date: vm.dateFormat}}" />
                 </div>
 
