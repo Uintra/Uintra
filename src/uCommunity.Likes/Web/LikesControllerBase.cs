@@ -13,65 +13,55 @@ namespace uCommunity.Likes.Web
     {
         public virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
-        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly ILikesService _likesService;
+        protected readonly IActivitiesServiceFactory ActivitiesServiceFactory;
+        protected readonly IIntranetUserService IntranetUserService;
+        protected readonly ILikesService LikesService;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService intranetUserService,
             ILikesService likesService)
         {
-            _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserService = intranetUserService;
-            _likesService = likesService;
+            ActivitiesServiceFactory = activitiesServiceFactory;
+            IntranetUserService = intranetUserService;
+            LikesService = likesService;
         }
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
         {
-            return Likes(likesInfo.Likes, activityId: likesInfo.Id);
+            return Likes(likesInfo.Likes, likesInfo.Id);
         }
 
-        public virtual PartialViewResult CommentLikes(Guid commentId)
+        public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
         {
-            return Likes(_likesService.GetLikeModels(commentId), commentId: commentId);
+            return Likes(LikesService.GetLikeModels(commentId), activityId, commentId);
         }
 
         [HttpPost]
         public virtual PartialViewResult AddLike(AddRemoveLikeModel model)
         {
-            if (model.ActivityId.HasValue)
-            {
-                return AddActivityLike(model.ActivityId.Value);
-            }
-
             if (model.CommentId.HasValue)
             {
-                _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(_likesService.GetLikeModels(model.CommentId.Value), commentId: model.CommentId.Value);
+                LikesService.Add(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(LikesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
-            throw new ArgumentException("Error while adding comment. ActivityId or CommentId should have value.");
+            return AddActivityLike(model.ActivityId);
         }
 
         [HttpPost]
         public virtual PartialViewResult RemoveLike(AddRemoveLikeModel model)
         {
-            if (model.ActivityId.HasValue)
-            {
-                return RemoveActivityLike(model.ActivityId.Value);
-            }
-
             if (model.CommentId.HasValue)
             {
-                _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(_likesService.GetLikeModels(model.CommentId.Value), commentId: model.CommentId.Value);
+                LikesService.Remove(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(LikesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
-            throw new ArgumentException("Error while removing comment. ActivityId or CommentId should have value.");
+            return RemoveActivityLike(model.ActivityId);
         }
 
-        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid? activityId = null, Guid? commentId = null)
+        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null)
         {
             var currentUserId = GetCurrentUserId();
 
@@ -91,25 +81,25 @@ namespace uCommunity.Likes.Web
 
         protected virtual PartialViewResult AddActivityLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService(activityId);
+            var service = ActivitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Add(GetCurrentUserId(), activityId);
 
-            return Likes(likeInfo.Likes, activityId: likeInfo.Id);
+            return Likes(likeInfo.Likes, likeInfo.Id);
         }
 
         protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService(activityId);
+            var service = ActivitiesServiceFactory.GetService(activityId);
             var likeableService = (ILikeableService)service;
             var likeInfo = likeableService.Remove(GetCurrentUserId(), activityId);
 
-            return Likes(likeInfo.Likes, activityId: likeInfo.Id);
+            return Likes(likeInfo.Likes, likeInfo.Id);
         }
 
         protected virtual Guid GetCurrentUserId()
         {
-            return _intranetUserService.GetCurrentUserId();
+            return IntranetUserService.GetCurrentUserId();
         }
     }
 }

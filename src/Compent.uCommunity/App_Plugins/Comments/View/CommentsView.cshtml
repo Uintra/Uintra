@@ -63,7 +63,7 @@
             @Html.Raw(Model.Text)
         </div>
 
-        @{ Html.RenderAction("CommentLikes", "Likes", new { commentId = Model.Id }); }
+        @{ Html.RenderAction("CommentLikes", "Likes", new { activityId = Model.ActivityId, commentId = Model.Id }); }
 
         @if (Model.CanEdit)
         {

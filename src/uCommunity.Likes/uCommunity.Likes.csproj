@@ -338,6 +338,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Likes\likes.css" />
+    <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

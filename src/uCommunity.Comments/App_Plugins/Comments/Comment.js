@@ -5,7 +5,7 @@ require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 import appInitializer from "./../Core/Content/scripts/AppInitializer";
 import helpers from "./../Core/Content/scripts/Helpers";
 
-require("./_comments.css");
+require("./comments.css");
 
 var CommentOverview = function (selector) {
     var commentOverviewQuillOptions = {
@@ -68,12 +68,13 @@ var Comment = function (selector) {
     };
 
     var holders = $(selector);
+
     if (!holders || holders.length === 0) {
         return;
     }
 
-    holders.each(function () {
-        var $this = $(this);
+    holders.each(function (i, el) {
+        var $this = $(el);
         initEdit($this);
         initReply($this);
         initDelete($this);
