@@ -18,3 +18,4 @@ require('./../App_Plugins/Events/Edit/edit-events');
 require('./../App_Plugins/Events/List/edit-list');
 require('./../App_Plugins/Notification/Notification');
 require('./../App_Plugins/Likes/likes');
+require('./../App_Plugins/ContentPanel/Panel/ContentPanel');

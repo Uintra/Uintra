@@ -311,6 +311,11 @@
       <HintPath>..\..\packages\uCommunity.Comments.1.0.6\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uCommunity.ContentPanel, Version=0.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.ContentPanel.0.0.0.2\lib\net452\uCommunity.ContentPanel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="uCommunity.Core, Version=1.0.18.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Core.1.0.18.2\lib\net452\uCommunity.Core.dll</HintPath>
@@ -467,6 +472,18 @@
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\Comments\Comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
+    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
+    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.js" />
+    <Content Include="App_Plugins\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.html" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.js" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.css" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.html" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.js" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.html" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.js" />
+    <Content Include="App_Plugins\ContentPanel\Panel\ContentPanel.js" />
+    <Content Include="App_Plugins\ContentPanel\Panel\_contentPanel.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
@@ -764,6 +781,9 @@
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
+    <Content Include="App_Plugins\ContentPanel\package.manifest" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
