@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Comments.Core.Events;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
@@ -41,7 +40,7 @@ namespace uCommunity.Comments.Web
             var service = ActivitiesServiceFactory.GetService(model.ActivityId);
             var commentableService = (ICommentableService)service;
             var comment = commentableService.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
-            OnCommentCreated(new CommentCreated(comment.Id, comment.ActivityId, comment.ParentId));
+            OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
         }
@@ -59,7 +58,7 @@ namespace uCommunity.Comments.Web
             var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
             var commentableService = (ICommentableService)service;
             commentableService.UpdateComment(model.Id, model.Text);
-            OnCommentEdited(new CommentEdited(comment.Id, comment.ActivityId));
+            OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
 

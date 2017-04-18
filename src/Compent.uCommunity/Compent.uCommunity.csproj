@@ -796,7 +796,6 @@
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
-    <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
