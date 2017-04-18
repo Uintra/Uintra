@@ -345,9 +345,6 @@
       <HintPath>..\..\packages\uCommunity.Subscribe.1.0.7\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Users, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Users.1.0.1.5\lib\net452\uCommunity.Users.dll</HintPath>
-    </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.dll</HintPath>
@@ -784,7 +781,7 @@
     <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
     <Content Include="App_Plugins\ContentPanel\package.manifest" />
     <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
@@ -798,6 +795,7 @@
     <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
@@ -948,6 +946,12 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Users\uCommunity.Users.csproj">
+      <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
+      <Name>uCommunity.Users</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
