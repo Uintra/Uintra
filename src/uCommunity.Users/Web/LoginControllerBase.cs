@@ -1,28 +1,29 @@
 ﻿using System.Web.Mvc;
-using System.Web.Security;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Users
+namespace uCommunity.Users.Web
 {
     [AllowAnonymous]
-    public class LoginController : SurfaceController
+    public abstract class LoginControllerBase : SurfaceController
     {
         private readonly IMemberService _memberService;
+        protected virtual string LoginView => "~/App_Plugins/Users/Login/Login.cshtml";
 
-        public LoginController(IMemberService memberService)
+
+        protected LoginControllerBase(IMemberService memberService)
         {
             _memberService = memberService;
         }
 
-        public ActionResult Login()
+        public virtual ActionResult Login()
         {
             var loginStatus = Members.GetCurrentLoginStatus();
-            return View("~/App_Plugins/Users/Login/Login.cshtml", loginStatus);
+            return View(LoginView, loginStatus);
         }
 
         [HttpPost]
-        public ActionResult Login(string login, string password, string returnUrl)
+        public virtual ActionResult Login(string login, string password, string returnUrl)
         {
             var member = _memberService.GetByUsername(login);
 
@@ -35,7 +36,7 @@ namespace uCommunity.Users
             return Redirect(returnUrl ?? "/");
         }
 
-        public void Logout()
+        public virtual void Logout()
         {
             Members.Logout();
         }
