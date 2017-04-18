@@ -211,7 +211,7 @@
   <ItemGroup>
     <Compile Include="Core\IntranetUser.cs" />
     <Compile Include="Core\IntranetUserService.cs" />
-    <Compile Include="Web\LoginControllerBase.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
