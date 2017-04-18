@@ -288,8 +288,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="App_Plugins\ContentPanel\package.manifest" />
-    <None Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
-    <None Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
