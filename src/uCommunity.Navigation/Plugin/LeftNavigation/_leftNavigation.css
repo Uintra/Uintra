@@ -1,38 +1,4 @@
-﻿#sidebar {
-    position:fixed;
-    top:50px;
-    left:0;
-    width:251px;
-    border-right:1px solid #c9c9c9;
-    box-shadow:2px 0 3px rgba(0, 0, 0, 0.2);
-    height:calc(100vh - 50px);
-    overflow:hidden;
-    overflow-y:auto;
-    padding:30px 20px 0 30px;
-    z-index:11;
-    background:var(--color-white);
-
-    @media (--for-tablet-portrait-down) {
-        position: absolute;
-        top: 79px;
-        left: 0;
-        right: 0;
-        bottom: auto;
-        background: var(--color-light-gray-2);
-        padding: 0;
-        width: auto;
-        height: auto;
-        transform: translate(0, -100%);
-        transition: transform linear 200ms;
-
-        ._menu-expanded & {
-            transform: translate(0, 0);
-            box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-        }
-    }
-}
-
-.side-nav {
+﻿.side-nav {
     margin:0;
     padding:0;
     list-style:none;
@@ -72,8 +38,19 @@
 
     &__arrow{
         position:absolute;
-        top:10px;
+        top:14px;
         right:24px;
+         width: 9px;
+         height: 9px;
+         border: solid #a1a4ac;
+         border-width: 1px 0 0 1px;
+         transform: rotate(45deg);
+
+         ._active & {
+             top: 9px;
+             transform: rotate(225deg);
+             border-color: #000;
+         }
     }
 
     .glyphicon{
@@ -82,13 +59,14 @@
         right:50px;
     }
 
-    & & {
+    & .side-nav{
         margin:0;
         padding:0;
         list-style:none;
         font-weight: normal;
         font-family:var(--font-general);
         font-size:13px;
+        display: none;
 
         .side-nav{
             &__link{
@@ -108,6 +86,10 @@
             }
         }
 
+    }
+
+    ._active &{
+        display: block;
     }
 
     @media (--for-tablet-portrait-down) {
