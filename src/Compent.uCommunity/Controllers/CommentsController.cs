@@ -1,5 +1,4 @@
 ﻿using uCommunity.Comments;
-using uCommunity.Comments.Core.Events;
 using uCommunity.Comments.Web;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
@@ -13,30 +12,28 @@ namespace Compent.uCommunity.Controllers
         public CommentsController(ICommentsService commentsService, IIntranetUserService intranetUserService, IActivitiesServiceFactory activitiesServiceFactory) 
             : base(commentsService, intranetUserService, activitiesServiceFactory)
         {
-            AfterCommentCreated += OnAfterCommentCreated;
-            AfterCommentEdited += OnAfterCommentEdited;
         }
 
-        private void OnAfterCommentEdited(object sender, CommentEdited model)
+        protected override void OnCommentCreated(Comment comment)
         {
-            var service = ActivitiesServiceFactory.GetService(model.ActivityId);
+            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
             if (service is INotifyableService)
             {
                 var notifyableService = (INotifyableService)service;
-                notifyableService.Notify(model.Id, NotificationTypeEnum.CommentEdited);
+                notifyableService.Notify(comment.ParentId ?? comment.Id,
+                    comment.ParentId.HasValue
+                        ? NotificationTypeEnum.CommentReplyed
+                        : NotificationTypeEnum.CommentAdded);
             }
         }
 
-        private void OnAfterCommentCreated(object sender, CommentCreated model)
+        protected override void OnCommentEdited(Comment comment)
         {
-            var service = ActivitiesServiceFactory.GetService(model.ActivityId);
+            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
             if (service is INotifyableService)
             {
-                var notifyableService = (INotifyableService) service;
-                notifyableService.Notify(model.ParentId ?? model.Id,
-                    model.ParentId.HasValue
-                        ? NotificationTypeEnum.CommentReplyed
-                        : NotificationTypeEnum.CommentAdded);
+                var notifyableService = (INotifyableService)service;
+                notifyableService.Notify(comment.Id, NotificationTypeEnum.CommentEdited);
             }
         }
     }
