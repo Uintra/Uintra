@@ -22,10 +22,20 @@ namespace uCommunity.Core.Activity
 
     public interface IIntranetActivityItemServiceBase
     {
+        [Obsolete("Use overloading method instead")]
         IPublishedContent GetOverviewPage();
+        [Obsolete("Use overloading method instead")]
         IPublishedContent GetDetailsPage();
+        [Obsolete("Use overloading method instead")]
         IPublishedContent GetCreatePage();
+        [Obsolete("Use overloading method instead")]
         IPublishedContent GetEditPage();
+
+        IPublishedContent GetOverviewPage(IPublishedContent currentPage);
+        IPublishedContent GetDetailsPage(IPublishedContent currentPage);
+        IPublishedContent GetCreatePage(IPublishedContent currentPage);
+        IPublishedContent GetEditPage(IPublishedContent currentPage);
+
         void Delete(Guid id);
     }
 }
