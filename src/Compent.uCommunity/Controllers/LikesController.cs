@@ -19,6 +19,12 @@ namespace Compent.uCommunity.Controllers
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
             var like = base.AddLike(model);
+
+            if (model.CommentId.HasValue)
+            {
+                return like;
+            }
+
             var service = ActivitiesServiceFactory.GetService(model.ActivityId);
             if (service is INotifyableService)
             {
