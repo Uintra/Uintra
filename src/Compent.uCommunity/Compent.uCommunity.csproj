@@ -340,9 +340,9 @@
       <HintPath>..\..\packages\uCommunity.Notification.1.0.3.8\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Subscribe, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Subscribe, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.7\lib\net452\uCommunity.Subscribe.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.8.2\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
@@ -786,6 +786,9 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
@@ -796,7 +799,6 @@
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
-    <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -806,6 +808,7 @@
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\SubscribeController.cs" />
     <Compile Include="Controllers\SubscribePageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -898,9 +901,6 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="Views\SubscribePage\Index.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
