@@ -18,7 +18,7 @@ namespace uCommunity.Subscribe.Web
         private readonly IIntranetUserService _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
-        public SubscribeControllerBase(
+        protected SubscribeControllerBase(
             ISubscribeService subscribeService,
             IIntranetUserService intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory)
