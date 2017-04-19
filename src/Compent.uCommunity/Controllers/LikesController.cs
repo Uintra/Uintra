@@ -1,5 +1,6 @@
 ﻿
 using System.Web.Mvc;
+using Compent.uCommunity.Core.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using uCommunity.Likes;
@@ -14,13 +15,13 @@ namespace Compent.uCommunity.Controllers
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, IIntranetUserService intranetUserService, ILikesService likesService)
             : base(activitiesServiceFactory, intranetUserService, likesService)
         {
-        }
+        } 
 
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
             var like = base.AddLike(model);
 
-            if (model.CommentId.HasValue)
+            if (model.ActivityId == CommentsTestConstants.ActivityId)
             {
                 return like;
             }

@@ -59,14 +59,13 @@
         right:50px;
     }
 
-    & .side-nav{
+    & &{
         margin:0;
         padding:0;
         list-style:none;
         font-weight: normal;
         font-family:var(--font-general);
         font-size:13px;
-        display: none;
 
         .side-nav{
             &__link{
@@ -88,7 +87,11 @@
 
     }
 
-    ._active &{
+    .side-nav {
+        display: none;
+    }
+
+    ._active > &{
         display: block;
     }
 

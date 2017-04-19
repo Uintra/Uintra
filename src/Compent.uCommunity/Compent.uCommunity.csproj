@@ -772,13 +772,13 @@
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
     <Content Include="App_Plugins\ContentPanel\package.manifest" />
     <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="Views\Comments\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />

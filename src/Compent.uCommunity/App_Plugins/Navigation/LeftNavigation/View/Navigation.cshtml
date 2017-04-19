@@ -11,7 +11,7 @@
             var hasNavigableChildren = item.Children.Count > 0;
 
             <li class="@(item.IsActive ? "_active" : "") side-nav__item js-side-nav__item">
-                <a class="side-nav__link" href="@item.Url">
+                <a class="side-nav__link js-side-nav__link" href="@item.Url">
                     @item.Name
                     @if (item.IsHomePage)
                     {
