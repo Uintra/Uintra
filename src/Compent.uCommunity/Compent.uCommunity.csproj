@@ -716,14 +716,13 @@
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
     <Content Include="App_Plugins\News\backoffice\news-management.js" />
-    <Content Include="App_Plugins\News\Create\create-news.js" />
     <Content Include="App_Plugins\News\Create\news-create.html" />
     <Content Include="App_Plugins\News\Details\news-details.html" />
-    <Content Include="App_Plugins\News\Edit\edit-news.js" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\List\news-list.html" />
     <Content Include="App_Plugins\News\loader.gif" />
-    <Content Include="App_Plugins\News\_news.css" />
+    <Content Include="App_Plugins\News\News.js" />
+    <Content Include="App_Plugins\News\news.css" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\_notificationList.css" />
     <Content Include="App_Plugins\Notification\Notification.js" />
