@@ -7,7 +7,7 @@ namespace uCommunity.Users.Web
     [AllowAnonymous]
     public abstract class LoginControllerBase : SurfaceController
     {
-        private readonly IMemberService _memberService;
+        protected readonly IMemberService _memberService;
         protected virtual string LoginView => "~/App_Plugins/Users/Login/Login.cshtml";
 
 
@@ -25,15 +25,14 @@ namespace uCommunity.Users.Web
         [HttpPost]
         public virtual ActionResult Login(string login, string password, string returnUrl)
         {
-            var member = _memberService.GetByUsername(login);
-
-            if (member == null)
+            var redirectUrl = returnUrl ?? "/";
+            if (!Members.Login(login, password))
             {
-                return Redirect(HttpContext.Request.Url?.AbsoluteUri ?? "/");
-            }
+                redirectUrl = HttpContext.Request.Url?.AbsoluteUri ?? "/";
 
-            Members.Login(login, password);
-            return Redirect(returnUrl ?? "/");
+            }
+            return Redirect(redirectUrl);
+
         }
 
         public virtual void Logout()

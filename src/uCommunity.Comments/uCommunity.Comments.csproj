@@ -326,8 +326,6 @@
     </Compile>
     <Compile Include="AutoMapperProfiles\CommentAutoMapperProfile.cs" />
     <Compile Include="Core\CommentsService.cs" />
-    <Compile Include="Core\Events\CommentCreated.cs" />
-    <Compile Include="Core\Events\CommentEdited.cs" />
     <Compile Include="Core\ICommentable.cs" />
     <Compile Include="Core\ICommentableService.cs" />
     <Compile Include="Core\ICommentsService.cs" />

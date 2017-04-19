@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Comments.Core.Events;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
@@ -10,7 +9,7 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Comments.Web
 {
-    public abstract class CommentsControllerBase: SurfaceController
+    public abstract class CommentsControllerBase : SurfaceController
     {
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsOverView.cshtml";
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsPreView.cshtml";
@@ -31,23 +30,6 @@ namespace uCommunity.Comments.Web
             ActivitiesServiceFactory = activitiesServiceFactory;
         }
 
-        #region events
-
-        protected event EventHandler<CommentCreated> AfterCommentCreated;
-        protected event EventHandler<CommentEdited> AfterCommentEdited;
-
-        protected virtual void OnCommentCreated(CommentCreated comment)
-        {
-            AfterCommentCreated?.Invoke(this, comment);
-        }
-
-        protected virtual void OnCommentEditer(CommentEdited comment)
-        {
-            AfterCommentEdited?.Invoke(this, comment);
-        }
-
-        #endregion
-
         [HttpPost]
         public virtual PartialViewResult Add(CommentCreateModel model)
         {
@@ -58,7 +40,7 @@ namespace uCommunity.Comments.Web
             var service = ActivitiesServiceFactory.GetService(model.ActivityId);
             var commentableService = (ICommentableService)service;
             var comment = commentableService.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
-            OnCommentCreated(new CommentCreated(comment.Id, comment.ActivityId, comment.ParentId));
+            OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
         }
@@ -76,7 +58,7 @@ namespace uCommunity.Comments.Web
             var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
             var commentableService = (ICommentableService)service;
             commentableService.UpdateComment(model.Id, model.Text);
-            OnCommentEditer(new CommentEdited(comment.Id, comment.ActivityId));
+            OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
 
@@ -135,12 +117,21 @@ namespace uCommunity.Comments.Web
             return PartialView(PreviewViewPath, model);
         }
 
-        private PartialViewResult OverView(Guid activityId)
+        protected virtual void OnCommentCreated(Comment comment)
+        {
+
+        }
+
+        protected virtual void OnCommentEdited(Comment comment)
+        {
+        }
+
+        protected virtual PartialViewResult OverView(Guid activityId)
         {
             return OverView(activityId, CommentsService.GetMany(activityId));
         }
 
-        private PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments)
+        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments)
         {
             var model = new CommentsOverviewModel
             {
@@ -152,7 +143,7 @@ namespace uCommunity.Comments.Web
             return PartialView(OverviewViewPath, model);
         }
 
-        private IEnumerable<CommentViewModel> GetCommentViews(IEnumerable<Comment> comments)
+        protected virtual IEnumerable<CommentViewModel> GetCommentViews(IEnumerable<Comment> comments)
         {
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<Comment> ?? comments.ToList();
@@ -169,7 +160,7 @@ namespace uCommunity.Comments.Web
             }
         }
 
-        private CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
+        protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
             model.ModifyDate = CommentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
@@ -182,7 +173,7 @@ namespace uCommunity.Comments.Web
             return model;
         }
 
-        private static string GetOverviewElementId(Guid activityId)
+        protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
         }

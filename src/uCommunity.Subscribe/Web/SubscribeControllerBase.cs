@@ -6,15 +6,19 @@ using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Subscribe
+namespace uCommunity.Subscribe.Web
 {
-    public class SubscribeController : SurfaceController
+    public abstract class SubscribeControllerBase : SurfaceController
     {
+        protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersOverView.cshtml";
+        protected virtual string ListViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersList.cshtml";
+        protected virtual string IndexViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribeView.cshtml";
+
         private readonly ISubscribeService _subscribeService;
         private readonly IIntranetUserService _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
-        public SubscribeController(
+        public SubscribeControllerBase(
             ISubscribeService subscribeService,
             IIntranetUserService intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory)
@@ -24,7 +28,7 @@ namespace uCommunity.Subscribe
             _activitiesServiceFactory = activitiesServiceFactory;
         }
 
-        public PartialViewResult Index(ISubscribable subscribe, Guid activityId)
+        public virtual PartialViewResult Index(ISubscribable subscribe, Guid activityId)
         {
             var userId = _intranetUserService.GetCurrentUserId();
             var subscriber = subscribe.Subscribers.SingleOrDefault(s => s.UserId == userId);
@@ -32,12 +36,12 @@ namespace uCommunity.Subscribe
             return Index(activityId, subscriber, subscribe.Type);
         }
 
-        public PartialViewResult Overview(Guid activityId)
+        public virtual PartialViewResult Overview(Guid activityId)
         {
-            return PartialView("~/App_Plugins/Subscribe/View/SubscribersOverView.cshtml", new SubscribeOverviewModel { ActivityId = activityId });
+            return PartialView(OverviewViewPath, new SubscribeOverviewModel { ActivityId = activityId });
         }
 
-        public PartialViewResult List(Guid activityId)
+        public virtual PartialViewResult List(Guid activityId)
         {
             var subscribs = _subscribeService.Get(activityId).ToList();
 
@@ -45,11 +49,11 @@ namespace uCommunity.Subscribe
                 ? _intranetUserService.GetMany(subscribs.Select(s => s.UserId)).Select(u => u.DisplayedName)
                 : Enumerable.Empty<string>();
 
-            return PartialView("~/App_Plugins/Subscribe/View/SubscribersList.cshtml", subscribersNames);
+            return PartialView(ListViewPath, subscribersNames);
         }
 
         [HttpPost]
-        public PartialViewResult Subscribe(Guid activityId)
+        public virtual PartialViewResult Subscribe(Guid activityId)
         {
             var userId = _intranetUserService.GetCurrentUserId();
             var service = _activitiesServiceFactory.GetService(activityId);
@@ -61,7 +65,7 @@ namespace uCommunity.Subscribe
         }
 
         [HttpPost]
-        public PartialViewResult Unsubscribe(Guid activityId)
+        public virtual PartialViewResult Unsubscribe(Guid activityId)
         {
             var userId = _intranetUserService.GetCurrentUserId();
             var service = _activitiesServiceFactory.GetService(activityId);
@@ -72,14 +76,14 @@ namespace uCommunity.Subscribe
         }
 
         [HttpPost]
-        public void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
+        public virtual void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
         {
             var service = _activitiesServiceFactory.GetService(model.ActivityId);
             var subscribeService = (ISubscribableService)service;
             subscribeService.UpdateNotification(model.Id, model.NewValue);
         }
 
-        public JsonResult Version(Guid activityId)
+        public virtual JsonResult Version(Guid activityId)
         {
             var version = _subscribeService.GetVersion(activityId);
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
@@ -101,7 +105,7 @@ namespace uCommunity.Subscribe
                 model.HasNotification = _subscribeService.HasNotification(type.Value);
             }
 
-            return PartialView("~/App_Plugins/Subscribe/View/SubscribeView.cshtml", model);
+            return PartialView(IndexViewPath, model);
         }
     }
 }

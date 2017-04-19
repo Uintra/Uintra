@@ -48,17 +48,3 @@ body {
         }
     }
 }
-
-
-.main{
-    width:100%;
-    overflow:hidden;
-    padding:50px 80px 20px 70px;    
-
-    @media (--for-tablet-portrait-down) {
-        & {
-            padding: 20px;
-            overflow: visible;
-        }
-    }
- }
