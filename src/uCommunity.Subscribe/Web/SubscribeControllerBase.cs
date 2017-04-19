@@ -89,7 +89,7 @@ namespace uCommunity.Subscribe.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        private PartialViewResult Index(Guid activityId, Subscribe subscriber, IntranetActivityTypeEnum? type = null)
+        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IntranetActivityTypeEnum? type = null)
         {
             var model = new SubscribeViewModel
             {
