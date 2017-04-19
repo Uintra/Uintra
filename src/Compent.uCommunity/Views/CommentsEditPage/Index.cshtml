@@ -2,12 +2,13 @@
 @using uCommunity.Comments
 
 @{
-    ICommentable activity = new CustomCommentable { Id = CommentsTestConstants.ActivityId, Comments = Enumerable.Empty<Comment>() };
-
     var commentsPageHelper = DependencyResolver.Current.GetService<ICommentsPageHelper>();
     var tabs = commentsPageHelper.GetCommentsPageTab();
+
+    var commentableService = DependencyResolver.Current.GetService<ICommentableService>();
+    var commentsInfo = commentableService.GetCommentsInfo(CommentsTestConstants.ActivityId);
 }
 
 @{ Html.RenderPartial("~/Views/CommentsPage/Tabs.cshtml", tabs);}
 
-@Html.Action("OverView", "Comments", new { commentsInfo = activity })
+@Html.Action("OverView", "Comments", new { commentsInfo })

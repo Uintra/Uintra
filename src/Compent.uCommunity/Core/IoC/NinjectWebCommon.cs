@@ -149,6 +149,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
+            kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 

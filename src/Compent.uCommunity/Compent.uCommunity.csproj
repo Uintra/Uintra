@@ -799,6 +799,7 @@
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
+    <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
