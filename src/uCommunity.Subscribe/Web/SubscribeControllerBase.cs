@@ -8,7 +8,7 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Subscribe.Web
 {
-    public abstract class SubscribeController : SurfaceController
+    public abstract class SubscribeControllerBase : SurfaceController
     {
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersOverView.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersList.cshtml";
@@ -18,7 +18,7 @@ namespace uCommunity.Subscribe.Web
         private readonly IIntranetUserService _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
-        public SubscribeController(
+        public SubscribeControllerBase(
             ISubscribeService subscribeService,
             IIntranetUserService intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory)
