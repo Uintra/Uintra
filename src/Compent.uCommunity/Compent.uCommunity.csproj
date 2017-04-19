@@ -794,7 +794,9 @@
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
-    <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
+    <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
+    <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
     <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -809,6 +811,7 @@
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
+    <Compile Include="Core\Constants\AppSettingConstants.cs" />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
@@ -826,6 +829,7 @@
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
+    <Compile Include="Core\Navigation\UcommunityLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\NewsService.cs" />
     <Compile Include="Core\News\Entities\News.cs" />

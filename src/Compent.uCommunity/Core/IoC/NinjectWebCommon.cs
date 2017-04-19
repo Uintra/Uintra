@@ -9,7 +9,9 @@ using System.Web.Routing;
 using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.Events;
 using Compent.uCommunity.Core.Exceptions;
+using Compent.uCommunity.Core.Helpers;
 using Compent.uCommunity.Core.IoC;
+using Compent.uCommunity.Core.Navigation;
 using Compent.uCommunity.Core.Notification;
 using Compent.uCommunity.Core.Subscribe;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -157,13 +159,15 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
 
+            kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
+
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()
                 .WithConstructorArgument("settingsFilePath", "~/App_Plugins/Navigation/config/navigationConfiguration.json");
 
             kernel.Bind<INavigationCompositionService>().To<NavigationCompositionService>().InRequestScope();
             kernel.Bind<IHomeNavigationCompositionService>().To<HomeNavigationCompositionService>().InRequestScope();
-            kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<ILeftSideNavigationModelBuilder>().To<UcommunityLeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
 
