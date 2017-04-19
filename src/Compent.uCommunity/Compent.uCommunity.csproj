@@ -340,9 +340,9 @@
       <HintPath>..\..\packages\uCommunity.Notification.1.0.3.8\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Subscribe, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Subscribe, Version=1.0.8.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.8.2\lib\net452\uCommunity.Subscribe.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.8.3\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">

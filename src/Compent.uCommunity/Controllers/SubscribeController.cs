@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using uCommunity.Core.Activity;
+﻿using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using uCommunity.Subscribe;
 using uCommunity.Subscribe.Web;
