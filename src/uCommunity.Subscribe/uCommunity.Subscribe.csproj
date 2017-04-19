@@ -328,12 +328,13 @@
     <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
     <Compile Include="Core\Model\SubscribeViewModel.cs" />
     <Compile Include="Core\Sql\Subscribe.cs" />
-    <Compile Include="App_Plugins\Subscribe\SubscribeController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Web\SubscribeControllerBase.cs"/>
     <Compile Include="Core\Services\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />

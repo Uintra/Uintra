@@ -1,0 +1,111 @@
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using uCommunity.Core;
+using uCommunity.Core.Activity;
+using uCommunity.Core.User;
+using Umbraco.Web.Mvc;
+
+namespace uCommunity.Subscribe.Web
+{
+    public abstract class SubscribeControllerBase : SurfaceController
+    {
+        protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersOverView.cshtml";
+        protected virtual string ListViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersList.cshtml";
+        protected virtual string IndexViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribeView.cshtml";
+
+        private readonly ISubscribeService _subscribeService;
+        private readonly IIntranetUserService _intranetUserService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+
+        protected SubscribeControllerBase(
+            ISubscribeService subscribeService,
+            IIntranetUserService intranetUserService,
+            IActivitiesServiceFactory activitiesServiceFactory)
+        {
+            _subscribeService = subscribeService;
+            _intranetUserService = intranetUserService;
+            _activitiesServiceFactory = activitiesServiceFactory;
+        }
+
+        public virtual PartialViewResult Index(ISubscribable subscribe, Guid activityId)
+        {
+            var userId = _intranetUserService.GetCurrentUserId();
+            var subscriber = subscribe.Subscribers.SingleOrDefault(s => s.UserId == userId);
+
+            return Index(activityId, subscriber, subscribe.Type);
+        }
+
+        public virtual PartialViewResult Overview(Guid activityId)
+        {
+            return PartialView(OverviewViewPath, new SubscribeOverviewModel { ActivityId = activityId });
+        }
+
+        public virtual PartialViewResult List(Guid activityId)
+        {
+            var subscribs = _subscribeService.Get(activityId).ToList();
+
+            var subscribersNames = subscribs.Count > 0
+                ? _intranetUserService.GetMany(subscribs.Select(s => s.UserId)).Select(u => u.DisplayedName)
+                : Enumerable.Empty<string>();
+
+            return PartialView(ListViewPath, subscribersNames);
+        }
+
+        [HttpPost]
+        public virtual PartialViewResult Subscribe(Guid activityId)
+        {
+            var userId = _intranetUserService.GetCurrentUserId();
+            var service = _activitiesServiceFactory.GetService(activityId);
+            var subscribeService = (ISubscribableService)service;
+            var subscribable = subscribeService.Subscribe(userId, activityId);
+            var subscribe = subscribable.Subscribers.Single(s => s.UserId == userId);
+
+            return Index(activityId, subscribe, subscribable.Type);
+        }
+
+        [HttpPost]
+        public virtual PartialViewResult Unsubscribe(Guid activityId)
+        {
+            var userId = _intranetUserService.GetCurrentUserId();
+            var service = _activitiesServiceFactory.GetService(activityId);
+            var subscribeService = (ISubscribableService)service;
+            subscribeService.UnSubscribe(userId, activityId);
+
+            return Index(activityId, null);
+        }
+
+        [HttpPost]
+        public virtual void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
+        {
+            var service = _activitiesServiceFactory.GetService(model.ActivityId);
+            var subscribeService = (ISubscribableService)service;
+            subscribeService.UpdateNotification(model.Id, model.NewValue);
+        }
+
+        public virtual JsonResult Version(Guid activityId)
+        {
+            var version = _subscribeService.GetVersion(activityId);
+            return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
+        }
+
+        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IntranetActivityTypeEnum? type = null)
+        {
+            var model = new SubscribeViewModel
+            {
+                Id = subscriber?.Id,
+                UserId = _intranetUserService.GetCurrentUser().Id,
+                ActivityId = activityId,
+                IsSubscribed = subscriber != null,
+                IsNotificationDisabled = subscriber?.IsNotificationDisabled ?? false
+            };
+
+            if (type.HasValue)
+            {
+                model.HasNotification = _subscribeService.HasNotification(type.Value);
+            }
+
+            return PartialView(IndexViewPath, model);
+        }
+    }
+}

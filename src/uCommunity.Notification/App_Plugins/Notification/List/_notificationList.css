@@ -39,7 +39,7 @@
         }
 
         &-title{
-            font: 18px/22px opensansbold,Arial,Helvetica,sans-serif;
+            font:bold 18px/22px var(--font-general);
             margin: 0 0 10px;
         }
 

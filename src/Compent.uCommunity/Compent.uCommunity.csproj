@@ -300,16 +300,20 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.BaseControls">
-      <HintPath>..\..\packages\uCommunity.BaseControls.1.0.2\lib\net452\uCommunity.BaseControls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uCommunity.BaseControls, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.BaseControls.2.2.0\lib\net452\uCommunity.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.CentralFeed, Version=1.0.3.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.3.4\lib\net452\uCommunity.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.5.1\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.7\lib\net452\uCommunity.Comments.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uCommunity.ContentPanel, Version=0.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.ContentPanel.0.0.0.2\lib\net452\uCommunity.ContentPanel.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Core, Version=1.0.18.2, Culture=neutral, processorArchitecture=MSIL">
@@ -317,30 +321,32 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.18.2\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.1.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Events.1.0.1.8\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Events.1.0.3.1\lib\net452\uCommunity.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Likes, Version=1.0.5.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Likes.1.0.5.4\lib\net452\uCommunity.Likes.dll</HintPath>
+    <Reference Include="uCommunity.Likes, Version=1.0.6.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Likes.1.0.6.4\lib\net452\uCommunity.Likes.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Navigation, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.3.1\lib\net452\uCommunity.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.6.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.News.1.0.6.8\lib\net452\uCommunity.News.dll</HintPath>
+    <Reference Include="uCommunity.News, Version=1.0.8.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.News.1.0.8.1\lib\net452\uCommunity.News.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Notification, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Notification, Version=1.0.3.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Notification.1.0.3.5\lib\net452\uCommunity.Notification.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Notification.1.0.3.8\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Subscribe, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Subscribe, Version=1.0.8.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.7\lib\net452\uCommunity.Subscribe.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Subscribe.1.0.8.3\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Users, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Users.1.0.1.4\lib\net452\uCommunity.Users.dll</HintPath>
+    <Reference Include="uCommunity.Users, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Users.1.0.1.7\lib\net452\uCommunity.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -420,31 +426,64 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\base.css" />
-    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.directive.js" />
+    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.js" />
     <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
-    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptions.css" />
-    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptions.html" />
-    <Content Include="App_Plugins\BaseControls\CustomOptions\customOptionsDirective.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.directive.js" />
-    <Content Include="App_Plugins\BaseControls\ExternalLink\externalLink.html" />
-    <Content Include="App_Plugins\BaseControls\ExternalLink\externalLinkDirective.js" />
-    <Content Include="App_Plugins\BaseControls\InternalLink\internalLink.html" />
-    <Content Include="App_Plugins\BaseControls\InternalLink\internalLinkDirective.js" />
-    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPicker.css" />
-    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPicker.html" />
-    <Content Include="App_Plugins\BaseControls\LinksPicker\linksPickerDirective.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.css" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.html" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\l10n\da.js" />
+    <Content Include="App_Plugins\BaseControls\directives.js" />
+    <Content Include="App_Plugins\BaseControls\filters.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ext-beautify.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\mode-json.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\theme-monokai.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\worker-json.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\config-editor.css" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\config-editor.html" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\config-editor.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\DataTypePicker\data-type-picker.html" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\DataTypePicker\data-type-picker.js" />
+    <Content Include="App_Plugins\BaseControls\GlobalConfig\global-config.js" />
+    <Content Include="App_Plugins\BaseControls\hacks.js" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\links-picker.css" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\links-picker.html" />
+    <Content Include="App_Plugins\BaseControls\LinksPicker\links-picker.js" />
     <Content Include="App_Plugins\BaseControls\MediaPicker\media-picker.directive.js" />
-    <Content Include="App_Plugins\BaseControls\TextArea\textArea.html" />
-    <Content Include="App_Plugins\BaseControls\TextArea\textAreaDirective.js" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\edit-crop-overlay.html" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper-config.html" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper-config.js" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.css" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.html" />
+    <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.js" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\link-picker-overlay.html" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.js" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.css" />
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.html" />
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
     <Content Include="App_Plugins\CentralFeed\CentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
-    <Content Include="App_Plugins\CentralFeed\_centralFeed.css" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\Comments\Comment.js" />
-    <Content Include="App_Plugins\Comments\_comments.css" />
+    <Content Include="App_Plugins\Comments\comments.css" />
+    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
+    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.js" />
+    <Content Include="App_Plugins\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.html" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.js" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.css" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.html" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.js" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.html" />
+    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.js" />
+    <Content Include="App_Plugins\ContentPanel\Panel\ContentPanel.js" />
+    <Content Include="App_Plugins\ContentPanel\Panel\_contentPanel.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
@@ -657,6 +696,8 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\List\edit-list.js" />
     <Content Include="App_Plugins\Events\List\events-list.html" />
+    <Content Include="App_Plugins\Likes\likes.css" />
+    <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -685,6 +726,7 @@
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\_notificationList.css" />
     <Content Include="App_Plugins\Notification\Notification.js" />
+    <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\Subscribe.js" />
     <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
     <Content Include="config\grid.editors.config.js" />
@@ -707,6 +749,8 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="Content\css\styles.css" />
+    <Content Include="Content\fonts\opensans-bold-webfont.svg" />
+    <Content Include="Content\fonts\opensans-regular-webfont.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\main.js" />
     <Content Include="Content\head_css.js" />
@@ -715,38 +759,70 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
+    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
+    <Content Include="App_Plugins\ContentPanel\package.manifest" />
+    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="postcss.config.js" />
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Compile Include="App_Plugins\CentralFeed\CentralFeedController.cs" />
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
-    <Compile Include="App_Plugins\Comments\IntranetCommentsController.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
-    <Compile Include="App_Plugins\Likes\LikesController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationAuthorizationController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
-    <Compile Include="App_Plugins\Subscribe\IntranetSubscribeController.cs" />
+    <Compile Include="Core\Comments\CustomCommentableService.cs" />
+    <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
+    <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="App_Plugins\Notification\NotificationController.cs" />
-    <Compile Include="App_Plugins\Users\LoginController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="Controllers\CommentsEditPageController.cs" />
     <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\SubscribeController.cs" />
     <Compile Include="Controllers\SubscribePageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
+    <Compile Include="Core\Constants\AppSettingConstants.cs" />
     <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
-    <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
+    <Compile Include="Core\Comments\CommentsTestConstants.cs" />
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
@@ -755,9 +831,10 @@
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
-    <Compile Include="Core\LikeableService.cs" />
+    <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
+    <Compile Include="Core\Navigation\UcommunityLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\NewsService.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
@@ -817,11 +894,9 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="Views\LikesPage\Index.cshtml" />
     <Content Include="Views\CommentsEditPage\Index.cshtml" />
     <Content Include="Views\CommentsPage\Tabs.cshtml" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
@@ -831,19 +906,6 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="Views\SubscribePage\Index.cshtml" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -860,13 +922,16 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="Views\Events\ItemView.cshtml" />
     <Content Include="Views\Events\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="Content\fonts\opensans-bold-webfont.eot" />
+    <Content Include="Content\fonts\opensans-bold-webfont.ttf" />
+    <Content Include="Content\fonts\opensans-bold-webfont.woff" />
+    <Content Include="Content\fonts\opensans-bold-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-regular-webfont.eot" />
+    <Content Include="Content\fonts\opensans-regular-webfont.ttf" />
+    <Content Include="Content\fonts\opensans-regular-webfont.woff" />
+    <Content Include="Content\fonts\opensans-regular-webfont.woff2" />
     <Content Include="Views\Events\OverView.cshtml" />
     <Content Include="Views\Events\ListView.cshtml" />
     <Content Include="Views\Events\EditView.cshtml" />

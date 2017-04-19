@@ -15,28 +15,35 @@ using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions.Web;
 using uCommunity.Events;
 using uCommunity.Events.Web;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Services;
 
 namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        public override string OverviewViewPath { get; set; } = "~/Views/Events/OverView.cshtml";
-        public override string ListViewPath { get; set; } = "~/Views/Events/ListView.cshtml";
-        public override string DetailsViewPath { get; set; } = "~/Views/Events/DetailsView.cshtml";
-        public override string CreateViewPath { get; set; } = "~/Views/Events/CreateView.cshtml";
-        public override string EditViewPath { get; set; } = "~/Views/Events/EditView.cshtml";
-        public override string ItemViewPath { get; set; } = "~/Views/Events/ItemView.cshtml";
+        public override string OverviewViewPath { get; } = "~/Views/Events/OverView.cshtml";
+        public override string ListViewPath { get; } = "~/Views/Events/ListView.cshtml";
+        public override string DetailsViewPath { get; } = "~/Views/Events/DetailsView.cshtml";
+        public override string CreateViewPath { get; } = "~/Views/Events/CreateView.cshtml";
+        public override string EditViewPath { get; } = "~/Views/Events/EditView.cshtml";
+        public override string ItemViewPath { get; } = "~/Views/Events/ItemView.cshtml";
 
         private readonly IEventsService<EventBase, Event> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
+        private readonly IReminderService _reminderService;
 
-        public EventsController(IEventsService<EventBase, Event> eventsService, IMediaHelper mediaHelper, IIntranetUserService intranetUserService)
+        public EventsController(IEventsService<EventBase, Event> eventsService,
+            IMediaHelper mediaHelper,
+            IIntranetUserService intranetUserService,
+            IReminderService reminderService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
+            _reminderService = reminderService;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
@@ -72,7 +79,7 @@ namespace Compent.uCommunity.Controllers
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
-             
+
             return PartialView(DetailsViewPath, model);
         }
 
@@ -91,6 +98,7 @@ namespace Compent.uCommunity.Controllers
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
+            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }

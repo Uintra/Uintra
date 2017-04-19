@@ -10,6 +10,8 @@ namespace uCommunity.Likes
 
         public Guid ActivityId { get; set; }
 
+        public Guid? CommentId { get; set; }
+
         public int Count { get; set; }
 
         public bool CanAddLike { get; set; }

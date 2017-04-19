@@ -12,10 +12,6 @@
   ],
   "NotificationTypeConfigurations": [
     {
-      "NotificationType": "EventCommentEdited",
-      "NotifierTypes": [ "UiNotifier" ]
-    },
-    {
       "NotificationType": "EventUpdated",
       "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
     },

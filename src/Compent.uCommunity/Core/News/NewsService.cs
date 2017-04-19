@@ -35,7 +35,7 @@ namespace Compent.uCommunity.Core
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
-        //private readonly INotificationsService _notificationService;
+        private readonly INotificationsService _notificationService;
 
         public NewsService(IIntranetActivityService intranetActivityService,
             IMemoryCacheService memoryCacheService,
@@ -43,7 +43,8 @@ namespace Compent.uCommunity.Core
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper, IPermissionsService permissionsService /*INotificationsService notificationService*/)
+            UmbracoHelper umbracoHelper, IPermissionsService permissionsService,
+            INotificationsService notificationService)
             : base(intranetActivityService, memoryCacheService)
         {
             _intranetUserService = intranetUserService;
@@ -52,7 +53,7 @@ namespace Compent.uCommunity.Core
             _umbracoHelper = umbracoHelper;
             this._permissionsService = permissionsService;
             _subscribeService = subscribeService;
-            //_notificationService = notificationService;
+            _notificationService = notificationService;
         }
 
         public MediaSettings GetMediaSettings()
@@ -135,26 +136,17 @@ namespace Compent.uCommunity.Core
             return activity;
         }
 
-        public void CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
-            FillCache(activityId);
-
-            if (parentId.HasValue)
-            {
-                Notify(parentId.Value, NotificationTypeEnum.CommentReplyed);
-            }
-            else
-            {
-                Notify(comment.Id, NotificationTypeEnum.CommentAdded);
-            }
+            FillCache(comment.ActivityId);
+            return comment;
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
             FillCache(comment.ActivityId);
-            Notify(comment.Id, NotificationTypeEnum.CommentEdited);
         }
 
         public void DeleteComment(Guid id)
@@ -169,17 +161,16 @@ namespace Compent.uCommunity.Core
             return Get(activityId);
         }
 
-        public void Add(Guid userId, Guid activityId)
+        public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            Notify(activityId, NotificationTypeEnum.LikeAdded);
-            FillCache(activityId);
+            return FillCache(activityId);
         }
 
-        public void Remove(Guid userId, Guid activityId)
+        public ILikeable Remove(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            FillCache(activityId);
+            return FillCache(activityId);
         }
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
@@ -192,7 +183,7 @@ namespace Compent.uCommunity.Core
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
             {
-                //_notificationService.ProcessNotification(notifierData);
+                _notificationService.ProcessNotification(notifierData);
             }
         }
 

@@ -1,5 +1,7 @@
 using System;
 using System.Configuration;
+using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -7,7 +9,10 @@ using System.Web.Routing;
 using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.Events;
 using Compent.uCommunity.Core.Exceptions;
+using Compent.uCommunity.Core.Helpers;
 using Compent.uCommunity.Core.IoC;
+using Compent.uCommunity.Core.Navigation;
+using Compent.uCommunity.Core.Notification;
 using Compent.uCommunity.Core.Subscribe;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
@@ -33,6 +38,10 @@ using uCommunity.Likes;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Dashboard;
 using uCommunity.News;
+using uCommunity.Notification;
+using uCommunity.Notification.Core.Configuration;
+using uCommunity.Notification.Core.Services;
+using uCommunity.Notification.Core.Sql;
 using uCommunity.Subscribe;
 using uCommunity.Users.Core;
 using Umbraco.Core;
@@ -41,15 +50,8 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Notification;
-using uCommunity.Notification.Core.Configuration;
 using SqlNotification = uCommunity.Notification.Core.Sql.Notification;
 using SqlSubscribe = uCommunity.Subscribe.Subscribe;
-using Compent.uCommunity.Core.Notification;
-using uCommunity.Notification.Core.Sql;
-using System.Reflection;
-using System.Linq;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -79,6 +81,12 @@ namespace Compent.uCommunity.Core.IoC
 
             var configurationProvider = kernel.Get<IConfigurationProvider<NavigationConfiguration>>();
             configurationProvider.Initialize();
+
+            var notificationConfigurationProvider = kernel.Get<IConfigurationProvider<NotificationConfiguration>>();
+            notificationConfigurationProvider.Initialize();
+
+            var reminderConfigurationProvider = kernel.Get<IConfigurationProvider<ReminderConfiguration>>();
+            reminderConfigurationProvider.Initialize();
         }
 
         public static void Stop()
@@ -141,9 +149,9 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
+            kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
-            kernel.Bind<ILikeableService>().To<LikeableService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
@@ -152,21 +160,23 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
 
+            kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
+
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()
                 .WithConstructorArgument("settingsFilePath", "~/App_Plugins/Navigation/config/navigationConfiguration.json");
 
             kernel.Bind<INavigationCompositionService>().To<NavigationCompositionService>().InRequestScope();
             kernel.Bind<IHomeNavigationCompositionService>().To<HomeNavigationCompositionService>().InRequestScope();
-            kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<ILeftSideNavigationModelBuilder>().To<UcommunityLeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
-                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/notificationConfiguration.json");
+                .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/notificationConfiguration.json");
             kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
-                .WithConstructorArgument("settingFilePath", "~/App_Plugins/Notification/config/reminderConfiguration.json");
+                .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
             kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
             kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();

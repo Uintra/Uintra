@@ -5,16 +5,18 @@ namespace uCommunity.Likes
 {
     public interface ILikesService
     {
-        IEnumerable<Like> Get(Guid activityId);
+        IEnumerable<Like> Get(Guid entityId);
 
-        int GetCount(Guid activityId);
+        int GetCount(Guid entityId);
 
-        void Add(Guid userId, Guid activityId);
+        void Add(Guid userId, Guid entityId);
 
-        void Remove(Guid userId, Guid activityId);
+        void Remove(Guid userId, Guid entityId);
 
-        bool CanAdd(Guid userId, Guid activityId);
+        bool CanAdd(Guid userId, Guid entityId);
 
         void FillLikes(ILikeable entity);
+
+        IEnumerable<LikeModel> GetLikeModels(Guid entityId);
     }
 }

@@ -10,15 +10,17 @@
         {
             var hasNavigableChildren = item.Children.Count > 0;
 
-            <li class="@(item.IsActive ? "_active" : "") @(hasNavigableChildren? "_hasSubItems" : "") side-nav__item">
-                <a class="side-nav__link" href="@item.Url">@item.Name
-                    @*@if (item.IsHomePage)
+            <li class="@(item.IsActive ? "_active" : "") side-nav__item js-side-nav__item">
+                <a class="side-nav__link" href="@item.Url">
+                    @item.Name
+                    @if (item.IsHomePage)
                     {
                         <span class="glyphicon glyphicon-home"></span>
-                    }*@
+                    }
                 </a>
-                @if (hasNavigableChildren) 
+                @if (hasNavigableChildren)
                 {
+                    <span class="side-nav__arrow js-side-nav__opener"></span>
                     @RenderTreeRecursive(item.Children)
                 }
             </li>

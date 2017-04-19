@@ -117,6 +117,14 @@ namespace uCommunity.Core.Activity
 
         public abstract IPublishedContent GetDetailsPage();
 
+        public abstract IPublishedContent GetOverviewPage(IPublishedContent currentPage);
+
+        public abstract IPublishedContent GetDetailsPage(IPublishedContent currentPage);
+
+        public abstract IPublishedContent GetCreatePage(IPublishedContent currentPage);
+
+        public abstract IPublishedContent GetEditPage(IPublishedContent currentPage);
+
         public abstract bool CanEdit(T activity);
 
         protected virtual IntranetActivityEntity FillPropertiesOnCreate(T model)
@@ -155,7 +163,7 @@ namespace uCommunity.Core.Activity
             {
                 return null;
             }
-            
+
             return GetMany(Enumerable.Repeat(activity, 1)).Single();
         }
 

@@ -1,28 +1,24 @@
-﻿@model uCommunity.Likes.LikesViewModel
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
+@model uCommunity.Likes.LikesViewModel
 @{
-    Html.EnableUnobtrusiveJavaScript(true);
     var isLiked = Model.CanAddLike ? "" : "_isLiked";
+    var entityId = Model.CommentId.HasValue ? Model.CommentId.Value : Model.ActivityId;
 }
-<div class="content__item-like" id="likes_@Model.ActivityId">
-    <div id="count_@Model.ActivityId">
-        <a class="content__item-like-link @isLiked" href="#"><i class="icon-like"></i> <span class="likesValue_@Model.ActivityId">@Model.Users.Count()</span></a>
 
-        <div class="content__item-like-set">
-            @(Model.CanAddLike ?
-                Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, type = Model.Type }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) }) :
-                Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, type = Model.Type }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", Model.ActivityId) })
-            )
-        </div>
-    </div>
+<div class="like" id="likes_@entityId">
+    <span class="like__set @isLiked"><i class="icon-like"></i> @Model.Users.Count()</span>
+
+    @(Model.CanAddLike
+        ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
+        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
 
     @if (Model.Users.Any())
     {
-        <div class="content__item-like-popup" id="likesPopup_@Model.ActivityId">
+        <div class="like__popup">
             @foreach (var name in Model.Users)
             {
-                <span>
-                    @Html.Label(name)
-                </span><br />
+                @Html.Label(name)
             }
         </div>
     }
