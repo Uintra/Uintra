@@ -12,6 +12,8 @@ namespace Compent.uCommunity.Controllers
 {
     public class CommentsController : CommentsControllerBase
     {
+        protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
+
         private readonly ICommentableService _customCommentableService;
 
         public CommentsController(
