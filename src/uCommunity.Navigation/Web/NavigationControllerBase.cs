@@ -12,9 +12,9 @@ namespace uCommunity.Navigation.Web
         protected virtual string SubNavigationViewPath { get; } = "~/App_Plugins/Navigation/SubNavigation/View/Navigation.cshtml";
         protected virtual string TopNavigationViewPath { get; } = "~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml";
 
-        private readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
-        private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
-        private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
+        protected readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
+        protected readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
+        protected readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
 
         protected NavigationControllerBase(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
