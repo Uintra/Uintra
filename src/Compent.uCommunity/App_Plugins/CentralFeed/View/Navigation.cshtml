@@ -1,53 +1,30 @@
 ﻿@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<List<uCommunity.CentralFeed.Models.CentralFeedTypeModel>>
-
-@{
-    var currentTab = GetCurrentType();
-}
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IEnumerable<uCommunity.CentralFeed.Models.CentralFeedTabViewModel>>
 
 <div class="tabset js-feed-navigation">
-    <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
-        <li class="tabset__navigation-item js-feed-type @(currentTab == null ? "_active" : "")" data-type="" data-page-url="/">
-            <a class="tabset__navigation-link " href="/"><span>@Html.Localize("CentralFeed.AllFeedType.lnk")</span></a>
-        </li>
-        @foreach (var typeModel in Model)
-        {
-            <li class="tabset__navigation-item js-feed-type @(currentTab.HasValue && currentTab.Value == typeModel.Type ? "_active" : "")" data-type="@typeModel.Type.GetHashCode()" data-page-url="@typeModel.TabUrl">
-                <a class="tabset__navigation-link " href="@typeModel.TabUrl">
-                    <span>@Html.Localize(typeModel.Type)</span>
-                </a>
-            </li>
-        }
-        <li class="tabset__navigation-item _item-add">
-            <a class="tabset__navigation-link _add">+</a>
-            <ul class="tabset__navigation-list">
-                @foreach (var typeModel in Model)
-                {
-                    if (PermissionsExtentions.IsCurrentUserHasPermission(typeModel.Type, IntranetActivityActionEnum.Create))
+    <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
+    <div class="tabset__holder">
+        <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
+            @foreach (var tabModel in Model)
+            {
+                <li class="tabset__navigation-item js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.GetHashCode()" data-page-url="@tabModel.Url">
+                    <a class="tabset__navigation-link " href="@tabModel.Url">
+                        <span>@Html.Localize(tabModel.Type)</span>
+                    </a>
+                </li>
+            }
+            <li class="tabset__navigation-item _item-add">
+                <a class="tabset__navigation-link _add">+</a>
+                <ul class="tabset__navigation-list">
+                    @foreach (var typeModel in Model.Where(t => !t.CreateUrl.IsNullOrEmpty()))
                     {
                         <li class="tabset__navigation-list-item">
                             <a class="tabset__navigation-list-link" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
                         </li>
                     }
-                }
-            </ul>
-        </li>
-    </ul>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
-
-
-@functions
-{
-
-    public IntranetActivityTypeEnum? GetCurrentType()
-    {
-        var path = "";
-        if (HttpContext.Current.Request.Url.AbsolutePath != "/")
-        {
-            path = HttpContext.Current.Request.Url.AbsolutePath.Split('/').FirstOrDefault(s => s.IsNotNullOrEmpty());
-        }
-        var type = Model.FirstOrDefault(s => s.TabUrl.Trim('/') == path);
-        return type?.Type;
-    }
-}

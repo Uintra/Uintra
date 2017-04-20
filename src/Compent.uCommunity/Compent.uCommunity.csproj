@@ -304,8 +304,10 @@
     <Reference Include="uCommunity.BaseControls, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.BaseControls.2.2.0\lib\net452\uCommunity.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.4\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.6\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Comments, Version=1.0.7.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Comments.1.0.7.2\lib\net452\uCommunity.Comments.dll</HintPath>
@@ -809,10 +811,10 @@
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Compile Include="App_Data\Models\models.generated.cs" />
-    <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
-    <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
+    <Compile Include="Controllers\NavigationAuthorizationController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />

@@ -2,8 +2,8 @@
 using System.Linq;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Core;
-using uCommunity.CentralFeed.Core.Models;
 using uCommunity.CentralFeed.Enums;
+using uCommunity.CentralFeed.Models;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
