@@ -375,11 +375,11 @@
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
     <None Include="Content\config\Dashboard.config.install.xdt" />
     <None Include="Content\config\Dashboard.config.uninstall.xdt" />
-    <None Include="App_Plugins\config\navigationConfiguration.json" />
-    <None Include="App_Plugins\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\LeftNavigation\View\Navigation.cshtml" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
-    <Compile Include="Web\NavigationAuthorizationControllerBase.cs" Condition="'$(Configuration)' == 'Debug'" />
-    <Compile Include="Web\NavigationControllerBase.cs" Condition="'$(Configuration)' == 'Debug'" />
+    <Compile Include="Web\NavigationAuthorizationControllerBase.cs" />
+    <Compile Include="Web\NavigationControllerBase.cs" />
     <Compile Include="DefaultImplementation\SubNavigationMenuViewModel.cs" />
     <Compile Include="Core\Dashboard\UmbracoPropertyTypeEnum.cs" />
     <Compile Include="Core\Dashboard\Controllers\UNavigationApiController.cs" />
@@ -393,24 +393,24 @@
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="App_Plugins\package.manifest" />
-    <None Include="App_Plugins\SubNavigation\View\Navigation.cshtml" />
-    <None Include="App_Plugins\TopNavigation\View\Navigation.cshtml" />
-    <None Include="App_Plugins\Web.config" />
+    <Content Include="App_Plugins\package.manifest" />
+    <Content Include="App_Plugins\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="App_Plugins\Dashboard\navigation-controller.js" />
-    <None Include="App_Plugins\Dashboard\navigation-service.js" />
-    <None Include="App_Plugins\Dashboard\navigation.css" />
-    <None Include="App_Plugins\Dashboard\navigation.html" />
-    <None Include="App_Plugins\LeftNavigation\LeftNavigation.js" />
-    <None Include="App_Plugins\LeftNavigation\_leftNavigation.css" />
-    <None Include="App_Plugins\SubNavigation\subNavigation.js" />
-    <None Include="App_Plugins\SubNavigation\_subNavigation.css" />
-    <None Include="App_Plugins\TopNavigation\topNavigation.js" />
-    <None Include="App_Plugins\TopNavigation\_topNavigation.css" />
+    <Content Include="App_Plugins\Dashboard\navigation-controller.js" />
+    <Content Include="App_Plugins\Dashboard\navigation-service.js" />
+    <Content Include="App_Plugins\Dashboard\navigation.css" />
+    <Content Include="App_Plugins\Dashboard\navigation.html" />
+    <Content Include="App_Plugins\LeftNavigation\LeftNavigation.js" />
+    <Content Include="App_Plugins\LeftNavigation\_leftNavigation.css" />
+    <Content Include="App_Plugins\SubNavigation\subNavigation.js" />
+    <Content Include="App_Plugins\SubNavigation\_subNavigation.css" />
+    <Content Include="App_Plugins\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\TopNavigation\_topNavigation.css" />
     <None Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
   <ItemGroup>
