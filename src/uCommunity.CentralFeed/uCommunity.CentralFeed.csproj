@@ -332,7 +332,7 @@
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
     <Compile Include="Core\Models\CentralFeedTabModel.cs" />
-    <Compile Include="Web\CentralFeedControllerBase.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Web\CentralFeedControllerBase.cs"  />
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
