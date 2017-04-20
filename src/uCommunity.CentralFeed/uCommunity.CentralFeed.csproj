@@ -358,7 +358,6 @@
   <ItemGroup>
     <None Include="Plugin\CentralFeed.js" />
     <None Include="Plugin\View\central-feed.view.html" />
-    <None Include="Plugin\centralFeed.css" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
