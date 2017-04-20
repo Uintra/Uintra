@@ -6,12 +6,15 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.Plugin
 {
-    public class NavigationAuthorizationController : SurfaceController
+    public class NavigationAuthorizationControllerBase : SurfaceController
     {
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly IUserService _userService;
+        protected virtual string DefaultRedirectUrl { get; } = "/";
+        protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
 
-        public NavigationAuthorizationController(
+        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IUserService _userService;
+
+        protected NavigationAuthorizationControllerBase(
             IIntranetUserService intranetUserService,
             IUserService userService)
         {
@@ -19,12 +22,12 @@ namespace uCommunity.Navigation.Plugin
             _userService = userService;
         }
 
-        public ActionResult LoginToUmbraco()
+        public virtual ActionResult LoginToUmbraco()
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             if (!currentUser.UmbracoId.HasValue)
             {
-                return Redirect("/");
+                return Redirect(DefaultRedirectUrl);
             }
 
             var umbracoUser = _userService.GetUserById(currentUser.UmbracoId.Value);
@@ -32,15 +35,15 @@ namespace uCommunity.Navigation.Plugin
                 || umbracoUser.IsLockedOut
                 || !umbracoUser.IsApproved)
             {
-                return Redirect("/");
+                return Redirect(DefaultRedirectUrl);
             }
 
             UmbracoContext.Security.PerformLogin(umbracoUser.Id);
 
-            return Redirect("/umbraco");
+            return Redirect(UmbracoRedirectUrl);
         }
 
-        public ActionResult Logout()
+        public virtual ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();

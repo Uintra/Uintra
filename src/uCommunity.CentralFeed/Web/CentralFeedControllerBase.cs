@@ -6,26 +6,30 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.CentralFeed
 {
-    public class CentralFeedController : SurfaceController
+    public class CentralFeedControllerBase : SurfaceController
     {
-        private readonly ICentralFeedService _centralFeedService;
-        private const int ItemsPerPage = 8;
+        protected virtual string OverviewViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
+        protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
+        protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
 
-        public CentralFeedController(ICentralFeedService centralFeedService)
+        protected readonly ICentralFeedService _centralFeedService;
+        protected const int ItemsPerPage = 8;
+
+        protected CentralFeedControllerBase(ICentralFeedService centralFeedService)
         {
             _centralFeedService = centralFeedService;
         }
 
-        public ActionResult Overview()
+        public virtual ActionResult Overview()
         {
             var model = new CentralFeedOverviewModel
             {
                 Types = GetTypes(),
             };
-            return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml", model);
+            return PartialView(OverviewViewPath, model);
         }
 
-        public ActionResult List(CentralFeedListModel model)
+        public virtual ActionResult List(CentralFeedListModel model)
         {
             var items = (model.Type == null ?
                 _centralFeedService.GetFeed().OrderByDescending(s => s.SortDate.Date) :
@@ -51,21 +55,21 @@ namespace uCommunity.CentralFeed
                 BlockScrolling = items.Count < take
             };
 
-            return PartialView("~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml", centralFeedModel);
+            return PartialView(ListViewPath, centralFeedModel);
         }
 
-        public ActionResult Tabs()
+        public virtual ActionResult Tabs()
         {
-            return PartialView("~/App_Plugins/CentralFeed/View/Navigation.cshtml", GetTypes().ToList());
+            return PartialView(NavigationViewPath, GetTypes().ToList());
         }
 
-        public JsonResult CacheVersion()
+        public virtual JsonResult CacheVersion()
         {
             var version = _centralFeedService.GetFeedVersion(Enumerable.Empty<ICentralFeedItem>());
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<CentralFeedTypeModel> GetTypes()
+        protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
         {
             var allSettings = _centralFeedService.GetAllSettings();
             foreach (var singleSetting in allSettings)

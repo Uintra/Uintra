@@ -17,9 +17,15 @@ namespace uCommunity.News.Web
     [ActivityController(IntranetActivityTypeEnum.News)]
     public abstract class NewsControllerBase : SurfaceController
     {
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly INewsService<NewsBase, NewsModelBase> _newsService;
+        protected virtual string ListViewPath { get; } = "~/App_Plugins/News/List/ListView.cshtml";
+        protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
+        protected virtual string DetailsViewPath { get; } = "~/App_Plugins/News/Details/DetailsView.cshtml";
+        protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
+        protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
+
+        protected readonly IMediaHelper _mediaHelper;
+        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
         protected NewsControllerBase(
             IIntranetUserService intranetUserService,
@@ -42,12 +48,12 @@ namespace uCommunity.News.Web
             };
 
             FillLinks();
-            return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
+            return PartialView(ListViewPath, model);
         }
 
         public virtual ActionResult ItemView(NewsOverviewItemViewModel model)
         {
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
+            return PartialView(ItemViewPath, model);
         }
 
         public virtual ActionResult Details(Guid id)
@@ -66,7 +72,7 @@ namespace uCommunity.News.Web
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
 
-            return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", model);
+            return PartialView(DetailsViewPath, model);
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Create)]
@@ -74,7 +80,7 @@ namespace uCommunity.News.Web
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
             FillCreateEditData(model);
-            return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", model);
+            return PartialView(CreateViewPath, model);
         }
 
         [HttpPost]
@@ -84,7 +90,7 @@ namespace uCommunity.News.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
-                return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", createModel);
+                return PartialView(CreateViewPath, createModel);
             }
 
             var news = createModel.Map<NewsModelBase>();
@@ -111,7 +117,7 @@ namespace uCommunity.News.Web
 
             var model = news.Map<NewsEditModel>();
             FillCreateEditData(model);
-            return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", model);
+            return PartialView(EditViewPath, model);
         }
 
         [HttpPost]
@@ -121,7 +127,7 @@ namespace uCommunity.News.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(editModel);
-                return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", editModel);
+                return PartialView(EditViewPath, editModel);
             }
 
             var activity = editModel.Map<NewsModelBase>();

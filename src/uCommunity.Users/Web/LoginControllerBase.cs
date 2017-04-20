@@ -7,9 +7,10 @@ namespace uCommunity.Users.Web
     [AllowAnonymous]
     public abstract class LoginControllerBase : SurfaceController
     {
-        protected readonly IMemberService _memberService;
-        protected virtual string LoginView => "~/App_Plugins/Users/Login/Login.cshtml";
+        protected virtual string LoginViewPath { get; } = "~/App_Plugins/Users/Login/Login.cshtml";
+        protected virtual string DefaultRedirectUrl { get; } = "/";
 
+        protected readonly IMemberService _memberService;
 
         protected LoginControllerBase(IMemberService memberService)
         {
@@ -19,16 +20,16 @@ namespace uCommunity.Users.Web
         public virtual ActionResult Login()
         {
             var loginStatus = Members.GetCurrentLoginStatus();
-            return View(LoginView, loginStatus);
+            return View(LoginViewPath, loginStatus);
         }
 
         [HttpPost]
         public virtual ActionResult Login(string login, string password, string returnUrl)
         {
-            var redirectUrl = returnUrl ?? "/";
+            var redirectUrl = returnUrl ?? DefaultRedirectUrl;
             if (!Members.Login(login, password))
             {
-                redirectUrl = HttpContext.Request.Url?.AbsoluteUri ?? "/";
+                redirectUrl = HttpContext.Request.Url?.AbsoluteUri ?? DefaultRedirectUrl;
 
             }
             return Redirect(redirectUrl);

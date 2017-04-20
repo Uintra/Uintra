@@ -328,7 +328,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Plugin\CentralFeedController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Web\CentralFeedControllerBase.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
@@ -338,23 +338,23 @@
     <Compile Include="Core\Models\CentralFeedListViewModel.cs" />
     <Compile Include="Core\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Plugin\Models\CentralFeedListModel.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="App_Plugins\Models\CentralFeedListModel.cs" Condition=" '$(Configuration)' == 'Debug' " />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Plugin\package.manifest" />
+    <None Include="App_Plugins\package.manifest" />
     <None Include="packages.config" />
-    <None Include="Plugin\View\CentralFeedList.cshtml" />
-    <None Include="Plugin\View\CentralFeedOverView.cshtml" />
-    <None Include="Plugin\View\Navigation.cshtml" />
+    <None Include="App_Plugins\View\CentralFeedList.cshtml" />
+    <None Include="App_Plugins\View\CentralFeedOverView.cshtml" />
+    <None Include="App_Plugins\View\Navigation.cshtml" />
     <None Include="uCommunity.CentralFeed.nuspec" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Plugin\CentralFeed.js" />
-    <None Include="Plugin\View\central-feed.view.html" />
-    <None Include="Plugin\centralFeed.css" />
+    <None Include="App_Plugins\CentralFeed.js" />
+    <None Include="App_Plugins\View\central-feed.view.html" />
+    <None Include="App_Plugins\centralFeed.css" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

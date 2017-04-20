@@ -25,9 +25,9 @@ namespace uCommunity.Events.Web
         public virtual string EditViewPath { get; } = "~/App_Plugins/Events/Edit/EditView.cshtml";
         public virtual string ItemViewPath { get; } = "~/App_Plugins/Events/List/ItemView.cshtml";
 
-        private readonly IEventsService<EventBase, EventModelBase> _eventsService;
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService _intranetUserService;
+        protected readonly IEventsService<EventBase, EventModelBase> _eventsService;
+        protected readonly IMediaHelper _mediaHelper;
+        protected readonly IIntranetUserService _intranetUserService;
 
         protected EventsControllerBase(
             IEventsService<EventBase, EventModelBase> eventsService,

@@ -14,9 +14,9 @@ namespace uCommunity.Subscribe.Web
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersList.cshtml";
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribeView.cshtml";
 
-        private readonly ISubscribeService _subscribeService;
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        protected readonly ISubscribeService _subscribeService;
+        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected SubscribeControllerBase(
             ISubscribeService subscribeService,

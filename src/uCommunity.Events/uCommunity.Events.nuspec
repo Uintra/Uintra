@@ -15,7 +15,4 @@
       <dependency id="uCommunity.BaseControls" version="2.2.0.0" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="Content\**" target="content" />
-  </files>
 </package>

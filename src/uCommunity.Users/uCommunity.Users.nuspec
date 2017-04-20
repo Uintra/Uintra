@@ -14,7 +14,4 @@
       <dependency id="uCommunity.Core" version="1.0.12" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="App_Plugins\**" target="content\App_Plugins\" />
-  </files>
 </package>
