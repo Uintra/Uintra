@@ -6,7 +6,6 @@
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
 
         <div class="tabset__holder">
-
             @if (Model.Parent != null)
             {
                 <h1 class="tabset__title">
@@ -20,7 +19,7 @@
 
             @if (Model.Items.Count > 0)
             {
-                <ul class="tabset__navigation clearfix">
+                <ul class="tabset__navigation">
                     @foreach (var item in Model.Items)
                     {
                         <li class="tabset__navigation-item @(item.IsActive ? "_active" : "")">

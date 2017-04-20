@@ -2,8 +2,7 @@
 
 require("./_subNavigation.css");
 
-var MobileDetect = require('mobile-detect');
-
+var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var menu = $('.tabset__navigation');
 var title = $('.tabset__title');
 var menuHolder = menu.closest('.tabset');
@@ -17,7 +16,7 @@ if (title.length > 0) {
     body.addClass('_with-subtitle');
 }
 
-var initSubMenuPosition = function () {
+/*var initSubMenuPosition = function () {
     var submenu = $('div.tabset .tabset__navigation');
     var holder = title.closest('.tabset__holder');
 
@@ -25,7 +24,7 @@ var initSubMenuPosition = function () {
         submenu.closest('.tabset').remove();
         submenu.appendTo(holder);
     }
-}
+}*/
     
 var initMobileMenu = function() {
     var opener = menu.find('.tabset__navigation-link');
@@ -35,27 +34,12 @@ var initMobileMenu = function() {
     }
 
     if (opener.length > 1) {
-        opener.each(function () {
-            var $this = $(this);
-
-            $this.click(function (e) {
-                if ($this.closest('._active').length > 0) {
-                    e.preventDefault();
-                    menuHolder.toggleClass('_expanded');
-                    if (body.hasClass('_search-expanded')) {
-                        body.removeClass('_search-expanded');
-                    }
-                    if (body.hasClass('_notifications-expanded')) {
-                        body.removeClass('_notifications-expanded');
-                    }
-                    if (body.hasClass('_menu-expanded')) {
-                        body.removeClass('_menu-expanded');
-                    }
-                    if (body.hasClass('_sidebar-expanded')) {
-                        body.removeClass('_sidebar-expanded');
-                    }
-                }
-            });
+        opener.on("click", function (e) {
+            if ($(this).closest('._active').length > 0) {
+                e.preventDefault();
+                menuHolder.toggleClass('_expanded');
+                body.removeClass('_search-expanded notifications-expanded _menu-expanded _sidebar-expanded');
+            }
         });
     }
     else {
@@ -65,9 +49,7 @@ var initMobileMenu = function() {
 
 var controller = {
     init: function () {
-        var md = new MobileDetect(window.navigator.userAgent);
-
-        if (md.mobile()) {
+        if (mobileMediaQuery.matches) {
             initMobileMenu();
         }
 
