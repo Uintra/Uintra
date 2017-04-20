@@ -811,6 +811,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Compile Include="App_Data\Models\models.generated.cs" />
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="App_Plugins\Core\Activity\IntranetActivityController.cs" />
     <Compile Include="App_Plugins\Navigation\NavigationController.cs" />
@@ -947,7 +948,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Plugin\Login\" />
   </ItemGroup>
   <ItemGroup>

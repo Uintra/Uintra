@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.uCommunity.Core.CentralFeed;
 using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.Events;
 using Compent.uCommunity.Core.Exceptions;
@@ -21,12 +22,14 @@ using Ninject.Web.Common;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using uCommunity.CentralFeed;
+using uCommunity.CentralFeed.Core;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Configuration;
 using uCommunity.Core.Exceptions;
+using uCommunity.Core.Grid;
 using uCommunity.Core.Localization;
 using uCommunity.Core.Media;
 using uCommunity.Core.ModelBinders;
@@ -155,6 +158,7 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
+            kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
 
@@ -195,6 +199,9 @@ namespace Compent.uCommunity.Core.IoC
             //Sql 
             kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>)).InRequestScope();
             EnsureTablesExists(kernel);
+
+            kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
+
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
