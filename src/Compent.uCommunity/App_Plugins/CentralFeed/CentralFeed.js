@@ -14,12 +14,13 @@ var centralFeedTabEvent = new CustomEvent("cfTabChanged");
 
 appInitializer.add(function () {
     var holder = document.querySelector('.js-feed-overview');
-    if (!holder) return;
-    var tabs = holder.querySelectorAll('.js-feed-links .js-feed-type');
-    var formController = umbracoAjaxForm()(holder.querySelector("form.js-ajax-form"));
+    var navigationHolder = document.querySelector('.js-feed-navigation');
+    if (!holder || !navigationHolder) return;
+    var tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
+    var formController = umbracoAjaxForm.init(holder.querySelector("form.js-ajax-form"));
     var state = {
         get tab() {
-            return holder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
+            return navigationHolder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
         },
         set tab(val) {
             var active = '_active';
@@ -115,11 +116,11 @@ appInitializer.add(function () {
             state.page = (savedState || {}).page || 1;
             reload().then(function () {
                 var elem = document.querySelector('[data-anchor="' + hash + '"]');
-
-                if(elem){
-                    scrollTo(document.body, elem.offsetTop, 300);
-                    window.history.pushState("", document.title, window.location.pathname);
-                }
+                
+                if (!elem) return;
+                scrollTo(document.body, elem.offsetTop, 300);
+                window.history.pushState("", document.title, window.location.pathname);
+                
             });
         } else {
             localStorage.removeItem(state.storageName);
@@ -144,7 +145,20 @@ appInitializer.add(function () {
 
         lightbox.init();
 
-      subscribe.initOnLoad();
+        subscribe.initOnLoad();
+        
+        displayDescription();
+    }
+
+    function displayDescription() {
+        var container = $('._clamp');
+        if (container.length > 0) {
+            for (var i = 0; i < container.length; i++) {
+                if (container[i].textContent.trim().length > 300) {
+                    helpers.clampText(container[i]);
+                }
+            }
+        }
     }
 
     restoreState();

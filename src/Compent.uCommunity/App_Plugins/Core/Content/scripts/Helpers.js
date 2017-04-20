@@ -85,8 +85,7 @@ var helpers = {
             var lock = false;
             var win = $(window);
             var doc = $(document);
-            var unlock = function() { lock = false; }
-
+            var unlock = function () { lock = false; }
             win.scroll(function () {
                 if ((win.scrollTop() + 70) >= doc.height() - win.height()) {
                     if (!lock) {

@@ -6,7 +6,7 @@ var active = "_active";
 
 function locationChagned() {
     var path = window.location.pathname;
-    var links = document.querySelectorAll('.side-nav .side-nav__link');
+    var links = document.querySelectorAll('.js-side-nav__link');
 
     for (var i = 0; i < links.length; i++) {
         var link = links[i];

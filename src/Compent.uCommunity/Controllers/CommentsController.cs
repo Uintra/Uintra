@@ -28,11 +28,10 @@ namespace Compent.uCommunity.Controllers
 
         protected override void OnCommentCreated(Comment comment)
         {
-            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
-            if (service is INotifyableService)
+            var service = ActivitiesServiceFactory.GetServiceSafe<INotifyableService>(comment.ActivityId);
+            if (service != null)
             {
-                var notifyableService = (INotifyableService)service;
-                notifyableService.Notify(comment.ParentId ?? comment.Id,
+                service.Notify(comment.ParentId ?? comment.Id,
                     comment.ParentId.HasValue
                         ? NotificationTypeEnum.CommentReplyed
                         : NotificationTypeEnum.CommentAdded);
@@ -41,11 +40,10 @@ namespace Compent.uCommunity.Controllers
 
         protected override void OnCommentEdited(Comment comment)
         {
-            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
-            if (service is INotifyableService)
+            var service = ActivitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
+            if (service != null)
             {
-                var notifyableService = (INotifyableService)service;
-                notifyableService.Notify(comment.Id, NotificationTypeEnum.CommentEdited);
+                service.Notify(comment.Id, NotificationTypeEnum.CommentEdited);
             }
         }
 
@@ -63,9 +61,8 @@ namespace Compent.uCommunity.Controllers
                 return OverView(model.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService(model.ActivityId);
-            var commentableService = (ICommentableService)service;
-            var comment = commentableService.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            var service = ActivitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
+            var comment = service.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -87,9 +84,8 @@ namespace Compent.uCommunity.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
-            var commentableService = (ICommentableService)service;
-            commentableService.UpdateComment(model.Id, model.Text);
+            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            service.UpdateComment(model.Id, model.Text);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -111,9 +107,8 @@ namespace Compent.uCommunity.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
-            var commentableService = (ICommentableService)service;
-            commentableService.DeleteComment(id);
+            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            service.DeleteComment(id);
 
             return OverView(comment.ActivityId);
         }
