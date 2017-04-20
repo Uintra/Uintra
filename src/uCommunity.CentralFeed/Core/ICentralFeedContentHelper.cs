@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using uCommunity.CentralFeed.Core.Models;
 using uCommunity.CentralFeed.Enums;
+using uCommunity.CentralFeed.Models;
 using Umbraco.Core.Models;
 
 namespace uCommunity.CentralFeed.Core
