@@ -371,9 +371,9 @@
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityModelBase.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
-    <Compile Include="Core\Activity\IIntranetActivityService.cs" />
+    <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IntranetActivityActionEnum.cs" />
-    <Compile Include="Core\Activity\IntranetActivityService.cs" />
+    <Compile Include="Core\Activity\IntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivityBase.cs" />
     <Compile Include="Core\Activity\IIntranetActivityItemServiceBase.cs" />
@@ -385,7 +385,7 @@
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\AppSettingHelper.cs" />
-    <Compile Include="Core\Caching\IMemoryCacheService.cs" />
+    <Compile Include="Core\Caching\ICacheService.cs" />
     <Compile Include="Core\Caching\MemoryCacheService.cs" />
     <Compile Include="Core\Caching\Models\CachedItemBase.cs" />
     <Compile Include="Core\Caching\Models\CachedList.cs" />

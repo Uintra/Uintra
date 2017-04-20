@@ -15,12 +15,12 @@ namespace uCommunity.CentralFeed
 
     public class CentralFeedService : ICentralFeedService
     {
-        private readonly IMemoryCacheService _memoryCacheService;
+        private readonly ICacheService cacheService;
         private readonly IEnumerable<ICentralFeedItemService> _feedItemServices;
 
-        public CentralFeedService(IMemoryCacheService memoryCacheService, IEnumerable<ICentralFeedItemService> feedItemServices)
+        public CentralFeedService(ICacheService cacheService, IEnumerable<ICentralFeedItemService> feedItemServices)
         {
-            _memoryCacheService = memoryCacheService;
+            this.cacheService = cacheService;
             _feedItemServices = feedItemServices;
         }
 
@@ -47,13 +47,13 @@ namespace uCommunity.CentralFeed
 
         public CentralFeedSettings GetSettings(IntranetActivityTypeEnum type)
         {
-            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type == type);
+            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type == type);
             return settings;
         }
 
         public IEnumerable<CentralFeedSettings> GetAllSettings()
         {
-            var settings = _memoryCacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
+            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
             return settings;
         }
 

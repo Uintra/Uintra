@@ -5,7 +5,7 @@ using System.Runtime.Caching;
 
 namespace uCommunity.Core.Caching
 {
-    public class MemoryCacheService : IMemoryCacheService
+    public class MemoryCacheService : ICacheService
     {
         public T Get<T>(string cacheKey, params string[] uniqueSuffixes) where T : class
         {

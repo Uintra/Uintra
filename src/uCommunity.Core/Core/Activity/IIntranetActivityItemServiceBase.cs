@@ -18,6 +18,7 @@ namespace uCommunity.Core.Activity
         Guid Create(T model);
         void Save(T model);
         TModel FillCache(Guid id);
+        void Delete(Guid id);
     }
 
     public interface IIntranetActivityItemServiceBase
@@ -35,7 +36,5 @@ namespace uCommunity.Core.Activity
         IPublishedContent GetDetailsPage(IPublishedContent currentPage);
         IPublishedContent GetCreatePage(IPublishedContent currentPage);
         IPublishedContent GetEditPage(IPublishedContent currentPage);
-
-        void Delete(Guid id);
     }
 }
