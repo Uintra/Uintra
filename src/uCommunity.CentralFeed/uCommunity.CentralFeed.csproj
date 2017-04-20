@@ -342,7 +342,7 @@
     <Compile Include="Core\Models\CentralFeedListViewModel.cs" />
     <Compile Include="Core\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Plugin\Models\CentralFeedListModel.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Plugin\Models\CentralFeedListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
