@@ -4,14 +4,14 @@ using uCommunity.Core.User;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Navigation.Plugin
+namespace uCommunity.Navigation.Web
 {
-    public class NavigationAuthorizationController : SurfaceController
+    public abstract class NavigationAuthorizationControllerBase : SurfaceController
     {
         private readonly IIntranetUserService _intranetUserService;
         private readonly IUserService _userService;
 
-        public NavigationAuthorizationController(
+        protected NavigationAuthorizationControllerBase(
             IIntranetUserService intranetUserService,
             IUserService userService)
         {
@@ -19,7 +19,7 @@ namespace uCommunity.Navigation.Plugin
             _userService = userService;
         }
 
-        public ActionResult LoginToUmbraco()
+        public virtual ActionResult LoginToUmbraco()
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             if (!currentUser.UmbracoId.HasValue)
@@ -40,7 +40,7 @@ namespace uCommunity.Navigation.Plugin
             return Redirect("/umbraco");
         }
 
-        public ActionResult Logout()
+        public virtual ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
