@@ -1,0 +1,13 @@
+﻿@using uCommunity.Navigation.DefaultImplementation
+@model MyLinksViewModel
+
+<ul class="side-nav">
+    @foreach (var item in Model.MyLinks)
+    {
+        <li class="side-nav__item js-side-nav__item">
+            <a class="side-nav__link js-side-nav__link" href="@item.Url">
+                @item.Name
+            </a>
+        </li>
+    }
+</ul>
