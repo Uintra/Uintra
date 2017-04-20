@@ -470,7 +470,6 @@
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
     <Content Include="App_Plugins\CentralFeed\CentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\Comments\Comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
@@ -720,9 +719,7 @@
     <Content Include="App_Plugins\News\Details\news-details.html" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\List\news-list.html" />
-    <Content Include="App_Plugins\News\loader.gif" />
     <Content Include="App_Plugins\News\News.js" />
-    <Content Include="App_Plugins\News\news.css" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\_notificationList.css" />
     <Content Include="App_Plugins\Notification\Notification.js" />
