@@ -11,11 +11,11 @@ namespace uCommunity.Core.Controls.FileUpload
 {
     public class FileController : UmbracoApiController
     {
-        private readonly IMemoryCacheService _memoryCacheService;
+        private readonly ICacheService cacheService;
 
-        public FileController(IMemoryCacheService memoryCacheService)
+        public FileController(ICacheService cacheService)
         {
-            _memoryCacheService = memoryCacheService;
+            this.cacheService = cacheService;
         }
 
         [System.Web.Mvc.HttpPost]
@@ -40,7 +40,7 @@ namespace uCommunity.Core.Controls.FileUpload
                 FileBytes = buffer
             };
 
-            _memoryCacheService.GetOrSet(result.Id.ToString(), () => result, DateTimeOffset.Now.AddDays(1));
+            cacheService.GetOrSet(result.Id.ToString(), () => result, DateTimeOffset.Now.AddDays(1));
 
             return Request.CreateResponse(HttpStatusCode.OK, result.Id);
         }

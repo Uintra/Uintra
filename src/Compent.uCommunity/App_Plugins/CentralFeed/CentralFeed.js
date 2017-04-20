@@ -23,6 +23,17 @@ function hideLoadingStatus() {
     loadingElem && (loadingElem.style.display = "none");
 }
 
+function displayDescription() {
+    var container = $('._clamp');
+    if (container.length > 0) {
+        for (var i = 0; i < container.length; i++) {
+            if (container[i].textContent.trim().length > 300) {
+                helpers.clampText(container[i]);
+            }
+        }
+    }
+}
+
 function initCustomControls(data) {
     if (!data) {
         return;
@@ -30,6 +41,7 @@ function initCustomControls(data) {
 
     lightbox.init();
     subscribe.initOnLoad();
+    displayDescription();
 }
 
 function scrollPrevented() {
@@ -105,13 +117,14 @@ function tabClickEventHandler(e) {
 
 appInitializer.add(function () {
     holder = document.querySelector('.js-feed-overview');
-    if (!holder) return;
+    var navigationHolder = document.querySelector('.js-feed-navigation');
+    if (!holder || !navigationHolder) return;
     formController = umbracoAjaxForm()(holder.querySelector("form.js-ajax-form"));
-    var tabs = holder.querySelectorAll('.js-feed-links .js-feed-type');
+    var tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
     
     state = {
         get tab() {
-            return holder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
+            return navigationHolder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
         },
         set tab(val) {
             var active = '_active';

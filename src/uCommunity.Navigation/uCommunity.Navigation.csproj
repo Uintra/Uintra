@@ -378,8 +378,8 @@
     <None Include="Plugin\config\navigationConfiguration.json" />
     <None Include="Plugin\LeftNavigation\View\Navigation.cshtml" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
-    <Compile Include="Plugin\NavigationAuthorizationController.cs" Condition="'$(Configuration)' == 'Debug'" />
-    <Compile Include="Plugin\NavigationController.cs" Condition="'$(Configuration)' == 'Debug'" />
+    <Compile Include="Web\NavigationAuthorizationControllerBase.cs"  />
+    <Compile Include="Web\NavigationControllerBase.cs" />
     <Compile Include="DefaultImplementation\SubNavigationMenuViewModel.cs" />
     <Compile Include="Core\Dashboard\UmbracoPropertyTypeEnum.cs" />
     <Compile Include="Core\Dashboard\Controllers\UNavigationApiController.cs" />
@@ -423,6 +423,7 @@
       <Name>uCommunity.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

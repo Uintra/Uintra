@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using uCommunity.CentralFeed.Enums;
 
 namespace uCommunity.CentralFeed.Models
 {
     public class CentralFeedOverviewModel
     {
-        public IEnumerable<CentralFeedTypeModel> Types { get; set; }
-        public CentralFeedOverviewModel()
-        {
-            Types = Enumerable.Empty<CentralFeedTypeModel>();
-        }
+        public CentralFeedTypeEnum CurrentType { get; set; }
     }
 }

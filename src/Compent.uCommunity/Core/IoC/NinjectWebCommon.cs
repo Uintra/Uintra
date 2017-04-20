@@ -143,8 +143,8 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<,>)).To<EventsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
-            kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
-            kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
+            kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
+            kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
 
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();

@@ -6,7 +6,7 @@
     var currentTab = GetCurrentType();
 }
 
-<div class="tabset">
+<div class="tabset js-feed-navigation">
     <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
         <li class="tabset__navigation-item js-feed-type @(currentTab == null ? "_active" : "")" data-type="" data-page-url="/">
             <a class="tabset__navigation-link " href="/"><span>@Html.Localize("CentralFeed.AllFeedType.lnk")</span></a>

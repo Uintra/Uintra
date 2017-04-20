@@ -328,7 +328,11 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Plugin\CentralFeedController.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Core\CentralFeedComparer.cs" />
+    <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
+    <Compile Include="Core\ICentralFeedContentHelper.cs" />
+    <Compile Include="Core\Models\CentralFeedTabModel.cs" />
+    <Compile Include="Web\CentralFeedControllerBase.cs"  />
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
@@ -338,7 +342,7 @@
     <Compile Include="Core\Models\CentralFeedListViewModel.cs" />
     <Compile Include="Core\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Plugin\Models\CentralFeedListModel.cs" Condition=" '$(Configuration)' == 'Debug' " />
+    <Compile Include="Plugin\Models\CentralFeedListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +368,12 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uCommunity.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Plugin\backoffice\central-feed-overlay.html" />
+    <Content Include="Plugin\backoffice\central-feed-view.html" />
+    <Content Include="Plugin\backoffice\centralFeedController.js" />
+    <Content Include="Plugin\backoffice\centralFeedService.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

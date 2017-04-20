@@ -37,15 +37,15 @@ namespace Compent.uCommunity.Core
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
 
-        public NewsService(IIntranetActivityService intranetActivityService,
-            IMemoryCacheService memoryCacheService,
+        public NewsService(IIntranetActivityRepository intranetActivityRepository,
+            ICacheService cacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper, IPermissionsService permissionsService,
             INotificationsService notificationService)
-            : base(intranetActivityService, memoryCacheService)
+            : base(intranetActivityRepository, cacheService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -253,6 +253,26 @@ namespace Compent.uCommunity.Core
         private string GetUrlWithComment(Guid newsId, Guid commentId)
         {
             return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
+        }
+
+        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
         }
     }
 }
