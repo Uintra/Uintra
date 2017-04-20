@@ -9,7 +9,7 @@ namespace uCommunity.CentralFeed
 
         IntranetActivityTypeEnum Type { get; set; }
 
-        DateTime SortDate { get; }
+        DateTime PublishDate { get; }
 
         DateTime ModifyDate { get; }
     }

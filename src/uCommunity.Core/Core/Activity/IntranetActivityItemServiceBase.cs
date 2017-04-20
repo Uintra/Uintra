@@ -14,19 +14,19 @@ namespace uCommunity.Core.Activity
         where T : IntranetActivityBase, new()
         where TModel : IntranetActivityModelBase, new()
     {
-        private readonly IIntranetActivityService _intranetActivityService;
-        private readonly IMemoryCacheService _memoryCacheService;
+        private readonly IIntranetActivityRepository _activityRepository;
+        private readonly ICacheService _cache;
 
         protected abstract List<string> OverviewXPath { get; }
 
         public abstract IntranetActivityTypeEnum ActivityType { get; }
 
         protected IntranetActivityItemServiceBase(
-            IIntranetActivityService intranetActivityService,
-            IMemoryCacheService memoryCacheService)
+            IIntranetActivityRepository activityRepository,
+            ICacheService cache)
         {
-            _intranetActivityService = intranetActivityService;
-            _memoryCacheService = memoryCacheService;
+            _activityRepository = activityRepository;
+            _cache = cache;
         }
 
         public TModel Get(Guid id)
@@ -43,7 +43,7 @@ namespace uCommunity.Core.Activity
 
         public IEnumerable<TModel> GetAll(bool includeHidden = false)
         {
-            var activities = _memoryCacheService.GetOrSet(CacheConstants.ActivityCacheKey, () => GetAllFromSql().ToList(), GetCacheExpiration(), ActivityType.ToString());
+            var activities = _cache.GetOrSet(CacheConstants.ActivityCacheKey, () => GetAllFromSql().ToList(), GetCacheExpiration(), ActivityType.ToString());
 
             if (!includeHidden)
             {
@@ -62,24 +62,24 @@ namespace uCommunity.Core.Activity
         {
             var entity = FillPropertiesOnCreate(model);
 
-            _intranetActivityService.Create(entity);
+            _activityRepository.Create(entity);
             FillCache(entity.Id);
             return entity.Id;
         }
 
         public void Save(T model)
         {
-            var entity = _intranetActivityService.Get(model.Id);
+            var entity = _activityRepository.Get(model.Id);
 
             FillPropertiesOnEdit(entity, model);
 
-            _intranetActivityService.Update(entity);
+            _activityRepository.Update(entity);
             FillCache(entity.Id);
         }
 
         public virtual void Delete(Guid id)
         {
-            _intranetActivityService.Delete(id);
+            _activityRepository.Delete(id);
             FillCache(id);
         }
 
@@ -94,7 +94,7 @@ namespace uCommunity.Core.Activity
                 activities.Add(activity);
             }
 
-            _memoryCacheService.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
+            _cache.Set(CacheConstants.ActivityCacheKey, activities, GetCacheExpiration(), ActivityType.ToString());
             return activity;
         }
 
@@ -158,7 +158,7 @@ namespace uCommunity.Core.Activity
 
         protected TModel GetFromSql(Guid id)
         {
-            var activity = _intranetActivityService.Get(id);
+            var activity = _activityRepository.Get(id);
             if (activity == null)
             {
                 return null;
@@ -169,7 +169,7 @@ namespace uCommunity.Core.Activity
 
         protected IEnumerable<TModel> GetAllFromSql()
         {
-            var activities = _intranetActivityService.GetMany(ActivityType).ToList();
+            var activities = _activityRepository.GetMany(ActivityType).ToList();
             return GetMany(activities);
         }
 

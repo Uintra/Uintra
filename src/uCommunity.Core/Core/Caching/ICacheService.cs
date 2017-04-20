@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace uCommunity.Core.Caching
 {
-    public interface IMemoryCacheService
+    public interface ICacheService
     {
         void Clear<T>(Expression<Func<T>> getItemCallback, params string[] uniqueSuffixes) where T : class;
         void Clear(string cacheKey, params string[] uniqueSuffixes);

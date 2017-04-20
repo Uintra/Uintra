@@ -1,42 +1,19 @@
-﻿@using System.Web.Mvc.Html
-@using uCommunity.Core.Activity
-@using uCommunity.Core.Extentions
-@using Umbraco.Web
-@model uCommunity.CentralFeed.Models.CentralFeedOverviewModel
-
-@{
-    var currentTab = GetCurrentType();
-}
+﻿@using uCommunity.CentralFeed.Models
+@model CentralFeedOverviewModel
 
 <section class="content">
     <div class="content__list js-feed-overview">
         <div>
-            @{ Html.RenderAction("Tabs", "CentralFeed");}
             @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
                 new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
             {
                 <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
-                <input type="hidden" name="type" value="@(currentTab?.GetHashCode())" />
+                <input type="hidden" name="type" value="@(Model.CurrentType.GetHashCode())" />
                 <input type="hidden" name="page" />
                 <div class="tab-content js-feed-listContainer">
-                    @{Html.RenderAction("List", "CentralFeed", new { type = currentTab });}
+                    @{Html.RenderAction("List", "CentralFeed", new { model = new CentralFeedListModel { Type = Model.CurrentType } });}
                 </div>
-            }
+                        }
         </div>
     </div>
 </section>
-
-
-@functions
-{
-    public IntranetActivityTypeEnum? GetCurrentType()
-    {
-        var path = "";
-        if (HttpContext.Current.Request.Url.AbsolutePath != "/")
-        {
-            path = HttpContext.Current.Request.Url.AbsolutePath.Split('/').FirstOrDefault(s => s.IsNotNullOrEmpty());
-        }
-        var type = Model.Types.FirstOrDefault(s => s.TabUrl.Trim('/') == path);
-        return type?.Type;
-    }
-}

@@ -81,18 +81,16 @@ namespace uCommunity.Likes.Web
 
         protected virtual PartialViewResult AddActivityLike(Guid activityId)
         {
-            var service = ActivitiesServiceFactory.GetService(activityId);
-            var likeableService = (ILikeableService)service;
-            var likeInfo = likeableService.Add(GetCurrentUserId(), activityId);
+            var service = ActivitiesServiceFactory.GetService<ILikeableService>(activityId);
+            var likeInfo = service.Add(GetCurrentUserId(), activityId);
 
             return Likes(likeInfo.Likes, likeInfo.Id);
         }
 
         protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
         {
-            var service = ActivitiesServiceFactory.GetService(activityId);
-            var likeableService = (ILikeableService)service;
-            var likeInfo = likeableService.Remove(GetCurrentUserId(), activityId);
+            var service = ActivitiesServiceFactory.GetService<ILikeableService>(activityId);
+            var likeInfo = service.Remove(GetCurrentUserId(), activityId);
 
             return Likes(likeInfo.Likes, likeInfo.Id);
         }

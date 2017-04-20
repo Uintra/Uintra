@@ -6,7 +6,6 @@ require('select2');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('dropzone/dist/min/dropzone.min.css');
-require("./news.css");
 
 var initUserSelect = function (holder) {
     holder.find('#js-user-select').select2({});

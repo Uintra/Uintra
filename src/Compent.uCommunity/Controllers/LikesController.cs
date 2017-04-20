@@ -26,8 +26,8 @@ namespace Compent.uCommunity.Controllers
                 return like;
             }
 
-            var service = ActivitiesServiceFactory.GetService(model.ActivityId);
-            if (service is INotifyableService)
+            var service = ActivitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
+            if (service != null)
             {
                 var notifyableService = (INotifyableService)service;
                 notifyableService.Notify(model.ActivityId, NotificationTypeEnum.LikeAdded);
