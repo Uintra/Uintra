@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uCommunity.Core.Events;
 using uCommunity.CentralFeed;
 using uCommunity.Core;
-using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions.Web;
 using uCommunity.Events;
 using uCommunity.Events.Web;
 using uCommunity.Notification.Core.Configuration;
@@ -118,27 +115,27 @@ namespace Compent.uCommunity.Controllers
             }
         }
 
-        //protected override void OnEventCreated(Guid activityId)
-        //{
-        //    _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
-        //}
+        protected override void OnEventCreated(Guid activityId)
+        {
+            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+        }
 
-        //protected override void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
-        //{
-        //    if (isActual)
-        //    {
-        //        if (notifySubscribers)
-        //        {
-        //            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventUpdated);
-        //        }
+        protected override void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        {
+            if (isActual)
+            {
+                if (notifySubscribers)
+                {
+                    ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventUpdated);
+                }
 
-        //       _reminderService.CreateIfNotExists(id, ReminderTypeEnum.OneDayBefore);
-        //    }
-        //}
+                _reminderService.CreateIfNotExists(id, ReminderTypeEnum.OneDayBefore);
+            }
+        }
 
-        //protected override void OnEventHidden(Guid id)
-        //{
-        //    ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
-        //}
+        protected override void OnEventHidden(Guid id)
+        {
+            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+        }
     }
 }
