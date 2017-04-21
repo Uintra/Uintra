@@ -23,13 +23,13 @@ namespace uCommunity.News.Web
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
 
+        private readonly INewsService _newsService;
         protected readonly IMediaHelper _mediaHelper;
         protected readonly IIntranetUserService _intranetUserService;
-        protected readonly INewsService<NewsBase, NewsModelBase> _newsService;
 
         protected NewsControllerBase(
             IIntranetUserService intranetUserService,
-            INewsService<NewsBase, NewsModelBase> newsService,
+            INewsService newsService,
             IMediaHelper mediaHelper)
         {
             _intranetUserService = intranetUserService;
@@ -39,7 +39,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult List()
         {
-            var news = _newsService.GetManyActual();
+            var news = _newsService.GetManyActual<NewsBase>();
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
@@ -58,7 +58,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var news = _newsService.Get(id);
+            var news = _newsService.Get<NewsBase>(id);
 
             if (news.IsHidden)
             {
@@ -93,7 +93,7 @@ namespace uCommunity.News.Web
                 return PartialView(CreateViewPath, createModel);
             }
 
-            var news = createModel.Map<NewsModelBase>();
+            var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             news.CreatorId = _intranetUserService.GetCurrentUserId();
 
@@ -104,7 +104,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get(id);
+            var news = _newsService.Get<NewsBase>(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -130,7 +130,7 @@ namespace uCommunity.News.Web
                 return PartialView(EditViewPath, editModel);
             }
 
-            var activity = editModel.Map<NewsModelBase>();
+            var activity = editModel.Map<NewsBase>();
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
@@ -147,7 +147,7 @@ namespace uCommunity.News.Web
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        protected virtual IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        protected virtual IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsBase> news)
         {
             var detailsPageUrl = _newsService.GetDetailsPage().Url;
             foreach (var item in news)

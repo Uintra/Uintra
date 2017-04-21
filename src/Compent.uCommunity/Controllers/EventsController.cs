@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uCommunity.Core.Events;
 using uCommunity.CentralFeed;
 using uCommunity.Core;
-using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions.Web;
 using uCommunity.Events;
 using uCommunity.Events.Web;
 using uCommunity.Notification.Core.Configuration;
@@ -29,12 +26,12 @@ namespace Compent.uCommunity.Controllers
         public override string EditViewPath { get; } = "~/Views/Events/EditView.cshtml";
         public override string ItemViewPath { get; } = "~/Views/Events/ItemView.cshtml";
 
-        private readonly IEventsService<EventBase, Event> _eventsService;
+        private readonly IEventsService _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService _intranetUserService;
         private readonly IReminderService _reminderService;
 
-        public EventsController(IEventsService<EventBase, Event> eventsService,
+        public EventsController(IEventsService eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService intranetUserService,
             IReminderService reminderService)
@@ -56,7 +53,7 @@ namespace Compent.uCommunity.Controllers
         public override ActionResult List(EventType type, bool showOnlySubscribed)
         {
             var events = type == EventType.Actual ?
-                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
+                _eventsService.GetManyActual<EventBase>().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
@@ -65,7 +62,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get<Event>(id);
 
             if (@event.IsHidden)
             {
@@ -84,26 +81,6 @@ namespace Compent.uCommunity.Controllers
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public override ActionResult Create(EventCreateModel createModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
-            }
-
-            var @event = createModel.Map<Event>();
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-
-            var activityId = _eventsService.Create(@event);
-            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
-
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
-        }
-
-        [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
         {
             var @event = MapModel(model);
@@ -117,7 +94,7 @@ namespace Compent.uCommunity.Controllers
 
         protected Event MapModel(EventEditModel saveModel)
         {
-            var @event = _eventsService.Get(saveModel.Id);
+            var @event = _eventsService.Get<Event>(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
         }
@@ -136,6 +113,29 @@ namespace Compent.uCommunity.Controllers
 
                 yield return model;
             }
+        }
+
+        protected override void OnEventCreated(Guid activityId)
+        {
+            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+        }
+
+        protected override void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        {
+            if (isActual)
+            {
+                if (notifySubscribers)
+                {
+                    ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventUpdated);
+                }
+
+                _reminderService.CreateIfNotExists(id, ReminderTypeEnum.OneDayBefore);
+            }
+        }
+
+        protected override void OnEventHidden(Guid id)
+        {
+            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
         }
     }
 }

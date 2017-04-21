@@ -8,16 +8,16 @@ namespace uCommunity.Events.Dashboard
 {
     public class EventsSectionController : UmbracoAuthorizedApiController
     {
-        private readonly IEventsService<EventBase, EventModelBase> _eventsService;
+        private readonly IEventsService _eventsService;
 
-        public EventsSectionController(IEventsService<EventBase, EventModelBase> eventsService)
+        public EventsSectionController(IEventsService eventsService)
         {
             _eventsService = eventsService;
         }
 
         public IEnumerable<EventBackofficeViewModel> GetAll()
         {
-            var events = _eventsService.GetAll(true);
+            var events = _eventsService.GetAll<EventBase>(true);
             var result = events.Map<IEnumerable<EventBackofficeViewModel>>();
             return result;
         }
@@ -25,8 +25,8 @@ namespace uCommunity.Events.Dashboard
         [HttpPost]
         public EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
-            var eventId = _eventsService.Create(createModel.Map<EventModelBase>());
-            var createdModel = _eventsService.Get(eventId);
+            var eventId = _eventsService.Create(createModel.Map<EventBase>());
+            var createdModel = _eventsService.Get<EventBase>(eventId);
             var result = createdModel.Map<EventBackofficeViewModel>();
             return result;
         }
@@ -34,8 +34,8 @@ namespace uCommunity.Events.Dashboard
         [HttpPost]
         public EventBackofficeViewModel Save(EventBackofficeSaveModel saveModel)
         {
-            _eventsService.Save(saveModel.Map<EventModelBase>());
-            var updatedModel = _eventsService.Get(saveModel.Id);
+            _eventsService.Save(saveModel.Map<EventBase>());
+            var updatedModel = _eventsService.Get<EventBase>(saveModel.Id);
             var result = updatedModel.Map<EventBackofficeViewModel>();
             return result;
         }

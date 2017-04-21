@@ -124,9 +124,6 @@ var helpers = {
             localStorage.removeItem(key);
         }
     },
-    clampText: function() {
-        console.log("not implemented clampText");
-    }
 }
 
 export default helpers;

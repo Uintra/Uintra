@@ -16,9 +16,9 @@ namespace Compent.uCommunity.Controllers
 {
     public class NewsController : NewsControllerBase
     {
-        private readonly INewsService<NewsBase, News> _newsService;
+        private readonly INewsService _newsService;
 
-        public NewsController(IIntranetUserService intranetUserService, INewsService<NewsBase, News> newsService, IMediaHelper mediaHelper)
+        public NewsController(IIntranetUserService intranetUserService, INewsService newsService, IMediaHelper mediaHelper)
             : base(intranetUserService, newsService, mediaHelper)
         {
             _newsService = newsService;
@@ -27,7 +27,7 @@ namespace Compent.uCommunity.Controllers
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
             FillLinks();
-            var activity = item as NewsModelBase;
+            var activity = item as NewsBase;
 
             var model = GetOverviewItems(Enumerable.Repeat(activity, 1)).Single();
             return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
@@ -35,7 +35,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult List()
         {
-            var news = _newsService.GetManyActual();
+            var news = _newsService.GetManyActual<NewsEntity>();
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
@@ -50,7 +50,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            NewsModelBase newsModelBase = _newsService.Get(id);
+            var newsModelBase = _newsService.Get<NewsEntity>(id);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -66,10 +66,10 @@ namespace Compent.uCommunity.Controllers
             return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", newsViewModel);
         }
 
-        protected new IEnumerable<NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        protected new IEnumerable<NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsBase> news)
         {
             string detailsPageUrl = _newsService.GetDetailsPage().Url;
-            foreach (NewsModelBase newsModelBase in news)
+            foreach (var newsModelBase in news)
             {
                 var overviewItemViewModel = newsModelBase.Map<NewsOverviewItemExtendedViewModel>();
                 overviewItemViewModel.MediaIds = newsModelBase.MediaIds.Take(3).JoinToString(",");
