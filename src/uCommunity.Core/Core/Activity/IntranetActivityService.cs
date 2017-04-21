@@ -108,24 +108,7 @@ namespace uCommunity.Core.Activity
             return activities;
         }
 
-        private IList<TCachedActivity> GetAllForCache()
-        {
-            var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
-            MapBeforeCache(activities);
-            return activities;
-        }
-
-        private TCachedActivity MapInternal(IntranetActivityEntity activity)
-        {
-            var cachedActivity = activity.JsonData.Deserialize<TCachedActivity>();
-            cachedActivity.Id = activity.Id;
-            cachedActivity.Type = activity.Type;
-            cachedActivity.CreatedDate = activity.CreatedDate;
-            cachedActivity.ModifyDate = activity.ModifyDate;
-            return cachedActivity;
-        }
-
-        private void UpdateCachedEntity(Guid id)
+        protected void UpdateCachedEntity(Guid id)
         {
             var activity = _activityRepository.Get(id);
             var cached = GetAll(true);
@@ -142,6 +125,23 @@ namespace uCommunity.Core.Activity
                 cachedList.Add(cachedActivity);
             }
             _cache.Set(CacheKey, cachedList, CacheExpirationOffset, $"{ActivityType}");
+        }
+
+        private IList<TCachedActivity> GetAllForCache()
+        {
+            var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
+            MapBeforeCache(activities);
+            return activities;
+        }
+
+        private TCachedActivity MapInternal(IntranetActivityEntity activity)
+        {
+            var cachedActivity = activity.JsonData.Deserialize<TCachedActivity>();
+            cachedActivity.Id = activity.Id;
+            cachedActivity.Type = activity.Type;
+            cachedActivity.CreatedDate = activity.CreatedDate;
+            cachedActivity.ModifyDate = activity.ModifyDate;
+            return cachedActivity;
         }
 
         protected abstract void MapBeforeCache(IList<TCachedActivity> cached);
