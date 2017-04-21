@@ -14,6 +14,7 @@ namespace uCommunity.Navigation.AutoMapperProfiles
             Mapper.CreateMap<TopNavigationModel, TopNavigationViewModel>();
             Mapper.CreateMap<MyLinksModel, MyLinksViewModel>();
             Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
+            Mapper.CreateMap<MyLink, MyLinkItemModel>();
         }
     }
 }

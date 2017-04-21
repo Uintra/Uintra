@@ -24,7 +24,7 @@ namespace uCommunity.Navigation.Core
             var result = new MyLinksModel();
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            var myLinks = _myLinksService.GetMany(currentUser.Id).OrderBy(x => x.Name);
+            var myLinks = _myLinksService.GetMany(currentUser.Id);
             result.MyLinks = myLinks.Map<IEnumerable<MyLinkItemModel>>().OrderBy(sort).ToList();
 
             return result;

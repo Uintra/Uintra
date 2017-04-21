@@ -6,6 +6,10 @@ namespace uCommunity.Navigation.DefaultImplementation
     {
         public List<MyLinkItemViewModel> MyLinks { get; set; }
 
+        public string PageName { get; set; }
+
+        public string PageTitleNodePropertyAlias { get; set; }
+
         public MyLinksViewModel()
         {
             MyLinks = new List<MyLinkItemViewModel>();

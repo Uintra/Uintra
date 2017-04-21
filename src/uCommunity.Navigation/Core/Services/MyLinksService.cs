@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using uCommunity.Core.Extentions;
 using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Navigation.Core
@@ -25,17 +26,30 @@ namespace uCommunity.Navigation.Core
 
         public MyLink Create(Guid userId, string name, string url)
         {
+            if (url.IsNullOrEmpty())
+            {
+                return null;
+            }
+
             var entity = new MyLink
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
-                Name = name,
+                Name = name.IsNotNullOrEmpty() ? name : url,
                 Url = url
             };
 
             entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
-            _myLinksRepository.Add(entity);
-            return entity;
+
+            try
+            {
+                _myLinksRepository.Add(entity);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public void Delete(Guid id)

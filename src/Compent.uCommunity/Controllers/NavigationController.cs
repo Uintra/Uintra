@@ -5,34 +5,47 @@ using Compent.uCommunity.Core.Navigation;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Models;
 using uCommunity.Core.Extentions;
+using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
 using uCommunity.Navigation.Web;
 using uCommunity.Notification.Core.Services;
+using umbraco.NodeFactory;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uCommunity.Controllers
 {
-    public class NavigationController : NavigationControllerBase 
+    public class NavigationController : NavigationControllerBase
     {
+        protected override string PageTitleNodePropertyAlias { get; } = "navigationName";
+
         private readonly INotificationHelper _notificationHelper;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly IMyLinksModelBuilder _myLinksModelBuilder;
+        private readonly IMyLinksService _myLinksService;
+        private readonly IIntranetUserService _intranetUserService;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             INotificationHelper notificationHelper,
-            ICentralFeedContentHelper centralFeedContentHelper):
-            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder)
+            ICentralFeedContentHelper centralFeedContentHelper,
+            IMyLinksModelBuilder myLinksModelBuilder,
+            IMyLinksService myLinksService,
+            IIntranetUserService intranetUserService) :
+            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, myLinksModelBuilder, myLinksService, intranetUserService)
 
         {
             _notificationHelper = notificationHelper;
             _centralFeedContentHelper = centralFeedContentHelper;
             _topNavigationModelBuilder = topNavigationModelBuilder;
+            _myLinksModelBuilder = myLinksModelBuilder;
+            _myLinksService = myLinksService;
+            _intranetUserService = intranetUserService;
         }
 
         public override ActionResult TopNavigation()
@@ -76,7 +89,5 @@ namespace Compent.uCommunity.Controllers
         {
             return content.DocumentTypeAlias == HomePage.ModelTypeAlias;
         }
-
-
     }
 }

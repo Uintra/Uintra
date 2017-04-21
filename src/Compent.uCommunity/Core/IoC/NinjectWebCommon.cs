@@ -175,6 +175,8 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILeftSideNavigationModelBuilder>().To<UcommunityLeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<IMyLinksModelBuilder>().To<MyLinksModelBuilder>().InRequestScope();
+            kernel.Bind<IMyLinksService>().To<MyLinksService>().InRequestScope();
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
@@ -231,6 +233,7 @@ namespace Compent.uCommunity.Core.IoC
             sqlTypes.Add(typeof(IntranetActivityEntity));
             sqlTypes.Add(typeof(SqlNotification));
             sqlTypes.Add(typeof(Reminder));
+            sqlTypes.Add(typeof(MyLink));
 
             var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
             using (var conn = connectionFactory.Open())

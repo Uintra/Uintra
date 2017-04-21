@@ -407,7 +407,7 @@
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="App_Plugins\MyLinks\myLinks.js" />
+    <Content Include="App_Plugins\MyLinks\MyLinks.js" />
     <Content Include="App_Plugins\MyLinks\_myLinks.css" />
   </ItemGroup>
   <ItemGroup>
