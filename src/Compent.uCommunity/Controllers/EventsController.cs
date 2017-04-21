@@ -84,26 +84,6 @@ namespace Compent.uCommunity.Controllers
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public override ActionResult Create(EventCreateModel createModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
-            }
-
-            var @event = createModel.Map<Event>();
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-
-            var activityId = _eventsService.Create(@event);
-            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
-
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
-        }
-
-        [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
         {
             var @event = MapModel(model);
@@ -138,16 +118,21 @@ namespace Compent.uCommunity.Controllers
             }
         }
 
-        //protected override void OnEventEdited(EventModelBase @event, bool existedIsActual, bool notifyAllSubscribers)
+        //protected override void OnEventCreated(Guid activityId)
         //{
-        //    if (notifyAllSubscribers)
-        //    {
-        //        ((INotifyableService)_eventsService).Notify(@event.Id, NotificationTypeEnum.EventUpdated);
-        //    }
+        //    _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+        //}
 
-        //    if (!existedIsActual)
+        //protected override void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        //{
+        //    if (isActual)
         //    {
-        //        _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
+        //        if (notifySubscribers)
+        //        {
+        //            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventUpdated);
+        //        }
+
+        //       _reminderService.CreateIfNotExists(id, ReminderTypeEnum.OneDayBefore);
         //    }
         //}
 

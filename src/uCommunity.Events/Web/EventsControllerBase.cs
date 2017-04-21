@@ -103,6 +103,7 @@ namespace uCommunity.Events.Web
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
+            OnEventCreated(activityId);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
@@ -145,8 +146,11 @@ namespace uCommunity.Events.Web
             {
                 @event.CanSubscribe = saveModel.CanSubscribe;
             }
-            var existedIsActual = _eventsService.IsActual(@event);
-            OnEventEdited(@event, existedIsActual, saveModel.NotifyAllSubscribers);
+            var isActual = _eventsService.IsActual(@event);
+            _eventsService.Save(@event);
+
+            OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
+
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
 
@@ -210,7 +214,11 @@ namespace uCommunity.Events.Web
             }
         }
 
-        protected virtual void OnEventEdited(EventModelBase @event, bool existedIsActual, bool notifyAllSubscribers)
+        protected virtual void OnEventCreated(Guid activityId)
+        {
+        }
+
+        protected virtual void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
         {
         }
 
