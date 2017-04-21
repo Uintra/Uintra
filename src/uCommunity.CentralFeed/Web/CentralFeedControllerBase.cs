@@ -16,9 +16,9 @@ namespace uCommunity.CentralFeed.Web
         protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
         protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
 
-        private readonly ICentralFeedService _centralFeedService;
-        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
-        private const int ItemsPerPage = 8;
+        protected readonly ICentralFeedService _centralFeedService;
+        protected readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(ICentralFeedService centralFeedService, ICentralFeedContentHelper centralFeedContentHelper)
         {
@@ -73,7 +73,7 @@ namespace uCommunity.CentralFeed.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AvailableActivityTypes()
+        public virtual JsonResult AvailableActivityTypes()
         {
             var activityTypes = _centralFeedService.GetAllSettings().Select(s => (CentralFeedTypeEnum)s.Type);
             var activityTypeModelList = activityTypes.Select(a => new { Id = a.GetHashCode(), Name = a.ToString() }).ToList();
@@ -82,7 +82,7 @@ namespace uCommunity.CentralFeed.Web
             return Json(activityTypeModelList, JsonRequestBehavior.AllowGet);
         }
 
-        private List<ICentralFeedItem> GetCentralFeedItems(IntranetActivityTypeEnum? type)
+        protected virtual List<ICentralFeedItem> GetCentralFeedItems(IntranetActivityTypeEnum? type)
         {
             if (type == null)
             {
@@ -94,7 +94,7 @@ namespace uCommunity.CentralFeed.Web
             return _centralFeedService.GetFeed(type.Value).ToList();
         }
 
-        private IEnumerable<CentralFeedTypeModel> GetTypes()
+        protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
         {
             var allSettings = _centralFeedService.GetAllSettings();
             foreach (var singleSetting in allSettings)
