@@ -94,13 +94,4 @@ namespace Compent.uCommunity.Core.CentralFeed
             return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(NewsOverviewPage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias));
         }
     }
-    public static class ObjectExtensions
-    {
-        public static bool In<T>(this T value, params T[] items)
-        {
-            if (items == null || (object)value == null)
-                return false;
-            return ((IEnumerable<T>)items).Contains<T>(value);
-        }
-    }
 }
