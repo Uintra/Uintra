@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace uCommunity.Core.Activity.Entities
 {
-    public abstract class IntranetActivityBase
+    public abstract class IntranetActivity
     {
         [JsonIgnore]
         public Guid Id { get; set; }
@@ -20,7 +20,7 @@ namespace uCommunity.Core.Activity.Entities
         public string Title { get; set; }
 
         public string Teaser { get; set; }
-            
+
         public string Description { get; set; }
 
         public bool IsHidden { get; set; }

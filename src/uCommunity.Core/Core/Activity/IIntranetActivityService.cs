@@ -1,28 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using uCommunity.Core.Activity.Entities;
 using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
 {
-    public interface IIntranetActivityItemServiceBase<in T, out TModel> : IIntranetActivityItemServiceBase
-        where T : IntranetActivityBase
-        where TModel : IntranetActivityBase
+    public interface IIntranetActivityService<TCachedActivity>: IIntranetActivityService where TCachedActivity : IntranetActivity
     {
-        TModel Get(Guid id);
-        IEnumerable<TModel> GetManyActual();
-        IEnumerable<TModel> GetAll(bool includeHidden = false);
+        IntranetActivityTypeEnum ActivityType { get; }
 
-        bool IsActual(T activity);
-        bool CanEdit(T activity);
-        Guid Create(T model);
-        void Save(T model);
-        TModel FillCache(Guid id);
-        void Delete(Guid id);
+        TCachedActivity Get(Guid id);
+        IEnumerable<TCachedActivity> GetManyActual();
+        IEnumerable<TCachedActivity> FindAll(Func<TCachedActivity, bool> predicate);
+        IEnumerable<TCachedActivity> GetAll(bool includeHidden = false);
+        bool IsActual(TCachedActivity cachedActivity);
+        Guid Create(TCachedActivity jsonData);
+        void Save(TCachedActivity saveModel);
+        bool CanEdit(TCachedActivity cached);
     }
 
-    public interface IIntranetActivityItemServiceBase
+    public interface IIntranetActivityService
     {
+        void Delete(Guid id);
+        bool CanEdit(Guid id);
+
         [Obsolete("Use overloading method instead")]
         IPublishedContent GetOverviewPage();
         [Obsolete("Use overloading method instead")]
@@ -37,4 +38,5 @@ namespace uCommunity.Core.Activity
         IPublishedContent GetCreatePage(IPublishedContent currentPage);
         IPublishedContent GetEditPage(IPublishedContent currentPage);
     }
+
 }

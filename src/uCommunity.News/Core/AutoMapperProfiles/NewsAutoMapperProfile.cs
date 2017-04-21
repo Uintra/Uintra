@@ -11,23 +11,23 @@ namespace uCommunity.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<NewsModelBase, NewsOverviewItemViewModel>()
+            Mapper.CreateMap<NewsBase, NewsOverviewItemViewModel>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore());
 
             Mapper.CreateMap<NewsBase, NewsCreateModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsEditModel>()
               .ForMember(dst => dst.MediaRootId, o => o.Ignore())
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
-              .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
+              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<NewsModelBase, NewsEditModel>()
+            Mapper.CreateMap<NewsBase, NewsEditModel>()
                 .IncludeBase<NewsBase, NewsEditModel>();
 
-            Mapper.CreateMap<NewsCreateModel, NewsModelBase>()
+            Mapper.CreateMap<NewsCreateModel, NewsBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
@@ -37,7 +37,7 @@ namespace uCommunity.News
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore());
 
-            Mapper.CreateMap<NewsEditModel, NewsModelBase>()
+            Mapper.CreateMap<NewsEditModel, NewsBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
@@ -50,22 +50,22 @@ namespace uCommunity.News
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
-            Mapper.CreateMap<NewsModelBase, NewsViewModel>()
+            Mapper.CreateMap<NewsBase, NewsViewModel>()
                 .ForMember(dst => dst.OverviewPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.EditPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<NewsModelBase, NewsBackofficeViewModel>()
-                .ForMember(d => d.Media, o => o.MapFrom(s => StringExtentions.JoinToString(s.MediaIds, ",")));
+            Mapper.CreateMap<NewsBase, NewsBackofficeViewModel>()
+                .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<NewsModelBase, IntranetActivityDetailsHeaderViewModel>()
+            Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
            .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
 
-            Mapper.CreateMap<NewsModelBase, IntranetActivityItemHeaderViewModel>()
-                .IncludeBase<NewsModelBase, IntranetActivityDetailsHeaderViewModel>();
+            Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
+                .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>();
 
-            Mapper.CreateMap<NewsBackofficeCreateModel, NewsModelBase>()
+            Mapper.CreateMap<NewsBackofficeCreateModel, NewsBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
                 .ForMember(d => d.Type, o => o.Ignore())
                 .ForMember(d => d.CreatorId, o => o.Ignore())
@@ -78,7 +78,7 @@ namespace uCommunity.News
                     src.MediaIds = dst.Media.ToIntCollection();
                 });
 
-            Mapper.CreateMap<NewsBackofficeSaveModel, NewsModelBase>()
+            Mapper.CreateMap<NewsBackofficeSaveModel, NewsBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
                 .ForMember(d => d.Type, o => o.Ignore())
                 .ForMember(d => d.CreatorId, o => o.Ignore())

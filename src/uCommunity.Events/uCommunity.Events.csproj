@@ -308,8 +308,7 @@
     <Compile Include="Core\Dashboard\EventsSection.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
-    <Compile Include="Core\Entities\EventBase.cs" />
-    <Compile Include="Core\Entities\EventModelBase.cs" />
+    <Compile Include="Core\EventBase.cs" />
     <Compile Include="Core\Models\EventViewModel.cs" />
     <Compile Include="Core\Services\IEventsService.cs" />
     <Compile Include="Core\Models\EventCreateModel.cs" />

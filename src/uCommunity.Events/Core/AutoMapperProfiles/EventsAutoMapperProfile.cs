@@ -11,23 +11,23 @@ namespace uCommunity.Events
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<EventModelBase, EventsOverviewItemViewModel>()
+            Mapper.CreateMap<EventBase, EventsOverviewItemViewModel>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventCreateModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<EventModelBase, EventEditModel>()
+            Mapper.CreateMap<EventBase, EventEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<EventCreateModel, EventModelBase>()
+            Mapper.CreateMap<EventCreateModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
@@ -38,7 +38,7 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Teaser, o => o.Ignore());
 
-            Mapper.CreateMap<EventEditModel, EventModelBase>()
+            Mapper.CreateMap<EventEditModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
@@ -55,23 +55,23 @@ namespace uCommunity.Events
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
-            Mapper.CreateMap<EventModelBase, EventViewModel>()
+            Mapper.CreateMap<EventBase, EventViewModel>()
                 .ForMember(dst => dst.OverviewPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.EditPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => StringExtentions.JoinToString(el.MediaIds, ",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<EventModelBase, EventBackofficeViewModel>()
-                .ForMember(d => d.Media, o => o.MapFrom(s => StringExtentions.JoinToString(s.MediaIds, ",")));
+            Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
+                .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<EventModelBase, IntranetActivityDetailsHeaderViewModel>()
+            Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToString(IntranetConstants.Common.DefaultDateFormat), el.EndDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
 
-            Mapper.CreateMap<EventModelBase, IntranetActivityItemHeaderViewModel>()
-                .IncludeBase<EventModelBase, IntranetActivityDetailsHeaderViewModel>();
+            Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
+                .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>();
 
-            Mapper.CreateMap<EventBackofficeCreateModel, EventModelBase>()
+            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
                .ForMember(d => d.MediaIds, o => o.Ignore())
                .ForMember(d => d.Type, o => o.Ignore())
                .ForMember(d => d.CreatorId, o => o.Ignore())
@@ -84,7 +84,7 @@ namespace uCommunity.Events
                    src.MediaIds = dst.Media.ToIntCollection();
                });
 
-            Mapper.CreateMap<EventBackofficeSaveModel, EventModelBase>()
+            Mapper.CreateMap<EventBackofficeSaveModel, EventBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
                 .ForMember(d => d.Type, o => o.Ignore())
                 .ForMember(d => d.CreatorId, o => o.Ignore())

@@ -16,5 +16,6 @@ namespace uCommunity.Core.Activity
         void Delete(Guid id);
         long Count(Expression<Func<IntranetActivityEntity, bool>> expression);
         bool Exist(Expression<Func<IntranetActivityEntity, bool>> expression);
+        IEnumerable<IntranetActivityEntity> GetAll();
     }
 }
