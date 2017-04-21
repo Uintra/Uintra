@@ -13,6 +13,7 @@ using Compent.uCommunity.Core.Exceptions;
 using Compent.uCommunity.Core.Helpers;
 using Compent.uCommunity.Core.IoC;
 using Compent.uCommunity.Core.Navigation;
+using Compent.uCommunity.Core.News;
 using Compent.uCommunity.Core.Notification;
 using Compent.uCommunity.Core.Subscribe;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -143,8 +144,8 @@ namespace Compent.uCommunity.Core.IoC
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
             kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
-            kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
-            kernel.Bind(typeof(IEventsService<,>)).To<EventsService>().InRequestScope();
+            kernel.Bind(typeof(INewsService)).To<NewsService>().InRequestScope();
+            kernel.Bind(typeof(IEventsService)).To<EventsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
@@ -157,7 +158,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<News.Entities.NewsEntity>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();

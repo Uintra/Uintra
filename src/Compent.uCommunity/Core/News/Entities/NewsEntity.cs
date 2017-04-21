@@ -9,7 +9,7 @@ using uCommunity.Subscribe;
 
 namespace Compent.uCommunity.Core.News.Entities
 {
-    public class News : NewsModelBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
+    public class NewsEntity : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
