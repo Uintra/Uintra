@@ -145,13 +145,15 @@ namespace uCommunity.Events.Web
             {
                 @event.CanSubscribe = saveModel.CanSubscribe;
             }
-
+            var existedIsActual = _eventsService.IsActual(@event);
+            OnEventEdited(@event, existedIsActual, saveModel.NotifyAllSubscribers);
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
 
         [HttpPost]
         public virtual JsonResult Hide(Guid id)
         {
+            OnEventHidden(id);
             _eventsService.Hide(id);
 
             return Json(new { _eventsService.GetOverviewPage().Url });
@@ -206,6 +208,14 @@ namespace uCommunity.Events.Web
 
                 yield return model;
             }
+        }
+
+        protected virtual void OnEventEdited(EventModelBase @event, bool existedIsActual, bool notifyAllSubscribers)
+        {
+        }
+
+        protected virtual void OnEventHidden(Guid id)
+        {
         }
     }
 }

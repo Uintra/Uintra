@@ -137,5 +137,23 @@ namespace Compent.uCommunity.Controllers
                 yield return model;
             }
         }
+
+        protected override void OnEventEdited(EventModelBase @event, bool existedIsActual, bool notifyAllSubscribers)
+        {
+            if (notifyAllSubscribers)
+            {
+                ((INotifyableService)_eventsService).Notify(@event.Id, NotificationTypeEnum.EventUpdated);
+            }
+
+            if (!existedIsActual)
+            {
+                _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
+            }
+        }
+
+        protected override void OnEventHidden(Guid id)
+        {
+            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+        }
     }
 }
