@@ -4,6 +4,7 @@
     {
         Create = 1,
         Edit,
-        View
+        View,
+        Delete
     }
 }

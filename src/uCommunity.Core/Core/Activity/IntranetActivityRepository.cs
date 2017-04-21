@@ -20,6 +20,11 @@ namespace uCommunity.Core.Activity
             return _sqlRepository.Get(id);
         }
 
+        public IEnumerable<IntranetActivityEntity> GetAll()
+        {
+            return _sqlRepository.GetAll();
+        }
+
         public IEnumerable<IntranetActivityEntity> GetMany(IntranetActivityTypeEnum activityType)
         {
             return _sqlRepository.FindAll(a => a.Type == activityType);
@@ -47,6 +52,7 @@ namespace uCommunity.Core.Activity
 
         public void Create(IntranetActivityEntity entity)
         {
+            entity.Id = Guid.NewGuid();
             entity.ModifyDate = DateTime.UtcNow;
             entity.CreatedDate = DateTime.UtcNow;
             _sqlRepository.Add(entity);
