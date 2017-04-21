@@ -56,7 +56,7 @@ namespace uCommunity.Navigation.Web
 
         public virtual ActionResult MyLinks()
         {
-            var myLinks = _myLinksModelBuilder.Get();
+            var myLinks = _myLinksModelBuilder.Get(x => x.Name);
             var result = myLinks.Map<MyLinksViewModel>();
 
             return PartialView(MyLinksViewPath, result);

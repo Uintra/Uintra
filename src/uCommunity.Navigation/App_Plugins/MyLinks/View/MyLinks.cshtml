@@ -2,6 +2,9 @@
 @model MyLinksViewModel
 
 <ul class="side-nav">
+    <span>My links</span>
+    <span class="side-nav__arrow js-side-nav__opener"></span>
+
     @foreach (var item in Model.MyLinks)
     {
         <li class="side-nav__item js-side-nav__item">
@@ -10,4 +13,6 @@
             </a>
         </li>
     }
+
+    <span>Add page to my links</span>
 </ul>
