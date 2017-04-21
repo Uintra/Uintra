@@ -39,7 +39,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult List()
         {
-            var news = _newsService.GetManyActual();
+            var news = _newsService.GetManyActual<NewsBase>();
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
@@ -58,7 +58,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var news = _newsService.Get(id);
+            var news = _newsService.Get<NewsBase>(id);
 
             if (news.IsHidden)
             {
@@ -104,7 +104,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get(id);
+            var news = _newsService.Get<NewsBase>(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);

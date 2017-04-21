@@ -5,14 +5,14 @@ using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
 {
-    public interface IIntranetActivityService<TCachedActivity>: IIntranetActivityService where TCachedActivity : IntranetActivity
+    public interface IIntranetActivityService<in TCachedActivity>: IIntranetActivityService where TCachedActivity : IntranetActivity
     {
         IntranetActivityTypeEnum ActivityType { get; }
 
-        TCachedActivity Get(Guid id);
-        IEnumerable<TCachedActivity> GetManyActual();
-        IEnumerable<TCachedActivity> FindAll(Func<TCachedActivity, bool> predicate);
-        IEnumerable<TCachedActivity> GetAll(bool includeHidden = false);
+        TActivity Get<TActivity>(Guid id) where TActivity: TCachedActivity;
+        IEnumerable<TActivity> GetManyActual<TActivity>() where TActivity : TCachedActivity;
+        IEnumerable<TActivity> FindAll<TActivity>(Func<TActivity, bool> predicate) where TActivity : TCachedActivity;
+        IEnumerable<TActivity> GetAll<TActivity>(bool includeHidden = false) where TActivity : TCachedActivity;
         bool IsActual(TCachedActivity cachedActivity);
         Guid Create(TCachedActivity jsonData);
         void Save(TCachedActivity saveModel);

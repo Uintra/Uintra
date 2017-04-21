@@ -48,7 +48,7 @@ namespace uCommunity.Events.Web
         public virtual ActionResult List(EventType type, bool showOnlySubscribed)
         {
             var events = type == EventType.Actual ?
-                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
+                _eventsService.GetManyActual<EventBase>().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
@@ -57,7 +57,7 @@ namespace uCommunity.Events.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get<EventBase>(id);
 
             if (@event.IsHidden)
             {
@@ -111,7 +111,7 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get<EventBase>(id);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -177,7 +177,7 @@ namespace uCommunity.Events.Web
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
         {
-            var @event = _eventsService.Get(saveModel.Id);
+            var @event = _eventsService.Get<EventBase>(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
         }

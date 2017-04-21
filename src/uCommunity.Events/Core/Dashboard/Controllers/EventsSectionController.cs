@@ -17,7 +17,7 @@ namespace uCommunity.Events.Dashboard
 
         public IEnumerable<EventBackofficeViewModel> GetAll()
         {
-            var events = _eventsService.GetAll(true);
+            var events = _eventsService.GetAll<EventBase>(true);
             var result = events.Map<IEnumerable<EventBackofficeViewModel>>();
             return result;
         }
@@ -26,7 +26,7 @@ namespace uCommunity.Events.Dashboard
         public EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
             var eventId = _eventsService.Create(createModel.Map<EventBase>());
-            var createdModel = _eventsService.Get(eventId);
+            var createdModel = _eventsService.Get<EventBase>(eventId);
             var result = createdModel.Map<EventBackofficeViewModel>();
             return result;
         }
@@ -35,7 +35,7 @@ namespace uCommunity.Events.Dashboard
         public EventBackofficeViewModel Save(EventBackofficeSaveModel saveModel)
         {
             _eventsService.Save(saveModel.Map<EventBase>());
-            var updatedModel = _eventsService.Get(saveModel.Id);
+            var updatedModel = _eventsService.Get<EventBase>(saveModel.Id);
             var result = updatedModel.Map<EventBackofficeViewModel>();
             return result;
         }

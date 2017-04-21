@@ -7,7 +7,7 @@ using uCommunity.Core.User;
 
 namespace uCommunity.Events
 {
-    public class EventBase : IntranetActivity
+    public class EventBase : IntranetActivity, IHaveCreator
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
