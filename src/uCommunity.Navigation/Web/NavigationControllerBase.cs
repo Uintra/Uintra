@@ -4,9 +4,9 @@ using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Navigation.Plugin
+namespace uCommunity.Navigation.Web
 {
-    public class NavigationControllerBase : SurfaceController
+    public abstract class NavigationControllerBase : SurfaceController
     {
         protected virtual string LeftNavigationViewPath { get; } = "~/App_Plugins/Navigation/LeftNavigation/View/Navigation.cshtml";
         protected virtual string SubNavigationViewPath { get; } = "~/App_Plugins/Navigation/SubNavigation/View/Navigation.cshtml";
@@ -19,8 +19,8 @@ namespace uCommunity.Navigation.Plugin
         protected readonly IMyLinksModelBuilder _myLinksModelBuilder;
 
         protected NavigationControllerBase(
-            ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder, 
-            ISubNavigationModelBuilder subNavigationModelBuilder, 
+            ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
+            ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             IMyLinksModelBuilder myLinksModelBuilder)
         {

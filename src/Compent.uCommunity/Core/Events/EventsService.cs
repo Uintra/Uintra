@@ -39,8 +39,8 @@ namespace Compent.uCommunity.Core.Events
         private readonly INotificationsService _notificationService;
 
         public EventsService(UmbracoHelper umbracoHelper,
-            IIntranetActivityService intranetActivityService,
-            IMemoryCacheService memoryCacheService,
+            IIntranetActivityRepository intranetActivityRepository,
+            ICacheService cacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
@@ -48,7 +48,7 @@ namespace Compent.uCommunity.Core.Events
             IPermissionsService permissionsService,
             INotificationsService notificationService
             )
-            : base(intranetActivityService, memoryCacheService)
+            : base(intranetActivityRepository, cacheService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
@@ -351,6 +351,26 @@ namespace Compent.uCommunity.Core.Events
         {
             _subscribeService.Subscribe(userId, activityId);
             return FillCache(activityId);
+        }
+
+        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

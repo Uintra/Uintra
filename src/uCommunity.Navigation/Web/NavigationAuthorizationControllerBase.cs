@@ -4,9 +4,9 @@ using uCommunity.Core.User;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Navigation.Plugin
+namespace uCommunity.Navigation.Web
 {
-    public class NavigationAuthorizationControllerBase : SurfaceController
+    public abstract class NavigationAuthorizationControllerBase : SurfaceController
     {
         protected virtual string DefaultRedirectUrl { get; } = "/";
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";

@@ -379,11 +379,15 @@
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
     <None Include="App_Plugins\MyLinks\View\MyLinks.cshtml" />
-    <None Include="Content\config\Dashboard.config.install.xdt" />
-    <None Include="Content\config\Dashboard.config.uninstall.xdt" />
     <Content Include="App_Plugins\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\package.manifest" />
+    <Content Include="App_Plugins\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Web.config" />
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
+    <None Include="Content\config\Dashboard.config.install.xdt" />
+    <None Include="Content\config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
     <Compile Include="Web\NavigationAuthorizationControllerBase.cs" />
     <Compile Include="Web\NavigationControllerBase.cs" />
@@ -402,24 +406,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Plugins\MyLinks\myLinks.js" />
     <Content Include="App_Plugins\MyLinks\_myLinks.css" />
-    <Content Include="App_Plugins\package.manifest" />
-    <Content Include="App_Plugins\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Content Include="App_Plugins\Dashboard\navigation-controller.js" />
-    <Content Include="App_Plugins\Dashboard\navigation-service.js" />
-    <Content Include="App_Plugins\Dashboard\navigation.css" />
-    <Content Include="App_Plugins\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\LeftNavigation\LeftNavigation.js" />
-    <Content Include="App_Plugins\LeftNavigation\_leftNavigation.css" />
-    <Content Include="App_Plugins\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\SubNavigation\_subNavigation.css" />
-    <Content Include="App_Plugins\TopNavigation\topNavigation.js" />
-    <Content Include="App_Plugins\TopNavigation\_topNavigation.css" />
     <None Include="uCommunity.Navigation.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +421,21 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uCommunity.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Dashboard\navigation-controller.js" />
+    <Content Include="App_Plugins\Dashboard\navigation-service.js" />
+    <Content Include="App_Plugins\Dashboard\navigation.css" />
+    <Content Include="App_Plugins\Dashboard\navigation.html" />
+    <Content Include="App_Plugins\LeftNavigation\LeftNavigation.js" />
+    <Content Include="App_Plugins\LeftNavigation\_leftNavigation.css" />
+    <Content Include="App_Plugins\SubNavigation\subNavigation.js" />
+    <Content Include="App_Plugins\SubNavigation\_subNavigation.css" />
+    <Content Include="App_Plugins\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\TopNavigation\_topNavigation.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Plugins\MyLinks\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
