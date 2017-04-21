@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.uCommunity.Core.Extentions;
 using Compent.uCommunity.Core.Navigation;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Models;
@@ -46,20 +47,20 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult SubNavigation()
         {
-            //if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
+            if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
             {
                 var models = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>();
                 return PartialView("~/App_Plugins/CentralFeed/View/Navigation.cshtml", models);
             }
 
-            /*var model = new SubNavigationMenuModel
+            var model = new SubNavigationMenuViewModel
             {
-                Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem),
+                Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
                 Parent = IsHomePage(CurrentPage.Parent) ? null : MapSubNavigationItem(CurrentPage.Parent),
                 Title = CurrentPage.GetNavigationName()
             };
 
-            return PartialView("SubNavigationMenu/SubNavigationMenu", model);*/
+            return PartialView(SubNavigationViewPath, model);
         }
 
         private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent content)
@@ -77,6 +78,16 @@ namespace Compent.uCommunity.Controllers
             return content.DocumentTypeAlias == HomePage.ModelTypeAlias;
         }
 
-
+        private MenuItemViewModel MapSubNavigationItem(IPublishedContent content)
+        {
+            return new MenuItemViewModel
+            {
+                Id = content.Id,
+                Name = content.GetNavigationName(),
+                //HideInNavigation = !content.IsShowPageInSubNavigation(),
+                Url = content.Url,
+                IsActive = content.IsAncestorOrSelf(CurrentPage)
+            };
+        }
     }
 }
