@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.uCommunity.Core.ApplicationSettings;
 using Compent.uCommunity.Core.CentralFeed;
 using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.Events;
@@ -27,6 +28,7 @@ using uCommunity.CentralFeed.Core;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
+using uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Configuration;
 using uCommunity.Core.Exceptions;
@@ -205,6 +207,8 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
 
+            kernel.Bind<IApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
+            kernel.Bind<IUcommunityApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
