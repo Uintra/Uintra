@@ -319,13 +319,11 @@
       <HintPath>..\..\packages\uCommunity.ContentPanel.0.0.0.3\lib\net452\uCommunity.ContentPanel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.21.9, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.21.9\lib\net452\uCommunity.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uCommunity.Core, Version=1.0.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.22\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Events.1.0.3.5\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Events.1.0.4\lib\net452\uCommunity.Events.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.6.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Likes.1.0.6.5\lib\net452\uCommunity.Likes.dll</HintPath>
@@ -335,8 +333,8 @@
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.4.1\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.8.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.News.1.0.8.5\lib\net452\uCommunity.News.dll</HintPath>
+    <Reference Include="uCommunity.News, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.News.1.0.9\lib\net452\uCommunity.News.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.3.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Notification.1.0.3.9\lib\net452\uCommunity.Notification.dll</HintPath>
@@ -784,16 +782,11 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\List\ListView.cshtml" />
     <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
     <Content Include="App_Plugins\ContentPanel\package.manifest" />
     <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
@@ -806,6 +799,11 @@
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\Web.config" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -973,6 +971,15 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uCommunity.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -23,6 +23,7 @@ var setActive = function (control) {
 
 var initShowOnlyMy = function () {
     var checkbox = $('.js-event-overview-show-subscribed');
+
     checkbox.on('change', function () {
         var $this = $(this);
         state.showOnlySubscribed = $this[0].checked;
@@ -33,6 +34,7 @@ var initShowOnlyMy = function () {
 
 var initLinks = function () {
     var links = holder.find('.js-event-tabs-link');
+
     links.on('click', function () {
         var $this = $(this);
         state.type = $this.data('type');
@@ -60,6 +62,7 @@ var controller = {
         }
 
         var stateControl = holder.find('.js-event-overview-state').get(0);
+
         state = JSON.parse(stateControl.value);
         contentContainer = holder.find('.js-event-overview-list');
 

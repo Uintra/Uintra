@@ -2,7 +2,7 @@
 @using uCommunity.Navigation.DefaultImplementation
 @using umbraco.NodeFactory
 @model MyLinksViewModel
-@{
+@*@{
     var pageName = Model.PageName;
     if (pageName.IsNullOrEmpty() && Model.PageTitleNodePropertyAlias.IsNotNullOrEmpty())
     {
@@ -32,4 +32,4 @@
             new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnSuccess = "$('#mylinkIcon').find('span').toggleClass('_isLinked');" },
             new {@class = "side-nav__link", id = "myLinks_addRemove"})
     </li>
-</ul>
+</ul>*@

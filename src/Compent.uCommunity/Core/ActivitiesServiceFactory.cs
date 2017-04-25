@@ -48,9 +48,9 @@ namespace Compent.uCommunity.Core
             switch (type)
             {
                 case IntranetActivityTypeEnum.News:
-                    return _kernel.GetService<INewsService>();
+                    return _kernel.GetService<INewsService<NewsEntity>>();
                 case IntranetActivityTypeEnum.Events:
-                    return _kernel.GetService<IEventsService>();
+                    return _kernel.GetService<IEventsService<Event>>();
                 default:
                     throw new ArgumentOutOfRangeException();
             }

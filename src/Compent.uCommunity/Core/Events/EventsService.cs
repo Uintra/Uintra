@@ -5,6 +5,7 @@ using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
+using uCommunity.Core.Activity.Entities;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
@@ -22,8 +23,8 @@ using Umbraco.Web;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class EventsService : IntranetActivityService<EventBase>,
-        IEventsService,
+    public class EventsService : IntranetActivityService<Event>,
+        IEventsService<Event>,
         ICentralFeedItemService,
         ISubscribableService,
         ILikeableService,
@@ -81,14 +82,14 @@ namespace Compent.uCommunity.Core.Events
             return _umbracoHelper.TypedContent(1166);
         }
 
-        public IEnumerable<EventBase> GetPastEvents()
+        public IEnumerable<Event> GetPastEvents()
         {
-            return GetAll<Event>().Where(@event => !IsActual(@event) && !@event.IsHidden);
+            return GetAll().Where(@event => !IsActual(@event) && !@event.IsHidden);
         }
 
         public void Hide(Guid id)
         {
-            var @event = Get<Event>(id);
+            var @event = Get(id);
             @event.IsHidden = true;
             Save(@event);
         }
@@ -127,27 +128,29 @@ namespace Compent.uCommunity.Core.Events
             };
         }
 
-        public override bool CanEdit(EventBase cached)
+        public override bool CanEdit(IIntranetActivity cached)
         {
+            var @event = (Event)cached;
+
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            return cached.CreatorId == currentUser.Id
+            return @event.CreatorId == currentUser.Id
                 || _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
         }
 
         public ICentralFeedItem GetItem(Guid activityId)
         {
-            var item = Get<Event>(activityId);
+            var item = Get(activityId);
             return item;
         }
 
         public IEnumerable<ICentralFeedItem> GetItems()
         {
-            var items = GetManyActual<Event>().OrderByDescending(i => i.PublishDate);
+            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
             return items;
         }
 
-        protected override void MapBeforeCache<TActivity>(IList<TActivity> cached)
+        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
             foreach (var activity in cached)
             {
@@ -162,60 +165,60 @@ namespace Compent.uCommunity.Core.Events
         public void UnSubscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Unsubscribe(userId, activityId);
-            UpdateCachedEntity<Event>(activityId);
+            UpdateCachedEntity(activityId);
         }
 
         public void UpdateNotification(Guid id, bool value)
         {
             var subscribe = _subscribeService.UpdateNotification(id, value);
-            UpdateCachedEntity<Event>(subscribe.ActivityId);
+            UpdateCachedEntity(subscribe.ActivityId);
         }
 
         public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            return UpdateCachedEntity<Event>(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public ILikeable Remove(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            return UpdateCachedEntity<Event>(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
         {
-            return Get<Event>(activityId).Likes;
+            return Get(activityId).Likes;
         }
 
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
-            UpdateCachedEntity<Event>(activityId);
+            UpdateCachedEntity(activityId);
             return comment;
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
-            UpdateCachedEntity<Event>(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public void DeleteComment(Guid id)
         {
             var comment = _commentsService.Get(id);
             _commentsService.Delete(id);
-            UpdateCachedEntity<Event>(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public ICommentable GetCommentsInfo(Guid activityId)
         {
-            return Get<Event>(activityId);
+            return Get(activityId);
         }
 
         public bool CanEditSubscribe(Guid activityId)
         {
-            return !Get<Event>(activityId).Subscribers.Any();
+            return !Get(activityId).Subscribers.Any();
         }
 
         public void Notify(Guid entityId, NotificationTypeEnum notificationType)
@@ -243,7 +246,7 @@ namespace Compent.uCommunity.Core.Events
                 case NotificationTypeEnum.CommentReplyed:
                     {
                         var comment = _commentsService.Get(entityId);
-                        currentEvent = Get<Event>(comment.ActivityId);
+                        currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
@@ -259,7 +262,7 @@ namespace Compent.uCommunity.Core.Events
                 case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
-                        currentEvent = Get<Event>(comment.ActivityId);
+                        currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
@@ -274,7 +277,7 @@ namespace Compent.uCommunity.Core.Events
                 case NotificationTypeEnum.CommentAdded:
                     {
                         var comment = _commentsService.Get(entityId);
-                        currentEvent = Get<Event>(comment.ActivityId);
+                        currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = GetNotifiedSubsribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
                         data.Value = new CommentNotifierDataModel
                         {
@@ -288,7 +291,7 @@ namespace Compent.uCommunity.Core.Events
                     break;
                 case NotificationTypeEnum.LikeAdded:
                     {
-                        currentEvent = Get<Event>(entityId);
+                        currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel
                         {
@@ -303,7 +306,7 @@ namespace Compent.uCommunity.Core.Events
 
                 case NotificationTypeEnum.BeforeStart:
                     {
-                        currentEvent = Get<Event>(entityId);
+                        currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubsribers(currentEvent);
                         data.Value = new ActivityReminderDataModel
                         {
@@ -318,7 +321,7 @@ namespace Compent.uCommunity.Core.Events
                 case NotificationTypeEnum.EventHided:
                 case NotificationTypeEnum.EventUpdated:
                     {
-                        currentEvent = Get<Event>(entityId);
+                        currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubsribers(currentEvent);
                         data.Value = new ActivityNotifierDataModel
                         {
@@ -350,7 +353,7 @@ namespace Compent.uCommunity.Core.Events
         public ISubscribable Subscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Subscribe(userId, activityId);
-            return UpdateCachedEntity<Event>(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
