@@ -417,7 +417,7 @@
     <Compile Include="Core\Extentions\UmbracoMemberExtentions.cs" />
     <Compile Include="Core\Grid\GridHelper.cs" />
     <Compile Include="Core\Grid\IGridHelper.cs" />
-    <Compile Include="Core\ImageHelper.cs" />
+    <Compile Include="Core\ImageConstants.cs" />
     <Compile Include="Core\IntranetConstants.cs" />
     <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
     <Compile Include="Core\MediaTypeEnum.cs" />
