@@ -6,14 +6,8 @@ import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
-var Flatpickr = require('flatpickr');
-var FlatpickrLang = require('flatpickr/dist/l10n/da');
-
 require('select2');
 require('./../../Core/Content/scripts/ValidationExtensions');
-
-require('flatpickr/dist/flatpickr.min.css');
-require('dropzone/dist/min/dropzone.min.css');
 
 var holder;
 var userSelect;
@@ -21,34 +15,6 @@ var editor;
 
 var initUserSelect = function () {
     userSelect = holder.find('#js-user-select').select2({});
-}
-
-var initDatePicker = function (containerSelector, valueSelector) {
-    var dateElem = holder.find(containerSelector);
-    var dateFormat = dateElem.data('dateFormat');
-    var dateElemValue = holder.find(valueSelector);
-    var defaultDate = new Date(dateElem.data('defaultDate'));
-
-    var datePicker = new Flatpickr(dateElem[0], {
-        minDate: new Date().setHours(0, 0, 0, 0),
-        enableTime: true,
-        time_24hr: true,
-        allowInput: false,
-        weekNumbers: true,
-        dateFormat: dateFormat,
-        locale: FlatpickrLang.da,
-        onChange: function (selectedDates) {
-            if (selectedDates.length === 0) {
-                dateElemValue.val('');
-                return;
-            }
-
-            var selectedDate = selectedDates[0].toISOString();
-            dateElemValue.val(selectedDate);
-        }
-    });
-
-    datePicker.setDate(helpers.removeOffset(defaultDate), true);
 }
 
 var initDescriptionControl = function () {
@@ -80,8 +46,8 @@ var controller = {
         }
 
         initUserSelect();
-        initDatePicker('#js-start-date', '#js-start-date-value');
-        initDatePicker('#js-end-date', '#js-end-date-value');
+        helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
+        helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
         initDescriptionControl();
         fileUploadController.init(holder);
     }

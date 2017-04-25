@@ -43,10 +43,10 @@ var helpers = {
 
         return quill;
     },
-    initPublishDatePicker: function (holder) {
-        var dateElem = holder.find('#js-publish-date');
+    initDatePicker: function (holder, dateElemSelector, valueSelector) {
+        var dateElem = holder.find(dateElemSelector);
         var dateFormat = dateElem.data('dateFormat');
-        var dateElemValue = holder.find('#js-publish-date-value');
+        var dateElemValue = holder.find(valueSelector);
         var defaultDate = new Date(dateElem.data('defaultDate'));
 
         var datePicker = new Flatpickr(dateElem[0], {
@@ -56,7 +56,7 @@ var helpers = {
             weekNumbers: true,
             dateFormat: dateFormat,
             locale: FlatpickrLang.da,
-            onChange: function(selectedDates) {
+            onChange: function (selectedDates) {
                 if (selectedDates.length === 0) {
                     dateElemValue.val('');
                     return;
@@ -75,6 +75,9 @@ var helpers = {
         }
 
         datePicker.set('minDate', minDate.setHours(0));
+    },
+    initPublishDatePicker: function (holder) {
+        this.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
     },
     removeOffset: function (date) {
         var dateOffset = date.getTimezoneOffset() * 60000; // [min*60000 = ms]

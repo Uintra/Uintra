@@ -1,6 +1,7 @@
 ﻿var Dropzone = require("dropzone");
 Dropzone.autoDiscover = false;
 
+require('dropzone/dist/min/dropzone.min.css');
 require("./file-upload.css");
 
 var fileUploader = (function () {
@@ -136,6 +137,3 @@ var FileUploadController = {
 }
 
 export default FileUploadController;
-
-/*window.App = window.App || {};
-window.App.FileUploadController = FileUploadController;*/
