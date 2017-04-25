@@ -19,27 +19,23 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        public override string OverviewViewPath { get; } = "~/Views/Events/OverView.cshtml";
-        public override string ListViewPath { get; } = "~/Views/Events/ListView.cshtml";
-        public override string DetailsViewPath { get; } = "~/Views/Events/DetailsView.cshtml";
-        public override string CreateViewPath { get; } = "~/Views/Events/CreateView.cshtml";
-        public override string EditViewPath { get; } = "~/Views/Events/EditView.cshtml";
-        public override string ItemViewPath { get; } = "~/Views/Events/ItemView.cshtml";
+        public override string OverviewViewPath => "~/Views/Events/OverView.cshtml";
+        public override string ListViewPath => "~/Views/Events/ListView.cshtml";
+        public override string DetailsViewPath => "~/Views/Events/DetailsView.cshtml";
+        public override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
+        public override string EditViewPath => "~/Views/Events/EditView.cshtml";
+        public override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
 
-        private readonly IEventsService _eventsService;
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
 
-        public EventsController(IEventsService eventsService,
+        public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService intranetUserService,
             IReminderService reminderService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
-            _mediaHelper = mediaHelper;
-            _intranetUserService = intranetUserService;
             _reminderService = reminderService;
         }
 
@@ -53,7 +49,7 @@ namespace Compent.uCommunity.Controllers
         public override ActionResult List(EventType type, bool showOnlySubscribed)
         {
             var events = type == EventType.Actual ?
-                _eventsService.GetManyActual<EventBase>().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
+                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
@@ -62,7 +58,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get<Event>(id);
+            var @event = _eventsService.Get(id);
 
             if (@event.IsHidden)
             {
@@ -94,7 +90,7 @@ namespace Compent.uCommunity.Controllers
 
         protected Event MapModel(EventEditModel saveModel)
         {
-            var @event = _eventsService.Get<Event>(saveModel.Id);
+            var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
         }

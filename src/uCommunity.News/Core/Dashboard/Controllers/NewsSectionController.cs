@@ -8,16 +8,16 @@ namespace uCommunity.News.Dashboard
 {
     public class NewsSectionController : UmbracoAuthorizedApiController
     {
-        private readonly INewsService _newsService;
+        private readonly INewsService<NewsBase> _newsService;
 
-        public NewsSectionController(INewsService newsService)
+        public NewsSectionController(INewsService<NewsBase> newsService)
         {
             _newsService = newsService;
         }
 
         public IEnumerable<NewsBackofficeViewModel> GetAll()
         {
-            var news = _newsService.GetAll<NewsBase>(true);
+            var news = _newsService.GetAll(true);
             var result = news.Map<IEnumerable<NewsBackofficeViewModel>>();
             return result;
         }
@@ -26,7 +26,7 @@ namespace uCommunity.News.Dashboard
         public NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
             var newsId = _newsService.Create(createModel.Map<NewsBase>());
-            var createdModel = _newsService.Get<NewsBase>(newsId);
+            var createdModel = _newsService.Get(newsId);
             var result = createdModel.Map<NewsBackofficeViewModel>();
             return result;
         }
@@ -35,7 +35,7 @@ namespace uCommunity.News.Dashboard
         public NewsBackofficeViewModel Save(NewsBackofficeSaveModel saveModel)
         {
             _newsService.Save(saveModel.Map<NewsBase>());
-            var updatedModel = _newsService.Get<NewsBase>(saveModel.Id);
+            var updatedModel = _newsService.Get(saveModel.Id);
             var result = updatedModel.Map<NewsBackofficeViewModel>();
             return result;
         }

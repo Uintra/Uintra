@@ -3,6 +3,7 @@ var Delta = require('quill-delta');
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
+require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
 var easeInOutQuad = function (t, b, c, d) {
@@ -77,7 +78,6 @@ var helpers = {
         datePicker.set('minDate', minDate.setHours(0));
     },
     initPublishDatePicker: function (holder) {
-        console.log("initPublishDatePicker", this);
         this.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
     },
     removeOffset: function (date) {
@@ -89,7 +89,7 @@ var helpers = {
             var lock = false;
             var win = $(window);
             var doc = $(document);
-            var unlock = function () { lock = false; }
+            var unlock = function () {lock = false; }
             win.scroll(function () {
                 if ((win.scrollTop() + 70) >= doc.height() - win.height()) {
                     if (!lock) {

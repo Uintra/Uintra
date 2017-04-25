@@ -137,6 +137,3 @@ var FileUploadController = {
 }
 
 export default FileUploadController;
-
-/*window.App = window.App || {};
-window.App.FileUploadController = FileUploadController;*/

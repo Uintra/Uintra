@@ -25,11 +25,12 @@ namespace uCommunity.Likes
         public IEnumerable<LikeModel> GetLikeModels(Guid entityId)
         {
             var likes = Get(entityId).OrderByDescending(el => el.CreatedDate).ToList();
-            var users = Enumerable.Empty<Tuple<Guid, string>>();
-            if (likes.Count != 0)
+            if (likes.Count == 0)
             {
-                users = GetManyNames(likes.Select(el => el.UserId));
+                return Enumerable.Empty<LikeModel>();
             }
+
+            var users = GetManyNames(likes.Select(el => el.UserId));
 
             var result = users.Select(el => new LikeModel
             {

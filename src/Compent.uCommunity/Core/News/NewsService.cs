@@ -6,6 +6,7 @@ using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
+using uCommunity.Core.Activity.Entities;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
@@ -22,8 +23,8 @@ using Umbraco.Web;
 
 namespace Compent.uCommunity.Core.News
 {
-    public class NewsService : IntranetActivityService<NewsBase>,
-        INewsService,
+    public class NewsService : IntranetActivityService<NewsEntity>,
+        INewsService<NewsEntity>,
         ICentralFeedItemService,
         ICommentableService,
         ILikeableService,
@@ -87,8 +88,7 @@ namespace Compent.uCommunity.Core.News
 
         public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.News;
 
-
-        public override bool CanEdit(NewsBase activity)
+        public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
@@ -113,17 +113,17 @@ namespace Compent.uCommunity.Core.News
 
         public ICentralFeedItem GetItem(Guid activityId)
         {
-            var news = Get<NewsEntity>(activityId);
+            var news = Get(activityId);
             return news;
         }
 
         public IEnumerable<ICentralFeedItem> GetItems()
         {
-            var items = GetManyActual<NewsEntity>().OrderByDescending(i => i.PublishDate);
+            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
             return items;
         }
 
-        protected override void MapBeforeCache<TActivity>(IList<TActivity> cached)
+        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
             foreach (var activity in cached)
             {
@@ -138,43 +138,43 @@ namespace Compent.uCommunity.Core.News
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
-            UpdateCachedEntity<NewsEntity>(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
             return comment;
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
-            UpdateCachedEntity<NewsEntity>(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public void DeleteComment(Guid id)
         {
             var comment = _commentsService.Get(id);
             _commentsService.Delete(id);
-            UpdateCachedEntity<NewsEntity>(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public ICommentable GetCommentsInfo(Guid activityId)
         {
-            return Get<NewsEntity>(activityId);
+            return Get(activityId);
         }
 
         public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            return UpdateCachedEntity<NewsEntity>(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public ILikeable Remove(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            return UpdateCachedEntity<NewsEntity>(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
         {
-            return Get<NewsEntity>(activityId).Likes;
+            return Get(activityId).Likes;
         }
 
         public void Notify(Guid entityId, NotificationTypeEnum notificationType)
@@ -219,7 +219,7 @@ namespace Compent.uCommunity.Core.News
             {
                 case NotificationTypeEnum.LikeAdded:
                     {
-                        newsEntity = Get<NewsEntity>(entityId);
+                        newsEntity = Get(entityId);
                         data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel()
                         {
@@ -235,7 +235,7 @@ namespace Compent.uCommunity.Core.News
                 case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
-                        newsEntity = Get<NewsEntity>(comment.ActivityId);
+                        newsEntity = Get(comment.ActivityId);
                         data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel()
                         {
@@ -250,7 +250,7 @@ namespace Compent.uCommunity.Core.News
                 case NotificationTypeEnum.CommentReplyed:
                     {
                         var comment = _commentsService.Get(entityId);
-                        newsEntity = Get<NewsEntity>(comment.ActivityId);
+                        newsEntity = Get(comment.ActivityId);
                         data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
@@ -273,6 +273,5 @@ namespace Compent.uCommunity.Core.News
         {
             return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
         }
-
     }
 }

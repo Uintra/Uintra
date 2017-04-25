@@ -367,8 +367,10 @@
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
+    <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
-    <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Web\ActivityHeaderControllerBase.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
@@ -384,7 +386,6 @@
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
-    <Compile Include="Core\AppSettingHelper.cs" />
     <Compile Include="Core\Caching\ICacheService.cs" />
     <Compile Include="Core\Caching\MemoryCacheService.cs" />
     <Compile Include="Core\Caching\Models\CachedItemBase.cs" />
@@ -416,7 +417,7 @@
     <Compile Include="Core\Extentions\UmbracoMemberExtentions.cs" />
     <Compile Include="Core\Grid\GridHelper.cs" />
     <Compile Include="Core\Grid\IGridHelper.cs" />
-    <Compile Include="Core\ImageHelper.cs" />
+    <Compile Include="Core\ImageConstants.cs" />
     <Compile Include="Core\IntranetConstants.cs" />
     <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
     <Compile Include="Core\MediaTypeEnum.cs" />

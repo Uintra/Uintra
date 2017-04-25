@@ -16,9 +16,9 @@ namespace Compent.uCommunity.Controllers
 {
     public class NewsController : NewsControllerBase
     {
-        private readonly INewsService _newsService;
+        private readonly INewsService<NewsEntity> _newsService;
 
-        public NewsController(IIntranetUserService intranetUserService, INewsService newsService, IMediaHelper mediaHelper)
+        public NewsController(IIntranetUserService intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper)
             : base(intranetUserService, newsService, mediaHelper)
         {
             _newsService = newsService;
@@ -35,7 +35,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult List()
         {
-            var news = _newsService.GetManyActual<NewsEntity>();
+            var news = _newsService.GetManyActual();
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
@@ -50,7 +50,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var newsModelBase = _newsService.Get<NewsEntity>(id);
+            var newsModelBase = _newsService.Get(id);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
