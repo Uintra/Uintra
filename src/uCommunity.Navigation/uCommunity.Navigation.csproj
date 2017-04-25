@@ -383,7 +383,7 @@
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
     <Content Include="App_Plugins\MyLinks\View\MyLinkIcon.cshtml" />
-    <None Include="App_Plugins\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\package.manifest" />
