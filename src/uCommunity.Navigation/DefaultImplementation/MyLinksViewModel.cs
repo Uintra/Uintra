@@ -8,8 +8,6 @@ namespace uCommunity.Navigation.DefaultImplementation
 
         public string PageName { get; set; }
 
-        public string PageTitleNodePropertyAlias { get; set; }
-
         public bool IsLinked { get; set; }
 
         public MyLinksViewModel()

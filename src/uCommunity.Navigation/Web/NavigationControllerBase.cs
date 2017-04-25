@@ -6,6 +6,7 @@ using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
 using umbraco.NodeFactory;
+using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.Web
@@ -78,7 +79,9 @@ namespace uCommunity.Navigation.Web
 
         public virtual PartialViewResult MyLinks()
         {
-            var result = GetMyLinksViewModel(string.Empty, Request.Url.PathAndQuery.TrimEnd('/'));
+            var pageName = CurrentPage.GetPropertyValue<string>(PageTitleNodePropertyAlias);
+
+            var result = GetMyLinksViewModel(pageName, Request.Url.PathAndQuery.TrimEnd('/'));
 
             return PartialView(MyLinksViewPath, result);
         }
@@ -100,7 +103,6 @@ namespace uCommunity.Navigation.Web
             var myLinks = _myLinksModelBuilder.Get(x => x.Name);
             var result = myLinks.Map<MyLinksViewModel>();
             result.PageName = pageName;
-            result.PageTitleNodePropertyAlias = PageTitleNodePropertyAlias;
             result.IsLinked = myLinks.MyLinks.Any(x => x.Url == url);
 
             return result;

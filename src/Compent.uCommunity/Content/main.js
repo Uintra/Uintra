@@ -8,9 +8,11 @@ require('./../App_Plugins/CentralFeed/CentralFeed');
 
 import commentOverview from "./../App_Plugins/Comments/Comment";
 import subscribe from "./../App_Plugins/Subscribe/Subscribe";
+import myLinks from "./../App_Plugins/Navigation/MyLinks/MyLinks";
 
-window.subscribe= subscribe;
+window.subscribe = subscribe;
 window.CommentOverview = commentOverview;
+window.myLinks = myLinks;
 
 require('./../App_Plugins/Subscribe/SubscribeList');
 require('./../App_Plugins/Events/Create/create-events');
