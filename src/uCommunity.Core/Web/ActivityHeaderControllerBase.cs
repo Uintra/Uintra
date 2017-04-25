@@ -4,7 +4,7 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Core
 {
-    public abstract class ActivityControllerBase : SurfaceController
+    public abstract class ActivityHeaderControllerBase : SurfaceController
     {
         protected virtual string DetailsHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml";

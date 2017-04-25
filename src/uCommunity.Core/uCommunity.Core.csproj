@@ -370,7 +370,7 @@
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
-    <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Web\ActivityHeaderControllerBase.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
