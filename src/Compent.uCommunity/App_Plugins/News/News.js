@@ -32,7 +32,6 @@ var initDescriptionControl = function (holder, isEdit) {
     });
 }
 
-
 var controller = {
     init: function (holder, isEdit) {
         if (!holder.length) {
@@ -49,6 +48,7 @@ var controller = {
 appInitializer.add(() => {
     controller.init($('#js-news-create-page'));
 });
+
 appInitializer.add(() => {
     controller.init($('#js-news-edit-page'), true);
 });
