@@ -49,7 +49,7 @@
       "render": "/App_Plugins/ContentPanel/GlobalPanelPicker/global-panel-picker.cshtml",
       "icon": "icon-plugin color-green",
       "config": {
-        "startNodeXPath": "$root/homePage/dataFolder/globalPanelFolder",
+        "startNodeXPath": "$root/dataFolder/globalPanelFolder",
         "allowedAliases": [ "panel" ]
       }
     }
