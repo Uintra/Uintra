@@ -1,6 +1,7 @@
 ﻿var Dropzone = require("dropzone");
 Dropzone.autoDiscover = false;
 
+require('dropzone/dist/min/dropzone.min.css');
 require("./file-upload.css");
 
 var fileUploader = (function () {
