@@ -378,9 +378,11 @@
     <Compile Include="Core\Services\MyLinksService.cs" />
     <Compile Include="Core\Services\IMyLinksService.cs" />
     <Compile Include="Core\Sql\MyLink.cs" />
+    <Compile Include="DefaultImplementation\MyLinkIconViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinkItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
+    <Content Include="App_Plugins\MyLinks\View\MyLinkIcon.cshtml" />
     <None Include="App_Plugins\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\LeftNavigation\View\Navigation.cshtml" />

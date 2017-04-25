@@ -8,4 +8,8 @@ appInitializer.add(function() {
     $(".js-my-links__opener").on("click", function() {
         $(this).toggleClass(active);
     });
+
+    $("#mylinkIcon").on("click", function() {
+        $('#myLinks_addRemove').click();
+    });
 });

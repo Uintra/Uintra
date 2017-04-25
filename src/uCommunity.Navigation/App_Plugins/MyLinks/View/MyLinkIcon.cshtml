@@ -1,0 +1,7 @@
+﻿@using uCommunity.Core.Extentions
+@using uCommunity.Navigation.DefaultImplementation
+@model MyLinkIconViewModel
+
+<div id="mylinkIcon">
+    <span class="@(Model.IsLinked ? "_isLinked" : "")"><i class="icon-myLink"></i>@Html.Localize("MyLinks.AddCurrentPage.lbl")</span>
+</div>

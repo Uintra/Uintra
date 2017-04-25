@@ -10,6 +10,8 @@ namespace uCommunity.Navigation.DefaultImplementation
 
         public string PageTitleNodePropertyAlias { get; set; }
 
+        public bool IsLinked { get; set; }
+
         public MyLinksViewModel()
         {
             MyLinks = new List<MyLinkItemViewModel>();

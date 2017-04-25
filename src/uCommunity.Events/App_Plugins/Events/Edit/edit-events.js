@@ -16,7 +16,7 @@ require('./../../Core/Controls/Confirm/Confirm');
 require('./../../Core/Content/scripts/ValidationExtensions');
 
 require('flatpickr/dist/flatpickr.min.css');
-require('dropzone/dist/min/dropzone.min.css');
+//require('dropzone/dist/min/dropzone.min.css');
 
 var EditEventsController = (function () {
     var holder;

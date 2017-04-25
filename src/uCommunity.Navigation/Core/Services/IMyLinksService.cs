@@ -9,8 +9,6 @@ namespace uCommunity.Navigation.Core
 
         IEnumerable<MyLink> GetMany(Guid userId);
 
-        MyLink Create(Guid userId, string name, string url);
-
-        void Delete(Guid id);
+        bool AddRemove(Guid userId, string name, string url);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
@@ -14,6 +16,7 @@ namespace uCommunity.Navigation.Web
         protected virtual string SubNavigationViewPath { get; } = "~/App_Plugins/Navigation/SubNavigation/View/Navigation.cshtml";
         protected virtual string TopNavigationViewPath { get; } = "~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml";
         protected virtual string MyLinksViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinks.cshtml";
+        protected virtual string MyLinkIconViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinkIcon.cshtml";
         protected virtual string PageTitleNodePropertyAlias { get; } = string.Empty;
 
         protected readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
@@ -64,24 +67,43 @@ namespace uCommunity.Navigation.Web
             return PartialView(TopNavigationViewPath, result);
         }
 
-        public virtual PartialViewResult MyLinks(string pageName = "")
+        public virtual PartialViewResult MyLinkIcon()
         {
             var myLinks = _myLinksModelBuilder.Get(x => x.Name);
-            var result = myLinks.Map<MyLinksViewModel>();
-            result.PageName = pageName;
-            result.PageTitleNodePropertyAlias = PageTitleNodePropertyAlias;
+            var result = new MyLinkIconViewModel();
+            result.IsLinked = myLinks.MyLinks.Any(x => x.Url == Request.Url.PathAndQuery.TrimEnd('/'));
+
+            return PartialView(MyLinkIconViewPath, result);
+        }
+
+        public virtual PartialViewResult MyLinks()
+        {
+            var result = GetMyLinksViewModel(string.Empty, Request.Url.PathAndQuery.TrimEnd('/'));
 
             return PartialView(MyLinksViewPath, result);
         }
 
         [HttpPost]
-        public virtual PartialViewResult AddToMyLinks(string pageName)
+        public virtual PartialViewResult AddRemoveMyLink(string pageName)
         {
+            var currentPageUrl = Request.UrlReferrer.PathAndQuery.TrimEnd('/');
             var currentUser = _intranetUserService.GetCurrentUser();
+            _myLinksService.AddRemove(currentUser.Id, pageName, currentPageUrl);
 
-            _myLinksService.Create(currentUser.Id, pageName, Request.UrlReferrer.PathAndQuery);
+            var result = GetMyLinksViewModel(pageName, currentPageUrl);
 
-            return MyLinks(pageName);
+            return PartialView(MyLinksViewPath, result);
+        }
+
+        protected virtual MyLinksViewModel GetMyLinksViewModel(string pageName, string url)
+        {
+            var myLinks = _myLinksModelBuilder.Get(x => x.Name);
+            var result = myLinks.Map<MyLinksViewModel>();
+            result.PageName = pageName;
+            result.PageTitleNodePropertyAlias = PageTitleNodePropertyAlias;
+            result.IsLinked = myLinks.MyLinks.Any(x => x.Url == url);
+
+            return result;
         }
     }
 }

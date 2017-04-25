@@ -24,11 +24,12 @@
     }
 
     <li class="side-nav__item">
-        @Ajax.ActionLink(Html.Localize("MyLinks.Add.lbl"),
-       "AddToMyLinks",
-       "Navigation",
-       new { pageName = pageName },
-       new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith },
-       new { @class = "side-nav__link" })
+        <span class="@(Model.IsLinked ? "_isLinked" : "")"><i class="@(Model.IsLinked ? "myLinks_remove" : "myLinks_add")"></i></span>
+        @Ajax.ActionLink(Model.IsLinked ? Html.Localize("MyLinks.Remove.lbl") : Html.Localize("MyLinks.Add.lbl"),
+            "AddRemoveMyLink",
+            "Navigation",
+            new {pageName = pageName},
+            new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnSuccess = "$('#mylinkIcon').find('span').toggleClass('_isLinked');" },
+            new {@class = "side-nav__link", id = "myLinks_addRemove"})
     </li>
 </ul>
