@@ -3,7 +3,19 @@ using Newtonsoft.Json;
 
 namespace uCommunity.Core.Activity.Entities
 {
-    public abstract class IntranetActivity
+    public interface IIntranetActivity
+    {
+        Guid Id { get; set; }
+        IntranetActivityTypeEnum Type { get; set; }
+        DateTime CreatedDate { get; set; }
+        DateTime ModifyDate { get; set; }
+        string Title { get; set; }
+        string Teaser { get; set; }
+        string Description { get; set; }
+        bool IsHidden { get; set; }
+    }
+
+    public abstract class IntranetActivity : IIntranetActivity
     {
         [JsonIgnore]
         public Guid Id { get; set; }

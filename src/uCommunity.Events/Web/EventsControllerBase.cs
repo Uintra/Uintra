@@ -18,19 +18,19 @@ namespace uCommunity.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
-        public virtual string OverviewViewPath { get; } = "~/App_Plugins/Events/List/OverView.cshtml";
-        public virtual string ListViewPath { get; } = "~/App_Plugins/Events/List/ListView.cshtml";
-        public virtual string DetailsViewPath { get; } = "~/App_Plugins/Events/Details/DetailsView.cshtml";
-        public virtual string CreateViewPath { get; } = "~/App_Plugins/Events/Create/CreateView.cshtml";
-        public virtual string EditViewPath { get; } = "~/App_Plugins/Events/Edit/EditView.cshtml";
-        public virtual string ItemViewPath { get; } = "~/App_Plugins/Events/List/ItemView.cshtml";
+        public virtual string OverviewViewPath => "~/App_Plugins/Events/List/OverView.cshtml";
+        public virtual string ListViewPath  =>"~/App_Plugins/Events/List/ListView.cshtml";
+        public virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
+        public virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
+        public virtual string EditViewPath  => "~/App_Plugins/Events/Edit/EditView.cshtml";
+        public virtual string ItemViewPath  => "~/App_Plugins/Events/List/ItemView.cshtml";
 
-        private readonly IEventsService _eventsService;
+        private readonly IEventsService<EventBase> _eventsService;
         protected readonly IMediaHelper _mediaHelper;
         protected readonly IIntranetUserService _intranetUserService;
 
         protected EventsControllerBase(
-            IEventsService eventsService,
+            IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService intranetUserService)
         {
@@ -48,7 +48,7 @@ namespace uCommunity.Events.Web
         public virtual ActionResult List(EventType type, bool showOnlySubscribed)
         {
             var events = type == EventType.Actual ?
-                _eventsService.GetManyActual<EventBase>().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
+                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
@@ -57,7 +57,7 @@ namespace uCommunity.Events.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get<EventBase>(id);
+            var @event = _eventsService.Get(id);
 
             if (@event.IsHidden)
             {
@@ -111,7 +111,7 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get<EventBase>(id);
+            var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -177,7 +177,7 @@ namespace uCommunity.Events.Web
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
         {
-            var @event = _eventsService.Get<EventBase>(saveModel.Id);
+            var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
         }

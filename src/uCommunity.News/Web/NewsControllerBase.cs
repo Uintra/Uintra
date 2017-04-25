@@ -23,13 +23,13 @@ namespace uCommunity.News.Web
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
 
-        private readonly INewsService _newsService;
+        private readonly INewsService<NewsBase> _newsService;
         protected readonly IMediaHelper _mediaHelper;
         protected readonly IIntranetUserService _intranetUserService;
 
         protected NewsControllerBase(
             IIntranetUserService intranetUserService,
-            INewsService newsService,
+            INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper)
         {
             _intranetUserService = intranetUserService;
@@ -39,7 +39,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult List()
         {
-            var news = _newsService.GetManyActual<NewsBase>();
+            var news = _newsService.GetManyActual();
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
@@ -58,7 +58,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var news = _newsService.Get<NewsBase>(id);
+            var news = _newsService.Get(id);
 
             if (news.IsHidden)
             {
@@ -104,7 +104,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get<NewsBase>(id);
+            var news = _newsService.Get(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);

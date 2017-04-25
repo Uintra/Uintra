@@ -5,9 +5,9 @@ using uCommunity.Core.Media;
 
 namespace uCommunity.Events
 {
-    public interface IEventsService : IIntranetActivityService<EventBase>
+    public interface IEventsService<out TEvent> : IIntranetActivityService<TEvent> where TEvent: EventBase
     {
-        IEnumerable<EventBase> GetPastEvents();
+        IEnumerable<TEvent> GetPastEvents();
 
         void Hide(Guid id);
 

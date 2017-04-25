@@ -9,7 +9,7 @@ using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
 {
-    public abstract class IntranetActivityService<TCachedActivity> : IIntranetActivityService<TCachedActivity> where TCachedActivity : IntranetActivity
+    public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract IntranetActivityTypeEnum ActivityType { get; }
 
@@ -27,28 +27,22 @@ namespace uCommunity.Core.Activity
             _cache = cache;
         }
 
-        public TActivity Get<TActivity>(Guid id) where TActivity: TCachedActivity
+        public TActivity Get(Guid id)
         {
-            var cached = GetAll<TActivity>().FirstOrDefault(s => s.Id == id);
+            var cached = GetAll().FirstOrDefault(s => s.Id == id);
             return cached;
         }
 
-        public IEnumerable<TActivity> GetManyActual<TActivity>() where TActivity : TCachedActivity
+        public IEnumerable<TActivity> GetManyActual()
         {
-            var cached = GetAll<TActivity>(true);
-            var actual = cached.Where(IsActual);
+            var cached = GetAll(true);
+            var actual = cached.Where(s => IsActual(s));
             return actual;
         }
 
-        public IEnumerable<TActivity> FindAll<TActivity>(Func<TActivity, bool> predicate) where TActivity : TCachedActivity
+        public IEnumerable<TActivity> GetAll(bool includeHidden = false)
         {
-            var cached = GetAll<TActivity>().Where(predicate);
-            return cached;
-        }
-
-        public IEnumerable<TActivity> GetAll<TActivity>(bool includeHidden = false) where TActivity : TCachedActivity
-        {
-            var cached = GetAllFromCache<TActivity>();
+            var cached = GetAllFromCache();
             if (!includeHidden)
             {
                 cached = cached.Where(s => !s.IsHidden);
@@ -56,43 +50,43 @@ namespace uCommunity.Core.Activity
             return cached;
         }
 
-        public virtual bool IsActual(TCachedActivity cachedActivity)
+        public virtual bool IsActual(IIntranetActivity cachedActivity)
         {
             return !cachedActivity.IsHidden;
         }
 
-        public Guid Create(TCachedActivity jsonData)
+        public Guid Create(IIntranetActivity jsonData)
         {
             var newActivity = new IntranetActivityEntity { Type = ActivityType, JsonData = jsonData.ToJson() };
             _activityRepository.Create(newActivity);
 
             var newActivityId = newActivity.Id;
-            UpdateCachedEntity<TCachedActivity>(newActivityId);
+            UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
 
-        public void Save(TCachedActivity saveModel)
+        public void Save(IIntranetActivity saveModel)
         {
             var saveModelId = saveModel.Id;
             var activity = _activityRepository.Get(saveModelId);
             activity.JsonData = saveModel.ToJson();
             _activityRepository.Update(activity);
-            UpdateCachedEntity<TCachedActivity>(saveModelId);
+            UpdateCachedEntity(saveModelId);
         }
 
         public void Delete(Guid id)
         {
             _activityRepository.Delete(id);
-            UpdateCachedEntity<TCachedActivity>(id);
+            UpdateCachedEntity(id);
         }
 
         public bool CanEdit(Guid id)
         {
-            var cached = Get<TCachedActivity>(id);
+            var cached = Get(id);
             return CanEdit(cached);
         }
 
-        public abstract bool CanEdit(TCachedActivity cached);
+        public abstract bool CanEdit(IIntranetActivity cached);
         public abstract IPublishedContent GetOverviewPage();
         public abstract IPublishedContent GetDetailsPage();
         public abstract IPublishedContent GetCreatePage();
@@ -102,26 +96,26 @@ namespace uCommunity.Core.Activity
         public abstract IPublishedContent GetCreatePage(IPublishedContent currentPage);
         public abstract IPublishedContent GetEditPage(IPublishedContent currentPage);
 
-        protected IEnumerable<TActivity> GetAllFromCache<TActivity>() where TActivity: TCachedActivity
+        protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllForCache<TActivity>, CacheExpirationOffset, $"{ActivityType}");
+            var activities = _cache.GetOrSet(CacheKey, GetAllForCache, CacheExpirationOffset, $"{ActivityType}");
             return activities;
         }
 
-        protected TActivity UpdateCachedEntity<TActivity>(Guid id) where TActivity: TCachedActivity
+        protected TActivity UpdateCachedEntity(Guid id)
         {
             var activity = _activityRepository.Get(id);
-            var cached = GetAll<TCachedActivity>(true);
-            var cachedList = cached as List<TCachedActivity> ?? cached.ToList();
-            TActivity cachedActivity = null;
+            var cached = GetAll(true);
+            var cachedList = cached as List<TActivity> ?? cached.ToList();
+            var cachedActivity = default(TActivity);
             if (activity == null)
             {
                 cachedList = cachedList.FindAll(s => s.Id != id);
             }
             else
             {
-                cachedActivity = MapInternal<TActivity>(activity);
-                MapBeforeCache(Enumerable.Repeat(cachedActivity, 1).ToList());
+                cachedActivity = MapInternal(activity);
+                MapBeforeCache(Enumerable.Repeat((IIntranetActivity)cachedActivity, 1).ToList());
                 cachedList.Add(cachedActivity);
             }
             _cache.Set(CacheKey, cachedList, CacheExpirationOffset, $"{ActivityType}");
@@ -129,14 +123,14 @@ namespace uCommunity.Core.Activity
             return cachedActivity;
         }
 
-        private IList<TActivity> GetAllForCache<TActivity>() where TActivity : TCachedActivity
+        private IList<TActivity> GetAllForCache()
         {
-            var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal<TActivity>).ToList();
-            MapBeforeCache(activities);
+            var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
+            MapBeforeCache(activities.Select(s => (IIntranetActivity)s).ToList());
             return activities;
         }
 
-        private TActivity MapInternal<TActivity>(IntranetActivityEntity activity) where TActivity : TCachedActivity
+        private TActivity MapInternal(IntranetActivityEntity activity)
         {
             var cachedActivity = activity.JsonData.Deserialize<TActivity>();
             cachedActivity.Id = activity.Id;
@@ -146,6 +140,6 @@ namespace uCommunity.Core.Activity
             return cachedActivity;
         }
 
-        protected abstract void MapBeforeCache<TActivity>(IList<TActivity> cached) where TActivity : TCachedActivity;
+        protected abstract void MapBeforeCache(IList<IIntranetActivity> cached);
     }
 }
