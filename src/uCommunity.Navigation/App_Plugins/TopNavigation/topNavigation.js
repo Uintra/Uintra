@@ -1,7 +1,5 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./_topNavigation.css");
-
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var body = $('body');
 

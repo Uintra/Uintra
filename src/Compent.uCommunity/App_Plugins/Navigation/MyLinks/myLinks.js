@@ -1,7 +1,5 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./_myLinks.css");
-
 var active = "_active";
 
 var controller = {
