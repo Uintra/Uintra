@@ -828,7 +828,6 @@
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\Models\models.generated.cs" />
     <Compile Include="Controllers\ActivityHeaderController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
@@ -884,6 +883,35 @@
     <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CommentsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CommentsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CommentsPreviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\ContentPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\DataFolder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\File.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Folder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\HomePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Image.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\LikesPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Member.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NavigationComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NotificationPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Panel.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\SubscribePage.generated.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
