@@ -1,0 +1,17 @@
+﻿@model uCommunity.Events.EventsOverviewItemViewModel
+
+<div class="content__item">
+    <div class="row clearfix">
+        <div class="col-md-9">
+            <span class="content__item-label">VIGTIGT</span>
+            @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+            <div class="content__item-image"> </div>
+            <div class="content__item-images">
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
+            </div>
+            <div class="content__item-txt _clamp">
+                <p>@Html.Raw(Model.Description)</p>
+            </div>
+        </div>
+    </div>
+</div>
