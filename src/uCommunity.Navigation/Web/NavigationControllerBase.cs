@@ -19,11 +19,14 @@ namespace uCommunity.Navigation.Web
         protected virtual string MyLinksViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinks.cshtml";
         protected virtual string MyLinkIconViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinkIcon.cshtml";
         protected virtual string PageTitleNodePropertyAlias { get; } = string.Empty;
+        protected virtual string PageUrlNodePropertyAlias { get; } = string.Empty;
+        protected virtual string SystemLinksContentXPath { get; } = string.Empty;
 
         protected readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
         protected readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         protected readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         protected readonly IMyLinksModelBuilder _myLinksModelBuilder;
+        protected readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         protected readonly IMyLinksService _myLinksService;
         protected readonly IIntranetUserService _intranetUserService;
 
@@ -33,6 +36,7 @@ namespace uCommunity.Navigation.Web
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             IMyLinksModelBuilder myLinksModelBuilder,
+            ISystemLinksModelBuilder systemLinksModelBuilder,
             IMyLinksService myLinksService,
             IIntranetUserService intranetUserService)
         {
@@ -40,6 +44,7 @@ namespace uCommunity.Navigation.Web
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _topNavigationModelBuilder = topNavigationModelBuilder;
             _myLinksModelBuilder = myLinksModelBuilder;
+            _systemLinksModelBuilder = systemLinksModelBuilder;
             _myLinksService = myLinksService;
             _intranetUserService = intranetUserService;
         }
@@ -82,6 +87,14 @@ namespace uCommunity.Navigation.Web
             var pageName = CurrentPage.GetPropertyValue<string>(PageTitleNodePropertyAlias);
 
             var result = GetMyLinksViewModel(pageName, Request.Url.PathAndQuery.TrimEnd('/'));
+
+            return PartialView(MyLinksViewPath, result);
+        }
+
+        public virtual PartialViewResult SystemLinks()
+        {
+            var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, PageTitleNodePropertyAlias, PageUrlNodePropertyAlias, x => x.Name);
+            var result = systemLinks.Map<SystemLinksViewModel>();
 
             return PartialView(MyLinksViewPath, result);
         }
