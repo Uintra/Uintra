@@ -6,11 +6,11 @@
             <span class="content__item-label">VIGTIGT</span>
             @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
             <div class="content__item-image"> </div>
+            <div class="content__item-txt">
+                <p>@Model.Teaser</p>
+            </div>
             <div class="content__item-images">
                 @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
-            </div>
-            <div class="content__item-txt _clamp">
-                <p>@Html.Raw(Model.Description)</p>
             </div>
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">
