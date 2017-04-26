@@ -327,6 +327,7 @@
     <Content Include="App_Plugins\Events\Create\create-events.js" />
     <Content Include="App_Plugins\Events\Create\events-create.html" />
     <Content Include="App_Plugins\Events\Details\events-details.html" />
+    <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\Edit\edit-events.js" />
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\List\edit-list.js" />

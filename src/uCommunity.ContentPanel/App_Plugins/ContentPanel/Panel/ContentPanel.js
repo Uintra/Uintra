@@ -5,7 +5,7 @@ var MobileDetect = require('mobile-detect');
 var Photoswipe = require('photoswipe');
 var photoswipeUiDefault = require('photoswipe/dist/photoswipe-ui-default');
 
-require("./_contentPanel.css");
+require("./contentPanel.css");
 
 var itemTypes = {
     Image: "Image",

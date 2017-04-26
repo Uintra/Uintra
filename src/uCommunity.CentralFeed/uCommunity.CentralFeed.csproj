@@ -373,7 +373,7 @@
     <Content Include="App_Plugins\backoffice\centralFeedController.js" />
     <Content Include="App_Plugins\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\centralFeed.css" />
-    <Content Include="App_Plugins\CentralFeed.js" />
+    <Content Include="App_Plugins\centralFeed.js" />
     <Content Include="App_Plugins\View\central-feed.view.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

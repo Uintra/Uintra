@@ -590,7 +590,7 @@
     <None Include="packages.config" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\News.js" />
+    <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />

@@ -1,22 +1,17 @@
 ﻿require('./../App_Plugins/Core/Content/Scripts/Core');
 
 require('./../App_Plugins/Navigation/navigation');
+require('./../App_Plugins/News/news');
+require('./../App_Plugins/CentralFeed/centralFeed');
 
-require('./../App_Plugins/News/News');
-require('./../App_Plugins/CentralFeed/CentralFeed');
-
-import commentOverview from "./../App_Plugins/Comments/Comment";
-import subscribe from "./../App_Plugins/Subscribe/Subscribe";
-import myLinks from "./../App_Plugins/Navigation/MyLinks/myLinks";
+import commentOverview from "./../App_Plugins/Comments/comment";
+import subscribe from "./../App_Plugins/Subscribe/subscribe";
 
 window.subscribe = subscribe;
 window.CommentOverview = commentOverview;
-window.myLinks = myLinks;
 
-require('./../App_Plugins/Subscribe/SubscribeList');
-require('./../App_Plugins/Events/Create/create-events');
-require('./../App_Plugins/Events/Edit/edit-events');
-require('./../App_Plugins/Events/List/edit-list');
-require('./../App_Plugins/Notification/Notification');
+require('./../App_Plugins/Subscribe/subscribeList');
+require('./../App_Plugins/Events/events');
+require('./../App_Plugins/Notification/notification');
 require('./../App_Plugins/Likes/likes');
-require('./../App_Plugins/ContentPanel/Panel/ContentPanel');
+require('./../App_Plugins/ContentPanel/contentPanel');
