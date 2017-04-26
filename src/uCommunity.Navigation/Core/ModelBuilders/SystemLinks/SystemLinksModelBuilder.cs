@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using ServiceStack;
+using umbraco;
+using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace uCommunity.Navigation.Core
 {
@@ -13,23 +16,32 @@ namespace uCommunity.Navigation.Core
             _systemLinksService = systemLinksService;
         }
 
-        public SystemLinksModel Get(string systemLinksContentXPath, string pageTitleNodePropertyAlias, string pageUrlNodePropertyAlias, Func<SystemLinkItemModel, string> sort)
+        public SystemLinksModel Get(string contentXPath, string titleNodePropertyAlias, string urlNodePropertyAlias, Func<SystemLinkItemModel, int> sort)
         {
             var result = new SystemLinksModel();
 
-            if (systemLinksContentXPath.IsNullOrEmpty())
+            if (contentXPath.IsNullOrEmpty())
             {
                 return result;
             }
 
-            var systemLinks = _systemLinksService.GetMany(systemLinksContentXPath);
+            result.SystemLinks =
+                _systemLinksService.GetMany(contentXPath)
+                    .Select(x => ParseToSystemLinkItemModel(titleNodePropertyAlias, urlNodePropertyAlias, x))
+                    .OrderBy(sort)
+                    .ToList();
 
-            foreach (var link in systemLinks)
-            {
-                result.SystemLinks.Add(new SystemLinkItemModel(pageTitleNodePropertyAlias, pageUrlNodePropertyAlias, link));
-            }
+            return result;
+        }
 
-            result.SystemLinks = result.SystemLinks.OrderBy(sort).ToList();
+        private SystemLinkItemModel ParseToSystemLinkItemModel(string titleNodePropertyAlias,
+            string urlNodePropertyAlias, IPublishedContent content)
+        {
+            var result = new SystemLinkItemModel();
+
+            result.Name = content.GetPropertyValue<string>(titleNodePropertyAlias);
+            result.Url = content.GetPropertyValue<string>(urlNodePropertyAlias);
+            result.SortOrder = content.SortOrder;
 
             return result;
         }

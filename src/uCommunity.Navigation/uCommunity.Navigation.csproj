@@ -389,7 +389,7 @@
     <Compile Include="DefaultImplementation\MyLinkItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
-    <Content Include="App_Plugins\SystemLinks\SystemLinks.js" />
+    <Content Include="App_Plugins\SystemLinks\systemLinks.js" />
     <Content Include="App_Plugins\SystemLinks\_systemLinks.css" />
     <Content Include="App_Plugins\MyLinks\View\MyLinkIcon.cshtml" />
     <Content Include="App_Plugins\MyLinks\View\MyLinks.cshtml" />

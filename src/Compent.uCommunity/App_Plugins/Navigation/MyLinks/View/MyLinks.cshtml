@@ -4,8 +4,10 @@
 @model MyLinksViewModel
 
 <ul class="side-nav js-my-links__opener" id="myLinksContainer">
-    <span>@Html.Localize("MyLinks.Menu.lbl")</span>
-    <span class="side-nav__arrow"></span>
+    <li class="side-nav__item">
+        <span>@Html.Localize("MyLinks.Menu.lbl")</span>
+        <span class="side-nav__arrow"></span>
+    </li>
 
     @foreach (var item in Model.MyLinks)
     {
@@ -22,7 +24,7 @@
             "AddRemoveMyLink",
             "Navigation",
             new { },
-            new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnComplete = "myLinks.switchLinkIcon()" },
-            new {@class = "side-nav__link", id = "myLinks_addRemove"})
+            new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnComplete = "myLinks.switchLinkIcon()" },
+            new { @class = "side-nav__link", id = "myLinks_addRemove" })
     </li>
 </ul>

@@ -1,0 +1,21 @@
+﻿@using uCommunity.Core.Extentions
+@using uCommunity.Navigation.DefaultImplementation
+@model SystemLinksViewModel
+
+<ul class="side-nav js-systemLinks__opener" id="systemLinksContainer">
+    <li class="side-nav__item">
+        <span>@Html.Localize("SystemLinks.Menu.lbl")</span>
+        <span class="side-nav__arrow"></span>
+    </li>
+
+    @foreach (var item in Model.SystemLinks)
+    {
+        <li class="side-nav__item">
+            <a class="side-nav__link" href="@item.Url">
+                @item.Name
+            </a>
+        </li>
+    }
+
+    <li class="side-nav__item"><i class="systemLinks__icon"></i></li>
+</ul>

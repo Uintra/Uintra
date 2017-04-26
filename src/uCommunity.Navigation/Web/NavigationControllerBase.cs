@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
-using umbraco.NodeFactory;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
@@ -17,9 +15,11 @@ namespace uCommunity.Navigation.Web
         protected virtual string SubNavigationViewPath { get; } = "~/App_Plugins/Navigation/SubNavigation/View/Navigation.cshtml";
         protected virtual string TopNavigationViewPath { get; } = "~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml";
         protected virtual string MyLinksViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinks.cshtml";
+        protected virtual string SystemLinksViewPath { get; } = "~/App_Plugins/Navigation/SystemLinks/View/SystemLinks.cshtml";
         protected virtual string MyLinkIconViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinkIcon.cshtml";
-        protected virtual string PageTitleNodePropertyAlias { get; } = string.Empty;
-        protected virtual string PageUrlNodePropertyAlias { get; } = string.Empty;
+        protected virtual string MyLinkPageTitleNodePropertyAlias { get; } = string.Empty;
+        protected virtual string SystemLinkTitleNodePropertyAlias { get; } = string.Empty;
+        protected virtual string SystemLinkUrlNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinksContentXPath { get; } = string.Empty;
 
         protected readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
@@ -84,7 +84,7 @@ namespace uCommunity.Navigation.Web
 
         public virtual PartialViewResult MyLinks()
         {
-            var pageName = CurrentPage.GetPropertyValue<string>(PageTitleNodePropertyAlias);
+            var pageName = CurrentPage.GetPropertyValue<string>(MyLinkPageTitleNodePropertyAlias);
 
             var result = GetMyLinksViewModel(pageName, Request.Url.PathAndQuery.TrimEnd('/'));
 
@@ -93,10 +93,10 @@ namespace uCommunity.Navigation.Web
 
         public virtual PartialViewResult SystemLinks()
         {
-            var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, PageTitleNodePropertyAlias, PageUrlNodePropertyAlias, x => x.Name);
+            var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, SystemLinkTitleNodePropertyAlias, SystemLinkUrlNodePropertyAlias, x => x.SortOrder);
             var result = systemLinks.Map<SystemLinksViewModel>();
 
-            return PartialView(MyLinksViewPath, result);
+            return PartialView(SystemLinksViewPath, result);
         }
 
         [HttpPost]

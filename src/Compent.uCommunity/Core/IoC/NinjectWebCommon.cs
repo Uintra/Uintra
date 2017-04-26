@@ -180,6 +180,8 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
             kernel.Bind<IMyLinksModelBuilder>().To<MyLinksModelBuilder>().InRequestScope();
             kernel.Bind<IMyLinksService>().To<MyLinksService>().InRequestScope();
+            kernel.Bind<ISystemLinksModelBuilder>().To<SystemLinksModelBuilder>().InRequestScope();
+            kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
