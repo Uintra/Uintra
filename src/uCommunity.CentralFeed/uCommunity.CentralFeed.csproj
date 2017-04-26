@@ -328,7 +328,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Plugins\Models\CentralFeedListModel.cs" />
+    <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeedComparer.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
@@ -349,10 +349,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\package.manifest" />
-    <Content Include="App_Plugins\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <None Include="packages.config" />
     <None Include="uCommunity.CentralFeed.nuspec" />
     <None Include="Web.config" />
@@ -368,13 +368,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\backoffice\central-feed-overlay.html" />
-    <Content Include="App_Plugins\backoffice\central-feed-view.html" />
-    <Content Include="App_Plugins\backoffice\centralFeedController.js" />
-    <Content Include="App_Plugins\backoffice\centralFeedService.js" />
-    <Content Include="App_Plugins\centralFeed.css" />
-    <Content Include="App_Plugins\centralFeed.js" />
-    <Content Include="App_Plugins\View\central-feed.view.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
+    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
