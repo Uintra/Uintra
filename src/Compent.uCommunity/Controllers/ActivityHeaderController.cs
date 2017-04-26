@@ -2,7 +2,7 @@
 
 namespace Compent.uCommunity.Controllers
 {
-    public class ActivityController : ActivityControllerBase 
+    public class ActivityHeaderController : ActivityHeaderControllerBase 
     {
     }
 }
