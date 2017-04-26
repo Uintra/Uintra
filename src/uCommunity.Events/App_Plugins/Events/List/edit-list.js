@@ -1,5 +1,5 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import subscribe from "./../../Subscribe/Subscribe";
+import subscribe from "./../../Subscribe/subscribe";
 
 var holder;
 var state;

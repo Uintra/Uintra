@@ -5,19 +5,19 @@
 
 <ul class="side-nav js-my-links__opener" id="myLinksContainer">
     <li class="side-nav__item">
-        <span>@Html.Localize("MyLinks.Menu.lbl")</span>
+        <a class="side-nav__link">@Html.Localize("MyLinks.Menu.lbl")</a>
         <span class="side-nav__arrow"></span>
+        <ul class="side-nav">
+            @foreach (var item in Model.MyLinks)
+            {
+                <li class="side-nav__item">
+                    <a class="side-nav__link" href="@item.Url">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
     </li>
-
-    @foreach (var item in Model.MyLinks)
-    {
-        <li class="side-nav__item">
-            <a class="side-nav__link" href="@item.Url">
-                @item.Name
-            </a>
-        </li>
-    }
-
     <li class="side-nav__item">
         <span class="@(Model.IsLinked ? "_isLinked" : "")"><i class="@(Model.IsLinked ? "myLinks_remove" : "myLinks_add")"></i></span>
         @Ajax.ActionLink(Model.IsLinked ? Html.Localize("MyLinks.Remove.lbl") : Html.Localize("MyLinks.Add.lbl"),

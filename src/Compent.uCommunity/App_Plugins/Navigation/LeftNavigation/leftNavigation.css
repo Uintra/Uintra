@@ -1,5 +1,5 @@
 ﻿.side-nav {
-    margin:0;
+    margin:0 0 30px;
     padding:0;
     list-style:none;
     font-weight: bold;
@@ -20,7 +20,6 @@
         padding:4px 40px 4px 19px;
         color:var(--text-color-dark);
 
-        :hover > &,
         &:hover,
         &:focus,
         &:active,
@@ -91,7 +90,7 @@
         display: none;
     }
 
-    ._active > &{
+    ._active &{
         display: block;
     }
 

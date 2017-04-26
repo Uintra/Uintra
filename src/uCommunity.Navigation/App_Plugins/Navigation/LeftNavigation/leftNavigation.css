@@ -20,7 +20,6 @@
         padding:4px 40px 4px 19px;
         color:var(--text-color-dark);
 
-        :hover > &,
         &:hover,
         &:focus,
         &:active,
@@ -84,14 +83,13 @@
                 }
             }
         }
-
     }
 
-    .side-nav {
+    .side-nav{
         display: none;
     }
 
-    ._active > &{
+    ._active &{
         display: block;
     }
 

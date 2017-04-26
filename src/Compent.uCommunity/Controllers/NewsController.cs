@@ -16,6 +16,8 @@ namespace Compent.uCommunity.Controllers
 {
     public class NewsController : NewsControllerBase
     {
+        protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
+
         private readonly INewsService<NewsEntity> _newsService;
 
         public NewsController(IIntranetUserService intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper)
@@ -30,7 +32,7 @@ namespace Compent.uCommunity.Controllers
             var activity = item as NewsBase;
 
             var model = GetOverviewItems(Enumerable.Repeat(activity, 1)).Single();
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
+            return PartialView(ItemViewPath, model);
         }
 
         public override ActionResult List()
@@ -44,7 +46,7 @@ namespace Compent.uCommunity.Controllers
             };
 
             FillLinks();
-            return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
+            return PartialView(ListViewPath, model);
         }
 
 
@@ -63,7 +65,7 @@ namespace Compent.uCommunity.Controllers
             newsViewModel.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
 
-            return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", newsViewModel);
+            return PartialView(DetailsViewPath, newsViewModel);
         }
 
         protected new IEnumerable<NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsBase> news)

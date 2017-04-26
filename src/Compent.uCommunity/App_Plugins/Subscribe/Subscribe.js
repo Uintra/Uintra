@@ -66,4 +66,6 @@ appInitializer.add(function () {
     controller.initOnLoad();
 });
 
+window.subscribe = controller;
+
 export default controller;

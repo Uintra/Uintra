@@ -183,4 +183,6 @@ appInitializer.add(function () {
     new CommentOverview('[id^=js-comments-overview-]');
 });
 
+window.CommentOverview = CommentOverview;
+
 export default CommentOverview;

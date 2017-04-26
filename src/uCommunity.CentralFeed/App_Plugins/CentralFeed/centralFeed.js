@@ -2,7 +2,7 @@
 import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
-import subscribe from "./../Subscribe/Subscribe";
+import subscribe from "./../Subscribe/subscribe";
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;

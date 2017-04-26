@@ -272,6 +272,7 @@
     <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\ContentPanel\contentPanel.js" />
     <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.html" />
     <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.js" />
     <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.css" />
@@ -279,8 +280,8 @@
     <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.js" />
     <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.js" />
-    <Content Include="App_Plugins\ContentPanel\Panel\ContentPanel.js" />
-    <Content Include="App_Plugins\ContentPanel\Panel\_contentPanel.css" />
+    <Content Include="App_Plugins\ContentPanel\Panel\contentPanel.js" />
+    <Content Include="App_Plugins\ContentPanel\Panel\contentPanel.css" />
     <Content Include="uCommunity.ContentPanel.nuspec">
       <SubType>Designer</SubType>
     </Content>

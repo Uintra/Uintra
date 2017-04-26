@@ -35,8 +35,7 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.Teaser, o => o.Ignore());
+                .ForMember(dst => dst.Creator, o => o.Ignore());
 
             Mapper.CreateMap<EventEditModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -49,7 +48,6 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
-                .ForMember(dst => dst.Teaser, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

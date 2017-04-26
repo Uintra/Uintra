@@ -18,6 +18,10 @@
                    data-val-required="@Html.Localize("EventsEdit.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 200)" data-val="true" />
         </div>
         <div class="form__row clearfix">
+            <label class="form__label" for="teaser">@Html.Localize("EventsEdit.Teaser.lbl") <span class="form__required">*</span></label>
+            <textarea class="form__textarea" id="teaser" name="teaser" data-val-required="@Html.Localize("EventsEdit.TeaserRequired.lbl")" data-val-length-max="2000" data-val-length="@Html.Localize("CreateEvents.TeaserMaxLength.lbl")" data-val="true">@Html.Raw(Model.Teaser)</textarea>
+        </div>
+        <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("EventsEdit.Description.lbl") <span class="form__required">*</span></label>
             <div id="description">
                 @Html.Raw(Model.Description)
