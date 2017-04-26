@@ -388,6 +388,7 @@
     <Content Include="App_Plugins\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\package.manifest" />
     <Content Include="App_Plugins\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\navigation.js" />
     <Content Include="App_Plugins\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Web.config" />
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
@@ -409,8 +410,7 @@
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="App_Plugins\MyLinks\MyLinks.js" />
-    <Content Include="App_Plugins\MyLinks\_myLinks.css" />
+    <Content Include="App_Plugins\MyLinks\myLinks.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -432,12 +432,12 @@
     <Content Include="App_Plugins\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Dashboard\navigation.css" />
     <Content Include="App_Plugins\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\LeftNavigation\LeftNavigation.js" />
-    <Content Include="App_Plugins\LeftNavigation\_leftNavigation.css" />
+    <Content Include="App_Plugins\LeftNavigation\leftNavigation.js" />
+    <Content Include="App_Plugins\LeftNavigation\leftNavigation.css" />
     <Content Include="App_Plugins\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\SubNavigation\_subNavigation.css" />
+    <Content Include="App_Plugins\SubNavigation\subNavigation.css" />
     <Content Include="App_Plugins\TopNavigation\topNavigation.js" />
-    <Content Include="App_Plugins\TopNavigation\_topNavigation.css" />
+    <Content Include="App_Plugins\TopNavigation\topNavigation.css" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
