@@ -42,9 +42,8 @@ namespace uCommunity.Notification
                 var reminders = _reminderService.GetAllNotDelivered();
                 foreach (var reminder in reminders)
                 {
-                    var service = _activitiesServiceFactory.GetService(reminder.ActivityId);
-                    var reminderService = service as IReminderableService<IReminderable>;
-                    var notifyableService = service as INotifyableService;
+                    var reminderService = _activitiesServiceFactory.GetService<IReminderableService<IReminderable>>(reminder.ActivityId);
+                    var notifyableService = _activitiesServiceFactory.GetService<INotifyableService>(reminder.ActivityId);
 
                     if (reminderService == null || notifyableService == null)
                     {

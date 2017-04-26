@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Compent.uCommunity.Core.Constants;
-using uCommunity.Core;
+﻿using System.Linq;
+using Compent.uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.User;
 using Umbraco.Core.Models;
 
@@ -10,17 +7,13 @@ namespace Compent.uCommunity.Core.Helpers
 {
     public class UmbracoContentHelper : IUmbracoContentHelper
     {
-        private readonly IEnumerable<string> notWebMasterRoleDisabledDocumentTypes;
-
         private readonly IIntranetUserService _intranetUserService;
+        private readonly IUcommunityApplicationSettings _applicationSettings;
 
-        public UmbracoContentHelper(IIntranetUserService intranetUserService)
+        public UmbracoContentHelper(IIntranetUserService intranetUserService, IUcommunityApplicationSettings applicationSettings)
         {
             _intranetUserService = intranetUserService;
-
-            notWebMasterRoleDisabledDocumentTypes = AppSettingHelper.GetAppSetting<string>(AppSettingConstants.NotWebMasterRoleDisabledDocumentTypes)
-                .Split(new[] { "," }, StringSplitOptions.None)
-                .Select(el => el.Trim());
+            _applicationSettings = applicationSettings;
         }
 
         public bool IsContentAvailable(IPublishedContent publishedContent)
@@ -30,7 +23,7 @@ namespace Compent.uCommunity.Core.Helpers
                 return true;
             }
 
-            if (notWebMasterRoleDisabledDocumentTypes.Contains(publishedContent.DocumentTypeAlias))
+            if (_applicationSettings.NotWebMasterRoleDisabledDocumentTypes.Contains(publishedContent.DocumentTypeAlias))
             {
                 return false;
             }

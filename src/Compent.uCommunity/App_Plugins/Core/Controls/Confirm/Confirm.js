@@ -1,26 +1,22 @@
 ﻿var Alertify = require('alertifyjs/build/alertify.min');
 
 (function () {
-
     Alertify.defaults.glossary.yes = 'yes';
     Alertify.defaults.glossary.no = 'no';
-    Alertify.defaults.theme.cancel = 'ajs-cancel'
+    Alertify.defaults.theme.cancel = 'ajs-cancel';
 
-    Alertify.dialog(
-           'customDialog',
-           function factory() {
-               return {
-                   setup: function () {
-                       return {
-                           buttons: [{ text: Alertify.defaults.glossary.yes, key: 13, scope: 'auxiliary' }, { text: Alertify.defaults.glossary.no, scope: 'auxiliary' }, { text: Alertify.defaults.glossary.cancel, key: 27, scope: 'auxiliary', className: Alertify.defaults.theme.cancel }],
-                           options: {
-                               modal: true
-                           }
-                       };
-                   }
-               }
-           }, false, 'alert');   
-
+    Alertify.dialog('customDialog', function factory() {
+        return {
+            setup: function () {
+                return {
+                    buttons: [{ text: Alertify.defaults.glossary.yes, key: 13, scope: 'auxiliary' }, { text: Alertify.defaults.glossary.no, scope: 'auxiliary' }, { text: Alertify.defaults.glossary.cancel, key: 27, scope: 'auxiliary', className: Alertify.defaults.theme.cancel }],
+                    options: {
+                        modal: true
+                    }
+                };
+            }
+        }
+    }, false, 'alert');   
 })();
 
 var Confirm = {
@@ -61,9 +57,6 @@ var Confirm = {
         }
         Alertify.customDialog('', text, callbackWrapper).set(settings);
     }
-
-
 }
 
-window.App = window.App || {};
-window.App.Confirm = Confirm;
+export default Confirm;

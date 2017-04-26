@@ -9,7 +9,7 @@ namespace uCommunity.News
 {
     public class NewsEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {
-        [Required, StringLength(4000)]
+        [Required, StringLength(2000)]
         public string Teaser { get; set; }
 
         [Required, AllowHtml]

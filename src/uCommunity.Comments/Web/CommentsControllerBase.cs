@@ -37,9 +37,8 @@ namespace uCommunity.Comments.Web
             {
                 return OverView(model.ActivityId);
             }
-            var service = ActivitiesServiceFactory.GetService(model.ActivityId);
-            var commentableService = (ICommentableService)service;
-            var comment = commentableService.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            var service = ActivitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
+            var comment = service.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -55,9 +54,8 @@ namespace uCommunity.Comments.Web
                 return OverView(model.Id);
             }
 
-            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
-            var commentableService = (ICommentableService)service;
-            commentableService.UpdateComment(model.Id, model.Text);
+            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            service.UpdateComment(model.Id, model.Text);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -73,9 +71,8 @@ namespace uCommunity.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService(comment.ActivityId);
-            var commentableService = (ICommentableService)service;
-            commentableService.DeleteComment(id);
+            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            service.DeleteComment(id);
 
             return OverView(comment.ActivityId);
         }

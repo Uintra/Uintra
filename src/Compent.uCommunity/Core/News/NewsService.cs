@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.uCommunity.Core.News.Entities;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
-using uCommunity.Core.Activity.Sql;
+using uCommunity.Core.Activity.Entities;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
@@ -20,10 +21,10 @@ using uCommunity.Subscribe;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uCommunity.Core
+namespace Compent.uCommunity.Core.News
 {
-    public class NewsService : IntranetActivityItemServiceBase<NewsBase, News.Entities.News>,
-        INewsService<NewsBase, News.Entities.News>,
+    public class NewsService : IntranetActivityService<NewsEntity>,
+        INewsService<NewsEntity>,
         ICentralFeedItemService,
         ICommentableService,
         ILikeableService,
@@ -37,15 +38,15 @@ namespace Compent.uCommunity.Core
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
 
-        public NewsService(IIntranetActivityService intranetActivityService,
-            IMemoryCacheService memoryCacheService,
+        public NewsService(IIntranetActivityRepository intranetActivityRepository,
+            ICacheService cacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper, IPermissionsService permissionsService,
             INotificationsService notificationService)
-            : base(intranetActivityService, memoryCacheService)
+            : base(intranetActivityRepository, cacheService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -84,13 +85,10 @@ namespace Compent.uCommunity.Core
             return _umbracoHelper.TypedContent(1095);
         }
 
-        protected override List<string> OverviewXPath { get; }
-
 
         public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.News;
 
-
-        public override bool CanEdit(NewsBase activity)
+        public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
@@ -108,7 +106,7 @@ namespace Compent.uCommunity.Core
             };
         }
 
-        public bool IsActual(News.Entities.News activity)
+        public bool IsActual(NewsEntity activity)
         {
             return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
         }
@@ -125,35 +123,36 @@ namespace Compent.uCommunity.Core
             return items;
         }
 
-        protected override News.Entities.News FillPropertiesOnGet(IntranetActivityEntity entity)
+        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
-            var activity = base.FillPropertiesOnGet(entity);
-            _subscribeService.FillSubscribers(activity);
-            _intranetUserService.FillCreator(activity);
-            _commentsService.FillComments(activity);
-            _likesService.FillLikes(activity);
-
-            return activity;
+            foreach (var activity in cached)
+            {
+                var entity = activity as NewsEntity;
+                _subscribeService.FillSubscribers(entity);
+                _intranetUserService.FillCreator(entity);
+                _commentsService.FillComments(entity);
+                _likesService.FillLikes(entity);
+            }
         }
 
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
-            FillCache(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
             return comment;
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
-            FillCache(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public void DeleteComment(Guid id)
         {
             var comment = _commentsService.Get(id);
             _commentsService.Delete(id);
-            FillCache(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public ICommentable GetCommentsInfo(Guid activityId)
@@ -164,13 +163,13 @@ namespace Compent.uCommunity.Core
         public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            return FillCache(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public ILikeable Remove(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            return FillCache(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
@@ -187,9 +186,29 @@ namespace Compent.uCommunity.Core
             }
         }
 
+        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
+        {
+            return GetOverviewPage();
+        }
+
+        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
+        {
+            return GetDetailsPage();
+        }
+
+        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
+        {
+            return GetCreatePage();
+        }
+
+        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
+        {
+            return GetEditPage();
+        }
+
         private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
         {
-            News.Entities.News news;
+            NewsEntity newsEntity;
             var currentUser = _intranetUserService.GetCurrentUser();
             var data = new NotifierData
             {
@@ -200,12 +219,12 @@ namespace Compent.uCommunity.Core
             {
                 case NotificationTypeEnum.LikeAdded:
                     {
-                        news = Get(entityId);
-                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                        newsEntity = Get(entityId);
+                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel()
                         {
-                            Url = GetDetailsPage().Url.UrlWithQueryString("id", news.Id),
-                            Title = news.Title,
+                            Url = GetDetailsPage().Url.UrlWithQueryString("id", newsEntity.Id),
+                            Title = newsEntity.Title,
                             ActivityType = IntranetActivityTypeEnum.News,
                             NotifierId = currentUser.Id,
                             NotifierName = currentUser.DisplayedName
@@ -216,30 +235,30 @@ namespace Compent.uCommunity.Core
                 case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
-                        news = Get(comment.ActivityId);
-                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                        newsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel()
                         {
                             ActivityType = IntranetActivityTypeEnum.News,
                             NotifierId = comment.UserId,
                             NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
-                            Title = news.Title,
-                            Url = GetUrlWithComment(news.Id, comment.Id)
+                            Title = newsEntity.Title,
+                            Url = GetUrlWithComment(newsEntity.Id, comment.Id)
                         };
                     }
                     break;
                 case NotificationTypeEnum.CommentReplyed:
                     {
                         var comment = _commentsService.Get(entityId);
-                        news = Get(comment.ActivityId);
+                        newsEntity = Get(comment.ActivityId);
                         data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
                             ActivityType = IntranetActivityTypeEnum.Ideas,
                             NotifierId = currentUser.Id,
                             NotifierName = currentUser.DisplayedName,
-                            Title = news.Title,
-                            Url = GetUrlWithComment(news.Id, comment.Id),
+                            Title = newsEntity.Title,
+                            Url = GetUrlWithComment(newsEntity.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }

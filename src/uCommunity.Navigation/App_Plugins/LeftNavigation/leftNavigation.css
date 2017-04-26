@@ -1,0 +1,117 @@
+﻿.side-nav {
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-weight: bold;
+    font-size:14px;
+    line-height: 22px;
+    font-family:var(--font-general);
+
+    &__item{
+        position:relative;
+
+        &:hover{
+            cursor:pointer;
+        }
+    }
+
+    &__link{
+        display:block;
+        padding:4px 40px 4px 19px;
+        color:var(--text-color-dark);
+
+        &:hover,
+        &:focus,
+        &:active,
+        ._active > &{
+            background:#e5e5e5;
+            text-decoration:none;
+            color:var(--text-color-dark);
+        }
+
+        ._active > &{
+            cursor:default;
+            pointer-events:none;
+        }
+    }
+
+    &__arrow{
+        position:absolute;
+        top:14px;
+        right:24px;
+         width: 9px;
+         height: 9px;
+         border: solid #a1a4ac;
+         border-width: 1px 0 0 1px;
+         transform: rotate(45deg);
+
+         ._active & {
+             top: 9px;
+             transform: rotate(225deg);
+             border-color: #000;
+         }
+    }
+
+    .glyphicon{
+        position:absolute;
+        top:8px;
+        right:50px;
+    }
+
+    & &{
+        margin:0;
+        padding:0;
+        list-style:none;
+        font-weight: normal;
+        font-family:var(--font-general);
+        font-size:13px;
+
+        .side-nav{
+            &__link{
+                padding-left:29px;
+            }
+
+            .side-nav{
+                &__link{
+                    padding-left:39px;
+                }
+
+                .side-nav{
+                    &__link{
+                        padding-left:49px;
+                    }
+                }
+            }
+        }
+    }
+
+    .side-nav{
+        display: none;
+    }
+
+    ._active &{
+        display: block;
+    }
+
+    @media (--for-tablet-portrait-down) {
+        font-size: 18px;
+        padding: 24px 0 38px;
+
+        & & {
+            padding: 3px 0 0;
+            font-size:16px;
+
+            &__item {
+                margin: 0 0 5px;
+            }
+
+            &__link {
+                padding-left: 19px;
+            }
+        }
+
+        &__link {
+            padding-left: 19px;
+        }
+    }
+}

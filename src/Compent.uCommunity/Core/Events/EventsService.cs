@@ -5,6 +5,7 @@ using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
+using uCommunity.Core.Activity.Entities;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
@@ -22,8 +23,8 @@ using Umbraco.Web;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class EventsService : IntranetActivityItemServiceBase<EventBase, Event>,
-        IEventsService<EventBase, Event>,
+    public class EventsService : IntranetActivityService<Event>,
+        IEventsService<Event>,
         ICentralFeedItemService,
         ISubscribableService,
         ILikeableService,
@@ -39,8 +40,8 @@ namespace Compent.uCommunity.Core.Events
         private readonly INotificationsService _notificationService;
 
         public EventsService(UmbracoHelper umbracoHelper,
-            IIntranetActivityService intranetActivityService,
-            IMemoryCacheService memoryCacheService,
+            IIntranetActivityRepository intranetActivityRepository,
+            ICacheService cacheService,
             IIntranetUserService intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
@@ -48,7 +49,7 @@ namespace Compent.uCommunity.Core.Events
             IPermissionsService permissionsService,
             INotificationsService notificationService
             )
-            : base(intranetActivityService, memoryCacheService)
+            : base(intranetActivityRepository, cacheService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
@@ -59,7 +60,6 @@ namespace Compent.uCommunity.Core.Events
             _notificationService = notificationService;
         }
 
-        protected override List<string> OverviewXPath { get; }
         public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.Events;
 
         public override IPublishedContent GetOverviewPage()
@@ -128,11 +128,13 @@ namespace Compent.uCommunity.Core.Events
             };
         }
 
-        public override bool CanEdit(EventBase activity)
+        public override bool CanEdit(IIntranetActivity cached)
         {
+            var @event = (Event)cached;
+
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            return activity.CreatorId == currentUser.Id 
+            return @event.CreatorId == currentUser.Id
                 || _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
         }
 
@@ -148,39 +150,40 @@ namespace Compent.uCommunity.Core.Events
             return items;
         }
 
-        protected override Event FillPropertiesOnGet(IntranetActivityEntity entity)
+        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
-            var activity = base.FillPropertiesOnGet(entity);
-            _subscribeService.FillSubscribers(activity);
-            _intranetUserService.FillCreator(activity);
-            _commentsService.FillComments(activity);
-            _likesService.FillLikes(activity);
-
-            return activity;
+            foreach (var activity in cached)
+            {
+                var entity = activity as Event;
+                _subscribeService.FillSubscribers(entity);
+                _intranetUserService.FillCreator(entity);
+                _commentsService.FillComments(entity);
+                _likesService.FillLikes(entity);
+            }
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Unsubscribe(userId, activityId);
-            FillCache(activityId);
+            UpdateCachedEntity(activityId);
         }
 
         public void UpdateNotification(Guid id, bool value)
         {
             var subscribe = _subscribeService.UpdateNotification(id, value);
-            FillCache(subscribe.ActivityId);
+            UpdateCachedEntity(subscribe.ActivityId);
         }
 
         public ILikeable Add(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            return FillCache(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public ILikeable Remove(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            return FillCache(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId)
@@ -191,21 +194,21 @@ namespace Compent.uCommunity.Core.Events
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
-            FillCache(activityId);
+            UpdateCachedEntity(activityId);
             return comment;
         }
 
         public void UpdateComment(Guid id, string text)
         {
             var comment = _commentsService.Update(id, text);
-            FillCache(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public void DeleteComment(Guid id)
         {
             var comment = _commentsService.Get(id);
             _commentsService.Delete(id);
-            FillCache(comment.ActivityId);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
         public ICommentable GetCommentsInfo(Guid activityId)
@@ -350,7 +353,27 @@ namespace Compent.uCommunity.Core.Events
         public ISubscribable Subscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Subscribe(userId, activityId);
-            return FillCache(activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -3,6 +3,7 @@ var Delta = require('quill-delta');
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
+require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
 var easeInOutQuad = function (t, b, c, d) {
@@ -43,10 +44,10 @@ var helpers = {
 
         return quill;
     },
-    initPublishDatePicker: function (holder) {
-        var dateElem = holder.find('#js-publish-date');
+    initDatePicker: function (holder, dateElemSelector, valueSelector) {
+        var dateElem = holder.find(dateElemSelector);
         var dateFormat = dateElem.data('dateFormat');
-        var dateElemValue = holder.find('#js-publish-date-value');
+        var dateElemValue = holder.find(valueSelector);
         var defaultDate = new Date(dateElem.data('defaultDate'));
 
         var datePicker = new Flatpickr(dateElem[0], {
@@ -56,7 +57,7 @@ var helpers = {
             weekNumbers: true,
             dateFormat: dateFormat,
             locale: FlatpickrLang.da,
-            onChange: function(selectedDates) {
+            onChange: function (selectedDates) {
                 if (selectedDates.length === 0) {
                     dateElemValue.val('');
                     return;
@@ -76,6 +77,9 @@ var helpers = {
 
         datePicker.set('minDate', minDate.setHours(0));
     },
+    initPublishDatePicker: function (holder) {
+        this.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
+    },
     removeOffset: function (date) {
         var dateOffset = date.getTimezoneOffset() * 60000; // [min*60000 = ms]
         return new Date(date.getTime() + dateOffset);
@@ -85,7 +89,7 @@ var helpers = {
             var lock = false;
             var win = $(window);
             var doc = $(document);
-            var unlock = function () { lock = false; }
+            var unlock = function () {lock = false; }
             win.scroll(function () {
                 if ((win.scrollTop() + 70) >= doc.height() - win.height()) {
                     if (!lock) {

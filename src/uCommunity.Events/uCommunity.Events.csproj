@@ -308,8 +308,7 @@
     <Compile Include="Core\Dashboard\EventsSection.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
-    <Compile Include="Core\Entities\EventBase.cs" />
-    <Compile Include="Core\Entities\EventModelBase.cs" />
+    <Compile Include="Core\EventBase.cs" />
     <Compile Include="Core\Models\EventViewModel.cs" />
     <Compile Include="Core\Services\IEventsService.cs" />
     <Compile Include="Core\Models\EventCreateModel.cs" />
@@ -328,6 +327,7 @@
     <Content Include="App_Plugins\Events\Create\create-events.js" />
     <Content Include="App_Plugins\Events\Create\events-create.html" />
     <Content Include="App_Plugins\Events\Details\events-details.html" />
+    <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\Edit\edit-events.js" />
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\List\edit-list.js" />

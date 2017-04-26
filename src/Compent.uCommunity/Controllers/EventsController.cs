@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uCommunity.Core.Events;
 using uCommunity.CentralFeed;
 using uCommunity.Core;
-using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions.Web;
 using uCommunity.Events;
 using uCommunity.Events.Web;
 using uCommunity.Notification.Core.Configuration;
@@ -22,27 +19,23 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        public override string OverviewViewPath { get; } = "~/Views/Events/OverView.cshtml";
-        public override string ListViewPath { get; } = "~/Views/Events/ListView.cshtml";
-        public override string DetailsViewPath { get; } = "~/Views/Events/DetailsView.cshtml";
-        public override string CreateViewPath { get; } = "~/Views/Events/CreateView.cshtml";
-        public override string EditViewPath { get; } = "~/Views/Events/EditView.cshtml";
-        public override string ItemViewPath { get; } = "~/Views/Events/ItemView.cshtml";
+        public override string OverviewViewPath => "~/Views/Events/OverView.cshtml";
+        public override string ListViewPath => "~/Views/Events/ListView.cshtml";
+        public override string DetailsViewPath => "~/Views/Events/DetailsView.cshtml";
+        public override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
+        public override string EditViewPath => "~/Views/Events/EditView.cshtml";
+        public override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
 
-        private readonly IEventsService<EventBase, Event> _eventsService;
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
 
-        public EventsController(IEventsService<EventBase, Event> eventsService,
+        public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService intranetUserService,
             IReminderService reminderService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
-            _mediaHelper = mediaHelper;
-            _intranetUserService = intranetUserService;
             _reminderService = reminderService;
         }
 
@@ -84,26 +77,6 @@ namespace Compent.uCommunity.Controllers
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public override ActionResult Create(EventCreateModel createModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
-            }
-
-            var @event = createModel.Map<Event>();
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-
-            var activityId = _eventsService.Create(@event);
-            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
-
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
-        }
-
-        [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
         {
             var @event = MapModel(model);
@@ -136,6 +109,29 @@ namespace Compent.uCommunity.Controllers
 
                 yield return model;
             }
+        }
+
+        protected override void OnEventCreated(Guid activityId)
+        {
+            _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+        }
+
+        protected override void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        {
+            if (isActual)
+            {
+                if (notifySubscribers)
+                {
+                    ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventUpdated);
+                }
+
+                _reminderService.CreateIfNotExists(id, ReminderTypeEnum.OneDayBefore);
+            }
+        }
+
+        protected override void OnEventHidden(Guid id)
+        {
+            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
         }
     }
 }

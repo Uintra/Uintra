@@ -9,7 +9,7 @@ namespace uCommunity.Events
 
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public string Teaser { get; set; }
 
         public DateTime StartDate { get; set; }
 

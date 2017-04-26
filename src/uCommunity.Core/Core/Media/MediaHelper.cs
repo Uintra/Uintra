@@ -13,13 +13,13 @@ namespace uCommunity.Core.Media
 {
     public class MediaHelper : IMediaHelper
     {
-        private readonly IMemoryCacheService _memoryCacheService;
+        private readonly ICacheService cacheService;
         private readonly IMediaService _mediaService;
 
-        public MediaHelper(IMemoryCacheService memoryCacheService,
+        public MediaHelper(ICacheService cacheService,
             IMediaService mediaService)
         {
-            _memoryCacheService = memoryCacheService;
+            this.cacheService = cacheService;
             _mediaService = mediaService;
         }
 
@@ -28,7 +28,7 @@ namespace uCommunity.Core.Media
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
             var mediaIds = model.NewMedia.Split(';').Where(s => s.IsNotNullOrEmpty()).Select(Guid.Parse);
-            var cachedTempMedia = mediaIds.Select(s => _memoryCacheService.Get<TempFile>(s.ToString(), ""));
+            var cachedTempMedia = mediaIds.Select(s => cacheService.Get<TempFile>(s.ToString(), ""));
             var rootMedia = GetRootMedia(model.MediaRootId);
 
             var umbracoMediaIds = new List<int>();

@@ -9,7 +9,7 @@ using uCommunity.Subscribe;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class Event : EventModelBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
+    public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;

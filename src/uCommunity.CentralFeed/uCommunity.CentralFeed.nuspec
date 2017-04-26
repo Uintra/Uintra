@@ -11,10 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Likes</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.11" />
+      <dependency id="uCommunity.Core" version="1.0.19" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="Plugin\**\*.*" target="content\App_Plugins\CentralFeed\" />
-  </files>
 </package>

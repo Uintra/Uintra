@@ -558,11 +558,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Entities\NewsModelBase.cs" />
     <Compile Include="Core\Models\NewsCreateModel.cs" />
     <Compile Include="Core\Models\NewsViewModel.cs" />
-    <Compile Include="Core\Entities\NewsBase.cs" />
-    <Compile Include="Core\Services\INewsService.cs" />
+    <Compile Include="Core\NewsBase.cs" />
+    <Compile Include="Core\INewsService.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
     <Compile Include="Core\Models\NewsOverviewItemViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewViewModel.cs" />
@@ -591,6 +590,7 @@
     <None Include="packages.config" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
@@ -607,10 +607,8 @@
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
     <Content Include="App_Plugins\News\backoffice\news-management.js" />
-    <Content Include="App_Plugins\News\Create\create-news.js" />
     <Content Include="App_Plugins\News\Create\news-create.html" />
     <Content Include="App_Plugins\News\Details\news-details.html" />
-    <Content Include="App_Plugins\News\Edit\edit-news.js" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\List\news-list.html" />
   </ItemGroup>
@@ -619,10 +617,6 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uCommunity.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\loader.gif" />
-    <Content Include="App_Plugins\News\_news.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

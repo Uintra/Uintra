@@ -18,19 +18,19 @@ namespace uCommunity.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
-        public virtual string OverviewViewPath { get; } = "~/App_Plugins/Events/List/OverView.cshtml";
-        public virtual string ListViewPath { get; } = "~/App_Plugins/Events/List/ListView.cshtml";
-        public virtual string DetailsViewPath { get; } = "~/App_Plugins/Events/Details/DetailsView.cshtml";
-        public virtual string CreateViewPath { get; } = "~/App_Plugins/Events/Create/CreateView.cshtml";
-        public virtual string EditViewPath { get; } = "~/App_Plugins/Events/Edit/EditView.cshtml";
-        public virtual string ItemViewPath { get; } = "~/App_Plugins/Events/List/ItemView.cshtml";
+        public virtual string OverviewViewPath => "~/App_Plugins/Events/List/OverView.cshtml";
+        public virtual string ListViewPath  =>"~/App_Plugins/Events/List/ListView.cshtml";
+        public virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
+        public virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
+        public virtual string EditViewPath  => "~/App_Plugins/Events/Edit/EditView.cshtml";
+        public virtual string ItemViewPath  => "~/App_Plugins/Events/List/ItemView.cshtml";
 
-        private readonly IEventsService<EventBase, EventModelBase> _eventsService;
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IEventsService<EventBase> _eventsService;
+        protected readonly IMediaHelper _mediaHelper;
+        protected readonly IIntranetUserService _intranetUserService;
 
         protected EventsControllerBase(
-            IEventsService<EventBase, EventModelBase> eventsService,
+            IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService intranetUserService)
         {
@@ -47,7 +47,7 @@ namespace uCommunity.Events.Web
 
         public virtual ActionResult List(EventType type, bool showOnlySubscribed)
         {
-            IEnumerable<EventModelBase> events = type == EventType.Actual ?
+            var events = type == EventType.Actual ?
                 _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
                 _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
@@ -98,11 +98,12 @@ namespace uCommunity.Events.Web
                 return PartialView(CreateViewPath, createModel);
             }
 
-            var @event = createModel.Map<EventModelBase>();
+            var @event = createModel.Map<EventBase>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
+            OnEventCreated(activityId);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
@@ -145,6 +146,10 @@ namespace uCommunity.Events.Web
             {
                 @event.CanSubscribe = saveModel.CanSubscribe;
             }
+            var isActual = _eventsService.IsActual(@event);
+            _eventsService.Save(@event);
+
+            OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
@@ -152,6 +157,7 @@ namespace uCommunity.Events.Web
         [HttpPost]
         public virtual JsonResult Hide(Guid id)
         {
+            OnEventHidden(id);
             _eventsService.Hide(id);
 
             return Json(new { _eventsService.GetOverviewPage().Url });
@@ -169,7 +175,7 @@ namespace uCommunity.Events.Web
             return PartialView(ItemViewPath, model);
         }
 
-        protected virtual EventModelBase MapEditModel(EventEditModel saveModel)
+        protected virtual EventBase MapEditModel(EventEditModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
@@ -192,7 +198,7 @@ namespace uCommunity.Events.Web
             ViewData["OverviewPageUrl"] = _eventsService.GetOverviewPage().Url;
         }
 
-        protected virtual IEnumerable<EventsOverviewItemViewModel> GetOverviewItems(IEnumerable<EventModelBase> events)
+        protected virtual IEnumerable<EventsOverviewItemViewModel> GetOverviewItems(IEnumerable<EventBase> events)
         {
             var detailsPageUrl = _eventsService.GetDetailsPage().Url;
             foreach (var @event in events)
@@ -206,6 +212,18 @@ namespace uCommunity.Events.Web
 
                 yield return model;
             }
+        }
+
+        protected virtual void OnEventCreated(Guid activityId)
+        {
+        }
+
+        protected virtual void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        {
+        }
+
+        protected virtual void OnEventHidden(Guid id)
+        {
         }
     }
 }

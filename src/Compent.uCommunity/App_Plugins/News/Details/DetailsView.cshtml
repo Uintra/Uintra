@@ -1,7 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using uCommunity.Core.Extentions
-@model Compent.uCommunity.Core.News.Models.NewsExtendedViewModel
-
+@model uCommunity.News.NewsViewModel
 @{
     if (Model == null)
     {
@@ -23,7 +22,7 @@
                 </header>
 
                 <div class="content__item _details">
-                    @Html.Action("ActivityDetailsHeader", "Activity", new { header = Model.HeaderInfo })
+                    @Html.Action("ActivityDetailsHeader", "ActivityHeader", new { header = Model.HeaderInfo })
                     <div class="content__item-txt">
                         <p>
                             <b>@Model.Teaser</b>
@@ -31,18 +30,10 @@
                         @Html.Raw(Model.Description)
                     </div>
                     <div class="content__item-images">
-                        @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
-                    </div>
-                    <div class="content__item-feed">
-                        <div class="content__item-feed-holder">
-                            @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                        </div>
-                    </div>
-                    <div class="comments">
-                        @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+                        @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
                     </div>
                 </div>
             </div>
         </div>
     </section>
-}  
+} 

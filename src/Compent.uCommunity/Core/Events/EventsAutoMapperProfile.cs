@@ -9,26 +9,23 @@ namespace Compent.uCommunity.Core.Events
         protected override void Configure()
         {
             Mapper.CreateMap<Event, IntranetEventViewModel>()
-                  .IncludeBase<EventModelBase, IntranetEventViewModel>()
-                  .IncludeBase<EventModelBase, EventViewModel>()
+                  .IncludeBase<EventBase, IntranetEventViewModel>()
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Event, EventOverviewItemModel>()
-                .IncludeBase<EventModelBase, EventOverviewItemModel>()
+                .IncludeBase<EventBase, EventOverviewItemModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
-                 .IncludeBase<EventModelBase, IntranetActivityItemHeaderViewModel>();
+                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
             Mapper.CreateMap<EventEditModel, Event>()
-                .IncludeBase<EventEditModel, EventModelBase>()
                 .ForMember(dst => dst.Type, o => o.Ignore());
 
             Mapper.CreateMap<EventCreateModel, Event>()
-              .IncludeBase<EventCreateModel, EventModelBase>()
               .ForMember(dst => dst.Type, o => o.Ignore());
         }
     }

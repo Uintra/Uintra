@@ -16,9 +16,11 @@ namespace Compent.uCommunity.Controllers
 {
     public class NewsController : NewsControllerBase
     {
-        private readonly INewsService<NewsBase, News> _newsService;
+        protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
 
-        public NewsController(IIntranetUserService intranetUserService, INewsService<NewsBase, News> newsService, IMediaHelper mediaHelper)
+        private readonly INewsService<NewsEntity> _newsService;
+
+        public NewsController(IIntranetUserService intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper)
             : base(intranetUserService, newsService, mediaHelper)
         {
             _newsService = newsService;
@@ -27,10 +29,10 @@ namespace Compent.uCommunity.Controllers
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
             FillLinks();
-            var activity = item as NewsModelBase;
+            var activity = item as NewsBase;
 
             var model = GetOverviewItems(Enumerable.Repeat(activity, 1)).Single();
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
+            return PartialView(ItemViewPath, model);
         }
 
         public override ActionResult List()
@@ -44,13 +46,13 @@ namespace Compent.uCommunity.Controllers
             };
 
             FillLinks();
-            return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
+            return PartialView(ListViewPath, model);
         }
 
 
         public override ActionResult Details(Guid id)
         {
-            NewsModelBase newsModelBase = _newsService.Get(id);
+            var newsModelBase = _newsService.Get(id);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -63,13 +65,13 @@ namespace Compent.uCommunity.Controllers
             newsViewModel.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
 
-            return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", newsViewModel);
+            return PartialView(DetailsViewPath, newsViewModel);
         }
 
-        protected new IEnumerable<NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        protected new IEnumerable<NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsBase> news)
         {
             string detailsPageUrl = _newsService.GetDetailsPage().Url;
-            foreach (NewsModelBase newsModelBase in news)
+            foreach (var newsModelBase in news)
             {
                 var overviewItemViewModel = newsModelBase.Map<NewsOverviewItemExtendedViewModel>();
                 overviewItemViewModel.MediaIds = newsModelBase.MediaIds.Take(3).JoinToString(",");

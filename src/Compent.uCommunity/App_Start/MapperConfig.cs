@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using uCommunity.CentralFeed.AutoMapperProfiles;
 using uCommunity.Comments.AutoMapperProfiles;
 using uCommunity.Core.Controls.LightboxGallery;
 using uCommunity.Events;
@@ -21,6 +22,7 @@ namespace Compent.uCommunity.App_Start
             Mapper.AddProfile<EventsAutoMapperProfile>();
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
             Mapper.AddProfile<NotificationAutoMapperProfile>();
+            Mapper.AddProfile<CentralFeedAutoMapperProfile>();
         }
     }
 }

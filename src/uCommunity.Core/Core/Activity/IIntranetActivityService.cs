@@ -1,16 +1,41 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using uCommunity.Core.Activity.Sql;
+using uCommunity.Core.Activity.Entities;
+using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Activity
 {
+    public interface IIntranetActivityService<out TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
+    {
+        IntranetActivityTypeEnum ActivityType { get; }
+
+        TActivity Get(Guid id);
+        IEnumerable<TActivity> GetManyActual();
+        IEnumerable<TActivity> GetAll(bool includeHidden = false);
+        bool IsActual(IIntranetActivity cachedActivity);
+        Guid Create(IIntranetActivity jsonData);
+        void Save(IIntranetActivity saveModel);
+        bool CanEdit(IIntranetActivity cached);
+    }
+
     public interface IIntranetActivityService
     {
-        IntranetActivityEntity Get(Guid id);
-        IEnumerable<IntranetActivityEntity> GetMany(IntranetActivityTypeEnum activityType);
-        IntranetActivityTypeEnum GetType(Guid id);
-        void Create(IntranetActivityEntity entity);
-        void Update(IntranetActivityEntity entity);
         void Delete(Guid id);
+        bool CanEdit(Guid id);
+
+        [Obsolete("Use overloading method instead")]
+        IPublishedContent GetOverviewPage();
+        [Obsolete("Use overloading method instead")]
+        IPublishedContent GetDetailsPage();
+        [Obsolete("Use overloading method instead")]
+        IPublishedContent GetCreatePage();
+        [Obsolete("Use overloading method instead")]
+        IPublishedContent GetEditPage();
+
+        IPublishedContent GetOverviewPage(IPublishedContent currentPage);
+        IPublishedContent GetDetailsPage(IPublishedContent currentPage);
+        IPublishedContent GetCreatePage(IPublishedContent currentPage);
+        IPublishedContent GetEditPage(IPublishedContent currentPage);
     }
+
 }

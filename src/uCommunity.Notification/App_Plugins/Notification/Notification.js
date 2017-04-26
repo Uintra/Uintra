@@ -37,7 +37,6 @@ function initCustomControls() {
     });
 }
 
-
 function initInfinityScroll() {
     var holder = $('.js-notifications-overview');
     if (!holder.length) return;
@@ -86,6 +85,7 @@ function initInfinityScroll() {
         var hash = (window.location.hash || "").replace("#", "");
         if (hash) {
             var savedState = localStorage.getItem(state.storageName);
+
             state.page = (savedState || {}).page || 1;
             reload().then(function () {
                 var elem = $('[data-anchor="' + hash + '"]');
@@ -96,7 +96,6 @@ function initInfinityScroll() {
         } else {
             localStorage.removeItem(state.storageName);
         }
-
     }
 
     function onScroll(done) {

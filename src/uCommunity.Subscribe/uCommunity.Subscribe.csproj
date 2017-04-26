@@ -328,7 +328,7 @@
     <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
     <Compile Include="Core\Model\SubscribeViewModel.cs" />
     <Compile Include="Core\Sql\Subscribe.cs" />
-    <Compile Include="Web\SubscribeControllerBase.cs"/>
+    <Compile Include="Web\SubscribeControllerBase.cs" />
     <Compile Include="Core\Services\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -344,8 +344,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\Subscribe.js" />
-    <Content Include="App_Plugins\Subscribe\SubscribeList.js" />
+    <Content Include="App_Plugins\Subscribe\subscribe.js" />
+    <Content Include="App_Plugins\Subscribe\subscribeList.js" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

@@ -6,12 +6,15 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.uCommunity.Core.ApplicationSettings;
+using Compent.uCommunity.Core.CentralFeed;
 using Compent.uCommunity.Core.Comments;
 using Compent.uCommunity.Core.Events;
 using Compent.uCommunity.Core.Exceptions;
 using Compent.uCommunity.Core.Helpers;
 using Compent.uCommunity.Core.IoC;
 using Compent.uCommunity.Core.Navigation;
+using Compent.uCommunity.Core.News;
 using Compent.uCommunity.Core.Notification;
 using Compent.uCommunity.Core.Subscribe;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -21,12 +24,15 @@ using Ninject.Web.Common;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using uCommunity.CentralFeed;
+using uCommunity.CentralFeed.Core;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
+using uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Configuration;
 using uCommunity.Core.Exceptions;
+using uCommunity.Core.Grid;
 using uCommunity.Core.Localization;
 using uCommunity.Core.Media;
 using uCommunity.Core.ModelBinders;
@@ -140,11 +146,11 @@ namespace Compent.uCommunity.Core.IoC
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
             kernel.Bind<IIntranetUserService>().To<IntranetUserService>().InRequestScope();
-            kernel.Bind(typeof(INewsService<,>)).To<NewsService>().InRequestScope();
-            kernel.Bind(typeof(IEventsService<,>)).To<EventsService>().InRequestScope();
+            kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
+            kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
-            kernel.Bind<IIntranetActivityService>().To<IntranetActivityService>().InRequestScope();
-            kernel.Bind<IMemoryCacheService>().To<MemoryCacheService>().InRequestScope();
+            kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
+            kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
 
             kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
@@ -154,7 +160,8 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<News.Entities.NewsEntity>().InRequestScope();
+            kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
 
@@ -171,6 +178,8 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILeftSideNavigationModelBuilder>().To<UcommunityLeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<IMyLinksModelBuilder>().To<MyLinksModelBuilder>().InRequestScope();
+            kernel.Bind<IMyLinksService>().To<MyLinksService>().InRequestScope();
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
@@ -195,6 +204,11 @@ namespace Compent.uCommunity.Core.IoC
             //Sql 
             kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>)).InRequestScope();
             EnsureTablesExists(kernel);
+
+            kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
+
+            kernel.Bind<IApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
+            kernel.Bind<IUcommunityApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
@@ -224,6 +238,7 @@ namespace Compent.uCommunity.Core.IoC
             sqlTypes.Add(typeof(IntranetActivityEntity));
             sqlTypes.Add(typeof(SqlNotification));
             sqlTypes.Add(typeof(Reminder));
+            sqlTypes.Add(typeof(MyLink));
 
             var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
             using (var conn = connectionFactory.Open())

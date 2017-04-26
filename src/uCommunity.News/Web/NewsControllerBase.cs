@@ -17,13 +17,19 @@ namespace uCommunity.News.Web
     [ActivityController(IntranetActivityTypeEnum.News)]
     public abstract class NewsControllerBase : SurfaceController
     {
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly INewsService<NewsBase, NewsModelBase> _newsService;
+        protected virtual string ListViewPath { get; } = "~/App_Plugins/News/List/ListView.cshtml";
+        protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
+        protected virtual string DetailsViewPath { get; } = "~/App_Plugins/News/Details/DetailsView.cshtml";
+        protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
+        protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
+
+        private readonly INewsService<NewsBase> _newsService;
+        protected readonly IMediaHelper _mediaHelper;
+        protected readonly IIntranetUserService _intranetUserService;
 
         protected NewsControllerBase(
             IIntranetUserService intranetUserService,
-            INewsService<NewsBase, NewsModelBase> newsService,
+            INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper)
         {
             _intranetUserService = intranetUserService;
@@ -42,12 +48,12 @@ namespace uCommunity.News.Web
             };
 
             FillLinks();
-            return PartialView("~/App_Plugins/News/List/ListView.cshtml", model);
+            return PartialView(ListViewPath, model);
         }
 
         public virtual ActionResult ItemView(NewsOverviewItemViewModel model)
         {
-            return PartialView("~/App_Plugins/News/List/ItemView.cshtml", model);
+            return PartialView(ItemViewPath, model);
         }
 
         public virtual ActionResult Details(Guid id)
@@ -66,7 +72,7 @@ namespace uCommunity.News.Web
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
 
-            return PartialView("~/App_Plugins/News/Details/DetailsView.cshtml", model);
+            return PartialView(DetailsViewPath, model);
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Create)]
@@ -74,7 +80,7 @@ namespace uCommunity.News.Web
         {
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
             FillCreateEditData(model);
-            return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", model);
+            return PartialView(CreateViewPath, model);
         }
 
         [HttpPost]
@@ -84,10 +90,10 @@ namespace uCommunity.News.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
-                return PartialView("~/App_Plugins/News/Create/CreateView.cshtml", createModel);
+                return PartialView(CreateViewPath, createModel);
             }
 
-            var news = createModel.Map<NewsModelBase>();
+            var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             news.CreatorId = _intranetUserService.GetCurrentUserId();
 
@@ -111,7 +117,7 @@ namespace uCommunity.News.Web
 
             var model = news.Map<NewsEditModel>();
             FillCreateEditData(model);
-            return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", model);
+            return PartialView(EditViewPath, model);
         }
 
         [HttpPost]
@@ -121,10 +127,10 @@ namespace uCommunity.News.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(editModel);
-                return PartialView("~/App_Plugins/News/Edit/EditView.cshtml", editModel);
+                return PartialView(EditViewPath, editModel);
             }
 
-            var activity = editModel.Map<NewsModelBase>();
+            var activity = editModel.Map<NewsBase>();
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
@@ -141,7 +147,7 @@ namespace uCommunity.News.Web
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        protected virtual IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsModelBase> news)
+        protected virtual IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsBase> news)
         {
             var detailsPageUrl = _newsService.GetDetailsPage().Url;
             foreach (var item in news)

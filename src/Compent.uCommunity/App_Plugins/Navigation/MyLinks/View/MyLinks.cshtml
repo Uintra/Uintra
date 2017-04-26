@@ -1,0 +1,30 @@
+﻿@using uCommunity.Core.Extentions
+@using uCommunity.Navigation.DefaultImplementation
+@using umbraco.NodeFactory
+@model MyLinksViewModel
+
+<ul class="side-nav js-my-links__opener" id="myLinksContainer">
+    <li class="side-nav__item">
+        <a class="side-nav__link">@Html.Localize("MyLinks.Menu.lbl")</a>
+        <span class="side-nav__arrow"></span>
+        <ul class="side-nav">
+            @foreach (var item in Model.MyLinks)
+            {
+                <li class="side-nav__item">
+                    <a class="side-nav__link" href="@item.Url">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+    <li class="side-nav__item">
+        <span class="@(Model.IsLinked ? "_isLinked" : "")"><i class="@(Model.IsLinked ? "myLinks_remove" : "myLinks_add")"></i></span>
+        @Ajax.ActionLink(Model.IsLinked ? Html.Localize("MyLinks.Remove.lbl") : Html.Localize("MyLinks.Add.lbl"),
+            "AddRemoveMyLink",
+            "Navigation",
+            new { },
+            new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnComplete = "myLinks.switchLinkIcon()" },
+            new {@class = "side-nav__link", id = "myLinks_addRemove"})
+    </li>
+</ul>

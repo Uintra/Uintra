@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
-using uCommunity.Core.Caching;
+using uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.Exceptions;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
@@ -21,16 +21,19 @@ namespace uCommunity.Users.Core
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IExceptionLogger _exceptionLogger;
+        private readonly IApplicationSettings _applicationSettings;
 
         public IntranetUserService(IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
-            IExceptionLogger exceptionLogger)
+            IExceptionLogger exceptionLogger,
+            IApplicationSettings applicationSettings)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _exceptionLogger = exceptionLogger;
+            _applicationSettings = applicationSettings;
         }
 
         public virtual IIntranetUser Get(int umbracoId)
@@ -129,7 +132,7 @@ namespace uCommunity.Users.Core
             if (userPhotoId.HasValue)
             {
                 var media = _umbracoHelper.TypedMedia(userPhotoId.Value);
-                user.Photo = media.Url;
+                user.Photo = GetUserPhotoOrDefaultAvatar(media.Url);
             }
             return user;
         }
@@ -186,6 +189,11 @@ namespace uCommunity.Users.Core
         protected virtual string GetGroupNameFromRole(IntranetRolesEnum role)
         {
             return role.ToString();
+        }
+
+        protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
+        {
+            return !string.IsNullOrEmpty(userImage) ? userImage : _applicationSettings.DefaultAvatarPath;
         }
     }
 }

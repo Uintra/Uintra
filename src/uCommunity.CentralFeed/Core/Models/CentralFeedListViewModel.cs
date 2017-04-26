@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using uCommunity.CentralFeed.Entities;
+using uCommunity.CentralFeed.Enums;
 using uCommunity.Core.Activity;
 
 namespace uCommunity.CentralFeed.Models
 {
     public class CentralFeedListViewModel
     {
-        public IntranetActivityTypeEnum? Type { get; set; }
+        public CentralFeedTypeEnum? Type { get; set; }
         public IEnumerable<ICentralFeedItem> Items { get; set; }
         public IEnumerable<CentralFeedSettings> Settings { get; set; }
         public long Version { get; set; }

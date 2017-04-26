@@ -14,9 +14,9 @@ namespace uCommunity.Subscribe.Web
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersList.cshtml";
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribeView.cshtml";
 
-        private readonly ISubscribeService _subscribeService;
-        private readonly IIntranetUserService _intranetUserService;
-        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        protected readonly ISubscribeService _subscribeService;
+        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected SubscribeControllerBase(
             ISubscribeService subscribeService,
@@ -56,9 +56,8 @@ namespace uCommunity.Subscribe.Web
         public virtual PartialViewResult Subscribe(Guid activityId)
         {
             var userId = _intranetUserService.GetCurrentUserId();
-            var service = _activitiesServiceFactory.GetService(activityId);
-            var subscribeService = (ISubscribableService)service;
-            var subscribable = subscribeService.Subscribe(userId, activityId);
+            var service = _activitiesServiceFactory.GetService<ISubscribableService>(activityId);
+            var subscribable = service.Subscribe(userId, activityId);
             var subscribe = subscribable.Subscribers.Single(s => s.UserId == userId);
 
             return Index(activityId, subscribe, subscribable.Type);
@@ -68,9 +67,8 @@ namespace uCommunity.Subscribe.Web
         public virtual PartialViewResult Unsubscribe(Guid activityId)
         {
             var userId = _intranetUserService.GetCurrentUserId();
-            var service = _activitiesServiceFactory.GetService(activityId);
-            var subscribeService = (ISubscribableService)service;
-            subscribeService.UnSubscribe(userId, activityId);
+            var service = _activitiesServiceFactory.GetService<ISubscribableService>(activityId);
+            service.UnSubscribe(userId, activityId);
 
             return Index(activityId, null);
         }
@@ -78,9 +76,8 @@ namespace uCommunity.Subscribe.Web
         [HttpPost]
         public virtual void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
         {
-            var service = _activitiesServiceFactory.GetService(model.ActivityId);
-            var subscribeService = (ISubscribableService)service;
-            subscribeService.UpdateNotification(model.Id, model.NewValue);
+            var service = _activitiesServiceFactory.GetService<ISubscribableService>(model.ActivityId);
+            service.UpdateNotification(model.Id, model.NewValue);
         }
 
         public virtual JsonResult Version(Guid activityId)
