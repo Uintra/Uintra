@@ -106,13 +106,10 @@ namespace uCommunity.Core.Activity
         {
             var activity = _activityRepository.Get(id);
             var cached = GetAll(true);
-            var cachedList = cached as List<TActivity> ?? cached.ToList();
+            var cachedList = (cached as List<TActivity> ?? cached.ToList()).FindAll(s => s.Id != id);
             var cachedActivity = default(TActivity);
-            if (activity == null)
-            {
-                cachedList = cachedList.FindAll(s => s.Id != id);
-            }
-            else
+
+            if (activity != null)
             {
                 cachedActivity = MapInternal(activity);
                 MapBeforeCache(Enumerable.Repeat((IIntranetActivity)cachedActivity, 1).ToList());

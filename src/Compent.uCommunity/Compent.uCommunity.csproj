@@ -319,8 +319,8 @@
       <HintPath>..\..\packages\uCommunity.ContentPanel.0.0.0.3\lib\net452\uCommunity.ContentPanel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.22.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.22\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.22.22\lib\net452\uCommunity.Core.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Events, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.Events.1.0.4\lib\net452\uCommunity.Events.dll</HintPath>
@@ -709,14 +709,14 @@
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\LeftNavigation.js" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\_leftNavigation.css" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
-    <Content Include="App_Plugins\Navigation\MyLinks\_myLinks.css" />
+    <Content Include="App_Plugins\Navigation\navigation.js" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\_subNavigation.css" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\_topNavigation.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
@@ -828,8 +828,7 @@
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\Models\models.generated.cs" />
-    <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\ActivityHeaderController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
@@ -884,6 +883,35 @@
     <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CommentsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CommentsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\CommentsPreviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\ContentPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\DataFolder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\File.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Folder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\HomePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Image.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\LikesPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Member.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NavigationComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\NotificationPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\Panel.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\SubscribePage.generated.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -974,12 +1002,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
-      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uCommunity.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

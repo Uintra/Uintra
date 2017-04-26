@@ -1,6 +1,6 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./_leftNavigation.css");
+require("./leftNavigation.css");
 
 var active = "_active";
 

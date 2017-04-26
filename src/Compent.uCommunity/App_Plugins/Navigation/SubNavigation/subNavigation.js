@@ -1,6 +1,6 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./_subNavigation.css");
+require("./subNavigation.css");
 
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var menu = $('.tabset__navigation');
