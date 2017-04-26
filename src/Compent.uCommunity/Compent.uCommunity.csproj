@@ -304,9 +304,9 @@
     <Reference Include="uCommunity.BaseControls, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.BaseControls.2.2.0\lib\net452\uCommunity.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.7, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.7\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.8\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Comments, Version=1.0.7.3, Culture=neutral, processorArchitecture=MSIL">
@@ -429,10 +429,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\BaseControls\base.css" />
     <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.js" />
     <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
@@ -475,8 +471,13 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
+    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
@@ -737,7 +738,6 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
-    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
