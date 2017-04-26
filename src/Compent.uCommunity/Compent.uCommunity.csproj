@@ -724,7 +724,6 @@
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
     <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\_systemLinks.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />

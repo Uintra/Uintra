@@ -1,7 +1,5 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./_systemLinks.css");
-
 var active = "_active";
 
 appInitializer.add(function() {
