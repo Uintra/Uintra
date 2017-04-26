@@ -9,6 +9,9 @@
             <div class="content__item-images">
                 @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
             </div>
+            <div class="content__item-txt">
+                <p>@Model.Teaser</p>
+            </div>
             <div class="content__item-txt _clamp">
                 <p>@Html.Raw(Model.Description)</p>
             </div>
