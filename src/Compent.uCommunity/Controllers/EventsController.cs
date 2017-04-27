@@ -14,6 +14,7 @@ using uCommunity.Events;
 using uCommunity.Events.Web;
 using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
+using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -31,7 +32,7 @@ namespace Compent.uCommunity.Controllers
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IntranetUser> intranetUserService,
             IReminderService reminderService)
             : base(eventsService, mediaHelper, intranetUserService)
         {

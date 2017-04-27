@@ -11,6 +11,7 @@ using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.News;
 using uCommunity.News.Web;
+using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -20,7 +21,7 @@ namespace Compent.uCommunity.Controllers
 
         private readonly INewsService<NewsEntity> _newsService;
 
-        public NewsController(IIntranetUserService intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper)
+        public NewsController(IIntranetUserService<IntranetUser> intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper)
             : base(intranetUserService, newsService, mediaHelper)
         {
             _newsService = newsService;

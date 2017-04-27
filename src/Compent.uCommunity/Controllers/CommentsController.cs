@@ -7,6 +7,7 @@ using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
+using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -18,7 +19,7 @@ namespace Compent.uCommunity.Controllers
 
         public CommentsController(
             ICommentsService commentsService,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
             ICommentableService customCommentableService)
             : base(commentsService, intranetUserService, activitiesServiceFactory)

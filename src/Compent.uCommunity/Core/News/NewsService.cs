@@ -18,6 +18,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Entities;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Subscribe;
+using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -30,7 +31,7 @@ namespace Compent.uCommunity.Core.News
         ILikeableService,
         INotifyableService
     {
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly UmbracoHelper _umbracoHelper;
@@ -40,7 +41,7 @@ namespace Compent.uCommunity.Core.News
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IntranetUser> intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,

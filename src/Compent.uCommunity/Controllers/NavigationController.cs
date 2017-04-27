@@ -11,6 +11,7 @@ using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
 using uCommunity.Navigation.Web;
 using uCommunity.Notification.Core.Services;
+using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
@@ -31,7 +32,7 @@ namespace Compent.uCommunity.Controllers
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IMyLinksService _myLinksService;
         private readonly ISystemLinksService _systemLinksService;
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -43,7 +44,7 @@ namespace Compent.uCommunity.Controllers
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IMyLinksService myLinksService,
             ISystemLinksService systemLinksService,
-        IIntranetUserService intranetUserService) :
+        IIntranetUserService<IntranetUser> intranetUserService) :
             base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, myLinksModelBuilder, systemLinksModelBuilder, myLinksService, intranetUserService)
 
         {

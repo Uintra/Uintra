@@ -1,6 +1,7 @@
 ﻿using uCommunity.Core.User;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Notification.Web;
+using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -8,7 +9,7 @@ namespace Compent.uCommunity.Controllers
     {
         protected override int ItemsPerPage { get; } = 10;
 
-        public NotificationController(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService) 
+        public NotificationController(IUiNotifierService uiNotifierService, IIntranetUserService<IntranetUser> intranetUserService) 
             : base(uiNotifierService, intranetUserService)
         {
         }

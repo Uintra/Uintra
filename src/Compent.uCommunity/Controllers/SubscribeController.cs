@@ -2,6 +2,7 @@
 using uCommunity.Core.User;
 using uCommunity.Subscribe;
 using uCommunity.Subscribe.Web;
+using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -9,7 +10,7 @@ namespace Compent.uCommunity.Controllers
     {
         public SubscribeController(
             ISubscribeService subscribeService,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory) :
             base(subscribeService, intranetUserService, activitiesServiceFactory)
         {

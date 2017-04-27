@@ -18,6 +18,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Entities;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Subscribe;
+using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -32,7 +33,7 @@ namespace Compent.uCommunity.Core.Events
         INotifyableService
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
@@ -42,7 +43,7 @@ namespace Compent.uCommunity.Core.Events
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IntranetUser> intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService, 
