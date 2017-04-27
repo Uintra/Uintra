@@ -19,18 +19,18 @@ namespace Compent.uCommunity.Controllers
 {
     public class NavigationController : NavigationControllerBase
     {
-        protected override string MyLinkPageTitleNodePropertyAlias { get; } = "navigationName";
-        protected override string SystemLinkTitleNodePropertyAlias { get; } = "title";
-        protected override string SystemLinkUrlNodePropertyAlias { get; } = "link";
-        protected override string SystemLinksContentXPath { get; } = $"root/{DataFolder.ModelTypeAlias}[@isDoc]/{SystemLinkFolder.ModelTypeAlias}[@isDoc]/{SystemLink.ModelTypeAlias}[@isDoc]";
+        //protected override string MyLinkPageTitleNodePropertyAlias { get; } = "navigationName";
+        //protected override string SystemLinkTitleNodePropertyAlias { get; } = "title";
+        //protected override string SystemLinkUrlNodePropertyAlias { get; } = "link";
+        //protected override string SystemLinksContentXPath { get; } = $"root/{DataFolder.ModelTypeAlias}[@isDoc]/{SystemLinkFolder.ModelTypeAlias}[@isDoc]/{SystemLink.ModelTypeAlias}[@isDoc]";
 
         private readonly INotificationHelper _notificationHelper;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IMyLinksModelBuilder _myLinksModelBuilder;
-        private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
+        //private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IMyLinksService _myLinksService;
-        private readonly ISystemLinksService _systemLinksService;
+        //private readonly ISystemLinksService _systemLinksService;
         private readonly IIntranetUserService _intranetUserService;
 
         public NavigationController(
@@ -40,21 +40,21 @@ namespace Compent.uCommunity.Controllers
             INotificationHelper notificationHelper,
             ICentralFeedContentHelper centralFeedContentHelper,
             IMyLinksModelBuilder myLinksModelBuilder,
-            ISystemLinksModelBuilder systemLinksModelBuilder,
+            //ISystemLinksModelBuilder systemLinksModelBuilder,
             IMyLinksService myLinksService,
-            ISystemLinksService systemLinksService,
+            //ISystemLinksService systemLinksService,
         IIntranetUserService intranetUserService) :
-            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, myLinksModelBuilder, systemLinksModelBuilder, myLinksService, intranetUserService)
+            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, myLinksModelBuilder, /*systemLinksModelBuilder,*/ myLinksService, intranetUserService)
 
         {
             _notificationHelper = notificationHelper;
             _centralFeedContentHelper = centralFeedContentHelper;
             _topNavigationModelBuilder = topNavigationModelBuilder;
             _myLinksModelBuilder = myLinksModelBuilder;
-            _systemLinksModelBuilder = systemLinksModelBuilder;
+            //_systemLinksModelBuilder = systemLinksModelBuilder;
             _myLinksService = myLinksService;
             _intranetUserService = intranetUserService;
-            _systemLinksService = systemLinksService;
+            //_systemLinksService = systemLinksService;
         }
 
         public override ActionResult TopNavigation()
