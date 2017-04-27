@@ -6,6 +6,7 @@ using System.Linq;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Controls.FileUpload;
 using uCommunity.Core.Extentions;
+using uCommunity.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
@@ -15,12 +16,15 @@ namespace uCommunity.Core.Media
     {
         private readonly ICacheService cacheService;
         private readonly IMediaService _mediaService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public MediaHelper(ICacheService cacheService,
-            IMediaService mediaService)
+            IMediaService mediaService, 
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             this.cacheService = cacheService;
             _mediaService = mediaService;
+            _intranetUserService = intranetUserService;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model)
@@ -40,8 +44,8 @@ namespace uCommunity.Core.Media
 
                 using (var stream = new MemoryStream(file.FileBytes))
                 {
-                    media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName),
-                        stream);
+                    media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId());
+                    media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName),stream);
                     stream.Close();
                 }
                 _mediaService.Save(media);
