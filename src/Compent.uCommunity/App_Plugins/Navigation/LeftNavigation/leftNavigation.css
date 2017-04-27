@@ -1,5 +1,5 @@
 ﻿.side-nav {
-    margin:0 0 30px;
+    margin:0;
     padding:0;
     list-style:none;
     font-weight: bold;
@@ -83,10 +83,9 @@
                 }
             }
         }
-
     }
 
-    .side-nav {
+    .side-nav{
         display: none;
     }
 
