@@ -11,11 +11,11 @@ namespace uCommunity.Navigation.Web
         protected virtual string DefaultRedirectUrl { get; } = "/";
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
 
-        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         protected readonly IUserService _userService;
 
         protected NavigationAuthorizationControllerBase(
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IUserService userService)
         {
             _intranetUserService = intranetUserService;

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace uCommunity.Core.User
 {
-    public interface IIntranetUserService
+    public interface IIntranetUserService<out T>
+        where T : IIntranetUser
     {
-        IIntranetUser Get(int umbracoId);
-        IIntranetUser Get(Guid id);
-        IEnumerable<IIntranetUser> GetAll();
-        IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids);
-        IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids);
-        IIntranetUser GetCurrentUser();
+        T Get(int umbracoId);
+        T Get(Guid id);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> GetMany(IEnumerable<Guid> ids);
+        IEnumerable<T> GetMany(IEnumerable<int> ids);
+        T GetCurrentUser();
         void FillCreator(IHaveCreator model);
-        IEnumerable<IIntranetUser> GetByRole(IntranetRolesEnum role);
+        IEnumerable<T> GetByRole(IntranetRolesEnum role);
     }
 }

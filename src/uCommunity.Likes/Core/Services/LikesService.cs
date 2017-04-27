@@ -9,9 +9,9 @@ namespace uCommunity.Likes
     public class LikesService : ILikesService
     {
         private readonly ISqlRepository<Like> _likesRepository;
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public LikesService(ISqlRepository<Like> likesRepository, IIntranetUserService intranetUserService)
+        public LikesService(ISqlRepository<Like> likesRepository, IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _likesRepository = likesRepository;
             _intranetUserService = intranetUserService;

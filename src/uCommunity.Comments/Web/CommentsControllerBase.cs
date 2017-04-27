@@ -17,12 +17,12 @@ namespace uCommunity.Comments.Web
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
 
         protected readonly ICommentsService CommentsService;
-        protected readonly IIntranetUserService IntranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> IntranetUserService;
         protected readonly IActivitiesServiceFactory ActivitiesServiceFactory;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory)
         {
             CommentsService = commentsService;

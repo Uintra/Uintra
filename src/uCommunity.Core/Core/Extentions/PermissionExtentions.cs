@@ -45,7 +45,7 @@ namespace uCommunity.Core.Extentions
 
         private static bool IsCurrentUserHasPermission(IPermissionsService service, params string[] permissions)
         {
-            var userService = HttpContext.Current.GetService<IIntranetUserService>();
+            var userService = HttpContext.Current.GetService<IIntranetUserService<IIntranetUser>>();
             var currentUser = userService.GetCurrentUser();
 
             if (currentUser == null)

@@ -15,12 +15,12 @@ namespace uCommunity.Subscribe.Web
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribeView.cshtml";
 
         protected readonly ISubscribeService _subscribeService;
-        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected SubscribeControllerBase(
             ISubscribeService subscribeService,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory)
         {
             _subscribeService = subscribeService;

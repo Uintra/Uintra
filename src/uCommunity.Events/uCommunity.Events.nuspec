@@ -11,7 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Events Controls EventsControls</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.23" />
+      <dependency id="uCommunity.Core" version="1.0.24" />
       <dependency id="uCommunity.BaseControls" version="2.2.0.0" />
     </dependencies>
   </metadata>

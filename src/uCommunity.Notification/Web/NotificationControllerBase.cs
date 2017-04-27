@@ -19,10 +19,10 @@ namespace uCommunity.Notification.Web
         protected virtual int ItemsPerPage { get; } = 8;
 
         protected readonly IUiNotifierService UiNotifierService;
-        protected readonly IIntranetUserService IntranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> IntranetUserService;
         
 
-        protected NotificationControllerBase(IUiNotifierService uiNotifierService, IIntranetUserService intranetUserService)
+        protected NotificationControllerBase(IUiNotifierService uiNotifierService, IIntranetUserService<IIntranetUser> intranetUserService)
         {
             UiNotifierService = uiNotifierService;
             IntranetUserService = intranetUserService;

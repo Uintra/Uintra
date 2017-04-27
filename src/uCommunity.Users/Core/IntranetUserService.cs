@@ -13,7 +13,7 @@ using Umbraco.Web;
 
 namespace uCommunity.Users.Core
 {
-    public class IntranetUserService : IIntranetUserService
+    public class IntranetUserService : IIntranetUserService<IntranetUser>
     {
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string UmbracoUserIdPropertyAlias => "relatedUser";
@@ -36,7 +36,7 @@ namespace uCommunity.Users.Core
             _applicationSettings = applicationSettings;
         }
 
-        public virtual IIntranetUser Get(int umbracoId)
+        public virtual IntranetUser Get(int umbracoId)
         {
             var member = _memberService.GetMembersByPropertyValue(UmbracoUserIdPropertyAlias, umbracoId).SingleOrDefault();
 
@@ -48,7 +48,7 @@ namespace uCommunity.Users.Core
             return null;
         }
 
-        public virtual IIntranetUser Get(Guid id)
+        public virtual IntranetUser Get(Guid id)
         {
             var member = _memberService.GetByKey(id);
 
@@ -60,19 +60,19 @@ namespace uCommunity.Users.Core
             return null;
         }
 
-        public virtual IEnumerable<IIntranetUser> GetAll()
+        public virtual IEnumerable<IntranetUser> GetAll()
         {
             var members = _memberService.GetAllMembers().Select(Map);
             return members;
         }
 
-        public virtual IEnumerable<IIntranetUser> GetMany(IEnumerable<Guid> ids)
+        public virtual IEnumerable<IntranetUser> GetMany(IEnumerable<Guid> ids)
         {
             var members = _memberService.GetAllMembers().Where(s => ids.Contains(s.Key)).Select(Map);
             return members;
         }
 
-        public virtual IEnumerable<IIntranetUser> GetMany(IEnumerable<int> ids)
+        public virtual IEnumerable<IntranetUser> GetMany(IEnumerable<int> ids)
         {
             var members = _memberService.GetAllMembers().Select(Map);
             return members.Where(s => s.UmbracoId.HasValue && ids.Contains(s.UmbracoId.Value));
@@ -93,7 +93,7 @@ namespace uCommunity.Users.Core
             model.Creator = member;
         }
 
-        public virtual IIntranetUser GetCurrentUser()
+        public virtual IntranetUser GetCurrentUser()
         {
             var userName = "";
             if (HostingEnvironment.IsHosted) //TODO: WTF IS THIS
@@ -137,7 +137,7 @@ namespace uCommunity.Users.Core
             return user;
         }
 
-        public virtual IEnumerable<IIntranetUser> GetByRole(IntranetRolesEnum role)
+        public virtual IEnumerable<IntranetUser> GetByRole(IntranetRolesEnum role)
         {
             var members = _memberService.GetMembersByGroup(GetGroupNameFromRole(role));
             return members.Select(Map);

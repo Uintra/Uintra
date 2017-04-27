@@ -28,7 +28,7 @@ namespace uCommunity.Navigation.Web
         protected readonly IMyLinksModelBuilder _myLinksModelBuilder;
         protected readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         protected readonly IMyLinksService _myLinksService;
-        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
 
         protected NavigationControllerBase(
@@ -38,7 +38,7 @@ namespace uCommunity.Navigation.Web
             IMyLinksModelBuilder myLinksModelBuilder,
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IMyLinksService myLinksService,
-            IIntranetUserService intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;

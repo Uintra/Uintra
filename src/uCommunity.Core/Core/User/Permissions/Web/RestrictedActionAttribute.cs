@@ -30,7 +30,7 @@ namespace uCommunity.Core.User.Permissions.Web
 
             var context = filterContext.Controller.ControllerContext.HttpContext;
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
-            var userService = HttpContext.Current.GetService<IIntranetUserService>();
+            var userService = HttpContext.Current.GetService<IIntranetUserService<IIntranetUser>>();
 
             var currentUser = userService.GetCurrentUser();
 

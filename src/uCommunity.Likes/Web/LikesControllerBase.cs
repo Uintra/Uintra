@@ -14,12 +14,12 @@ namespace uCommunity.Likes.Web
         public virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
         protected readonly IActivitiesServiceFactory ActivitiesServiceFactory;
-        protected readonly IIntranetUserService IntranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> IntranetUserService;
         protected readonly ILikesService LikesService;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             ILikesService likesService)
         {
             ActivitiesServiceFactory = activitiesServiceFactory;

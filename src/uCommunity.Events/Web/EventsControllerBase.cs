@@ -27,12 +27,12 @@ namespace uCommunity.Events.Web
 
         private readonly IEventsService<EventBase> _eventsService;
         protected readonly IMediaHelper _mediaHelper;
-        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;

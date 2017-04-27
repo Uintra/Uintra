@@ -25,10 +25,10 @@ namespace uCommunity.News.Web
 
         private readonly INewsService<NewsBase> _newsService;
         protected readonly IMediaHelper _mediaHelper;
-        protected readonly IIntranetUserService _intranetUserService;
+        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected NewsControllerBase(
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper)
         {

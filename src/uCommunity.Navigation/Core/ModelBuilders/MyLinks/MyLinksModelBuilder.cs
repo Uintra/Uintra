@@ -8,11 +8,11 @@ namespace uCommunity.Navigation.Core
 {
     public class MyLinksModelBuilder : IMyLinksModelBuilder
     {
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMyLinksService _myLinksService;
 
         public MyLinksModelBuilder(
-            IIntranetUserService intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IMyLinksService myLinksService)
         {
             _intranetUserService = intranetUserService;

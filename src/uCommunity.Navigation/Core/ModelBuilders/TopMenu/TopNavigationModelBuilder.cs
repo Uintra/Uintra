@@ -4,10 +4,10 @@ namespace uCommunity.Navigation.Core
 {
     public class TopNavigationModelBuilder : ITopNavigationModelBuilder
     {
-        private readonly IIntranetUserService _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public TopNavigationModelBuilder(
-            IIntranetUserService intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _intranetUserService = intranetUserService;
         }
