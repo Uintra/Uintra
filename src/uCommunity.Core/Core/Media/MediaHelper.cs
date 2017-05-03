@@ -39,19 +39,25 @@ namespace uCommunity.Core.Media
 
             foreach (var file in cachedTempMedia)
             {
-                var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
-                var media = _mediaService.CreateMedia(file.FileName, rootMedia, mediaTypeAlias);
-
-                using (var stream = new MemoryStream(file.FileBytes))
-                {
-                    media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId());
-                    media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName),stream);
-                    stream.Close();
-                }
-                _mediaService.Save(media);
+                var media = CreateMedia(file, rootMedia);
                 umbracoMediaIds.Add(media.Id);
             }
             return umbracoMediaIds;
+        }
+
+        public IMedia CreateMedia(TempFile file, IMedia rootMedia)
+        {
+            var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
+            var media = _mediaService.CreateMedia(file.FileName, rootMedia, mediaTypeAlias);
+
+            using (var stream = new MemoryStream(file.FileBytes))
+            {
+                media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId());
+                media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
+                stream.Close();
+            }
+            _mediaService.Save(media);
+            return media;
         }
 
         private IMedia GetRootMedia(int? rootMediaId)

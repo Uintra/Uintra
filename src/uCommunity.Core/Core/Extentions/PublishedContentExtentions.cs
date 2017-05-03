@@ -19,6 +19,16 @@ namespace uCommunity.Core.Extentions
             return content.GetPropertyValue<string>(UmbracoExtensionPropertyAlias, default(string));
         }
 
+        public static Guid? GetIntranetUserId(this IPublishedContent content)
+        {
+            return content.GetPropertyValue<Guid?>(ImageConstants.IntranetCreatorId, null);
+        }
+
+        public static Guid? GetIntranetUserId(this IMedia content)
+        {
+            return content.GetValue<Guid?>(ImageConstants.IntranetCreatorId);
+        }
+
         public static MediaTypeEnum GetMediaType(this IPublishedContent content)
         {
             switch (content.DocumentTypeAlias)
