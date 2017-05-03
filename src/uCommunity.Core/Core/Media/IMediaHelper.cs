@@ -7,6 +7,6 @@ namespace uCommunity.Core.Media
     public interface IMediaHelper
     {
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
-        IMedia CreateMedia(TempFile file, IMedia rootMedia);
+        IMedia CreateMedia(TempFile file, int rootMediaId);
     }
 }

@@ -33,22 +33,22 @@ namespace uCommunity.Core.Media
 
             var mediaIds = model.NewMedia.Split(';').Where(s => s.IsNotNullOrEmpty()).Select(Guid.Parse);
             var cachedTempMedia = mediaIds.Select(s => cacheService.Get<TempFile>(s.ToString(), ""));
-            var rootMedia = GetRootMedia(model.MediaRootId);
+            var rootMediaId = model.MediaRootId ?? -1;
 
             var umbracoMediaIds = new List<int>();
 
             foreach (var file in cachedTempMedia)
             {
-                var media = CreateMedia(file, rootMedia);
+                var media = CreateMedia(file, rootMediaId);
                 umbracoMediaIds.Add(media.Id);
             }
             return umbracoMediaIds;
         }
 
-        public IMedia CreateMedia(TempFile file, IMedia rootMedia)
+        public IMedia CreateMedia(TempFile file, int rootMediaId)
         {
             var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
-            var media = _mediaService.CreateMedia(file.FileName, rootMedia, mediaTypeAlias);
+            var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
 
             using (var stream = new MemoryStream(file.FileBytes))
             {
@@ -58,15 +58,6 @@ namespace uCommunity.Core.Media
             }
             _mediaService.Save(media);
             return media;
-        }
-
-        private IMedia GetRootMedia(int? rootMediaId)
-        {
-            if (rootMediaId.HasValue)
-            {
-                return _mediaService.GetById(rootMediaId.Value);
-            }
-            return _mediaService.GetRootMedia().First().Parent();
         }
 
         private string GetMediaTypeAlias(byte[] fileBytes)
