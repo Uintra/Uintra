@@ -52,7 +52,7 @@ namespace uCommunity.Core.Media
 
             using (var stream = new MemoryStream(file.FileBytes))
             {
-                media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId());
+                media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId().ToString());
                 media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
                 stream.Close();
             }
