@@ -6,16 +6,16 @@
                 <input type="text" class="text-filter" ng-model="vm.filterModel.title" placeholder="Title filter" />
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.publishDate.from" config="vm.config.publishDate" placeholder="Publish date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.publishDate.to" config="vm.config.publishDate" placeholder="Publish date to"></date-picker>
+                <date-picker model="vm.filterModel.publishDate.from" config="vm.config.publishDate" placeholder="Publish date from"></date-picker>
+                <date-picker model="vm.filterModel.publishDate.to" config="vm.config.publishDate" placeholder="Publish date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.createdDate.from" config="vm.config.publishDate" placeholder="Create date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.createdDate.to" config="vm.config.publishDate" placeholder="Create date to"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.from" config="vm.config.publishDate" placeholder="Create date from"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.to" config="vm.config.publishDate" placeholder="Create date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.modifyDate.from" config="vm.config.publishDate" placeholder="Update date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.modifyDate.to" config="vm.config.publishDate" placeholder="Update date to"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.from" config="vm.config.publishDate" placeholder="Update date from"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.to" config="vm.config.publishDate" placeholder="Update date to"></date-picker>
             </div>
         </div>
         <table class="table">
@@ -36,10 +36,10 @@
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.publishDate | date: vm.dateFormat}}</td>
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.createdDate | date: vm.dateFormat}}</td>
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.modifyDate | date: vm.dateFormat}}</td>
-                    <td >
-                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="news.isHidden" ng-click="vm.unpublish(news, $index)"/>
-                        <input type="button" class="btn btn-success" value="Publish" ng-show="news.isHidden"  ng-click="vm.publish(news, $index)"/>
-                        <input type="button" class="btn btn-danger" value="Delete"  ng-click="vm.delete(news, $index)"/>
+                    <td>
+                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="news.isHidden" ng-click="vm.unpublish(news, $index)" />
+                        <input type="button" class="btn btn-success" value="Publish" ng-show="news.isHidden" ng-click="vm.publish(news, $index)" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(news, $index)" />
                     </td>
                 </tr>
                 <tr ng-click="vm.selectNewsToEdit({}, null)">
@@ -85,8 +85,8 @@
                     <div class="field-validation-error" ng-repeat="req in editForm.$error.required">
                         {{req.$name}} is required!
                     </div>
-                     <div class="field-validation-error" ng-repeat="req in editForm.$error.maxlength">
-                        {{req.$name}} max length 
+                    <div class="field-validation-error" ng-repeat="req in editForm.$error.maxlength">
+                        {{req.$name}} max length
                     </div>
                 </div>
             </div>
