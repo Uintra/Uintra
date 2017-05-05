@@ -9,13 +9,13 @@ namespace Compent.uCommunity.Core.Events
         protected override void Configure()
         {
             Mapper.CreateMap<Event, IntranetEventViewModel>()
-                  .IncludeBase<EventBase, IntranetEventViewModel>()
+                  .IncludeBase<EventBase, EventViewModel>()
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Event, EventOverviewItemModel>()
-                .IncludeBase<EventBase, EventOverviewItemModel>()
+                .IncludeBase<EventBase, EventsOverviewItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
@@ -23,10 +23,18 @@ namespace Compent.uCommunity.Core.Events
                  .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
             Mapper.CreateMap<EventEditModel, Event>()
-                .ForMember(dst => dst.Type, o => o.Ignore());
+                .IncludeBase<EventEditModel, EventBase>()
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.Likes, o => o.Ignore())
+                .ForMember(dst => dst.Comments, o => o.Ignore())
+                .ForMember(dst => dst.Subscribers, o => o.Ignore());
 
             Mapper.CreateMap<EventCreateModel, Event>()
-              .ForMember(dst => dst.Type, o => o.Ignore());
+                .IncludeBase<EventCreateModel, EventBase>()
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.Likes, o => o.Ignore())
+                .ForMember(dst => dst.Comments, o => o.Ignore())
+                .ForMember(dst => dst.Subscribers, o => o.Ignore());
         }
     }
 }

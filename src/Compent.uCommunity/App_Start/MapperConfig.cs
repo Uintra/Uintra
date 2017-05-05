@@ -6,6 +6,8 @@ using uCommunity.Events;
 using uCommunity.Navigation.AutoMapperProfiles;
 using uCommunity.News;
 using uCommunity.Notification.Core.Profiles;
+using Umbraco.Core.Models.Identity;
+using Umbraco.Core.Models.Membership;
 
 namespace Compent.uCommunity.App_Start
 {
@@ -23,6 +25,16 @@ namespace Compent.uCommunity.App_Start
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
             Mapper.AddProfile<NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
+
+            var typemaps = Mapper.GetAllTypeMaps();
+
+            foreach (var typemap in typemaps)
+            {
+                // (╯°□°）╯︵ ┻━┻ Skip invalid umbraco map. 
+                if (typemap.SourceType == typeof(IUser) && typemap.DestinationType == typeof(BackOfficeIdentityUser)) continue;
+
+                Mapper.AssertConfigurationIsValid(typemap);
+            }
         }
     }
 }
