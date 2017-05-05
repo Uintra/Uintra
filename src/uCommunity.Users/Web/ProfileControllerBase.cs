@@ -13,7 +13,7 @@ namespace uCommunity.Users.Web
 {
     public abstract class ProfileControllerBase : SurfaceController
     {
-        protected virtual string ProfileViewPath { get; } = "~/App_Plugins/Users/Profile/Overview.cshtml";
+        protected virtual string ProfileOverViewPath { get; } = "~/App_Plugins/Users/Profile/Overview.cshtml";
         protected virtual string ProfileEditViewPath { get; } = "~/App_Plugins/Users/Profile/Edit.cshtml";
 
         protected readonly IMemberService _memberService;
@@ -32,12 +32,12 @@ namespace uCommunity.Users.Web
             _applicationSettings = applicationSettings;
         }
 
-        public virtual ActionResult Index()
+        public virtual ActionResult Overview()
         {
             var member = _memberService.GetById(Members.GetCurrentMemberId());
             var result = MapToViewModel(member);
 
-            return View(ProfileViewPath, result);
+            return View(ProfileOverViewPath, result);
         }
 
         [HttpGet]
@@ -58,7 +58,7 @@ namespace uCommunity.Users.Web
 
             _memberService.Save(currentMember);
 
-            return Index();
+            return Overview();
         }
         
         protected virtual ProfileViewModelBase MapToViewModel(IMember member)
