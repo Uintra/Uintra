@@ -48,10 +48,10 @@
                 });
             }
         }
-        return {
+        return { 
             restrict: "E",
             templateUrl: "/App_Plugins/BaseControls/DatePicker/date-picker.html",
-            scope: { model: '=', config: '=', picker: '=' },
+            scope: { model: '=', config: '=', picker: '=', placeholder: '@' },
             link: link
         }
     }
