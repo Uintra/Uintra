@@ -33,28 +33,34 @@ namespace uCommunity.Core.Media
 
             var mediaIds = model.NewMedia.Split(';').Where(s => s.IsNotNullOrEmpty()).Select(Guid.Parse);
             var cachedTempMedia = mediaIds.Select(s => cacheService.Get<TempFile>(s.ToString(), ""));
-            var rootMedia = GetRootMedia(model.MediaRootId);
+            var rootMediaId = model.MediaRootId ?? -1;
 
             var umbracoMediaIds = new List<int>();
 
             foreach (var file in cachedTempMedia)
             {
-                var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
-                var media = _mediaService.CreateMedia(file.FileName, rootMedia, mediaTypeAlias);
-
-                using (var stream = new MemoryStream(file.FileBytes))
-                {
-                    media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId());
-                    media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName),stream);
-                    stream.Close();
-                }
-                _mediaService.Save(media);
+                var media = CreateMedia(file, rootMediaId);
                 umbracoMediaIds.Add(media.Id);
             }
             return umbracoMediaIds;
         }
 
-        public bool DeleteMedia(int mediaId)
+        public IMedia CreateMedia(TempFile file, int rootMediaId)
+        {
+            var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
+            var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
+
+            using (var stream = new MemoryStream(file.FileBytes))
+            {
+                media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId().ToString());
+                media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
+                stream.Close();
+            }
+            _mediaService.Save(media);
+            return media;
+        }
+		
+		public bool DeleteMedia(int mediaId)
         {
             var media = _mediaService.GetById(mediaId);
             if (media == null)
@@ -64,15 +70,6 @@ namespace uCommunity.Core.Media
 
             _mediaService.Delete(media);
             return true;
-        }
-
-        private IMedia GetRootMedia(int? rootMediaId)
-        {
-            if (rootMediaId.HasValue)
-            {
-                return _mediaService.GetById(rootMediaId.Value);
-            }
-            return _mediaService.GetRootMedia().First().Parent();
         }
 
         private string GetMediaTypeAlias(byte[] fileBytes)

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using uCommunity.Core.Controls.FileUpload;
+using Umbraco.Core.Models;
 
 namespace uCommunity.Core.Media
 {
@@ -6,5 +8,6 @@ namespace uCommunity.Core.Media
     {
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
         bool DeleteMedia(int mediaId);
+        IMedia CreateMedia(TempFile file, int rootMediaId);
     }
 }
