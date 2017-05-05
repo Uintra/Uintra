@@ -6,20 +6,20 @@
                 <input type="text" class="text-filter" ng-model="vm.filterModel.title" placeholder="Title filter" />
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.startDate.from" config="vm.config.startDate" placeholder="Start date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.startDate.to" config="vm.config.startDate" placeholder="Start date to"></date-picker>
+                <date-picker model="vm.filterModel.startDate.from" config="vm.config.startDate" placeholder="Start date from"></date-picker>
+                <date-picker model="vm.filterModel.startDate.to" config="vm.config.startDate" placeholder="Start date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.endDate.from" config="vm.config.endDate" placeholder="End date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.endDate.to" config="vm.config.endDate" placeholder="End date to"></date-picker>
+                <date-picker model="vm.filterModel.endDate.from" config="vm.config.endDate" placeholder="End date from"></date-picker>
+                <date-picker model="vm.filterModel.endDate.to" config="vm.config.endDate" placeholder="End date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.createdDate.from" config="vm.config.publishDate" placeholder="Create date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.createdDate.to" config="vm.config.publishDate" placeholder="Create date to"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.from" config="vm.config.publishDate" placeholder="Create date from"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.to" config="vm.config.publishDate" placeholder="Create date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker ng-model="vm.filterModel.modifyDate.from" config="vm.config.publishDate" placeholder="Update date from"></date-picker>
-                <date-picker ng-model="vm.filterModel.modifyDate.to" config="vm.config.publishDate" placeholder="Update date to"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.from" config="vm.config.publishDate" placeholder="Update date from"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.to" config="vm.config.publishDate" placeholder="Update date to"></date-picker>
             </div>
         </div>
         <table class="table">
@@ -64,7 +64,7 @@
                     <h5 class="control-label">Title:</h5>
                     <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.title" required="" ng-maxlength="200" name="Title" />
                 </div>
-                
+
                 <div class="control-group">
                     <h5 class="control-label">Teaser:</h5>
                     <textarea class="umbraco-panel__textarea" type="text" ng-model="vm.selected.teaser" rows="4" ng-maxlength="2000" required="" name="Teaser"></textarea>

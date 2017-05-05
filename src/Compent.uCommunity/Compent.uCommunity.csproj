@@ -326,9 +326,9 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.25\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Events, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Events.1.0.5\lib\net452\uCommunity.Events.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Events.1.0.5.1\lib\net452\uCommunity.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
@@ -341,9 +341,9 @@
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.5.1\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.News, Version=1.0.11.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.News.1.0.11\lib\net452\uCommunity.News.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.News.1.0.11.1\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -796,12 +796,6 @@
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
-    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
@@ -839,12 +833,18 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
+    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <None Include="webpack.config.js" />
