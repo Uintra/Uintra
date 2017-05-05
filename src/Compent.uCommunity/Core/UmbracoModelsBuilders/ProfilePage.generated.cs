@@ -20,16 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>System Link</summary>
-	[PublishedContentModel("systemLink")]
-	public partial class SystemLink : PublishedContentModel
+	/// <summary>Profile Page</summary>
+	[PublishedContentModel("profilePage")]
+	public partial class ProfilePage : BasePageWithGrid
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "systemLink";
+		public new const string ModelTypeAlias = "profilePage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public SystemLink(IPublishedContent content)
+		public ProfilePage(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -40,18 +40,9 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<SystemLink, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ProfilePage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Title
-		///</summary>
-		[ImplementPropertyType("title")]
-		public string Title
-		{
-			get { return this.GetPropertyValue<string>("title"); }
 		}
 	}
 }
