@@ -1,0 +1,22 @@
+﻿@model uCommunity.Users.Core.ProfileViewModelBase
+
+<div id="js-profile-page">
+    @Model.FirstName
+    @Model.LastName
+    @Model.Email
+
+    <img style="width: 100px;height: 100px" src="@Model.Photo" />
+
+    @using (Ajax.BeginForm("Edit", "Profile", new AjaxOptions
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.ReplaceWith,
+        UpdateTargetId = "profile",
+        OnSuccess = "profileController.init()"
+
+    }))
+    {
+        <input class="form__btn _black _submit" type="submit" value="@Html.Localize("Profile.Edit.btn")" />
+    }
+</div>
+

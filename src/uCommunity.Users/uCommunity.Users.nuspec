@@ -11,7 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Users implementation</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.24" />
+      <dependency id="uCommunity.Core" version="1.0.25" />
     </dependencies>
   </metadata>
 </package>

@@ -38,6 +38,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>App_Plugins\Users\package.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -211,9 +214,13 @@
   <ItemGroup>
     <Compile Include="Core\IntranetUser.cs" />
     <Compile Include="Core\IntranetUserService.cs" />
+    <Compile Include="Core\ProfileConstants.cs" />
+    <Compile Include="Core\ProfileEditModelBase.cs" />
+    <Compile Include="Core\ProfileViewModelBase.cs" />
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
+    <Compile Include="Web\ProfileControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">
@@ -222,7 +229,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\profile.html" />
+    <Content Include="App_Plugins\Users\Profile\profile.js" />
+    <Content Include="App_Plugins\Users\users.js" />
     <None Include="app.config" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <None Include="uCommunity.Users.nuspec">

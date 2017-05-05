@@ -1,0 +1,35 @@
+﻿@using uCommunity.Core.Extentions
+@using uCommunity.Core.Controls.FileUpload
+@model uCommunity.Users.Core.ProfileEditModelBase
+
+<div id="js-profile-page">
+    
+    @using (Ajax.BeginForm("Edit", "Profile", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.ReplaceWith,
+        UpdateTargetId = "profile"
+
+    }))
+    {
+        <img style="width: 100px;height: 100px" src="@Model.Photo" />
+        @Html.EditorFor(m => m.FirstName)
+        @Html.EditorFor(m => m.LastName)
+
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string, MaxFilesCount = 1 };
+                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
+            }
+        </div>
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form__row clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _black _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
+        </div>
+    }
+</div>
+
