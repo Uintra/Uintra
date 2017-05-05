@@ -54,6 +54,18 @@ namespace uCommunity.Core.Media
             return umbracoMediaIds;
         }
 
+        public bool DeleteMedia(int mediaId)
+        {
+            var media = _mediaService.GetById(mediaId);
+            if (media == null)
+            {
+                return false;
+            }
+
+            _mediaService.Delete(media);
+            return true;
+        }
+
         private IMedia GetRootMedia(int? rootMediaId)
         {
             if (rootMediaId.HasValue)

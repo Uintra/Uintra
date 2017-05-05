@@ -5,5 +5,6 @@ namespace uCommunity.Core.Media
     public interface IMediaHelper
     {
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
+        bool DeleteMedia(int mediaId);
     }
 }
