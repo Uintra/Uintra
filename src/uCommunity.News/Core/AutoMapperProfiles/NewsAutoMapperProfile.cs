@@ -12,7 +12,8 @@ namespace uCommunity.News
         protected override void Configure()
         {
             Mapper.CreateMap<NewsBase, NewsOverviewItemViewModel>()
-                .ForMember(dst => dst.MediaIds, o => o.Ignore());
+                .ForMember(dst => dst.MediaIds, o => o.Ignore())
+                .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
 
             Mapper.CreateMap<NewsBase, NewsCreateModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
@@ -51,6 +52,7 @@ namespace uCommunity.News
                 .ForMember(dst => dst.OverviewPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.EditPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsBackofficeViewModel>()
@@ -60,7 +62,8 @@ namespace uCommunity.News
            .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
-                .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>();
+                .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>()
+                .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
 
             Mapper.CreateMap<NewsBackofficeCreateModel, NewsBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
