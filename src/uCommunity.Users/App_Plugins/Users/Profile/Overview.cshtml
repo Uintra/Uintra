@@ -1,4 +1,5 @@
-﻿@model uCommunity.Users.Core.ProfileViewModelBase
+﻿@using uCommunity.Core.Extentions
+@model uCommunity.Users.Core.ProfileViewModelBase
 
 <div id="js-profile-page">
     @Model.FirstName
@@ -11,7 +12,7 @@
     {
         HttpMethod = "GET",
         InsertionMode = InsertionMode.ReplaceWith,
-        UpdateTargetId = "profile",
+        UpdateTargetId = "js-profile-page",
         OnSuccess = "profileController.init()"
 
     }))
