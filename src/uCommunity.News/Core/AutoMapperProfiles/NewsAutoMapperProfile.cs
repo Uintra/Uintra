@@ -24,9 +24,6 @@ namespace uCommunity.News
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
               .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            Mapper.CreateMap<NewsBase, NewsEditModel>()
-                .IncludeBase<NewsBase, NewsEditModel>();
-
             Mapper.CreateMap<NewsCreateModel, NewsBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
