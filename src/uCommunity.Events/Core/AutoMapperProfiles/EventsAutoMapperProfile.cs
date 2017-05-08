@@ -67,7 +67,7 @@ namespace uCommunity.Events
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToString(IntranetConstants.Common.DefaultDateFormat), el.EndDate.ToString(IntranetConstants.Common.DefaultDateFormat) }));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat), el.EndDate.ToString(IntranetConstants.Common.DefaultDateTimeFormat) }));
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>()
