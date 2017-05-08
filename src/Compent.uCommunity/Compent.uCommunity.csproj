@@ -311,9 +311,9 @@
       <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.8\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Comments, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Comments, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Comments.1.0.8\lib\net452\uCommunity.Comments.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Comments.1.0.8.2\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.ContentPanel, Version=0.0.0.3, Culture=neutral, processorArchitecture=MSIL">
@@ -326,9 +326,9 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.25\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Events, Version=1.0.6.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Events.1.0.6\lib\net452\uCommunity.Events.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Events.1.0.6.1\lib\net452\uCommunity.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
@@ -487,7 +487,6 @@
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
-    <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.js" />
@@ -791,11 +790,6 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
@@ -834,17 +828,17 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinkIcon.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\List\ListView.cshtml" />
     <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <None Include="webpack.config.js" />
