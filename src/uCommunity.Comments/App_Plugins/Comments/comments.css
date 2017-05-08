@@ -299,6 +299,6 @@
     }
 }
 
-.comments-preview._hasComments {
+.comments-preview._hasComments .comments-preview__link {
     color: var(--text-color-dark);
 }
