@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core;
 using uCommunity.Core.ApplicationSettings;
@@ -29,9 +30,14 @@ namespace Compent.uCommunity.Controllers
 
         public override MediaSettings GetMediaSettings()
         {
+            var media = _umbracoHelper.TypedMediaAtRoot();
+            var id =
+                media.Single(m => m.GetPropertyValue<MediaFolderTypeEnum>(FolderConstants.PropertyTypeAlias) ==
+                        MediaFolderTypeEnum.MembersContent).Id;
+
             return new MediaSettings
             {
-                MediaRootId = 1258
+                MediaRootId = id
             };
         }
     }
