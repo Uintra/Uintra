@@ -45,7 +45,7 @@ namespace Compent.uCommunity.Controllers
             }
 
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = items.Take(take).ToList();
+            var pagedItemsList = items.OrderByDescending(el => el.PublishDate).Take(take).ToList();
 
             var centralFeedModel = new CentralFeedListViewModel
             {

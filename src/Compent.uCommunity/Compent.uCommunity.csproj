@@ -306,9 +306,9 @@
       <HintPath>..\..\packages\uCommunity.BaseControls.2.2.1\lib\net452\uCommunity.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.10, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.9\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.10\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Comments, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
