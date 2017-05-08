@@ -56,7 +56,8 @@ namespace uCommunity.CentralFeed.Web
                 Items = pagedItemsList,
                 Settings = _centralFeedService.GetAllSettings(),
                 Type = model.Type,
-                BlockScrolling = items.Count < take
+                BlockScrolling = items.Count < take,
+                ShowSubscribed = model.ShowSubscribed ?? false
             };
 
             return PartialView(ListViewPath, centralFeedModel);
