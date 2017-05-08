@@ -3,6 +3,7 @@
     public static class UmbracoAliases
     {
         public const string GalleryPreviewImageCrop = "galleryPreview";
+        public const string EnumDropdownList = "EnumDropdownList";
         
         public static class Media
         {
