@@ -9,7 +9,7 @@ namespace uCommunity.Core.Activity
     {
         IntranetActivityTypeEnum ActivityType { get; }
 
-        TActivity Get(Guid id);
+        TActivity Get(Guid id, bool includeHidden = false);
         IEnumerable<TActivity> GetManyActual();
         IEnumerable<TActivity> GetAll(bool includeHidden = false);
         bool IsActual(IIntranetActivity cachedActivity);

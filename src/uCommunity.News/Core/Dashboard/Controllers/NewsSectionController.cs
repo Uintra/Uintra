@@ -35,7 +35,7 @@ namespace uCommunity.News.Dashboard
         public NewsBackofficeViewModel Save(NewsBackofficeSaveModel saveModel)
         {
             _newsService.Save(saveModel.Map<NewsBase>());
-            var updatedModel = _newsService.Get(saveModel.Id);
+            var updatedModel = _newsService.Get(saveModel.Id, true);
             var result = updatedModel.Map<NewsBackofficeViewModel>();
             return result;
         }
