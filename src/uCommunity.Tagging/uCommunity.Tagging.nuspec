@@ -10,5 +10,8 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uCommunity Tagging Controls TaggingControls</tags>
+    <dependencies>
+      <dependency id="uCommunity.Core" version="1.0.28.0" />
+    </dependencies>
   </metadata>
 </package>
