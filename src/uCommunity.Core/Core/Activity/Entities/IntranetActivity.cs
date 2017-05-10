@@ -14,7 +14,7 @@ namespace uCommunity.Core.Activity.Entities
         string Description { get; set; }
         bool IsHidden { get; set; }
         bool IsPinned { get; set; }
-        int PinnedDays { get; set; }
+        DateTime? EndPinDate { get; set; }
     }
 
     public abstract class IntranetActivity : IIntranetActivity
@@ -41,6 +41,6 @@ namespace uCommunity.Core.Activity.Entities
 
         public bool IsPinned { get; set; }
 
-        public int PinnedDays { get; set; }
+        public DateTime? EndPinDate { get; set; }
     }
 }

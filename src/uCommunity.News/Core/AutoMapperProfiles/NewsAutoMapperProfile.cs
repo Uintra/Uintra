@@ -30,7 +30,7 @@ namespace uCommunity.News
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.PinnedDays, o => o.Ignore())
+                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
@@ -76,7 +76,7 @@ namespace uCommunity.News
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
-                .ForMember(d => d.PinnedDays, o => o.Ignore())
+                .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
@@ -90,7 +90,7 @@ namespace uCommunity.News
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
-                .ForMember(d => d.PinnedDays, o => o.Ignore())
+                .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();

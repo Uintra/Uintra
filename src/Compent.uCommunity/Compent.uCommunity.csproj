@@ -326,14 +326,12 @@
       <HintPath>..\..\packages\uCommunity.ContentPanel.0.0.0.3\lib\net452\uCommunity.ContentPanel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.27.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.27\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.28.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.28\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.6.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Events.1.0.6.2\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Events.1.0.7\lib\net452\uCommunity.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
@@ -346,9 +344,8 @@
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.6\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.12.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.News.1.0.12.2\lib\net452\uCommunity.News.dll</HintPath>
+    <Reference Include="uCommunity.News, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.News.1.0.13\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -848,6 +845,7 @@
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
@@ -998,7 +996,6 @@
     <Content Include="Views\SubscribePage\Index.cshtml" />
     <Content Include="Views\Events\ItemView.cshtml" />
     <Content Include="Views\Events\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="Content\fonts\opensans-bold-webfont.eot" />
     <Content Include="Content\fonts\opensans-bold-webfont.ttf" />
     <Content Include="Content\fonts\opensans-bold-webfont.woff" />
