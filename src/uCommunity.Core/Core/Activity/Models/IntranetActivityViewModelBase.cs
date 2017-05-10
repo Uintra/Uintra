@@ -6,7 +6,7 @@ namespace uCommunity.Core.Activity.Models
     {
         public Guid Id { get; set; }
         public bool CanEdit { get; set; }
-
+        public bool IsPinned { get; set; }
         public IntranetActivityDetailsHeaderViewModel HeaderInfo { get; set; }
     }
 }

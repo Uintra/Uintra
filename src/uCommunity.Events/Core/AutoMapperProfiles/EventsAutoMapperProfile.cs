@@ -32,6 +32,8 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.PinnedDays, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
@@ -49,7 +51,7 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())                
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -82,6 +84,8 @@ namespace uCommunity.Events
                .ForMember(d => d.ModifyDate, o => o.Ignore())
                .ForMember(d => d.Creator, o => o.Ignore())
                .ForMember(d => d.CanSubscribe, o => o.Ignore())
+               .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.PinnedDays, o => o.Ignore())
                .AfterMap((dst, src) =>
                {
                    src.MediaIds = dst.Media.ToIntCollection();
@@ -95,6 +99,8 @@ namespace uCommunity.Events
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.PinnedDays, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
