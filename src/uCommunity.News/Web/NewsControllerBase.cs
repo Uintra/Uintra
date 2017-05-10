@@ -167,6 +167,8 @@ namespace uCommunity.News.Web
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
 
+                model.Expired = _newsService.IsExpired(item);
+
                 yield return model;
             }
         }

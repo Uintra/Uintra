@@ -11,6 +11,7 @@ namespace uCommunity.News.Dashboard
         public string Media { get; set; }
         public int UmbracoCreatorId { get; set; }
         public DateTime PublishDate { get; set; }
+        public DateTime? UnpublishDate { get; set; }
         public bool IsHidden { get; set; }
     }
 }

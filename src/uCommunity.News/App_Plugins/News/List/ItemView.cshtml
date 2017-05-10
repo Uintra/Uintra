@@ -1,7 +1,9 @@
 ﻿@using System.Web.Mvc.Html
 @model uCommunity.News.NewsOverviewItemViewModel
-
-<div class="content__item">
+@{
+    var expired = Model.Expired ? "_expired" : "";
+}
+<div class="content__item @expired">
     <div class="row clearfix">
         <div class="col-md-9">
             <span class="content__item-label">VIGTIGT</span>

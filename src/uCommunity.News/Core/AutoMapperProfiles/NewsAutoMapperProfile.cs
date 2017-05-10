@@ -13,6 +13,7 @@ namespace uCommunity.News
         {
             Mapper.CreateMap<NewsBase, NewsOverviewItemViewModel>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
+                .ForMember(dst => dst.Expired, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
 
             Mapper.CreateMap<NewsBase, NewsCreateModel>()

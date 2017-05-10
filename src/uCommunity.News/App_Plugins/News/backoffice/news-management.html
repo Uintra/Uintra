@@ -24,16 +24,18 @@
                     <th class="_admin">Id</th>
                     <th>Title</th>
                     <th>Publish Date</th>
+                    <th>Unpublish Date</th>
                     <th>Create Date</th>
                     <th>Update Date</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody stop-propagation="click">
                 <tr ng-repeat="news in vm.newsList | filter: vm.filter track by news.id" ng-class="{'_unpublished' : news.isHidden}">
                     <td class="_admin" ng-click="vm.selectNewsToEdit(news, $index)">{{news.id}}</td>
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.title}}</td>
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.publishDate | date: vm.dateFormat}}</td>
+                    <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.unpublishDate | date: vm.dateFormat}}</td>
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.createdDate | date: vm.dateFormat}}</td>
                     <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.modifyDate | date: vm.dateFormat}}</td>
                     <td>
@@ -50,7 +52,7 @@
             </tbody>
         </table>
     </div>
-    <div class="news-edit umbraco-panel">
+    <div class="news-edit umbraco-panel" on-outside-click="vm.clearSelected()">
         <i class="icon icon-delete close-btn" ng-click="vm.clearSelected()"></i>
         <form name="editForm" class="news-edit-form">
             <div ng-if="vm.selected">
@@ -74,6 +76,11 @@
                     <h5 class="control-label">Publish date:</h5>
                     <date-picker model="vm.selected.publishDate" config="vm.config.publishDate"></date-picker>
                     <input type="hidden" ng-model="vm.selected.publishDate" required="" name="Publish date" />
+                </div>
+                
+                <div class="control-group">
+                    <h5 class="control-label">Unpublish date:</h5>
+                    <date-picker model="vm.selected.unpublishDate" picker="vm.unpublishDatePicker" config="vm.config.unpublishDate"></date-picker>
                 </div>
 
                 <div class="control-group">
