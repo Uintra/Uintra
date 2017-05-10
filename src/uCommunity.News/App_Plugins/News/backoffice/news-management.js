@@ -7,7 +7,7 @@
         var self = this;
         self.newsList = [];
         self.currentUser = null;
-        self.dateFormat = "dd MMMM yyyy";
+        self.dateFormat = "dd/MM/yyyy";
         self.selected = null;
         self.selectedIndex = null;
         self.filterModel = {};
