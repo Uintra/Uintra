@@ -1,4 +1,5 @@
-﻿@using uCommunity.Core
+﻿@using System.Web.Mvc
+@using uCommunity.Core
 @using uCommunity.Core.Controls.FileUpload
 @using uCommunity.Core.Extentions
 @using Umbraco.Web
@@ -28,8 +29,28 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat" />
-            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat"/>
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true"/>
+        </div>
+        <div class="form__row clearfix">
+            <div class="check">
+                <label class="check__label">
+                    @Html.CheckBoxFor(m => m.IsPinned, new { @id = "pin-control", @class = "check__box" })
+                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-label">@Html.Localize("EventsCreate.SetPinned.lbl")</span>
+                </label>
+                <div id="pin-info">
+                    <label class="check__label">
+                        @Html.Localize("EventsCreate.PinActivityMessage.lbl")
+                    </label>
+                    @{
+                        var daysRange = Enumerable.Range(1, 30);
+                        var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None", Selected = true } };
+                        listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
+                        @Html.DropDownListFor(d => d.PinDays, listOfDays)
+                    }
+                </div>
+            </div>
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>

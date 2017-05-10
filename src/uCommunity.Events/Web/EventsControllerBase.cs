@@ -102,9 +102,9 @@ namespace uCommunity.Events.Web
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
-            if (createModel.PinDays.HasValue)
+            if (createModel.IsPinned && createModel.PinDays > 0)
             {
-                @event.EndPinDate = DateTime.Now.AddDays(createModel.PinDays.Value);
+                @event.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
             }
 
             var activityId = _eventsService.Create(@event);
@@ -154,10 +154,11 @@ namespace uCommunity.Events.Web
             var isActual = _eventsService.IsActual(@event);
             _eventsService.Save(@event);
 
-            if (saveModel.PinDays.HasValue && @event.PinDays.GetValueOrDefault() != saveModel.PinDays.Value)
+            if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
             {
-                @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays.Value);
+                @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays);
             }
+
             OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });

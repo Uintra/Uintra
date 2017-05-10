@@ -43,6 +43,6 @@ namespace uCommunity.Core.Activity.Entities
 
         public DateTime? EndPinDate { get; set; }        
 
-        public int? PinDays { get; set; }
+        public int PinDays { get; set; }
     }
 }
