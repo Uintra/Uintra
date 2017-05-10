@@ -38,6 +38,7 @@
 
         function link($scope, $elem, $attrs) {
             var picker = createPicker($scope, $elem);
+            picker.$$id = $scope.$id;
             "picker" in $attrs && ($scope.picker = picker); // allow direct access to flatpickr instance from parent scope
             $scope.toggle = wrapWithMagic(picker.toggle);
             $scope.clear = wrapWithMagic(picker.clear);

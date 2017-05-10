@@ -18,6 +18,9 @@ namespace uCommunity.News
         [PropertyBinder(typeof(DateTimeBinder))]
         public DateTime PublishDate { get; set; }
 
+        [PropertyBinder(typeof(DateTimeBinder))]
+        public DateTime? UnpublishDate { get; set; }
+
         public string Media { get; set; }
 
         public int? MediaRootId { get; set; }
