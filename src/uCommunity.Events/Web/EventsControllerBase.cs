@@ -48,8 +48,8 @@ namespace uCommunity.Events.Web
         public virtual ActionResult List(EventType type, bool showOnlySubscribed)
         {
             var events = type == EventType.Actual ?
-                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
-                _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
+                _eventsService.GetManyActual().OrderBy(IsPinActual).ThenBy(item => item.StartDate).ThenBy(item => item.EndDate) :
+                _eventsService.GetPastEvents().OrderBy(IsPinActual).ThenByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
             return PartialView(ListViewPath, GetOverviewItems(events));
@@ -222,6 +222,18 @@ namespace uCommunity.Events.Web
 
                 yield return model;
             }
+        }
+
+        private bool IsPinActual(EventBase item)
+        {
+            if (!item.IsPinned) return false;
+
+            if (item.EndPinDate.HasValue)
+            {
+                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
+            }
+
+            return true;
         }
 
         protected virtual void OnEventCreated(Guid activityId)

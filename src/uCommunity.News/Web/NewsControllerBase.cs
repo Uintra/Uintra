@@ -39,12 +39,12 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult List()
         {
-            var news = _newsService.GetManyActual();
+            var news = _newsService.GetManyActual().OrderBy(IsPinActual).ThenByDescending(item => item.PublishDate);
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
                 DetailsPageUrl = _newsService.GetDetailsPage().Url,
-                Items = GetOverviewItems(news).OrderByDescending(item => item.PublishDate)
+                Items = GetOverviewItems(news)
             };
 
             FillLinks();
@@ -163,7 +163,6 @@ namespace uCommunity.News.Web
             {
                 var model = item.Map<NewsOverviewItemViewModel>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
-
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
 
@@ -176,5 +175,18 @@ namespace uCommunity.News.Web
             ViewData["DetailsPageUrl"] = _newsService.GetDetailsPage().Url;
             ViewData["OverviewPageUrl"] = _newsService.GetOverviewPage().Url;
         }
+
+        private bool IsPinActual(NewsBase item)
+        {
+            if (!item.IsPinned) return false;
+
+            if (item.EndPinDate.HasValue)
+            {
+                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
+            }
+
+            return true;
+        }
+
     }
 }

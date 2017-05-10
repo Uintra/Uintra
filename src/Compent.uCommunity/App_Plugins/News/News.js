@@ -7,6 +7,20 @@ require('select2');
 var initUserSelect = function (holder) {
     holder.find('#js-user-select').select2({});
 }
+var initPinControl=function(holder) {    
+    var pinControl = holder.find('#pin-control');
+    var pinInfoHolder = holder.find('#pin-info');
+    if (pinControl.is(":unchecked")) {
+        pinInfoHolder.hide();
+    }    
+    pinControl.change(function() {
+        if ($(this).is(":checked")) {
+            pinInfoHolder.show();
+        } else {
+            pinInfoHolder.hide();
+        }
+    });
+}
 
 var initDescriptionControl = function (holder, isEdit) {
     var dataStorage = holder.find('#js-hidden-description-container');
@@ -39,6 +53,7 @@ var controller = {
             return;
         }
 
+        initPinControl(holder);
         initUserSelect(holder);
         helpers.initPublishDatePicker(holder);
         initDescriptionControl(holder, isEdit);

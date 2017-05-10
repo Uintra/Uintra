@@ -14,5 +14,7 @@ namespace uCommunity.News
         public string MediaIds { get; set; }
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
+
+        public bool IsPinned { get; set; }        
     }
 }

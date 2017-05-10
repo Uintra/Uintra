@@ -18,6 +18,21 @@ var userSelect;
 var editor;
 var form;
 
+var initPinControl=function() {    
+    var pinControl = holder.find('#pin-control');
+    var pinInfoHolder = holder.find('#pin-info');
+    if (pinControl.is(":unchecked")) {
+        pinInfoHolder.hide();
+    }    
+    pinControl.change(function() {
+        if ($(this).is(":checked")) {
+            pinInfoHolder.show();
+        } else {
+            pinInfoHolder.hide();
+        }
+    });
+}
+
 var initUserSelect = function () {
     userSelect = holder.find('#js-user-select').select2({});
 }
@@ -120,6 +135,7 @@ var controller = {
             return;
         }
 
+        initPinControl();
         initUserSelect();
         helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
         helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
