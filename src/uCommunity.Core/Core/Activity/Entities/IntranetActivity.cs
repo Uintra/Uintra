@@ -41,6 +41,8 @@ namespace uCommunity.Core.Activity.Entities
 
         public bool IsPinned { get; set; }
 
-        public DateTime? EndPinDate { get; set; }
+        public DateTime? EndPinDate { get; set; }        
+
+        public int? PinDays { get; set; }
     }
 }

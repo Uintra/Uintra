@@ -96,6 +96,10 @@ namespace uCommunity.News.Web
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             news.CreatorId = _intranetUserService.GetCurrentUserId();
+            if (createModel.PinDays.HasValue)
+            {
+                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays.Value);
+            }
 
             var activityId = _newsService.Create(news);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
@@ -133,6 +137,11 @@ namespace uCommunity.News.Web
             var activity = editModel.Map<NewsBase>();
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
+
+            if (editModel.PinDays.HasValue && activity.PinDays.GetValueOrDefault() != editModel.PinDays.Value)
+            {
+                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays.Value);
+            }
 
             _newsService.Save(activity);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });

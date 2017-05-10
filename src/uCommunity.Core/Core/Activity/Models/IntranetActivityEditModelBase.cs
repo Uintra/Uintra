@@ -12,6 +12,8 @@ namespace uCommunity.Core.Activity.Models
 
         public bool IsPinned { get; set; }
 
-        public int EndPinDate { get; set; }
+        public int? PinDays { get; set; }
+
+        public DateTime? EndPinDate { get; set; }
     }
 }

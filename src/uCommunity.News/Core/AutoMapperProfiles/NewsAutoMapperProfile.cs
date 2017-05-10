@@ -28,11 +28,12 @@ namespace uCommunity.News
             Mapper.CreateMap<NewsCreateModel, NewsBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
-                .ForMember(dst => dst.IsHidden, o => o.Ignore())                
+                .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore());
 
             Mapper.CreateMap<NewsEditModel, NewsBase>()
@@ -74,6 +75,7 @@ namespace uCommunity.News
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
+                .ForMember(d => d.PinDays, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
@@ -88,6 +90,7 @@ namespace uCommunity.News
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
+                .ForMember(d => d.PinDays, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {

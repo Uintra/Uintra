@@ -37,6 +37,7 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore());
 
             Mapper.CreateMap<EventEditModel, EventBase>()
@@ -83,7 +84,8 @@ namespace uCommunity.Events
                .ForMember(d => d.Creator, o => o.Ignore())
                .ForMember(d => d.CanSubscribe, o => o.Ignore())
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+               .ForMember(dst => dst.PinDays, o => o.Ignore())
+               .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                .AfterMap((dst, src) =>
                {
                    src.MediaIds = dst.Media.ToIntCollection();
@@ -98,6 +100,7 @@ namespace uCommunity.Events
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.PinDays, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
