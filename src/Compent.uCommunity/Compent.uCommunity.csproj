@@ -853,6 +853,7 @@
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
+    <Content Include="Views\News\ItemView.cshtml" />
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
