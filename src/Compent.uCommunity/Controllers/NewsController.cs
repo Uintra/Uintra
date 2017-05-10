@@ -18,6 +18,7 @@ namespace Compent.uCommunity.Controllers
     public class NewsController : NewsControllerBase
     {
         protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
+        protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
 
         private readonly INewsService<NewsEntity> _newsService;
 

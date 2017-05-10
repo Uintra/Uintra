@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using uCommunity.Core.Extentions;
 using Umbraco.Web.WebApi;
@@ -18,7 +19,7 @@ namespace uCommunity.News.Dashboard
         public IEnumerable<NewsBackofficeViewModel> GetAll()
         {
             var news = _newsService.GetAll(true);
-            var result = news.Map<IEnumerable<NewsBackofficeViewModel>>();
+            var result = news.Map<IEnumerable<NewsBackofficeViewModel>>().OrderByDescending(el => el.ModifyDate);
             return result;
         }
 

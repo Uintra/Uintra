@@ -11,7 +11,7 @@
                 useDate: true,
                 useSeconds: false,
                 offsetTime: "1",
-                format: "DD.MM.YYYY"
+                dateFormat: "d/m/Y"
             },
             media: {
                 disableFolderSelect: "1",
