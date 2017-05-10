@@ -1,22 +1,27 @@
 ﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Extentions
 @model Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel
 
 <div class="content__item">
     <div class="row clearfix">
         <div class="col-md-9">
-            <span class="content__item-label">VIGTIGT</span>
-            @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+            @if (@Model.IsPinned)
+            {
+                <span class="content__item-label">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+            }      
+            
+            @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
                 <p>@Model.Teaser</p>
             </div>
             <div class="content__item-images">
-                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.MediaIds}); }
             </div>
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl }); }
+                    @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
+                    @{ Html.RenderAction("Preview", "Comments", new {activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl}); }
                 </div>
             </div>
 

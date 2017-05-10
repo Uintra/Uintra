@@ -32,7 +32,7 @@ var initDescriptionControl = function (holder, isEdit) {
     var editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
 
     editor.on('text-change', function () {
-        if(isEdit){
+        if (isEdit) {
             dataStorage.val(editor.container.firstChild.innerHTML);
         }
 
@@ -46,16 +46,31 @@ var initDescriptionControl = function (holder, isEdit) {
     });
 }
 
+var initDates = function (holder) {
+    var publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
+    var unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
+    var initialMinDate = publish.selectedDates[0] || null;
+    setMinDate(initialMinDate);
+
+    publish.config.onChange.push(publishDateChanged);
+
+    function setMinDate(minDate) {
+        minDate && unpublish.set('minDate', minDate);
+    }
+
+    function publishDateChanged(newDates) {
+        setMinDate(newDates[0]);
+    }
+}
 
 var controller = {
     init: function (holder, isEdit) {
         if (!holder.length) {
             return;
         }
-
+        initDates(holder);
         initPinControl(holder);
         initUserSelect(holder);
-        helpers.initPublishDatePicker(holder);
         initDescriptionControl(holder, isEdit);
         fileUploadController.init(holder);
     }

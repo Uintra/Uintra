@@ -39,12 +39,12 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult List()
         {
-            var news = _newsService.GetManyActual();
+            var news = _newsService.GetManyActual().OrderBy(IsPinActual).ThenByDescending(item => item.PublishDate);
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
                 DetailsPageUrl = _newsService.GetDetailsPage().Url,
-                Items = GetOverviewItems(news).OrderByDescending(item => item.PublishDate)
+                Items = GetOverviewItems(news)
             };
 
             FillLinks();
@@ -79,8 +79,21 @@ namespace Compent.uCommunity.Controllers
                 overviewItemViewModel.MediaIds = newsModelBase.MediaIds.Take(3).JoinToString(",");
                 overviewItemViewModel.HeaderInfo = newsModelBase.Map<IntranetActivityItemHeaderViewModel>();
                 overviewItemViewModel.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString());
+                overviewItemViewModel.Expired = _newsService.IsExpired(newsModelBase);
                 yield return overviewItemViewModel;
             }
+        }
+
+        private bool IsPinActual(NewsBase item)
+        {
+            if (!item.IsPinned) return false;
+
+            if (item.EndPinDate.HasValue)
+            {
+                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
+            }
+
+            return true;
         }
     }
 }

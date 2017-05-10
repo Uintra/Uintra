@@ -50,8 +50,8 @@ namespace Compent.uCommunity.Controllers
         public override ActionResult List(EventType type, bool showOnlySubscribed)
         {
             var events = type == EventType.Actual ?
-                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
-                _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
+                 _eventsService.GetManyActual().OrderBy(IsPinActual).ThenBy(item => item.StartDate).ThenBy(item => item.EndDate) :
+                 _eventsService.GetPastEvents().OrderBy(IsPinActual).ThenByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
 
             FillLinks();
             return PartialView(ListViewPath, GetOverviewItems(events));
@@ -133,6 +133,18 @@ namespace Compent.uCommunity.Controllers
         protected override void OnEventHidden(Guid id)
         {
             ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+        }
+
+        private bool IsPinActual(EventBase item)
+        {
+            if (!item.IsPinned) return false;
+
+            if (item.EndPinDate.HasValue)
+            {
+                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
+            }
+
+            return true;
         }
     }
 }
