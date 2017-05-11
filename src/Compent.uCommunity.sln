@@ -44,7 +44,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Users", "uCommun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Events", "uCommunity.Events\uCommunity.Events.csproj", "{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.ContentPanel", "uCommunity.ContentPanel\uCommunity.ContentPanel.csproj", "{D5590777-B149-467F-829A-E901A9462E72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Panels", "uCommunity.ContentPanel\uCommunity.Panels.csproj", "{D5590777-B149-467F-829A-E901A9462E72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

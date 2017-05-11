@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uCommunity ContentPanel Controls ContentPanelControls</tags>
+    <tags>Compent uCommunity Panels ContentPanel GlobalPanel</tags>
     <dependencies>
-      <dependency id="uCommunity.BaseControls" version="2.2.0" />
+      <dependency id="uCommunity.BaseControls" version="2.2.1.2" />
     </dependencies>
   </metadata>
 </package>

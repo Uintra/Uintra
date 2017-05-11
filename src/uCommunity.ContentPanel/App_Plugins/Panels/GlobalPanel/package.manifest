@@ -1,0 +1,44 @@
+﻿{
+  "propertyEditors": [
+    {
+      "name": "Panel picker",
+      "alias": "custom.PanelPicker",
+      "hideLabel": true,
+      "editor": {
+        "valueType": "JSON",
+        "view": "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.html"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Config",
+            "hideLabel": true,
+            "key": "config",
+            "view": "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.html"
+          }
+        ]
+      }
+    }
+  ],
+  "gridEditors": [
+    {
+      "name": "Global panel",
+      "alias": "custom.GlobalPanelPicker",
+      "view": "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.html",
+      "render": "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.cshtml",
+      "icon": "icon-plugin color-green",
+      "config": {
+        "startNodeXPath": "$root/dataFolder/globalPanelFolder",
+        "allowedAliases": [ "panel" ]
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.js",
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.js",
+    "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.js"
+  ],
+  "css": [
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.css"
+  ]
+}

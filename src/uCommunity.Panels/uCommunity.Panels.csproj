@@ -7,8 +7,8 @@
     <ProjectGuid>{D5590777-B149-467F-829A-E901A9462E72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.ContentPanel</RootNamespace>
-    <AssemblyName>uCommunity.ContentPanel</AssemblyName>
+    <RootNamespace>uCommunity.Panels</RootNamespace>
+    <AssemblyName>uCommunity.Panels</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -269,28 +269,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
-    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.js" />
-    <Content Include="App_Plugins\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.html" />
-    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.js" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.css" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.html" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.js" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.html" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.js" />
-    <Content Include="App_Plugins\ContentPanel\Panel\contentPanel.js" />
-    <Content Include="App_Plugins\ContentPanel\Panel\contentPanel.css" />
-    <Content Include="uCommunity.ContentPanel.nuspec">
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
+    <Content Include="uCommunity.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\ContentPanel\package.manifest" />
-    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
