@@ -3,6 +3,7 @@
 
     var controller = function (gridService, $scope) {
         var self = this;
+        self.loaded = false;
         self.gridEditors = [];
 
         self.init = function (model) {
@@ -11,7 +12,7 @@
             loadGridEditors();
 
             //FU umbraco. I know dirty hacks too.
-            self.model.value = self.model.value || { value: {}, editor: {}, active: true, inGlobalPanelScope: true };
+            self.model.value = self.model.value || { value: {}, editor: {}, active: true };
             $scope.control = self.model.value;
             $scope.$watch('control', function () { self.model.value = $scope.control; }, true);
         };
@@ -31,7 +32,16 @@
                     if (self.config.allowedEditors.indexOf(editor.alias) > -1) {
                         self.gridEditors.push(editor);
                     }
+
+                    if (self.model.value.editor.alias == editor.alias) { //push fresh config
+                        self.model.value.editor = editor;
+                    }
                 });
+
+                if (self.gridEditors.length == 1 && JSON.stringify(self.model.value.editor) == "{}") {
+                    self.selectPanel(self.gridEditors[0]);
+                }
+                self.loaded = true;
             });
         }
     }
