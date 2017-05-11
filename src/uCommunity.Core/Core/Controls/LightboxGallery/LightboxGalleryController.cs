@@ -29,5 +29,18 @@ namespace uCommunity.Core.Controls.LightboxGallery
 
             return View("~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGallery.cshtml", result);
         }
+
+        
+        public ActionResult Preview(LightboxGalleryInfoModel model)
+        {
+            var galleryPreviewModel = new LightboxGalleryPreviewModel();
+            if (model.MediaIds.Any())
+            {
+                var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
+                galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image);
+                galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Images);
+            }
+            return View("~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGalleryPreview.cshtml", galleryPreviewModel);
+        }
     }
 }
