@@ -39,6 +39,11 @@
           "disableFolderSelect": "1",
           "multiPicker": "0",
           "onlyImages": "1"
+        },
+        "filesPicker": {
+          "disableFolderSelect": "1",
+          "multiPicker": "1",
+          "onlyImages": "0"
         }
       }
     },
