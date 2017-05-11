@@ -2,7 +2,11 @@
 @using uCommunity.Core.Extentions
 @model Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel
 
-<div class="content__item">
+@{
+    var expired = Model.Expired ? "_expired" : "";
+}
+
+<div class="content__item @expired">
     <div class="row clearfix">
         <div class="col-md-9">
             @if (@Model.IsPinned)
