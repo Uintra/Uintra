@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Core;
@@ -45,7 +46,8 @@ namespace Compent.uCommunity.Controllers
             }
 
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = items.OrderByDescending(el => el.PublishDate).Take(take).ToList();
+
+            var pagedItemsList = items.OrderByDescending(IsPinActual).Take(take).ToList();            
 
             var centralFeedModel = new CentralFeedListViewModel
             {
@@ -58,6 +60,18 @@ namespace Compent.uCommunity.Controllers
             };
 
             return PartialView(ListViewPath, centralFeedModel);
+        }
+
+        protected new bool IsPinActual(ICentralFeedItem item)
+        {
+            if (!item.IsPinned) return false;
+
+            if (item.EndPinDate.HasValue)
+            {
+                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
+            }
+
+            return true;
         }
     }
 }

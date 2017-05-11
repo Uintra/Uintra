@@ -11,7 +11,7 @@
         <div class="col-md-9">
             @if (@Model.IsPinned)
             {
-                <span class="content__item-label">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+                <div class="content__item-txt">@Html.Localize("NewsItemView.Pinned.lbl")</div>
             }      
             
             @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
