@@ -6,7 +6,7 @@
       "hideLabel": true,
       "editor": {
         "valueType": "JSON",
-        "view": "/App_Plugins/ContentPanel/PanelPicker/panel-picker.html"
+        "view": "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.html"
       },
       "prevalues": {
         "fields": [
@@ -14,7 +14,7 @@
             "label": "Config",
             "hideLabel": true,
             "key": "config",
-            "view": "/App_Plugins/ContentPanel/PanelPicker/panel-picker.prevalues.html"
+            "view": "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.html"
           }
         ]
       }
@@ -24,8 +24,8 @@
     {
       "name": "Content panel",
       "alias": "custom.ContentPanel",
-      "view": "/App_Plugins/ContentPanel/backoffice/content-panel.html",
-      "render": "/App_Plugins/ContentPanel/Panel/content-panel.cshtml",
+      "view": "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.html",
+      "render": "/App_Plugins/Panels/ContentPanel/content-panel.cshtml",
       "icon": "icon-notepad color-orange",
       "config": {
         "description": {
@@ -39,14 +39,19 @@
           "disableFolderSelect": "1",
           "multiPicker": "0",
           "onlyImages": "1"
+        },
+        "filesPicker": {
+          "disableFolderSelect": "1",
+          "multiPicker": "1",
+          "onlyImages": "0"
         }
       }
     },
     {
       "name": "Global panel",
       "alias": "custom.GlobalPanelPicker",
-      "view": "/App_Plugins/ContentPanel/GlobalPanelPicker/global-panel-picker.html",
-      "render": "/App_Plugins/ContentPanel/GlobalPanelPicker/global-panel-picker.cshtml",
+      "view": "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.html",
+      "render": "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.cshtml",
       "icon": "icon-plugin color-green",
       "config": {
         "startNodeXPath": "$root/dataFolder/globalPanelFolder",
@@ -55,12 +60,12 @@
     }
   ],
   "javascript": [
-    "/App_Plugins/ContentPanel/backoffice/content-panel.js",
-    "/App_Plugins/ContentPanel/PanelPicker/panel-picker.js",
-    "/App_Plugins/ContentPanel/PanelPicker/panel-picker.prevalues.js",
-    "/App_Plugins/ContentPanel/GlobalPanelPicker/global-panel-picker.js"
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.js",
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.js",
+    "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.js",
+    "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.js"
   ],
   "css": [
-    "/App_Plugins/ContentPanel/PanelPicker/panel-picker.css"
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.css"
   ]
 }

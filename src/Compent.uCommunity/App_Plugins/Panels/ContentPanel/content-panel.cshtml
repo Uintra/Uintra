@@ -1,4 +1,5 @@
 ﻿@using uCommunity.BaseControls
+@using uCommunity.Core.Extentions
 @inherits UmbracoViewPage<dynamic>
 
 @{
@@ -115,6 +116,25 @@
                 }
             </ul>
         </div>
+    }
+
+    @{
+        var filesIds = ((string)viewModel.files).ToIntCollection();
+        if (filesIds.Any())
+        {
+            <ul class="documents">
+                @foreach (var id in filesIds)
+                {
+                    var file = Umbraco.TypedMedia(id);
+                    <li class="documents__item">
+                        <a class="documents__item-link" target="_blank" href="@file.Url">
+                            <span class="documents__icon file-extension __@file.GetMediaExtention()"></span>
+                            <span class="documents__item-name">@file.Name</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
     }
 
 </section>

@@ -21,7 +21,7 @@
                 var mediaPickerScope;
                 $scope.model = {
                     value: $scope.value,
-                    config: angular.extend(defaultConfig, $scope.config || {})
+                    config: angular.extend({}, defaultConfig, $scope.config || {})
                 }
 
                 $scope.mediaPickerLoadedHandler = function () {
