@@ -506,7 +506,7 @@
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-    <None Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
