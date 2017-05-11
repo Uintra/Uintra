@@ -31,9 +31,9 @@ namespace uCommunity.Core.Controls.LightboxGallery
         }
 
         
-        public ActionResult Preview(LightboxGalleryInfoModel model)
+        public ActionResult Preview(LightboxGalleryPreviewModel model)
         {
-            var galleryPreviewModel = new LightboxGalleryPreviewModel();
+            var galleryPreviewModel = new LightboxGalleryPreviewViewModel();
             if (model.MediaIds.Any())
             {
                 var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
