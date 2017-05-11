@@ -13,10 +13,10 @@ var holder;
 var userSelect;
 var editor;
 
-var initSubmitButton = function () {    
+var initSubmitButton = function () {
     var form = holder.find('#createForm');
-    var btn = holder.find('._submit');  
-    var pinControl = holder.find('#pin-control');    
+    var btn = holder.find('._submit');
+    var pinControl = holder.find('#pin-control');
 
     btn.click(function (event) {
         if (!form.valid()) {
@@ -35,12 +35,12 @@ var initSubmitButton = function () {
     });
 }
 
-var initPinControl=function() {    
+var initPinControl = function () {
     var pinControl = holder.find('#pin-control');
     var pinInfoHolder = holder.find('#pin-info');
     $(pinInfoHolder).hide();
 
-    pinControl.change(function() {
+    pinControl.change(function () {
         if ($(this).is(":checked")) {
             pinInfoHolder.show();
         } else {
@@ -72,6 +72,22 @@ var initDescriptionControl = function () {
     });
 }
 
+var initDatePickers = function () {
+    var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
+    var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+
+    function startOnChange(newDates) {
+        var newDate = newDates[0];
+        var endDate = end.selectedDates[0];
+        if (endDate != null && endDate < new Date(newDate)) {
+            end.setDate(newDate);
+        }
+        end.set('minDate', newDate);
+    }
+
+    start.config.onChange.push(startOnChange);
+}
+
 var controller = {
     init: function () {
         holder = $('#js-events-create-page');
@@ -83,8 +99,7 @@ var controller = {
         initSubmitButton();
         initPinControl();
         initUserSelect();
-        helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
-        helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+        initDatePickers();
         initDescriptionControl();
         fileUploadController.init(holder);
     }
