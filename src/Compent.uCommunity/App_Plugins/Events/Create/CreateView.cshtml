@@ -6,7 +6,7 @@
 @model uCommunity.Events.EventCreateModel
 
 <div class="form" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Events"))
+    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -45,15 +45,20 @@
                     <span class="check__fake-label">@Html.Localize("EventsCreate.SetPinned.lbl")</span>
                 </label>
                 <div id="pin-info">
-                    <label class="check__label">
-                        @Html.Localize("EventsCreate.PinActivityMessage.lbl")
-                    </label>
+                    @Html.Localize("EventsCreate.PinActivityMessage.lbl")
                     @{
                         var daysRange = Enumerable.Range(1, 30);
                         var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None", Selected = true } };
                         listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
                         @Html.DropDownListFor(d => d.PinDays, listOfDays)
                     }
+                    <label class="check__label">
+                        <label class="check__label">
+                            <input type="checkbox" class="check__box" id="pin-accept" />
+                            <span class="check__fake-input icon-check"></span>
+                            <span class="check__fake-label">@Html.Localize("EventsCreate.AcceptPin.lbl")</span>
+                        </label>
+                    </label>
                 </div>
             </div>
         </div>
