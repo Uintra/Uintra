@@ -7,17 +7,45 @@ require('select2');
 var initUserSelect = function (holder) {
     holder.find('#js-user-select').select2({});
 }
+
 var initPinControl=function(holder) {    
     var pinControl = holder.find('#pin-control');
     var pinInfoHolder = holder.find('#pin-info');
     if (pinControl.is(":unchecked")) {
         pinInfoHolder.hide();
-    }    
+    }
+    else {
+        var pinAccept = holder.find('#pin-accept');
+        pinAccept.prop('checked', true);
+    }
     pinControl.change(function() {
         if ($(this).is(":checked")) {
             pinInfoHolder.show();
         } else {
             pinInfoHolder.hide();
+        }
+    });
+}
+
+
+var initSubmitButton = function (holder) {    
+    var form = holder.find('#form');
+    var btn = holder.find('._submit');  
+    var pinControl = holder.find('#pin-control');    
+
+    btn.click(function (event) {
+        if (!form.valid()) {
+            event.preventDefault();
+            return;
+        }
+
+        if (pinControl.is(":checked")) {
+            var pinAccept = holder.find('#pin-accept');
+            if (pinAccept.is(":unchecked")) {
+                pinAccept.closest(".check__label").addClass('input-validation-error');
+                event.preventDefault();
+                return;
+            }
         }
     });
 }
@@ -68,6 +96,7 @@ var controller = {
         if (!holder.length) {
             return;
         }
+        initSubmitButton(holder);
         initDates(holder);
         initPinControl(holder);
         initUserSelect(holder);
