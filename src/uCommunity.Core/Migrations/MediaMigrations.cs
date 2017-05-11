@@ -89,12 +89,12 @@ namespace uCommunity.Core.Migrations
         {
             var mediaService = ApplicationContext.Current.Services.MediaService;
             var folderTypes = Enum.GetValues(typeof(MediaFolderTypeEnum)).Cast<MediaFolderTypeEnum>();
-
+            var rootFolders = mediaService.GetRootMedia().Where(f => f.ContentType.Alias.Equals(UmbracoAliases.Media.FolderTypeAlias));
             foreach (var folderType in folderTypes)
             {
                 var folderName = folderType.GetAttribute<DisplayAttribute>().Name;
-                var folderByName = mediaService.GetRootMedia().Where(m => m.Name.Equals(folderName));
-                var folderByType = mediaService.GetRootMedia().Where(m => m.GetValue<MediaFolderTypeEnum>(FolderConstants.FolderTypePropertyTypeAlias) == folderType);
+                var folderByName = rootFolders.Where(m => m.Name.Equals(folderName));
+                var folderByType = rootFolders.Where(m => m.GetValue<MediaFolderTypeEnum>(FolderConstants.FolderTypePropertyTypeAlias) == folderType);
 
                 if (folderByName.Any() || folderByType.Any())
                 {
