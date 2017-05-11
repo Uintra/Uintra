@@ -5,6 +5,7 @@ using uCommunity.Core;
 using uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.Media;
 using uCommunity.Users.Web;
+using Umbraco.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Models;
@@ -32,7 +33,7 @@ namespace Compent.uCommunity.Controllers
         {
             var media = _umbracoHelper.TypedMediaAtRoot();
             var id =
-                media.Single(m => m.GetPropertyValue<MediaFolderTypeEnum>(FolderConstants.PropertyTypeAlias) ==
+                media.Single(m => m.GetPropertyValue<MediaFolderTypeEnum>(FolderConstants.FolderTypePropertyTypeAlias) ==
                         MediaFolderTypeEnum.MembersContent).Id;
 
             return new MediaSettings
