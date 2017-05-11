@@ -39,7 +39,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult List()
         {
-            var news = _newsService.GetManyActual().OrderBy(IsPinActual).ThenByDescending(item => item.PublishDate);
+            var news = _newsService.GetManyActual().OrderByDescending(item => item.PublishDate);
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
@@ -176,18 +176,6 @@ namespace uCommunity.News.Web
         {
             ViewData["DetailsPageUrl"] = _newsService.GetDetailsPage().Url;
             ViewData["OverviewPageUrl"] = _newsService.GetOverviewPage().Url;
-        }
-
-        private bool IsPinActual(NewsBase item)
-        {
-            if (!item.IsPinned) return false;
-
-            if (item.EndPinDate.HasValue)
-            {
-                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
-            }
-
-            return true;
         }
 
     }

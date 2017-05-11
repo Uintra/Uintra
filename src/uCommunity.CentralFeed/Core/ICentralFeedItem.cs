@@ -12,5 +12,9 @@ namespace uCommunity.CentralFeed
         DateTime PublishDate { get; }
 
         DateTime ModifyDate { get; }
+
+        DateTime? EndPinDate { get; }
+
+        bool IsPinned { get; }
     }
 }

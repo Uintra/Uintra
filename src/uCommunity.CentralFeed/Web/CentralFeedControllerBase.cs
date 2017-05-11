@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.CentralFeed.Core;
@@ -48,7 +49,7 @@ namespace uCommunity.CentralFeed.Web
             }
 
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = items.OrderByDescending(el => el.PublishDate).Take(take).ToList();
+            var pagedItemsList = items.OrderBy(IsPinActual).ThenByDescending(el => el.PublishDate).Take(take).ToList();
 
             var centralFeedModel = new CentralFeedListViewModel
             {
@@ -108,6 +109,18 @@ namespace uCommunity.CentralFeed.Web
                     HasSubscribersFilter = singleSetting.HasSubscribersFitler,
                 };
             }
+        }
+
+        protected bool IsPinActual(ICentralFeedItem item)
+        {
+            if (!item.IsPinned) return false;
+
+            if (item.EndPinDate.HasValue)
+            {
+                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
+            }
+
+            return true;
         }
     }
 }
