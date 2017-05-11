@@ -2,7 +2,7 @@
     'use strict';
     //https://chmln.github.io/flatpickr/options/
 
-    //WARNING: DO NOT USE APPEND TO OPTION
+    //WARNING: DO NOT USE 'APPEND TO' OPTION
     var defaultOptions = {
         weekNumbers: true,
         locale: 'da',

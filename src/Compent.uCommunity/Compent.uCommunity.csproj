@@ -306,9 +306,8 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.BaseControls, Version=2.2.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.BaseControls.2.2.1.1\lib\net452\uCommunity.BaseControls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uCommunity.BaseControls, Version=2.2.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.BaseControls.2.2.1.2\lib\net452\uCommunity.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.CentralFeed, Version=1.0.4.11, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.11\lib\net452\uCommunity.CentralFeed.dll</HintPath>
@@ -317,11 +316,6 @@
     <Reference Include="uCommunity.Comments, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Comments.1.0.8.2\lib\net452\uCommunity.Comments.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="uCommunity.ContentPanel, Version=0.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.ContentPanel.0.0.0.3\lib\net452\uCommunity.ContentPanel.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Core, Version=1.0.28.5, Culture=neutral, processorArchitecture=MSIL">
@@ -350,6 +344,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Notification.1.0.4\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="uCommunity.Panels, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Panels.2.0.0.1\lib\net452\uCommunity.Panels.dll</HintPath>
     </Reference>
     <Reference Include="uCommunity.Subscribe, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -488,19 +485,6 @@
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comments.css" />
-    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.html" />
-    <Content Include="App_Plugins\ContentPanel\backoffice\content-panel.js" />
-    <Content Include="App_Plugins\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.html" />
-    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.js" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.css" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.html" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.js" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.html" />
-    <Content Include="App_Plugins\ContentPanel\PanelPicker\panel-picker.prevalues.js" />
-    <Content Include="App_Plugins\ContentPanel\Panel\contentPanel.js" />
-    <Content Include="App_Plugins\ContentPanel\Panel\contentPanel.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
@@ -750,6 +734,18 @@
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
+    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
@@ -789,9 +785,6 @@
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\ContentPanel\Panel\content-panel.cshtml" />
-    <Content Include="App_Plugins\ContentPanel\package.manifest" />
-    <Content Include="App_Plugins\ContentPanel\GlobalPanelPicker\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
@@ -816,7 +809,6 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -847,6 +839,10 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
