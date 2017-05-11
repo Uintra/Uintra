@@ -6,6 +6,7 @@ var photoswipeUiDefault = require('photoswipe/dist/photoswipe-ui-default');
 
 
 require('./_lightbox.css');
+require('./_lightboxGallery.css');
 
 var photoswipeElement = document.querySelector('.pswp');
 var galleries = [];
@@ -36,6 +37,9 @@ var buildPhotoswipeItems = function (imagesItems) {
     var result = [];
 
     for (var i = 0; i < imagesItems.length; i++) {
+        if (!imagesItems[i].dataset.fullUrl || !imagesItems[i].dataset.fullSize) {
+            continue;   
+        }
         var item = imagesItems[i];
         var size = item.getAttribute('data-full-size').split('x');
         var width;
