@@ -138,7 +138,7 @@ appInitializer.add(function () {
                 }
             }
 
-            var element = document.documentElement ? document.documentElement : document.body;
+            var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
             scrollTo(element, 0, 200);
             reload();
             document.body.dispatchEvent(centralFeedTabEvent);
