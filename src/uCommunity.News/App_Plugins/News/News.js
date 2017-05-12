@@ -2,6 +2,7 @@
 import helpers from "./../Core/Content/scripts/Helpers";
 import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
 
+require('./style.css');
 require('select2');
 
 var initUserSelect = function (holder) {
