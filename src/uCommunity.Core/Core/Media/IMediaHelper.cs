@@ -9,5 +9,6 @@ namespace uCommunity.Core.Media
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
         bool DeleteMedia(int mediaId);
         IMedia CreateMedia(TempFile file, int rootMediaId);
+        MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType);
     }
 }
