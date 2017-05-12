@@ -9,6 +9,7 @@ using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace uCommunity.Core.Media
 {
@@ -16,15 +17,18 @@ namespace uCommunity.Core.Media
     {
         private readonly ICacheService cacheService;
         private readonly IMediaService _mediaService;
+        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService, 
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            UmbracoHelper umbracoHelper)
         {
             this.cacheService = cacheService;
             _mediaService = mediaService;
             _intranetUserService = intranetUserService;
+            _umbracoHelper = umbracoHelper;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model)
@@ -70,6 +74,18 @@ namespace uCommunity.Core.Media
 
             _mediaService.Delete(media);
             return true;
+        }
+
+        public MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType)
+        {
+            var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
+            var mediaFolder = folders.Single(m => m.GetPropertyValue<MediaFolderTypeEnum>(FolderConstants.FolderTypePropertyTypeAlias) == mediaFolderType);
+
+            return new MediaSettings
+            {
+                AllowedMediaExtentions = mediaFolder.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, String.Empty),
+                MediaRootId = mediaFolder.Id
+            };
         }
 
         private string GetMediaTypeAlias(byte[] fileBytes)
