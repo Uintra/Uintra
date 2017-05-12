@@ -3,19 +3,20 @@
 @model Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel
 
 @{
-    var expired = Model.Expired ? "_expired" : "";
-    var pinedClass = Model.IsPinned ? "_pined" : "";
+var expired = Model.Expired ? "_expired" : "";
+var pinnedClass = Model.IsPinned ? "_pinned" : "";
 }
 
 <div class="content__item @expired">
     <div class="row clearfix">
-        <div class="col-md-9 content__item-holder @pinedClass">
-            @if (@Model.IsPinned)
-            {
-                <div class="content__item-txt">@Html.Localize("NewsItemView.Pinned.lbl")</div>
-            }      
-            
-            @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
+        <div class="col-md-12 content__item-holder @pinnedClass">
+            <div class="clearfix">
+                @if (@Model.IsPinned)
+                {
+                    <span class="pinned__item pull-right">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+                }
+                @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
+            </div>
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
                 <p>@Model.Teaser</p>
