@@ -414,7 +414,7 @@
     <Compile Include="Core\Controls\FileUpload\FileViewModel.cs" />
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxAutomapperProfile.cs" />
-    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryController.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryControllerBase.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryViewModel.cs" />
     <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Core\Exceptions\InconsistentDataException.cs" />

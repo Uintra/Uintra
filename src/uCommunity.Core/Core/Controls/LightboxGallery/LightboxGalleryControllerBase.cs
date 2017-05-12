@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
@@ -7,16 +8,16 @@ using Umbraco.Web.Mvc;
 
 namespace uCommunity.Core.Controls.LightboxGallery
 {
-    public class LightboxGalleryController: SurfaceController
+    public  abstract class LightboxGalleryControllerBase: SurfaceController
     {
         private readonly UmbracoHelper _umbracoHelper;
 
-        public LightboxGalleryController(UmbracoHelper umbracoHelper)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper)
         {
             _umbracoHelper = umbracoHelper;
         }
 
-        public ActionResult RenderGallery(string mediaIds)
+        public virtual ActionResult RenderGallery(string mediaIds)
         {
             var result = Enumerable.Empty<LightboxGalleryViewModel>();
 
@@ -31,7 +32,7 @@ namespace uCommunity.Core.Controls.LightboxGallery
         }
 
         
-        public ActionResult Preview(LightboxGalleryPreviewModel model)
+        public virtual ActionResult Preview(LightboxGalleryPreviewModel model)
         {
             var galleryPreviewModel = new LightboxGalleryPreviewViewModel();
             if (model.MediaIds.Any())
@@ -39,8 +40,15 @@ namespace uCommunity.Core.Controls.LightboxGallery
                 var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
                 galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image);
                 galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Images);
+                galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
             }
+
             return View("~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGalleryPreview.cshtml", galleryPreviewModel);
+        }
+
+        protected virtual string GetOverviewElementId()
+        {
+            return "js-lightbox-gallery";
         }
     }
 }

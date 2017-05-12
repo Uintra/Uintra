@@ -9,6 +9,8 @@ namespace uCommunity.Core.Controls.LightboxGallery
 
         public IEnumerable<LightboxGalleryViewModel> OtherFiles { get; set; }
 
+        public string Url { get; set; }
+
         public LightboxGalleryPreviewViewModel()
         {
             Images = Enumerable.Empty<LightboxGalleryViewModel>();

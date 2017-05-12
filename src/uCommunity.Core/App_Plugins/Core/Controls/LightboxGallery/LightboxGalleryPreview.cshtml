@@ -18,10 +18,12 @@
         }
         @if (Model.OtherFiles.Any())
         {
-            <li class="gallery__item _attachments">
-                <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" />
-                <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
-            </li>
+            <a href="@Model.Url">
+                <li class="gallery__item _attachments ">
+                    <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" />
+                    <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
+                </li>
+            </a>
         }
     </ul>
 }
