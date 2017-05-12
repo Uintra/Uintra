@@ -137,7 +137,9 @@ appInitializer.add(function () {
                     tab.classList.remove(active);
                 }
             }
-            scrollTo(document.body, 0, 200);
+
+            var element = document.documentElement ? document.documentElement : document.body;
+            scrollTo(element, 0, 200);
             reload();
             document.body.dispatchEvent(centralFeedTabEvent);
         },
