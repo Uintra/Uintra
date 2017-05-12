@@ -1,0 +1,15 @@
+.content {
+	
+	&__item {
+		
+		&-holder {
+			padding: 30px 20px;
+			border: 1px solid transparent;
+
+			&._pined {
+				background: #e5e5e5;
+				border-color: #ccc;
+			}
+		}
+	}
+}
