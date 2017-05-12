@@ -3,10 +3,11 @@
 @model uCommunity.News.NewsOverviewItemViewModel
 @{
     var expired = Model.Expired ? "_expired" : "";
+    var pinedClass = Model.IsPinned ? "_pined" : "";
 }
 <div class="content__item @expired">
     <div class="row clearfix">
-        <div class="col-md-9">
+        <div class="col-md-9 content__item-holder @pinedClass">
             @if (@Model.IsPinned)
             {
                 <span class="content__item-label">@Html.Localize("NewsItemView.Pinned.lbl")</span>
