@@ -754,6 +754,7 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
+    <Content Include="App_Plugins\Tagging\tags.js" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
     <Content Include="App_Plugins\Users\users.js" />
@@ -849,17 +850,22 @@
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
+    <Content Include="Views\News\EditView.cshtml" />
+    <Content Include="Views\News\CreateView.cshtml" />
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ActivityHeaderController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
+    <Compile Include="Controllers\LightboxGalleryController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Core\ApplicationSettings\IUcommunityApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
@@ -902,6 +908,8 @@
     <Compile Include="Core\Navigation\UcommunityLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\NewsEntity.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedCreateModel.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedEditModel.cs" />
     <Compile Include="Core\News\NewsService.cs" />
     <Compile Include="Core\News\Models\NewsOverviewItemExtendedViewModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />
@@ -1020,7 +1028,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Tagging\uCommunity.Tagging.csproj">
+      <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
+      <Name>uCommunity.Tagging</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />

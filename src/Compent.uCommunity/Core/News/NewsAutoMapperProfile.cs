@@ -20,6 +20,12 @@ namespace Compent.uCommunity.Core.News
                 .IncludeBase<NewsBase, NewsOverviewItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
+            Mapper.CreateMap<NewsEntity, NewsExtendedCreateModel>()
+            .IncludeBase<NewsBase, NewsCreateModel>();
+
+            Mapper.CreateMap<NewsEntity, NewsExtendedEditModel>()
+                .IncludeBase<NewsBase, NewsEditModel>();
+
             Mapper.CreateMap<NewsEntity, NewsBackofficeViewModel>()
               .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 

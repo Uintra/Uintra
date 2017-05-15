@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uCommunity.Core.News.Entities;
 using Compent.uCommunity.Core.News.Models;
 using uCommunity.CentralFeed;
+using uCommunity.Core;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions.Web;
 using uCommunity.News;
 using uCommunity.News.Web;
+using uCommunity.Tagging;
 using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
@@ -19,13 +24,17 @@ namespace Compent.uCommunity.Controllers
     {
         protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
+        protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
+        protected override string EditViewPath => "~/Views/News/EditView.cshtml";
 
         private readonly INewsService<NewsEntity> _newsService;
+        private readonly ITagsService _tagsService;
 
-        public NewsController(IIntranetUserService<IntranetUser> intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper)
+        public NewsController(IIntranetUserService<IntranetUser> intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper, ITagsService tagsService)
             : base(intranetUserService, newsService, mediaHelper)
         {
             _newsService = newsService;
+            _tagsService = tagsService;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
@@ -51,7 +60,6 @@ namespace Compent.uCommunity.Controllers
             return PartialView(ListViewPath, model);
         }
 
-
         public override ActionResult Details(Guid id)
         {
             var newsModelBase = _newsService.Get(id);
@@ -68,6 +76,79 @@ namespace Compent.uCommunity.Controllers
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
 
             return PartialView(DetailsViewPath, newsViewModel);
+        }
+
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public override ActionResult Create()
+        {
+            var model = new NewsExtendedCreateModel { PublishDate = DateTime.Now.Date };
+            FillCreateEditData(model);
+            return PartialView(CreateViewPath, model);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult CreateExtendedNews(NewsExtendedCreateModel createModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                FillCreateEditData(createModel);
+                return PartialView(CreateViewPath, createModel);
+            }
+
+            var news = createModel.Map<NewsBase>();
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
+            if (createModel.IsPinned && createModel.PinDays > 0)
+            {
+                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+            }
+
+            var activityId = _newsService.Create(news);
+            _tagsService.SaveTags(activityId, createModel.Tags);
+
+            _newsService.Save(news);
+
+            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
+        }
+
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public override ActionResult Edit(Guid id)
+        {
+            var news = _newsService.Get(id);
+            if (news.IsHidden)
+            {
+                HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
+            }
+
+            if (!_newsService.CanEdit(news))
+            {
+                HttpContext.Response.Redirect(_newsService.GetDetailsPage().Url.UrlWithQueryString("id", id.ToString()));
+            }
+
+            var model = news.Map<NewsExtendedEditModel>();
+            FillCreateEditData(model);
+            return PartialView(EditViewPath, model);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult EditExtendedNews(NewsExtendedEditModel editModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                FillCreateEditData(editModel);
+                return PartialView(EditViewPath, editModel);
+            }
+
+            var activity = editModel.Map<NewsBase>();
+            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            activity.CreatorId = _intranetUserService.GetCurrentUserId();
+
+            _newsService.Save(activity);
+            _tagsService.SaveTags(editModel.Id, editModel.Tags);
+
+            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
 
         protected new IEnumerable<NewsOverviewItemExtendedViewModel> GetOverviewItems(IEnumerable<NewsBase> news)
