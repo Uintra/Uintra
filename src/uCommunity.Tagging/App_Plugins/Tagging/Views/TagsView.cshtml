@@ -1,0 +1,5 @@
+﻿@using uCommunity.Core.Extentions
+
+@model IEnumerable<string>
+
+<div id="activityTags" data-model-name="tags" data-placeholder="@Html.Localize("Tags.Placeholder")" data-activity-tags="@Model.JoinWithComma()"></div>
