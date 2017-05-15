@@ -63,8 +63,7 @@ var fileUploader = (function () {
                 addFile(hiddenInput, fileId);
             });
 
-            dropzone.on('maxfilesreached',
-              function() {
+            dropzone.on('maxfilesreached',function() {
                   dropzone.removeEventListeners();
               });
             

@@ -46,6 +46,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Intranet user id
+		///</summary>
+		[ImplementPropertyType("IntranetUserId")]
+		public string IntranetUserId
+		{
+			get { return this.GetPropertyValue<string>("IntranetUserId"); }
+		}
+
+		///<summary>
 		/// Size
 		///</summary>
 		[ImplementPropertyType("umbracoBytes")]

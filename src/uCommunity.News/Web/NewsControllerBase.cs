@@ -39,12 +39,12 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult List()
         {
-            var news = _newsService.GetManyActual();
+            var news = _newsService.GetManyActual().OrderByDescending(item => item.PublishDate);
             var model = new NewsOverviewViewModel
             {
                 CreatePageUrl = _newsService.GetCreatePage().Url,
                 DetailsPageUrl = _newsService.GetDetailsPage().Url,
-                Items = GetOverviewItems(news).OrderByDescending(item => item.PublishDate)
+                Items = GetOverviewItems(news)
             };
 
             FillLinks();
@@ -96,6 +96,10 @@ namespace uCommunity.News.Web
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             news.CreatorId = _intranetUserService.GetCurrentUserId();
+            if (createModel.IsPinned && createModel.PinDays > 0)
+            {
+                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+            }
 
             var activityId = _newsService.Create(news);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
@@ -134,6 +138,11 @@ namespace uCommunity.News.Web
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
+            if (editModel.IsPinned && editModel.PinDays > 0 && activity.PinDays != editModel.PinDays)
+            {
+                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
+            }
+
             _newsService.Save(activity);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }
@@ -154,9 +163,10 @@ namespace uCommunity.News.Web
             {
                 var model = item.Map<NewsOverviewItemViewModel>();
                 model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
-
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
+
+                model.Expired = _newsService.IsExpired(item);
 
                 yield return model;
             }
@@ -167,5 +177,6 @@ namespace uCommunity.News.Web
             ViewData["DetailsPageUrl"] = _newsService.GetDetailsPage().Url;
             ViewData["OverviewPageUrl"] = _newsService.GetOverviewPage().Url;
         }
+
     }
 }

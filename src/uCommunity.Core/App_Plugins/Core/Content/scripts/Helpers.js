@@ -76,9 +76,7 @@ var helpers = {
         }
 
         datePicker.set('minDate', minDate.setHours(0));
-    },
-    initPublishDatePicker: function (holder) {
-        this.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
+        return datePicker;
     },
     removeOffset: function (date) {
         var dateOffset = date.getTimezoneOffset() * 60000; // [min*60000 = ms]

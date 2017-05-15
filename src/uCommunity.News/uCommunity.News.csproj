@@ -571,6 +571,7 @@
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
+    <Compile Include="Core\NewsServiceBase.cs" />
     <Compile Include="Web\NewsControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Content\Config\Lang\da-DK.user.xml.install.xdt" />
@@ -582,6 +583,7 @@
     <None Include="uCommunity.News.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\News\style.css" />
     <None Include="app.config" />
     <None Include="Content\Config\applications.config.install.xdt" />
     <None Include="Content\Config\Dashboard.config.install.xdt" />

@@ -8,4 +8,5 @@ require('./../App_Plugins/Subscribe/subscribeList');
 require('./../App_Plugins/Events/events');
 require('./../App_Plugins/Notification/notification');
 require('./../App_Plugins/Likes/likes');
-require('./../App_Plugins/ContentPanel/contentPanel');
+require('./../App_Plugins/Panels/ContentPanel/contentPanel');
+require('./../App_Plugins/Users/users');

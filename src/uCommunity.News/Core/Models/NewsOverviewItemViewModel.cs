@@ -11,8 +11,12 @@ namespace uCommunity.News
 
         public DateTime PublishDate { get; set; }
 
+        public bool Expired { get; set; }
+
         public string MediaIds { get; set; }
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
+
+        public bool IsPinned { get; set; }        
     }
 }

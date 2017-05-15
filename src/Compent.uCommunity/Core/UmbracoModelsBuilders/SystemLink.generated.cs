@@ -46,12 +46,12 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Link
+		/// Title
 		///</summary>
-		[ImplementPropertyType("link")]
-		public object Link
+		[ImplementPropertyType("title")]
+		public string Title
 		{
-			get { return this.GetPropertyValue("link"); }
+			get { return this.GetPropertyValue<string>("title"); }
 		}
 	}
 }

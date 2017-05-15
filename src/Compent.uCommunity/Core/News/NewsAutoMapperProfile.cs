@@ -3,6 +3,7 @@ using Compent.uCommunity.Core.News.Entities;
 using Compent.uCommunity.Core.News.Models;
 using uCommunity.Core.Activity.Models;
 using uCommunity.News;
+using uCommunity.News.Dashboard;
 
 namespace Compent.uCommunity.Core.News
 {
@@ -10,14 +11,17 @@ namespace Compent.uCommunity.Core.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Entities.NewsEntity, NewsExtendedViewModel>()
-                .IncludeBase<NewsBase, NewsExtendedViewModel>()
+            Mapper.CreateMap<NewsEntity, NewsExtendedViewModel>()
+                .IncludeBase<NewsBase, NewsViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<NewsEntity, NewsOverviewItemExtendedViewModel>()
-                .IncludeBase<NewsBase, NewsOverviewItemExtendedViewModel>()
+                .IncludeBase<NewsBase, NewsOverviewItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
+
+            Mapper.CreateMap<NewsEntity, NewsBackofficeViewModel>()
+              .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 
             Mapper.CreateMap<NewsEntity, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();

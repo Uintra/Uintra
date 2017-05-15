@@ -21,6 +21,7 @@
     @mixin icon mp4;
     @mixin icon ppt;
     @mixin icon pptx;
+    @mixin icon png;
 
 
     &.__jpg,

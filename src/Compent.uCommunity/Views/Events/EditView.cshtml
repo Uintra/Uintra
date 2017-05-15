@@ -42,6 +42,31 @@
         <div class="form__row clearfix">
             <div class="check">
                 <label class="check__label">
+                    @Html.CheckBoxFor(m => m.IsPinned, new { @id = "pin-control", @class = "check__box" })
+                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-label">@Html.Localize("EventsCreate.SetPinned.lbl")</span>
+                </label>
+                <div id="pin-info">
+                    @Html.Localize("EventsEdit.PinActivityMessage.lbl")
+                    @{
+                        var daysRange = Enumerable.Range(1, 30);
+                        var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None" } };
+                        listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
+                        @Html.DropDownListFor(d => d.PinDays, listOfDays)
+                    }
+                    <label class="check__label">
+                        <label class="check__label">
+                            <input type="checkbox" class="check__box" id="pin-accept" />
+                            <span class="check__fake-input icon-check"></span>
+                            <span class="check__fake-label">@Html.Localize("EventsEdit.AcceptPin.lbl")</span>
+                        </label>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form__row clearfix">
+            <div class="check">
+                <label class="check__label">
                     @{
                         var canSubscribeAttrs = new RouteValueDictionary(new { @class = "check__box" });
                         if (!Model.CanEditSubscribe)

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DF5381CA-82B8-44E0-A419-73BBC6290AD3}"
 	ProjectSection(SolutionItems) = preProject
@@ -44,7 +44,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Users", "uCommun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Events", "uCommunity.Events\uCommunity.Events.csproj", "{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.ContentPanel", "uCommunity.ContentPanel\uCommunity.ContentPanel.csproj", "{D5590777-B149-467F-829A-E901A9462E72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Panels", "uCommunity.Panels\uCommunity.Panels.csproj", "{D5590777-B149-467F-829A-E901A9462E72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Tagging", "uCommunity.Tagging\uCommunity.Tagging.csproj", "{2167C278-86ED-451B-8D2C-01774532B4E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,14 @@ Global
 		{D5590777-B149-467F-829A-E901A9462E72}.NuGet|Any CPU.Build.0 = Release|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.NuGet|Any CPU.ActiveCfg = Release|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.NuGet|Any CPU.Build.0 = Release|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

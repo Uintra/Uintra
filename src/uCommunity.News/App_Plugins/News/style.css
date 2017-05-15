@@ -1,0 +1,40 @@
+.content {
+
+	&__item {
+		@media screen and (min-width: 900px) {
+			max-width: 756px;
+		}
+
+		&-holder {
+			padding: 30px 20px;
+			border: 1px solid transparent;
+
+			&._pinned {
+				background: #eee;
+				border-color: #ccc;
+			}
+		}
+
+		&._expired {
+
+			.content__item-holder {
+				background: #808080;
+				border-color: #808080;
+			}
+		}
+	}
+}
+
+.pinned {
+
+	&__item {
+		max-width: 150px;
+		word-wrap: break-word;
+		margin: 0 0 0 15px;
+		padding: 7px 10px;
+		background-color: #d97400;
+		color: #fff;
+		font-size: 15px;
+		line-height: 19px;
+	}
+}

@@ -19,11 +19,11 @@ namespace uCommunity.Events.Web
     public abstract class EventsControllerBase : SurfaceController
     {
         public virtual string OverviewViewPath => "~/App_Plugins/Events/List/OverView.cshtml";
-        public virtual string ListViewPath  =>"~/App_Plugins/Events/List/ListView.cshtml";
+        public virtual string ListViewPath => "~/App_Plugins/Events/List/ListView.cshtml";
         public virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
         public virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
-        public virtual string EditViewPath  => "~/App_Plugins/Events/Edit/EditView.cshtml";
-        public virtual string ItemViewPath  => "~/App_Plugins/Events/List/ItemView.cshtml";
+        public virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
+        public virtual string ItemViewPath => "~/App_Plugins/Events/List/ItemView.cshtml";
 
         private readonly IEventsService<EventBase> _eventsService;
         protected readonly IMediaHelper _mediaHelper;
@@ -102,6 +102,11 @@ namespace uCommunity.Events.Web
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
+            if (createModel.IsPinned && createModel.PinDays > 0)
+            {
+                @event.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+            }
+
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId);
 
@@ -148,6 +153,11 @@ namespace uCommunity.Events.Web
             }
             var isActual = _eventsService.IsActual(@event);
             _eventsService.Save(@event);
+
+            if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
+            {
+                @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays);
+            }
 
             OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
 
@@ -212,7 +222,7 @@ namespace uCommunity.Events.Web
 
                 yield return model;
             }
-        }
+        }       
 
         protected virtual void OnEventCreated(Guid activityId)
         {

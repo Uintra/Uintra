@@ -2,7 +2,7 @@
     'use strict';
     //https://chmln.github.io/flatpickr/options/
 
-    //WARNING: DO NOT USE APPEND TO OPTION
+    //WARNING: DO NOT USE 'APPEND TO' OPTION
     var defaultOptions = {
         weekNumbers: true,
         locale: 'da',
@@ -38,6 +38,7 @@
 
         function link($scope, $elem, $attrs) {
             var picker = createPicker($scope, $elem);
+            picker.$$id = $scope.$id;
             "picker" in $attrs && ($scope.picker = picker); // allow direct access to flatpickr instance from parent scope
             $scope.toggle = wrapWithMagic(picker.toggle);
             $scope.clear = wrapWithMagic(picker.clear);
@@ -48,10 +49,10 @@
                 });
             }
         }
-        return {
+        return { 
             restrict: "E",
             templateUrl: "/App_Plugins/BaseControls/DatePicker/date-picker.html",
-            scope: { model: '=', config: '=', picker: '=' },
+            scope: { model: '=', config: '=', picker: '=', placeholder: '@' },
             link: link
         }
     }

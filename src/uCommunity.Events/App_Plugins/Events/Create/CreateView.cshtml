@@ -1,11 +1,12 @@
-﻿@using uCommunity.Core
+﻿@using System.Web.Mvc
+@using uCommunity.Core
 @using uCommunity.Core.Controls.FileUpload
 @using uCommunity.Core.Extentions;
 @using Umbraco.Web
 @model uCommunity.Events.EventCreateModel
 
 <div class="form" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Events"))
+    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -33,8 +34,33 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="js-end-date">@Html.Localize("EventsCreate.EndDate.lbl")</label>
-            <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat" />
-            <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
+            <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat"/>
+            <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true"/>
+        </div>
+        <div class="form__row clearfix">
+            <div class="check">
+                <label class="check__label">
+                    @Html.CheckBoxFor(m => m.IsPinned, new { @id = "pin-control", @class = "check__box" })
+                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-label">@Html.Localize("EventsCreate.SetPinned.lbl")</span>
+                </label>
+                <div id="pin-info">
+                    @Html.Localize("EventsCreate.PinActivityMessage.lbl")
+                    @{
+                        var daysRange = Enumerable.Range(1, 30);
+                        var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None", Selected = true } };
+                        listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
+                        @Html.DropDownListFor(d => d.PinDays, listOfDays)
+                    }
+                    <label class="check__label">
+                        <label class="check__label">
+                            <input type="checkbox" class="check__box" id="pin-accept" />
+                            <span class="check__fake-input icon-check"></span>
+                            <span class="check__fake-label">@Html.Localize("EventsCreate.AcceptPin.lbl")</span>
+                        </label>
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="form__row clearfix">
             <div class="check">

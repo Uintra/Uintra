@@ -18,6 +18,24 @@ var userSelect;
 var editor;
 var form;
 
+var initPinControl=function() {    
+    var pinControl = holder.find('#pin-control');
+    var pinInfoHolder = holder.find('#pin-info');
+    if (pinControl.is(":unchecked")) {
+        pinInfoHolder.hide();
+    } else {
+        var pinAccept = holder.find('#pin-accept');
+        pinAccept.prop('checked', true);
+    }
+    pinControl.change(function() {
+        if ($(this).is(":checked")) {
+            pinInfoHolder.show();
+        } else {
+            pinInfoHolder.hide();
+        }
+    });
+}
+
 var initUserSelect = function () {
     userSelect = holder.find('#js-user-select').select2({});
 }
@@ -31,11 +49,21 @@ var initSubmitButton = function () {
     form = holder.find('#editForm');
     var btn = holder.find('.form__btn._submit');
     var descriptionElem = holder.find('#description');
+    var pinControl = holder.find('#pin-control');    
 
     btn.click(function (event) {
         if (!form.valid()) {
             event.preventDefault();
             return;
+        }
+
+        if (pinControl.is(":checked")) {
+            var pinAccept = holder.find('#pin-accept');
+            if (pinAccept.is(":unchecked")) {
+                pinAccept.closest(".check__label").addClass('input-validation-error');
+                event.preventDefault();
+                return;
+            }
         }
 
         if (editor.getLength() <= 1) {
@@ -120,6 +148,7 @@ var controller = {
             return;
         }
 
+        initPinControl();
         initUserSelect();
         helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
         helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');

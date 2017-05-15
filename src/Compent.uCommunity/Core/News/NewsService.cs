@@ -24,7 +24,7 @@ using Umbraco.Web;
 
 namespace Compent.uCommunity.Core.News
 {
-    public class NewsService : IntranetActivityService<NewsEntity>,
+    public class NewsService : NewsServiceBase<NewsEntity>,
         INewsService<NewsEntity>,
         ICentralFeedItemService,
         ICommentableService,
@@ -47,7 +47,7 @@ namespace Compent.uCommunity.Core.News
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper, IPermissionsService permissionsService,
             INotificationsService notificationService)
-            : base(intranetActivityRepository, cacheService)
+            : base(intranetActivityRepository, cacheService,intranetUserService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -105,11 +105,6 @@ namespace Compent.uCommunity.Core.News
                 OverviewPage = GetOverviewPage(),
                 CreatePage = GetCreatePage()
             };
-        }
-
-        public bool IsActual(NewsEntity activity)
-        {
-            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
         }
 
         public ICentralFeedItem GetItem(Guid activityId)

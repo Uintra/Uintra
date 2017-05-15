@@ -7,10 +7,21 @@
         var self = this;
         self.newsList = [];
         self.currentUser = null;
-        self.dateFormat = "dd MMMM yyyy";
+        self.dateFormat = "dd/MM/yyyy";
         self.selected = null;
         self.selectedIndex = null;
         self.filterModel = {};
+
+        $scope.$watch(function () { return (self.selected || {}).publishDate; }, function () {
+            if (self.selected != null) {
+                var date = new Date(self.selected.publishDate);
+                if (self.unpublishDatePicker) {
+                    self.unpublishDatePicker.set('minDate', date);
+                } else {
+                    self.config.unpublishDate.minDate = date;
+                }
+            }
+        });
 
         self.filter = function (item) {
             var checkList = [];
@@ -61,6 +72,9 @@
         }
 
         self.selectNewsToEdit = function (news, index) {
+            if (self.selected != null) {
+                self.clearSelected();
+            }
             self.selectedIndex = index;
             self.selected = angular.copy(news);
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
@@ -100,14 +114,14 @@
                 return;
             }
 
-            $http.delete('/Umbraco/backoffice/Api/NewsSection/Delete?id='+ news.id).then(function (response) {
+            $http.delete('/Umbraco/backoffice/Api/NewsSection/Delete?id=' + news.id).then(function (response) {
                 self.newsList.splice($index, 1);
                 self.clearSelected();
             }, onError);
         }
 
         self.clearSelected = function () {
-            self.selectedIndex = self.selected = null;
+            self.selectedIndex = self.selected = self.unpublishDatePicker = null;
         }
 
         var create = function (news) {
@@ -117,7 +131,7 @@
             }, onError);
         }
 
-        var save = function(news, index) {
+        var save = function (news, index) {
             $http.post('/Umbraco/backoffice/Api/NewsSection/Save', news).then(function (response) {
                 self.newsList.splice(index, 1, response.data);
                 self.clearSelected();
@@ -138,6 +152,7 @@
                 self.currentUser = data;
             });
             self.config = newsManagementConfig;
+            self.config.unpublishDate = angular.copy(self.config.publishDate);
         }
 
         activate();

@@ -2,6 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}</ProjectGuid>
@@ -13,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,6 +75,11 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EnumLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.EnumLists.1.1.0\lib\net40\EnumLists.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Examine, Version=0.1.70.0, Culture=neutral, processorArchitecture=MSIL">
@@ -364,12 +371,18 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\icon-doc.png" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
+    <Compile Include="Core\FolderConstants.cs" />
+    <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Migrations\MediaMigrations.cs" />
     <Compile Include="Web\ActivityHeaderControllerBase.cs" />
@@ -401,7 +414,7 @@
     <Compile Include="Core\Controls\FileUpload\FileViewModel.cs" />
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxAutomapperProfile.cs" />
-    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryController.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryControllerBase.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryViewModel.cs" />
     <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Core\Exceptions\InconsistentDataException.cs" />
@@ -493,6 +506,7 @@
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -680,8 +694,15 @@
     <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

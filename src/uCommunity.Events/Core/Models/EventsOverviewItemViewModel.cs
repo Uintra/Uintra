@@ -20,5 +20,7 @@ namespace uCommunity.Events
         public bool CanSubscribe { get; set; }
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
+
+        public bool IsPinned { get; set; }        
     }
 }

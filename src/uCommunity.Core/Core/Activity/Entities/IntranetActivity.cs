@@ -13,6 +13,8 @@ namespace uCommunity.Core.Activity.Entities
         string Teaser { get; set; }
         string Description { get; set; }
         bool IsHidden { get; set; }
+        bool IsPinned { get; set; }
+        DateTime? EndPinDate { get; set; }
     }
 
     public abstract class IntranetActivity : IIntranetActivity
@@ -36,5 +38,11 @@ namespace uCommunity.Core.Activity.Entities
         public string Description { get; set; }
 
         public bool IsHidden { get; set; }
+
+        public bool IsPinned { get; set; }
+
+        public DateTime? EndPinDate { get; set; }        
+
+        public int PinDays { get; set; }
     }
 }

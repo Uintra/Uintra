@@ -235,3 +235,34 @@ textarea {
     display: block;
     clear: both;
 }
+
+
+/*======================================================= Table =============================================*/
+
+.table tbody tr:hover {
+    background: #F8F8F8;
+}
+
+.table th a.sortable:hover {
+    cursor: pointer;
+}
+
+.table th a.sortable._asc:after {
+    font-family: icomoon;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    content: "\e0c9"
+}
+
+.table th a.sortable._desc:after {
+    font-family: icomoon;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    content: "\e128"
+}
+
+/*======================================================= Table end =============================================*/

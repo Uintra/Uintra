@@ -1,16 +1,21 @@
-﻿@model uCommunity.Events.EventsOverviewItemViewModel
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Extentions
+@model uCommunity.Events.EventsOverviewItemViewModel
 
 <div class="content__item">
     <div class="row clearfix">
         <div class="col-md-9">
-            <span class="content__item-label">VIGTIGT</span>
-            @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+            @if (@Model.IsPinned)
+            {
+                <span class="content__item-label">@Html.Localize("EventItemView.Pinned.lbl")</span>
+            }            
+            @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
                 <p>@Model.Teaser</p>
             </div>
             <div class="content__item-images">
-                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.MediaIds}); }
             </div>
         </div>
     </div>

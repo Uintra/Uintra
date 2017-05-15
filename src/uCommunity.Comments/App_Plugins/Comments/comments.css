@@ -298,3 +298,7 @@
         vertical-align:middle;
     }
 }
+
+.comments-preview._hasComments .comments-preview__link {
+    color: var(--text-color-dark);
+}

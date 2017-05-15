@@ -1,6 +1,7 @@
 #
 *.orig
 *.rej
+.idea/
 *.user
 *.lock
 *.nupkg

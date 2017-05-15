@@ -1,0 +1,36 @@
+﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Extentions
+@model Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel
+
+@{
+var expired = Model.Expired ? "_expired" : "";
+var pinnedClass = Model.IsPinned ? "_pinned" : "";
+}
+
+<div class="content__item @expired">
+    <div class="row clearfix">
+        <div class="col-md-12 content__item-holder @pinnedClass">
+            <div class="clearfix">
+                @if (@Model.IsPinned)
+                {
+                    <span class="pinned__item pull-right">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+                }
+                @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
+            </div>
+            <div class="content__item-image"> </div>
+            <div class="content__item-txt">
+                <p>@Model.Teaser</p>
+            </div>
+            <div class="content__item-images">
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.MediaIds}); }
+            </div>
+            <div class="content__item-feed">
+                <div class="content__item-feed-holder">
+                    @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
+                    @{ Html.RenderAction("Preview", "Comments", new {activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl}); }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> 

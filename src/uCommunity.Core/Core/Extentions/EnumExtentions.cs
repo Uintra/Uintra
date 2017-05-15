@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using uCommunity.Core.User;
 
 namespace uCommunity.Core.Extentions
@@ -24,6 +26,15 @@ namespace uCommunity.Core.Extentions
             }
 
             return default(T?);
+        }
+
+        public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)
+            where TAttribute : Attribute
+        {
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .First()
+                            .GetCustomAttribute<TAttribute>();
         }
     }
 }
