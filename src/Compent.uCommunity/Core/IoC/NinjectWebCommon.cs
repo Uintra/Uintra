@@ -49,6 +49,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Notification.Core.Sql;
 using uCommunity.Subscribe;
+using uCommunity.Tagging;
 using uCommunity.Users.Core;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
@@ -166,6 +167,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
+            kernel.Bind<ITagsService>().To<TagsService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
 
@@ -241,6 +243,8 @@ namespace Compent.uCommunity.Core.IoC
             sqlTypes.Add(typeof(SqlNotification));
             sqlTypes.Add(typeof(Reminder));
             sqlTypes.Add(typeof(MyLink));
+            sqlTypes.Add(typeof(Tag));
+            sqlTypes.Add(typeof(TagActivityRelation));
 
             var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
             using (var conn = connectionFactory.Open())
