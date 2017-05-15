@@ -18,7 +18,7 @@ var TagsController = {
 
         var tagsControlInput = tagsControl.getInput();
 
-        $(tagsControlInput).autocomplete({
+        $(tagsControlInput).devbridgeAutocomplete({
             serviceUrl: '/umbraco/surface/Tags/TagsAutocomplete',
             paramName: 'query',
             minChars: 3,
@@ -26,7 +26,7 @@ var TagsController = {
             transformResult: function (response, originalQuery) {
                 var result = {
                     suggestions: $.map(response.Tags, function (dataItem) {
-                        return { value: dataItem.Text, data: dataItem.Id };
+                        return { value: dataItem };
                     })
                 };
 

@@ -24,7 +24,13 @@ namespace uCommunity.Tagging.Web
 
         public virtual JsonResult TagsAutocomplete(string query)
         {
-            var result = _tagsService.GetAll().Where(el => el.Text.StartsWith(query, StringComparison.OrdinalIgnoreCase));
+            var trimmedQuery = query.Trim();
+
+            var result = _tagsService
+                .GetAll()
+                .Where(el => el.Text.StartsWith(trimmedQuery, StringComparison.OrdinalIgnoreCase))
+                .Select(el => el.Text)
+                .OrderBy(el => el);
 
             return Json(new { Tags = result }, JsonRequestBehavior.AllowGet);
         }
