@@ -26,37 +26,14 @@ namespace uCommunity.Tagging
             return _tagRepository.GetAll();
         }
 
-        public Tag Add(Guid activityId, string text, Guid? tagId = null)
-        {
-            if (!tagId.HasValue)
-            {
-                var tag = new Tag { Id = Guid.NewGuid(), Text = text };
-                _tagRepository.Add(tag);
-                tagId = tag.Id;
-            }
-
-            var tagActivityRelation = new TagActivityRelation
-            {
-                TagId = tagId.Value,
-                ActivityId = activityId
-            };
-
-            _tagActivityRelationRepository.Add(tagActivityRelation);
-
-            return _tagRepository.Get(tagId.Value);
-        }
-
-        public void Remove(Guid tagId, Guid activityId)
-        {
-            _tagActivityRelationRepository.Delete(el => el.TagId == tagId && el.ActivityId == activityId);
-        }
-
         public void SaveTags(Guid activityId, IEnumerable<string> tags)
         {
+            var trimmedTags = tags.Select(el => el.Trim()).ToList();
+
             var activityTags = new List<Tag>();
             var allTags = GetAll().ToList();
 
-            foreach (var tagText in tags)
+            foreach (var tagText in trimmedTags)
             {
                 var tag = allTags.Find(el => el.Text.Equals(tagText));
                 if (tag == null)
