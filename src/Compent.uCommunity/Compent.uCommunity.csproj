@@ -718,6 +718,11 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
+    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.js" />
+    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.html" />
+    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links-picker.css" />
+    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links-picker.html" />
+    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links-picker.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
@@ -935,7 +940,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
