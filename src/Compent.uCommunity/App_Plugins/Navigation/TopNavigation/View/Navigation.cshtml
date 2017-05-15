@@ -1,13 +1,7 @@
-﻿@model Compent.uCommunity.Core.Navigation.TopMenuViewModel
+﻿﻿@model Compent.uCommunity.Core.Navigation.TopMenuViewModel
 
 <div class="menu _for-mobile">
     <a id="js-menu-opener" class="burger"><span class="burger__line"></span></a>
-</div>
-
-<div class="notification">
-    <a class="icon icon-bell notification__icon" href="@Model.NotificationsUrl">
-        <span class="notifications__number"></span>
-    </a>
 </div>
 
 <div class="user _for-desktop">
@@ -24,12 +18,6 @@
                 </a>
             </li>
         }
-        <li class="user__menu-item">
-            <a class="user__menu-link" href="@Url.Action("ToProfilePage", "Profile")">
-                <span class="icon icon-user"></span>
-                Profile
-            </a>
-        </li>
         <li class="user__menu-item">
             <a class="user__menu-link" href="@Url.Action("Logout", "NavigationAuthorization")">
                 <span class="icon icon-logout"></span> 

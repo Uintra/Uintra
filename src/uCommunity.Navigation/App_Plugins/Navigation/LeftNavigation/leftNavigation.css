@@ -17,8 +17,9 @@
 
     &__link{
         display:block;
-        padding:4px 40px 4px 19px;
+        padding:4px 45px 4px 19px;
         color:var(--text-color-dark);
+        word-wrap: break-word;
 
         &:hover,
         &:focus,
@@ -35,22 +36,31 @@
         }
     }
 
-    &__arrow{
-        position:absolute;
-        top:14px;
-        right:24px;
-         width: 9px;
-         height: 9px;
-         border: solid #a1a4ac;
-         border-width: 1px 0 0 1px;
-         transform: rotate(45deg);
+	&__arrow{
+		position: absolute;
+		top: 8px;
+		right: 24px;
+		width: 14px;
+		height: 14px;
 
-         ._active & {
-             top: 9px;
-             transform: rotate(225deg);
-             border-color: #000;
-         }
-    }
+		&:after {
+			content: '';
+			position: absolute;
+			left: calc(50% - 5px);
+			top:  calc(50% - 2px);
+			width: 10px;
+			height: 10px;
+			border: solid #a1a4ac;
+			border-width: 1px 0 0 1px;
+			transform: rotate(45deg);
+
+			._expand & {
+				transform: rotate(225deg);
+				top:  calc(50% - 7px);
+				border-color: #000;
+			}
+		}
+	}
 
     .glyphicon{
         position:absolute;
@@ -89,7 +99,7 @@
         display: none;
     }
 
-    ._active &{
+    ._expand &{
         display: block;
     }
 

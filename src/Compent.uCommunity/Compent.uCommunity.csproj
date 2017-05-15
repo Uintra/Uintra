@@ -332,9 +332,9 @@
       <HintPath>..\..\packages\uCommunity.Likes.1.0.7\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Navigation, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Navigation, Version=1.0.6.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.6\lib\net452\uCommunity.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.2\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.13.16, Culture=neutral, processorArchitecture=MSIL">
@@ -713,19 +713,6 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
-    <Content Include="App_Plugins\Navigation\navigation.js" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
@@ -792,7 +779,6 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
@@ -806,14 +792,6 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinkIcon.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
