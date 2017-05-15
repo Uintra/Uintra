@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
@@ -19,7 +20,8 @@ namespace uCommunity.Navigation.Web
         protected virtual string MyLinkIconViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinkIcon.cshtml";
         protected virtual string MyLinkPageTitleNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkTitleNodePropertyAlias { get; } = string.Empty;
-        protected virtual string SystemLinkUrlNodePropertyAlias { get; } = string.Empty;
+        protected virtual string SystemLinkNodePropertyAlias { get; } = string.Empty;
+        protected virtual string SystemLinkSortOrderNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinksContentXPath { get; } = string.Empty;
 
         protected readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
@@ -93,8 +95,9 @@ namespace uCommunity.Navigation.Web
 
         public virtual PartialViewResult SystemLinks()
         {
-            var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, SystemLinkTitleNodePropertyAlias, SystemLinkUrlNodePropertyAlias, x => x.SortOrder);
-            var result = systemLinks.Map<SystemLinksViewModel>();
+            var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, SystemLinkTitleNodePropertyAlias,
+                SystemLinkNodePropertyAlias, SystemLinkSortOrderNodePropertyAlias, x => x.SortOrder);
+            var result = systemLinks.Map<IEnumerable<SystemLinksViewModel>>();
 
             return PartialView(SystemLinksViewPath, result);
         }

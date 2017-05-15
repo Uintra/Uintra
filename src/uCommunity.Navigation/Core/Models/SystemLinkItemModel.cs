@@ -2,8 +2,11 @@
 {
     public class SystemLinkItemModel
     {
+        public int Id { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
-        public int SortOrder { get; set; }
+        public string Caption { get; set; }
+        public string Icon { get; set; }
+        public string Link { get; set; }
     }
 }

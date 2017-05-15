@@ -1,7 +1,7 @@
 {
-  propertyEditors: [
+  "propertyEditors": [
     {
-      "name": "Links picker",
+      "name": "Links Picker",
       "alias": "custom.LinksPicker",
       "hideLabel": true,
       "editor": {
@@ -10,14 +10,12 @@
       }
     }
   ],
-  javascript: [
-    '~/App_Plugins/Navigation/Dashboard/navigation-service.js',
-    '~/App_Plugins/Navigation/Dashboard/navigation-controller.js',
-    '~/App_Plugins/Navigation/backoffice/LinksPicker/links.js',
-    '~/App_Plugins/Navigation/backoffice/LinksPicker/links-picker.js'
+  "javascript": [
+    "~/App_Plugins/Navigation/Dashboard/navigation-service.js",
+    "~/App_Plugins/Navigation/Dashboard/navigation-controller.js",
+    "~/App_Plugins/Navigation/backoffice/LinksPicker/links.js"
   ],
-  css: [
-    '~/App_Plugins/Navigation/Dashboard/navigation.css',
-    '~/App_Plugins/Navigation/backoffice/LinksPicker/links-picker.css'
+  "css": [
+    "~/App_Plugins/Navigation/Dashboard/navigation.css"
   ]
 }

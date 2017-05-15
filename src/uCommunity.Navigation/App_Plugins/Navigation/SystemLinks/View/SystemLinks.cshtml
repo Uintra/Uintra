@@ -1,21 +1,25 @@
 ﻿@using uCommunity.Core.Extentions
 @using uCommunity.Navigation.DefaultImplementation
-@model SystemLinksViewModel
+@model  IEnumerable<SystemLinksViewModel>
 
 <ul class="side-nav js-systemLinks__opener" id="systemLinksContainer">
     <li class="side-nav__item">
         <a class="side-nav__link">@Html.Localize("SystemLinks.Menu.lbl")</a>
         <span class="side-nav__arrow"></span>
-        <ul class="side-nav">
-            @foreach (var item in Model.SystemLinks)
-            {
-                <li class="side-nav__item">
-                    <a class="side-nav__link" href="@item.Url">
-                        @item.Name
-                    </a>
-                </li>
-            }
-        </ul>
+        @foreach (var group in Model)
+        {
+            <span>@group.LinksGroupTitle</span>
+            <ul class="side-nav">
+                @foreach (var item in group.SystemLinks)
+                {
+                    <li class="side-nav__item">
+                        <a class="side-nav__link" href="@item.Url">
+                            @item.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
     </li>
     <li class="side-nav__item"><i class="systemLinks__icon"></i></li>
 </ul>

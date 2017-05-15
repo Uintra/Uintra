@@ -20,7 +20,9 @@ namespace uCommunity.Navigation.AutoMapperProfiles
             Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
             Mapper.CreateMap<MyLink, MyLinkItemModel>();
             Mapper.CreateMap<SystemLinksModel, SystemLinksViewModel>();
-            Mapper.CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>();
+            Mapper.CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
+                .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Caption))
+                .ForMember(dst => dst.Url, o => o.MapFrom(el => el.Link));
         }
     }
 }

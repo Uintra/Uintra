@@ -713,11 +713,8 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
-    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.js" />
     <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.html" />
-    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links-picker.css" />
-    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links-picker.html" />
-    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links-picker.js" />
+    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
@@ -813,7 +810,6 @@
     <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinkIcon.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
@@ -854,6 +850,7 @@
     <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\List\ListView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
