@@ -2,7 +2,7 @@
 
 require("./leftNavigation.css");
 
-var active = "_active";
+var active = "_expand";
 
 function locationChagned() {
     var path = window.location.pathname;

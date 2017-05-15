@@ -332,9 +332,9 @@
       <HintPath>..\..\packages\uCommunity.Likes.1.0.7\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Navigation, Version=1.0.6.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Navigation, Version=1.0.6.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.2\lib\net452\uCommunity.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.3\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.13.16, Culture=neutral, processorArchitecture=MSIL">

@@ -19,6 +19,7 @@
         display:block;
         padding:4px 45px 4px 19px;
         color:var(--text-color-dark);
+        word-wrap: break-word;
 
         &:hover,
         &:focus,
@@ -53,7 +54,7 @@
 			border-width: 1px 0 0 1px;
 			transform: rotate(45deg);
 
-			._active & {
+			._expand & {
 				transform: rotate(225deg);
 				top:  calc(50% - 7px);
 				border-color: #000;
@@ -98,7 +99,7 @@
         display: none;
     }
 
-    ._active &{
+    ._expand &{
         display: block;
     }
 
