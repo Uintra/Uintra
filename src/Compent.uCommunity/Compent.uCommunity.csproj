@@ -355,6 +355,10 @@
       <HintPath>..\..\packages\uCommunity.Subscribe.1.0.9\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uCommunity.Tagging, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Tagging.0.0.0.1\lib\net452\uCommunity.Tagging.dll</HintPath>
+    </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Users.1.0.3.2\lib\net452\uCommunity.Users.dll</HintPath>
@@ -1005,12 +1009,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\uCommunity.Tagging\uCommunity.Tagging.csproj">
-      <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
-      <Name>uCommunity.Tagging</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
