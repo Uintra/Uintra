@@ -3,10 +3,10 @@
 @using uCommunity.Core.Controls.FileUpload
 @using uCommunity.Core.Extentions
 @using Umbraco.Web
-@model Compent.uCommunity.Core.News.Models.NewsExtendedEditModel
+@model uCommunity.News.NewsEditModel
 
 <div class="form" id="js-news-edit-page">
-    @using (Html.BeginUmbracoForm("EditExtendedNews", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsEdit.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />
@@ -28,9 +28,6 @@
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
                    data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true" />
         </div>
-
-        @Html.Action("Tags", "Tags", new { tags = Model.Tags })
-
         <div class="form__row clearfix">
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsEdit.PublishDate.lbl")</label>
             <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat"/>

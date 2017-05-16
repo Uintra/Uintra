@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using ServiceStack;
 using umbraco;
 using Umbraco.Core.Models;
@@ -16,34 +19,52 @@ namespace uCommunity.Navigation.Core
             _systemLinksService = systemLinksService;
         }
 
-        public SystemLinksModel Get(string contentXPath, string titleNodePropertyAlias, string urlNodePropertyAlias, Func<SystemLinkItemModel, int> sort)
+        public IEnumerable<SystemLinksModel> Get(string contentXPath, string titleNodePropertyAlias,
+            string linksNodePropertyAlias, string sortOrderNodePropertyAlias, Func<SystemLinksModel, int> sort)
         {
-            var result = new SystemLinksModel();
+            var result = Enumerable.Empty<SystemLinksModel>();
 
             if (contentXPath.IsNullOrEmpty())
             {
                 return result;
             }
 
-            result.SystemLinks =
+            result =
                 _systemLinksService.GetMany(contentXPath)
-                    .Select(x => ParseToSystemLinkItemModel(titleNodePropertyAlias, urlNodePropertyAlias, x))
-                    .OrderBy(sort)
-                    .ToList();
+                    .Select(
+                        x =>
+                            ParseToSystemLinksModel(titleNodePropertyAlias, linksNodePropertyAlias,
+                                sortOrderNodePropertyAlias, x))
+                    .OrderBy(sort);
 
             return result;
         }
 
-        private SystemLinkItemModel ParseToSystemLinkItemModel(string titleNodePropertyAlias,
-            string urlNodePropertyAlias, IPublishedContent content)
+        private SystemLinksModel ParseToSystemLinksModel(string titleNodePropertyAlias,
+            string linksNodePropertyAlias, string sortOrderNodePropertyAlias, IPublishedContent content)
         {
-            var result = new SystemLinkItemModel();
+            var result = new SystemLinksModel();
 
-            result.Name = content.GetPropertyValue<string>(titleNodePropertyAlias);
-            result.Url = content.GetPropertyValue<string>(urlNodePropertyAlias);
-            result.SortOrder = content.SortOrder;
+            var json = content.GetPropertyValue<string>(linksNodePropertyAlias);
+
+            result.LinksGroupTitle = content.GetPropertyValue<string>(titleNodePropertyAlias);
+            result.SortOrder = content.GetPropertyValue<int>(sortOrderNodePropertyAlias);
+            result.SystemLinks = ParseToSystemLinkItems(json);
 
             return result;
         }
-    }
+
+        private List<SystemLinkItemModel> ParseToSystemLinkItems(string json)
+        {
+            var result = new List<SystemLinkItemModel>();
+
+            try
+            {
+                result = JsonConvert.DeserializeObject<List<SystemLinkItemModel>>(json);
+            }
+            catch(Exception ex) { }
+
+            return result;
+        }
+   }
 }

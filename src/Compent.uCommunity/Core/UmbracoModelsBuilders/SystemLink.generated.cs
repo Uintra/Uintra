@@ -46,12 +46,21 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Title
+		/// Links
 		///</summary>
-		[ImplementPropertyType("title")]
-		public string Title
+		[ImplementPropertyType("links")]
+		public Newtonsoft.Json.Linq.JToken Links
 		{
-			get { return this.GetPropertyValue<string>("title"); }
+			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("links"); }
+		}
+
+		///<summary>
+		/// Links Group Title
+		///</summary>
+		[ImplementPropertyType("linksGroupTitle")]
+		public string LinksGroupTitle
+		{
+			get { return this.GetPropertyValue<string>("linksGroupTitle"); }
 		}
 	}
 }

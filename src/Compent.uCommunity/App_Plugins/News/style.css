@@ -14,14 +14,6 @@
 				border-color: #ccc;
 			}
 		}
-
-		&._expired {
-
-			.content__item-holder {
-				background: #808080;
-				border-color: #808080;
-			}
-		}
 	}
 }
 

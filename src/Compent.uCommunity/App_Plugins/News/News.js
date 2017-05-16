@@ -1,7 +1,6 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
 import helpers from "./../Core/Content/scripts/Helpers";
 import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
-import tagsController from "./../Tagging/tags";
 
 require('./style.css');
 require('select2');
@@ -104,7 +103,6 @@ var controller = {
         initUserSelect(holder);
         initDescriptionControl(holder, isEdit);
         fileUploadController.init(holder);
-        tagsController.init();
     }
 }
 

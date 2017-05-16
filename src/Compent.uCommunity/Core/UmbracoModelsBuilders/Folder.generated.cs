@@ -46,12 +46,30 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Allowed Media Extensions
+		///</summary>
+		[ImplementPropertyType("allowedMediaExtensions")]
+		public string AllowedMediaExtensions
+		{
+			get { return this.GetPropertyValue<string>("allowedMediaExtensions"); }
+		}
+
+		///<summary>
 		/// Contents:
 		///</summary>
 		[ImplementPropertyType("contents")]
 		public object Contents
 		{
 			get { return this.GetPropertyValue("contents"); }
+		}
+
+		///<summary>
+		/// Folder type
+		///</summary>
+		[ImplementPropertyType("folderType")]
+		public object FolderType
+		{
+			get { return this.GetPropertyValue("folderType"); }
 		}
 	}
 }
