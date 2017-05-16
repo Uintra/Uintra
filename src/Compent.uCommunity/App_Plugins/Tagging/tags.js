@@ -6,12 +6,14 @@ var TagsController = {
     init: function () {
         var activityTagsContainer = $('#activityTags');
 
-        var activityTags;
+        var activityTags = [];
         var activityTagsProperty = activityTagsContainer.data('activity-tags');
-        if (activityTagsProperty && Array.isArray(activityTagsProperty)) {
-            activityTags = activityTagsProperty.split(',');
-        } else {
-            activityTags = [activityTagsProperty];
+        if (activityTagsProperty) {
+            if ((activityTagsProperty + '').indexOf(',') !== -1) {
+                activityTags = activityTagsProperty.split(',');
+            } else {
+                activityTags = [activityTagsProperty];
+            }
         }
 
         var tagsControl = new Taggle(activityTagsContainer[0], {
