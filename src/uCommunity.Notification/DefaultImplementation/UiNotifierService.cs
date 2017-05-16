@@ -54,7 +54,7 @@ namespace uCommunity.Notification
             var allNotifications = _notificationRepository
                                         .FindAll(el => el.ReceiverId == receiverId)
                                         .OrderBy(n => !n.IsNotified)
-                                        .ThenBy(n => n.Date);
+                                        .ThenByDescending(n => n.Date);
             totalCount = allNotifications.Count();
 
             var result = allNotifications.Take(count).ToList();
