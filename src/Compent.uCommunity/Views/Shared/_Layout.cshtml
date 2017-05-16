@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/build/head_css.js"></script>
     <title>uCommunity</title>
-    <link type="text/css" href="/build/app.css" rel="stylesheet"/>
+    <link type="text/css" href="/build/app.css" rel="stylesheet" />
     <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
 </head>
 <body>
@@ -22,6 +22,7 @@
             @{Html.RenderAction("SubNavigation", "Navigation");}
 
             @RenderBody()
+            @{Html.RenderAction("MyLinkIcon", "Navigation"); }
         </main>
     </div>
 

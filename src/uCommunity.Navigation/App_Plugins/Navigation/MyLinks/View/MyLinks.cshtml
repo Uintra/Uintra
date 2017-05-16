@@ -22,7 +22,7 @@
         @Ajax.ActionLink(Model.IsLinked ? Html.Localize("MyLinks.Remove.lbl") : Html.Localize("MyLinks.Add.lbl"),
             "AddRemoveMyLink",
             "Navigation",
-            new { },
+            new { pageName = Model.PageName },
             new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnComplete = "myLinks.switchLinkIcon()" },
             new {@class = "side-nav__link", id = "myLinks_addRemove"})
     </li>
