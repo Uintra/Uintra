@@ -113,16 +113,16 @@
 
 
 ._for-desktop{
-    display:none;
+    display:none !important;
 }
 
 @media﻿(min-width: 900px){
     ._for-mobile{
-        display:none;
+        display:none !important;
     }
 
     ._for-desktop{
-        display:block;
+        display:block !important;
     }
 }
 

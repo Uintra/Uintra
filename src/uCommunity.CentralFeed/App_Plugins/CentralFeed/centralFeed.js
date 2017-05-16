@@ -119,7 +119,7 @@ appInitializer.add(function () {
     holder = document.querySelector('.js-feed-overview');
     var navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
-    formController = umbracoAjaxForm()(holder.querySelector("form.js-ajax-form"));
+    formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
     var tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
     
     state = {

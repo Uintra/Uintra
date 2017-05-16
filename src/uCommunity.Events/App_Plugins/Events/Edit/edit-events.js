@@ -5,7 +5,6 @@ require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
-import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
 var alertify = require('alertifyjs/build/alertify.min');
@@ -74,7 +73,7 @@ var initSubmitButton = function () {
         descriptionElem.removeClass('input-validation-error');
         event.preventDefault();
 
-        var data = umbracoAjaxForm()(form[0]).serialize();
+        var data = helpers.serialize();
 
         $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
             if (result && !result.HasConfirmation) {
