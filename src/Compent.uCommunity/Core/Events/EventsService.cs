@@ -6,7 +6,6 @@ using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Entities;
-using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
@@ -290,7 +289,7 @@ namespace Compent.uCommunity.Core.Events
                         };
                     }
                     break;
-                case NotificationTypeEnum.LikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
@@ -301,6 +300,22 @@ namespace Compent.uCommunity.Core.Events
                             ActivityType = IntranetActivityTypeEnum.Events,
                             NotifierId = _intranetUserService.GetCurrentUser().Id,
                             NotifierName = _intranetUserService.GetCurrentUser().DisplayedName
+                        };
+                    }
+                    break;
+                case NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            CommentId = entityId,
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            Title = currentEvent.Title,
+                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                     }
                     break;
