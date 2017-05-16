@@ -1,11 +1,9 @@
-﻿@using uCommunity.Core.Activity
+﻿@using uCommunity.Core
+@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
 @using uCommunity.Notification.Core.Configuration
 
 @model uCommunity.Notification.Core.Models.NotificationListViewModel
-@{
-    var cultureDateFormat = $"{System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern} {System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}";
-}
 
 <div class="row">
     <div class="col-md-6">
@@ -15,7 +13,7 @@
                 {
                     switch (notification.Type)
                     {
-                        case NotificationTypeEnum.LikeAdded:
+                        case NotificationTypeEnum.ActivityLikeAdded:
                             {
                                 <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
                                     <h2 class="notifications__list-title">
@@ -24,12 +22,27 @@
                                         </a>
                                     </h2>
                                     <div class="notifications__list-meta">
-                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                        <span>@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
                                     </div>
                                 </li>
 
                                 break;
+                            }
 
+                        case NotificationTypeEnum.CommentLikeAdded:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title - @Html.Localize((IntranetActivityTypeEnum)notification.Value.activityType)
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                    </div>
+                                </li>
+
+                                break;
                             }
 
                         case NotificationTypeEnum.EventUpdated:
@@ -43,7 +56,7 @@
                                         </a>
                                     </h2>
                                     <div class="notifications__list-meta">
-                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Type</span> - <span>@notification.Value.notifierName</span>
+                                        <span>@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span> - <span>@notification.Type</span> - <span>@notification.Value.notifierName</span>
                                     </div>
                                 </li>
                                 break;
@@ -60,7 +73,7 @@
                                         </a>
                                     </h2>
                                     <div class="notifications__list-meta">
-                                        <span>@notification.Date.ToString(cultureDateFormat)</span> <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                        <span>@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span> <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
                                     </div>
                                 </li>
                                 break;

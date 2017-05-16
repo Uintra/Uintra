@@ -6,7 +6,6 @@ using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Entities;
-using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.Caching;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
@@ -131,12 +130,20 @@ namespace Compent.uCommunity.Core.Events
 
         public override bool CanEdit(IIntranetActivity cached)
         {
-            var @event = (Event)cached;
-
             var currentUser = _intranetUserService.GetCurrentUser();
+            var creatorId = Get(cached.Id).CreatorId;
+            if (creatorId == currentUser.Id)
+            {
+                return true;
+            }
+            if (currentUser.Role != IntranetRolesEnum.WebMaster)
+            {
+                return false;
+            }
 
-            return @event.CreatorId == currentUser.Id
-                || _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+
+            return isAllowed;
         }
 
         public ICentralFeedItem GetItem(Guid activityId)
@@ -290,7 +297,7 @@ namespace Compent.uCommunity.Core.Events
                         };
                     }
                     break;
-                case NotificationTypeEnum.LikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
@@ -301,6 +308,22 @@ namespace Compent.uCommunity.Core.Events
                             ActivityType = IntranetActivityTypeEnum.Events,
                             NotifierId = _intranetUserService.GetCurrentUser().Id,
                             NotifierName = _intranetUserService.GetCurrentUser().DisplayedName
+                        };
+                    }
+                    break;
+                case NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            CommentId = entityId,
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            Title = currentEvent.Title,
+                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                     }
                     break;

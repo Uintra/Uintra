@@ -97,7 +97,18 @@ namespace Compent.uCommunity.Core.News
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
+            var creatorId = Get(cached.Id).CreatorId;
+            if (creatorId == currentUser.Id)
+            {
+                return true;
+            }
+            if (currentUser.Role != IntranetRolesEnum.WebMaster)
+            {
+                return false;
+            }
+
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
+            
             return isAllowed;
         }
 
@@ -219,7 +230,7 @@ namespace Compent.uCommunity.Core.News
 
             switch (notificationType)
             {
-                case NotificationTypeEnum.LikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         newsEntity = Get(entityId);
                         data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
@@ -233,6 +244,23 @@ namespace Compent.uCommunity.Core.News
                         };
                     }
                     break;
+                case NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        newsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            CommentId = entityId,
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            Title = newsEntity.Title,
+                            Url = GetUrlWithComment(newsEntity.Id, comment.Id)
+                        };
+                    }
+                    break;
+
                 case NotificationTypeEnum.CommentAdded:
                 case NotificationTypeEnum.CommentEdited:
                     {

@@ -331,9 +331,9 @@
       <HintPath>..\..\packages\uCommunity.Likes.1.0.8\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Navigation, Version=1.0.6.7, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Navigation, Version=1.0.6.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.7\lib\net452\uCommunity.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.8\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.13.19, Culture=neutral, processorArchitecture=MSIL">
@@ -341,9 +341,9 @@
       <HintPath>..\..\packages\uCommunity.News.1.0.13.19\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Notification, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Notification, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Notification.1.0.4\lib\net452\uCommunity.Notification.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Notification.1.0.5.1\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Panels, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -799,11 +799,6 @@
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
@@ -850,6 +845,11 @@
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinkIcon.cshtml" />
