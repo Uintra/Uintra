@@ -16,7 +16,7 @@ namespace Compent.uCommunity.Controllers
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, IIntranetUserService<IntranetUser> intranetUserService, ILikesService likesService)
             : base(activitiesServiceFactory, intranetUserService, likesService)
         {
-        } 
+        }
 
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
@@ -27,11 +27,17 @@ namespace Compent.uCommunity.Controllers
                 return like;
             }
 
-            var service = ActivitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
-            if (service != null)
+            var notifyableService = ActivitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
+            if (notifyableService != null)
             {
-                var notifyableService = (INotifyableService)service;
-                notifyableService.Notify(model.ActivityId, NotificationTypeEnum.LikeAdded);
+                if (model.CommentId.HasValue)
+                {
+                    notifyableService.Notify(model.CommentId.Value, NotificationTypeEnum.CommentLikeAdded);
+                }
+                else
+                {
+                    notifyableService.Notify(model.ActivityId, NotificationTypeEnum.ActivityLikeAdded);
+                }
             }
 
             return like;

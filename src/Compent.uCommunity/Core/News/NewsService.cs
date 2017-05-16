@@ -230,7 +230,7 @@ namespace Compent.uCommunity.Core.News
 
             switch (notificationType)
             {
-                case NotificationTypeEnum.LikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         newsEntity = Get(entityId);
                         data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
@@ -244,6 +244,23 @@ namespace Compent.uCommunity.Core.News
                         };
                     }
                     break;
+                case NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        newsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            CommentId = entityId,
+                            ActivityType = IntranetActivityTypeEnum.Events,
+                            NotifierId = _intranetUserService.GetCurrentUser().Id,
+                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            Title = newsEntity.Title,
+                            Url = GetUrlWithComment(newsEntity.Id, comment.Id)
+                        };
+                    }
+                    break;
+
                 case NotificationTypeEnum.CommentAdded:
                 case NotificationTypeEnum.CommentEdited:
                     {
