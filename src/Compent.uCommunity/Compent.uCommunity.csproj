@@ -341,9 +341,9 @@
       <HintPath>..\..\packages\uCommunity.News.1.0.13.19\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Notification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Notification, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Notification.1.0.5\lib\net452\uCommunity.Notification.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Notification.1.0.5.1\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Panels, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
