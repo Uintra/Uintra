@@ -332,12 +332,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Navigation, Version=1.0.6.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.5\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.13.18, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.News, Version=1.0.13.19, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.News.1.0.13.18\lib\net452\uCommunity.News.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.News.1.0.13.19\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
