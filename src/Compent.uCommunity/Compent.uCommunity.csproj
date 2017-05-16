@@ -873,6 +873,8 @@
     <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedCreateModel.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />

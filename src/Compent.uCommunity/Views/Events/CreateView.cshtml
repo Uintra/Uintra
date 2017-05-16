@@ -2,10 +2,10 @@
 @using uCommunity.Core.Controls.FileUpload
 @using uCommunity.Core.Extentions;
 @using Umbraco.Web
-@model uCommunity.Events.EventCreateModel
+@model Compent.uCommunity.Core.Events.EventExtendedCreateModel
 
 <div class="form" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
+    @using (Html.BeginUmbracoForm("CreateExtendedEvent", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -77,6 +77,11 @@
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
+
+        <div class="form__row clearfix">
+            @Html.Action("Tags", "Tags", new { Model.Tags })
+        </div>
+
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>

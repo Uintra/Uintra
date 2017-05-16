@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uCommunity.Core.Events;
 using uCommunity.CentralFeed;
 using uCommunity.Core;
+using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
+using uCommunity.Core.User.Permissions.Web;
 using uCommunity.Events;
 using uCommunity.Events.Web;
 using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
+using uCommunity.Tagging;
 using uCommunity.Users.Core;
 
 namespace Compent.uCommunity.Controllers
@@ -29,15 +33,18 @@ namespace Compent.uCommunity.Controllers
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
+        private readonly ITagsService _tagsService;
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
-            IReminderService reminderService)
+            IReminderService reminderService, 
+            ITagsService tagsService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
+            _tagsService = tagsService;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
@@ -75,6 +82,99 @@ namespace Compent.uCommunity.Controllers
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
             return PartialView(DetailsViewPath, model);
+        }
+
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public override ActionResult Create()
+        {
+            var model = new EventExtendedCreateModel
+            {
+                StartDate = DateTime.Now.Date.AddHours(8),
+                EndDate = DateTime.Now.Date.AddHours(8),
+                CanSubscribe = true
+            };
+            FillCreateEditData(model);
+            return PartialView(CreateViewPath, model);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult CreateExtendedEvent(EventExtendedCreateModel createModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                FillCreateEditData(createModel);
+                return PartialView(CreateViewPath, createModel);
+            }
+
+            var @event = createModel.Map<EventBase>();
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
+
+            if (createModel.IsPinned && createModel.PinDays > 0)
+            {
+                @event.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+            }
+
+            var activityId = _eventsService.Create(@event);
+            _tagsService.SaveTags(activityId, createModel.Tags);
+            OnEventCreated(activityId);
+
+            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
+        }
+
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public override ActionResult Edit(Guid id)
+        {
+            var @event = _eventsService.Get(id);
+            if (@event.IsHidden)
+            {
+                HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
+            }
+
+            if (!_eventsService.CanEdit(@event))
+            {
+                HttpContext.Response.Redirect(_eventsService.GetDetailsPage().Url.UrlWithQueryString("id", id.ToString()));
+            }
+
+            _tagsService.FillTags(@event);
+
+            var model = @event.Map<EventExtendedEditModel>();
+            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
+            FillCreateEditData(model);
+            return PartialView(EditViewPath, model);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult EditExtendedEvent(EventExtendedEditModel saveModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                FillCreateEditData(saveModel);
+                return PartialView(EditViewPath, saveModel);
+            }
+
+            var @event = MapEditModel(saveModel);
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
+
+            if (_eventsService.CanEditSubscribe(@event.Id))
+            {
+                @event.CanSubscribe = saveModel.CanSubscribe;
+            }
+            var isActual = _eventsService.IsActual(@event);
+            _eventsService.Save(@event);
+            _tagsService.SaveTags(saveModel.Id, saveModel.Tags);
+
+            if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
+            {
+                @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays);
+            }
+
+            OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
+
+            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
 
         [HttpPost]

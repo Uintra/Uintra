@@ -7,6 +7,7 @@ import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
+import tagsController from "./../../Tagging/tags";
 
 var alertify = require('alertifyjs/build/alertify.min');
 
@@ -156,6 +157,7 @@ var controller = {
         initSubmitButton();
         initHideControl();
         fileUploadController.init(holder);
+        tagsController.init();
     }
 }
 
