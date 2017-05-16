@@ -24,7 +24,11 @@
       "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
     },
     {
-      "NotificationType": "LikeAdded",
+      "NotificationType": "ActivityLikeAdded",
+      "NotifierTypes": [ "UiNotifier" ]
+    },
+    {
+      "NotificationType": "CommentLikeAdded",
       "NotifierTypes": [ "UiNotifier" ]
     },
     {

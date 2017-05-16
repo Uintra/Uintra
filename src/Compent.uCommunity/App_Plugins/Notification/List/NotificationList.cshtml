@@ -15,7 +15,7 @@
                 {
                     switch (notification.Type)
                     {
-                        case NotificationTypeEnum.LikeAdded:
+                        case NotificationTypeEnum.ActivityLikeAdded:
                             {
                                 <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
                                     <h2 class="notifications__list-title">
@@ -29,7 +29,22 @@
                                 </li>
 
                                 break;
+                            }
 
+                        case NotificationTypeEnum.CommentLikeAdded:
+                            {
+                                <li class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title - @Html.Localize((IntranetActivityTypeEnum)notification.Value.activityType)
+                                        </a>
+                                    </h2>
+                                    <div class="notifications__list-meta">
+                                        <span>@notification.Date.ToString(cultureDateFormat)</span> - <span>@notification.Value.notifierName</span> - <span>@notification.Type</span>
+                                    </div>
+                                </li>
+
+                                break;
                             }
 
                         case NotificationTypeEnum.EventUpdated:
