@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Controls.LightboxGallery;
 
 namespace uCommunity.News
 {
@@ -13,7 +16,9 @@ namespace uCommunity.News
 
         public bool Expired { get; set; }
 
-        public string MediaIds { get; set; }
+        public LightboxGalleryPreviewModel LightboxGalleryPreviewInfo { get; set; }
+
+        public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
 
