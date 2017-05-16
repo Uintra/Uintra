@@ -76,7 +76,7 @@ namespace Compent.uCommunity.Controllers
             newsViewModel.EditPageUrl = _newsService.GetEditPage().Url;
             newsViewModel.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
-
+            
             return PartialView(DetailsViewPath, newsViewModel);
         }
 

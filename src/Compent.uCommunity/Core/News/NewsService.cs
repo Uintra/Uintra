@@ -97,7 +97,18 @@ namespace Compent.uCommunity.Core.News
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
+            var creatorId = Get(cached.Id).CreatorId;
+            if (creatorId == currentUser.Id)
+            {
+                return true;
+            }
+            if (currentUser.Role != IntranetRolesEnum.WebMaster)
+            {
+                return false;
+            }
+
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
+            
             return isAllowed;
         }
 
