@@ -11,9 +11,10 @@ namespace uCommunity.Notification.Core.Configuration
         BeforeStart,
         News,
         Idea,        
-        LikeAdded,
+        ActivityLikeAdded,
         CommentAdded,
         CommentEdited,
-        CommentReplyed
+        CommentReplyed,
+        CommentLikeAdded
     }
 }
