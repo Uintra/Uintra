@@ -86,6 +86,36 @@ namespace Compent.uCommunity.Controllers
             return PartialView(SubNavigationViewPath, model);
         }
 
+        public string GetTitle()
+        {
+            var currentPage = CurrentPage;
+            var currentPageNavigation = currentPage as INavigationComposition;
+            while (currentPageNavigation == null && currentPage.Parent != null)
+            {
+                currentPage = currentPage.Parent;
+                currentPageNavigation = currentPage as INavigationComposition;
+            }
+
+            if (currentPageNavigation == null)
+            {
+                return string.Empty;
+            }
+
+            var result = currentPageNavigation.NavigationName + " -";
+
+            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias))
+            {
+                currentPage = currentPage.Parent;
+                currentPageNavigation = currentPage as INavigationComposition;
+                if (currentPageNavigation != null)
+                {
+                    result = $"{currentPageNavigation.NavigationName} - {result}";
+                }
+            }
+
+            return result;
+        }
+
         private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent content)
         {
             if (content.Children.Any() || IsHomePage(content.Parent))

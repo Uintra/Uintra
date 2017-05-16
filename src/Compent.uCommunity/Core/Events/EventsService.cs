@@ -130,12 +130,20 @@ namespace Compent.uCommunity.Core.Events
 
         public override bool CanEdit(IIntranetActivity cached)
         {
-            var @event = (Event)cached;
-
             var currentUser = _intranetUserService.GetCurrentUser();
+            var creatorId = Get(cached.Id).CreatorId;
+            if (creatorId == currentUser.Id)
+            {
+                return true;
+            }
+            if (currentUser.Role != IntranetRolesEnum.WebMaster)
+            {
+                return false;
+            }
 
-            return @event.CreatorId == currentUser.Id
-                || _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+
+            return isAllowed;
         }
 
         public ICentralFeedItem GetItem(Guid activityId)
