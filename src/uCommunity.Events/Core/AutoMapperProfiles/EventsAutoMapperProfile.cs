@@ -14,6 +14,7 @@ namespace uCommunity.Events
             Mapper.CreateMap<EventBase, EventsOverviewItemViewModel>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventCreateModel>()
