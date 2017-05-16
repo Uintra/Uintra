@@ -7,6 +7,7 @@ import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
+import tagsController from "./../../Tagging/tags";
 
 var alertify = require('alertifyjs/build/alertify.min');
 
@@ -141,6 +142,22 @@ var initHideControl = function () {
     });
 }
 
+var initDatePickers = function () {
+    var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
+    var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+
+    function startOnChange(newDates) {
+        var newDate = newDates[0];
+        var endDate = end.selectedDates[0];
+        if (endDate != null && endDate < new Date(newDate)) {
+            end.setDate(newDate);
+        }
+        end.set('minDate', newDate);
+    }
+
+    start.config.onChange.push(startOnChange);
+}
+
 var controller = {
     init: function () {
         holder = $('#js-events-edit-page');
@@ -150,12 +167,12 @@ var controller = {
 
         initPinControl();
         initUserSelect();
-        helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
-        helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+        initDatePickers();
         initDescriptionControl();
         initSubmitButton();
         initHideControl();
         fileUploadController.init(holder);
+        tagsController.init();
     }
 }
 

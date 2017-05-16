@@ -14,7 +14,7 @@
                 <p>@Model.Teaser</p>
             </div>
             <div class="content__item-images">
-                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
+                @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
             </div>
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">

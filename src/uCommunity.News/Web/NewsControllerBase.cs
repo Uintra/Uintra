@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Controls.LightboxGallery;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -93,15 +94,7 @@ namespace uCommunity.News.Web
                 return PartialView(CreateViewPath, createModel);
             }
 
-            var news = createModel.Map<NewsBase>();
-            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.CreatorId = _intranetUserService.GetCurrentUserId();
-            if (createModel.IsPinned && createModel.PinDays > 0)
-            {
-                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
-            }
-
-            var activityId = _newsService.Create(news);
+            var activityId = CreateNews(createModel);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
 
@@ -134,17 +127,9 @@ namespace uCommunity.News.Web
                 return PartialView(EditViewPath, editModel);
             }
 
-            var activity = editModel.Map<NewsBase>();
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            activity.CreatorId = _intranetUserService.GetCurrentUserId();
+            UpdateNews(editModel);
 
-            if (editModel.IsPinned && editModel.PinDays > 0 && activity.PinDays != editModel.PinDays)
-            {
-                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
-            }
-
-            _newsService.Save(activity);
-            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
+            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", editModel.Id.ToString() } });
         }
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
@@ -162,14 +147,45 @@ namespace uCommunity.News.Web
             foreach (var item in news)
             {
                 var model = item.Map<NewsOverviewItemViewModel>();
-                model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
+                model.MediaIds = item.MediaIds;
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
-
+                model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+                {
+                    MediaIds = item.MediaIds,
+                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString())
+                };
                 model.Expired = _newsService.IsExpired(item);
 
                 yield return model;
             }
+        }
+
+        protected virtual Guid CreateNews(NewsCreateModel createModel)
+        {
+            var news = createModel.Map<NewsBase>();
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
+            if (createModel.IsPinned && createModel.PinDays > 0)
+            {
+                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+            }
+
+            return _newsService.Create(news);
+        }
+
+        protected virtual void UpdateNews(NewsEditModel editModel)
+        {
+            var activity = editModel.Map<NewsBase>();
+            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            activity.CreatorId = _intranetUserService.GetCurrentUserId();
+
+            if (editModel.IsPinned && editModel.PinDays > 0 && activity.PinDays != editModel.PinDays)
+            {
+                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
+            }
+
+            _newsService.Save(activity);            
         }
 
         protected virtual void FillLinks()

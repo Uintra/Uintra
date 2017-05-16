@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Controls.LightboxGallery;
 
 namespace uCommunity.Events
 {
@@ -15,7 +18,9 @@ namespace uCommunity.Events
 
         public DateTime EndDate { get; set; }
 
-        public string MediaIds { get; set; }
+        public LightboxGalleryPreviewModel LightboxGalleryPreviewInfo { get; set; }
+
+        public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
 
         public bool CanSubscribe { get; set; }
 
