@@ -9,6 +9,7 @@ using uCommunity.CentralFeed;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Controls.LightboxGallery;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -202,12 +203,17 @@ namespace Compent.uCommunity.Controllers
             foreach (var @event in events)
             {
                 var model = @event.Map<EventOverviewItemModel>();
-                model.MediaIds = @event.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
+                model.MediaIds = @event.MediaIds;
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
                 model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
 
+                model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+                {
+                    MediaIds = @event.MediaIds,
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
+                };
                 yield return model;
             }
         }

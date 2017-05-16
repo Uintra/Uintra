@@ -9,6 +9,7 @@ using uCommunity.CentralFeed;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Controls.LightboxGallery;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -17,6 +18,7 @@ using uCommunity.News;
 using uCommunity.News.Web;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
+using umbraco;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -157,9 +159,16 @@ namespace Compent.uCommunity.Controllers
             foreach (var newsModelBase in news)
             {
                 var overviewItemViewModel = newsModelBase.Map<NewsOverviewItemExtendedViewModel>();
-                overviewItemViewModel.MediaIds = newsModelBase.MediaIds.Take(3).JoinToString(",");
+
+                overviewItemViewModel.MediaIds = newsModelBase.MediaIds;
                 overviewItemViewModel.HeaderInfo = newsModelBase.Map<IntranetActivityItemHeaderViewModel>();
                 overviewItemViewModel.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString());
+                overviewItemViewModel.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+                {
+                    MediaIds = newsModelBase.MediaIds,
+                    Url = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString())
+                };
+
                 overviewItemViewModel.Expired = _newsService.IsExpired(newsModelBase);
                 yield return overviewItemViewModel;
             }
