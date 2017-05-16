@@ -858,9 +858,11 @@
   <ItemGroup>
     <Compile Include="Controllers\ActivityHeaderController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
+    <Compile Include="Controllers\LightboxGalleryController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Core\ApplicationSettings\IUcommunityApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />

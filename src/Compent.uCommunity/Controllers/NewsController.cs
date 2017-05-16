@@ -105,9 +105,7 @@ namespace Compent.uCommunity.Controllers
             }
 
             var activityId = _newsService.Create(news);
-            _tagsService.SaveTags(activityId, createModel.Tags);
-
-            _newsService.Save(news);
+           _tagsService.SaveTags(activityId, createModel.Tags);
 
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
@@ -125,6 +123,8 @@ namespace Compent.uCommunity.Controllers
             {
                 HttpContext.Response.Redirect(_newsService.GetDetailsPage().Url.UrlWithQueryString("id", id.ToString()));
             }
+
+            _tagsService.FillTags(news);
 
             var model = news.Map<NewsExtendedEditModel>();
             FillCreateEditData(model);

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.uCommunity.Core.Extentions;
 using Compent.uCommunity.Core.Navigation;
-using Newtonsoft.Json;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Models;
 using uCommunity.Core.Extentions;
@@ -23,8 +22,8 @@ namespace Compent.uCommunity.Controllers
     {
         protected override string MyLinkPageTitleNodePropertyAlias { get; } = "navigationName";
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
-        protected override string SystemLinkNodePropertyAlias { get; } = "links";
-        protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
+        protected  string SystemLinkNodePropertyAlias { get; } = "links";
+        protected  string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override string SystemLinksContentXPath { get; } = $"root/{DataFolder.ModelTypeAlias}[@isDoc]/{SystemLinkFolder.ModelTypeAlias}[@isDoc]/{SystemLink.ModelTypeAlias}[@isDoc]";
 
         private readonly INotificationHelper _notificationHelper;
