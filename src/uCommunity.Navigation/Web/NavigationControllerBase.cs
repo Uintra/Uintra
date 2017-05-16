@@ -97,7 +97,7 @@ namespace uCommunity.Navigation.Web
         {
             var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, SystemLinkTitleNodePropertyAlias,
                 SystemLinkNodePropertyAlias, SystemLinkSortOrderNodePropertyAlias, x => x.SortOrder);
-            var result = systemLinks.Map<IEnumerable<SystemLinksViewModel>>();
+            var result = systemLinks.Map<List<SystemLinksViewModel>>();
 
             return PartialView(SystemLinksViewPath, result);
         }
