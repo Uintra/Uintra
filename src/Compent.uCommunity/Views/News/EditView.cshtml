@@ -29,8 +29,6 @@
                    data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true" />
         </div>
 
-        @Html.Action("Tags", "Tags", new { tags = Model.Tags })
-
         <div class="form__row clearfix">
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsEdit.PublishDate.lbl")</label>
             <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat"/>
@@ -76,6 +74,11 @@
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
+
+        <div class="form__row clearfix">
+            @Html.Action("Tags", "Tags", new { tags = Model.Tags })
+        </div>
+
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>

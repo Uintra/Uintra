@@ -1,6 +1,6 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-var active = "_active";
+var active = "_expand";
 
 var controller = {
     switchLinkIcon: function() {

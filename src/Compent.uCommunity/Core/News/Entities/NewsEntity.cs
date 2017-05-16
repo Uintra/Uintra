@@ -6,10 +6,11 @@ using uCommunity.Comments;
 using uCommunity.Likes;
 using uCommunity.News;
 using uCommunity.Subscribe;
+using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.News.Entities
 {
-    public class NewsEntity : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
+    public class NewsEntity : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IHaveTags
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
@@ -19,5 +20,7 @@ namespace Compent.uCommunity.Core.News.Entities
         public IEnumerable<Comment> Comments { get; set; }
         [JsonIgnore]
         public IEnumerable<global::uCommunity.Subscribe.Subscribe> Subscribers { get; set; }
+        [JsonIgnore]
+        public IEnumerable<string> Tags { get; set; }
     }
 }

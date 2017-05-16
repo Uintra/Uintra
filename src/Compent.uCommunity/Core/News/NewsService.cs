@@ -18,6 +18,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Entities;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Subscribe;
+using uCommunity.Tagging;
 using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -38,6 +39,7 @@ namespace Compent.uCommunity.Core.News
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
+        private readonly ITagsService _tagsService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -45,17 +47,20 @@ namespace Compent.uCommunity.Core.News
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper, IPermissionsService permissionsService,
-            INotificationsService notificationService)
-            : base(intranetActivityRepository, cacheService,intranetUserService)
+            UmbracoHelper umbracoHelper,
+            IPermissionsService permissionsService,
+            INotificationsService notificationService,
+            ITagsService tagsService)
+            : base(intranetActivityRepository, cacheService, intranetUserService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
             _umbracoHelper = umbracoHelper;
-            this._permissionsService = permissionsService;
+            _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
+            _tagsService = tagsService;
         }
 
         public MediaSettings GetMediaSettings()
@@ -128,6 +133,7 @@ namespace Compent.uCommunity.Core.News
                 _intranetUserService.FillCreator(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
+                _tagsService.FillTags(entity);
             }
         }
 
