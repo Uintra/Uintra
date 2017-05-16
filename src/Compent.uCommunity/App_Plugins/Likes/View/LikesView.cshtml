@@ -16,10 +16,12 @@
     @if (Model.Users.Any())
     {
         <div class="like__popup">
-            @foreach (var name in Model.Users)
-            {
-                @Html.Label(name)
-            }
+            <ul class="like__list">
+                @foreach (var name in Model.Users)
+                {
+                    <li class="like__list-item">@Html.Label(name)</li>
+                }
+            </ul>
         </div>
     }
 </div>
