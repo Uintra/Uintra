@@ -94,15 +94,7 @@ namespace uCommunity.News.Web
                 return PartialView(CreateViewPath, createModel);
             }
 
-            var news = createModel.Map<NewsBase>();
-            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.CreatorId = _intranetUserService.GetCurrentUserId();
-            if (createModel.IsPinned && createModel.PinDays > 0)
-            {
-                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
-            }
-
-            var activityId = _newsService.Create(news);
+            var activityId = CreateNews(createModel);
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
 
@@ -135,17 +127,9 @@ namespace uCommunity.News.Web
                 return PartialView(EditViewPath, editModel);
             }
 
-            var activity = editModel.Map<NewsBase>();
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            activity.CreatorId = _intranetUserService.GetCurrentUserId();
+            UpdateNews(editModel);
 
-            if (editModel.IsPinned && editModel.PinDays > 0 && activity.PinDays != editModel.PinDays)
-            {
-                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
-            }
-
-            _newsService.Save(activity);
-            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
+            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", editModel.Id.ToString() } });
         }
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
@@ -175,6 +159,33 @@ namespace uCommunity.News.Web
 
                 yield return model;
             }
+        }
+
+        protected virtual Guid CreateNews(NewsCreateModel createModel)
+        {
+            var news = createModel.Map<NewsBase>();
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
+            if (createModel.IsPinned && createModel.PinDays > 0)
+            {
+                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+            }
+
+            return _newsService.Create(news);
+        }
+
+        protected virtual void UpdateNews(NewsEditModel editModel)
+        {
+            var activity = editModel.Map<NewsBase>();
+            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            activity.CreatorId = _intranetUserService.GetCurrentUserId();
+
+            if (editModel.IsPinned && editModel.PinDays > 0 && activity.PinDays != editModel.PinDays)
+            {
+                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
+            }
+
+            _newsService.Save(activity);            
         }
 
         protected virtual void FillLinks()

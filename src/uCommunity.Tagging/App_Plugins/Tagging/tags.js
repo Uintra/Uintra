@@ -6,8 +6,13 @@ var TagsController = {
     init: function () {
         var activityTagsContainer = $('#activityTags');
 
+        var activityTags;
         var activityTagsProperty = activityTagsContainer.data('activity-tags');
-        var activityTags = activityTagsProperty ? activityTagsProperty.split(',') : [];
+        if (activityTagsProperty && Array.isArray(activityTagsProperty)) {
+            activityTags = activityTagsProperty.split(',');
+        } else {
+            activityTags = [activityTagsProperty];
+        }
 
         var tagsControl = new Taggle(activityTagsContainer[0], {
             preserveCase: true,
