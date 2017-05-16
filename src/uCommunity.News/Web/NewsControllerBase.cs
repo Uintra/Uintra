@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
+using uCommunity.Core.Controls.LightboxGallery;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -162,10 +163,14 @@ namespace uCommunity.News.Web
             foreach (var item in news)
             {
                 var model = item.Map<NewsOverviewItemViewModel>();
-                model.MediaIds = item.MediaIds.Take(ImageConstants.DefaultActivityOverviewImagesCount).JoinToString(",");
+                model.MediaIds = item.MediaIds;
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
-
+                model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+                {
+                    MediaIds = item.MediaIds,
+                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString())
+                };
                 model.Expired = _newsService.IsExpired(item);
 
                 yield return model;
