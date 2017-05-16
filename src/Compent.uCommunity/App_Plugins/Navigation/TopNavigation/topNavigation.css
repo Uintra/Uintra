@@ -26,6 +26,8 @@
     z-index: 3;
 
     @media (--for-tablet-portrait-down) {
+        padding: 20px 0 19px;
+
         ._menu-expanded & {
             background: var(--color-light-gray-2);
         }
