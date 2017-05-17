@@ -201,10 +201,16 @@
     }
     &__button{
         position:absolute;
-        top:15px;
+        top:16px;
         right:5px;
         border:none;
         background:none;
+        padding:0 8px;
+        cursor:pointer;
+
+        &:hover{
+            text-decoration:none;
+        }
 
         .icon-search{
             font-size:18px;
@@ -329,8 +335,8 @@
         .title {
             display:block;
             overflow:hidden;
-            margin:-9px -20px -8px;
-            padding:9px 20px 8px;
+            margin:-9px 0 -8px;
+            padding:9px 0 8px;
 
             &._all{
                 font-size:13px;
@@ -339,7 +345,7 @@
                 &:after{
                     position:absolute;
                     top: 16px;
-                    right: 22px;
+                    right: 2px;
                     width: 10px;
                     height: 10px;
                     border:solid var(--text-color-dark);

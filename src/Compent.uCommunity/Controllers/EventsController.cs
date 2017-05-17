@@ -39,7 +39,7 @@ namespace Compent.uCommunity.Controllers
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
-            IReminderService reminderService, 
+            IReminderService reminderService,
             ITagsService tagsService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
@@ -179,10 +179,17 @@ namespace Compent.uCommunity.Controllers
         }
 
         [HttpPost]
-        public override JsonResult HasConfirmation(EventEditModel model)
+        public JsonResult HasConfirmation(EventExtendedEditModel model)
         {
             var @event = MapModel(model);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
+        }
+
+        [NonAction]
+        [HttpPost]
+        public override JsonResult HasConfirmation(EventEditModel model)
+        {
+            return base.HasConfirmation(model);
         }
 
         public ActionResult ItemView(EventOverviewItemModel model)
@@ -190,7 +197,7 @@ namespace Compent.uCommunity.Controllers
             return PartialView(ItemViewPath, model);
         }
 
-        protected Event MapModel(EventEditModel saveModel)
+        protected Event MapModel(EventExtendedEditModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
