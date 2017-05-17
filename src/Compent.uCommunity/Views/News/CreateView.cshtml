@@ -6,7 +6,7 @@
 @model Compent.uCommunity.Core.News.Models.NewsExtendedCreateModel
 
 <div class="form" id="js-news-create-page">
-    @using (Html.BeginUmbracoForm("CreateExtendedNews", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">

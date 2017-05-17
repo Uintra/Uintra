@@ -44,6 +44,25 @@ var helpers = {
 
         return quill;
     },
+    initActivityDescription: function (holder, dataStorageElement, descId, btnElement) {
+        var dataStorage = holder.find(dataStorageElement);
+        var descriptionElem = holder.find(descId);
+        var btn = holder.find(btnElement);
+
+        var editor = this.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
+
+        editor.on('text-change', function () {
+            if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
+                descriptionElem.removeClass('input-validation-error');
+            }
+        });
+
+        btn.click(function () {
+            editor.getLength() <= 1 ?
+                descriptionElem.addClass('input-validation-error') :
+                descriptionElem.removeClass('input-validation-error');
+        });
+    },
     initDatePicker: function (holder, dateElemSelector, valueSelector) {
         var dateElem = holder.find(dateElemSelector);
         var dateFormat = dateElem.data('dateFormat');
@@ -87,7 +106,7 @@ var helpers = {
             var lock = false;
             var win = $(window);
             var doc = $(document);
-            var unlock = function () {lock = false; }
+            var unlock = function () { lock = false; }
             win.scroll(function () {
                 if ((win.scrollTop() + 70) >= doc.height() - win.height()) {
                     if (!lock) {
@@ -100,9 +119,9 @@ var helpers = {
     },
     scrollTo: function (element, to, duration) {
         var start = element.scrollTop,
-           change = to - start,
-           currentTime = 0,
-           increment = 20;
+            change = to - start,
+            currentTime = 0,
+            increment = 20;
 
         var animateScroll = function () {
             currentTime += increment;
@@ -126,6 +145,34 @@ var helpers = {
             localStorage.removeItem(key);
         }
     },
+    serialize: function (form) {
+        if (typeof form != "object" || form.nodeName !== "FORM") return "";
+        var s = [];
+
+        for (var i = 0; i < form.elements.length; i++) {
+            var field = form.elements[i];
+            if (!field.name
+                || field.disabled
+                || field.type === "file"
+                || field.type === "reset"
+                || field.type === "submit"
+                || field.type === "button")
+                continue;
+
+            if (field.type === "select-multiple") {
+                for (var j = 0; j < field.options.length; j++) {
+                    var option = field.options[j];
+                    if (!option.selected) continue;
+                    s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(option.value);
+                }
+            } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
+                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+            }
+        }
+
+
+        return s.join("&").replace(/%20/g, "+");
+    }
 }
 
 export default helpers;

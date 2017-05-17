@@ -20,14 +20,19 @@ namespace uCommunity.Navigation.Core
             return _myLinksRepository.Get(id);
         }
 
-        public IEnumerable<MyLink> GetMany(Guid userId)
+        public IEnumerable<MyLink> GetMany(IEnumerable<Guid> ids)
+        {
+            return _myLinksRepository.FindAll(myLink => ids.Contains(myLink.Id));
+        }
+
+        public IEnumerable<MyLink> GetUserLinks(Guid userId)
         {
             return _myLinksRepository.FindAll(myLink => myLink.UserId == userId);
         }
 
         public bool AddRemove(Guid userId, string name, string url)
         {
-            var userLinks = GetMany(userId);
+            var userLinks = GetUserLinks(userId);
             var existingLink = userLinks.FirstOrDefault(x => x.Url == url);
 
             if (existingLink == null)
@@ -37,6 +42,26 @@ namespace uCommunity.Navigation.Core
             else
             {
                 return RemoveLink(existingLink);
+            }
+        }
+
+        public bool Sort(Dictionary<Guid, int> sortOrders)
+        {
+            var existingLinks = GetMany(sortOrders.Select(x => x.Key));
+
+            foreach (var link in existingLinks)
+            {
+                link.SortOrder = sortOrders[link.Id];
+            }
+
+            try
+            {
+                _myLinksRepository.Update(existingLinks);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 
@@ -66,7 +91,6 @@ namespace uCommunity.Navigation.Core
             {
                 return false;
             }
-
         }
 
         private bool RemoveLink(MyLink myLink)

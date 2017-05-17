@@ -7,7 +7,7 @@
 @model Compent.uCommunity.Core.Events.EventExtendedEditModel
 
 <div class="form" id="js-events-edit-page">
-    @using (Html.BeginUmbracoForm("EditExtendedEvent", "Events", FormMethod.Post, new { id = "editForm" }))
+    @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
     {
         @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })
         <h1 class="form__title">@Html.Localize("EventsEdit.Title.lbl")</h1>

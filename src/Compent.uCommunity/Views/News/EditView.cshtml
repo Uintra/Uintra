@@ -6,7 +6,7 @@
 @model Compent.uCommunity.Core.News.Models.NewsExtendedEditModel
 
 <div class="form" id="js-news-edit-page">
-    @using (Html.BeginUmbracoForm("EditExtendedNews", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsEdit.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />

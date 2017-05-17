@@ -375,35 +375,80 @@
 
 .documents{
     margin:0;
-    padding:10px 0;
+    padding:5px 0 0;
     list-style:none;
 
-    &__item{
-        margin:0 0 13px;
+    ._horizontal &{
+        display:flex;
+        align-items:stretch;
+        flex-wrap:wrap;
+        margin:0 0 0 -20px;
+    }
 
-        &-link{
-            &:hover{
-                text-decoration:none;
-            }
+    &__item{
+        ._vertical &{
+            overflow:hidden;
+            margin:0 0 16px;
+        }
+        
+        ._horizontal &{
+            text-align:center;
+            width:33%;
+            max-width:150px;
+            padding:0 0 20px 20px;
         }
 
-        &-name{
-            display: inline-block;
-            vertical-align:top;
-            overflow: hidden;
-            padding: 10px 0 0;
-            text-overflow:ellipsis;
-            white-space:nowrap;
+        &-link{
+            ._horizontal &{
+                background:#fbfbfb;
+                display:block;
+                height:100%;
+                border:1px solid var(--color-light-gray-2);
+                border-radius:2px;
+                padding:11px 10px 8px;
+                color:var(--text-color-dark);
 
-            :hover > &{
-                text-decoration:underline;
+                &:hover,
+                &:active,
+                &:focus{
+                    color:var(--text-color-dark);
+                    text-decoration:none;
+                }
+            }
+        }
+        &-name{
+            ._horizontal &{
+                font-size:11px;
+                line-height:13px;
+                word-break:break-all;
+                display:inline-block;
+                overflow:visible;
             }
         }
     }
 
     &__icon{
-        display: inline-block;
-        vertical-align:top;
-        margin:0 10px 0 0;
+        width: 24px;
+        height: 24px;
+
+        ._vertical &{
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 8px 0 0;
+        }
+
+        ._horizontal &{
+            float:none;
+            margin:0 auto 3px;
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    &__more{
+        display:inline-block;
+        font:bold 13px/15px var(--font-custom);
+        text-transform:uppercase;
+        margin:0 0 20px;
     }
 }

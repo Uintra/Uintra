@@ -1,5 +1,7 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
 
+require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
+
 var holder;
 var versionControl;
 var listContainer;

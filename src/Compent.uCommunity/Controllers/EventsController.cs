@@ -41,7 +41,7 @@ namespace Compent.uCommunity.Controllers
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
-            IReminderService reminderService, 
+            IReminderService reminderService,
             ITagsService tagsService)
             : base(eventsService, mediaHelper, intranetUserService)
         {
@@ -100,9 +100,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(CreateViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult CreateExtendedEvent(EventExtendedCreateModel createModel)
+        public override ActionResult Create(EventCreateModel createModel)
+        {
+            return base.Create(createModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult Create(EventExtendedCreateModel createModel)
         {
             if (!ModelState.IsValid)
             {
@@ -148,9 +156,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(EditViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult EditExtendedEvent(EventExtendedEditModel saveModel)
+        public override ActionResult Edit(EventEditModel saveModel)
+        {
+            return base.Edit(saveModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult Edit(EventExtendedEditModel saveModel)
         {
             if (!ModelState.IsValid)
             {
@@ -180,8 +196,15 @@ namespace Compent.uCommunity.Controllers
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
 
+        [NonAction]
         [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
+        {
+            return base.HasConfirmation(model);
+        }
+
+        [HttpPost]
+        public JsonResult HasConfirmation(EventExtendedEditModel model)
         {
             var @event = MapModel(model);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
@@ -192,7 +215,7 @@ namespace Compent.uCommunity.Controllers
             return PartialView(ItemViewPath, model);
         }
 
-        protected Event MapModel(EventEditModel saveModel)
+        protected Event MapModel(EventExtendedEditModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
@@ -216,7 +239,8 @@ namespace Compent.uCommunity.Controllers
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
+                    MaxImagesCount = 2
                 };
                 yield return model;
             }

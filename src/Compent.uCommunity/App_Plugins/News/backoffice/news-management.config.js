@@ -1,5 +1,5 @@
 ﻿(function (angular) {
-    'usse strict';
+    'use strict';
 
     angular.module('umbraco')
         .constant("newsManagementConfig", {
@@ -16,6 +16,11 @@
                 enableTime: true,
                 time_24hr: true,
                 dateFormat: "d.m.Y H:i"
+            },
+            filterDate: {
+                enableTime: false,
+                time_24hr: true,
+                dateFormat: "d/m/Y"
             },
             media: {
                 disableFolderSelect: "1",

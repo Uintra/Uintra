@@ -1,5 +1,5 @@
 ﻿(function (angular) {
-    'usse strict';
+    'use strict';
 
     angular.module('umbraco')
         .constant("eventsManagementConfig", {
