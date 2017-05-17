@@ -20,12 +20,15 @@
             }
 
             var compareDates = function (itemDate, filter) {
+                var date = new Date(itemDate);
+                date.setHours(0, 0, 0, 0);
+
                 if (filter) {
                     if (filter.from) {
-                        checkList.push(itemDate >= filter.from);
+                        checkList.push(date >= new Date(filter.from));
                     }
                     if (filter.to) {
-                        checkList.push(itemDate <= filter.to);
+                        checkList.push(date <= new Date(filter.to));
                     }
                 }
             }
@@ -48,7 +51,6 @@
             if (self.filterModel.modifyDate) {
                 compareDates(item.modifyDate, self.filterModel.modifyDate);
             }
-
 
             return checkList.filter(function (item) { return !!item; }).length == checkList.length;
         }
