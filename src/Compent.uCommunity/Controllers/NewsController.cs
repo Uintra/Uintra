@@ -166,7 +166,8 @@ namespace Compent.uCommunity.Controllers
                 overviewItemViewModel.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = newsModelBase.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString()),
+                    MaxImagesCount = 2
                 };
 
                 overviewItemViewModel.Expired = _newsService.IsExpired(newsModelBase);
