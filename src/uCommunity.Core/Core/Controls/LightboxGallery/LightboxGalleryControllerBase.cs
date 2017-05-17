@@ -10,6 +10,9 @@ namespace uCommunity.Core.Controls.LightboxGallery
 {
     public  abstract class LightboxGalleryControllerBase: SurfaceController
     {
+        protected virtual string GalleryViewPath { get; } = "~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGallery.cshtml";
+        protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGalleryPreview.cshtml";
+
         private readonly UmbracoHelper _umbracoHelper;
 
         protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper)
@@ -28,7 +31,7 @@ namespace uCommunity.Core.Controls.LightboxGallery
                 result = medias.Map<IEnumerable<LightboxGalleryViewModel>>().OrderBy(s => s.Type);
             }
 
-            return View("~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGallery.cshtml", result);
+            return View(GalleryViewPath, result);
         }
 
         
@@ -38,12 +41,12 @@ namespace uCommunity.Core.Controls.LightboxGallery
             if (model.MediaIds.Any())
             {
                 var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
-                galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image);
+                galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image).Take(model.MaxImagesCount);
                 galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Images);
                 galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
             }
 
-            return View("~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGalleryPreview.cshtml", galleryPreviewModel);
+            return View(PreviewViewPath, galleryPreviewModel);
         }
 
         protected virtual string GetOverviewElementId()
