@@ -19,6 +19,7 @@ using uCommunity.News.Web;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
 using umbraco;
+using Umbraco.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -28,6 +29,7 @@ namespace Compent.uCommunity.Controllers
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
+        //protected override int ShortDescriptionLength { get; } = 500;//Uncomment after package update
 
         private readonly INewsService<NewsEntity> _newsService;
         private readonly ITagsService _tagsService;
@@ -160,6 +162,7 @@ namespace Compent.uCommunity.Controllers
             {
                 var overviewItemViewModel = newsModelBase.Map<NewsOverviewItemExtendedViewModel>();
 
+                //overviewItemViewModel.ShortDescription = newsModelBase.Description.Truncate(ShortDescriptionLength);//Uncomment after package update
                 overviewItemViewModel.MediaIds = newsModelBase.MediaIds;
                 overviewItemViewModel.HeaderInfo = newsModelBase.Map<IntranetActivityItemHeaderViewModel>();
                 overviewItemViewModel.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString());

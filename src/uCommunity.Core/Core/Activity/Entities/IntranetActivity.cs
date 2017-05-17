@@ -10,7 +10,6 @@ namespace uCommunity.Core.Activity.Entities
         DateTime CreatedDate { get; set; }
         DateTime ModifyDate { get; set; }
         string Title { get; set; }
-        string Teaser { get; set; }
         string Description { get; set; }
         bool IsHidden { get; set; }
         bool IsPinned { get; set; }
@@ -32,8 +31,6 @@ namespace uCommunity.Core.Activity.Entities
         public DateTime ModifyDate { get; set; }
 
         public string Title { get; set; }
-
-        public string Teaser { get; set; }
 
         public string Description { get; set; }
 

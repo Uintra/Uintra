@@ -20,6 +20,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
+using Umbraco.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -31,6 +32,7 @@ namespace Compent.uCommunity.Controllers
         public override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         public override string EditViewPath => "~/Views/Events/EditView.cshtml";
         public override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
+        //protected override int ShortDescriptionLength { get; } = 500;//Uncomment after package update
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
@@ -203,6 +205,8 @@ namespace Compent.uCommunity.Controllers
             foreach (var @event in events)
             {
                 var model = @event.Map<EventOverviewItemModel>();
+
+                //model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);//Uncomment after package update
                 model.MediaIds = @event.MediaIds;
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 

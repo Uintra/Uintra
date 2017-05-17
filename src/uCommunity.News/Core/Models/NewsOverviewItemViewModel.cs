@@ -10,7 +10,7 @@ namespace uCommunity.News
     {
         public Guid Id { get; set; }
 
-        public string Teaser { get; set; }
+        public string ShortDescription { get; set; }
 
         public DateTime PublishDate { get; set; }
 

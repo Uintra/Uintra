@@ -11,7 +11,7 @@
             @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
-                <p>@Model.Teaser</p>
+                <p>Html.Raw(Model.ShortDescription)</p>
             </div>
             <div class="content__item-images">
                 @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }

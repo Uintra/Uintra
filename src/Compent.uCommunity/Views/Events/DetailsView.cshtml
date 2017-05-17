@@ -22,9 +22,6 @@
                 <div class="content__item _details">
                     @Html.Action("ActivityDetailsHeader", "ActivityHeader", new { header = Model.HeaderInfo })
                     <div class="content__item-txt">
-                        <p>
-                            <b>@Model.Teaser</b>
-                        </p>
                         @Html.Raw(Model.Description)
                     </div>
                     <div class="content__item-images">
