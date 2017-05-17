@@ -22,8 +22,8 @@ namespace Compent.uCommunity.Controllers
     {
         protected override string MyLinkPageTitleNodePropertyAlias { get; } = "navigationName";
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
-        protected  string SystemLinkNodePropertyAlias { get; } = "links";
-        protected  string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
+        protected override string SystemLinkNodePropertyAlias { get; } = "links";
+        protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override string SystemLinksContentXPath { get; } = $"root/{DataFolder.ModelTypeAlias}[@isDoc]/{SystemLinkFolder.ModelTypeAlias}[@isDoc]/{SystemLink.ModelTypeAlias}[@isDoc]";
 
         private readonly INotificationHelper _notificationHelper;
