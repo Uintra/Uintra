@@ -102,7 +102,7 @@ namespace uCommunity.Core.Activity
             return activities;
         }
 
-        protected TActivity UpdateCachedEntity(Guid id)
+        protected virtual TActivity UpdateCachedEntity(Guid id)
         {
             var activity = _activityRepository.Get(id);
             var cached = GetAll(true);
