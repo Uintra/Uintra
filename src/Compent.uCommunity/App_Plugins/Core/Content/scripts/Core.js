@@ -1,4 +1,4 @@
-﻿import autoScroll from "./AutoScroll";
+﻿import initAnchorScroll from "./AnchorScroll"
 
 window.$ = window.jQuery = require('jquery');
-autoScroll();
+initAnchorScroll();

@@ -113,16 +113,16 @@
 
 
 ._for-desktop{
-    display:none;
+    display:none !important;
 }
 
 @media﻿(min-width: 900px){
     ._for-mobile{
-        display:none;
+        display:none !important;
     }
 
     ._for-desktop{
-        display:block;
+        display:block !important;
     }
 }
 
@@ -233,61 +233,94 @@
 
     &__btn{
         border:1px solid;
-        padding:4px 20px 3px;
+        padding:4px 20px 5px;
         margin:0 20px 0 0;
         display:inline-block;
         vertical-align:top;
         border-radius:3px;
-        font:bold 16px/22px Arial, Helvetica, sans-serif;
-        /*text-transform:uppercase;*/
+        font:bold 16px/20px var(--font-custom);
+        text-transform:uppercase;
         cursor:pointer;
 
         &._default{
-            border-color:#333;
-            background:#fff;
-            color:#333;
+            border-color:var(--text-color-dark);
+            background:var(--color-white);
+            color:var(--text-color-dark);
 
             &:hover,
             &:active,
             &:focus{
-                background:#ccc;
+                background:#e2e2e2;
                 text-decoration:none;
+                border-color:#d4d4d4;
             }
         }
 
         &._red{
-            border-color:#dd0a2d;
-            background:#dd0a2d;
-            color:#fff;
+            border-color:var(--color-red);
+            background:var(--color-red);
+            color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                background:#fff;
-                color:#dd0a2d;
+                background:var(--color-dark-red);
+                border-color:var(--color-dark-red);
             }
         }
 
         &._black{
-            border-color:#000;
-            background:#000;
-            color:#fff;
+            border-color:var(--color-black);
+            background:var(--color-black);
+            color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                background:#fff;
-                color:#000;
+                background:var(--text-color-dark);
+                border-color:var(--text-color-dark);
             }
         }
 
+        &[disabled]{
+            opacity:0.8;
+            cursor:default;
+            pointer-events:none;
+        }
+
         &._large{
-            padding:7px 20px 9px;
+            padding:8px 20px 10px;
         }
     }
+
     .validation-summary-errors,
     &__required {
         color: #dd0a2d;
+    }
+
+    &__note{
+        display:block;
+        font-size:13px;
+        padding:4px 0 14px;
+    }
+
+    &__avatar{
+        display:inline-block;
+        border: 1px solid #ccc;
+        height: 60px;
+        margin: 0 20px 0 0;
+        overflow: hidden;
+        position: relative;
+        width: 60px;
+        vertical-align:middle;
+
+        &-img{
+            height: auto;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
 
@@ -459,10 +492,17 @@
 
 
 .dropzone {
-    border-style:dashed;
-    border-radius:10px;
-    min-height:125px;
+    border-style:dashed !important;
+    border-radius:10px !important;
+    min-height:initial !important;
     max-width:50%;
+    z-index:0;
+
+    @media(--for-tablet-portrait-down){
+        &{
+            max-width:100%;
+        }
+    }
 
     &.dz-drag-hover{
         background:var(--color-light-gray-2);
@@ -607,6 +647,13 @@
             margin:0 0 20px;
             font-size:13px;
             display:flex;
+            align-items: flex-end;
+
+            @media(--for-tablet-portrait-down){
+                &{
+                    max-width:100%;
+                }
+            }
 
             ._details &{
                 margin:0 0 22px;
@@ -848,7 +895,8 @@
             }
 
             &:hover{
-                color:var(--text-color-dark);
+                text-decoration:none;
+                background:#afafaf;
             }
 
             @media (--for-tablet-portrait-down){
