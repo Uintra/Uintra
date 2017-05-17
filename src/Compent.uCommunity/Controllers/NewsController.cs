@@ -18,7 +18,6 @@ using uCommunity.News;
 using uCommunity.News.Web;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
-using umbraco;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -88,9 +87,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(CreateViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult CreateExtendedNews(NewsExtendedCreateModel createModel)
+        public override ActionResult Create(NewsCreateModel createModel)
+        {
+            return base.Create(createModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult Create(NewsExtendedCreateModel createModel)
         {
             if (!ModelState.IsValid)
             {
@@ -133,9 +140,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(EditViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult EditExtendedNews(NewsExtendedEditModel editModel)
+        public override ActionResult Edit(NewsEditModel editModel)
+        {
+            return base.Edit(editModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult Edit(NewsExtendedEditModel editModel)
         {
             if (!ModelState.IsValid)
             {

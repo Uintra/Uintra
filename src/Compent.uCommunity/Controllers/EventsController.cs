@@ -98,9 +98,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(CreateViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult CreateExtendedEvent(EventExtendedCreateModel createModel)
+        public override ActionResult Create(EventCreateModel createModel)
+        {
+            return base.Create(createModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult Create(EventExtendedCreateModel createModel)
         {
             if (!ModelState.IsValid)
             {
@@ -146,9 +154,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(EditViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult EditExtendedEvent(EventExtendedEditModel saveModel)
+        public override ActionResult Edit(EventEditModel saveModel)
+        {
+            return base.Edit(saveModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult Edit(EventExtendedEditModel saveModel)
         {
             if (!ModelState.IsValid)
             {
@@ -178,18 +194,18 @@ namespace Compent.uCommunity.Controllers
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
 
-        [HttpPost]
-        public JsonResult HasConfirmation(EventExtendedEditModel model)
-        {
-            var @event = MapModel(model);
-            return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
-        }
-
         [NonAction]
         [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
         {
             return base.HasConfirmation(model);
+        }
+
+        [HttpPost]
+        public JsonResult HasConfirmation(EventExtendedEditModel model)
+        {
+            var @event = MapModel(model);
+            return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
         }
 
         public ActionResult ItemView(EventOverviewItemModel model)
