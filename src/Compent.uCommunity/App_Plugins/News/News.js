@@ -1,13 +1,14 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
 import helpers from "./../Core/Content/scripts/Helpers";
 import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
+import tagsController from "./../Tagging/tags";
 
 require('./style.css');
 require('select2');
 
 var initUserSelect = function (holder) {
     holder.find('#js-user-select').select2({});
-}
+} 
 
 var initPinControl=function(holder) {    
     var pinControl = holder.find('#pin-control');
@@ -103,6 +104,7 @@ var controller = {
         initUserSelect(holder);
         initDescriptionControl(holder, isEdit);
         fileUploadController.init(holder);
+        tagsController.init();
     }
 }
 
