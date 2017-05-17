@@ -77,7 +77,7 @@ var initSubmitButton = function () {
 
         var data = helpers.serialize();
 
-        $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
+        $.post('/umbraco/surface/Events/HasExtendedEventConfirmation', data, function (result) {
             if (result && !result.HasConfirmation) {
                 continueSubmit(false);
                 return;

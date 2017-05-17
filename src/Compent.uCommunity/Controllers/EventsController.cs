@@ -179,7 +179,7 @@ namespace Compent.uCommunity.Controllers
         }
 
         [HttpPost]
-        public override JsonResult HasConfirmation(EventEditModel model)
+        public JsonResult HasExtendedEventConfirmation(EventExtendedEditModel model)
         {
             var @event = MapModel(model);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
