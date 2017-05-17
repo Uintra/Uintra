@@ -1,5 +1,6 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
 
+require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./subscribe.css");
 
 function initNotificationDisable(holder) {
