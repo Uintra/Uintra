@@ -389,8 +389,6 @@
     <Compile Include="DefaultImplementation\MyLinkItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
-    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.html" />
-    <Content Include="App_Plugins\Navigation\backoffice\LinksPicker\links.js" />
     <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinkIcon.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />

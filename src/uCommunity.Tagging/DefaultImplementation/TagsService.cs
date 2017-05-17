@@ -28,10 +28,9 @@ namespace uCommunity.Tagging
 
         public void SaveTags(Guid activityId, IEnumerable<string> tags)
         {
-            _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
-
             if (tags == null)
             {
+                _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
                 return;
             }
 
@@ -51,6 +50,8 @@ namespace uCommunity.Tagging
 
                 activityTags.Add(tag);
             }
+
+            _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
 
             var tagActivityRelations = activityTags.Select(el => new TagActivityRelation { ActivityId = activityId, TagId = el.Id });
             _tagActivityRelationRepository.Add(tagActivityRelations);

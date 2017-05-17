@@ -16,7 +16,7 @@
                 @foreach (var item in group.SystemLinks)
                 {
                     <li class="side-nav__item">
-                        <a class="side-nav__link" href="@item.Url">
+                        <a class="side-nav__link" href="@item.Url" target="@item.Target">
                             @item.Name
                         </a>
                     </li>
