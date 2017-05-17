@@ -28,7 +28,7 @@ namespace Compent.uCommunity.Controllers
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
-        //protected override int ShortDescriptionLength { get; } = 500;//Uncomment after package update
+        protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly INewsService<NewsEntity> _newsService;
         private readonly ITagsService _tagsService;
@@ -177,7 +177,7 @@ namespace Compent.uCommunity.Controllers
             {
                 var overviewItemViewModel = newsModelBase.Map<NewsOverviewItemExtendedViewModel>();
 
-                //overviewItemViewModel.ShortDescription = newsModelBase.Description.Truncate(ShortDescriptionLength);//Uncomment after package update
+                overviewItemViewModel.ShortDescription = newsModelBase.Description.Truncate(ShortDescriptionLength);
                 overviewItemViewModel.MediaIds = newsModelBase.MediaIds;
                 overviewItemViewModel.HeaderInfo = newsModelBase.Map<IntranetActivityItemHeaderViewModel>();
                 overviewItemViewModel.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString());

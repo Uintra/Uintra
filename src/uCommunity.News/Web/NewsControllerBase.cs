@@ -149,7 +149,7 @@ namespace uCommunity.News.Web
             foreach (var item in news)
             {
                 var model = item.Map<NewsOverviewItemViewModel>();
-                model.ShortDescription = item.Description.CropText(ShortDescriptionLength);
+                model.ShortDescription = item.Description.Truncate(ShortDescriptionLength);
                 model.MediaIds = item.MediaIds;
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());

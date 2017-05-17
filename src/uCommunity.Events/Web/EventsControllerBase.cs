@@ -12,6 +12,7 @@ using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions.Web;
+using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Events.Web
@@ -217,7 +218,7 @@ namespace uCommunity.Events.Web
             {
                 var model = @event.Map<EventsOverviewItemViewModel>();
 
-                model.ShortDescription = @event.Description.CropText(ShortDescriptionLength);
+                model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
                 model.MediaIds = @event.MediaIds;
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 

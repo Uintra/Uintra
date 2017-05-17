@@ -19,7 +19,7 @@ var pinnedClass = Model.IsPinned ? "_pinned" : "";
             </div>
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
-                <p>Html.Raw(Model.ShortDescription)</p>
+                <p>@Html.Raw(Model.ShortDescription)</p>
             </div>
             <div class="content__item-images">
                 @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }

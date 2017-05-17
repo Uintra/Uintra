@@ -32,7 +32,7 @@ namespace Compent.uCommunity.Controllers
         public override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         public override string EditViewPath => "~/Views/Events/EditView.cshtml";
         public override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
-        //protected override int ShortDescriptionLength { get; } = 500;//Uncomment after package update
+        protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
@@ -229,7 +229,7 @@ namespace Compent.uCommunity.Controllers
             {
                 var model = @event.Map<EventOverviewItemModel>();
 
-                //model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);//Uncomment after package update
+                model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
                 model.MediaIds = @event.MediaIds;
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
