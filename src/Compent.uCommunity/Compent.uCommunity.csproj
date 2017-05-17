@@ -319,8 +319,9 @@
       <HintPath>..\..\packages\uCommunity.Comments.1.0.8.2\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.30.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.30.8\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.30.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.30.10\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Events, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
@@ -503,6 +504,7 @@
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
