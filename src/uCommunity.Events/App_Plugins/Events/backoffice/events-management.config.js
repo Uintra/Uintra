@@ -26,6 +26,11 @@
                 offsetTime: "1",
                 format: "DD.MM.YYYY"
             },
+            filterDate: {
+                enableTime: false,
+                time_24hr: true,
+                dateFormat: "d/m/Y"
+            },
             media: {
                 disableFolderSelect: "1",
                 multiPicker: "1",
