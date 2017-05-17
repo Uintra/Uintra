@@ -20,9 +20,7 @@
             return function (dates) {
                 var value = dates && dates.length ? (isSingleMode(config.mode) ? dates[0] : dates) : null;
                 $scope.$apply(function () {
-                    if (value) {
-                        $scope.model = value.toDateString();
-                    }
+                    $scope.model = value ? value.toDateString() : null;
                 });
             }
         }
@@ -34,7 +32,6 @@
             $scope.$on('$destroy', wrapWithMagic(function () { flatpickr.destroy(flatpickr) }));
             return flatpickr;
         }
-
 
         function link($scope, $elem, $attrs) {
             var picker = createPicker($scope, $elem);
@@ -49,7 +46,8 @@
                 });
             }
         }
-        return { 
+
+        return {
             restrict: "E",
             templateUrl: "/App_Plugins/BaseControls/DatePicker/date-picker.html",
             scope: { model: '=', config: '=', picker: '=', placeholder: '@' },

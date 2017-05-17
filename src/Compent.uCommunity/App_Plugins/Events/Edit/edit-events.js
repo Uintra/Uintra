@@ -75,7 +75,7 @@ var initSubmitButton = function () {
         descriptionElem.removeClass('input-validation-error');
         event.preventDefault();
 
-        var data = umbracoAjaxForm()(form[0]).serialize();
+        var data = helpers.serialize();
 
         $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
             if (result && !result.HasConfirmation) {
