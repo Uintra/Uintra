@@ -6,16 +6,16 @@
                 <input type="text" class="text-filter" ng-model="vm.filterModel.title" placeholder="Title filter" />
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.publishDate.from" config="vm.config.publishDate" placeholder="Publish date from"></date-picker>
-                <date-picker model="vm.filterModel.publishDate.to" config="vm.config.publishDate" placeholder="Publish date to"></date-picker>
+                <date-picker model="vm.filterModel.publishDate.from" config="vm.config.filterDate" placeholder="Publish date from"></date-picker>
+                <date-picker model="vm.filterModel.publishDate.to" config="vm.config.filterDate" placeholder="Publish date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.createdDate.from" config="vm.config.publishDate" placeholder="Create date from"></date-picker>
-                <date-picker model="vm.filterModel.createdDate.to" config="vm.config.publishDate" placeholder="Create date to"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.from" config="vm.config.filterDate" placeholder="Create date from"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.to" config="vm.config.filterDate" placeholder="Create date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.modifyDate.from" config="vm.config.publishDate" placeholder="Update date from"></date-picker>
-                <date-picker model="vm.filterModel.modifyDate.to" config="vm.config.publishDate" placeholder="Update date to"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.from" config="vm.config.filterDate" placeholder="Update date from"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.to" config="vm.config.filterDate" placeholder="Update date to"></date-picker>
             </div>
         </div>
         <table class="table">
@@ -77,7 +77,7 @@
                     <date-picker model="vm.selected.publishDate" config="vm.config.publishDate"></date-picker>
                     <input type="hidden" ng-model="vm.selected.publishDate" required="" name="Publish date" />
                 </div>
-                
+
                 <div class="control-group">
                     <h5 class="control-label">Unpublish date:</h5>
                     <date-picker model="vm.selected.unpublishDate" picker="vm.unpublishDatePicker" config="vm.config.unpublishDate"></date-picker>

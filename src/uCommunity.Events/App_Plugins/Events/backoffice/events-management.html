@@ -6,20 +6,20 @@
                 <input type="text" class="text-filter" ng-model="vm.filterModel.title" placeholder="Title filter" />
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.startDate.from" config="vm.config.startDate" placeholder="Start date from"></date-picker>
-                <date-picker model="vm.filterModel.startDate.to" config="vm.config.startDate" placeholder="Start date to"></date-picker>
+                <date-picker model="vm.filterModel.startDate.from" config="vm.config.filterDate" placeholder="Start date from"></date-picker>
+                <date-picker model="vm.filterModel.startDate.to" config="vm.config.filterDate" placeholder="Start date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.endDate.from" config="vm.config.endDate" placeholder="End date from"></date-picker>
-                <date-picker model="vm.filterModel.endDate.to" config="vm.config.endDate" placeholder="End date to"></date-picker>
+                <date-picker model="vm.filterModel.endDate.from" config="vm.config.filterDate" placeholder="End date from"></date-picker>
+                <date-picker model="vm.filterModel.endDate.to" config="vm.config.filterDate" placeholder="End date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.createdDate.from" config="vm.config.publishDate" placeholder="Create date from"></date-picker>
-                <date-picker model="vm.filterModel.createdDate.to" config="vm.config.publishDate" placeholder="Create date to"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.from" config="vm.config.filterDate" placeholder="Create date from"></date-picker>
+                <date-picker model="vm.filterModel.createdDate.to" config="vm.config.filterDate" placeholder="Create date to"></date-picker>
             </div>
             <div class="filter-group">
-                <date-picker model="vm.filterModel.modifyDate.from" config="vm.config.publishDate" placeholder="Update date from"></date-picker>
-                <date-picker model="vm.filterModel.modifyDate.to" config="vm.config.publishDate" placeholder="Update date to"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.from" config="vm.config.filterDate" placeholder="Update date from"></date-picker>
+                <date-picker model="vm.filterModel.modifyDate.to" config="vm.config.filterDate" placeholder="Update date to"></date-picker>
             </div>
         </div>
         <table class="table">

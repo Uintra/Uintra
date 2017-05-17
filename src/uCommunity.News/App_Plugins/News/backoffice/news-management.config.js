@@ -17,6 +17,11 @@
                 time_24hr: true,
                 dateFormat: "d.m.Y H:i"
             },
+            filterDate: {
+                enableTime: false,
+                time_24hr: true,
+                dateFormat: "d/m/Y"
+            },
             media: {
                 disableFolderSelect: "1",
                 multiPicker: "1",
