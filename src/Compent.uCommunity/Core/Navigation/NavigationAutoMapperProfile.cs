@@ -8,7 +8,8 @@ namespace Compent.uCommunity.Core.Navigation
         protected override void Configure()
         {
             Mapper.CreateMap<TopNavigationModel, TopMenuViewModel>()
-                .ForMember(c => c.NotificationsUrl, o => o.Ignore());
+                .ForMember(c => c.NotificationsUrl, o => o.Ignore())
+                .ForMember(c => c.NotificationsList, o => o.Ignore());
         }
     }
 }
