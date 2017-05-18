@@ -5,7 +5,6 @@ require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
-import tagsController from "./../../Tagging/tags";
 
 require('select2');
 require('./../../Core/Content/scripts/ValidationExtensions');
@@ -103,7 +102,6 @@ var controller = {
         initDatePickers();
         initDescriptionControl();
         fileUploadController.init(holder);
-        tagsController.init();
     }
 }
 
