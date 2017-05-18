@@ -3,15 +3,6 @@
 <div class="menu _for-mobile">
     <a id="js-menu-opener" class="burger"><span class="burger__line"></span></a>
 </div>
-<div class="notification js-notification">
-    <a class="icon icon-bell notification__icon">
-        <span class="notifications__number"></span>
-    </a>
-    <div class="notification-list js-notification-list hide">
-        @Html.Partial("~/App_Plugins/Notification/List/NotificationList.cshtml", Model.NotificationsList);
-        <a href="@Model.NotificationsUrl">Show all notifications</a>
-    </div>
-</div>
 <div class="user _for-desktop">
     <a class="user__opener icon-user">
         <span class="user__opener-arrow"></span>
@@ -26,12 +17,6 @@
                 </a>
             </li>
         }
-        <li class="user__menu-item">
-            <a class="user__menu-link" href="@Url.Action("ToProfilePage", "Profile")">
-                <span class="icon icon-user"></span>
-                Profile
-            </a>
-        </li>
         <li class="user__menu-item">
             <a class="user__menu-link" href="@Url.Action("Logout", "NavigationAuthorization")">
                 <span class="icon icon-logout"></span> 

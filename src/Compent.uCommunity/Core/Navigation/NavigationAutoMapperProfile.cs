@@ -9,7 +9,7 @@ namespace Compent.uCommunity.Core.Navigation
         {
             Mapper.CreateMap<TopNavigationModel, TopMenuViewModel>()
                 .ForMember(c => c.NotificationsUrl, o => o.Ignore())
-                .ForMember(c => c.NotificationsList, o => o.Ignore());
+                .ForMember(c => c.NotificationList, o => o.Ignore());
         }
     }
 }

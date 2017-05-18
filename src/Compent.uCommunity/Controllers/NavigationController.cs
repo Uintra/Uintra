@@ -69,9 +69,9 @@ namespace Compent.uCommunity.Controllers
             var topNavigation = _topNavigationModelBuilder.Get();
             var result = topNavigation.Map<TopMenuViewModel>();
             result.NotificationsUrl = _notificationHelper.GetNotificationListPage().Url;
-            result.NotificationsList = GetNotificationList();
+            result.NotificationList = GetNotificationList();
 
-            return PartialView("~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml", result);
+            return PartialView("~/Views/Navigation/TopNavigation.cshtml", result);
         }
 
         public override ActionResult SubNavigation()

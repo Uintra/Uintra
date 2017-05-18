@@ -60,5 +60,10 @@ namespace uCommunity.Notification.Web
         {
             UiNotifierService.ViewNotification(id);
         }
+
+        protected virtual PartialViewResult Notifications(IEnumerable<NotificationViewModel> notificationList)
+        {
+            return PartialView(ListViewPath, notificationList);
+        }
     }
 }
