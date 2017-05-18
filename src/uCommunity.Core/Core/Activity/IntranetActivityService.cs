@@ -27,9 +27,9 @@ namespace uCommunity.Core.Activity
             _cache = cache;
         }
 
-        public TActivity Get(Guid id, bool includeHidden = false)
+        public TActivity Get(Guid id)
         {
-            var cached = GetAll(includeHidden).FirstOrDefault(s => s.Id == id);
+            var cached = GetAll(true).SingleOrDefault(s => s.Id == id);
             return cached;
         }
 
