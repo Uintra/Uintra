@@ -4,11 +4,11 @@ using System.Web;
 using umbraco.interfaces;
 using Umbraco.Web;
 
-namespace uCommunity.Core.Core.Handlers
+namespace uCommunity.Core.Handlers
 {
     public abstract class NotFoundHandlerBase : INotFoundHandler
     {
-        protected virtual string ErrorPageDocType { get; } = "ErrorPage";
+        protected virtual string ErrorPageDocType { get; } = "errorPage";
         private int _redirectId;
 
         public bool CacheUrl => false;
