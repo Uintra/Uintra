@@ -148,6 +148,14 @@
         font-family:var(--font-general);
     }
 
+    &__list{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        max-width:200px;
+    }
+
     @media (--for-tablet-portrait-down) {
         & {
             float: right;
