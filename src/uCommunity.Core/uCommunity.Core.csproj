@@ -382,8 +382,11 @@
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
+    <Compile Include="Core\Extentions\DateTimeExtensions.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
+    <Compile Include="Core\Extentions\ViewDataExtensions.cs" />
     <Compile Include="Core\FolderConstants.cs" />
+    <Compile Include="Core\IDateTimeFormatProvider.cs" />
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Migrations\MediaMigrations.cs" />
