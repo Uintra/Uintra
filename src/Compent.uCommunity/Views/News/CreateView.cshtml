@@ -25,15 +25,15 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat)" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat" />
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDateToDefaultDateTimeValuePickerFormat()" data-date-format="@ViewData.GetDefaultDateTimePickerFormat()" />
             <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             @{
-                var unpublishDatevalue = @Model.UnpublishDate.HasValue ? Model.UnpublishDate.Value.ToString(IntranetConstants.Common.DefaultDateTimeValuePickerFormat) : "";
+                var unpublishDatevalue = @Model.UnpublishDate.HasValue ? Model.UnpublishDate.ValueToDefaultDateTimeValuePickerFormat() : "";
             }
             <label class="form__label" for="js-unpublish-date">@Html.Localize("NewsCreate.UnpublishDate.lbl")</label>
-            <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@IntranetConstants.Common.DefaultDateTimePickerFormat" />
+            <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@ViewData.GetDefaultDateTimePickerFormat()" />
             <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
         </div>
         <div class="form__row clearfix">
