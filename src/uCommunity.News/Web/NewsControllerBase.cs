@@ -61,8 +61,7 @@ namespace uCommunity.News.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var news = _newsService.Get(id, true);
-
+            var news = _newsService.Get(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -103,7 +102,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get(id, true);
+            var news = _newsService.Get(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);

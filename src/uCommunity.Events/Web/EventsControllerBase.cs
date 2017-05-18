@@ -60,8 +60,7 @@ namespace uCommunity.Events.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get(id, true);
-
+            var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -119,7 +118,7 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get(id, true);
+            var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);

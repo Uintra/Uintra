@@ -11,6 +11,8 @@ namespace uCommunity.Core.Controls.LightboxGallery
 
         public string Url { get; set; }
 
+        public int MaxImagesCount { get; set; }
+
         public LightboxGalleryPreviewViewModel()
         {
             Images = Enumerable.Empty<LightboxGalleryViewModel>();
