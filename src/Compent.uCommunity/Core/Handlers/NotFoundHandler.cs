@@ -1,4 +1,4 @@
-﻿using HandlerBase = uCommunity.Core.Core.Handlers.NotFoundHandlerBase;
+﻿using HandlerBase = uCommunity.Core.Handlers.NotFoundHandlerBase;
 
 namespace Compent.uCommunity.Core.Handlers
 {
