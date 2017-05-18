@@ -44,6 +44,7 @@ namespace uCommunity.Core.Controls.LightboxGallery
                 galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image).Take(model.MaxImagesCount);
                 galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Images);
                 galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
+                galleryPreviewModel.MaxImagesCount = 3;
             }
 
             return View(PreviewViewPath, galleryPreviewModel);
