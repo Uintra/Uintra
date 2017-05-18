@@ -96,7 +96,7 @@
     }
 
     &__links{
-        margin:0;
+        margin:0 0 20px;
 
         &-list{
             margin:0;
@@ -370,5 +370,40 @@
                 }
              }
         }
+    }
+}
+
+.documents{
+    margin:0;
+    padding:10px 0;
+    list-style:none;
+
+    &__item{
+        margin:0 0 13px;
+
+        &-link{
+            &:hover{
+                text-decoration:none;
+            }
+        }
+
+        &-name{
+            display: inline-block;
+            vertical-align:top;
+            overflow: hidden;
+            padding: 10px 0 0;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+
+            :hover > &{
+                text-decoration:underline;
+            }
+        }
+    }
+
+    &__icon{
+        display: inline-block;
+        vertical-align:top;
+        margin:0 10px 0 0;
     }
 }
