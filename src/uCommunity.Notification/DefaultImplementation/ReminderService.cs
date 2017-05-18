@@ -12,8 +12,7 @@ namespace uCommunity.Notification
     {
         private readonly ISqlRepository<Reminder> _remindeRepository;
 
-        public ReminderService(
-            ISqlRepository<Reminder> remindeRepository)
+        public ReminderService(ISqlRepository<Reminder> remindeRepository)
         {
             _remindeRepository = remindeRepository;
         }
