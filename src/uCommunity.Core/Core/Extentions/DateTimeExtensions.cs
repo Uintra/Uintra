@@ -36,7 +36,7 @@ namespace uCommunity.Core.Extentions
             return date.ToString(dateTimeFormatProvider.DefaultDateTimePickerFormat);
         }
 
-        public static string DefaultDateTimeValuePickerFormat(this DateTime date)
+        public static string ToDefaultDateTimeValuePickerFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
             return date.ToString(dateTimeFormatProvider.DefaultDateTimeValuePickerFormat);
