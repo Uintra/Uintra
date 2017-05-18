@@ -11,6 +11,7 @@ using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions.Web;
+using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.News.Web
@@ -23,6 +24,7 @@ namespace uCommunity.News.Web
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/News/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
+        protected virtual int ShortDescriptionLength { get; } = 500;
 
         private readonly INewsService<NewsBase> _newsService;
         protected readonly IMediaHelper _mediaHelper;
@@ -60,7 +62,6 @@ namespace uCommunity.News.Web
         public virtual ActionResult Details(Guid id)
         {
             var news = _newsService.Get(id);
-
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -147,13 +148,15 @@ namespace uCommunity.News.Web
             foreach (var item in news)
             {
                 var model = item.Map<NewsOverviewItemViewModel>();
+                model.ShortDescription = item.Description.Truncate(ShortDescriptionLength);
                 model.MediaIds = item.MediaIds;
                 model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
                 model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = item.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString()),
+                    MaxImagesCount = 2
                 };
                 model.Expired = _newsService.IsExpired(item);
 
@@ -185,7 +188,7 @@ namespace uCommunity.News.Web
                 activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
             }
 
-            _newsService.Save(activity);            
+            _newsService.Save(activity);
         }
 
         protected virtual void FillLinks()

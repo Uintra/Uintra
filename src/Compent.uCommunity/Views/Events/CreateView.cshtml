@@ -5,7 +5,7 @@
 @model Compent.uCommunity.Core.Events.EventExtendedCreateModel
 
 <div class="form" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("CreateExtendedEvent", "Events", FormMethod.Post, new { id = "createForm" }))
+    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -13,10 +13,6 @@
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
                    data-val-required="@Html.Localize("CreateEvents.TitleRequired.lbl")"
                    data-val-length-max="200" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 200)" data-val="true" />
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="teaser">@Html.Localize("EventsCreate.Teaser.lbl") <span class="form__required">*</span></label>
-            <textarea class="form__textarea" id="teaser" name="teaser" data-val-required="@Html.Localize("CreateEvents.TeaserRequired.lbl")" data-val-length-max="2000" data-val-length="@Html.Localize("CreateEvents.TeaserMaxLength.lbl")" data-val="true">@Html.Raw(Model.Teaser)</textarea>
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("EventsCreate.Description.lbl") <span class="form__required">*</span></label>

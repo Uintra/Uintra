@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
@@ -77,7 +78,7 @@ namespace uCommunity.Navigation.Web
 
         public virtual PartialViewResult MyLinkIcon()
         {
-            var myLinks = _myLinksModelBuilder.Get(x => x.Name);
+            var myLinks = _myLinksModelBuilder.Get();
             var result = new MyLinkIconViewModel();
             result.IsLinked = myLinks.MyLinks.Any(x => x.Url == Request.Url.PathAndQuery.TrimEnd('/'));
 
@@ -90,7 +91,7 @@ namespace uCommunity.Navigation.Web
 
             var result = GetMyLinksViewModel(pageName, Request.Url.PathAndQuery.TrimEnd('/'));
 
-            return PartialView(MyLinksViewPath, result);
+            return PartialView(MyLinksViewPath, result);//What happens if we send to js sorting library item with sortOrder=null
         }
 
         public virtual PartialViewResult SystemLinks()
@@ -114,9 +115,17 @@ namespace uCommunity.Navigation.Web
             return PartialView(MyLinksViewPath, result);
         }
 
+        [HttpPost]
+        public virtual JsonResult Sort(Dictionary<Guid, int> sortOrders)
+        {
+            var result = _myLinksService.Sort(sortOrders);
+
+            return Json(result);
+        }
+
         protected virtual MyLinksViewModel GetMyLinksViewModel(string pageName, string url)
         {
-            var myLinks = _myLinksModelBuilder.Get(x => x.Name);
+            var myLinks = _myLinksModelBuilder.Get();
             var result = myLinks.Map<MyLinksViewModel>();
             result.PageName = pageName;
             result.IsLinked = myLinks.MyLinks.Any(x => x.Url == url);

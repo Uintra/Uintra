@@ -18,7 +18,7 @@ using uCommunity.News;
 using uCommunity.News.Web;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
-using umbraco;
+using Umbraco.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -28,6 +28,7 @@ namespace Compent.uCommunity.Controllers
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
+        protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly INewsService<NewsEntity> _newsService;
         private readonly ITagsService _tagsService;
@@ -64,7 +65,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var newsModelBase = _newsService.Get(id);
+            var newsModelBase = _newsService.Get(id, true);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -76,7 +77,7 @@ namespace Compent.uCommunity.Controllers
             newsViewModel.EditPageUrl = _newsService.GetEditPage().Url;
             newsViewModel.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
-            
+
             return PartialView(DetailsViewPath, newsViewModel);
         }
 
@@ -88,9 +89,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(CreateViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult CreateExtendedNews(NewsExtendedCreateModel createModel)
+        public override ActionResult Create(NewsCreateModel createModel)
+        {
+            return base.Create(createModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult Create(NewsExtendedCreateModel createModel)
         {
             if (!ModelState.IsValid)
             {
@@ -107,7 +116,7 @@ namespace Compent.uCommunity.Controllers
             }
 
             var activityId = _newsService.Create(news);
-           _tagsService.SaveTags(activityId, createModel.Tags);
+            _tagsService.SaveTags(activityId, createModel.Tags);
 
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
@@ -115,7 +124,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public override ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get(id);
+            var news = _newsService.Get(id, true);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -133,9 +142,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(EditViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult EditExtendedNews(NewsExtendedEditModel editModel)
+        public override ActionResult Edit(NewsEditModel editModel)
+        {
+            return base.Edit(editModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult Edit(NewsExtendedEditModel editModel)
         {
             if (!ModelState.IsValid)
             {
@@ -160,13 +177,15 @@ namespace Compent.uCommunity.Controllers
             {
                 var overviewItemViewModel = newsModelBase.Map<NewsOverviewItemExtendedViewModel>();
 
+                overviewItemViewModel.ShortDescription = newsModelBase.Description.Truncate(ShortDescriptionLength);
                 overviewItemViewModel.MediaIds = newsModelBase.MediaIds;
                 overviewItemViewModel.HeaderInfo = newsModelBase.Map<IntranetActivityItemHeaderViewModel>();
                 overviewItemViewModel.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString());
                 overviewItemViewModel.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = newsModelBase.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString()),
+                    MaxImagesCount = 2
                 };
 
                 overviewItemViewModel.Expired = _newsService.IsExpired(newsModelBase);

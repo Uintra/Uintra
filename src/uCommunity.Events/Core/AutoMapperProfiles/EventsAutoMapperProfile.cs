@@ -12,6 +12,7 @@ namespace uCommunity.Events
         protected override void Configure()
         {
             Mapper.CreateMap<EventBase, EventsOverviewItemViewModel>()
+                .ForMember(dst => dst.ShortDescription, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())

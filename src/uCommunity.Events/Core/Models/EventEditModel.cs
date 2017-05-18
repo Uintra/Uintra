@@ -9,9 +9,6 @@ namespace uCommunity.Events
 {
     public class EventEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {
-        [Required, StringLength(2000)]
-        public string Teaser { get; set; }
-
         [Required, AllowHtml]
         public string Description { get; set; }
 

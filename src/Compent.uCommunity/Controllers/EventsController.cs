@@ -20,6 +20,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
+using Umbraco.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -31,6 +32,7 @@ namespace Compent.uCommunity.Controllers
         public override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         public override string EditViewPath => "~/Views/Events/EditView.cshtml";
         public override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
+        protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
@@ -67,7 +69,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get(id, true);
 
             if (@event.IsHidden)
             {
@@ -98,9 +100,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(CreateViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult CreateExtendedEvent(EventExtendedCreateModel createModel)
+        public override ActionResult Create(EventCreateModel createModel)
+        {
+            return base.Create(createModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public ActionResult Create(EventExtendedCreateModel createModel)
         {
             if (!ModelState.IsValid)
             {
@@ -127,7 +137,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public override ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get(id, true);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -146,9 +156,17 @@ namespace Compent.uCommunity.Controllers
             return PartialView(EditViewPath, model);
         }
 
+        [NonAction]
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public ActionResult EditExtendedEvent(EventExtendedEditModel saveModel)
+        public override ActionResult Edit(EventEditModel saveModel)
+        {
+            return base.Edit(saveModel);
+        }
+
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public ActionResult Edit(EventExtendedEditModel saveModel)
         {
             if (!ModelState.IsValid)
             {
@@ -178,18 +196,18 @@ namespace Compent.uCommunity.Controllers
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
         }
 
-        [HttpPost]
-        public JsonResult HasConfirmation(EventExtendedEditModel model)
-        {
-            var @event = MapModel(model);
-            return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
-        }
-
         [NonAction]
         [HttpPost]
         public override JsonResult HasConfirmation(EventEditModel model)
         {
             return base.HasConfirmation(model);
+        }
+
+        [HttpPost]
+        public JsonResult HasConfirmation(EventExtendedEditModel model)
+        {
+            var @event = MapModel(model);
+            return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
         }
 
         public ActionResult ItemView(EventOverviewItemModel model)
@@ -210,6 +228,8 @@ namespace Compent.uCommunity.Controllers
             foreach (var @event in events)
             {
                 var model = @event.Map<EventOverviewItemModel>();
+
+                model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
                 model.MediaIds = @event.MediaIds;
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
@@ -219,7 +239,8 @@ namespace Compent.uCommunity.Controllers
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
+                    MaxImagesCount = 2
                 };
                 yield return model;
             }

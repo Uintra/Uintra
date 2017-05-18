@@ -12,6 +12,7 @@ using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions.Web;
+using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Events.Web
@@ -25,6 +26,7 @@ namespace uCommunity.Events.Web
         public virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
         public virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
         public virtual string ItemViewPath => "~/App_Plugins/Events/List/ItemView.cshtml";
+        protected virtual int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<EventBase> _eventsService;
         protected readonly IMediaHelper _mediaHelper;
@@ -59,7 +61,6 @@ namespace uCommunity.Events.Web
         public virtual ActionResult Details(Guid id)
         {
             var @event = _eventsService.Get(id);
-
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -215,6 +216,8 @@ namespace uCommunity.Events.Web
             foreach (var @event in events)
             {
                 var model = @event.Map<EventsOverviewItemViewModel>();
+
+                model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
                 model.MediaIds = @event.MediaIds;
                 model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
@@ -224,11 +227,12 @@ namespace uCommunity.Events.Web
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
+                    MaxImagesCount = 2
                 };
                 yield return model;
             }
-        }       
+        }
 
         protected virtual void OnEventCreated(Guid activityId)
         {

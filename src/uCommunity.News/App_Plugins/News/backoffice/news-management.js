@@ -50,9 +50,6 @@
             if (self.filterModel.title) {
                 checkList.push(compareText(item.title, self.filterModel.title));
             }
-            if (self.filterModel.teaser) {
-                checkList.push(compareText(item.teaser, self.filterModel.teaser));
-            }
             if (self.filterModel.publishDate) {
                 compareDates(item.publishDate, self.filterModel.publishDate);
             }

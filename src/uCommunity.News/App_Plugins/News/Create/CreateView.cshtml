@@ -16,10 +16,6 @@
 
         </div>
         <div class="form__row clearfix">
-            <label class="form__label" for="teaser">@Html.Localize("NewsCreate.Teaser.lbl") <span class="form__required">*</span></label>
-            <textarea class="form__textarea" id="teaser" name="teaser" data-val-required="@Html.Localize("CreateNews.TeaserRequired.lbl")" data-val-length-max="4000" data-val-length="@Html.Localize("CreateNews.TeaserMaxLength.lbl")" data-val="true">@Html.Raw(Model.Teaser)</textarea>
-        </div>
-        <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("NewsCreate.Description.lbl") <span class="form__required">*</span></label>
             <div id="description">
                 @Html.Raw(Model.Description)

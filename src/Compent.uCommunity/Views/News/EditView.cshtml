@@ -6,7 +6,7 @@
 @model Compent.uCommunity.Core.News.Models.NewsExtendedEditModel
 
 <div class="form" id="js-news-edit-page">
-    @using (Html.BeginUmbracoForm("EditExtendedNews", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsEdit.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />
@@ -15,10 +15,6 @@
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
                    data-val-required="@Html.Localize("NewsEdit.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@Html.Localize("NewsEdit.TitleMaxLength.lbl")"
                    data-val="true" />
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="teaser">@Html.Localize("NewsEdit.Teaser.lbl") <span class="form__required">*</span></label>
-            <textarea class="form__textarea" id="teaser" name="teaser" data-val-required="@Html.Localize("NewsEdit.TeaserRequired.lbl")" data-val-length-max="4000" data-val-length="@Html.Localize("NewsEdit.TeaserMaxLength.lbl")" data-val="true">@Html.Raw(Model.Teaser)</textarea>
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("NewsEdit.Description.lbl") <span class="form__required">*</span></label>
