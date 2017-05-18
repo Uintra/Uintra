@@ -372,6 +372,7 @@
     </Compile>
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\icon-doc.png" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
@@ -382,8 +383,11 @@
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
+    <Compile Include="Core\Extentions\DateTimeExtensions.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
+    <Compile Include="Core\Extentions\ViewDataExtensions.cs" />
     <Compile Include="Core\FolderConstants.cs" />
+    <Compile Include="Core\IDateTimeFormatProvider.cs" />
     <Compile Include="Core\Handlers\NotFoundHandlerBase.cs" />
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Core\NotificationConstants.cs" />
