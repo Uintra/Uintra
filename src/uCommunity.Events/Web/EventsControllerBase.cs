@@ -60,7 +60,7 @@ namespace uCommunity.Events.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get(id, true);
 
             if (@event.IsHidden)
             {
@@ -119,7 +119,7 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get(id, true);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -233,7 +233,7 @@ namespace uCommunity.Events.Web
                 };
                 yield return model;
             }
-        }       
+        }
 
         protected virtual void OnEventCreated(Guid activityId)
         {

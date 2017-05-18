@@ -69,7 +69,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get(id, true);
 
             if (@event.IsHidden)
             {
@@ -137,7 +137,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public override ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get(id);
+            var @event = _eventsService.Get(id, true);
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
