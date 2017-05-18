@@ -372,6 +372,7 @@
     </Compile>
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\icon-doc.png" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
