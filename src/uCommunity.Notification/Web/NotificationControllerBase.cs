@@ -8,6 +8,7 @@ using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using uCommunity.Notification.Core.Models;
 using uCommunity.Notification.Core.Services;
+using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Notification.Web
@@ -18,8 +19,8 @@ namespace uCommunity.Notification.Web
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
         protected virtual int ItemsPerPage { get; } = 8;
 
-        protected readonly IUiNotifierService UiNotifierService;
-        protected readonly IIntranetUserService<IIntranetUser> IntranetUserService;
+        private readonly IUiNotifierService UiNotifierService;
+        private readonly IIntranetUserService<IIntranetUser> IntranetUserService;
         
 
         protected NotificationControllerBase(IUiNotifierService uiNotifierService, IIntranetUserService<IIntranetUser> intranetUserService)
@@ -42,7 +43,7 @@ namespace uCommunity.Notification.Web
             return PartialView(ListViewPath,
                 new NotificationListViewModel
                 {
-                    Notifications = notifications.Map<IEnumerable<NotificationViewModel>>(),
+                    Notifications = notifications.Map<IEnumerable<NotificationViewModel>>().ForEach(FillNotifierData),
                     BlockScrolling = totalCount <= take
                 });
         }
@@ -65,5 +66,22 @@ namespace uCommunity.Notification.Web
         {
             return PartialView(ListViewPath, notificationList);
         }
+
+        #region utils
+
+        private void FillNotifierData(NotificationViewModel notification)
+        {
+            Guid notifierId;
+            if (!Guid.TryParse((string)notification.Value.notifierId, out notifierId))
+            {
+                return;
+            }
+
+            var notifier = IntranetUserService.Get(notifierId);
+            notification.NotifierName = notifier.DisplayedName;
+            notification.NotifierPhoto = notifier.Photo;
+        }
+
+        #endregion
     }
 }
