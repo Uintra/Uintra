@@ -7,7 +7,7 @@
 @if (images.Count > 0 || Model.OtherFiles.Any())
 {
     <ul class="gallery js-lightbox-gallery clearfix">
-        @for (var i = 0; i <= images.Count; i++)
+        @for (var i = 0; i < images.Count; i++)
         {
             var media = images[i];
             var originalSize = $"{media.Width}x{media.Height}";

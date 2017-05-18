@@ -242,11 +242,11 @@ namespace Compent.uCommunity.Core.Events
         private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
         {
             Event currentEvent;
-            
+            var currentUser = _intranetUserService.GetCurrentUser();
+
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                
             };
 
             switch (notificationType)
@@ -259,8 +259,7 @@ namespace Compent.uCommunity.Core.Events
                         data.Value = new CommentNotifierDataModel
                         {
                             ActivityType = IntranetActivityTypeEnum.Events,
-                            NotifierId = _intranetUserService.GetCurrentUser().Id,
-                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id),
                             CommentId = comment.Id
@@ -276,7 +275,6 @@ namespace Compent.uCommunity.Core.Events
                         {
                             ActivityType = IntranetActivityTypeEnum.Events,
                             NotifierId = comment.UserId,
-                            NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
@@ -291,7 +289,6 @@ namespace Compent.uCommunity.Core.Events
                         {
                             ActivityType = IntranetActivityTypeEnum.Events,
                             NotifierId = comment.UserId,
-                            NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
@@ -306,8 +303,7 @@ namespace Compent.uCommunity.Core.Events
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             Title = currentEvent?.Title,
                             ActivityType = IntranetActivityTypeEnum.Events,
-                            NotifierId = _intranetUserService.GetCurrentUser().Id,
-                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName
+                            NotifierId = currentUser.Id
                         };
                     }
                     break;
@@ -320,8 +316,7 @@ namespace Compent.uCommunity.Core.Events
                         {
                             CommentId = entityId,
                             ActivityType = IntranetActivityTypeEnum.Events,
-                            NotifierId = _intranetUserService.GetCurrentUser().Id,
-                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
@@ -352,8 +347,7 @@ namespace Compent.uCommunity.Core.Events
                             ActivityType = currentEvent.Type,
                             Title = currentEvent.Title,
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
-                            NotifierId = _intranetUserService.GetCurrentUser().Id,
-                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName
+                            NotifierId = currentUser.Id
                         };
 
                         break;

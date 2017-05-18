@@ -1,7 +1,6 @@
 ﻿@using uCommunity.Core
 @using uCommunity.Core.Extentions
 @using uCommunity.Notification.Core.Configuration
-
 @model uCommunity.Notification.Core.Models.NotificationListViewModel
 
 <div class="row">
@@ -37,72 +36,77 @@
                         default:
                             break;
                     }
-                    switch (notification.Type)
-                    {
+                    <li data-anchor="@notification.Id" class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+                        <span class="notifications__list-avatar">
+                            <img class="notifications__list-avatar-img" src="@notification.NotifierPhoto">
+                        </span>
+                        @switch (notification.Type)
+                        {
                         case NotificationTypeEnum.EventUpdated:
                         case NotificationTypeEnum.EventHided:
                         case NotificationTypeEnum.BeforeStart:
-                            {
-                                <div class="notifications__list-meta">
-                                    <span class="notifications__list-icon">
-                                        <i class="icon @icon"></i>
-                                    </span>
-                                    <div class="notifications__list-holder">
-                                        <div class="notifications__list-row">
-                                            <span class="notifications__list-date">@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span>
-                                            @if (notification.Type != NotificationTypeEnum.BeforeStart)
-                                            {
-                                                <span class="notifications__list-name">@notification.NotifierName</span>
-                                            }
-                                            <span class="notifications__list-type">@Html.Localize(notification.Type)</span>
-                                        </div>
-                                        <div class="notifications__list-row">
-                                            <h2 class="notifications__list-title">
-                                                @if (notification.Type == NotificationTypeEnum.EventHided)
-                                                {
-                                                    @notification.Value.title
-                                                }
-                                                else
-                                                {
-                                                    <a class="notifications__list-link" href="@notification.Value.url">
-                                                        @notification.Value.title
-                                                    </a>
-                                                }
-                                            </h2>
-                                        </div>
-                                    </div>
+                        {
+                        <div class="notifications__list-meta">
+                            <span class="notifications__list-icon">
+                                <i class="icon @icon"></i>
+                            </span>
+                            <div class="notifications__list-holder">
+                                <div class="notifications__list-row">
+                                    <span class="notifications__list-date">@notification.Date.ToDefaultDateTimeFormat()</span>
+                                    @if (notification.Type != NotificationTypeEnum.BeforeStart)
+                                    {
+                                        <span class="notifications__list-name">@notification.NotifierName</span>
+                                    }
+                                    <span class="notifications__list-type">@Html.Localize(notification.Type)</span>
                                 </div>
-                            }
-                            break;
+                                <div class="notifications__list-row">
+                                    <h2 class="notifications__list-title">
+                                        @if (notification.Type == NotificationTypeEnum.EventHided)
+                                        {
+                                            @notification.Value.title
+                                        }
+                                        else
+                                        {
+                                            <a class="notifications__list-link" href="@notification.Value.url">
+                                                @notification.Value.title
+                                            </a>
+                                        }
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        break;
                         case NotificationTypeEnum.ActivityLikeAdded:
                         case NotificationTypeEnum.CommentAdded:
                         case NotificationTypeEnum.CommentEdited:
                         case NotificationTypeEnum.CommentReplyed:
                         case NotificationTypeEnum.CommentLikeAdded:
-                            {
-                                <div class="notifications__list-meta">
-                                    <span class="notifications__list-icon">
-                                        <i class="icon @icon"></i>
-                                    </span>
-                                    <div class="notifications__list-holder">
-                                        <div class="notifications__list-row">
-                                            <span class="notifications__list-date">@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span>
-                                            <span class="notifications__list-name">@notification.NotifierName</span>
-                                            <span class="notifications__list-type">@Html.Localize(notification.Type)</span>
-                                        </div>
-                                        <div class="notifications__list-row">
-                                            <h2 class="notifications__list-title">
-                                                <a class="notifications__list-link" href="@notification.Value.url">
-                                                    @notification.Value.title
-                                                </a>
-                                            </h2>
-                                        </div>
-                                    </div>
+                        {
+                        <div class="notifications__list-meta">
+                            <span class="notifications__list-icon">
+                                <i class="icon @icon"></i>
+                            </span>
+                            <div class="notifications__list-holder">
+                                <div class="notifications__list-row">
+                                    <span class="notifications__list-date">@notification.Date.ToDefaultDateTimeFormat()</span>
+                                    <span class="notifications__list-name">@notification.NotifierName</span>
+                                    <span class="notifications__list-type">@Html.Localize(notification.Type)</span>
                                 </div>
-                            }
-                            break;
-                    }
-                }
+                                <div class="notifications__list-row">
+                                    <h2 class="notifications__list-title">
+                                        <a class="notifications__list-link" href="@notification.Value.url">
+                                            @notification.Value.title
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        break;
+                        }
+                        }
+                    </li>
             </ul>
         </section>
     </div>
