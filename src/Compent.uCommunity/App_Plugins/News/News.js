@@ -7,7 +7,7 @@ require('select2');
 
 var initUserSelect = function (holder) {
     holder.find('#js-user-select').select2({});
-} 
+}
 
 var initPinControl=function(holder) {    
     var pinControl = holder.find('#pin-control');
