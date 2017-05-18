@@ -5,7 +5,7 @@ var Taggle = require("taggle");
 require('devbridge-autocomplete');
 
 function initTagsControl() {
-    var holder = $('#activityTags');
+    var holder = $('#activityTagsHolder');
     if (!holder.length) return;
 
     var activityTags = [];
