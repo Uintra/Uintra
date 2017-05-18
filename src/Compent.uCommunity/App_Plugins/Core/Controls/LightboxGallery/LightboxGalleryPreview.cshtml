@@ -1,26 +1,26 @@
 ﻿@using uCommunity.Core.Extentions;
-
 @model uCommunity.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
+@{
+    var images = Model.Images.ToList();
+}
 
-@if (Model.Images.Any() || Model.OtherFiles.Any())
+@if (images.Count > 0 || Model.OtherFiles.Any())
 {
     <ul class="gallery js-lightbox-gallery clearfix">
-        @if (Model.Images.Any())
+        @for (var i = 0; i < images.Count; i++)
         {
-            foreach (var media in Model.Images)
-            {
-                var originalSize = $"{media.Width}x{media.Height}";
-
-                <li class="gallery__item">
-                    <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" />
-                </li>
-            }
+            var media = images[i];
+            var originalSize = $"{media.Width}x{media.Height}";
+            var display = i < Model.MaxImagesCount;
+            <li class="gallery__item" style="@(display ? "display:none;": "")">
+                <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" />
+            </li>
         }
         @if (Model.OtherFiles.Any())
         {
             <a href="@Model.Url">
                 <li class="gallery__item _attachments ">
-                    <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" />
+                    <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png"/>
                     <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
                 </li>
             </a>
