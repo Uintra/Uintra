@@ -584,6 +584,8 @@
     <Content Include="Content\fonts\opensans-bold-webfont.svg" />
     <Content Include="Content\fonts\opensans-regular-webfont.svg" />
     <Content Include="Content\images\default-avatar.png" />
+    <Content Include="Content\js\index.js" />
+    <Content Include="Content\js\notification.js" />
     <Content Include="Content\main.js" />
     <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
@@ -649,6 +651,7 @@
     <Content Include="Views\News\CreateView.cshtml" />
     <Content Include="Views\News\EditView.cshtml" />
     <Content Include="Views\TestWithLinkPicker.cshtml" />
+    <Content Include="Views\Navigation\TopNavigation.cshtml" />
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -851,7 +854,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49921</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -11,3 +11,7 @@ require('./../App_Plugins/Likes/likes');
 require('./../App_Plugins/Panels/ContentPanel/contentPanel');
 require('./../App_Plugins/Users/users');
 require('./../App_Plugins/Tagging/tags');
+
+import initCustomScripts from "./js/index";
+
+initCustomScripts()
