@@ -1,8 +1,8 @@
-﻿using HandlerBase = uCommunity.Core.Handlers.NotFoundHandlerBase;
+﻿using uCommunity.Core.Handlers;
 
 namespace Compent.uCommunity.Core.Handlers
 {
-    public class NotFoundHandler: HandlerBase
+    public class NotFoundHandler: NotFoundHandlerBase
     {
         protected override string ErrorPageDocType { get; } = "errorPage";
     }
