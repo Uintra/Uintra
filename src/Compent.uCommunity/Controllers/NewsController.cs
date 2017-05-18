@@ -65,7 +65,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var newsModelBase = _newsService.Get(id);
+            var newsModelBase = _newsService.Get(id, true);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -77,7 +77,7 @@ namespace Compent.uCommunity.Controllers
             newsViewModel.EditPageUrl = _newsService.GetEditPage().Url;
             newsViewModel.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
-            
+
             return PartialView(DetailsViewPath, newsViewModel);
         }
 
@@ -116,7 +116,7 @@ namespace Compent.uCommunity.Controllers
             }
 
             var activityId = _newsService.Create(news);
-           _tagsService.SaveTags(activityId, createModel.Tags);
+            _tagsService.SaveTags(activityId, createModel.Tags);
 
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }

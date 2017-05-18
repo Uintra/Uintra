@@ -6,6 +6,7 @@ import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
+import tagsController from "./../../Tagging/tags";
 
 var alertify = require('alertifyjs/build/alertify.min');
 
@@ -73,7 +74,7 @@ var initSubmitButton = function () {
         descriptionElem.removeClass('input-validation-error');
         event.preventDefault();
 
-        var data = helpers.serialize();
+        var data = helpers.serialize(form[0]);
 
         $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
             if (result && !result.HasConfirmation) {
@@ -170,6 +171,7 @@ var controller = {
         initSubmitButton();
         initHideControl();
         fileUploadController.init(holder);
+        tagsController.init();
     }
 }
 
