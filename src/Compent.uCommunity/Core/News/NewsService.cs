@@ -240,7 +240,6 @@ namespace Compent.uCommunity.Core.News
                             Title = newsEntity.Title,
                             ActivityType = IntranetActivityTypeEnum.News,
                             NotifierId = currentUser.Id,
-                            NotifierName = currentUser.DisplayedName
                         };
                     }
                     break;
@@ -253,8 +252,7 @@ namespace Compent.uCommunity.Core.News
                         {
                             CommentId = entityId,
                             ActivityType = IntranetActivityTypeEnum.Events,
-                            NotifierId = _intranetUserService.GetCurrentUser().Id,
-                            NotifierName = _intranetUserService.GetCurrentUser().DisplayedName,
+                            NotifierId = currentUser.Id,
                             Title = newsEntity.Title,
                             Url = GetUrlWithComment(newsEntity.Id, comment.Id)
                         };
@@ -271,7 +269,6 @@ namespace Compent.uCommunity.Core.News
                         {
                             ActivityType = IntranetActivityTypeEnum.News,
                             NotifierId = comment.UserId,
-                            NotifierName = _intranetUserService.Get(comment.UserId).DisplayedName,
                             Title = newsEntity.Title,
                             Url = GetUrlWithComment(newsEntity.Id, comment.Id)
                         };
@@ -286,7 +283,6 @@ namespace Compent.uCommunity.Core.News
                         {
                             ActivityType = IntranetActivityTypeEnum.Ideas,
                             NotifierId = currentUser.Id,
-                            NotifierName = currentUser.DisplayedName,
                             Title = newsEntity.Title,
                             Url = GetUrlWithComment(newsEntity.Id, comment.Id),
                             CommentId = comment.Id
