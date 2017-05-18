@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Compent.uCommunity.Core.Extentions;
+using Compent.uCommunity.Core.Navigation;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uCommunity.Core.Extentions;
-using Compent.uCommunity.Core.Navigation;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Models;
+using uCommunity.Core;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
 using uCommunity.Navigation.Web;
+using uCommunity.Notification.Core.Models;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Users.Core;
 using Umbraco.Core.Models;
@@ -34,6 +36,7 @@ namespace Compent.uCommunity.Controllers
         private readonly IMyLinksService _myLinksService;
         private readonly ISystemLinksService _systemLinksService;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IUiNotifierService _uiNotifierService;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -45,7 +48,8 @@ namespace Compent.uCommunity.Controllers
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IMyLinksService myLinksService,
             ISystemLinksService systemLinksService,
-        IIntranetUserService<IntranetUser> intranetUserService) :
+            IIntranetUserService<IntranetUser> intranetUserService,
+            IUiNotifierService uiNotifierService) :
             base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, myLinksModelBuilder, systemLinksModelBuilder, myLinksService, intranetUserService)
 
         {
@@ -57,6 +61,7 @@ namespace Compent.uCommunity.Controllers
             _myLinksService = myLinksService;
             _intranetUserService = intranetUserService;
             _systemLinksService = systemLinksService;
+            _uiNotifierService = uiNotifierService;
         }
 
         public override ActionResult TopNavigation()
@@ -64,8 +69,9 @@ namespace Compent.uCommunity.Controllers
             var topNavigation = _topNavigationModelBuilder.Get();
             var result = topNavigation.Map<TopMenuViewModel>();
             result.NotificationsUrl = _notificationHelper.GetNotificationListPage().Url;
+            result.NotificationList = GetNotificationList();
 
-            return PartialView("~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml", result);
+            return PartialView("~/Views/Navigation/TopNavigation.cshtml", result);
         }
 
         public override ActionResult SubNavigation()
@@ -130,6 +136,7 @@ namespace Compent.uCommunity.Controllers
         {
             return content.DocumentTypeAlias == HomePage.ModelTypeAlias;
         }
+
         private MenuItemViewModel MapSubNavigationItem(IPublishedContent content)
         {
             return new MenuItemViewModel
@@ -139,6 +146,20 @@ namespace Compent.uCommunity.Controllers
                 //HideInNavigation = !content.IsShowPageInSubNavigation(),
                 Url = content.Url,
                 IsActive = content.IsAncestorOrSelf(CurrentPage)
+            };
+        }
+
+        private NotificationListViewModel GetNotificationList()
+        {
+            var totalCount = 0;
+            var notificationListPage = _notificationHelper.GetNotificationListPage();
+            //var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
+            var itemsCountForPopup = notificationListPage.GetPropertyValue("itemCountForPopup", default(int));
+            var notifications = _uiNotifierService.GetByReceiver(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount);
+            return new NotificationListViewModel
+            {
+                Notifications = notifications.Map<IEnumerable<NotificationViewModel>>(),
+                BlockScrolling = false
             };
         }
     }
