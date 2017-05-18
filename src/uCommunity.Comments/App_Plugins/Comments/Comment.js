@@ -137,9 +137,7 @@ var initDelete = function (holder) {
 
 function scrollToComment(el) {
     var comment = el.closest('.comments__list-body').find('.js-comment-reply');
-    $('html, body').animate({
-        scrollTop: comment.offset().top
-    }, 500);
+    $('html, body').animate({ scrollTop: comment.offset().top - 170}, 500);
 }
 
 function findControl(holder, selector) {
