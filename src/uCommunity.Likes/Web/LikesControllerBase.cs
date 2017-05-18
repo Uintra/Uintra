@@ -82,7 +82,7 @@ namespace uCommunity.Likes.Web
         protected virtual PartialViewResult AddActivityLike(Guid activityId)
         {
             var service = ActivitiesServiceFactory.GetService<ILikeableService>(activityId);
-            var likeInfo = service.Add(GetCurrentUserId(), activityId);
+            var likeInfo = service.AddLike(GetCurrentUserId(), activityId);
 
             return Likes(likeInfo.Likes, likeInfo.Id);
         }
@@ -90,7 +90,7 @@ namespace uCommunity.Likes.Web
         protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
         {
             var service = ActivitiesServiceFactory.GetService<ILikeableService>(activityId);
-            var likeInfo = service.Remove(GetCurrentUserId(), activityId);
+            var likeInfo = service.RemoveLike(GetCurrentUserId(), activityId);
 
             return Likes(likeInfo.Likes, likeInfo.Id);
         }

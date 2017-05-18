@@ -15,6 +15,8 @@ namespace uCommunity.Notification.Core.Profiles
                 .ForMember(d => d.IsNotified, o => o.MapFrom(s => s.IsNotified))
                 .ForMember(d => d.IsViewed, o => o.MapFrom(s => s.IsViewed))
                 .ForMember(d => d.Type, o => o.MapFrom(s => s.Type))
+                .ForMember(d => d.NotifierName, o => o.Ignore())
+                .ForMember(d => d.NotifierPhoto, o => o.Ignore())
                 .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)));
         }
     }

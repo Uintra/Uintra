@@ -4,8 +4,8 @@ namespace uCommunity.Likes
 {
     public interface ILikeableService
     {
-        ILikeable Add(Guid userId, Guid activityId);
+        ILikeable AddLike(Guid userId, Guid activityId);
 
-        ILikeable Remove(Guid userId, Guid activityId);
+        ILikeable RemoveLike(Guid userId, Guid activityId);
     }
 }

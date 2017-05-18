@@ -65,7 +65,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var newsModelBase = _newsService.Get(id, true);
+            var newsModelBase = _newsService.Get(id);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
@@ -124,7 +124,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public override ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get(id, true);
+            var news = _newsService.Get(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
