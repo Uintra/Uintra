@@ -124,7 +124,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public override ActionResult Edit(Guid id)
         {
-            var news = _newsService.Get(id);
+            var news = _newsService.Get(id, true);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
