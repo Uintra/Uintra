@@ -46,6 +46,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// ItemCountForPopup
+		///</summary>
+		[ImplementPropertyType("itemCountForPopup")]
+		public int ItemCountForPopup
+		{
+			get { return this.GetPropertyValue<int>("itemCountForPopup"); }
+		}
+
+		///<summary>
 		/// Grid
 		///</summary>
 		[ImplementPropertyType("grid")]

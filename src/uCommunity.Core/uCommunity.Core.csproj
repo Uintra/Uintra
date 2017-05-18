@@ -387,7 +387,9 @@
     <Compile Include="Core\Extentions\ViewDataExtensions.cs" />
     <Compile Include="Core\FolderConstants.cs" />
     <Compile Include="Core\IDateTimeFormatProvider.cs" />
+    <Compile Include="Core\Handlers\NotFoundHandlerBase.cs" />
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
+    <Compile Include="Core\NotificationConstants.cs" />
     <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Migrations\MediaMigrations.cs" />
     <Compile Include="Web\ActivityHeaderControllerBase.cs" />
@@ -697,7 +699,12 @@
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Compent.uCommunity\Compent.uCommunity.csproj">
+      <Project>{469DC179-83EE-4696-9D36-2173E4BEAFDA}</Project>
+      <Name>Compent.uCommunity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

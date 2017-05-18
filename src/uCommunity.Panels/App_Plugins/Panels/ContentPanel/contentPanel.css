@@ -386,6 +386,9 @@
     }
 
     &__item{
+        overflow:hidden;
+        margin:0 0 10px;
+
         ._vertical &{
             overflow:hidden;
             margin:0 0 16px;
@@ -395,7 +398,7 @@
             text-align:center;
             width:33%;
             max-width:150px;
-            padding:0 0 20px 20px;
+            padding:0 0 10px 20px;
         }
 
         &-link{
@@ -417,6 +420,9 @@
             }
         }
         &-name{
+            display:block;
+            overflow:hidden;
+
             ._horizontal &{
                 font-size:11px;
                 line-height:13px;
@@ -430,10 +436,10 @@
     &__icon{
         width: 24px;
         height: 24px;
+        float:left;
+        margin:0 10px 0 0;
 
         ._vertical &{
-            display: inline-block;
-            vertical-align: middle;
             margin: 0 8px 0 0;
         }
 

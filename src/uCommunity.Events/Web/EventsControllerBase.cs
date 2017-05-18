@@ -61,7 +61,6 @@ namespace uCommunity.Events.Web
         public virtual ActionResult Details(Guid id)
         {
             var @event = _eventsService.Get(id);
-
             if (@event.IsHidden)
             {
                 HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
@@ -233,7 +232,7 @@ namespace uCommunity.Events.Web
                 };
                 yield return model;
             }
-        }       
+        }
 
         protected virtual void OnEventCreated(Guid activityId)
         {

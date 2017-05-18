@@ -65,7 +65,7 @@ namespace Compent.uCommunity.Controllers
 
         public override ActionResult Details(Guid id)
         {
-            var newsModelBase = _newsService.Get(id, true);
+            var newsModelBase = _newsService.Get(id);
             if (newsModelBase.IsHidden)
             {
                 HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);

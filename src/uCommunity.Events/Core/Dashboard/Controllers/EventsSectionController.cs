@@ -35,7 +35,7 @@ namespace uCommunity.Events.Dashboard
         public EventBackofficeViewModel Save(EventBackofficeSaveModel saveModel)
         {
             _eventsService.Save(saveModel.Map<EventBase>());
-            var updatedModel = _eventsService.Get(saveModel.Id, true);
+            var updatedModel = _eventsService.Get(saveModel.Id);
             var result = updatedModel.Map<EventBackofficeViewModel>();
             return result;
         }
