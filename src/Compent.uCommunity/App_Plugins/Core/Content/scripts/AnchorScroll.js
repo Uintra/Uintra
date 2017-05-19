@@ -1,4 +1,6 @@
-﻿function initAnchorScroll() {
+﻿import appInitializer from "./AppInitializer";
+
+function initAnchorScroll() {
     // navbar height 
     var navHeigth = 170;
 
@@ -12,7 +14,7 @@
             var term = $(hash);
 
             // If element with hash id is defined
-            if (term) {
+            if (term.length) {
 
                 // Get top offset, including header height
                 var scrollto = term.offset().top - navHeigth;
@@ -40,5 +42,9 @@
         scrollToAnchor(location.hash);
     }
 }
+
+appInitializer.add(function() {
+    initAnchorScroll();
+});
 
 export default initAnchorScroll;
