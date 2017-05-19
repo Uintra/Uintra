@@ -7,6 +7,7 @@ using uCommunity.CentralFeed.Enums;
 using uCommunity.CentralFeed.Models;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
+using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.CentralFeed.Web
@@ -19,12 +20,14 @@ namespace uCommunity.CentralFeed.Web
 
         protected readonly ICentralFeedService _centralFeedService;
         protected readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
         protected const int ItemsPerPage = 8;
 
-        protected CentralFeedControllerBase(ICentralFeedService centralFeedService, ICentralFeedContentHelper centralFeedContentHelper)
+        protected CentralFeedControllerBase(ICentralFeedService centralFeedService, ICentralFeedContentHelper centralFeedContentHelper, IActivitiesServiceFactory activitiesServiceFactory)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         public virtual ActionResult Overview()
@@ -50,6 +53,8 @@ namespace uCommunity.CentralFeed.Web
 
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = items.OrderBy(IsPinActual).ThenByDescending(el => el.PublishDate).Take(take).ToList();
+
+            FillActivityDetailLinks(pagedItemsList);
 
             var centralFeedModel = new CentralFeedListViewModel
             {
@@ -121,6 +126,27 @@ namespace uCommunity.CentralFeed.Web
             }
 
             return true;
+        }
+
+        protected void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
+        {
+            var currentPage = GetCurrentPage();
+
+            foreach (var type in items.Select(i => i.Type).Distinct())
+            {
+                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type);
+                ViewData.SetActivityDetailsPageUrl(type, service.GetDetailsPage(currentPage).Url);
+            }
+        }
+
+        protected virtual IPublishedContent GetCurrentPage()
+        {
+            if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
+            {
+                return _centralFeedContentHelper.GetOverviewPage();
+            }
+
+            return null;
         }
     }
 }
