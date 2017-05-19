@@ -68,7 +68,7 @@ namespace uCommunity.Events.Web
 
             var model = @event.Map<EventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDefaultDateTimeFormat(), @event.EndDate.ToDefaultDateTimeFormat() };
+            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.EditPageUrl = _eventsService.GetEditPage().Url;
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
             model.CanEdit = _eventsService.CanEdit(@event);
@@ -206,9 +206,13 @@ namespace uCommunity.Events.Web
 
         protected virtual void FillLinks()
         {
-            ViewData["CreatePageUrl"] = _eventsService.GetCreatePage().Url;
-            ViewData["DetailsPageUrl"] = _eventsService.GetDetailsPage().Url;
-            ViewData["OverviewPageUrl"] = _eventsService.GetOverviewPage().Url;
+            var overviewPageUrl = _eventsService.GetOverviewPage(CurrentPage).Url;
+            var createPageUrl = _eventsService.GetCreatePage(CurrentPage).Url;
+            var detailsPageUrl = _eventsService.GetDetailsPage(CurrentPage).Url;
+
+            ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events, overviewPageUrl);
+            ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, detailsPageUrl);
+            ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.Events, createPageUrl);
         }
 
         protected virtual IEnumerable<EventsOverviewItemViewModel> GetOverviewItems(IEnumerable<EventBase> events)

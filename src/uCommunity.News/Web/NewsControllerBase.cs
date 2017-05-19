@@ -69,7 +69,7 @@ namespace uCommunity.News.Web
 
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToDefaultDateTimeFormat() };
+            model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToDateTimeFormat() };
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
@@ -194,9 +194,11 @@ namespace uCommunity.News.Web
 
         protected virtual void FillLinks()
         {
-            ViewData["DetailsPageUrl"] = _newsService.GetDetailsPage().Url;
-            ViewData["OverviewPageUrl"] = _newsService.GetOverviewPage().Url;
-        }
+            var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
+            var overviewPageUrl = _newsService.GetOverviewPage(CurrentPage).Url;
 
+            ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.News, overviewPageUrl);
+            ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, detailsPageUrl);
+        }
     }
 }

@@ -376,22 +376,22 @@ namespace Compent.uCommunity.Core.Events
 
         public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
         {
-            throw new NotImplementedException();
+            return GetOverviewPage();
         }
 
         public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
         {
-            throw new NotImplementedException();
+            return GetDetailsPage();
         }
 
         public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
         {
-            throw new NotImplementedException();
+            return GetCreatePage();
         }
 
         public override IPublishedContent GetEditPage(IPublishedContent currentPage)
         {
-            throw new NotImplementedException();
+            return GetEditPage();
         }
     }
 }

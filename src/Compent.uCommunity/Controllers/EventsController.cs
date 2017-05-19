@@ -52,7 +52,6 @@ namespace Compent.uCommunity.Controllers
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
-            FillLinks();
             var activity = item as Event;
             return PartialView(ItemViewPath, GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
@@ -78,7 +77,7 @@ namespace Compent.uCommunity.Controllers
 
             var model = @event.Map<IntranetEventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDefaultDateTimeFormat(), @event.EndDate.ToDefaultDateTimeFormat() };
+            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.EditPageUrl = _eventsService.GetEditPage().Url;
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
             model.CanEdit = _eventsService.CanEdit(@event);
