@@ -68,7 +68,7 @@ namespace uCommunity.Events.Web
 
             var model = @event.Map<EventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDefaultDateTimeFormat(), @event.EndDate.ToDefaultDateTimeFormat() };
+            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.EditPageUrl = _eventsService.GetEditPage().Url;
             model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
             model.CanEdit = _eventsService.CanEdit(@event);
