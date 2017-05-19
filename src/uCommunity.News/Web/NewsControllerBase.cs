@@ -194,9 +194,11 @@ namespace uCommunity.News.Web
 
         protected virtual void FillLinks()
         {
-            ViewData["DetailsPageUrl"] = _newsService.GetDetailsPage().Url;
-            ViewData["OverviewPageUrl"] = _newsService.GetOverviewPage().Url;
-        }
+            var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
+            var overviewPageUrl = _newsService.GetOverviewPage(CurrentPage).Url;
 
+            ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.News, overviewPageUrl);
+            ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, detailsPageUrl);
+        }
     }
 }
