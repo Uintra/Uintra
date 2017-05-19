@@ -52,7 +52,6 @@ namespace Compent.uCommunity.Controllers
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
-            FillLinks();
             var activity = item as Event;
             return PartialView(ItemViewPath, GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
         }
