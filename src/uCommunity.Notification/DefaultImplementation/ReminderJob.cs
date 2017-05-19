@@ -45,21 +45,24 @@ namespace uCommunity.Notification
                     var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(reminder.ActivityId);
                     var reminderService = service as IReminderableService<IReminderable>;
                     var notifyableService = service as INotifyableService;
-
+                    
                     if (reminderService == null || notifyableService == null)
                     {
                         continue;
                     }
 
-                    var activity = reminderService.Get(reminder.ActivityId);
-                    var configuration = GetConfiguration(reminder.Type);
-                    if (ShouldNotify(configuration.Time, activity.StartDate))
+                    var activity = reminderService.GetActual(reminder.ActivityId);
+                    if (activity != null)
                     {
-                        foreach (var notificationType in configuration.NotificationTypes)
+                        var configuration = GetConfiguration(reminder.Type);
+                        if (ShouldNotify(configuration.Time, activity.StartDate))
                         {
-                            notifyableService.Notify(activity.Id, notificationType);
+                            foreach (var notificationType in configuration.NotificationTypes)
+                            {
+                                notifyableService.Notify(activity.Id, notificationType);
+                            }
+                            _reminderService.SetAsDelivered(reminder.Id);
                         }
-                        _reminderService.SetAsDelivered(reminder.Id);
                     }
                 }
             }
