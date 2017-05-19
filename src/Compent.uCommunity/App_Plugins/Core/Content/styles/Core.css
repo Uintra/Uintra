@@ -238,6 +238,7 @@
         color: #333;
         background: #fff;
         border: 1px solid #ccc;
+        position: relative;
 
         &[:disabled]{
             background:#eee;

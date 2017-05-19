@@ -8,7 +8,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "alertify": "0.3.0",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
     "babel-preset-es2015": "6.18.0",

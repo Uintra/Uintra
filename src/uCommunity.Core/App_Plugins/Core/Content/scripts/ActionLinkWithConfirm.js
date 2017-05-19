@@ -1,5 +1,8 @@
 ﻿import confirm from "../../Controls/Confirm/Confirm";
 import alertify from 'alertifyjs/build/alertify.min';
+require('alertifyjs/build/css/alertify.min.css');
+require('alertifyjs/build/css/themes/default.min.css');
+
 const def = {
     text: "Are you sure?",
     ok: "Yes",

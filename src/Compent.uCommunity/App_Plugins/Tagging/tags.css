@@ -1,0 +1,33 @@
+.taggle {
+    &_placeholder {
+        position: absolute;
+        color: #ccc;
+        top: 12px;
+        left: 8px;
+        transition: opacity,.25s;
+    }
+
+    &_list{
+        .taggle {
+            margin-right: 8px;
+            background: #E2E1DF;
+            padding: 5px 10px;
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            transition: all .3s;
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+    }
+
+    &_input{
+        padding: 8px;
+        padding-left: 0;
+        float: left;
+        margin-top: -5px;
+        background: 0 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}
