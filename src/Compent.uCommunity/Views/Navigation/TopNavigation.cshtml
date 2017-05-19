@@ -7,7 +7,7 @@
     <a class="icon icon-bell notification__icon">
         <span class="notifications__number"></span>
     </a>
-    <div class="notification-list js-notification-list hide">
+    <div class="notification__list js-notification-list hide">
         @{ Html.RenderAction("Notifications", "Notification", new { notificationList = Model.NotificationList }); }
         <a href="@Model.NotificationsUrl">Show all notifications</a>
     </div>

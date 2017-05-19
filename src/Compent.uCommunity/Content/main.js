@@ -13,5 +13,7 @@ require('./../App_Plugins/Users/users');
 require('./../App_Plugins/Tagging/tags');
 
 import initCustomScripts from "./js/index";
-
 initCustomScripts()
+
+import actionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
+actionLinkWithConfirm();

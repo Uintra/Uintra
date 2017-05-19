@@ -213,6 +213,8 @@ namespace Compent.uCommunity.Core.IoC
 
             kernel.Bind<IApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
             kernel.Bind<IUcommunityApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
+
+            kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InSingletonScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
