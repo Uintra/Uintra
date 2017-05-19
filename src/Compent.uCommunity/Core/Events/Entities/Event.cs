@@ -5,12 +5,13 @@ using uCommunity.CentralFeed;
 using uCommunity.Comments;
 using uCommunity.Events;
 using uCommunity.Likes;
+using uCommunity.Notification.Core.Entities.Base;
 using uCommunity.Subscribe;
 using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IHaveTags
+    public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IHaveTags, IReminderable
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;

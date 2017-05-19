@@ -29,7 +29,8 @@ namespace Compent.uCommunity.Core.Events
         ISubscribableService,
         ILikeableService,
         ICommentableService,
-        INotifyableService
+        INotifyableService,
+        IReminderableService<Event>
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
@@ -392,6 +393,12 @@ namespace Compent.uCommunity.Core.Events
         public override IPublishedContent GetEditPage(IPublishedContent currentPage)
         {
             return GetEditPage();
+        }
+
+        public Event GetActual(Guid id)
+        {
+            var @event = Get(id);
+            return !@event.IsHidden ? @event : null;
         }
     }
 }
