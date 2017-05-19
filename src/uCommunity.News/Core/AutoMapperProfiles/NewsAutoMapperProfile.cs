@@ -63,7 +63,7 @@ namespace uCommunity.News
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
-           .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToDefaultDateFormat() }));
+           .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToDateFormat() }));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>()

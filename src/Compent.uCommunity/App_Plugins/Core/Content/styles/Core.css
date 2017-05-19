@@ -77,6 +77,32 @@
   content: "\e90c";
 }
 
+#wrapper {
+    overflow:hidden;
+    padding:137px 0 0 251px;
+    opacity:1;
+    transition:opacity ease-in 250ms;
+
+    ._with-sub-nav._with-subtitle &{
+        padding-top:172px;
+    } 
+
+    &._loading{
+        opacity:0;
+    }
+
+    @media (--for-tablet-portrait-down) {
+        ._with-sub-nav &,
+        & {
+            padding: 131px 0 0 !important;
+        }
+
+        ._with-sub-nav._with-subtitle &{
+            padding:181px 0 0 !important;
+        }
+    }
+}
+
 #sidebar {
     position:fixed;
     top:50px;
@@ -212,6 +238,7 @@
         color: #333;
         background: #fff;
         border: 1px solid #ccc;
+        position: relative;
 
         &[:disabled]{
             background:#eee;

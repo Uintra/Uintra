@@ -2,11 +2,11 @@
 {
     public interface IDateTimeFormatProvider
     {
-        string DefaultTimeFormat { get; set; }
-        string DefaultDateFormat { get; set; }
-        string DefaultDateTimeFormat { get; set; }
-        string DefaultDateTimeValuePickerFormat { get; set; }
-        string DefaultDatePickerFormat { get; set; }
-        string DefaultDateTimePickerFormat { get; set; }
+        string TimeFormat { get; set; }
+        string DateFormat { get; set; }
+        string DateTimeFormat { get; set; }
+        string DateTimeValuePickerFormat { get; set; }
+        string DatePickerFormat { get; set; }
+        string DateTimePickerFormat { get; set; }
     }
 }

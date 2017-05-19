@@ -7,11 +7,11 @@ namespace Compent.uCommunity.Core
 {
     public class DateTimeFormatProvider : IDateTimeFormatProvider
     {
-        public string DefaultTimeFormat { get; set; } = "HH:mm";
-        public string DefaultDateFormat { get; set; } = "dd.MM.yyyy";
-        public string DefaultDateTimeFormat { get; set; } = "dd.MM.yyyy HH:mm";
-        public string DefaultDateTimeValuePickerFormat { get; set; } = "yyyy-MM-ddTHH:mm";
-        public string DefaultDatePickerFormat { get; set; } = "d.m.Y";
-        public string DefaultDateTimePickerFormat { get; set; } = "d.m.Y H:i";
+        public string TimeFormat { get; set; } = "HH:mm";
+        public string DateFormat { get; set; } = "dd.MM.yyyy";
+        public string DateTimeFormat { get; set; } = "dd.MM.yyyy HH:mm";
+        public string DateTimeValuePickerFormat { get; set; } = "yyyy-MM-ddTHH:mm";
+        public string DatePickerFormat { get; set; } = "d.m.Y";
+        public string DateTimePickerFormat { get; set; } = "d.m.Y H:i";
     }
 }

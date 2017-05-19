@@ -1,7 +1,8 @@
-﻿import initAnchorScroll from "./AnchorScroll"
-import showContent from "./ShowContent"
+﻿if (!window.Promise) {
+    window.Promise = require('promise-polyfill');
+}
 
-window.$ = window.jQuery = require('jquery');
-initAnchorScroll();
+﻿import showContent from "./ShowContent"
+import {} from "./Polyfill";
 
 document.addEventListener('DOMContentLoaded', showContent, false);

@@ -8,6 +8,8 @@ import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
 var alertify = require('alertifyjs/build/alertify.min');
+require('alertifyjs/build/css/alertify.min.css');
+require('alertifyjs/build/css/themes/default.min.css');
 
 require('select2');
 require('./../../Core/Content/scripts/ValidationExtensions');

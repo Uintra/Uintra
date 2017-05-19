@@ -21,8 +21,9 @@ namespace Compent.uCommunity.Controllers
         public CentralFeedController(ICentralFeedService centralFeedService,
             ICentralFeedContentHelper centralFeedContentHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
-            ISubscribeService subscribeService)
-            : base(centralFeedService, centralFeedContentHelper)
+            ISubscribeService subscribeService,
+            IActivitiesServiceFactory activitiesServiceFactory)
+            : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory)
         {
             _intranetUserService = intranetUserService;
             _subscribeService = subscribeService;

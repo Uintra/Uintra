@@ -6,40 +6,40 @@ namespace uCommunity.Core.Extentions
 {
     public static class DateTimeExtensions
     {
-        public static string ToDefaultDateFormat(this DateTime date)
+        public static string ToDateFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            return date.ToString(dateTimeFormatProvider.DefaultDateFormat);
+            return date.ToString(dateTimeFormatProvider.DateFormat);
         }
 
-        public static string ToDefaultTimeFormat(this DateTime date)
+        public static string ToTimeFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            return date.ToString(dateTimeFormatProvider.DefaultTimeFormat);
+            return date.ToString(dateTimeFormatProvider.TimeFormat);
         }
 
-        public static string ToDefaultDateTimeFormat(this DateTime date)
+        public static string ToDateTimeFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            return date.ToString(dateTimeFormatProvider.DefaultDateTimeFormat);
+            return date.ToString(dateTimeFormatProvider.DateTimeFormat);
         }
 
-        public static string ToDefaultDatePickerFormat(this DateTime date)
+        public static string ToDatePickerFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            return date.ToString(dateTimeFormatProvider.DefaultDatePickerFormat);
+            return date.ToString(dateTimeFormatProvider.DatePickerFormat);
         }
 
-        public static string ToDefaultDateTimePickerFormat(this DateTime date)
+        public static string ToDateTimePickerFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            return date.ToString(dateTimeFormatProvider.DefaultDateTimePickerFormat);
+            return date.ToString(dateTimeFormatProvider.DateTimePickerFormat);
         }
 
-        public static string ToDefaultDateTimeValuePickerFormat(this DateTime date)
+        public static string ToDateTimeValuePickerFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            return date.ToString(dateTimeFormatProvider.DefaultDateTimeValuePickerFormat);
+            return date.ToString(dateTimeFormatProvider.DateTimeValuePickerFormat);
         }
     }
 }

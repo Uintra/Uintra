@@ -24,12 +24,12 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="js-start-date">@Html.Localize("EventsCreate.StartDate.lbl")</label>
-            <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDefaultDateTimeValuePickerFormat()" data-date-format="@ViewData.GetDefaultDateTimePickerFormat()" />
+            <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@ViewData.GetDateTimePickerFormat()" />
             <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="js-end-date">@Html.Localize("EventsCreate.EndDate.lbl")</label>
-            <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDefaultDateTimeValuePickerFormat()" data-date-format="@ViewData.GetDefaultDateTimePickerFormat()" />
+            <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@ViewData.GetDateTimePickerFormat()" />
             <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">

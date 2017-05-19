@@ -310,8 +310,8 @@
       <HintPath>..\..\packages\uCommunity.BaseControls.2.2.2\lib\net452\uCommunity.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.12, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.12\lib\net452\uCommunity.CentralFeed.dll</HintPath>
+    <Reference Include="uCommunity.CentralFeed, Version=1.0.4.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.CentralFeed.1.0.4.13\lib\net452\uCommunity.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Comments, Version=1.0.8.2, Culture=neutral, processorArchitecture=MSIL">
@@ -319,12 +319,13 @@
       <HintPath>..\..\packages\uCommunity.Comments.1.0.8.2\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.31.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.31.4\lib\net452\uCommunity.Core.dll</HintPath>
+    <Reference Include="uCommunity.Core, Version=1.0.33.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uCommunity.Core.1.0.33.1\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.8.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Events.1.0.8.6\lib\net452\uCommunity.Events.dll</HintPath>
+    <Reference Include="uCommunity.Events, Version=1.0.8.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Events.1.0.8.9\lib\net452\uCommunity.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
@@ -336,8 +337,9 @@
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.9\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.13.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.News.1.0.13.24\lib\net452\uCommunity.News.dll</HintPath>
+    <Reference Include="uCommunity.News, Version=1.0.13.27, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.News.1.0.13.27\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.5.8, Culture=neutral, processorArchitecture=MSIL">
@@ -488,10 +490,33 @@
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
+    <Content Include="App_Plugins\Comments\Comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
+    <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
+    <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
+    <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
+    <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Plugins\Core\Content\libs\dependencies.txt" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
+    <Content Include="App_Plugins\Core\Content\styles\Core.css" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
@@ -740,6 +765,7 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
+    <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\tags.js" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
@@ -796,23 +822,10 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
-    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
-    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
@@ -826,14 +839,43 @@
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
+    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.ttf" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.eot" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1018,7 +1060,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
