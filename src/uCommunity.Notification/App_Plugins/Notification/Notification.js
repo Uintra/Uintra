@@ -28,7 +28,9 @@ function initCustomControls() {
 
         if (!delivered) {
             $.ajax({
-                url: "/umbraco/surface/Notification/View/" + $this.data("id"),
+                type: "POST",
+                data: {id: $this.data("id")},
+                url: "/umbraco/surface/Notification/View/",
                 success: function () {
                     $this.data("viewed", 'true');
                 }

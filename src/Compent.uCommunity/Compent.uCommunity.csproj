@@ -850,6 +850,7 @@
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\ReminderController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Core\ApplicationSettings\IUcommunityApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
