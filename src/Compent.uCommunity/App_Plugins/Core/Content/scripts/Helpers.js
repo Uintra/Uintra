@@ -121,12 +121,12 @@ var helpers = {
         var start = element.scrollTop,
             change = to - start,
             currentTime = 0,
-            increment = 20;
+            increment = 50;
 
         var animateScroll = function () {
             currentTime += increment;
             var val = easeInOutQuad(currentTime, start, change, duration);
-            element.scrollTop = val;
+            top.window.scroll(0, val)
             if (currentTime < duration) {
                 setTimeout(animateScroll, increment);
             }

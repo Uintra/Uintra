@@ -143,7 +143,7 @@ function scrollToComment(el) {
 function findControl(holder, selector) {
     return holder.find(selector).filter(function () {
         var $this = $(this);
-        var parent = $this.closest('[id^=js-comment-view-]');
+        var parent = $this.closest('.js-comment-view');
         return parent.data('id') === holder.data('id');
     });
 }
@@ -157,7 +157,7 @@ var CommentOverview = function (selector) {
     holders.each(function () {
         var $this = $(this);
         initCreateControl($this);
-        $this.find('[id^=js-comment-view-]').each(function () {
+        $this.find('.js-comment-view').each(function () {
             new Comment(this);
         });
     });

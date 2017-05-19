@@ -36,6 +36,10 @@ function onError(sender, data) {
 
 
 function umbracoAjaxFormFactory(form) {
+    if (!form) {
+        return;
+    }
+
     form.addEventListener('submit', onSubmit);
     var submitBtn = form.querySelector('input[type="submit"]');
     if (!submitBtn) {
