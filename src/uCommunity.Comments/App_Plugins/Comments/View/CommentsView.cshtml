@@ -16,9 +16,9 @@
             <div class="comments__author-about">
                 <span class="comments__author-name">@Model.CreatorFullName</span>
                 <span class="comments__divider"> - </span>
-                <span class="comments__author-date">@(Model.CreatedDate.ToDefaultDateFormat())</span>
+                <span class="comments__author-date">@(Model.CreatedDate.ToDateFormat())</span>
                 <span class="comments__divider"> - </span>
-                <span class="comments__author-time">@(Model.CreatedDate.ToDefaultTimeFormat())</span>
+                <span class="comments__author-time">@(Model.CreatedDate.ToTimeFormat())</span>
             </div>
 
             @if (Model.CanDelete || Model.CanEdit)
@@ -48,9 +48,9 @@
                     <span class="glyphicon glyphicon-pencil"></span>
                     <div class="comments__modified-info">
                         @Html.Localize("CommentsView.ModifyDate.lbl")
-                        <span class="comments__author-date">@(Model.ModifyDate.Value.ToDefaultDateFormat())</span>
+                        <span class="comments__author-date">@(Model.ModifyDate.Value.ToDateFormat())</span>
                         <span class="comments__divider"> - </span>
-                        <span class="comments__author-time">@(Model.ModifyDate.Value.ToDefaultTimeFormat())</span>
+                        <span class="comments__author-time">@(Model.ModifyDate.Value.ToTimeFormat())</span>
                     </div>
                 </div>
             }

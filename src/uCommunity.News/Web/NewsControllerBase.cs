@@ -69,7 +69,7 @@ namespace uCommunity.News.Web
 
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToDefaultDateTimeFormat() };
+            model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToDateTimeFormat() };
             model.EditPageUrl = _newsService.GetEditPage().Url;
             model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
