@@ -2,6 +2,8 @@
 import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 
+require("./List/notificationList.css");
+
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;

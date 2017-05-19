@@ -1,22 +1,13 @@
-﻿using System.Web.Http;
-using uCommunity.Notification.Core.Services;
-using Umbraco.Web.WebApi;
+﻿using uCommunity.Notification.Core.Services;
+using uCommunity.Notification.Web;
 
 namespace Compent.uCommunity.Controllers
 {
-    public class ReminderController : UmbracoApiController
+    public class ReminderController : ReminderControllerBase
     {
-        private readonly IReminderJob ReminderJob;
-
         public ReminderController(IReminderJob reminderJob)
+            :base(reminderJob)
         {
-            ReminderJob = reminderJob;
-        }
-
-        [HttpGet, AllowAnonymous]
-        public void RunReminderJob()
-        {
-            ReminderJob.Run();
         }
     }
 }
