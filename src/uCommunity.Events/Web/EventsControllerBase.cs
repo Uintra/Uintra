@@ -200,6 +200,7 @@ namespace uCommunity.Events.Web
 
             var mediaSettings = _eventsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
+            ViewData.SetDateTimeFormats();
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
