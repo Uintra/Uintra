@@ -116,7 +116,7 @@
     padding:30px 20px 0 30px;
     z-index:11;
     background:var(--color-white);
-
+        
     @media (--for-tablet-portrait-down) {
         position: absolute;
         top: 79px;
@@ -124,7 +124,7 @@
         right: 0;
         bottom: auto;
         background: var(--color-light-gray-2);
-        padding: 0;
+        padding: 24px 0 38px;
         width: auto;
         height: auto;
         transform: translate(0, -100%);
@@ -238,7 +238,7 @@
         color: #333;
         background: #fff;
         border: 1px solid #ccc;
-         position: relative;
+        position: relative;
 
         &[:disabled]{
             background:#eee;
