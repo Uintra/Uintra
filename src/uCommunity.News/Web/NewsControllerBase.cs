@@ -139,6 +139,7 @@ namespace uCommunity.News.Web
 
             var mediaSettings = _newsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
+            ViewData.SetDateTimeFormats();
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
