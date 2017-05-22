@@ -238,8 +238,7 @@ namespace Compent.uCommunity.Controllers
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
-                    MaxImagesCount = 2
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
                 };
                 yield return model;
             }

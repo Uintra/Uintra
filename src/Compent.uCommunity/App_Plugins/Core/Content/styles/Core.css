@@ -94,11 +94,11 @@
     @media (--for-tablet-portrait-down) {
         ._with-sub-nav &,
         & {
-            padding: 131px 0 0 !important;
+            padding: 131px 0 0;
         }
 
         ._with-sub-nav._with-subtitle &{
-            padding:181px 0 0 !important;
+            padding:181px 0 0;
         }
     }
 }
