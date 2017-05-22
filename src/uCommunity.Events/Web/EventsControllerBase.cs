@@ -232,8 +232,7 @@ namespace uCommunity.Events.Web
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
-                    MaxImagesCount = 2
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
                 };
                 yield return model;
             }

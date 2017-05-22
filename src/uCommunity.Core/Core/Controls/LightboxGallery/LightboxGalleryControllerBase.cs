@@ -41,8 +41,8 @@ namespace uCommunity.Core.Controls.LightboxGallery
             if (model.MediaIds.Any())
             {
                 var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
-                galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image).Take(model.MaxImagesCount);
-                galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Images);
+                galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image);
+                galleryPreviewModel.OtherFiles = galleryViewModelList.Where(m => m.Type != MediaTypeEnum.Image);
                 galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
                 galleryPreviewModel.MaxImagesCount = 3;
             }
