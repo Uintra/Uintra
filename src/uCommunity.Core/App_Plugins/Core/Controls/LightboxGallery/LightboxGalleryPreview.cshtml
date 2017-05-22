@@ -12,7 +12,7 @@
             var media = images[i];
             var originalSize = $"{media.Width}x{media.Height}";
             var display = i < Model.MaxImagesCount;
-            <li class="gallery__item" style="@(display ? "display:none;": "")">
+            <li class="gallery__item" style="@(display ? "": "display:none;")">
                 <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" />
             </li>
         }
