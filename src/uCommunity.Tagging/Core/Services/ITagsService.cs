@@ -9,6 +9,8 @@ namespace uCommunity.Tagging
 
         void FillTags(IHaveTags activity);
 
-        void SaveTags(Guid activityId, IEnumerable<string> tags);
+        void Save(Guid activityId, IEnumerable<TagDTO> tags);
+
+        IEnumerable<Tag> FindAll(string query);
     }
 }

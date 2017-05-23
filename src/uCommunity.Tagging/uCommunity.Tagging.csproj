@@ -324,8 +324,11 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\AutoMapperProfiles\TagAutoMapperProfile.cs" />
+    <Compile Include="Core\Entities\TagDTO.cs" />
     <Compile Include="Core\IHaveTags.cs" />
-    <Compile Include="Core\ITagsCreateEditModel.cs" />
+    <Compile Include="Core\ITagsActivityCreateEditModel.cs" />
+    <Compile Include="Core\Models\TagEditModel.cs" />
     <Compile Include="Core\Services\ITagsService.cs" />
     <Compile Include="Core\Sql\TagActivityRelation.cs" />
     <Compile Include="Core\Sql\Tag.cs" />

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace uCommunity.Core.Extentions
 {
@@ -67,6 +69,26 @@ namespace uCommunity.Core.Extentions
         public static string StripHtml(this string input)
         {
             return Regex.Replace(input, "<.*?>", string.Empty);
+        }
+
+        public static string AddIdParameter(this string url, object paramValue)
+        {
+            return AddParameter(url, "id", paramValue);
+        }
+
+        public static string AddParameter(this string url, string paramName, object paramValue)
+        {
+            var queryString = string.Empty;
+            if (url.Contains("?"))
+            {
+                var urlSplit = url.Split('?');
+                url = urlSplit[0];
+                queryString = urlSplit.Length > 1 ? urlSplit[1] : string.Empty;
+            }
+
+            var queryCollection = HttpUtility.ParseQueryString(queryString);
+            queryCollection.Add(paramName, paramValue.ToString());
+            return $"{url.TrimEnd('/')}?{queryCollection}";
         }
     }
 }
