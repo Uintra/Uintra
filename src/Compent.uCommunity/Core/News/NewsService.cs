@@ -144,7 +144,6 @@ namespace Compent.uCommunity.Core.News
                 _intranetUserService.FillCreator(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
-                _tagsService.FillTags(entity);
             }
         }
 

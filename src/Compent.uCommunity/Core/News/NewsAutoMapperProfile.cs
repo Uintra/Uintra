@@ -21,16 +21,18 @@ namespace Compent.uCommunity.Core.News
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<NewsEntity, NewsExtendedCreateModel>()
-            .IncludeBase<NewsBase, NewsCreateModel>();
+                .IncludeBase<NewsBase, NewsCreateModel>()
+                .ForMember(dst => dst.Tags, o => o.Ignore());
 
             Mapper.CreateMap<NewsEntity, NewsExtendedEditModel>()
-                .IncludeBase<NewsBase, NewsEditModel>();
+                .IncludeBase<NewsBase, NewsEditModel>()
+                .ForMember(dst => dst.Tags, o => o.MapFrom(el => el.Tags));
 
             Mapper.CreateMap<NewsEntity, NewsBackofficeViewModel>()
-              .IncludeBase<NewsBase, NewsBackofficeViewModel>();
+                .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 
             Mapper.CreateMap<NewsEntity, IntranetActivityItemHeaderViewModel>()
-                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
+                .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
         }
     }
 }

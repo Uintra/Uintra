@@ -22,6 +22,6 @@ namespace Compent.uCommunity.Core.Events
         [JsonIgnore]
         public IEnumerable<global::uCommunity.Subscribe.Subscribe> Subscribers { get; set; }
         [JsonIgnore]
-        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
     }
 }
