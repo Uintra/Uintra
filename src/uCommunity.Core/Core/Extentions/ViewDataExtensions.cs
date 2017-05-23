@@ -18,7 +18,7 @@ namespace uCommunity.Core.Extentions
         private const string DetailsPageUrl = "DetailsPageUrl";
         private const string OverviewPageUrl = "OverviewPageUrl";
         private const string CreatePageUrl = "CreatePageUrl";
-
+        private const string EditPageUrl = "EditPageUrl";
 
         public static void SetDateTimeFormats(this ViewDataDictionary viewData)
         {
@@ -76,9 +76,14 @@ namespace uCommunity.Core.Extentions
             SetActivityPageUrl(dataView, activityType, DetailsPageUrl, url);
         }
 
+        public static void SetActivityEditPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string url)
+        {
+            SetActivityPageUrl(dataView, activityType, EditPageUrl, url);
+        }
+
         public static string GetActivityCreatePageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType)
         {
-            return GetActivityPageUrl(dataView, activityType, OverviewPageUrl);
+            return GetActivityPageUrl(dataView, activityType, CreatePageUrl);
         }
 
         public static string GetActivityOverviewPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType)
@@ -94,6 +99,16 @@ namespace uCommunity.Core.Extentions
         public static string GetActivityDetailsPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, Guid id)
         {
             return GetActivityPageUrl(dataView, activityType, DetailsPageUrl).AddIdParameter(id);
+        }
+
+        public static string GetActivityEditPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType)
+        {
+            return GetActivityPageUrl(dataView, activityType, EditPageUrl);
+        }
+
+        public static string GetActivityEditPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, Guid id)
+        {
+            return GetActivityPageUrl(dataView, activityType, EditPageUrl).AddIdParameter(id);
         }
 
         private static void SetActivityPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string pageName, string url)
