@@ -49,11 +49,7 @@ namespace uCommunity.Events.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events));
             }
 
-            var model = @event.Map<EventViewModel>();
-            model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.CanEdit = _eventsService.CanEdit(@event);
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            var model = GetViewModel(@event);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -93,7 +89,7 @@ namespace uCommunity.Events.Web
             }
 
             var activityId = _eventsService.Create(@event);
-            OnEventCreated(activityId);
+            OnEventCreated(activityId, createModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activityId));
         }
@@ -114,9 +110,7 @@ namespace uCommunity.Events.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, id));
             }
 
-            var model = @event.Map<EventEditModel>();
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-            FillCreateEditData(model);
+            var model = GetEditViewModel(@event);
             return PartialView(EditViewPath, model);
         }
 
@@ -140,7 +134,6 @@ namespace uCommunity.Events.Web
             {
                 @event.CanSubscribe = saveModel.CanSubscribe;
             }
-            var isActual = _eventsService.IsActual(@event);
             _eventsService.Save(@event);
 
             if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
@@ -148,7 +141,7 @@ namespace uCommunity.Events.Web
                 @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays);
             }
 
-            OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
+            OnEventEdited(@event, saveModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id));
         }
@@ -156,8 +149,8 @@ namespace uCommunity.Events.Web
         [HttpPost]
         public virtual JsonResult Hide(Guid id)
         {
-            OnEventHidden(id);
             _eventsService.Hide(id);
+            OnEventHidden(id);
 
             FillLinks();
             return Json(new { Url = ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events) });
@@ -175,6 +168,44 @@ namespace uCommunity.Events.Web
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
+        }
+
+        protected virtual EventEditModel GetEditViewModel(EventBase @event)
+        {
+            var model = @event.Map<EventEditModel>();
+            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
+            FillCreateEditData(model);
+            return model;
+        }
+
+        protected virtual EventViewModel GetViewModel(EventBase @event)
+        {
+            var model = @event.Map<EventViewModel>();
+            model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
+            model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
+            model.CanEdit = _eventsService.CanEdit(@event);
+            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            return model;
+        }
+
+        protected virtual EventItemViewModel GetItemViewModel(EventBase @event)
+        {
+            var model = @event.Map<EventItemViewModel>();
+
+            model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
+            model.MediaIds = @event.MediaIds;
+            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+
+            model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
+            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id);
+
+            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+            {
+                MediaIds = @event.MediaIds,
+                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id),
+                DisplayedImagesCount = DisplayedImagesCount
+            };
+            return model;
         }
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
@@ -198,31 +229,11 @@ namespace uCommunity.Events.Web
             ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.Events, editPageUrl);
         }
 
-        protected virtual EventItemViewModel GetItemViewModel(EventBase @event)
-        {
-            var model = @event.Map<EventItemViewModel>();
-
-            model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
-            model.MediaIds = @event.MediaIds;
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
-
-            model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id);
-
-            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
-            {
-                MediaIds = @event.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id),
-                DisplayedImagesCount = DisplayedImagesCount
-            };
-            return model;
-        }
-
-        protected virtual void OnEventCreated(Guid activityId)
+        protected virtual void OnEventCreated(Guid activityId, EventCreateModel model)
         {
         }
 
-        protected virtual void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        protected virtual void OnEventEdited(EventBase @event, EventEditModel model)
         {
         }
 
