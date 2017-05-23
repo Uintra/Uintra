@@ -1,4 +1,8 @@
-﻿.taggle{
+﻿.input.textarea{
+    min-height:initial;
+}
+
+.taggle{
     &_list{
         margin:0;
         padding:0;
@@ -31,5 +35,10 @@
         background: #fff;
         border: 1px solid #ccc;
         margin:0;
+    }
+
+    &_placeholder{
+        top:16px;
+        left:20px;
     }
 }
