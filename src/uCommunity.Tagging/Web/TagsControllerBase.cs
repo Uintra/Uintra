@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Umbraco.Web.Mvc;
@@ -10,27 +9,24 @@ namespace uCommunity.Tagging.Web
     {
         protected virtual string TagsViewPath { get; set; } = "~/App_Plugins/Tagging/Views/TagsView.cshtml";
 
-        protected readonly ITagsService _tagsService;
+        private readonly ITagsService _tagsService;
 
         protected TagsControllerBase(ITagsService tagsService)
         {
             _tagsService = tagsService;
         }
 
-        public virtual ActionResult Tags(IEnumerable<string> tags)
+        public virtual ActionResult Tags(IEnumerable<TagEditModel> tags)
         {
             return PartialView(TagsViewPath, tags);
         }
 
-        public virtual JsonResult TagsAutocomplete(string query)
+        public virtual JsonResult Autocomplete(string query)
         {
-            var trimmedQuery = query.Trim();
-
             var result = _tagsService
-                .GetAll()
-                .Where(el => el.Text.StartsWith(trimmedQuery, StringComparison.OrdinalIgnoreCase))
-                .Select(el => el.Text)
-                .OrderBy(el => el);
+                .FindAll(query)
+                .Select(tag => tag)
+                .OrderBy(tag => tag.Text);
 
             return Json(new { Tags = result }, JsonRequestBehavior.AllowGet);
         }

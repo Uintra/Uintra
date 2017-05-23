@@ -18,7 +18,7 @@ namespace uCommunity.Tagging
 
         public void FillTags(IHaveTags activity)
         {
-            activity.Tags = GetMany(activity.Id).Select(el => el.Text).OrderBy(el => el);
+            activity.Tags = GetMany(activity.Id).OrderBy(tag => tag.Text);
         }
 
         public IEnumerable<Tag> GetAll()
@@ -26,35 +26,35 @@ namespace uCommunity.Tagging
             return _tagRepository.GetAll();
         }
 
-        public void SaveTags(Guid activityId, IEnumerable<string> tags)
+        public void Save(Guid activityId, IEnumerable<TagDTO> tags)
         {
-            if (tags == null)
+            if (!tags.Any())
             {
                 _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
                 return;
             }
 
-            var trimmedTags = tags.Select(el => el.Trim()).ToList();
+            var newTags = tags
+                .Where(tag => tag.Id == null)
+                .Select(tag => new Tag { Id = Guid.NewGuid(), Text = tag.Text })
+                .ToList();
 
-            var activityTags = new List<Tag>();
-            var allTags = GetAll().ToList();
-
-            foreach (var tagText in trimmedTags)
-            {
-                var tag = allTags.Find(el => el.Text.Equals(tagText));
-                if (tag == null)
-                {
-                    tag = new Tag { Id = Guid.NewGuid(), Text = tagText };
-                    _tagRepository.Add(tag);
-                }
-
-                activityTags.Add(tag);
-            }
+            _tagRepository.Add(newTags);
 
             _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
 
-            var tagActivityRelations = activityTags.Select(el => new TagActivityRelation { ActivityId = activityId, TagId = el.Id });
+            var activityTagIds = newTags
+                .Select(tag => tag.Id)
+                .Concat(tags.Where(t => t.Id.HasValue).Select(t => t.Id.Value));
+
+            var tagActivityRelations = activityTagIds.Select(el => new TagActivityRelation { ActivityId = activityId, TagId = el });
             _tagActivityRelationRepository.Add(tagActivityRelations);
+        }
+
+        public IEnumerable<Tag> FindAll(string query)
+        {
+            var trimmedQuery = query.Trim();
+            return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery, StringComparison.OrdinalIgnoreCase));
         }
 
         private IEnumerable<Tag> GetMany(Guid activityId)
