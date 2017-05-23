@@ -355,8 +355,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Tagging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uCommunity.Tagging.1.0.1.1\lib\net452\uCommunity.Tagging.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1054,12 +1054,6 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\uCommunity.Tagging\uCommunity.Tagging.csproj">
-      <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
-      <Name>uCommunity.Tagging</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
