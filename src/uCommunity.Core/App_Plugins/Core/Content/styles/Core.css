@@ -373,7 +373,12 @@
         position: fixed;
         top: 0;
         z-index: -1;
+
+        &[disabled] ~ .check__fake-label{
+            opacity:0.5;
+        }
     }
+
     &__fake-input{
         display:inline-block;
         width:21px;
@@ -396,6 +401,10 @@
             left: 6px;
             position: absolute;
             top: 4px;
+        }
+
+        .check__box[disabled] ~ &:before{
+            opacity:0.5;
         }
 
 	    .input-validation-error & {

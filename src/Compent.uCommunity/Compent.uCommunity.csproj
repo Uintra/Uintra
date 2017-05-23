@@ -344,8 +344,9 @@
       <HintPath>..\..\packages\uCommunity.Notification.1.0.5.11\lib\net452\uCommunity.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Panels, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Panels.2.0.1\lib\net452\uCommunity.Panels.dll</HintPath>
+    <Reference Include="uCommunity.Panels, Version=2.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Panels.2.0.1.1\lib\net452\uCommunity.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Subscribe, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
@@ -815,9 +816,6 @@
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
