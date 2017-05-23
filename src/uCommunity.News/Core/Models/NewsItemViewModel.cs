@@ -6,7 +6,7 @@ using uCommunity.Core.Controls.LightboxGallery;
 
 namespace uCommunity.News
 {
-    public class NewsOverviewItemViewModel
+    public class NewsItemViewModel
     {
         public Guid Id { get; set; }
 

@@ -21,16 +21,6 @@
       }
     },
     {
-      "name": "News overview",
-      "alias": "custom.NewsOverview",
-      "view": "/App_Plugins/News/List/news-list.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "News",
-        "action": "List"
-      }
-    },
-    {
       "name": "News Details",
       "alias": "custom.NewsDetails",
       "view": "/App_Plugins/News/Details/news-details.html",

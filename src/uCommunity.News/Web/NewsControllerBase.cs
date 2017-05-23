@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core;
@@ -19,16 +18,16 @@ namespace uCommunity.News.Web
     [ActivityController(IntranetActivityTypeEnum.News)]
     public abstract class NewsControllerBase : SurfaceController
     {
-        protected virtual string ListViewPath { get; } = "~/App_Plugins/News/List/ListView.cshtml";
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/News/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
         protected virtual int ShortDescriptionLength { get; } = 500;
+        protected virtual int DisplayedImagesCount { get; } = 3;
 
         private readonly INewsService<NewsBase> _newsService;
-        protected readonly IMediaHelper _mediaHelper;
-        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected NewsControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -39,39 +38,19 @@ namespace uCommunity.News.Web
             _newsService = newsService;
             _mediaHelper = mediaHelper;
         }
-
-        public virtual ActionResult List()
-        {
-            var news = _newsService.GetManyActual().OrderByDescending(item => item.PublishDate);
-            var model = new NewsOverviewViewModel
-            {
-                CreatePageUrl = _newsService.GetCreatePage().Url,
-                DetailsPageUrl = _newsService.GetDetailsPage().Url,
-                Items = GetOverviewItems(news)
-            };
-
-            FillLinks();
-            return PartialView(ListViewPath, model);
-        }
-
-        public virtual ActionResult ItemView(NewsOverviewItemViewModel model)
-        {
-            return PartialView(ItemViewPath, model);
-        }
-
+     
         public virtual ActionResult Details(Guid id)
         {
+            FillLinks();
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News));
             }
 
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToDateTimeFormat() };
-            model.EditPageUrl = _newsService.GetEditPage().Url;
-            model.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             model.CanEdit = _newsService.CanEdit(news);
 
             return PartialView(DetailsViewPath, model);
@@ -80,6 +59,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
+            FillLinks();
             var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
             FillCreateEditData(model);
             return PartialView(CreateViewPath, model);
@@ -89,6 +69,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
+            FillLinks();
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
@@ -96,21 +77,23 @@ namespace uCommunity.News.Web
             }
 
             var activityId = CreateNews(createModel);
-            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
+            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, activityId));
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
+            FillLinks();
+
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(_newsService.GetOverviewPage().Url);
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News));
             }
 
             if (!_newsService.CanEdit(news))
             {
-                HttpContext.Response.Redirect(_newsService.GetDetailsPage().Url.UrlWithQueryString("id", id.ToString()));
+                HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, id));
             }
 
             var model = news.Map<NewsEditModel>();
@@ -130,38 +113,33 @@ namespace uCommunity.News.Web
 
             UpdateNews(editModel);
 
-            return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", editModel.Id.ToString() } });
+            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, editModel.Id));
         }
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
         {
-            FillLinks();
-
             var mediaSettings = _newsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             ViewData.SetDateTimeFormats();
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        protected virtual IEnumerable<NewsOverviewItemViewModel> GetOverviewItems(IEnumerable<NewsBase> news)
+        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news)
         {
-            var detailsPageUrl = _newsService.GetDetailsPage().Url;
-            foreach (var item in news)
-            {
-                var model = item.Map<NewsOverviewItemViewModel>();
-                model.ShortDescription = item.Description.Truncate(ShortDescriptionLength);
-                model.MediaIds = item.MediaIds;
-                model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
-                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString());
-                model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
-                {
-                    MediaIds = item.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString())
-                };
-                model.Expired = _newsService.IsExpired(item);
+            var model = news.Map<NewsItemViewModel>();
+            model.ShortDescription = news.Description.Truncate(ShortDescriptionLength);
+            model.MediaIds = news.MediaIds;
+            model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
+            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, news.Id);
+            model.Expired = _newsService.IsExpired(news);
 
-                yield return model;
-            }
+            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+            {
+                MediaIds = news.MediaIds,
+                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, news.Id),
+                DisplayedImagesCount = DisplayedImagesCount
+            };
+            return model;
         }
 
         protected virtual Guid CreateNews(NewsCreateModel createModel)
@@ -193,11 +171,15 @@ namespace uCommunity.News.Web
 
         protected virtual void FillLinks()
         {
-            var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
             var overviewPageUrl = _newsService.GetOverviewPage(CurrentPage).Url;
+            var createPageUrl = _newsService.GetCreatePage(CurrentPage).Url;
+            var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
+            var editPageUrl = _newsService.GetEditPage(CurrentPage).Url;
 
             ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.News, overviewPageUrl);
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, detailsPageUrl);
+            ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.News, createPageUrl);
+            ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.News, editPageUrl);
         }
     }
 }
