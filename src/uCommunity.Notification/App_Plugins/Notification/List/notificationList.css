@@ -11,6 +11,11 @@
         padding:0;
         list-style:none;
 
+        .notification &{
+            background:var(--color-white);
+            border:1px solid var(--color-light-gray);
+        }
+
         &-item{
             display:flex;
             align-items:center;
@@ -18,6 +23,15 @@
             padding:10px 0;
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
+
+            .notification &{
+                padding:13px 20px;
+                align-items:flex-start;
+
+                &:last-child{
+                    border:none;
+                }
+            }
 
             &:after{
                 position:absolute;
@@ -29,9 +43,17 @@
                 display:none;
                 z-index:-1;
                 content:'';
+
+                .notification &{
+                    display:none;
+                }
             }
 
             &[data-viewed='false']{
+                .notification &{
+                    background:var(--color-light-gray-2);
+                }
+
                 &:after{
                     display:block;
                 }
@@ -55,6 +77,10 @@
                 transform: translate(-50%, -50%);
                 width:60px;
             }
+
+            .notification &{
+                margin-top:7px;
+            }
         }
 
         &-link{             
@@ -68,8 +94,8 @@
         }
 
         &-title{
-            margin:0;
-            font:13px/22px var(--font-general);
+            margin:0 0 5px;
+            font:bold 16px/22px var(--font-general);
         }
 
         &-meta{
@@ -105,6 +131,10 @@
                 display:block;
                 padding:5px 0 0;
             }
+
+            .notification &{
+                display:none;
+            }
         }
 
         &-holder{
@@ -113,13 +143,18 @@
 
         &-type,
         &-name{
-            font-size:16px;
-            font-weight:bold;
+            margin:0;
+            font:13px/22px var(--font-general);
         }
 
         &-date{
             margin:0 0 0 20px;
             float:right;
+
+            .notification &{
+                float:none;
+                margin:0;
+            }
         }
     }
 }
