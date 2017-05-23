@@ -17,6 +17,7 @@ namespace uCommunity.Core.Controls.LightboxGallery
                 .ForMember(d => d.Width, o => o.Ignore())
                 .ForMember(d => d.Height, o => o.Ignore())
                 .ForMember(d => d.PreviewUrl, o => o.Ignore())
+                .ForMember(d => d.IsHidden, o => o.Ignore())
                 .AfterMap((s, d) =>
                 {
                     if (d.Type == MediaTypeEnum.Image)
