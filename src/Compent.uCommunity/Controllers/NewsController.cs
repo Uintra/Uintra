@@ -24,6 +24,7 @@ namespace Compent.uCommunity.Controllers
 {
     public class NewsController : NewsControllerBase
     {
+        private const int DisplayedImagesCount = 3;
         protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
@@ -184,7 +185,7 @@ namespace Compent.uCommunity.Controllers
                 {
                     MediaIds = newsModelBase.MediaIds,
                     Url = detailsPageUrl.UrlWithQueryString("id", newsModelBase.Id.ToString()),
-                    MaxImagesCount = 2
+                    DisplayedImagesCount = DisplayedImagesCount
                 };
 
                 overviewItemViewModel.Expired = _newsService.IsExpired(newsModelBase);

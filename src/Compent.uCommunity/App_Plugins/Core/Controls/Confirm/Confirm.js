@@ -1,4 +1,6 @@
 ﻿var Alertify = require('alertifyjs/build/alertify.min');
+require('alertifyjs/build/css/alertify.min.css');
+require('alertifyjs/build/css/themes/default.min.css');
 
 (function () {
     Alertify.defaults.glossary.yes = 'yes';

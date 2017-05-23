@@ -7,6 +7,7 @@ var menu = $('.tabset__navigation');
 var title = $('.tabset__title');
 var menuHolder = menu.closest('.tabset');
 var body = $('body');
+var wrapper = $('#wrapper');
 
 if (menu.length > 0) {
     body.addClass('_with-sub-nav');
@@ -31,6 +32,18 @@ var initMobileMenu = function() {
 
     if (menu.find('._active').length <= 0) {
         menu.find('.tabset__navigation-item:first-child').addClass('_active');
+    }
+
+    if(title.hasClass('_no-link')){
+        wrapper.css({
+            'padding-top': '131px'
+        })
+    }
+
+    else{
+        wrapper.css({
+            'padding-top': '181px'
+        })
     }
 
     if (opener.length > 1) {

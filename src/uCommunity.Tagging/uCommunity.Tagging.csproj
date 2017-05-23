@@ -338,6 +338,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Tagging\taggle.css" />
+    <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <None Include="packages.config" />
     <None Include="uCommunity.Tagging.nuspec">

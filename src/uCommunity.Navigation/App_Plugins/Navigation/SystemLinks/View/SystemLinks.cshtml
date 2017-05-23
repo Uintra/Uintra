@@ -8,11 +8,13 @@
         <span class="side-nav__arrow"></span>
         @foreach (var group in Model)
         {
-            if (Model.Count > 1)
-            {
-                <span>@group.LinksGroupTitle</span>
-            }
             <ul class="side-nav">
+                @if (Model.Count > 1)
+                {
+                    <li class="side-nav__item">
+                        <h3 class="side-nav__title">@group.LinksGroupTitle</h3>
+                    </li>
+                }
                 @foreach (var item in group.SystemLinks)
                 {
                     <li class="side-nav__item">

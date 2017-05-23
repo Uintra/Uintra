@@ -23,8 +23,8 @@ namespace Compent.uCommunity.Core
 
         public TService GetService<TService>(Guid id) where TService : class
         {
-            var type = _activityRepository.Get(id).Type;
-            return GetService<TService>(type);
+            var repository = _activityRepository.Get(id);
+            return repository != null ? GetService<TService>(repository.Type) : null;
         }
 
         public TService GetService<TService>(IntranetActivityTypeEnum type) where TService : class
@@ -34,8 +34,8 @@ namespace Compent.uCommunity.Core
 
         public TService GetServiceSafe<TService>(Guid id) where TService : class
         {
-            var type = _activityRepository.Get(id).Type;
-            return GetServiceSafe<TService>(type);
+            var repository = _activityRepository.Get(id);
+            return repository != null ? GetServiceSafe<TService>(repository.Type) : null;
         }
 
         public TService GetServiceSafe<TService>(IntranetActivityTypeEnum type) where TService : class

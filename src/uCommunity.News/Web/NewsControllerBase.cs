@@ -156,8 +156,7 @@ namespace uCommunity.News.Web
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = item.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString()),
-                    MaxImagesCount = 2
+                    Url = detailsPageUrl.UrlWithQueryString("id", item.Id.ToString())
                 };
                 model.Expired = _newsService.IsExpired(item);
 
