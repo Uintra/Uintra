@@ -26,6 +26,7 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
+        private const int DisplayedImagesCount = 3;
         public override string OverviewViewPath => "~/Views/Events/OverView.cshtml";
         public override string ListViewPath => "~/Views/Events/ListView.cshtml";
         public override string DetailsViewPath => "~/Views/Events/DetailsView.cshtml";
@@ -238,7 +239,8 @@ namespace Compent.uCommunity.Controllers
                 model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
                 {
                     MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
+                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
+                    DisplayedImagesCount = DisplayedImagesCount
                 };
                 yield return model;
             }
