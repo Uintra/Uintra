@@ -8,6 +8,7 @@
             float:none;
             display:block;
             overflow:hidden;
+            margin:0;
 
             &.taggle {
                 display:inline-block;
