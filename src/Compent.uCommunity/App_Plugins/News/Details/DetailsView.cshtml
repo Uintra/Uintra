@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
 @model uCommunity.News.NewsViewModel
 @{
@@ -12,13 +13,11 @@
         <div class="row clearfix">
             <div class="col-md-9">
                 <header class="content__header">
-                    @*<a href="#" class="content__item-print hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>*@
                     @if (Model.CanEdit)
                     {
-                        <a class="content__btn" href="@Model.EditPageUrl.UrlWithQueryString("id", @Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                        <a class="content__btn" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.News, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
                     }
-                    @*<span class="content__item-label">@Html.Localize("DetailsView.Important.lbl")</span>*@
-                    <a class="link__back" href="@($"{Context.GetBackLink(Model.OverviewPageUrl)}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
+                    <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
                 </header>
 
                 <div class="content__item _details">

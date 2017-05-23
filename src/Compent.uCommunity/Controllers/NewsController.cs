@@ -24,20 +24,28 @@ namespace Compent.uCommunity.Controllers
 {
     public class NewsController : NewsControllerBase
     {
-        private const int DisplayedImagesCount = 3;
         protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
         protected override int ShortDescriptionLength { get; } = 500;
 
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly INewsService<NewsEntity> _newsService;
+        private readonly IMediaHelper _mediaHelper;
         private readonly ITagsService _tagsService;
 
-        public NewsController(IIntranetUserService<IntranetUser> intranetUserService, INewsService<NewsEntity> newsService, IMediaHelper mediaHelper, ITagsService tagsService)
+        public NewsController(
+            IIntranetUserService<IntranetUser> intranetUserService, 
+            INewsService<NewsEntity> newsService, 
+            IMediaHelper mediaHelper, 
+            ITagsService tagsService)
             : base(intranetUserService, newsService, mediaHelper)
         {
+            if (tagsService == null) throw new ArgumentNullException(nameof(tagsService));
+            _intranetUserService = intranetUserService;
             _newsService = newsService;
+            _mediaHelper = mediaHelper;
             _tagsService = tagsService;
         }
 
@@ -47,20 +55,6 @@ namespace Compent.uCommunity.Controllers
 
             var model = GetOverviewItems(Enumerable.Repeat(activity, 1)).Single();
             return PartialView(ItemViewPath, model);
-        }
-
-        public override ActionResult List()
-        {
-            var news = _newsService.GetManyActual().OrderBy(IsPinActual).ThenByDescending(item => item.PublishDate);
-            var model = new NewsOverviewViewModel
-            {
-                CreatePageUrl = _newsService.GetCreatePage().Url,
-                DetailsPageUrl = _newsService.GetDetailsPage().Url,
-                Items = GetOverviewItems(news)
-            };
-
-            FillLinks();
-            return PartialView(ListViewPath, model);
         }
 
         public override ActionResult Details(Guid id)
@@ -74,8 +68,6 @@ namespace Compent.uCommunity.Controllers
             var newsViewModel = newsModelBase.Map<NewsExtendedViewModel>();
             newsViewModel.HeaderInfo = newsModelBase.Map<IntranetActivityDetailsHeaderViewModel>();
             newsViewModel.HeaderInfo.Dates = new List<string> { newsModelBase.PublishDate.ToString("dd.MM.yyyy HH:mm") };
-            newsViewModel.EditPageUrl = _newsService.GetEditPage().Url;
-            newsViewModel.OverviewPageUrl = _newsService.GetOverviewPage().Url;
             newsViewModel.CanEdit = _newsService.CanEdit(newsModelBase);
 
             return PartialView(DetailsViewPath, newsViewModel);
@@ -192,18 +184,6 @@ namespace Compent.uCommunity.Controllers
                 overviewItemViewModel.Expired = _newsService.IsExpired(newsModelBase);
                 yield return overviewItemViewModel;
             }
-        }
-
-        private bool IsPinActual(NewsBase item)
-        {
-            if (!item.IsPinned) return false;
-
-            if (item.EndPinDate.HasValue)
-            {
-                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
-            }
-
-            return true;
         }
     }
 }

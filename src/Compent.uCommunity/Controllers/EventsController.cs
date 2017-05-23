@@ -26,16 +26,16 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        private const int DisplayedImagesCount = 3;
-        public override string OverviewViewPath => "~/Views/Events/OverView.cshtml";
-        public override string ListViewPath => "~/Views/Events/ListView.cshtml";
-        public override string DetailsViewPath => "~/Views/Events/DetailsView.cshtml";
-        public override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
-        public override string EditViewPath => "~/Views/Events/EditView.cshtml";
-        public override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
+        protected override string ListViewPath => "~/Views/Events/ListView.cshtml";
+        protected override string DetailsViewPath => "~/Views/Events/DetailsView.cshtml";
+        protected override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
+        protected override string EditViewPath => "~/Views/Events/EditView.cshtml";
+        protected override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
         protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
+        private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly ITagsService _tagsService;
 
@@ -47,6 +47,8 @@ namespace Compent.uCommunity.Controllers
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
+            _mediaHelper = mediaHelper;
+            _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _tagsService = tagsService;
         }
@@ -54,17 +56,7 @@ namespace Compent.uCommunity.Controllers
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
             var activity = item as Event;
-            return PartialView(ItemViewPath, GetOverviewItems(Enumerable.Repeat(activity, 1)).Single());
-        }
-
-        public override ActionResult List(EventType type, bool showOnlySubscribed)
-        {
-            var events = type == EventType.Actual ?
-                 _eventsService.GetManyActual().OrderBy(IsPinActual).ThenBy(item => item.StartDate).ThenBy(item => item.EndDate) :
-                 _eventsService.GetPastEvents().OrderBy(IsPinActual).ThenByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
-
-            FillLinks();
-            return PartialView(ListViewPath, GetOverviewItems(events));
+            return PartialView(ItemViewPath, GetItemViewModel(activity));
         }
 
         public override ActionResult Details(Guid id)
@@ -79,8 +71,6 @@ namespace Compent.uCommunity.Controllers
             var model = @event.Map<IntranetEventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.EditPageUrl = _eventsService.GetEditPage().Url;
-            model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
@@ -222,30 +212,6 @@ namespace Compent.uCommunity.Controllers
             return @event;
         }
 
-        protected IEnumerable<EventOverviewItemModel> GetOverviewItems(IEnumerable<Event> events)
-        {
-            var detailsPageUrl = _eventsService.GetDetailsPage().Url;
-            foreach (var @event in events)
-            {
-                var model = @event.Map<EventOverviewItemModel>();
-
-                model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
-                model.MediaIds = @event.MediaIds;
-                model.CanSubscribe = _eventsService.CanSubscribe(@event);
-
-                model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
-
-                model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
-                {
-                    MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString()),
-                    DisplayedImagesCount = DisplayedImagesCount
-                };
-                yield return model;
-            }
-        }
-
         protected override void OnEventCreated(Guid activityId)
         {
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
@@ -267,18 +233,6 @@ namespace Compent.uCommunity.Controllers
         protected override void OnEventHidden(Guid id)
         {
             ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
-        }
-
-        private bool IsPinActual(EventBase item)
-        {
-            if (!item.IsPinned) return false;
-
-            if (item.EndPinDate.HasValue)
-            {
-                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
-            }
-
-            return true;
         }
     }
 }
