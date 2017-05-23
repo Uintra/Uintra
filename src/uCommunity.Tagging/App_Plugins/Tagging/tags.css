@@ -1,33 +1,37 @@
-﻿.taggle {
-    &_placeholder {
-        position: absolute;
-        color: #ccc;
-        top: 12px;
-        left: 8px;
-        transition: opacity,.25s;
-    }
+﻿.taggle{
+    max-width:50%;
 
     &_list{
-        .taggle {
-            margin-right: 8px;
-            background: #E2E1DF;
-            padding: 5px 10px;
-            border-radius: 3px;
-            position: relative;
-            cursor: pointer;
-            transition: all .3s;
-            animation-duration: 1s;
-            animation-fill-mode: both;
+        margin:0;
+        padding:0;
+        list-style:none;
+
+        .taggle{
+            background: var(--color-light-gray-3);
+            border-radius: 7px;
+            color: var(--color-white);
+            display: inline-block;
+            font-size: 13px;
+            padding: 1px 10px 2px;
+            vertical-align: top;
+            margin:0 10px 10px 0;
         }
     }
 
+    &_text{
+        vertical-align:middle;
+        margin:0 10px 0 0;
+    }
+
     &_input{
-        padding: 8px;
-        padding-left: 0;
-        float: left;
-        margin-top: -5px;
-        background: 0 0;
-        width: 100%;
-        max-width: 100%;
+        display:block;
+        width:100% !important;
+        margin:0;
+        padding:9px 10px 10px !important;
+        font:13px/22px Arial, Helvetica, sans-serif;
+        color: #333;
+        background: #fff;
+        border: 1px solid #ccc;
+        position: relative;
     }
 }
