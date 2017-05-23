@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
@@ -38,7 +38,7 @@ namespace uCommunity.News.Web
             _newsService = newsService;
             _mediaHelper = mediaHelper;
         }
-     
+
         public virtual ActionResult Details(Guid id)
         {
             FillLinks();
@@ -48,10 +48,7 @@ namespace uCommunity.News.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News));
             }
 
-            var model = news.Map<NewsViewModel>();
-            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { news.PublishDate.ToDateTimeFormat() };
-            model.CanEdit = _newsService.CanEdit(news);
+            var model = GetViewModel(news);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -77,6 +74,7 @@ namespace uCommunity.News.Web
             }
 
             var activityId = CreateNews(createModel);
+            OnNewsCreated(activityId, createModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, activityId));
         }
 
@@ -96,8 +94,7 @@ namespace uCommunity.News.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, id));
             }
 
-            var model = news.Map<NewsEditModel>();
-            FillCreateEditData(model);
+            var model = GetEditViewModel(news);
             return PartialView(EditViewPath, model);
         }
 
@@ -111,8 +108,8 @@ namespace uCommunity.News.Web
                 return PartialView(EditViewPath, editModel);
             }
 
-            UpdateNews(editModel);
-
+            var activity = UpdateNews(editModel);
+            OnNewsEdited(activity, editModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, editModel.Id));
         }
 
@@ -122,6 +119,22 @@ namespace uCommunity.News.Web
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             ViewData.SetDateTimeFormats();
             model.MediaRootId = mediaSettings.MediaRootId;
+        }
+
+        protected virtual NewsEditModel GetEditViewModel(NewsBase news)
+        {
+            var model = news.Map<NewsEditModel>();
+            FillCreateEditData(model);
+            return model;
+        }
+
+        protected virtual NewsViewModel GetViewModel(NewsBase news)
+        {
+            var model = news.Map<NewsViewModel>();
+            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
+            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.CanEdit = _newsService.CanEdit(news);
+            return model;
         }
 
         protected virtual NewsItemViewModel GetItemViewModel(NewsBase news)
@@ -155,9 +168,10 @@ namespace uCommunity.News.Web
             return _newsService.Create(news);
         }
 
-        protected virtual void UpdateNews(NewsEditModel editModel)
+        protected virtual NewsBase UpdateNews(NewsEditModel editModel)
         {
-            var activity = editModel.Map<NewsBase>();
+            var activity = _newsService.Get(editModel.Id);
+            activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
@@ -167,6 +181,7 @@ namespace uCommunity.News.Web
             }
 
             _newsService.Save(activity);
+            return activity;
         }
 
         protected virtual void FillLinks()
@@ -180,6 +195,14 @@ namespace uCommunity.News.Web
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, detailsPageUrl);
             ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.News, createPageUrl);
             ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.News, editPageUrl);
+        }
+
+        protected virtual void OnNewsCreated(Guid activityId, NewsCreateModel model)
+        {
+        }
+
+        protected virtual void OnNewsEdited(NewsBase news, NewsEditModel model)
+        {
         }
     }
 }
