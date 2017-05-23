@@ -43,10 +43,6 @@
                 display:none;
                 z-index:-1;
                 content:'';
-
-                .notification &{
-                    display:none;
-                }
             }
 
             &[data-viewed='false']{
@@ -56,6 +52,10 @@
 
                 &:after{
                     display:block;
+
+                    .notification &{
+                        display:none;
+                    }
                 }
             }
         }

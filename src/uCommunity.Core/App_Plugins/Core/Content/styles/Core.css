@@ -318,6 +318,10 @@
         &._large{
             padding:8px 20px 10px;
         }
+
+        &-holder{
+            padding:20px 0;
+        }
     }
 
     .validation-summary-errors,
