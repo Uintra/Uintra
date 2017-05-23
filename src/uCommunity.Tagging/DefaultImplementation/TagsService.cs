@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using uCommunity.Core.Extentions;
 using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Tagging
@@ -16,11 +17,12 @@ namespace uCommunity.Tagging
             _tagActivityRelationRepository = tagActivityRelationRepository;
         }
 
-        public void FillTags(IHaveTags activity)
+        public IEnumerable<Tag> FindAll(string query)
         {
-            activity.Tags = GetMany(activity.Id).OrderBy(tag => tag.Text);
+            var trimmedQuery = query.Trim();
+            return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery, StringComparison.OrdinalIgnoreCase));
         }
-
+        
         public IEnumerable<Tag> GetAll()
         {
             return _tagRepository.GetAll();
@@ -28,9 +30,10 @@ namespace uCommunity.Tagging
 
         public void Save(Guid activityId, IEnumerable<TagDTO> tags)
         {
-            if (!tags.Any())
+            _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
+
+            if (tags.IsEmpty())
             {
-                _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
                 return;
             }
 
@@ -41,8 +44,6 @@ namespace uCommunity.Tagging
 
             _tagRepository.Add(newTags);
 
-            _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
-
             var activityTagIds = newTags
                 .Select(tag => tag.Id)
                 .Concat(tags.Where(t => t.Id.HasValue).Select(t => t.Id.Value));
@@ -51,10 +52,9 @@ namespace uCommunity.Tagging
             _tagActivityRelationRepository.Add(tagActivityRelations);
         }
 
-        public IEnumerable<Tag> FindAll(string query)
+        public void FillTags(IHaveTags activity)
         {
-            var trimmedQuery = query.Trim();
-            return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery, StringComparison.OrdinalIgnoreCase));
+            activity.Tags = GetMany(activity.Id).OrderBy(tag => tag.Text);
         }
 
         private IEnumerable<Tag> GetMany(Guid activityId)
@@ -64,7 +64,7 @@ namespace uCommunity.Tagging
                 .Select(el => el.TagId)
                 .ToList();
 
-            return _tagRepository.FindAll(el => tagIds.Contains(el.Id));
+            return _tagRepository.GetMany(tagIds.Cast<object>());
         }
     }
 }
