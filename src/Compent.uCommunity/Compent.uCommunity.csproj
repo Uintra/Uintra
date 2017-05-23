@@ -319,9 +319,9 @@
       <HintPath>..\..\packages\uCommunity.Comments.1.0.8.2\lib\net452\uCommunity.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Core, Version=1.0.33.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Core, Version=1.0.34.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Core.1.0.33.5\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Core.1.0.34.1\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Events, Version=1.0.8.12, Culture=neutral, processorArchitecture=MSIL">

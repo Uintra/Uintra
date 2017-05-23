@@ -647,6 +647,16 @@
             }
         }
     }
+
+    &__top-bar{
+        opacity:1 !important;
+
+        @media (--for-tablet-portrait-down) {
+            & {
+                opacity: 0 !important;
+            }
+        }
+    }
 }
 
 .content{
