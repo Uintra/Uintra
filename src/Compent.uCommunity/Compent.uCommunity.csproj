@@ -354,8 +354,9 @@
       <HintPath>..\..\packages\uCommunity.Subscribe.1.0.9\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Tagging, Version=0.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Tagging.0.0.1.1\lib\net452\uCommunity.Tagging.dll</HintPath>
+    <Reference Include="uCommunity.Tagging, Version=0.0.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uCommunity.Tagging.0.0.1.4\lib\net452\uCommunity.Tagging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
@@ -762,6 +763,7 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
+    <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\tags.js" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />

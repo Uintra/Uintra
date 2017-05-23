@@ -1,37 +1,34 @@
-.taggle{
-    max-width:50%;
-
+﻿.taggle{
     &_list{
         margin:0;
         padding:0;
         list-style:none;
 
-        .taggle{
-            background: var(--color-light-gray-3);
-            border-radius: 7px;
-            color: var(--color-white);
-            display: inline-block;
-            font-size: 13px;
-            padding: 1px 10px 2px;
-            vertical-align: top;
-            margin:0 10px 10px 0;
+        li{
+            float:none;
+            display:block;
+            overflow:hidden;
+
+            &.taggle {
+                display:inline-block;
+                vertical-align:top;
+                margin:0 8px 10px 0 !important;
+
+                .close{
+                    font-size:1.5rem;
+                    color:var(--text-color-dark);
+                }
+            }
         }
     }
 
-    &_text{
-        vertical-align:middle;
-        margin:0 10px 0 0;
-    }
-
     &_input{
-        display:block;
         width:100% !important;
-        margin:0;
-        padding:9px 10px 10px !important;
+        padding:5px 10px !important;
         font:13px/22px Arial, Helvetica, sans-serif;
         color: #333;
         background: #fff;
         border: 1px solid #ccc;
-        position: relative;
+        margin:0;
     }
 }
