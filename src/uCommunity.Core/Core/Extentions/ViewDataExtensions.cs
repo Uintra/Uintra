@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using Compent.uCommunity.Core;
 using uCommunity.Core.Activity;
@@ -16,7 +17,6 @@ namespace uCommunity.Core.Extentions
 
         private const string DetailsPageUrl = "DetailsPageUrl";
         private const string OverviewPageUrl = "OverviewPageUrl";
-        private const string GroupPageUrl = "GroupPageUrl";
         private const string CreatePageUrl = "CreatePageUrl";
 
 
@@ -91,16 +91,26 @@ namespace uCommunity.Core.Extentions
             return GetActivityPageUrl(dataView, activityType, DetailsPageUrl);
         }
 
+        public static string GetActivityDetailsPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, Guid id)
+        {
+            return GetActivityPageUrl(dataView, activityType, DetailsPageUrl).AddIdParameter(id);
+        }
+
         private static void SetActivityPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string pageName, string url)
         {
-            dataView[$"{activityType}_{pageName}"] = url;
+            dataView[GetKey(activityType, pageName)] = url;
         }
 
         private static string GetActivityPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string pageName)
         {
-            var url = dataView[$"{activityType}_{pageName}"]?.ToString();
+            var url = dataView[GetKey(activityType, pageName)]?.ToString();
 
             return url;
+        }
+
+        private static string GetKey(IntranetActivityTypeEnum activityType, string pageName)
+        {
+            return $"{activityType}_{pageName}";
         }
     }
 }
