@@ -11,12 +11,12 @@
     }
     @if (Model.OtherFiles.Any())
     {
-        <a href="@Model.Url">
-            <li class="gallery__item _attachments ">
+        <li class="gallery__item _attachments ">
+            <a class="gallery__item-link" href="@Model.Url">
                 <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" />
                 <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
-            </li>
-        </a>
+            </a>
+        </li>
     }
 </ul>
 

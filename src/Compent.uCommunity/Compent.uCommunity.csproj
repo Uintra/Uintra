@@ -354,9 +354,10 @@
       <HintPath>..\..\packages\uCommunity.Subscribe.1.0.9\lib\net452\uCommunity.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Tagging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Tagging, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Tagging.1.0.1.1\lib\net452\uCommunity.Tagging.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Tagging.1.0.1.2\lib\net452\uCommunity.Tagging.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Users, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

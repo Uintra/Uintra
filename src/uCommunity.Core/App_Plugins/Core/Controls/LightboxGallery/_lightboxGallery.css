@@ -25,6 +25,7 @@
         &._attachments{
             width:140px;
             min-height:70px;
+            max-height: initial;
             text-align:center;
             max-width:initial;
 
