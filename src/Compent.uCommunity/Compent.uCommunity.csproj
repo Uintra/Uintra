@@ -894,7 +894,7 @@
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
-    <Compile Include="Core\Events\Models\EventExtendedCreateModel.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedActivityCreateModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
@@ -1054,6 +1054,12 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uCommunity.Tagging\uCommunity.Tagging.csproj">
+      <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
+      <Name>uCommunity.Tagging</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

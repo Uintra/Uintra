@@ -22,11 +22,13 @@ namespace Compent.uCommunity.Core.Events
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
-            Mapper.CreateMap<Event, EventExtendedCreateModel>()
-                .IncludeBase<EventBase, EventCreateModel>();
+            Mapper.CreateMap<Event, EventExtendedActivityCreateModel>()
+                .IncludeBase<EventBase, EventCreateModel>()
+                .ForMember(dst => dst.Tags, o => o.Ignore());
 
             Mapper.CreateMap<Event, EventExtendedEditModel>()
-                .IncludeBase<EventBase, EventEditModel>();
+                .IncludeBase<EventBase, EventEditModel>()
+                .ForMember(dst => dst.Tags, o => o.MapFrom(el => el.Tags));
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()

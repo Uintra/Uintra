@@ -6,6 +6,7 @@ using uCommunity.Events;
 using uCommunity.Navigation.AutoMapperProfiles;
 using uCommunity.News;
 using uCommunity.Notification.Core.Profiles;
+using uCommunity.Tagging;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
 
@@ -25,6 +26,7 @@ namespace Compent.uCommunity.App_Start
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
             Mapper.AddProfile<NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
+            Mapper.AddProfile<TagAutoMapperProfile>();
 
             var typemaps = Mapper.GetAllTypeMaps();
 

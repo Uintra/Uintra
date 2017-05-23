@@ -116,7 +116,7 @@ namespace Compent.uCommunity.Controllers
             }
 
             var activityId = _newsService.Create(news);
-            _tagsService.SaveTags(activityId, createModel.Tags);
+            _tagsService.Save(activityId, createModel.Tags.Map<IEnumerable<TagDTO>>());
 
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
         }
@@ -165,7 +165,8 @@ namespace Compent.uCommunity.Controllers
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
             _newsService.Save(activity);
-            _tagsService.SaveTags(editModel.Id, editModel.Tags);
+            
+            _tagsService.Save(editModel.Id, editModel.Tags.Map<IEnumerable<TagDTO>>());
 
             return RedirectToUmbracoPage(_newsService.GetDetailsPage(), new NameValueCollection { { "id", activity.Id.ToString() } });
         }

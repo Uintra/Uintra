@@ -4,9 +4,9 @@ using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class EventExtendedEditModel : EventEditModel, ITagsActivityCreateEditModel
+    public class EventExtendedActivityCreateModel : EventCreateModel, ITagsActivityCreateEditModel
     {
-        public EventExtendedEditModel()
+        public EventExtendedActivityCreateModel()
         {
             Tags = new List<TagEditModel>();
         }

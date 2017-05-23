@@ -90,7 +90,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public override ActionResult Create()
         {
-            var model = new EventExtendedCreateModel
+            var model = new EventExtendedActivityCreateModel
             {
                 StartDate = DateTime.Now.Date.AddHours(8),
                 EndDate = DateTime.Now.Date.AddHours(8),
@@ -110,25 +110,25 @@ namespace Compent.uCommunity.Controllers
 
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult Create(EventExtendedCreateModel createModel)
+        public ActionResult Create(EventExtendedActivityCreateModel activityCreateModel)
         {
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
+                FillCreateEditData(activityCreateModel);
+                return PartialView(CreateViewPath, activityCreateModel);
             }
 
-            var @event = createModel.Map<EventBase>();
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            var @event = activityCreateModel.Map<EventBase>();
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(activityCreateModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
-            if (createModel.IsPinned && createModel.PinDays > 0)
+            if (activityCreateModel.IsPinned && activityCreateModel.PinDays > 0)
             {
-                @event.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
+                @event.EndPinDate = DateTime.Now.AddDays(activityCreateModel.PinDays);
             }
 
             var activityId = _eventsService.Create(@event);
-            _tagsService.SaveTags(activityId, createModel.Tags);
+            _tagsService.Save(activityId, activityCreateModel.Tags.Map<IEnumerable<TagDTO>>());
             OnEventCreated(activityId);
 
             return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
@@ -184,7 +184,7 @@ namespace Compent.uCommunity.Controllers
             }
             var isActual = _eventsService.IsActual(@event);
             _eventsService.Save(@event);
-            _tagsService.SaveTags(saveModel.Id, saveModel.Tags);
+            _tagsService.Save(saveModel.Id, saveModel.Tags.Map<IEnumerable<TagDTO>>());
 
             if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
             {

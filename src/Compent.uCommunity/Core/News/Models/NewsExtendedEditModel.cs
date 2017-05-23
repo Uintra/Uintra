@@ -4,8 +4,13 @@ using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.News.Models
 {
-    public class NewsExtendedEditModel : NewsEditModel, ITagsCreateEditModel
+    public class NewsExtendedEditModel : NewsEditModel, ITagsActivityCreateEditModel
     {
-        public IEnumerable<string> Tags { get; set; }
+        public NewsExtendedEditModel()
+        {
+            Tags = new List<TagEditModel>();
+        }
+
+        public IList<TagEditModel> Tags { get; set; }
     }
 }
