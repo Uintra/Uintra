@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -20,17 +18,17 @@ namespace uCommunity.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
-        public virtual string OverviewViewPath => "~/App_Plugins/Events/List/OverView.cshtml";
-        public virtual string ListViewPath => "~/App_Plugins/Events/List/ListView.cshtml";
-        public virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
-        public virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
-        public virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
-        public virtual string ItemViewPath => "~/App_Plugins/Events/List/ItemView.cshtml";
+        protected virtual string ListViewPath => "~/App_Plugins/Events/List/ListView.cshtml";
+        protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
+        protected virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
+        protected virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
+        protected virtual string ItemViewPath => "~/App_Plugins/Events/List/ItemView.cshtml";
         protected virtual int ShortDescriptionLength { get; } = 500;
+        protected virtual int DisplayedImagesCount { get; } = 3;
 
         private readonly IEventsService<EventBase> _eventsService;
-        protected readonly IMediaHelper _mediaHelper;
-        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
@@ -42,35 +40,18 @@ namespace uCommunity.Events.Web
             _intranetUserService = intranetUserService;
         }
 
-        public virtual ActionResult OverView()
-        {
-            FillLinks();
-            return PartialView(OverviewViewPath);
-        }
-
-        public virtual ActionResult List(EventType type, bool showOnlySubscribed)
-        {
-            var events = type == EventType.Actual ?
-                _eventsService.GetManyActual().OrderBy(item => item.StartDate).ThenBy(item => item.EndDate) :
-                _eventsService.GetPastEvents().OrderByDescending(item => item.StartDate).ThenByDescending(item => item.EndDate);
-
-            FillLinks();
-            return PartialView(ListViewPath, GetOverviewItems(events));
-        }
-
         public virtual ActionResult Details(Guid id)
         {
+            FillLinks();
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
-                HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events));
             }
 
             var model = @event.Map<EventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.EditPageUrl = _eventsService.GetEditPage().Url;
-            model.OverviewPageUrl = _eventsService.GetOverviewPage().Url;
+            model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
@@ -86,6 +67,7 @@ namespace uCommunity.Events.Web
                 EndDate = DateTime.Now.Date.AddHours(8),
                 CanSubscribe = true
             };
+            FillLinks();
             FillCreateEditData(model);
             return PartialView(CreateViewPath, model);
         }
@@ -94,6 +76,7 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
+            FillLinks();
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
@@ -112,21 +95,23 @@ namespace uCommunity.Events.Web
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId);
 
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
+            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activityId));
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
+            FillLinks();
+
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
-                HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events));
             }
 
             if (!_eventsService.CanEdit(@event))
             {
-                HttpContext.Response.Redirect(_eventsService.GetDetailsPage().Url.UrlWithQueryString("id", id.ToString()));
+                HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, id));
             }
 
             var model = @event.Map<EventEditModel>();
@@ -139,6 +124,8 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel saveModel)
         {
+            FillLinks();
+
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(saveModel);
@@ -163,7 +150,7 @@ namespace uCommunity.Events.Web
 
             OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
 
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
+            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id));
         }
 
         [HttpPost]
@@ -172,7 +159,8 @@ namespace uCommunity.Events.Web
             OnEventHidden(id);
             _eventsService.Hide(id);
 
-            return Json(new { _eventsService.GetOverviewPage().Url });
+            FillLinks();
+            return Json(new { Url = ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events) });
         }
 
         [HttpPost]
@@ -180,11 +168,6 @@ namespace uCommunity.Events.Web
         {
             var @event = MapEditModel(model);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
-        }
-
-        public virtual ActionResult ItemView(EventsOverviewItemViewModel model)
-        {
-            return PartialView(ItemViewPath, model);
         }
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
@@ -196,8 +179,6 @@ namespace uCommunity.Events.Web
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
         {
-            FillLinks();
-
             var mediaSettings = _eventsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             ViewData.SetDateTimeFormats();
@@ -209,33 +190,32 @@ namespace uCommunity.Events.Web
             var overviewPageUrl = _eventsService.GetOverviewPage(CurrentPage).Url;
             var createPageUrl = _eventsService.GetCreatePage(CurrentPage).Url;
             var detailsPageUrl = _eventsService.GetDetailsPage(CurrentPage).Url;
+            var editPageUrl = _eventsService.GetEditPage(CurrentPage).Url;
 
             ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events, overviewPageUrl);
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, detailsPageUrl);
             ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.Events, createPageUrl);
+            ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.Events, editPageUrl);
         }
 
-        protected virtual IEnumerable<EventsOverviewItemViewModel> GetOverviewItems(IEnumerable<EventBase> events)
+        protected virtual EventItemViewModel GetItemViewModel(EventBase @event)
         {
-            var detailsPageUrl = _eventsService.GetDetailsPage().Url;
-            foreach (var @event in events)
+            var model = @event.Map<EventItemViewModel>();
+
+            model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
+            model.MediaIds = @event.MediaIds;
+            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+
+            model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
+            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id);
+
+            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
-                var model = @event.Map<EventsOverviewItemViewModel>();
-
-                model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
-                model.MediaIds = @event.MediaIds;
-                model.CanSubscribe = _eventsService.CanSubscribe(@event);
-
-                model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-                model.HeaderInfo.DetailsPageUrl = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString());
-
-                model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
-                {
-                    MediaIds = @event.MediaIds,
-                    Url = detailsPageUrl.UrlWithQueryString("id", @event.Id.ToString())
-                };
-                yield return model;
-            }
+                MediaIds = @event.MediaIds,
+                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id),
+                DisplayedImagesCount = DisplayedImagesCount
+            };
+            return model;
         }
 
         protected virtual void OnEventCreated(Guid activityId)

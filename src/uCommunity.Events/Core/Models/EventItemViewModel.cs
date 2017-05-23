@@ -6,7 +6,7 @@ using uCommunity.Core.Controls.LightboxGallery;
 
 namespace uCommunity.Events
 {
-    public class EventsOverviewItemViewModel
+    public class EventItemViewModel
     {
         public Guid Id { get; set; }
 

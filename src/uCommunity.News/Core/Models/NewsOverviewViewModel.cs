@@ -5,7 +5,7 @@ namespace uCommunity.News
 {
     public class NewsOverviewViewModel
     {
-        public IEnumerable<NewsOverviewItemViewModel> Items { get; set; }
+        public IEnumerable<NewsItemViewModel> Items { get; set; }
 
         public string CreatePageUrl { get; set; }
 
@@ -13,7 +13,7 @@ namespace uCommunity.News
 
         public NewsOverviewViewModel()
         {
-            Items = Enumerable.Empty<NewsOverviewItemViewModel>();
+            Items = Enumerable.Empty<NewsItemViewModel>();
         }
     }
 }

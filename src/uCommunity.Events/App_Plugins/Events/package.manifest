@@ -21,16 +21,6 @@
       }
     },
     {
-      "name": "Events overview",
-      "alias": "custom.EventsOverview",
-      "view": "/App_Plugins/Events/List/events-list.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "Events",
-        "action": "OverView"
-      }
-    },
-    {
       "name": "Events details",
       "alias": "custom.EventsDetails",
       "view": "/App_Plugins/Events/Details/events-details.html",

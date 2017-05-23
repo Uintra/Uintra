@@ -11,7 +11,7 @@ namespace uCommunity.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<NewsBase, NewsOverviewItemViewModel>()
+            Mapper.CreateMap<NewsBase, NewsItemViewModel>()
                 .ForMember(dst => dst.ShortDescription, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Expired, o => o.Ignore())
@@ -53,8 +53,6 @@ namespace uCommunity.News
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()
-                .ForMember(dst => dst.OverviewPageUrl, o => o.Ignore())
-                .ForMember(dst => dst.EditPageUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
