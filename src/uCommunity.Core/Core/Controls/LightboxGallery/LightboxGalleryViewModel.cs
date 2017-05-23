@@ -9,5 +9,6 @@
         public string Extention { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public bool IsHidden { get; set; }
     }
 }

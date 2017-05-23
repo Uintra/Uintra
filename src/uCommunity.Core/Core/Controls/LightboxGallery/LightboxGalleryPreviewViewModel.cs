@@ -6,12 +6,8 @@ namespace uCommunity.Core.Controls.LightboxGallery
     public class LightboxGalleryPreviewViewModel
     {
         public IEnumerable<LightboxGalleryViewModel> Images { get; set; }
-
         public IEnumerable<LightboxGalleryViewModel> OtherFiles { get; set; }
-
         public string Url { get; set; }
-
-        public int MaxImagesCount { get; set; }
 
         public LightboxGalleryPreviewViewModel()
         {
