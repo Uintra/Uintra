@@ -371,6 +371,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Web\PinActivityControllerBase.cs" />
+    <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
