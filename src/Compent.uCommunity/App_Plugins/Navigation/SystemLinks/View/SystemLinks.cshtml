@@ -8,10 +8,6 @@
         <span class="side-nav__arrow"></span>
         @foreach (var group in Model)
         {
-            @*if (Model.Count > 1)
-            {
-                <span>@group.LinksGroupTitle</span>
-            }*@
             <ul class="side-nav">
                 @if (Model.Count > 1)
                 {
@@ -22,7 +18,7 @@
                 @foreach (var item in group.SystemLinks)
                 {
                     <li class="side-nav__item">
-                        <a class="side-nav__link" href="@item.Url">
+                        <a class="side-nav__link" href="@item.Url" target="@item.Target">
                             @item.Name
                         </a>
                     </li>

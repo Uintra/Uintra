@@ -22,7 +22,6 @@ namespace Compent.uCommunity.Controllers
 {
     public class NavigationController : NavigationControllerBase
     {
-        protected override string MyLinkPageTitleNodePropertyAlias { get; } = "navigationName";
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
@@ -31,10 +30,6 @@ namespace Compent.uCommunity.Controllers
         private readonly INotificationHelper _notificationHelper;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
-        private readonly IMyLinksModelBuilder _myLinksModelBuilder;
-        private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
-        private readonly IMyLinksService _myLinksService;
-        private readonly ISystemLinksService _systemLinksService;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IUiNotifierService _uiNotifierService;
 
@@ -44,24 +39,18 @@ namespace Compent.uCommunity.Controllers
             ITopNavigationModelBuilder topNavigationModelBuilder,
             INotificationHelper notificationHelper,
             ICentralFeedContentHelper centralFeedContentHelper,
-            IMyLinksModelBuilder myLinksModelBuilder,
             ISystemLinksModelBuilder systemLinksModelBuilder,
-            IMyLinksService myLinksService,
             ISystemLinksService systemLinksService,
-            IIntranetUserService<IntranetUser> intranetUserService,
-            IUiNotifierService uiNotifierService) :
-            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, myLinksModelBuilder, systemLinksModelBuilder, myLinksService, intranetUserService)
+            IUiNotifierService uiNotifierService, 
+            IIntranetUserService<IntranetUser> intranetUserService) :
+            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder,  systemLinksModelBuilder)
 
         {
             _notificationHelper = notificationHelper;
             _centralFeedContentHelper = centralFeedContentHelper;
             _topNavigationModelBuilder = topNavigationModelBuilder;
-            _myLinksModelBuilder = myLinksModelBuilder;
-            _systemLinksModelBuilder = systemLinksModelBuilder;
-            _myLinksService = myLinksService;
-            _intranetUserService = intranetUserService;
-            _systemLinksService = systemLinksService;
             _uiNotifierService = uiNotifierService;
+            _intranetUserService = intranetUserService;
         }
 
         public override ActionResult TopNavigation()
