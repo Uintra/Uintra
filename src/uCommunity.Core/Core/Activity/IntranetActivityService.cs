@@ -57,7 +57,7 @@ namespace uCommunity.Core.Activity
 
         public Guid Create(IIntranetActivity activity)
         {
-            activity.EndPinDate = activity.IsPinned && activity.PinDays > 0 ? DateTime.Now.AddDays(activity.PinDays) : default(DateTime?);
+            SetEndPinDate(activity);
             var newActivity = new IntranetActivityEntity { Type = ActivityType, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
 
@@ -68,15 +68,20 @@ namespace uCommunity.Core.Activity
 
         public void Save(IIntranetActivity activity)
         {
-            var oldActivity = Get(activity.Id);
-            if (activity.IsPinned && activity.PinDays > 0 && oldActivity.PinDays != activity.PinDays)
-            {
-                activity.EndPinDate = DateTime.Now.AddDays(activity.PinDays);
-            }
+            var oldActivity = GetFromSql(activity.Id);
+            SetEndPinDate(oldActivity, activity);
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
             _activityRepository.Update(entity);
             UpdateCachedEntity(activity.Id);
+        }
+
+        private void SetEndPinDate(IIntranetActivity newActivity, IIntranetActivity oldActivity = null)
+        {
+            if (newActivity.IsPinned && newActivity.PinDays > 0 && oldActivity?.PinDays != newActivity.PinDays)
+            {
+                newActivity.EndPinDate = DateTime.Now.AddDays(newActivity.PinDays);
+            }
         }
 
         public void Delete(Guid id)
@@ -103,7 +108,7 @@ namespace uCommunity.Core.Activity
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllForCache, CacheExpirationOffset, $"{ActivityType}");
+            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheExpirationOffset, $"{ActivityType}");
             return activities;
         }
 
@@ -125,7 +130,13 @@ namespace uCommunity.Core.Activity
             return cachedActivity;
         }
 
-        private IList<TActivity> GetAllForCache()
+        private TActivity GetFromSql(Guid id)
+        {
+            var activity = MapInternal(_activityRepository.Get(id));
+            return activity;
+        }
+
+        private IList<TActivity> GetAllFromSql()
         {
             var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
             MapBeforeCache(activities.Select(s => (IIntranetActivity)s).ToList());
