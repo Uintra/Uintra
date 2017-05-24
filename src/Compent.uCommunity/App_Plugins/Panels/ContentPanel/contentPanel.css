@@ -401,6 +401,12 @@
         }
 
         &-link{
+            color:var(--text-color-dark);
+
+            &:hover{
+                color:var(--text-color-dark);
+            }
+
             ._horizontal &{
                 background:#fbfbfb;
                 display:block;
