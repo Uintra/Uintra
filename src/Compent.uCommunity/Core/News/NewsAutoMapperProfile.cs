@@ -33,6 +33,10 @@ namespace Compent.uCommunity.Core.News
 
             Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
+
+            Mapper.CreateMap<NewsCreateModel, NewsExtendedCreateModel>(MemberList.Source);
+
+            Mapper.CreateMap<NewsEditModel, NewsExtendedEditModel>(MemberList.Source);
         }
     }
 }

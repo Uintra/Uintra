@@ -55,9 +55,9 @@ namespace Compent.uCommunity.Controllers
 
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public ActionResult Create(EventExtendedActivityCreateModel activityCreateModel)
+        public ActionResult Create(EventExtendedCreateModel createModel)
         {
-            return base.Create(activityCreateModel);
+            return base.Create(createModel);
         }
 
         [HttpPost]
@@ -77,7 +77,7 @@ namespace Compent.uCommunity.Controllers
 
         protected override EventCreateModel GetCreateModel()
         {
-            var extendedModel = base.GetCreateModel().Map<EventExtendedActivityCreateModel>();
+            var extendedModel = base.GetCreateModel().Map<EventExtendedCreateModel>();
             return extendedModel;
         }
 
@@ -101,7 +101,7 @@ namespace Compent.uCommunity.Controllers
 
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
         {
-            var extendedModel = (EventExtendedActivityCreateModel)model;
+            var extendedModel = (EventExtendedCreateModel)model;
             _tagsService.Save(activityId, extendedModel.Tags.Map<IEnumerable<TagDTO>>());
 
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);

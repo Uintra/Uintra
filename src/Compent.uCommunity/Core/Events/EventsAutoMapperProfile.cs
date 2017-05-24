@@ -22,7 +22,7 @@ namespace Compent.uCommunity.Core.Events
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
-            Mapper.CreateMap<Event, EventExtendedActivityCreateModel>()
+            Mapper.CreateMap<Event, EventExtendedCreateModel>()
                 .IncludeBase<EventBase, EventCreateModel>()
                 .ForMember(dst => dst.Tags, o => o.Ignore());
 
@@ -55,6 +55,9 @@ namespace Compent.uCommunity.Core.Events
                 .ForMember(dst => dst.Comments, o => o.Ignore())
                 .ForMember(dst => dst.Subscribers, o => o.Ignore())
                 .ForMember(dst => dst.Tags, o => o.Ignore());
+
+            Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>(MemberList.Source);
+            Mapper.CreateMap<EventEditModel, EventExtendedEditModel>(MemberList.Source);
         }
     }
 }
