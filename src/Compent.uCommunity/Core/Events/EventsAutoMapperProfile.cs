@@ -8,7 +8,7 @@ namespace Compent.uCommunity.Core.Events
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Event, IntranetEventViewModel>()
+            Mapper.CreateMap<Event, EventExtendedViewModel>()
                   .IncludeBase<EventBase, EventViewModel>()
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))

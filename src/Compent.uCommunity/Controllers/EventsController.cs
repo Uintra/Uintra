@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uCommunity.Core.Events;
 using uCommunity.CentralFeed;
-using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Models;
-using uCommunity.Core.Controls.LightboxGallery;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -20,7 +17,6 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
-using Umbraco.Core;
 
 namespace Compent.uCommunity.Controllers
 {
@@ -34,8 +30,6 @@ namespace Compent.uCommunity.Controllers
         protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
-        private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly ITagsService _tagsService;
 
@@ -47,34 +41,15 @@ namespace Compent.uCommunity.Controllers
             : base(eventsService, mediaHelper, intranetUserService)
         {
             _eventsService = eventsService;
-            _mediaHelper = mediaHelper;
-            _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _tagsService = tagsService;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as Event;
             return PartialView(ItemViewPath, GetItemViewModel(activity));
-        }
-
-        public override ActionResult Details(Guid id)
-        {
-            var @event = _eventsService.Get(id);
-
-            if (@event.IsHidden)
-            {
-                HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
-            }
-
-            var model = @event.Map<IntranetEventViewModel>();
-            model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new List<string> { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.CanEdit = _eventsService.CanEdit(@event);
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
-
-            return PartialView(DetailsViewPath, model);
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Create)]
@@ -102,48 +77,13 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create(EventExtendedActivityCreateModel activityCreateModel)
         {
-            if (!ModelState.IsValid)
-            {
-                FillCreateEditData(activityCreateModel);
-                return PartialView(CreateViewPath, activityCreateModel);
-            }
-
-            var @event = activityCreateModel.Map<EventBase>();
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(activityCreateModel));
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-
-            if (activityCreateModel.IsPinned && activityCreateModel.PinDays > 0)
-            {
-                @event.EndPinDate = DateTime.Now.AddDays(activityCreateModel.PinDays);
-            }
-
-            var activityId = _eventsService.Create(@event);
-            _tagsService.Save(activityId, activityCreateModel.Tags.Map<IEnumerable<TagDTO>>());
-            OnEventCreated(activityId);
-
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", activityId.ToString() } });
+            return base.Create(activityCreateModel);
         }
 
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public override ActionResult Edit(Guid id)
         {
-            var @event = _eventsService.Get(id);
-            if (@event.IsHidden)
-            {
-                HttpContext.Response.Redirect(_eventsService.GetOverviewPage().Url);
-            }
-
-            if (!_eventsService.CanEdit(@event))
-            {
-                HttpContext.Response.Redirect(_eventsService.GetDetailsPage().Url.UrlWithQueryString("id", id.ToString()));
-            }
-
-            _tagsService.FillTags(@event);
-
-            var model = @event.Map<EventExtendedEditModel>();
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-            FillCreateEditData(model);
-            return PartialView(EditViewPath, model);
+            return base.Edit(id);
         }
 
         [NonAction]
@@ -158,32 +98,7 @@ namespace Compent.uCommunity.Controllers
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(EventExtendedEditModel saveModel)
         {
-            if (!ModelState.IsValid)
-            {
-                FillCreateEditData(saveModel);
-                return PartialView(EditViewPath, saveModel);
-            }
-
-            var @event = MapEditModel(saveModel);
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-
-            if (_eventsService.CanEditSubscribe(@event.Id))
-            {
-                @event.CanSubscribe = saveModel.CanSubscribe;
-            }
-            var isActual = _eventsService.IsActual(@event);
-            _eventsService.Save(@event);
-            _tagsService.Save(saveModel.Id, saveModel.Tags.Map<IEnumerable<TagDTO>>());
-
-            if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
-            {
-                @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays);
-            }
-
-            OnEventEdited(@event.Id, isActual, saveModel.NotifyAllSubscribers);
-
-            return RedirectToUmbracoPage(_eventsService.GetDetailsPage(), new NameValueCollection { { "id", @event.Id.ToString() } });
+            return base.Edit(saveModel);
         }
 
         [NonAction]
@@ -196,38 +111,54 @@ namespace Compent.uCommunity.Controllers
         [HttpPost]
         public JsonResult HasConfirmation(EventExtendedEditModel model)
         {
-            var @event = MapModel(model);
+            var @event = _eventsService.Get(model.Id);
+            @event = Mapper.Map(model, @event);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
         }
 
-        public ActionResult ItemView(EventOverviewItemModel model)
+        protected override EventViewModel GetViewModel(EventBase @event)
         {
-            return PartialView(ItemViewPath, model);
+            var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
+            extendedModel = Mapper.Map(@event, extendedModel);
+            return extendedModel;
         }
 
-        protected Event MapModel(EventExtendedEditModel saveModel)
+
+
+        protected override EventEditModel GetEditViewModel(EventBase @event)
         {
-            var @event = _eventsService.Get(saveModel.Id);
-            @event = Mapper.Map(saveModel, @event);
-            return @event;
+            var model = base.GetEditViewModel(@event).Map<EventExtendedEditModel>();
+
+            var eventExtended = (IHaveTags)@event;
+            _tagsService.FillTags(@eventExtended);
+            model.Tags = eventExtended.Tags.Map<List<TagEditModel>>();
+            return model;
         }
 
-        protected override void OnEventCreated(Guid activityId)
+        protected override void OnEventCreated(Guid activityId, EventCreateModel model)
         {
+            var extendedModel = (EventExtendedActivityCreateModel)model;
+            _tagsService.Save(activityId, extendedModel.Tags.Map<IEnumerable<TagDTO>>());
+
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
         }
 
-        protected override void OnEventEdited(Guid id, bool isActual, bool notifySubscribers)
+        protected override void OnEventEdited(EventBase @event, EventEditModel model)
         {
-            if (isActual)
-            {
-                if (notifySubscribers)
-                {
-                    ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventUpdated);
-                }
+            var extendedModel = (EventExtendedEditModel)model;
+            _tagsService.Save(@event.Id, extendedModel.Tags.Map<IEnumerable<TagDTO>>());
 
-                _reminderService.CreateIfNotExists(id, ReminderTypeEnum.OneDayBefore);
+            if (!_eventsService.IsActual(@event))
+            {
+                return;
             }
+
+            if (model.NotifyAllSubscribers)
+            {
+                ((INotifyableService)_eventsService).Notify(@event.Id, NotificationTypeEnum.EventUpdated);
+            }
+
+            _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
         }
 
         protected override void OnEventHidden(Guid id)

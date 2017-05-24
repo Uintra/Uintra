@@ -324,9 +324,9 @@
       <HintPath>..\..\packages\uCommunity.Core.1.0.36\lib\net452\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Events, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Events, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Events.1.0.9\lib\net452\uCommunity.Events.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Events.1.0.10\lib\net452\uCommunity.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Likes, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
@@ -338,9 +338,9 @@
       <HintPath>..\..\packages\uCommunity.Navigation.1.0.6.11\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.News, Version=1.0.14.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.News, Version=1.0.15.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.News.1.0.14\lib\net452\uCommunity.News.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.News.1.0.15\lib\net452\uCommunity.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Notification, Version=1.0.5.12, Culture=neutral, processorArchitecture=MSIL">
@@ -925,7 +925,7 @@
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Events\Models\EventOverviewItemModel.cs" />
-    <Compile Include="Core\Events\Models\IntranetEventViewModel.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectWebCommon.cs" />
@@ -1035,8 +1035,6 @@
     <Content Include="Views\SubscribePage\Index.cshtml" />
     <Content Include="Views\Events\ItemView.cshtml" />
     <Content Include="Views\Events\DetailsView.cshtml" />
-    <Content Include="Views\Events\OverView.cshtml" />
-    <Content Include="Views\Events\ListView.cshtml" />
     <Content Include="Views\Events\EditView.cshtml" />
     <Content Include="Views\Events\CreateView.cshtml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
