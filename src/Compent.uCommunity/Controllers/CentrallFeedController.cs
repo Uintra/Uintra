@@ -63,16 +63,6 @@ namespace Compent.uCommunity.Controllers
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-        protected new bool IsPinActual(ICentralFeedItem item)
-        {
-            if (!item.IsPinned) return false;
-
-            if (item.EndPinDate.HasValue)
-            {
-                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
-            }
-
-            return true;
-        }
+       
     }
 }
