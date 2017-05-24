@@ -1,22 +1,33 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
-require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 
-var active = "_expand";
-
-var controller = {
-    switchLinkIcon: function() {
-        $('#mylinkIcon').find('span').toggleClass('_isLinked');
-        addListeners();
+appInitializer.add(function() {
+    var container = document.querySelector('.js-myLinks-container');
+    if (!container) {
+        return;
     }
-}
 
-function addListeners() {
-    $(".js-my-links__opener").on("click", function() {
-        $(this).toggleClass(active);
+    $('.js-myLinks-add').on('click',function() {
+        $.ajax({
+            type: "POST",
+            data: {contentId: $(this).data("contentId")},
+            url: "/umbraco/surface/MyLinks/Add",
+            success: function (data) {
+                container.html(data);
+            }
+        });
     });
-}
 
-appInitializer.add(addListeners);
+    $('.js-myLinks-remove').on('click',function() {
+        $.ajax({
+            type: "POST",
+            data: {id: $(this).data("id")},
+            url: "/umbraco/surface/MyLinks/Remove",
+            success: function (data) {
+                container.html(data);
+            }
+        });
+    });
+});
 
 export default controller;

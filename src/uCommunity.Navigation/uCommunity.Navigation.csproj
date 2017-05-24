@@ -368,6 +368,8 @@
     <Compile Include="Core\Dashboard\Services\IHomeNavigationCompositionService.cs" />
     <Compile Include="Core\Dashboard\Services\INavigationCompositionService.cs" />
     <Compile Include="Core\Dashboard\Services\NavigationCompositionService.cs" />
+    <Compile Include="Core\Exceptions\MyLinksDuplicatedException.cs" />
+    <Compile Include="Core\Exceptions\MyLinksNotExistedException.cs" />
     <Compile Include="Core\ModelBuilders\SystemLinks\ISystemLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\SystemLinks\SystemLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\MyLinks\IMyLinksModelBuilder.cs" />

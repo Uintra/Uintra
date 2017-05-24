@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
-using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
-using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.Web
@@ -30,10 +28,7 @@ namespace uCommunity.Navigation.Web
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
-            IMyLinksModelBuilder myLinksModelBuilder,
-            ISystemLinksModelBuilder systemLinksModelBuilder,
-            IMyLinksService myLinksService,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            ISystemLinksModelBuilder systemLinksModelBuilder)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
