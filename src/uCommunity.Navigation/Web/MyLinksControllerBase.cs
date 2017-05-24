@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -7,6 +6,7 @@ using AutoMapper;
 using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Exceptions;
+using uCommunity.Navigation.Core.Models;
 using uCommunity.Navigation.DefaultImplementation;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -35,13 +35,12 @@ namespace uCommunity.Navigation.Web
         public virtual PartialViewResult Overview()
         {
             var linkModels = _myLinksModelBuilder.GetMenu().ToList();
-            var currentPageLink = linkModels.Find(l => l.ContentId == CurrentPage.Id);
+            var modelDTO = GetLinkDTO(CurrentPage.Id);
 
             var model = new MyLinksViewModel
             {
-                Id = currentPageLink?.Id,
                 ContentId = CurrentPage.Id,
-                IsLinked = currentPageLink != null,
+                IsLinked = _myLinksService.Exists(modelDTO),
                 Links = Mapper.Map<IEnumerable<MyLinkItemViewModel>>(linkModels)
             };
 
@@ -56,33 +55,45 @@ namespace uCommunity.Navigation.Web
         [System.Web.Mvc.HttpPost]
         public virtual ActionResult Add([FromBody]int contentId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (!_myLinksService.Exists(currentUser.Id, contentId))
+            var model = GetLinkDTO(contentId);
+
+            if (_myLinksService.Exists(model))
             {
-                throw new MyLinksDuplicatedException(currentUser.Id, contentId);
+                throw new MyLinksDuplicatedException(model);
             }
 
-            _myLinksService.Create(currentUser.Id, contentId);
+            _myLinksService.Create(model);
 
-            var result = _myLinksModelBuilder.GetMenu();
-            return PartialView(MyLinksViewPath, result);
+            var linkModels = _myLinksModelBuilder.GetMenu();
+            return PartialView(MyLinksListViewPath, Mapper.Map<IEnumerable<MyLinkItemViewModel>>(linkModels));
         }
 
         [System.Web.Mvc.HttpPost]
-        public virtual ActionResult Remove([FromBody]Guid id)
+        public virtual ActionResult Remove([FromBody]int contentId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            var link = _myLinksService.Get(id);
+            var model = GetLinkDTO(contentId);
 
-            if (link == null || link.UserId != currentUser.Id)
+            if (!_myLinksService.Exists(model))
             {
-                throw new MyLinksNotExistedException(currentUser.Id, id);
+                throw new MyLinksNotExistedException(model);
             }
 
-            _myLinksService.Delete(id);
+            _myLinksService.Delete(model);
 
-            var result = _myLinksModelBuilder.GetMenu();
-            return PartialView(MyLinksViewPath, result);
+            var linkModels = _myLinksModelBuilder.GetMenu();
+            return PartialView(MyLinksListViewPath, Mapper.Map<IEnumerable<MyLinkItemViewModel>>(linkModels));
+        }
+
+        protected virtual MyLinkDTO GetLinkDTO(int contentId)
+        {
+            var model = new MyLinkDTO
+            {
+                ContentId = contentId,
+                UserId = _intranetUserService.GetCurrentUser().Id,
+                QueryString = Request.QueryString
+            };
+
+            return model;
         }
     }
 }

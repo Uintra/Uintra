@@ -2,32 +2,36 @@
 
 
 appInitializer.add(function() {
-    var container = document.querySelector('.js-myLinks-container');
+    var container = $('.js-myLinks-container');
     if (!container) {
         return;
     }
 
-    $('.js-myLinks-add').on('click',function() {
+    var addControl = $('.js-myLinks-add');
+    var removeControl = $('.js-myLinks-remove');
+    addControl.on('click',function() {
         $.ajax({
             type: "POST",
             data: {contentId: $(this).data("contentId")},
             url: "/umbraco/surface/MyLinks/Add",
             success: function (data) {
                 container.html(data);
+                addControl.hide();
+                removeControl.show();
             }
         });
     });
 
-    $('.js-myLinks-remove').on('click',function() {
+    removeControl.on('click',function() {
         $.ajax({
             type: "POST",
-            data: {id: $(this).data("id")},
+            data: {contentId: $(this).data("contentId")},
             url: "/umbraco/surface/MyLinks/Remove",
             success: function (data) {
                 container.html(data);
+                addControl.show();
+                removeControl.hide();
             }
         });
     });
 });
-
-export default controller;

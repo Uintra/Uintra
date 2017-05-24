@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using uCommunity.Navigation.Core.Models;
 
 namespace uCommunity.Navigation.Core
 {
@@ -11,10 +12,10 @@ namespace uCommunity.Navigation.Core
 
         IEnumerable<MyLink> GetMany(Guid userId);
 
-        void Create(Guid userId, int contentId);
+        void Create(MyLinkDTO model);
 
-        void Delete(Guid id);
+        void Delete(MyLinkDTO model);
 
-        bool Exists(Guid userId, int contentId);
+        bool Exists(MyLinkDTO model);
     }
 }

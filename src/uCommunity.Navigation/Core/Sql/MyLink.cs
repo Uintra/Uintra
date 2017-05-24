@@ -15,6 +15,8 @@ namespace uCommunity.Navigation.Core
 
         public int ContentId { get; set; }
 
+        public string QueryString { get; set; }
+
         public DateTime CreatedDate { get; set; }
     }
 }

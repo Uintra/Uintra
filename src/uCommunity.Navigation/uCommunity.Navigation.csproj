@@ -376,6 +376,7 @@
     <Compile Include="Core\ModelBuilders\MyLinks\MyLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\TopMenu\ITopNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\TopMenu\TopNavigationModelBuilder.cs" />
+    <Compile Include="Core\Models\MyLinkDTO.cs" />
     <Compile Include="Core\Models\SystemLinkItemModel.cs" />
     <Compile Include="Core\Models\MyLinkItemModel.cs" />
     <Compile Include="Core\Models\SystemLinksModel.cs" />
