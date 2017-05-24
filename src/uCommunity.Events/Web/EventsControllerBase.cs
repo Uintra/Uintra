@@ -18,7 +18,6 @@ namespace uCommunity.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
-        protected virtual string ListViewPath => "~/App_Plugins/Events/List/ListView.cshtml";
         protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
         protected virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
@@ -57,14 +56,8 @@ namespace uCommunity.Events.Web
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
-            var model = new EventCreateModel
-            {
-                StartDate = DateTime.Now.Date.AddHours(8),
-                EndDate = DateTime.Now.Date.AddHours(8),
-                CanSubscribe = true
-            };
-            FillLinks();
-            FillCreateEditData(model);
+            var model = GetCreateModel();
+
             return PartialView(CreateViewPath, model);
         }
 
@@ -161,6 +154,19 @@ namespace uCommunity.Events.Web
         {
             var @event = MapEditModel(model);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
+        }
+
+        protected virtual EventCreateModel GetCreateModel()
+        {
+            FillLinks();
+            var model = new EventCreateModel
+            {
+                StartDate = DateTime.Now.Date.AddHours(8),
+                EndDate = DateTime.Now.Date.AddHours(8),
+                CanSubscribe = true
+            };
+            FillCreateEditData(model);
+            return model;
         }
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
