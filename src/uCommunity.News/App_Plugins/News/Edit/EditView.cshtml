@@ -26,8 +26,8 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsEdit.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()"/>
-            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true"/>
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             @{
@@ -39,7 +39,7 @@
             <span class="js-clear-unpublish-date">X</span>
         </div>
         <div class="form__row clearfix">
-            @Html.RenderAction("PinActivity", "PinActivity", new { isEdit = true });
+            @Html.Action("PinActivity", "PinActivity", new { isPinned = @Model.IsPinned, pinDays = @Model.PinDays });
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
