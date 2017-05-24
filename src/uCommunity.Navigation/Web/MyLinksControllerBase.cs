@@ -1,38 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using AutoMapper;
 using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
+using uCommunity.Navigation.Core.Exceptions;
 using uCommunity.Navigation.DefaultImplementation;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.Web
 {
-    public class MyLinksControllerBase : SurfaceController
+    public abstract class MyLinksControllerBase : SurfaceController
     {
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IMyLinksModelBuilder _myLinksModelBuilder;
         private readonly IMyLinksService _myLinksService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        protected virtual string MyLinksViewPath { get; } = "~/App_Plugins/Navigation/Links/View/Links.cshtml";
-        protected virtual string MyLinkPageTitleNodePropertyAlias { get; } = string.Empty;
+        protected virtual string MyLinksViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinks.cshtml";
+        protected virtual string MyLinksListViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinksList.cshtml";
 
-        public MyLinksControllerBase(
+        protected MyLinksControllerBase(
             UmbracoHelper umbracoHelper,
             IMyLinksModelBuilder myLinksModelBuilder,
             IMyLinksService myLinksService,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
-            _umbracoHelper = umbracoHelper;
             _myLinksModelBuilder = myLinksModelBuilder;
             _myLinksService = myLinksService;
             _intranetUserService = intranetUserService;
         }
 
-        public virtual PartialViewResult MyLinks()
+        public virtual PartialViewResult Overview()
         {
             var linkModels = _myLinksModelBuilder.GetMenu().ToList();
             var currentPageLink = linkModels.Find(l => l.ContentId == CurrentPage.Id);
@@ -48,13 +48,18 @@ namespace uCommunity.Navigation.Web
             return PartialView(MyLinksViewPath, model);
         }
 
-        [HttpPost]
-        public virtual ActionResult Add(int contentId)
+        public virtual PartialViewResult List(IEnumerable<MyLinkItemViewModel> model)
+        {
+            return PartialView(MyLinksListViewPath, model);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public virtual ActionResult Add([FromBody]int contentId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             if (!_myLinksService.Exists(currentUser.Id, contentId))
             {
-                return new EmptyResult();
+                throw new MyLinksDuplicatedException(currentUser.Id, contentId);
             }
 
             _myLinksService.Create(currentUser.Id, contentId);
@@ -63,15 +68,15 @@ namespace uCommunity.Navigation.Web
             return PartialView(MyLinksViewPath, result);
         }
 
-        [HttpPost]
-        public virtual ActionResult Remove(Guid id)
+        [System.Web.Mvc.HttpPost]
+        public virtual ActionResult Remove([FromBody]Guid id)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             var link = _myLinksService.Get(id);
 
             if (link == null || link.UserId != currentUser.Id)
             {
-                return new EmptyResult();
+                throw new MyLinksNotExistedException(currentUser.Id, id);
             }
 
             _myLinksService.Delete(id);

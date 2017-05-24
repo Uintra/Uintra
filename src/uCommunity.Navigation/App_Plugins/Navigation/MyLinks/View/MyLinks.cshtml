@@ -2,27 +2,16 @@
 @using uCommunity.Navigation.DefaultImplementation
 @model MyLinksViewModel
 
-<ul class="side-nav js-my-links__opener" id="myLinksContainer">
+<ul class="side-nav js-my-links__opener">
     <li class="side-nav__item">
         <a class="side-nav__link">@Html.Localize("Links.Menu.lbl")</a>
         <span class="side-nav__arrow"></span>
-        <ul id="js-myLinks-ul" class="side-nav">
-            @{ Html.RenderAction("MyLinksList", "Navigation", new {model = @Model.Links}); }
+        <ul class="side-nav js-myLinks-container" >
+            @{ Html.RenderAction("List", "MyLinks", new {model = @Model.Links}); }
         </ul>
     </li>
     <li class="side-nav__item">
-        @Ajax.ActionLink(Html.Localize("MyLinks.Add.lbl")
-                "Add",
-                "Navigation",
-                new { contentId = Model.ContentId },
-                new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.Replace },
-                new { @class = "side-nav__link js-myLinks-add", })
-        
-        @Ajax.ActionLink(Html.Localize("MyLinks.Remove.lbl")
-                "Remove",
-                "Navigation",
-                new { contentId = Model.ContentId },
-                new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.Replace },
-                new { @class = "side-nav__link js-myLinks-remove" })
+        <a class="side-nav__link js-myLinks-add" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
+        <a class="side-nav__link js-myLinks-remove" data-id="@Model.Id">@Html.Localize("MyLinks.Remove.lbl")</a>
     </li>
 </ul>
