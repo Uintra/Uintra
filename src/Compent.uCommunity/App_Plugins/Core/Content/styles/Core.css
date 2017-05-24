@@ -77,10 +77,22 @@
   content: "\e90c";
 }
 
+html,
+body{
+    height:100%;
+}
+
+body{
+    > form{
+        height:100%;
+    }
+}
+
 #wrapper {
     overflow:hidden;
     padding:137px 0 0 251px;
     opacity:1;
+    min-height:100%;
     transition:opacity ease-in 250ms;
 
     ._with-sub-nav._with-subtitle &{
