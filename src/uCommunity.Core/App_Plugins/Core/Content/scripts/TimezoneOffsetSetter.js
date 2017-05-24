@@ -1,6 +1,4 @@
-﻿import appInitializer from "./AppInitializer";
-
-function initTimezoneOffsetSetter() {
+﻿function initTimezoneOffsetSetter() {
     var holder = document.getElementsByClassName("clientTimezoneOffset");
 
     if (holder.length) {
@@ -9,8 +7,7 @@ function initTimezoneOffsetSetter() {
     }
 }
 
-appInitializer.add(function() {
+document.addEventListener("DOMContentLoaded", function () {
     initTimezoneOffsetSetter();
 });
 
-export default initTimezoneOffsetSetter;
