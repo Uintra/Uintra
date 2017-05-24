@@ -26,6 +26,7 @@ using ServiceStack.OrmLite;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Core;
 using uCommunity.Comments;
+using uCommunity.Core;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Activity.Sql;
 using uCommunity.Core.ApplicationSettings;
@@ -215,6 +216,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<IUcommunityApplicationSettings>().To<UcommunityApplicationSettings>().InSingletonScope();
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InSingletonScope();
+            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InSingletonScope();
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)

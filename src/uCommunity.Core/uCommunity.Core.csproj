@@ -370,6 +370,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Web\PinActivityControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
@@ -384,6 +385,7 @@
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
+    <Compile Include="Core\Controls\PinActivity\PinActivityModel.cs" />
     <Compile Include="Core\Extentions\DateTimeExtensions.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
     <Compile Include="Core\Extentions\ViewDataExtensions.cs" />
@@ -517,6 +519,7 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -28,7 +28,7 @@ namespace Compent.uCommunity.Core.Events
 
             Mapper.CreateMap<Event, EventExtendedEditModel>()
                 .IncludeBase<EventBase, EventEditModel>()
-                .ForMember(dst => dst.Tags, o => o.MapFrom(el => el.Tags));
+                .ForMember(dst => dst.Tags, o => o.Ignore());
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()
@@ -45,16 +45,14 @@ namespace Compent.uCommunity.Core.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore())
-                .ForMember(dst => dst.Tags, o => o.Ignore());
+                .ForMember(dst => dst.Subscribers, o => o.Ignore());
 
             Mapper.CreateMap<EventCreateModel, Event>()
                 .IncludeBase<EventCreateModel, EventBase>()
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore())
-                .ForMember(dst => dst.Tags, o => o.Ignore());
+                .ForMember(dst => dst.Subscribers, o => o.Ignore());
 
             Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>(MemberList.Source);
             Mapper.CreateMap<EventEditModel, EventExtendedEditModel>(MemberList.Source);

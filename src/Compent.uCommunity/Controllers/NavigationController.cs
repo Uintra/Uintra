@@ -1,8 +1,8 @@
-﻿using Compent.uCommunity.Core.Extentions;
-using Compent.uCommunity.Core.Navigation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.uCommunity.Core.Extentions;
+using Compent.uCommunity.Core.Navigation;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Models;
 using uCommunity.Core;
@@ -155,7 +155,7 @@ namespace Compent.uCommunity.Controllers
             var notificationListPage = _notificationHelper.GetNotificationListPage();
             //var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
             var itemsCountForPopup = notificationListPage.GetPropertyValue("itemCountForPopup", default(int));
-            var notifications = _uiNotifierService.GetByReceiver(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount);
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount);
             return new NotificationListViewModel
             {
                 Notifications = notifications.Map<IEnumerable<NotificationViewModel>>(),

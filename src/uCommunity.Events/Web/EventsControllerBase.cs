@@ -129,11 +129,6 @@ namespace uCommunity.Events.Web
             }
             _eventsService.Save(@event);
 
-            if (saveModel.IsPinned && saveModel.PinDays > 0 && @event.PinDays != saveModel.PinDays)
-            {
-                @event.EndPinDate = DateTime.Now.AddDays(saveModel.PinDays);
-            }
-
             OnEventEdited(@event, saveModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id));

@@ -27,7 +27,7 @@
 
         <div class="form__row clearfix">
             <label class="form__label" for="js-publish-date">@Html.Localize("NewsEdit.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@ViewData.GetDateTimePickerFormat()"/>
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()"/>
             <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true"/>
         </div>
         <div class="form__row clearfix">
@@ -35,33 +35,11 @@
                 var unpublishDatevalue = @Model.UnpublishDate.HasValue ? Model.UnpublishDate.Value.ToDateTimeValuePickerFormat() : "";
             }
             <label class="form__label" for="js-unpublish-date">@Html.Localize("NewsCreate.UnpublishDate.lbl")</label>
-            <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@ViewData.GetDateTimePickerFormat()" />
+            <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@Html.GetDateTimePickerFormat()" />
             <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
         </div>
         <div class="form__row clearfix">
-            <div class="check">
-                <label class="check__label">
-                    @Html.CheckBoxFor(m => m.IsPinned, new { @id = "pin-control", @class = "check__box" })
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("EventsCreate.SetPinned.lbl")</span>
-                </label>
-                <div id="pin-info">
-                    @Html.Localize("NewsEdit.PinActivityMessage.lbl")
-                    @{
-                        var daysRange = Enumerable.Range(1, 30);
-                        var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None" } };
-                        listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
-                        @Html.DropDownListFor(d => d.PinDays, listOfDays)
-                    }
-                    <label class="check__label">
-                        <label class="check__label">
-                            <input type="checkbox" class="check__box" id="pin-accept" />
-                            <span class="check__fake-input icon-check"></span>
-                            <span class="check__fake-label">@Html.Localize("NewsEdit.AcceptPin.lbl")</span>
-                        </label>
-                    </label>
-                </div>
-            </div>
+            @Html.Action("PinActivity", "PinActivity", new { isEdit = true })
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
