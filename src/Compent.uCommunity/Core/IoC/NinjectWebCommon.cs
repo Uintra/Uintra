@@ -161,7 +161,7 @@ namespace Compent.uCommunity.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<News.Entities.NewsEntity>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();

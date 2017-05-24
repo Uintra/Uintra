@@ -1,6 +1,6 @@
 ﻿<div class="panel" ng-controller="contentPanelController" ng-init="init(control)">
     <div class="span12">
-        <span class="span12 control-label">{{control.value.title}}</span>
+        <strong class="span12">{{control.value.title}}</strong>
     </div>
     <div class="span12" ng-hide="control.inGlobalPanelScope">
         <input class="btn span12" type="button" ng-click="open()" value="Edit">

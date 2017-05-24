@@ -9,7 +9,7 @@
     </a>
     <div class="notification__list js-notification-list hide">
         @{ Html.RenderAction("Notifications", "Notification", new { notificationList = Model.NotificationList }); }
-        <a href="@Model.NotificationsUrl">Show all notifications</a>
+        <a class="notification__all" href="@Model.NotificationsUrl">Show all notifications</a>
     </div>
 </div>
 <div class="user _for-desktop">

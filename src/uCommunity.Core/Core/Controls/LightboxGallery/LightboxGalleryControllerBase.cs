@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uCommunity.Core.Extentions;
+using Umbraco.Core;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Core.Controls.LightboxGallery
 {
-    public  abstract class LightboxGalleryControllerBase: SurfaceController
+    public abstract class LightboxGalleryControllerBase : SurfaceController
     {
         protected virtual string GalleryViewPath { get; } = "~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGallery.cshtml";
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGalleryPreview.cshtml";
@@ -34,18 +34,26 @@ namespace uCommunity.Core.Controls.LightboxGallery
             return View(GalleryViewPath, result);
         }
 
-        
+
         public virtual ActionResult Preview(LightboxGalleryPreviewModel model)
         {
-            var galleryPreviewModel = new LightboxGalleryPreviewViewModel();
-            if (model.MediaIds.Any())
+            if (model.MediaIds.IsEmpty())
             {
-                var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
-                galleryPreviewModel.Images = galleryViewModelList.Where(m => m.Type == MediaTypeEnum.Image).Take(model.MaxImagesCount);
-                galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Images);
-                galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
-                galleryPreviewModel.MaxImagesCount = 3;
+                return new EmptyResult();
             }
+
+            var galleryPreviewModel = new LightboxGalleryPreviewViewModel();
+            var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
+
+            if (galleryViewModelList.Count == 0)
+            {
+                return new EmptyResult();
+            }
+
+            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type == MediaTypeEnum.Image);
+            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type != MediaTypeEnum.Image);
+            galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
+            galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ForEach(i => i.IsHidden = true);
 
             return View(PreviewViewPath, galleryPreviewModel);
         }

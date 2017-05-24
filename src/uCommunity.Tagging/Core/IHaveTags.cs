@@ -7,6 +7,6 @@ namespace uCommunity.Tagging
     {
         Guid Id { get; }
 
-        IEnumerable<string> Tags { get; set; }
+        IEnumerable<Tag> Tags { get; set; }
     }
 }

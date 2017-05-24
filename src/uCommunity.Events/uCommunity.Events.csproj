@@ -317,7 +317,7 @@
     <Compile Include="Core\Services\IEventsService.cs" />
     <Compile Include="Core\Models\EventCreateModel.cs" />
     <Compile Include="Core\Models\EventEditModel.cs" />
-    <Compile Include="Core\Models\EventsOverviewItemViewModel.cs" />
+    <Compile Include="Core\Models\EventItemViewModel.cs" />
     <Compile Include="Core\Enums\EventType.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -334,8 +334,6 @@
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\Edit\edit-events.js" />
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
-    <Content Include="App_Plugins\Events\List\edit-list.js" />
-    <Content Include="App_Plugins\Events\List\events-list.html" />
     <None Include="Content\Config\Lang\da-DK.user.xml.uninstall.xdt" />
     <None Include="Content\Config\Lang\da-DK.user.xml.install.xdt" />
     <None Include="Content\Config\Lang\en-GB.user.xml.uninstall.xdt" />
@@ -358,8 +356,7 @@
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\List\ListView.cshtml" />
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <None Include="Content\Config\applications.config.install.xdt" />
     <None Include="Content\Config\applications.config.uninstall.xdt" />
@@ -373,7 +370,7 @@
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>  
+    </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,4 @@
 ﻿@using uCommunity.Core.Extentions
-@model IEnumerable<string>
+@model IEnumerable<uCommunity.Tagging.TagEditModel>
 
-<div id="activityTagsHolder" data-model-name="tags" data-placeholder="@Html.Localize("Tags.Placeholder")" data-activity-tags="@Model.JoinWithSeparator(",")"></div>
+<div class="js-activity-tags-holder input textarea clearfix" data-model-name="tags" data-placeholder="@Html.Localize("Tags.Placeholder")" data-activity-tags="@Model.ToJson()"></div>

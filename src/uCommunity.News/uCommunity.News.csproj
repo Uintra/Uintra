@@ -563,7 +563,7 @@
     <Compile Include="Core\NewsBase.cs" />
     <Compile Include="Core\INewsService.cs" />
     <Compile Include="Core\Models\NewsEditModel.cs" />
-    <Compile Include="Core\Models\NewsOverviewItemViewModel.cs" />
+    <Compile Include="Core\Models\NewsItemViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewViewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\Dashboard\Controllers\NewsSectionController.cs" />
@@ -594,8 +594,7 @@
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\List\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\List\ListView.cshtml" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -612,7 +611,6 @@
     <Content Include="App_Plugins\News\Create\news-create.html" />
     <Content Include="App_Plugins\News\Details\news-details.html" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
-    <Content Include="App_Plugins\News\List\news-list.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uCommunity.Core\uCommunity.Core.csproj">

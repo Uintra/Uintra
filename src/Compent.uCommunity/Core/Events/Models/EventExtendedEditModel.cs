@@ -4,8 +4,13 @@ using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class EventExtendedEditModel : EventEditModel, ITagsCreateEditModel
+    public class EventExtendedEditModel : EventEditModel, ITagsActivityCreateEditModel
     {
-        public IEnumerable<string> Tags { get; set; }
+        public EventExtendedEditModel()
+        {
+            Tags = new List<TagEditModel>();
+        }
+
+        public IList<TagEditModel> Tags { get; set; }
     }
 }

@@ -60,5 +60,10 @@
         margin:0;
         padding:0;
         list-style:none;
+        line-height:1.2;
+
+        &-item{
+            padding:1px 0 3px;
+        }
     }
 }

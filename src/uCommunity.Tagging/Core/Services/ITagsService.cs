@@ -5,10 +5,12 @@ namespace uCommunity.Tagging
 {
     public interface ITagsService
     {
+        IEnumerable<Tag> FindAll(string query);
+
         IEnumerable<Tag> GetAll();
 
-        void FillTags(IHaveTags activity);
+        void Save(Guid activityId, IEnumerable<TagDTO> tags);
 
-        void SaveTags(Guid activityId, IEnumerable<string> tags);
+        void FillTags(IHaveTags activity);
     }
 }

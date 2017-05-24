@@ -11,26 +11,32 @@ namespace Compent.uCommunity.Core.News
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<NewsEntity, NewsExtendedViewModel>()
+            Mapper.CreateMap<Entities.News, NewsExtendedViewModel>()
                 .IncludeBase<NewsBase, NewsViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<NewsEntity, NewsOverviewItemExtendedViewModel>()
-                .IncludeBase<NewsBase, NewsOverviewItemViewModel>()
+            Mapper.CreateMap<Entities.News, NewsExtendedItemViewModel>()
+                .IncludeBase<NewsBase, NewsItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<NewsEntity, NewsExtendedCreateModel>()
-            .IncludeBase<NewsBase, NewsCreateModel>();
+            Mapper.CreateMap<Entities.News, NewsExtendedCreateModel>()
+                .IncludeBase<NewsBase, NewsCreateModel>()
+                .ForMember(dst => dst.Tags, o => o.Ignore());
 
-            Mapper.CreateMap<NewsEntity, NewsExtendedEditModel>()
-                .IncludeBase<NewsBase, NewsEditModel>();
+            Mapper.CreateMap<Entities.News, NewsExtendedEditModel>()
+                .IncludeBase<NewsBase, NewsEditModel>()
+                .ForMember(dst => dst.Tags, o => o.MapFrom(el => el.Tags));
 
-            Mapper.CreateMap<NewsEntity, NewsBackofficeViewModel>()
-              .IncludeBase<NewsBase, NewsBackofficeViewModel>();
+            Mapper.CreateMap<Entities.News, NewsBackofficeViewModel>()
+                .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 
-            Mapper.CreateMap<NewsEntity, IntranetActivityItemHeaderViewModel>()
-                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
+            Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
+                .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
+
+            Mapper.CreateMap<NewsCreateModel, NewsExtendedCreateModel>(MemberList.Source);
+
+            Mapper.CreateMap<NewsEditModel, NewsExtendedEditModel>(MemberList.Source);
         }
     }
 }

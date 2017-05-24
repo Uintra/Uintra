@@ -1,13 +1,13 @@
 ﻿@using System.Web.Mvc.Html
 @using uCommunity.Core.Extentions
-@model uCommunity.Events.EventsOverviewItemViewModel
+@model uCommunity.Events.EventItemViewModel
 
 <div class="content__item">
     <div class="row clearfix">
         <div class="col-md-9">
             @if (@Model.IsPinned)
             {
-                <span class="content__item-label">@Html.Localize("EventItemView.Pinned.lbl")</span>
+                <span class="pinned__item pull-right">@Html.Localize("EventItemView.Pinned.lbl")</span>
             }            
             @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
             <div class="content__item-image"> </div>

@@ -25,20 +25,6 @@
             &{
                 display:block;
             }
-
-            ._with-subtitle:not(._hide-sidepanel-opener) & {
-                align-items: flex-start;
-                display:flex;
-
-                .sidebar__opener{
-                    order:2;
-                }
-
-                .tabset__holder{
-                    order:1;
-                    max-width:calc(100% - 50px);
-                }
-            }
         }
     }
 
@@ -277,10 +263,6 @@
             min-height:0;
             height:auto;
 
-            ._with-subtitle._with-sub-nav &{
-                height:auto;
-            }
-
             &:before {
                 display: none;
             }   
@@ -316,10 +298,6 @@
                 position:relative;
                 z-index:9;
                 overflow:hidden;
-
-                ._with-subtitle:not(._hide-sidepanel-opener) &{
-                    margin:0 -50px 0 0;
-                }
 
                 &:before{
                     display:none;

@@ -8,14 +8,14 @@ namespace Compent.uCommunity.Core.Events
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Event, IntranetEventViewModel>()
+            Mapper.CreateMap<Event, EventExtendedViewModel>()
                   .IncludeBase<EventBase, EventViewModel>()
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
-            Mapper.CreateMap<Event, EventOverviewItemModel>()
-                .IncludeBase<EventBase, EventsOverviewItemViewModel>()
+            Mapper.CreateMap<Event, EventExtendedItemModel>()
+                .IncludeBase<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
 
@@ -23,10 +23,12 @@ namespace Compent.uCommunity.Core.Events
                  .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
             Mapper.CreateMap<Event, EventExtendedCreateModel>()
-                .IncludeBase<EventBase, EventCreateModel>();
+                .IncludeBase<EventBase, EventCreateModel>()
+                .ForMember(dst => dst.Tags, o => o.Ignore());
 
             Mapper.CreateMap<Event, EventExtendedEditModel>()
-                .IncludeBase<EventBase, EventEditModel>();
+                .IncludeBase<EventBase, EventEditModel>()
+                .ForMember(dst => dst.Tags, o => o.MapFrom(el => el.Tags));
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()
@@ -53,6 +55,9 @@ namespace Compent.uCommunity.Core.Events
                 .ForMember(dst => dst.Comments, o => o.Ignore())
                 .ForMember(dst => dst.Subscribers, o => o.Ignore())
                 .ForMember(dst => dst.Tags, o => o.Ignore());
+
+            Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>(MemberList.Source);
+            Mapper.CreateMap<EventEditModel, EventExtendedEditModel>(MemberList.Source);
         }
     }
 }
