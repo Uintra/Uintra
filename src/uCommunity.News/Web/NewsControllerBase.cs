@@ -158,7 +158,7 @@ namespace uCommunity.News.Web
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = news.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, news.Id),
+                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, news.Id),
                 DisplayedImagesCount = DisplayedImagesCount
             };
             return model;
