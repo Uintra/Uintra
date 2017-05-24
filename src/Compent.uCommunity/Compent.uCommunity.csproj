@@ -934,11 +934,11 @@
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\Navigation\UcommunityLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
-    <Compile Include="Core\News\Entities\NewsEntity.cs" />
+    <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\Models\NewsExtendedCreateModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedEditModel.cs" />
     <Compile Include="Core\News\NewsService.cs" />
-    <Compile Include="Core\News\Models\NewsOverviewItemExtendedViewModel.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedItemViewModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />
     <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\Notification\NotificationHelper.cs" />

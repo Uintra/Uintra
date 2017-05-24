@@ -25,8 +25,8 @@ using Umbraco.Web;
 
 namespace Compent.uCommunity.Core.News
 {
-    public class NewsService : NewsServiceBase<NewsEntity>,
-        INewsService<NewsEntity>,
+    public class NewsService : NewsServiceBase<Entities.News>,
+        INewsService<Entities.News>,
         ICentralFeedItemService,
         ICommentableService,
         ILikeableService,
@@ -139,7 +139,7 @@ namespace Compent.uCommunity.Core.News
         {
             foreach (var activity in cached)
             {
-                var entity = activity as NewsEntity;
+                var entity = activity as Entities.News;
                 _subscribeService.FillSubscribers(entity);
                 _intranetUserService.FillCreator(entity);
                 _commentsService.FillComments(entity);
@@ -220,7 +220,7 @@ namespace Compent.uCommunity.Core.News
 
         private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
         {
-            NewsEntity newsEntity;
+            Entities.News news;
             var currentUser = _intranetUserService.GetCurrentUser();
             var data = new NotifierData
             {
@@ -231,12 +231,12 @@ namespace Compent.uCommunity.Core.News
             {
                 case NotificationTypeEnum.ActivityLikeAdded:
                     {
-                        newsEntity = Get(entityId);
-                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
+                        news = Get(entityId);
+                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel()
                         {
-                            Url = GetDetailsPage().Url.UrlWithQueryString("id", newsEntity.Id),
-                            Title = newsEntity.Title,
+                            Url = GetDetailsPage().Url.UrlWithQueryString("id", news.Id),
+                            Title = news.Title,
                             ActivityType = IntranetActivityTypeEnum.News,
                             NotifierId = currentUser.Id,
                         };
@@ -245,15 +245,15 @@ namespace Compent.uCommunity.Core.News
                 case NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
-                        newsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
+                        news = Get(comment.ActivityId);
+                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
                             CommentId = entityId,
                             ActivityType = IntranetActivityTypeEnum.Events,
                             NotifierId = currentUser.Id,
-                            Title = newsEntity.Title,
-                            Url = GetUrlWithComment(newsEntity.Id, comment.Id)
+                            Title = news.Title,
+                            Url = GetUrlWithComment(news.Id, comment.Id)
                         };
                     }
                     break;
@@ -262,28 +262,28 @@ namespace Compent.uCommunity.Core.News
                 case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
-                        newsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = newsEntity.CreatorId.ToEnumerableOfOne();
+                        news = Get(comment.ActivityId);
+                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel()
                         {
                             ActivityType = IntranetActivityTypeEnum.News,
                             NotifierId = comment.UserId,
-                            Title = newsEntity.Title,
-                            Url = GetUrlWithComment(newsEntity.Id, comment.Id)
+                            Title = news.Title,
+                            Url = GetUrlWithComment(news.Id, comment.Id)
                         };
                     }
                     break;
                 case NotificationTypeEnum.CommentReplyed:
                     {
                         var comment = _commentsService.Get(entityId);
-                        newsEntity = Get(comment.ActivityId);
+                        news = Get(comment.ActivityId);
                         data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
                             ActivityType = IntranetActivityTypeEnum.Ideas,
                             NotifierId = currentUser.Id,
-                            Title = newsEntity.Title,
-                            Url = GetUrlWithComment(newsEntity.Id, comment.Id),
+                            Title = news.Title,
+                            Url = GetUrlWithComment(news.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }

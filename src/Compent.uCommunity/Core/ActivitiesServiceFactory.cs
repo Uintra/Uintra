@@ -48,7 +48,7 @@ namespace Compent.uCommunity.Core
             switch (type)
             {
                 case IntranetActivityTypeEnum.News:
-                    return _kernel.GetService<INewsService<NewsEntity>>();
+                    return _kernel.GetService<INewsService<News.Entities.News>>();
                 case IntranetActivityTypeEnum.Events:
                     return _kernel.GetService<IEventsService<Event>>();
                 default:

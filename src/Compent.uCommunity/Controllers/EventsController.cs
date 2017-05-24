@@ -47,19 +47,10 @@ namespace Compent.uCommunity.Controllers
         {
             FillLinks();
             var activity = item as Event;
-            var model = GetItemViewModel(activity);
-            var extendedModel = model.Map<EventExtendedItemModel>();
+            var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
             extendedModel.LikesInfo = activity;
             extendedModel.SubscribeInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
-        }
-
-        [NonAction]
-        [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public override ActionResult Create(EventCreateModel createModel)
-        {
-            return base.Create(createModel);
         }
 
         [HttpPost]
@@ -69,32 +60,11 @@ namespace Compent.uCommunity.Controllers
             return base.Create(activityCreateModel);
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public override ActionResult Edit(Guid id)
-        {
-            return base.Edit(id);
-        }
-
-        [NonAction]
-        [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
-        public override ActionResult Edit(EventEditModel saveModel)
-        {
-            return base.Edit(saveModel);
-        }
-
         [HttpPost]
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public ActionResult Edit(EventExtendedEditModel saveModel)
         {
             return base.Edit(saveModel);
-        }
-
-        [NonAction]
-        [HttpPost]
-        public override JsonResult HasConfirmation(EventEditModel model)
-        {
-            return base.HasConfirmation(model);
         }
 
         [HttpPost]
@@ -113,7 +83,7 @@ namespace Compent.uCommunity.Controllers
 
         protected override EventViewModel GetViewModel(EventBase @event)
         {
-            var eventExtended = (Event) @event;
+            var eventExtended = (Event)@event;
             var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
             extendedModel = Mapper.Map(eventExtended, extendedModel);
             return extendedModel;
@@ -159,5 +129,32 @@ namespace Compent.uCommunity.Controllers
         {
             ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
         }
+
+        #region Restricted actions
+
+        [NonAction]
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        public override ActionResult Create(EventCreateModel createModel)
+        {
+            return base.Create(createModel);
+        }
+
+        [NonAction]
+        [HttpPost]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public override ActionResult Edit(EventEditModel saveModel)
+        {
+            return base.Edit(saveModel);
+        }
+
+        [NonAction]
+        [HttpPost]
+        public override JsonResult HasConfirmation(EventEditModel model)
+        {
+            return base.HasConfirmation(model);
+        }
+
+        #endregion
     }
 }

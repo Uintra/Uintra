@@ -1,10 +1,11 @@
 ﻿@using System.Web.Mvc.Html
+@using uCommunity.Core.Activity
 @using uCommunity.Core.Extentions
-@model Compent.uCommunity.Core.News.Models.NewsOverviewItemExtendedViewModel
+@model Compent.uCommunity.Core.News.Models.NewsExtendedItemViewModel
 
 @{
-var expired = Model.Expired ? "_expired" : "";
-var pinnedClass = Model.IsPinned ? "_pinned" : "";
+    var expired = Model.Expired ? "_expired" : "";
+    var pinnedClass = Model.IsPinned ? "_pinned" : "";
 }
 
 <div class="content__item @expired">
@@ -15,7 +16,7 @@ var pinnedClass = Model.IsPinned ? "_pinned" : "";
                 {
                     <span class="pinned__item pull-right">@Html.Localize("NewsItemView.Pinned.lbl")</span>
                 }
-                @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
+                @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
             </div>
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
@@ -26,8 +27,8 @@ var pinnedClass = Model.IsPinned ? "_pinned" : "";
             </div>
             <div class="content__item-feed">
                 <div class="content__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
-                    @{ Html.RenderAction("Preview", "Comments", new {activityId = Model.Id, link = Model.HeaderInfo.DetailsPageUrl}); }
+                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                    @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, Model.Id) }); }
                 </div>
             </div>
 

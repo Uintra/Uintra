@@ -10,7 +10,7 @@ using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.News.Entities
 {
-    public class NewsEntity : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IHaveTags
+    public class News : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IHaveTags
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
