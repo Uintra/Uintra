@@ -35,7 +35,7 @@
             <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true"/>
         </div>
         <div class="form__row clearfix">
-            @Html.RenderAction("PinActivity", "PinActivity");
+            @Html.RenderAction("PinActivity", "PinActivity", new { isEdit = false });
         </div>
         <div class="form__row clearfix">
             <div class="check">
