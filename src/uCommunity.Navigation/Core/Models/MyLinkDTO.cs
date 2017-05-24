@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 
 namespace uCommunity.Navigation.Core.Models
 {
@@ -9,6 +8,6 @@ namespace uCommunity.Navigation.Core.Models
 
         public int ContentId { get; set; }
 
-        public NameValueCollection QueryString { get; set; }
+        public string QueryString { get; set; }
     }
 }

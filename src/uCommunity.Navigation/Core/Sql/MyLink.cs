@@ -4,7 +4,7 @@ using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Navigation.Core
 {
-    [CompositeIndex("UserId", "ContentId", Unique = true, Name = "UQ_MyLink_UserId_ContentId")]
+    [CompositeIndex("UserId", "ContentId", "QueryString", Unique = true, Name = "UQ_MyLink_UserId_ContentId_QueryString")]
     public class MyLink : SqlEntity
     {
         [PrimaryKey]

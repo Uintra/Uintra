@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using uCommunity.Core.Persistence.Sql;
@@ -39,7 +38,7 @@ namespace uCommunity.Navigation.Core
                 Id = Guid.NewGuid(),
                 UserId = model.UserId,
                 ContentId = model.ContentId,
-                QueryString = model.QueryString.ToString(),
+                QueryString = model.QueryString.Trim('?'),
                 CreatedDate = DateTime.Now,
             };
 
@@ -64,8 +63,9 @@ namespace uCommunity.Navigation.Core
             return links.SingleOrDefault(l => IsQueryStringEqual(model.QueryString, l.QueryString));
         }
 
-        private static bool IsQueryStringEqual(NameValueCollection queryCollection, string queryToCompare)
+        private static bool IsQueryStringEqual(string query, string queryToCompare)
         {
+            var queryCollection = HttpUtility.ParseQueryString(query);
             var queryCollectionCompareTo = HttpUtility.ParseQueryString(queryToCompare);
 
             if (queryCollection.Count != queryCollectionCompareTo.Count)
@@ -78,7 +78,7 @@ namespace uCommunity.Navigation.Core
                 var queryValue = queryCollection[key];
 
                 var queryNameValue = queryCollectionCompareTo.Get(key);
-                if (queryNameValue == null || queryNameValue == queryValue)
+                if (queryNameValue == null || queryNameValue != queryValue)
                 {
                     return false;
                 }

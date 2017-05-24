@@ -35,7 +35,7 @@ namespace uCommunity.Navigation.Web
         public virtual PartialViewResult Overview()
         {
             var linkModels = _myLinksModelBuilder.GetMenu().ToList();
-            var modelDTO = GetLinkDTO(CurrentPage.Id);
+            var modelDTO = GetLinkDTO(CurrentPage.Id, Request.QueryString.ToString());
 
             var model = new MyLinksViewModel
             {
@@ -55,7 +55,7 @@ namespace uCommunity.Navigation.Web
         [System.Web.Mvc.HttpPost]
         public virtual ActionResult Add([FromBody]int contentId)
         {
-            var model = GetLinkDTO(contentId);
+            var model = GetLinkDTO(contentId, Request.UrlReferrer.Query);
 
             if (_myLinksService.Exists(model))
             {
@@ -71,7 +71,7 @@ namespace uCommunity.Navigation.Web
         [System.Web.Mvc.HttpPost]
         public virtual ActionResult Remove([FromBody]int contentId)
         {
-            var model = GetLinkDTO(contentId);
+            var model = GetLinkDTO(contentId, Request.UrlReferrer.Query);
 
             if (!_myLinksService.Exists(model))
             {
@@ -84,13 +84,13 @@ namespace uCommunity.Navigation.Web
             return PartialView(MyLinksListViewPath, Mapper.Map<IEnumerable<MyLinkItemViewModel>>(linkModels));
         }
 
-        protected virtual MyLinkDTO GetLinkDTO(int contentId)
+        protected virtual MyLinkDTO GetLinkDTO(int contentId, string queryString)
         {
             var model = new MyLinkDTO
             {
                 ContentId = contentId,
                 UserId = _intranetUserService.GetCurrentUser().Id,
-                QueryString = Request.QueryString
+                QueryString = queryString
             };
 
             return model;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ServiceStack;
 using uCommunity.Core.Configuration;
 using uCommunity.Core.User;
 using Umbraco.Core.Models;
@@ -38,10 +39,20 @@ namespace uCommunity.Navigation.Core
                     Id = link.Id,
                     ContentId = link.ContentId,
                     Name = GetNavigationName(content),
-                    Url = content.Url
+                    Url = GetUrl(link, content)
                 });
 
             return models;
+        }
+
+        private static string GetUrl(MyLink link, IPublishedContent content)
+        {
+            if (link.QueryString.IsNullOrEmpty())
+            {
+                return content.Url;
+            }
+
+            return $"{content.Url}?{link.QueryString}";
         }
 
         protected override bool IsHideFromNavigation(IPublishedContent publishedContent)
