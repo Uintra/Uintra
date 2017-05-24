@@ -2,7 +2,7 @@
 @using uCommunity.Core.Controls.FileUpload
 @model uCommunity.Users.Core.ProfileEditModelBase
 
-<div id="js-profile-page">
+<div id="js-profile-page" class="form">
     
     @using (Ajax.BeginForm("Edit", "Profile", new AjaxOptions
     {
@@ -12,10 +12,23 @@
 
     }))
     {
-        <img style="width: 100px;height: 100px" src="@Model.Photo" />
-        @Html.EditorFor(m => m.FirstName)
-        @Html.EditorFor(m => m.LastName)
-
+        <div class="form__row clearfix">
+            <div class="form__header">
+                <div class="form__avatar">
+                    <img class="form__avatar-img" style="width: 100px;height: 100px" src="@Model.Photo" />
+                </div>
+                <div class="form__meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form__input" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
             @{
@@ -24,11 +37,11 @@
             }
         </div>
         <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
-        <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="form__btn _black _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
+        </div>
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
         </div>
     }
 </div>

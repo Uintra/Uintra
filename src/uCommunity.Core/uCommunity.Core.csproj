@@ -386,7 +386,7 @@
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
-    <Compile Include="Core\Controls\PinActivity\ActivityPinDaysRangeModel.cs" />
+    <Compile Include="Core\Controls\PinActivity\PinActivityModel.cs" />
     <Compile Include="Core\Extentions\DateTimeExtensions.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
     <Compile Include="Core\Extentions\ViewDataExtensions.cs" />

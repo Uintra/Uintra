@@ -39,7 +39,7 @@ namespace uCommunity.Notification.Web
             var take = page * ItemsPerPage;
             var userId = IntranetUserService.GetCurrentUserId();
             int totalCount;
-            var notifications = UiNotifierService.GetByReceiver(userId, take, out totalCount).ToList();
+            var notifications = UiNotifierService.GetMany(userId, take, out totalCount).ToList();
             return PartialView(ListViewPath,
                 new NotificationListViewModel
                 {
