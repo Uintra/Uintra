@@ -71,10 +71,7 @@ namespace Compent.uCommunity.Controllers
         protected override NewsEditModel GetEditViewModel(NewsBase news)
         {
             var extendedModel = base.GetEditViewModel(news).Map<NewsExtendedEditModel>();
-
-            var extendedNews = (IHaveTags)news;
-            _tagsService.FillTags(extendedNews);
-            extendedModel.Tags = extendedNews.Tags.Map<List<TagEditModel>>();
+            extendedModel.Tags = _tagsService.GetMany(news.Id).Map<List<TagEditModel>>();
             return extendedModel;
         }
 
