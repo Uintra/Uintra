@@ -1,15 +1,19 @@
 ﻿@using System.Web.Mvc.Html
 @using uCommunity.Core.Extentions
 @model uCommunity.Events.EventItemViewModel
-
+@{
+    var pinnedClass = Model.IsPinned ? "_pinned" : "";
+}
 <div class="content__item">
     <div class="row clearfix">
-        <div class="col-md-9">
-            @if (@Model.IsPinned)
-            {
-                <span class="pinned__item pull-right">@Html.Localize("EventItemView.Pinned.lbl")</span>
-            }            
-            @Html.Action("ActivityItemHeader", "ActivityHeader", new {header = Model.HeaderInfo})
+        <div class="col-md-12 content__item-holder @pinnedClass">
+            <div class="clearfix">
+                @if (@Model.IsPinned)
+                {
+                    <span class="pinned__item pull-right">@Html.Localize("EventItemView.Pinned.lbl")</span>
+                }
+                @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+            </div>  
             <div class="content__item-image"> </div>
             <div class="content__item-txt">
                 <p>@Html.Raw(Model.ShortDescription)</p>
