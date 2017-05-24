@@ -56,9 +56,7 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
-            FillLinks();
-            var model = new NewsCreateModel { PublishDate = DateTime.Now.Date };
-            FillCreateEditData(model);
+            var model = GetCreateModel();
             return PartialView(CreateViewPath, model);
         }
 
@@ -119,6 +117,17 @@ namespace uCommunity.News.Web
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             ViewData.SetDateTimeFormats();
             model.MediaRootId = mediaSettings.MediaRootId;
+        }
+
+        protected virtual NewsCreateModel GetCreateModel()
+        {
+            FillLinks();
+            var model = new NewsCreateModel
+            {
+                PublishDate = DateTime.Now.Date
+            };
+            FillCreateEditData(model);
+            return model;
         }
 
         protected virtual NewsEditModel GetEditViewModel(NewsBase news)
