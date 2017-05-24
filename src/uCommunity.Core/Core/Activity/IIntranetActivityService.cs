@@ -12,10 +12,11 @@ namespace uCommunity.Core.Activity
         TActivity Get(Guid id);
         IEnumerable<TActivity> GetManyActual();
         IEnumerable<TActivity> GetAll(bool includeHidden = false);
-        bool IsActual(IIntranetActivity cachedActivity);
-        Guid Create(IIntranetActivity jsonData);
-        void Save(IIntranetActivity saveModel);
+        bool IsActual(IIntranetActivity cachedActivity);        
+        Guid Create(IIntranetActivity activity);
+        void Save(IIntranetActivity activity);
         bool CanEdit(IIntranetActivity cached);
+
     }
 
     public interface IIntranetActivityService

@@ -14,6 +14,7 @@ namespace uCommunity.Core.Activity.Entities
         bool IsHidden { get; set; }
         bool IsPinned { get; set; }
         DateTime? EndPinDate { get; set; }
+        int PinDays { get; set; }
     }
 
     public abstract class IntranetActivity : IIntranetActivity

@@ -111,21 +111,14 @@ namespace uCommunity.CentralFeed.Web
                     Type = singleSetting.Type,
                     CreateUrl = singleSetting.CreatePage.Url,
                     TabUrl = singleSetting.OverviewPage.Url,
-                    HasSubscribersFilter = singleSetting.HasSubscribersFitler,
+                    HasSubscribersFilter = singleSetting.HasSubscribersFitler
                 };
             }
         }
 
-        protected bool IsPinActual(ICentralFeedItem item)
+        protected virtual bool IsPinActual(ICentralFeedItem item)
         {
-            if (!item.IsPinned) return false;
-
-            if (item.EndPinDate.HasValue)
-            {
-                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
-            }
-
-            return true;
+            return _centralFeedService.IsPinActual(item);
         }
 
         protected void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)

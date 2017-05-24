@@ -55,9 +55,10 @@ namespace uCommunity.Core.Activity
             return !cachedActivity.IsHidden;
         }
 
-        public Guid Create(IIntranetActivity jsonData)
+        public Guid Create(IIntranetActivity activity)
         {
-            var newActivity = new IntranetActivityEntity { Type = ActivityType, JsonData = jsonData.ToJson() };
+            activity.EndPinDate = activity.IsPinned && activity.PinDays > 0 ? DateTime.Now.AddDays(activity.PinDays) : default(DateTime?);
+            var newActivity = new IntranetActivityEntity { Type = ActivityType, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
 
             var newActivityId = newActivity.Id;
@@ -65,13 +66,17 @@ namespace uCommunity.Core.Activity
             return newActivityId;
         }
 
-        public void Save(IIntranetActivity saveModel)
+        public void Save(IIntranetActivity activity)
         {
-            var saveModelId = saveModel.Id;
-            var activity = _activityRepository.Get(saveModelId);
-            activity.JsonData = saveModel.ToJson();
-            _activityRepository.Update(activity);
-            UpdateCachedEntity(saveModelId);
+            var oldActivity = Get(activity.Id);
+            if (activity.IsPinned && activity.PinDays > 0 && oldActivity.PinDays != activity.PinDays)
+            {
+                activity.EndPinDate = DateTime.Now.AddDays(activity.PinDays);
+            }
+            var entity = _activityRepository.Get(activity.Id);
+            entity.JsonData = activity.ToJson();
+            _activityRepository.Update(entity);
+            UpdateCachedEntity(activity.Id);
         }
 
         public void Delete(Guid id)
