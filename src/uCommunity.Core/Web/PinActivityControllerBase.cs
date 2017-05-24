@@ -16,13 +16,14 @@ namespace uCommunity.Core.Web
             this.applicationSettings = applicationSettings;
         }
 
-        public virtual ActionResult PinActivity()
+        public virtual ActionResult PinActivity(bool isEdit)
         {
             return PartialView(PinActivityViewPath,
-                new ActivityPinDaysRangeModel
+                new PinActivityModel
                 {
                     RangeStart = applicationSettings.PinDaysRangeStart,
-                    RangeEnd = applicationSettings.PinDaysRangeEnd
+                    RangeEnd = applicationSettings.PinDaysRangeEnd,
+                    IsEditMode = isEdit
                 });
         }
 
