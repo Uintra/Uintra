@@ -90,6 +90,11 @@ var initDates = function (holder) {
     function publishDateChanged(newDates) {
         setMinDate(newDates[0]);
     }
+
+    var clearUnpublishDateBtn = holder.find('.js-clear-unpublish-date');
+    clearUnpublishDateBtn.click(function () {
+        unpublish.clear();
+    });
 }
 
 var controller = {
