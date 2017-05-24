@@ -1,7 +1,9 @@
-﻿namespace uCommunity.Navigation.Core
+﻿using System.Collections.Generic;
+
+namespace uCommunity.Navigation.Core
 {
     public interface IMyLinksModelBuilder
     {
-        MyLinksModel Get();
+        IEnumerable<MyLinkItemModel> GetMenu();
     }
 }

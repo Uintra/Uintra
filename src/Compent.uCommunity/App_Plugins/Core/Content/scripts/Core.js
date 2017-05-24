@@ -4,5 +4,4 @@
 
 ﻿import showContent from "./ShowContent"
 import {} from "./Polyfill";
-
 document.addEventListener('DOMContentLoaded', showContent, false);
