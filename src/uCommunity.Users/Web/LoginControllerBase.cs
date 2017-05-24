@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using uCommunity.Core;
+using uCommunity.Users.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
@@ -11,10 +13,12 @@ namespace uCommunity.Users.Web
         protected virtual string DefaultRedirectUrl { get; } = "/";
 
         protected readonly IMemberService _memberService;
+        private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
 
-        protected LoginControllerBase(IMemberService memberService)
+        protected LoginControllerBase(IMemberService memberService, ITimezoneOffsetProvider timezoneOffsetProvider)
         {
             _memberService = memberService;
+            _timezoneOffsetProvider = timezoneOffsetProvider;
         }
 
         public virtual ActionResult Login()
@@ -24,13 +28,12 @@ namespace uCommunity.Users.Web
         }
 
         [HttpPost]
-        public virtual ActionResult Login(string login, string password, string returnUrl)
+        public virtual ActionResult Login(LoginModelBase model)
         {
-            var redirectUrl = returnUrl ?? DefaultRedirectUrl;
-            if (!Members.Login(login, password))
+            var redirectUrl = model.ReturnUrl ?? DefaultRedirectUrl;
+            if (Members.Login(model.Login, model.Password))
             {
-                redirectUrl = HttpContext.Request.Url?.AbsoluteUri ?? DefaultRedirectUrl;
-
+                _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
             }
             return Redirect(redirectUrl);
 
