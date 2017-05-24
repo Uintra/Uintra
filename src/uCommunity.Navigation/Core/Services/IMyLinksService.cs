@@ -9,10 +9,12 @@ namespace uCommunity.Navigation.Core
 
         IEnumerable<MyLink> GetMany(IEnumerable<Guid> ids);
 
-        IEnumerable<MyLink> GetUserLinks(Guid userId);
+        IEnumerable<MyLink> GetMany(Guid userId);
 
-        bool Sort(Dictionary<Guid, int> sortOrders);
+        void Create(Guid userId, int contentId);
 
-        bool AddRemove(Guid userId, string name, string url);
+        void Delete(Guid id);
+
+        bool Exists(Guid userId, int contentId);
     }
 }
