@@ -7,11 +7,10 @@ using uCommunity.Events;
 using uCommunity.Likes;
 using uCommunity.Notification.Core.Entities.Base;
 using uCommunity.Subscribe;
-using uCommunity.Tagging;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IHaveTags, IReminderable
+    public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IReminderable
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
@@ -21,7 +20,5 @@ namespace Compent.uCommunity.Core.Events
         public IEnumerable<Comment> Comments { get; set; }
         [JsonIgnore]
         public IEnumerable<global::uCommunity.Subscribe.Subscribe> Subscribers { get; set; }
-        [JsonIgnore]
-        public IEnumerable<Tag> Tags { get; set; }
     }
 }

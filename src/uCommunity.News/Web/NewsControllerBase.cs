@@ -100,6 +100,8 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
+            FillLinks();
+
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(editModel);
@@ -115,7 +117,6 @@ namespace uCommunity.News.Web
         {
             var mediaSettings = _newsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
-            ViewData.SetDateTimeFormats();
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 

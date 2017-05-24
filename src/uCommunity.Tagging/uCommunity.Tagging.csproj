@@ -326,7 +326,6 @@
     </Compile>
     <Compile Include="Core\AutoMapperProfiles\TagAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\TagDTO.cs" />
-    <Compile Include="Core\IHaveTags.cs" />
     <Compile Include="Core\ITagsActivityCreateEditModel.cs" />
     <Compile Include="Core\Models\TagEditModel.cs" />
     <Compile Include="Core\Services\ITagsService.cs" />
