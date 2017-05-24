@@ -20,10 +20,31 @@ namespace uCommunity.Notification
             _notificationRepository = notificationRepository;
         }
 
+        public IEnumerable<Core.Sql.Notification> GetMany(Guid receiverId, int count, out int totalCount)
+        {
+            var allNotifications = _notificationRepository
+                                        .FindAll(el => el.ReceiverId == receiverId)
+                                        .OrderBy(n => n.IsNotified)
+                                        .ThenByDescending(n => n.Date);
+
+            totalCount = allNotifications.Count();
+
+            var result = allNotifications.Take(count).ToList();
+
+            if (result.Any(n => !n.IsNotified))
+            {
+                var notNotified = result.Where(n => !n.IsNotified).ToList();
+                notNotified.ForEach(n => n.IsNotified = true);
+                _notificationRepository.Update(notNotified);
+            }
+
+            return result;
+        }
+
         public void Notify(NotifierData data)
         {
             var notifications = data.ReceiverIds
-                .Select(el=> new Core.Sql.Notification()
+                .Select(el=> new Core.Sql.Notification
             {
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
@@ -49,24 +70,6 @@ namespace uCommunity.Notification
             _notificationRepository.Update(notification);
         }
 
-        public IEnumerable<Core.Sql.Notification> GetByReceiver(Guid receiverId, int count, out int totalCount)
-        {
-            var allNotifications = _notificationRepository
-                                        .FindAll(el => el.ReceiverId == receiverId)
-                                        .OrderBy(n => !n.IsNotified)
-                                        .ThenByDescending(n => n.Date);
-            totalCount = allNotifications.Count();
-
-            var result = allNotifications.Take(count).ToList();
-
-            if (result.Any(n => !n.IsNotified))
-            {
-                var notNotified = result.Where(n => !n.IsNotified).ToList();
-                notNotified.ForEach(n => n.IsNotified = true);
-                _notificationRepository.Update(notNotified);
-            }
-
-            return result;
-        }
+       
     }
 }
