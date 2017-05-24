@@ -6,7 +6,6 @@ using Compent.uCommunity.Core.News.Entities;
 using Compent.uCommunity.Core.News.Models;
 using uCommunity.CentralFeed;
 using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
 using uCommunity.Core.User.Permissions.Web;
@@ -25,6 +24,7 @@ namespace Compent.uCommunity.Controllers
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
         protected override int ShortDescriptionLength { get; } = 500;
 
+        private readonly INewsService<News> newsService;
         private readonly ITagsService _tagsService;
 
         public NewsController(
@@ -34,6 +34,7 @@ namespace Compent.uCommunity.Controllers
             ITagsService tagsService)
             : base(intranetUserService, newsService, mediaHelper)
         {
+            this.newsService = newsService;
             _tagsService = tagsService;
         }
 
@@ -46,6 +47,12 @@ namespace Compent.uCommunity.Controllers
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        public override ActionResult Edit(Guid id)
+        {
+            var news = newsService.Get(id);
+            return base.Edit(id);
         }
 
         [HttpPost]

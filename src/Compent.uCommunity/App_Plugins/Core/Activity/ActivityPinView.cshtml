@@ -14,7 +14,7 @@
         @Html.Localize("NewsCreate.PinActivityMessage.lbl")
         @{
             var daysRange = Enumerable.Range(@Model.RangeStart, @Model.RangeEnd);
-            var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None", Selected = !@Model.IsEditMode } };
+            var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None"} };
             listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
             @Html.DropDownList("PinDays", listOfDays)
         }

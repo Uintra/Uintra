@@ -39,7 +39,7 @@
             <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
         </div>
         <div class="form__row clearfix">
-            @Html.Action("PinActivity", "PinActivity", new { isEdit = true })
+            @Html.Action("PinActivity", "PinActivity", new { isPinned = @Model.IsPinned, pinDays = @Model.PinDays })
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
