@@ -100,6 +100,8 @@ namespace uCommunity.News.Web
         [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
+            FillLinks();
+
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(editModel);
