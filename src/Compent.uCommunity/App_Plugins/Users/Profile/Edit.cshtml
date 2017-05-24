@@ -3,7 +3,7 @@
 @model uCommunity.Users.Core.ProfileEditModelBase
 
 <div id="js-profile-page" class="form _profile">
-
+    
     @using (Ajax.BeginForm("Edit", "Profile", new AjaxOptions
     {
         HttpMethod = "POST",
@@ -45,3 +45,4 @@
         </div>
     }
 </div>
+

@@ -27,7 +27,6 @@
 
     &__title{
         font:bold 20px/25px var(--font-custom);
-        text-transform:uppercase;
         margin:0 0 9px;
         color:var(--text-color-dark);
 
@@ -402,6 +401,12 @@
         }
 
         &-link{
+            color:var(--text-color-dark);
+
+            &:hover{
+                color:var(--text-color-dark);
+            }
+
             ._horizontal &{
                 background:#fbfbfb;
                 display:block;

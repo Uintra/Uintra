@@ -4,26 +4,25 @@
 
 <ul class="side-nav js-my-links__opener" id="myLinksContainer">
     <li class="side-nav__item">
-        <a class="side-nav__link">@Html.Localize("MyLinks.Menu.lbl")</a>
+        <a class="side-nav__link">@Html.Localize("Links.Menu.lbl")</a>
         <span class="side-nav__arrow"></span>
-        <ul class="side-nav">
-            @foreach (var item in Model.MyLinks)
-            {
-                <li class="side-nav__item">
-                    <a class="side-nav__link" href="@item.Url">
-                        @item.Name
-                    </a>
-                </li>
-            }
+        <ul id="js-myLinks-ul" class="side-nav">
+            @{ Html.RenderAction("MyLinksList", "Navigation", new {model = @Model.Links}); }
         </ul>
     </li>
     <li class="side-nav__item">
-        <span class="@(Model.IsLinked ? "_isLinked" : "")"><i class="@(Model.IsLinked ? "myLinks_remove" : "myLinks_add")"></i></span>
-        @Ajax.ActionLink(Model.IsLinked ? Html.Localize("MyLinks.Remove.lbl") : Html.Localize("MyLinks.Add.lbl"),
-            "AddRemoveMyLink",
-            "Navigation",
-            new { pageName = Model.PageName },
-            new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.ReplaceWith, OnComplete = "myLinks.switchLinkIcon()" },
-            new {@class = "side-nav__link", id = "myLinks_addRemove"})
+        @Ajax.ActionLink(Html.Localize("MyLinks.Add.lbl")
+                "Add",
+                "Navigation",
+                new { contentId = Model.ContentId },
+                new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.Replace },
+                new { @class = "side-nav__link js-myLinks-add", })
+        
+        @Ajax.ActionLink(Html.Localize("MyLinks.Remove.lbl")
+                "Remove",
+                "Navigation",
+                new { contentId = Model.ContentId },
+                new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "myLinksContainer", InsertionMode = InsertionMode.Replace },
+                new { @class = "side-nav__link js-myLinks-remove" })
     </li>
 </ul>
