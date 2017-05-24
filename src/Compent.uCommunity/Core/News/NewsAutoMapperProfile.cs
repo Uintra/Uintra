@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Compent.uCommunity.Core.News.Entities;
 using Compent.uCommunity.Core.News.Models;
 using uCommunity.Core.Activity.Models;
 using uCommunity.News;
@@ -26,7 +25,7 @@ namespace Compent.uCommunity.Core.News
 
             Mapper.CreateMap<Entities.News, NewsExtendedEditModel>()
                 .IncludeBase<NewsBase, NewsEditModel>()
-                .ForMember(dst => dst.Tags, o => o.MapFrom(el => el.Tags));
+                .ForMember(dst => dst.Tags, o => o.Ignore());
 
             Mapper.CreateMap<Entities.News, NewsBackofficeViewModel>()
                 .IncludeBase<NewsBase, NewsBackofficeViewModel>();

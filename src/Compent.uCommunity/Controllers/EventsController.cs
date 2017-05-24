@@ -92,10 +92,7 @@ namespace Compent.uCommunity.Controllers
         protected override EventEditModel GetEditViewModel(EventBase @event)
         {
             var model = base.GetEditViewModel(@event).Map<EventExtendedEditModel>();
-
-            var eventExtended = (IHaveTags)@event;
-            _tagsService.FillTags(@eventExtended);
-            model.Tags = eventExtended.Tags.Map<List<TagEditModel>>();
+            model.Tags = _tagsService.GetMany(@event.Id).Map<List<TagEditModel>>();
             return model;
         }
 
