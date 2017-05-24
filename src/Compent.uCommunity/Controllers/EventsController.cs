@@ -6,7 +6,6 @@ using AutoMapper;
 using Compent.uCommunity.Core.Events;
 using uCommunity.CentralFeed;
 using uCommunity.Core.Activity;
-using uCommunity.Core.Activity.Models;
 using uCommunity.Core.Extentions;
 using uCommunity.Core.Media;
 using uCommunity.Core.User;
@@ -22,7 +21,6 @@ namespace Compent.uCommunity.Controllers
 {
     public class EventsController : EventsControllerBase
     {
-        protected override string ListViewPath => "~/Views/Events/ListView.cshtml";
         protected override string DetailsViewPath => "~/Views/Events/DetailsView.cshtml";
         protected override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/Events/EditView.cshtml";
@@ -49,20 +47,11 @@ namespace Compent.uCommunity.Controllers
         {
             FillLinks();
             var activity = item as Event;
-            return PartialView(ItemViewPath, GetItemViewModel(activity));
-        }
-
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
-        public override ActionResult Create()
-        {
-            var model = new EventExtendedActivityCreateModel
-            {
-                StartDate = DateTime.Now.Date.AddHours(8),
-                EndDate = DateTime.Now.Date.AddHours(8),
-                CanSubscribe = true
-            };
-            FillCreateEditData(model);
-            return PartialView(CreateViewPath, model);
+            var model = GetItemViewModel(activity);
+            var extendedModel = model.Map<EventExtendedItemModel>();
+            extendedModel.LikesInfo = activity;
+            extendedModel.SubscribeInfo = activity;
+            return PartialView(ItemViewPath, extendedModel);
         }
 
         [NonAction]
@@ -116,14 +105,19 @@ namespace Compent.uCommunity.Controllers
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) && @event.Subscribers.Any() });
         }
 
-        protected override EventViewModel GetViewModel(EventBase @event)
+        protected override EventCreateModel GetCreateModel()
         {
-            var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
-            extendedModel = Mapper.Map(@event, extendedModel);
+            var extendedModel = base.GetCreateModel().Map<EventExtendedActivityCreateModel>();
             return extendedModel;
         }
 
-
+        protected override EventViewModel GetViewModel(EventBase @event)
+        {
+            var eventExtended = (Event) @event;
+            var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
+            extendedModel = Mapper.Map(eventExtended, extendedModel);
+            return extendedModel;
+        }
 
         protected override EventEditModel GetEditViewModel(EventBase @event)
         {

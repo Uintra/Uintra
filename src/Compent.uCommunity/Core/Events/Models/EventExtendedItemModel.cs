@@ -4,7 +4,7 @@ using uCommunity.Subscribe;
 
 namespace Compent.uCommunity.Core.Events
 {
-    public class EventOverviewItemModel : EventItemViewModel
+    public class EventExtendedItemModel : EventItemViewModel
     {
         public ILikeable LikesInfo { get; set; }
         public ISubscribable SubscribeInfo { get; set; }
