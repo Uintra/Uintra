@@ -390,8 +390,10 @@
     <Compile Include="Core\FolderConstants.cs" />
     <Compile Include="Core\IDateTimeFormatProvider.cs" />
     <Compile Include="Core\Handlers\NotFoundHandlerBase.cs" />
+    <Compile Include="Core\ITimezoneOffsetProvider.cs" />
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Core\NotificationConstants.cs" />
+    <Compile Include="Core\TimezoneOffsetProvider.cs" />
     <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Migrations\MediaMigrations.cs" />
     <Compile Include="Web\ActivityHeaderControllerBase.cs" />
