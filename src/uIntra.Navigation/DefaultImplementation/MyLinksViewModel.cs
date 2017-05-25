@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uCommunity.Navigation.DefaultImplementation
+namespace uIntra.Navigation.DefaultImplementation
 {
     public class MyLinksViewModel
     {

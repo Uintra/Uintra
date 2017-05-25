@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace uCommunity.Navigation.Core.Dashboard
+namespace uIntra.Navigation.Core.Dashboard
 {
     public class CreateNavigationCompositionsModel
     {

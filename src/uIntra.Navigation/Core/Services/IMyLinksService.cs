@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using uCommunity.Navigation.Core.Models;
+using uIntra.Navigation.Core.Sql;
 
-namespace uCommunity.Navigation.Core
+namespace uIntra.Navigation.Core.Services
 {
     public interface IMyLinksService
     {

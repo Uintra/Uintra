@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using uCommunity.Navigation.Core.Models;
 using uIntra.Core.Persistence.Sql;
+using uIntra.Navigation.Core.Sql;
 
-namespace uCommunity.Navigation.Core
+namespace uIntra.Navigation.Core.Services
 {
     public class MyLinksService : IMyLinksService
     {

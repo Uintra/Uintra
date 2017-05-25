@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Navigation.DefaultImplementation
+﻿namespace uIntra.Navigation.DefaultImplementation
 {
     public class SystemLinkItemViewModel
     {

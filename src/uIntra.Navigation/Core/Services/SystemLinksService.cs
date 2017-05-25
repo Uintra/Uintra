@@ -2,7 +2,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uCommunity.Navigation.Core
+namespace uIntra.Navigation.Core.Services
 {
     public class SystemLinksService : ISystemLinksService
     {

@@ -3,7 +3,7 @@ using uIntra.Core.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace uCommunity.Navigation.Core.Dashboard
+namespace uIntra.Navigation.Core.Dashboard
 {
     public class NavigationCompositionService : DocumentTypeService, INavigationCompositionService
     {

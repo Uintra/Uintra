@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Navigation")]
+[assembly: AssemblyTitle("uIntra.Navigation")]
 [assembly: AssemblyDescription("Left Navigation, Sub Navigation Top Navigation")]
 
 [assembly: ComVisible(false)]

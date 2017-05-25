@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Navigation.Core.Models
+namespace uIntra.Navigation.Core
 {
     public class MyLinkDTO
     {

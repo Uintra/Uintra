@@ -5,7 +5,7 @@ using uIntra.Core.Exceptions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uCommunity.Navigation.Core
+namespace uIntra.Navigation.Core
 {
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {

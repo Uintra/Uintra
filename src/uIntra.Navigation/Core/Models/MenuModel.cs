@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uCommunity.Navigation.Core
+namespace uIntra.Navigation.Core
 {
     public class MenuModel
     {

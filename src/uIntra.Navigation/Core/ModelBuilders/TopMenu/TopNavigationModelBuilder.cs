@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.User;
 
-namespace uCommunity.Navigation.Core
+namespace uIntra.Navigation.Core
 {
     public class TopNavigationModelBuilder : ITopNavigationModelBuilder
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uCommunity.Navigation.DefaultImplementation
+namespace uIntra.Navigation.DefaultImplementation
 {
     public class SystemLinksViewModel
     {

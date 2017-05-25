@@ -1,7 +1,6 @@
 ﻿using System;
-using uCommunity.Navigation.Core.Models;
 
-namespace uCommunity.Navigation.Core.Exceptions
+namespace uIntra.Navigation.Core.Exceptions
 {
     public class MyLinksDuplicatedException : ApplicationException
     {

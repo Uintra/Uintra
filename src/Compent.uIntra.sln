@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Likes", "uCommun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Subscribe", "uIntra.Subscribe\uIntra.Subscribe.csproj", "{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Navigation", "uCommunity.Navigation\uCommunity.Navigation.csproj", "{DB9791BC-0224-42E3-BD2B-1F18C15A181E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Navigation", "uIntra.Navigation\uIntra.Navigation.csproj", "{DB9791BC-0224-42E3-BD2B-1F18C15A181E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Comments", "uCommunity.Comments\uCommunity.Comments.csproj", "{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}"
 EndProject

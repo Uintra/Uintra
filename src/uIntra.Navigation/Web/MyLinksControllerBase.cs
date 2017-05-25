@@ -3,15 +3,16 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using AutoMapper;
-using uCommunity.Navigation.Core;
-using uCommunity.Navigation.Core.Exceptions;
-using uCommunity.Navigation.Core.Models;
-using uCommunity.Navigation.DefaultImplementation;
 using uIntra.Core.User;
+using uIntra.Navigation.Core;
+using uIntra.Navigation.Core.Exceptions;
+using uIntra.Navigation.Core.MyLinks;
+using uIntra.Navigation.Core.Services;
+using uIntra.Navigation.DefaultImplementation;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Navigation.Web
+namespace uIntra.Navigation.Web
 {
     public abstract class MyLinksControllerBase : SurfaceController
     {
