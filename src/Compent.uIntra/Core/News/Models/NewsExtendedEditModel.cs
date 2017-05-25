@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using uCommunity.News;
-using uCommunity.Tagging;
+using uIntra.News;
+using uIntra.Tagging;
 
 namespace Compent.uIntra.Core.News.Models
 {

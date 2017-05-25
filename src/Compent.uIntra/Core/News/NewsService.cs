@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.CentralFeed;
-using uCommunity.CentralFeed.Entities;
-using uCommunity.Comments;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Activity.Entities;
-using uCommunity.Core.Caching;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Media;
-using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions;
-using uCommunity.Likes;
-using uCommunity.News;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Entities;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Subscribe;
-using uCommunity.Tagging;
-using uCommunity.Users.Core;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Core.Activity;
+using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Likes;
+using uIntra.News;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
+using uIntra.Subscribe;
+using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -38,7 +35,6 @@ namespace Compent.uIntra.Core.News
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
-        private readonly ITagsService _tagsService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -48,8 +44,7 @@ namespace Compent.uIntra.Core.News
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService,
-            ITagsService tagsService)
+            INotificationsService notificationService)
             : base(intranetActivityRepository, cacheService, intranetUserService)
         {
             _intranetUserService = intranetUserService;
@@ -59,7 +54,6 @@ namespace Compent.uIntra.Core.News
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
-            _tagsService = tagsService;
         }
 
         public MediaSettings GetMediaSettings()

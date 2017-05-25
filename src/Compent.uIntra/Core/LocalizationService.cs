@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.Localization;
+﻿using uIntra.Core.Localization;
 
 namespace Compent.uIntra.Core
 {

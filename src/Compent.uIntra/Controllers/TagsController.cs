@@ -1,5 +1,5 @@
-﻿using uCommunity.Tagging;
-using uCommunity.Tagging.Web;
+﻿using uIntra.Tagging;
+using uIntra.Tagging.Web;
 
 namespace Compent.uIntra.Controllers
 {

@@ -1,7 +1,7 @@
-﻿using uCommunity.Core.User;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Notification.Web;
-using uCommunity.Users.Core;
+﻿using uIntra.Core.User;
+using uIntra.Notification;
+using uIntra.Notification.Web;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {

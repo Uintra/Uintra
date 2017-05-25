@@ -1,12 +1,12 @@
-﻿using uCommunity.Core.Activity;
-using uCommunity.Core.Persistence.Sql;
-using uCommunity.Subscribe;
+﻿using uIntra.Core.Activity;
+using uIntra.Core.Persistence;
+using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Subscribe
 {
     public class CustomSubscribeService : SubscribeService
     {
-        public CustomSubscribeService(ISqlRepository<global::uCommunity.Subscribe.Subscribe> subscribeRepository)
+        public CustomSubscribeService(ISqlRepository<global::uIntra.Subscribe.Subscribe> subscribeRepository)
             : base(subscribeRepository)
         {
         }

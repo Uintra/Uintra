@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using uCommunity.Navigation.Core;
+using uIntra.Navigation;
 
 namespace Compent.uIntra.Core.Navigation
 {

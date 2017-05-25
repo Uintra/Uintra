@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using uCommunity.Events;
-using uCommunity.Tagging;
+using uIntra.Events;
+using uIntra.Tagging;
 
 namespace Compent.uIntra.Core.Events
 {

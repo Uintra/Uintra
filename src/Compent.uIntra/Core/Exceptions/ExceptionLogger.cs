@@ -1,6 +1,6 @@
 ﻿using System;
 using Elmah;
-using uCommunity.Core.Exceptions;
+using uIntra.Core.Exceptions;
 
 namespace Compent.uIntra.Core.Exceptions
 {

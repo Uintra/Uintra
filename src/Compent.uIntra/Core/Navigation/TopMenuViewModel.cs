@@ -1,5 +1,5 @@
-﻿using uCommunity.Core.User;
-using uCommunity.Notification.Core.Models;
+﻿using uIntra.Core.User;
+using uIntra.Notification;
 
 namespace Compent.uIntra.Core.Navigation
 {

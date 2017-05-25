@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.UmbracoModelsBuilders;
-using uCommunity.Core;
-using uCommunity.Core.ApplicationSettings;
-using uCommunity.Core.Media;
-using uCommunity.Users.Web;
+using uIntra.Core;
+using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Media;
+using uIntra.Users.Web;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
@@ -12,12 +12,15 @@ namespace Compent.uIntra.Controllers
 {
     public class ProfileController : ProfileControllerBase
     {
+        private UmbracoHelper _umbracoHelper;
+
         public ProfileController(IMemberService memberService,
            UmbracoHelper umbracoHelper,
            IMediaHelper mediaHelper,
            IApplicationSettings applicationSettings)
             : base(memberService, umbracoHelper, mediaHelper, applicationSettings)
         {
+            _umbracoHelper = umbracoHelper;
         }
 
         public ActionResult ToProfilePage()

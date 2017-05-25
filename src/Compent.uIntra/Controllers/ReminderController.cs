@@ -1,5 +1,5 @@
-﻿using uCommunity.Notification.Core.Services;
-using uCommunity.Notification.Web;
+﻿using uIntra.Notification;
+using uIntra.Notification.Web;
 
 namespace Compent.uIntra.Controllers
 {

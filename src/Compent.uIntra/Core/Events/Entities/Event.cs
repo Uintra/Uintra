@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using uCommunity.CentralFeed;
-using uCommunity.Comments;
-using uCommunity.Events;
-using uCommunity.Likes;
-using uCommunity.Notification.Core.Entities.Base;
-using uCommunity.Subscribe;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Events;
+using uIntra.Likes;
+using uIntra.Notification.Base;
+using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -19,6 +19,6 @@ namespace Compent.uIntra.Core.Events
         [JsonIgnore]
         public IEnumerable<Comment> Comments { get; set; }
         [JsonIgnore]
-        public IEnumerable<global::uCommunity.Subscribe.Subscribe> Subscribers { get; set; }
+        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
     }
 }

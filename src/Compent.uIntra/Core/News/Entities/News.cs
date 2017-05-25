@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using uCommunity.CentralFeed;
-using uCommunity.Comments;
-using uCommunity.Likes;
-using uCommunity.News;
-using uCommunity.Subscribe;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Likes;
+using uIntra.News;
+using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.News.Entities
 {
@@ -18,6 +18,6 @@ namespace Compent.uIntra.Core.News.Entities
         [JsonIgnore]
         public IEnumerable<Comment> Comments { get; set; }
         [JsonIgnore]
-        public IEnumerable<global::uCommunity.Subscribe.Subscribe> Subscribers { get; set; }
+        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
     }
 }

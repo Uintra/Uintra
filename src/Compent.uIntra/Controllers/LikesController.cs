@@ -1,20 +1,23 @@
 ﻿using System.Web.Mvc;
 using Compent.uIntra.Core.Comments;
-using uCommunity.Core.Activity;
-using uCommunity.Core.User;
-using uCommunity.Likes;
-using uCommunity.Likes.Web;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Users.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.User;
+using uIntra.Likes;
+using uIntra.Likes.Web;
+using uIntra.Notification;
+using uIntra.Notification.Configuration;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
     public class LikesController : LikesControllerBase
     {
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, IIntranetUserService<IntranetUser> intranetUserService, ILikesService likesService)
             : base(activitiesServiceFactory, intranetUserService, likesService)
         {
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
@@ -26,7 +29,7 @@ namespace Compent.uIntra.Controllers
                 return like;
             }
 
-            var notifyableService = ActivitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
+            var notifyableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
             if (notifyableService != null)
             {
                 if (model.CommentId.HasValue)

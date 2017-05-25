@@ -4,16 +4,16 @@ using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
-using uCommunity.CentralFeed;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Media;
-using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions.Web;
-using uCommunity.News;
-using uCommunity.News.Web;
-using uCommunity.Tagging;
-using uCommunity.Users.Core;
+using uIntra.CentralFeed;
+using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions.Web;
+using uIntra.News;
+using uIntra.News.Web;
+using uIntra.Tagging;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {

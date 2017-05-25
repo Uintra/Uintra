@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using uCommunity.CentralFeed;
-using uCommunity.CentralFeed.Core;
-using uCommunity.CentralFeed.Models;
-using uCommunity.CentralFeed.Web;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.User;
-using uCommunity.Subscribe;
-using uCommunity.Users.Core;
+using uIntra.CentralFeed;
+using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
+using uIntra.CentralFeed.Web;
+using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
+using uIntra.Core.User;
+using uIntra.Subscribe;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
@@ -16,6 +15,7 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly ISubscribeService _subscribeService;
+        private readonly ICentralFeedService _centralFeedService;
 
         public CentralFeedController(ICentralFeedService centralFeedService,
             ICentralFeedContentHelper centralFeedContentHelper,
@@ -26,6 +26,7 @@ namespace Compent.uIntra.Controllers
         {
             _intranetUserService = intranetUserService;
             _subscribeService = subscribeService;
+            _centralFeedService = centralFeedService;
         }
 
         public override ActionResult List(CentralFeedListModel model)

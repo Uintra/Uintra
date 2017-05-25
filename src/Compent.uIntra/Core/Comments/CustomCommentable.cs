@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Comments;
-using uCommunity.Core.Activity;
+using uIntra.Comments;
+using uIntra.Core.Activity;
 
 namespace Compent.uIntra.Core.Comments
 {

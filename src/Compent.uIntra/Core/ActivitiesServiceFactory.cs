@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Events;
-using uCommunity.Core.Activity;
-using uCommunity.Events;
-using uCommunity.News;
+using uIntra.Core.Activity;
+using uIntra.Events;
+using uIntra.News;
 
 namespace Compent.uIntra.Core
 {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Compent.uIntra.Core.News.Models;
-using uCommunity.Core.Activity.Models;
-using uCommunity.News;
-using uCommunity.News.Dashboard;
+using uIntra.Core.Activity;
+using uIntra.News;
+using uIntra.News.Dashboard;
 
 namespace Compent.uIntra.Core.News
 {

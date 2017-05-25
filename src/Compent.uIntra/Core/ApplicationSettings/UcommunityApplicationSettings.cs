@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Compent.uIntra.Core.ApplicationSettings
 {
-    public class UcommunityApplicationSettings : ConfigurationSection, IUcommunityApplicationSettings
+    public class uIntraApplicationSettings : ConfigurationSection, IuIntraApplicationSettings
     {
         private const string DefaultAvatarPathKey = "DefaultAvatarPath";
         private const string PinDaysRangeStartKey = "PinDaysRangeStart";

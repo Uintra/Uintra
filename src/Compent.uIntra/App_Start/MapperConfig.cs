@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using uCommunity.CentralFeed.AutoMapperProfiles;
-using uCommunity.Comments.AutoMapperProfiles;
-using uCommunity.Core.Controls.LightboxGallery;
-using uCommunity.Events;
-using uCommunity.Navigation.AutoMapperProfiles;
-using uCommunity.News;
-using uCommunity.Notification.Core.Profiles;
-using uCommunity.Tagging;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Events;
+using uIntra.Navigation;
+using uIntra.News;
+using uIntra.Notification;
+using uIntra.Tagging;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
 

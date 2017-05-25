@@ -1,6 +1,5 @@
-﻿using uCommunity.Core;
-using uCommunity.Users.Web;
-using Umbraco.Core.Services;
+﻿using uIntra.Core;
+using uIntra.Users.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -9,8 +8,8 @@ namespace Compent.uIntra.Controllers
     {
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
-        public LoginController(IMemberService memberService, ITimezoneOffsetProvider timezoneOffsetProvider) :
-            base(memberService, timezoneOffsetProvider)
+        public LoginController(ITimezoneOffsetProvider timezoneOffsetProvider) :
+            base(timezoneOffsetProvider)
         {
         }
     }

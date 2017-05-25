@@ -1,5 +1,5 @@
-﻿using uCommunity.Likes;
-using uCommunity.News;
+﻿using uIntra.Likes;
+using uIntra.News;
 
 namespace Compent.uIntra.Core.News.Models
 {

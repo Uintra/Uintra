@@ -4,18 +4,18 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Events;
-using uCommunity.CentralFeed;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Media;
-using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions.Web;
-using uCommunity.Events;
-using uCommunity.Events.Web;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Tagging;
-using uCommunity.Users.Core;
+using uIntra.CentralFeed;
+using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions.Web;
+using uIntra.Events;
+using uIntra.Events.Web;
+using uIntra.Notification;
+using uIntra.Notification.Configuration;
+using uIntra.Tagging;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {

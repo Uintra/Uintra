@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Core.Activity;
-using uCommunity.Likes;
+using uIntra.Core.Activity;
+using uIntra.Likes;
 
 namespace Compent.uIntra.Core.Likes
 {

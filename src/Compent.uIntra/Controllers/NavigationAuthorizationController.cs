@@ -1,6 +1,6 @@
-﻿using uCommunity.Core.User;
-using uCommunity.Navigation.Web;
-using uCommunity.Users.Core;
+﻿using uIntra.Core.User;
+using uIntra.Navigation.Web;
+using uIntra.Users;
 using Umbraco.Core.Services;
 
 namespace Compent.uIntra.Controllers

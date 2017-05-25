@@ -1,4 +1,4 @@
-﻿using uCommunity.Core;
+﻿using uIntra.Core.Web;
 
 namespace Compent.uIntra.Controllers
 {

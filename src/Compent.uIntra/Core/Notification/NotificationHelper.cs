@@ -1,4 +1,4 @@
-﻿using uCommunity.Notification.Core.Services;
+﻿using uIntra.Notification;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

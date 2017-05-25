@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Comments;
-using uCommunity.Core.Persistence.Sql;
+using uIntra.Comments;
+using uIntra.Core.Persistence;
 
 namespace Compent.uIntra.Core
 {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using uCommunity.Events.Dashboard;
-using uCommunity.News.Dashboard;
+using uIntra.Events.Dashboard;
+using uIntra.News.Dashboard;
 using Umbraco.Core;
 
 namespace Compent.uIntra

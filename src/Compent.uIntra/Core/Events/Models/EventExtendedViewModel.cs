@@ -1,7 +1,7 @@
-﻿using uCommunity.Comments;
-using uCommunity.Events;
-using uCommunity.Likes;
-using uCommunity.Subscribe;
+﻿using uIntra.Comments;
+using uIntra.Events;
+using uIntra.Likes;
+using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Events
 {

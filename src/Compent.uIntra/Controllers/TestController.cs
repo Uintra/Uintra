@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions;
-using uCommunity.Users.Core;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Users;
 using Umbraco.Web.WebApi;
 
 namespace Compent.uIntra.Controllers

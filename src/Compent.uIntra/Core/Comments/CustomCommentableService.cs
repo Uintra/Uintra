@@ -1,5 +1,5 @@
 ﻿using System;
-using uCommunity.Comments;
+using uIntra.Comments;
 
 namespace Compent.uIntra.Core.Comments
 {

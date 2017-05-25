@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.UmbracoModelsBuilders;
-using uCommunity.CentralFeed;
-using uCommunity.CentralFeed.Core;
-using uCommunity.CentralFeed.Enums;
-using uCommunity.CentralFeed.Models;
-using uCommunity.Core;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Grid;
+using uIntra.CentralFeed;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
+using uIntra.Core.Grid;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

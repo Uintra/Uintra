@@ -1,4 +1,4 @@
-﻿using Compent.uCommunity.Core;
+﻿using uIntra.Core;
 
 namespace Compent.uIntra.Core
 {

@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.Handlers;
+﻿using uIntra.Core.Handlers;
 
 namespace Compent.uIntra.Core.Handlers
 {

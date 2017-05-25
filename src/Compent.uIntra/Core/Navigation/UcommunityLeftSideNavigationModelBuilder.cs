@@ -1,16 +1,17 @@
 ﻿using Compent.uIntra.Core.Helpers;
-using uCommunity.Core.Configuration;
-using uCommunity.Navigation.Core;
+using uIntra.Core.Configuration;
+using uIntra.Navigation;
+using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Navigation
 {
-    public class UcommunityLeftSideNavigationModelBuilder : LeftSideNavigationModelBuilder
+    public class uIntraLeftSideNavigationModelBuilder : LeftSideNavigationModelBuilder
     {
         private readonly IUmbracoContentHelper _umbracoContentHelper;
 
-        public UcommunityLeftSideNavigationModelBuilder(
+        public uIntraLeftSideNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IUmbracoContentHelper umbracoContentHelper)

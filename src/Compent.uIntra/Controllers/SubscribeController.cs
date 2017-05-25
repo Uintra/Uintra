@@ -1,8 +1,8 @@
-﻿using uCommunity.Core.Activity;
-using uCommunity.Core.User;
-using uCommunity.Subscribe;
-using uCommunity.Subscribe.Web;
-using uCommunity.Users.Core;
+﻿using uIntra.Core.Activity;
+using uIntra.Core.User;
+using uIntra.Subscribe;
+using uIntra.Subscribe.Web;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {

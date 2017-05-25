@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Comments;
-using uCommunity.Comments;
-using uCommunity.Comments.Web;
-using uCommunity.Core.Activity;
-using uCommunity.Core.User;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Users.Core;
+using uIntra.Comments;
+using uIntra.Comments.Web;
+using uIntra.Core.Activity;
+using uIntra.Core.User;
+using uIntra.Notification;
+using uIntra.Notification.Configuration;
+using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
@@ -16,6 +16,9 @@ namespace Compent.uIntra.Controllers
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
 
         private readonly ICommentableService _customCommentableService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly ICommentsService _commentsService;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
 
         public CommentsController(
             ICommentsService commentsService,
@@ -25,11 +28,14 @@ namespace Compent.uIntra.Controllers
             : base(commentsService, intranetUserService, activitiesServiceFactory)
         {
             _customCommentableService = customCommentableService;
+            _activitiesServiceFactory = activitiesServiceFactory;
+            _commentsService = commentsService;
+            _intranetUserService = intranetUserService;
         }
 
         protected override void OnCommentCreated(Comment comment)
         {
-            var service = ActivitiesServiceFactory.GetServiceSafe<INotifyableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
                 service.Notify(comment.ParentId ?? comment.Id,
@@ -41,7 +47,7 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnCommentEdited(Comment comment)
         {
-            var service = ActivitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
                 service.Notify(comment.Id, NotificationTypeEnum.CommentEdited);
@@ -58,12 +64,12 @@ namespace Compent.uIntra.Controllers
 
             if (model.ActivityId == CommentsTestConstants.ActivityId)
             {
-                _customCommentableService.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
                 return OverView(model.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
-            var comment = service.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
+            var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -72,9 +78,9 @@ namespace Compent.uIntra.Controllers
         [HttpPut]
         public override PartialViewResult Edit(CommentEditModel model)
         {
-            var comment = CommentsService.Get(model.Id);
+            var comment = _commentsService.Get(model.Id);
 
-            if (!ModelState.IsValid || !CommentsService.CanEdit(comment, IntranetUserService.GetCurrentUser().Id))
+            if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
             {
                 return OverView(model.Id);
             }
@@ -85,7 +91,7 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
@@ -94,10 +100,10 @@ namespace Compent.uIntra.Controllers
         [HttpDelete]
         public override PartialViewResult Delete(Guid id)
         {
-            var comment = CommentsService.Get(id);
-            var currentUserId = IntranetUserService.GetCurrentUser().Id;
+            var comment = _commentsService.Get(id);
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
 
-            if (!CommentsService.CanDelete(comment, currentUserId))
+            if (!_commentsService.CanDelete(comment, currentUserId))
             {
                 return OverView(comment.ActivityId);
             }
@@ -108,7 +114,7 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
 
             return OverView(comment.ActivityId);

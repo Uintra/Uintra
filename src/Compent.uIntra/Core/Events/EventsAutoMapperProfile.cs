@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using uCommunity.Core.Activity.Models;
-using uCommunity.Events;
+using uIntra.Core.Activity;
+using uIntra.Events;
 
 namespace Compent.uIntra.Core.Events
 {
