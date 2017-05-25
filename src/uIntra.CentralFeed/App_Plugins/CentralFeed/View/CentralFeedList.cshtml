@@ -1,0 +1,29 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.CentralFeed.Core.Enums
+@using uIntra.Core.Extentions
+@model uIntra.CentralFeed.Core.Models.CentralFeedListViewModel
+
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
+<input type="hidden" name="version" value="@Model.Version" />
+@if (Model.Type == CentralFeedTypeEnum.Events)
+{
+    <div class="check">
+        <label class="check__label">
+            <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
+            <span class="check__fake-input icon-check"></span>
+            <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
+        </label>
+    </div>
+}
+@if (!Model.Items.Any())
+{
+    @Html.Localize("CentralFeedList.Empty.lbl")
+}
+@foreach (var item in Model.Items)
+{
+    var itemSettings = Model.Settings.First(s => s.Type == item.Type);
+
+    <div data-anchor="@item.Id">
+        @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new {item = item}); }
+    </div>
+}

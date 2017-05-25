@@ -1,0 +1,29 @@
+﻿@using uIntra.Core.Extentions
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IEnumerable<uIntra.CentralFeed.Core.Models.CentralFeedTabViewModel>>
+
+<nav class="tabset js-feed-navigation">
+    <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
+    <div class="tabset__holder">
+        <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
+            @foreach (var tabModel in Model)
+            {
+                <li class="tabset__navigation-item js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.GetHashCode()" data-page-url="@tabModel.Url">
+                    <a class="tabset__navigation-link " href="@tabModel.Url">
+                        <span>@Html.Localize(tabModel.Type)</span>
+                    </a>
+                </li>
+            }
+            <li class="tabset__navigation-item _item-add">
+                <a class="tabset__navigation-link _add">+</a>
+                <ul class="tabset__navigation-list">
+                    @foreach (var typeModel in Model.Where(t => !t.CreateUrl.IsNullOrEmpty()))
+                    {
+                        <li class="tabset__navigation-list-item">
+                            <a class="tabset__navigation-list-link" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
