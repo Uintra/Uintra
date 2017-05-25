@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using uCommunity.Core.Extentions
-@model uCommunity.Events.EventItemViewModel
+@using uIntra.Core.Extentions
+@model uIntra.Events.EventItemViewModel
 @{
     var pinnedClass = Model.IsPinned ? "_pinned" : "";
 }
@@ -12,7 +12,6 @@
                 {
                     <span class="pinned__item pull-right">@Html.Localize("EventItemView.Pinned.lbl")</span>
                 }
-
                 @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
             </div>  
             <div class="content__item-image"> </div>

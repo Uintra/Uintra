@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using uCommunity.Core.Extentions
-@model uCommunity.News.NewsItemViewModel
+@using uIntra.Core.Extentions
+@model uIntra.News.NewsItemViewModel
 @{
     var expired = Model.Expired ? "_expired" : "";
     var pinnedClass = Model.IsPinned ? "_pinned" : "";
@@ -13,7 +13,6 @@
                 {
                     <span class="pinned__item pull-right">@Html.Localize("NewsItemView.Pinned.lbl")</span>
                 }
-
                 @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
             </div>
             <div class="content__item-image"> </div>

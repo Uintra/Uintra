@@ -1,0 +1,22 @@
+﻿@using uIntra.Core.Extentions
+@model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
+
+<ul class="gallery js-lightbox-gallery clearfix">
+    @foreach (var image in Model.Images)
+    {
+        var originalSize = $"{image.Width}x{image.Height}";
+        <li class="gallery__item" style="@(image.IsHidden ? "display:none;" : String.Empty)">
+            <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" />
+        </li>
+    }
+    @if (Model.OtherFiles.Any())
+    {
+        <li class="gallery__item _attachments ">
+            <a class="gallery__item-link" href="@Model.Url">
+                <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" />
+                <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
+            </a>
+        </li>
+    }
+</ul>
+

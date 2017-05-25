@@ -1,10 +1,9 @@
 ﻿@using System.Web.Mvc
-@using uCommunity.Core
-@using uCommunity.Core.Activity
-@using uCommunity.Core.Controls.FileUpload
-@using uCommunity.Core.Extentions
+@using uIntra.Core.Activity
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extentions
 @using Umbraco.Web
-@model uCommunity.News.NewsCreateModel
+@model uIntra.News.NewsCreateModel
 
 <div class="form" id="js-news-create-page">
     @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
@@ -43,7 +42,7 @@
             </div>
         </div>
         <div class="form__row clearfix">
-            @Html.Action("PinActivity", "PinActivity", new { isPinned = false, pinDays = 0 })
+           @Html.Action("PinActivity", "PinActivity", new { isPinned = false, pinDays = 0 })
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>

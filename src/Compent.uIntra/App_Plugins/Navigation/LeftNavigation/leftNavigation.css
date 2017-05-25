@@ -1,0 +1,131 @@
+﻿.side-nav {
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-weight: bold;
+    font-size:13px;
+    line-height: 22px;
+    font-family:var(--font-general);
+
+    &__title {
+         padding:4px 45px 4px 19px;
+         margin: 0;
+    }
+
+    &__item{
+        position:relative;
+
+        &:hover{
+            cursor:pointer;
+        }
+    }
+
+    &__link{
+        display:block;
+        padding:4px 45px 4px 19px;
+        color:var(--text-color-dark);
+        word-wrap: break-word;
+
+        &:hover,
+        &:focus,
+        &:active,
+        ._active > &{
+            background:#e5e5e5;
+            text-decoration:none;
+            color:var(--text-color-dark);
+        }
+
+        ._active > &{
+            cursor:default;
+            pointer-events:none;
+        }
+    }
+
+	&__arrow{
+		position: absolute;
+		top: 8px;
+		right: 24px;
+		width: 14px;
+		height: 14px;
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: calc(50% - 5px);
+			top:  calc(50% - 2px);
+			width: 10px;
+			height: 10px;
+			border: solid #a1a4ac;
+			border-width: 1px 0 0 1px;
+			transform: rotate(45deg);
+
+			._expand & {
+				transform: rotate(225deg);
+				top:  calc(50% - 7px);
+				border-color: #000;
+			}
+		}
+	}
+
+    .glyphicon{
+        position:absolute;
+        top:8px;
+        right:50px;
+    }
+
+    & &{
+        margin:0;
+        padding:0;
+        list-style:none;
+        font-weight: normal;
+        font-family:var(--font-general);
+        font-size:13px;
+
+        .side-nav{
+            &__link{
+                padding-left:29px;
+            }
+
+            .side-nav{
+                &__link{
+                    padding-left:39px;
+                }
+
+                .side-nav{
+                    &__link{
+                        padding-left:49px;
+                    }
+                }
+            }
+        }
+    }
+
+    .side-nav{
+        display: none;
+    }
+
+    ._expand &{
+        display: block;
+    }
+
+    @media (--for-tablet-portrait-down) {
+        font-size: 18px;
+
+        & & {
+            padding: 3px 0 0;
+            font-size:16px;
+
+            &__item {
+                margin: 0 0 5px;
+            }
+
+            &__link {
+                padding-left: 19px;
+            }
+        }
+
+        &__link {
+            padding-left: 19px;
+        }
+    }
+}

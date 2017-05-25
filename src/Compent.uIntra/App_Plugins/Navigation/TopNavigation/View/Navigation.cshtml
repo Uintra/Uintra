@@ -1,0 +1,31 @@
+﻿﻿@model uIntra.Navigation.TopNavigationViewModel
+
+<div class="menu _for-mobile">
+    <a id="js-menu-opener" class="burger"><span class="burger__line"></span></a>
+</div>
+<div class="user _for-desktop">
+    <a class="user__opener icon-user">
+        <span class="user__opener-arrow"></span>
+    </a>
+    <ul class="user__menu">
+        @if (Model.CurrentUser.UmbracoId.HasValue)
+        {
+            <li class="user__menu-item">
+                <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
+                    <span class="icon icon-umbraco"></span>
+                    LoginToUmbraco
+                </a>
+            </li>
+        }
+        <li class="user__menu-item">
+            <a class="user__menu-link" href="@Url.Action("Logout", "NavigationAuthorization")">
+                <span class="icon icon-logout"></span> 
+                Logout
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="greeting _for-desktop"> 
+    <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
+</div> 

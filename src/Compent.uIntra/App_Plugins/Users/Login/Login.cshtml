@@ -1,0 +1,41 @@
+﻿@using Umbraco.Web
+@model Umbraco.Web.Models.LoginStatusModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/build/head_css.js"></script>
+    <link type="text/css" href="/build/app.css" rel="stylesheet" />
+    <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginUmbracoForm("Login", "Login"))
+    {
+        <div class="login">
+            <div class="form">
+                <div class="form__row">
+                    <strong class="form__logo"><img src="./Content/images/logo.png" /></strong>
+                </div>
+                <div class="form__row">
+                    <input class="form__input" type="text" name="login" placeholder="Login" />
+                </div>
+                <div class="form__row">
+                    <input class="form__input" type="password" name="password" placeholder="Password" />
+                </div>
+                <div class="form__row">
+                    <a class="pull-right form__link">Glemt kodeord</a>
+                    <input class="form__btn _black" type="submit" value="Login" />
+                </div>
+                <div class="form__row _bottom">
+                    <a class="form__link">Anmod om login til supplerende undervisning</a>
+                </div>
+                <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
+            </div>
+        </div>
+        <script src="~/App_Plugins/Core/Content/scripts/TimezoneOffsetSetter.js"></script>
+    }
+</body>
+</html>

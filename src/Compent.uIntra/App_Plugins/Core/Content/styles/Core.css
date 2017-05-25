@@ -366,7 +366,7 @@ body{
 
     &__clear{
         position:absolute;
-        top:37px;
+        top:20px;
         right:30px;
         cursor:pointer;
     }
