@@ -11,7 +11,7 @@
         </ul>
     </li>
     <li class="side-nav__item">
-        <a class="side-nav__link js-myLinks-add" style="@(Model.IsLinked ? "display:none;" : String.Empty)" " data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
-        <a class="side-nav__link js-myLinks-remove" style="@(Model.IsLinked ? string.Empty : "display:none;")" data-id="@Model.Id">@Html.Localize("MyLinks.Remove.lbl")</a>
+        <a class="side-nav__link js-myLinks-add" style="@(Model.IsLinked ? "display:none;" : string.Empty)" " data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
+        <a class="side-nav__link js-myLinks-remove" style="@(Model.IsLinked ? string.Empty : "display:none;")" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Remove.lbl")</a>
     </li>
 </ul>

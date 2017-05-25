@@ -15,14 +15,12 @@
         <aside id="sidebar">
             @{Html.RenderAction("LeftNavigation", "Navigation"); }
             @{Html.RenderAction("SystemLinks", "Navigation"); }
-            @*@{Html.RenderAction("MyLinks", "Navigation"); *@
+            @{Html.RenderAction("Overview", "MyLinks"); }
         </aside>
         <main id="main">
             @*@{Html.RenderAction("Login", "Login");}*@
             @{Html.RenderAction("SubNavigation", "Navigation");}
-
             @RenderBody()
-            @*@{Html.RenderAction("MyLinkIcon", "Navigation"); }*@
             </main>
         </div>
 
