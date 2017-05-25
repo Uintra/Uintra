@@ -37,7 +37,12 @@ namespace uCommunity.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore());
+                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                {
+                    dst.PublishDate = dst.PublishDate.ToUniversalTime();
+                    dst.UnpublishDate = dst.UnpublishDate?.ToUniversalTime();
+                });
 
             Mapper.CreateMap<NewsEditModel, NewsBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
@@ -50,6 +55,8 @@ namespace uCommunity.News
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
+                    dst.PublishDate = dst.PublishDate.ToUniversalTime();
+                    dst.UnpublishDate = dst.UnpublishDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()

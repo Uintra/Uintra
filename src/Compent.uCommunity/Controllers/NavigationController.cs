@@ -138,12 +138,11 @@ namespace Compent.uCommunity.Controllers
             };
         }
 
-        private NotificationListViewModel GetNotificationList()
+        private NotificationListViewModel GetNotificationList() // TODO: Move to base controller
         {
             var totalCount = 0;
             var notificationListPage = _notificationHelper.GetNotificationListPage();
-            //var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var itemsCountForPopup = notificationListPage.GetPropertyValue("itemCountForPopup", default(int));
+            var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
             var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount);
             return new NotificationListViewModel
             {

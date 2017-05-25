@@ -87,7 +87,6 @@ var helpers = {
             }
         });
 
-        defaultDate = helpers.removeOffset(defaultDate);
         datePicker.setDate(defaultDate, true);
         var minDate = new Date();
         if (defaultDate < minDate) {
@@ -96,10 +95,6 @@ var helpers = {
 
         datePicker.set('minDate', minDate.setHours(0));
         return datePicker;
-    },
-    removeOffset: function (date) {
-        var dateOffset = date.getTimezoneOffset() * 60000; // [min*60000 = ms]
-        return new Date(date.getTime() + dateOffset);
     },
     infiniteScrollFactory: function (onScroll) {
         return function () {

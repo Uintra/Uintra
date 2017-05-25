@@ -40,7 +40,12 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore());
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                 {
+                     dst.StartDate = dst.StartDate.ToUniversalTime();
+                     dst.EndDate = dst.EndDate.ToUniversalTime();
+                 });
 
             Mapper.CreateMap<EventEditModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -52,10 +57,12 @@ namespace uCommunity.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())                
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
+                    dst.StartDate = dst.StartDate.ToUniversalTime();
+                    dst.EndDate = dst.EndDate.ToUniversalTime();
                 });
 
             Mapper.CreateMap<EventBase, EventViewModel>()

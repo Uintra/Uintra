@@ -76,11 +76,6 @@ namespace uCommunity.Events.Web
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
-            if (createModel.IsPinned && createModel.PinDays > 0)
-            {
-                @event.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
-            }
-
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
 

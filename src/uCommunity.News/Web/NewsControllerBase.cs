@@ -169,11 +169,7 @@ namespace uCommunity.News.Web
         {
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.CreatorId = _intranetUserService.GetCurrentUserId();
-            if (createModel.IsPinned && createModel.PinDays > 0)
-            {
-                news.EndPinDate = DateTime.Now.AddDays(createModel.PinDays);
-            }
+            news.CreatorId = _intranetUserService.GetCurrentUserId();            
 
             return _newsService.Create(news);
         }
@@ -184,11 +180,6 @@ namespace uCommunity.News.Web
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.CreatorId = _intranetUserService.GetCurrentUserId();
-
-            if (editModel.IsPinned && editModel.PinDays > 0 && activity.PinDays != editModel.PinDays)
-            {
-                activity.EndPinDate = DateTime.Now.AddDays(editModel.PinDays);
-            }
 
             _newsService.Save(activity);
             return activity;
