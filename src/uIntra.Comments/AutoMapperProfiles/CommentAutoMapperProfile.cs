@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace uCommunity.Comments.AutoMapperProfiles
+namespace uIntra.Comments.AutoMapperProfiles
 {
     public class CommentAutoMapperProfile : Profile
     {

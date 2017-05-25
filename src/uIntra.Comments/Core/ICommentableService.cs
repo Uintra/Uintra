@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Comments
+namespace uIntra.Comments
 {
     public interface ICommentableService
     {

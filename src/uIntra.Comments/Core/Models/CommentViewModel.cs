@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uCommunity.Comments
+namespace uIntra.Comments
 {
     public class CommentViewModel
     {

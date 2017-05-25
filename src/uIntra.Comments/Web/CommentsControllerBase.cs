@@ -7,7 +7,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Comments.Web
+namespace uIntra.Comments.Web
 {
     public abstract class CommentsControllerBase : SurfaceController
     {

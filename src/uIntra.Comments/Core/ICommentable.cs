@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using uIntra.Core.Activity;
 
-namespace uCommunity.Comments
+namespace uIntra.Comments
 {
     public interface ICommentable
     {

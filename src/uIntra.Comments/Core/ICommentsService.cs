@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace uCommunity.Comments
+namespace uIntra.Comments
 {
     public interface ICommentsService
     {

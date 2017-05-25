@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Comments")]
+[assembly: AssemblyTitle("uIntra.Comments")]
 [assembly: AssemblyDescription("Comments activity package")]
 
 [assembly: AssemblyVersion("1.0.8.3")]

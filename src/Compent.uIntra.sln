@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Subscribe", "uIntra.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Navigation", "uIntra.Navigation\uIntra.Navigation.csproj", "{DB9791BC-0224-42E3-BD2B-1F18C15A181E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Comments", "uCommunity.Comments\uCommunity.Comments.csproj", "{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Comments", "uIntra.Comments\uIntra.Comments.csproj", "{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.CentralFeed", "uCommunity.CentralFeed\uCommunity.CentralFeed.csproj", "{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}"
 EndProject

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Comments
+namespace uIntra.Comments
 {
     public class CommentsService : ICommentsService
     {

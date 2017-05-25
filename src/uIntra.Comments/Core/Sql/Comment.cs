@@ -2,7 +2,7 @@
 using ServiceStack.DataAnnotations;
 using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Comments
+namespace uIntra.Comments
 {
     public class Comment : SqlEntity
     {

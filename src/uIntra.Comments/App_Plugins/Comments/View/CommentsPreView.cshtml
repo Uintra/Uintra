@@ -1,4 +1,4 @@
-﻿@model uCommunity.Comments.CommentPreviewModel
+﻿@model uIntra.Comments.CommentPreviewModel
 
 <span class="comments-preview @(Model.Count > 0 ? "_hasComments" : string.Empty)">
     <a class="comments-preview__link" href="@Model.Link"><i class="icon-comment"></i> @(Model.Count > 0 ? Model.Count.ToString() : string.Empty)</a>
