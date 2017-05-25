@@ -17,41 +17,41 @@ App_Data/
 App_Browsers/
 
 #========================================================================================> WEB
-src/Compent.uCommunity/Media/*
-src/Compent.uCommunity/build/*
-!src/Compent.uCommunity/Media/Web.config
-!src/Compent.uCommunity/App_Data/packages/
-!src/Compent.uCommunity/App_Data/Models/
-src/Compent.uCommunity/Content/images/bell.png
-src/Compent.uCommunity/Content/images/logout.png
-src/Compent.uCommunity/Content/images/umbraco.png
-src/Compent.uCommunity/Content/images/user.png
-src/Compent.uCommunity/Content/images/search.png
-src/Compent.uCommunity/Content/images/home.png
+src/Compent.uIntra/Media/*
+src/Compent.uIntra/build/*
+!src/Compent.uIntra/Media/Web.config
+!src/Compent.uIntra/App_Data/packages/
+!src/Compent.uIntra/App_Data/Models/
+src/Compent.uIntra/Content/images/bell.png
+src/Compent.uIntra/Content/images/logout.png
+src/Compent.uIntra/Content/images/umbraco.png
+src/Compent.uIntra/Content/images/user.png
+src/Compent.uIntra/Content/images/search.png
+src/Compent.uIntra/Content/images/home.png
 
 
 #========================================================================================> LIKES
-src/uCommunity.Likes/App_Plugins/Core/
+src/uIntra.Likes/App_Plugins/Core/
 
 #========================================================================================> SUBSCRIBE
-src/uCommunity.Subscribe/App_Plugins/Core/
+src/uIntra.Subscribe/App_Plugins/Core/
 
 #========================================================================================> COMMENTS
-src/uCommunity.Comments/App_Plugins/Core/
+src/uIntra.Comments/App_Plugins/Core/
 
 #========================================================================================> NAVIGATION
-src/uCommunity.Navigation/App_Plugins/Core/
+src/uIntra.Navigation/App_Plugins/Core/
 
 #========================================================================================> CENTRAL FEED
-src/uCommunity.CentralFeed/Config/
-src/uCommunity.CentralFeed/App_Plugins/Core/
+src/uIntra.CentralFeed/Config/
+src/uIntra.CentralFeed/App_Plugins/Core/
 
 #========================================================================================> NEWS
-src/uCommunity.News/App_Plugins/Core/
+src/uIntra.News/App_Plugins/Core/
 
 #========================================================================================> NOTIFICATIONS
-src/uCommunity.Notification/App_Plugins/Core/
+src/uIntra.Notification/App_Plugins/Core/
 
 #========================================================================================> EVENTS
-src/uCommunity.Events/App_Plugins/Core/
+src/uIntra.Events/App_Plugins/Core/
 
