@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DF5381
 		.nuget\NugetPack.targets = .nuget\NugetPack.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.BaseControls", "uIntra.BaseControls\uIntra.BaseControls.csproj", "{2E4A8B55-37F6-46A8-B108-30E346870720}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D11512F1-8ED3-404D-B566-9000A46130A4}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
@@ -21,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MakePackage.bat = MakePackage.bat
 		PushPackages.bat = PushPackages.bat
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.BaseControls", "uIntra.BaseControls\uIntra.BaseControls.csproj", "{2E4A8B55-37F6-46A8-B108-30E346870720}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Core", "uIntra.Core\uIntra.Core.csproj", "{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}"
 EndProject
@@ -36,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.CentralFeed", "uIntr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.News", "uIntra.News\uIntra.News.csproj", "{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compent.uCommunity", "Compent.uCommunity\Compent.uCommunity.csproj", "{469DC179-83EE-4696-9D36-2173E4BEAFDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compent.uIntra", "Compent.uIntra\Compent.uIntra.csproj", "{469DC179-83EE-4696-9D36-2173E4BEAFDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Notification", "uIntra.Notification\uIntra.Notification.csproj", "{774EBA5A-679C-401D-B3F1-130562785C60}"
 EndProject
