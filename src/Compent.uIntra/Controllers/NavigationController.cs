@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uCommunity.Core.Extentions;
-using Compent.uCommunity.Core.Navigation;
+using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Navigation;
+using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Models;
 using uCommunity.Core;
@@ -16,9 +17,8 @@ using uCommunity.Notification.Core.Services;
 using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class NavigationController : NavigationControllerBase
     {

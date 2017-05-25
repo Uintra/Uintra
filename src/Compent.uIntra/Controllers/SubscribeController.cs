@@ -4,7 +4,7 @@ using uCommunity.Subscribe;
 using uCommunity.Subscribe.Web;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class SubscribeController : SubscribeControllerBase
     {

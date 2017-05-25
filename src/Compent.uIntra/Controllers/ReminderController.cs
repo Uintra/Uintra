@@ -1,7 +1,7 @@
 ﻿using uCommunity.Notification.Core.Services;
 using uCommunity.Notification.Web;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class ReminderController : ReminderControllerBase
     {

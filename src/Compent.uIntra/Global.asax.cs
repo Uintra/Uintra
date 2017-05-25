@@ -1,11 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Compent.uCommunity.App_Start;
 using uCommunity.Events.Dashboard;
 using uCommunity.News.Dashboard;
 using Umbraco.Core;
 
-namespace Compent.uCommunity
+namespace Compent.uIntra
 {
     public class Global : ApplicationEventHandler
     {

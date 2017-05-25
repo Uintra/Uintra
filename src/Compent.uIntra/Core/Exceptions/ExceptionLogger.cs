@@ -2,7 +2,7 @@
 using Elmah;
 using uCommunity.Core.Exceptions;
 
-namespace Compent.uCommunity.Core.Exceptions
+namespace Compent.uIntra.Core.Exceptions
 {
     public class ExceptionLogger: IExceptionLogger
     {

@@ -4,7 +4,7 @@ using uCommunity.Core.User.Permissions;
 using uCommunity.Users.Core;
 using Umbraco.Web.WebApi;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class TestController : UmbracoApiController
     {

@@ -1,7 +1,7 @@
 ﻿using uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.Web;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class PinActivityController:PinActivityControllerBase
     {

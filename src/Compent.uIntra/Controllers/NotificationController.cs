@@ -3,7 +3,7 @@ using uCommunity.Notification.Core.Services;
 using uCommunity.Notification.Web;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class NotificationController: NotificationControllerBase
     {

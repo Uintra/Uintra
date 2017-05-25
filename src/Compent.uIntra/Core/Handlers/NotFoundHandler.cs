@@ -1,6 +1,6 @@
 ﻿using uCommunity.Core.Handlers;
 
-namespace Compent.uCommunity.Core.Handlers
+namespace Compent.uIntra.Core.Handlers
 {
     public class NotFoundHandler: NotFoundHandlerBase
     {

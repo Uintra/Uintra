@@ -1,7 +1,7 @@
 ﻿using uCommunity.Likes;
 using uCommunity.News;
 
-namespace Compent.uCommunity.Core.News.Models
+namespace Compent.uIntra.Core.News.Models
 {
     public class NewsExtendedItemViewModel : NewsItemViewModel
     {

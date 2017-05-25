@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using uCommunity.Core.Activity;
 using uCommunity.Subscribe;
 
-namespace Compent.uCommunity.Core.Subscribe
+namespace Compent.uIntra.Core.Subscribe
 {
     public class CustomSubscribable : ISubscribable
     {

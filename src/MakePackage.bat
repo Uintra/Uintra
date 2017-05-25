@@ -2,16 +2,16 @@ choice /c yn /m "Delete all package files in folder?"
 if %errorlevel% equ 1 del *.nupkg
  
  
-.\.nuget\nuget pack uCommunity.Users\uCommunity.Users.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.BaseControls\uCommunity.BaseControls.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.CentralFeed\uCommunity.CentralFeed.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Comments\uCommunity.Comments.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Core\uCommunity.Core.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Likes\uCommunity.Likes.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Navigation\uCommunity.Navigation.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.News\uCommunity.News.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Notification\uCommunity.Notification.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Subscribe\uCommunity.Subscribe.csproj -Build -Prop Configuration=Release
-.\.nuget\nuget pack uCommunity.Events\uCommunity.Events.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Users\uIntra.Users.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.BaseControls\uIntra.BaseControls.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.CentralFeed\uIntra.CentralFeed.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Comments\uIntra.Comments.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Core\uIntra.Core.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Likes\uIntra.Likes.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Navigation\uIntra.Navigation.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.News\uIntra.News.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Notification\uIntra.Notification.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Subscribe\uIntra.Subscribe.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Events\uIntra.Events.csproj -Build -Prop Configuration=Release
 
 pause

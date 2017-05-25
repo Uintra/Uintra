@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using uCommunity.Core;
+﻿using uCommunity.Core;
 using uCommunity.Users.Web;
 using Umbraco.Core.Services;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     [System.Web.Http.AllowAnonymous]
     public class LoginController : LoginControllerBase

@@ -1,4 +1,4 @@
-# $projName = "uCommunity.Core";
+# $projName = "uIntra.Core";
 # $configuration = "Release";
 # $tagPrefix = "Core";
 

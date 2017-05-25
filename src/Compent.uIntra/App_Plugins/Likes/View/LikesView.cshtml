@@ -10,8 +10,8 @@
     <span class="like__set @isLiked"><i class="icon-like"></i> @Model.Users.Count()</span>
 
     @(Model.CanAddLike
-        ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
-        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
+          ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
+          : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
 
     @if (Model.Users.Any())
     {

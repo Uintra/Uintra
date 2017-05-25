@@ -7,7 +7,7 @@ using uCommunity.Likes;
 using uCommunity.News;
 using uCommunity.Subscribe;
 
-namespace Compent.uCommunity.Core.News.Entities
+namespace Compent.uIntra.Core.News.Entities
 {
     public class News : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
     {

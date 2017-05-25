@@ -1,7 +1,7 @@
 ﻿using uCommunity.Core.Controls.LightboxGallery;
 using Umbraco.Web;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class LightboxGalleryController : LightboxGalleryControllerBase
     {

@@ -6,17 +6,18 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Compent.uCommunity.Core.ApplicationSettings;
-using Compent.uCommunity.Core.CentralFeed;
-using Compent.uCommunity.Core.Comments;
-using Compent.uCommunity.Core.Events;
-using Compent.uCommunity.Core.Exceptions;
-using Compent.uCommunity.Core.Helpers;
-using Compent.uCommunity.Core.IoC;
-using Compent.uCommunity.Core.Navigation;
-using Compent.uCommunity.Core.News;
-using Compent.uCommunity.Core.Notification;
-using Compent.uCommunity.Core.Subscribe;
+using Compent.uCommunity.Core;
+using Compent.uIntra.Core.ApplicationSettings;
+using Compent.uIntra.Core.CentralFeed;
+using Compent.uIntra.Core.Comments;
+using Compent.uIntra.Core.Events;
+using Compent.uIntra.Core.Exceptions;
+using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.IoC;
+using Compent.uIntra.Core.Navigation;
+using Compent.uIntra.Core.News;
+using Compent.uIntra.Core.Notification;
+using Compent.uIntra.Core.Subscribe;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
 using Ninject;
@@ -65,7 +66,7 @@ using SqlSubscribe = uCommunity.Subscribe.Subscribe;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace Compent.uCommunity.Core.IoC
+namespace Compent.uIntra.Core.IoC
 {
     public static class NinjectWebCommon
     {

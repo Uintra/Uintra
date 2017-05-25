@@ -2,7 +2,7 @@
 using uCommunity.Events;
 using uCommunity.Tagging;
 
-namespace Compent.uCommunity.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventExtendedEditModel : EventEditModel, ITagsActivityCreateEditModel
     {

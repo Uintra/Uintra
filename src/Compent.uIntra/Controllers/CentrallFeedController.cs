@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Core;
@@ -11,7 +10,7 @@ using uCommunity.Core.User;
 using uCommunity.Subscribe;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class CentralFeedController : CentralFeedControllerBase
     {

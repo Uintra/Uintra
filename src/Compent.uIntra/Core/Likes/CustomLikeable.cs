@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using uCommunity.Core.Activity;
 using uCommunity.Likes;
 
-namespace Compent.uCommunity.Core.Likes
+namespace Compent.uIntra.Core.Likes
 {
     public class CustomLikeable : ILikeable
     {

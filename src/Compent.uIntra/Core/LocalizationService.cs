@@ -1,6 +1,6 @@
 ﻿using uCommunity.Core.Localization;
 
-namespace Compent.uCommunity.Core
+namespace Compent.uIntra.Core
 {
     public class LocalizationService : IIntranetLocalizationService
     {

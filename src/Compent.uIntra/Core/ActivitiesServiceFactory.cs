@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
-using Compent.uCommunity.Core.Events;
-using Compent.uCommunity.Core.News.Entities;
+using Compent.uIntra.Core.Events;
 using uCommunity.Core.Activity;
 using uCommunity.Events;
 using uCommunity.News;
 
-namespace Compent.uCommunity.Core
+namespace Compent.uIntra.Core
 {
     public class ActivitiesServiceFactory : IActivitiesServiceFactory
     {

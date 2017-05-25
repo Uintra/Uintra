@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Enums;
@@ -10,9 +11,8 @@ using uCommunity.Core.Extentions;
 using uCommunity.Core.Grid;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uCommunity.Core.CentralFeed
+namespace Compent.uIntra.Core.CentralFeed
 {
     public class CentralFeedContentHelper: ICentralFeedContentHelper
     {

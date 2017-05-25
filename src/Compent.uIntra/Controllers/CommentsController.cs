@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using Compent.uCommunity.Core.Comments;
+using Compent.uIntra.Core.Comments;
 using uCommunity.Comments;
 using uCommunity.Comments.Web;
 using uCommunity.Core.Activity;
@@ -9,7 +9,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class CommentsController : CommentsControllerBase
     {

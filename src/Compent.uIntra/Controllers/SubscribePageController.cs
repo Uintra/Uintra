@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using Compent.uCommunity.Core.Helpers;
+using Compent.uIntra.Core.Helpers;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class SubscribePageController : RenderMvcController
     {

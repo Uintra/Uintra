@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uCommunity.Core.News.Entities;
 using uCommunity.CentralFeed;
 using uCommunity.CentralFeed.Entities;
 using uCommunity.Comments;
@@ -23,7 +22,7 @@ using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uCommunity.Core.News
+namespace Compent.uIntra.Core.News
 {
     public class NewsService : NewsServiceBase<Entities.News>,
         INewsService<Entities.News>,

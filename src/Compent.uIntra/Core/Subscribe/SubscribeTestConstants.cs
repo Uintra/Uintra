@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.uCommunity.Core.Comments
+namespace Compent.uIntra.Core.Subscribe
 {
     public static class SubscribeTestConstants
     {

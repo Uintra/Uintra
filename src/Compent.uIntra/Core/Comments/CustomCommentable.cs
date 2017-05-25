@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using uCommunity.Comments;
 using uCommunity.Core.Activity;
 
-namespace Compent.uCommunity.Core.Comments
+namespace Compent.uIntra.Core.Comments
 {
     public class CustomCommentable : ICommentable
     {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.uCommunity.Core.News.Entities;
-using Compent.uCommunity.Core.News.Models;
+using Compent.uIntra.Core.News.Entities;
+using Compent.uIntra.Core.News.Models;
 using uCommunity.CentralFeed;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
@@ -15,7 +15,7 @@ using uCommunity.News.Web;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class NewsController : NewsControllerBase
     {

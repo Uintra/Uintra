@@ -9,16 +9,14 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
+using Umbraco.Web;
 
-namespace Umbraco.Web.PublishedContentModels
+namespace Compent.uIntra.Core.UmbracoModelsBuilders
 {
 	/// <summary>Notification Page</summary>
 	[PublishedContentModel("notificationPage")]

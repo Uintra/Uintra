@@ -10,7 +10,7 @@ using uCommunity.Tagging;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
 
-namespace Compent.uCommunity.App_Start
+namespace Compent.uIntra
 {
     public static class MapperConfig
     {

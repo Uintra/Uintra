@@ -1,6 +1,6 @@
 ﻿using uCommunity.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class ActivityHeaderController : ActivityHeaderControllerBase 
     {

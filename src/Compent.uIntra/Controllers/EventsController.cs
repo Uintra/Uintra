@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.uCommunity.Core.Events;
+using Compent.uIntra.Core.Events;
 using uCommunity.CentralFeed;
 using uCommunity.Core.Activity;
 using uCommunity.Core.Extentions;
@@ -17,7 +17,7 @@ using uCommunity.Notification.Core.Services;
 using uCommunity.Tagging;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class EventsController : EventsControllerBase
     {

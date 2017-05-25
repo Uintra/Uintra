@@ -8,7 +8,7 @@ using uCommunity.Likes;
 using uCommunity.Notification.Core.Entities.Base;
 using uCommunity.Subscribe;
 
-namespace Compent.uCommunity.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IReminderable
     {

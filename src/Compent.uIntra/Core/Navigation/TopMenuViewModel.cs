@@ -1,7 +1,7 @@
 ﻿using uCommunity.Core.User;
 using uCommunity.Notification.Core.Models;
 
-namespace Compent.uCommunity.Core.Navigation
+namespace Compent.uIntra.Core.Navigation
 {
     public class TopMenuViewModel
     {

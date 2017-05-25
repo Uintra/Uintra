@@ -4,7 +4,7 @@ using uCommunity.Navigation.Web;
 using uCommunity.Users.Core;
 using Umbraco.Web;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class MyLinksController : MyLinksControllerBase
     {

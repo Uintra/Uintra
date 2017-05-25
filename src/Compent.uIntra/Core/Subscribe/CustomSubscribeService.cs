@@ -2,7 +2,7 @@
 using uCommunity.Core.Persistence.Sql;
 using uCommunity.Subscribe;
 
-namespace Compent.uCommunity.Core.Subscribe
+namespace Compent.uIntra.Core.Subscribe
 {
     public class CustomSubscribeService : SubscribeService
     {

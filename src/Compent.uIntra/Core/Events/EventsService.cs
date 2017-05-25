@@ -21,7 +21,7 @@ using uCommunity.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uCommunity.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,

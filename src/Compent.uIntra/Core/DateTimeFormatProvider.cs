@@ -1,4 +1,6 @@
-﻿namespace Compent.uCommunity.Core
+﻿using Compent.uCommunity.Core;
+
+namespace Compent.uIntra.Core
 {
     public class DateTimeFormatProvider : IDateTimeFormatProvider
     {

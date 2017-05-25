@@ -2,7 +2,7 @@
 using uCommunity.Likes;
 using uCommunity.Subscribe;
 
-namespace Compent.uCommunity.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventExtendedItemModel : EventItemViewModel
     {

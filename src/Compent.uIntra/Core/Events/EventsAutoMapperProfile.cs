@@ -2,7 +2,7 @@
 using uCommunity.Core.Activity.Models;
 using uCommunity.Events;
 
-namespace Compent.uCommunity.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventsAutoMapperProfile : Profile
     {

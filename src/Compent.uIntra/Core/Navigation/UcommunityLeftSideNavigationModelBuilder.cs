@@ -1,10 +1,10 @@
-﻿using Compent.uCommunity.Core.Helpers;
+﻿using Compent.uIntra.Core.Helpers;
 using uCommunity.Core.Configuration;
 using uCommunity.Navigation.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uCommunity.Core.Navigation
+namespace Compent.uIntra.Core.Navigation
 {
     public class UcommunityLeftSideNavigationModelBuilder : LeftSideNavigationModelBuilder
     {

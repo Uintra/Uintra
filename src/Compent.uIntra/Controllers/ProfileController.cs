@@ -1,17 +1,14 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
+using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uCommunity.Core;
 using uCommunity.Core.ApplicationSettings;
 using uCommunity.Core.Media;
 using uCommunity.Users.Web;
-using Umbraco.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using Umbraco.Web.Models;
-using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class ProfileController : ProfileControllerBase
     {

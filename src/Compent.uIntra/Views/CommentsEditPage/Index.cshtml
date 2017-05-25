@@ -1,4 +1,4 @@
-﻿@using Compent.uCommunity.Core.Comments
+﻿@using Compent.uIntra.Core.Comments
 @using uCommunity.Comments
 
 @{
@@ -10,5 +10,6 @@
 }
 
 @{ Html.RenderPartial("~/Views/CommentsPage/Tabs.cshtml", tabs);}
+
 
 @Html.Action("OverView", "Comments", new { commentsInfo })

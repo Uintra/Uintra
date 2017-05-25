@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Compent.uCommunity.Core.News.Models;
+using Compent.uIntra.Core.News.Models;
 using uCommunity.Core.Activity.Models;
 using uCommunity.News;
 using uCommunity.News.Dashboard;
 
-namespace Compent.uCommunity.Core.News
+namespace Compent.uIntra.Core.News
 {
     public class NewsAutoMapperProfile : Profile
     {

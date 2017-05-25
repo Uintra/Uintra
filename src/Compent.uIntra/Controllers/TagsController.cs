@@ -1,7 +1,7 @@
 ﻿using uCommunity.Tagging;
 using uCommunity.Tagging.Web;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class TagsController : TagsControllerBase
     {

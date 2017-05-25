@@ -1,6 +1,5 @@
-﻿
-using System.Web.Mvc;
-using Compent.uCommunity.Core.Comments;
+﻿using System.Web.Mvc;
+using Compent.uIntra.Core.Comments;
 using uCommunity.Core.Activity;
 using uCommunity.Core.User;
 using uCommunity.Likes;
@@ -9,7 +8,7 @@ using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Users.Core;
 
-namespace Compent.uCommunity.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class LikesController : LikesControllerBase
     {

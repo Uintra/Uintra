@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using uCommunity.Comments;
 using uCommunity.Core.Persistence.Sql;
 
-namespace Compent.uCommunity.Core
+namespace Compent.uIntra.Core
 {
     public class CommentsService : ICommentsService
     {
