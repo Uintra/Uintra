@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using uIntra.Core.Activity;
 using uIntra.Core.Media;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public interface IEventsService<out TEvent> : IIntranetActivityService<TEvent> where TEvent: EventBase
     {

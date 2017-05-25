@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Events
+﻿namespace uIntra.Events
 {
     public enum EventType
     {

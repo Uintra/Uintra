@@ -8,8 +8,8 @@
     <ProjectGuid>{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.Events</RootNamespace>
-    <AssemblyName>uCommunity.Events</AssemblyName>
+    <RootNamespace>uIntra.Events</RootNamespace>
+    <AssemblyName>uIntra.Events</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -340,14 +340,12 @@
     <None Include="Content\Config\Lang\en-GB.user.xml.install.xdt" />
     <None Include="Content\Config\Lang\en-US.user.xml.uninstall.xdt" />
     <None Include="Content\Config\Lang\en-US.user.xml.install.xdt" />
-    <Content Include="uCommunity.Events.nuspec">
-      <SubType>Designer</SubType>
-    </Content>
+    <None Include="uIntra.Events.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uCommunity.Core</Name>
+      <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

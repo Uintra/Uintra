@@ -1,7 +1,7 @@
 using System;
 using uIntra.Core.Activity.Models;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public class EventViewModel : IntranetActivityViewModelBase
     {

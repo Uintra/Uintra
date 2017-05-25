@@ -5,7 +5,7 @@ using uIntra.Core.Activity.Models;
 using uIntra.Core.Media;
 using uIntra.Core.ModelBinders;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public class EventEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {

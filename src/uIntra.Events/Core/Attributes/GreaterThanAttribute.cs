@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public class GreaterThanAttribute : ValidationAttribute
     {

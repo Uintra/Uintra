@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using AutoMapper;
-using uCommunity.Events.Dashboard;
 using uIntra.Core.Activity.Models;
 using uIntra.Core.Extentions;
+using uIntra.Events.Dashboard;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public class EventsAutoMapperProfile : Profile
     {

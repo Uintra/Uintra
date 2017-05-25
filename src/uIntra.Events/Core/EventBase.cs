@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using uIntra.Core.Activity.Entities;
 using uIntra.Core.User;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public class EventBase : IntranetActivity, IHaveCreator
     {

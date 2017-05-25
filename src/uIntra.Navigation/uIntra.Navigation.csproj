@@ -424,7 +424,9 @@
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
-    <None Include="uIntra.Navigation.nuspec" />
+    <None Include="uIntra.Navigation.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

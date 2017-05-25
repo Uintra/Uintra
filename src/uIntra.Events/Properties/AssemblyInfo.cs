@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Events")]
+[assembly: AssemblyTitle("uIntra.Events")]
 [assembly: AssemblyDescription("Events activity package")]
 
 [assembly: AssemblyVersion("1.0.11.9")]

@@ -1,6 +1,6 @@
 using System;
 
-namespace uCommunity.Events.Dashboard
+namespace uIntra.Events.Dashboard
 {
     public class EventBackofficeCreateModel
     {

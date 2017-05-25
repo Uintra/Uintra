@@ -13,7 +13,7 @@ using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Events.Web
+namespace uIntra.Events.Web
 {
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController

@@ -4,7 +4,7 @@ using System.Linq;
 using uIntra.Core.Activity.Models;
 using uIntra.Core.Controls.LightboxGallery;
 
-namespace uCommunity.Events
+namespace uIntra.Events
 {
     public class EventItemViewModel
     {

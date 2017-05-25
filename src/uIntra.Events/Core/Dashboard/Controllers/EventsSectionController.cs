@@ -4,7 +4,7 @@ using System.Web.Http;
 using uIntra.Core.Extentions;
 using Umbraco.Web.WebApi;
 
-namespace uCommunity.Events.Dashboard
+namespace uIntra.Events.Dashboard
 {
     public class EventsSectionController : UmbracoAuthorizedApiController
     {
