@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.News.Dashboard
+namespace uIntra.News.Dashboard
 {
     public class NewsBackofficeSaveModel
     {

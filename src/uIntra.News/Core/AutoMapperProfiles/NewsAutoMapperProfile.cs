@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using AutoMapper;
-using uCommunity.News.Dashboard;
 using uIntra.Core.Activity.Models;
 using uIntra.Core.Extentions;
+using uIntra.News.Dashboard;
 
-namespace uCommunity.News
+namespace uIntra.News
 {
     public class NewsAutoMapperProfile : Profile
     {

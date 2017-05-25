@@ -13,7 +13,7 @@ using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.News.Web
+namespace uIntra.News.Web
 {
     [ActivityController(IntranetActivityTypeEnum.News)]
     public abstract class NewsControllerBase : SurfaceController

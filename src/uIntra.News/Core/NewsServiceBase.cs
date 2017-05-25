@@ -5,7 +5,7 @@ using uIntra.Core.Activity.Entities;
 using uIntra.Core.Caching;
 using uIntra.Core.User;
 
-namespace uCommunity.News
+namespace uIntra.News
 {
     public abstract class NewsServiceBase<TNews> : IntranetActivityService<TNews> where TNews : NewsBase
     {

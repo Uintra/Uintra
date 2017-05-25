@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Comments", "uCom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.CentralFeed", "uCommunity.CentralFeed\uCommunity.CentralFeed.csproj", "{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.News", "uCommunity.News\uCommunity.News.csproj", "{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.News", "uIntra.News\uIntra.News.csproj", "{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compent.uCommunity", "Compent.uCommunity\Compent.uCommunity.csproj", "{469DC179-83EE-4696-9D36-2173E4BEAFDA}"
 EndProject

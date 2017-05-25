@@ -1,7 +1,7 @@
 ﻿using System;
 using uIntra.Core.Activity.Models;
 
-namespace uCommunity.News
+namespace uIntra.News
 {
     public class NewsViewModel : IntranetActivityViewModelBase
     {

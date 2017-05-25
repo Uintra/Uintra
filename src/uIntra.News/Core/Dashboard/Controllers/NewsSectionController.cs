@@ -5,7 +5,7 @@ using System.Web.Http;
 using uIntra.Core.Extentions;
 using Umbraco.Web.WebApi;
 
-namespace uCommunity.News.Dashboard
+namespace uIntra.News.Dashboard
 {
     public class NewsSectionController : UmbracoAuthorizedApiController
     {

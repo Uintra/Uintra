@@ -7,8 +7,8 @@
     <ProjectGuid>{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.News</RootNamespace>
-    <AssemblyName>uCommunity.News</AssemblyName>
+    <RootNamespace>uIntra.News</RootNamespace>
+    <AssemblyName>uIntra.News</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -580,7 +580,7 @@
     <None Include="Content\Config\Lang\en-GB.user.xml.uninstall.xdt" />
     <None Include="Content\Config\Lang\en-US.user.xml.install.xdt" />
     <None Include="Content\Config\Lang\en-US.user.xml.uninstall.xdt" />
-    <None Include="uCommunity.News.nuspec" />
+    <None Include="uIntra.News.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\News\style.css" />

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.News")]
+[assembly: AssemblyTitle("uIntra.News")]
 [assembly: AssemblyDescription("News activity package")]
 
 [assembly: AssemblyVersion("1.0.18.11")]

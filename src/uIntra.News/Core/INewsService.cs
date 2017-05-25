@@ -1,7 +1,7 @@
 using uIntra.Core.Activity;
 using uIntra.Core.Media;
 
-namespace uCommunity.News
+namespace uIntra.News
 {
 
     public interface INewsService<out TNews> : IIntranetActivityService<TNews> where TNews : NewsBase 

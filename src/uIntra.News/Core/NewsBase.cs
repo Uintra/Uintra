@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using uIntra.Core.Activity.Entities;
 using uIntra.Core.User;
 
-namespace uCommunity.News
+namespace uIntra.News
 {
     public interface INewsBase : IIntranetActivity
     {

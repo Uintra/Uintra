@@ -5,7 +5,7 @@ using uIntra.Core.Activity.Models;
 using uIntra.Core.Media;
 using uIntra.Core.ModelBinders;
 
-namespace uCommunity.News
+namespace uIntra.News
 {
     public class NewsCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {

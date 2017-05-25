@@ -9,10 +9,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uCommunity News Controls NewsControls</tags>
+    <tags>Compent uIntra News Controls NewsControls</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.41" />
-      <dependency id="uCommunity.BaseControls" version="2.2.2" />
+      <dependency id="uIntra.Core" version="1.0.41" />
+      <dependency id="uIntra.BaseControls" version="2.2.2" />
     </dependencies>
   </metadata>
 </package>
