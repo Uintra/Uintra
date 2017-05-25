@@ -4,7 +4,7 @@ using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Subscribe
+namespace uIntra.Subscribe
 {
     public class SubscribeService : ISubscribeService
     {

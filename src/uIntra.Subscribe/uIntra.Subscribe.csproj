@@ -7,8 +7,8 @@
     <ProjectGuid>{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.Subscribe</RootNamespace>
-    <AssemblyName>uCommunity.Subscribe</AssemblyName>
+    <RootNamespace>uIntra.Subscribe</RootNamespace>
+    <AssemblyName>uIntra.Subscribe</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -339,9 +339,7 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <None Include="packages.config" />
-    <None Include="uCommunity.Subscribe.nuspec">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="uIntra.Subscribe.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
@@ -354,7 +352,7 @@
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uCommunity.Core</Name>
+      <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Subscribe")]
+[assembly: AssemblyTitle("uIntra.Subscribe")]
 [assembly: AssemblyDescription("Subscribe activity package.")]
 
 [assembly: AssemblyVersion("1.0.9.0")]

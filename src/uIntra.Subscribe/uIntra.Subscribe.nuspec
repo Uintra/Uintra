@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uCommunity Subscribe Controls SubscribeControls</tags>
+    <tags>Compent Intra Subscribe Controls SubscribeControls</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.24" />
+      <dependency id="Intra.Core" version="1.0.24" />
     </dependencies>
   </metadata>
 </package>

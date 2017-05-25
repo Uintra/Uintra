@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Subscribe
+namespace uIntra.Subscribe
 {
     public class SubscribeNotificationDisableUpdateModel
     {
