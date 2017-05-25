@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using uIntra.Navigation.Core;
-using uIntra.Navigation.DefaultImplementation;
 
-namespace uIntra.Navigation.AutoMapperProfiles
+namespace uIntra.Navigation
 {
     public class NavigationAutoMapperProfile : Profile
     {

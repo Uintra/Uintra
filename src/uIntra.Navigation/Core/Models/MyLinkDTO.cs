@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Navigation.Core
+namespace uIntra.Navigation
 {
     public class MyLinkDTO
     {

@@ -358,7 +358,7 @@
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotifierService.cs" />
-    <Compile Include="Core\Profiles\NotificationAutoMapperProfile.cs" />
+    <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
     <Compile Include="Core\Sql\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />

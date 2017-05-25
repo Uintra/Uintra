@@ -1,4 +1,4 @@
-namespace uIntra.Navigation.Core.Dashboard
+namespace uIntra.Navigation.Dashboard
 {
     public interface INavigationCompositionService : IDocumentTypeService
     {

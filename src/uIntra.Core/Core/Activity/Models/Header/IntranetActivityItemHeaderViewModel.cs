@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Activity.Models
+﻿namespace uIntra.Core.Activity
 {
     public class IntranetActivityItemHeaderViewModel : IntranetActivityDetailsHeaderViewModel
     {

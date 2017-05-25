@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
-using uIntra.Users.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -16,10 +15,10 @@ namespace uIntra.Users.Web
         protected virtual string ProfileOverViewPath { get; } = "~/App_Plugins/Users/Profile/Overview.cshtml";
         protected virtual string ProfileEditViewPath { get; } = "~/App_Plugins/Users/Profile/Edit.cshtml";
 
-        protected readonly IMemberService _memberService;
-        protected readonly UmbracoHelper _umbracoHelper;
-        protected readonly IMediaHelper _mediaHelper;
-        protected readonly IApplicationSettings _applicationSettings;
+        private readonly IMemberService _memberService;
+        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IMediaHelper _mediaHelper;
+        private readonly IApplicationSettings _applicationSettings;
 
         protected ProfileControllerBase(IMemberService memberService,
             UmbracoHelper umbracoHelper,

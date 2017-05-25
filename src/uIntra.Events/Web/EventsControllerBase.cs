@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
 using uIntra.Core.Activity;
-using uIntra.Core.Activity.Models;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;

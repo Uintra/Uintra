@@ -9,11 +9,11 @@ namespace uIntra.Core.Web
     {
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
-        private readonly IApplicationSettings applicationSettings;
+        private readonly IApplicationSettings _applicationSettings;
 
         protected PinActivityControllerBase(IApplicationSettings applicationSettings)
         {
-            this.applicationSettings = applicationSettings;
+            _applicationSettings = applicationSettings;
         }
 
         public virtual ActionResult PinActivity(bool isPinned, int pinDays)
@@ -21,8 +21,8 @@ namespace uIntra.Core.Web
             return PartialView(PinActivityViewPath,
                 new PinActivityModel
                 {
-                    RangeStart = applicationSettings.PinDaysRangeStart,
-                    RangeEnd = applicationSettings.PinDaysRangeEnd,
+                    RangeStart = _applicationSettings.PinDaysRangeStart,
+                    RangeEnd = _applicationSettings.PinDaysRangeEnd,
                     PinDays = pinDays,
                     IsPinned = isPinned
                 });

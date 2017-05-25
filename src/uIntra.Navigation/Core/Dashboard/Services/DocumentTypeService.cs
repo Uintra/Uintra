@@ -2,7 +2,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace uIntra.Navigation.Core.Dashboard
+namespace uIntra.Navigation.Dashboard
 {
     public abstract class DocumentTypeService : IDocumentTypeService
     {

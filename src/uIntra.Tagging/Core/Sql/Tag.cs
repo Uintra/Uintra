@@ -1,6 +1,6 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 
 namespace uIntra.Tagging
 {

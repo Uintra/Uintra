@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using uIntra.Core.Activity.Models;
+using uIntra.Core.Activity;
 using uIntra.Core.Media;
 using uIntra.Core.ModelBinders;
 

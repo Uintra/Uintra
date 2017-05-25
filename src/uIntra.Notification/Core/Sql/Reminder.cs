@@ -1,9 +1,9 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uIntra.Core.Persistence.Sql;
-using uIntra.Notification.Core.Configuration;
+using uIntra.Core.Persistence;
+using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Sql
+namespace uIntra.Notification
 {
     public class Reminder: SqlEntity
     {

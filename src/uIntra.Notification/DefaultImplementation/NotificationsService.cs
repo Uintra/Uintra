@@ -4,12 +4,11 @@ using System.Linq;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
-using uIntra.Notification.Core.Configuration;
-using uIntra.Notification.Core.Entities.Base;
-using uIntra.Notification.Core.Exceptions;
-using uIntra.Notification.Core.Services;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
+using uIntra.Notification.Exceptions;
 
-namespace uIntra.Notification.DefaultImplementation
+namespace uIntra.Notification
 {
     public class NotificationsService : INotificationsService
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Notification.Core.Configuration;
+using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Entities.Base
+namespace uIntra.Notification.Base
 {
     public class NotifierData
     {

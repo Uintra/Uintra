@@ -1,8 +1,8 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 
-namespace uIntra.Navigation.Core.Sql
+namespace uIntra.Navigation
 {
     [CompositeIndex("UserId", "ContentId", "QueryString", Unique = true, Name = "UQ_MyLink_UserId_ContentId_QueryString")]
     public class MyLink : SqlEntity

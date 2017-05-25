@@ -6,8 +6,6 @@ using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
-using uIntra.Notification.Core.Models;
-using uIntra.Notification.Core.Services;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
@@ -19,14 +17,13 @@ namespace uIntra.Notification.Web
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
         protected virtual int ItemsPerPage { get; } = 8;
 
-        private readonly IUiNotifierService UiNotifierService;
-        private readonly IIntranetUserService<IIntranetUser> IntranetUserService;
+        private readonly IUiNotifierService _uiNotifierService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         
-
         protected NotificationControllerBase(IUiNotifierService uiNotifierService, IIntranetUserService<IIntranetUser> intranetUserService)
         {
-            UiNotifierService = uiNotifierService;
-            IntranetUserService = intranetUserService;
+            _uiNotifierService = uiNotifierService;
+            _intranetUserService = intranetUserService;
         }
 
         public virtual ActionResult Overview()
@@ -37,9 +34,9 @@ namespace uIntra.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var userId = IntranetUserService.GetCurrentUserId();
+            var userId = _intranetUserService.GetCurrentUserId();
             int totalCount;
-            var notifications = UiNotifierService.GetMany(userId, take, out totalCount).ToList();
+            var notifications = _uiNotifierService.GetMany(userId, take, out totalCount).ToList();
             return PartialView(ListViewPath,
                 new NotificationListViewModel
                 {
@@ -51,15 +48,15 @@ namespace uIntra.Notification.Web
         [System.Web.Mvc.HttpGet]
         public virtual int GetNotNotifiedCount()
         {
-            var userId = IntranetUserService.GetCurrentUserId();
-            var count = UiNotifierService.GetNotNotifiedCount(userId);
+            var userId = _intranetUserService.GetCurrentUserId();
+            var count = _uiNotifierService.GetNotNotifiedCount(userId);
             return count;
         }
 
         [System.Web.Mvc.HttpPost]
         public virtual void View([FromBody]Guid id)
         {
-            UiNotifierService.ViewNotification(id);
+            _uiNotifierService.ViewNotification(id);
         }
 
         public virtual PartialViewResult Notifications(NotificationListViewModel notificationList)
@@ -77,7 +74,7 @@ namespace uIntra.Notification.Web
                 return;
             }
 
-            var notifier = IntranetUserService.Get(notifierId);
+            var notifier = _intranetUserService.Get(notifierId);
             notification.NotifierName = notifier.DisplayedName;
             notification.NotifierPhoto = notifier.Photo;
         }

@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.User;
 
-namespace uIntra.Navigation.DefaultImplementation
+namespace uIntra.Navigation
 {
     public class TopNavigationViewModel
     {

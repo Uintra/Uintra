@@ -1,7 +1,6 @@
-﻿using uIntra.CentralFeed.Core.Enums;
-using Umbraco.Core.Models;
+﻿using Umbraco.Core.Models;
 
-namespace uIntra.CentralFeed.Core.Models
+namespace uIntra.CentralFeed
 {
     public class CentralFeedTabModel
     {

@@ -2,9 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
-using uIntra.CentralFeed.Core;
-using uIntra.CentralFeed.Core.Enums;
-using uIntra.CentralFeed.Core.Models;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
@@ -18,9 +15,9 @@ namespace uIntra.CentralFeed.Web
         protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
         protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
 
-        protected readonly ICentralFeedService _centralFeedService;
-        protected readonly ICentralFeedContentHelper _centralFeedContentHelper;
-        protected readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly ICentralFeedService _centralFeedService;
+        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(ICentralFeedService centralFeedService, ICentralFeedContentHelper centralFeedContentHelper, IActivitiesServiceFactory activitiesServiceFactory)

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity.Entities;
-using uIntra.Core.Activity.Sql;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed.Core;
-using uIntra.CentralFeed.Core.Entities;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 
-namespace uIntra.CentralFeed.DefaultImplementation
+namespace uIntra.CentralFeed
 {
     public static class CentralFeedConstants
     {

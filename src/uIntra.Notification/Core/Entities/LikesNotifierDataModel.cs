@@ -1,8 +1,8 @@
 ﻿using System;
 using uIntra.Core.Activity;
-using uIntra.Notification.Core.Entities.Base;
+using uIntra.Notification.Base;
 
-namespace uIntra.Notification.Core.Entities
+namespace uIntra.Notification
 {
     public class LikesNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {

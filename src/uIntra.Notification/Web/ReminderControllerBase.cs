@@ -1,22 +1,21 @@
 ﻿using System.Web.Http;
-using uIntra.Notification.Core.Services;
 using Umbraco.Web.WebApi;
 
 namespace uIntra.Notification.Web
 {
     public abstract class ReminderControllerBase: UmbracoApiController
     {
-        private readonly IReminderJob ReminderJob;
+        private readonly IReminderJob _reminderJob;
 
-        public ReminderControllerBase(IReminderJob reminderJob)
+        protected ReminderControllerBase(IReminderJob reminderJob)
         {
-            ReminderJob = reminderJob;
+            _reminderJob = reminderJob;
         }
 
         [HttpGet, AllowAnonymous]
         public void RunReminderJob()
         {
-            ReminderJob.Run();
+            _reminderJob.Run();
         }
     }
 }

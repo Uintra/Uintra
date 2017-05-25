@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using ServiceStack;
-using uIntra.Navigation.Core.Services;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation.Core.SystemLinks
+namespace uIntra.Navigation.SystemLinks
 {
     public class SystemLinksModelBuilder : ISystemLinksModelBuilder
     {

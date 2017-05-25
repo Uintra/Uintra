@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace uIntra.Core.Activity.Entities
+namespace uIntra.Core.Activity
 {
     public interface IIntranetActivity
     {

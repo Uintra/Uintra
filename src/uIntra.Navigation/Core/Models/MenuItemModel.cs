@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Navigation.Core
+namespace uIntra.Navigation
 {
     public class MenuItemModel
     {

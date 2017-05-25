@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.Activity.Entities;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity

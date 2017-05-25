@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 
 namespace uIntra.Comments
 {

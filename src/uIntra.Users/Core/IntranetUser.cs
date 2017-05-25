@@ -1,7 +1,7 @@
 ﻿using System;
 using uIntra.Core.User;
 
-namespace uIntra.Users.Core
+namespace uIntra.Users
 {
     public class IntranetUser : IIntranetUser
     {

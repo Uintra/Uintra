@@ -11,20 +11,20 @@ namespace uIntra.Likes.Web
 {
     public abstract class LikesControllerBase : SurfaceController
     {
-        public virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
+        protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
-        protected readonly IActivitiesServiceFactory ActivitiesServiceFactory;
-        protected readonly IIntranetUserService<IIntranetUser> IntranetUserService;
-        protected readonly ILikesService LikesService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly ILikesService _likesService;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService,
             ILikesService likesService)
         {
-            ActivitiesServiceFactory = activitiesServiceFactory;
-            IntranetUserService = intranetUserService;
-            LikesService = likesService;
+            _activitiesServiceFactory = activitiesServiceFactory;
+            _intranetUserService = intranetUserService;
+            _likesService = likesService;
         }
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
@@ -34,7 +34,7 @@ namespace uIntra.Likes.Web
 
         public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
         {
-            return Likes(LikesService.GetLikeModels(commentId), activityId, commentId);
+            return Likes(_likesService.GetLikeModels(commentId), activityId, commentId);
         }
 
         [HttpPost]
@@ -42,8 +42,8 @@ namespace uIntra.Likes.Web
         {
             if (model.CommentId.HasValue)
             {
-                LikesService.Add(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(LikesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
+                _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
             return AddActivityLike(model.ActivityId);
@@ -54,8 +54,8 @@ namespace uIntra.Likes.Web
         {
             if (model.CommentId.HasValue)
             {
-                LikesService.Remove(GetCurrentUserId(), model.CommentId.Value);
-                return Likes(LikesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
+                _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
             return RemoveActivityLike(model.ActivityId);
@@ -81,7 +81,7 @@ namespace uIntra.Likes.Web
 
         protected virtual PartialViewResult AddActivityLike(Guid activityId)
         {
-            var service = ActivitiesServiceFactory.GetService<ILikeableService>(activityId);
+            var service = _activitiesServiceFactory.GetService<ILikeableService>(activityId);
             var likeInfo = service.AddLike(GetCurrentUserId(), activityId);
 
             return Likes(likeInfo.Likes, likeInfo.Id);
@@ -89,7 +89,7 @@ namespace uIntra.Likes.Web
 
         protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
         {
-            var service = ActivitiesServiceFactory.GetService<ILikeableService>(activityId);
+            var service = _activitiesServiceFactory.GetService<ILikeableService>(activityId);
             var likeInfo = service.RemoveLike(GetCurrentUserId(), activityId);
 
             return Likes(likeInfo.Likes, likeInfo.Id);
@@ -97,7 +97,7 @@ namespace uIntra.Likes.Web
 
         protected virtual Guid GetCurrentUserId()
         {
-            return IntranetUserService.GetCurrentUserId();
+            return _intranetUserService.GetCurrentUserId();
         }
     }
 }

@@ -3,12 +3,11 @@ using System.Linq;
 using ServiceStack;
 using uIntra.Core.Configuration;
 using uIntra.Core.User;
-using uIntra.Navigation.Core.Services;
-using uIntra.Navigation.Core.Sql;
+using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation.Core.MyLinks
+namespace uIntra.Navigation.MyLinks
 {
     public class MyLinksModelBuilder : NavigationModelBuilderBase<IEnumerable<MyLinkItemModel>>, IMyLinksModelBuilder
     {

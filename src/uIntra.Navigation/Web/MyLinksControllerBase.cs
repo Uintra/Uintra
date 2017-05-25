@@ -4,11 +4,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core.User;
-using uIntra.Navigation.Core;
-using uIntra.Navigation.Core.Exceptions;
-using uIntra.Navigation.Core.MyLinks;
-using uIntra.Navigation.Core.Services;
-using uIntra.Navigation.DefaultImplementation;
+using uIntra.Navigation.Exceptions;
+using uIntra.Navigation.MyLinks;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using uIntra.Core.Activity;
 
-namespace uIntra.CentralFeed.Core.Exceptions
+namespace uIntra.CentralFeed.Exceptions
 {
     public class WrongTypeCentralFeedItemException : ApplicationException
     {

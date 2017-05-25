@@ -11,8 +11,8 @@ namespace uIntra.Navigation.Web
         protected virtual string DefaultRedirectUrl { get; } = "/";
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
 
-        protected readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        protected readonly IUserService _userService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IUserService _userService;
 
         protected NavigationAuthorizationControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,

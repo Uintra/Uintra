@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
-using uIntra.Core.Activity.Models;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.News.Dashboard;
 

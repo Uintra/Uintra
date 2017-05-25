@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 
 namespace uIntra.Subscribe
 {

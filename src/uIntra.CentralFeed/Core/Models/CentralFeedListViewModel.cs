@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed.Core.Entities;
-using uIntra.CentralFeed.Core.Enums;
 
-namespace uIntra.CentralFeed.Core.Models
+namespace uIntra.CentralFeed
 {
     public class CentralFeedListViewModel
     {

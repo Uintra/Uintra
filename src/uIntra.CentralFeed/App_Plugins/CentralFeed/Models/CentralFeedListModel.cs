@@ -1,6 +1,4 @@
-﻿using uIntra.CentralFeed.Core.Enums;
-
-namespace uIntra.CentralFeed.App_Plugins.CentralFeed.Models
+﻿namespace uIntra.CentralFeed.App_Plugins.CentralFeed.Models
 {
     public class CentralFeedListModel
     {

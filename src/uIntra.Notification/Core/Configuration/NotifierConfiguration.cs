@@ -1,4 +1,4 @@
-﻿namespace uIntra.Notification.Core.Configuration
+﻿namespace uIntra.Notification.Configuration
 {
     public class NotifierConfiguration
     {

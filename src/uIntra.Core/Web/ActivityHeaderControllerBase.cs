@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using uIntra.Core.Activity.Models;
+using uIntra.Core.Activity;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Core.Web

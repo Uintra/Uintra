@@ -1,7 +1,7 @@
 ﻿using uIntra.Core.Activity;
 using Umbraco.Core.Models;
 
-namespace uIntra.CentralFeed.Core.Entities
+namespace uIntra.CentralFeed
 {
     public class CentralFeedSettings
     {

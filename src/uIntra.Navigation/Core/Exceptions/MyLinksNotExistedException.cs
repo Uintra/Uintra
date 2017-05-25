@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Navigation.Core.Exceptions
+namespace uIntra.Navigation.Exceptions
 {
     public class MyLinksNotExistedException : ApplicationException
     {

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Navigation.DefaultImplementation
+﻿namespace uIntra.Navigation
 {
     public class MyLinkIconViewModel
     {

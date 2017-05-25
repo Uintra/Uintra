@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using uIntra.Core;
-using uIntra.Users.Core;
-using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Users.Web
@@ -12,12 +10,10 @@ namespace uIntra.Users.Web
         protected virtual string LoginViewPath { get; } = "~/App_Plugins/Users/Login/Login.cshtml";
         protected virtual string DefaultRedirectUrl { get; } = "/";
 
-        protected readonly IMemberService _memberService;
         private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
 
-        protected LoginControllerBase(IMemberService memberService, ITimezoneOffsetProvider timezoneOffsetProvider)
+        protected LoginControllerBase(ITimezoneOffsetProvider timezoneOffsetProvider)
         {
-            _memberService = memberService;
             _timezoneOffsetProvider = timezoneOffsetProvider;
         }
 

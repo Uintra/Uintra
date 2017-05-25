@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Notification.Core.Configuration;
+using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Exceptions
+namespace uIntra.Notification.Exceptions
 {
     public class MissingNotifierException : ApplicationException
     {

@@ -2,10 +2,11 @@
 using System.Linq;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
+using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation.Core
+namespace uIntra.Navigation
 {
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {

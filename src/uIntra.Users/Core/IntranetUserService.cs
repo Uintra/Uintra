@@ -11,7 +11,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace uIntra.Users.Core
+namespace uIntra.Users
 {
     public class IntranetUserService : IIntranetUserService<IntranetUser>
     {

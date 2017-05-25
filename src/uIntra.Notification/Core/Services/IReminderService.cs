@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Notification.Core.Configuration;
-using uIntra.Notification.Core.Sql;
+using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Services
+namespace uIntra.Notification
 {
     public interface IReminderService
     {

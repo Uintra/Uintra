@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Extentions;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 
 namespace uIntra.Tagging
 {

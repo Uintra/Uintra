@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.Media;
 
-namespace uIntra.Users.Core
+namespace uIntra.Users
 {
     public class ProfileEditModelBase : IContentWithMediaCreateEditModel
     {

@@ -1,14 +1,13 @@
 ﻿using System.Web.Helpers;
 using AutoMapper;
-using uIntra.Notification.Core.Models;
 
-namespace uIntra.Notification.Core.Profiles
+namespace uIntra.Notification
 {
     public class NotificationAutoMapperProfile : Profile
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Sql.Notification, NotificationViewModel>()
+            Mapper.CreateMap<Notification, NotificationViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Date, o => o.MapFrom(s => s.Date))
                 .ForMember(d => d.Date, o => o.MapFrom(s => s.Date))

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Umbraco.Core.Models;
 
-namespace uIntra.Navigation.Core.Services
+namespace uIntra.Navigation
 {
     public interface ISystemLinksService
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using uIntra.Core.Activity.Entities;
+using uIntra.Core.Activity;
 using uIntra.Core.User;
 
 namespace uIntra.News

@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace uIntra.Notification.Core.Services
+namespace uIntra.Notification
 {
     public interface INotificationHelper
     {

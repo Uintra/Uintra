@@ -1,7 +1,6 @@
 ﻿using System;
 using uIntra.Core;
 using uIntra.Core.Activity;
-using uIntra.Core.Activity.Entities;
 using uIntra.Core.Caching;
 using uIntra.Core.User;
 

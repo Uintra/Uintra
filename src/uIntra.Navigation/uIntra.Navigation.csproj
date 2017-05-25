@@ -356,7 +356,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
+    <Compile Include="Core\AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Core\Configuration\NavigationPropertySettings.cs" />
     <Compile Include="Core\Dashboard\Models\CreateNavigationCompositionsModel.cs" />

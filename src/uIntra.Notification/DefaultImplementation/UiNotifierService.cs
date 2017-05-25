@@ -2,25 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Extentions;
-using uIntra.Core.Persistence.Sql;
-using uIntra.Notification.Core.Configuration;
-using uIntra.Notification.Core.Entities.Base;
-using uIntra.Notification.Core.Services;
+using uIntra.Core.Persistence;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.DefaultImplementation
+namespace uIntra.Notification
 {
     public class UiNotifierService : IUiNotifierService
     {
-        private readonly ISqlRepository<Core.Sql.Notification> _notificationRepository;
+        private readonly ISqlRepository<Notification> _notificationRepository;
 
         public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
 
-        public UiNotifierService(ISqlRepository<Core.Sql.Notification> notificationRepository)
+        public UiNotifierService(ISqlRepository<Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
         }
 
-        public IEnumerable<Core.Sql.Notification> GetMany(Guid receiverId, int count, out int totalCount)
+        public IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount)
         {
             var allNotifications = _notificationRepository
                                         .FindAll(el => el.ReceiverId == receiverId)
@@ -44,7 +43,7 @@ namespace uIntra.Notification.DefaultImplementation
         public void Notify(NotifierData data)
         {
             var notifications = data.ReceiverIds
-                .Select(el=> new Core.Sql.Notification
+                .Select(el=> new Notification
             {
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,

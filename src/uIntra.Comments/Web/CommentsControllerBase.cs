@@ -16,18 +16,18 @@ namespace uIntra.Comments.Web
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Comments/View/CommentsEditView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
 
-        protected readonly ICommentsService CommentsService;
-        protected readonly IIntranetUserService<IIntranetUser> IntranetUserService;
-        protected readonly IActivitiesServiceFactory ActivitiesServiceFactory;
+        private readonly ICommentsService _commentsService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory)
         {
-            CommentsService = commentsService;
-            IntranetUserService = intranetUserService;
-            ActivitiesServiceFactory = activitiesServiceFactory;
+            _commentsService = commentsService;
+            _intranetUserService = intranetUserService;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         [HttpPost]
@@ -37,8 +37,8 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.ActivityId);
             }
-            var service = ActivitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
-            var comment = service.CreateComment(IntranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
+            var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -47,14 +47,14 @@ namespace uIntra.Comments.Web
         [HttpPut]
         public virtual PartialViewResult Edit(CommentEditModel model)
         {
-            var comment = CommentsService.Get(model.Id);
+            var comment = _commentsService.Get(model.Id);
 
-            if (!ModelState.IsValid || !CommentsService.CanEdit(comment, IntranetUserService.GetCurrentUser().Id))
+            if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
             {
                 return OverView(model.Id);
             }
 
-            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
@@ -63,15 +63,15 @@ namespace uIntra.Comments.Web
         [HttpDelete]
         public virtual PartialViewResult Delete(Guid id)
         {
-            var comment = CommentsService.Get(id);
-            var currentUserId = IntranetUserService.GetCurrentUser().Id;
+            var comment = _commentsService.Get(id);
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
 
-            if (!CommentsService.CanDelete(comment, currentUserId))
+            if (!_commentsService.CanDelete(comment, currentUserId))
             {
                 return OverView(comment.ActivityId);
             }
 
-            var service = ActivitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
 
             return OverView(comment.ActivityId);
@@ -89,7 +89,7 @@ namespace uIntra.Comments.Web
 
         public virtual PartialViewResult EditView(Guid id, string updateElementId)
         {
-            var comment = CommentsService.Get(id);
+            var comment = _commentsService.Get(id);
             var model = new CommentEditModel
             {
                 Id = id,
@@ -108,7 +108,7 @@ namespace uIntra.Comments.Web
         {
             var model = new CommentPreviewModel
             {
-                Count = CommentsService.GetCount(activityId),
+                Count = _commentsService.GetCount(activityId),
                 Link = $"{link}#{GetOverviewElementId(activityId)}"
             };
             return PartialView(PreviewViewPath, model);
@@ -125,7 +125,7 @@ namespace uIntra.Comments.Web
 
         protected virtual PartialViewResult OverView(Guid activityId)
         {
-            return OverView(activityId, CommentsService.GetMany(activityId));
+            return OverView(activityId, _commentsService.GetMany(activityId));
         }
 
         protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments)
@@ -144,11 +144,11 @@ namespace uIntra.Comments.Web
         {
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<Comment> ?? comments.ToList();
-            var currentUserId = IntranetUserService.GetCurrentUser().Id;
-            var creators = IntranetUserService.GetAll().ToList();
-            var replies = commentsList.FindAll(CommentsService.IsReply);
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var creators = _intranetUserService.GetAll().ToList();
+            var replies = commentsList.FindAll(_commentsService.IsReply);
 
-            foreach (var comment in commentsList.FindAll(c => !CommentsService.IsReply(c)))
+            foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
                 var model = GetCommentView(comment, currentUserId, creators.SingleOrDefault(c => c.Id == comment.UserId));
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
@@ -160,13 +160,13 @@ namespace uIntra.Comments.Web
         protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
-            model.ModifyDate = CommentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
-            model.CanEdit = CommentsService.CanEdit(comment, currentUserId);
-            model.CanDelete = CommentsService.CanDelete(comment, currentUserId);
+            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
+            model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
+            model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
             model.CreatorFullName = creator?.DisplayedName;
             model.Photo = creator?.Photo;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
-            model.CommentViewId = CommentsService.GetCommentViewId(comment.Id);
+            model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             return model;
         }
 

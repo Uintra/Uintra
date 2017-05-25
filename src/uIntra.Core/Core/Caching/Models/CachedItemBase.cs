@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.Caching.Models
+namespace uIntra.Core.Caching
 {
     public class CachedItemBase
     {

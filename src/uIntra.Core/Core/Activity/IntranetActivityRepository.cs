@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using uIntra.Core.Activity.Sql;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 
 namespace uIntra.Core.Activity
 {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Configuration;
 using uIntra.Core.Extentions;
-using uIntra.Notification.Core.Exceptions;
+using uIntra.Notification.Exceptions;
 
-namespace uIntra.Notification.Core.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class NotificationConfigurationProvider : ConfigurationProvider<NotificationConfiguration>
     {

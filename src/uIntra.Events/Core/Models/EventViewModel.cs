@@ -1,5 +1,5 @@
 using System;
-using uIntra.Core.Activity.Models;
+using uIntra.Core.Activity;
 
 namespace uIntra.Events
 {

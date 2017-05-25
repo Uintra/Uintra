@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using uIntra.CentralFeed.Core.Models;
 
-namespace uIntra.CentralFeed.AutoMapperProfiles
+namespace uIntra.CentralFeed
 {
     public class CentralFeedAutoMapperProfile : Profile
     {

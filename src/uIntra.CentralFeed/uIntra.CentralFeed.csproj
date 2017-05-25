@@ -329,7 +329,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
-    <Compile Include="AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
+    <Compile Include="Core\AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeedComparer.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />

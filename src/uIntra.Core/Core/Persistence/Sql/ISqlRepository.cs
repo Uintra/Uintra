@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace uIntra.Core.Persistence.Sql
+namespace uIntra.Core.Persistence
 {
     public interface ISqlRepository<T>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Persistence.Sql;
+using uIntra.Core.Persistence;
 using uIntra.Core.User;
 
 namespace uIntra.Likes

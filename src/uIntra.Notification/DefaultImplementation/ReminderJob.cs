@@ -3,11 +3,10 @@ using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
-using uIntra.Notification.Core.Configuration;
-using uIntra.Notification.Core.Entities.Base;
-using uIntra.Notification.Core.Services;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.DefaultImplementation
+namespace uIntra.Notification
 {
     public class ReminderJob : IReminderJob
     {
