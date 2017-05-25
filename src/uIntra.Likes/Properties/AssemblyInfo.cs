@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Likes")]
+[assembly: AssemblyTitle("uIntra.Likes")]
 [assembly: AssemblyDescription("Likes activity package.")]
 
 [assembly: AssemblyVersion("1.0.9.0")]

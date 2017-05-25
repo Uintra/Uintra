@@ -7,8 +7,8 @@
     <ProjectGuid>{B99F0F05-598C-4F4A-A972-7282DCF9FED8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.Likes</RootNamespace>
-    <AssemblyName>uCommunity.Likes</AssemblyName>
+    <RootNamespace>uIntra.Likes</RootNamespace>
+    <AssemblyName>uIntra.Likes</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -344,7 +344,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="uCommunity.Likes.nuspec">
+    <None Include="uIntra.Likes.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

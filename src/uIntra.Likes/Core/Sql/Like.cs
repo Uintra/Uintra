@@ -2,7 +2,7 @@
 using ServiceStack.DataAnnotations;
 using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Likes
+namespace uIntra.Likes
 {
     [CompositeIndex("UserId", "EntityId", Unique = true, Name = "UQ_Like_UserId_EntityId")]
     public class Like : SqlEntity

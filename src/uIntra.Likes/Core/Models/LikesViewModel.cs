@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uCommunity.Likes
+namespace uIntra.Likes
 {
     public class LikesViewModel
     {

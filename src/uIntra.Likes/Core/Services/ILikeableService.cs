@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Likes
+namespace uIntra.Likes
 {
     public interface ILikeableService
     {

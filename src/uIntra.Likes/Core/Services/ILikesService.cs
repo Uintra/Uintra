@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uCommunity.Likes
+namespace uIntra.Likes
 {
     public interface ILikesService
     {

@@ -7,7 +7,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Likes.Web
+namespace uIntra.Likes.Web
 {
     public abstract class LikesControllerBase : SurfaceController
     {

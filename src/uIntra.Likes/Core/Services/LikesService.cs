@@ -4,7 +4,7 @@ using System.Linq;
 using uIntra.Core.Persistence.Sql;
 using uIntra.Core.User;
 
-namespace uCommunity.Likes
+namespace uIntra.Likes
 {
     public class LikesService : ILikesService
     {

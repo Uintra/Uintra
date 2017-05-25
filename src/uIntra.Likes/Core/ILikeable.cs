@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using uIntra.Core.Activity;
 
-namespace uCommunity.Likes
+namespace uIntra.Likes
 {
     public interface ILikeable
     {
