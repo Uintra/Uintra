@@ -346,6 +346,10 @@
       <HintPath>..\..\packages\uIntra.Panels.2.1.0\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uIntra.Subscribe, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.0.1\lib\net452\uIntra.Subscribe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="uIntra.Tagging, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Tagging.1.1.0\lib\net452\uIntra.Tagging.dll</HintPath>
       <Private>True</Private>
@@ -741,6 +745,9 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
+    <Content Include="App_Plugins\Subscribe\subscribe.css" />
+    <Content Include="App_Plugins\Subscribe\subscribe.js" />
+    <Content Include="App_Plugins\Subscribe\subscribeList.js" />
     <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\tags.js" />
@@ -838,6 +845,9 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
