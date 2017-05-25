@@ -25,7 +25,7 @@ appInitializer.add(function() {
     removeControl.on('click',function() {
         $.ajax({
             type: "POST",
-            data: {id: $(this).data("id")},
+            data: {contentId: $(this).data("contentId")},
             url: "/umbraco/surface/MyLinks/Remove",
             success: function (data) {
                 container.html(data);

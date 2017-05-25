@@ -320,7 +320,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Core, Version=1.0.41.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uCommunity.Core.1.0.41\lib\net452\uCommunity.Core.dll</HintPath>
+      <HintPath>..\uCommunity.Core\bin\Debug\uCommunity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.Events, Version=1.0.11.7, Culture=neutral, processorArchitecture=MSIL">
@@ -331,9 +331,9 @@
       <HintPath>..\..\packages\uCommunity.Likes.1.0.9\lib\net452\uCommunity.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uCommunity.Navigation, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uCommunity.Navigation, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uCommunity.Navigation.1.0.8\lib\net452\uCommunity.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uCommunity.Navigation.1.0.10\lib\net452\uCommunity.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uCommunity.News, Version=1.0.18.8, Culture=neutral, processorArchitecture=MSIL">
@@ -799,8 +799,6 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Web.config" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
@@ -816,7 +814,6 @@
     <Content Include="Content\fonts\open-sans-700.woff2" />
     <Content Include="Content\fonts\open-sans-regular.woff" />
     <Content Include="Content\fonts\open-sans-regular.woff2" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Events\List\ListView.cshtml" />
     <Content Include="App_Plugins\Events\List\ItemView.cshtml" />
@@ -862,7 +859,10 @@
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Navigation\Web.config" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
