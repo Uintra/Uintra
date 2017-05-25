@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Exceptions;
+using uIntra.Core.Activity;
+using uIntra.Core.Exceptions;
 
-namespace uCommunity.Core.User.Permissions
+namespace uIntra.Core.User.Permissions
 {
     public class PermissionsService : IPermissionsService
     {

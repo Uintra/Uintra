@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Activity.Models;
-using uCommunity.Core.Controls.LightboxGallery;
+using uIntra.Core.Activity.Models;
+using uIntra.Core.Controls.LightboxGallery;
 
 namespace uCommunity.Events
 {

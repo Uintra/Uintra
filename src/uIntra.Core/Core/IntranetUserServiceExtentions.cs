@@ -1,7 +1,7 @@
 ﻿using System;
-using uCommunity.Core.User;
+using uIntra.Core.User;
 
-namespace uCommunity.Core
+namespace uIntra.Core
 {
     public static class IntranetUserServiceExtentions
     {

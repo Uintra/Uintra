@@ -1,5 +1,5 @@
-using uCommunity.Core.Activity;
-using uCommunity.Core.Media;
+using uIntra.Core.Activity;
+using uIntra.Core.Media;
 
 namespace uCommunity.News
 {

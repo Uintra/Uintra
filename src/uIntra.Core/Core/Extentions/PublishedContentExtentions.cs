@@ -3,7 +3,7 @@ using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class PublishedContentExtentions
     {

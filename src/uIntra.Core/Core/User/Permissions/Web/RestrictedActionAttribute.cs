@@ -2,11 +2,11 @@
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using Umbraco.Core;
 
-namespace uCommunity.Core.User.Permissions.Web
+namespace uIntra.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {

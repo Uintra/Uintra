@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class StringExtentions
     {

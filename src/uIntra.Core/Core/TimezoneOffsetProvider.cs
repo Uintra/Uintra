@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace uCommunity.Core
+namespace uIntra.Core
 {
     public class TimezoneOffsetProvider : ITimezoneOffsetProvider
     {

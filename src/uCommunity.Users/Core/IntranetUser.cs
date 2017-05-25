@@ -1,5 +1,5 @@
 ﻿using System;
-using uCommunity.Core.User;
+using uIntra.Core.User;
 
 namespace uCommunity.Users.Core
 {

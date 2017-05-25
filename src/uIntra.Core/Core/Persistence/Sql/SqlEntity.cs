@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.Persistence.Sql
+﻿namespace uIntra.Core.Persistence.Sql
 {
     public abstract class SqlEntity
     {

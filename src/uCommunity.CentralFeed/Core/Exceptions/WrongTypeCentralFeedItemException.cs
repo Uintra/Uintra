@@ -1,5 +1,5 @@
 ﻿using System;
-using uCommunity.Core.Activity;
+using uIntra.Core.Activity;
 
 namespace uCommunity.CentralFeed.Exceptions
 {

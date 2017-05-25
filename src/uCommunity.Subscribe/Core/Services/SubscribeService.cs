@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Persistence.Sql;
+using uIntra.Core.Activity;
+using uIntra.Core.Persistence.Sql;
 
 namespace uCommunity.Subscribe
 {

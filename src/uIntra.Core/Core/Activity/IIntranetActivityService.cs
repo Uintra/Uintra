@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using uCommunity.Core.Activity.Entities;
+using uIntra.Core.Activity.Entities;
 using Umbraco.Core.Models;
 
-namespace uCommunity.Core.Activity
+namespace uIntra.Core.Activity
 {
     public interface IIntranetActivityService<out TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
     {

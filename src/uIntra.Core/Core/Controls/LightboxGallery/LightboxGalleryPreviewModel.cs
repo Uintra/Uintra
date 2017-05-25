@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uCommunity.Core.Controls.LightboxGallery
+namespace uIntra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryPreviewModel
     {

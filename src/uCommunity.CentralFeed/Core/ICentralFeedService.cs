@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using uCommunity.CentralFeed.Entities;
-using uCommunity.Core.Activity;
+using uIntra.Core.Activity;
 
 namespace uCommunity.CentralFeed
 {

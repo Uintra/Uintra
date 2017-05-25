@@ -9,6 +9,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uCommunity Core</tags>
+    <tags>Compent uIntra Core</tags>
   </metadata>
 </package>

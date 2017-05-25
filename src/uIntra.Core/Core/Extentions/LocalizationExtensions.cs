@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.Extentions
+﻿namespace uIntra.Core.Extentions
 {
     public static class LocalizationExtensions
     {

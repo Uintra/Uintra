@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ServiceStack;
-using uCommunity.Core.Configuration;
-using uCommunity.Core.User;
+using uIntra.Core.Configuration;
+using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

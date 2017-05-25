@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using uCommunity.Core.User;
+using uIntra.Core.User;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class EnumExtentions
     {

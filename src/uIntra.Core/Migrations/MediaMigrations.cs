@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Media;
+using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uCommunity.Core.Migrations
+namespace uIntra.Core.Migrations
 {
     public static class MediaMigrations
     {

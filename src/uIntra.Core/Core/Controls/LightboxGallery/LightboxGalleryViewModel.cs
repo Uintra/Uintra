@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.Controls.LightboxGallery
+﻿namespace uIntra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryViewModel
     {

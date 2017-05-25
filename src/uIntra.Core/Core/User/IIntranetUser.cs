@@ -1,6 +1,6 @@
 using System;
 
-namespace uCommunity.Core.User
+namespace uIntra.Core.User
 {
     public interface IIntranetUser
     {

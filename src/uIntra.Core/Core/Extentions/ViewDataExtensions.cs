@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
-using Compent.uCommunity.Core;
-using uCommunity.Core.Activity;
+using uIntra.Core.Activity;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class ViewDataExtensions
     {

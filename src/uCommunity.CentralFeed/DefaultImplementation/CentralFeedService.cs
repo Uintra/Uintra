@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using uCommunity.CentralFeed.Entities;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Caching;
+using uIntra.Core.Activity;
+using uIntra.Core.Caching;
 
 namespace uCommunity.CentralFeed
 {

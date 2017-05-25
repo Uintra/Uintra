@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Configuration;
-using uCommunity.Core.Exceptions;
-using uCommunity.Core.Extentions;
 using uCommunity.Notification.Core.Exceptions;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Entities;
+using uIntra.Core.Configuration;
+using uIntra.Core.Exceptions;
+using uIntra.Core.Extentions;
 
 namespace uCommunity.Notification
 {

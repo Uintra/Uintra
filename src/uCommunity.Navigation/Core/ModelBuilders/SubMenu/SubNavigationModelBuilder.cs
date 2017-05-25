@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Configuration;
+using uIntra.Core.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.User;
+using uIntra.Core.User;
 
-namespace uCommunity.Core.Activity.Models
+namespace uIntra.Core.Activity.Models
 {
     public class IntranetActivityDetailsHeaderViewModel
     {

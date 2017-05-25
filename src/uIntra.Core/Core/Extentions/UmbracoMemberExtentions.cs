@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class UmbracoMemberExtentions
     {

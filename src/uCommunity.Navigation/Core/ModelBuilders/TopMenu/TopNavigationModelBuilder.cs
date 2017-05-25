@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.User;
+﻿using uIntra.Core.User;
 
 namespace uCommunity.Navigation.Core
 {

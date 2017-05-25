@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.Media;
+﻿using uIntra.Core.Media;
 
 namespace uCommunity.Users.Core
 {

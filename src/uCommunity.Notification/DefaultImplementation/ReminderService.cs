@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using uCommunity.Core.Persistence.Sql;
 using uCommunity.Notification.Core.Configuration;
 using uCommunity.Notification.Core.Exceptions;
 using uCommunity.Notification.Core.Services;
 using uCommunity.Notification.Core.Sql;
+using uIntra.Core.Persistence.Sql;
 
 namespace uCommunity.Notification
 {

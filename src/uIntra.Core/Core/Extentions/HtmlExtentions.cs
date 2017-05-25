@@ -1,9 +1,8 @@
 ﻿using System.Web;
 using System.Web.Mvc;
-using Compent.uCommunity.Core;
-using uCommunity.Core.Localization;
+using uIntra.Core.Localization;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class HtmlExtentions
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace uCommunity.Core.User
+namespace uIntra.Core.User
 {
     public interface IIntranetUserService<out T>
         where T : IIntranetUser

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace uCommunity.Core.Media
+namespace uIntra.Core.Media
 {
     public enum MediaFolderTypeEnum
     {

@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using uCommunity.Core;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Activity.Models;
-using uCommunity.Core.Controls.LightboxGallery;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Media;
-using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions.Web;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Activity.Models;
+using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Core.Extentions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 

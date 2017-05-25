@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using uCommunity.Core.Activity;
+using uIntra.Core.Activity;
 
-namespace uCommunity.Core.User.Permissions
+namespace uIntra.Core.User.Permissions
 {
     public interface IPermissionsService
     {

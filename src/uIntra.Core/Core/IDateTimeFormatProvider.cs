@@ -1,4 +1,4 @@
-﻿namespace Compent.uCommunity.Core
+﻿namespace uIntra.Core
 {
     public interface IDateTimeFormatProvider
     {

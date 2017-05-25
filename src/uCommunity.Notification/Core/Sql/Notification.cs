@@ -1,7 +1,7 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uCommunity.Core.Persistence.Sql;
 using uCommunity.Notification.Core.Configuration;
+using uIntra.Core.Persistence.Sql;
 
 namespace uCommunity.Notification.Core.Sql
 {

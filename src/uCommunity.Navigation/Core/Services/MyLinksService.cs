@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using uCommunity.Core.Persistence.Sql;
 using uCommunity.Navigation.Core.Models;
+using uIntra.Core.Persistence.Sql;
 
 namespace uCommunity.Navigation.Core
 {

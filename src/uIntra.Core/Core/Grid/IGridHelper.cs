@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace uCommunity.Core.Grid
+namespace uIntra.Core.Grid
 {
     public interface IGridHelper
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Core.Activity.Models
+namespace uIntra.Core.Activity.Models
 {
     public abstract class IntranetActivityViewModelBase
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Configuration;
-using uCommunity.Core.Exceptions;
+using uIntra.Core.Configuration;
+using uIntra.Core.Exceptions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

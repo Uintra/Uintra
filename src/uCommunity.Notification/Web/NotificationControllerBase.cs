@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
-using uCommunity.Core;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.User;
 using uCommunity.Notification.Core.Models;
 using uCommunity.Notification.Core.Services;
+using uIntra.Core;
+using uIntra.Core.Extentions;
+using uIntra.Core.User;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 

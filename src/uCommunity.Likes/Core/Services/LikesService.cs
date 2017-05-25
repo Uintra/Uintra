@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Persistence.Sql;
-using uCommunity.Core.User;
+using uIntra.Core.Persistence.Sql;
+using uIntra.Core.User;
 
 namespace uCommunity.Likes
 {

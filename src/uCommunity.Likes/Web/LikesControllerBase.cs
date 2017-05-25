@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Core;
-using uCommunity.Core.Activity;
-using uCommunity.Core.User;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Likes.Web

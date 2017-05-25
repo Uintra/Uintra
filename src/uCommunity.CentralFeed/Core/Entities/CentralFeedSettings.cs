@@ -1,4 +1,4 @@
-﻿using uCommunity.Core.Activity;
+﻿using uIntra.Core.Activity;
 using Umbraco.Core.Models;
 
 namespace uCommunity.CentralFeed.Entities

@@ -1,8 +1,8 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uCommunity.Core.Persistence.Sql;
+using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Core.Activity.Sql
+namespace uIntra.Core.Activity.Sql
 {
     [Alias("Activity")]
     public class IntranetActivityEntity : SqlEntity

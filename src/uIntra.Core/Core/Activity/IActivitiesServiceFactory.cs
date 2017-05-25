@@ -1,6 +1,6 @@
 ﻿﻿using System;
 
-namespace uCommunity.Core.Activity
+namespace uIntra.Core.Activity
 {
     public interface IActivitiesServiceFactory
     {

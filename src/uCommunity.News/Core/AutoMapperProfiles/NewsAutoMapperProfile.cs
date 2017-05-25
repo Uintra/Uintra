@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using AutoMapper;
-using uCommunity.Core;
-using uCommunity.Core.Activity.Models;
-using uCommunity.Core.Extentions;
 using uCommunity.News.Dashboard;
+using uIntra.Core.Activity.Models;
+using uIntra.Core.Extentions;
 
 namespace uCommunity.News
 {

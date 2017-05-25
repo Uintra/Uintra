@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using uCommunity.Core.Extentions;
+using uIntra.Core.Extentions;
 using Umbraco.Web.WebApi;
 
 namespace uCommunity.Events.Dashboard

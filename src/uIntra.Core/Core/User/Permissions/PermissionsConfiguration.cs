@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-namespace uCommunity.Core.User.Permissions
+namespace uIntra.Core.User.Permissions
 {
     public class PermissionsConfiguration : ConfigurationSection, IPermissionsConfiguration
     {

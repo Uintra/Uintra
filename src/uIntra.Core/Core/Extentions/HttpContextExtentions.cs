@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using uCommunity.Core.User;
+using uIntra.Core.User;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class HttpContextExtentions
     {

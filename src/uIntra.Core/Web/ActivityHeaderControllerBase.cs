@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using uCommunity.Core.Activity.Models;
+using uIntra.Core.Activity.Models;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Core
+namespace uIntra.Core.Web
 {
     public abstract class ActivityHeaderControllerBase : SurfaceController
     {

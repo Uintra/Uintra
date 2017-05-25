@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using uCommunity.Core.Activity.Models;
-using uCommunity.Core.Media;
-using uCommunity.Core.ModelBinders;
+using uIntra.Core.Activity.Models;
+using uIntra.Core.Media;
+using uIntra.Core.ModelBinders;
 
 namespace uCommunity.News
 {

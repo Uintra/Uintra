@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Core.Exceptions
+namespace uIntra.Core.Exceptions
 {
     public class InconsistentDataException : Exception
     {

@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.User
+﻿namespace uIntra.Core.User
 {
     public enum IntranetRolesEnum
     {

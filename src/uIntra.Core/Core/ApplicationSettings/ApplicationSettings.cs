@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace uCommunity.Core.ApplicationSettings
+namespace uIntra.Core.ApplicationSettings
 {
     public class ApplicationSettings : ConfigurationSection, IApplicationSettings
     {

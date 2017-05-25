@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using uCommunity.Core.User;
+using uIntra.Core.User;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 

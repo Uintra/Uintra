@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using uCommunity.Core.Extentions;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.DefaultImplementation;
+using uIntra.Core.Extentions;
 using Umbraco.Web.Mvc;
 
 namespace uCommunity.Navigation.Web

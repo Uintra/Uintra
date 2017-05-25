@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Activity.Entities;
-using uCommunity.Core.Activity.Sql;
-using uCommunity.Core.Caching;
-using uCommunity.Core.Extentions;
+using uIntra.Core.Activity.Entities;
+using uIntra.Core.Activity.Sql;
+using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 
-namespace uCommunity.Core.Activity
+namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {

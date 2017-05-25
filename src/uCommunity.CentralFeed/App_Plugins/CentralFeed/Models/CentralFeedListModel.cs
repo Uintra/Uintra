@@ -1,5 +1,4 @@
 ﻿using uCommunity.CentralFeed.Enums;
-using uCommunity.Core.Activity;
 
 namespace uCommunity.CentralFeed.Models
 {

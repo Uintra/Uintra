@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using uCommunity.Core.Controls.FileUpload;
+using uIntra.Core.Controls.FileUpload;
 using Umbraco.Core.Models;
 
-namespace uCommunity.Core.Media
+namespace uIntra.Core.Media
 {
     public interface IMediaHelper
     {

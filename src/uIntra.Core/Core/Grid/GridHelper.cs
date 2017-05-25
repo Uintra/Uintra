@@ -1,7 +1,7 @@
 ﻿using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uCommunity.Core.Grid
+namespace uIntra.Core.Grid
 {
     public class GridHelper : IGridHelper
     {

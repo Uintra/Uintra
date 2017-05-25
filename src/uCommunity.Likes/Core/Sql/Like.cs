@@ -1,6 +1,6 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
-using uCommunity.Core.Persistence.Sql;
+using uIntra.Core.Persistence.Sql;
 
 namespace uCommunity.Likes
 {

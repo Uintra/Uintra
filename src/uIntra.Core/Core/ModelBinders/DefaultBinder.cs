@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
-namespace uCommunity.Core.ModelBinders
+namespace uIntra.Core.ModelBinders
 {
     public class CustomModelBinder : DefaultModelBinder
     {

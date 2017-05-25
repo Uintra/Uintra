@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Persistence.Sql;
+using uIntra.Core.Extentions;
+using uIntra.Core.Persistence.Sql;
 
 namespace uCommunity.Tagging
 {

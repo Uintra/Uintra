@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using uCommunity.Core.Activity.Sql;
+using uIntra.Core.Activity.Sql;
 
-namespace uCommunity.Core.Activity
+namespace uIntra.Core.Activity
 {
     public interface IIntranetActivityRepository
     {

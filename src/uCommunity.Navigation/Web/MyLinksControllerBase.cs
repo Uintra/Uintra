@@ -3,11 +3,11 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using AutoMapper;
-using uCommunity.Core.User;
 using uCommunity.Navigation.Core;
 using uCommunity.Navigation.Core.Exceptions;
 using uCommunity.Navigation.Core.Models;
 using uCommunity.Navigation.DefaultImplementation;
+using uIntra.Core.User;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 

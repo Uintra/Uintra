@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
-namespace uCommunity.Core.Persistence.Sql
+namespace uIntra.Core.Persistence.Sql
 {
     public class SqlRepository<T> : ISqlRepository<T> where T : class, new()
     {

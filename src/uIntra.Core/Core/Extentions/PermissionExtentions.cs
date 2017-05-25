@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using uCommunity.Core.Activity;
-using uCommunity.Core.User;
-using uCommunity.Core.User.Permissions;
+using uIntra.Core.Activity;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 
-namespace uCommunity.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class PermissionsExtentions
     {

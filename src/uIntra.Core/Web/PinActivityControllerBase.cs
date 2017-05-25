@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using uCommunity.Core.ApplicationSettings;
-using uCommunity.Core.Controls.PinActivity;
+using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Controls.PinActivity;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Core.Web
+namespace uIntra.Core.Web
 {
     public abstract class PinActivityControllerBase : SurfaceController
     {

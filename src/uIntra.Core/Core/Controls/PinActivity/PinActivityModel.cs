@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Core.Controls.PinActivity
+﻿namespace uIntra.Core.Controls.PinActivity
 {
     public class PinActivityModel
     {

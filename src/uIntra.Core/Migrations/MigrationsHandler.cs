@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core;
 
-namespace uCommunity.Core.Migrations
+namespace uIntra.Core.Migrations
 {
     public class MigrationsHandler: ApplicationEventHandler
     {

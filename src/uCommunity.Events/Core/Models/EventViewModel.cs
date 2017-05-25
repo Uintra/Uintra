@@ -1,5 +1,5 @@
 using System;
-using uCommunity.Core.Activity.Models;
+using uIntra.Core.Activity.Models;
 
 namespace uCommunity.Events
 {

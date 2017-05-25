@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using uCommunity.Core.ApplicationSettings;
-using uCommunity.Core.Extentions;
-using uCommunity.Core.Media;
 using uCommunity.Users.Core;
+using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;

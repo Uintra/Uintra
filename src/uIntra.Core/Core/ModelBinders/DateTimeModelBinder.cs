@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
 
-namespace uCommunity.Core.ModelBinders
+namespace uIntra.Core.ModelBinders
 {
     public class DateTimeBinder : ICustomModelBinder
     {

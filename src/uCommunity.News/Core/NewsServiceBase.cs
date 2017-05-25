@@ -1,9 +1,9 @@
 ﻿using System;
-using uCommunity.Core;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Activity.Entities;
-using uCommunity.Core.Caching;
-using uCommunity.Core.User;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Activity.Entities;
+using uIntra.Core.Caching;
+using uIntra.Core.User;
 
 namespace uCommunity.News
 {

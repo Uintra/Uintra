@@ -5,8 +5,8 @@ using System.Web.Mvc;
 using uCommunity.CentralFeed.Core;
 using uCommunity.CentralFeed.Enums;
 using uCommunity.CentralFeed.Models;
-using uCommunity.Core.Activity;
-using uCommunity.Core.Extentions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 

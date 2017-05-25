@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Core")]
+[assembly: AssemblyTitle("uIntra.Core")]
 [assembly: AssemblyDescription("Core activity package.")]
 
 [assembly: AssemblyVersion("1.0.41.2")]
