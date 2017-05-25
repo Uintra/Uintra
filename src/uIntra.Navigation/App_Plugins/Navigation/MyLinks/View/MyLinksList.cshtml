@@ -1,0 +1,11 @@
+﻿@model IEnumerable<uIntra.Navigation.DefaultImplementation.MyLinkItemViewModel>
+
+<li class="hidden"></li>
+@foreach (var item in Model)
+{
+    <li class="side-nav__item">
+        <a class="side-nav__link" href="@item.Url">
+            @item.Name
+        </a>
+    </li>
+}
