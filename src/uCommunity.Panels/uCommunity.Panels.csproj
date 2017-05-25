@@ -293,7 +293,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uCommunity.BaseControls\uCommunity.BaseControls.csproj">
+    <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
       <Project>{2e4a8b55-37f6-46a8-b108-30e346870720}</Project>
       <Name>uCommunity.BaseControls</Name>
     </ProjectReference>

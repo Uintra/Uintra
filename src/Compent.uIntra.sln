@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DF5381
 		.nuget\NugetPack.targets = .nuget\NugetPack.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.BaseControls", "uCommunity.BaseControls\uCommunity.BaseControls.csproj", "{2E4A8B55-37F6-46A8-B108-30E346870720}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.BaseControls", "uIntra.BaseControls\uIntra.BaseControls.csproj", "{2E4A8B55-37F6-46A8-B108-30E346870720}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D11512F1-8ED3-404D-B566-9000A46130A4}"
 	ProjectSection(SolutionItems) = preProject
