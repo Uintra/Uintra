@@ -214,6 +214,7 @@
   <ItemGroup>
     <Compile Include="Core\IntranetUser.cs" />
     <Compile Include="Core\IntranetUserService.cs" />
+    <Compile Include="Core\LoginModelBase.cs" />
     <Compile Include="Core\ProfileConstants.cs" />
     <Compile Include="Core\ProfileEditModelBase.cs" />
     <Compile Include="Core\ProfileViewModelBase.cs" />
@@ -229,6 +230,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Users\Login\login.css" />
+    <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
     <Content Include="App_Plugins\Users\users.js" />

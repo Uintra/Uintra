@@ -77,6 +77,17 @@
   content: "\e90c";
 }
 
+html,
+body{
+    height:100%;
+}
+
+body{
+    > form{
+        height:100%;
+    }
+}
+
 #wrapper {
     overflow:hidden;
     padding:137px 0 0 251px;
@@ -212,7 +223,6 @@
 
     &__title{
         font:bold 20px/25px Arial, Helvetica, sans-serif;
-        text-transform:uppercase;
         color:#333;
         margin:0 0 25px;
     }

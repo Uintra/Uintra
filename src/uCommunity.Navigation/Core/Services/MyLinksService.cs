@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Core.Extentions;
+using System.Web;
 using uCommunity.Core.Persistence.Sql;
+using uCommunity.Navigation.Core.Models;
 
 namespace uCommunity.Navigation.Core
 {
@@ -22,88 +23,68 @@ namespace uCommunity.Navigation.Core
 
         public IEnumerable<MyLink> GetMany(IEnumerable<Guid> ids)
         {
-            return _myLinksRepository.FindAll(myLink => ids.Contains(myLink.Id));
+            return _myLinksRepository.GetMany(ids.Cast<object>());
         }
 
-        public IEnumerable<MyLink> GetUserLinks(Guid userId)
+        public IEnumerable<MyLink> GetMany(Guid userId)
         {
             return _myLinksRepository.FindAll(myLink => myLink.UserId == userId);
         }
 
-        public bool AddRemove(Guid userId, string name, string url)
+        public void Create(MyLinkDTO model)
         {
-            var userLinks = GetUserLinks(userId);
-            var existingLink = userLinks.FirstOrDefault(x => x.Url == url);
-
-            if (existingLink == null)
-            {
-                return AddLink(userId, name, url);
-            }
-            else
-            {
-                return RemoveLink(existingLink);
-            }
-        }
-
-        public bool Sort(Dictionary<Guid, int> sortOrders)
-        {
-            var existingLinks = GetMany(sortOrders.Select(x => x.Key));
-
-            foreach (var link in existingLinks)
-            {
-                link.SortOrder = sortOrders[link.Id];
-            }
-
-            try
-            {
-                _myLinksRepository.Update(existingLinks);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        private bool AddLink(Guid userId, string name, string url)
-        {
-            if (url.IsNullOrEmpty())
-            {
-                return false;
-            }
-
             var entity = new MyLink
             {
                 Id = Guid.NewGuid(),
-                UserId = userId,
-                Name = name.IsNotNullOrEmpty() ? name : url,
-                Url = url
+                UserId = model.UserId,
+                ContentId = model.ContentId,
+                QueryString = model.QueryString.Trim('?'),
+                CreatedDate = DateTime.Now,
             };
 
-            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
-
-            try
-            {
-                _myLinksRepository.Add(entity);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            _myLinksRepository.Add(entity);
         }
 
-        private bool RemoveLink(MyLink myLink)
+        public void Delete(MyLinkDTO model)
         {
-            try
-            {
-                _myLinksRepository.Delete(myLink);
-                return true;
-            }
-            catch (Exception ex)
+            var link = Get(model);
+            _myLinksRepository.DeleteById(link.Id);
+        }
+
+        public bool Exists(MyLinkDTO model)
+        {
+            var link = Get(model);
+            return link != null;
+        }
+
+        private MyLink Get(MyLinkDTO model)
+        {
+            var links = _myLinksRepository.FindAll(link => link.UserId == model.UserId && link.ContentId == model.ContentId);
+            return links.SingleOrDefault(l => IsQueryStringEqual(model.QueryString, l.QueryString));
+        }
+
+        private static bool IsQueryStringEqual(string query, string queryToCompare)
+        {
+            var queryCollection = HttpUtility.ParseQueryString(query);
+            var queryCollectionCompareTo = HttpUtility.ParseQueryString(queryToCompare);
+
+            if (queryCollection.Count != queryCollectionCompareTo.Count)
             {
                 return false;
             }
+
+            foreach (string key in queryCollection)
+            {
+                var queryValue = queryCollection[key];
+
+                var queryNameValue = queryCollectionCompareTo.Get(key);
+                if (queryNameValue == null || queryNameValue != queryValue)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

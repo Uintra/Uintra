@@ -4,7 +4,7 @@ using uCommunity.Core.Persistence.Sql;
 
 namespace uCommunity.Navigation.Core
 {
-    [CompositeIndex("UserId", "Url", Unique = true, Name = "UQ_MyLink_UserId_Url")]
+    [CompositeIndex("UserId", "ContentId", "QueryString", Unique = true, Name = "UQ_MyLink_UserId_ContentId_QueryString")]
     public class MyLink : SqlEntity
     {
         [PrimaryKey]
@@ -13,15 +13,10 @@ namespace uCommunity.Navigation.Core
         [Required]
         public Guid UserId { get; set; }
 
-        [Required]
+        public int ContentId { get; set; }
+
+        public string QueryString { get; set; }
+
         public DateTime CreatedDate { get; set; }
-
-        public DateTime ModifyDate { get; set; }
-
-        public string Name { get; set; }
-
-        public string Url { get; set; }
-
-        public int? SortOrder { get; set; }
     }
 }

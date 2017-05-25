@@ -42,7 +42,6 @@ namespace Compent.uCommunity.Controllers
             FillLinks();
 
             var activity = item as News;
-            var model = GetItemViewModel(activity);
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
