@@ -1,0 +1,27 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extentions
+@model uIntra.News.NewsItemViewModel
+@{
+    var expired = Model.Expired ? "_expired" : "";
+    var pinnedClass = Model.IsPinned ? "_pinned" : "";
+}
+<div class="content__item @expired">
+    <div class="row clearfix">
+        <div class="col-md-12 content__item-holder @pinnedClass">
+            <div class="clearfix">
+                @if (@Model.IsPinned)
+                {
+                    <span class="pinned__item pull-right">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+                }
+                @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+            </div>
+            <div class="content__item-image"> </div>
+            <div class="content__item-txt">
+                <p>@Html.Raw(Model.ShortDescription)</p>
+            </div>
+            <div class="content__item-images">
+                @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+            </div>
+        </div>
+    </div>
+</div>
