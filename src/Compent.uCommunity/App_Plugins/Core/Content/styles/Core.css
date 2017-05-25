@@ -365,10 +365,10 @@ body{
     }
 
     &__clear{
-        cursor: pointer;
-    position: absolute;
-    right: 30px;
-    top: 38px;
+        position:absolute;
+        top:37px;
+        right:30px;
+        cursor:pointer;
     }
 }
 

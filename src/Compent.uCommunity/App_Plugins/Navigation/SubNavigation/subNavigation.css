@@ -125,7 +125,6 @@
             &._right{
                 float:right;
                 margin:0 -120px 0 0;
-                border-left:1px solid var(--color-light-gray);
             }
         }
 
@@ -151,12 +150,22 @@
                 text-decoration:none;
                 cursor:default;
                 padding-right:19px;
+
+                &:hover{
+                    background-color:var(--color-white);
+                }
+            }
+
+            ._right &{
+                border-left-color:var(--color-light-gray);
             }
 
             &:focus,
             &:active,
             &:hover {
                 color:#666;
+                text-decoration:none;
+                background-color:var(--color-light-gray-2);
             }
 
             &._add {
