@@ -1,5 +1,5 @@
 
-namespace uCommunity.BaseControls
+namespace uIntra.BaseControls
 {
     public enum VideoSourceTypes
     {
