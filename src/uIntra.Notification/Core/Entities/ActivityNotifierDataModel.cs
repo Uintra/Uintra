@@ -1,7 +1,8 @@
 ﻿using System;
 using uIntra.Core.Activity;
+using uIntra.Notification.Core.Entities.Base;
 
-namespace uCommunity.Notification.Core.Entities
+namespace uIntra.Notification.Core.Entities
 {
     public class ActivityNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {

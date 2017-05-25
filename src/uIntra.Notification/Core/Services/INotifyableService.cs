@@ -1,7 +1,7 @@
 ﻿using System;
-using uCommunity.Notification.Core.Configuration;
+using uIntra.Notification.Core.Configuration;
 
-namespace uCommunity.Notification.Core.Services
+namespace uIntra.Notification.Core.Services
 {
     public interface INotifyableService
     {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Notification")]
+[assembly: AssemblyTitle("uIntra.Notification")]
 [assembly: AssemblyDescription("Notification activity package")]
 
 [assembly: AssemblyVersion("1.0.6.0")]

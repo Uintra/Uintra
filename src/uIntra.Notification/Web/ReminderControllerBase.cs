@@ -1,8 +1,8 @@
 ﻿using System.Web.Http;
-using uCommunity.Notification.Core.Services;
+using uIntra.Notification.Core.Services;
 using Umbraco.Web.WebApi;
 
-namespace uCommunity.Notification.Web
+namespace uIntra.Notification.Web
 {
     public abstract class ReminderControllerBase: UmbracoApiController
     {

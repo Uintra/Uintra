@@ -1,7 +1,7 @@
 ﻿using System;
-using uCommunity.Notification.Core.Configuration;
+using uIntra.Notification.Core.Configuration;
 
-namespace uCommunity.Notification.Core.Exceptions
+namespace uIntra.Notification.Core.Exceptions
 {
     public class OutOfRangeNotifierConfigurationException : ApplicationException
     {

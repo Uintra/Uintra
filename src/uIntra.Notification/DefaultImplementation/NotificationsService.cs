@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Notification.Core.Exceptions;
-using uCommunity.Notification.Core.Services;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Entities;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
+using uIntra.Notification.Core.Configuration;
+using uIntra.Notification.Core.Entities.Base;
+using uIntra.Notification.Core.Exceptions;
+using uIntra.Notification.Core.Services;
 
-namespace uCommunity.Notification
+namespace uIntra.Notification.DefaultImplementation
 {
     public class NotificationsService : INotificationsService
     {

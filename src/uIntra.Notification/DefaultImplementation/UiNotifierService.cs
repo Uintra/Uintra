@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Entities;
-using uCommunity.Notification.Core.Services;
 using uIntra.Core.Extentions;
 using uIntra.Core.Persistence.Sql;
+using uIntra.Notification.Core.Configuration;
+using uIntra.Notification.Core.Entities.Base;
+using uIntra.Notification.Core.Services;
 
-namespace uCommunity.Notification
+namespace uIntra.Notification.DefaultImplementation
 {
     public class UiNotifierService : IUiNotifierService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uCommunity.Notification.Core.Models
+namespace uIntra.Notification.Core.Models
 {
     public class NotificationListViewModel
     {

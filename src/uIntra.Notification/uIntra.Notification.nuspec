@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uCommunity Notification Controls NotificationControls</tags>
+    <tags>Compent uIntra Notification Controls NotificationControls</tags>
     <dependencies>
-      <dependency id="uCommunity.Core" version="1.0.24" />
+      <dependency id="uIntra.Core" version="1.0.24" />
     </dependencies>
   </metadata>
 </package>

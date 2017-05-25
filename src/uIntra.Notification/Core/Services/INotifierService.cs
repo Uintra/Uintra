@@ -1,7 +1,7 @@
-﻿using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Entities;
+﻿using uIntra.Notification.Core.Configuration;
+using uIntra.Notification.Core.Entities.Base;
 
-namespace uCommunity.Notification.Core.Services
+namespace uIntra.Notification.Core.Services
 {
     public interface INotifierService
     {

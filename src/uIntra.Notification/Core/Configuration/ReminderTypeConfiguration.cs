@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uCommunity.Notification.Core.Configuration
+namespace uIntra.Notification.Core.Configuration
 {
     public class ReminderTypeConfiguration
     {

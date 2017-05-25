@@ -1,7 +1,7 @@
 ﻿using System;
-using uCommunity.Notification.Core.Entities.Base;
+using uIntra.Notification.Core.Entities.Base;
 
-namespace uCommunity.Notification.Core.Services
+namespace uIntra.Notification.Core.Services
 {
     public interface IReminderableService<out T> where T : IReminderable
     {

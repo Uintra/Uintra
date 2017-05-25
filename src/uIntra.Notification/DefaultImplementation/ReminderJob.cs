@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using uCommunity.Notification.Core.Configuration;
-using uCommunity.Notification.Core.Entities.Base;
-using uCommunity.Notification.Core.Services;
 using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
+using uIntra.Notification.Core.Configuration;
+using uIntra.Notification.Core.Entities.Base;
+using uIntra.Notification.Core.Services;
 
-namespace uCommunity.Notification
+namespace uIntra.Notification.DefaultImplementation
 {
     public class ReminderJob : IReminderJob
     {
