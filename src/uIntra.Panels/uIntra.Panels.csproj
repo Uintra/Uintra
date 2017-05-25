@@ -7,8 +7,8 @@
     <ProjectGuid>{D5590777-B149-467F-829A-E901A9462E72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.Panels</RootNamespace>
-    <AssemblyName>uCommunity.Panels</AssemblyName>
+    <RootNamespace>uIntra.Panels</RootNamespace>
+    <AssemblyName>uIntra.Panels</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -281,7 +281,7 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
-    <Content Include="uCommunity.Panels.nuspec">
+    <Content Include="uIntra.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
