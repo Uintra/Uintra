@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Panels")]
+[assembly: AssemblyTitle("uIntra.Panels")]
 [assembly: AssemblyDescription("Panels package")]
 
 [assembly: AssemblyVersion("2.0.1.1")]
