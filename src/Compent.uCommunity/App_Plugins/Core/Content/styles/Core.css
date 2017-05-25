@@ -363,6 +363,13 @@ body{
             transform: translate(-50%, -50%);
         }
     }
+
+    &__clear{
+        cursor: pointer;
+    position: absolute;
+    right: 30px;
+    top: 38px;
+    }
 }
 
 .check{
