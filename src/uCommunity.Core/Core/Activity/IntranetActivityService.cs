@@ -80,7 +80,7 @@ namespace uCommunity.Core.Activity
         {
             if (newActivity.IsPinned && newActivity.PinDays > 0 && oldActivity?.PinDays != newActivity.PinDays)
             {
-                newActivity.EndPinDate = DateTime.Now.AddDays(newActivity.PinDays);
+                newActivity.EndPinDate = DateTime.Now.AddDays(newActivity.PinDays).ToUniversalTime();
             }
         }
 
