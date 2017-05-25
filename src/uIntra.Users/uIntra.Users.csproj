@@ -7,8 +7,8 @@
     <ProjectGuid>{3E868F15-AC47-4962-A6A5-C9084752DDE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.Users</RootNamespace>
-    <AssemblyName>uCommunity.Users</AssemblyName>
+    <RootNamespace>uIntra.Users</RootNamespace>
+    <AssemblyName>uIntra.Users</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -241,7 +241,7 @@
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <None Include="uCommunity.Users.nuspec">
+    <None Include="uIntra.Users.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

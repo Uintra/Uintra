@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.Users")]
-[assembly: AssemblyDescription("uCommunity.Users")]
+[assembly: AssemblyTitle("uIntra.Users")]
+[assembly: AssemblyDescription("uIntra.Users")]
 [assembly: AssemblyConfiguration("")]
 
 [assembly: ComVisible(false)]
