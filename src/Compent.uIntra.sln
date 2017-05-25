@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compent.uCommunity", "Compe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Notification", "uCommunity.Notification\uCommunity.Notification.csproj", "{774EBA5A-679C-401D-B3F1-130562785C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Users", "uCommunity.Users\uCommunity.Users.csproj", "{3E868F15-AC47-4962-A6A5-C9084752DDE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Users", "uIntra.Users\uIntra.Users.csproj", "{3E868F15-AC47-4962-A6A5-C9084752DDE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Events", "uCommunity.Events\uCommunity.Events.csproj", "{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}"
 EndProject

@@ -1,4 +1,4 @@
-﻿namespace uCommunity.Users.Core
+﻿namespace uIntra.Users.Core
 {
     public class ProfileViewModelBase
     {

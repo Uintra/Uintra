@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
-using uCommunity.Users.Core;
 using uIntra.Core;
+using uIntra.Users.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Users.Web
+namespace uIntra.Users.Web
 {
     [AllowAnonymous]
     public abstract class LoginControllerBase : SurfaceController

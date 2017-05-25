@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyProduct("Compent.uCommunity")]
+[assembly: AssemblyProduct("Compent.uIntra")]
 
 [assembly: AssemblyCompany("compent.dk")]
 [assembly: AssemblyCopyright("Copyright © compent.dk 2017")]
