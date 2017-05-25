@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uCommunity.CentralFeed.Core;
-using uCommunity.CentralFeed.Enums;
-using uCommunity.CentralFeed.Models;
+using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
+using uIntra.CentralFeed.Core;
+using uIntra.CentralFeed.Core.Enums;
+using uIntra.CentralFeed.Core.Models;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.CentralFeed.Web
+namespace uIntra.CentralFeed.Web
 {
     public abstract class CentralFeedControllerBase : SurfaceController
     {

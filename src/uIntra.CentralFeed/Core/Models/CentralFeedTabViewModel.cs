@@ -1,6 +1,6 @@
-﻿using uCommunity.CentralFeed.Enums;
+﻿using uIntra.CentralFeed.Core.Enums;
 
-namespace uCommunity.CentralFeed.Models
+namespace uIntra.CentralFeed.Core.Models
 {
     public class CentralFeedTabViewModel
     {

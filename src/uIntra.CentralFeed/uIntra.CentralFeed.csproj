@@ -8,8 +8,8 @@
     <ProjectGuid>{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.CentralFeed</RootNamespace>
-    <AssemblyName>uCommunity.CentralFeed</AssemblyName>
+    <RootNamespace>uIntra.CentralFeed</RootNamespace>
+    <AssemblyName>uIntra.CentralFeed</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -354,7 +354,7 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <None Include="packages.config" />
-    <None Include="uCommunity.CentralFeed.nuspec" />
+    <None Include="uIntra.CentralFeed.nuspec" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -364,7 +364,7 @@
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uCommunity.Core</Name>
+      <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

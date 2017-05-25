@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using uCommunity.CentralFeed.Models;
+using uIntra.CentralFeed.Core.Models;
 
-namespace uCommunity.CentralFeed.AutoMapperProfiles
+namespace uIntra.CentralFeed.AutoMapperProfiles
 {
     public class CentralFeedAutoMapperProfile : Profile
     {

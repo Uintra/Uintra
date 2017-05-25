@@ -1,7 +1,7 @@
 ﻿using System;
 using uIntra.Core.Activity;
 
-namespace uCommunity.CentralFeed
+namespace uIntra.CentralFeed.Core
 {
     public interface ICentralFeedItem
     {

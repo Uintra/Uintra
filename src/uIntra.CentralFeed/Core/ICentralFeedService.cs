@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using uCommunity.CentralFeed.Entities;
+using uIntra.CentralFeed.Core.Entities;
 using uIntra.Core.Activity;
 
-namespace uCommunity.CentralFeed
+namespace uIntra.CentralFeed.Core
 {
     public interface ICentralFeedService
     {

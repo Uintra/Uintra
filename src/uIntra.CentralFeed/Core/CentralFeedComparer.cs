@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uCommunity.CentralFeed.Core
+namespace uIntra.CentralFeed.Core
 {
     public class CentralFeedComparer : IComparer<ICentralFeedItem>
     {

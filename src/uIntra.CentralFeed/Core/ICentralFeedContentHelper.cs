@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using uCommunity.CentralFeed.Enums;
-using uCommunity.CentralFeed.Models;
+using uIntra.CentralFeed.Core.Enums;
+using uIntra.CentralFeed.Core.Models;
 using Umbraco.Core.Models;
 
-namespace uCommunity.CentralFeed.Core
+namespace uIntra.CentralFeed.Core
 {
     public interface ICentralFeedContentHelper
     {

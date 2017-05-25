@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.Activity;
 
-namespace uCommunity.CentralFeed.Models
+namespace uIntra.CentralFeed.Core.Models
 {
     public class CentralFeedTypeModel
     {

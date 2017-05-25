@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uCommunity.CentralFeed")]
+[assembly: AssemblyTitle("uIntra.CentralFeed")]
 [assembly: AssemblyDescription("Central feed activity package.")]
 
 [assembly: AssemblyVersion("1.0.4.14")]
