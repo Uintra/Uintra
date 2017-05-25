@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<project name="uCommunity.Notification" default="">
+<project name="uIntra.Notification" default="">
   <loadtasks assembly="C:\Program Files (x86)\nantcontrib-0.85\bin\NAnt.Contrib.Tasks.dll" />
   <loadtasks assembly="C:\Program Files (x86)\nant-0.85\bin\NAnt.Development.Tasks.dll" />
 
   <property name="Csc.Setting.Build.VisualStudioVersion" value="VS2015" />
   <property name="Csc.Setting.MSBuild.SolutionPath"
-            value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln" />
+            value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uIntra.sln" />
 
   <include buildfile="${CcnetConfig.BuildToolsDirectory}\BuildScripts\Creuna.BuildTools.NAnt.xml" />
 
@@ -25,7 +25,7 @@
   </target>
   
   <target name="Nuget.Restore">
-    <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln"/>
+    <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uIntra.sln"/>
   </target>
   
   <target name="Target.NuGet">
@@ -37,7 +37,7 @@
 
     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\NuGet.exe" workingdir="${Csc.Setting.Build.WorkingDirectory}" verbose="true">
       <arg value="pack" />
-      <arg file="${CcnetConfig.SourcesRootDirectory}\src\uCommunity.Notification\uCommunity.Notification.csproj" />
+      <arg file="${CcnetConfig.SourcesRootDirectory}\src\uIntra.Notification\uIntra.Notification.csproj" />
       <arg value="-Build" />
 	  <arg line="-Properties Configuration=${Csc.Setting.MSBuild.Configuration}" />
       <arg line="-Verbosity detailed" />

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="uCommunity" default="">
+<project name="uIntra" default="">
   <loadtasks assembly="C:\Program Files (x86)\nantcontrib-0.85\bin\NAnt.Contrib.Tasks.dll" />
   <loadtasks assembly="C:\Program Files (x86)\nant-0.85\bin\NAnt.Development.Tasks.dll" />
   <!--property name="Csc.Setting.NUnit.Path" value="C:\Program Files\NUnit 2.5.10\bin\net-2.0\nunit-console.exe" /--> 
   
   <property name="Csc.Setting.Build.VisualStudioVersion" value="VS2015" />
-  <property name="Csc.Setting.MSBuild.SolutionPath" value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln" />
+  <property name="Csc.Setting.MSBuild.SolutionPath" value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uIntra.sln" />
   
   <include buildfile="${CcnetConfig.BuildToolsDirectory}\BuildScripts\Creuna.BuildTools.NAnt.xml" />
 
@@ -22,8 +22,8 @@
     <call target="Csc.Target.Rebuild" />   
 	
 	<if test="${Csc.Setting.Build.TargetEnvironment == 'Develop'}">
-       <property name="Csc.Setting.RebuildDeploy.WebProjectName" value="Compent.uCommunity" />
-	   <property name="Csc.Setting.Build.DeployDirectory" value="\\192.168.200.2\inetpub\compent\2017\uCommunity.development" />
+       <property name="Csc.Setting.RebuildDeploy.WebProjectName" value="Compent.uIntra" />
+	   <property name="Csc.Setting.Build.DeployDirectory" value="\\192.168.200.2\inetpub\compent\2017\uIntra.development" />
 	   
 	  <exec program="C:\Program Files (x86)\nodejs\npm.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" verbose="true">
         <arg value="install" />
@@ -40,7 +40,7 @@
    </target>
 
    <target name="Target.RestoreNuGetPackages">
-     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uCommunity.sln"/>
+     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uIntra.sln"/>
    </target>
       
    <target name="Target.CopyRoslyn">
