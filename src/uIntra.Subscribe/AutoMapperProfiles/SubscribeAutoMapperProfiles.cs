@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace uCommunity.Subscribe.AutoMapperProfiles
+namespace uIntra.Subscribe.AutoMapperProfiles
 {
     public class SubscribeAutoMapperProfiles : Profile
     {

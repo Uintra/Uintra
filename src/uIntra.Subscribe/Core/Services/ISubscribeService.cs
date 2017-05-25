@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using uIntra.Core.Activity;
 
-namespace uCommunity.Subscribe
+namespace uIntra.Subscribe
 {
     public interface ISubscribeService
     {

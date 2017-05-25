@@ -6,7 +6,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Subscribe.Web
+namespace uIntra.Subscribe.Web
 {
     public abstract class SubscribeControllerBase : SurfaceController
     {
