@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Umbraco.Web.Mvc;
 
-namespace uCommunity.Tagging.Web
+namespace uIntra.Tagging.Web
 {
     public abstract class TagsControllerBase : SurfaceController
     {

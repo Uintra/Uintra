@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uCommunity.Tagging
+namespace uIntra.Tagging
 {
     public class TagEditModel
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{2167C278-86ED-451B-8D2C-01774532B4E8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uCommunity.Tagging</RootNamespace>
-    <AssemblyName>uCommunity.Tagging</AssemblyName>
+    <RootNamespace>uIntra.Tagging</RootNamespace>
+    <AssemblyName>uIntra.Tagging</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -341,7 +341,7 @@
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <None Include="packages.config" />
-    <None Include="uCommunity.Tagging.nuspec">
+    <None Include="uIntra.Tagging.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

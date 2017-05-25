@@ -4,7 +4,7 @@ using System.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Tagging
+namespace uIntra.Tagging
 {
     public class TagsService : ITagsService
     {

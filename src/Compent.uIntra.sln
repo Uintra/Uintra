@@ -46,7 +46,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Events", "uCommu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Panels", "uCommunity.Panels\uCommunity.Panels.csproj", "{D5590777-B149-467F-829A-E901A9462E72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uCommunity.Tagging", "uCommunity.Tagging\uCommunity.Tagging.csproj", "{2167C278-86ED-451B-8D2C-01774532B4E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Tagging", "uIntra.Tagging\uIntra.Tagging.csproj", "{2167C278-86ED-451B-8D2C-01774532B4E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

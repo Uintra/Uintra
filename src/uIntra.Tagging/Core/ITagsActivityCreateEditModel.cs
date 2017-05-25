@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uCommunity.Tagging
+namespace uIntra.Tagging
 {
     public interface ITagsActivityCreateEditModel
     {

@@ -2,7 +2,7 @@
 using ServiceStack.DataAnnotations;
 using uIntra.Core.Persistence.Sql;
 
-namespace uCommunity.Tagging
+namespace uIntra.Tagging
 {
     [CompositeIndex("TagId", "ActivityId", Unique = true, Name = "UQ_TagActivityRelation_TagId_ActivityId")]
     public class TagActivityRelation : SqlEntity

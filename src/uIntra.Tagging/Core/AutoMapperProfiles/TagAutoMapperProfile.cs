@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace uCommunity.Tagging
+namespace uIntra.Tagging
 {
     public class TagAutoMapperProfile : Profile
     {
