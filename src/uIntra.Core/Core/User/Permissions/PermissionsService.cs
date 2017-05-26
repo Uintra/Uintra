@@ -18,7 +18,7 @@ namespace uIntra.Core.User.Permissions
             _exceptionLogger = exceptionLogger;
         }
         
-        public virtual bool IsRoleHasPermissions(IntranetRolesEnum role, params string[] permissions)
+        public virtual bool IsRoleHasPermissions<T>(T role, params string[] permissions) where T : struct
         {
             if (permissions.Any())
             {
@@ -32,9 +32,9 @@ namespace uIntra.Core.User.Permissions
             return defaultValue;
         }
 
-        public virtual IEnumerable<string> GetRolePermission(IntranetRolesEnum role)
+        public virtual IEnumerable<string> GetRolePermission<T>(T role) where T : struct
         {
-            var roleConfiguration = _configuration.Roles.FirstOrDefault(s => s.Key == role);
+            var roleConfiguration = _configuration.Roles.FirstOrDefault(s => s.Key == role.ToString());
 
             if (roleConfiguration == null)
             {
