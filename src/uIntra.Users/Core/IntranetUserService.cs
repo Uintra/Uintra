@@ -20,21 +20,18 @@ namespace uIntra.Users
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IExceptionLogger _exceptionLogger;
         private readonly IApplicationSettings _applicationSettings;
         private readonly IRoleService _roleService;
 
         public IntranetUserService(IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
-            IExceptionLogger exceptionLogger,
             IApplicationSettings applicationSettings,
             IRoleService roleService)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
-            _exceptionLogger = exceptionLogger;
             _applicationSettings = applicationSettings;
             _roleService = roleService;
         }
@@ -161,19 +158,7 @@ namespace uIntra.Users
         protected virtual IRole GetMemberRole(IMember member)
         {
             var roles = _memberService.GetAllRoles(member.Id).ToList();
-
-            if (roles.Count == 0)
-            {
-                _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has no role!"));
-                return _roleService.GetDefaultRole();
-            }
-
-            if (roles.Count > 1)
-            {
-                _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has more then one role!"));
-            }
-
-            return _roleService.GetHightestRole(roles);
+            return _roleService.GetActualRole(roles);
         }
 
         protected virtual string GetGroupNameFromRole(IntranetRolesEnum role)

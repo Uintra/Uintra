@@ -24,16 +24,10 @@ namespace uIntra.Users
             return role;
         }
 
-        public virtual IRole GetHightestRole(IEnumerable<string> roleNames)
+        public virtual IRole GetActualRole(IEnumerable<string> roleNames)
         {
             var roles = roleNames.Select(Get).OrderBy(x => x.Priority);
-            var role = roles.FirstOrDefault();
-            if (role == null)
-            {
-                throw new Exception($"Can't map group name {string.Join(",", roleNames)} to IntranetUserRole");
-            }
-
-            return role;
+            return roles.IsEmpty() ? GetDefaultRole() : roles.First();
         }
 
         public virtual IEnumerable<IRole> GetAll()

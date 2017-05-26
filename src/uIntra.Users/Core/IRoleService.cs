@@ -7,7 +7,7 @@ namespace uIntra.Users
     {
         IRole GetDefaultRole();
         IRole Get(string name);
-        IRole GetHightestRole(IEnumerable<string> roleNames);
+        IRole GetActualRole(IEnumerable<string> roleNames);
         IEnumerable<IRole> GetAll();
     }
 }
