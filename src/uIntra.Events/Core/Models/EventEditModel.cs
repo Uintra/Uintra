@@ -30,7 +30,5 @@ namespace uIntra.Events
         public int? MediaRootId { get; set; }
 
         public bool NotifyAllSubscribers { get; set; }
-
-        public Guid CreatorId { get; set; }
     }
 }

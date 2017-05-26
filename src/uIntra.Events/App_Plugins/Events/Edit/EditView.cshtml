@@ -11,7 +11,6 @@
         @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })
         <h1 class="form__title">@Html.Localize("EventsEdit.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />
-        <input type="hidden" name="creatorId" value="@Model.CreatorId" />
 
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsEdit.Title.lbl") <span class="form__required">*</span></label>
