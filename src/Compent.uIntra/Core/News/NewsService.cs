@@ -95,7 +95,7 @@ namespace Compent.uIntra.Core.News
             {
                 return true;
             }
-            if (currentUser.Role != IntranetRolesEnum.WebMaster)
+            if (currentUser.Role.Name != IntranetRolesEnum.WebMaster.ToString())
             {
                 return false;
             }
