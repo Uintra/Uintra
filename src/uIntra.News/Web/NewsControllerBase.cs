@@ -178,7 +178,6 @@ namespace uIntra.News.Web
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            activity.CreatorId = _intranetUserService.GetCurrentUserId();
 
             _newsService.Save(activity);
             return activity;
