@@ -8,55 +8,44 @@ namespace uIntra.Users
 {
     public class RoleServiceBase : IRoleService
     {
-        public virtual IEnumerable<IRole> GetAll()
-        {
-            var roles = new List<IRole>();
-
-            foreach (IntranetRolesEnum enumRole in Enum.GetValues(typeof(IntranetRolesEnum)))
-            {
-                roles.Add(new Role
-                {
-                    Name = enumRole.ToRoleName(),
-                    Priority = enumRole.GetHashCode()
-                });
-            }
-
-            return roles;
-        }
-
-        public virtual IRole GetByName(string name)
-        {
-            IntranetRolesEnum role;
-            if (Enum.TryParse(name, out role))
-            {
-                return new Role
-                {
-                    Name = role.ToRoleName(),
-                    Priority = role.GetHashCode()
-                };
-            }
-
-            throw new Exception($"Can't map group name {name} to IntranetUserRole");
-        }
-
         public virtual IRole GetDefaultRole()
         {
-            return new Role
+            return GetAll().Single(r => r.Name == IntranetRolesEnum.UiUser.ToString());
+        }
+
+        public virtual IRole Get(string name)
+        {
+            var role = GetAll().SingleOrDefault(r => r.Name == name);
+            if (role == null)
             {
-                Name = IntranetRolesEnum.UiUser.ToRoleName(),
-                Priority = IntranetRolesEnum.UiUser.GetHashCode()
-            };
+                throw new Exception($"Can't map group name {name} to IntranetUserRole");
+            }
+
+            return role;
         }
 
         public virtual IRole GetHightestRole(IEnumerable<string> roleNames)
         {
-            var roles = GetRoleByNames(roleNames).OrderBy(x => x.Priority);
-            return roles.First();
+            var roles = roleNames.Select(Get).OrderBy(x => x.Priority);
+            var role = roles.FirstOrDefault();
+            if (role == null)
+            {
+                throw new Exception($"Can't map group name {string.Join(",", roleNames)} to IntranetUserRole");
+            }
+
+            return role;
         }
 
-        private IEnumerable<IRole> GetRoleByNames(IEnumerable<string> names)
+        public virtual IEnumerable<IRole> GetAll()
         {
-            return names.Select(GetByName).ToList();
+            foreach (IntranetRolesEnum enumRole in Enum.GetValues(typeof(IntranetRolesEnum)))
+            {
+                yield return new Role
+                {
+                    Name = enumRole.ToString(),
+                    Priority = enumRole.GetHashCode()
+                };
+            }
         }
     }
 }

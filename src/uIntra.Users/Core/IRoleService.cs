@@ -5,9 +5,9 @@ namespace uIntra.Users
 {
     public interface IRoleService
     {
-        IEnumerable<IRole> GetAll();
-        IRole GetByName(string name);
         IRole GetDefaultRole();
+        IRole Get(string name);
         IRole GetHightestRole(IEnumerable<string> roleNames);
+        IEnumerable<IRole> GetAll();
     }
 }

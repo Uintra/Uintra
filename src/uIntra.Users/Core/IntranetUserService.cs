@@ -119,7 +119,7 @@ namespace uIntra.Users
             return user;
         }
 
-        public virtual IntranetUser Map(IMember member)
+        protected virtual IntranetUser Map(IMember member)
         {
             var user = new IntranetUser
             {
