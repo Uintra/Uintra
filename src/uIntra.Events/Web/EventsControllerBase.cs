@@ -115,6 +115,7 @@ namespace uIntra.Events.Web
 
             var @event = MapEditModel(saveModel);
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
