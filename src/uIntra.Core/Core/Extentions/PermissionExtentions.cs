@@ -9,14 +9,14 @@ namespace uIntra.Core.Extentions
 {
     public static class PermissionsExtentions
     {
-        public static bool IsRoleHasPermissions(this IPermissionsService service, IntranetRolesEnum role,
+        public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role,
             IEnumerable<KeyValuePair<IntranetActivityTypeEnum, IntranetActivityActionEnum>> collection)
         {
             var permissions = collection.Select(s => service.GetPermissionFromTypeAndAction(s.Key, s.Value)).ToArray();
             return service.IsRoleHasPermissions(role, permissions);
         }
 
-        public static bool IsRoleHasPermissions(this IPermissionsService service, IntranetRolesEnum role, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
         {
             var permission = service.GetPermissionFromTypeAndAction(activityType, action);
             return service.IsRoleHasPermissions(role, permission);

@@ -5,8 +5,8 @@ namespace uIntra.Core.User.Permissions
 {
     public interface IPermissionsService
     {
-        bool IsRoleHasPermissions<T>(T role, params string[] permissions) where T : struct;
-        IEnumerable<string> GetRolePermission<T>(T role) where T : struct;
+        bool IsRoleHasPermissions(IRole role, params string[] permissions);
+        IEnumerable<string> GetRolePermission(IRole role);
         string GetPermissionFromTypeAndAction(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
     }
 }

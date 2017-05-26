@@ -22,18 +22,21 @@ namespace uIntra.Users
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IApplicationSettings _applicationSettings;
+        private readonly IRoleService _roleService;
 
         public IntranetUserService(IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IExceptionLogger exceptionLogger,
-            IApplicationSettings applicationSettings)
+            IApplicationSettings applicationSettings,
+            IRoleService roleService)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _exceptionLogger = exceptionLogger;
             _applicationSettings = applicationSettings;
+            _roleService = roleService;
         }
 
         public virtual IntranetUser Get(int umbracoId)
@@ -155,35 +158,22 @@ namespace uIntra.Users
             return Map(user);
         }
 
-        protected virtual IntranetRolesEnum GetMemberRole(IMember member)
+        protected virtual IRole GetMemberRole(IMember member)
         {
-            var roles = _memberService.GetAllRoles(member.Id).Select(GetRoleFromGroupName).ToList();
+            var roles = _memberService.GetAllRoles(member.Id).ToList();
 
-            if (roles.Count != 0)
+            if (roles.Count == 0)
             {
-                if (roles.Count > 1)
-                {
-                    _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has more then one role!"));
-                }
-
-                var highestRole = roles.Min();
-                return highestRole;
+                _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has no role!"));
+                return _roleService.GetDefaultRole();
             }
 
-            _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has no role!"));
-
-            return IntranetRolesEnum.UiUser;
-        }
-
-        protected virtual IntranetRolesEnum GetRoleFromGroupName(string groupName)
-        {
-            IntranetRolesEnum role;
-            if (Enum.TryParse(groupName, out role))
+            if (roles.Count > 1)
             {
-                return role;
+                _exceptionLogger.Log(new Exception($"Member \"{member.Name}\" - \"{member.Id}\" has more then one role!"));
             }
 
-            throw new Exception($"Can't map group name {groupName} to IntranetUserRole");
+            return _roleService.GetHightestRole(roles);
         }
 
         protected virtual string GetGroupNameFromRole(IntranetRolesEnum role)

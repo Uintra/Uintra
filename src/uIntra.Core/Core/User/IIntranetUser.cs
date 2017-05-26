@@ -8,6 +8,6 @@ namespace uIntra.Core.User
         int? UmbracoId { get; set; }
         string DisplayedName { get; set; }
         string Photo { get; set; }
-        IntranetRolesEnum Role { get; set; }
+        IRole Role { get; set; }
     }
 }
