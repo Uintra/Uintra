@@ -333,6 +333,7 @@
     <Compile Include="Core\CentralFeedComparer.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
+    <Compile Include="Core\Models\CentralFeedFiltersStateModel.cs" />
     <Compile Include="Core\Models\CentralFeedTabModel.cs" />
     <Compile Include="Core\Models\CentralFeedTabViewModel.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
@@ -365,6 +366,10 @@
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
+      <Project>{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}</Project>
+      <Name>uIntra.Subscribe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -12,5 +12,13 @@ namespace uIntra.CentralFeed
         CentralFeedTypeEnum GetTabType(IPublishedContent content);
 
         IEnumerable<CentralFeedTabModel> GetTabs(IPublishedContent currentPage);
+
+        void SaveFiltersState(CentralFeedFiltersStateModel stateModel);
+
+        CentralFeedFiltersStateModel GetFiltersState();
+
+        void ClearFiltersState();
+
+
     }
 }

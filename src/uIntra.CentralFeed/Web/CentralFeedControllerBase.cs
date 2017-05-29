@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.User;
+using uIntra.Subscribe;
 using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
@@ -18,21 +20,32 @@ namespace uIntra.CentralFeed.Web
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly ISubscribeService subscribeService;
+        private readonly IIntranetUserService<IIntranetUser> intranetUserService;
         protected const int ItemsPerPage = 8;
 
-        protected CentralFeedControllerBase(ICentralFeedService centralFeedService, ICentralFeedContentHelper centralFeedContentHelper, IActivitiesServiceFactory activitiesServiceFactory)
+        protected CentralFeedControllerBase(
+            ICentralFeedService centralFeedService,
+            ICentralFeedContentHelper centralFeedContentHelper,
+            IActivitiesServiceFactory activitiesServiceFactory,
+            ISubscribeService subscribeService,
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
             _activitiesServiceFactory = activitiesServiceFactory;
+            this.subscribeService = subscribeService;
+            this.intranetUserService = intranetUserService;
         }
 
         public virtual ActionResult Overview()
         {
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var filtersState = _centralFeedContentHelper.GetFiltersState();
             var model = new CentralFeedOverviewModel
             {
-                CurrentType = tabType
+                CurrentType = tabType,
+                FiltersState = filtersState.Map<CentralFeedFiltersStateModel>()
             };
             return PartialView(OverviewViewPath, model);
         }
@@ -41,7 +54,11 @@ namespace uIntra.CentralFeed.Web
         {
             var items = GetCentralFeedItems(model.Type.GetHashCode().ToEnum<IntranetActivityTypeEnum>());
 
-            var currentVersion = _centralFeedService.GetFeedVersion(items);
+            var tabSettings = _centralFeedService.GetSettings(model.Type);
+
+            var filteredItems = ApplyFilters(items, model, tabSettings).ToList();
+
+            var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
 
             if (model.Version.HasValue && currentVersion == model.Version.Value)
             {
@@ -49,20 +66,29 @@ namespace uIntra.CentralFeed.Web
             }
 
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = items.OrderBy(IsPinActual).ThenByDescending(el => el.PublishDate).Take(take).ToList();
+            var pagedItemsList = filteredItems.OrderBy(IsPinActual).ThenByDescending(el => el.PublishDate).Take(take).ToList();
 
             FillActivityDetailLinks(pagedItemsList);
 
             var centralFeedModel = new CentralFeedListViewModel
             {
-                Version = _centralFeedService.GetFeedVersion(items),
+                Version = _centralFeedService.GetFeedVersion(filteredItems),
                 Items = pagedItemsList,
                 Settings = _centralFeedService.GetAllSettings(),
                 Type = model.Type,
-                BlockScrolling = items.Count < take,
+                BlockScrolling = filteredItems.Count < take,
+                ShowPinned = model.ShowPinned,
+                IncludeBulletin = model.IncludeBulletin ?? false,
                 ShowSubscribed = model.ShowSubscribed ?? false
             };
 
+
+            _centralFeedContentHelper.SaveFiltersState(new CentralFeedFiltersStateModel()
+            {
+                PinnedFilterSelected = centralFeedModel.ShowPinned,
+                BulletinFilterSelected = centralFeedModel.IncludeBulletin,
+                SubscriberFilterSelected = centralFeedModel.ShowSubscribed
+            });
             return PartialView(ListViewPath, centralFeedModel);
         }
 
@@ -108,7 +134,8 @@ namespace uIntra.CentralFeed.Web
                     Type = singleSetting.Type,
                     CreateUrl = singleSetting.CreatePage.Url,
                     TabUrl = singleSetting.OverviewPage.Url,
-                    HasSubscribersFilter = singleSetting.HasSubscribersFitler
+                    HasSubscribersFilter = singleSetting.HasSubscribersFilter,
+
                 };
             }
         }
@@ -138,5 +165,26 @@ namespace uIntra.CentralFeed.Web
 
             return null;
         }
+
+        protected virtual IEnumerable<ICentralFeedItem> ApplyFilters(IEnumerable<ICentralFeedItem> items, CentralFeedListModel model, CentralFeedSettings settings)
+        {
+            if (model.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
+            {
+                items = items.Where(i => i is ISubscribable && subscribeService.IsSubscribed(intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
+            }
+
+            if (!model.IncludeBulletin.GetValueOrDefault() && settings.HasBulletinFilter)
+            {
+                items = items.Where(i => i.Type != IntranetActivityTypeEnum.Bulletin);
+            }
+
+            if (model.ShowPinned && settings.HasPinnedFilter)
+            {
+                items = items.Where(i => i.IsPinned);
+            }
+
+            return items;
+        }
+
     }
 }

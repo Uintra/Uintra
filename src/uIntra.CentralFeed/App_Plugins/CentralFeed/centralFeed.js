@@ -114,6 +114,11 @@ function tabClickEventHandler(e) {
         $(e.target).closest('.tabset').removeClass('_expanded');
     }
 }
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
 appInitializer.add(function () {
     holder = document.querySelector('.js-feed-overview');
@@ -140,6 +145,9 @@ appInitializer.add(function () {
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
             scrollTo(element, 0, 200);
+
+            debugger;
+            var cookie=getCookie('centralFeedFiltersState');
             reload();
             document.body.dispatchEvent(centralFeedTabEvent);
         },

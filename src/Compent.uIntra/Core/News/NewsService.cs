@@ -101,7 +101,7 @@ namespace Compent.uIntra.Core.News
             }
 
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
-            
+
             return isAllowed;
         }
 
@@ -109,10 +109,13 @@ namespace Compent.uIntra.Core.News
         {
             return new CentralFeedSettings
             {
-                Type = ActivityType,
+                Type = CentralFeedTypeEnum.News,
                 Controller = "News",
                 OverviewPage = GetOverviewPage(),
-                CreatePage = GetCreatePage()
+                CreatePage = GetCreatePage(),
+                HasSubscribersFilter = false,
+                HasBulletinFilter = false,
+                HasPinnedFilter = true
             };
         }
 

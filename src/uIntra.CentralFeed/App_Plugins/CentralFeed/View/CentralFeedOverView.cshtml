@@ -11,7 +11,18 @@
                 <input type="hidden" name="type" value="@(Model.CurrentType.GetHashCode())" />
                 <input type="hidden" name="page" />
                 <div class="tab-content js-feed-listContainer">
-                    @{Html.RenderAction("List", "CentralFeed", new { model = new CentralFeedListModel { Type = Model.CurrentType } });}
+                    @{Html.RenderAction("List", "CentralFeed",
+                                new
+                                {
+                                    model = new CentralFeedListModel
+                                    {
+                                        Type = Model.CurrentType,
+                                        ShowPinned = @Model.PinnedFilterSelected,
+                                        IncludeBulletin = @Model.BulletinFilterSelected,
+                                        ShowSubscribed = @Model.SubscriberFilterSelected
+                                    }
+                                });
+                    }
                 </div>
                         }
         </div>

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uIntra.CentralFeed;
 using uIntra.Core;
@@ -11,8 +13,9 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.CentralFeed
 {
-    public class CentralFeedContentHelper: ICentralFeedContentHelper
+    public class CentralFeedContentHelper : ICentralFeedContentHelper
     {
+        private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ICentralFeedService _centralFeedService;
         private readonly IGridHelper _gridHelper;
@@ -57,16 +60,47 @@ namespace Compent.uIntra.Core.CentralFeed
                     continue;
                 }
 
-                var settings = _centralFeedService.GetSettings(activityType.Value);
+                var settings = _centralFeedService.GetSettings(tabType);
                 yield return new CentralFeedTabModel
                 {
                     Content = content,
                     Type = tabType,
-                    HasSubscribersFilter = settings.HasSubscribersFitler,
+                    HasSubscribersFilter = settings.HasSubscribersFilter,
+                    HasBulletinFilter = settings.HasBulletinFilter,
+                    HasPinnedFilter = settings.HasPinnedFilter,
                     CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(NewsCreatePage.ModelTypeAlias, EventsCreatePage.ModelTypeAlias))?.Url,
                     IsActive = content.IsAncestorOrSelf(currentPage)
                 };
             }
+        }
+
+        public void SaveFiltersState(CentralFeedFiltersStateModel stateModel)
+        {
+            var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
+            cookie.Value = stateModel.ToJson();
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+        public CentralFeedFiltersStateModel GetFiltersState()
+        {
+            var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
+            if (string.IsNullOrEmpty(cookie?.Value))
+            {
+                cookie = new HttpCookie(CentralFeedFiltersStateCookieName)
+                {
+                    Expires = DateTime.Now.AddDays(7),
+                    Value = GetDefaultCentralFeedFiltersState().ToJson()
+                };
+
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            return cookie.Value.Deserialize<CentralFeedFiltersStateModel>();
+        }
+
+        public void ClearFiltersState()
+        {
+            var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
+            cookie.Expires = DateTime.Now.AddDays(-1);
         }
 
         public CentralFeedTypeEnum GetTabType(IPublishedContent content)
@@ -89,6 +123,14 @@ namespace Compent.uIntra.Core.CentralFeed
         private IEnumerable<IPublishedContent> GetContents()
         {
             return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(NewsOverviewPage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias));
+        }
+
+        private CentralFeedFiltersStateModel GetDefaultCentralFeedFiltersState()
+        {
+            return new CentralFeedFiltersStateModel()
+            {
+                BulletinFilterSelected = true
+            };
         }
     }
 }

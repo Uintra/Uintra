@@ -7,6 +7,8 @@ namespace uIntra.Core.Activity
     {
         News = 1,
         Ideas = 2,
-        Events = 3
+        Events = 3,
+        Bulletin = 4
+
     }
 }

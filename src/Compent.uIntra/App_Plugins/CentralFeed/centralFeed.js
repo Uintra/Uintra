@@ -55,6 +55,37 @@ function attachEventFilter() {
             reload();
         });
     }
+
+    var showPinned = formController.form.querySelector('input[name="showPinned"]');
+    if (showPinned) {
+        showPinned.addEventListener('change', function () {
+            reload();
+        });
+    }
+
+    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+    if (inlcudeBulletin) {
+        inlcudeBulletin.addEventListener('change', function () {
+            reload();
+        });
+    }
+}
+
+function restoreFiltersState(state) {
+    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
+    if (showSubscribedElem) {
+        $(showSubscribedElem).prop('checked', state.subscriberFilterSelected);
+    }
+
+    var showPinned = formController.form.querySelector('input[name="showPinned"]');
+    if (showPinned) {
+        $(showPinned).prop('checked', state.pinnedFilterSelected);            
+    }    
+
+    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+    if (inlcudeBulletin) {
+        $(inlcudeBulletin).prop('checked', state.bulletinFilterSelected);  
+    }
 }
 
 function reload(useVersion, skipLoadingStatus) {
@@ -115,6 +146,18 @@ function tabClickEventHandler(e) {
     }
 }
 
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+function FiltersState(showSubscribers,showPinned,includeBulletin) {
+    this.showSubscribers = showSubscribers;
+    this.showPinned = showPinned;
+    this.includeBulletin = includeBulletin;    
+}
+
 appInitializer.add(function () {
     holder = document.querySelector('.js-feed-overview');
     var navigationHolder = document.querySelector('.js-feed-navigation');
@@ -140,6 +183,11 @@ appInitializer.add(function () {
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
             scrollTo(element, 0, 200);
+            debugger;
+            var cookie=getCookie('centralFeedFiltersState');
+            var state=JSON.parse(cookie);
+            restoreFiltersState(state);
+
             reload();
             document.body.dispatchEvent(centralFeedTabEvent);
         },
