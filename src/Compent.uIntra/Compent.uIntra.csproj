@@ -784,6 +784,7 @@
     <Content Include="Content\main.js" />
     <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
