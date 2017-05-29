@@ -849,6 +849,9 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.eot" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.ttf" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

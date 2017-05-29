@@ -22,7 +22,9 @@ appInitializer.add(function() {
         });
     });
 
-    removeControl.on('click',function() {
+    removeControl.on('click',function(event) {
+        event.preventDefault();
+
         $.ajax({
             type: "POST",
             data: {contentId: $(this).data("contentId")},
