@@ -98,7 +98,6 @@ var initDates = function (holder) {
 
 var controller = {
     init: function (holder) {
-        console.log(holder);
         if (!holder.length) {
             return;
         }
