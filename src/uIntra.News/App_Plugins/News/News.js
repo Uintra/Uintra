@@ -32,7 +32,7 @@ var initPinControl=function(holder) {
 var initSubmitButton = function (holder) {    
     var form = holder.find('#form');
     var btn = holder.find('._submit');  
-    var pinControl = holder.find('#pin-control');    
+    var pinControl = holder.find('#pin-control');  
 
     btn.click(function (event) {
         if (!form.valid()) {
@@ -48,10 +48,12 @@ var initSubmitButton = function (holder) {
                 return;
             }
         }
+
+        form.submit();
     });
 }
 
-var initDescriptionControl = function (holder, isEdit) {
+var initDescriptionControl = function (holder) {
     var dataStorage = holder.find('#js-hidden-description-container');
     if (!dataStorage) {
         throw new Error(holder.attr("id") + ": Hiden input field missing");
@@ -61,10 +63,6 @@ var initDescriptionControl = function (holder, isEdit) {
     var editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
 
     editor.on('text-change', function () {
-        if (isEdit) {
-            dataStorage.val(editor.container.firstChild.innerHTML);
-        }
-
         if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
             descriptionElem.removeClass('input-validation-error');
         }
@@ -72,6 +70,7 @@ var initDescriptionControl = function (holder, isEdit) {
 
     btn.click(function () {
         descriptionElem.toggleClass("input-validation-error", editor.getLength() <= 1);
+
     });
 }
 
@@ -98,7 +97,8 @@ var initDates = function (holder) {
 }
 
 var controller = {
-    init: function (holder, isEdit) {
+    init: function (holder) {
+        console.log(holder);
         if (!holder.length) {
             return;
         }
@@ -106,7 +106,7 @@ var controller = {
         initDates(holder);
         initPinControl(holder);
         initUserSelect(holder);
-        initDescriptionControl(holder, isEdit);
+        initDescriptionControl(holder);
         fileUploadController.init(holder);
     }
 }
@@ -114,6 +114,7 @@ var controller = {
 appInitializer.add(() => {
     controller.init($('#js-news-create-page'));
 });
+
 appInitializer.add(() => {
-    controller.init($('#js-news-edit-page'), true);
+    controller.init($('#js-news-edit-page'));
 });

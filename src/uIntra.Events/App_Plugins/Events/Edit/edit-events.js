@@ -100,6 +100,8 @@ var initSubmitButton = function () {
 
             confirm.showDialog(btn.data('text'), callbacks, confirm.defaultSettings);
         });
+
+        form.submit();
     });
 }
 
@@ -113,6 +115,10 @@ var initDescriptionControl = function () {
     editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
 
     editor.on('text-change', function () {
+        if (!editor.getText().trim()) {
+            dataStorage.val('');
+            return;
+        }
         dataStorage.val(editor.container.firstChild.innerHTML);
 
         if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
