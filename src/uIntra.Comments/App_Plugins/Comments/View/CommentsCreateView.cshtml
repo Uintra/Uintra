@@ -12,5 +12,5 @@
     <input class="js-hidden-comment-create-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />
     <input type="hidden" name="activityId" value="@Model.ActivityId" />
     <input type="hidden" name="parentId" value="@Model.ParentId" />
-    <button disabled="disabled" class="btn btn-black js-comment-create-btn" type="submit">@Html.Localize("CommentsCreate.AddComment.btn")</button>
+    <button disabled="disabled" class="btn btn-black js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
 }
