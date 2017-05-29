@@ -22,7 +22,7 @@
                 @Html.Raw(Model.Description)
             </div>
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
-                   data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true" />
+                   data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true"/>
         </div>
 
         <div class="form__row clearfix">
@@ -63,7 +63,7 @@
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _black _submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />
+            <input class="form__btn _black _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />
             <a class="form__btn _default" href="@(Context.GetBackLink($"{ViewData["DetailsPageUrl"]}?Id={Model.Id}"))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
                 }
