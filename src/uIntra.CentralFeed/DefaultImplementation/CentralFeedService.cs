@@ -84,14 +84,7 @@ namespace uIntra.CentralFeed
                 HasBulletinFilter = true,
                 HasPinnedFilter = true
             });
-            settings.Add(new CentralFeedSettings()
-            {
-                Type = CentralFeedTypeEnum.Bulletins,
-                Controller = "Bulletin",
-                HasBulletinFilter = false,
-                HasPinnedFilter = false,
-                HasSubscribersFilter = false
-            });
+
             return settings;
         }
 
