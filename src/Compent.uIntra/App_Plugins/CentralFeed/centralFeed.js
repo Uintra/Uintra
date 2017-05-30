@@ -14,7 +14,7 @@ var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
     }
 });
 
-var emptyfiltersState = {
+var emptyfiltersState={
     subscriberFilterSelected : false,
     pinnedFilterSelected :false,
     bulletinFilterSelected : false

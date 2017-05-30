@@ -148,7 +148,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
-            //kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
+            kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
@@ -165,7 +165,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
-            //kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<ITagsService>().To<TagsService>().InRequestScope();
