@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 
 namespace uIntra.Core
 {
@@ -7,6 +8,8 @@ namespace uIntra.Core
         HttpCookie Get(string name);
 
         void Save(HttpCookie cookie);
+
+        void Save(string name, string value, DateTime expireDate);
 
         bool Exists(string name);
 

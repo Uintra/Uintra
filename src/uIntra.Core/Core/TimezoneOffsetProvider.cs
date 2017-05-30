@@ -5,24 +5,24 @@ namespace uIntra.Core
 {
     public class TimezoneOffsetProvider : ITimezoneOffsetProvider
     {
-        private readonly HttpContext _httpContext;
+        private readonly ICookieProvider _cookieProvider;
         private string timezoneOffsetCookieAlias = "timezoneOffset";
 
-        public TimezoneOffsetProvider(HttpContext httpContext)
+
+        public TimezoneOffsetProvider(ICookieProvider cookieProvider)
         {
-            _httpContext = httpContext;
+            _cookieProvider = cookieProvider;
         }
 
         public void SetTimezoneOffset(int offsetInMinutes)
         {
-            HttpCookie cookie = new HttpCookie(timezoneOffsetCookieAlias);
-            cookie.Value = (-offsetInMinutes).ToString();
-            _httpContext.Response.Cookies.Add(cookie);
+            var offset = (-offsetInMinutes).ToString();
+            _cookieProvider.Save(timezoneOffsetCookieAlias, offset, DateTime.UtcNow.AddMonths(1));
         }
 
         public int GetTimezoneOffset()
         {
-            var cookie = _httpContext.Request.Cookies.Get(timezoneOffsetCookieAlias);
+            var cookie = _cookieProvider.Get(timezoneOffsetCookieAlias);
             var offset = Convert.ToInt32(cookie?.Value);
 
             return offset;
