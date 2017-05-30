@@ -6,9 +6,9 @@ namespace uIntra.Comments
 {
     public class CommentsService : ICommentsService
     {
-        private readonly ISqlRepository<Comment> _commentsRepository;
+        private readonly ISqlRepository<Guid, Comment> _commentsRepository;
 
-        public CommentsService(ISqlRepository<Comment> commentsRepository)
+        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository)
         {
             _commentsRepository = commentsRepository;
         }

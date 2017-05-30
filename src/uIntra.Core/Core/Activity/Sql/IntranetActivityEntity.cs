@@ -1,14 +1,16 @@
 ﻿using System;
-using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Core.Activity
 {
-    [Alias("Activity")]
-    public class IntranetActivityEntity : SqlEntity
+    [Table("Activity")]
+    public class IntranetActivityEntity : SqlEntity<Guid>
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override Guid Id { get; set; }
 
         [StringLength(int.MaxValue)]
         public string JsonData { get; set; }

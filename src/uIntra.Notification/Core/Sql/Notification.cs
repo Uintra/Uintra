@@ -1,14 +1,18 @@
 ﻿using System;
-using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
-    public class Notification : SqlEntity
+    [Table("Notification")]
+    public class Notification : SqlEntity<Guid>
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override Guid Id { get; set; }
+
         public Guid ReceiverId { get; set; }
         public DateTime Date { get; set; }
         public bool IsNotified { get; set; }

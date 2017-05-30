@@ -44,7 +44,7 @@ namespace uIntra.CentralFeed
             return centralFeedItems.Max(item => item.ModifyDate).Ticks;
         }
 
-        public CentralFeedSettings GetSettings(IntranetActivityTypeEnum type)
+        public CentralFeedSettings GetSettings(CentralFeedTypeEnum type)
         {
             var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type == type);
             return settings;
@@ -76,7 +76,22 @@ namespace uIntra.CentralFeed
 
         private IEnumerable<CentralFeedSettings> GetFeedItemServicesSettings()
         {
-            var settings = _feedItemServices.Select(service => service.GetCentralFeedSettings());
+            var settings = _feedItemServices.Select(service => service.GetCentralFeedSettings()).ToList();
+            settings.Add(new CentralFeedSettings()
+            {
+                Type = CentralFeedTypeEnum.All,
+                HasSubscribersFilter = false,
+                HasBulletinFilter = true,
+                HasPinnedFilter = true
+            });
+            settings.Add(new CentralFeedSettings()
+            {
+                Type = CentralFeedTypeEnum.Bulletins,
+                Controller = "Bulletin",
+                HasBulletinFilter = false,
+                HasPinnedFilter = false,
+                HasSubscribersFilter = false
+            });
             return settings;
         }
 

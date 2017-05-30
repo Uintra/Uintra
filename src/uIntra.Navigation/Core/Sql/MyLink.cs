@@ -1,14 +1,16 @@
 ﻿using System;
-using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Navigation
 {
-    [CompositeIndex("UserId", "ContentId", "QueryString", Unique = true, Name = "UQ_MyLink_UserId_ContentId_QueryString")]
-    public class MyLink : SqlEntity
+    [Table("MyLink")]
+    public class MyLink : SqlEntity<Guid>
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override Guid Id { get; set; }
 
         [Required]
         public Guid UserId { get; set; }

@@ -9,9 +9,9 @@ namespace uIntra.Tagging
     public class TagsService : ITagsService
     {
         private readonly ISqlRepository<Tag> _tagRepository;
-        private readonly ISqlRepository<TagActivityRelation> _tagActivityRelationRepository;
+        private readonly ISqlRepository<int, TagActivityRelation> _tagActivityRelationRepository;
 
-        public TagsService(ISqlRepository<Tag> tagRepository, ISqlRepository<TagActivityRelation> tagActivityRelationRepository)
+        public TagsService(ISqlRepository<Tag> tagRepository, ISqlRepository<int, TagActivityRelation> tagActivityRelationRepository)
         {
             _tagRepository = tagRepository;
             _tagActivityRelationRepository = tagActivityRelationRepository;
@@ -25,14 +25,14 @@ namespace uIntra.Tagging
                 .ToList();
 
             return _tagRepository
-                .GetMany(tagIds.Cast<object>())
+                .GetMany(tagIds)
                 .OrderBy(tag => tag.Text);
         }
 
         public IEnumerable<Tag> FindAll(string query)
         {
             var trimmedQuery = query.Trim();
-            return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery, StringComparison.OrdinalIgnoreCase));
+            return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery));
         }
 
         public IEnumerable<Tag> GetAll()
@@ -49,7 +49,8 @@ namespace uIntra.Tagging
             }
 
             var newTags = tags.Where(tag => tag.Id == null).ToList();
-            var existedTags = _tagRepository.FindAll(el => newTags.Select(t => t.Text).Contains(el.Text)).ToList();
+            var newTagTexts = newTags.Select(t => t.Text).ToList();
+            var existedTags = _tagRepository.FindAll(el => newTagTexts.Contains(el.Text)).ToList();
 
             newTags = newTags.GroupJoin(
                 existedTags,

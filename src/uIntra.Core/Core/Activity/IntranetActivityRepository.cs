@@ -7,9 +7,9 @@ namespace uIntra.Core.Activity
 {
     public class IntranetActivityRepository : IIntranetActivityRepository
     {
-        private readonly ISqlRepository<IntranetActivityEntity> _sqlRepository;
+        private readonly ISqlRepository<Guid, IntranetActivityEntity> _sqlRepository;
 
-        public IntranetActivityRepository(ISqlRepository<IntranetActivityEntity> sqlRepository)
+        public IntranetActivityRepository(ISqlRepository<Guid, IntranetActivityEntity> sqlRepository)
         {
             _sqlRepository = sqlRepository;
         }

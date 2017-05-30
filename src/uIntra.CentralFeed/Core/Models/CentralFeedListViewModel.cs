@@ -11,6 +11,8 @@ namespace uIntra.CentralFeed
         public long Version { get; set; }
         public bool BlockScrolling { get; set; }
         public bool ShowSubscribed { get; set; }
+        public bool ShowPinned { get; set; }
+        public bool IncludeBulletin { get; set; }
 
         public CentralFeedListViewModel()
         {
