@@ -17,6 +17,9 @@ namespace uIntra.Core.Media
         IdeasContent,
 
         [Display(Name = "Members Content")]
-        MembersContent
+        MembersContent,
+
+        [Display(Name = "Bulletins Content")]
+        BulletinsContent,
     }
 }

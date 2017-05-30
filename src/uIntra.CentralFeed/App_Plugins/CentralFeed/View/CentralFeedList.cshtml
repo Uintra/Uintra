@@ -15,6 +15,11 @@
         </label>
     </div>
 }
+else if (Model.Type == CentralFeedTypeEnum.Bulletins)
+{
+    Html.RenderAction("CreationForm", "Bulletins");
+}
+
 @if (!Model.Items.Any())
 {
     @Html.Localize("CentralFeedList.Empty.lbl")
