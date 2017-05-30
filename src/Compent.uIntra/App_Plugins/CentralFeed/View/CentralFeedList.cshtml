@@ -10,9 +10,13 @@
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <input type="hidden" name="version" value="@Model.Version" />
+<input type="hidden" name="showSubscribed" value="@Model.ShowSubscribed.ToString().ToLower()" />
+<input type="hidden" name="includeBulletin" value="@Model.IncludeBulletin.ToString().ToLower()" />
+<input type="hidden" name="showPinned" value="@Model.ShowPinned.ToString().ToLower()"/>
+
 <div class="check" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
     <label class="check__label">
-        <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
+        <input type="checkbox" class="check__box" name="showSubscribedFilter" @(Model.ShowSubscribed ? "checked" : "") value="true">
         <span class="check__fake-input icon-check"></span>
         <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
     </label>
@@ -20,7 +24,7 @@
 
 <div class="check" style="display: @(tabSettings.HasBulletinFilter ? "block" : "none")">
     <label class="check__label">
-        <input type="checkbox" class="check__box" name="includeBulletin" @(Model.IncludeBulletin ? "checked" : "") value="true">
+        <input type="checkbox" class="check__box" name="includeBulletinFilter" @(Model.IncludeBulletin ? "checked" : "") value="true">
         <span class="check__fake-input icon-check"></span>
         <span class="check__fake-label">@Html.Localize("CentralFeedList.IncludeBulletin.chkbx")</span>
     </label>
@@ -28,20 +32,17 @@
 
 <div class="check">
     <label class="check__label" style="display: @(tabSettings.HasPinnedFilter ? "block" : "none")">
-        <input type="checkbox" class="check__box" name="showPinned" @(Model.ShowPinned ? "checked" : "") value="true">
+        <input type="checkbox" class="check__box" name="showPinnedFilter" @(Model.ShowPinned ? "checked" : "") value="true">
         <span class="check__fake-input icon-check"></span>
         <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
     </label>
 </div>
 
 <div class="row">
-    <input type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")" />
+    <input type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
 </div>
 
-@if (Model.Type == CentralFeedTypeEnum.Bulletins)
-{
-    Html.RenderAction("CreationForm", "Bulletins");
-}
+
 
 @if (!Model.Items.Any())
 {
