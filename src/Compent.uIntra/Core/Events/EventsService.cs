@@ -44,7 +44,7 @@ namespace Compent.uIntra.Core.Events
             IIntranetUserService<IntranetUser> intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
-            ISubscribeService subscribeService, 
+            ISubscribeService subscribeService,
             IPermissionsService permissionsService,
             INotificationsService notificationService
             )
@@ -120,10 +120,13 @@ namespace Compent.uIntra.Core.Events
         {
             return new CentralFeedSettings
             {
-                Type = ActivityType,
+                Type = CentralFeedTypeEnum.Events,
                 Controller = "Events",
                 OverviewPage = GetOverviewPage(),
-                CreatePage = GetCreatePage()
+                CreatePage = GetCreatePage(),
+                HasSubscribersFilter = true,
+                HasBulletinFilter = false,
+                HasPinnedFilter = true
             };
         }
 
@@ -352,7 +355,7 @@ namespace Compent.uIntra.Core.Events
                         break;
                     }
                 default:
-                   return null;
+                    return null;
             }
             return data;
         }

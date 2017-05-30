@@ -8,6 +8,11 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 var centralFeedTabEvent = new CustomEvent("cfTabChanged");
+var emptyfiltersState={
+    subscriberFilterSelected : false,
+    pinnedFilterSelected :false,
+    bulletinFilterSelected : false
+}
 
 var holder;
 var state;
@@ -49,11 +54,51 @@ function scrollPrevented() {
 }
 
 function attachEventFilter() {
+
+    var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
+    if (clearFiltersElem) {
+        clearFiltersElem.addEventListener('click', function () {           
+            restoreFiltersState(emptyfiltersState)
+            reload();
+        });
+    }
+
     var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
     if (showSubscribedElem) {
         showSubscribedElem.addEventListener('change', function () {
             reload();
         });
+    }
+
+    var showPinned = formController.form.querySelector('input[name="showPinned"]');
+    if (showPinned) {
+        showPinned.addEventListener('change', function () {
+            reload();
+        });
+    }
+
+    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+    if (inlcudeBulletin) {
+        inlcudeBulletin.addEventListener('change', function () {
+            reload();
+        });
+    }
+}
+
+function restoreFiltersState(state) {
+    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
+    if (showSubscribedElem) {
+        $(showSubscribedElem).prop('checked', state.subscriberFilterSelected);
+    }
+
+    var showPinned = formController.form.querySelector('input[name="showPinned"]');
+    if (showPinned) {
+        $(showPinned).prop('checked', state.pinnedFilterSelected);            
+    }    
+
+    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+    if (inlcudeBulletin) {
+        $(inlcudeBulletin).prop('checked', state.bulletinFilterSelected);  
     }
 }
 
@@ -115,6 +160,12 @@ function tabClickEventHandler(e) {
     }
 }
 
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
 appInitializer.add(function () {
     holder = document.querySelector('.js-feed-overview');
     var navigationHolder = document.querySelector('.js-feed-navigation');
@@ -139,7 +190,7 @@ appInitializer.add(function () {
             }
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
-            scrollTo(element, 0, 200);
+            scrollTo(element, 0, 200);          
             reload();
             document.body.dispatchEvent(centralFeedTabEvent);
         },
