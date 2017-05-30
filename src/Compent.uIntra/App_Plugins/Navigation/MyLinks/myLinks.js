@@ -1,5 +1,6 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
+var Sortable = require('sortablejs');
 
 appInitializer.add(function() {
     var container = $('.js-myLinks-container');
@@ -9,6 +10,10 @@ appInitializer.add(function() {
 
     var addControl = $('.js-myLinks-add');
     var removeControl = $('.js-myLinks-remove');
+
+    var el = document.getElementById('js-myLinks-sortable');
+    var sortable = Sortable.create(el);
+
     addControl.on('click',function() {
         $.ajax({
             type: "POST",

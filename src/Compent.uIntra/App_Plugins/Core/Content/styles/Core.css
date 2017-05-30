@@ -436,6 +436,7 @@ body{
     text-overflow: ellipsis;
     white-space: nowrap;
     border-radius:0;
+    position:relative;
 
     &._remove,
     &._add{
