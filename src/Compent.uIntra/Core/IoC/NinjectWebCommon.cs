@@ -1,5 +1,4 @@
 using System;
-using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Web;
@@ -22,7 +21,6 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
 using Ninject;
 using Ninject.Web.Common;
-using ServiceStack.OrmLite;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -57,7 +55,6 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using IDbConnectionFactory = ServiceStack.Data.IDbConnectionFactory;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -154,7 +151,6 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
 
-            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
