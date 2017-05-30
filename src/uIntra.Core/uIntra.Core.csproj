@@ -378,6 +378,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\CookieProvider.cs" />
+    <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\User\IRole.cs" />
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Web\PinActivityControllerBase.cs" />
