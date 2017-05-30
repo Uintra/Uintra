@@ -8,22 +8,9 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 var centralFeedTabEvent = new CustomEvent("cfTabChanged");
-var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
-    detail: {
-        isReinit: false
-    }
-});
-
-var emptyfiltersState={
-    subscriberFilterSelected : false,
-    pinnedFilterSelected :false,
-    bulletinFilterSelected : false
-}
-
 var holder;
 var state;
 var formController;
-let reloadintervalId;
 
 function showLoadingStatus() {
     var loadingElem = document.querySelector(".js-loading-status");
@@ -64,52 +51,70 @@ function attachEventFilter() {
 
     var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
     if (clearFiltersElem) {
-        clearFiltersElem.addEventListener('click', function () {           
-            restoreFiltersState(emptyfiltersState)
+        clearFiltersElem.addEventListener('click', function () {
+            var showSubscribedFilter = formController.form.querySelector('input[name="showSubscribedFilter"]');
+            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');
+            var showPinnedFilter = formController.form.querySelector('input[name="showPinnedFilter"]');
+            var showPinned = formController.form.querySelector('input[name="showPinned"]');
+            var inlcudeBulletinFilter = formController.form.querySelector('input[name="includeBulletinFilter"]');
+            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+            $(showSubscribedFilter).val(false);
+            $(showSubscribed).val(false);
+            $(showPinned).val(false);
+            $(showPinnedFilter).val(false);
+            $(inlcudeBulletinFilter).val(false);
+            $(inlcudeBulletin).val(false);
             reload();
         });
     }
 
-    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
-    if (showSubscribedElem) {
-        showSubscribedElem.addEventListener('change', function () {
-            reload(false, false, false);
-        });
-    }
-
-    var showPinned = formController.form.querySelector('input[name="showPinned"]');
-    if (showPinned) {
-        showPinned.addEventListener('change', function () {
+    var showSubscribedFilter = formController.form.querySelector('input[name="showSubscribedFilter"]');
+    if (showSubscribedFilter) {
+        showSubscribedFilter.addEventListener('change', function () {
+            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');
+            if ($(showSubscribedFilter).is(':checked')) {
+                $(showSubscribedFilter).val(true);
+                $(showSubscribed).val(true);
+            } else {
+                $(showSubscribedFilter).val(false);
+                $(showSubscribed).val(false);
+            }
             reload();
         });
     }
 
-    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
-    if (inlcudeBulletin) {
-        inlcudeBulletin.addEventListener('change', function () {
+    var showPinnedFilter = formController.form.querySelector('input[name="showPinnedFilter"]');
+    if (showPinnedFilter) {
+        showPinnedFilter.addEventListener('change', function () {
+            var showPinned = formController.form.querySelector('input[name="showPinned"]');
+            if ($(showPinnedFilter).is(':checked')) {
+                $(showPinned).val(true);
+                $(showPinnedFilter).val(true);
+            } else {
+                $(showPinned).val(false);
+                $(showPinnedFilter).val(false);
+            }
+            reload();
+        });
+    }
+
+    var inlcudeBulletinFilter = formController.form.querySelector('input[name="includeBulletinFilter"]');
+    if (inlcudeBulletinFilter) {
+        inlcudeBulletinFilter.addEventListener('change', function () {
+            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+            if ($(inlcudeBulletinFilter).is(':checked')) {
+                $(inlcudeBulletinFilter).val(true);
+                $(inlcudeBulletin).val(true);
+            } else {
+                $(inlcudeBulletinFilter).val(false);
+                $(inlcudeBulletin).val(false);
+            }
             reload();
         });
     }
 }
 
-function restoreFiltersState(state) {
-    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
-    if (showSubscribedElem) {
-        $(showSubscribedElem).prop('checked', state.subscriberFilterSelected);
-    }
-
-    var showPinned = formController.form.querySelector('input[name="showPinned"]');
-    if (showPinned) {
-        $(showPinned).prop('checked', state.pinnedFilterSelected);            
-    }    
-
-    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
-    if (inlcudeBulletin) {
-        $(inlcudeBulletin).prop('checked', state.bulletinFilterSelected);  
-    }
-}
-
-function reload(useVersion, skipLoadingStatus, isReinit) {
+function reload(useVersion, skipLoadingStatus) {
     if (!useVersion) {
         holder.querySelector('input[name="version"]').value = null;
     }
@@ -121,7 +126,6 @@ function reload(useVersion, skipLoadingStatus, isReinit) {
     promise.then(attachEventFilter);
     promise.then(hideLoadingStatus);
     promise.then(initCustomControls);
-    promise.then(function() { emitTabReloadedEvent(isReinit); });
     promise.catch(hideLoadingStatus);
     return promise;
 }
@@ -135,7 +139,7 @@ function restoreState() {
     if (hash) {
         var savedState = localStorage.getItem(state.storageName);
         state.page = (savedState || {}).page || 1;
-        reload(false, false, true).then(function () {
+        reload().then(function () {
             var elem = document.querySelector('[data-anchor="' + hash + '"]');
 
             if(elem){
@@ -154,7 +158,7 @@ function onScroll(done) {
         return;
     }
     state.page++;
-    var promise = reload(false, false, true);
+    var promise = reload();
     promise.then(done, done);
 }
 
@@ -168,29 +172,10 @@ function tabClickEventHandler(e) {
     }
 }
 
-function reloadTabEventHandler(e) {   
-    clearInterval(reloadintervalId);
-
-    reload(true, true, e.detail.isReinit);
-
-    runReloadInverval();
-}
-
-function runReloadInverval() {
-    reloadintervalId = setInterval(function() {
-        reload(true, true, false);
-    }, 30000);
-}
-
 function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
-}
-
-function emitTabReloadedEvent(isReinit) {
-    centralFeedTabReloadedEvent.detail.isReinit = isReinit;
-    document.body.dispatchEvent(centralFeedTabReloadedEvent);
 }
 
 appInitializer.add(function () {
@@ -217,10 +202,8 @@ appInitializer.add(function () {
             }
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
-            scrollTo(element, 0, 200);
-
-            reload(false, false, true);
-
+            scrollTo(element, 0, 200);          
+            reload();
             document.body.dispatchEvent(centralFeedTabEvent);
         },
         get page() {
@@ -242,7 +225,5 @@ appInitializer.add(function () {
     restoreState();
     infinityScroll(onScroll)();
     attachEventFilter();
-    runReloadInverval();
-
-    document.body.addEventListener('cfReloadTab', reloadTabEventHandler);
+    setInterval(function () { reload(true, true) }, 30000);
 });
