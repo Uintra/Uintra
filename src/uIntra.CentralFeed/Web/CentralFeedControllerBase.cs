@@ -41,11 +41,10 @@ namespace uIntra.CentralFeed.Web
         public virtual ActionResult Overview()
         {
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
-            var filtersState = _centralFeedContentHelper.GetFiltersState();
+
             var model = new CentralFeedOverviewModel
             {
-                CurrentType = tabType,
-                FiltersState = filtersState.Map<CentralFeedFiltersStateModel>()
+                CurrentType = tabType
             };
             return PartialView(OverviewViewPath, model);
         }
@@ -53,6 +52,11 @@ namespace uIntra.CentralFeed.Web
         public virtual ActionResult List(CentralFeedListModel model)
         {
             var items = GetCentralFeedItems(model.Type.GetHashCode().ToEnum<IntranetActivityTypeEnum>());
+
+            if (!_centralFeedContentHelper.CentralFeedCookieExists() || IsEmptyFilters(model))
+            {
+                RestoreFiltersState(model, _centralFeedContentHelper.GetFiltersState());
+            }
 
             var tabSettings = _centralFeedService.GetSettings(model.Type);
 
@@ -77,7 +81,7 @@ namespace uIntra.CentralFeed.Web
                 Settings = _centralFeedService.GetAllSettings(),
                 Type = model.Type,
                 BlockScrolling = filteredItems.Count < take,
-                ShowPinned = model.ShowPinned,
+                ShowPinned = model.ShowPinned ?? false,
                 IncludeBulletin = model.IncludeBulletin ?? false,
                 ShowSubscribed = model.ShowSubscribed ?? false
             };
@@ -178,12 +182,24 @@ namespace uIntra.CentralFeed.Web
                 items = items.Where(i => i.Type != IntranetActivityTypeEnum.Bulletin);
             }
 
-            if (model.ShowPinned && settings.HasPinnedFilter)
+            if (model.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
             {
                 items = items.Where(i => i.IsPinned);
             }
 
             return items;
+        }
+
+        protected virtual void RestoreFiltersState(CentralFeedListModel model, CentralFeedFiltersStateModel filtersState)
+        {
+            model.ShowPinned = filtersState.PinnedFilterSelected;
+            model.IncludeBulletin = filtersState.BulletinFilterSelected;
+            model.ShowSubscribed = filtersState.SubscriberFilterSelected;
+        }
+
+        protected virtual bool IsEmptyFilters(CentralFeedListModel model)
+        {
+            return !model.ShowPinned.HasValue && !model.IncludeBulletin.HasValue && !model.ShowSubscribed.HasValue;
         }
 
     }

@@ -97,6 +97,13 @@ namespace Compent.uIntra.Core.CentralFeed
             return cookie.Value.Deserialize<CentralFeedFiltersStateModel>();
         }
 
+        public bool CentralFeedCookieExists()
+        {
+            var cookie= HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
+
+            return cookie != null && cookie.Value.IsNotNullOrEmpty();
+        }
+
         public void ClearFiltersState()
         {
             var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];

@@ -5,42 +5,35 @@
 
 @{
     var tabSettings = Model.Settings.First(s => s.Type.GetHashCode() == Model.Type.GetHashCode());
+
 }
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <input type="hidden" name="version" value="@Model.Version" />
-@if (tabSettings.HasSubscribersFilter)
-{
-    <div class="check">
-        <label class="check__label">
-            <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
-            <span class="check__fake-input icon-check"></span>
-            <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
-        </label>
-    </div>
-}
+<div class="check" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
+    <label class="check__label">
+        <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
+        <span class="check__fake-input icon-check"></span>
+        <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
+    </label>
+</div>
 
-@if (tabSettings.HasBulletinFilter)
-{
-    <div class="check">
-        <label class="check__label">
-            <input type="checkbox" class="check__box" name="includeBulletin" @(Model.IncludeBulletin ? "checked" : "") value="true">
-            <span class="check__fake-input icon-check"></span>
-            <span class="check__fake-label">@Html.Localize("CentralFeedList.IncludeBulletin.chkbx")</span>
-        </label>
-    </div>
-}
+<div class="check" style="display: @(tabSettings.HasBulletinFilter ? "block" : "none")">
+    <label class="check__label">
+        <input type="checkbox" class="check__box" name="includeBulletin" @(Model.IncludeBulletin ? "checked" : "") value="true">
+        <span class="check__fake-input icon-check"></span>
+        <span class="check__fake-label">@Html.Localize("CentralFeedList.IncludeBulletin.chkbx")</span>
+    </label>
+</div>
 
-@if (tabSettings.HasPinnedFilter)
-{
-    <div class="check">
-        <label class="check__label">
-            <input type="checkbox" class="check__box" name="showPinned" @(Model.ShowPinned ? "checked" : "") value="true">
-            <span class="check__fake-input icon-check"></span>
-            <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
-        </label>
-    </div>
-}
+<div class="check">
+    <label class="check__label" style="display: @(tabSettings.HasPinnedFilter ? "block" : "none")">
+        <input type="checkbox" class="check__box" name="showPinned" @(Model.ShowPinned ? "checked" : "") value="true">
+        <span class="check__fake-input icon-check"></span>
+        <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
+    </label>
+</div>
+
 
 @if (!Model.Items.Any())
 {

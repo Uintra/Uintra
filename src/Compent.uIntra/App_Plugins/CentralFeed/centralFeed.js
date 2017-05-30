@@ -8,6 +8,11 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 var centralFeedTabEvent = new CustomEvent("cfTabChanged");
+var emptyfiltersState={
+    subscriberFilterSelected : false,
+    pinnedFilterSelected :false,
+    bulletinFilterSelected : false
+}
 
 var holder;
 var state;
@@ -49,6 +54,15 @@ function scrollPrevented() {
 }
 
 function attachEventFilter() {
+
+    var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
+    if (clearFiltersElem) {
+        clearFiltersElem.addEventListener('click', function () {           
+            restoreFiltersState(emptyfiltersState)
+            reload();
+        });
+    }
+
     var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
     if (showSubscribedElem) {
         showSubscribedElem.addEventListener('change', function () {
@@ -152,12 +166,6 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function FiltersState(showSubscribers,showPinned,includeBulletin) {
-    this.showSubscribers = showSubscribers;
-    this.showPinned = showPinned;
-    this.includeBulletin = includeBulletin;    
-}
-
 appInitializer.add(function () {
     holder = document.querySelector('.js-feed-overview');
     var navigationHolder = document.querySelector('.js-feed-navigation');
@@ -182,12 +190,7 @@ appInitializer.add(function () {
             }
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
-            scrollTo(element, 0, 200);
-            debugger;
-            var cookie=getCookie('centralFeedFiltersState');
-            var state=JSON.parse(cookie);
-            restoreFiltersState(state);
-
+            scrollTo(element, 0, 200);          
             reload();
             document.body.dispatchEvent(centralFeedTabEvent);
         },
