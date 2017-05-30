@@ -2,6 +2,6 @@
 {
     public class CentralFeedOverviewModel
     {
-        public CentralFeedTypeEnum CurrentType { get; set; }
+        public CentralFeedTypeEnum CurrentType { get; set; }        
     }
 }
