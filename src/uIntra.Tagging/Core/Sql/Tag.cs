@@ -1,13 +1,16 @@
 ﻿using System;
-using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Tagging
 {
-    public class Tag : SqlEntity
+    [Table("Tag")]
+    public class Tag : SqlEntity<Guid>
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override Guid Id { get; set; }
 
         public string Text { get; set; }
     }

@@ -1,19 +1,23 @@
 ﻿using System;
-using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Likes
 {
-    [CompositeIndex("UserId", "EntityId", Unique = true, Name = "UQ_Like_UserId_EntityId")]
-    public class Like : SqlEntity
+    [Table("Like")]
+    public class Like : SqlEntity<Guid>
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override Guid Id { get; set; }
 
         [Required]
+        [System.ComponentModel.DataAnnotations.Schema.Index("UQ_Like_UserId_EntityId", 1, IsUnique = true)]
         public Guid UserId { get; set; }
 
         [Required]
+        [Index("UQ_Like_UserId_EntityId", 2, IsUnique = true)]
         public Guid EntityId { get; set; }
 
         [Required]

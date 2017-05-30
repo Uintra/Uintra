@@ -22,7 +22,7 @@ namespace uIntra.Navigation
 
         public IEnumerable<MyLink> GetMany(IEnumerable<Guid> ids)
         {
-            return _myLinksRepository.GetMany(ids.Cast<object>());
+            return _myLinksRepository.GetMany(ids);
         }
 
         public IEnumerable<MyLink> GetMany(Guid userId)

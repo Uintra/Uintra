@@ -1,114 +1,166 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq.Expressions;
-using ServiceStack.Data;
-using ServiceStack.OrmLite;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Dynamic;
+using uIntra.Core.Extentions;
 
 namespace uIntra.Core.Persistence
 {
-    public class SqlRepository<T> : ISqlRepository<T> where T : class, new()
+    public class SqlRepository<TKey, T> : ISqlRepository<TKey, T> where T : SqlEntity<TKey>
     {
-        private readonly IDbConnectionFactory _dbConnection;
+        private readonly DbContext _dbContext;
+        private readonly DbSet<T> _dbSet;
+        private bool disposed;
 
-        public SqlRepository(IDbConnectionFactory dbConnection)
+        public SqlRepository(DbContext dbContext)
         {
-            _dbConnection = dbConnection;
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException("dbContext");
+            }
+
+            _dbContext = dbContext;
+            _dbSet = dbContext.Set<T>();
+
         }
 
-        public T Get(object id)
+        public T Get(TKey id)
         {
-            return Read(connection => connection.SingleById<T>(id));
+            return _dbSet.Find(id);
         }
 
-        public IEnumerable<T> GetMany(IEnumerable<object> ids)
+        public IEnumerable<T> GetMany(IEnumerable<TKey> ids)
         {
-            return Read(connection => connection.SelectByIds<T>(ids));
+            if (ids.IsEmpty())
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            var result = _dbContext.Set<T>().Join(
+                ids,
+                ent => ent.Id,
+                id => id,
+                (ent, id) => ent);
+
+            return result;
         }
 
         public IEnumerable<T> GetAll()
         {
-            return Read(connection => connection.Select<T>());
+            return _dbSet;
         }
 
-        public T Find(Expression<Func<T, bool>> predicate)
+        public T Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            return Read(connection => connection.Single(predicate));
+            return _dbSet.Find(predicate);
         }
 
-        public IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue)
+        public IEnumerable<T> FindAll(System.Linq.Expressions.Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue)
         {
-            return Read(conn =>
-            {
-                var query = conn.From<T>().Where(predicate).Limit(skip, take);
-                return conn.Select(query);
-            });
-        }
-
-        public long Count(Expression<Func<T, bool>> predicate)
-        {
-            return Read(connection => connection.Count(predicate));
-        }
-
-        public bool Exists(Expression<Func<T, bool>> predicate)
-        {
-            return Read(connection => connection.Exists(predicate));
-        }
-
-        public void DeleteById(object id)
-        {
-            Execute(conn => conn.DeleteById<T>(id));
-        }
-
-        public void Delete(IEnumerable<T> entities)
-        {
-            Execute(conn => conn.DeleteAll(entities));
-        }
-
-        public void Delete(T entity)
-        {
-            Execute(conn => conn.Delete(entity));
-        }
-
-        public void Delete(Expression<Func<T, bool>> predicate)
-        {
-            Execute(conn => conn.Delete(predicate));
+            return _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
         }
 
         public void Add(T entity)
         {
-            Execute(conn => conn.Insert(entity));
+            _dbSet.Add(entity);
+
+            Save();
         }
 
         public void Add(IEnumerable<T> entities)
         {
-            Execute(conn => conn.InsertAll(entities));
+            _dbSet.AddRange(entities);
+
+            Save();
         }
 
         public void Update(T entity)
         {
-            Execute(conn => conn.Update(entity));
+            _dbContext.Entry(entity).State = EntityState.Modified;
+
+            Save();
         }
 
         public void Update(IEnumerable<T> entities)
         {
-            Execute(conn => conn.UpdateAll(entities));
+            foreach (var ent in entities)
+            {
+                _dbContext.Entry(ent).State = EntityState.Modified;
+            }
+
+            Save();
         }
 
-        private void Execute(Action<IDbConnection> action)
+        public void Delete(T entity)
         {
-            using (var conn = _dbConnection.Open())
-            {
-                action(conn);
-            }
+            _dbSet.Remove(entity);
+
+            Save();
         }
 
-        private TValue Read<TValue>(Func<IDbConnection, TValue> read)
+        public void DeleteById(TKey id)
         {
-            using (var conn = _dbConnection.Open())
+            var deletingEntity = _dbSet.Find(id);
+            if (deletingEntity == null)
             {
-                return read(conn);
+                throw new ArgumentNullException($"{typeof(T)} entity with id = {id} doesn't exist.");
             }
+
+            _dbSet.Remove(deletingEntity);
+
+            Save();
+        }
+
+        public void Delete(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        {
+            var deletingEntities = _dbSet.Where(predicate);
+            _dbSet.RemoveRange(deletingEntities);
+
+            Save();
+        }
+
+        public void Delete(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+        }
+
+        public long Count(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        {
+            return _dbSet.Where(predicate).Count();
+        }
+
+        public bool Exists(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        {
+            return _dbSet.Where(predicate).Any();
+        }
+
+        public virtual void Save()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed && disposing)
+            {
+                _dbContext.Dispose();
+            }
+
+            disposed = true;
+        }
+    }
+
+    public class SqlRepository<T> : SqlRepository<Guid, T>, ISqlRepository<T> where T : SqlEntity<Guid>
+    {
+        public SqlRepository(DbContext dbContext) : base(dbContext)
+        {
         }
     }
 }
