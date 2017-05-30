@@ -281,7 +281,7 @@
     <Compile Include="Core\Models\BulletinItemViewModel.cs" />
     <Compile Include="Core\Models\BulletinListCreateFormModel.cs" />
     <Compile Include="Core\Models\BulletinViewModel.cs" />
-    <Compile Include="D:\Works\compent.ucommunity\src\GlobalAssemblyInfo.cs">
+    <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
