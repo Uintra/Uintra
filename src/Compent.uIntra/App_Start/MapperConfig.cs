@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Controls.LightboxGallery;
@@ -24,6 +25,8 @@ namespace Compent.uIntra
             Mapper.AddProfile<Core.Navigation.NavigationAutoMapperProfile>();
             Mapper.AddProfile<EventsAutoMapperProfile>();
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
+            Mapper.AddProfile<BulletinsAutoMapperProfile>();
+            Mapper.AddProfile<Core.Bulletins.BulletinsAutoMapperProfile>();
             Mapper.AddProfile<NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<TagAutoMapperProfile>();

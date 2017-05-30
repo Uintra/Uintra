@@ -10,6 +10,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.CentralFeed
 {
@@ -129,7 +130,7 @@ namespace Compent.uIntra.Core.CentralFeed
 
         private IEnumerable<IPublishedContent> GetContents()
         {
-            return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(NewsOverviewPage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias));
+            return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(NewsOverviewPage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias, BulletinsOverviewPage.ModelTypeAlias));
         }
 
         private CentralFeedFiltersStateModel GetDefaultCentralFeedFiltersState()
