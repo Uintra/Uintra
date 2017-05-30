@@ -1,9 +1,7 @@
 using System;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Web;
-using System.Web.ApplicationServices;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -19,12 +17,11 @@ using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Subscribe;
+using Compent.uIntra.Persistence.Sql;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
 using Ninject;
 using Ninject.Web.Common;
-using ServiceStack.Data;
-using ServiceStack.OrmLite;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -60,8 +57,6 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using SqlNotification = uIntra.Notification.Notification;
-using SqlSubscribe = uIntra.Subscribe.Subscribe;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -112,6 +107,7 @@ namespace Compent.uIntra.Core.IoC
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+                RegisterEntityFrameworkServices(kernel);
                 RegisterServices(kernel);
                 RegisterModelBinders();
                 RegisterGlobalFilters(kernel);
@@ -152,13 +148,12 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
-            kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
+            //kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
 
-            kernel.Bind<IDbConnectionFactory>().ToMethod(i => new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, SqlServerDialect.Provider)).InSingletonScope();
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
@@ -170,7 +165,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
-            kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
+            //kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<ITagsService>().To<TagsService>().InRequestScope();
@@ -211,10 +206,6 @@ namespace Compent.uIntra.Core.IoC
             // Model Binders
             kernel.Bind<DateTimeBinder>().ToSelf().InSingletonScope();
 
-            //Sql 
-            kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>)).InRequestScope();
-            EnsureTablesExists(kernel);
-
             kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
 
             kernel.Bind<IApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
@@ -222,6 +213,15 @@ namespace Compent.uIntra.Core.IoC
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InSingletonScope();
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InSingletonScope();
+        }
+
+        private static void RegisterEntityFrameworkServices(IKernel kernel)
+        {
+            kernel.Bind(typeof(IDbContextFactory<DbObjectContext>)).To<DbContextFactory>().WithConstructorArgument(typeof(string), "umbracoDbDSN");
+            kernel.Bind<DbContext>().ToMethod(c => kernel.Get<IDbContextFactory<DbObjectContext>>().Create()).InRequestScope();
+            kernel.Bind<Database>().ToMethod(c => kernel.Get<DbObjectContext>().Database);
+            kernel.Bind(typeof(ISqlRepository<,>)).To(typeof(SqlRepository<,>));
+            kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>));
         }
 
         private static void RegisterGlobalFilters(IKernel kernel)
@@ -238,31 +238,6 @@ namespace Compent.uIntra.Core.IoC
             var webSecurity = new WebSecurity(httpContextWrapper, ApplicationContext.Current);
             var result = UmbracoContext.EnsureContext(httpContextWrapper, ApplicationContext.Current, webSecurity, umbracoSettings, urlProvider, false);
             return result;
-        }
-
-        private static void EnsureTablesExists(IKernel kernel)
-        {
-            var sqlTypes = Assembly.GetAssembly(typeof(SqlEntity))
-                            .GetTypes()
-                            .Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(SqlEntity))).ToList();
-            sqlTypes.Add(typeof(Comment));
-            sqlTypes.Add(typeof(Like));
-            sqlTypes.Add(typeof(SqlSubscribe));
-            sqlTypes.Add(typeof(IntranetActivityEntity));
-            sqlTypes.Add(typeof(SqlNotification));
-            sqlTypes.Add(typeof(Reminder));
-            sqlTypes.Add(typeof(MyLink));
-            sqlTypes.Add(typeof(Tag));
-            sqlTypes.Add(typeof(TagActivityRelation));
-
-            var connectionFactory = (IDbConnectionFactory)kernel.GetService(typeof(IDbConnectionFactory));
-            using (var conn = connectionFactory.Open())
-            {
-                foreach (var sqlType in sqlTypes)
-                {
-                    conn.CreateTableIfNotExists(sqlType);
-                }
-            }
         }
     }
 }

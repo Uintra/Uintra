@@ -4,11 +4,11 @@ using System.Linq.Expressions;
 
 namespace uIntra.Core.Persistence
 {
-    public interface ISqlRepository<T>
+    public interface ISqlRepository<TKey, T> : IDisposable
     {
-        T Get(object id);
+        T Get(TKey id);
 
-        IEnumerable<T> GetMany(IEnumerable<object> ids);
+        IEnumerable<T> GetMany(IEnumerable<TKey> ids);
 
         IEnumerable<T> GetAll();
 
@@ -20,7 +20,7 @@ namespace uIntra.Core.Persistence
 
         bool Exists(Expression<Func<T, bool>> predicate);
 
-        void DeleteById(object id);
+        void DeleteById(TKey id);
 
         void Delete(IEnumerable<T> entities);
 
@@ -35,5 +35,9 @@ namespace uIntra.Core.Persistence
         void Update(T entity);
 
         void Update(IEnumerable<T> entities);
+    }
+
+    public interface ISqlRepository<T> : ISqlRepository<Guid, T> where T : SqlEntity<Guid>
+    {
     }
 }
