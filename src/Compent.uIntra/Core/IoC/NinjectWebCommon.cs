@@ -211,8 +211,9 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
             kernel.Bind<IuIntraApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
 
-            kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InSingletonScope();
-            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InSingletonScope();
+            kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
+            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
+            kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
