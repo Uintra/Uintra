@@ -11,8 +11,8 @@
     </li>
     <li class="side-nav__item">
         <div class="form__btn-holder">
-            <a class="btn _add js-myLinks-add" style="@(Model.IsLinked ? "display:none;" : string.Empty)" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
-            <a class="btn _remove js-myLinks-remove" style="@(Model.IsLinked ? string.Empty : "display:none;")" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Remove.lbl")</a>
+            <a class="form__btn _default js-myLinks-add" style="@(Model.IsLinked ? "display:none;" : string.Empty)" " data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
+            <a class="form__btn _default js-myLinks-remove" style="@(Model.IsLinked ? string.Empty : "display:none;")" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Remove.lbl")</a>
         </div>
     </li>
 </ul>
