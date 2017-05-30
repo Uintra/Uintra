@@ -18,3 +18,7 @@
     height: 100px;
     border: none !important;
 }
+
+._pre-line {
+    white-space: pre-line;
+}

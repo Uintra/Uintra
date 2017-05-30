@@ -16,7 +16,7 @@
                 <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
             </div>
             <div class="content__item _details">
-                @Html.Action("ActivityDetailsHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+                @Html.Partial("~/App_Plugins/Bulletins/Details/ActivityDetailsHeader.cshtml", Model.HeaderInfo)
                 <div class="content__item-txt _pre-line">
                     @Html.Raw(Model.Description)
                 </div>
