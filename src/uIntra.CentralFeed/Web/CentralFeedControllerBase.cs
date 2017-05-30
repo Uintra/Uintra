@@ -179,7 +179,7 @@ namespace uIntra.CentralFeed.Web
 
             if (!model.IncludeBulletin.GetValueOrDefault() && settings.HasBulletinFilter)
             {
-                items = items.Where(i => i.Type != IntranetActivityTypeEnum.Bulletin);
+                items = items.Where(i => i.Type != IntranetActivityTypeEnum.Bulletins);
             }
 
             if (model.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)

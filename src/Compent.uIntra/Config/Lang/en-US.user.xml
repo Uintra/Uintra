@@ -3,5 +3,6 @@
 	<area alias="sections">
 		<key alias="events">Events</key>
 		<key alias="news">News</key>
+		<key alias="bulletins">Bulletins</key>
 	</area>
 </language>

@@ -124,7 +124,7 @@ namespace uIntra.News.Web
             FillLinks();
             var model = new NewsCreateModel
             {
-                PublishDate = DateTime.Now.Date
+                PublishDate = DateTime.Now
             };
             FillCreateEditData(model);
             return model;

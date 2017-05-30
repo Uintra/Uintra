@@ -38,7 +38,10 @@
     <input type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")" />
 </div>
 
-
+@if (Model.Type == CentralFeedTypeEnum.Bulletins)
+{
+    Html.RenderAction("CreationForm", "Bulletins");
+}
 
 @if (!Model.Items.Any())
 {

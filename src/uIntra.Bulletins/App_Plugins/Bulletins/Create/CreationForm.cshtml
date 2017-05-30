@@ -1,0 +1,34 @@
+﻿@model uIntra.Bulletins.BulletinsListCreateFormModel
+
+<div class="create-bulletin js-create-bulletin">
+
+    <div class="user js-create-bulletin__user hidden">
+        @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+    </div>
+
+    <div class="js-create-bulletin__description-close hidden">X</div>
+
+    <div class="create-bulletin__description js-create-bulletin__description">
+    </div>
+
+    <input type="hidden" class="js-create-bulletin__description-hidden" />
+
+    <div class="ql-toolbar ql-snow js-create-bulletin__toolbar hidden">
+        <span class="ql-formats">
+            <button type="button" class="ql-bold"></button>
+            <button type="button" class="ql-italic"></button>
+            <button type="button" class="ql-underline"></button>
+            <button type="button" class="ql-link"></button>
+        </span>
+        <span class="ql-formats">
+            <button type="button" class="ql-image"></button>
+        </span>
+        <span class="ql-formats">
+            <button type="button" class="ql-custom-file">File</button>
+        </span>
+        <span class="ql-formats">
+            <button class="js-toolbar__send-button" disabled="disabled">Post</button>
+        </span>
+    </div>
+</div>
+<br />

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using uIntra.Bulletins;
 using uIntra.Events.Dashboard;
 using uIntra.News.Dashboard;
 using Umbraco.Core;
@@ -18,6 +19,8 @@ namespace Compent.uIntra
         {
             NewsSection.AddSectionToAllUsers(applicationContext);
             EventsSection.AddSectionToAllUsers(applicationContext);
+            BulletinsSection.AddSectionToAllUsers(applicationContext);
+
             RegisterRoutes();
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
