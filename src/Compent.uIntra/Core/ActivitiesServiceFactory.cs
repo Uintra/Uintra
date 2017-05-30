@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.Events;
+using uIntra.Bulletins;
 using uIntra.Core.Activity;
 using uIntra.Events;
 using uIntra.News;
@@ -50,6 +52,8 @@ namespace Compent.uIntra.Core
                     return _kernel.GetService<INewsService<News.Entities.News>>();
                 case IntranetActivityTypeEnum.Events:
                     return _kernel.GetService<IEventsService<Event>>();
+                case IntranetActivityTypeEnum.Bulletins:
+                    return _kernel.GetService<IBulletinsService<Bulletin>>();
                 default:
                     throw new ArgumentOutOfRangeException();
             }

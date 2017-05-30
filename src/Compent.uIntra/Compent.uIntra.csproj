@@ -310,18 +310,9 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.0\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.0\lib\net452\uIntra.CentralFeed.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uIntra.Comments.1.1.0.1\lib\net452\uIntra.Comments.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.0.2\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
@@ -481,6 +472,15 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.config.js" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.css" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.html" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.js" />
+    <Content Include="App_Plugins\Bulletins\bulletins.js" />
+    <Content Include="App_Plugins\Bulletins\Create\bulletins-create.html" />
+    <Content Include="App_Plugins\Bulletins\Details\bulletins-details.html" />
+    <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
+    <Content Include="App_Plugins\Bulletins\style.css" />
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
@@ -857,6 +857,13 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -868,6 +875,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ActivityHeaderController.cs" />
+    <Compile Include="Controllers\BulletinsApiController.cs" />
+    <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
     <Compile Include="Controllers\MyLinksController.cs" />
@@ -879,6 +888,11 @@
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Core\ApplicationSettings\IUcommunityApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
+    <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
+    <Compile Include="Core\Bulletins\BulletinsService.cs" />
+    <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
@@ -936,6 +950,7 @@
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\CommentsEditPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\CommentsPage.generated.cs" />
@@ -1041,7 +1056,20 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
+      <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
+      <Name>uIntra.Bulletins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+      <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
+      <Name>uIntra.CentralFeed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uIntra.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

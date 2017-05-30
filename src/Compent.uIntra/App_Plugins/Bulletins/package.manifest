@@ -1,0 +1,31 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Bulletins edit",
+      "alias": "custom.BulletinsEdit",
+      "view": "/App_Plugins/Bulletins/Edit/bulletins-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "Bulletins",
+        "action": "Edit"
+      }
+    },
+    {
+      "name": "Bulletins Details",
+      "alias": "custom.BulletinsDetails",
+      "view": "/App_Plugins/Bulletins/Details/bulletins-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "Bulletins",
+        "action": "Details"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/Bulletins/backoffice/bulletins-management.js",
+    "~/App_Plugins/Bulletins/backoffice/bulletins-management.config.js"
+  ],
+  "css": [
+    "~/App_Plugins/Bulletins/backoffice/bulletins-management.css"
+  ]
+}
