@@ -37,7 +37,7 @@ namespace uIntra.Core.User.Permissions
     public class Role: ConfigurationElement
     {
         [ConfigurationProperty("key", IsRequired = true, IsKey = true)]
-        public IntranetRolesEnum Key => (IntranetRolesEnum)base["key"];
+        public string Key => (string)base["key"];
 
         [ConfigurationProperty("permissions")]
         public PermissionsCollection Permissions => (PermissionsCollection)base["permissions"];

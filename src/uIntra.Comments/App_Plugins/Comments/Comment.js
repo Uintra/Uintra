@@ -3,6 +3,7 @@ require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 
 import appInitializer from "./../Core/Content/scripts/AppInitializer";
+import initBlockOnSubmit from "./../Core/Content/scripts/BlockOnSubmit";
 import helpers from "./../Core/Content/scripts/Helpers";
 
 require("./comments.css");
@@ -14,16 +15,32 @@ const quillOptions = {
     }
 };
 
+var initSubmitButton  = function(holder) {
+    var createControls = holder.find('.js-comment-create');
+    createControls.each(function () {
+        var $this = $(this);
+        var btn = $this.find('.js-disable-submit');
+        btn.click(function (event) {
+            if (!$this.valid()) {
+                return;
+            }
+            $this.submit();
+        });
+    });
+    initBlockOnSubmit();
+}
+
 var initCreateControl = function (holder) {
     var createControls = holder.find('.js-comment-create');
 
+    
     createControls.each(function () {
         var $this = $(this);
 
         if ($this.data('parentid')) {
             return true;
         }
-
+        
         $this.on('submit', function () {
             $this.valid();
         });
@@ -75,6 +92,13 @@ var initEdit = function (holder) {
     var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
     var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
     var button = holder.find('.js-comment-edit-btn');
+    var form = holder.find('.js-comment-edit');
+    button.click(function (event) {
+        if (!form.valid()) {
+            return;
+        }
+        form.submit();
+    });
 
     button.removeAttr("disabled");
     quill.on('text-change', function () {
@@ -157,6 +181,7 @@ var CommentOverview = function (selector) {
     holders.each(function () {
         var $this = $(this);
         initCreateControl($this);
+        initSubmitButton($this)
         $this.find('.js-comment-view').each(function () {
             new Comment(this);
         });

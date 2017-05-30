@@ -19,7 +19,7 @@ namespace Compent.uIntra.Core.Helpers
 
         public bool IsContentAvailable(IPublishedContent publishedContent)
         {
-            if (_intranetUserService.GetCurrentUser().Role == IntranetRolesEnum.WebMaster)
+            if (_intranetUserService.GetCurrentUser().Role.Name == IntranetRolesEnum.WebMaster.ToString())
             {
                 return true;
             }

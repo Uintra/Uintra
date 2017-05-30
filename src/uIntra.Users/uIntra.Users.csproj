@@ -215,10 +215,12 @@
   <ItemGroup>
     <Compile Include="Core\IntranetUser.cs" />
     <Compile Include="Core\IntranetUserService.cs" />
+    <Compile Include="Core\IRoleService.cs" />
     <Compile Include="Core\LoginModelBase.cs" />
     <Compile Include="Core\ProfileConstants.cs" />
     <Compile Include="Core\ProfileEditModelBase.cs" />
     <Compile Include="Core\ProfileViewModelBase.cs" />
+    <Compile Include="Core\RoleServiceBase.cs" />
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />

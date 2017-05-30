@@ -32,6 +32,8 @@ var initSubmitButton = function () {
                 return;
             }
         }
+
+        form.submit();
     });
 }
 

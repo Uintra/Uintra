@@ -18,7 +18,7 @@ namespace uIntra.Core.User.Permissions
             _exceptionLogger = exceptionLogger;
         }
         
-        public virtual bool IsRoleHasPermissions(IntranetRolesEnum role, params string[] permissions)
+        public virtual bool IsRoleHasPermissions(IRole role, params string[] permissions)
         {
             if (permissions.Any())
             {
@@ -32,13 +32,13 @@ namespace uIntra.Core.User.Permissions
             return defaultValue;
         }
 
-        public virtual IEnumerable<string> GetRolePermission(IntranetRolesEnum role)
+        public virtual IEnumerable<string> GetRolePermission(IRole role)
         {
-            var roleConfiguration = _configuration.Roles.FirstOrDefault(s => s.Key == role);
+            var roleConfiguration = _configuration.Roles.FirstOrDefault(s => s.Key == role.Name);
 
             if (roleConfiguration == null)
             {
-                throw new Exception($"Can't find permissions for role {role}. Please check permissions config!");
+                throw new Exception($"Can't find permissions for role {role.Name}. Please check permissions config!");
             }
 
             return roleConfiguration.Permissions.Select(s => s.Key);

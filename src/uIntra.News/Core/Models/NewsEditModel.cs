@@ -23,7 +23,5 @@ namespace uIntra.News
         public int? MediaRootId { get; set; }
 
         public string NewMedia { get; set; }
-
-        public Guid CreatorId { get; set; }
     }
 }

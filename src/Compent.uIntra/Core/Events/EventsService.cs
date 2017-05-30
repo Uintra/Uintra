@@ -135,7 +135,7 @@ namespace Compent.uIntra.Core.Events
             {
                 return true;
             }
-            if (currentUser.Role != IntranetRolesEnum.WebMaster)
+            if (currentUser.Role.Name != IntranetRolesEnum.WebMaster.ToString())
             {
                 return false;
             }

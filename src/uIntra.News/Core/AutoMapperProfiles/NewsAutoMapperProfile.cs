@@ -51,6 +51,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

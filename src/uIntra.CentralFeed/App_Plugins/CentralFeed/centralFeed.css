@@ -37,6 +37,13 @@
             font-size:13px;
             display:flex;
 
+            @media(--for-tablet-portrait-down){
+                &{
+                    display:block;
+                    max-width:100%;
+                }
+            }
+
             ._details &{
                 margin:0 0 22px;
             }
@@ -50,6 +57,12 @@
             position:relative;
             overflow:hidden;
             border:1px solid var(--color-light-gray);
+
+            @media(--for-tablet-portrait-down){
+                &{
+                    float:left;
+                }
+            }
 
             &-img{
                 position:absolute;

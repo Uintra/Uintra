@@ -24,6 +24,12 @@
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
 
+            @media(--for-tablet-portrait-down){
+                &{
+                    align-items:flex-start;
+                }
+            }
+
             .notification &{
                 padding:13px 20px;
                 align-items:flex-start;
@@ -123,7 +129,7 @@
 
             @media (--for-tablet-portrait-down) {
                 & {
-                    margin:22px 0 0;
+                    margin:0;
                 }
             }
 

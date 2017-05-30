@@ -378,11 +378,15 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\User\IRole.cs" />
+    <Compile Include="Core\User\Role.cs" />
     <Compile Include="Web\PinActivityControllerBase.cs" />
+    <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
     <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
-    <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\icon-doc.png" />
@@ -499,7 +503,6 @@
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
-    <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />

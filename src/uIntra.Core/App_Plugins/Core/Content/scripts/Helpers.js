@@ -29,12 +29,12 @@ var helpers = {
         var quill = new Quill(source, options);
 
         quill.on('text-change', (delta, oldDelta, source) => {
-            var text = quill.container.firstChild.innerHTML;
-            if (text.replace(/(<([^>]+)>)/ig, '').replace('<br>', '').length === 0) {
+            if (!quill.getText().trim()) {
                 dataStorage.value = '';
                 return;
             }
-            dataStorage.value = text;
+
+            dataStorage.value = quill.container.firstChild.innerHTML;
         });
 
         quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {

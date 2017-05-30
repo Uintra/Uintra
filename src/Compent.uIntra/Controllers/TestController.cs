@@ -3,6 +3,7 @@ using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Users;
 using Umbraco.Web.WebApi;
+using Role = uIntra.Core.User.Role;
 
 namespace Compent.uIntra.Controllers
 {
@@ -23,7 +24,13 @@ namespace Compent.uIntra.Controllers
 
         public string Get(string key)
         {
-            return JsonConvert.SerializeObject(_permissionsService.IsRoleHasPermissions(IntranetRolesEnum.WebMaster, key));
+            var role = new Role
+            {
+                Name = IntranetRolesEnum.WebMaster.ToString(),
+                Priority = IntranetRolesEnum.WebMaster.GetHashCode()
+            };
+
+            return JsonConvert.SerializeObject(_permissionsService.IsRoleHasPermissions(role, key));
         }
     }
 }
