@@ -9,8 +9,7 @@
 }
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
-<input type="hidden" name="version" value="@Model.Version"/>
-
+<input type="hidden" name="version" value="@Model.Version" />
 <div class="check" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
     <label class="check__label">
         <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
@@ -33,10 +32,6 @@
         <span class="check__fake-input icon-check"></span>
         <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
     </label>
-</div>
-
-<div class="row">
-    <input type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")" />
 </div>
 
 
