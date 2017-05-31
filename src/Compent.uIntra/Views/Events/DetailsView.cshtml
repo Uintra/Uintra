@@ -7,10 +7,10 @@
     <div class="row clearfix">
         <div class="col-md-9">
             <div class="content__btns clearfix">
-                <a href="#" class="content__item-print hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+                <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
                 @if (Model.CanEdit)
                 {
-                    <a class="content__item-print" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.Events, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                    <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.Events, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
                 }
                 <span class="content__item-label">@Html.Localize("DetailsView.Important.lbl")</span>
                 <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
