@@ -42,7 +42,7 @@ namespace uIntra.Core.Controls.LightboxGallery
                 return new EmptyResult();
             }
 
-            var galleryPreviewModel = new LightboxGalleryPreviewViewModel();
+            var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
             var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
 
             if (galleryViewModelList.Count == 0)
@@ -52,15 +52,9 @@ namespace uIntra.Core.Controls.LightboxGallery
 
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type == MediaTypeEnum.Image);
             galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type != MediaTypeEnum.Image);
-            galleryPreviewModel.Url = $"{model.Url}#{GetOverviewElementId()}";
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ForEach(i => i.IsHidden = true);
 
             return View(PreviewViewPath, galleryPreviewModel);
-        }
-
-        protected virtual string GetOverviewElementId()
-        {
-            return "js-lightbox-gallery";
         }
     }
 }

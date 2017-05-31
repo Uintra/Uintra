@@ -27,6 +27,10 @@ namespace uIntra.Core.Controls.LightboxGallery
                         d.PreviewUrl = s.GetCropUrl(UmbracoAliases.GalleryPreviewImageCrop);
                     }
                 });
+
+            Mapper.CreateMap<LightboxGalleryPreviewModel, LightboxGalleryPreviewViewModel>()
+                .ForMember(d => d.Images, o => o.Ignore())
+                .ForMember(d => d.OtherFiles, o => o.Ignore());
         }
     }
 }
