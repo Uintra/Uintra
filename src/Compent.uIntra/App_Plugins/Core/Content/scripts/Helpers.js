@@ -163,6 +163,9 @@ var helpers = {
             } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
             }
+            else if (field.type === "checkbox" ) {
+                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.checked);
+            }
         }
 
 

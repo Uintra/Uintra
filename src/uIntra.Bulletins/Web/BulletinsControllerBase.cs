@@ -150,13 +150,13 @@ namespace uIntra.Bulletins.Web
             model.ShortDescription = bulletin.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = bulletin.MediaIds;
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, bulletin.Id);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = bulletin.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, bulletin.Id),
-                DisplayedImagesCount = DisplayedImagesCount
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = bulletin.Id,
+                ActivityType = bulletin.Type
             };
             return model;
         }

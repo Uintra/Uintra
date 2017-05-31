@@ -20,15 +20,18 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ICentralFeedService _centralFeedService;
         private readonly IGridHelper _gridHelper;
+        private readonly ICookieProvider _cookieProvider;
 
         public CentralFeedContentHelper(
             UmbracoHelper umbracoHelper,
             ICentralFeedService centralFeedService,
-            IGridHelper gridHelper)
+            IGridHelper gridHelper,
+            ICookieProvider cookieProvider)
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
             _gridHelper = gridHelper;
+            _cookieProvider = cookieProvider;
         }
 
         public IPublishedContent GetOverviewPage()
@@ -77,14 +80,14 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public void SaveFiltersState(CentralFeedFiltersStateModel stateModel)
         {
-            var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
+            var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
             cookie.Value = stateModel.ToJson();
-            HttpContext.Current.Response.Cookies.Add(cookie);
+            _cookieProvider.Save(cookie);
         }
 
         public CentralFeedFiltersStateModel GetFiltersState()
         {
-            var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
+            var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
             if (string.IsNullOrEmpty(cookie?.Value))
             {
                 cookie = new HttpCookie(CentralFeedFiltersStateCookieName)
@@ -92,23 +95,14 @@ namespace Compent.uIntra.Core.CentralFeed
                     Expires = DateTime.Now.AddDays(7),
                     Value = GetDefaultCentralFeedFiltersState().ToJson()
                 };
-
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                _cookieProvider.Save(cookie);
             }
             return cookie.Value.Deserialize<CentralFeedFiltersStateModel>();
         }
 
         public bool CentralFeedCookieExists()
         {
-            var cookie= HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
-
-            return cookie != null && cookie.Value.IsNotNullOrEmpty();
-        }
-
-        public void ClearFiltersState()
-        {
-            var cookie = HttpContext.Current.Request.Cookies[CentralFeedFiltersStateCookieName];
-            cookie.Expires = DateTime.Now.AddDays(-1);
+            return _cookieProvider.Exists(CentralFeedFiltersStateCookieName);
         }
 
         public CentralFeedTypeEnum GetTabType(IPublishedContent content)

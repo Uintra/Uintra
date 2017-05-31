@@ -68,11 +68,11 @@ namespace uIntra.News
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
-           .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToDateFormat() }));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToDateFormat() }));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>()
-                .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
+                .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<NewsBackofficeCreateModel, NewsBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())

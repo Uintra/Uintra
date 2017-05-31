@@ -39,8 +39,6 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
-            FillLinks();
-
             var activity = item as News;
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;

@@ -191,13 +191,13 @@ namespace uIntra.Events.Web
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = @event.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id),
-                DisplayedImagesCount = DisplayedImagesCount
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = @event.Id,
+                ActivityType = @event.Type
             };
             return model;
         }

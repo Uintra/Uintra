@@ -152,14 +152,14 @@ namespace uIntra.News.Web
             model.ShortDescription = news.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = news.MediaIds;
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, news.Id);
             model.Expired = _newsService.IsExpired(news);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = news.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, news.Id),
-                DisplayedImagesCount = DisplayedImagesCount
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = news.Id,
+                ActivityType = news.Type
             };
             return model;
         }
