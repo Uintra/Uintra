@@ -1147,11 +1147,18 @@ body{
 }
 
 .flatpickr {
-    
-    &-day {
 
-        &.nextMonthDay {
-            color: #393939;
-        }
-     }
+	&-input {
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&-day {
+
+		&.nextMonthDay {
+			color: #393939;
+		}
+	}
 }
