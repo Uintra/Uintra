@@ -18,9 +18,5 @@ namespace uIntra.CentralFeed
         CentralFeedFiltersStateModel GetFiltersState();
 
         bool CentralFeedCookieExists();
-
-        void ClearFiltersState();
-
-
     }
 }
