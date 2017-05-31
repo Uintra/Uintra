@@ -1,5 +1,4 @@
-﻿@using uIntra.Core.Extentions
-@model uIntra.Users.ProfileViewModelBase
+﻿@model uIntra.Users.ProfileViewModel
 
 <div id="js-profile-page" class="form _profile">
     <div class="form__row">
@@ -12,18 +11,5 @@
                 <span class="form__email">@Model.Email</span>
             </div>
         </div>
-    </div>
-    <div class="form__row">
-        @using (Ajax.BeginForm("Edit", "Profile", new AjaxOptions
-        {
-            HttpMethod = "GET",
-            InsertionMode = InsertionMode.ReplaceWith,
-            UpdateTargetId = "js-profile-page",
-            OnSuccess = "profileController.init()"
-
-        }))
-        {
-            <input class="form__btn _black _submit" type="submit" value="@Html.Localize("Profile.Edit.btn")" />
-        }
     </div>
 </div>

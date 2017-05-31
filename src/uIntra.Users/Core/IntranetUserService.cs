@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
 using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
@@ -132,7 +131,7 @@ namespace uIntra.Users
             if (userPhotoId.HasValue)
             {
                 var media = _umbracoHelper.TypedMedia(userPhotoId.Value);
-                user.Photo = GetUserPhotoOrDefaultAvatar(media.Url);
+                user.Photo = GetUserPhotoOrDefaultAvatar(media?.Url);
             }
             return user;
         }

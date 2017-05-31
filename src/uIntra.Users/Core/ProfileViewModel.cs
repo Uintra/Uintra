@@ -1,6 +1,6 @@
 ﻿namespace uIntra.Users
 {
-    public class ProfileViewModelBase
+    public class ProfileViewModel
     {
         public virtual string Photo { get; set; }
         public string FirstName { get; set; }
