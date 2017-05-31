@@ -1145,3 +1145,13 @@ body{
 .ajs-footer {
     overflow: hidden;
 }
+
+.flatpickr {
+    
+    &-day {
+
+        &.nextMonthDay {
+            color: #393939;
+        }
+     }
+}
