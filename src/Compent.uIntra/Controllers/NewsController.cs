@@ -31,8 +31,9 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
-            ITagsService tagsService)
-            : base(intranetUserService, newsService, mediaHelper)
+            ITagsService tagsService,
+            IIntranetUserContentHelper intranetUserContentHelper)
+            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper)
         {
             _tagsService = tagsService;
         }

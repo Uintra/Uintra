@@ -171,6 +171,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ITagsService>().To<TagsService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
+            kernel.Bind<IIntranetUserContentHelper>().To<IntranetUserContentHelper>().InRequestScope();
 
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()

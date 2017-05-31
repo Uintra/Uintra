@@ -13,9 +13,10 @@ namespace Compent.uIntra.Controllers
             ICentralFeedContentHelper centralFeedContentHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             ISubscribeService subscribeService,
-            IActivitiesServiceFactory activitiesServiceFactory)
-            : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory,subscribeService,intranetUserService)
+            IActivitiesServiceFactory activitiesServiceFactory,
+            IIntranetUserContentHelper intranetUserContentHelper)
+            : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory, subscribeService, intranetUserService, intranetUserContentHelper)
         {
-        }        
+        }
     }
 }

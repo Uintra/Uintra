@@ -35,8 +35,9 @@ namespace Compent.uIntra.Controllers
             IMediaHelper mediaHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             IReminderService reminderService,
-            ITagsService tagsService)
-            : base(eventsService, mediaHelper, intranetUserService)
+            ITagsService tagsService,
+            IIntranetUserContentHelper intranetUserContentHelper)
+            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;

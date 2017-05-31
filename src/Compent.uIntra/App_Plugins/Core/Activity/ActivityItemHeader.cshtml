@@ -2,11 +2,12 @@
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type, Model.ActivityId);
+    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
 }
 
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
-        <a href="#">
+        <a href="@profilePageUrl">
             <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
         </a>
     </div>
