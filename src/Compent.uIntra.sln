@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Panels", "uIntra.Pan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Tagging", "uIntra.Tagging\uIntra.Tagging.csproj", "{2167C278-86ED-451B-8D2C-01774532B4E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Bulletins", "uIntra.Bulletins\uIntra.Bulletins.csproj", "{D8101E4C-5345-4B54-9766-DBD2BBE7030C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,14 @@ Global
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.NuGet|Any CPU.Build.0 = Release|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.NuGet|Any CPU.ActiveCfg = Release|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.NuGet|Any CPU.Build.0 = Release|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

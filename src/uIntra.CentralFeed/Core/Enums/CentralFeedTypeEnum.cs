@@ -8,6 +8,6 @@ namespace uIntra.CentralFeed
         News = IntranetActivityTypeEnum.News,
         Ideas = IntranetActivityTypeEnum.Ideas,
         Events = IntranetActivityTypeEnum.Events,
-        Bulletin = IntranetActivityTypeEnum.Bulletin
+        Bulletins = IntranetActivityTypeEnum.Bulletins
     }
 }

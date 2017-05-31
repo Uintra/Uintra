@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uIntra.Core.ApplicationSettings;
+using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.CentralFeed;
 using Compent.uIntra.Core.Comments;
 using Compent.uIntra.Core.Events;
@@ -21,6 +22,7 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Newtonsoft.Json.Serialization;
 using Ninject;
 using Ninject.Web.Common;
+using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -146,6 +148,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
+            kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
@@ -162,6 +165,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
+            kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<ITagsService>().To<TagsService>().InRequestScope();
@@ -207,8 +211,9 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
             kernel.Bind<IuIntraApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
 
-            kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InSingletonScope();
-            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InSingletonScope();
+            kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
+            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
+            kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

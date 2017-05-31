@@ -7,16 +7,17 @@ import subscribe from "./../Subscribe/subscribe";
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
-var centralFeedTabEvent = new CustomEvent("cfTabChanged");
-var emptyfiltersState={
-    subscriberFilterSelected : false,
-    pinnedFilterSelected :false,
-    bulletinFilterSelected : false
-}
 
 var holder;
 var state;
 var formController;
+var reloadintervalId;
+var centralFeedTabEvent = new CustomEvent("cfTabChanged");
+var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
+    detail: {
+        isReinit: false
+    }
+});
 
 function showLoadingStatus() {
     var loadingElem = document.querySelector(".js-loading-status");
@@ -57,52 +58,40 @@ function attachEventFilter() {
 
     var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
     if (clearFiltersElem) {
-        clearFiltersElem.addEventListener('click', function () {           
-            restoreFiltersState(emptyfiltersState)
-            reload();
+        clearFiltersElem.addEventListener('click', function () {            
+            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');            
+            var showPinned = formController.form.querySelector('input[name="showPinned"]');            
+            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');            
+            $(showSubscribed).val(false);
+            $(showPinned).val(false);            
+            $(inlcudeBulletin).val(false);
+            reload(false, false, false);
         });
     }
 
     var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
     if (showSubscribedElem) {
-        showSubscribedElem.addEventListener('change', function () {
-            reload();
+        showSubscribedElem.addEventListener('change', function () {            
+            reload(false, false, false);
         });
     }
 
-    var showPinned = formController.form.querySelector('input[name="showPinned"]');
-    if (showPinned) {
-        showPinned.addEventListener('change', function () {
-            reload();
+    var showPinnedElem = formController.form.querySelector('input[name="showPinned"]');
+    if (showPinnedElem) {
+        showPinnedElem.addEventListener('change', function () {                
+            reload(false, false, false);
         });
     }
 
-    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
-    if (inlcudeBulletin) {
-        inlcudeBulletin.addEventListener('change', function () {
-            reload();
+    var inlcudeBulletinElem = formController.form.querySelector('input[name="includeBulletin"]');
+    if (inlcudeBulletinElem) {
+        inlcudeBulletinElem.addEventListener('change', function () {
+            reload(false, false, false);
         });
     }
 }
 
-function restoreFiltersState(state) {
-    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
-    if (showSubscribedElem) {
-        $(showSubscribedElem).prop('checked', state.subscriberFilterSelected);
-    }
-
-    var showPinned = formController.form.querySelector('input[name="showPinned"]');
-    if (showPinned) {
-        $(showPinned).prop('checked', state.pinnedFilterSelected);            
-    }    
-
-    var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
-    if (inlcudeBulletin) {
-        $(inlcudeBulletin).prop('checked', state.bulletinFilterSelected);  
-    }
-}
-
-function reload(useVersion, skipLoadingStatus) {
+function reload(useVersion, skipLoadingStatus, isReinit) {
     if (!useVersion) {
         holder.querySelector('input[name="version"]').value = null;
     }
@@ -114,6 +103,7 @@ function reload(useVersion, skipLoadingStatus) {
     promise.then(attachEventFilter);
     promise.then(hideLoadingStatus);
     promise.then(initCustomControls);
+    promise.then(function() { emitTabReloadedEvent(isReinit); });
     promise.catch(hideLoadingStatus);
     return promise;
 }
@@ -127,7 +117,7 @@ function restoreState() {
     if (hash) {
         var savedState = localStorage.getItem(state.storageName);
         state.page = (savedState || {}).page || 1;
-        reload().then(function () {
+        reload(false, false, true).then(function () {
             var elem = document.querySelector('[data-anchor="' + hash + '"]');
 
             if(elem){
@@ -146,7 +136,7 @@ function onScroll(done) {
         return;
     }
     state.page++;
-    var promise = reload();
+    var promise = reload(false, false, true);
     promise.then(done, done);
 }
 
@@ -164,6 +154,25 @@ function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+function reloadTabEventHandler(e) {   
+    clearInterval(reloadintervalId);
+
+    reload(true, true, e.detail.isReinit);
+
+    runReloadInverval();
+}
+
+function runReloadInverval() {
+    reloadintervalId = setInterval(function() {
+        reload(true, true, false);
+    }, 30000);
+}
+
+function emitTabReloadedEvent(isReinit) {
+    centralFeedTabReloadedEvent.detail.isReinit = isReinit;
+    document.body.dispatchEvent(centralFeedTabReloadedEvent);
 }
 
 appInitializer.add(function () {
@@ -190,8 +199,10 @@ appInitializer.add(function () {
             }
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
-            scrollTo(element, 0, 200);          
-            reload();
+            scrollTo(element, 0, 200); 
+            
+            reload(false, false, true);
+
             document.body.dispatchEvent(centralFeedTabEvent);
         },
         get page() {
@@ -212,6 +223,8 @@ appInitializer.add(function () {
 
     restoreState();
     infinityScroll(onScroll)();
-    attachEventFilter();
-    setInterval(function () { reload(true, true) }, 30000);
+    attachEventFilter(); 
+    runReloadInverval();
+
+    document.body.addEventListener('cfReloadTab', reloadTabEventHandler);
 });
