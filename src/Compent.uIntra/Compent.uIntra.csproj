@@ -326,9 +326,9 @@
       <HintPath>..\..\packages\uIntra.Core.1.1.2.7\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.1.0.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Events, Version=1.1.0.9, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Events.1.1.0.8\lib\net452\uIntra.Events.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Events.1.1.0.9\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
@@ -340,8 +340,9 @@
       <HintPath>..\..\packages\uIntra.Navigation.1.1.2\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.1.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.1.0.10\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.1.0.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.News.1.1.0.11\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
@@ -356,8 +357,9 @@
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.1.1\lib\net452\uIntra.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.1.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.1.0.2\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.1.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Users.1.1.0.3\lib\net452\uIntra.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
@@ -762,11 +764,6 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
-    <Content Include="App_Plugins\Users\Login\login.css" />
-    <Content Include="App_Plugins\Users\Profile\profile.css" />
-    <Content Include="App_Plugins\Users\Profile\profile.html" />
-    <Content Include="App_Plugins\Users\Profile\profile.js" />
-    <Content Include="App_Plugins\Users\users.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -839,13 +836,9 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
@@ -857,14 +850,7 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
@@ -886,6 +872,10 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
