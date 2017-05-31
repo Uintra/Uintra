@@ -6,10 +6,13 @@ namespace uIntra.Core.Extentions
 {
     public static class ViewDataExtensions
     {
+        // activities page urls
         private const string DetailsPageUrl = "DetailsPageUrl";
         private const string OverviewPageUrl = "OverviewPageUrl";
         private const string CreatePageUrl = "CreatePageUrl";
         private const string EditPageUrl = "EditPageUrl";
+
+        private const string ProfilePageUrl = "ProfilePageUrl";
 
         public static void SetActivityCreatePageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string url)
         {
@@ -29,6 +32,11 @@ namespace uIntra.Core.Extentions
         public static void SetActivityEditPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string url)
         {
             SetActivityPageUrl(dataView, activityType, EditPageUrl, url);
+        }
+
+        public static void SetProfilePageUrl(this ViewDataDictionary dataView, string url)
+        {
+            dataView[ProfilePageUrl] = url;
         }
 
         public static string GetActivityCreatePageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType)
@@ -59,6 +67,11 @@ namespace uIntra.Core.Extentions
         public static string GetActivityEditPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, Guid id)
         {
             return GetActivityPageUrl(dataView, activityType, EditPageUrl).AddIdParameter(id);
+        }
+
+        public static string GetProfilePageUrl(this ViewDataDictionary dataView)
+        {
+           return dataView[ProfilePageUrl]?.ToString();
         }
 
         private static void SetActivityPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string pageName, string url)

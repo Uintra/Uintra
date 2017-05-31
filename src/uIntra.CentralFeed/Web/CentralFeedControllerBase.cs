@@ -20,8 +20,9 @@ namespace uIntra.CentralFeed.Web
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly ISubscribeService subscribeService;
-        private readonly IIntranetUserService<IIntranetUser> intranetUserService;
+        private readonly ISubscribeService _subscribeService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(
@@ -29,13 +30,15 @@ namespace uIntra.CentralFeed.Web
             ICentralFeedContentHelper centralFeedContentHelper,
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
             _activitiesServiceFactory = activitiesServiceFactory;
-            this.subscribeService = subscribeService;
-            this.intranetUserService = intranetUserService;
+            _subscribeService = subscribeService;
+            _intranetUserService = intranetUserService;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public virtual ActionResult Overview()
@@ -158,6 +161,9 @@ namespace uIntra.CentralFeed.Web
                 var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type);
                 ViewData.SetActivityDetailsPageUrl(type, service.GetDetailsPage(currentPage).Url);
             }
+
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
+            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual IPublishedContent GetCurrentPage()
@@ -174,7 +180,7 @@ namespace uIntra.CentralFeed.Web
         {
             if (model.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
-                items = items.Where(i => i is ISubscribable && subscribeService.IsSubscribed(intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
+                items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
             }
 
             if (!model.IncludeBulletin.GetValueOrDefault() && settings.HasBulletinFilter)
