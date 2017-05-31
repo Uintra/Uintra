@@ -20,16 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>Global Panel Folder</summary>
-	[PublishedContentModel("globalPanelFolder")]
-	public partial class GlobalPanelFolder : PublishedContentModel
+	/// <summary>Bulletins Edit Page</summary>
+	[PublishedContentModel("bulletinsEditPage")]
+	public partial class BulletinsEditPage : BasePageWithGrid
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "globalPanelFolder";
+		public new const string ModelTypeAlias = "bulletinsEditPage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public GlobalPanelFolder(IPublishedContent content)
+		public BulletinsEditPage(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -40,7 +40,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<GlobalPanelFolder, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<BulletinsEditPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}

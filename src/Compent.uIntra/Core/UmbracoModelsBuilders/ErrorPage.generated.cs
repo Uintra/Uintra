@@ -20,24 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1069 with alias "defaultGridComposition"
-	/// <summary>Default Grid Composition</summary>
-	public partial interface IDefaultGridComposition : IPublishedContent
-	{
-		/// <summary>Grid</summary>
-		Newtonsoft.Json.Linq.JToken Grid { get; }
-	}
-
-	/// <summary>Default Grid Composition</summary>
-	[PublishedContentModel("defaultGridComposition")]
-	public partial class DefaultGridComposition : PublishedContentModel, IDefaultGridComposition
+	/// <summary>Error Page</summary>
+	[PublishedContentModel("errorPage")]
+	public partial class ErrorPage : BasePage, INavigationComposition
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "defaultGridComposition";
+		public new const string ModelTypeAlias = "errorPage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public DefaultGridComposition(IPublishedContent content)
+		public ErrorPage(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -48,7 +40,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DefaultGridComposition, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ErrorPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
@@ -59,10 +51,34 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("grid")]
 		public Newtonsoft.Json.Linq.JToken Grid
 		{
-			get { return GetGrid(this); }
+			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("grid"); }
 		}
 
-		/// <summary>Static getter for Grid</summary>
-		public static Newtonsoft.Json.Linq.JToken GetGrid(IDefaultGridComposition that) { return that.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("grid"); }
+		///<summary>
+		/// Is hide from Left Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromLeftNavigation")]
+		public bool IsHideFromLeftNavigation
+		{
+			get { return NavigationComposition.GetIsHideFromLeftNavigation(this); }
+		}
+
+		///<summary>
+		/// Is hide from Sub Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromSubNavigation")]
+		public bool IsHideFromSubNavigation
+		{
+			get { return NavigationComposition.GetIsHideFromSubNavigation(this); }
+		}
+
+		///<summary>
+		/// Navigation Name
+		///</summary>
+		[ImplementPropertyType("navigationName")]
+		public string NavigationName
+		{
+			get { return NavigationComposition.GetNavigationName(this); }
+		}
 	}
 }
