@@ -356,10 +356,6 @@
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.1.1\lib\net452\uIntra.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Tagging, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Tagging.1.1.1\lib\net452\uIntra.Tagging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uIntra.Users, Version=1.1.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Users.1.1.0.2\lib\net452\uIntra.Users.dll</HintPath>
       <Private>True</Private>
@@ -766,9 +762,6 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
-    <Content Include="App_Plugins\Tagging\taggle.css" />
-    <Content Include="App_Plugins\Tagging\tags.css" />
-    <Content Include="App_Plugins\Tagging\tags.js" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
@@ -820,7 +813,6 @@
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -915,7 +907,6 @@
     <Compile Include="Controllers\PinActivityController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReminderController.cs" />
-    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Core\ApplicationSettings\IUcommunityApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
@@ -926,8 +917,6 @@
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
-    <Compile Include="Core\Events\Models\EventExtendedCreateModel.cs" />
-    <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
@@ -968,8 +957,6 @@
     <Compile Include="Core\Navigation\UcommunityLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
-    <Compile Include="Core\News\Models\NewsExtendedCreateModel.cs" />
-    <Compile Include="Core\News\Models\NewsExtendedEditModel.cs" />
     <Compile Include="Core\News\NewsService.cs" />
     <Compile Include="Core\News\Models\NewsExtendedItemViewModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />

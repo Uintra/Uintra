@@ -3,7 +3,7 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extentions;
 @using Umbraco.Web
-@model Compent.uIntra.Core.Events.EventExtendedCreateModel
+@model uIntra.Events.EventCreateModel
 
 <div class="form" id="js-events-create-page">
     @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
@@ -51,10 +51,6 @@
                 var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
-        </div>
-
-        <div class="form__row clearfix">
-            @Html.Action("Tags", "Tags", new { Model.Tags })
         </div>
 
         <div class="form__row clearfix">

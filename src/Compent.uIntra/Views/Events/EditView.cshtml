@@ -4,7 +4,7 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extentions
 @using Umbraco.Web
-@model Compent.uIntra.Core.Events.EventExtendedEditModel
+@model uIntra.Events.EventEditModel
 
 <div class="form" id="js-events-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
@@ -60,10 +60,6 @@
                 var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
-        </div>
-
-        <div class="form__row clearfix">
-            @Html.Action("Tags", "Tags", new { Model.Tags })
         </div>
 
         <div class="form__row clearfix">

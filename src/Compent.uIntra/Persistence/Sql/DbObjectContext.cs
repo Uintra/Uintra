@@ -9,7 +9,6 @@ using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;
 using uIntra.Subscribe;
-using uIntra.Tagging;
 
 namespace Compent.uIntra.Persistence.Sql
 {
@@ -36,8 +35,6 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<TagActivityRelation> TagActivityRelations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
