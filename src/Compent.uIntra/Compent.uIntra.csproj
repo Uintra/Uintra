@@ -314,8 +314,8 @@
       <HintPath>..\..\packages\uIntra.Bulletins.0.0.0.4\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.2.6\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.2.7\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
@@ -341,8 +341,8 @@
       <HintPath>..\..\packages\uIntra.Navigation.1.1.2\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.1.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.1.0.9\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.1.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.News.1.1.0.10\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
@@ -361,8 +361,9 @@
       <HintPath>..\..\packages\uIntra.Tagging.1.1.1\lib\net452\uIntra.Tagging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.1.0.1\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.1.0.2\lib\net452\uIntra.Users.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -820,10 +821,6 @@
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -840,11 +837,6 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Bulletins\package.manifest" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
@@ -852,10 +844,6 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.ttf" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.eot" />
@@ -881,6 +869,19 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
