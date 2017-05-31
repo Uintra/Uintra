@@ -8,6 +8,7 @@ using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
 using uIntra.Tagging;
+using uIntra.Users;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
 
@@ -30,6 +31,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<TagAutoMapperProfile>();
+            Mapper.AddProfile<IntranetUserAutoMapperProfile>();
 
             var typemaps = Mapper.GetAllTypeMaps();
 
