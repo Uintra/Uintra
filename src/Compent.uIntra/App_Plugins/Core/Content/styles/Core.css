@@ -1122,3 +1122,20 @@ body{
 .ajs-footer {
     overflow: hidden;
 }
+
+.flatpickr {
+
+	&-input {
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&-day {
+
+		&.nextMonthDay {
+			color: #393939;
+		}
+	}
+}
