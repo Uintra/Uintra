@@ -7,10 +7,17 @@ import subscribe from "./../Subscribe/subscribe";
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
-var centralFeedTabEvent = new CustomEvent("cfTabChanged");
+
 var holder;
 var state;
 var formController;
+var reloadintervalId;
+var centralFeedTabEvent = new CustomEvent("cfTabChanged");
+var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
+    detail: {
+        isReinit: false
+    }
+});
 
 function showLoadingStatus() {
     var loadingElem = document.querySelector(".js-loading-status");
@@ -64,7 +71,7 @@ function attachEventFilter() {
             $(showPinnedFilter).val(false);
             $(inlcudeBulletinFilter).val(false);
             $(inlcudeBulletin).val(false);
-            reload();
+            reload(false, false, false);
         });
     }
 
@@ -79,7 +86,7 @@ function attachEventFilter() {
                 $(showSubscribedFilter).val(false);
                 $(showSubscribed).val(false);
             }
-            reload();
+            reload(false, false, false);
         });
     }
 
@@ -94,7 +101,7 @@ function attachEventFilter() {
                 $(showPinned).val(false);
                 $(showPinnedFilter).val(false);
             }
-            reload();
+            reload(false, false, false);
         });
     }
 
@@ -109,12 +116,12 @@ function attachEventFilter() {
                 $(inlcudeBulletinFilter).val(false);
                 $(inlcudeBulletin).val(false);
             }
-            reload();
+            reload(false, false, false);
         });
     }
 }
 
-function reload(useVersion, skipLoadingStatus) {
+function reload(useVersion, skipLoadingStatus, isReinit) {
     if (!useVersion) {
         holder.querySelector('input[name="version"]').value = null;
     }
@@ -126,6 +133,7 @@ function reload(useVersion, skipLoadingStatus) {
     promise.then(attachEventFilter);
     promise.then(hideLoadingStatus);
     promise.then(initCustomControls);
+    promise.then(function() { emitTabReloadedEvent(isReinit); });
     promise.catch(hideLoadingStatus);
     return promise;
 }
@@ -139,7 +147,7 @@ function restoreState() {
     if (hash) {
         var savedState = localStorage.getItem(state.storageName);
         state.page = (savedState || {}).page || 1;
-        reload().then(function () {
+        reload(false, false, true).then(function () {
             var elem = document.querySelector('[data-anchor="' + hash + '"]');
 
             if(elem){
@@ -158,7 +166,7 @@ function onScroll(done) {
         return;
     }
     state.page++;
-    var promise = reload();
+    var promise = reload(false, false, true);
     promise.then(done, done);
 }
 
@@ -176,6 +184,25 @@ function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+function reloadTabEventHandler(e) {   
+    clearInterval(reloadintervalId);
+
+    reload(true, true, e.detail.isReinit);
+
+    runReloadInverval();
+}
+
+function runReloadInverval() {
+    reloadintervalId = setInterval(function() {
+        reload(true, true, false);
+    }, 30000);
+}
+
+function emitTabReloadedEvent(isReinit) {
+    centralFeedTabReloadedEvent.detail.isReinit = isReinit;
+    document.body.dispatchEvent(centralFeedTabReloadedEvent);
 }
 
 appInitializer.add(function () {
@@ -202,8 +229,10 @@ appInitializer.add(function () {
             }
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
-            scrollTo(element, 0, 200);          
-            reload();
+            scrollTo(element, 0, 200); 
+            
+            reload(false, false, true);
+
             document.body.dispatchEvent(centralFeedTabEvent);
         },
         get page() {
@@ -224,6 +253,8 @@ appInitializer.add(function () {
 
     restoreState();
     infinityScroll(onScroll)();
-    attachEventFilter();
-    setInterval(function () { reload(true, true) }, 30000);
+    attachEventFilter(); 
+    runReloadInverval();
+
+    document.body.addEventListener('cfReloadTab', reloadTabEventHandler);
 });
