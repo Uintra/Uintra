@@ -11,6 +11,7 @@ var localStorage = helpers.localStorage;
 var holder;
 var state;
 var formController;
+var reloadintervalId;
 var centralFeedTabEvent = new CustomEvent("cfTabChanged");
 var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
     detail: {

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Compent.uIntra.Core.Bulletins;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
@@ -22,8 +21,6 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
-            FillLinks();
-
             var activity = item as Bulletin;
             var extendedModel = GetItemViewModel(activity).Map<BulletinExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
