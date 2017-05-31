@@ -39,7 +39,10 @@
     <input type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
     </div>
 
-
+@if (Model.Type == CentralFeedTypeEnum.Bulletins)
+{
+    Html.RenderAction("CreationForm", "Bulletins");
+}
 
     @if (!Model.Items.Any())
     {
