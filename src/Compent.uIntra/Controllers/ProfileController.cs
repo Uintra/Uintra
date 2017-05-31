@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uIntra.Core;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Media;
 using uIntra.Users.Web;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Controllers
 {

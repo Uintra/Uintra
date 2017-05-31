@@ -1,5 +1,5 @@
-﻿using Compent.uIntra.Core.UmbracoModelsBuilders;
-using Umbraco.Core.Models;
+﻿using Umbraco.Core.Models;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Extentions
 {

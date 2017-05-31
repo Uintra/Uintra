@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Navigation;
-using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Extentions;
@@ -15,6 +14,7 @@ using uIntra.Notification;
 using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Controllers
 {
