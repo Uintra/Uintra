@@ -777,6 +777,14 @@ body{
 .content{
     padding:0;
 
+    .btn{
+        @media (--for-tablet-portrait-down){
+            &{
+                display:none;
+            }
+        }
+    }
+
     &__item{
         padding:0 20px;
         margin:0 -20px 50px;
@@ -1036,37 +1044,6 @@ body{
             @media (--for-tablet-portrait-down){
                 &{
                     padding-bottom:25px;
-                }
-            }
-        }
-
-        &-print{
-            float:right;
-            font:bold 13px/15px var(--font-custom);
-            background:var(--color-light-gray);
-            color:var(--text-color-dark);
-            text-transform:uppercase;
-            max-width: 120px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            padding:6px 9px 7px;
-            margin:0 0 0 44px;
-
-            .glyphicon-print:before{
-                margin:0 7px 0 0;
-                font-size:16px;
-                vertical-align:top;
-            }
-
-            &:hover{
-                text-decoration:none;
-                background:#afafaf;
-            }
-
-            @media (--for-tablet-portrait-down){
-                &{
-                    display:none;
                 }
             }
         }
