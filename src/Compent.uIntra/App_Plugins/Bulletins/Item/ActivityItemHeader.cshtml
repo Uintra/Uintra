@@ -1,16 +1,19 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
+@{
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type, Model.ActivityId);
+}
 
- @*TODO: do something with it *@
+@*TODO: do something with it *@
 @*@Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })*@
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
-        <a href="@Model.DetailsPageUrl">
+        <a href="@detailsPageUrl">
             <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
         </a>
     </div>
     <div class="content__item-title-holder">
-        <h2 class="content__item-title"><a class="content__item-title-link" href="@Model.DetailsPageUrl">@Model.Title</a></h2>
+        <h2 class="content__item-title"><a class="content__item-title-link" href="@detailsPageUrl">@Model.Title</a></h2>
         <p class="content__item-meta">
             @foreach (var date in Model.Dates)
             {
