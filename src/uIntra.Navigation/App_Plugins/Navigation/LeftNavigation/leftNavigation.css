@@ -27,10 +27,6 @@
 
     &__item{
         position:relative;
-
-        &:hover{
-            cursor:pointer;
-        }
     }
 
     &__link{
@@ -38,6 +34,7 @@
         padding:4px 45px 4px 19px;
         color:var(--text-color-dark);
         word-wrap: break-word;
+        cursor:pointer;
 
         &:hover,
         &:focus,
@@ -61,6 +58,14 @@
                 background:none;
             }
         }
+
+        &:hover{
+            .icon-close{
+                display:block;
+            }
+        }
+
+        
     }
 
 	&__arrow{
@@ -157,6 +162,40 @@
         position: absolute;
         right: 20px;
         top: 7px;
+        display:none;
+    }
+
+    &._links{
+        .side-nav{
+            .side-nav{
+                &__link{
+                    &:before{
+                        position:absolute;
+                        top:10px;
+                        left:10px;
+                        background:url(./Content/images/sort.svg) no-repeat;
+                        background-size:10px;
+                        width:10px;
+                        height:10px;
+                        opacity:0.5;
+                        content:'';
+                        display:none;
+                    }
+                }
+            }
+        }
+
+        &:hover{
+            .side-nav{
+                .side-nav{
+                    &__link{
+                        &:before{
+                            display:block;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @media (--for-tablet-portrait-down) {

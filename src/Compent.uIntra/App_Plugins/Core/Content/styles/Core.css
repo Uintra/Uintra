@@ -438,7 +438,6 @@ body{
     border-radius:0;
     position:relative;
 
-    &._remove,
     &._add{
         padding-left:20px;
 
@@ -458,16 +457,16 @@ body{
         }
     }
 
-    &._remove{
-        &:after{
-            display:none;
-        }
-    }
-
     &:hover{
         background-color:#afafaf;
         color: var(--text-color-dark);
         text-decoration:none;
+    }
+
+    &._disabled{
+        opacity:0.5;
+        cursor:default;
+        pointer-events:none;
     }
 }
 

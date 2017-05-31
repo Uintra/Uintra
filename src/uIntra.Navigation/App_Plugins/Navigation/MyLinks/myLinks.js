@@ -3,42 +3,46 @@
 var Sortable = require('sortablejs');
 
 appInitializer.add(function() {
-    var container = $('.js-myLinks-container');
+    var container = document.getElementById('js-myLinks-sortable');
     if (!container) {
         return;
     }
 
-    var addControl = $('.js-myLinks-add');
-    var removeControl = $('.js-myLinks-remove');
+    var addControlBtn = document.querySelector('.js-myLinks-add-btn');
+    var removeLinks = document.querySelectorAll('.js-myLinks-remove');
+    var currentPageID = addControlBtn.getAttribute('data-content-id');
+    var className = '_disabled';
+    
+    var sortable = Sortable.create(container);
 
-    var el = document.getElementById('js-myLinks-sortable');
-    var sortable = Sortable.create(el);
+    attachEvents();
 
-    addControl.on('click',function() {
-        $.ajax({
-            type: "POST",
-            data: {contentId: $(this).data("contentId")},
-            url: "/umbraco/surface/MyLinks/Add",
-            success: function (data) {
-                container.html(data);
-                addControl.hide();
-                removeControl.show();
-            }
-        });
+    addControlBtn.addEventListener('click', function(e){
+        toggleLinks(this, e, 'Add');
     });
 
-    removeControl.on('click',function(event) {
+    function toggleLinks(element, event, action){
         event.preventDefault();
-
         $.ajax({
             type: "POST",
-            data: {contentId: $(this).data("contentId")},
-            url: "/umbraco/surface/MyLinks/Remove",
+            data: {contentId: element.getAttribute('data-content-id')},
+            url: '/umbraco/surface/MyLinks/' + action,
             success: function (data) {
-                container.html(data);
-                addControl.show();
-                removeControl.hide();
+                container.innerHTML = data;
+                removeLinks = document.querySelectorAll('.js-myLinks-remove');
+                attachEvents();
+                if(element.getAttribute('data-content-id') == currentPageID){
+                    addControlBtn.classList.toggle(className);
+                }
             }
         });
-    });
+    }
+
+    function attachEvents(){
+        for(var i = 0; i < removeLinks.length; i++){
+            removeLinks[i].addEventListener('click', function(e){
+                toggleLinks(this, e, 'Remove');
+            });
+        }
+    }
 });

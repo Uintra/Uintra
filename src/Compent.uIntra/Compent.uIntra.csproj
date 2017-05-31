@@ -795,6 +795,7 @@
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\sort.svg" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\notification.js" />
     <Content Include="Content\main.js" />
