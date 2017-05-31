@@ -1,5 +1,4 @@
 ﻿function showContent() {
-    console.log('!');
     var wrapper = document.getElementById('wrapper');
     var isLoading = wrapper.classList.contains('_loading');
 
