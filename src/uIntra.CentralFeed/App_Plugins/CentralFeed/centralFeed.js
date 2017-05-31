@@ -51,64 +51,34 @@ function attachEventFilter() {
 
     var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
     if (clearFiltersElem) {
-        clearFiltersElem.addEventListener('click', function () {
-            var showSubscribedFilter = formController.form.querySelector('input[name="showSubscribedFilter"]');
-            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');
-            var showPinnedFilter = formController.form.querySelector('input[name="showPinnedFilter"]');
-            var showPinned = formController.form.querySelector('input[name="showPinned"]');
-            var inlcudeBulletinFilter = formController.form.querySelector('input[name="includeBulletinFilter"]');
-            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
-            $(showSubscribedFilter).val(false);
+        clearFiltersElem.addEventListener('click', function () {            
+            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');            
+            var showPinned = formController.form.querySelector('input[name="showPinned"]');            
+            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');            
             $(showSubscribed).val(false);
-            $(showPinned).val(false);
-            $(showPinnedFilter).val(false);
-            $(inlcudeBulletinFilter).val(false);
+            $(showPinned).val(false);            
             $(inlcudeBulletin).val(false);
             reload();
         });
     }
 
-    var showSubscribedFilter = formController.form.querySelector('input[name="showSubscribedFilter"]');
-    if (showSubscribedFilter) {
-        showSubscribedFilter.addEventListener('change', function () {
-            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');
-            if ($(showSubscribedFilter).is(':checked')) {
-                $(showSubscribedFilter).val(true);
-                $(showSubscribed).val(true);
-            } else {
-                $(showSubscribedFilter).val(false);
-                $(showSubscribed).val(false);
-            }
+    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
+    if (showSubscribedElem) {
+        showSubscribedElem.addEventListener('change', function () {            
             reload();
         });
     }
 
-    var showPinnedFilter = formController.form.querySelector('input[name="showPinnedFilter"]');
-    if (showPinnedFilter) {
-        showPinnedFilter.addEventListener('change', function () {
-            var showPinned = formController.form.querySelector('input[name="showPinned"]');
-            if ($(showPinnedFilter).is(':checked')) {
-                $(showPinned).val(true);
-                $(showPinnedFilter).val(true);
-            } else {
-                $(showPinned).val(false);
-                $(showPinnedFilter).val(false);
-            }
+    var showPinnedElem = formController.form.querySelector('input[name="showPinned"]');
+    if (showPinnedElem) {
+        showPinnedElem.addEventListener('change', function () {                
             reload();
         });
     }
 
-    var inlcudeBulletinFilter = formController.form.querySelector('input[name="includeBulletinFilter"]');
-    if (inlcudeBulletinFilter) {
-        inlcudeBulletinFilter.addEventListener('change', function () {
-            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
-            if ($(inlcudeBulletinFilter).is(':checked')) {
-                $(inlcudeBulletinFilter).val(true);
-                $(inlcudeBulletin).val(true);
-            } else {
-                $(inlcudeBulletinFilter).val(false);
-                $(inlcudeBulletin).val(false);
-            }
+    var inlcudeBulletinElem = formController.form.querySelector('input[name="includeBulletin"]');
+    if (inlcudeBulletinElem) {
+        inlcudeBulletinElem.addEventListener('change', function () {
             reload();
         });
     }
