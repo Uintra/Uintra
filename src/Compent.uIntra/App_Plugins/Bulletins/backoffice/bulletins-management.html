@@ -20,31 +20,31 @@
         </div>
         <table class="table">
             <thead>
-                <tr>
-                    <th class="_admin">Id</th>
-                    <th>Publish Date</th>
-                    <th>Create Date</th>
-                    <th>Update Date</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th class="_admin">Id</th>
+                <th>Publish Date</th>
+                <th>Create Date</th>
+                <th>Update Date</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="bulletin in vm.bulletinsList | filter: vm.filter track by bulletin.id" ng-class="{'_unpublished' : bulletin.isHidden}">
-                    <td class="_admin" ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.id}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.publishDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.createdDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.modifyDate | date: vm.dateFormat}}</td>
-                    <td>
-                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="bulletin.isHidden" ng-click="vm.unpublish(bulletin, $index)" />
-                        <input type="button" class="btn btn-success" value="Publish" ng-show="bulletin.isHidden" ng-click="vm.publish(bulletin, $index)" />
-                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(bulletin, $index)" />
-                    </td>
-                </tr>
-                <tr ng-click="vm.selectBulletinsToEdit({}, null)">
-                    <td colspan="6" class="create-bulletins-btn">
-                        <i class="icon icon-add"></i>
-                    </td>
-                </tr>
+            <tr ng-repeat="bulletin in vm.bulletinsList | orderBy : '-createdDate' | filter: vm.filter track by bulletin.id" ng-class="{'_unpublished' : bulletin.isHidden}">
+                <td class="_admin" ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.id}}</td>
+                <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.publishDate | date: vm.dateFormat}}</td>
+                <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.createdDate | date: vm.dateFormat}}</td>
+                <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.modifyDate | date: vm.dateFormat}}</td>
+                <td>
+                    <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="bulletin.isHidden" ng-click="vm.unpublish(bulletin, $index)" />
+                    <input type="button" class="btn btn-success" value="Publish" ng-show="bulletin.isHidden" ng-click="vm.publish(bulletin, $index)" />
+                    <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(bulletin, $index)" />
+                </td>
+            </tr>
+            <tr ng-click="vm.selectBulletinsToEdit({}, null)">
+                <td colspan="6" class="create-bulletins-btn">
+                    <i class="icon icon-add"></i>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
