@@ -17,4 +17,6 @@ var controller = {
     }
 }
 
-window.profileController = controller;
+appInitializer.add(function() {
+    controller.init();
+});
