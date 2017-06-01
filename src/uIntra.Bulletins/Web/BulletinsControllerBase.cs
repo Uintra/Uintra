@@ -38,9 +38,12 @@ namespace uIntra.Bulletins.Web
             _userService = userService;
         }
 
-        public virtual PartialViewResult CreationForm()
+        [ContentRestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Create)]
+        public virtual ActionResult CreationForm()
         {
             var currentUser = _userService.GetCurrentUser();
+            var mediaSettings = _bulletinsService.GetMediaSettings();
+
             var result = new BulletinListCreateFormModel
             {
                 HeaderInfo = new IntranetActivityItemHeaderViewModel
@@ -51,7 +54,8 @@ namespace uIntra.Bulletins.Web
                         .ToString(IntranetConstants.Common.DefaultDateFormat)
                         .ToEnumerableOfOne(),
                     Creator = currentUser
-                }
+                },
+                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions
             };
 
             return PartialView(CreationFormPath, result);
@@ -71,7 +75,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -92,7 +96,7 @@ namespace uIntra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             FillLinks();

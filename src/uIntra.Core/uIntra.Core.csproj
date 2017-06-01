@@ -370,6 +370,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
@@ -377,6 +378,8 @@
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />
     <Compile Include="Core\User\IRole.cs" />
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
+    <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
+    <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Web\PinActivityControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />

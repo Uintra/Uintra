@@ -7,9 +7,12 @@
                 @Html.Partial("~/App_Plugins/Bulletins/Item/ActivityItemHeader.cshtml", Model.HeaderInfo)
             </div>
             <div class="content__item-image"> </div>
-            <div class="content__item-txt" style="white-space: pre-line;">
-                @Html.Raw(Model.ShortDescription)
-            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.ShortDescription.StripHtml()))
+            {
+                <div class="content__item-txt">
+                    @Html.Raw(Model.ShortDescription)
+                </div>
+            }
             <div class="content__item-images">
                 @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
             </div>

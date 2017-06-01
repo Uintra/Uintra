@@ -1138,4 +1138,38 @@ body{
 			color: #393939;
 		}
 	}
+
+	&__close {
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		width: 20px;
+		height: 20px;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 10px;
+			right: 0;
+			height: 1px;
+			background-color: #000;
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 10px;
+			right: 0;
+			height: 1px;
+			background-color: #000;
+			transform: rotate(-45deg);
+		}
+	}
 }

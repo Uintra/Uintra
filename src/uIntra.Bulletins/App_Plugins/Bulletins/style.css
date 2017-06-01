@@ -10,15 +10,7 @@
     height: 100% !important;
 }
 
-.create-bulletin .dropzone {
-    max-width: 100%;
-}
-
 .create-bulletin__description {
     height: 100px;
     border: none !important;
-}
-
-._pre-line {
-    white-space: pre-line;
 }
