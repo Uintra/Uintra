@@ -18,5 +18,5 @@ namespace Compent.uIntra.Controllers
             : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory, subscribeService, intranetUserService, intranetUserContentHelper)
         {
         }
-    }
+    } 
 }
