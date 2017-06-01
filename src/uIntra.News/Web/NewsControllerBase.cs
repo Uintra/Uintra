@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
@@ -28,17 +28,20 @@ namespace uIntra.News.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IPermissionsService _permissionsService;
 
         protected NewsControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IPermissionsService permissionsService)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _permissionsService = permissionsService;
         }
 
         public virtual ActionResult Details(Guid id)
@@ -123,14 +126,28 @@ namespace uIntra.News.Web
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
+        protected virtual void FillCanEditCreatorData(ICanEditCreatorCreateEditModel model)
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            model.Creator = _intranetUserService.Get(model.CreatorId);
+            model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
+            if (model.CanEditCreator)
+            {
+                model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
+            }
+        }
+
         protected virtual NewsCreateModel GetCreateModel()
         {
             FillLinks();
             var model = new NewsCreateModel
             {
-                PublishDate = DateTime.Now
+                PublishDate = DateTime.Now,
+                CreatorId = _intranetUserService.GetCurrentUser().Id
             };
+
             FillCreateEditData(model);
+            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -138,6 +155,7 @@ namespace uIntra.News.Web
         {
             var model = news.Map<NewsEditModel>();
             FillCreateEditData(model);
+            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -172,7 +190,6 @@ namespace uIntra.News.Web
         {
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.CreatorId = _intranetUserService.GetCurrentUserId();            
 
             return _newsService.Create(news);
         }

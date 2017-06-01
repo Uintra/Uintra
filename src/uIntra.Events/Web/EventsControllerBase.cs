@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
@@ -28,17 +28,20 @@ namespace uIntra.Events.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IPermissionsService _permissionsService;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper, 
+            IPermissionsService permissionsService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _permissionsService = permissionsService;
         }
 
         public virtual ActionResult Details(Guid id)
@@ -76,7 +79,6 @@ namespace uIntra.Events.Web
 
             var @event = createModel.Map<EventBase>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
@@ -154,9 +156,11 @@ namespace uIntra.Events.Web
             {
                 StartDate = DateTime.Now.Date.AddHours(8),
                 EndDate = DateTime.Now.Date.AddHours(8),
-                CanSubscribe = true
+                CanSubscribe = true,
+                CreatorId = _intranetUserService.GetCurrentUser().Id
             };
             FillCreateEditData(model);
+            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -172,6 +176,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventEditModel>();
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             FillCreateEditData(model);
+            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -210,6 +215,17 @@ namespace uIntra.Events.Web
             var mediaSettings = _eventsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             model.MediaRootId = mediaSettings.MediaRootId;
+        }
+
+        protected virtual void FillCanEditCreatorData(ICanEditCreatorCreateEditModel model)
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            model.Creator = _intranetUserService.Get(model.CreatorId);
+            model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
+            if (model.CanEditCreator)
+            {
+                model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
+            }
         }
 
         protected virtual void FillLinks()

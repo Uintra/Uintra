@@ -20,6 +20,8 @@ namespace uIntra.Events
             Mapper.CreateMap<EventBase, EventCreateModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
+                .ForMember(dst => dst.Users, o => o.Ignore())
+                .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventEditModel>()
@@ -27,6 +29,8 @@ namespace uIntra.Events
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
+                .ForMember(dst => dst.Users, o => o.Ignore())
+                .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventCreateModel, EventBase>()
@@ -39,7 +43,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                  {
                      dst.StartDate = dst.StartDate.ToUniversalTime();
@@ -56,7 +59,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

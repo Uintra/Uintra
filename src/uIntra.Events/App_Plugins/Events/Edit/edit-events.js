@@ -38,7 +38,7 @@ var initPinControl=function() {
 }
 
 var initUserSelect = function () {
-    userSelect = holder.find('#js-user-select').select2({});
+    userSelect = holder.find('.js-user-select').select2({});
 }
 
 var continueSubmit = function (value) {

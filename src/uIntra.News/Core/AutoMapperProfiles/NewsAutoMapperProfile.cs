@@ -20,12 +20,16 @@ namespace uIntra.News
             Mapper.CreateMap<NewsBase, NewsCreateModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
+                .ForMember(dst => dst.Users, o => o.Ignore())
+                .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsEditModel>()
-              .ForMember(dst => dst.MediaRootId, o => o.Ignore())
-              .ForMember(dst => dst.NewMedia, o => o.Ignore())
-              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.MediaRootId, o => o.Ignore())
+                .ForMember(dst => dst.NewMedia, o => o.Ignore())
+                .ForMember(dst => dst.Users, o => o.Ignore())
+                .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsCreateModel, NewsBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -51,7 +55,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
