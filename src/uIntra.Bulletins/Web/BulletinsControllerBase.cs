@@ -38,7 +38,8 @@ namespace uIntra.Bulletins.Web
             _userService = userService;
         }
 
-        public virtual PartialViewResult CreationForm()
+        [ContentRestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Create)]
+        public virtual ActionResult CreationForm()
         {
             var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
@@ -74,7 +75,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -95,7 +96,7 @@ namespace uIntra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             FillLinks();

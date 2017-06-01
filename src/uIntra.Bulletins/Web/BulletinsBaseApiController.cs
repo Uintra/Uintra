@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Web.Http;
 using uIntra.Core;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions.Web;
 using Umbraco.Web.WebApi;
 
 namespace uIntra.Bulletins.Web
@@ -26,6 +28,7 @@ namespace uIntra.Bulletins.Web
         }
 
         [HttpPost]
+        [ContentRestrictedActionApi(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Create)]
         public virtual BulletinCreationResultModel Create(BulletinCreateModel model)
         {
             var result = new BulletinCreationResultModel();

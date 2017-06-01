@@ -56,7 +56,7 @@ namespace uIntra.News.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
             var model = GetCreateModel();
@@ -64,7 +64,7 @@ namespace uIntra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
             FillLinks();
@@ -79,7 +79,7 @@ namespace uIntra.News.Web
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, activityId));
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -100,7 +100,7 @@ namespace uIntra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
             FillLinks();
@@ -172,7 +172,7 @@ namespace uIntra.News.Web
         {
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.CreatorId = _intranetUserService.GetCurrentUserId();            
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
 
             return _newsService.Create(news);
         }
