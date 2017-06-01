@@ -57,6 +57,13 @@
         <form name="editForm" class="news-edit-form">
             <div ng-if="vm.selected">
                 <div class="control-group">
+                    <h5 class="control-label">Creator:</h5>
+                    <select ng-model="vm.selected.creatorId">
+                        <option ng-repeat="user in vm.users" ng-selected="vm.selected.creatorId ? user.id === vm.selected.creatorId : user.umbracoId === vm.currentUser.id" value="{{user.id}}">{{user.displayedName}}</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
                     <h5 class="control-label">Title:</h5>
                     <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.title" required="" ng-maxlength="200" name="Title" />
                 </div>

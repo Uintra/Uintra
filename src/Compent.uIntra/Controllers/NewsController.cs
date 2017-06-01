@@ -6,6 +6,7 @@ using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Users;
@@ -24,8 +25,9 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
-            IIntranetUserContentHelper intranetUserContentHelper)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IPermissionsService permissionsService)
+            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, permissionsService)
         {
         }
 

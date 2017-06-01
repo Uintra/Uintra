@@ -6,6 +6,7 @@ using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Events;
 using uIntra.Events.Web;
 using uIntra.Notification;
@@ -29,8 +30,9 @@ namespace Compent.uIntra.Controllers
             IMediaHelper mediaHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             IReminderService reminderService,
-            IIntranetUserContentHelper intranetUserContentHelper)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IPermissionsService permissionsService)
+            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, permissionsService)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;

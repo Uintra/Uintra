@@ -6,7 +6,7 @@ require('./style.css');
 require('select2');
 
 var initUserSelect = function (holder) {
-    holder.find('#js-user-select').select2({});
+    holder.find('.js-user-select').select2({});
 }
 
 var initPinControl=function(holder) {    
