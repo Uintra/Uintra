@@ -9,7 +9,8 @@ const toolbarSelector = ".js-create-bulletin__toolbar";
 
 var cfReloadTabEvent;
 let holder;
-let dropzone; // TODO: ?
+let dropzone;
+let dataStorage;
 let description;
 let toolbar;
 let sentButton;
@@ -18,7 +19,7 @@ let header;
 let editor; 
 
 function initElements() {
-    dropzone = holder.querySelector(".js-create-bulletin__dropzone");
+    dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
     description = holder.querySelector(".js-create-bulletin__description");
     toolbar = holder.querySelector(toolbarSelector);
     sentButton = document.querySelector(".js-toolbar__send-button");
@@ -27,35 +28,17 @@ function initElements() {
 }
 
 function initEditor() {
-    let dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
     editor = helpers.initQuill(description, dataStorage,{
         theme: 'snow',
         placeholder: "TODO: Create Bulletin activity",
         modules: {
             toolbar: {
-                container: toolbarSelector,
-                handlers: {
-                    //'custom-file': function() {
-                    //    if (dropzone.classList.contains("_hide")) {
-                    //        dropzone.classList.remove("_hide");
-                    //    } else {
-                    //        dropzone.classList.add("_hide");
-                    //    }
-                    //}
-                }
+                container: toolbarSelector
             }
         }
     });
-}
 
-function initEditorEventListeners() {
     editor.on('text-change', function () {
-        //if (isEdited()) {
-        //    sentButton.disabled = false;
-        //} else {
-        //    sentButton.disabled = true;
-        //}
-
         sentButton.disabled = !isEdited();
     });
 }
@@ -73,18 +56,42 @@ function initEventListeners() {
     });
 }
 
+function initFileUploader() {
+    let previewContainer = document.querySelector(".js-dropzone-previews");
+    let options = {
+        previewsContainer: previewContainer
+    };
+
+    dropzone = fileUploadController.init(holder, options);
+
+    dropzone.on('success', function (file, fileId) {
+        previewContainer.classList.remove("hidden");
+
+        sentButton.disabled = !isEdited();
+    });
+
+    dropzone.on('removedfile', function (file) {
+        if (this.files.length === 0) {
+            previewContainer.classList.add("hidden");
+        }
+
+        sentButton.disabled = !isEdited();
+    });
+}
+
 function descriptionClickHandler(event) {
     show();
 }
 
 function sentButtonClickHandler(event) {
+    let newMedia = holder.querySelector(".js-new-media");
     let data = {
-        description: editor.getText()
+        description: dataStorage.value,
+        newMedia: newMedia.value
     };
 
     ajax.PostJson("/umbraco/api/BulletinsApi/Create", data).then(function(response) {
         if (response.isSuccess) {
-            //holder = dropzone = description = toolbar = sentButton= closeButton = header = editor = null;
             cfReloadTab();
             hide();
         }
@@ -133,10 +140,13 @@ function hide() {
 
 function clear() {
     editor.setText("");
+    dropzone.removeAllFiles(true);
 }
 
 function isEdited() {
-    return editor.getLength() > 1;
+    let isDescriptionEdited = editor.getLength() > 1;
+    let isFilesUploaded = dropzone.files.length;
+    return isDescriptionEdited || isFilesUploaded;
 }
 
 function showConfirmMessage() {
@@ -152,8 +162,8 @@ let controller = {
 
         initElements();
         initEditor();
-        initEditorEventListeners();
         initEventListeners();
+        initFileUploader();
     }
 }
 

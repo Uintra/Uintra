@@ -370,6 +370,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />

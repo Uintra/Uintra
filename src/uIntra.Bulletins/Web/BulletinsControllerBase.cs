@@ -41,6 +41,8 @@ namespace uIntra.Bulletins.Web
         public virtual PartialViewResult CreationForm()
         {
             var currentUser = _userService.GetCurrentUser();
+            var mediaSettings = _bulletinsService.GetMediaSettings();
+
             var result = new BulletinListCreateFormModel
             {
                 HeaderInfo = new IntranetActivityItemHeaderViewModel
@@ -51,7 +53,8 @@ namespace uIntra.Bulletins.Web
                         .ToString(IntranetConstants.Common.DefaultDateFormat)
                         .ToEnumerableOfOne(),
                     Creator = currentUser
-                }
+                },
+                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions
             };
 
             return PartialView(CreationFormPath, result);
