@@ -1,5 +1,4 @@
-﻿@using uIntra.Core.Extentions
-@model uIntra.Bulletins.BulletinItemViewModel
+﻿@model uIntra.Bulletins.BulletinItemViewModel
 
 <div class="content__item">
     <div class="row clearfix">
@@ -8,7 +7,7 @@
                 @Html.Partial("~/App_Plugins/Bulletins/Item/ActivityItemHeader.cshtml", Model.HeaderInfo)
             </div>
             <div class="content__item-image"> </div>
-            @if (Model.ShortDescription.IsNotNullOrEmpty())
+            @if (!string.IsNullOrWhiteSpace(Model.ShortDescription.StripHtml()))
             {
                 <div class="content__item-txt">
                     @Html.Raw(Model.ShortDescription)
