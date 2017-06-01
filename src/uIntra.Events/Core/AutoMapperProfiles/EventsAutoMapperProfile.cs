@@ -85,34 +85,39 @@ namespace uIntra.Events
             Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
                .ForMember(d => d.MediaIds, o => o.Ignore())
                .ForMember(d => d.Type, o => o.Ignore())
-               .ForMember(d => d.CreatorId, o => o.Ignore())
                .ForMember(d => d.Id, o => o.Ignore())
                .ForMember(d => d.CreatedDate, o => o.Ignore())
                .ForMember(d => d.ModifyDate, o => o.Ignore())
                .ForMember(d => d.Creator, o => o.Ignore())
+               .ForMember(d => d.UmbracoCreatorId, o => o.Ignore())
                .ForMember(d => d.CanSubscribe, o => o.Ignore())
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
                .ForMember(dst => dst.PinDays, o => o.Ignore())
                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-               .AfterMap((dst, src) =>
+               .AfterMap((src, dst) =>
                {
-                   src.MediaIds = dst.Media.ToIntCollection();
+                   dst.MediaIds = src.Media.ToIntCollection();
+
+                   if (!src.CreatorId.HasValue)
+                   {
+                       dst.UmbracoCreatorId = src.UmbracoCreatorId;
+                   }
                });
 
             Mapper.CreateMap<EventBackofficeSaveModel, EventBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())
                 .ForMember(d => d.Type, o => o.Ignore())
-                .ForMember(d => d.CreatorId, o => o.Ignore())
                 .ForMember(d => d.CreatedDate, o => o.Ignore())
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
+                .ForMember(d => d.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(d => d.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.PinDays, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .AfterMap((dst, src) =>
+                .AfterMap((src, dst) =>
                 {
-                    src.MediaIds = dst.Media.ToIntCollection();
+                    dst.MediaIds = src.Media.ToIntCollection();
                 });
         }
     }

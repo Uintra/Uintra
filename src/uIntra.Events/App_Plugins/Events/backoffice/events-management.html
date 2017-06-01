@@ -61,26 +61,33 @@
         <form name="editForm" class="events-edit-form">
             <div ng-if="vm.selected">
                 <div class="control-group">
+                    <h5 class="control-label">Creator:</h5>
+                    <select ng-model="vm.selected.creatorId">
+                        <option ng-repeat="user in vm.users" ng-selected="vm.selected.creatorId ? user.id === vm.selected.creatorId : user.umbracoId === vm.currentUser.id" value="{{user.id}}">{{user.displayedName}}</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
                     <h5 class="control-label">Title:</h5>
-                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.title" required="" ng-maxlength="200" name="Title" />
+                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.title" required="" ng-maxlength="200" name="Title"/>
                 </div>
 
                 <div class="control-group">
                     <h5 class="control-label">Description:</h5>
                     <tiny-mce model="vm.selected.description" config="vm.config.description"></tiny-mce>
-                    <input type="hidden" ng-model="vm.selected.description" required="" name="Description" />
+                    <input type="hidden" ng-model="vm.selected.description" required="" name="Description"/>
                 </div>
 
                 <div class="control-group">
                     <h5 class="control-label">Start date:</h5>
                     <date-picker model="vm.selected.startDate" config="vm.config.startDate"></date-picker>
-                    <input type="hidden" ng-model="vm.selected.startDate" required="" name="Start date" />
+                    <input type="hidden" ng-model="vm.selected.startDate" required="" name="Start date"/>
                 </div>
 
                 <div class="control-group">
                     <h5 class="control-label">End date:</h5>
                     <date-picker model="vm.selected.endDate" config="vm.config.endDate"></date-picker>
-                    <input type="hidden" ng-model="vm.selected.endDate" required="" name="End date" date-greater-or-equal="{{vm.selected.startDate | date: vm.dateFormat}}" />
+                    <input type="hidden" ng-model="vm.selected.endDate" required="" name="End date" date-greater-or-equal="{{vm.selected.startDate | date: vm.dateFormat}}"/>
                 </div>
 
                 <div class="control-group">

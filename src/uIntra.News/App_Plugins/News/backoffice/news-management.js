@@ -11,6 +11,7 @@
         self.selected = null;
         self.selectedIndex = null;
         self.filterModel = {};
+        self.users = [];
 
         $scope.$watch(function () { return (self.selected || {}).publishDate; }, function () {
             if (self.selected != null) {
@@ -74,10 +75,10 @@
             if (self.selected != null) {
                 self.clearSelected();
             }
+
             self.selectedIndex = index;
             self.selected = angular.copy(news);
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
-            self.selected.umbracoCreatorId = self.selected.umbracoCreatorId || self.currentUser.id;
         }
 
         self.save = function () {
@@ -145,8 +146,17 @@
             promise.then(success, onError);
         }
 
+        var loadUsers = function () {
+            var promise = $http.get('/Umbraco/backoffice/Api/IntranetUser/GetAll');
+            var success = function (response) {
+                self.users = response.data || [];
+            }
+            promise.then(success, onError);
+        }
+
         var activate = function () {
             loadAll();
+            loadUsers();
             authResource.getCurrentUser().then(function (data) {
                 self.currentUser = data;
             });
