@@ -83,7 +83,6 @@ namespace uIntra.News
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
-                .ForMember(d => d.PinDays, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
@@ -98,7 +97,6 @@ namespace uIntra.News
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
-                .ForMember(d => d.PinDays, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {

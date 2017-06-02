@@ -66,8 +66,7 @@ namespace uIntra.News.Web
             FillLinks();
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
             var activityId = CreateNews(createModel);
@@ -103,8 +102,7 @@ namespace uIntra.News.Web
 
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(editModel);
-                return PartialView(EditViewPath, editModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
             var activity = UpdateNews(editModel);
