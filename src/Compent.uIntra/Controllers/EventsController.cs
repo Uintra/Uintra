@@ -32,7 +32,7 @@ namespace Compent.uIntra.Controllers
             IReminderService reminderService,
             IIntranetUserContentHelper intranetUserContentHelper,
             IPermissionsService permissionsService)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, permissionsService)
+            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
