@@ -48,7 +48,7 @@
                         <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(events, $index)" />
                     </td>
                 </tr>
-                <tr ng-click="vm.selectEventsToEdit({}, null)">
+                <tr ng-click="vm.selectEventsToEdit(null, null)">
                     <td colspan="6" class="create-events-btn">
                         <i class="icon icon-add"></i>
                     </td>
@@ -62,9 +62,7 @@
             <div ng-if="vm.selected">
                 <div class="control-group">
                     <h5 class="control-label">Creator:</h5>
-                    <select ng-model="vm.selected.creatorId">
-                        <option ng-repeat="user in vm.users" ng-selected="vm.selected.creatorId ? user.id === vm.selected.creatorId : user.umbracoId === vm.currentUser.id" value="{{user.id}}">{{user.displayedName}}</option>
-                    </select>
+                    <select ng-options="user.displayedName for user in vm.users track by user.id" ng-model="vm.selected.creator"></select>
                 </div>
 
                 <div class="control-group">
