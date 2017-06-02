@@ -9,12 +9,16 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Web;
+using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
-namespace Compent.uIntra.Core.UmbracoModelsBuilders
+namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>DataFolder</summary>
 	[PublishedContentModel("dataFolder")]

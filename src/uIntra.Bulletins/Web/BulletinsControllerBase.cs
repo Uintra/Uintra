@@ -41,6 +41,8 @@ namespace uIntra.Bulletins.Web
         public virtual PartialViewResult CreationForm()
         {
             var currentUser = _userService.GetCurrentUser();
+            var mediaSettings = _bulletinsService.GetMediaSettings();
+
             var result = new BulletinListCreateFormModel
             {
                 HeaderInfo = new IntranetActivityItemHeaderViewModel
@@ -51,7 +53,8 @@ namespace uIntra.Bulletins.Web
                         .ToString(IntranetConstants.Common.DefaultDateFormat)
                         .ToEnumerableOfOne(),
                     Creator = currentUser
-                }
+                },
+                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions
             };
 
             return PartialView(CreationFormPath, result);
@@ -150,13 +153,13 @@ namespace uIntra.Bulletins.Web
             model.ShortDescription = bulletin.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = bulletin.MediaIds;
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, bulletin.Id);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = bulletin.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, bulletin.Id),
-                DisplayedImagesCount = DisplayedImagesCount
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = bulletin.Id,
+                ActivityType = bulletin.Type
             };
             return model;
         }

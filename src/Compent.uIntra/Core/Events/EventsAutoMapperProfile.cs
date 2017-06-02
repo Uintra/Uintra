@@ -22,14 +22,6 @@ namespace Compent.uIntra.Core.Events
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
-            Mapper.CreateMap<Event, EventExtendedCreateModel>()
-                .IncludeBase<EventBase, EventCreateModel>()
-                .ForMember(dst => dst.Tags, o => o.Ignore());
-
-            Mapper.CreateMap<Event, EventExtendedEditModel>()
-                .IncludeBase<EventBase, EventEditModel>()
-                .ForMember(dst => dst.Tags, o => o.Ignore());
-
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -53,9 +45,6 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
                 .ForMember(dst => dst.Subscribers, o => o.Ignore());
-
-            Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>(MemberList.Source);
-            Mapper.CreateMap<EventEditModel, EventExtendedEditModel>(MemberList.Source);
         }
     }
 }

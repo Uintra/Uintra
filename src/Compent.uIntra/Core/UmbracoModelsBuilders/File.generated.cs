@@ -9,14 +9,16 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Web;
 using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
-using Umbraco.Web;
 
-namespace Compent.uIntra.Core.UmbracoModelsBuilders
+namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>File</summary>
 	[PublishedContentModel("File")]

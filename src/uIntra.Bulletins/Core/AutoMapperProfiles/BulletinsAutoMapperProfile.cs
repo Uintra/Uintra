@@ -65,7 +65,7 @@ namespace uIntra.Bulletins
 
             Mapper.CreateMap<BulletinBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<BulletinBase, IntranetActivityDetailsHeaderViewModel>()
-                .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
+                .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<BulletinsBackofficeCreateModel, BulletinBase>()
                 .ForMember(d => d.MediaIds, o => o.Ignore())

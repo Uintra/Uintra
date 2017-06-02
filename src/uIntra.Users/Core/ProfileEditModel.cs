@@ -2,7 +2,7 @@
 
 namespace uIntra.Users
 {
-    public class ProfileEditModelBase : IContentWithMediaCreateEditModel
+    public class ProfileEditModel : IContentWithMediaCreateEditModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

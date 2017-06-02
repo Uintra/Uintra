@@ -15,7 +15,7 @@
                 <header class="content__header">
                     @if (Model.CanEdit)
                     {
-                        <a class="content__btn" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.News, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                        <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.News, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
                     }
                     <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
                 </header>

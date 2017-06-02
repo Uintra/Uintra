@@ -68,6 +68,11 @@ var helpers = {
         var dateFormat = dateElem.data('dateFormat');
         var dateElemValue = holder.find(valueSelector);
         var defaultDate = new Date(dateElem.data('defaultDate'));
+        var closeButton = document.createElement("span");
+        closeButton.className = "flatpickr__close";
+        closeButton.addEventListener("click", function () {
+            datePicker.close();
+        });
 
         var datePicker = new Flatpickr(dateElem[0], {
             enableTime: true,
@@ -86,6 +91,8 @@ var helpers = {
                 dateElemValue.val(selectedDate);
             }
         });
+
+        datePicker.calendarContainer.append(closeButton);
 
         datePicker.setDate(defaultDate, true);
         var minDate = new Date();

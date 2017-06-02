@@ -438,7 +438,6 @@ body{
     border-radius:0;
     position:relative;
 
-    &._remove,
     &._add{
         padding-left:20px;
 
@@ -458,16 +457,16 @@ body{
         }
     }
 
-    &._remove{
-        &:after{
-            display:none;
-        }
-    }
-
     &:hover{
         background-color:#afafaf;
         color: var(--text-color-dark);
         text-decoration:none;
+    }
+
+    &._disabled{
+        opacity:0.5;
+        cursor:default;
+        pointer-events:none;
     }
 }
 
@@ -778,6 +777,14 @@ body{
 .content{
     padding:0;
 
+    .btn{
+        @media (--for-tablet-portrait-down){
+            &{
+                display:none;
+            }
+        }
+    }
+
     &__item{
         padding:0 20px;
         margin:0 -20px 50px;
@@ -1040,37 +1047,6 @@ body{
                 }
             }
         }
-
-        &-print{
-            float:right;
-            font:bold 13px/15px var(--font-custom);
-            background:var(--color-light-gray);
-            color:var(--text-color-dark);
-            text-transform:uppercase;
-            max-width: 120px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            padding:6px 9px 7px;
-            margin:0 0 0 44px;
-
-            .glyphicon-print:before{
-                margin:0 7px 0 0;
-                font-size:16px;
-                vertical-align:top;
-            }
-
-            &:hover{
-                text-decoration:none;
-                background:#afafaf;
-            }
-
-            @media (--for-tablet-portrait-down){
-                &{
-                    display:none;
-                }
-            }
-        }
         
         &-subtitle{
             font:bold 16px/23px var(--font-general);
@@ -1145,4 +1121,55 @@ body{
 
 .ajs-footer {
     overflow: hidden;
+}
+
+.flatpickr {
+
+	&-input {
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&-day {
+
+		&.nextMonthDay {
+			color: #393939;
+		}
+	}
+
+	&__close {
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		width: 20px;
+		height: 20px;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 10px;
+			right: 0;
+			height: 1px;
+			background-color: #000;
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 10px;
+			right: 0;
+			height: 1px;
+			background-color: #000;
+			transform: rotate(-45deg);
+		}
+	}
 }

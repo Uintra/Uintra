@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uIntra.Core;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Users;
 using uIntra.Users.Web;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -12,20 +13,24 @@ namespace Compent.uIntra.Controllers
 {
     public class ProfileController : ProfileControllerBase
     {
-        private UmbracoHelper _umbracoHelper;
+        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         public ProfileController(IMemberService memberService,
            UmbracoHelper umbracoHelper,
            IMediaHelper mediaHelper,
-           IApplicationSettings applicationSettings)
-            : base(memberService, umbracoHelper, mediaHelper, applicationSettings)
+           IApplicationSettings applicationSettings,
+           IIntranetUserService<IntranetUser> intranetUserService,
+           IIntranetUserContentHelper intranetUserContentHelper)
+            : base(memberService, umbracoHelper, mediaHelper, applicationSettings, intranetUserService)
         {
             _umbracoHelper = umbracoHelper;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
-        public ActionResult ToProfilePage()
+        public ActionResult EditPage()
         {
-            var profilePage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, ProfilePage.ModelTypeAlias));
+            var profilePage = _intranetUserContentHelper.GetEditPage();
             return Redirect(profilePage.Url);
         }
 

@@ -20,9 +20,12 @@
                 @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
             </div>
             <div class="content__item-image"> </div>
-            <div class="content__item-txt">
-                <p>@Html.Raw(Model.ShortDescription)</p>
-            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+            {
+                <div class="content__item-txt">
+                    <p>@Html.Raw(Model.ShortDescription)</p>
+                </div>
+            }
             <div class="content__item-images">
                 @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
             </div>

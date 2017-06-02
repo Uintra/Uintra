@@ -78,7 +78,7 @@ namespace uIntra.Events
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>()
-                .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
+                .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
                .ForMember(d => d.MediaIds, o => o.Ignore())

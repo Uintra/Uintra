@@ -333,6 +333,7 @@
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\Edit\edit-events.js" />
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
+    <Content Include="App_Plugins\Events\style.css" />
     <None Include="Content\Config\Lang\da-DK.user.xml.uninstall.xdt" />
     <None Include="Content\Config\Lang\da-DK.user.xml.install.xdt" />
     <None Include="Content\Config\Lang\en-GB.user.xml.uninstall.xdt" />

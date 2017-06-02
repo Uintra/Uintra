@@ -17,7 +17,6 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
-using Compent.uIntra.Core.UmbracoModelsBuilders;
 
 namespace Umbraco.Web.PublishedContentModels
 {

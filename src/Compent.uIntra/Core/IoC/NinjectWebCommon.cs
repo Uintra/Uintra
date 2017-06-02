@@ -49,7 +49,6 @@ using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Subscribe;
-using uIntra.Tagging;
 using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
@@ -168,9 +167,9 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
-            kernel.Bind<ITagsService>().To<TagsService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
+            kernel.Bind<IIntranetUserContentHelper>().To<IntranetUserContentHelper>().InRequestScope();
 
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()

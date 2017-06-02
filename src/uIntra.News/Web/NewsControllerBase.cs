@@ -27,20 +27,24 @@ namespace uIntra.News.Web
         private readonly INewsService<NewsBase> _newsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected NewsControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
-            IMediaHelper mediaHelper)
+            IMediaHelper mediaHelper,
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public virtual ActionResult Details(Guid id)
         {
             FillLinks();
+
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
@@ -150,14 +154,14 @@ namespace uIntra.News.Web
             model.ShortDescription = news.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = news.MediaIds;
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, news.Id);
             model.Expired = _newsService.IsExpired(news);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = news.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, news.Id),
-                DisplayedImagesCount = DisplayedImagesCount
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = news.Id,
+                ActivityType = news.Type
             };
             return model;
         }
@@ -187,11 +191,13 @@ namespace uIntra.News.Web
             var createPageUrl = _newsService.GetCreatePage(CurrentPage).Url;
             var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
             var editPageUrl = _newsService.GetEditPage(CurrentPage).Url;
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
 
             ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.News, overviewPageUrl);
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, detailsPageUrl);
             ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.News, createPageUrl);
             ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.News, editPageUrl);
+            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual void OnNewsCreated(Guid activityId, NewsCreateModel model)

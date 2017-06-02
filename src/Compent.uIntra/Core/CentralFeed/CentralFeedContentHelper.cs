@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Compent.uIntra.Core.UmbracoModelsBuilders;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Activity;

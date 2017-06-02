@@ -213,13 +213,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\IntranetUser.cs" />
     <Compile Include="Core\IntranetUserService.cs" />
     <Compile Include="Core\IRoleService.cs" />
     <Compile Include="Core\LoginModelBase.cs" />
     <Compile Include="Core\ProfileConstants.cs" />
-    <Compile Include="Core\ProfileEditModelBase.cs" />
-    <Compile Include="Core\ProfileViewModelBase.cs" />
+    <Compile Include="Core\ProfileEditModel.cs" />
+    <Compile Include="Core\ProfileViewModel.cs" />
     <Compile Include="Core\RoleServiceBase.cs" />
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

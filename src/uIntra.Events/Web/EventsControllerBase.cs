@@ -27,15 +27,18 @@ namespace uIntra.Events.Web
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public virtual ActionResult Details(Guid id)
@@ -189,13 +192,13 @@ namespace uIntra.Events.Web
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.DetailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = @event.MediaIds,
-                Url = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id),
-                DisplayedImagesCount = DisplayedImagesCount
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = @event.Id,
+                ActivityType = @event.Type
             };
             return model;
         }
@@ -213,11 +216,13 @@ namespace uIntra.Events.Web
             var createPageUrl = _eventsService.GetCreatePage(CurrentPage).Url;
             var detailsPageUrl = _eventsService.GetDetailsPage(CurrentPage).Url;
             var editPageUrl = _eventsService.GetEditPage(CurrentPage).Url;
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
 
             ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events, overviewPageUrl);
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, detailsPageUrl);
             ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.Events, createPageUrl);
             ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.Events, editPageUrl);
+            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual void OnEventCreated(Guid activityId, EventCreateModel model)

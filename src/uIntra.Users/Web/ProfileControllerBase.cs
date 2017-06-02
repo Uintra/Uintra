@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -19,22 +21,30 @@ namespace uIntra.Users.Web
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IMediaHelper _mediaHelper;
         private readonly IApplicationSettings _applicationSettings;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
 
         protected ProfileControllerBase(IMemberService memberService,
             UmbracoHelper umbracoHelper,
             IMediaHelper mediaHelper,
-            IApplicationSettings applicationSettings)
+            IApplicationSettings applicationSettings,
+            IIntranetUserService<IntranetUser> intranetUserService)
         {
             _memberService = memberService;
             _umbracoHelper = umbracoHelper;
             _mediaHelper = mediaHelper;
             _applicationSettings = applicationSettings;
+            _intranetUserService = intranetUserService;
         }
 
-        public virtual ActionResult Overview()
+        public virtual ActionResult Overview(Guid id)
         {
-            var member = _memberService.GetById(Members.GetCurrentMemberId());
-            var result = MapToViewModel(member);
+            var user = _intranetUserService.Get(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var result = user.Map<ProfileViewModel>();
 
             return View(ProfileOverViewPath, result);
         }
@@ -42,6 +52,7 @@ namespace uIntra.Users.Web
         [HttpGet]
         public virtual ActionResult Edit()
         {
+            var user = _intranetUserService.GetCurrentUser();
             var member = _memberService.GetById(Members.GetCurrentMemberId());
             var result = MapToEditModel(member);
 
@@ -49,7 +60,7 @@ namespace uIntra.Users.Web
         }
 
         [HttpPost]
-        public virtual ActionResult Edit(ProfileEditModelBase model)
+        public virtual ActionResult Edit(ProfileEditModel model)
         {
             var currentMember = _memberService.GetById(Members.GetCurrentMemberId());
             UpdateMember(currentMember, model);
@@ -57,25 +68,12 @@ namespace uIntra.Users.Web
 
             _memberService.Save(currentMember);
 
-            return Overview();
-        }
-        
-        protected virtual ProfileViewModelBase MapToViewModel(IMember member)
-        {
-            var result = new ProfileViewModelBase
-            {
-                FirstName = member.GetValueOrDefault<string>(ProfileConstants.FirstName),
-                LastName = member.GetValueOrDefault<string>(ProfileConstants.LastName),
-                Email = member.Email,
-                Photo = GetMemberPhoto(member)
-            };
-
-            return result;
+            return RedirectToCurrentUmbracoPage();
         }
 
-        protected virtual ProfileEditModelBase MapToEditModel(IMember member)
+        protected virtual ProfileEditModel MapToEditModel(IMember member)
         {
-            var result = new ProfileEditModelBase
+            var result = new ProfileEditModel
             {
                 FirstName = member.GetValueOrDefault<string>(ProfileConstants.FirstName),
                 LastName = member.GetValueOrDefault<string>(ProfileConstants.LastName),
@@ -87,20 +85,20 @@ namespace uIntra.Users.Web
             return result;
         }
 
-        protected virtual void FillEditData(ProfileEditModelBase model)
+        protected virtual void FillEditData(ProfileEditModel model)
         {
             var mediaSettings = GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        protected virtual void UpdateMember(IMember member, ProfileEditModelBase profileEditModel)
+        protected virtual void UpdateMember(IMember member, ProfileEditModel profileEditModel)
         {
             member.SetValue(ProfileConstants.FirstName, profileEditModel.FirstName);
             member.SetValue(ProfileConstants.LastName, profileEditModel.LastName);
         }
 
-        protected virtual void UpdateMemberPhoto(IMember member, ProfileEditModelBase profileEditModel)
+        protected virtual void UpdateMemberPhoto(IMember member, ProfileEditModel profileEditModel)
         {
             var photo = _mediaHelper.CreateMedia(profileEditModel);
 
@@ -112,7 +110,7 @@ namespace uIntra.Users.Web
                 {
                     _mediaHelper.DeleteMedia(userPhotoId.Value);
                 }*/
-                
+
                 member.SetValue(ProfileConstants.Photo, photo.First());
             }
         }

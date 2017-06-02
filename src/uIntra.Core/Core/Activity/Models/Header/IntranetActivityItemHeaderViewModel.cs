@@ -1,7 +1,9 @@
-﻿namespace uIntra.Core.Activity
+﻿using System;
+
+namespace uIntra.Core.Activity
 {
     public class IntranetActivityItemHeaderViewModel : IntranetActivityDetailsHeaderViewModel
     {
-        public string DetailsPageUrl { get; set; }
+        public Guid ActivityId { get; set; }
     }
 }
