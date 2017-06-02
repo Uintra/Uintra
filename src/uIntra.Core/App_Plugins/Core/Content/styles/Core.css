@@ -543,6 +543,7 @@ body{
 
 /*select2*/
 .select2-container {
+    z-index: 9;
 	max-width:100%;
 	box-sizing: border-box;
 	display: inline-block;
