@@ -68,7 +68,7 @@ namespace uIntra.Users.Web
 
             _memberService.Save(currentMember);
 
-            return Edit();
+            return RedirectToCurrentUmbracoPage();
         }
 
         protected virtual ProfileEditModel MapToEditModel(IMember member)

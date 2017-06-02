@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="form__row clearfix">
-            @Html.Action("PinActivity", "PinActivity", new { isPinned = @Model.IsPinned, pinDays = @Model.PinDays })
+            @Html.Action("PinActivity", "PinActivity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>

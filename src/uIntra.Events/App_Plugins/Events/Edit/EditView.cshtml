@@ -13,26 +13,6 @@
         <input type="hidden" name="id" value="@Model.Id" />
 
         <div class="form__row clearfix">
-            <label class="form__label">@Html.Localize("EventsEdit.Creator.lbl")</label>
-            @if (Model.CanEditCreator)
-            {
-                <select class="js-user-select form-control" name="creatorId">
-                    @foreach (var user in Model.Users)
-                    {
-                        <option value="@user.Id" selected="@(user.Id == Model.CreatorId)">@user.DisplayedName</option>
-                    }
-                </select>
-            }
-            else
-            {
-                <input type="hidden" name="creatorId" value="@Model.CreatorId" />
-                <div class="form__avatar">
-                    <img width="60" class="form__avatar-img" src="@Model.Creator.Photo" />
-                </div>
-                <span>@Model.Creator.DisplayedName</span>
-            }
-        </div>
-        <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsEdit.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
                    data-val-required="@Html.Localize("EventsEdit.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 200)" data-val="true" />
@@ -56,7 +36,7 @@
             <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
-            @Html.Action("PinActivity", "PinActivity", new { isPinned = @Model.IsPinned, pinDays = @Model.PinDays })
+            @Html.Action("PinActivity", "PinActivity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
         </div>
         <div class="form__row clearfix">
             <div class="check">

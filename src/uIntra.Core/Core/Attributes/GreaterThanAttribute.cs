@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace uIntra.Events.Attributes
+namespace uIntra.Core.Attributes
 {
     public class GreaterThanAttribute : ValidationAttribute
     {
@@ -33,14 +33,10 @@ namespace uIntra.Events.Attributes
             return ValidationResult.Success;
         }
 
-        protected IComparable GetSecondComparable(
-            ValidationContext validationContext)
+        protected IComparable GetSecondComparable(ValidationContext validationContext)
         {
-            var propertyInfo = validationContext
-                                  .ObjectType
-                                  .GetProperty(OtherProperty);
-            var secondValue = propertyInfo?.GetValue(
-                validationContext.ObjectInstance, null);
+            var propertyInfo = validationContext.ObjectType.GetProperty(OtherProperty);
+            var secondValue = propertyInfo?.GetValue(validationContext.ObjectInstance, null);
             return secondValue as IComparable;
         }
 

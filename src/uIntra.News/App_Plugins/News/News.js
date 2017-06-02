@@ -1,12 +1,14 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
+import initGreaterThan from "./../Core/Content/scripts/ValidationExtensions";
 import helpers from "./../Core/Content/scripts/Helpers";
 import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
+import initPinDate from "./../Core/Content/scripts/PinActivity";
 
 require('./style.css');
 require('select2');
 
 var initUserSelect = function (holder) {
-    holder.find('.js-user-select').select2({});
+    holder.find('#js-user-select').select2({});
 }
 
 var initPinControl=function(holder) {    
@@ -75,8 +77,11 @@ var initDescriptionControl = function (holder) {
 }
 
 var initDates = function (holder) {
+
     var publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
     var unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
+    var pin = initPinDate(holder);
+
     var initialMinDate = publish.selectedDates[0] || null;
     setMinDate(initialMinDate);
 
@@ -84,12 +89,14 @@ var initDates = function (holder) {
 
     function setMinDate(minDate) {
         minDate && unpublish.set('minDate', minDate);
+        pin.set('minDate', minDate);
     }
 
     function publishDateChanged(newDates) {
         setMinDate(newDates[0]);
-    }
 
+    }
+    
     var clearUnpublishDateBtn = holder.find('.js-clear-unpublish-date');
     clearUnpublishDateBtn.click(function () {
         unpublish.clear();

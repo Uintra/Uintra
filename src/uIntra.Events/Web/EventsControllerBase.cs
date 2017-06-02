@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
@@ -28,20 +28,17 @@ namespace uIntra.Events.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly IPermissionsService _permissionsService;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper, 
-            IPermissionsService permissionsService)
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
-            _permissionsService = permissionsService;
         }
 
         public virtual ActionResult Details(Guid id)
@@ -58,7 +55,7 @@ namespace uIntra.Events.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
             var model = GetCreateModel();
@@ -67,19 +64,18 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
             FillLinks();
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(createModel);
-                FillCanEditCreatorData(createModel);
-                return PartialView(CreateViewPath, createModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
             var @event = createModel.Map<EventBase>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
@@ -87,7 +83,7 @@ namespace uIntra.Events.Web
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activityId));
         }
 
-        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -108,29 +104,26 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit)]
-        public virtual ActionResult Edit(EventEditModel editModel)
+        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        public virtual ActionResult Edit(EventEditModel saveModel)
         {
             FillLinks();
 
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(editModel);
-                FillCanEditCreatorData(editModel);
-                return PartialView(EditViewPath, editModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var @event = MapEditModel(editModel);
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
+            var @event = MapEditModel(saveModel);
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
-                @event.CanSubscribe = editModel.CanSubscribe;
+                @event.CanSubscribe = saveModel.CanSubscribe;
             }
             _eventsService.Save(@event);
 
-            OnEventEdited(@event, editModel);
+            OnEventEdited(@event, saveModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id));
         }
@@ -159,11 +152,9 @@ namespace uIntra.Events.Web
             {
                 StartDate = DateTime.Now.Date.AddHours(8),
                 EndDate = DateTime.Now.Date.AddHours(8),
-                CanSubscribe = true,
-                CreatorId = _intranetUserService.GetCurrentUser().Id
+                CanSubscribe = true
             };
             FillCreateEditData(model);
-            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -179,7 +170,6 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventEditModel>();
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             FillCreateEditData(model);
-            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -218,17 +208,6 @@ namespace uIntra.Events.Web
             var mediaSettings = _eventsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             model.MediaRootId = mediaSettings.MediaRootId;
-        }
-
-        protected virtual void FillCanEditCreatorData(ICanEditCreatorCreateEditModel model)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            model.Creator = _intranetUserService.Get(model.CreatorId);
-            model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
-            if (model.CanEditCreator)
-            {
-                model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
-            }
         }
 
         protected virtual void FillLinks()

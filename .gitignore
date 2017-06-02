@@ -14,6 +14,7 @@ node_modules/
 Umbraco/
 Umbraco_Client/
 App_Data/
+**/App_Data/
 App_Browsers/
 
 #========================================================================================> WEB

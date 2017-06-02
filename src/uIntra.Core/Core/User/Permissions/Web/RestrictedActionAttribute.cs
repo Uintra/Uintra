@@ -1,32 +1,49 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using Umbraco.Core;
 
 namespace uIntra.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly IntranetActivityTypeEnum _activityType;
-        private readonly IntranetActivityActionEnum _action;
+        private IntranetActivityTypeEnum? activityType;
+        private readonly IntranetActivityActionEnum action;
+
+        public RestrictedActionAttribute(IntranetActivityActionEnum action)
+        {
+            this.action = action;
+        }
 
         public RestrictedActionAttribute(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
         {
-            _activityType = activityType;
-            _action = action;
+            this.activityType = activityType;
+            this.action = action;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(_activityType, _action);
+            CheckActivityType(filterContext);
 
-            if (!isUserHasAccess)
+            var context = filterContext.Controller.ControllerContext.HttpContext;
+            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
+            var userService = HttpContext.Current.GetService<IIntranetUserService<IIntranetUser>>();
+
+            var currentUser = userService.GetCurrentUser();
+
+            if (currentUser != null)
             {
-                var context = filterContext.Controller.ControllerContext.HttpContext;
-                Deny(context);
+                var permission = $"{activityType}{action}";
+                var userHasPermissions = permissionsService.IsRoleHasPermissions(currentUser.Role, permission);
+                if (userHasPermissions)
+                {
+                    return;
+                }
             }
+            Deny(context);
         }
 
         private void Deny(HttpContextBase context)
@@ -34,7 +51,23 @@ namespace uIntra.Core.User.Permissions.Web
             var urlToRedirect = context.Request.UrlReferrer?.AbsolutePath ?? "/";
 
             context.Response.StatusCode = HttpStatusCode.Unauthorized.GetHashCode();
-            context.Response.Redirect(urlToRedirect, endResponse: true);
+            context.Response.Redirect(urlToRedirect, true);
+        }
+
+        private void CheckActivityType(ActionExecutingContext filterContext)
+        {
+            if (!activityType.HasValue)
+            {
+                var activityControllerAttribute = filterContext.Controller.GetType().GetCustomAttribute<ActivityControllerAttribute>(true);
+                if (activityControllerAttribute != null)
+                {
+                    activityType = activityControllerAttribute.ActivityType;
+                }
+                else
+                {
+                    throw new ArgumentNullException($"ActivityType not defined in controller \"{filterContext.ActionDescriptor.ControllerDescriptor.ControllerName}\"");
+                }
+            }
         }
     }
 }

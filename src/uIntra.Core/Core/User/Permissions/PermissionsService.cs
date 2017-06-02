@@ -10,32 +10,14 @@ namespace uIntra.Core.User.Permissions
     {
         private readonly IPermissionsConfiguration _configuration;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public PermissionsService(
-            IPermissionsConfiguration configuration, 
-            IExceptionLogger exceptionLogger,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+        public PermissionsService(IPermissionsConfiguration configuration, 
+            IExceptionLogger exceptionLogger)
         {
             _configuration = configuration;
             _exceptionLogger = exceptionLogger;
-            _intranetUserService = intranetUserService;
         }
-
-        public virtual bool IsCurrentUserHasAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (currentUser == null)
-            {
-                return false;
-            }
-
-            var permission = $"{activityType}{action}";
-            var userHasPermissions = IsRoleHasPermissions(currentUser.Role, permission);
-
-            return userHasPermissions;
-        }
-
+        
         public virtual bool IsRoleHasPermissions(IRole role, params string[] permissions)
         {
             if (permissions.Any())

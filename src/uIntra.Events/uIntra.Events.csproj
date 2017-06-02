@@ -319,7 +319,6 @@
     <Compile Include="Core\Models\EventEditModel.cs" />
     <Compile Include="Core\Models\EventItemViewModel.cs" />
     <Compile Include="Core\Enums\EventType.cs" />
-    <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

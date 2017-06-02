@@ -8,21 +8,22 @@
     <label class="check__label">
         @Html.CheckBox("IsPinned", new { @id = "pin-control", @class = "check__box" })
         <span class="check__fake-input icon-check"></span>
-        <span class="check__fake-label">@Html.Localize("NewsCreate.SetPinned.lbl")</span>
+        <span class="check__fake-label">@Html.Localize("Pin.SetPinned.lbl")</span>
     </label>
     <div id="pin-info">
-        @Html.Localize("NewsCreate.PinActivityMessage.lbl")
-        @{
-            var daysRange = Enumerable.Range(@Model.RangeStart, @Model.RangeEnd);
-            var listOfDays = new List<SelectListItem>() { new SelectListItem() { Value = 0.ToString(), Text = "None"} };
-            listOfDays.AddRange(daysRange.Select(d => new SelectListItem() { Text = d.ToString() }));
-            @Html.DropDownList("PinDays", listOfDays)
-        }
+        <div class="col-md-6">
+            <label class="form__label" for="js-endpin-date">@Html.Localize("Pin.EndPinDate.lbl")</label>
+            <input class="form__input" id="js-endpin-date" data-default-date="@(Model.EndPinDate?.ToDateTimeValuePickerFormat())" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input type="hidden" id="js-endpin-date-value" name="endPinDate" data-val="true" />
+            <span class="js-clear-endpin-date form__clear icon-close"></span>
+        </div>
+
         <label class="check__label">
+            <span class="check__fake-label">@Html.Localize("Pin.AcceptPinText.lbl")</span>
             <label class="check__label">
                 <input type="checkbox" class="check__box" id="pin-accept" />
                 <span class="check__fake-input icon-check"></span>
-                <span class="check__fake-label">@Html.Localize("NewsCreate.AcceptPin.lbl")</span>
+                <span class="check__fake-label">@Html.Localize("Pin.AcceptPin.lbl")</span>
             </label>
         </label>
     </div>

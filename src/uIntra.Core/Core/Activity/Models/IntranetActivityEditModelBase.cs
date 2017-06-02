@@ -11,9 +11,7 @@ namespace uIntra.Core.Activity
         public virtual string Title { get; set; }
 
         public bool IsPinned { get; set; }
-
-        public int PinDays { get; set; }
-
-        public DateTime? EndPinDate { get; set; }
+        
+        public virtual DateTime? EndPinDate { get; set; }
     }
 }
