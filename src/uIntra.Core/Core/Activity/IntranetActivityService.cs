@@ -55,7 +55,6 @@ namespace uIntra.Core.Activity
 
         public Guid Create(IIntranetActivity activity)
         {
-            SetEndPinDate(activity);
             var newActivity = new IntranetActivityEntity { Type = ActivityType, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
 
@@ -66,22 +65,12 @@ namespace uIntra.Core.Activity
 
         public void Save(IIntranetActivity activity)
         {
-            var oldActivity = GetFromSql(activity.Id);
-            SetEndPinDate(oldActivity, activity);
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
             _activityRepository.Update(entity);
             UpdateCachedEntity(activity.Id);
         }
-
-        private void SetEndPinDate(IIntranetActivity newActivity, IIntranetActivity oldActivity = null)
-        {
-            if (newActivity.IsPinned && newActivity.PinDays > 0 && oldActivity?.PinDays != newActivity.PinDays)
-            {
-                newActivity.EndPinDate = DateTime.Now.AddDays(newActivity.PinDays).ToUniversalTime();
-            }
-        }
-
+        
         public void Delete(Guid id)
         {
             _activityRepository.Delete(id);

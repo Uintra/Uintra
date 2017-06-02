@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace uIntra.Core.Activity
 {
@@ -9,6 +10,6 @@ namespace uIntra.Core.Activity
 
         public bool IsPinned { get; set; }
 
-        public int PinDays { get; set; }        
+        public virtual DateTime? EndPinDate { get; set; }
     }
 }

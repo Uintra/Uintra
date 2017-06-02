@@ -14,7 +14,6 @@ namespace uIntra.Core.Activity
         bool IsHidden { get; set; }
         bool IsPinned { get; set; }
         DateTime? EndPinDate { get; set; }
-        int PinDays { get; set; }
     }
 
     public abstract class IntranetActivity : IIntranetActivity
@@ -39,8 +38,6 @@ namespace uIntra.Core.Activity
 
         public bool IsPinned { get; set; }
 
-        public DateTime? EndPinDate { get; set; }        
-
-        public int PinDays { get; set; }
+        public DateTime? EndPinDate { get; set; }
     }
 }
