@@ -417,7 +417,7 @@ body{
 
     &__clear{
         position:absolute;
-        top:20px;
+        top:15px;
         right:30px;
         cursor:pointer;
     }
@@ -1579,3 +1579,27 @@ body{
 		}
 	}
 }
+
+/*pin-info*/
+.pin-info {
+
+	&__box {
+		margin: 10px 0;
+		padding: 20px;
+		border: 1px solid #ccc;
+	}
+
+	&__text {
+		display: block;
+		margin: 0 0 10px;
+	}
+
+	&__holder {
+		position: relative;
+	}
+
+	.icon-close {
+		right: 15px;
+	}
+}
+/*end pin-info*/
