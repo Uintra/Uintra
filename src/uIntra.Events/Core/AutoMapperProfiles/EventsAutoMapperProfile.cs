@@ -45,8 +45,8 @@ namespace uIntra.Events
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>
                  {
-                     dst.StartDate = dst.StartDate.ToUniversalTime();
-                     dst.EndDate = dst.EndDate.ToUniversalTime();
+                     dst.StartDate = src.StartDate.ToUniversalTime();
+                     dst.EndDate = src.EndDate.ToUniversalTime();
                  });
 
             Mapper.CreateMap<EventEditModel, EventBase>()
@@ -62,8 +62,9 @@ namespace uIntra.Events
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
-                    dst.StartDate = dst.StartDate.ToUniversalTime();
-                    dst.EndDate = dst.EndDate.ToUniversalTime();
+                    dst.StartDate = src.StartDate.ToUniversalTime();
+                    dst.EndDate = src.EndDate.ToUniversalTime();
+                    dst.UmbracoCreatorId = null;
                 });
 
             Mapper.CreateMap<EventBase, EventViewModel>()
@@ -89,7 +90,6 @@ namespace uIntra.Events
                .ForMember(d => d.CreatedDate, o => o.Ignore())
                .ForMember(d => d.ModifyDate, o => o.Ignore())
                .ForMember(d => d.Creator, o => o.Ignore())
-               .ForMember(d => d.UmbracoCreatorId, o => o.Ignore())
                .ForMember(d => d.CanSubscribe, o => o.Ignore())
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
                .ForMember(dst => dst.PinDays, o => o.Ignore())
@@ -97,11 +97,6 @@ namespace uIntra.Events
                .AfterMap((src, dst) =>
                {
                    dst.MediaIds = src.Media.ToIntCollection();
-
-                   if (!src.CreatorId.HasValue)
-                   {
-                       dst.UmbracoCreatorId = src.UmbracoCreatorId;
-                   }
                });
 
             Mapper.CreateMap<EventBackofficeSaveModel, EventBase>()
@@ -110,7 +105,6 @@ namespace uIntra.Events
                 .ForMember(d => d.CreatedDate, o => o.Ignore())
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
-                .ForMember(d => d.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(d => d.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.PinDays, o => o.Ignore())

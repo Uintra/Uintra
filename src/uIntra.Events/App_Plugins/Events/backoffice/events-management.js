@@ -64,11 +64,17 @@
         }
 
         self.selectEventsToEdit = function (events, index) {
+            if (events == null) {
+                var currentCreator = self.users.filter(function (user) { return user.umbracoId === self.currentUser.id })[0];
+                events = { creator: currentCreator };
+            } else {
+                events.creator = self.users.filter(function (user) { return user.id === events.creatorId })[0];
+            }
+
             self.selectedIndex = index;
             self.selected = angular.copy(events);
             self.selected.startDate = self.selected.startDate || new Date().toISOString();
             self.selected.endDate = self.selected.endDate || new Date().toISOString();
-            self.selected.umbracoCreatorId = self.selected.umbracoCreatorId || self.currentUser.id;
         }
 
         self.save = function () {
@@ -76,6 +82,8 @@
                 $scope.editForm.$setDirty();
                 return;
             }
+
+            self.selected.creatorId = self.selected.creator.id;
 
             if (self.selected.id == null) {
                 create(self.selected);
