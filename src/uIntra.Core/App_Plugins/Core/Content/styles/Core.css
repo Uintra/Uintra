@@ -1157,8 +1157,26 @@ body{
         }
     }
 
+    &__ui {
+        .pswp__top-bar {
+            opacity: 0 !important;
+        }
+
+        &--hidden {
+            .pswp__top-bar {
+                opacity: 1 !important;
+            }
+        }
+    }
+
     &__top-bar{
-        opacity:1;
+        opacity:1 !important;
+
+        @media (--for-tablet-portrait-down) {
+            & {
+                opacity: 0 !important;
+            }
+        }
     }
 }
 
