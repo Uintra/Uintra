@@ -34,8 +34,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.PublishDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Title, o => o.Ignore())
-                .ForMember(dst => dst.PinDays, o => o.Ignore());
+                .ForMember(dst => dst.Title, o => o.Ignore());
 
             Mapper.CreateMap<BulletinEditModel, BulletinBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
@@ -76,7 +75,6 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.CreatedDate, o => o.Ignore())
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
-                .ForMember(d => d.PinDays, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
@@ -91,7 +89,6 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.CreatedDate, o => o.Ignore())
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
-                .ForMember(d => d.PinDays, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
