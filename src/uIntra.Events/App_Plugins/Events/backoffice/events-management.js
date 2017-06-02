@@ -11,6 +11,7 @@
         self.selected = null;
         self.selectedIndex = null;
         self.filterModel = {};
+        self.users = [];
 
         self.filter = function (item) {
             var checkList = [];
@@ -143,8 +144,17 @@
             promise.then(success, onError);
         }
 
+        var loadUsers = function () {
+            var promise = $http.get('/Umbraco/backoffice/Api/IntranetUser/GetAll');
+            var success = function (response) {
+                self.users = response.data || [];
+            }
+            promise.then(success, onError);
+        }
+
         var activate = function () {
             loadAll();
+            loadUsers();
             authResource.getCurrentUser().then(function (data) {
                 self.currentUser = data;
             });

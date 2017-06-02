@@ -50,11 +50,11 @@ namespace uIntra.News
             Mapper.CreateMap<NewsEditModel, NewsBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -86,7 +86,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.PinDays, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
@@ -100,7 +99,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.PinDays, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {

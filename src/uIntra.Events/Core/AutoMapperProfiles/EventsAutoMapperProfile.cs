@@ -64,7 +64,6 @@ namespace uIntra.Events
                     dst.MediaIds = src.Media.ToIntCollection();
                     dst.StartDate = src.StartDate.ToUniversalTime();
                     dst.EndDate = src.EndDate.ToUniversalTime();
-                    dst.UmbracoCreatorId = null;
                 });
 
             Mapper.CreateMap<EventBase, EventViewModel>()
@@ -74,7 +73,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
-                .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
@@ -84,15 +83,14 @@ namespace uIntra.Events
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
-               .ForMember(d => d.MediaIds, o => o.Ignore())
-               .ForMember(d => d.Type, o => o.Ignore())
-               .ForMember(d => d.Id, o => o.Ignore())
-               .ForMember(d => d.CreatedDate, o => o.Ignore())
-               .ForMember(d => d.ModifyDate, o => o.Ignore())
-               .ForMember(d => d.Creator, o => o.Ignore())
-               .ForMember(d => d.CanSubscribe, o => o.Ignore())
+               .ForMember(dst => dst.MediaIds, o => o.Ignore())
+               .ForMember(dst => dst.Type, o => o.Ignore())
+               .ForMember(dst => dst.Id, o => o.Ignore())
+               .ForMember(dst => dst.CreatedDate, o => o.Ignore())
+               .ForMember(dst => dst.ModifyDate, o => o.Ignore())
+               .ForMember(dst => dst.Creator, o => o.Ignore())
+               .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
-               .ForMember(dst => dst.PinDays, o => o.Ignore())
                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                .AfterMap((src, dst) =>
                {
@@ -100,19 +98,19 @@ namespace uIntra.Events
                });
 
             Mapper.CreateMap<EventBackofficeSaveModel, EventBase>()
-                .ForMember(d => d.MediaIds, o => o.Ignore())
-                .ForMember(d => d.Type, o => o.Ignore())
-                .ForMember(d => d.CreatedDate, o => o.Ignore())
-                .ForMember(d => d.ModifyDate, o => o.Ignore())
-                .ForMember(d => d.Creator, o => o.Ignore())
-                .ForMember(d => d.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.MediaIds, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.CreatedDate, o => o.Ignore())
+                .ForMember(dst => dst.ModifyDate, o => o.Ignore())
+                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.PinDays, o => o.Ignore())
+
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
-        }
+        } 
     }
 }
