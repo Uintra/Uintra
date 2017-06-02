@@ -573,7 +573,6 @@
     <None Include="uIntra.News.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\News\select2.min.css" />
     <Content Include="App_Plugins\News\style.css" />
     <None Include="app.config" />
     <None Include="Content\Config\applications.config.install.xdt" />
