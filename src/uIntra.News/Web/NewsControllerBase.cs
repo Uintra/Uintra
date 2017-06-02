@@ -74,6 +74,7 @@ namespace uIntra.News.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
+                FillCanEditCreatorData(createModel);
                 return PartialView(CreateViewPath, createModel);
             }
 
@@ -111,6 +112,7 @@ namespace uIntra.News.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(editModel);
+                FillCanEditCreatorData(editModel);
                 return PartialView(EditViewPath, editModel);
             }
 
@@ -199,6 +201,7 @@ namespace uIntra.News.Web
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            activity.UmbracoCreatorId =  _intranetUserService.Get(editModel.CreatorId).UmbracoId;
 
             _newsService.Save(activity);
             return activity;

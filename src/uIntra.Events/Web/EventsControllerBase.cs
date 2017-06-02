@@ -74,6 +74,7 @@ namespace uIntra.Events.Web
             if (!ModelState.IsValid)
             {
                 FillCreateEditData(createModel);
+                FillCanEditCreatorData(createModel);
                 return PartialView(CreateViewPath, createModel);
             }
 
@@ -108,26 +109,28 @@ namespace uIntra.Events.Web
 
         [HttpPost]
         [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit)]
-        public virtual ActionResult Edit(EventEditModel saveModel)
+        public virtual ActionResult Edit(EventEditModel editModel)
         {
             FillLinks();
 
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(saveModel);
-                return PartialView(EditViewPath, saveModel);
+                FillCreateEditData(editModel);
+                FillCanEditCreatorData(editModel);
+                return PartialView(EditViewPath, editModel);
             }
 
-            var @event = MapEditModel(saveModel);
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(saveModel));
+            var @event = MapEditModel(editModel);
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
-                @event.CanSubscribe = saveModel.CanSubscribe;
+                @event.CanSubscribe = editModel.CanSubscribe;
             }
             _eventsService.Save(@event);
 
-            OnEventEdited(@event, saveModel);
+            OnEventEdited(@event, editModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id));
         }

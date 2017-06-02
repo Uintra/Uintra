@@ -60,7 +60,6 @@ namespace uIntra.News
                     dst.MediaIds = src.Media.ToIntCollection();
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
                     dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
-                    dst.UmbracoCreatorId = null;
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()

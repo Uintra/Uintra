@@ -36,7 +36,7 @@ namespace uIntra.Events
             Mapper.CreateMap<EventCreateModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
-                .ForMember(dst => dst.IsHidden, o => o.Ignore())                
+                .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
