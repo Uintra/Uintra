@@ -84,6 +84,7 @@
             }
 
             self.selected.creatorId = self.selected.creator.id;
+            self.selected.umbracoCreatorId = self.selected.creator.umbracoId;
 
             if (self.selected.id == null) {
                 create(self.selected);
