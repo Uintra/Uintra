@@ -90,7 +90,6 @@ namespace uIntra.Events
                .ForMember(d => d.Creator, o => o.Ignore())
                .ForMember(d => d.CanSubscribe, o => o.Ignore())
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
-               .ForMember(dst => dst.PinDays, o => o.Ignore())
                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                .AfterMap((dst, src) =>
                {
@@ -106,7 +105,6 @@ namespace uIntra.Events
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.PinDays, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {

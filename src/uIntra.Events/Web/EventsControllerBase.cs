@@ -67,8 +67,7 @@ namespace uIntra.Events.Web
             FillLinks();
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
             var @event = createModel.Map<EventBase>();
@@ -109,8 +108,7 @@ namespace uIntra.Events.Web
 
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(saveModel);
-                return PartialView(EditViewPath, saveModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
             var @event = MapEditModel(saveModel);
