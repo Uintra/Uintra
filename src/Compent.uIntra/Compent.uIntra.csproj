@@ -340,8 +340,9 @@
       <HintPath>..\..\packages\uIntra.Navigation.1.1.2\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.1.0.17, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.1.0.17\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.1.0.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.News.1.1.0.19\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
