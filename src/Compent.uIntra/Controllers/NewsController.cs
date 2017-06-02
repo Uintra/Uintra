@@ -27,7 +27,7 @@ namespace Compent.uIntra.Controllers
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
             IPermissionsService permissionsService)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper)
+            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, permissionsService)
         {
         }
 

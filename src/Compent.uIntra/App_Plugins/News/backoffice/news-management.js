@@ -76,6 +76,13 @@
                 self.clearSelected();
             }
 
+            if (news == null) {
+                var currentCreator = self.users.filter(function(user) { return user.umbracoId === self.currentUser.id })[0];
+                news = { creator: currentCreator };
+            } else {
+                news.creator = self.users.filter(function (user) { return user.id === news.creatorId })[0];
+            }
+
             self.selectedIndex = index;
             self.selected = angular.copy(news);
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
@@ -85,7 +92,10 @@
             if ($scope.editForm.$invalid) {
                 $scope.editForm.$setDirty();
                 return;
-            }
+            } 
+
+            self.selected.creatorId = self.selected.creator.id;
+            self.selected.umbracoCreatorId = self.selected.creator.umbracoId;
 
             if (self.selected.id == null) {
                 create(self.selected);
