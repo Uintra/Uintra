@@ -1183,6 +1183,41 @@ body{
     }
 }
 
+.top{
+    position: fixed;
+    bottom: 0;
+    left: 19px;
+    background: var(--color-red);
+    border-radius: 5px 5px 0 0;
+    text-indent: -9999px;
+    overflow: hidden;
+    width: 41px;
+    height: 41px;
+    opacity: 0;
+    
+    cursor: pointer;
+    z-index:-1;
+    transition: opacity 0.3s ease;
+
+    &._visible{
+        z-index: 200;
+        opacity:1;
+    }
+
+    &:after{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        border: solid var(--color-white);
+        border-width: 0 2px 2px 0;
+        transform: rotate(-135deg);
+        margin: -2px 0 0 -7px;
+        content: '';
+    }
+}
+
 .content{
     padding:0;
 
