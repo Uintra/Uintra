@@ -78,6 +78,13 @@
                 left:50%;
                 height:auto !important;
                 transform: translate(-50%, -50%);
+
+                @media (--for-tablet-portrait-down){
+                    &{
+                        position:static;
+                        transform:none;
+                    }
+                }
             }
         }
 
