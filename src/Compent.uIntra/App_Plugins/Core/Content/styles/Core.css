@@ -329,6 +329,10 @@ body{
         font:bold 16px/20px var(--font-custom);
         text-transform:uppercase;
         cursor:pointer;
+        max-width:100%;
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
 
         &._default{
             border-color:var(--text-color-dark);
@@ -471,7 +475,7 @@ body{
 }
 
 .check{
-    margin:-13px 0 35px -20px;
+    margin:0;
 
     .form & {
         margin: 0;
@@ -495,13 +499,12 @@ body{
     }
 
     &__fake-input{
-        display:inline-block;
+        float:left;
         width:21px;
         height:21px;
         border:1px solid #ccc;
         border-radius:4px;
         margin:0 6px 0 0;
-        vertical-align:top;
 
         &:before{
             display:none;
@@ -531,8 +534,8 @@ body{
     &__fake-label{
         font-size:11px;
         line-height:22px;
-        display:inline-block;
-        vertical-align:top;
+        display:block;
+        overflow:hidden;
         font-weight:normal;
     }
 
