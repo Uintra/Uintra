@@ -94,6 +94,16 @@ body{
     }
 }
 
+a{
+    color:var(--color-red);
+
+    &:hover,
+    &:active,
+    &:focus{
+        color:var(--color-red);
+    }
+}
+
 #wrapper {
     overflow:hidden;
     padding:143px 0 0 251px;
@@ -471,6 +481,34 @@ body{
         opacity:0.5;
         cursor:default;
         pointer-events:none;
+    }
+}
+
+.link{
+    &__back{
+        display:inline-block;
+        color:var(--text-color-dark);
+        position:relative;
+        padding:0 0 0 15px;
+        margin:0;
+        font:13px/20px var(--font-custom);
+
+        &:before{
+            position:absolute;
+            top:7px;
+            left:0;
+            width:7px;
+            height:7px;
+            border:solid #333;
+            border-width:0 1px 1px 0;
+            transform:rotate(135deg);
+            content:'';
+        }
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--text-color-dark);
+        }
     }
 }
 

@@ -126,6 +126,10 @@
                 float:right;
                 margin:0 -120px 0 0;
             }
+
+            &._item-add{
+                position:relative;
+            }
         }
 
         &-link{
