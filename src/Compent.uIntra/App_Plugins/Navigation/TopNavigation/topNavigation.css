@@ -462,7 +462,7 @@
         &:focus{
             color:var(--color-white);
 
-             @media (--for-tablet-portrait-down){
+            @media (--for-tablet-portrait-down){
                 &{
                     color:var(--text-color-dark);
                 }
