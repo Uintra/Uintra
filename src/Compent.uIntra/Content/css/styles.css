@@ -25,7 +25,7 @@ body {
 #wrapper{
     width:100%;
     overflow:hidden;
-    padding: 137px 0 0 251px;
+    padding: 143px 0 0 251px;
 
     ._with-sub-nav._with-subtitle &{
         padding-top:172px;
