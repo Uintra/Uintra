@@ -20,7 +20,7 @@
 
             @if (Model.Items.Count > 0)
             {
-                <ul class="tabset__navigation">
+                <ul class="tabset__navigation clearfix">
                     @if (Model.Parent == null)
                     {
                         <li class="tabset__navigation-item _for-mobile">
@@ -31,6 +31,22 @@
                     {
                         <li class="tabset__navigation-item @(item.IsActive ? "_active" : "")">
                             <a class="tabset__navigation-link" href="@item.Url">@item.Name</a>
+
+                            <!--
+                                **********  FOR SECOND LEVEL NAVIGATION USE THIS TEMPLATE ************
+
+                              <ul class="tabset__navigation clearfix">
+                                <li class="tabset__navigation-item">
+                                    <a class="tabset__navigation-link" href="#">Test</a>
+                                </li>
+                                <li class="tabset__navigation-item">
+                                    <a class="tabset__navigation-link" href="#">Test 2</a>
+                                </li>
+                                <li class="tabset__navigation-item">
+                                    <a class="tabset__navigation-link" href="#">Test 3</a>
+                                </li>
+                            </ul>  
+                            -->
                         </li>
                     }
                 </ul>

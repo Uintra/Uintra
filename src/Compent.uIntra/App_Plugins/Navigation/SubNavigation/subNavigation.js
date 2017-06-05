@@ -25,9 +25,18 @@ var initSubMenuPosition = function () {
     }
 
     var height = header.height() + tabset.height();
-    wrapper.css({
-        'padding-top': height + 'px'
-    });
+
+    if(menu.length > 1){
+        wrapper.css({
+            'padding-top': height + 46 + 'px'
+        });
+    }
+
+    else{
+        wrapper.css({
+            'padding-top': height + 'px'
+        });
+    }
 }
     
 var initMobileMenu = function() {

@@ -93,6 +93,7 @@
         margin:0 -52px 0 0;
         padding:29px 52px 0 49px;
         list-style:none;
+        position:relative;
 
         div.tabset &{
             padding-top:50px;
@@ -116,7 +117,6 @@
 
         &-item{
             float:left;
-            position: relative;
 
             &._active{
                 margin:0 -1px 0 0;
@@ -254,6 +254,37 @@
 
             :hover > & {
                 display: block;
+            }
+        }
+
+        & &{
+            position:absolute;
+            top:100%;
+            left:0;
+            right:0;
+            padding-top:0;
+            margin:0;
+            z-index:1000;
+            border-bottom:1px solid var(--color-light-gray);
+        }
+
+        & & &-item{
+            padding:0;
+        }
+
+        & & &-link{
+            background:none;
+            border:none;
+            padding:12px 19px;
+
+            ._active > &{
+                font-weight:bold;
+                color:var(--text-color-dark);
+            }
+
+            &:hover{
+                cursor:pointer;
+                text-decoration:underline;
             }
         }
     }
