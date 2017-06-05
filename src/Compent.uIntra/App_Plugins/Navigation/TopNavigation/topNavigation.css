@@ -117,7 +117,7 @@
 }
 
 .notification {
-    position:relative;    
+    position:relative;
 
     &__icon{
         font-size:16px;
@@ -184,19 +184,29 @@
             float: right;
             width: 57px;
             margin:0 0 0 10px;
-            position: relative;
-            z-index: 3;
+            position:static;
 
             &__icon {
                 display: block;
                 text-align: center;
                 padding: 34px 0 29px;
+                position:relative;
+                z-index:3;
             }
 
             &__number {
                 top: 50%;
                 margin: -15px 0 0 5px;
                 left: 50%;
+            }
+
+            &__list{
+                width:auto;
+                right:0;
+            }
+
+            &__all{
+                border-width:1px 0;
             }
         }
     }
@@ -399,12 +409,36 @@
     padding:10px 10px 10px 37px;
     margin:0 -10px 0 0;
 
+    @media (--for-tablet-portrait-down){
+        &{
+            padding:0;
+            position:static;
+        }
+    }
+
     &__opener{
         color:var(--color-white);
         display:block;
         position:relative;
         padding:6px 2px 6px 17px;
         cursor:pointer;
+
+        &:hover{
+            text-decoration:none;
+        }
+
+        @media (--for-tablet-portrait-down){
+            &{
+                padding:31px 20px 30px 20px;
+                position:relative;
+                z-index:3;
+
+                &:hover{
+                    background-color:var(--color-light-gray-2);
+                    color:var(--text-color-dark);
+                }
+            }
+        }
 
         &-arrow{
             position:absolute;
@@ -415,12 +449,24 @@
             border:solid var(--color-white);
             border-width:0 1px 1px 0;
             transform:rotate(45deg);
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    display:none;
+                }
+            }
         }
 
         &:hover,
         &:active,
         &:focus{
             color:var(--color-white);
+
+             @media (--for-tablet-portrait-down){
+                &{
+                    color:var(--text-color-dark);
+                }
+            }
         }
     }
     
@@ -438,6 +484,16 @@
         width:286px;
         font-size:14px;
 
+        @media (--for-tablet-portrait-down){
+            &{
+                right:0;
+                left:0;
+                width:auto;
+                border:none;
+                background:var(--color-light-gray-2);
+            }
+        }
+
         &:before{
             display:block;
             content:'';
@@ -450,6 +506,12 @@
             position:absolute;
             top:-6px;
             right:14px;
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    display:none;
+                }
+            }
         }
 
         :hover > &{

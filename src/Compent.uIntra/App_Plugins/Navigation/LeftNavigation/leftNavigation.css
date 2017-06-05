@@ -156,6 +156,12 @@
         left: -10px;
         position: absolute;
         top: 7px;
+
+        @media(--for-tablet-portrait-down){
+            &{
+                display:none;
+            }
+        }
     }
 
     .icon-close{
@@ -163,6 +169,12 @@
         right: 20px;
         top: 7px;
         display:none;
+
+        @media(--for-tablet-portrait-down){
+            &{
+                display:block;
+            }
+        }
     }
 
     &._links{
