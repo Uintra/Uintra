@@ -84,7 +84,7 @@ namespace Compent.uIntra.Core.CentralFeed
             _cookieProvider.Save(cookie);
         }
 
-        public CentralFeedFiltersStateModel GetFiltersState()
+        public TStateServer GetFiltersState<TStateServer>()
         {
             var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
             if (string.IsNullOrEmpty(cookie?.Value))
@@ -96,7 +96,7 @@ namespace Compent.uIntra.Core.CentralFeed
                 };
                 _cookieProvider.Save(cookie);
             }
-            return cookie.Value.Deserialize<CentralFeedFiltersStateModel>();
+            return cookie.Value.Deserialize<TStateServer>();
         }
 
         public bool CentralFeedCookieExists()
