@@ -175,13 +175,13 @@ function emitTabReloadedEvent(isReinit) {
     document.body.dispatchEvent(centralFeedTabReloadedEvent);
 }
 
-appInitializer.add(function () {
+function init() {
     holder = document.querySelector('.js-feed-overview');
     var navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
     formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
     var tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
-    
+
     state = {
         get tab() {
             return navigationHolder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
@@ -199,8 +199,8 @@ appInitializer.add(function () {
             }
 
             var element = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement : document.body;
-            scrollTo(element, 0, 200); 
-            
+            scrollTo(element, 0, 200);
+
             reload(false, false, true);
 
             document.body.dispatchEvent(centralFeedTabEvent);
@@ -223,8 +223,15 @@ appInitializer.add(function () {
 
     restoreState();
     infinityScroll(onScroll)();
-    attachEventFilter(); 
+    attachEventFilter();
     runReloadInverval();
 
     document.body.addEventListener('cfReloadTab', reloadTabEventHandler);
-});
+}
+
+appInitializer.add(init);
+
+export default {
+    init: init,
+    reload: reload
+}
