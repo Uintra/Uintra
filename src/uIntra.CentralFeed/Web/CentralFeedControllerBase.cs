@@ -58,7 +58,7 @@ namespace uIntra.CentralFeed.Web
 
             if (!_centralFeedContentHelper.CentralFeedCookieExists() || IsEmptyFilters(model))
             {
-                RestoreFiltersState(model, _centralFeedContentHelper.GetFiltersState());
+                RestoreFiltersState(model, _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>());
             }
 
             var tabSettings = _centralFeedService.GetSettings(model.Type);
