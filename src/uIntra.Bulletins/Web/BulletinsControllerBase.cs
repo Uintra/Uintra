@@ -85,11 +85,6 @@ namespace uIntra.Bulletins.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins));
             }
 
-            if (!_bulletinsService.CanEdit(bulletin))
-            {
-                HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, id));
-            }
-
             var model = GetEditViewModel(bulletin);
             return PartialView(EditViewPath, model);
         }

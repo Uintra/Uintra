@@ -290,10 +290,6 @@ namespace Compent.uIntra.Core.Bulletins
         private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            if (currentUser.Role.Name == IntranetRolesEnum.WebMaster.ToString())
-            {
-                return true;
-            }
 
             var creatorId = Get(cached.Id).CreatorId;
             var isCreator = creatorId == currentUser.Id;

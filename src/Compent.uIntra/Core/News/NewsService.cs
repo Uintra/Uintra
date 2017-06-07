@@ -95,13 +95,8 @@ namespace Compent.uIntra.Core.News
             {
                 return true;
             }
-            if (currentUser.Role.Name != IntranetRolesEnum.WebMaster.ToString())
-            {
-                return false;
-            }
 
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
-
             return isAllowed;
         }
 

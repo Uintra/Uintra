@@ -138,13 +138,8 @@ namespace Compent.uIntra.Core.Events
             {
                 return true;
             }
-            if (currentUser.Role.Name != IntranetRolesEnum.WebMaster.ToString())
-            {
-                return false;
-            }
 
             var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
-
             return isAllowed;
         }
 

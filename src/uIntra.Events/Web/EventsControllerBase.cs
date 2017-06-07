@@ -97,11 +97,6 @@ namespace uIntra.Events.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events));
             }
 
-            if (!_eventsService.CanEdit(@event))
-            {
-                HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, id));
-            }
-
             var model = GetEditViewModel(@event);
             return PartialView(EditViewPath, model);
         }
