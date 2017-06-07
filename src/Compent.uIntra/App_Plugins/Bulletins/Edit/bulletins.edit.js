@@ -14,7 +14,7 @@ function initEditor() {
         theme: 'snow',
         modules: {
             toolbar: [
-                ['bold', 'italic', 'underline', 'link']
+                ['bold', 'italic', 'link']
             ]
         }
     });
