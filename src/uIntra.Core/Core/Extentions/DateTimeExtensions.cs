@@ -5,6 +5,11 @@ namespace uIntra.Core.Extentions
 {
     public static class DateTimeExtensions
     {
+        public static string ToIsoUtcString(this DateTime date)
+        {
+            return date.ToUniversalTime().ToString("o");
+        }
+
         public static string ToDateFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();

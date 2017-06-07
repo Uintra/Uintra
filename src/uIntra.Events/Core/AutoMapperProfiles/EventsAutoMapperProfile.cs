@@ -73,6 +73,10 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
+                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
+                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate.ToIsoUtcString()))
+                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
