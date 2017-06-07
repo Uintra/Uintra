@@ -30,7 +30,7 @@ var Confirm = {
         resizable: false,
         closable: true,
         modal: true,
-        title: "<h2 class='ajs-title'>Confirm</h1>"
+        title: "<h2 class='ajs-title'>hardcode Confirm</h1>"
     },
 
     showConfirm: function (text, firstCallback, secondCallback,settings) {

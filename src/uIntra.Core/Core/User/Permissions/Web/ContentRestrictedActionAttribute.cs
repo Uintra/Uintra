@@ -1,17 +1,16 @@
-﻿using System.Net;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 
 namespace uIntra.Core.User.Permissions.Web
 {
-    public class RestrictedActionAttribute : ActionFilterAttribute
+    public class ContentRestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly IntranetActivityTypeEnum _activityType;
         private readonly IntranetActivityActionEnum _action;
 
-        public RestrictedActionAttribute(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public ContentRestrictedActionAttribute(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
         {
             _activityType = activityType;
             _action = action;
@@ -24,17 +23,13 @@ namespace uIntra.Core.User.Permissions.Web
 
             if (!isUserHasAccess)
             {
-                var context = filterContext.Controller.ControllerContext.HttpContext;
-                Deny(context);
+                Deny(filterContext);
             }
         }
 
-        private void Deny(HttpContextBase context)
+        private void Deny(ActionExecutingContext filterContext)
         {
-            var urlToRedirect = context.Request.UrlReferrer?.AbsolutePath ?? "/";
-
-            context.Response.StatusCode = HttpStatusCode.Unauthorized.GetHashCode();
-            context.Response.Redirect(urlToRedirect, endResponse: true);
+            filterContext.Result = new EmptyResult();
         }
     }
 }
