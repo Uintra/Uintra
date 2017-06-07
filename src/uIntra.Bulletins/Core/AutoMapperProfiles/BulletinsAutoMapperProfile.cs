@@ -60,6 +60,9 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, BulletinsBackofficeViewModel>()
+                .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
+                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, IntranetActivityDetailsHeaderViewModel>()

@@ -68,6 +68,10 @@ namespace uIntra.News
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsBackofficeViewModel>()
+                .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
+                .ForMember(d => d.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate.HasValue ? s.UnpublishDate.Value.ToIsoUtcString() : string.Empty))
+                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(dst => dst.CreatorId, o => o.MapFrom(el => el.Creator.Id))
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 

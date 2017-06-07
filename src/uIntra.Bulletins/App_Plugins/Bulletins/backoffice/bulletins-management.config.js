@@ -7,12 +7,11 @@
                 toolbar: "bold | italic | alignleft | aligncenter | alignright | bullist"
             },
             publishDate: {
-                useTime: false,
-                useDate: true,
-                useSeconds: false,
-                offsetTime: "1",
-                format: "DD.MM.YYYY"
+                enableTime: true,
+                time_24hr: true,
+                dateFormat: "d/m/Y H:i"
             },
+
             media: {
                 disableFolderSelect: "1",
                 multiPicker: "1",
