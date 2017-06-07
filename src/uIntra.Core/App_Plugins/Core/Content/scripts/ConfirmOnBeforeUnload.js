@@ -6,14 +6,17 @@ var checkingTypes = "input, select";
 
 function initConfirmOnBeforeUnload() {
     var holders = $(holderSelect);
+    if (holders.length === 0) {
+        return;
+    }
+
     for (var i = 0; i < holders.length; i++) {
         saveCurrentValues(holders[i]);
     }
-
     attachOnBeforeUnloadEvent();
 
     $(document).on("submit", "form", function() {
-        window.onbeforeunload = null;
+        $(window).off('beforeunload');
     });
 }
 
@@ -55,7 +58,7 @@ function attachOnBeforeUnloadEvent() {
             result = isHolderValuesChanged(holders[i]);
         }
         if (result) {
-            return "Are you sure you want leave?";
+            return true;
         }
     });
 }
