@@ -74,7 +74,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -95,15 +95,14 @@ namespace uIntra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             FillLinks();
 
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(editModel);
-                return PartialView(EditViewPath, editModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
             var activity = UpdateBulletin(editModel);
@@ -111,7 +110,18 @@ namespace uIntra.Bulletins.Web
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, editModel.Id));
         }
 
-        protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
+        [HttpPost]
+        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Delete)]
+        public virtual JsonResult Delete(Guid id)
+        {
+            _bulletinsService.Delete(id);
+            OnBulletinDeleted(id);
+
+            FillLinks();
+            return Json(new { Url = ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins) });
+        }
+
+        protected virtual void FillMediaEditData(IContentWithMediaCreateEditModel model)
         {
             var mediaSettings = _bulletinsService.GetMediaSettings();
 
@@ -123,7 +133,7 @@ namespace uIntra.Bulletins.Web
         protected virtual BulletinEditModel GetEditViewModel(BulletinBase bulletin)
         {
             var model = bulletin.Map<BulletinEditModel>();
-            FillCreateEditData(model);
+            FillMediaEditData(model);
             return model;
         }
 
@@ -166,9 +176,9 @@ namespace uIntra.Bulletins.Web
 
         protected virtual void FillLinks()
         {
-            var overviewPageUrl = _bulletinsService.GetOverviewPage(CurrentPage).Url;
-            var detailsPageUrl = _bulletinsService.GetDetailsPage(CurrentPage).Url;
-            var editPageUrl = _bulletinsService.GetEditPage(CurrentPage).Url;
+            var overviewPageUrl = _bulletinsService.GetOverviewPage().Url;
+            var detailsPageUrl = _bulletinsService.GetDetailsPage().Url;
+            var editPageUrl = _bulletinsService.GetEditPage().Url;
 
             ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins, overviewPageUrl);
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, detailsPageUrl);
@@ -176,6 +186,10 @@ namespace uIntra.Bulletins.Web
         }
 
         protected virtual void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)
+        {
+        }
+
+        protected virtual void OnBulletinDeleted(Guid id)
         {
         }
     }

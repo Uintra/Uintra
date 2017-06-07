@@ -37,13 +37,18 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.Title, o => o.Ignore());
 
             Mapper.CreateMap<BulletinEditModel, BulletinBase>()
+                .ForMember(dst => dst.Title, o => o.Ignore())
+                .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
+                .ForMember(dst => dst.PublishDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -52,11 +57,12 @@ namespace uIntra.Bulletins
             Mapper.CreateMap<BulletinBase, BulletinViewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
-                .ForMember(dst => dst.CanEdit, o => o.Ignore())
-                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, BulletinsBackofficeViewModel>()
+                .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
+                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, IntranetActivityDetailsHeaderViewModel>()

@@ -16,15 +16,13 @@
                 useTime: false,
                 useDate: true,
                 useSeconds: false,
-                offsetTime: "1",
-                format: "DD.MM.YYYY"
+                dateFormat: "d/m/Y"
             },
             endDate: {
                 useTime: false,
                 useDate: true,
                 useSeconds: false,
-                offsetTime: "1",
-                format: "DD.MM.YYYY"
+                dateFormat: "d/m/Y"
             },
             filterDate: {
                 enableTime: false,

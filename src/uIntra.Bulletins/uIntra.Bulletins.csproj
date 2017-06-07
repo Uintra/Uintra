@@ -295,8 +295,10 @@
     <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.js" />
     <Content Include="App_Plugins\Bulletins\bulletins.js" />
     <Content Include="App_Plugins\Bulletins\Create\bulletins-create.html" />
+    <Content Include="App_Plugins\Bulletins\Create\bulletins.create.js" />
     <Content Include="App_Plugins\Bulletins\Details\bulletins-details.html" />
     <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
+    <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
     <Content Include="App_Plugins\Bulletins\style.css" />
   </ItemGroup>
   <ItemGroup>

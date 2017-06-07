@@ -58,7 +58,7 @@ namespace uIntra.Events.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
             var model = GetCreateModel();
@@ -67,7 +67,7 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Create)]
+        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
             FillLinks();
@@ -86,7 +86,7 @@ namespace uIntra.Events.Web
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activityId));
         }
 
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -107,7 +107,7 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel editModel)
         {
             FillLinks();

@@ -7,7 +7,7 @@
         var self = this;
         self.bulletinsList = [];
         self.currentUser = null;
-        self.dateFormat = "dd MMMM yyyy";
+        self.dateFormat = "dd/MM/yyyy";
         self.selected = null;
         self.selectedIndex = null;
         self.filterModel = {};
@@ -77,20 +77,6 @@
             }
         }
 
-        self.publish = function (bulletin, $index) {
-            self.clearSelected();
-            var editedBulletin = angular.copy(bulletin);
-            editedBulletin.isHidden = false;
-            save(editedBulletin, $index);
-        }
-
-        self.unpublish = function (bulletin, $index) {
-            self.clearSelected();
-            var editedBulletin = angular.copy(bulletin);
-            editedBulletin.isHidden = true;
-            save(editedBulletin, $index);
-        }
-
         self.delete = function (bulletins, $index) {
             self.clearSelected();
             if (!confirm('Are you sure?')) {
@@ -124,7 +110,9 @@
         var loadAll = function () {
             var promise = $http.get('/Umbraco/backoffice/Api/BulletinsSection/GetAll');
             var success = function (response) {
-                self.bulletinsList = response.data || [];
+                self.bulletinsList = response.data.sort(function (prev, next) {
+                    return prev.createdDate < next.createdDate ? 1 : -1;
+                }) || [];
             }
             promise.then(success, onError);
         }

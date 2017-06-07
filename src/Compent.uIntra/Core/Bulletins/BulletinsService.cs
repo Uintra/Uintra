@@ -89,9 +89,14 @@ namespace Compent.uIntra.Core.Bulletins
 
         public override bool CanEdit(IIntranetActivity cached)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit);
-            return isAllowed;
+            var result = CanPerform(cached, IntranetActivityActionEnum.Edit);
+            return result;
+        }
+
+        public bool CanDelete(IIntranetActivity cached)
+        {
+            var result = CanPerform(cached, IntranetActivityActionEnum.Delete);
+            return result;
         }
 
         public CentralFeedSettings GetCentralFeedSettings()
@@ -218,46 +223,46 @@ namespace Compent.uIntra.Core.Bulletins
             switch (notificationType)
             {
                 case NotificationTypeEnum.ActivityLikeAdded:
+                {
+                    bulletinsEntity = Get(entityId);
+                    data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                    data.Value = new LikesNotifierDataModel
                     {
-                        bulletinsEntity = Get(entityId);
-                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                        data.Value = new LikesNotifierDataModel
-                        {
-                            Title = bulletinsEntity.Title,
-                            ActivityType = IntranetActivityTypeEnum.Bulletins,
-                            NotifierId = currentUser.Id
-                        };
-                    }
+                        Title = bulletinsEntity.Title,
+                        ActivityType = IntranetActivityTypeEnum.Bulletins,
+                        NotifierId = currentUser.Id
+                    };
+                }
                     break;
                 case NotificationTypeEnum.CommentAdded:
                 case NotificationTypeEnum.CommentEdited:
+                {
+                    var comment = _commentsService.Get(entityId);
+                    bulletinsEntity = Get(comment.ActivityId);
+                    data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                    data.Value = new CommentNotifierDataModel
                     {
-                        var comment = _commentsService.Get(entityId);
-                        bulletinsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            ActivityType = IntranetActivityTypeEnum.Bulletins,
-                            NotifierId = comment.UserId,
-                            Title = bulletinsEntity.Title,
-                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
-                        };
-                    }
+                        ActivityType = IntranetActivityTypeEnum.Bulletins,
+                        NotifierId = comment.UserId,
+                        Title = bulletinsEntity.Title,
+                        Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
+                    };
+                }
                     break;
                 case NotificationTypeEnum.CommentReplyed:
+                {
+                    var comment = _commentsService.Get(entityId);
+                    bulletinsEntity = Get(comment.ActivityId);
+                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                    data.Value = new CommentNotifierDataModel
                     {
-                        var comment = _commentsService.Get(entityId);
-                        bulletinsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            ActivityType = IntranetActivityTypeEnum.Bulletins,
-                            NotifierId = currentUser.Id,
-                            Title = bulletinsEntity.Title,
-                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
-                            CommentId = comment.Id
-                        };
-                    }
+                        ActivityType = IntranetActivityTypeEnum.Bulletins,
+                        NotifierId = currentUser.Id,
+                        Title = bulletinsEntity.Title,
+                        Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
+                        CommentId = comment.Id
+                    };
+                }
                     break;
                 default:
                     return null;
@@ -280,6 +285,21 @@ namespace Compent.uIntra.Core.Bulletins
         {
             _likesService.Remove(userId, activityId);
             return UpdateCachedEntity(activityId);
+        }
+
+        private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            if (currentUser.Role.Name == IntranetRolesEnum.WebMaster.ToString())
+            {
+                return true;
+            }
+
+            var creatorId = Get(cached.Id).CreatorId;
+            var isCreator = creatorId == currentUser.Id;
+
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Bulletins, action);
+            return isCreator && isUserHasPermissions;
         }
     }
 }

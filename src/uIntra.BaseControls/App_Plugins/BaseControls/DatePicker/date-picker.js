@@ -6,7 +6,7 @@
     var defaultOptions = {
         weekNumbers: true,
         locale: 'da',
-        allowInput: true,
+        allowInput: false, // allowInput + dateFormat cause bug
         clickOpens: true,
         mode: "single" //"single", "multiple", or "range"
     }
