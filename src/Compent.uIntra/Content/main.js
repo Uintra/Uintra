@@ -18,3 +18,5 @@ initCustomScripts()
 
 import actionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
 actionLinkWithConfirm();
+
+require('../App_Plugins/Core/Content/scripts/ConfirmOnBeforeUnload');

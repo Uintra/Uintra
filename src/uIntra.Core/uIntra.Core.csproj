@@ -384,6 +384,7 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Web\PinActivityControllerBase.cs" />
+    <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />

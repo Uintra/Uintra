@@ -6,7 +6,7 @@
 @using Umbraco.Web
 @model uIntra.Events.EventEditModel
 
-<div class="form" id="js-events-edit-page">
+<div class="form js-check-before-unload" id="js-events-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
     {
         @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })

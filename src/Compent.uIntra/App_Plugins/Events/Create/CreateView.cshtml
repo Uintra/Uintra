@@ -5,7 +5,7 @@
 @using Umbraco.Web
 @model uIntra.Events.EventCreateModel
 
-<div class="form" id="js-events-create-page">
+<div class="form js-check-before-unload" id="js-events-create-page">
     @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>

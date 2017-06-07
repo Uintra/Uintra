@@ -5,7 +5,7 @@
 @using Umbraco.Web
 @model uIntra.News.NewsEditModel
 
-<div class="form" id="js-news-edit-page">
+<div class="form js-check-before-unload" id="js-news-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsEdit.Title.lbl")</h1>
