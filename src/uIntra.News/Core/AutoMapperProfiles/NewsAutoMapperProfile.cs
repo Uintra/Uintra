@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
@@ -22,6 +21,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.Users, o => o.Ignore())
                 .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
+                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsEditModel>()
@@ -29,6 +29,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.Users, o => o.Ignore())
                 .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
+                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsCreateModel, NewsBase>()
@@ -40,7 +41,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
@@ -54,7 +54,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -72,11 +71,11 @@ namespace uIntra.News
                 .ForMember(d => d.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate.HasValue ? s.UnpublishDate.Value.ToIsoUtcString() : string.Empty))
                 .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
                 .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
-                .ForMember(dst => dst.CreatorId, o => o.MapFrom(el => el.Creator.Id))
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.PublishDate.ToDateFormat() }));
+                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>()
@@ -88,7 +87,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>
@@ -101,7 +99,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>

@@ -7,7 +7,5 @@ namespace uIntra.Core.User
         int? UmbracoCreatorId { get; }
 
         Guid CreatorId { get; }
-
-        IIntranetUser Creator { get; set; }
     }
 }

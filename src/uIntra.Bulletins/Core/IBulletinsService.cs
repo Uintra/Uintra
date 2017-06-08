@@ -8,6 +8,5 @@ namespace uIntra.Bulletins
         MediaSettings GetMediaSettings();
 
         bool CanDelete(IIntranetActivity cached);
-
     }
 }

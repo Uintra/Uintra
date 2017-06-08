@@ -12,7 +12,7 @@ namespace uIntra.Core.User
         IEnumerable<T> GetMany(IEnumerable<Guid> ids);
         IEnumerable<T> GetMany(IEnumerable<int> ids);
         T GetCurrentUser();
-        void FillCreator(IHaveCreator model);
+        T GetCreator(IHaveCreator model);
         IEnumerable<T> GetByRole(IntranetRolesEnum role);
     }
 }

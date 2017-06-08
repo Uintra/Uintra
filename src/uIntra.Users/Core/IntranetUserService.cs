@@ -77,7 +77,7 @@ namespace uIntra.Users
             return members.Where(s => s.UmbracoId.HasValue && ids.Contains(s.UmbracoId.Value));
         }
 
-        public virtual void FillCreator(IHaveCreator model)
+        public virtual IntranetUser GetCreator(IHaveCreator model)
         {
             IIntranetUser member;
 
@@ -89,7 +89,7 @@ namespace uIntra.Users
             {
                 member = Get(model.CreatorId);
             }
-            model.Creator = member;
+            return (IntranetUser) member;
         }
 
         public virtual IntranetUser GetCurrentUser()

@@ -152,6 +152,7 @@ namespace uIntra.News.Web
         protected virtual NewsEditModel GetEditViewModel(NewsBase news)
         {
             var model = news.Map<NewsEditModel>();
+            model.Creator = _intranetUserService.GetCreator(news);
             FillCreateEditData(model);
             FillCanEditCreatorData(model);
             return model;
@@ -162,6 +163,7 @@ namespace uIntra.News.Web
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.HeaderInfo.Creator = _intranetUserService.GetCreator(news);
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -172,6 +174,7 @@ namespace uIntra.News.Web
             model.ShortDescription = news.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = news.MediaIds;
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
+            model.HeaderInfo.Creator = _intranetUserService.GetCreator(news);
             model.Expired = _newsService.IsExpired(news);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel

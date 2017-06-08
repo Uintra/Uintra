@@ -18,7 +18,5 @@ namespace uIntra.Events
 
         [JsonIgnore]
         public DateTime PublishDate => StartDate;
-        [JsonIgnore]
-        public IIntranetUser Creator { get; set; }
     }
 }

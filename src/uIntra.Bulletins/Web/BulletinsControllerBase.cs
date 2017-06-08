@@ -142,6 +142,11 @@ namespace uIntra.Bulletins.Web
             var model = bulletin.Map<BulletinViewModel>();
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+
+            var creator = _userService.GetCreator(bulletin);
+            model.HeaderInfo.Creator = _userService.GetCreator(bulletin);
+            model.HeaderInfo.Title = creator.DisplayedName;
+
             model.CanEdit = _bulletinsService.CanEdit(bulletin);
             return model;
         }
@@ -163,6 +168,10 @@ namespace uIntra.Bulletins.Web
             model.ShortDescription = bulletin.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = bulletin.MediaIds;
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
+
+            var creator = _userService.GetCreator(bulletin);
+            model.HeaderInfo.Creator = _userService.GetCreator(bulletin);
+            model.HeaderInfo.Title = creator.DisplayedName;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

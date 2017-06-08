@@ -176,6 +176,7 @@ namespace uIntra.Events.Web
         {
             var model = @event.Map<EventEditModel>();
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
+            model.Creator = _intranetUserService.GetCreator(@event);
             FillCreateEditData(model);
             FillCanEditCreatorData(model);
             return model;
@@ -186,6 +187,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
+            model.HeaderInfo.Creator = _intranetUserService.GetCreator(@event);
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
             return model;
@@ -200,6 +202,7 @@ namespace uIntra.Events.Web
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
+            model.HeaderInfo.Creator = _intranetUserService.GetCreator(@event);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

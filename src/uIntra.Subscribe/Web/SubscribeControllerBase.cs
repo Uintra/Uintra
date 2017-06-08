@@ -91,7 +91,7 @@ namespace uIntra.Subscribe.Web
             var model = new SubscribeViewModel
             {
                 Id = subscriber?.Id,
-                UserId = _intranetUserService.GetCurrentUser().Id,
+                UserId = _intranetUserService.GetCurrentUserId(),
                 ActivityId = activityId,
                 IsSubscribed = subscriber != null,
                 IsNotificationDisabled = subscriber?.IsNotificationDisabled ?? false

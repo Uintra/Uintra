@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using uIntra.Core.Activity;
-using uIntra.Core.User;
 
 namespace uIntra.Bulletins
 {
@@ -9,7 +8,6 @@ namespace uIntra.Bulletins
     {
         int? UmbracoCreatorId { get; set; }
         Guid CreatorId { get; set; }
-        IIntranetUser Creator { get; set; }
         IEnumerable<int> MediaIds { get; set; }
         DateTime PublishDate { get; set; }
     }

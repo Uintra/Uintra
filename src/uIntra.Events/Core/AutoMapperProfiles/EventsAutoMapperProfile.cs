@@ -22,6 +22,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.Users, o => o.Ignore())
                 .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
+                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventEditModel>()
@@ -31,6 +32,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
                 .ForMember(dst => dst.Users, o => o.Ignore())
                 .ForMember(dst => dst.CanEditCreator, o => o.Ignore())
+                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventCreateModel, EventBase>()
@@ -41,7 +43,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .AfterMap((src, dst) =>
                  {
@@ -58,7 +59,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
+
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -73,13 +74,14 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
-                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
-                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate.ToIsoUtcString()))
-                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
-                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
+                .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
+                .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate.ToIsoUtcString()))
+                .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
+                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
@@ -92,7 +94,6 @@ namespace uIntra.Events
                .ForMember(dst => dst.Id, o => o.Ignore())
                .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-               .ForMember(dst => dst.Creator, o => o.Ignore())
                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
@@ -106,7 +107,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
 
