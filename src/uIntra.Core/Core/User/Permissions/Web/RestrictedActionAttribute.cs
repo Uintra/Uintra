@@ -31,10 +31,8 @@ namespace uIntra.Core.User.Permissions.Web
 
         private void Deny(HttpContextBase context)
         {
-            var urlToRedirect = context.Request.UrlReferrer?.AbsolutePath ?? "/";
-
-            context.Response.StatusCode = HttpStatusCode.Unauthorized.GetHashCode();
-            context.Response.Redirect(urlToRedirect, endResponse: true);
+            context.Response.StatusCode = HttpStatusCode.Forbidden.GetHashCode();
+            context.Response.End();
         }
     }
 }

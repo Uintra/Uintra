@@ -92,11 +92,6 @@ namespace uIntra.News.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News));
             }
 
-            if (!_newsService.CanEdit(news))
-            {
-                HttpContext.Response.Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, id));
-            }
-
             var model = GetEditViewModel(news);
             return PartialView(EditViewPath, model);
         }
