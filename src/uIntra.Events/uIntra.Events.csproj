@@ -310,6 +310,7 @@
     <Compile Include="Core\Dashboard\Models\EventBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\EventBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\EventsSection.cs" />
+    <Compile Include="Core\Models\ComingEventViewModel.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\EventBase.cs" />
@@ -327,6 +328,9 @@
     <Content Include="App_Plugins\Events\backoffice\events-management.css" />
     <Content Include="App_Plugins\Events\backoffice\events-management.html" />
     <Content Include="App_Plugins\Events\backoffice\events-management.js" />
+    <Content Include="App_Plugins\Events\ComingEvents\coming-events-overlay.html" />
+    <Content Include="App_Plugins\Events\ComingEvents\coming-events-view.html" />
+    <Content Include="App_Plugins\Events\ComingEvents\comingEventsController.js" />
     <Content Include="App_Plugins\Events\Create\create-events.js" />
     <Content Include="App_Plugins\Events\Create\events-create.html" />
     <Content Include="App_Plugins\Events\Details\events-details.html" />
@@ -334,6 +338,7 @@
     <Content Include="App_Plugins\Events\Edit\edit-events.js" />
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <None Include="Content\Config\Lang\da-DK.user.xml.uninstall.xdt" />
     <None Include="Content\Config\Lang\da-DK.user.xml.install.xdt" />
     <None Include="Content\Config\Lang\en-GB.user.xml.uninstall.xdt" />

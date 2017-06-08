@@ -10,6 +10,8 @@ namespace uIntra.Events
     {
         protected override void Configure()
         {
+            Mapper.CreateMap<EventBase, ComingEventViewModel>();
+
             Mapper.CreateMap<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.ShortDescription, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())

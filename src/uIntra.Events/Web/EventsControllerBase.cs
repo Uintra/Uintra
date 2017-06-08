@@ -1,15 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using ClientDependency.Core;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Grid;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
+using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Events.Web
@@ -17,6 +23,7 @@ namespace uIntra.Events.Web
     [ActivityController(IntranetActivityTypeEnum.Events)]
     public abstract class EventsControllerBase : SurfaceController
     {
+        protected virtual string ComingEventsViewPath => "~/App_Plugins/Events/ComingEvents/ComingEventsView.cshtml";
         protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
         protected virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
@@ -29,19 +36,22 @@ namespace uIntra.Events.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IPermissionsService _permissionsService;
+        private readonly IGridHelper _gridHelper;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper, 
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IGridHelper gridHelper)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
             _permissionsService = permissionsService;
+            _gridHelper = gridHelper;
         }
 
         public virtual ActionResult Details(Guid id)
@@ -56,6 +66,20 @@ namespace uIntra.Events.Web
             var model = GetViewModel(@event);
 
             return PartialView(DetailsViewPath, model);
+        }
+
+        [HttpGet]
+        public virtual ActionResult ComingEvents()
+        {
+            var eventsAmount = GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
+            var currentDate = DateTime.UtcNow;
+            var events = _eventsService
+                .GetAll()
+                .Where(e => e.PublishDate > currentDate)
+                .OrderBy(e => e.PublishDate)
+                .Take(eventsAmount);
+            var result = events.Map<IEnumerable<ComingEventViewModel>>();
+            return PartialView(ComingEventsViewPath, result);
         }
 
         [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Create)]
@@ -252,6 +276,23 @@ namespace uIntra.Events.Web
 
         protected virtual void OnEventHidden(Guid id)
         {
+        }
+
+        private T GetContentProperty<T>(IPublishedContent content, string contentKey, string propertyKey)
+        {
+            var properties = _gridHelper.GetValue(content, contentKey);
+            if (properties == null)
+            {
+                return default(T);
+            }
+            var propertiesDictionary = ((JToken) properties).ToDictionary();
+            object property;
+            if (propertiesDictionary.TryGetValue(propertyKey, out property))
+            {
+                var typedResult = JsonConvert.DeserializeObject<T>(property.ToString());
+                return typedResult;
+            }
+            return default(T);
         }
     }
 }
