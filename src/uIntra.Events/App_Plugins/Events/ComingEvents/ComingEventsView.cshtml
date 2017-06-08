@@ -1,0 +1,12 @@
+﻿@model  IEnumerable<uIntra.Events.ComingEventViewModel>
+
+<section class="content">
+    <div class="row clearfix">
+        <div class="col-md-9">
+            @foreach (var e in Model)
+            {
+                @e.Title
+            }
+        </div>
+    </div>
+</section>
