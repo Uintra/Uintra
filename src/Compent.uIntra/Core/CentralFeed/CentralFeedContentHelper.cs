@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
+using uIntra.Core.User.Permissions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
@@ -20,17 +21,20 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly ICentralFeedService _centralFeedService;
         private readonly IGridHelper _gridHelper;
         private readonly ICookieProvider _cookieProvider;
+        private readonly IPermissionsService _permissionsService;
 
         public CentralFeedContentHelper(
             UmbracoHelper umbracoHelper,
             ICentralFeedService centralFeedService,
             IGridHelper gridHelper,
-            ICookieProvider cookieProvider)
+            ICookieProvider cookieProvider,
+            IPermissionsService permissionsService)
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
             _gridHelper = gridHelper;
             _cookieProvider = cookieProvider;
+            _permissionsService = permissionsService;
         }
 
         public IPublishedContent GetOverviewPage()
@@ -63,6 +67,8 @@ namespace Compent.uIntra.Core.CentralFeed
                     continue;
                 }
 
+                var canCreate = _permissionsService.IsCurrentUserHasAccess(activityType.Value, IntranetActivityActionEnum.Create);
+
                 var settings = _centralFeedService.GetSettings(tabType);
                 yield return new CentralFeedTabModel
                 {
@@ -71,7 +77,7 @@ namespace Compent.uIntra.Core.CentralFeed
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasBulletinFilter = settings.HasBulletinFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
-                    CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(NewsCreatePage.ModelTypeAlias, EventsCreatePage.ModelTypeAlias))?.Url,
+                    CreateUrl = canCreate ? content.Children.SingleOrDefault(n => n.DocumentTypeAlias.Equals(GetCreateDocumentType(activityType.Value)))?.Url : null,
                     IsActive = content.IsAncestorOrSelf(currentPage)
                 };
             }
@@ -132,6 +138,21 @@ namespace Compent.uIntra.Core.CentralFeed
             {
                 BulletinFilterSelected = true
             };
+        }
+
+        private string GetCreateDocumentType(IntranetActivityTypeEnum activityType)
+        {
+            switch (activityType)
+            {
+                case IntranetActivityTypeEnum.News:
+                    return NewsCreatePage.ModelTypeAlias;
+
+                case IntranetActivityTypeEnum.Events:
+                    return EventsCreatePage.ModelTypeAlias;
+
+                default:
+                    return null;
+            }
         }
     }
 }
