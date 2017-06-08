@@ -4,6 +4,7 @@ using AutoMapper;
 using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
+using uIntra.Core.Grid;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
@@ -31,8 +32,9 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IntranetUser> intranetUserService,
             IReminderService reminderService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IPermissionsService permissionsService)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, permissionsService)
+            IPermissionsService permissionsService,
+            IGridHelper gridHelper)
+            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, permissionsService, gridHelper)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;

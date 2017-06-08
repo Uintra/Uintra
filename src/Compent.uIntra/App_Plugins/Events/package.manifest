@@ -29,12 +29,23 @@
         "controller": "Events",
         "action": "Details"
       }
+    },
+    {
+      "name": "Coming Events",
+      "alias": "custom.ComingEvents",
+      "view": "/App_Plugins/Events/ComingEvents/coming-events-view.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "Events",
+        "action": "ComingEvents"
+      }
     }
   ],
   "javascript": [
     "~/App_Plugins/Events/backoffice/events-management.js",
     "~/App_Plugins/Events/backoffice/events-management.config.js",
-    "~/App_Plugins/Events/backoffice/date-greater-or-equal.directive.js"
+    "~/App_Plugins/Events/backoffice/date-greater-or-equal.directive.js",
+    "~/App_Plugins/Events/ComingEvents/comingEventsController.js"
   ],
   "css": [
     "~/App_Plugins/Events/backoffice/events-management.css"
