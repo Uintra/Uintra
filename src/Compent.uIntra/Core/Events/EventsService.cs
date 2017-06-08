@@ -161,7 +161,6 @@ namespace Compent.uIntra.Core.Events
             {
                 var entity = activity as Event;
                 _subscribeService.FillSubscribers(entity);
-                _intranetUserService.FillCreator(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }

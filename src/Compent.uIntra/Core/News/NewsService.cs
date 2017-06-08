@@ -132,7 +132,6 @@ namespace Compent.uIntra.Core.News
             {
                 var entity = activity as Entities.News;
                 _subscribeService.FillSubscribers(entity);
-                _intranetUserService.FillCreator(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }

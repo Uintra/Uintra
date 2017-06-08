@@ -32,8 +32,6 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())

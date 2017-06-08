@@ -134,7 +134,6 @@ namespace Compent.uIntra.Core.Bulletins
             {
                 var entity = activity as Bulletin;
                 _subscribeService.FillSubscribers(entity);
-                _intranetUserService.FillCreator(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
