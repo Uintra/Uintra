@@ -1,0 +1,19 @@
+﻿@model uIntra.Core.User.ICanEditCreatorCreateEditModel
+
+@if (Model.CanEditCreator)
+{
+    <select class="js-user-select form-control" name="creatorId">
+        @foreach (var user in Model.Users)
+        {
+            <option value="@user.Id" selected="@(user.Id == Model.CreatorId)">@user.DisplayedName</option>
+        }
+    </select>
+}
+else
+{
+    @Html.HiddenFor(el=>el.CreatorId)
+    <div class="form__avatar">
+        <img width="60" class="form__avatar-img" src="@Model.Creator.Photo" />
+    </div>
+    <span>@Model.Creator.DisplayedName</span>
+}
