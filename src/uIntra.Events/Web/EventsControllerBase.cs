@@ -89,14 +89,10 @@ namespace uIntra.Events.Web
             FillLinks();
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(createModel);
-                return PartialView(CreateViewPath, createModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var @event = createModel.Map<EventBase>();
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-
-            var activityId = _eventsService.Create(@event);
+            var activityId = CreateEvent(createModel);
             OnEventCreated(activityId, createModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activityId));
@@ -125,23 +121,14 @@ namespace uIntra.Events.Web
 
             if (!ModelState.IsValid)
             {
-                FillCreateEditData(editModel);
-                return PartialView(EditViewPath, editModel);
+                return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var @event = MapEditModel(editModel);
-            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
 
-            if (_eventsService.CanEditSubscribe(@event.Id))
-            {
-                @event.CanSubscribe = editModel.CanSubscribe;
-            }
-            _eventsService.Save(@event);
+            var activity = UpdateEvent(editModel);
+            OnEventEdited(activity, editModel);
 
-            OnEventEdited(@event, editModel);
-
-            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, @event.Id));
+            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activity.Id));
         }
 
         [HttpPost]
@@ -241,6 +228,28 @@ namespace uIntra.Events.Web
             {
                 model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
             }
+        }
+
+        protected virtual Guid CreateEvent(EventCreateModel createModel)
+        {
+            var @event = createModel.Map<EventBase>();
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+
+            return _eventsService.Create(@event);
+        }
+
+        protected virtual EventBase UpdateEvent(EventEditModel editModel)
+        {
+            var @event = MapEditModel(editModel);
+            @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
+
+            if (_eventsService.CanEditSubscribe(@event.Id))
+            {
+                @event.CanSubscribe = editModel.CanSubscribe;
+            }
+            _eventsService.Save(@event);
+            return @event;
         }
 
         protected virtual void FillLinks()
