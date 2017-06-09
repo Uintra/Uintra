@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using ClientDependency.Core;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
@@ -15,7 +12,6 @@ using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
-using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Events.Web
@@ -71,13 +67,9 @@ namespace uIntra.Events.Web
         [HttpGet]
         public virtual ActionResult ComingEvents()
         {
-            var eventsAmount = GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
+            var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
             var currentDate = DateTime.UtcNow;
-            var events = _eventsService
-                .GetAll()
-                .Where(e => e.PublishDate > currentDate)
-                .OrderBy(e => e.PublishDate)
-                .Take(eventsAmount);
+            var events = _eventsService.GetEventsFromDate(currentDate, eventsAmount);
             var result = events.Map<IEnumerable<ComingEventViewModel>>();
             return PartialView(ComingEventsViewPath, result);
         }
@@ -276,23 +268,6 @@ namespace uIntra.Events.Web
 
         protected virtual void OnEventHidden(Guid id)
         {
-        }
-
-        private T GetContentProperty<T>(IPublishedContent content, string contentKey, string propertyKey)
-        {
-            var properties = _gridHelper.GetValue(content, contentKey);
-            if (properties == null)
-            {
-                return default(T);
-            }
-            var propertiesDictionary = ((JToken) properties).ToDictionary();
-            object property;
-            if (propertiesDictionary.TryGetValue(propertyKey, out property))
-            {
-                var typedResult = JsonConvert.DeserializeObject<T>(property.ToString());
-                return typedResult;
-            }
-            return default(T);
         }
     }
 }

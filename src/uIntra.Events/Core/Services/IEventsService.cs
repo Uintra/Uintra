@@ -9,6 +9,8 @@ namespace uIntra.Events
     {
         IEnumerable<TEvent> GetPastEvents();
 
+        IEnumerable<TEvent> GetEventsFromDate(DateTime fromDate, int count);
+
         void Hide(Guid id);
 
         bool CanEditSubscribe(Guid activityId);
