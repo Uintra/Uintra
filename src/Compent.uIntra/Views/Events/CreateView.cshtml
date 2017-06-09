@@ -11,23 +11,7 @@
         <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("EventsCreate.Creator.lbl")</label>
-            @if (Model.CanEditCreator)
-            {
-                <select class="js-user-select form-control" name="creatorId">
-                    @foreach (var user in Model.Users)
-                    {
-                        <option value="@user.Id" selected="@(user.Id == Model.CreatorId)">@user.DisplayedName</option>
-                    }
-                </select>
-            }
-            else
-            {
-                <input type="hidden" name="creatorId" value="@Model.CreatorId" />
-                <div class="form__avatar">
-                    <img width="60" class="form__avatar-img" src="@Model.Creator.Photo" />
-                </div>
-                <span>@Model.Creator.DisplayedName</span>
-            }
+            @Html.Action("Edit", "ActivityCreator", new { editModel = Model })
         </div>
 
         <div class="form__row clearfix">
