@@ -52,7 +52,6 @@ namespace uIntra.Users.Web
         [HttpGet]
         public virtual ActionResult Edit()
         {
-            var user = _intranetUserService.GetCurrentUser();
             var member = _memberService.GetById(Members.GetCurrentMemberId());
             var result = MapToEditModel(member);
 
@@ -69,6 +68,14 @@ namespace uIntra.Users.Web
             _memberService.Save(currentMember);
 
             return RedirectToCurrentUmbracoPage();
+        }
+
+        [HttpDelete]
+        public virtual void DeletePhoto()
+        {
+            var currentMember = _memberService.GetById(Members.GetCurrentMemberId());
+            currentMember.SetValue(ProfileConstants.Photo, null);
+            _memberService.Save(currentMember);
         }
 
         protected virtual ProfileEditModel MapToEditModel(IMember member)
