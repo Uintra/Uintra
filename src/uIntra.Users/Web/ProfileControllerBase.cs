@@ -74,6 +74,7 @@ namespace uIntra.Users.Web
         public virtual void DeletePhoto()
         {
             var currentMember = _memberService.GetById(Members.GetCurrentMemberId());
+            _mediaHelper.DeleteMedia(currentMember.GetValue<int>(ProfileConstants.Photo));
             currentMember.SetValue(ProfileConstants.Photo, null);
             _memberService.Save(currentMember);
         }
