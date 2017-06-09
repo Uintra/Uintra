@@ -10,7 +10,8 @@ namespace uIntra.Events
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<EventBase, ComingEventViewModel>();
+            Mapper.CreateMap<EventBase, ComingEventViewModel>()
+                .ForMember(dst => dst.Creator, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.ShortDescription, o => o.Ignore())
@@ -117,6 +118,6 @@ namespace uIntra.Events
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
-        } 
+        }
     }
 }
