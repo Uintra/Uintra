@@ -1,4 +1,7 @@
-﻿using Umbraco.Core.Models;
+﻿using ClientDependency.Core;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace uIntra.Core.Grid
@@ -32,6 +35,23 @@ namespace uIntra.Core.Grid
             }
 
             return null;
+        }
+
+        public T GetContentProperty<T>(IPublishedContent content, string contentKey, string propertyKey)
+        {
+            var properties = GetValue(content, contentKey);
+            if (properties == null)
+            {
+                return default(T);
+            }
+            var propertiesDictionary = ((JToken) properties).ToDictionary();
+            object property;
+            if (propertiesDictionary.TryGetValue(propertyKey, out property))
+            {
+                var typedResult = JsonConvert.DeserializeObject<T>(property.ToString());
+                return typedResult;
+            }
+            return default(T);
         }
     }
 }
