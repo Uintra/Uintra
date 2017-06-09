@@ -326,8 +326,8 @@
     <Reference Include="uIntra.Core, Version=1.1.7.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Core.1.1.7.1\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.1.4.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.1.4.2\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.1.5.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.1.5.2\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.1.1\lib\net452\uIntra.Likes.dll</HintPath>
@@ -851,12 +851,6 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -869,6 +863,12 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

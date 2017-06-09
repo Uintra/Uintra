@@ -86,12 +86,11 @@ namespace Compent.uIntra.Core.Events
             return GetAll().Where(@event => !IsActual(@event) && !@event.IsHidden);
         }
 
-        public IEnumerable<Event> GetEventsFromDate(DateTime fromDate, int count)
+        public IEnumerable<Event> GetComingEvents(DateTime fromDate)
         {
             var events = GetAll()
                 .Where(e => e.PublishDate > fromDate)
-                .OrderBy(e => e.PublishDate)
-                .Take(count);
+                .OrderBy(e => e.PublishDate);
             return events;
         }
 
