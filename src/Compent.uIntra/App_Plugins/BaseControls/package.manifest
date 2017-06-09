@@ -28,7 +28,8 @@
     "~/App_Plugins/BaseControls/GlobalConfig/global-config.js",
     "~/App_Plugins/BaseControls/ColorPicker/color-picker.js",
     "/App_Plugins/BaseControls/MultiImageCropper/multi-image-cropper-config.js",
-    "/App_Plugins/BaseControls/MultiImageCropper/multi-image-cropper.js"
+    "/App_Plugins/BaseControls/MultiImageCropper/multi-image-cropper.js",
+    "/App_Plugins/BaseControls/backoffice/LinksPicker/links.js"
   ],
   "css": [
     "/App_Plugins/BaseControls/DatePicker/date-picker.css",
