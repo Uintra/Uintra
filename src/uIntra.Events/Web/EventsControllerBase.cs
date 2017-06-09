@@ -69,7 +69,7 @@ namespace uIntra.Events.Web
         {
             var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
             var currentDate = DateTime.UtcNow;
-            var events = _eventsService.GetEventsFromDate(currentDate, eventsAmount);
+            var events = _eventsService.GetComingEvents(currentDate).Take(eventsAmount);
             var result = events.Map<IEnumerable<ComingEventViewModel>>();
             return PartialView(ComingEventsViewPath, result);
         }

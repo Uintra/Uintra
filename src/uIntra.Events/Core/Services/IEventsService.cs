@@ -9,7 +9,7 @@ namespace uIntra.Events
     {
         IEnumerable<TEvent> GetPastEvents();
 
-        IEnumerable<TEvent> GetEventsFromDate(DateTime fromDate, int count);
+        IEnumerable<TEvent> GetComingEvents(DateTime fromDate);
 
         void Hide(Guid id);
 
