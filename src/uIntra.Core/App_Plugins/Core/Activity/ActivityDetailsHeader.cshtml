@@ -20,7 +20,9 @@
             <span class="content__item-category">@Html.Localize(Model.Type)@(Model.Creator != null ? "," : string.Empty)</span>
             @if (Model.Creator != null)
             {
-                <span class="content__item-name">@Model.Creator.DisplayedName</span>
+                <a href="@profilePageUrl">
+                    <span class="content__item-name">@Model.Creator.DisplayedName</span>
+                </a>
             }
         </p>
     </div>
