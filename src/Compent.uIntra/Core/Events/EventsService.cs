@@ -86,6 +86,15 @@ namespace Compent.uIntra.Core.Events
             return GetAll().Where(@event => !IsActual(@event) && !@event.IsHidden);
         }
 
+        public IEnumerable<Event> GetEventsFromDate(DateTime fromDate, int count)
+        {
+            var events = GetAll()
+                .Where(e => e.PublishDate > fromDate)
+                .OrderBy(e => e.PublishDate)
+                .Take(count);
+            return events;
+        }
+
         public void Hide(Guid id)
         {
             var @event = Get(id);
