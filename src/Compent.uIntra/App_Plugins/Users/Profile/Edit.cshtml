@@ -3,7 +3,6 @@
 @model uIntra.Users.ProfileEditModel
 
 <div id="js-profile-page" class="form _profile">
-
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
         <div class="form__row clearfix">
@@ -11,6 +10,7 @@
                 <div class="form__avatar">
                     <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
                 </div>
+                <span class="js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")">X</span>
                 <div class="form__meta">
                     <div class="row">
                         <div class="col-md-6">
@@ -37,6 +37,5 @@
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-    }
+                }
 </div>
-

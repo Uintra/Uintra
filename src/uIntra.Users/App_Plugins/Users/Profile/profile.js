@@ -1,22 +1,21 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import ajax from "./../../Core/Content/scripts/Ajax";
+import confirm from "./../../Core/Controls/Confirm/Confirm";
 
 require("./profile.css");
 
 var initDeleteButton = function (holder) {    
     var btn = holder.find('.js-delete-btn');  
 
-    btn.click(function (event) { 
+    btn.click(function () { 
         var confirmMessage = btn.data('confirm-message');
-        if (!confirm(confirmMessage)) {
-            return;
-        }
-
-        ajax.Delete("/umbraco/surface/Profile/DeletePhoto").then(function(response) {
-            location.reload();
-        });;
+        confirm.showConfirm(confirmMessage, 
+            function () {
+                ajax.Delete("/umbraco/surface/Profile/DeletePhoto").then(function(response) {
+                    location.reload();
+                });
+            }, function () { }, confirm.defaultSettings);
     });
 }
 
