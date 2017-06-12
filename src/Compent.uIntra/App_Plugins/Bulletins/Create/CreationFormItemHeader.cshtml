@@ -1,0 +1,21 @@
+﻿@using uIntra.Core.Extentions
+@model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
+
+<header class="content__item-heading clearfix">
+    <div class="content__item-avatar">
+        <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
+    </div>
+    <div class="content__item-title-holder">
+        <h2 class="content__item-title">
+            @Model.Title
+        </h2>
+        <p class="content__item-meta">
+            @foreach (var date in Model.Dates)
+            {
+                <span class="content__item-date">@date</span>
+                <span class="content__item-divider"> - </span>
+            }
+            <span class="content__item-category">@Html.Localize(Model.Type)</span>
+        </p>
+    </div>
+</header>
