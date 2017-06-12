@@ -73,7 +73,7 @@ namespace Compent.uIntra.Core.Events
 
         public override IPublishedContent GetCreatePage()
         {
-            return _umbracoHelper.TypedContent(1164);
+            return _umbracoHelper.TypedContent(1389);
         }
 
         public override IPublishedContent GetEditPage()
