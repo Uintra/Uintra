@@ -411,14 +411,18 @@ a{
     }
 
     &__avatar{
-        display:inline-block;
-        border: 1px solid #ccc;
-        height: 60px;
-        margin: 0 20px 0 0;
-        overflow: hidden;
         position: relative;
-        width: 60px;
-        vertical-align:middle;
+        overflow:hidden;
+        border: 1px solid #ccc;
+
+        &-holder{
+            display:inline-block;
+            height: 100px;
+            width: 100px;
+            margin: 0 20px 0 0;
+            vertical-align:middle;
+            position: relative;
+        }
 
         &-img{
             height: auto;
@@ -426,6 +430,7 @@ a{
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
+            max-width:100%;
         }
     }
 
@@ -434,6 +439,18 @@ a{
         top:15px;
         right:30px;
         cursor:pointer;
+
+        &._clear-avatar{
+            right:-8px;
+            top:-7px;
+            background:var(--color-white);
+            border-radius:50%;
+            width:20px;
+            height:20px;
+            line-height:19px;
+            text-align:center;
+            box-shadow:0 0 2px rgba(0,0,0,0.5);
+        }
     }
 }
 
@@ -1265,6 +1282,10 @@ a{
                 display:none;
             }
         }
+    }
+
+    &__filter{
+        margin:0 0 20px;
     }
 
     &__item{
