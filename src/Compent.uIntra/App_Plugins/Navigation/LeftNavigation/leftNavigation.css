@@ -64,8 +64,6 @@
                 display:block;
             }
         }
-
-        
     }
 
 	&__arrow{
@@ -211,7 +209,27 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        font-size: 18px;
+        &{
+            font-size: 18px;
+
+            &__overlay{
+                position:fixed;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+                background:rgba(0,0,0,0.5);
+                opacity:0;
+                visibility:hidden;
+                z-index:100;
+                
+                ._menu-expanded &{
+                    opacity:1;
+                    visibility:visible;
+                }
+            }
+        }
+        
 
         & & {
             padding: 3px 0 0;
@@ -228,6 +246,9 @@
 
         &__link {
             padding-left: 19px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
         }
     }
 }

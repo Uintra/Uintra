@@ -396,6 +396,9 @@
                         padding-right:40px;
                         color: var(--text-color-dark);
                         padding-bottom:14px;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
 
                         &:after {
                             position:absolute;

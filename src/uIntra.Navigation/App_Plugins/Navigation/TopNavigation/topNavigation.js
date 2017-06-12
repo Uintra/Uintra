@@ -4,40 +4,27 @@ require("./topNavigation.css");
 
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var body = $('body');
+var className = "_menu-expanded";
 
 function initMobileNav() {
-    var opener = document.querySelector("#js-menu-opener");
+    var opener = document.querySelector(".js-menu-opener");
     var container = document.querySelector('#sidebar');
+    var overlay = document.querySelector(".js-side-nav__overlay");
 
     opener.addEventListener('click', () => {
-        body.toggleClass('_menu-expanded').removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
-
-        body.on("click.nav", function(ev) {
-            isOutsideClick(container, opener, ev.target, '_menu-expanded', function() {
-                body.removeClass(className).off("click.nav");
-            });
-        });
+        toggleMobileMenu(opener, container);
     });
 };
 
-/*var initToTop = function () {
-    var trigger = document.getElementById('toTop');
+function toggleMobileMenu(element, container){
+    body.toggleClass(className).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
 
-    window.addEventListener('scroll', function (e) {
-        if (window.scrollY > 100 && !trigger.classList.contains('_visible')) {
-            trigger.classList.add('_visible');
-        }
-        else if (window.scrollY <= 100 && trigger.classList.contains('_visible')) {
-            trigger.classList.remove('_visible');
-        }
+    body.on("click.nav", function(ev) {
+        isOutsideClick(container, element, ev.target, '_menu-expanded', function() {
+            body.removeClass(className).off("click.nav");
+        });
     });
-
-    trigger.addEventListener('click', function () {
-        $('html, body').stop().animate({
-            scrollTop: 0
-        }, 500);
-    });
-}*/
+}
 
 var isOutsideClick = function (el, opener, target, className, callback) {
     if (el && !el.contains(target) && (opener && !opener.contains(target)) && body.hasClass(className)) {
@@ -49,8 +36,6 @@ var isOutsideClick = function (el, opener, target, className, callback) {
 
 var controller = {
     init: function () {
-        //initToTop();
-
         if (mobileMediaQuery.matches) {
             initMobileNav();
         }
