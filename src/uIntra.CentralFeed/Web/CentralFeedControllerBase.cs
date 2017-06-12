@@ -182,12 +182,7 @@ namespace uIntra.CentralFeed.Web
             {
                 items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
             }
-
-            if (!model.IncludeBulletin.GetValueOrDefault() && settings.HasBulletinFilter)
-            {
-                items = items.Where(i => i.Type != IntranetActivityTypeEnum.Bulletins);
-            }
-
+            
             if (model.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
             {
                 items = items.Where(i => i.IsPinned);

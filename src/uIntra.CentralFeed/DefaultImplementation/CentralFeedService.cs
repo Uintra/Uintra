@@ -80,8 +80,7 @@ namespace uIntra.CentralFeed
             settings.Add(new CentralFeedSettings()
             {
                 Type = CentralFeedTypeEnum.All,
-                HasSubscribersFilter = false,
-                HasBulletinFilter = true,
+                HasSubscribersFilter = false,                
                 HasPinnedFilter = true
             });
 
