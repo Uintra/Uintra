@@ -79,6 +79,7 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
+                .ForMember(d => d.IsHidden, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
@@ -92,6 +93,7 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.ModifyDate, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
+                .ForMember(d => d.IsHidden, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();

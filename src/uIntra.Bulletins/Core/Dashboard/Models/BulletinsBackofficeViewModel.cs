@@ -10,7 +10,6 @@ namespace uIntra.Bulletins
         public string Media { get; set; }
         public Guid CreatorId { get; set; }
         public string PublishDate { get; set; }
-        public bool IsHidden { get; set; }
         public string ModifyDate { get; set; }
         public string CreatedDate { get; set; }
     }
