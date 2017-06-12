@@ -10,5 +10,7 @@ namespace uIntra.Core.User.Permissions
         string GetPermissionFromTypeAndAction(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
 
         bool IsCurrentUserHasAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
+        bool IsUserHasAccess(IIntranetUser user, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
+        bool IsUserWebmaster(IIntranetUser user);
     }
 }

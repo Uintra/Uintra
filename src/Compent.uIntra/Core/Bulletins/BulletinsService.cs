@@ -290,6 +290,12 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
+            var isWebmater = _permissionsService.IsUserWebmaster(currentUser);
+            if (isWebmater)
+            {
+                return true;
+            }
+
             var creatorId = Get(cached.Id).CreatorId;
             var isCreator = creatorId == currentUser.Id;
 

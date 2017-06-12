@@ -90,14 +90,18 @@ namespace Compent.uIntra.Core.News
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var creatorId = Get(cached.Id).CreatorId;
-            if (creatorId == currentUser.Id)
+
+            var isWebmater = _permissionsService.IsUserWebmaster(currentUser);
+            if (isWebmater)
             {
                 return true;
             }
 
-            var isAllowed = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
-            return isAllowed;
+            var creatorId = Get(cached.Id).CreatorId;
+            var isCreator = creatorId == currentUser.Id;
+
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
+            return isCreator && isUserHasPermissions;
         }
 
         public CentralFeedSettings GetCentralFeedSettings()

@@ -13,27 +13,13 @@ namespace uIntra.Core.User.Permissions
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public PermissionsService(
-            IPermissionsConfiguration configuration, 
+            IPermissionsConfiguration configuration,
             IExceptionLogger exceptionLogger,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _configuration = configuration;
             _exceptionLogger = exceptionLogger;
             _intranetUserService = intranetUserService;
-        }
-
-        public virtual bool IsCurrentUserHasAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (currentUser == null)
-            {
-                return false;
-            }
-
-            var permission = $"{activityType}{action}";
-            var userHasPermissions = IsRoleHasPermissions(currentUser.Role, permission);
-
-            return userHasPermissions;
         }
 
         public virtual bool IsRoleHasPermissions(IRole role, params string[] permissions)
@@ -46,7 +32,7 @@ namespace uIntra.Core.User.Permissions
 
             var defaultValue = false;
             _exceptionLogger.Log(new Exception($"Tryed check role permissions but no permissions was passed into method! Return {defaultValue}!!"));
-            
+
             return defaultValue;
         }
 
@@ -65,6 +51,41 @@ namespace uIntra.Core.User.Permissions
         public virtual string GetPermissionFromTypeAndAction(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
         {
             return $"{activityType}{action}";
+        }
+
+        public virtual bool IsCurrentUserHasAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            if (currentUser == null)
+            {
+                return false;
+            }
+
+            var result = IsUserHasAccess(currentUser, activityType, action);
+            return result;
+        }
+
+        public virtual bool IsUserHasAccess(IIntranetUser user, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        {
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (IsUserWebmaster(user))
+            {
+                return true;
+            }
+
+            var permission = $"{activityType}{action}";
+            var userHasPermissions = IsRoleHasPermissions(user.Role, permission);
+
+            return userHasPermissions;
+        }
+
+        public virtual bool IsUserWebmaster(IIntranetUser user)
+        {
+            return user.Role.Name == IntranetRolesEnum.WebMaster.ToString();
         }
     }
 }

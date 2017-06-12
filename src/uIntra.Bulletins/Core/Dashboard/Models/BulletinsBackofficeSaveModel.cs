@@ -10,6 +10,5 @@ namespace uIntra.Bulletins
         public string Media { get; set; }
         public int UmbracoCreatorId { get; set; }
         public DateTime PublishDate { get; set; }
-        public bool IsHidden { get; set; }
     }
 }
