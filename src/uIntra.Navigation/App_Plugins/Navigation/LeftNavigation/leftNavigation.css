@@ -222,6 +222,7 @@
                 opacity:0;
                 visibility:hidden;
                 z-index:100;
+                transition:all linear 250ms;
                 
                 ._menu-expanded &{
                     opacity:1;
