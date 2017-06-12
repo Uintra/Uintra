@@ -6,7 +6,7 @@ import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
-import initPinDate from "./../../Core/Content/scripts/PinActivity";
+import pinActivity from "./../../Core/Content/scripts/PinActivity";
 
 
 var alertify = require('alertifyjs/build/alertify.min');
@@ -21,24 +21,6 @@ var userSelect;
 var editor;
 var form;
 
-var initPinControl=function() {    
-    var pinControl = holder.find('#pin-control');
-    var pinInfoHolder = holder.find('#pin-info');
-    if (pinControl.is(":unchecked")) {
-        pinInfoHolder.hide();
-    } else {
-        var pinAccept = holder.find('#pin-accept');
-        pinAccept.prop('checked', true);
-    }
-    pinControl.change(function() {
-        if ($(this).is(":checked")) {
-            pinInfoHolder.show();
-        } else {
-            pinInfoHolder.hide();
-        }
-    });
-}
-
 var initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
@@ -51,8 +33,7 @@ var continueSubmit = function (value) {
 var initSubmitButton = function () {
     form = holder.find('#editForm');
     var btn = holder.find('.form__btn._submit');
-    var descriptionElem = holder.find('#description');
-    var pinControl = holder.find('#pin-control');    
+    var descriptionElem = holder.find('#description');   
 
     btn.click(function (event) {
         if (!form.valid()) {
@@ -60,13 +41,9 @@ var initSubmitButton = function () {
             return;
         }
 
-        if (pinControl.is(":checked")) {
-            var pinAccept = holder.find('#pin-accept');
-            if (pinAccept.is(":unchecked")) {
-                pinAccept.closest(".check__label").addClass('input-validation-error');
-                event.preventDefault();
-                return;
-            }
+        if (!pinActivity.isPinAccepted(holder)) {
+            event.preventDefault();
+            return;
         }
 
         if (editor.getLength() <= 1) {
@@ -153,7 +130,7 @@ var initHideControl = function () {
 var initDatePickers = function () {
     var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
-    var pin = initPinDate(holder);
+    var pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {
         var newDate = newDates[0];
@@ -176,7 +153,7 @@ var controller = {
             return;
         }
 
-        initPinControl();
+        pinActivity.initPinControl(holder);
         initUserSelect();
         initDatePickers();
         initDescriptionControl();

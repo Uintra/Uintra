@@ -5,7 +5,7 @@ require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
-import initPinDate from "./../../Core/Content/scripts/PinActivity";
+import pinActivity from "./../../Core/Content/scripts/PinActivity";
 
 require('select2');
 require('./../../Core/Content/scripts/ValidationExtensions');
@@ -17,7 +17,6 @@ var editor;
 var initSubmitButton = function () {
     var form = holder.find('#createForm');
     var btn = holder.find('._submit');
-    var pinControl = holder.find('#pin-control');
 
     btn.click(function (event) {
         if (!form.valid()) {
@@ -25,32 +24,15 @@ var initSubmitButton = function () {
             return;
         }
 
-        if (pinControl.is(":checked")) {
-            var pinAccept = holder.find('#pin-accept');
-            if (pinAccept.is(":unchecked")) {
-                pinAccept.closest(".check__label").addClass('input-validation-error');
-                event.preventDefault();
-                return;
-            }
+        if (!pinActivity.isPinAccepted(holder)) {
+            event.preventDefault();
+            return;
         }
 
         form.submit();
     });
 }
 
-var initPinControl = function () {
-    var pinControl = holder.find('#pin-control');
-    var pinInfoHolder = holder.find('#pin-info');
-    $(pinInfoHolder).hide();
-
-    pinControl.change(function () {
-        if ($(this).is(":checked")) {
-            pinInfoHolder.show();
-        } else {
-            pinInfoHolder.hide();
-        }
-    });
-}
 var initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
@@ -78,7 +60,7 @@ var initDescriptionControl = function () {
 var initDatePickers = function () {
     var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
-    var pin = initPinDate(holder);
+    var pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {
         var newDate = newDates[0];
@@ -103,7 +85,7 @@ var controller = {
         }
 
         initSubmitButton();
-        initPinControl();
+        pinActivity.initPinControl(holder);
         initUserSelect();
         initDatePickers();
         initDescriptionControl();
