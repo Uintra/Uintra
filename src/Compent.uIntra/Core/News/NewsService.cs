@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
@@ -18,6 +19,7 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.News
 {
@@ -35,6 +37,9 @@ namespace Compent.uIntra.Core.News
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
+        private readonly IMediaHelper _mediaHelper;
+
+        protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias };
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -44,7 +49,7 @@ namespace Compent.uIntra.Core.News
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService)
+            INotificationsService notificationService, IMediaHelper mediaHelper)
             : base(intranetActivityRepository, cacheService, intranetUserService)
         {
             _intranetUserService = intranetUserService;
@@ -54,34 +59,32 @@ namespace Compent.uIntra.Core.News
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
+            _mediaHelper = mediaHelper;
         }
 
         public MediaSettings GetMediaSettings()
         {
-            return new MediaSettings
-            {
-                MediaRootId = 1099
-            };
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
         }
 
         public override IPublishedContent GetOverviewPage()
         {
-            return _umbracoHelper.TypedContent(1092);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath()));
         }
 
         public override IPublishedContent GetDetailsPage()
         {
-            return _umbracoHelper.TypedContent(1094);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(NewsDetailsPage.ModelTypeAlias)));
         }
 
         public override IPublishedContent GetCreatePage()
         {
-            return _umbracoHelper.TypedContent(1093);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(NewsCreatePage.ModelTypeAlias)));
         }
 
         public override IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContent(1095);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(NewsEditPage.ModelTypeAlias)));
         }
 
 
@@ -291,6 +294,17 @@ namespace Compent.uIntra.Core.News
         private string GetUrlWithComment(Guid newsId, Guid commentId)
         {
             return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
+        }
+
+        private string[] GetPath(params string[] aliases)
+        {
+            var basePath = OverviewXPath;
+
+            if (aliases.Any())
+            {
+                basePath.AddRange(aliases.ToList());
+            }
+            return basePath.ToArray();
         }
     }
 }
