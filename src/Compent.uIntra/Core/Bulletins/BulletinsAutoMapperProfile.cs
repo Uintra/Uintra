@@ -15,7 +15,8 @@ namespace Compent.uIntra.Core.Bulletins
 
             Mapper.CreateMap<Bulletin, BulletinExtendedItemViewModel>()
                 .IncludeBase<BulletinBase, BulletinItemViewModel>()
-                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
+                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
             Mapper.CreateMap<Bulletin, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<BulletinBase, IntranetActivityItemHeaderViewModel>();

@@ -881,6 +881,8 @@
     <Content Include="Views\News\EditView.cshtml" />
     <Content Include="Views\TestWithLinkPicker.cshtml" />
     <Content Include="Views\Navigation\TopNavigation.cshtml" />
+    <Content Include="Views\Bulletins\DetailsView.cshtml" />
+    <Content Include="Views\Bulletins\ItemView.cshtml" />
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
