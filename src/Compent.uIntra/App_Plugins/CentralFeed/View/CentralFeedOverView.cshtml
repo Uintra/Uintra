@@ -1,12 +1,14 @@
-﻿@using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
+﻿@using System.Web.Mvc.Html
+@using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
 @using uIntra.Core.Extentions
+@using Umbraco.Web
 @model uIntra.CentralFeed.CentralFeedOverviewModel
 @{
     var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
 }
 
-<section class="content">
-    @{ Html.RenderAction("CreationForm", "Bulletins");}
+@{ Html.RenderAction("CreationForm", "Bulletins");}
+<section class="content">    
     <div class="row clearfix">
         @if (tabsWithCreateUrls.Any())
         {
@@ -36,11 +38,11 @@
     <div class="content__list js-feed-overview">
         <div>
             @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
-                new Dictionary<string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-feed-listContainer"}}))
+                new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
             {
                 <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
-                <input type="hidden" name="type" value="@(Model.CurrentType.GetHashCode())"/>
-                <input type="hidden" name="page"/>
+                <input type="hidden" name="type" value="@(Model.CurrentType.GetHashCode())" />
+                <input type="hidden" name="page" />
                 <div class="tab-content js-feed-listContainer">
                     @{Html.RenderAction("List", "CentralFeed",
                           new
@@ -51,7 +53,7 @@
                               }
                           }); }
                 </div>
-            }
+                        }
         </div>
     </div>
 </section>
