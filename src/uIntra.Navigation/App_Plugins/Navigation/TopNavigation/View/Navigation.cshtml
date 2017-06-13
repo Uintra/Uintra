@@ -19,7 +19,7 @@
         </li>
         @if (Model.CurrentUser.UmbracoId.HasValue)
         {
-            <li>
+            <li class="user__menu-item">
                 <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
                     <span class="icon icon-umbraco"></span>
                     LoginToUmbraco
