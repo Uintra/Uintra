@@ -22,12 +22,11 @@
 
     &__date{
         float:left;
-        background:var(--color-light-gray);
+        border:1px solid var(--color-light-gray);
         border-radius:3px;
-        color:var(--color-white);
         text-align:center;
         width:45px;
-        margin:0 10px 0 0;
+        margin:0 15px 0 0;
         padding:5px;
     }
 
@@ -46,7 +45,7 @@
 
     &__description{
         overflow:hidden;
-        font-size:14px;
+        font-size:13px;
         line-height:18px;
     }
 
