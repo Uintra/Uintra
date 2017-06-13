@@ -44,7 +44,7 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public bool IsCentralFeedPage(IPublishedContent currentPage)
         {
-            return GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c == currentPage);
+            return GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c.IsAncestorOrSelf(currentPage));
         }
 
         public IEnumerable<CentralFeedTabModel> GetTabs(IPublishedContent currentPage)

@@ -1,4 +1,5 @@
 ﻿@using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
+@using uIntra.Core.Extentions
 @model uIntra.CentralFeed.CentralFeedOverviewModel
 @{
     var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
