@@ -5,7 +5,7 @@
 @{
     int panelId = Model.value.id;
     var panel = Umbraco.TypedContent(panelId);
-    var model = panel.GetPropertyValue("panelConfig") as dynamic;
+    var model = panel != null ? panel.GetPropertyValue("panelConfig") as dynamic : null;
     var editor = model?.editor;
     string renderer = editor?.render;
 }
