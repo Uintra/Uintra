@@ -1,7 +1,10 @@
-﻿namespace uIntra.CentralFeed
+﻿using System.Collections.Generic;
+
+namespace uIntra.CentralFeed
 {
     public class CentralFeedOverviewModel
     {
-        public CentralFeedTypeEnum CurrentType { get; set; }        
+        public IEnumerable<CentralFeedTabViewModel> Tabs { get; set; }
+        public CentralFeedTypeEnum CurrentType { get; set; }
     }
 }

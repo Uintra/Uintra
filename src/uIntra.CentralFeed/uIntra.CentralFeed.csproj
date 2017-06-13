@@ -346,7 +346,6 @@
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Navigation.cshtml" />
     <None Include="packages.config" />
     <None Include="uIntra.CentralFeed.nuspec" />
     <None Include="Web.config" />

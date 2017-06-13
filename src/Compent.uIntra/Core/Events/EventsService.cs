@@ -134,8 +134,7 @@ namespace Compent.uIntra.Core.Events
                 Controller = "Events",
                 OverviewPage = GetOverviewPage(),
                 CreatePage = GetCreatePage(),
-                HasSubscribersFilter = true,
-                HasBulletinFilter = false,
+                HasSubscribersFilter = true,                
                 HasPinnedFilter = true
             };
         }

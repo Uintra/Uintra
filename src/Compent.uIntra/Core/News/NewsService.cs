@@ -115,8 +115,7 @@ namespace Compent.uIntra.Core.News
                 Controller = "News",
                 OverviewPage = GetOverviewPage(),
                 CreatePage = GetCreatePage(),
-                HasSubscribersFilter = false,
-                HasBulletinFilter = false,
+                HasSubscribersFilter = false,                
                 HasPinnedFilter = true
             };
         }

@@ -65,8 +65,7 @@ namespace Compent.uIntra.Controllers
         {
             if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
             {
-                var models = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>();
-                return PartialView("~/App_Plugins/CentralFeed/View/Navigation.cshtml", models);
+                return new EmptyResult();
             }
 
             var model = new SubNavigationMenuViewModel
@@ -129,8 +128,7 @@ namespace Compent.uIntra.Controllers
             return new MenuItemViewModel
             {
                 Id = content.Id,
-                Name = content.GetNavigationName(),
-                //HideInNavigation = !content.IsShowPageInSubNavigation(),
+                Name = content.GetNavigationName(),                
                 Url = content.Url,
                 IsActive = content.IsAncestorOrSelf(CurrentPage)
             };

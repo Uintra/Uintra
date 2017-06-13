@@ -1,7 +1,40 @@
-﻿@using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
+﻿@using System.Web.Mvc.Html
+@using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
+@using uIntra.Core.Extentions
+@using Umbraco.Web
 @model uIntra.CentralFeed.CentralFeedOverviewModel
+@{
+    var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
+}
 
-<section class="content">
+@{ Html.RenderAction("CreationForm", "Bulletins");}
+<section class="content">    
+    <div class="row clearfix">
+        @if (tabsWithCreateUrls.Any())
+        {
+            foreach (var typeModel in tabsWithCreateUrls)
+            {
+                <div class="btn pull-right">
+                    <a href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
+                </div>
+            }
+        }
+    </div>
+    <div class="js-feed-navigation">
+        <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
+        <div class="tabset__holder">
+            <div class="js-feed-links">
+                @foreach (var tabModel in Model.Tabs)
+                {
+                    <div class="js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.GetHashCode()" data-page-url="@tabModel.Url">
+                        <a href="@tabModel.Url">
+                            <span>@Html.Localize(tabModel.Type)</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
     <div class="content__list js-feed-overview">
         <div>
             @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
@@ -12,14 +45,13 @@
                 <input type="hidden" name="page" />
                 <div class="tab-content js-feed-listContainer">
                     @{Html.RenderAction("List", "CentralFeed",
-                                new
-                                {
-                                    model = new CentralFeedListModel
-                                    {
-                                        Type = Model.CurrentType                                     
-                                    }
-                                });
-                    }
+                          new
+                          {
+                              model = new CentralFeedListModel
+                              {
+                                  Type = Model.CurrentType
+                              }
+                          }); }
                 </div>
                         }
         </div>
