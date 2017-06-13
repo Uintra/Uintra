@@ -1,12 +1,21 @@
 ﻿@model  IEnumerable<uIntra.Events.ComingEventViewModel>
 
-<section class="content">
-    <div class="row clearfix">
-        <div class="col-md-9">
-            @foreach (var e in Model)
-            {
-                @e.Title
-            }
-        </div>
-    </div>
+<section class="block coming-events clearfix">
+    <h2 class="block__title"><span class="icon-calendar"></span> Coming Events</h2>
+    <ul class="coming-events__list">
+        @foreach (var e in Model)
+        {
+            <li class="coming-events__list-item clearfix">
+                <div class="coming-events__date">
+                    <span class="coming-events__day">@e.StartDate.Day</span>
+                    <span class="coming-events__month">@e.StartDate.ToString("MMMM")</span>
+                </div>
+                <div class="coming-events__description">
+                    <h3 class="coming-events__title">@e.Title</h3>
+                    <span class="coming-events__creator">@e.Creator</span>
+                    <span class="coming-events__time">@e.StartDate - @e.EndDate</span>
+                </div>
+            </li>
+        }
+    </ul>
 </section>

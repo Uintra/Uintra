@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-calendar:before {
+  content: "\e916";
+}
 .icon-plus:before {
   content: "\e915";
 }
