@@ -485,9 +485,9 @@
         }
 
         &-item{
-            border-top:1px solid #bfbfbf;
+            border-bottom:1px solid #bfbfbf;
 
-            &:first-child{
+            &:last-child{
                 border:none;
             }
         }
@@ -498,6 +498,12 @@
             padding:13px 10px 11px 58px;
             position:relative;
 
+            @media (--for-tablet-portrait-down){
+                &{
+                    padding:20px 10px 18px 58px;
+                }
+            }
+
             &:hover{
                 text-decoration:none;
                 color:var(--color-white);
@@ -505,10 +511,21 @@
             }
         }
 
+        &-name{
+            text-transform:uppercase;
+            font-weight:bold;
+        }
+
         .icon{
             position:absolute;
             top:11px;
             left:17px;
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    top:19px;
+                }
+            }
         }
     }
 }
