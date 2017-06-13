@@ -74,8 +74,7 @@ namespace Compent.uIntra.Core.CentralFeed
                 {
                     Content = content,
                     Type = tabType,
-                    HasSubscribersFilter = settings.HasSubscribersFilter,
-                    HasBulletinFilter = settings.HasBulletinFilter,
+                    HasSubscribersFilter = settings.HasSubscribersFilter,                    
                     HasPinnedFilter = settings.HasPinnedFilter,
                     CreateUrl = canCreate ? content.Children.SingleOrDefault(n => n.DocumentTypeAlias.Equals(GetCreateDocumentType(activityType.Value)))?.Url : null,
                     IsActive = content.IsAncestorOrSelf(currentPage)

@@ -104,8 +104,7 @@ namespace Compent.uIntra.Core.Bulletins
             return new CentralFeedSettings
             {
                 Type = CentralFeedTypeEnum.Bulletins,
-                Controller = "Bulletins",
-                HasBulletinFilter = false,
+                Controller = "Bulletins",                
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false
             };
