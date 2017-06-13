@@ -323,14 +323,12 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.1.1\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.8.10, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.8.10\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.8.11, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.8.11\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Events.1.1.6\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.1.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.1.6.1\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
@@ -352,8 +350,8 @@
       <HintPath>..\..\packages\uIntra.Notification.1.1.1.2\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.0\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.0.1\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
@@ -714,9 +712,6 @@
     <Content Include="App_Plugins\Events\backoffice\events-management.css" />
     <Content Include="App_Plugins\Events\backoffice\events-management.html" />
     <Content Include="App_Plugins\Events\backoffice\events-management.js" />
-    <Content Include="App_Plugins\Events\ComingEvents\coming-events-overlay.html" />
-    <Content Include="App_Plugins\Events\ComingEvents\coming-events-view.html" />
-    <Content Include="App_Plugins\Events\ComingEvents\comingEventsController.js" />
     <Content Include="App_Plugins\Events\Create\create-events.js" />
     <Content Include="App_Plugins\Events\Create\events-create.html" />
     <Content Include="App_Plugins\Events\Details\events-details.html" />
@@ -813,9 +808,6 @@
     <Content Include="Content\fonts\open-sans-700.woff2" />
     <Content Include="Content\fonts\open-sans-regular.woff" />
     <Content Include="Content\fonts\open-sans-regular.woff2" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -856,12 +848,14 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -876,6 +870,7 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

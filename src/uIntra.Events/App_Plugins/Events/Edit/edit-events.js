@@ -25,8 +25,8 @@ var initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
 
-var continueSubmit = function (value) {
-    $('#notifyAllSubscribers').val(value);
+var continueSubmit = function (notifyAllSubscribers) {
+    $('#notifyAllSubscribers').val(notifyAllSubscribers);
     form.submit();
 }
 
@@ -79,8 +79,6 @@ var initSubmitButton = function () {
 
             confirm.showDialog(btn.data('text'), callbacks, confirm.defaultSettings);
         });
-
-        form.submit();
     });
 }
 
