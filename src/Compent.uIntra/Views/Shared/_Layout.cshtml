@@ -12,6 +12,7 @@
     <div id="wrapper">
         <header id="header">
             @{Html.RenderAction("TopNavigation", "Navigation");}
+            <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
         </header>
         <aside id="sidebar">
             @{Html.RenderAction("LeftNavigation", "Navigation"); }

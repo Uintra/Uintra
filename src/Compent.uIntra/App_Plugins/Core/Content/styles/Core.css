@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-calendar:before {
+  content: "\e916";
+}
 .icon-plus:before {
   content: "\e915";
 }
@@ -92,6 +95,14 @@ body{
     > form{
         height:100%;
     }
+
+    @media (--for-tablet-portrait-down) {
+        &._menu-expanded {
+            height:100%;
+            width:100%;
+            overflow:hidden;
+        }
+    }
 }
 
 a{
@@ -106,9 +117,12 @@ a{
 
 #wrapper {
     overflow:hidden;
-    padding:137px 0 0 251px;
+    padding:143px 0 0 251px;
     opacity:1;
-    transition:opacity ease-in 250ms;
+    transition:all linear 250ms;
+    position:relative;
+    left:0;
+    min-height:100%;
 
     ._with-sub-nav._with-subtitle &{
         padding-top:172px;
@@ -125,7 +139,11 @@ a{
         }
 
         ._with-sub-nav._with-subtitle &{
-            padding:181px 0 0;
+            padding:181px 0 0 !important;
+        }
+
+        ._menu-expanded &{
+            left:-252px;
         }
     }
 }
@@ -145,25 +163,28 @@ a{
     background:var(--color-white);
         
     @media (--for-tablet-portrait-down) {
-        position: absolute;
-        top: 79px;
-        left: 0;
-        right: 0;
-        bottom: auto;
-        background: var(--color-light-gray-2);
-        padding: 24px 0 38px;
-        width: auto;
-        height: auto;
-        transform: translate(0, -100%);
-        transition: transform linear 200ms;
+        &{
+            position: fixed;
+            top: 0;
+            left: auto;
+            right: -252px;
+            width:252px;
+            bottom: 0;
+            background: var(--color-light-gray-2);
+            padding: 24px 0 38px;
+            height: auto;
+            transition: all linear 250ms;
+            z-index:9999;
+            overflow:hidden;
+            overflow-y:auto;
 
-        ._menu-expanded & {
-            transform: translate(0, 0);
-            box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            ._menu-expanded & {
+                right:0;
+                box-shadow:0 82px 10px rgba(0,0,0,0.5);
+            }
         }
     }
 }
-
 
 ._for-desktop{
     display:none !important;
@@ -224,44 +245,6 @@ a{
     z-index: 3;
 }
 
-.menu {
-    width: 68px;
-    text-align: center;
-    float: right;
-    position: relative;
-    z-index: 3;
-
-    &__opener {
-        color: var(--color-white);
-        padding: 24px 0 25px;
-        margin: 0 0 -3px;
-        cursor: pointer;
-        display: block;
-
-        .glyphicon-menu-hamburger {
-            font-size: 28px;
-        }
-
-        &:hover,
-        &:active,
-        &:focus {
-            color:var(--color-white);
-            text-decoration: none;
-        }
-
-        ._menu-expanded & {
-            background: var(--color-light-gray-2);
-            color: var(--color-black);
-
-            &:hover,
-            &:active,
-            &:focus {
-                color:var(--color-black);
-            }
-        }
-    }
-}
-
 #main{
     width:100%;
     overflow:hidden;
@@ -274,10 +257,6 @@ a{
         }
     }
  }
-
-
-
-
 
 .form {
     padding:0;
@@ -436,7 +415,7 @@ a{
 
     &__clear{
         position:absolute;
-        top:15px;
+        top:40px;
         right:30px;
         cursor:pointer;
 
@@ -1242,7 +1221,7 @@ a{
     position: fixed;
     bottom: 0;
     left: 19px;
-    background: var(--color-red);
+    background: var(--text-color-dark);
     border-radius: 5px 5px 0 0;
     text-indent: -9999px;
     overflow: hidden;
@@ -1290,34 +1269,10 @@ a{
 
     &__item{
         padding:0 20px;
-        margin:0 -20px 50px;
+        margin:0 -20px;
         font-size:16px;
         color:var(--text-color-dark);
         position:relative;
-
-        &._isPinned{
-            background:var(--color-light-gray-2);
-            border:solid var(--color-light-gray);
-            border-width:1px 0;
-            position:relative;
-            padding:35px 20px 39px;
-        }
-
-        &-label{
-            position:absolute;
-            top:0;
-            left:100%;
-            background:var(--color-red);
-            color:var(--color-white);
-            text-transform:uppercase;
-            font:bold 13px/15px var(--font-custom);
-            padding:6px 10px 8px;
-            display:none;
-
-            ._isPinned &{
-                display:block;
-            }
-        }
 
         &-heading{
             margin:0 0 20px;
@@ -1481,7 +1436,11 @@ a{
 
         &-feed{
             font-size:13px;
-            margin: 0 0 25px;
+            margin: 0;
+
+            ._details &{
+                margin:0 0 25px;
+            }
 
             &-holder{
                 min-width:100px;
@@ -1592,7 +1551,7 @@ a{
 
     &__loader{
         position:fixed;
-        top:140px;
+        top:143px;
         left:250px;
         width:50%;
         max-width:100%;

@@ -1,25 +1,30 @@
 .content {
-
 	&__item {
 		@media screen and (min-width: 900px) {
 			max-width: 756px;
 		}
 
 		&-holder {
-			padding: 30px 20px;
-			border: 1px solid transparent;
+            margin-bottom:40px;
 
 			&._pinned {
 				background: #eee;
-				border-color: #ccc;
+				border: solid var(--color-light-gray);
+                border-width:1px 0;
+                padding: 30px 20px;
+                margin-top:-41px;
+
+                .content__list-holder > div:first-child &{
+                    margin-top:0;
+                }
 			}
 		}
 	}
 }
 
 .pinned {
-
 	&__item {
+        float:right;
 		max-width: 150px;
 		word-wrap: break-word;
 		margin: 0 0 0 15px;
@@ -28,5 +33,13 @@
 		color: #fff;
 		font-size: 15px;
 		line-height: 19px;
+
+        @media (--for-tablet-portrait-down) {
+            &{
+                float:none;
+                display:block;
+                margin:0 0 15px;
+            }
+        }
 	}
 }

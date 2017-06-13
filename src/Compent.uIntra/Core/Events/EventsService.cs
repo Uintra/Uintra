@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
@@ -18,6 +19,7 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -37,6 +39,7 @@ namespace Compent.uIntra.Core.Events
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
+        private readonly IMediaHelper _mediaHelper;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
@@ -46,8 +49,7 @@ namespace Compent.uIntra.Core.Events
             ILikesService likesService,
             ISubscribeService subscribeService,
             IPermissionsService permissionsService,
-            INotificationsService notificationService
-            )
+            INotificationsService notificationService, IMediaHelper mediaHelper)
             : base(intranetActivityRepository, cacheService)
         {
             _umbracoHelper = umbracoHelper;
@@ -57,28 +59,31 @@ namespace Compent.uIntra.Core.Events
             _subscribeService = subscribeService;
             _permissionsService = permissionsService;
             _notificationService = notificationService;
+            _mediaHelper = mediaHelper;
         }
+
+        protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
 
         public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.Events;
 
         public override IPublishedContent GetOverviewPage()
         {
-            return _umbracoHelper.TypedContent(1163);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath()));
         }
 
         public override IPublishedContent GetDetailsPage()
         {
-            return _umbracoHelper.TypedContent(1165);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(EventsDetailsPage.ModelTypeAlias)));
         }
 
         public override IPublishedContent GetCreatePage()
         {
-            return _umbracoHelper.TypedContent(1164);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(EventsCreatePage.ModelTypeAlias)));
         }
 
         public override IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContent(1166);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(EventsEditPage.ModelTypeAlias)));
         }
 
         public IEnumerable<Event> GetPastEvents()
@@ -118,10 +123,7 @@ namespace Compent.uIntra.Core.Events
 
         public MediaSettings GetMediaSettings()
         {
-            return new MediaSettings
-            {
-                MediaRootId = 1099
-            };
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
         }
 
         public CentralFeedSettings GetCentralFeedSettings()
@@ -406,6 +408,17 @@ namespace Compent.uIntra.Core.Events
         {
             var @event = Get(id);
             return !@event.IsHidden ? @event : null;
+        }
+
+        private string[] GetPath(params string[] aliases)
+        {
+            var basePath = OverviewXPath;
+
+            if (aliases.Any())
+            {
+                basePath.AddRange(aliases.ToList());
+            }
+            return basePath.ToArray();
         }
     }
 }

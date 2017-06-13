@@ -342,6 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
@@ -369,7 +370,6 @@
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
   </ItemGroup>

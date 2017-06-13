@@ -291,7 +291,7 @@
 .sidebar {
     @media (--for-tablet-portrait-down) {
         & {
-            position: absolute;
+            position: absolute !important;
             top: 79px;
             left: 0;
             right: 0;
@@ -328,7 +328,7 @@
                 }
             }
 
-            ._sidebar-expanded._with-subtitle &{
+            ._sidebar-expanded._with-subtitle._with-sub-nav &{
                 top:181px;
             }
 
