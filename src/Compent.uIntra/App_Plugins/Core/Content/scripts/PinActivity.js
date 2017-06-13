@@ -44,8 +44,9 @@ var pinActivity = {
                 pinAccept.closest(".check__label").addClass('input-validation-error');
                 return false;
             }
-            return true;
         }
+
+        return true;
     }
 }
 
