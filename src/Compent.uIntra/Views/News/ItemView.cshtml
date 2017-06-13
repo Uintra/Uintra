@@ -14,7 +14,7 @@
             <div class="clearfix">
                 @if (@Model.IsPinned)
                 {
-                    <span class="pinned__item pull-right">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+                    <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
                 }
 
                 @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })

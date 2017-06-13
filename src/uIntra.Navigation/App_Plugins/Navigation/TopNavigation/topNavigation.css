@@ -29,10 +29,6 @@
         &{
             padding: 34px 0 25px;
 
-            ._menu-expanded & {
-                background: var(--color-light-gray-2);
-            }
-
             &__burger{
                 width: 20px;
                 height: 20px;
@@ -53,10 +49,6 @@
                     left: 0;
                     transform: rotate(0deg);
                     transition: .25s ease-in-out;
-
-                    ._menu-expanded &{
-                        background:var(--text-color-dark);
-                    }
 
                     &:nth-child(1) {
                         top: 0px;

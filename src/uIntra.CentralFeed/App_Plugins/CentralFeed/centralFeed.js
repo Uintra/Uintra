@@ -4,6 +4,8 @@ import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
 import subscribe from "./../Subscribe/subscribe";
 
+require("./centralFeed.css");
+
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
