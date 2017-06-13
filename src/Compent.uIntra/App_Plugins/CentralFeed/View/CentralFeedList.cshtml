@@ -21,15 +21,6 @@
                 </label>
             </div>
         </div>
-        <div class="col-md-3" style="display: @(tabSettings.HasBulletinFilter ? "block" : "none")">
-            <div class="check">
-                <label class="check__label">
-                    <input type="checkbox" class="check__box" name="includeBulletin" @(Model.IncludeBulletin ? "checked" : "") value="true">
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("CentralFeedList.IncludeBulletin.chkbx")</span>
-                </label>
-            </div>
-        </div>
         <div class="col-md-3" style="display: @(tabSettings.HasPinnedFilter ? "block" : "none")">
             <div class="check">
                 <label class="check__label">
@@ -45,11 +36,6 @@
     </div>
 </div>
 
-@if (Model.Type == CentralFeedTypeEnum.Bulletins)
-{
-    Html.RenderAction("CreationForm", "Bulletins");
-}
-
 @if (!Model.Items.Any())
 {
     @Html.Localize("CentralFeedList.Empty.lbl")
@@ -62,4 +48,4 @@
     <div data-anchor="@item.Id">
         @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item }); }
     </div>
-}
+            }

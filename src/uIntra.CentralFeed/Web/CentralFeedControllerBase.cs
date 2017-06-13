@@ -47,6 +47,7 @@ namespace uIntra.CentralFeed.Web
 
             var model = new CentralFeedOverviewModel
             {
+                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
                 CurrentType = tabType
             };
             return PartialView(OverviewViewPath, model);

@@ -22,7 +22,7 @@ namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>News Details Page</summary>
 	[PublishedContentModel("newsDetailsPage")]
-	public partial class NewsDetailsPage : BasePageWithGrid
+	public partial class NewsDetailsPage : BasePageWithGrid, INavigationComposition
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsDetailsPage";
@@ -43,6 +43,33 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsDetailsPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Is hide from Left Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromLeftNavigation")]
+		public bool IsHideFromLeftNavigation
+		{
+			get { return NavigationComposition.GetIsHideFromLeftNavigation(this); }
+		}
+
+		///<summary>
+		/// Is hide from Sub Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromSubNavigation")]
+		public bool IsHideFromSubNavigation
+		{
+			get { return NavigationComposition.GetIsHideFromSubNavigation(this); }
+		}
+
+		///<summary>
+		/// Navigation Name
+		///</summary>
+		[ImplementPropertyType("navigationName")]
+		public string NavigationName
+		{
+			get { return NavigationComposition.GetNavigationName(this); }
 		}
 	}
 }
