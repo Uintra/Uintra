@@ -11,6 +11,7 @@ using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
+using uIntra.Events.Core.Models;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
@@ -68,18 +69,26 @@ namespace uIntra.Events.Web
         public virtual ActionResult ComingEvents()
         {
             var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
+            var title = _gridHelper.GetContentProperty<string>(CurrentPage, "custom.ComingEvents", "displayTitle");
             var currentDate = DateTime.UtcNow;
+
             var events = _eventsService.GetComingEvents(currentDate).Take(eventsAmount);
             var eventsList = events as IList<EventBase> ?? events.ToList();
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
-            var result = new List<ComingEventViewModel>();
+            var comingEvents = new List<ComingEventViewModel>();
             foreach (var e in eventsList)
             {
                 var viewModel = e.Map<ComingEventViewModel>();
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
-                result.Add(viewModel);
+                comingEvents.Add(viewModel);
             }
-            return PartialView(ComingEventsViewPath, result);
+
+            var model = new ComingEventsPanelViewModel()
+            {
+                Title = title,
+                Events = comingEvents
+            };
+            return PartialView(ComingEventsViewPath, model);
         }
 
         [RestrictedAction(IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Create)]
