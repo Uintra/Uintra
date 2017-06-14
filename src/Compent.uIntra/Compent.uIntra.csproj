@@ -327,8 +327,8 @@
       <HintPath>..\..\packages\uIntra.Core.1.1.8.14\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.1.6.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.1.6.4\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.1.6.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.1.6.5\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.1.1\lib\net452\uIntra.Likes.dll</HintPath>
@@ -649,13 +649,13 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
