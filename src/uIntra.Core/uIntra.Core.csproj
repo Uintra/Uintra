@@ -376,14 +376,14 @@
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
-    <Compile Include="Core\User\ICanEditCreatorCreateEditModel.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />
     <Compile Include="Core\User\IRole.cs" />
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
-    <Compile Include="Web\ActivityCreatorControllerBase.cs" />
+    <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\PinActivityControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
@@ -418,7 +418,6 @@
     <Compile Include="Core\TimezoneOffsetProvider.cs" />
     <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Migrations\MediaMigrations.cs" />
-    <Compile Include="Web\ActivityHeaderControllerBase.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />

@@ -4,8 +4,10 @@ import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import ajax from "./../../Core/Content/scripts/Ajax";
 
 const toolbarSelector = ".js-create-bulletin__toolbar";
+const bulletinsTabNumber = 4;
 
 var cfReloadTabEvent;
+var cfShowBulletinsEvent;
 let holder;
 let dropzone;
 let dataStorage;
@@ -41,13 +43,20 @@ function initEditor() {
     });
 }
 
-function initEventListeners() {
+function initEventListeners() {    
     description.addEventListener("click", descriptionClickHandler);
     sentButton.addEventListener("click", sentButtonClickHandler);
     closeButton.addEventListener("click", closeBtnClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
 
     cfReloadTabEvent = new CustomEvent("cfReloadTab", {
+        detail: {
+            isReinit: true
+        }
+    });
+
+    cfShowBulletinsEvent = new CustomEvent("cfShowBulletins",
+    {
         detail: {
             isReinit: true
         }
@@ -81,6 +90,11 @@ function descriptionClickHandler(event) {
     show();
 }
 
+function isBulletinsTab() {
+    var currentTabNumber=document.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
+    return currentTabNumber == bulletinsTabNumber;
+}
+
 function sentButtonClickHandler(event) {
     let newMedia = holder.querySelector(".js-new-media");
     let data = {
@@ -90,8 +104,9 @@ function sentButtonClickHandler(event) {
 
     ajax.PostJson("/umbraco/api/BulletinsApi/Create", data).then(function(response) {
         if (response.isSuccess) {
-            cfReloadTab();
+            isBulletinsTab()? cfReloadTab():cfShowBulletins();            
             hide();
+
         }
     });
 }
@@ -171,6 +186,10 @@ function getBulletinHolder() {
 
 function cfReloadTab() {
     document.body.dispatchEvent(cfReloadTabEvent);
+}
+
+function cfShowBulletins() {    
+    document.body.dispatchEvent(cfShowBulletinsEvent);
 }
 
 function cfTabReloadedEventHandler(e) {

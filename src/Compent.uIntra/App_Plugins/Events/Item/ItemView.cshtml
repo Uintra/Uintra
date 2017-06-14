@@ -12,7 +12,8 @@
                 {
                     <span class="pinned__item">@Html.Localize("EventItemView.Pinned.lbl")</span>
                 }
-                @Html.Action("ActivityItemHeader", "ActivityHeader", new { header = Model.HeaderInfo })
+
+                @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
             </div>
             <div class="content__item-image"> </div>
             @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))

@@ -292,6 +292,8 @@
     &__link{
         color: #b2b2b2;
 
+        &:active,
+        &:focus,
         &:hover{
             text-decoration:none;
             color:var(--text-color-dark);
@@ -300,8 +302,9 @@
 
     .icon-comment{
         font-size:16px;
-        margin:0 7px 0 0;
-        vertical-align:middle;
+        margin:4px 7px 0 0;
+        vertical-align:top;
+        display:inline-block;
     }
 }
 

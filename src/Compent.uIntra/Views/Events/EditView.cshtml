@@ -15,7 +15,7 @@
 
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("EventsEdit.Creator.lbl")</label>
-            @Html.Action("Edit", "ActivityCreator", new { editModel = Model })
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId) })
         </div>
 
         <div class="form__row clearfix">
