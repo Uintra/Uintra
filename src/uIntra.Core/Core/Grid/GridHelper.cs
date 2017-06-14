@@ -48,7 +48,7 @@ namespace uIntra.Core.Grid
             object property;
             if (propertiesDictionary.TryGetValue(propertyKey, out property))
             {
-                var typedResult = JsonConvert.DeserializeObject<T>(property.ToString());
+                var typedResult = ((JToken) property).Value<T>();
                 return typedResult;
             }
             return default(T);

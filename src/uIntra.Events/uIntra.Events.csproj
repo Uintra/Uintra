@@ -310,6 +310,7 @@
     <Compile Include="Core\Dashboard\Models\EventBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\EventBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\EventsSection.cs" />
+    <Compile Include="Core\Models\ComingEventsPanelViewModel.cs" />
     <Compile Include="Core\Models\ComingEventViewModel.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />

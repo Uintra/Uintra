@@ -19,20 +19,32 @@ namespace uIntra.Comments.Web
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly IIntranetUserContentHelper intranetUserContentHelper;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IActivitiesServiceFactory activitiesServiceFactory)
+            IActivitiesServiceFactory activitiesServiceFactory,
+            IIntranetUserContentHelper intranetUserContentHelper
+            )
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
+            this.intranetUserContentHelper = intranetUserContentHelper;
         }
+
+        protected virtual void FillProfileLink()
+        {
+            var profilePageUrl = intranetUserContentHelper.GetProfilePage().Url;
+            ViewData.SetProfilePageUrl(profilePageUrl);
+        }
+
 
         [HttpPost]
         public virtual PartialViewResult Add(CommentCreateModel model)
         {
+            FillProfileLink();
             if (!ModelState.IsValid)
             {
                 return OverView(model.ActivityId);
@@ -47,6 +59,7 @@ namespace uIntra.Comments.Web
         [HttpPut]
         public virtual PartialViewResult Edit(CommentEditModel model)
         {
+            FillProfileLink();
             var comment = _commentsService.Get(model.Id);
 
             if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
@@ -63,6 +76,7 @@ namespace uIntra.Comments.Web
         [HttpDelete]
         public virtual PartialViewResult Delete(Guid id)
         {
+            FillProfileLink();
             var comment = _commentsService.Get(id);
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
 
