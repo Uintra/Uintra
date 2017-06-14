@@ -17,7 +17,6 @@ namespace uIntra.Core.Activity
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
 
-
         protected IntranetActivityService(IIntranetActivityRepository activityRepository,
             ICacheService cache)
         {
@@ -70,7 +69,7 @@ namespace uIntra.Core.Activity
             _activityRepository.Update(entity);
             UpdateCachedEntity(activity.Id);
         }
-        
+
         public void Delete(Guid id)
         {
             _activityRepository.Delete(id);
@@ -137,7 +136,20 @@ namespace uIntra.Core.Activity
             cachedActivity.Type = activity.Type;
             cachedActivity.CreatedDate = activity.CreatedDate;
             cachedActivity.ModifyDate = activity.ModifyDate;
+            cachedActivity.IsPinActual = IsPinActual(cachedActivity);
             return cachedActivity;
+        }
+
+        private bool IsPinActual(IIntranetActivity activity)
+        {
+            if (!activity.IsPinned) return false;
+
+            if (activity.EndPinDate.HasValue)
+            {
+                return activity.EndPinDate.Value > DateTime.Now;
+            }
+
+            return true;
         }
 
         protected abstract void MapBeforeCache(IList<IIntranetActivity> cached);

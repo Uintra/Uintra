@@ -5,16 +5,14 @@ namespace uIntra.CentralFeed
 {
     public interface ICentralFeedItem
     {
-        Guid Id { get; set; }
+        Guid Id { get; }
 
-        IntranetActivityTypeEnum Type { get; set; }
+        IntranetActivityTypeEnum Type { get; }
 
         DateTime PublishDate { get; }
 
         DateTime ModifyDate { get; }
 
-        DateTime? EndPinDate { get; }
-
-        bool IsPinned { get; }
+        bool IsPinActual { get; }
     }
 }

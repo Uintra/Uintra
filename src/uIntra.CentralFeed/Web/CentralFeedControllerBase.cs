@@ -55,7 +55,7 @@ namespace uIntra.CentralFeed.Web
 
         public virtual ActionResult List(CentralFeedListModel model)
         {
-            var items = GetCentralFeedItems(model.Type.GetHashCode().ToEnum<IntranetActivityTypeEnum>());
+            var items = GetCentralFeedItems(model.Type).ToList();
 
             if (!_centralFeedContentHelper.CentralFeedCookieExists() || IsEmptyFilters(model))
             {
@@ -74,7 +74,7 @@ namespace uIntra.CentralFeed.Web
             }
 
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = filteredItems.OrderBy(IsPinActual).ThenByDescending(el => el.PublishDate).Take(take).ToList();
+            var pagedItemsList = Sort(filteredItems, model.Type).Take(take).ToList();
 
             FillActivityDetailLinks(pagedItemsList);
 
@@ -89,7 +89,6 @@ namespace uIntra.CentralFeed.Web
                 IncludeBulletin = model.IncludeBulletin ?? false,
                 ShowSubscribed = model.ShowSubscribed ?? false
             };
-
 
             _centralFeedContentHelper.SaveFiltersState(new CentralFeedFiltersStateModel()
             {
@@ -113,23 +112,23 @@ namespace uIntra.CentralFeed.Web
 
         public virtual JsonResult AvailableActivityTypes()
         {
-            var activityTypes = _centralFeedService.GetAllSettings().Select(s => (CentralFeedTypeEnum)s.Type);
+            var activityTypes = _centralFeedService.GetAllSettings().Select(s => s.Type);
             var activityTypeModelList = activityTypes.Select(a => new { Id = a.GetHashCode(), Name = a.ToString() }).ToList();
             activityTypeModelList.Insert(0, new { Id = CentralFeedTypeEnum.All.GetHashCode(), Name = CentralFeedTypeEnum.All.ToString() });
 
             return Json(activityTypeModelList, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual List<ICentralFeedItem> GetCentralFeedItems(IntranetActivityTypeEnum? type)
+        protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(CentralFeedTypeEnum type)
         {
-            if (type == null)
+            if (type == CentralFeedTypeEnum.All)
             {
-                var items = _centralFeedService.GetFeed().ToList();
-                items.Sort(new CentralFeedComparer());
+                var items = _centralFeedService.GetFeed();
                 return items;
             }
 
-            return _centralFeedService.GetFeed(type.Value).ToList();
+            var activityType = type.GetHashCode().ToEnum<IntranetActivityTypeEnum>().GetValueOrDefault();
+            return _centralFeedService.GetFeed(activityType);
         }
 
         protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
@@ -146,11 +145,6 @@ namespace uIntra.CentralFeed.Web
 
                 };
             }
-        }
-
-        protected virtual bool IsPinActual(ICentralFeedItem item)
-        {
-            return _centralFeedService.IsPinActual(item);
         }
 
         protected void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
@@ -183,10 +177,10 @@ namespace uIntra.CentralFeed.Web
             {
                 items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
             }
-            
+
             if (model.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
             {
-                items = items.Where(i => i.IsPinned);
+                items = items.Where(i => i.IsPinActual);
             }
 
             return items;
@@ -204,5 +198,16 @@ namespace uIntra.CentralFeed.Web
             return !model.ShowPinned.HasValue && !model.IncludeBulletin.HasValue && !model.ShowSubscribed.HasValue;
         }
 
+        protected virtual IList<ICentralFeedItem> Sort(IEnumerable<ICentralFeedItem> items, CentralFeedTypeEnum type)
+        {
+            if (type == CentralFeedTypeEnum.Events)
+            {
+                var events = items.OrderByDescending(el => el.IsPinActual).ThenBy(i => i, new CentralFeedEventComparer()).ToList();
+                return events;
+            }
+
+            var itemList = items.OrderByDescending(el => el.IsPinActual).ThenByDescending(el => el.PublishDate).ToList();
+            return itemList;
+        }
     }
 }

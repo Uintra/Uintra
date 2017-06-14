@@ -32,7 +32,8 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.PublishDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Title, o => o.Ignore());
+                .ForMember(dst => dst.Title, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore());
 
             Mapper.CreateMap<BulletinEditModel, BulletinBase>()
                 .ForMember(dst => dst.Title, o => o.Ignore())
@@ -46,6 +47,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.PublishDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -80,6 +82,7 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.IsPinned, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .ForMember(d => d.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
@@ -94,6 +97,7 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.IsPinned, o => o.Ignore())
                 .ForMember(d => d.EndPinDate, o => o.Ignore())
                 .ForMember(d => d.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
