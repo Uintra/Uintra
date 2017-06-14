@@ -323,9 +323,9 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.1.2\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.8.14, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Core, Version=1.1.9.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.8.14\lib\net452\uIntra.Core.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Core.1.1.9.1\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.1.6.5, Culture=neutral, processorArchitecture=MSIL">
@@ -506,7 +506,6 @@
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
-    <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
