@@ -13,6 +13,8 @@ namespace uIntra.CentralFeed
 
         DateTime ModifyDate { get; }
 
+        bool IsPinned { get; }
+
         bool IsPinActual { get; }
     }
 }

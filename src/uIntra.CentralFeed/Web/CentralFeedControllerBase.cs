@@ -180,7 +180,7 @@ namespace uIntra.CentralFeed.Web
 
             if (model.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
             {
-                items = items.Where(i => i.IsPinActual);
+                items = items.Where(i => i.IsPinned);
             }
 
             return items;
