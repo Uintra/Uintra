@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using uIntra.Core.User;
 
 namespace uIntra.Core.Activity
 {
@@ -11,5 +12,10 @@ namespace uIntra.Core.Activity
         public bool IsPinned { get; set; }
 
         public virtual DateTime? EndPinDate { get; set; }
+
+        [Required]
+        public Guid CreatorId { get; set; }
+
+        public IIntranetUser Creator { get; set; }
     }
 }

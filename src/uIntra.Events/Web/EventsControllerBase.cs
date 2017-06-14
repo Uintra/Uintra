@@ -9,7 +9,6 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Media;
 using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
@@ -31,22 +30,19 @@ namespace uIntra.Events.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly IPermissionsService _permissionsService;
         private readonly IGridHelper _gridHelper;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper, 
-            IPermissionsService permissionsService,
+            IIntranetUserContentHelper intranetUserContentHelper,
             IGridHelper gridHelper)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
-            _permissionsService = permissionsService;
             _gridHelper = gridHelper;
         }
 
@@ -164,10 +160,9 @@ namespace uIntra.Events.Web
                 StartDate = DateTime.Now.Date.AddHours(8),
                 EndDate = DateTime.Now.Date.AddHours(8),
                 CanSubscribe = true,
-                CreatorId = _intranetUserService.GetCurrentUser().Id
+                Creator = _intranetUserService.GetCurrentUser()
             };
             FillCreateEditData(model);
-            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -184,7 +179,6 @@ namespace uIntra.Events.Web
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             model.Creator = _intranetUserService.GetCreator(@event);
             FillCreateEditData(model);
-            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -225,17 +219,6 @@ namespace uIntra.Events.Web
             var mediaSettings = _eventsService.GetMediaSettings();
             ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
             model.MediaRootId = mediaSettings.MediaRootId;
-        }
-
-        protected virtual void FillCanEditCreatorData(ICanEditCreatorCreateEditModel model)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            model.Creator = _intranetUserService.Get(model.CreatorId);
-            model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
-            if (model.CanEditCreator)
-            {
-                model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
-            }
         }
 
         protected virtual Guid CreateEvent(EventCreateModel createModel)

@@ -119,28 +119,16 @@ namespace uIntra.News.Web
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        protected virtual void FillCanEditCreatorData(ICanEditCreatorCreateEditModel model)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            model.Creator = _intranetUserService.Get(model.CreatorId);
-            model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
-            if (model.CanEditCreator)
-            {
-                model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
-            }
-        }
-
         protected virtual NewsCreateModel GetCreateModel()
         {
             FillLinks();
             var model = new NewsCreateModel
             {
                 PublishDate = DateTime.Now,
-                CreatorId = _intranetUserService.GetCurrentUser().Id
+                Creator = _intranetUserService.GetCurrentUser()
             };
 
             FillCreateEditData(model);
-            FillCanEditCreatorData(model);
             return model;
         }
 
@@ -149,7 +137,6 @@ namespace uIntra.News.Web
             var model = news.Map<NewsEditModel>();
             model.Creator = _intranetUserService.GetCreator(news);
             FillCreateEditData(model);
-            FillCanEditCreatorData(model);
             return model;
         }
 
