@@ -1,17 +1,17 @@
-﻿@model uIntra.Core.User.ICanEditCreatorCreateEditModel
+﻿@model uIntra.Core.Activity.IntranetActivityCreatorEditModel
 
 @if (Model.CanEditCreator)
 {
-    <select class="js-user-select form-control" name="creatorId">
+    <select class="js-user-select form-control" name="@Model.CreatorIdPropertyName">
         @foreach (var user in Model.Users)
         {
-            <option value="@user.Id" selected="@(user.Id == Model.CreatorId)">@user.DisplayedName</option>
+            <option value="@user.Id" selected="@(user.Id == Model.Creator.Id)">@user.DisplayedName</option>
         }
     </select>
 }
 else
 {
-    @Html.HiddenFor(el=>el.CreatorId)
+    <input type="hidden" name="@Model.CreatorIdPropertyName" value="@Model.Creator.Id" />
     <div class="form__avatar">
         <img width="60" class="form__avatar-img" src="@Model.Creator.Photo" />
     </div>
