@@ -46,7 +46,7 @@
     {
         var itemSettings = Model.Settings.First(s => s.Type.GetHashCode() == item.Type.GetHashCode());
 
-        <div data-anchor="@item.Id" data-fake="@item.Type.ToString()">
+        <div data-anchor="@item.Id">
             @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item }); }
         </div>
     }
