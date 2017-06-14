@@ -117,7 +117,7 @@ a{
 
 #wrapper {
     overflow:hidden;
-    padding:143px 0 0 251px;
+    padding:50px 0 0 251px;
     opacity:1;
     transition:all linear 250ms;
     position:relative;
@@ -1085,6 +1085,7 @@ a{
 
     .ql-tooltip {
         left: 15px !important;
+        top:-30px !important;
     }
 }
 
