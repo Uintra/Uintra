@@ -24,8 +24,8 @@ namespace Compent.uIntra.Controllers
             ICommentsService commentsService,
             IIntranetUserService<IntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService)
-            : base(commentsService, intranetUserService, activitiesServiceFactory)
+            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;
@@ -57,6 +57,7 @@ namespace Compent.uIntra.Controllers
         [HttpPost]
         public override PartialViewResult Add(CommentCreateModel model)
         {
+            FillProfileLink();
             if (!ModelState.IsValid)
             {
                 return OverView(model.ActivityId);
@@ -78,6 +79,7 @@ namespace Compent.uIntra.Controllers
         [HttpPut]
         public override PartialViewResult Edit(CommentEditModel model)
         {
+            FillProfileLink();
             var comment = _commentsService.Get(model.Id);
 
             if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
@@ -100,6 +102,7 @@ namespace Compent.uIntra.Controllers
         [HttpDelete]
         public override PartialViewResult Delete(Guid id)
         {
+            FillProfileLink();
             var comment = _commentsService.Get(id);
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
 

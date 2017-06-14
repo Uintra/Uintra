@@ -3,6 +3,7 @@
     var controller = function ($scope) {
 
         var defaultEventsAmount = 5;
+        var defaultDisplayTitle = "Coming Events";
         $scope.overlay = {
             show: false,
             view: "/App_Plugins/Events/ComingEvents/coming-events-overlay.html",
@@ -12,7 +13,10 @@
                 $scope.control.value = $scope.backupModel;
             },
             submit: function () {
-                $scope.overlay.show = false;
+                if (isValidModel($scope.control.value)) {
+                    $scope.overlay.show = false;
+                    $scope.control.validationMessage = null;
+                }          
             }
         }
 
@@ -21,11 +25,32 @@
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
+
+
         $scope.init = function (control) {
             if (!$scope.control.value) {
-                $scope.control.value = { eventsAmount: defaultEventsAmount };
+                $scope.control.value = getDefaultModel();
             }
             $scope.control = control;
+        }
+
+        function getDefaultModel() {
+            return {
+                eventsAmount: defaultEventsAmount,
+                displayTitle: defaultDisplayTitle
+            }
+        }
+
+        function isValidModel(model) {
+            if (!model.displayTitle || model.displayTitle.length < 0) {
+                $scope.control.validationMessage = "Title is required";
+                return false;
+            }
+            if (model.eventsAmount <= 0) {
+                $scope.control.validationMessage = "Amount must be bigger than 0";
+                return false;
+            }
+            return true;
         }
     }
     controller.$inject = ["$scope"];

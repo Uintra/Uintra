@@ -41,11 +41,13 @@
     @Html.Localize("CentralFeedList.Empty.lbl")
 }
 
-@foreach (var item in Model.Items)
-{
-    var itemSettings = Model.Settings.First(s => s.Type.GetHashCode() == item.Type.GetHashCode());
+<div class="content__list-holder">
+    @foreach (var item in Model.Items)
+    {
+        var itemSettings = Model.Settings.First(s => s.Type.GetHashCode() == item.Type.GetHashCode());
 
-    <div data-anchor="@item.Id">
-        @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item }); }
-    </div>
-            }
+        <div data-anchor="@item.Id">
+            @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item }); }
+        </div>
+    }
+</div>

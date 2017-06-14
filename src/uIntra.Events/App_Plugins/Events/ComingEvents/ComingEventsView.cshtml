@@ -1,9 +1,9 @@
-﻿@model  IEnumerable<uIntra.Events.ComingEventViewModel>
+﻿@model  uIntra.Events.Core.Models.ComingEventsPanelViewModel
 
 <section class="block coming-events clearfix">
-    <h2 class="block__title"><span class="icon-calendar"></span> Coming Events</h2>
+    <h2 class="block__title"><span class="icon-calendar"></span>@Model.Title</h2>
     <ul class="coming-events__list">
-        @foreach (var e in Model)
+        @foreach (var e in Model.Events)
         {
             <li class="coming-events__list-item clearfix">
                 <div class="coming-events__date">
