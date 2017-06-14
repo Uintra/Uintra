@@ -48,7 +48,7 @@ namespace uIntra.Core.Grid
             object property;
             if (propertiesDictionary.TryGetValue(propertyKey, out property))
             {
-                var typedResult = ((JToken) property).Value<T>();
+                var typedResult = ((JToken) property).ToObject<T>();
                 return typedResult;
             }
             return default(T);
