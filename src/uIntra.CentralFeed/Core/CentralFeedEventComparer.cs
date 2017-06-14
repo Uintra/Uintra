@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedComparer : IComparer<ICentralFeedItem>
+    public class CentralFeedEventComparer : IComparer<ICentralFeedItem>
     {
         private readonly DateTime _currentDate;
 
-        public CentralFeedComparer()
+        public CentralFeedEventComparer()
         {
             _currentDate = DateTime.Now.Date.AddHours(8);
         }

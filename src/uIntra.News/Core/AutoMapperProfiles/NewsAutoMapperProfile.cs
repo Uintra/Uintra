@@ -37,6 +37,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
@@ -50,6 +51,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -85,6 +87,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -97,6 +100,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

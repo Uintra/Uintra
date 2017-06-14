@@ -11,12 +11,9 @@ namespace uIntra.Core.Activity
     {
         public abstract IntranetActivityTypeEnum ActivityType { get; }
 
-        protected DateTimeOffset CacheExpirationOffset { get; } = DateTimeOffset.Now.AddDays(1);
-
         private const string CacheKey = "ActivityCache";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
-
 
         protected IntranetActivityService(IIntranetActivityRepository activityRepository,
             ICacheService cache)
@@ -70,7 +67,7 @@ namespace uIntra.Core.Activity
             _activityRepository.Update(entity);
             UpdateCachedEntity(activity.Id);
         }
-        
+
         public void Delete(Guid id)
         {
             _activityRepository.Delete(id);
@@ -95,7 +92,7 @@ namespace uIntra.Core.Activity
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheExpirationOffset, $"{ActivityType}");
+            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
             return activities;
         }
 
@@ -112,7 +109,8 @@ namespace uIntra.Core.Activity
                 MapBeforeCache(Enumerable.Repeat((IIntranetActivity)cachedActivity, 1).ToList());
                 cachedList.Add(cachedActivity);
             }
-            _cache.Set(CacheKey, cachedList, CacheExpirationOffset, $"{ActivityType}");
+
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
 
             return cachedActivity;
         }
@@ -137,7 +135,20 @@ namespace uIntra.Core.Activity
             cachedActivity.Type = activity.Type;
             cachedActivity.CreatedDate = activity.CreatedDate;
             cachedActivity.ModifyDate = activity.ModifyDate;
+            cachedActivity.IsPinActual = IsPinActual(cachedActivity);
             return cachedActivity;
+        }
+
+        private bool IsPinActual(IIntranetActivity activity)
+        {
+            if (!activity.IsPinned) return false;
+
+            if (activity.EndPinDate.HasValue)
+            {
+                return activity.EndPinDate.Value > DateTime.Now;
+            }
+
+            return true;
         }
 
         protected abstract void MapBeforeCache(IList<IIntranetActivity> cached);

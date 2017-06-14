@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
@@ -27,6 +26,8 @@ namespace uIntra.Events
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
 
-        public bool IsPinned { get; set; }        
+        public bool IsPinned { get; set; }
+
+        public bool IsPinActual { get; set; }        
     }
 }
