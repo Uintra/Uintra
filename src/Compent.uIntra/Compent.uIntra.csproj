@@ -878,8 +878,8 @@
     <Compile Include="Controllers\PinActivityController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReminderController.cs" />
-    <Compile Include="Core\ApplicationSettings\IUcommunityApplicationSettings.cs" />
-    <Compile Include="Core\ApplicationSettings\UcommunityApplicationSettings.cs" />
+    <Compile Include="Core\ApplicationSettings\IuIntraApplicationSettings.cs" />
+    <Compile Include="Core\ApplicationSettings\UintraApplicationSettings.cs" />
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
@@ -925,7 +925,7 @@
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
-    <Compile Include="Core\Navigation\UcommunityLeftSideNavigationModelBuilder.cs" />
+    <Compile Include="Core\Navigation\UintraLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\NewsService.cs" />

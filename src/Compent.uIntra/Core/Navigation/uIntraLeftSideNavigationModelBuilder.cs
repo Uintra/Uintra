@@ -7,11 +7,11 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Navigation
 {
-    public class uIntraLeftSideNavigationModelBuilder : LeftSideNavigationModelBuilder
+    public class UintraLeftSideNavigationModelBuilder : LeftSideNavigationModelBuilder
     {
         private readonly IUmbracoContentHelper _umbracoContentHelper;
 
-        public uIntraLeftSideNavigationModelBuilder(
+        public UintraLeftSideNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IUmbracoContentHelper umbracoContentHelper)
