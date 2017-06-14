@@ -1,9 +1,20 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 
+@{
+    var defaultImage = "/Content/images/default-avatar.png";
+}
+
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
-        <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
+        @if (!String.IsNullOrEmpty(Model.Creator.Photo))
+            {
+            <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
+        }
+        else
+        {
+            <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@defaultImage" />
+        }
     </div>
     <div class="content__item-title-holder">
         <h2 class="content__item-title">

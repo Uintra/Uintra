@@ -506,6 +506,7 @@
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />

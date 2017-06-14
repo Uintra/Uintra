@@ -3,12 +3,20 @@
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type, Model.ActivityId);
     var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
+    var defaultImage = "/Content/images/default-avatar.png";
 }
 
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
         <a href="@profilePageUrl">
-            <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
+            @if (!String.IsNullOrEmpty(Model.Creator.Photo))
+            {
+                <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@(Model.Creator?.Photo)" />
+            }
+            else
+            {
+                <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@defaultImage" />
+            }
         </a>
     </div>
     <div class="content__item-title-holder">

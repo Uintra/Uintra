@@ -5,10 +5,21 @@
 @using uIntra.Core.Extentions
 @model uIntra.Comments.CommentViewModel
 
+@{
+    var defaultImage = "/Content/images/default-avatar.png";
+}
+
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
     <div class="comments__list-author">
         <a href="#">
-            <img class="comments__list-author-avatar" src="@Model.Photo" />
+            @if (!String.IsNullOrEmpty(Model.Photo))
+            {
+                <img class="comments__list-author-avatar" src="@Model.Photo" />
+            }
+            else
+            {
+                <img class="comments__list-author-avatar" src="@defaultImage" />
+            }
         </a>
     </div>
     <div class="comments__list-body">

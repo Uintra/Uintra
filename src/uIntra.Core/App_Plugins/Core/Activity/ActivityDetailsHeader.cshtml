@@ -2,12 +2,20 @@
 @model uIntra.Core.Activity.IntranetActivityDetailsHeaderViewModel
 @{
     var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
+    var defaultImage = "/Content/images/default-avatar.png";
 }
 
 <header class="content__item-heading clearfix">
     <div class="content__item-avatar">
         <a href="@profilePageUrl">
-            <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@(Model.Creator?.Photo)" />
+            @if (!String.IsNullOrEmpty(Model.Creator.Photo))
+            {
+                <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@(Model.Creator?.Photo)" />
+            }
+            else
+            {
+                <img class="content__item-avatar-img" src="@defaultImage" />
+            }
         </a>
     </div>
     <div class="content__item-title-holder">
