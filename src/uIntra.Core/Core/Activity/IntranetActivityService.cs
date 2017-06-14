@@ -11,8 +11,6 @@ namespace uIntra.Core.Activity
     {
         public abstract IntranetActivityTypeEnum ActivityType { get; }
 
-        protected DateTimeOffset CacheExpirationOffset { get; } = DateTimeOffset.Now.AddDays(1);
-
         private const string CacheKey = "ActivityCache";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
@@ -94,7 +92,7 @@ namespace uIntra.Core.Activity
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheExpirationOffset, $"{ActivityType}");
+            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
             return activities;
         }
 
@@ -111,7 +109,8 @@ namespace uIntra.Core.Activity
                 MapBeforeCache(Enumerable.Repeat((IIntranetActivity)cachedActivity, 1).ToList());
                 cachedList.Add(cachedActivity);
             }
-            _cache.Set(CacheKey, cachedList, CacheExpirationOffset, $"{ActivityType}");
+
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
 
             return cachedActivity;
         }

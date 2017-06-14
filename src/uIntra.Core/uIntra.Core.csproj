@@ -373,6 +373,7 @@
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
+    <Compile Include="Core\Caching\CacheHelper.cs" />
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
