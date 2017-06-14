@@ -12,7 +12,7 @@
         <h1 class="form__title">@Html.Localize("NewsCreate.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
-            @Html.Action("Edit", "ActivityCreator", new { editModel = Model })
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId) })
         </div>
 
         <div class="form__row clearfix">

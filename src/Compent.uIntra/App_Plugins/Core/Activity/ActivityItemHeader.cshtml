@@ -11,7 +11,7 @@
         <a href="@profilePageUrl">
             @if (!String.IsNullOrEmpty(Model.Creator.Photo))
             {
-                <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@(Model.Creator?.Photo)" />
+                <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
             }
             else
             {
