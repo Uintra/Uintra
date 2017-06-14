@@ -21,15 +21,7 @@
                     @Html.Raw(Model.Description)
                 </div>
                 <div class="content__item-images">
-                    @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
-                </div>
-                <div class="content__item-feed">
-                    <div class="content__item-feed-holder">
-                        @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                    </div>
-                </div>
-                <div class="comments">
-                    @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+                    @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
                 </div>
             </div>
         </div>

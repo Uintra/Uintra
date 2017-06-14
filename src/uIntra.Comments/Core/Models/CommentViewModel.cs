@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.User;
 
 namespace uIntra.Comments
 {
@@ -10,8 +11,8 @@ namespace uIntra.Comments
 
         public Guid ActivityId { get; set; }
 
-        public string CreatorFullName { get; set; }
-
+        public IIntranetUser Creator { get; set; }
+        
         public DateTime CreatedDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }
@@ -21,9 +22,7 @@ namespace uIntra.Comments
         public bool CanEdit { get; set; }
 
         public bool CanDelete { get; set; }
-
-        public string Photo { get; set; }
-
+        
         public bool IsReply { get; set; }
 
         public string ElementOverviewId { get; set; }

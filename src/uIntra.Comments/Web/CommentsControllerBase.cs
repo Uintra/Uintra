@@ -163,8 +163,7 @@ namespace uIntra.Comments.Web
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
-            model.CreatorFullName = creator?.DisplayedName;
-            model.Photo = creator?.Photo;
+            model.Creator = creator;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             return model;
