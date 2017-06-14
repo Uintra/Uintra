@@ -6,14 +6,15 @@
 
 @{
     var defaultImage = "/Content/images/default-avatar.png";
+    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
     <div class="comments__list-author">
-        <a href="#">
-            @if (!String.IsNullOrEmpty(Model.Photo))
+        <a href="@profilePageUrl">
+            @if (!String.IsNullOrEmpty(Model.Creator.Photo))
             {
-                <img class="comments__list-author-avatar" src="@Model.Photo" />
+                <img class="comments__list-author-avatar" src="@Model.Creator.Photo" />
             }
             else
             {
@@ -24,7 +25,7 @@
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about">
-                <span class="comments__author-name">@Model.CreatorFullName</span>
+                <span class="comments__author-name">@Model.Creator.DisplayedName</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-date">@(Model.CreatedDate.ToDateFormat())</span>
                 <span class="comments__divider"> - </span>

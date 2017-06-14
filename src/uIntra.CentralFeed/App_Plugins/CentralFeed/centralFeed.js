@@ -11,6 +11,7 @@ var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
 var holder;
+var navigationHolder
 var state;
 var formController;
 var reloadintervalId;
@@ -166,6 +167,16 @@ function reloadTabEventHandler(e) {
     runReloadInverval();
 }
 
+function showBulletinsEventHandler(e) {
+    goToTab(4);
+}
+
+function goToTab(tabNumber) {       
+    var tab = document.querySelector("[data-type='"+tabNumber+"']");
+    var link = $(tab).find('a');
+    $(link)[0].click();
+}
+
 function runReloadInverval() {
     reloadintervalId = setInterval(function() {
         reload(true, true, false);
@@ -179,7 +190,7 @@ function emitTabReloadedEvent(isReinit) {
 
 function init() {
     holder = document.querySelector('.js-feed-overview');
-    var navigationHolder = document.querySelector('.js-feed-navigation');
+    navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
     formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
     var tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
@@ -229,11 +240,12 @@ function init() {
     runReloadInverval();
 
     document.body.addEventListener('cfReloadTab', reloadTabEventHandler);
+    document.body.addEventListener('cfShowBulletins', showBulletinsEventHandler);
 }
 
 appInitializer.add(init);
 
 export default {
-    init: init,
+init: init,
     reload: reload
 }
