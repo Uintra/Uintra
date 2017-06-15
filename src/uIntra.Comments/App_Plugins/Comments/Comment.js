@@ -161,7 +161,12 @@ var initDelete = function (holder) {
 
 function scrollToComment(el) {
     var comment = el.closest('.comments__list-body').find('.js-comment-reply');
-    $('html, body').animate({ scrollTop: comment.offset().top - 170}, 500);
+    var tabset = $('.tabset');
+    var topIndent = 80; //header height + 30px gap
+    if(tabset.length){
+        topIndent += tabset.height();
+    }
+    $('html, body').animate({ scrollTop: comment.offset().top - topIndent}, 500);
 }
 
 function findControl(holder, selector) {
