@@ -86,6 +86,10 @@
   content: "\e90c";
 }
 
+._hide {
+	display: none;
+}
+
 html,
 body{
     height:100%;
