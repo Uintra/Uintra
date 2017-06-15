@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace uIntra.Core.Controls.PinActivity
+namespace uIntra.Core.Activity
 {
-    public class PinActivityModel
+    public class IntranetPinActivityModel
     {
         public bool IsPinned { get; set; }
 

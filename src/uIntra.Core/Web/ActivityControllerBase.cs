@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.User;
@@ -12,6 +13,7 @@ namespace uIntra.Core.Web
         protected virtual string DetailsHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml";
         protected virtual string CreatorEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityCreatorEdit.cshtml";
+        protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IPermissionsService _permissionsService;
@@ -48,6 +50,17 @@ namespace uIntra.Core.Web
             }
 
             return PartialView(CreatorEditViewPath, model);
+        }
+
+
+        public virtual ActionResult PinActivity(bool isPinned, DateTime? endPinDate)
+        {
+            return PartialView(PinActivityViewPath,
+                new IntranetPinActivityModel
+                {
+                    IsPinned = isPinned,
+                    EndPinDate = endPinDate ?? DateTime.Now
+                });
         }
     }
 }
