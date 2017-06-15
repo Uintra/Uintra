@@ -3,7 +3,7 @@
     var controller = function ($scope) {
         $scope.overlay = {
             show: false,
-            view: "/App_Plugins/DocumentLibraryPanel/backoffice/overlay.html",
+            view: "/App_Plugins/Panels/DocumentLibraryPanel/overlay.html",
             title: "Document panel",
             close: function () {
                 $scope.overlay.show = false;

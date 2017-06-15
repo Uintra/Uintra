@@ -739,9 +739,9 @@
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.js" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\overlay.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\ui\_documentPanel.css" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
