@@ -16,7 +16,7 @@
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("NewsCreate.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
-                   data-val-required="@Html.Localize("CreateNews.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@Html.Localize("CreateNews.TitleMaxLength.lbl")" data-val="true" />
+                   data-val-required="@Html.Localize("CreateNews.TitleRequired.lbl")" data-val-length-max="400" data-val-length="@string.Format(Html.Localize("CreateNews.TitleMaxLength.lbl"), 400)" data-val="true" />
 
         </div>
         <div class="form__row clearfix">

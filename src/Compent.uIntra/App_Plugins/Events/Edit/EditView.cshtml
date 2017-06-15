@@ -19,7 +19,7 @@
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsEdit.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
-                   data-val-required="@Html.Localize("EventsEdit.TitleRequired.lbl")" data-val-length-max="200" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 200)" data-val="true" />
+                   data-val-required="@Html.Localize("EventsEdit.TitleRequired.lbl")" data-val-length-max="400" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 400)" data-val="true" />
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("EventsEdit.Description.lbl") <span class="form__required">*</span></label>
