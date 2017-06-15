@@ -28,8 +28,6 @@ namespace Compent.uIntra.Controllers
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
-        private readonly IGridHelper _gridHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
@@ -41,33 +39,6 @@ namespace Compent.uIntra.Controllers
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
-            _gridHelper = gridHelper;
-            _intranetUserService = intranetUserService;
-        }
-
-        public override ActionResult ComingEvents()
-        {
-            var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
-            var title = _gridHelper.GetContentProperty<string>(CurrentPage, "custom.ComingEvents", "displayTitle");
-            var currentDate = DateTime.UtcNow;
-
-            var events = _eventsService.GetComingEvents(currentDate).Take(eventsAmount);
-            var eventsList = events as IList<Event> ?? events.ToList();
-            var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
-            var comingEvents = new List<ComingEventViewModel>();
-            foreach (var e in eventsList)
-            {
-                var viewModel = e.Map<ComingEventViewModel>();
-                viewModel.Creator = creatorsDictionary[e.CreatorId];
-                comingEvents.Add(viewModel);
-            }
-
-            var model = new ComingEventsPanelViewModel()
-            {
-                Title = title,
-                Events = comingEvents
-            };
-            return PartialView(ComingEventsViewPath, model);
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
