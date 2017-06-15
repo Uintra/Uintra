@@ -69,21 +69,23 @@ function initFileUploader() {
         previewsContainer: previewContainer
     };
 
-    dropzone = fileUploadController.init(holder, options);
+    if ("undefined" === typeof dropzone) {
+        dropzone = fileUploadController.init(holder, options);
 
-    dropzone.on('success', function (file, fileId) {
-        previewContainer.classList.remove("hidden");
+        dropzone.on('success', function (file, fileId) {
+            previewContainer.classList.remove("hidden");
 
-        sentButton.disabled = !isEdited();
-    });
+            sentButton.disabled = !isEdited();
+        });
 
-    dropzone.on('removedfile', function (file) {
-        if (this.files.length === 0) {
-            previewContainer.classList.add("hidden");
-        }
+        dropzone.on('removedfile', function (file) {
+            if (this.files.length === 0) {
+                previewContainer.classList.add("hidden");
+            }
 
-        sentButton.disabled = !isEdited();
-    });
+            sentButton.disabled = !isEdited();
+        });
+    }
 }
 
 function descriptionClickHandler(event) {
@@ -106,6 +108,7 @@ function sentButtonClickHandler(event) {
         if (response.isSuccess) {
             isBulletinsTab()? cfReloadTab():cfShowBulletins();            
             hide();
+            dropzone.removeAllFiles(true);
 
         }
     });
