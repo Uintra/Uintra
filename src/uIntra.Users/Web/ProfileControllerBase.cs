@@ -135,7 +135,7 @@ namespace uIntra.Users.Web
                 }
             }
 
-            return _applicationSettings.DefaultAvatarPath;
+            return null;
         }
 
         public abstract MediaSettings GetMediaSettings();

@@ -266,12 +266,18 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App_Plugins\Panels\DocumentLibraryPanel\DocumentPanelMediaViewModel.cs" />
+    <Compile Include="PanelsConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.js" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\ui\_documentPanel.css" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
@@ -290,12 +296,17 @@
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\ui\document-panel.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
       <Project>{2e4a8b55-37f6-46a8-b108-30e346870720}</Project>
       <Name>uIntra.BaseControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}</Project>
+      <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
