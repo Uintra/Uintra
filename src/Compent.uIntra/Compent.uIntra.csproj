@@ -737,6 +737,10 @@
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\ui\_documentPanel.css" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
@@ -853,6 +857,7 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\ui\document-panel.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -865,6 +870,8 @@
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Plugins\Panels\DocumentLibraryPanel\DocumentPanelMediaViewModel.cs" />
+    <Compile Include="App_Plugins\Panels\PanelsConstants.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\BulletinsApiController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
