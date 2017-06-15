@@ -7,22 +7,28 @@ require("./file-upload.css");
 let fileUploader = (function () {
     let separator = ';';
 
-    let getUploadedFiles = function (container) {
-        let val = container.val();
-        if (!val) {
-            return [];
-        }
-        return val.split(separator);
-    }
-
     let addFile = function (container, fileId) {
-        let files = getUploadedFiles(container);
+        let containerValue = container.val();
+        let files = containerValue ? stringToList(containerValue, separator) : [];
         files.push(fileId);
-        container.val(files.join(separator));
+        container.val(listToString(files, separator));
     }
 
     let removeFile = function (container, fileId) {
-        container.val(container.val().replace(fileId + separator));
+        let containerValue = container.val();
+        let files = stringToList(containerValue, separator);
+        files = files.filter(function (id) { return id != fileId });
+        container.val(listToString(files, separator));
+    }
+
+    function listToString(list, separator) {
+        let result = list.join(separator);
+        return result;
+    }
+
+    function stringToList(string, separator) {
+        let result = string.split(separator);
+        return result;
     }
 
     return {
