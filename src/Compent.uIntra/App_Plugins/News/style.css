@@ -7,7 +7,7 @@
 		&-holder {
             margin-bottom:40px;
 
-			&._pinned {
+			&._pinned:not(._pinnedExpired) {
 				background: var(--color-light-gray-2);
 				border: solid var(--color-light-gray);
                 border-width:1px 0;

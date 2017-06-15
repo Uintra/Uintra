@@ -2,13 +2,13 @@
 @using uIntra.Core.Extentions
 @model uIntra.Events.EventItemViewModel
 @{
-    var pinnedClass = Model.IsPinned ? "_pinned" : "";
+    var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
 <div class="content__item">
     <div class="row clearfix">
-        <div class="col-md-12 content__item-holder @pinnedClass">
+        <div class="col-md-12 content__item-holder @currentPinnedClass">
             <div class="clearfix">
-                @if (@Model.IsPinned)
+                @if (Model.IsPinned || Model.IsPinActual)
                 {
                     <span class="pinned__item">@Html.Localize("EventItemView.Pinned.lbl")</span>
                 }
