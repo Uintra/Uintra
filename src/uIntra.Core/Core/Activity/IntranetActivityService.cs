@@ -145,7 +145,7 @@ namespace uIntra.Core.Activity
 
             if (activity.EndPinDate.HasValue)
             {
-                return activity.EndPinDate.Value > DateTime.Now;
+                return activity.EndPinDate.Value.ToUniversalTime() > DateTime.UtcNow;
             }
 
             return true;

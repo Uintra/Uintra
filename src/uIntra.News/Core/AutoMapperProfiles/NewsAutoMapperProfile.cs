@@ -42,6 +42,7 @@ namespace uIntra.News
                 {
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
                     dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
+                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<NewsEditModel, NewsBase>()
@@ -57,6 +58,7 @@ namespace uIntra.News
                     dst.MediaIds = src.Media.ToIntCollection();
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
                     dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
+                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()

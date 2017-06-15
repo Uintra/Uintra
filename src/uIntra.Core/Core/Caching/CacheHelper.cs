@@ -6,11 +6,11 @@ namespace uIntra.Core.Caching
     {
         public static DateTimeOffset GetDateTimeOffsetToMidnight()
         {
-            var currentDateTime = DateTimeOffset.Now;
+            var currentDateTime = DateTimeOffset.UtcNow;
             var midnightTime = currentDateTime.AddDays(1).Date;
             var timeToMidnight = midnightTime - currentDateTime;
 
-            return DateTimeOffset.Now.Add(timeToMidnight);
+            return currentDateTime.Add(timeToMidnight);
         }
     }
 }

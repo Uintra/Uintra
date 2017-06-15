@@ -48,6 +48,7 @@ namespace uIntra.Events
                 {
                     dst.StartDate = src.StartDate.ToUniversalTime();
                     dst.EndDate = src.EndDate.ToUniversalTime();
+                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<EventEditModel, EventBase>()
@@ -65,6 +66,7 @@ namespace uIntra.Events
                     dst.MediaIds = src.Media.ToIntCollection();
                     dst.StartDate = src.StartDate.ToUniversalTime();
                     dst.EndDate = src.EndDate.ToUniversalTime();
+                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<EventBase, EventViewModel>()
