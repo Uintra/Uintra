@@ -1,14 +1,19 @@
 ﻿import helpers from "./Helpers";
 
+var pinControl;
+var pinInfoHolder;
+var pinAccept;
+
 var pinActivity = {
     initPinControl: function(holder) {    
-        var pinControl = holder.find('.pin-control');
-        var pinInfoHolder = holder.find('.pin-info');
+        pinControl = holder.find('.pin-control');
+        pinInfoHolder = holder.find('.pin-info');
+        pinAccept = holder.find('.pin-accept');
+
         if (pinControl.is(":unchecked")) {
             pinInfoHolder.hide();
         }
         else {
-            var pinAccept = holder.find('.pin-accept');
             pinAccept.prop('checked', true);
         }
         pinControl.change(function() {
@@ -37,9 +42,8 @@ var pinActivity = {
         return pinDate;
     },
     isPinAccepted: function(holder) {
-        var pinControl = holder.find('.pin-control');
+        pinControl = holder.find('.pin-control');
         if (pinControl.is(":checked")) {
-            var pinAccept = holder.find('.pin-accept');
             if (pinAccept.is(":unchecked")) {
                 pinAccept.closest(".check__label").addClass('input-validation-error');
                 return false;
