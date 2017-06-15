@@ -1,5 +1,4 @@
-﻿@using uIntra.Core.Activity
-@using uIntra.Core.Extentions
+﻿@using uIntra.Core.Extentions
 @model  uIntra.Events.Core.Models.ComingEventsPanelViewModel
 
 <section class="block coming-events clearfix">
@@ -7,14 +6,13 @@
     <ul class="coming-events__list">
         @foreach (var e in Model.Events)
         {
-            var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, e.Id);
             <li class="coming-events__list-item clearfix">
                 <div class="coming-events__date">
                     <span class="coming-events__day">@e.StartDate.Day</span>
                     <span class="coming-events__month">@e.StartDate.ToString("MMMM")</span>
                 </div>
                 <div class="coming-events__description">
-                    <a href="@detailsPageUrl">
+                    <a href="@e.DetailsPageUrl">
                         <h3 class="coming-events__title">@e.Title</h3>
                     </a>
                     <span class="coming-events__creator">@e.Creator.DisplayedName</span>
