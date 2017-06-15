@@ -5,13 +5,28 @@
 <div id="js-profile-page" class="form _profile">
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
+        var hasImage = !string.IsNullOrEmpty(Model.Photo);
+    
         <div class="form__row clearfix">
             <div class="form__header">
                 <div class="form__avatar-holder">
                     <div class="form__avatar">
-                        <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
+                    @if (hasImage)
+                    {
+                        <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo"/>
+                        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")"></span>
+                    }
+                    else
+                    {
+                        <div class="form__row clearfix">
+                            <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
+                            @{
+                                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string, MaxFilesCount = 1 };
+                                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
+                            }
+                        </div>
+                                }
                     </div>
-                    <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")"></span>
                 </div>
                 <div class="form__meta">
                     <div class="row">
@@ -24,13 +39,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
-            @{
-                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string, MaxFilesCount = 1 };
-                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
-            }
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
