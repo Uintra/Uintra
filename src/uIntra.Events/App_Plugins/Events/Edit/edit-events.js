@@ -115,10 +115,10 @@ var initHideControl = function () {
 
     hideControl.on('click', function () {
         confirm.showConfirm(text, function () {
-            $.post('/umbraco/surface/Events/Hide?id=' + hideControl.data('id'),
-                function (data) {
-                    window.location.href = data.Url;
-                });
+            $.post('/umbraco/surface/Events/Hide?id=' + hideControl.data('id'),function () {
+                var url = hideControl.data('return-url');
+                window.location.href = url;
+            });
         }, function () { }, confirm.defaultSettings);
 
         return false;

@@ -144,13 +144,10 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        public virtual JsonResult Hide(Guid id)
+        public virtual void Hide(Guid id)
         {
             _eventsService.Hide(id);
             OnEventHidden(id);
-
-            FillLinks();
-            return Json(new { Url = ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events) });
         }
 
         [HttpPost]
