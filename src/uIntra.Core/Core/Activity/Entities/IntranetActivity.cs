@@ -9,6 +9,7 @@ namespace uIntra.Core.Activity
         IntranetActivityTypeEnum Type { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime ModifyDate { get; set; }
+        bool IsPinActual { get; set; }
         string Title { get; set; }
         string Description { get; set; }
         bool IsHidden { get; set; }
@@ -29,6 +30,9 @@ namespace uIntra.Core.Activity
 
         [JsonIgnore]
         public DateTime ModifyDate { get; set; }
+
+        [JsonIgnore]
+        public bool IsPinActual { get; set; }
 
         public string Title { get; set; }
 

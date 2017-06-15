@@ -22,6 +22,8 @@ namespace uIntra.News
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
 
-        public bool IsPinned { get; set; }        
+        public bool IsPinned { get; set; }
+
+        public bool IsPinActual { get; set; }
     }
 }

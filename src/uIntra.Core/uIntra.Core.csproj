@@ -373,6 +373,7 @@
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
+    <Compile Include="Core\Caching\CacheHelper.cs" />
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
@@ -384,7 +385,6 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
-    <Compile Include="Web\PinActivityControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
@@ -405,7 +405,7 @@
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
-    <Compile Include="Core\Controls\PinActivity\PinActivityModel.cs" />
+    <Compile Include="Core\Activity\Models\IntranetPinActivityModel.cs" />
     <Compile Include="Core\Extentions\DateTimeExtensions.cs" />
     <Compile Include="Core\Extentions\ObjectExtensions.cs" />
     <Compile Include="Core\Extentions\ViewDataExtensions.cs" />

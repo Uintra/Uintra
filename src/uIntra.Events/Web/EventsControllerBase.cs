@@ -137,7 +137,6 @@ namespace uIntra.Events.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-
             var activity = UpdateEvent(editModel);
             OnEventEdited(activity, editModel);
 
@@ -176,7 +175,7 @@ namespace uIntra.Events.Web
         }
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
-        {
+        { 
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;

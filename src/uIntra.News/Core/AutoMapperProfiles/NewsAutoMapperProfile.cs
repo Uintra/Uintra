@@ -37,10 +37,12 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
                     dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
+                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<NewsEditModel, NewsBase>()
@@ -50,11 +52,13 @@ namespace uIntra.News
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
                     dst.PublishDate = src.PublishDate.ToUniversalTime();
                     dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
+                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()
@@ -85,6 +89,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -97,6 +102,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

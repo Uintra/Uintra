@@ -177,7 +177,7 @@ namespace Compent.uIntra.Core.IoC
 
             kernel.Bind<INavigationCompositionService>().To<NavigationCompositionService>().InRequestScope();
             kernel.Bind<IHomeNavigationCompositionService>().To<HomeNavigationCompositionService>().InRequestScope();
-            kernel.Bind<ILeftSideNavigationModelBuilder>().To<uIntraLeftSideNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<ILeftSideNavigationModelBuilder>().To<UintraLeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
             kernel.Bind<IMyLinksModelBuilder>().To<MyLinksModelBuilder>().InRequestScope();
@@ -207,8 +207,8 @@ namespace Compent.uIntra.Core.IoC
 
             kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
 
-            kernel.Bind<IApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
-            kernel.Bind<IuIntraApplicationSettings>().To<uIntraApplicationSettings>().InSingletonScope();
+            kernel.Bind<IApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
+            kernel.Bind<IuIntraApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();

@@ -56,18 +56,6 @@ namespace uIntra.CentralFeed
             return settings;
         }
 
-        public bool IsPinActual(ICentralFeedItem item)
-        {
-            if (!item.IsPinned) return false;
-
-            if (item.EndPinDate.HasValue)
-            {
-                return DateTime.Compare(item.EndPinDate.Value, DateTime.Now) > 0;
-            }
-
-            return true;
-        }
-
         private IEnumerable<ICentralFeedItem> GetAllItems()
         {
             var items = _feedItemServices.SelectMany(service => service.GetItems());

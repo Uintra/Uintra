@@ -14,7 +14,5 @@ namespace uIntra.CentralFeed
         CentralFeedSettings GetSettings(CentralFeedTypeEnum type);
 
         IEnumerable<CentralFeedSettings> GetAllSettings();
-
-        bool IsPinActual(ICentralFeedItem item);
     }
 }
