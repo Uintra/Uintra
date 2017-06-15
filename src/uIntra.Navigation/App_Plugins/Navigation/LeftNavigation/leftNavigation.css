@@ -74,7 +74,7 @@
 		height: 14px;
         display:none;
 
-        .side-nav:first-child > .side-nav__item > &{
+        #sidebar > .side-nav > .side-nav__item > &{
             display:block;
         }
 
