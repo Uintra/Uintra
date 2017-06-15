@@ -1,5 +1,9 @@
 ﻿@model Compent.uIntra.Core.Navigation.TopMenuViewModel
 
+@{ 
+    var userAvatar = !String.IsNullOrEmpty(Model.CurrentUser.Photo) ? "_with-avatar" : "";
+}
+
 <div class="menu _for-mobile">
     <div class="menu__burger js-menu-opener">
         <span class="menu__burger-line"></span>
@@ -17,14 +21,18 @@
     </div>
 </div>
 <div class="user">
-    <a class="user__opener icon-user">
-        @*<img src="@Model.CurrentUser.Photo"/>*@
+    <a class="user__opener icon-user @userAvatar">
+        <div class="user__avatar _for-desktop">
+            <img src="@Model.CurrentUser.Photo" width="30">
+        </div>
         <span class="user__opener-arrow"></span>
-
     </a>
     <ul class="user__menu">
         <li class="user__menu-item _for-mobile">
-            <div class="user__menu-link">
+            <div class="user__menu-link @userAvatar">
+                <div class="user__avatar icon-user">
+                    <img src="@Model.CurrentUser.Photo" width="30">
+                </div>
                 <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
             </div>
         </li>
