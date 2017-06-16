@@ -96,4 +96,9 @@
 			}
 		}
 	}
+
+    .dropzone{
+        border:none !important;
+        padding:0;
+    }
 }

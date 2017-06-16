@@ -1111,6 +1111,10 @@ a{
         background:var(--color-light-gray-2);
     }
 
+    .dz-preview{
+        max-width:120px;
+    }
+
     .dz-message{
         position:relative;
 
