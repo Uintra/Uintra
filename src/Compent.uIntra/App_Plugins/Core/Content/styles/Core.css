@@ -397,11 +397,6 @@ a{
         position: relative;
         overflow:hidden;
         border: 1px solid #ccc;
-        display:inline-block;
-        vertical-align:middle;
-        margin:0 10px 0 0;
-        width:60px;
-        height:60px;
 
         &-holder{
             display:inline-block;
