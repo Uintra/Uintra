@@ -465,9 +465,6 @@
     }
 
     &__avatar{
-        border-radius:50%;
-        overflow:hidden;
-
         .user__menu &{
             float:left;
             width:30px;
