@@ -94,6 +94,12 @@
 					}
 				}
 			}
+
+            &.ql-bold,
+            &.ql-italic,
+            &.ql-link{
+                max-width:30px;
+            }
 		}
 	}
 

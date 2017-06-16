@@ -1,6 +1,10 @@
 ﻿.content{
     padding:0;
 
+    &._central-feed{
+        max-width:716px;
+    }
+
     .btn{
         @media (--for-tablet-portrait-down){
             &{
@@ -336,11 +340,6 @@
 }
 
 .feed {
-    &__filter{
-        max-width:746px;
-        margin:0 -15px;
-    }
-
 	 &-links {
 		 display: flex;
 		 flex-wrap: wrap;
@@ -386,10 +385,9 @@
 		 display: flex;
 		 flex-wrap: wrap;
 		 justify-content: flex-end;
-		 margin: 0 -15px 20px;
+		 margin: 0 0 20px;
 		 padding: 0;
 		 list-style: none;
-         max-width:746px;
 
 		 &__frame {
 			 margin: 0 0 0 10px;
