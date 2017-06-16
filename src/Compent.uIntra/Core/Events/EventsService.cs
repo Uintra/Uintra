@@ -293,7 +293,7 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = GetNotifiedSubsribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
                         data.Value = new CommentNotifierDataModel
                         {
                             ActivityType = IntranetActivityTypeEnum.Events,
@@ -335,7 +335,7 @@ namespace Compent.uIntra.Core.Events
                 case NotificationTypeEnum.BeforeStart:
                     {
                         currentEvent = Get(entityId);
-                        data.ReceiverIds = GetNotifiedSubsribers(currentEvent);
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
                         data.Value = new ActivityReminderDataModel
                         {
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
@@ -350,7 +350,7 @@ namespace Compent.uIntra.Core.Events
                 case NotificationTypeEnum.EventUpdated:
                     {
                         currentEvent = Get(entityId);
-                        data.ReceiverIds = GetNotifiedSubsribers(currentEvent);
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
                         data.Value = new ActivityNotifierDataModel
                         {
                             ActivityType = currentEvent.Type,
@@ -372,7 +372,7 @@ namespace Compent.uIntra.Core.Events
             return $"{GetDetailsPage().Url.UrlWithQueryString("id", eventId)}#{_commentsService.GetCommentViewId(commentId)}";
         }
 
-        private static IEnumerable<Guid> GetNotifiedSubsribers(Event currentEvent)
+        private static IEnumerable<Guid> GetNotifiedSubscribers(Event currentEvent)
         {
             return currentEvent.Subscribers.Where(s => !s.IsNotificationDisabled).Select(s => s.UserId);
         }
