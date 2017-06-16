@@ -12,7 +12,6 @@
                 {
                     <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.Bulletins, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
                 }
-                <span class="content__item-label">@Html.Localize("DetailsView.Important.lbl")</span>
                 <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
             </div>
             <div class="content__item _details">
