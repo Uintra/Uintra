@@ -72,6 +72,11 @@
 		right: 17px;
 		width: 14px;
 		height: 14px;
+        display:none;
+
+        #sidebar > .side-nav > .side-nav__item > &{
+            display:block;
+        }
 
 		&:after {
 			content: '';

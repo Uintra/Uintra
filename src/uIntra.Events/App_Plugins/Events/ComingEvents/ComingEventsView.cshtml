@@ -1,4 +1,5 @@
-﻿@model  uIntra.Events.Core.Models.ComingEventsPanelViewModel
+﻿@using uIntra.Core.Extentions
+@model  uIntra.Events.Core.Models.ComingEventsPanelViewModel
 
 <section class="block coming-events clearfix">
     <h2 class="block__title"><span class="icon-calendar"></span>@Model.Title</h2>
@@ -11,9 +12,11 @@
                     <span class="coming-events__month">@e.StartDate.ToString("MMMM")</span>
                 </div>
                 <div class="coming-events__description">
-                    <h3 class="coming-events__title">@e.Title</h3>
+                    <a href="@e.DetailsPageUrl">
+                        <h3 class="coming-events__title">@e.Title</h3>
+                    </a>
                     <span class="coming-events__creator">@e.Creator.DisplayedName</span>
-                    <span class="coming-events__time">@e.StartDate - @e.EndDate</span>
+                    <span class="coming-events__time">@e.StartDate.ToDateTimeFormat() - @e.EndDate.ToDateTimeFormat()</span>
                 </div>
             </li>
         }

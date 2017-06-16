@@ -2,17 +2,30 @@
 @using uIntra.Core.Extentions
 @model uIntra.Users.ProfileEditModel
 
-<div id="js-profile-page" class="form _profile">
+<div id="js-profile-page" class="form profile-edit _profile">
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
         <div class="form__row clearfix">
             <div class="form__header">
-                <div class="form__avatar-holder">
-                    <div class="form__avatar">
-                        <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
-                    </div>
-                    <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")"></span>
+                @{
+                    var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+                }
+                <div class="form__row clearfix @additionClass">
+                    <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
+                    @{
+                        var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string, MaxFilesCount = 1 };
+                        Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
+                    }
                 </div>
+                @if (!string.IsNullOrEmpty(Model.Photo))
+                {
+                    <div class="form__avatar-holder">
+                        <div class="form__avatar">
+                            <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
+                        </div>
+                        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")"></span>
+                    </div>
+                }
                 <div class="form__meta">
                     <div class="row">
                         <div class="col-md-6">
@@ -26,18 +39,11 @@
             </div>
         </div>
         <div class="form__row clearfix">
-            <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
-            @{
-                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string, MaxFilesCount = 1 };
-                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
-            }
-        </div>
-        <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="form__btn _black _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
         </div>
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-                }
+                        }
 </div>

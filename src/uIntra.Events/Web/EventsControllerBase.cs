@@ -67,7 +67,7 @@ namespace uIntra.Events.Web
             var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
             var title = _gridHelper.GetContentProperty<string>(CurrentPage, "custom.ComingEvents", "displayTitle");
             var currentDate = DateTime.UtcNow;
-
+            var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
             var events = _eventsService.GetComingEvents(currentDate).Take(eventsAmount);
             var eventsList = events as IList<EventBase> ?? events.ToList();
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
@@ -75,6 +75,7 @@ namespace uIntra.Events.Web
             foreach (var e in eventsList)
             {
                 var viewModel = e.Map<ComingEventViewModel>();
+                viewModel.DetailsPageUrl = detailsPage.Url.AddIdParameter(e.Id);
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
                 comingEvents.Add(viewModel);
             }
