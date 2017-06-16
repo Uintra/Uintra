@@ -92,7 +92,7 @@ namespace uIntra.Core.Activity
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
+            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset(), $"{ActivityType}");
             return activities;
         }
 
@@ -108,7 +108,7 @@ namespace uIntra.Core.Activity
                 cachedList.Add(activity);
             }
 
-            _cache.Set(CacheKey, cachedList, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), $"{ActivityType}");
 
             return activity;
         }

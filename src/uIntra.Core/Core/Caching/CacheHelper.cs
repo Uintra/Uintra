@@ -4,13 +4,12 @@ namespace uIntra.Core.Caching
 {
     public static class CacheHelper
     {
-        public static DateTimeOffset GetDateTimeOffsetToMidnight()
+        public static DateTimeOffset GetMidnightUtcDateTimeOffset()
         {
-            var currentDateTime = DateTimeOffset.UtcNow;
-            var midnightTime = currentDateTime.AddDays(1).Date;
-            var timeToMidnight = midnightTime - currentDateTime;
+            var midnightLocalTime = DateTimeOffset.UtcNow.AddDays(1).Date;
+            var midnightUtcTime = DateTime.SpecifyKind(midnightLocalTime, DateTimeKind.Utc);
 
-            return currentDateTime.Add(timeToMidnight);
+            return midnightUtcTime;
         }
     }
 }
