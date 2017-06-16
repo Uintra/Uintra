@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web.WebApi;
@@ -44,7 +45,10 @@ namespace uIntra.News.Dashboard
         [HttpPost]
         public NewsBackofficeViewModel Save(NewsBackofficeSaveModel saveModel)
         {
-            _newsService.Save(saveModel.Map<NewsBase>());
+            var news = _newsService.Get(saveModel.Id);
+            news = Mapper.Map(saveModel, news);
+            _newsService.Save(news);
+
             var updatedModel = _newsService.Get(saveModel.Id);
             var result = updatedModel.Map<NewsBackofficeViewModel>();
             result.CreatorId = _intranetUserService.GetCreator(updatedModel).Id;
