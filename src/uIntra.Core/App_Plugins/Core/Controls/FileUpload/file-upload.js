@@ -41,7 +41,9 @@ let fileUploader = (function () {
                 throw new Error("FileUpload: Can't find elements to work with");
             }
 
-            let allowedExtentions = dropzoneElem.data('allowed').replace(/\s/g, '') || "";
+            let dropzoneAllowedData = dropzoneElem.data('allowed');
+            if (dropzoneAllowedData == undefined) return;
+            let allowedExtentions = dropzoneAllowedData.replace(/\s/g, '') || "";
             let maxCount = dropzoneElem.data('maxCount');
 
             let defaultOptions = {
