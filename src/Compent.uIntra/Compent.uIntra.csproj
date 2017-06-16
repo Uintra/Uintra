@@ -325,9 +325,8 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.1.5\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.11\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.11.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.11.1\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.1.7.3, Culture=neutral, processorArchitecture=MSIL">
