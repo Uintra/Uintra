@@ -62,7 +62,7 @@
       "name": "Document Library Panel",
       "alias": "custom.DocumentLibraryPanel",
       "view": "/App_Plugins/Panels/DocumentLibraryPanel/document-panel.html",
-      "render": "/App_Plugins/Panels/DocumentLibraryPanel/document-panel.cshtml",
+      "render": "/App_Plugins/Panels/DocumentLibraryPanel/ui/document-panel.cshtml",
       "icon": "icon-documents color-green",
       "config": {
         "description": {

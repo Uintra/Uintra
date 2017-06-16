@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web.WebApi;
@@ -43,7 +44,10 @@ namespace uIntra.Events.Dashboard
         [HttpPost]
         public EventBackofficeViewModel Save(EventBackofficeSaveModel saveModel)
         {
-            _eventsService.Save(saveModel.Map<EventBase>());
+            var @event = _eventsService.Get(saveModel.Id);
+            @event = Mapper.Map(saveModel, @event);
+            _eventsService.Save(@event);
+
             var updatedModel = _eventsService.Get(saveModel.Id);
             var result = updatedModel.Map<EventBackofficeViewModel>();
             result.CreatorId = _intranetUserService.GetCreator(updatedModel).Id;

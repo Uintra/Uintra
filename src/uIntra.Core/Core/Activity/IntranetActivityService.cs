@@ -92,32 +92,36 @@ namespace uIntra.Core.Activity
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
+            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset(), $"{ActivityType}");
             return activities;
         }
 
         protected virtual TActivity UpdateCachedEntity(Guid id)
         {
-            var activity = _activityRepository.Get(id);
+            var activity = GetFromSql(id);
             var cached = GetAll(true);
             var cachedList = (cached as List<TActivity> ?? cached.ToList()).FindAll(s => s.Id != id);
-            var cachedActivity = default(TActivity);
 
             if (activity != null)
             {
-                cachedActivity = MapInternal(activity);
-                MapBeforeCache(Enumerable.Repeat((IIntranetActivity)cachedActivity, 1).ToList());
-                cachedList.Add(cachedActivity);
+                MapBeforeCache(Enumerable.Repeat((IIntranetActivity)activity, 1).ToList());
+                cachedList.Add(activity);
             }
 
-            _cache.Set(CacheKey, cachedList, CacheHelper.GetDateTimeOffsetToMidnight(), $"{ActivityType}");
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), $"{ActivityType}");
 
-            return cachedActivity;
+            return activity;
         }
 
         private TActivity GetFromSql(Guid id)
         {
-            var activity = MapInternal(_activityRepository.Get(id));
+            var activityEntity = _activityRepository.Get(id);
+            if (activityEntity == null)
+            {
+                return default(TActivity);
+            }
+
+            var activity = MapInternal(activityEntity);
             return activity;
         }
 
@@ -139,7 +143,7 @@ namespace uIntra.Core.Activity
             return cachedActivity;
         }
 
-        private bool IsPinActual(IIntranetActivity activity)
+        private static bool IsPinActual(IIntranetActivity activity)
         {
             if (!activity.IsPinned) return false;
 
