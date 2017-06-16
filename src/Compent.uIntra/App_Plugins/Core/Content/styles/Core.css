@@ -71,19 +71,19 @@
   color: rgb(37, 37, 37);
 }
 .icon-arrow-left:before {
-  content: "\e900";
+  content: "\e900" !important;
 }
 .icon-arrow-right:before {
-  content: "\e901";
+  content: "\e901" !important;
 }
 .icon-fullscreen:before {
-  content: "\e905";
+  content: "\e905" !important;
 }
 .icon-close:before {
-  content: "\e907";
+  content: "\e907" !important;
 }
 .icon-play:before {
-  content: "\e90c";
+  content: "\e90c" !important;
 }
 
 ._hide {
@@ -1187,9 +1187,9 @@ a{
         }
     }
     &__counter{
-        bottom: 0;
-        top: auto;
-        left: 50%;
+        bottom: 0 !important;
+        top: auto !important;
+        left: 50% !important;
         margin: 0 0 0 -23px;
         opacity: 1;
     }
@@ -1204,10 +1204,6 @@ a{
     }
 
     &__ui {
-        .pswp__top-bar {
-            opacity: 0 !important;
-        }
-
         &--hidden {
             .pswp__top-bar {
                 opacity: 1 !important;
