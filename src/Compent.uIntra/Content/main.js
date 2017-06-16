@@ -1,6 +1,5 @@
 ﻿require('./../App_Plugins/Core/Content/Scripts/Core');
 require('./../App_Plugins/Core/Content/Scripts/ScrollToTop');
-require('./../App_Plugins/Core/Content/Scripts/AutoScroll');
 require('./../App_Plugins/Navigation/navigation');
 require('./../App_Plugins/News/news');
 require('./../App_Plugins/CentralFeed/centralFeed');
