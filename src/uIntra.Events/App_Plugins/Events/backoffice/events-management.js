@@ -3,7 +3,7 @@
 
     var onError = function (error) { console.error(error); }
 
-    var controller = function ($http, authResource, $scope, eventsManagementConfig) {
+    var controller = function ($http, authResource, $scope, $timeout, eventsManagementConfig) {
         var self = this;
         self.eventsList = [];
         self.currentUser = null;
@@ -12,6 +12,8 @@
         self.selectedIndex = null;
         self.filterModel = {};
         self.users = [];
+        self.startDatePicker = null;
+        self.endDatePicker = null;
 
         self.filter = function (item) {
             var checkList = [];
@@ -123,6 +125,42 @@
             self.selectedIndex = self.selected = null;
         }
 
+        self.startDateChanged = function () {
+            $timeout(function () {
+                var startDate = self.startDatePicker.selectedDates[0];
+                if (startDate == null) {
+                    return;
+                }
+
+                startDate.setHours(0, 0, 0, 0);
+
+                var endDate = self.endDatePicker.selectedDates[0];
+                if (endDate != null) {
+                    endDate.setHours(0, 0, 0, 0);
+                }
+
+                if (endDate == null || endDate < startDate) {
+                    self.endDatePicker.setDate(startDate);
+                }
+            })
+        }
+
+        self.endDateChanged = function () {
+            $timeout(function () {
+                var endDate = self.endDatePicker.selectedDates[0];
+                if (endDate == null) {
+                    return;
+                }
+
+                var startDate = self.startDatePicker.selectedDates[0];
+                if (startDate == null) {
+                    return;
+                }
+                startDate.setHours(0, 0, 0, 0);
+                self.startDatePicker.setDate(startDate);
+            })
+        }
+
         var create = function (events) {
             $http.post('/Umbraco/backoffice/Api/EventsSection/Create', events).then(function (response) {
                 self.eventsList.push(response.data);
@@ -165,6 +203,6 @@
         activate();
     }
 
-    controller.$inject = ["$http", "authResource", "$scope", "eventsManagementConfig"];
+    controller.$inject = ["$http", "authResource", "$scope", "$timeout", "eventsManagementConfig"];
     angular.module('umbraco').controller('EventsManagementController', controller);
 })(angular);
