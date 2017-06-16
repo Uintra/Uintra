@@ -3,6 +3,10 @@
     vertical-align:middle;
     margin:0 0 10px;
 
+    ._details &{
+        float:right;
+    }
+
     & &{
         margin:0;
     }
@@ -20,6 +24,10 @@
         display:inline-block;
         vertical-align:top;
         margin:0 16px 0 0;
+
+        ._details &{
+            margin:0;
+        }
     }
 
     &__label{
@@ -65,6 +73,10 @@
         }
 
         &._unsubscribe{
+            ._details &{
+                margin:0 10px 0 0;
+            }
+
             &:before{
                 font-size:14px;
                 content:'\e907';
@@ -81,6 +93,7 @@
 
 .subscribe-overview {
     color:var(--text-color-dark);
+    padding:10px 0 0;
     
     &__title {
         font:bold 16px/23px var(--font-general);
