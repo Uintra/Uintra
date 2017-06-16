@@ -306,8 +306,8 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.BaseControls, Version=2.3.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.BaseControls.2.3.0.3\lib\net452\uIntra.BaseControls.dll</HintPath>
+    <Reference Include="uIntra.BaseControls, Version=2.3.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.3.0.4\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.0.1.10, Culture=neutral, processorArchitecture=MSIL">
@@ -330,8 +330,9 @@
       <HintPath>..\..\packages\uIntra.Core.1.1.10.5\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.1.7\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.1.7.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.1.7.1\lib\net452\uIntra.Events.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.1.1\lib\net452\uIntra.Likes.dll</HintPath>
@@ -504,7 +505,22 @@
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comments.css" />
+    <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ScrollToTop.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
@@ -790,7 +806,6 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
@@ -823,12 +838,6 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\package.manifest" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
@@ -839,6 +848,13 @@
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
