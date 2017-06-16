@@ -57,13 +57,27 @@
         "startNodeXPath": "$root/dataFolder/globalPanelFolder",
         "allowedAliases": [ "panel" ]
       }
+    },
+    {
+      "name": "Document Library Panel",
+      "alias": "custom.DocumentLibraryPanel",
+      "view": "/App_Plugins/Panels/DocumentLibraryPanel/document-panel.html",
+      "render": "/App_Plugins/Panels/DocumentLibraryPanel/ui/document-panel.cshtml",
+      "icon": "icon-documents color-green",
+      "config": {
+        "description": {
+          "height": 350,
+          "toolbar": "bold | italic | alignleft | aligncenter | alignright | bullist"
+        }
+      }
     }
   ],
   "javascript": [
     "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.js",
     "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.js",
     "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.js",
-    "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.js"
+    "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.js",
+    "/App_Plugins/Panels/DocumentLibraryPanel/document-panel.js"
   ],
   "css": [
     "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.css"
