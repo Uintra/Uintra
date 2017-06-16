@@ -49,6 +49,12 @@
 		font-size: 15px;
 		line-height: 19px;
 
+        ._details &{
+            position:absolute;
+            right:-10px;
+            top:40px;
+        }
+
         @media (--for-tablet-portrait-down) {
             &{
                 float:none;
