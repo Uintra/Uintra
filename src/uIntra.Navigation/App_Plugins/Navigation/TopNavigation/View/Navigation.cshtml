@@ -1,5 +1,9 @@
 ﻿﻿@model uIntra.Navigation.TopNavigationViewModel
 
+@{
+    var userAvatar = !String.IsNullOrEmpty(Model.CurrentUser.Photo) ? "_with-avatar" : "";
+}
+
 <div class="menu _for-mobile">
     <div class="menu__burger js-menu-opener">
         <span class="menu__burger-line"></span>
