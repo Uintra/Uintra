@@ -20,7 +20,7 @@ appInitializer.add(function() {
     var sortable = Sortable.create(container, {
         onUpdate: function (evt) {
             if(localStorage.getItem('myLinks')){
-                localStorage.removeItem(myLinks);
+                localStorage.removeItem('myLinks');
             }
             localStorage.setItem('myLinks', $(container).html());
         }
