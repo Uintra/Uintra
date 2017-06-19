@@ -1,8 +1,15 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
+﻿import appInitializer from './../../Core/Content/scripts/AppInitializer';
 
-require("./leftNavigation.css");
+require('./leftNavigation.css');
 
-var active = "_expand";
+var container = $('#sidebar');
+var active = '_expand';
+
+if(localStorage.getItem('sidebar')) {
+    container.html(localStorage.getItem('sidebar'));
+}
+
+var opener = $('.js-side-nav__opener');
 
 function locationChagned() {
     var path = window.location.pathname;
@@ -18,10 +25,19 @@ function locationChagned() {
     }
 }
 
-appInitializer.add(function() {
-    $(".js-side-nav__opener").on("click", function() {
-        $(this).closest(".js-side-nav__item").toggleClass(active);
-    });
+function toggleLinks(el, event, key){
+    if(localStorage.getItem(key)) {
+        localStorage.removeItem(sidebar);
+    }
+    $(el).closest('.js-side-nav__item').toggleClass(active);
+    container = $('#sidebar');
+    var content = container.html();
+    localStorage.setItem(key, content);
+}
 
+appInitializer.add(function() {
+    opener.on('click', function(e){
+        toggleLinks(this, e, 'sidebar');
+    });
     document.body.addEventListener('cfTabChanged', locationChagned);
 });
