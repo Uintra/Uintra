@@ -92,7 +92,7 @@ var helpers = {
             }
         });
 
-        datePicker.calendarContainer.append(closeButton);
+        datePicker.calendarContainer.appendChild(closeButton);
 
         datePicker.setDate(defaultDate, true);
         var minDate = new Date();

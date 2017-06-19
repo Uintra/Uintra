@@ -1,7 +1,7 @@
 ﻿using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 
-namespace Compent.uIntra.Panels.DocumentLibraryPanel
+namespace uIntra.Panels.Core.Models
 {
     public class DocumentPanelMediaViewModel
     {
@@ -12,7 +12,6 @@ namespace Compent.uIntra.Panels.DocumentLibraryPanel
         public string Extention { get; set; }        
 
         public string Url { get; set; }
-
 
         public static DocumentPanelMediaViewModel FromPublishedContent(IPublishedContent content)
         {
