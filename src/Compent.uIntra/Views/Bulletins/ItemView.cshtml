@@ -11,7 +11,7 @@
             <div class="content__item-image"> </div>
             @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.ShortDescription)))
             {
-                <div class="content__item-txt">
+                <div class="content__item-txt _clamp">
                     @Html.Raw(Model.ShortDescription)
                 </div>
             }

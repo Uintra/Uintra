@@ -397,15 +397,12 @@ a{
         position: relative;
         overflow:hidden;
         border: 1px solid #ccc;
-
-        &-holder{
-            display:inline-block;
-            height: 100px;
-            width: 100px;
-            margin: 0 20px 0 0;
-            vertical-align:middle;
-            position: relative;
-        }
+        display:inline-block;
+        height: 60px;
+        width: 60px;
+        margin: 0 10px 0 0;
+        vertical-align:middle;
+        position: relative;
 
         &-img{
             height: auto;

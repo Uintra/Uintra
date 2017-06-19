@@ -22,6 +22,15 @@ var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
     }
 });
 
+function initDescription(){
+    var container = $('._clamp');
+    if(container.length > 0){
+        for(var i = 0; i < container.length; i++){
+            helpers.clampText(container[i]);
+        }
+    }
+}
+
 function showLoadingStatus() {
     var loadingElem = document.querySelector(".js-loading-status");
     loadingElem && (loadingElem.style.display = "block");
@@ -49,6 +58,7 @@ function initCustomControls(data) {
     }
 
     lightbox.init();
+    initDescription();
     subscribe.initOnLoad();
     displayDescription();
 }
@@ -234,6 +244,7 @@ function init() {
         tab.addEventListener('click', tabClickEventHandler);
     }
 
+    initDescription();
     restoreState();
     infinityScroll(onScroll)();
     attachEventFilter();

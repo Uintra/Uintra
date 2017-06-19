@@ -1,5 +1,6 @@
 ﻿var Quill = require('quill');
 var Delta = require('quill-delta');
+var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
 
@@ -177,6 +178,11 @@ var helpers = {
 
 
         return s.join("&").replace(/%20/g, "+");
+    },
+    clampText: function(container){
+        $(container).dotdotdot({
+            watch: 'window'
+        });
     }
 }
 
