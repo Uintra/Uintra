@@ -26,6 +26,18 @@ function toggleMobileMenu(element, container){
     });
 }
 
+function resetStorage(){
+    var trigger = $('.js-logout');
+    trigger.on('click', function(){
+        if(localStorage.getItem('sidebar')) {
+            localStorage.removeItem('sidebar');
+        }
+        if(localStorage.getItem('myLinks')){
+            localStorage.removeItem('myLinks');
+        }
+    });
+}
+
 var isOutsideClick = function (el, opener, target, className, callback) {
     if (el && !el.contains(target) && (opener && !opener.contains(target)) && body.hasClass(className)) {
         if (typeof callback === "function") {
@@ -39,6 +51,7 @@ var controller = {
         if (mobileMediaQuery.matches) {
             initMobileNav();
         }
+        resetStorage();
     }
 }
 
