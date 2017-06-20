@@ -2,23 +2,10 @@
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type, Model.ActivityId);
-    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
-    var defaultImage = "/Content/images/default-avatar.png";
 }
 
 <header class="content__item-heading clearfix">
-    <div class="content__item-avatar">
-        <a href="@profilePageUrl">
-            @if (!String.IsNullOrEmpty(Model.Creator.Photo))
-            {
-                <img class="content__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
-            }
-            else
-            {
-                <img class="content__item-avatar-img" src="@defaultImage" />
-            }
-        </a>
-    </div>
+    @Html.Action("Photo", "User", new { user = Model.Creator })
     <div class="content__item-title-holder">
         <h2 class="content__item-title"><a class="content__item-title-link" href="@detailsPageUrl">@Model.Title</a></h2>
         <p class="content__item-meta">
