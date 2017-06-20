@@ -141,8 +141,8 @@ namespace uIntra.Bulletins.Web
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
 
-            var creator = _userService.GetCreator(bulletin);
-            model.HeaderInfo.Creator = _userService.GetCreator(bulletin);
+            var creator = _userService.Get(bulletin);
+            model.HeaderInfo.Creator = _userService.Get(bulletin);
             model.HeaderInfo.Title = creator.DisplayedName;
 
             model.CanEdit = _bulletinsService.CanEdit(bulletin);
@@ -167,8 +167,8 @@ namespace uIntra.Bulletins.Web
             model.MediaIds = bulletin.MediaIds;
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
 
-            var creator = _userService.GetCreator(bulletin);
-            model.HeaderInfo.Creator = _userService.GetCreator(bulletin);
+            var creator = _userService.Get(bulletin);
+            model.HeaderInfo.Creator = _userService.Get(bulletin);
             model.HeaderInfo.Title = creator.DisplayedName;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel

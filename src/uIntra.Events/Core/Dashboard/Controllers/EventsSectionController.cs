@@ -24,7 +24,7 @@ namespace uIntra.Events.Dashboard
             var events = _eventsService.GetAll(true);
             foreach (var @event in events)
             {
-                @event.CreatorId = _intranetUserService.GetCreator(@event).Id;
+                @event.CreatorId = _intranetUserService.Get(@event).Id;
             }
 
             var result = events.Map<IEnumerable<EventBackofficeViewModel>>();
@@ -37,7 +37,7 @@ namespace uIntra.Events.Dashboard
             var eventId = _eventsService.Create(createModel.Map<EventBase>());
             var createdModel = _eventsService.Get(eventId);
             var result = createdModel.Map<EventBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.GetCreator(createdModel).Id;
+            result.CreatorId = _intranetUserService.Get(createdModel).Id;
             return result;
         }
 
@@ -50,7 +50,7 @@ namespace uIntra.Events.Dashboard
 
             var updatedModel = _eventsService.Get(saveModel.Id);
             var result = updatedModel.Map<EventBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.GetCreator(updatedModel).Id;
+            result.CreatorId = _intranetUserService.Get(updatedModel).Id;
             return result;
         }
 

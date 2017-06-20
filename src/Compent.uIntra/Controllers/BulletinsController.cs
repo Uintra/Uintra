@@ -18,15 +18,16 @@ namespace Compent.uIntra.Controllers
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService)
-            : base(bulletinsService, mediaHelper, intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetUserContentHelper intranetUserContentHelper)
+            : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper)
         {
         }
 
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin)
         {
-            var extendedBullet = (Bulletin) bulletin;
-            var extendedModel=base.GetViewModel(bulletin).Map<BulletinExtendedViewModel>();
+            var extendedBullet = (Bulletin)bulletin;
+            var extendedModel = base.GetViewModel(bulletin).Map<BulletinExtendedViewModel>();
             extendedModel = Mapper.Map(extendedBullet, extendedModel);
             return extendedModel;
         }
