@@ -163,8 +163,8 @@ namespace uIntra.Events.Web
             FillLinks();
             var model = new EventCreateModel
             {
-                StartDate = DateTime.Now.Date.AddHours(8),
-                EndDate = DateTime.Now.Date.AddHours(8),
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddHours(8),
                 CanSubscribe = true,
                 Creator = _intranetUserService.GetCurrentUser()
             };
@@ -183,7 +183,7 @@ namespace uIntra.Events.Web
         {
             var model = @event.Map<EventEditModel>();
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-            model.Creator = _intranetUserService.GetCreator(@event);
+            model.Creator = _intranetUserService.Get(@event);
             FillCreateEditData(model);
             return model;
         }
@@ -193,7 +193,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventViewModel>();
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.HeaderInfo.Creator = _intranetUserService.GetCreator(@event);
+            model.HeaderInfo.Creator = _intranetUserService.Get(@event);
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
             return model;
@@ -208,7 +208,7 @@ namespace uIntra.Events.Web
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Creator = _intranetUserService.GetCreator(@event);
+            model.HeaderInfo.Creator = _intranetUserService.Get(@event);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

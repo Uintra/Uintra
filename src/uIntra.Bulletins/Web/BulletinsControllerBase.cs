@@ -27,15 +27,18 @@ namespace uIntra.Bulletins.Web
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _userService;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected BulletinsControllerBase(
             IBulletinsService<BulletinBase> bulletinsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> userService)
+            IIntranetUserService<IIntranetUser> userService,
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _bulletinsService = bulletinsService;
             _mediaHelper = mediaHelper;
             _userService = userService;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public virtual PartialViewResult CreationForm()
@@ -138,8 +141,8 @@ namespace uIntra.Bulletins.Web
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
 
-            var creator = _userService.GetCreator(bulletin);
-            model.HeaderInfo.Creator = _userService.GetCreator(bulletin);
+            var creator = _userService.Get(bulletin);
+            model.HeaderInfo.Creator = _userService.Get(bulletin);
             model.HeaderInfo.Title = creator.DisplayedName;
 
             model.CanEdit = _bulletinsService.CanEdit(bulletin);
@@ -164,8 +167,8 @@ namespace uIntra.Bulletins.Web
             model.MediaIds = bulletin.MediaIds;
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
 
-            var creator = _userService.GetCreator(bulletin);
-            model.HeaderInfo.Creator = _userService.GetCreator(bulletin);
+            var creator = _userService.Get(bulletin);
+            model.HeaderInfo.Creator = _userService.Get(bulletin);
             model.HeaderInfo.Title = creator.DisplayedName;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
@@ -183,10 +186,12 @@ namespace uIntra.Bulletins.Web
             var overviewPageUrl = _bulletinsService.GetOverviewPage().Url;
             var detailsPageUrl = _bulletinsService.GetDetailsPage().Url;
             var editPageUrl = _bulletinsService.GetEditPage().Url;
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
 
             ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins, overviewPageUrl);
             ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, detailsPageUrl);
             ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.Bulletins, editPageUrl);
+            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)

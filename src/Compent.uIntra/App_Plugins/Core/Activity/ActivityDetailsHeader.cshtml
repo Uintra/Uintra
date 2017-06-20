@@ -1,23 +1,11 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityDetailsHeaderViewModel
 @{
-    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
-    var defaultImage = "/Content/images/default-avatar.png";
+    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
 }
 
 <header class="content__item-heading clearfix">
-    <div class="content__item-avatar">
-        <a href="@profilePageUrl">
-            @if (!String.IsNullOrEmpty(Model.Creator.Photo))
-            {
-                <img style="width: 60px; height: 60px;" class="content__item-avatar-img" src="@(Model.Creator?.Photo)" />
-            }
-            else
-            {
-                <img class="content__item-avatar-img" src="@defaultImage" />
-            }
-        </a>
-    </div>
+    @Html.Action("Photo", "User", new { user = Model.Creator })
     <div class="content__item-title-holder">
         <p class="content__item-meta">
             @foreach (var date in Model.Dates)

@@ -12,8 +12,6 @@
 else
 {
     <input type="hidden" name="@Model.CreatorIdPropertyName" value="@Model.Creator.Id" />
-    <div class="form__avatar">
-        <img width="60" class="form__avatar-img" src="@Model.Creator.Photo" />
-    </div>
+    @Html.Action("Photo", "User", new { user = Model.Creator })
     <span>@Model.Creator.DisplayedName</span>
 }
