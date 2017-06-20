@@ -5,6 +5,13 @@
   </configSections>
   <appSettings>
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
+    
+    <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
+
+    <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsMode')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
@@ -12,17 +19,40 @@
         <permissions>
           <permission key="CanEditNews" />
           <permission key="CanFlyToSpace" />
+          <permission key="NewsView" />
+          <permission key="NewsCreate" />
+          <permission key="NewsEdit" />
+          <permission key="EventsView" />
+          <permission key="EventsCreate" />
+          <permission key="EventsEdit" />
+          <permission key="BulletinsCreate" />
+          <permission key="BulletinsEdit" />
+          <permission key="BulletinsDelete" />
+          <permission key="CanEditCreator" />
         </permissions>
       </role>
       <role key="UiPublisher">
         <permissions>
           <permission key="CanEatBanana" />
           <permission key="CanEditNews" />
+          <permission key="NewsView" />
+          <permission key="NewsCreate" />
+          <permission key="NewsEdit" />
+          <permission key="EventsView" />
+          <permission key="EventsCreate" />
+          <permission key="EventsEdit" />
+          <permission key="BulletinsCreate" />
+          <permission key="BulletinsEdit" />
+          <permission key="BulletinsDelete" />
         </permissions>
       </role>
       <role key="UiUser">
         <permissions>
-          <permission key="CanFlyToSpace" />
+          <permission key="NewsView" />
+          <permission key="EventsEdit" />
+          <permission key="BulletinsCreate" />
+          <permission key="BulletinsEdit" />
+          <permission key="BulletinsDelete" />
         </permissions>
       </role>
     </roles>

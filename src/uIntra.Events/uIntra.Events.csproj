@@ -340,12 +340,12 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\style.css" />
     <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-    <None Include="Content\Config\Lang\da-DK.user.xml.uninstall.xdt" />
-    <None Include="Content\Config\Lang\da-DK.user.xml.install.xdt" />
-    <None Include="Content\Config\Lang\en-GB.user.xml.uninstall.xdt" />
-    <None Include="Content\Config\Lang\en-GB.user.xml.install.xdt" />
-    <None Include="Content\Config\Lang\en-US.user.xml.uninstall.xdt" />
-    <None Include="Content\Config\Lang\en-US.user.xml.install.xdt" />
+    <None Include="Config\Lang\da-DK.user.xml.uninstall.xdt" />
+    <None Include="Config\Lang\da-DK.user.xml.install.xdt" />
+    <None Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />
+    <None Include="Config\Lang\en-GB.user.xml.install.xdt" />
+    <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
+    <None Include="Config\Lang\en-US.user.xml.install.xdt" />
     <None Include="uIntra.Events.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -362,10 +362,10 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
-    <None Include="Content\Config\applications.config.install.xdt" />
-    <None Include="Content\Config\applications.config.uninstall.xdt" />
-    <None Include="Content\Config\Dashboard.config.install.xdt" />
-    <None Include="Content\Config\Dashboard.config.uninstall.xdt" />
+    <None Include="Config\applications.config.install.xdt" />
+    <None Include="Config\applications.config.uninstall.xdt" />
+    <None Include="Config\Dashboard.config.install.xdt" />
+    <None Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

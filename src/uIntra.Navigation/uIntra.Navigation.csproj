@@ -395,8 +395,8 @@
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <None Include="Content\config\Dashboard.config.install.xdt" />
-    <None Include="Content\config\Dashboard.config.uninstall.xdt" />
+    <None Include="config\Dashboard.config.install.xdt" />
+    <None Include="config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
     <Compile Include="Web\MyLinksControllerBase.cs" />
     <Compile Include="Web\NavigationAuthorizationControllerBase.cs" />
