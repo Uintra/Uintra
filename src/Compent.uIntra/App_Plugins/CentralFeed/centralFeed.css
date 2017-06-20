@@ -43,25 +43,6 @@
             }
         }
 
-        &-avatar{
-            width:60px;
-            min-width:60px;
-            height:60px;
-            margin:0 20px 3px 0;
-            position:relative;
-            overflow:hidden;
-            border:1px solid var(--color-light-gray);
-
-            &-img{
-                position:absolute;
-                top:50%;
-                left:50%;
-                height:auto !important;
-                transform: translate(-50%, -50%);
-                max-width:100%;
-            }
-        }
-
         &-title-holder{
             padding:0;
         }

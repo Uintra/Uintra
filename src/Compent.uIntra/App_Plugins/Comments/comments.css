@@ -30,33 +30,6 @@
             }
         }
 
-        &-author{
-            float:left;
-            width: 60px;
-            min-width:60px;
-            height:60px;
-            position:relative;
-            overflow:hidden;
-            margin:7px 0 0;
-            border:1px solid var(--color-light-gray);
-
-            ._inner &{
-                margin:0;
-                width: 30px;
-                height: 30px;
-                min-width:30px;
-            }
-
-            &-avatar {
-                position:absolute;
-                top:50%;
-                left:50%;
-                height:auto !important;
-                transform: translate(-50%, -50%);
-                max-width:100%;
-            }
-        }
-
         &-body{
             padding:0 0 0 19px;
             float:left;
