@@ -2,7 +2,7 @@
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type, Model.ActivityId);
-    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
+    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
     var defaultImage = "/Content/images/default-avatar.png";
 }
 

@@ -1,7 +1,7 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityDetailsHeaderViewModel
 @{
-    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
+    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
     var defaultImage = "/Content/images/default-avatar.png";
 }
 
