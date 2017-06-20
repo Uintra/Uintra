@@ -124,7 +124,7 @@ namespace uIntra.News.Web
             FillLinks();
             var model = new NewsCreateModel
             {
-                PublishDate = DateTime.Now,
+                PublishDate = DateTime.UtcNow,
                 Creator = _intranetUserService.GetCurrentUser()
             };
 
