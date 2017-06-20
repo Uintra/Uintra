@@ -163,8 +163,8 @@ namespace uIntra.Events.Web
             FillLinks();
             var model = new EventCreateModel
             {
-                StartDate = DateTime.Now.Date.AddHours(8),
-                EndDate = DateTime.Now.Date.AddHours(8),
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddHours(8),
                 CanSubscribe = true,
                 Creator = _intranetUserService.GetCurrentUser()
             };
