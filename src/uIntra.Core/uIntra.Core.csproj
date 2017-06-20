@@ -380,11 +380,13 @@
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />
     <Compile Include="Core\User\IRole.cs" />
+    <Compile Include="Core\User\Models\UserPhotoViewModel.cs" />
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
@@ -539,6 +541,7 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
