@@ -8,11 +8,11 @@ namespace uIntra.Core.User
     {
         T Get(int umbracoId);
         T Get(Guid id);
-        IEnumerable<T> GetAll();
+        T Get(IHaveCreator model);
         IEnumerable<T> GetMany(IEnumerable<Guid> ids);
         IEnumerable<T> GetMany(IEnumerable<int> ids);
+        IEnumerable<T> GetAll();
         T GetCurrentUser();
-        T GetCreator(IHaveCreator model);
         IEnumerable<T> GetByRole(IntranetRolesEnum role);
     }
 }
