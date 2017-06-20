@@ -6,7 +6,7 @@
 
 @{ 
     var defaultImage = "/Content/images/default-avatar.png";
-    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
+    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
