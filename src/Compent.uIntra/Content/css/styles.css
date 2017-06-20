@@ -32,8 +32,10 @@ body {
     } 
 
     @media (--for-tablet-portrait-down) {
-        ._with-sub-nav &,
-        & {
+        &{
+            padding: 79px 0 0;
+        }
+        ._with-sub-nav & {
             padding: 131px 0 0;
         }
 

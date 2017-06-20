@@ -137,8 +137,10 @@ a{
     }
 
     @media (--for-tablet-portrait-down) {
-        ._with-sub-nav &,
-        & {
+        &{
+            padding: 79px 0 0;
+        }
+        ._with-sub-nav & {
             padding: 131px 0 0;
         }
 
@@ -351,6 +353,7 @@ a{
             &:focus{
                 background:var(--color-dark-red);
                 border-color:var(--color-dark-red);
+                text-decoration:none;
             }
         }
 
@@ -364,6 +367,7 @@ a{
             &:focus{
                 background:var(--text-color-dark);
                 border-color:var(--text-color-dark);
+                text-decoration:none;
             }
         }
 
