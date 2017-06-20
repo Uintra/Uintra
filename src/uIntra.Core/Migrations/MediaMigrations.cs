@@ -107,11 +107,106 @@ namespace uIntra.Core.Migrations
             }
         }
 
+        public static void AddMemberProperties()
+        {
+            var memberTypeService = ApplicationContext.Current.Services.MemberTypeService;
+            var memberType = memberTypeService.Get(MemberConstants.MemberTypeAlias);
+
+            if (!memberType.PropertyGroups.Contains(MemberConstants.ProfileTabAlias))
+            {
+                memberType.AddPropertyGroup(MemberConstants.ProfileTabAlias);
+            }
+
+            var firstNameProperty = new PropertyType("Umbraco.Textbox", DataTypeDatabaseType.Nvarchar)
+            {
+                Alias = MemberConstants.FirstNamePropertyAlias,
+                Name = MemberConstants.FirstNamePropertyName,
+                Mandatory = true
+            };
+
+            var lastNameProperty = new PropertyType("Umbraco.Textbox", DataTypeDatabaseType.Nvarchar)
+            {
+                Alias = MemberConstants.LastNamePropertyAlias,
+                Name = MemberConstants.LastNamePropertyName,
+                Mandatory = true
+            };
+            var photoProperty = new PropertyType("Umbraco.MultipleMediaPicker", DataTypeDatabaseType.Nvarchar)
+            {
+                Alias = MemberConstants.PhotoPropertyAlias,
+                Name = MemberConstants.PhotoPropertyName
+            };
+
+            var relatedUserProperty = new PropertyType("Umbraco.UserPicker", DataTypeDatabaseType.Integer)
+            {
+                Alias = MemberConstants.RelatedUserPropertyAlias,
+                Name = MemberConstants.RelatedUserPropertyName
+            };
+
+            if (!memberType.PropertyTypeExists(MemberConstants.FirstNamePropertyAlias))
+            {
+                memberType.AddPropertyType(firstNameProperty, MemberConstants.ProfileTabAlias);
+            }
+            if (!memberType.PropertyTypeExists(MemberConstants.LastNamePropertyAlias))
+            {
+                memberType.AddPropertyType(lastNameProperty, MemberConstants.ProfileTabAlias);
+            }
+            if (!memberType.PropertyTypeExists(MemberConstants.PhotoPropertyAlias))
+            {
+                memberType.AddPropertyType(photoProperty, MemberConstants.ProfileTabAlias);
+            }
+            if (!memberType.PropertyTypeExists(MemberConstants.RelatedUserPropertyAlias))
+            {
+                memberType.AddPropertyType(relatedUserProperty, MemberConstants.ProfileTabAlias);
+            }
+
+            memberTypeService.Save(memberType);
+        }
+
+        public static void AddDefaultMemberGroups()
+        {
+            var memberGroupService = ApplicationContext.Current.Services.MemberGroupService;
+
+            var uiUserGroup = memberGroupService.GetByName(MemberConstants.GroupUiUser);
+            var webMasterGroup = memberGroupService.GetByName(MemberConstants.GroupWebMaster);
+            var uiPublisherGroup = memberGroupService.GetByName(MemberConstants.GroupUiPublisher);
+
+            if (uiUserGroup == null)
+            {
+                uiUserGroup = new MemberGroup
+                {
+                    Name = MemberConstants.GroupUiUser,
+                    CreatorId = 0
+                };
+                memberGroupService.Save(uiUserGroup);
+            }
+            if (webMasterGroup == null)
+            {
+                webMasterGroup = new MemberGroup
+                {
+                    Name = MemberConstants.GroupWebMaster,
+                    CreatorId = 0
+                };
+                memberGroupService.Save(webMasterGroup);
+            }
+            if (uiPublisherGroup == null)
+            {
+                uiPublisherGroup = new MemberGroup
+                {
+                    Name = MemberConstants.GroupUiPublisher,
+                    CreatorId = 0
+                };
+                memberGroupService.Save(uiPublisherGroup);
+            }
+        }
+
         public static void Migrate()
         {
             AddIntranetUserIdProperty();
             AddFolderProperties();
             CreateDefaultFolders();
+
+            AddDefaultMemberGroups();
+            AddMemberProperties();
         }
     }
 }
