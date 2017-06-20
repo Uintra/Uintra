@@ -384,6 +384,7 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
+    <Compile Include="Migrations\MemberConstants.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
