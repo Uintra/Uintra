@@ -133,12 +133,16 @@ namespace uIntra.Users
                 Role = GetMemberRole(member)
             };
 
+            string userPhoto = null;
             var userPhotoId = member.GetValueOrDefault<int?>("photo");
+
             if (userPhotoId.HasValue)
             {
-                var media = _umbracoHelper.TypedMedia(userPhotoId.Value);
-                user.Photo = GetUserPhotoOrDefaultAvatar(media?.Url);
+                userPhoto = _umbracoHelper.TypedMedia(userPhotoId.Value)?.Url;
             }
+
+            user.Photo = GetUserPhotoOrDefaultAvatar(userPhoto);
+
             return user;
         }
 
