@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using Umbraco.Core;
@@ -199,6 +200,35 @@ namespace uIntra.Core.Migrations
             }
         }
 
+        public static void AddImageCropperPreset()
+        {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+            var imageCropperDataType = dataTypeService.GetDataTypeDefinitionByName(ImageCropperConstants.DataTypeName);
+            var preValues = dataTypeService.GetPreValuesCollectionByDataTypeId(imageCropperDataType.Id);
+
+            var array = JArray.Parse(preValues.PreValuesAsDictionary[ImageCropperConstants.DictionaryAlias].Value);
+
+            foreach (var child in array.Children())
+            {
+                if (child.Value<string>("alias") == ImageCropperConstants.PresetAlias)
+                {
+                    return;
+                }
+            }
+            var preset = new
+            {
+                alias = ImageCropperConstants.PresetAlias,
+                height = ImageCropperConstants.Height,
+                width = ImageCropperConstants.Width
+            };
+
+            array.Add(JObject.FromObject(preset));
+
+            var newVal = array.ToString();
+            preValues.PreValuesAsDictionary[ImageCropperConstants.DictionaryAlias].Value = newVal;
+            dataTypeService.SavePreValues(imageCropperDataType, preValues.PreValuesAsDictionary);
+        }
+
         public static void Migrate()
         {
             AddIntranetUserIdProperty();
@@ -207,6 +237,7 @@ namespace uIntra.Core.Migrations
 
             AddDefaultMemberGroups();
             AddMemberProperties();
+            AddImageCropperPreset();
         }
     }
 }
