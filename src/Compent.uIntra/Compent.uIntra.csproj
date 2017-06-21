@@ -348,8 +348,8 @@
       <HintPath>..\..\packages\uIntra.News.1.1.2.16\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.1.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.1.2.2\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.1.2.4\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -800,15 +800,9 @@
     <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\style.css" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\notification.js" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
@@ -906,6 +900,12 @@
     <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
