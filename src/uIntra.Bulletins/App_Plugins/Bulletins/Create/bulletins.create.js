@@ -48,7 +48,7 @@ function initEditor() {
 }
 
 function initEventListeners() {    
-    mobileMediaQuery ? 
+    mobileMediaQuery.matches ? 
     mobileBtn.addEventListener("click", descriptionClickHandler) : 
     description.addEventListener("click", descriptionClickHandler);
 
