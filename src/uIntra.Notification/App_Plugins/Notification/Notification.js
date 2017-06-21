@@ -1,12 +1,36 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
 import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
+import ajax from "./../Core/Content/scripts/Ajax";
 
 require("./List/notificationList.css");
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
+
+function initPreviewControls() {
+    var notification = $(".js-notification");
+    var notificationList = $(".js-notification-list");
+
+    notification.on('click', function() {
+        if (notificationList.hasClass("hide")) { 
+
+            ajax.Get("/umbraco/surface/Notification/List")
+                .then(function (response) {
+                    notificationList.html(response);
+                });
+
+            notificationList.removeClass("hide");
+        } else {
+            notificationList.addClass("hide");
+        }
+    });
+
+    notificationList.on('click', function() {
+        notificationList.addClass("hide");
+    });
+}
 
 function updateNotificationsCount() {
     $.ajax({
@@ -117,6 +141,7 @@ function initInfinityScroll() {
 }
 
 appInitializer.add(function () {
+    initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();

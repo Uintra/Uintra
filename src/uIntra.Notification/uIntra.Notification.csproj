@@ -326,6 +326,7 @@
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
     <Compile Include="Core\Models\NotificationListViewModel.cs" />
+    <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
     <Compile Include="Core\Models\NotificationViewModel.cs" />
     <Compile Include="Core\Configuration\NotificationConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
@@ -368,6 +369,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <None Include="uIntra.Notification.nuspec" />
