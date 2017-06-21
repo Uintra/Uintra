@@ -7,7 +7,6 @@
     var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
 }
 
-@{ Html.RenderAction("CreationForm", "Bulletins");}
 <section class="content _central-feed">
     @if (tabsWithCreateUrls.Any())
     {
