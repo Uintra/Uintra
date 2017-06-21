@@ -50,7 +50,7 @@
                                 </span>
                                 <div class="notifications__list-holder">
                                     <div class="notifications__list-row">
-                                        <span class="notifications__list-date">@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span>
+                                        <span class="notifications__list-date">@notification.Date</span>
                                         @if (notification.Type != NotificationTypeEnum.BeforeStart)
                                         {
                                             <span class="notifications__list-name">@notification.NotifierName</span>
@@ -87,7 +87,7 @@
                                 </span>
                                 <div class="notifications__list-holder">
                                     <div class="notifications__list-row">
-                                        <span class="notifications__list-date">@notification.Date.ToString(IntranetConstants.Common.DefaultDateTimeFormat)</span>
+                                        <span class="notifications__list-date">@notification.Date</span>
                                         <span class="notifications__list-name">@notification.NotifierName</span>
                                         <h2 class="notifications__list-title">
                                             <a class="notifications__list-link" href="@notification.Value.url">

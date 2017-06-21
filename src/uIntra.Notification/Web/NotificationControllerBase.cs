@@ -41,9 +41,8 @@ namespace uIntra.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var userId = _intranetUserService.GetCurrentUserId();
             int totalCount;
-            var notifications = _uiNotifierService.GetMany(userId, take, out totalCount).ToList();
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out totalCount).ToList();
 
             var result = new NotificationListViewModel
             {
