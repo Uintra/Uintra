@@ -1,4 +1,106 @@
-﻿.notifications{
+﻿.notification{
+    position:relative;
+
+    /* Notification popup styles */
+    &__icon{
+        font-size:16px;
+        color:var(--color-white);
+        cursor:pointer;
+        text-decoration:none;
+
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--color-white);
+            text-decoration:none;
+        }
+    }
+    &__number{
+        display: none;
+        position:absolute;
+        top:8px;
+        right:-17px;
+        width:19px;
+        height:19px;
+        background:var(--color-red);
+        color:var(--color-white);
+        font-size:13px;
+        line-height:18px;
+        text-align:center;
+        border-radius:50%;
+        font-family:var(--font-general);
+    }
+
+    &__list{
+        &-holder{
+            position:absolute;
+            top:100%;
+            left:0;
+            width:400px;
+        }
+    }
+
+    &__all{
+        display:block;
+        border:1px solid var(--color-light-gray);
+        background:var(--color-white);
+        padding:10px 20px;
+        margin:-1px 0 0;
+        color:var(--text-color-dark);
+
+        &:hover{
+            color:var(--text-color-dark);
+            text-decoration:none;
+            background:var(--color-light-gray-2);
+        }
+
+        .hide + &{
+            display:none;
+        }
+    }
+
+    @media (--for-tablet-portrait-down) {
+        & {
+            float: right;
+            width: 57px;
+            margin:0 0 0 10px;
+            position:static;
+
+            &__icon {
+                display: block;
+                text-align: center;
+                padding: 34px 0 29px;
+                position:relative;
+                z-index:3;
+            }
+
+            &__number {
+                top: 50%;
+                margin: -15px 0 0 5px;
+                left: 50%;
+            }
+
+            &__list{
+                width:auto;
+                right:0;
+            }
+
+            &__all{
+                border-width:1px 0;
+            }
+        }
+    }
+
+    @media (--for-tablet-landscape-up) {
+        & {
+            float: left;
+            width: auto;
+            text-align: left;
+            padding:18px 0 15px;
+        }
+    }
+
+    /* Notification page styles */
     &__title{         
         font:bold 20px/22px var(--font-custom);
         text-transform:uppercase;
@@ -10,38 +112,40 @@
         margin:0;
         padding:0;
         list-style:none;
+        background:var(--color-white);
+        border:1px solid var(--color-light-gray);
 
-        .notification &{
-            background:var(--color-white);
-            border:1px solid var(--color-light-gray);
-
-            @media(--for-tablet-portrait-down){
-                &{
-                    border:none;
-                }
+        @media(--for-tablet-portrait-down){
+            &{
+                border:none;
             }
+        }
+
+        .notification-page &{
+            background:none;
+            border:none;
         }
 
         &-item{
             display:flex;
-            align-items:center;
             margin:0;
-            padding:10px 0;
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
+            padding:13px 20px;
+            align-items:flex-start;
 
-            @media(--for-tablet-portrait-down){
-                &{
-                    align-items:flex-start;
-                }
+            &:last-child{
+                border:none;
             }
 
-            .notification &{
-                padding:13px 20px;
-                align-items:flex-start;
+            .notification-page &{
+                padding:10px 0;
+                align-items:center;
 
-                &:last-child{
-                    border:none;
+                @media(--for-tablet-portrait-down){
+                    &{
+                        align-items:flex-start;
+                    }
                 }
             }
 
@@ -77,7 +181,7 @@
             min-width:60px;
             height:60px;
             border:1px solid var(--color-light-gray);
-            margin:0 20px 0 0;
+            margin:7px 20px 0 0;
             position:relative;
             overflow:hidden;
 
@@ -91,8 +195,8 @@
                 max-width:100%;
             }
 
-            .notification &{
-                margin-top:7px;
+            .notification-page &{
+                margin-top:0;
             }
         }
 
@@ -150,7 +254,7 @@
             }
         }
 
-        &-holder{
+        &-description{
             overflow:hidden;
         }
 

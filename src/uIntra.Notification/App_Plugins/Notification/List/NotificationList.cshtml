@@ -3,107 +3,105 @@
 @using uIntra.Notification.Configuration
 @model uIntra.Notification.NotificationListViewModel
 
-<section class="notifications">
-    <ul class="notifications__list" id="notification_list">
-        @foreach (var notification in Model.Notifications)
+<ul class="notification__list" id="notification_list">
+    @foreach (var notification in Model.Notifications)
+    {
+        var icon = "";
+        switch (notification.Type)
         {
-            var icon = "";
-            switch (notification.Type)
+            case NotificationTypeEnum.EventUpdated:
+                icon = "icon-lightning";
+                break;
+
+            case NotificationTypeEnum.EventHided:
+                icon = "icon-cancel";
+                break;
+
+            case NotificationTypeEnum.BeforeStart:
+                icon = "icon-time";
+                break;
+
+            case NotificationTypeEnum.CommentLikeAdded:
+            case NotificationTypeEnum.ActivityLikeAdded:
+                icon = "icon-like";
+                break;
+            case NotificationTypeEnum.CommentAdded:
+            case NotificationTypeEnum.CommentEdited:
+            case NotificationTypeEnum.CommentReplyed:
+                icon = "icon-comment";
+                break;
+            default:
+                break;
+        }
+        <li data-anchor="@notification.Id" class="notification__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+            <span class="notification__list-avatar">
+                <img class="notification__list-avatar-img" src="@notification.NotifierPhoto">
+            </span>
+            @switch (notification.Type)
             {
                 case NotificationTypeEnum.EventUpdated:
-                    icon = "icon-lightning";
-                    break;
-
                 case NotificationTypeEnum.EventHided:
-                    icon = "icon-cancel";
-                    break;
-
                 case NotificationTypeEnum.BeforeStart:
-                    icon = "icon-time";
+                    {
+                        <div class="notification__list-meta">
+                            <span class="notification__list-icon">
+                                <i class="icon @icon"></i>
+                            </span>
+                            <div class="notification__list-description">
+                                <div class="notification__list-row">
+                                    <span class="notification__list-date">@notification.Date</span>
+                                    @if (notification.Type != NotificationTypeEnum.BeforeStart)
+                                    {
+                                        <span class="notification__list-name">@notification.NotifierName</span>
+                                    }
+                                    <h2 class="notification__list-title">
+                                        @if (notification.Type == NotificationTypeEnum.EventHided)
+                                        {
+                                            @notification.Value.title
+                                        }
+                                        else
+                                        {
+                                            <a class="notification__list-link" href="@notification.Value.url">
+                                                @notification.Value.title
+                                            </a>
+                                        }
+                                    </h2>
+                                </div>
+                                <div class="notification__list-row">
+                                    <span class="notification__list-type">@Html.Localize(notification.Type)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     break;
-
-                case NotificationTypeEnum.CommentLikeAdded:
                 case NotificationTypeEnum.ActivityLikeAdded:
-                    icon = "icon-like";
-                    break;
                 case NotificationTypeEnum.CommentAdded:
                 case NotificationTypeEnum.CommentEdited:
                 case NotificationTypeEnum.CommentReplyed:
-                    icon = "icon-comment";
-                    break;
-                default:
+                case NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        <div class="notification__list-meta">
+                            <span class="notification__list-icon">
+                                <i class="icon @icon"></i>
+                            </span>
+                            <div class="notification__list-description">
+                                <div class="notification__list-row">
+                                    <span class="notification__list-date">@notification.Date</span>
+                                    <span class="notification__list-name">@notification.NotifierName</span>
+                                    <h2 class="notification__list-title">
+                                        <a class="notification__list-link" href="@notification.Value.url">
+                                            @notification.Value.title
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="notification__list-row">
+                                    <span class="notification__list-type">@Html.Localize(notification.Type)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     break;
             }
-            <li data-anchor="@notification.Id" class="notifications__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                <span class="notifications__list-avatar">
-                    <img class="notifications__list-avatar-img" src="@notification.NotifierPhoto">
-                </span>
-                @switch (notification.Type)
-                {
-                    case NotificationTypeEnum.EventUpdated:
-                    case NotificationTypeEnum.EventHided:
-                    case NotificationTypeEnum.BeforeStart:
-                        {
-                            <div class="notifications__list-meta">
-                                <span class="notifications__list-icon">
-                                    <i class="icon @icon"></i>
-                                </span>
-                                <div class="notifications__list-holder">
-                                    <div class="notifications__list-row">
-                                        <span class="notifications__list-date">@notification.Date</span>
-                                        @if (notification.Type != NotificationTypeEnum.BeforeStart)
-                                        {
-                                            <span class="notifications__list-name">@notification.NotifierName</span>
-                                        }
-                                        <h2 class="notifications__list-title">
-                                            @if (notification.Type == NotificationTypeEnum.EventHided)
-                                            {
-                                                @notification.Value.title
-                                            }
-                                            else
-                                            {
-                                                <a class="notifications__list-link" href="@notification.Value.url">
-                                                    @notification.Value.title
-                                                </a>
-                                            }
-                                        </h2>
-                                    </div>
-                                    <div class="notifications__list-row">
-                                        <span class="notifications__list-type">@Html.Localize(notification.Type)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        break;
-                    case NotificationTypeEnum.ActivityLikeAdded:
-                    case NotificationTypeEnum.CommentAdded:
-                    case NotificationTypeEnum.CommentEdited:
-                    case NotificationTypeEnum.CommentReplyed:
-                    case NotificationTypeEnum.CommentLikeAdded:
-                        {
-                            <div class="notifications__list-meta">
-                                <span class="notifications__list-icon">
-                                    <i class="icon @icon"></i>
-                                </span>
-                                <div class="notifications__list-holder">
-                                    <div class="notifications__list-row">
-                                        <span class="notifications__list-date">@notification.Date</span>
-                                        <span class="notifications__list-name">@notification.NotifierName</span>
-                                        <h2 class="notifications__list-title">
-                                            <a class="notifications__list-link" href="@notification.Value.url">
-                                                @notification.Value.title
-                                            </a>
-                                        </h2>
-                                    </div>
-                                    <div class="notifications__list-row">
-                                        <span class="notifications__list-type">@Html.Localize(notification.Type)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        break;
-                }
-            </li>
-        }
-    </ul>
-</section>
+        </li>
+    }
+</ul>
