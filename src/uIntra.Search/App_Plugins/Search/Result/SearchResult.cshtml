@@ -1,0 +1,48 @@
+﻿@using TeamDenmark.Intranet.Core
+@using uCommunity.Core.Extentions
+@model IEnumerable<TeamDenmark.Intranet.App_Plugins.Search.Core.Models.SearchTextResultModel>
+
+@{
+
+    var countLabel = string.Format(Html.Localize("SearchResult.Count.lbl"), Model.Count());
+
+}
+
+<h1 class="search-result__title">@countLabel</h1>
+@{
+    foreach (var result in Model)
+    {
+        <div class="search-result__item">
+            <a class="search-result__item-link" href="@result.Url"></a>
+
+            <h2 class="search-result__item-title">@Html.Raw(result.Title)</h2>
+
+            @if (result.PanelContent.Any())
+            {
+                foreach (var pc in result.PanelContent)
+                {
+                    <div class="search-result__item-teaser">@Html.Raw(pc.CropText(GlobalConstants.Text.FragmentSize)) </div>
+                }
+            }
+            else
+            {
+                <div class="search-result__item-teaser">@Html.Raw(result.Description.CropText(GlobalConstants.Text.FragmentSize))</div>
+            }
+
+            <div class="search-result__item-meta">
+                <span class="search-result__item-type">@Html.Raw(result.Type)</span>
+                @if (result.PublishedDate == default(DateTime))
+                {
+                    <span class="search-result__item-date">@result.StartDate - @result.EndDate</span>
+                }
+                else
+                {
+                    if (result.PublishedDate.HasValue)
+                    {
+                        <span class="search-result__item-date">@result.PublishedDate.Value.ToShortDateString()</span>
+                    }
+                }
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,12 @@
+﻿<input id="cleanindex-elasticsearh" type="button" value="Clean Elasticsearch index" class="btn-black"/>
+<script>
+    $('#cleanindex-elasticsearh').on('click',function() {
+        $.ajax({
+                url: '/umbraco/api/admin/RebuildIndex',
+                type: 'POST'
+            })
+            .done(function() {
+                alert('REBUILD INDEX DONE');
+            });
+    })
+</script>
