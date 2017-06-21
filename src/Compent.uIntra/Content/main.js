@@ -13,9 +13,6 @@ require('./../App_Plugins/Panels/ContentPanel/contentPanel');
 require('./../App_Plugins/Users/users');
 require('./../App_Plugins/Bulletins/bulletins');
 
-import initCustomScripts from "./js/index";
-initCustomScripts()
-
 import actionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
 actionLinkWithConfirm();
 

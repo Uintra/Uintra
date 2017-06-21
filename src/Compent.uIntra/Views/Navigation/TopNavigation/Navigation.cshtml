@@ -1,6 +1,6 @@
-﻿@model Compent.uIntra.Core.Navigation.TopMenuViewModel
+﻿﻿@model uIntra.Navigation.TopNavigationViewModel
 
-@{ 
+@{
     var userAvatar = !String.IsNullOrEmpty(Model.CurrentUser.Photo) ? "_with-avatar" : "";
 }
 
@@ -11,15 +11,7 @@
         <span class="menu__burger-line"></span>
     </div>
 </div>
-<div class="notification js-notification">
-    <a class="icon icon-bell notification__icon">
-        <span class="notifications__number"></span>
-    </a>
-    <div class="notification__list js-notification-list hide">
-        @{ Html.RenderAction("Notifications", "Notification", new { notificationList = Model.NotificationList }); }
-        <a class="notification__all" href="@Model.NotificationsUrl">Show all notifications</a>
-    </div>
-</div>
+@Html.Action("Preview", "Notification")
 <div class="user">
     <a class="user__opener icon-user @userAvatar">
         <div class="user__avatar _for-desktop">
@@ -46,14 +38,8 @@
             </li>
         }
         <li class="user__menu-item">
-            <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
-                <span class="icon icon-user"></span>
-                Edit profile
-            </a>
-        </li>
-        <li class="user__menu-item">
-            <a class="user__menu-link" href="@Url.Action("Logout", "NavigationAuthorization")">
-                <span class="icon icon-logout"></span> 
+            <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
+                <span class="icon icon-logout"></span>
                 Logout
             </a>
         </li>
@@ -63,4 +49,4 @@
 <div class="greeting _for-desktop">
     <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
     <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
-</div>
+</div> 
