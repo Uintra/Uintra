@@ -1,4 +1,5 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
+import subscribeList from"./subscribeList";
 
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./subscribe.css");
@@ -65,6 +66,7 @@ var controller = {
 
 appInitializer.add(function () {
     controller.initOnLoad();
+    subscribeList.init();
 });
 
 window.subscribe = controller;
