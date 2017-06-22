@@ -12,6 +12,7 @@ require('./../App_Plugins/Likes/likes');
 require('./../App_Plugins/Panels/ContentPanel/contentPanel');
 require('./../App_Plugins/Users/users');
 require('./../App_Plugins/Bulletins/bulletins');
+require('./../App_Plugins/Search/Result/Search');
 
 import actionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
 actionLinkWithConfirm();
