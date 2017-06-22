@@ -20,7 +20,8 @@ namespace uIntra.Notification
         public NotificationsService(
             IEnumerable<INotifierService> notifiers,
             IConfigurationProvider<NotificationConfiguration> notificationConfigurationService,
-            IExceptionLogger exceptionLogger, IMemberNotifiersSettingsService memberNotifiersSettingsService)
+            IExceptionLogger exceptionLogger,
+            IMemberNotifiersSettingsService memberNotifiersSettingsService)
         {
             _notifiers = notifiers;
             _notificationConfigurationService = notificationConfigurationService;
@@ -30,7 +31,7 @@ namespace uIntra.Notification
 
         public void ProcessNotification(NotifierData data)
         {
-            var notifiers = GetNotifiers(data.NotificationType);
+            var notifiers = GetNotifiers(data.NotificationType).ToList();
             var allReceiversIds = data.ReceiverIds.ToList();
             var allReceiversNotifiersSettings = _memberNotifiersSettingsService.GetForMembers(allReceiversIds);
 
@@ -41,7 +42,7 @@ namespace uIntra.Notification
 
             foreach (var notifier in notifiers)
             {
-                data.ReceiverIds = allReceiversIds.Where(r => allReceiversNotifiersSettings[r].Contains(notifier.Type));
+                data.ReceiverIds = allReceiversIds.Where(reciverId => allReceiversNotifiersSettings[reciverId].Contains(notifier.Type));
                 try
                 {
                     notifier.Notify(data);
