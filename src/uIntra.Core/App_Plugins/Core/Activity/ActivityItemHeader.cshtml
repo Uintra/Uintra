@@ -5,21 +5,21 @@
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
 }
 
-<header class="content__item-heading clearfix">
+<header class="feed__item-heading clearfix">
     @Html.Action("Photo", "User", new { user = Model.Creator })
-    <div class="content__item-title-holder">
-        <h2 class="content__item-title"><a class="content__item-title-link" href="@detailsPageUrl">@Model.Title</a></h2>
-        <p class="content__item-meta">
+    <div class="feed__item-title-holder">
+        <h2 class="feed__item-title"><a class="feed__item-title-link" href="@detailsPageUrl">@Model.Title</a></h2>
+        <p class="feed__item-meta">
             @foreach (var date in Model.Dates)
             {
-                <span class="content__item-date">@date</span>
-                <span class="content__item-divider"> - </span>
+                <span class="feed__item-date">@date</span>
+                <span class="feed__item-divider"> - </span>
             }
-            <span class="content__item-category">@Html.Localize(Model.Type)@(Model.Creator != null ? "," : string.Empty)</span>
+            <span class="feed__item-category">@Html.Localize(Model.Type)@(Model.Creator != null ? "," : string.Empty)</span>
             @if (Model.Creator != null)
             {
                 <a href="@profilePageUrl">
-                    <span class="content__item-name">@Model.Creator.DisplayedName</span>
+                    <span class="feed__item-name">@Model.Creator.DisplayedName</span>
                 </a>
             }
         </p>
