@@ -6,8 +6,6 @@ namespace uIntra.Search.Core
     {
         IPublishedContent GetSearchPage();
 
-        IPublishedContent GetIndexerPage();
-
         bool IsSearchable(IPublishedContent content);
     }
 }
