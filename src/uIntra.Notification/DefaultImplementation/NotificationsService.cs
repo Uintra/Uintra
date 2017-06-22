@@ -15,20 +15,24 @@ namespace uIntra.Notification
         private readonly IEnumerable<INotifierService> _notifiers;
         private readonly IConfigurationProvider<NotificationConfiguration> _notificationConfigurationService;
         private readonly IExceptionLogger _exceptionLogger;
+        private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
 
         public NotificationsService(
             IEnumerable<INotifierService> notifiers,
             IConfigurationProvider<NotificationConfiguration> notificationConfigurationService,
-            IExceptionLogger exceptionLogger)
+            IExceptionLogger exceptionLogger, IMemberNotifiersSettingsService memberNotifiersSettingsService)
         {
             _notifiers = notifiers;
             _notificationConfigurationService = notificationConfigurationService;
             _exceptionLogger = exceptionLogger;
+            _memberNotifiersSettingsService = memberNotifiersSettingsService;
         }
 
         public void ProcessNotification(NotifierData data)
         {
             var notifiers = GetNotifiers(data.NotificationType);
+            var allReceiversIds = data.ReceiverIds.ToList();
+            var allReceiversNotifiersSettings = _memberNotifiersSettingsService.GetForMembers(allReceiversIds);
 
             if (!notifiers.Any())
             {
@@ -37,6 +41,7 @@ namespace uIntra.Notification
 
             foreach (var notifier in notifiers)
             {
+                data.ReceiverIds = allReceiversIds.Where(r => allReceiversNotifiersSettings[r].Contains(notifier.Type));
                 try
                 {
                     notifier.Notify(data);

@@ -331,6 +331,7 @@
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\INotificationHelper.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
@@ -344,7 +345,9 @@
     <Compile Include="Core\Configuration\ReminderConfiguration.cs" />
     <Compile Include="Core\Configuration\ReminderTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
+    <Compile Include="Core\Sql\MemberNotifierSettingDataModel.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
+    <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
