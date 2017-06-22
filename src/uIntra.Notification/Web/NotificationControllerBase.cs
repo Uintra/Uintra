@@ -76,7 +76,7 @@ namespace uIntra.Notification.Web
 
             var result = new NotificationListViewModel
             {
-                Notifications = notifications.Map<IEnumerable<NotificationViewModel>>(),
+                Notifications = notifications.Map<IEnumerable<NotificationViewModel>>().ForEach(FillNotifierData),
                 BlockScrolling = false
             };
 
