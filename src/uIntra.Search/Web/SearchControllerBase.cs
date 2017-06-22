@@ -65,7 +65,7 @@ namespace uIntra.Search.Web
         {
             var result = new SearchBoxViewModel
             {
-                SearchUrl = _searchUmbracoHelper.GetSearchPage()?.Url
+                SearchResultsUrl = _searchUmbracoHelper.GetSearchPage()?.Url
             };
 
             return PartialView(SearchBoxViewPath, result);

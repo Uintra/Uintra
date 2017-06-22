@@ -1,6 +1,6 @@
-﻿<input id="cleanindex-elasticsearh" type="button" value="Clean Elasticsearch index" class="btn-black"/>
+﻿<input type="button" value="Clean Elasticsearch index" class="btn-black js-cleanindex-elasticsearch"/>
 <script>
-    $('#cleanindex-elasticsearh').on('click',function() {
+    $('.js-cleanindex-elasticsearch').on('click', function () {
         $.ajax({
             url: '/umbraco/surface/Search/RebuildIndex',
                 type: 'POST'

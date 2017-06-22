@@ -366,7 +366,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <None Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <None Include="Config\Dashboard.config.install.xdt" />

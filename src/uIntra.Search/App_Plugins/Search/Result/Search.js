@@ -8,23 +8,30 @@ var searchTimeout;
 
 function search(query) {
     if (query) {
+        var url = $('.js-search-page-searchbox').data('searchUrl') + '?query='+ query;
+
         $.ajax({
-            url: "/umbraco/surface/Search/Search?query=" + query,
+            url: url,
             success: function (data) {
-                $("#search-result").html(data);
+                $(".js-search-page-search-result").html(data);
             }
         });
     }
 }
 
 function initSearchPage() {
-    $('#searchbox').on('input', function () {
+    var searchBox = $('.js-search-page-searchbox');
+    if (!searchBox.length) {
+        return;
+    }
+
+    searchBox.on('input', function () {
         clearTimeout(searchTimeout);
-        var text = $('#searchbox').val();
+        var text = searchBox.val();
         if (text.length > 1) {
             searchTimeout = setTimeout(function() {search(text)}, 250);
         } else {
-            $("#search-result").html("");
+            $(".js-search-page-search-result").html("");
         }
     });
 }
@@ -36,16 +43,20 @@ function initSearchBox() {
     if (!searchBox.length || !searchBoxIcon.length) {
         return;
     }
-    var url = searchBox.data('url') + '?query=';
+    var url = searchBox.data('searchResultsUrl') + '?query=';
     var query;
     var minChars = 2;
 
+    var emptyText = searchBox.data('emptyText');
+    var autocompleteUrl = searchBox.data('autocompleteUrl');
+    var seeAllText = searchBox.data('seeAllText');
+
     searchBox.autocomplete({
-        serviceUrl: '/umbraco/surface/Search/Autocomplete',
+        serviceUrl: autocompleteUrl,
         paramName: 'query',
         minChars: minChars,
         showNoSuggestionNotice: true,
-        noSuggestionNotice: searchBox.data('emptyText'),
+        noSuggestionNotice: emptyText,
         dataType: 'json',
         transformResult: function (response, originalQuery) {
             query = originalQuery;
@@ -57,7 +68,7 @@ function initSearchBox() {
 
             if (response.Documents.length) {
                 result.suggestions.push({
-                    value: searchBox.data('seeAllText'),
+                    value: seeAllText,
                     data: -1,
                     url: url + originalQuery,
                     type: 'all'
@@ -96,7 +107,10 @@ function initSearchBox() {
 
 function initMobileSearch() {
     var opener = document.querySelector("#js-search-opener");
-    var container = document.querySelector('.search');
+    if (!opener) {
+        return;
+    }
+
     var body = document.querySelector('body');
 
     opener.addEventListener('click',

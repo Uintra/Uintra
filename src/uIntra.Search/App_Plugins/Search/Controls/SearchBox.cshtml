@@ -6,8 +6,9 @@
 <div class="search">
     <form action="#" class="search__form">
         <input class="search__input js-searchbox" type="search" name="query"
+               data-search-results-url="@Model.SearchResultsUrl"
+               data-autocomplete-url="@Url.Action("Autocomplete","Search")"
                data-empty-text="@Html.Localize("SearchBox.Empty.lbl")"
-               data-url="@Model.SearchUrl"
                data-see-all-text="@Html.Localize("SearchBox.SeeAll.lnk")"
                placeholder="@Html.Localize("SearchBox.Placeholder.lbl")" />
         <a class="search__button _for-desktop js-searchbox-icon" type="submit"><span class="icon-search"></span></a>

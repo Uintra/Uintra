@@ -6,12 +6,12 @@
     @Html.Hidden("query", Model.Query)
 
     <div class="search-result__textbox-holder">
-        <input class="search-result__textbox" type="search" id="searchbox" value="@Model.Query" />
+        <input class="search-result__textbox js-search-page-searchbox" type="search" value="@Model.Query" data-search-url="@Url.Action("Search","Search")" />
         <span class="icon-search"></span>
     </div>
 
 
-    <div id="search-result">
+    <div class="js-search-page-search-result">
         @{ Html.RenderPartial("~/App_Plugins/Search/Result/SearchResult.cshtml", new List<SearchTextResultModel>());}
     </div>
 

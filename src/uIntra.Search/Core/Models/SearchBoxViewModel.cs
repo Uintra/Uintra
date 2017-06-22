@@ -2,6 +2,6 @@
 {
     public class SearchBoxViewModel
     {
-        public string SearchUrl { get; set; }
+        public string SearchResultsUrl { get; set; }
     }
 }
