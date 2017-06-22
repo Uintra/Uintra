@@ -399,7 +399,7 @@
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\navigation.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
+    <None Include="App_Plugins\Navigation\Web.config" />
     <Compile Include="DefaultImplementation\SystemLinksViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
