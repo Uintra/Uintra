@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="elasticSearch" xdt:Locator="Condition(@alias='elasticSearch')" xdt:Transform="InsertIfMissing">
+    <areas>
+      <area>developer</area>
+    </areas>
+    <tab caption="Elastic Search">
+      <control>
+        /App_Plugins/Search/backoffice/developerelasticsearch.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>
