@@ -2,9 +2,7 @@
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
-using uIntra.Search.Core.Indexes;
-using uIntra.Search.Core.Models;
-using uIntra.Search.Core.Queries;
+using uIntra.Search.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Search.Web

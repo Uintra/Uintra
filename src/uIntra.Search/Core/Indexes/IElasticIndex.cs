@@ -1,7 +1,4 @@
-﻿using uIntra.Search.Core.Entities;
-using uIntra.Search.Core.Queries;
-
-namespace uIntra.Search.Core.Indexes
+﻿namespace uIntra.Search.Core
 {
     public interface IElasticIndex
     {

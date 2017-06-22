@@ -4,7 +4,6 @@ using Nest;
 using uIntra.Core.Extentions;
 using uIntra.Search.Core;
 using uIntra.Search.Core.Configuration;
-using uIntra.Search.Core.Entities;
 using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
 
 namespace uIntra.Search

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Search.Core.Models
+﻿namespace uIntra.Search.Core
 {
     public class SearchAutocompleteResultModel
     {

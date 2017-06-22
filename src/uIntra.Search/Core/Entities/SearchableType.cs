@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.Activity;
 
-namespace uIntra.Search.Core.Entities
+namespace uIntra.Search.Core
 {
     public enum SearchableType
     {

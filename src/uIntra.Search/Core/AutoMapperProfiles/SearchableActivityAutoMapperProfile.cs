@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using uIntra.Core.Activity;
-using uIntra.Search.Core.Entities;
 
 namespace uIntra.Search.Core
 {

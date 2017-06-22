@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Nest;
 using uIntra.Core.Extentions;
-using uIntra.Search.Core.Entities;
-using uIntra.Search.Core.Queries;
 
-namespace uIntra.Search.Core.Indexes
+namespace uIntra.Search.Core
 {
     public class ElasticIndex : IElasticIndex
     {

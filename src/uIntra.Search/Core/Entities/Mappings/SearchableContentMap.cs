@@ -1,4 +1,4 @@
-﻿namespace uIntra.Search.Core.Entities.Mappings
+﻿namespace uIntra.Search.Core
 {
     public class SearchableContentMap : SearchableBaseMap<SearchableContent>
     {

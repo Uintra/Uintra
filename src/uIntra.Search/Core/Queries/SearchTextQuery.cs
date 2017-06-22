@@ -1,4 +1,4 @@
-﻿namespace uIntra.Search.Core.Queries
+﻿namespace uIntra.Search.Core
 {
     public class SearchTextQuery
     {
