@@ -2,7 +2,7 @@
 using uIntra.Search.Core.Entities;
 using uIntra.Search.Core.Models;
 
-namespace uIntra.Search.Core.Profiles
+namespace uIntra.Search.Core
 {
     public class SearchResultAutoMapperProfile : Profile
     {
@@ -35,10 +35,6 @@ namespace uIntra.Search.Core.Profiles
             Mapper.CreateMap<SearchableContent, SearchTextResultModel>()
                 .ForMember(d => d.PanelContent, o => o.MapFrom(s => s.PanelContent))
                 .IncludeBase<SearchableBase, SearchTextResultModel>();
-
-
-
-
         }
     }
 }

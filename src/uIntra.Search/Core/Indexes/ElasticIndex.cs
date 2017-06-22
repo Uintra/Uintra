@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nest;
-using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Search.Core.Entities;
 using uIntra.Search.Core.Queries;
@@ -60,10 +59,6 @@ namespace uIntra.Search.Core.Indexes
                 new QueryContainerDescriptor<SearchableActivity>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.Teaser)),
-                new QueryContainerDescriptor<SearchableActivity>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
                     .Field(f => f.Description)),
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
@@ -97,9 +92,8 @@ namespace uIntra.Search.Core.Indexes
                 .Highlight(hd => hd
                     .Fields(ff => ff
                         .Field("*")
-                        .PreTags(IntranetConstants.SearchConstants.HighlightPreTag)
-                        .PostTags(IntranetConstants.SearchConstants.HighlightPostTag))
-
+                        .PreTags(SearchConstants.HighlightPreTag)
+                        .PostTags(SearchConstants.HighlightPostTag))
                 );
         }
 
@@ -171,10 +165,6 @@ namespace uIntra.Search.Core.Indexes
                         break;
                     case "description":
                         document.description = highlightedField;
-                        break;
-
-                    case "teaser":
-                        document.teaser = highlightedField;
                         break;
 
                     case "panelContent":

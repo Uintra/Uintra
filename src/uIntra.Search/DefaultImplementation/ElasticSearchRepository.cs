@@ -2,27 +2,31 @@
 using System.Collections.Generic;
 using Nest;
 using uIntra.Core.Extentions;
+using uIntra.Search.Core;
 using uIntra.Search.Core.Configuration;
 using uIntra.Search.Core.Entities;
+using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class ElasticSearchRepository : IElasticSearchRepository
     {
         protected readonly IElasticConfigurationSection Configuration;
         protected readonly IElasticClient Client;
-        private readonly uIntra.Core.Exceptions.IExceptionLogger _exceptionLogger;
         protected readonly string IndexName;
+
+        private readonly IExceptionLogger _exceptionLogger;
 
         public ElasticSearchRepository(
             string indexName,
-            IElasticConfigurationSection configuration, uIntra.Core.Exceptions.IExceptionLogger exceptionLogger)
+            IElasticConfigurationSection configuration,
+            IExceptionLogger exceptionLogger)
         {
             Configuration = configuration;
             _exceptionLogger = exceptionLogger;
             IndexName = $"{configuration.IndexPrefix}{indexName.ToLower()}";
 
-            var connectionSettings = new ConnectionSettings(new Uri(configuration.Url)).DefaultIndex(this.IndexName);
+            var connectionSettings = new ConnectionSettings(new Uri(configuration.Url)).DefaultIndex(IndexName);
             Client = new ElasticClient(connectionSettings);
         }
 
@@ -87,7 +91,7 @@ namespace uIntra.Search.Core
             string indexName,
             IElasticConfigurationSection configuration,
             PropertiesDescriptor<T> properties,
-            uIntra.Core.Exceptions.IExceptionLogger exceptionLogger
+            IExceptionLogger exceptionLogger
             )
             : base(indexName, configuration, exceptionLogger)
         {

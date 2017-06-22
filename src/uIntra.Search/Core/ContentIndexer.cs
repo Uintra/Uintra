@@ -6,7 +6,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace uIntra.Search.Core
-{
+{ //TODO site implementation
     public class ContentIndexer : IIndexer, IContentIndexer
     {
         private readonly UmbracoHelper _umbracoHelper;

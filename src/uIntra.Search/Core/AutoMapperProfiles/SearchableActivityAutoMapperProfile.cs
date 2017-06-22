@@ -2,7 +2,7 @@
 using uIntra.Core.Activity;
 using uIntra.Search.Core.Entities;
 
-namespace uIntra.Search.Core.Profiles
+namespace uIntra.Search.Core
 {
     public class SearchableActivityAutoMapperProfile : Profile
     {
@@ -22,11 +22,11 @@ namespace uIntra.Search.Core.Profiles
                         case IntranetActivityTypeEnum.Events:
                             src.Type = SearchableType.Events;
                             break;
-                        case IntranetActivityTypeEnum.Ideas:
-                            src.Type = SearchableType.Ideas;
-                            break;
                         case IntranetActivityTypeEnum.News:
                             src.Type = SearchableType.News;
+                            break;
+                        case IntranetActivityTypeEnum.Ideas:
+                            src.Type = SearchableType.Ideas;
                             break;
                     }
                 });
@@ -40,10 +40,6 @@ namespace uIntra.Search.Core.Profiles
             //Mapper.CreateMap<Intranet.Core.News.Entities.News, SearchableActivity>()
             //    .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
             //    .IncludeBase<IntranetActivity, SearchableActivity>();
-
-            //Mapper.CreateMap<Intranet.Core.Ideas.Entities.Ideas, SearchableActivity>()
-            //    .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
-            //    .IncludeBase<IntranetActivity, SearchableActivity>();            
 
             base.Configure();
         }

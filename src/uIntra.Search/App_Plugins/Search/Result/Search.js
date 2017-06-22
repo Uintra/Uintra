@@ -41,7 +41,7 @@ function initSearchBox() {
     var minChars = 2;
 
     searchBox.autocomplete({
-        serviceUrl: '/umbraco/surface/Search/SearchAutocomplete',
+        serviceUrl: '/umbraco/surface/Search/Autocomplete',
         paramName: 'query',
         minChars: minChars,
         showNoSuggestionNotice: true,
