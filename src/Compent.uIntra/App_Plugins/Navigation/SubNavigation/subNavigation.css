@@ -52,7 +52,7 @@
         
 
         ._with-sub-nav &{
-            padding:27px 0 0;
+            padding:29px 0 0;
         }
     }
 
@@ -76,7 +76,6 @@
         overflow:hidden;
         margin:0 0 0 48px;
         font:bold 22px/30px var(--font-custom);
-        text-transform:uppercase;
 
         &-link{
             color:var(--text-color-dark);

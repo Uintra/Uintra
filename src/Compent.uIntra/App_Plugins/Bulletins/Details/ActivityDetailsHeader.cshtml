@@ -6,14 +6,14 @@
 }
 
 <header class="feed__item-heading clearfix">
-    <div class="feed__item-avatar">
+    <div class="avatar">
         @if (!String.IsNullOrEmpty(Model.Creator.Photo))
             {
-            <img class="feed__item-avatar-img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
+            <img class="avatar__img" style="width: 60px; height: 60px;" src="@(Model.Creator?.Photo)" />
         }
         else
         {
-            <img class="feed__item-avatar-img" src="@defaultImage" />
+            <img class="avatar__img" src="@defaultImage" />
         }
     </div>
     <div class="feed__item-title-holder">
