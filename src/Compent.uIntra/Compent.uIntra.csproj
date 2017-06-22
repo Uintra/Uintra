@@ -129,14 +129,6 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
       <Private>True</Private>
@@ -376,8 +368,8 @@
       <HintPath>..\..\packages\uIntra.Panels.2.1.0.6\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.0.2\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.0.3\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.1.4, Culture=neutral, processorArchitecture=MSIL">
@@ -1019,6 +1011,7 @@
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />
     <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
     <Compile Include="Core\Notification\NotificationHelper.cs" />
+    <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
@@ -1054,6 +1047,7 @@
     <Compile Include="Core\UmbracoModelsBuilders\Panel.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\ProfilePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\SearchResultPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SubscribePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SystemLink.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs" />
