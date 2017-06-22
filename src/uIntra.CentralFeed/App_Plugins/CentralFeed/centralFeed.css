@@ -4,8 +4,8 @@
     }
 
     &__item{
-        padding:0 20px;
-        margin:0 -20px 40px;
+        padding:0 15px;
+        margin:0 -15px 40px;
         font-size:16px;
         color:var(--text-color-dark);
         position:relative;
