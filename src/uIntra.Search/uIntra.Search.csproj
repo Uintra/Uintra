@@ -371,6 +371,9 @@
     <None Include="uIntra.Search.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Web.config.install.xdt">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
