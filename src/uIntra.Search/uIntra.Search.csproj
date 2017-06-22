@@ -330,6 +330,7 @@
     </Compile>
     <Compile Include="Core\Configuration\ElasticConfigurationSection.cs" />
     <Compile Include="Core\Configuration\IElasticConfigurationSection.cs" />
+    <Compile Include="Core\Models\SearchBoxViewModel.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\ElasticHelpers.cs" />
     <Compile Include="Core\SearchHelper.cs" />
@@ -364,6 +365,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <None Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />

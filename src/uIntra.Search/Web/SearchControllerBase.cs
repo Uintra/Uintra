@@ -10,52 +10,36 @@ namespace uIntra.Search.Web
 {
     public abstract class SearchControllerBase : SurfaceController
     {
+        protected virtual string IndexViewPath { get; } = "~/App_Plugins/Search/Result/Index.cshtml";
+        protected virtual string SearchResultViewPath { get; } = "~/App_Plugins/Search/Result/SearchResult.cshtml";
+        protected virtual string SearchBoxViewPath { get; } = "~/App_Plugins/Search/Controls/SearchBox.cshtml";
         protected const int SuggestionSearchCount = 10;
 
         private readonly ElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
         private readonly IIntranetLocalizationService _localizationService;
+        private readonly ISearchUmbracoHelper _searchUmbracoHelper;
 
         protected SearchControllerBase(
             ElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
-            IIntranetLocalizationService localizationService
-           )
+            IIntranetLocalizationService localizationService,
+            ISearchUmbracoHelper searchUmbracoHelper)
         {
             _elasticIndex = elasticIndex;
             _searchableServices = searchableServices;
             _localizationService = localizationService;
+            _searchUmbracoHelper = searchUmbracoHelper;
         }
 
-        public virtual ActionResult Index(string query)
+        public virtual PartialViewResult Index(string query)
         {
-            if (query.IsNullOrEmpty())
-            {
-                return PartialView("~/App_Plugins/Search/Result/Index.cshtml", new SearchViewModel());
-            }
-
-            return PartialView("~/App_Plugins/Search/Result/Index.cshtml", new SearchViewModel
+            var result = new SearchViewModel
             {
                 Query = query
-            });
-        }
+            };
 
-        public virtual JsonResult Autocomplete(string query)
-        {
-            var searchResult = _elasticIndex.Search(new SearchTextQuery
-            {
-                Text = query,
-                Take = SuggestionSearchCount
-            });
-
-            var result = searchResult.Documents.Select(d =>
-            {
-                var model = d.Map<SearchAutocompleteResultModel>();
-                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
-                return model;
-            });
-
-            return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
+            return PartialView(IndexViewPath, result);
         }
 
         public virtual PartialViewResult Search(string query)
@@ -74,7 +58,35 @@ namespace uIntra.Search.Web
                 return model;
             });
 
-            return PartialView("~/App_Plugins/Search/Result/SearchResult.cshtml", result);
+            return PartialView(SearchResultViewPath, result);
+        }
+
+        public virtual PartialViewResult SearchBox()
+        {
+            var result = new SearchBoxViewModel
+            {
+                SearchUrl = _searchUmbracoHelper.GetSearchPage()?.Url
+            };
+
+            return PartialView(SearchBoxViewPath, result);
+        }
+
+        public virtual JsonResult Autocomplete(string query)
+        {
+            var searchResult = _elasticIndex.Search(new SearchTextQuery
+            {
+                Text = query,
+                Take = SuggestionSearchCount
+            });
+
+            var result = searchResult.Documents.Select(d =>
+            {
+                var model = d.Map<SearchAutocompleteResultModel>();
+                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
+                return model;
+            });
+
+            return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
