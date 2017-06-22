@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
@@ -12,11 +13,17 @@ namespace uIntra.Search.Web
         protected const int SuggestionSearchCount = 10;
 
         private readonly ElasticIndex _elasticIndex;
+        private readonly IEnumerable<IIndexer> _searchableServices;
         private readonly IIntranetLocalizationService _localizationService;
 
-        protected SearchControllerBase(ElasticIndex elasticIndex, IIntranetLocalizationService localizationService)
+        protected SearchControllerBase(
+            ElasticIndex elasticIndex,
+            IEnumerable<IIndexer> searchableServices,
+            IIntranetLocalizationService localizationService
+           )
         {
             _elasticIndex = elasticIndex;
+            _searchableServices = searchableServices;
             _localizationService = localizationService;
         }
 
@@ -68,6 +75,16 @@ namespace uIntra.Search.Web
             });
 
             return PartialView("~/App_Plugins/Search/Result/SearchResult.cshtml", result);
+        }
+
+        [HttpPost]
+        public void RebuildIndex()
+        {
+            _elasticIndex.RecreateIndex();
+            foreach (var service in _searchableServices)
+            {
+                service.FillIndex();
+            }
         }
     }
 }

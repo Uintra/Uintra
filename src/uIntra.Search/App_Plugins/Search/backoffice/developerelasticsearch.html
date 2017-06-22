@@ -2,7 +2,7 @@
 <script>
     $('#cleanindex-elasticsearh').on('click',function() {
         $.ajax({
-                url: '/umbraco/api/admin/RebuildIndex',
+            url: '/umbraco/surface/Search/RebuildIndex',
                 type: 'POST'
             })
             .done(function() {
