@@ -20,16 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>News Overview Page</summary>
-	[PublishedContentModel("newsOverviewPage")]
-	public partial class NewsOverviewPage : BasePageWithGrid
+	/// <summary>Search Result Page</summary>
+	[PublishedContentModel("searchResultPage")]
+	public partial class SearchResultPage : BasePageWithGrid, INavigationComposition
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "newsOverviewPage";
+		public new const string ModelTypeAlias = "searchResultPage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public NewsOverviewPage(IPublishedContent content)
+		public SearchResultPage(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -40,9 +40,36 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsOverviewPage, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<SearchResultPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Is hide from Left Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromLeftNavigation")]
+		public bool IsHideFromLeftNavigation
+		{
+			get { return NavigationComposition.GetIsHideFromLeftNavigation(this); }
+		}
+
+		///<summary>
+		/// Is hide from Sub Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromSubNavigation")]
+		public bool IsHideFromSubNavigation
+		{
+			get { return NavigationComposition.GetIsHideFromSubNavigation(this); }
+		}
+
+		///<summary>
+		/// Navigation Name
+		///</summary>
+		[ImplementPropertyType("navigationName")]
+		public string NavigationName
+		{
+			get { return NavigationComposition.GetNavigationName(this); }
 		}
 	}
 }

@@ -20,17 +20,9 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1067 with alias "homeNavigationComposition"
-	/// <summary>Home Navigation Composition</summary>
-	public partial interface IHomeNavigationComposition : IPublishedContent
-	{
-		/// <summary>Is show in Home Navigation</summary>
-		bool IsShowInHomeNavigation { get; }
-	}
-
 	/// <summary>Home Navigation Composition</summary>
 	[PublishedContentModel("homeNavigationComposition")]
-	public partial class HomeNavigationComposition : PublishedContentModel, IHomeNavigationComposition
+	public partial class HomeNavigationComposition : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "homeNavigationComposition";
@@ -59,10 +51,7 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("isShowInHomeNavigation")]
 		public bool IsShowInHomeNavigation
 		{
-			get { return GetIsShowInHomeNavigation(this); }
+			get { return this.GetPropertyValue<bool>("isShowInHomeNavigation"); }
 		}
-
-		/// <summary>Static getter for Is show in Home Navigation</summary>
-		public static bool GetIsShowInHomeNavigation(IHomeNavigationComposition that) { return that.GetPropertyValue<bool>("isShowInHomeNavigation"); }
 	}
 }
