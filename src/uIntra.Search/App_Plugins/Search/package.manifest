@@ -9,16 +9,6 @@
         "controller": "Search",
         "action": "Index"
       }
-    },
-    {
-      "name": "Search Indexer",
-      "alias": "custom.SearchIndexer",
-      "view": "/App_Plugins/Search/Indexer/search-indexer.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "Search",
-        "action": "Indexer"
-      }
     }
   ]
 }

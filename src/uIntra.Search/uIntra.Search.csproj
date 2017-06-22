@@ -364,7 +364,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Plugins\Search\Indexer\Indexer.cshtml" />
     <None Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
@@ -375,7 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
-    <Content Include="App_Plugins\Search\Indexer\search-indexer.html" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
     <Content Include="App_Plugins\Search\Result\search.js" />
     <Content Include="App_Plugins\Search\Result\_searchResult.css" />
