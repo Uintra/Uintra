@@ -187,7 +187,7 @@ var helpers = {
         });
     },
     initScrollbar: function(el){
-        SimpleScrollbar.initEl(el);
+        Scrollbar.initEl(el);
     }
 }
 
