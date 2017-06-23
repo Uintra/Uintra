@@ -1,7 +1,4 @@
-﻿import appInitializer from './../../Core/Content/scripts/AppInitializer';
-import helpers from "./../../Core/Content/scripts/Helpers";
-
-require('./leftNavigation.css');
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 require('./leftNavigation.css');
 
 var container = $('.js-sidebar-inner');
@@ -38,12 +35,16 @@ function toggleLinks(el, event, key){
     localStorage.setItem(key, content);
 }
 
-appInitializer.add(function() {
-    opener.on('click', function(e){
-        toggleLinks(this, e, 'sidebar');
-    });
-    if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
-        helpers.initScrollbar(document.querySelector('.js-sidebar'));
+var controller = {
+    init: function () {
+        opener.on('click', function(e){
+            toggleLinks(this, e, 'sidebar');
+        });
+        if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
+            helpers.initScrollbar(document.querySelector('.js-sidebar'));
+        }
+        document.body.addEventListener('cfTabChanged', locationChagned);
     }
-    document.body.addEventListener('cfTabChanged', locationChagned);
-});
+}
+
+export default controller;
