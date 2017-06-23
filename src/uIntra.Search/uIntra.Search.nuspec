@@ -10,5 +10,8 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uIntra Search Controls SearchControls</tags>
+    <dependencies>
+      <dependency id="uIntra.Core" version="1.1.1" />
+    </dependencies>
   </metadata>
 </package>

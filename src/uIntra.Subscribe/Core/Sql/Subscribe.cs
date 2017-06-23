@@ -5,7 +5,7 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Subscribe
 {
-    [Table("Subscribe")]
+    [uIntraTable("Subscribe")]
     public class Subscribe : SqlEntity<Guid>
     {
         [Key]

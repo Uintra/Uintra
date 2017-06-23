@@ -392,8 +392,9 @@
   </Target>
   <Import Project="..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.5.4\build\UmbracoCms.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == DebugWithDll copy $(TargetDir)$(ProjectName).dll $(SolutionDir)Compent.uIntra\bin\$(ProjectName).dll
-if $(ConfigurationName) == DebugWithDll copy $(TargetDir)$(ProjectName).pdb $(SolutionDir)Compent.uIntra\bin\$(ProjectName).pdb</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == NuGet copy $(TargetDir)$(ProjectName).dll $(SolutionDir)Compent.uIntra\bin\$(ProjectName).dll
+if $(ConfigurationName) == NuGet copy $(TargetDir)$(ProjectName).pdb $(SolutionDir)Compent.uIntra\bin\$(ProjectName).pdb
+if $(ConfigurationName) == NuGet xcopy /S /y $(ProjectDir)App_Plugins $(SolutionDir)Compent.uIntra\App_Plugins</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

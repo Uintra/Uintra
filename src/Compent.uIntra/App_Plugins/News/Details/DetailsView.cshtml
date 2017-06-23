@@ -12,7 +12,7 @@
     <section class="content">
         <div class="row clearfix">
             <div class="col-md-9">
-                <header class="content__header">
+                <header class="feed__header">
                     @if (Model.CanEdit)
                     {
                         <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.News, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
@@ -20,12 +20,12 @@
                     <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
                 </header>
 
-                <div class="content__item _details">
+                <div class="feed__item _details">
                     @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-                    <div class="content__item-txt">
+                    <div class="feed__item-txt">
                         @Html.Raw(Model.Description)
                     </div>
-                    <div class="content__item-images">
+                    <div class="feed__item-images">
                         @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
                     </div>
                 </div>

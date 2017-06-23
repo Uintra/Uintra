@@ -19,5 +19,13 @@ namespace uIntra.Core.Extentions
         {
             return !enumerable.Any();
         }
+
+        public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> source, int divider = 2)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / divider)
+                .Select(x => x.Select(v => v.Value));
+        }
     }
 }

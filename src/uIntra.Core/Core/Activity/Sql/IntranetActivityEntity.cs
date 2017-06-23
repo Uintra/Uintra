@@ -5,7 +5,7 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Core.Activity
 {
-    [Table("Activity")]
+    [uIntraTable("Activity")]
     public class IntranetActivityEntity : SqlEntity<Guid>
     {
         [Key]

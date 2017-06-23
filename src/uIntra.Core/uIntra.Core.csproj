@@ -385,6 +385,7 @@
     <Compile Include="Core\Caching\CacheHelper.cs" />
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
+    <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />
@@ -750,8 +751,9 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == DebugWithDll copy $(TargetDir)$(ProjectName).dll $(SolutionDir)Compent.uIntra\bin\$(ProjectName).dll
-if $(ConfigurationName) == DebugWithDll copy $(TargetDir)$(ProjectName).pdb $(SolutionDir)Compent.uIntra\bin\$(ProjectName).pdb</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == NuGet copy $(TargetDir)$(ProjectName).dll $(SolutionDir)Compent.uIntra\bin\$(ProjectName).dll
+if $(ConfigurationName) == NuGet copy $(TargetDir)$(ProjectName).pdb $(SolutionDir)Compent.uIntra\bin\$(ProjectName).pdb
+if $(ConfigurationName) == NuGet xcopy /S /y $(ProjectDir)App_Plugins $(SolutionDir)Compent.uIntra\App_Plugins</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

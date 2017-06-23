@@ -37,13 +37,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .AfterMap((src, dst) =>
-                {
-                    dst.PublishDate = src.PublishDate.ToUniversalTime();
-                    dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
-                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
-                });
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore());
 
             Mapper.CreateMap<NewsEditModel, NewsBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
@@ -56,9 +50,6 @@ namespace uIntra.News
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
-                    dst.PublishDate = src.PublishDate.ToUniversalTime();
-                    dst.UnpublishDate = src.UnpublishDate?.ToUniversalTime();
-                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()
