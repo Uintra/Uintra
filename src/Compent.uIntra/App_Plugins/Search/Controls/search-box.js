@@ -1,40 +1,6 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 
 require('devbridge-autocomplete');
-require("./_searchResult.css");
-
-var holder;
-var searchTimeout;
-
-function search(query) {
-    if (query) {
-        var url = $('.js-search-page-searchbox').data('searchUrl') + '?query='+ query;
-
-        $.ajax({
-            url: url,
-            success: function (data) {
-                $(".js-search-page-search-result").html(data);
-            }
-        });
-    }
-}
-
-function initSearchPage() {
-    var searchBox = $('.js-search-page-searchbox');
-    if (!searchBox.length) {
-        return;
-    }
-
-    searchBox.on('input', function () {
-        clearTimeout(searchTimeout);
-        var text = searchBox.val();
-        if (text.length > 1) {
-            searchTimeout = setTimeout(function() {search(text)}, 250);
-        } else {
-            $(".js-search-page-search-result").html("");
-        }
-    });
-}
 
 function initSearchBox() {
     var searchBox = $('.js-searchbox');
@@ -128,12 +94,5 @@ function initMobileSearch() {
 appInitializer.add(function () {
     initSearchBox();
     initMobileSearch();
-    holder = $('#js-search-page');
-    var query = $('#query').val();
-    if (!holder.length) {
-        return;
-    }
-    initSearchPage();
-    search(query);
 });
 
