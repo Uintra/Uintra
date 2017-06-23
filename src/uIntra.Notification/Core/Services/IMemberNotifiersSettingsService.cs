@@ -6,8 +6,8 @@ namespace uIntra.Notification
 {
     public interface IMemberNotifiersSettingsService
     {
-        IEnumerable<NotifierTypeEnum> GetForMember(Guid memberId);
+        IDictionary<NotifierTypeEnum, bool> GetForMember(Guid memberId);
         IDictionary<Guid, IEnumerable<NotifierTypeEnum>> GetForMembers(IEnumerable<Guid> memberIds);
-        void SetForMember(Guid memberId, IEnumerable<NotifierTypeEnum> newNotifiersTypes);  
+        void SetForMember(Guid memberId, NotifierTypeEnum notifierType, bool isEnabled);
     }
 }

@@ -1,4 +1,6 @@
-﻿using uIntra.Core.Media;
+﻿using System.Collections.Generic;
+using uIntra.Core.Media;
+using uIntra.Notification.Configuration;
 
 namespace uIntra.Users
 {
@@ -10,5 +12,6 @@ namespace uIntra.Users
 
         public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
+        public IDictionary<NotifierTypeEnum, bool> MemberNotifierSettings { get; set; }
     }
 }

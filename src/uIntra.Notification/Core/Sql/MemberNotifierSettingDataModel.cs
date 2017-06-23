@@ -6,8 +6,8 @@ using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
-    [Table("MemberNotifiersSettings")]
-    public class MemberNotifierSettingDataModel : SqlEntity<Guid>
+    [Table("MemberNotifiersSetting")]
+    public class MemberNotifierSetting : SqlEntity<Guid>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -15,5 +15,6 @@ namespace uIntra.Notification
 
         public Guid MemberId { get; set; }
         public NotifierTypeEnum NotifierType { get; set; }
+        public bool IsEnabled { get; set; }
     }
 }

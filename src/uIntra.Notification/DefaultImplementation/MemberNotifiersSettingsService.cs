@@ -8,36 +8,25 @@ namespace uIntra.Notification
 {
     public class MemberNotifiersSettingsService : IMemberNotifiersSettingsService
     {
-        private readonly ISqlRepository<MemberNotifierSettingDataModel> _repository;
+        private readonly ISqlRepository<MemberNotifierSetting> _repository;
 
-        public MemberNotifiersSettingsService(ISqlRepository<MemberNotifierSettingDataModel> repository)
+        public MemberNotifiersSettingsService(ISqlRepository<MemberNotifierSetting> repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<NotifierTypeEnum> GetForMember(Guid memberId)
+        public IDictionary<NotifierTypeEnum, bool> GetForMember(Guid memberId)
         {
-            var dbNotifiers = _repository.FindAll(r => r.MemberId == memberId).Select(r => r.NotifierType);
-            return dbNotifiers;
+            var dbNotifiers = _repository.FindAll(r => r.MemberId == memberId).ToList();
+            var createdNotifiers = CreateAbsentSettings(memberId, dbNotifiers.Select(e => e.NotifierType));
+            return dbNotifiers.Concat(createdNotifiers).ToDictionary(e => e.NotifierType, e => e.IsEnabled);
         }
 
-        public void SetForMember(Guid memberId, IEnumerable<NotifierTypeEnum> newNotifiersTypes)
+        public void SetForMember(Guid memberId, NotifierTypeEnum  notifierType, bool isEnabled)
         {
-            var newNotifiersTypesList = newNotifiersTypes as IList<NotifierTypeEnum> ?? newNotifiersTypes.ToList();
-
-            var dbEntries = _repository.FindAll(r => r.MemberId == memberId).ToList();
-            var dbNotifiersTypes = dbEntries.Select(r => r.NotifierType).ToList();           
-            var dbNotifiersTypesToAdd = newNotifiersTypesList.Except(dbNotifiersTypes).ToList();
-            var dbNotifiersTypesToRemove = dbNotifiersTypes.Except(newNotifiersTypesList).ToList();
-
-            dbNotifiersTypesToAdd
-                .ToList()
-                .ForEach(n => _repository.Add(new MemberNotifierSettingDataModel() {MemberId = memberId, NotifierType = n}));
-
-            dbEntries
-                .Where(e => dbNotifiersTypesToRemove.Contains(e.NotifierType))
-                .ToList()
-                .ForEach(e => _repository.DeleteById(e.Id));
+            var dbEntry = _repository.Find(r => r.MemberId == memberId && r.NotifierType == notifierType);
+            dbEntry.IsEnabled = isEnabled;
+            _repository.Update(dbEntry);
         }
 
         public IDictionary<Guid, IEnumerable<NotifierTypeEnum>> GetForMembers(IEnumerable<Guid> memberIds)
@@ -45,6 +34,21 @@ namespace uIntra.Notification
             return _repository.FindAll(e => memberIds.Contains(e.MemberId))
                 .GroupBy(e => e.MemberId)
                 .ToDictionary(e => e.Key, e => e.Select(n => n.NotifierType));
+        }
+
+        private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(Guid memberId, IEnumerable<NotifierTypeEnum> existingSettings)
+        {
+            var absentSettings = GetAllEnumCases<NotifierTypeEnum>().Except(existingSettings);
+            var newEntities = absentSettings
+                .Select(s => new MemberNotifierSetting() {Id = Guid.NewGuid(), MemberId = memberId, NotifierType = s, IsEnabled = true})
+                .ToList();
+            newEntities.ForEach(e => _repository.Add(e));
+            return newEntities;
+        }
+
+        private IEnumerable<T> GetAllEnumCases<T>()
+        {
+           return (IEnumerable<T>) Enum.GetValues(typeof(T));
         }
     }
 }
