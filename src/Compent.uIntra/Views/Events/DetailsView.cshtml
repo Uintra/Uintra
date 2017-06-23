@@ -6,7 +6,7 @@
 <section class="content">
     <div class="row clearfix">
         <div class="col-md-9">
-            <div class="content__btns clearfix">
+            <div class="feed__btns clearfix">
                 <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
                 @if (Model.CanEdit)
                 {
@@ -14,17 +14,17 @@
                 }
                 <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
             </div>
-            <div class="content__item _details">
+            <div class="feed__item _details">
                 <span class="pinned__item">@Html.Localize("DetailsView.Important.lbl")</span>
                 @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-                <div class="content__item-txt">
+                <div class="feed__item-txt">
                     @Html.Raw(Model.Description)
                 </div>
-                <div class="content__item-images">
+                <div class="feed__item-images">
                     @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
                 </div>
-                <div class="content__item-feed">
-                    <div class="content__item-feed-holder">
+                <div class="feed__item-feed">
+                    <div class="feed__item-feed-holder">
                         @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
                     </div>
                     @if (Model.CanSubscribe)

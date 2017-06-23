@@ -7,6 +7,7 @@ using uIntra.Events;
 using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
+using uIntra.Search.Core;
 using uIntra.Users;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
@@ -30,6 +31,8 @@ namespace Compent.uIntra
             Mapper.AddProfile<NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<IntranetUserAutoMapperProfile>();
+            Mapper.AddProfile<SearchResultAutoMapperProfile>();
+            Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
 
             var typemaps = Mapper.GetAllTypeMaps();
 

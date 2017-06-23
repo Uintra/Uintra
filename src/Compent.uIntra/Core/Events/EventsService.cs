@@ -15,6 +15,7 @@ using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
+using uIntra.Search.Core;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
@@ -30,7 +31,8 @@ namespace Compent.uIntra.Core.Events
         ILikeableService,
         ICommentableService,
         INotifyableService,
-        IReminderableService<Event>
+        IReminderableService<Event>,
+        IIndexer
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
@@ -40,6 +42,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IElasticActivityIndex _activityIndex;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
@@ -49,7 +52,9 @@ namespace Compent.uIntra.Core.Events
             ILikesService likesService,
             ISubscribeService subscribeService,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, IMediaHelper mediaHelper)
+            INotificationsService notificationService, 
+            IMediaHelper mediaHelper,
+            IElasticActivityIndex activityIndex)
             : base(intranetActivityRepository, cacheService)
         {
             _umbracoHelper = umbracoHelper;
@@ -60,6 +65,7 @@ namespace Compent.uIntra.Core.Events
             _permissionsService = permissionsService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
+            _activityIndex = activityIndex;
         }
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
@@ -409,6 +415,14 @@ namespace Compent.uIntra.Core.Events
             return !@event.IsHidden ? @event : null;
         }
 
+        public void FillIndex()
+        {
+            var activities = GetAll().Where(s => !IsEventHidden(s));
+            var searchableActivities = activities.Select(Map);
+            _activityIndex.DeleteByType(SearchableType.Events);
+            _activityIndex.Index(searchableActivities);
+        }
+
         private string[] GetPath(params string[] aliases)
         {
             var basePath = OverviewXPath;
@@ -418,6 +432,18 @@ namespace Compent.uIntra.Core.Events
                 basePath.AddRange(aliases.ToList());
             }
             return basePath.ToArray();
+        }
+
+        private bool IsEventHidden(Event @event)
+        {
+            return @event == null || @event.IsHidden;
+        }
+
+        private SearchableActivity Map(Event @event)
+        {
+            var searchableActivity = @event.Map<SearchableActivity>();
+            searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(@event.Id);
+            return searchableActivity;
         }
     }
 }

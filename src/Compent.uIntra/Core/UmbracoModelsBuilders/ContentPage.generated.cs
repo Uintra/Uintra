@@ -55,6 +55,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Use In Search: content page will be in search
+		///</summary>
+		[ImplementPropertyType("useInSearch")]
+		public bool UseInSearch
+		{
+			get { return this.GetPropertyValue<bool>("useInSearch"); }
+		}
+
+		///<summary>
 		/// Is hide from Left Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromLeftNavigation")]

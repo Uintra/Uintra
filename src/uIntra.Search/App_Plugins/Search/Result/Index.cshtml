@@ -1,0 +1,18 @@
+﻿@using uIntra.Search.Core
+@model uIntra.Search.Core.SearchViewModel
+
+<div id="js-search-page" class="search-result">
+    
+    @Html.Hidden("query", Model.Query)
+
+    <div class="search-result__textbox-holder">
+        <input class="search-result__textbox js-search-page-searchbox" type="search" value="@Model.Query" data-search-url="@Url.Action("Search","Search")" />
+        <span class="icon-search"></span>
+    </div>
+
+
+    <div class="js-search-page-search-result">
+        @{ Html.RenderPartial("~/App_Plugins/Search/Result/SearchResult.cshtml", new List<SearchTextResultModel>());}
+    </div>
+
+</div>

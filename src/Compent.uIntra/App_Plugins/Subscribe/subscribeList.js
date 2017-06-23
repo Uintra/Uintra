@@ -1,6 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-
-require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
+﻿require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 
 var holder;
 var versionControl;
@@ -51,7 +49,8 @@ function init(control) {
 }
 
 var controller = {
-    init: function (selector) {
+    init: function () {
+        var selector = '.js-subscribe-overview';
         var holders = $(selector);
 
         if (!holders.length) {
@@ -64,6 +63,4 @@ var controller = {
     }
 }
 
-appInitializer.add(function() {
-    controller.init('.js-subscribe-overview');
-});
+export default controller;

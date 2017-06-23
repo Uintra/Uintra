@@ -1,19 +1,19 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 
-<header class="content__item-heading clearfix">
-   @Html.Action("Photo", "User", new { user = Model.Creator })
-    <div class="content__item-title-holder">
-        <h2 class="content__item-title">
+<header class="feed__item-heading clearfix">
+    @Html.Action("Photo", "User", new { user = Model.Creator })
+    <div class="feed__item-title-holder">
+        <h2 class="feed__item-title">
             @Model.Title
         </h2>
-        <p class="content__item-meta">
+        <p class="feed__item-meta">
             @foreach (var date in Model.Dates)
             {
-                <span class="content__item-date">@date</span>
-                <span class="content__item-divider"> - </span>
+                <span class="feed__item-date">@date</span>
+                <span class="feed__item-divider"> - </span>
             }
-            <span class="content__item-category">@Html.Localize(Model.Type)</span>
+            <span class="feed__item-category">@Html.Localize(Model.Type)</span>
         </p>
     </div>
 </header>
