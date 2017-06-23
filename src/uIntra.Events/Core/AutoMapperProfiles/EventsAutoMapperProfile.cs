@@ -44,13 +44,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .AfterMap((src, dst) =>
-                {
-                    dst.StartDate = src.StartDate.ToUniversalTime();
-                    dst.EndDate = src.EndDate.ToUniversalTime();
-                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
-                });
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore());
 
             Mapper.CreateMap<EventEditModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -65,9 +59,6 @@ namespace uIntra.Events
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
-                    dst.StartDate = src.StartDate.ToUniversalTime();
-                    dst.EndDate = src.EndDate.ToUniversalTime();
-                    dst.EndPinDate = src.EndPinDate?.ToUniversalTime();
                 });
 
             Mapper.CreateMap<EventBase, EventViewModel>()
