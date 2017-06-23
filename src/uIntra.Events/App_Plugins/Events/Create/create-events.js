@@ -1,14 +1,12 @@
 ﻿require("./../../Core/Content/libs/jquery.validate.min.js");
 require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
+require('select2');
 
-import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import pinActivity from "./../../Core/Content/scripts/PinActivity";
-
-require('select2');
-require('./../../Core/Content/scripts/ValidationExtensions');
+import {} from './../../Core/Content/scripts/ValidationExtensions';
 
 var holder;
 var userSelect;
@@ -93,4 +91,4 @@ var controller = {
     }
 }
 
-appInitializer.add(controller.init);
+export default controller;
