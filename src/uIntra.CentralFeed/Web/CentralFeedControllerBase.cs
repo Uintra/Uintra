@@ -57,10 +57,7 @@ namespace uIntra.CentralFeed.Web
         {
             var items = GetCentralFeedItems(model.Type).ToList();
 
-            if (!_centralFeedContentHelper.CentralFeedCookieExists() || IsEmptyFilters(model))
-            {
-                RestoreFiltersState(model, _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>());
-            }
+            RestoreFiltersState(model);
 
             var tabSettings = _centralFeedService.GetSettings(model.Type);
 
@@ -73,12 +70,30 @@ namespace uIntra.CentralFeed.Web
                 return null;
             }
 
+            var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems);
+            var filterStateModel = GetFilterStateModel(centralFeedModel);
+            _centralFeedContentHelper.SaveFiltersState(filterStateModel);
+
+            return PartialView(ListViewPath, centralFeedModel);
+        }
+
+        protected virtual CentralFeedFiltersStateModel GetFilterStateModel(CentralFeedListViewModel centralFeedModel)
+        {
+            return new CentralFeedFiltersStateModel
+            {
+                PinnedFilterSelected = centralFeedModel.ShowPinned,
+                BulletinFilterSelected = centralFeedModel.IncludeBulletin,
+                SubscriberFilterSelected = centralFeedModel.ShowSubscribed
+            };
+        }
+
+        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<ICentralFeedItem> filteredItems)
+        {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, model.Type).Take(take).ToList();
 
-            FillActivityDetailLinks(pagedItemsList);
 
-            var centralFeedModel = new CentralFeedListViewModel
+            return new CentralFeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
                 Items = pagedItemsList,
@@ -89,14 +104,19 @@ namespace uIntra.CentralFeed.Web
                 IncludeBulletin = model.IncludeBulletin ?? false,
                 ShowSubscribed = model.ShowSubscribed ?? false
             };
+        }
 
-            _centralFeedContentHelper.SaveFiltersState(new CentralFeedFiltersStateModel()
+        protected virtual void RestoreFiltersState(CentralFeedListModel model)
+        {
+            if (_centralFeedContentHelper.CentralFeedCookieExists() && !IsEmptyFilters(model))
             {
-                PinnedFilterSelected = centralFeedModel.ShowPinned,
-                BulletinFilterSelected = centralFeedModel.IncludeBulletin,
-                SubscriberFilterSelected = centralFeedModel.ShowSubscribed
-            });
-            return PartialView(ListViewPath, centralFeedModel);
+                return;
+            }
+
+            var filtersState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
+            model.ShowPinned = filtersState.PinnedFilterSelected;
+            model.IncludeBulletin = filtersState.BulletinFilterSelected;
+            model.ShowSubscribed = filtersState.SubscriberFilterSelected;
         }
 
         public virtual ActionResult Tabs()
@@ -184,13 +204,6 @@ namespace uIntra.CentralFeed.Web
             }
 
             return items;
-        }
-
-        protected virtual void RestoreFiltersState(CentralFeedListModel model, CentralFeedFiltersStateModel filtersState)
-        {
-            model.ShowPinned = filtersState.PinnedFilterSelected;
-            model.IncludeBulletin = filtersState.BulletinFilterSelected;
-            model.ShowSubscribed = filtersState.SubscriberFilterSelected;
         }
 
         protected virtual bool IsEmptyFilters(CentralFeedListModel model)
