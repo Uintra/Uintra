@@ -6,7 +6,7 @@ using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
-    [Table("MemberNotifiersSetting")]
+    [uIntraTable("MemberNotifiersSetting")]
     public class MemberNotifierSetting : SqlEntity<Guid>
     {
         [Key]
