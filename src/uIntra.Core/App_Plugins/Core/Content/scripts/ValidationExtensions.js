@@ -1,6 +1,4 @@
-﻿import appInitializer from "./AppInitializer";
-
-appInitializer.add(function () {
+﻿export default function () {
     $.validator.addMethod('greaterthan',
         function(value, element, params) {
             var inputStartDate = $('#js-start-date');
@@ -28,4 +26,4 @@ appInitializer.add(function () {
     });
 
     $.validator.unobtrusive.parse('form');
-});
+}

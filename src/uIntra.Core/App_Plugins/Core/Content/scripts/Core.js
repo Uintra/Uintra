@@ -2,8 +2,22 @@
     window.Promise = require('promise-polyfill');
 }
 
-﻿import showContent from "./ShowContent"
-﻿import initBlockOnSubmit from "./BlockOnSubmit"
-initBlockOnSubmit();
-import {} from "./Polyfill";
-document.addEventListener('DOMContentLoaded', showContent, false);
+import {} from './Polyfill';
+import appInitializer from './AppInitializer';
+﻿import showContent from './ShowContent';
+﻿import blockOnSubmit from './BlockOnSubmit';
+import anchorScroll from './AnchorScroll';
+import validationExtensions from './ValidationExtensions';
+import scrollToTop from './ScrollToTop';
+import confirmOnBeforeUnload from './ConfirmOnBeforeUnload';
+import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
+
+appInitializer.add(function() {
+    anchorScroll();
+    blockOnSubmit();
+    validationExtensions();
+    scrollToTop();
+    confirmOnBeforeUnload();
+    lightboxGallery.init();
+    showContent();
+});
