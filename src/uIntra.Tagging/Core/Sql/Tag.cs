@@ -5,7 +5,7 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Tagging
 {
-    [Table("Tag")]
+    [uIntraTable("Tag")]
     public class Tag : SqlEntity<Guid>
     {
         [Key]

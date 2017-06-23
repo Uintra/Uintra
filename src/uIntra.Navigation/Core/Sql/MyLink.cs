@@ -5,7 +5,7 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Navigation
 {
-    [Table("MyLink")]
+    [uIntraTable("MyLink")]
     public class MyLink : SqlEntity<Guid>
     {
         [Key]

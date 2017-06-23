@@ -5,7 +5,7 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Likes
 {
-    [Table("Like")]
+    [uIntraTable("Like")]
     public class Like : SqlEntity<Guid>
     {
         [Key]

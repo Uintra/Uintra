@@ -106,7 +106,8 @@ namespace uIntra.Events.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var activityId = CreateEvent(createModel);
+            var @event = MapToEvent(createModel);
+            var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activityId));
@@ -138,7 +139,8 @@ namespace uIntra.Events.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var activity = UpdateEvent(editModel);
+            var activity = MapToEvent(editModel);
+            _eventsService.Save(activity);
             OnEventEdited(activity, editModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, activity.Id));
@@ -227,25 +229,31 @@ namespace uIntra.Events.Web
             model.MediaRootId = mediaSettings.MediaRootId;
         }
 
-        protected virtual Guid CreateEvent(EventCreateModel createModel)
+        protected virtual EventBase MapToEvent(EventCreateModel createModel)
         {
             var @event = createModel.Map<EventBase>();
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            @event.StartDate = createModel.StartDate.ToUniversalTime();
+            @event.EndDate = createModel.EndDate.ToUniversalTime();
+            @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
 
-            return _eventsService.Create(@event);
+            return @event;
         }
 
-        protected virtual EventBase UpdateEvent(EventEditModel editModel)
+        protected virtual EventBase MapToEvent(EventEditModel editModel)
         {
             var @event = MapEditModel(editModel);
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
+            @event.StartDate = editModel.StartDate.ToUniversalTime();
+            @event.EndDate = editModel.EndDate.ToUniversalTime();
+            @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
                 @event.CanSubscribe = editModel.CanSubscribe;
             }
-            _eventsService.Save(@event);
+
             return @event;
         }
 

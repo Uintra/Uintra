@@ -5,7 +5,7 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Comments
 {
-    [Table("Comment")]
+    [uIntraTable("Comment")]
     public class Comment : SqlEntity<Guid>
     {
         [Key]
