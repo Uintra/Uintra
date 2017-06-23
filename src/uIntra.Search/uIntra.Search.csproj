@@ -370,8 +370,8 @@
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <None Include="Config\Dashboard.config.install.xdt" />
-    <None Include="Config\Dashboard.config.uninstall.xdt" />
+    <Content Include="config\Dashboard.config.install.xdt" />
+    <Content Include="config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config" />
     <None Include="uIntra.Search.nuspec">
       <SubType>Designer</SubType>
