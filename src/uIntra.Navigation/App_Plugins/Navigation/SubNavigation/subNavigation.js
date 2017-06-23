@@ -1,6 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-
-require("./subNavigation.css");
+﻿require("./subNavigation.css");
 
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var tabset = $('.tabset');
@@ -86,4 +84,4 @@ var controller = {
     }
 }
 
-appInitializer.add(controller.init);
+export default controller;

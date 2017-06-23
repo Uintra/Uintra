@@ -74,7 +74,7 @@
 		height: 14px;
         display:none;
 
-        #sidebar > .side-nav > .side-nav__item > &{
+        .sidebar__holder > .side-nav > .side-nav__item > &{
             display:block;
         }
 
