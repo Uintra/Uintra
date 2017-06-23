@@ -1,7 +1,9 @@
-﻿require('./leftNavigation.css');
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
+require('./leftNavigation.css');
 
-var container = $('#sidebar');
+var container = $('.js-sidebar-inner');
 var active = '_expand';
+var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
 if(localStorage.getItem('sidebar')) {
     container.html(localStorage.getItem('sidebar'));
@@ -28,7 +30,7 @@ function toggleLinks(el, event, key){
         localStorage.removeItem(sidebar);
     }
     $(el).closest('.js-side-nav__item').toggleClass(active);
-    container = $('#sidebar');
+    container = $('.js-sidebar-inner');
     var content = container.html();
     localStorage.setItem(key, content);
 }
@@ -38,6 +40,9 @@ var controller = {
         opener.on('click', function(e){
             toggleLinks(this, e, 'sidebar');
         });
+        if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
+            helpers.initScrollbar(document.querySelector('.js-sidebar'));
+        }
         document.body.addEventListener('cfTabChanged', locationChagned);
     }
 }
