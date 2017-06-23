@@ -35,6 +35,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

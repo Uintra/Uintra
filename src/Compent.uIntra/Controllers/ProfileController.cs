@@ -4,6 +4,7 @@ using uIntra.Core;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Notification;
 using uIntra.Users;
 using uIntra.Users.Web;
 using Umbraco.Core.Services;
@@ -15,17 +16,20 @@ namespace Compent.uIntra.Controllers
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
 
         public ProfileController(IMemberService memberService,
            UmbracoHelper umbracoHelper,
            IMediaHelper mediaHelper,
            IApplicationSettings applicationSettings,
            IIntranetUserService<IntranetUser> intranetUserService,
-           IIntranetUserContentHelper intranetUserContentHelper)
-            : base(memberService, umbracoHelper, mediaHelper, applicationSettings, intranetUserService)
+           IIntranetUserContentHelper intranetUserContentHelper,
+           IMemberNotifiersSettingsService memberNotifiersSettingsService)
+            : base(memberService, umbracoHelper, mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _memberNotifiersSettingsService = memberNotifiersSettingsService;
         }
 
         public ActionResult EditPage()
