@@ -1,4 +1,4 @@
-﻿import helpers from "./../../Core/Content/scripts/Helpers";
+import helpers from "./../../Core/Content/scripts/Helpers";
 require('./leftNavigation.css');
 
 var container = $('.js-sidebar-inner');

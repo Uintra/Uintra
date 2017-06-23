@@ -1,5 +1,5 @@
-﻿import helpers from "./../../Core/Content/scripts/Helpers";
-require('./leftNavigation.css');
+﻿require('./leftNavigation.css');
+import helpers from "./../../Core/Content/scripts/Helpers";
 
 var container = $('.js-sidebar-inner');
 var active = '_expand';
