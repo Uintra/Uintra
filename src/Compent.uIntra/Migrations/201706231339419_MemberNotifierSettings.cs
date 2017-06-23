@@ -8,7 +8,7 @@ namespace Compent.uIntra.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.MemberNotifiersSetting",
+                "dbo.uIntra_MemberNotifiersSetting",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
@@ -22,7 +22,7 @@ namespace Compent.uIntra.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.MemberNotifiersSetting");
+            DropTable("dbo.uIntra_MemberNotifiersSetting");
         }
     }
 }
