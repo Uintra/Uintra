@@ -19,10 +19,7 @@ namespace uIntra.Notification.Web
         [HttpPost]
         public void Update(Guid memberId, NotifierTypeEnum type, bool isEnabled)
         {
-            var memberNotifiersSettings = _memberNotifiersSettingsService.GetForMember(memberId);
-            var updatedType = type.ToEnumerableOfOne();
-            var updatedNotifiersSettings = isEnabled ? memberNotifiersSettings.Concat(updatedType) : memberNotifiersSettings.Except(updatedType);
-            _memberNotifiersSettingsService.SetForMember(memberId, updatedNotifiersSettings);
+             _memberNotifiersSettingsService.SetForMember(memberId, type,isEnabled);
         }
     }
 }
