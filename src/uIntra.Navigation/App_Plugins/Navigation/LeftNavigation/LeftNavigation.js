@@ -1,6 +1,4 @@
-﻿import appInitializer from './../../Core/Content/scripts/AppInitializer';
-
-require('./leftNavigation.css');
+﻿require('./leftNavigation.css');
 
 var container = $('#sidebar');
 var active = '_expand';
@@ -35,9 +33,13 @@ function toggleLinks(el, event, key){
     localStorage.setItem(key, content);
 }
 
-appInitializer.add(function() {
-    opener.on('click', function(e){
-        toggleLinks(this, e, 'sidebar');
-    });
-    document.body.addEventListener('cfTabChanged', locationChagned);
-});
+var controller = {
+    init: function () {
+        opener.on('click', function(e){
+            toggleLinks(this, e, 'sidebar');
+        });
+        document.body.addEventListener('cfTabChanged', locationChagned);
+    }
+}
+
+export default controller;
