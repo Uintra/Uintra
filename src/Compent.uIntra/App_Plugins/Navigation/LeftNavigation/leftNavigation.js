@@ -5,10 +5,6 @@ var container = $('.js-sidebar-inner');
 var active = '_expand';
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
-if(localStorage.getItem('sidebar')) {
-    container.html(localStorage.getItem('sidebar'));
-}
-
 var opener = $('.js-side-nav__opener');
 
 function locationChagned() {

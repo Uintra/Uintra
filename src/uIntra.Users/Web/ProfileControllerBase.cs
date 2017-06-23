@@ -5,6 +5,7 @@ using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Notification;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -20,20 +21,21 @@ namespace uIntra.Users.Web
         private readonly IMemberService _memberService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IApplicationSettings _applicationSettings;
+        private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
 
         protected ProfileControllerBase(IMemberService memberService,
             UmbracoHelper umbracoHelper,
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
-            IIntranetUserService<IntranetUser> intranetUserService)
+            IIntranetUserService<IntranetUser> intranetUserService,
+            IMemberNotifiersSettingsService memberNotifiersSettingsService)
         {
             _memberService = memberService;
             _umbracoHelper = umbracoHelper;
             _mediaHelper = mediaHelper;
-            _applicationSettings = applicationSettings;
             _intranetUserService = intranetUserService;
+            _memberNotifiersSettingsService = memberNotifiersSettingsService;
         }
 
         public virtual ActionResult Overview(Guid id)
@@ -85,7 +87,8 @@ namespace uIntra.Users.Web
             {
                 FirstName = member.GetValueOrDefault<string>(ProfileConstants.FirstName),
                 LastName = member.GetValueOrDefault<string>(ProfileConstants.LastName),
-                Photo = GetMemberPhoto(member)
+                Photo = GetMemberPhoto(member),
+                MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(member.Key)
             };
 
             FillEditData(result);
