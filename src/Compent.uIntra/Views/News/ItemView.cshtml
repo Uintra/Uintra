@@ -10,7 +10,7 @@
 
 <div class="feed__item @expired @pinnedClass">
     <div class="clearfix">
-        @if (@Model.IsPinned)
+        @if (Model.IsPinned || Model.IsPinActual)
         {
             <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
         }
