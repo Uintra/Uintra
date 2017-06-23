@@ -75,8 +75,9 @@ namespace uIntra.News.Web
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
-
-            var activityId = CreateNews(createModel);
+            var newsBaseCreateModel = MapToNews(createModel);
+            var activityId = _newsService.Create(newsBaseCreateModel);
+             
             OnNewsCreated(activityId, createModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, activityId));
         }
@@ -107,7 +108,8 @@ namespace uIntra.News.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var activity = UpdateNews(editModel);
+            var activity = MapToNews(editModel);
+            _newsService.Save(activity);
             OnNewsEdited(activity, editModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, editModel.Id));
         }
@@ -169,22 +171,28 @@ namespace uIntra.News.Web
             return model;
         }
 
-        protected virtual Guid CreateNews(NewsCreateModel createModel)
+        protected virtual NewsBase MapToNews(NewsCreateModel createModel)
         {
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.PublishDate = createModel.PublishDate.ToUniversalTime();
+            news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
+            news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
 
-            return _newsService.Create(news);
+
+            return news;
         }
 
-        protected virtual NewsBase UpdateNews(NewsEditModel editModel)
+        protected virtual NewsBase MapToNews(NewsEditModel editModel)
         {
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
+            activity.PublishDate = editModel.PublishDate.ToUniversalTime();
+            activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime();
+            activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 
-            _newsService.Save(activity);
             return activity;
         }
 
