@@ -151,10 +151,6 @@
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.1.3.2\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
@@ -279,10 +275,6 @@
       <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -348,9 +340,9 @@
       <HintPath>..\..\packages\uIntra.Likes.1.1.1.3\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.3.19, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Navigation, Version=1.1.3.20, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.3.19\lib\net452\uIntra.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.3.20\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.News, Version=1.1.2.18, Culture=neutral, processorArchitecture=MSIL">
@@ -363,13 +355,13 @@
       <HintPath>..\..\packages\uIntra.Notification.1.1.2.7\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.0.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Panels, Version=2.1.0.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Panels.2.1.0.6\lib\net452\uIntra.Panels.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Panels.2.1.0.7\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.0.3\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.0.6\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.1.5, Culture=neutral, processorArchitecture=MSIL">
@@ -790,15 +782,12 @@
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\_documentPanel.css" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
@@ -806,11 +795,12 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
+    <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
-    <Content Include="App_Plugins\Search\Result\search.js" />
-    <Content Include="App_Plugins\Search\Result\_searchResult.css" />
+    <Content Include="App_Plugins\Search\Result\search-result.js" />
+    <Content Include="App_Plugins\Search\search.js" />
+    <Content Include="App_Plugins\Search\styles.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
@@ -872,10 +862,6 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -920,6 +906,10 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
@@ -928,6 +918,10 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
