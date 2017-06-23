@@ -2,7 +2,7 @@
 
 <dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <section alias="StartupDeveloperDashboardSection">
-    <tab caption="elasticSearch" xdt:Locator="Condition(@caption='elasticSearch')" xdt:Transform="Remove">
+    <tab caption="Elastic Search" xdt:Locator="Condition(@caption='Elastic Search')" xdt:Transform="Remove">
       <control>
         ~/App_Plugins/Search/backoffice/developerelasticsearch.html
       </control>
