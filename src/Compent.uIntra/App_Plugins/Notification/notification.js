@@ -1,12 +1,49 @@
 ﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
 import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
+import ajax from "./../Core/Content/scripts/Ajax";
 
 require("./List/notificationList.css");
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
+var body = document.querySelector('body');
+
+function initPreviewControls() {
+    var notification = document.querySelector(".js-notification");
+    var notificationList = document.querySelector(".js-notification-list");
+
+    notification.addEventListener('click', function() {
+        if (notificationList.classList.contains("hide")) { 
+
+            ajax.Get("/umbraco/surface/Notification/List")
+                .then(function (response) {
+                    notificationList.innerHTML = response;
+                });
+
+            notificationList.classList.remove("hide");
+        } else {
+            notificationList.classList.add("hide");
+        }
+    });
+
+    notificationList.addEventListener('click', function() {
+        notificationList.classList.add("hide");
+    });
+
+    body.addEventListener("click", function(ev) {
+        isOutsideClick(notificationList, notification, ev.target, "hide");
+        
+    });
+}
+
+function isOutsideClick(el, trigger, target, classname){
+    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && !el.classList.contains(classname)) {
+        el.classList.add(classname);
+        body.removeEventListener("click", isOutsideClick);
+    }
+}
 
 function updateNotificationsCount() {
     $.ajax({
@@ -117,6 +154,7 @@ function initInfinityScroll() {
 }
 
 appInitializer.add(function () {
+    initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();

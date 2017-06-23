@@ -25,7 +25,7 @@ namespace uIntra.News.Dashboard
             var news = _newsService.GetAll(true);
             foreach (var n in news)
             {
-                n.CreatorId = _intranetUserService.GetCreator(n).Id;
+                n.CreatorId = _intranetUserService.Get(n).Id;
             }
 
             var result = news.Map<IEnumerable<NewsBackofficeViewModel>>().OrderByDescending(el => el.ModifyDate);
@@ -38,7 +38,7 @@ namespace uIntra.News.Dashboard
             var newsId = _newsService.Create(createModel.Map<NewsBase>());
             var createdModel = _newsService.Get(newsId);
             var result = createdModel.Map<NewsBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.GetCreator(createdModel).Id;
+            result.CreatorId = _intranetUserService.Get(createdModel).Id;
             return result;
         }
 
@@ -51,7 +51,7 @@ namespace uIntra.News.Dashboard
 
             var updatedModel = _newsService.Get(saveModel.Id);
             var result = updatedModel.Map<NewsBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.GetCreator(updatedModel).Id;
+            result.CreatorId = _intranetUserService.Get(updatedModel).Id;
             return result;
         }
 

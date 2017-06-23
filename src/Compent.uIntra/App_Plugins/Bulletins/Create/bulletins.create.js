@@ -6,12 +6,15 @@ import ajax from "./../../Core/Content/scripts/Ajax";
 const toolbarSelector = ".js-create-bulletin__toolbar";
 const bulletinsTabNumber = 4;
 
+let mobileMediaQuery = window.matchMedia("(max-width: 899px)");
+
 var cfReloadTabEvent;
 var cfShowBulletinsEvent;
 let holder;
 let dropzone;
 let dataStorage;
 let description;
+let mobileBtn;
 let toolbar;
 let sentButton;
 let closeButton;
@@ -25,6 +28,7 @@ function initElements() {
     sentButton = document.querySelector(".js-toolbar__send-button");
     closeButton = holder.querySelector(".js-create-bulletin__description-close");
     header = holder.querySelector(".js-create-bulletin__user");
+    mobileBtn = document.querySelector(".js-expand-bulletin");
 }
 
 function initEditor() {
@@ -44,7 +48,10 @@ function initEditor() {
 }
 
 function initEventListeners() {    
+    mobileMediaQuery.matches ? 
+    mobileBtn.addEventListener("click", descriptionClickHandler) : 
     description.addEventListener("click", descriptionClickHandler);
+
     sentButton.addEventListener("click", sentButtonClickHandler);
     closeButton.addEventListener("click", closeBtnClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
@@ -126,6 +133,13 @@ function beforeUnloadHander(event) {
     }
 }
 
+function initMobile(){
+    if(mobileMediaQuery.matches){
+        holder = getBulletinHolder();
+        holder.classList.add("hidden");
+    }
+}
+
 // editor helpers
 
 function close(event) {
@@ -144,12 +158,22 @@ function show() {
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeButton.classList.remove("hidden");
+
+    if(mobileMediaQuery.matches){
+        let bulletinHolder = getBulletinHolder();
+        bulletinHolder.classList.remove("hidden");
+    }
 }
 
 function hide() {
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
     closeButton.classList.add("hidden");
+
+    if(mobileMediaQuery.matches){
+        let bulletinHolder = getBulletinHolder();
+        bulletinHolder.classList.add("hidden");
+    }
 
     clear();
 }
@@ -176,6 +200,7 @@ let controller = {
             return;
         }
 
+        initMobile();
         initElements();
         initEditor();
         initEventListeners();

@@ -59,10 +59,19 @@ namespace uIntra.Users
             return null;
         }
 
-        public virtual IEnumerable<IntranetUser> GetAll()
+        public virtual IntranetUser Get(IHaveCreator model)
         {
-            var members = _memberService.GetAllMembers().Select(Map);
-            return members;
+            IIntranetUser member;
+
+            if (model.UmbracoCreatorId.HasValue)
+            {
+                member = Get(model.UmbracoCreatorId.Value);
+            }
+            else
+            {
+                member = Get(model.CreatorId);
+            }
+            return (IntranetUser)member;
         }
 
         public virtual IEnumerable<IntranetUser> GetMany(IEnumerable<Guid> ids)
@@ -77,19 +86,10 @@ namespace uIntra.Users
             return members.Where(s => s.UmbracoId.HasValue && ids.Contains(s.UmbracoId.Value));
         }
 
-        public virtual IntranetUser GetCreator(IHaveCreator model)
+        public virtual IEnumerable<IntranetUser> GetAll()
         {
-            IIntranetUser member;
-
-            if (model.UmbracoCreatorId.HasValue)
-            {
-                member = Get(model.UmbracoCreatorId.Value);
-            }
-            else
-            {
-                member = Get(model.CreatorId);
-            }
-            return (IntranetUser) member;
+            var members = _memberService.GetAllMembers().Select(Map);
+            return members;
         }
 
         public virtual IntranetUser GetCurrentUser()
@@ -115,6 +115,12 @@ namespace uIntra.Users
             return user;
         }
 
+        public virtual IEnumerable<IntranetUser> GetByRole(IntranetRolesEnum role)
+        {
+            var members = _memberService.GetMembersByGroup(GetGroupNameFromRole(role));
+            return members.Select(Map);
+        }
+
         protected virtual IntranetUser Map(IMember member)
         {
             var user = new IntranetUser
@@ -127,31 +133,17 @@ namespace uIntra.Users
                 Role = GetMemberRole(member)
             };
 
+            string userPhoto = null;
             var userPhotoId = member.GetValueOrDefault<int?>("photo");
+
             if (userPhotoId.HasValue)
             {
-                var media = _umbracoHelper.TypedMedia(userPhotoId.Value);
-                user.Photo = GetUserPhotoOrDefaultAvatar(media?.Url);
+                userPhoto = _umbracoHelper.TypedMedia(userPhotoId.Value)?.Url;
             }
+
+            user.Photo = GetUserPhotoOrDefaultAvatar(userPhoto);
+
             return user;
-        }
-
-        public virtual IEnumerable<IntranetUser> GetByRole(IntranetRolesEnum role)
-        {
-            var members = _memberService.GetMembersByGroup(GetGroupNameFromRole(role));
-            return members.Select(Map);
-        }
-
-        private IntranetUser GetByName(string name)
-        {
-            var user = _memberService.GetByUsername(name);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            return Map(user);
         }
 
         protected virtual IRole GetMemberRole(IMember member)
@@ -168,6 +160,18 @@ namespace uIntra.Users
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
         {
             return !string.IsNullOrEmpty(userImage) ? userImage : _applicationSettings.DefaultAvatarPath;
+        }
+
+        private IntranetUser GetByName(string name)
+        {
+            var user = _memberService.GetByUsername(name);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return Map(user);
         }
     }
 }

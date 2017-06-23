@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Web;
@@ -16,9 +17,11 @@ using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
+using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Persistence.Sql;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Nest;
 using Newtonsoft.Json.Serialization;
 using Ninject;
 using Ninject.Web.Common;
@@ -48,6 +51,9 @@ using uIntra.Navigation.SystemLinks;
 using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
+using uIntra.Search;
+using uIntra.Search.Core;
+using uIntra.Search.Core.Configuration;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core;
@@ -141,6 +147,9 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<DatabaseContext>().ToMethod(i => ApplicationContext.Current.DatabaseContext).InRequestScope();
             kernel.Bind<IDataTypeService>().ToMethod(i => ApplicationContext.Current.Services.DataTypeService).InRequestScope();
             kernel.Bind<IMemberService>().ToMethod(i => ApplicationContext.Current.Services.MemberService).InRequestScope();
+            kernel.Bind<IMemberTypeService>().ToMethod(i => ApplicationContext.Current.Services.MemberTypeService).InRequestScope();
+            kernel.Bind<IMemberGroupService>().ToMethod(i => ApplicationContext.Current.Services.MemberGroupService).InRequestScope();
+
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
@@ -213,6 +222,22 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
+
+            //Search
+            kernel.Bind<IIndexer>().To<NewsService>().InRequestScope();
+            kernel.Bind<IIndexer>().To<EventsService>().InRequestScope();
+            kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
+            kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
+            kernel.Bind(typeof(IElasticSearchRepository<>)).To(typeof(ElasticSearchRepository<>)).InRequestScope().WithConstructorArgument(typeof(string), "intranet");
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableActivity>)).To<SearchableActivityMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
+            kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
+            kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
+
+            kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

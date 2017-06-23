@@ -1,0 +1,13 @@
+﻿@using uIntra.Search.Core
+@model uIntra.Search.Core.SearchViewModel
+
+<div class="search-result js-search-page">
+    <div class="search-result__textbox-holder">
+        <input class="search-result__textbox js-search-page-searchbox" type="search" value="@Model.Query" data-search-url="@Url.Action("Search","Search")" />
+        <span class="icon-search"></span>
+    </div>
+
+    <div class="js-search-page-search-result">
+        @Html.Action("Search", "Search", new { Model.Query })
+    </div>
+</div>

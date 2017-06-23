@@ -1,6 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-
-require("./subNavigation.css");
+﻿require("./subNavigation.css");
 
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var tabset = $('.tabset');
@@ -46,16 +44,18 @@ var initMobileMenu = function() {
         menu.find('.tabset__navigation-item:first-child').addClass('_active');
     }
 
-    if(title.hasClass('_no-link')){
-        wrapper.css({
-            'padding-top': '131px'
-        })
-    }
+    if(body.hasClass('_with-sub-nav')){
+        if(title.hasClass('_no-link')){
+            wrapper.css({
+                'padding-top': '131px'
+            })
+        }
 
-    else{
-        wrapper.css({
-            'padding-top': '181px'
-        })
+        else{
+            wrapper.css({
+                'padding-top': '181px'
+            })
+        }
     }
 
     if (opener.length > 1) {
@@ -84,4 +84,4 @@ var controller = {
     }
 }
 
-appInitializer.add(controller.init);
+export default controller;

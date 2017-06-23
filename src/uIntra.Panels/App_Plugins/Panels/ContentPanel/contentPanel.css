@@ -367,6 +367,12 @@
                 ._hide-sidepanel-opener &{
                     display:none;
                 }
+
+                .feed__filter &{
+                    position:absolute;
+                    top:0;
+                    right:-5px;
+                }
              }
         }
     }

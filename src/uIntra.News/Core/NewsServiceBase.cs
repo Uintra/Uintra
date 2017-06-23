@@ -31,7 +31,7 @@ namespace uIntra.News
 
         protected virtual bool IsShowIfUnpublish(NewsBase newsEntity)
         {
-            var creator = _intranetUserService.GetCreator(newsEntity);
+            var creator = _intranetUserService.Get(newsEntity);
             var currentUserId = _intranetUserService.GetCurrentUserId();
 
             if (creator.Id != currentUserId)

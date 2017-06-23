@@ -15,6 +15,7 @@ using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
+using uIntra.Search.Core;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
@@ -28,7 +29,8 @@ namespace Compent.uIntra.Core.News
         ICentralFeedItemService,
         ICommentableService,
         ILikeableService,
-        INotifyableService
+        INotifyableService,
+        IIndexer
     {
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
@@ -38,6 +40,7 @@ namespace Compent.uIntra.Core.News
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IElasticActivityIndex _activityIndex;
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias };
 
@@ -49,7 +52,9 @@ namespace Compent.uIntra.Core.News
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, IMediaHelper mediaHelper)
+            INotificationsService notificationService,
+            IMediaHelper mediaHelper, 
+            IElasticActivityIndex activityIndex)
             : base(intranetActivityRepository, cacheService, intranetUserService)
         {
             _intranetUserService = intranetUserService;
@@ -60,6 +65,7 @@ namespace Compent.uIntra.Core.News
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
+            _activityIndex = activityIndex;
         }
 
         public MediaSettings GetMediaSettings()
@@ -143,6 +149,19 @@ namespace Compent.uIntra.Core.News
             }
         }
 
+        protected override Entities.News UpdateCachedEntity(Guid id)
+        {
+            var news = base.UpdateCachedEntity(id);
+            if (IsNewsHidden(news))
+            {
+                _activityIndex.Delete(id);
+                return null;
+            }
+
+            _activityIndex.Index(Map(news));
+            return news;
+        }
+
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
@@ -212,6 +231,14 @@ namespace Compent.uIntra.Core.News
         public override IPublishedContent GetEditPage(IPublishedContent currentPage)
         {
             return GetEditPage();
+        }
+
+        public void FillIndex()
+        {
+            var activities = GetAll().Where(s => !IsNewsHidden(s));
+            var searchableActivities = activities.Select(Map);
+            _activityIndex.DeleteByType(SearchableType.News);
+            _activityIndex.Index(searchableActivities);
         }
 
         private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
@@ -304,6 +331,18 @@ namespace Compent.uIntra.Core.News
                 basePath.AddRange(aliases.ToList());
             }
             return basePath.ToArray();
+        }
+
+        private bool IsNewsHidden(Entities.News news)
+        {
+            return news == null || news.IsHidden;
+        }
+
+        private SearchableActivity Map(Entities.News news)
+        {
+            var searchableActivity = news.Map<SearchableActivity>();
+            searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(news.Id);
+            return searchableActivity;
         }
     }
 }

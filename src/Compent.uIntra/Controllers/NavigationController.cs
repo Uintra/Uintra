@@ -2,16 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Extentions;
-using Compent.uIntra.Core.Navigation;
 using uIntra.CentralFeed;
-using uIntra.Core;
-using uIntra.Core.Extentions;
-using uIntra.Core.User;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
-using uIntra.Notification;
-using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
@@ -20,45 +14,25 @@ namespace Compent.uIntra.Controllers
 {
     public class NavigationController : NavigationControllerBase
     {
+        protected override string TopNavigationViewPath { get; } = "~/Views/Navigation/TopNavigation/Navigation.cshtml";
+
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override string SystemLinksContentXPath { get; } = $"root/{DataFolder.ModelTypeAlias}[@isDoc]/{SystemLinkFolder.ModelTypeAlias}[@isDoc]/{SystemLink.ModelTypeAlias}[@isDoc]";
 
-        private readonly INotificationHelper _notificationHelper;
-        private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
-        private readonly IUiNotifierService _uiNotifierService;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
-            INotificationHelper notificationHelper,
             ICentralFeedContentHelper centralFeedContentHelper,
-            ISystemLinksModelBuilder systemLinksModelBuilder,
-            ISystemLinksService systemLinksService,
-            IUiNotifierService uiNotifierService, 
-            IIntranetUserService<IntranetUser> intranetUserService) :
-            base (leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder,  systemLinksModelBuilder)
+            ISystemLinksModelBuilder systemLinksModelBuilder) :
+            base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
-            _notificationHelper = notificationHelper;
             _centralFeedContentHelper = centralFeedContentHelper;
-            _topNavigationModelBuilder = topNavigationModelBuilder;
-            _uiNotifierService = uiNotifierService;
-            _intranetUserService = intranetUserService;
-        }
-
-        public override ActionResult TopNavigation()
-        {
-            var topNavigation = _topNavigationModelBuilder.Get();
-            var result = topNavigation.Map<TopMenuViewModel>();
-            result.NotificationsUrl = _notificationHelper.GetNotificationListPage().Url;
-            result.NotificationList = GetNotificationList();
-
-            return PartialView("~/Views/Navigation/TopNavigation.cshtml", result);
         }
 
         public override ActionResult SubNavigation()
@@ -128,22 +102,9 @@ namespace Compent.uIntra.Controllers
             return new MenuItemViewModel
             {
                 Id = content.Id,
-                Name = content.GetNavigationName(),                
+                Name = content.GetNavigationName(),
                 Url = content.Url,
                 IsActive = content.IsAncestorOrSelf(CurrentPage)
-            };
-        }
-
-        private NotificationListViewModel GetNotificationList() // TODO: Move to base controller
-        {
-            var totalCount = 0;
-            var notificationListPage = _notificationHelper.GetNotificationListPage();
-            var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount);
-            return new NotificationListViewModel
-            {
-                Notifications = notifications.Map<IEnumerable<NotificationViewModel>>(),
-                BlockScrolling = false
             };
         }
     }

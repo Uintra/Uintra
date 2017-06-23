@@ -46,7 +46,7 @@ namespace uIntra.Notification
                 .Select(el=> new Notification
             {
                 Id = Guid.NewGuid(),
-                Date = DateTime.Now,
+                Date = DateTime.UtcNow,
                 IsNotified = false,
                 IsViewed = false,
                 Type =  data.NotificationType,

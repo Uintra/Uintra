@@ -82,6 +82,7 @@ var helpers = {
             weekNumbers: true,
             dateFormat: dateFormat,
             locale: FlatpickrLang.da,
+            minuteIncrement: 1,
             onChange: function (selectedDates) {
                 if (selectedDates.length === 0) {
                     dateElemValue.val('');

@@ -22,7 +22,7 @@ namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Events Overview Page</summary>
 	[PublishedContentModel("eventsOverviewPage")]
-	public partial class EventsOverviewPage : BasePageWithGrid, IHomeNavigationComposition, INavigationComposition
+	public partial class EventsOverviewPage : BasePageWithGrid
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "eventsOverviewPage";
@@ -43,42 +43,6 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<EventsOverviewPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Is show in Home Navigation
-		///</summary>
-		[ImplementPropertyType("isShowInHomeNavigation")]
-		public bool IsShowInHomeNavigation
-		{
-			get { return HomeNavigationComposition.GetIsShowInHomeNavigation(this); }
-		}
-
-		///<summary>
-		/// Is hide from Left Navigation
-		///</summary>
-		[ImplementPropertyType("isHideFromLeftNavigation")]
-		public bool IsHideFromLeftNavigation
-		{
-			get { return NavigationComposition.GetIsHideFromLeftNavigation(this); }
-		}
-
-		///<summary>
-		/// Is hide from Sub Navigation
-		///</summary>
-		[ImplementPropertyType("isHideFromSubNavigation")]
-		public bool IsHideFromSubNavigation
-		{
-			get { return NavigationComposition.GetIsHideFromSubNavigation(this); }
-		}
-
-		///<summary>
-		/// Navigation Name
-		///</summary>
-		[ImplementPropertyType("navigationName")]
-		public string NavigationName
-		{
-			get { return NavigationComposition.GetNavigationName(this); }
 		}
 	}
 }

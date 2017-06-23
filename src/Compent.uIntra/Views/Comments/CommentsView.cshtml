@@ -4,24 +4,9 @@
 @using uIntra.Core
 @using uIntra.Core.Extentions
 @model uIntra.Comments.CommentViewModel
-@{
-    var profilePageUrl = ViewData.GetProfilePageUrl().AddIdParameter(Model.Creator.Id);
-    var defaultImage = "/Content/images/default-avatar.png";
-}
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
-    <div class="comments__list-author">
-        <a href="@profilePageUrl">
-            @if (!String.IsNullOrEmpty(Model.Creator.Photo))
-            {
-                <img class="comments__list-author-avatar" src="@Model.Creator.Photo" />
-            }
-            else
-            {
-                <img class="comments__list-author-avatar" src="@defaultImage" />
-            }
-        </a>
-    </div>
+    @Html.Action("Photo", "User", new { user = Model.Creator })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about">

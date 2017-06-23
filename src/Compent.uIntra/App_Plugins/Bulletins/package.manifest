@@ -1,6 +1,16 @@
 ﻿{
   "gridEditors": [
     {
+      "name": "Create bulletins",
+      "alias": "custom.BulletinsCreate",
+      "view": "/App_Plugins/Bulletins/Create/bulletins-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "Bulletins",
+        "action": "CreationForm"
+      }
+    },
+    {
       "name": "Bulletins edit",
       "alias": "custom.BulletinsEdit",
       "view": "/App_Plugins/Bulletins/Edit/bulletins-edit.html",

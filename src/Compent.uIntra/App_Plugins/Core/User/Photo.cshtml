@@ -1,0 +1,11 @@
+﻿@using uIntra.Core.Extentions
+@model uIntra.Core.User.UserPhotoViewModel
+@{
+    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Id);
+}
+
+<div class="avatar">
+    <a href="@profilePageUrl">
+        <img style="width: 60px; height: 60px;" class="avatar__img" src="@(Model.Photo)" />
+    </a>
+</div>

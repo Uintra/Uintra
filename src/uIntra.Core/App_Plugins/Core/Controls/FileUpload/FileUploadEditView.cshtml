@@ -8,12 +8,12 @@
 }
 <div class="js-file-edit clearfix">
 
-    <ul class="content__item-images-list">
+    <ul class="feed__item-images-list">
         @foreach (var file in Model.Files)
         {
-            <li class="content__item-images-list-item" data-id="@file.Id">
+            <li class="feed__item-images-list-item" data-id="@file.Id">
                 @RenderFileView(file)
-                <span class="content__item-images-remove js-remove-file-btn" data-target-id="@file.Id"><i class="icon-close"></i></span>
+                <span class="feed__item-images-remove js-remove-file-btn" data-target-id="@file.Id"><i class="icon-close"></i></span>
             </li>
         }
     </ul>

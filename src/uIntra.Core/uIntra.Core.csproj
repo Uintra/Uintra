@@ -36,6 +36,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NuGet|AnyCPU'">
     <OutputPath>bin\NuGet\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWithDll|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugWithDll\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -376,15 +385,20 @@
     <Compile Include="Core\Caching\CacheHelper.cs" />
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
+    <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />
     <Compile Include="Core\User\IRole.cs" />
+    <Compile Include="Core\User\Models\UserPhotoViewModel.cs" />
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
+    <Compile Include="Migrations\ImageCropperConstants.cs" />
+    <Compile Include="Migrations\MemberConstants.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
@@ -539,6 +553,7 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -735,6 +750,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == NuGet copy $(TargetDir)$(ProjectName).dll $(SolutionDir)Compent.uIntra\bin\$(ProjectName).dll
+if $(ConfigurationName) == NuGet copy $(TargetDir)$(ProjectName).pdb $(SolutionDir)Compent.uIntra\bin\$(ProjectName).pdb
+if $(ConfigurationName) == NuGet xcopy /S /y $(ProjectDir)App_Plugins $(SolutionDir)Compent.uIntra\App_Plugins</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

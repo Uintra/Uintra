@@ -46,16 +46,18 @@ var initMobileMenu = function() {
         menu.find('.tabset__navigation-item:first-child').addClass('_active');
     }
 
-    if(title.hasClass('_no-link')){
-        wrapper.css({
-            'padding-top': '131px'
-        })
-    }
+    if(body.hasClass('_with-sub-nav')){
+        if(title.hasClass('_no-link')){
+            wrapper.css({
+                'padding-top': '131px'
+            })
+        }
 
-    else{
-        wrapper.css({
-            'padding-top': '181px'
-        })
+        else{
+            wrapper.css({
+                'padding-top': '181px'
+            })
+        }
     }
 
     if (opener.length > 1) {

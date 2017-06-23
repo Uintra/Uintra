@@ -55,16 +55,6 @@ namespace uIntra.Core.Extentions
             return list == null ? "" : string.Join(separator, list);
         }
      
-        public static string CropText(this string text, int sizeToCrop)
-        {
-            if (!string.IsNullOrEmpty(text) && text.Length > sizeToCrop * 2 && !text.Contains(IntranetConstants.SearchConstants.HighlightPreTag))
-            {
-                return text.Substring(text.Length - sizeToCrop) + "...";
-            }
-
-            return text;
-        }
-
         public static string StripHtml(this string input)
         {
             return Regex.Replace(input, "<.*?>", string.Empty);

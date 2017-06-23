@@ -23,7 +23,7 @@ namespace uIntra.Bulletins
             var bulletins = _bulletinsService.GetAll(true);
             foreach (var bulletin in bulletins)
             {
-                bulletin.CreatorId = _intranetUserService.GetCreator(bulletin).Id;
+                bulletin.CreatorId = _intranetUserService.Get(bulletin).Id;
             }
 
             var result = bulletins.Map<IEnumerable<BulletinsBackofficeViewModel>>();
@@ -37,7 +37,7 @@ namespace uIntra.Bulletins
             var createdModel = _bulletinsService.Get(bulletinId);
 
             var result = createdModel.Map<BulletinsBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.GetCreator(createdModel).Id;
+            result.CreatorId = _intranetUserService.Get(createdModel).Id;
             return result;
         }
 
@@ -48,7 +48,7 @@ namespace uIntra.Bulletins
 
             var updatedModel = _bulletinsService.Get(saveModel.Id);
             var result = updatedModel.Map<BulletinsBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.GetCreator(updatedModel).Id;
+            result.CreatorId = _intranetUserService.Get(updatedModel).Id;
             return result;
         }
 

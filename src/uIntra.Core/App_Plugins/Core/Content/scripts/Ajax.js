@@ -42,7 +42,7 @@ var ajax = {
             request.onload = () => {
                 if (request.status >= 200 && request.status < 400) {
                     var responseText = request.responseText;
-                    var resultData = jsonRegex.test(responseText) ? JSON.parse(responseText) : responseText;
+                    var resultData = formJsonRegex.test(responseText) ? JSON.parse(responseText) : responseText;
                     onSuccess && onSuccess(resultData);
                     resolve(resultData);
                 } else {

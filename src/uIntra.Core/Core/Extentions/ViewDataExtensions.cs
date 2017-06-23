@@ -69,9 +69,9 @@ namespace uIntra.Core.Extentions
             return GetActivityPageUrl(dataView, activityType, EditPageUrl).AddIdParameter(id);
         }
 
-        public static string GetProfilePageUrl(this ViewDataDictionary dataView)
+        public static string GetProfilePageUrl(this ViewDataDictionary dataView, Guid id)
         {
-           return dataView[ProfilePageUrl]?.ToString();
+           return dataView[ProfilePageUrl]?.ToString().AddIdParameter(id);
         }
 
         private static void SetActivityPageUrl(this ViewDataDictionary dataView, IntranetActivityTypeEnum activityType, string pageName, string url)
