@@ -13,7 +13,7 @@ namespace Compent.uIntra.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706231312281_MemberNotifierSettings"; }
+            get { return "201706231339419_MemberNotifierSettings"; }
         }
         
         string IMigrationMetadata.Source
