@@ -3,6 +3,7 @@ var Delta = require('quill-delta');
 var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
+var Scrollbar = require('simple-scrollbar');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
@@ -184,6 +185,9 @@ var helpers = {
         $(container).dotdotdot({
             watch: 'window'
         });
+    },
+    initScrollbar: function(el){
+        SimpleScrollbar.initEl(el);
     }
 }
 
