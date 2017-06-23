@@ -149,6 +149,19 @@ namespace Compent.uIntra.Core.News
             }
         }
 
+        protected override Entities.News UpdateCachedEntity(Guid id)
+        {
+            var news = base.UpdateCachedEntity(id);
+            if (IsNewsHidden(news))
+            {
+                _activityIndex.Delete(id);
+                return null;
+            }
+
+            _activityIndex.Index(Map(news));
+            return news;
+        }
+
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
