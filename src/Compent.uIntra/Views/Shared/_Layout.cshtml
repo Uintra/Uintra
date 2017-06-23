@@ -14,10 +14,12 @@
             @{Html.RenderAction("TopNavigation", "Navigation");}
             <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
         </header>
-        <aside id="sidebar">
-            @{Html.RenderAction("LeftNavigation", "Navigation"); }
-            @{Html.RenderAction("SystemLinks", "Navigation"); }
-            @{Html.RenderAction("Overview", "MyLinks"); }
+        <aside id="sidebar" class="js-sidebar">
+            <div class="sidebar__holder js-sidebar-inner">
+                @{Html.RenderAction("LeftNavigation", "Navigation"); }
+                @{Html.RenderAction("SystemLinks", "Navigation"); }
+                @{Html.RenderAction("Overview", "MyLinks"); }
+            </div>
         </aside>
         <main id="main">
             @*@{Html.RenderAction("Login", "Login");}*@
