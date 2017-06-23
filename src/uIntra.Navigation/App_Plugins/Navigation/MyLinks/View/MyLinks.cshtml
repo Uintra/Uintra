@@ -11,7 +11,7 @@
     </li>
     <li class="side-nav__item">
         <div class="form__btn-holder">
-            <a class="btn _add js-myLinks-add-btn @(Model.IsLinked ? "_disabled" : string.Empty)" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
+            <a class="btn _add js-myLinks-add-btn @(Model.IsLinked ? "_disabled" : string.Empty)" data-url="@Url.Action("Add", "MyLinks")" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
         </div>
     </li>
 </ul>

@@ -1,4 +1,5 @@
 ﻿var Sortable = require('sortablejs');
+import ajax from "./../../Core/Content/scripts/Ajax";
 
 var controller = {
     init: function () {
@@ -8,45 +9,45 @@ var controller = {
         }
 
         var addControlBtn = document.querySelector('.js-myLinks-add-btn');
-        var removeLinks = document.querySelectorAll('.js-myLinks-remove');
-        var currentPageID = addControlBtn.getAttribute('data-content-id');
         var className = '_disabled';
 
-        var sortable = Sortable.create(container, {
-            onUpdate: function (evt) {
+        Sortable.create(container, {
+            onUpdate: function () {
 
             }
         });
 
-        attachEvents();
+        initRemoveLinks(container);
 
-        addControlBtn.addEventListener('click', function(e){
-            toggleLinks(this, e, 'Add');
+        addControlBtn.addEventListener('click', function() {
+            ajax.Post(this.dataset.url, this.dataset.contentId, function(data) {
+                e.preventDefault();
+                fillContainerData(container, data);
+                addControlBtn.classList.toggle(className);
+            });
         });
 
-        function toggleLinks(element, event, action){
-            event.preventDefault();
-            $.ajax({
-                type: "POST",
-                data: {contentId: element.getAttribute('data-content-id')},
-                url: '/umbraco/surface/MyLinks/' + action,
-                success: function (data) {
-                    container.innerHTML = data;
-                    removeLinks = document.querySelectorAll('.js-myLinks-remove');
-                    attachEvents();
-                    if(element.getAttribute('data-content-id') == currentPageID){
-                        addControlBtn.classList.toggle(className);
-                    }
-                }
-            });
-        }
+        function initRemoveLinks(container) {
+            var removeLinks = container.querySelectorAll('.js-myLinks-remove');
 
-        function attachEvents(){
             for(var i = 0; i < removeLinks.length; i++){
-                removeLinks[i].addEventListener('click', function(e){
-                    toggleLinks(this, e, 'Remove');
+                removeLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var link = this;
+                    var url = this.dataset.url;
+                    ajax.Delete(url, function(data) {
+                        fillContainerData(container, data);    
+                        if (link.dataset.isCurrentPage) {
+                            addControlBtn.classList.toggle(className);
+                        }
+                    });
                 });
             }
+        }
+
+        function fillContainerData(container, data) {
+            container.innerHTML = data;
+            initRemoveLinks(container);
         }
     }
 }
