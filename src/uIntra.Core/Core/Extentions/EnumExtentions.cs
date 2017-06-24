@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using uIntra.Core.User;
@@ -35,6 +36,11 @@ namespace uIntra.Core.Extentions
                             .GetMember(enumValue.ToString())
                             .First()
                             .GetCustomAttribute<TAttribute>();
+        }
+
+        public static IEnumerable<T> GetEnumCases<T>() where T : struct, IConvertible
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
     }
 }
