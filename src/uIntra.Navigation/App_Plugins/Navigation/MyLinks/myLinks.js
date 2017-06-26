@@ -19,9 +19,10 @@ var controller = {
 
         initRemoveLinks(container);
 
-        addControlBtn.addEventListener('click', function() {
-            ajax.Post(this.dataset.url, this.dataset.contentId, function(data) {
-                e.preventDefault();
+        addControlBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            ajax.PostJson(this.dataset.url, {contentId: this.dataset.contentId} , function(data) {
                 fillContainerData(container, data);
                 addControlBtn.classList.toggle(className);
             });
