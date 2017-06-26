@@ -1,5 +1,9 @@
-﻿@using uIntra.Core.Controls.FileUpload
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extentions
+@using uIntra.Notification.Configuration
+@using Umbraco.Web
 @model uIntra.Users.ProfileEditModel
 
 <div id="js-profile-page" class="form profile-edit _profile">
@@ -46,4 +50,8 @@
             @Html.ValidationSummary()
         </div>
                         }
+    Enable Email Notifications
+    @Html.CheckBox("js-member-notifier-setting",
+        Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+        new { notifiertype = NotifierTypeEnum.EmailNotifier })
 </div>
