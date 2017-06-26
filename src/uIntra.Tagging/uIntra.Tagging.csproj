@@ -358,6 +358,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Tagging\tagsEdit.js" />
+    <Content Include="App_Plugins\Tagging\tagsView.js" />
     <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />

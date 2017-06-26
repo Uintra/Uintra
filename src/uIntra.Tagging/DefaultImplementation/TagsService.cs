@@ -29,7 +29,7 @@ namespace uIntra.Tagging
                 .OrderBy(tag => tag.Text);
         }
 
-        public IEnumerable<Tag> FindAll(string query)
+        public IEnumerable<Tag> FindAll(string query)   
         {
             var trimmedQuery = query.Trim();
             return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery));

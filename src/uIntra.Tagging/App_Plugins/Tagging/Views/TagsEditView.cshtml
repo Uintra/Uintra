@@ -1,0 +1,4 @@
+﻿@using uIntra.Core.Extentions
+@model IEnumerable<uIntra.Tagging.TagEditModel>
+
+    <div class="activity-tags-holder js-activity-tags-holder input textarea clearfix" data-model-name="tags" data-placeholder="@Html.Localize("Tags.Placeholder")" data-activity-tags="@Model.ToJson()"></div>
