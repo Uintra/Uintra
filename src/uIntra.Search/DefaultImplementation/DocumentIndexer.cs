@@ -12,11 +12,13 @@ namespace uIntra.Search
     {
         private readonly IElasticDocumentIndex _documentIndex;
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly ISearchApplicationSettings _settings;
 
-        public DocumentIndexer(IElasticDocumentIndex documentIndex, UmbracoHelper umbracoHelper)
+        public DocumentIndexer(IElasticDocumentIndex documentIndex, UmbracoHelper umbracoHelper, ISearchApplicationSettings settings)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
+            _settings = settings;
         }
 
         public void FillIndex()
@@ -26,18 +28,22 @@ namespace uIntra.Search
 
         public void Index(int id)
         {
-            var supportDocTypes = "doc,docx,pdf,ppt,pptx,odf".Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
             var media = _umbracoHelper.TypedMedia(id);
-            var physicalPath = HostingEnvironment.MapPath(media.Url);
-            var fileName = Path.GetFileName(media.Url);
-            var base64File = Convert.ToBase64String(File.ReadAllBytes(physicalPath));
-            var contentType = Path.GetExtension(fileName)?.Trim('.');
-
-            if (!supportDocTypes.Contains(contentType, StringComparison.OrdinalIgnoreCase))
+            if (media == null)
             {
                 return;
             }
+
+            var fileName = Path.GetFileName(media.Url);
+            var extension = Path.GetExtension(fileName)?.Trim('.');
+
+            if (!_settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var physicalPath = HostingEnvironment.MapPath(media.Url);
+            var base64File = Convert.ToBase64String(File.ReadAllBytes(physicalPath));
 
             var result = new SearchableDocument
             {

@@ -322,6 +322,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\ApplicationSettings\SearchApplicationSettings.cs" />
+    <Compile Include="Core\ApplicationSettings\ISearchApplicationSettings.cs" />
     <Compile Include="Core\Configuration\ElasticConfigurationSection.cs" />
     <Compile Include="Core\Configuration\IElasticConfigurationSection.cs" />
     <Compile Include="Core\Entities\Mappings\SearchableDocumentMap.cs" />
