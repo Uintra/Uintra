@@ -7,7 +7,7 @@ require("./tags.css");
 
 var controller = {
     init: function () {
-        initTagsControl();
+
     }
 }
 
