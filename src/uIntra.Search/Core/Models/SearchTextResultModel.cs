@@ -12,7 +12,7 @@ namespace uIntra.Search
 
         public string Description { get; set; }
 
-        public IEnumerable<string> PanelContent { get; set; }
+        public IEnumerable<string> PanelContent { get; set; } = Enumerable.Empty<string>();
 
         public string Url { get; set; }
 
@@ -23,10 +23,5 @@ namespace uIntra.Search
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
-
-        public SearchTextResultModel()
-        {        
-            PanelContent = Enumerable.Empty<string>();
-        }
     }
 }

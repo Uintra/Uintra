@@ -6,16 +6,10 @@ namespace uIntra.Search
 {
     public class SearchResult<T>
     {
-        public IEnumerable<T> Documents { get; set; }
+        public IEnumerable<T> Documents { get; set; } = Enumerable.Empty<T>();
 
-        public IReadOnlyDictionary<string, IAggregate> Facets { get; set; }
+        public IReadOnlyDictionary<string, IAggregate> Facets { get; set; } = new Dictionary<string, IAggregate>();
 
         public long TotalHits { get; set; }
-
-        public SearchResult()
-        {
-            Documents = Enumerable.Empty<T>();
-            Facets = new Dictionary<string, IAggregate>();
-        }
     }
 }
