@@ -41,6 +41,7 @@ namespace Compent.uIntra.Core.News
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias };
 
@@ -54,7 +55,8 @@ namespace Compent.uIntra.Core.News
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper, 
-            IElasticActivityIndex activityIndex)
+            IElasticActivityIndex activityIndex, 
+            IDocumentIndexer documentIndexer)
             : base(intranetActivityRepository, cacheService, intranetUserService)
         {
             _intranetUserService = intranetUserService;
@@ -66,6 +68,7 @@ namespace Compent.uIntra.Core.News
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
         }
 
         public MediaSettings GetMediaSettings()
@@ -155,10 +158,12 @@ namespace Compent.uIntra.Core.News
             if (IsNewsHidden(news))
             {
                 _activityIndex.Delete(id);
+                _documentIndexer.Index(news.MediaIds);
                 return null;
             }
 
             _activityIndex.Index(Map(news));
+            _documentIndexer.Index(news.MediaIds);
             return news;
         }
 
