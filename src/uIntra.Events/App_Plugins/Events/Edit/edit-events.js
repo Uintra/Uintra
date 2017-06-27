@@ -1,20 +1,17 @@
 ﻿require("./../../Core/Content/libs/jquery.validate.min.js");
 require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
+require('select2');
+require('alertifyjs/build/css/alertify.min.css');
+require('alertifyjs/build/css/themes/default.min.css');
 
-import appInitializer from "./../../Core/Content/scripts/AppInitializer";
+import {} from './../../Core/Content/scripts/ValidationExtensions';
 import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 import pinActivity from "./../../Core/Content/scripts/PinActivity";
 
-
 var alertify = require('alertifyjs/build/alertify.min');
-require('alertifyjs/build/css/alertify.min.css');
-require('alertifyjs/build/css/themes/default.min.css');
-
-require('select2');
-require('./../../Core/Content/scripts/ValidationExtensions');
 
 var holder;
 var userSelect;
@@ -161,4 +158,4 @@ var controller = {
     }
 }
 
-appInitializer.add(controller.init);
+export default controller;

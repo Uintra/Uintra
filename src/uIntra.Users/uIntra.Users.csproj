@@ -241,6 +241,10 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
+      <Project>{774EBA5A-679C-401D-B3F1-130562785C60}</Project>
+      <Name>uIntra.Notification</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Users\Login\login.css" />

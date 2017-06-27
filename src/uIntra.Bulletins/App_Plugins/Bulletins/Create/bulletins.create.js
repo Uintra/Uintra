@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import ajax from "./../../Core/Content/scripts/Ajax";
 
@@ -193,21 +192,6 @@ function showConfirmMessage() {
     return window.confirm("TODO: are you sure ?");
 }
 
-let controller = {
-    init: function () {
-        holder = getBulletinHolder();
-        if (!holder) {
-            return;
-        }
-
-        initMobile();
-        initElements();
-        initEditor();
-        initEventListeners();
-        initFileUploader();
-    }
-}
-
 function getBulletinHolder() {
     return document.querySelector(".js-create-bulletin");
 }
@@ -229,8 +213,20 @@ function cfTabReloadedEventHandler(e) {
     controller.init();
 }
 
-appInitializer.add(() => {
-    controller.init();
+let controller = {
+    init: function () {
+        holder = getBulletinHolder();
+        if (!holder) {
+            return;
+        }
 
-    document.body.addEventListener('cfTabReloaded', cfTabReloadedEventHandler);
-});
+        initMobile();
+        initElements();
+        initEditor();
+        initEventListeners();
+        initFileUploader();
+        document.body.addEventListener('cfTabReloaded', cfTabReloadedEventHandler);
+    }
+}
+
+export default controller;

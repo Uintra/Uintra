@@ -5,10 +5,6 @@ var container = $('.js-sidebar-inner');
 var active = '_expand';
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
-if(localStorage.getItem('sidebar')) {
-    container.html(localStorage.getItem('sidebar'));
-}
-
 var opener = $('.js-side-nav__opener');
 
 function locationChagned() {
@@ -25,20 +21,14 @@ function locationChagned() {
     }
 }
 
-function toggleLinks(el, event, key){
-    if(localStorage.getItem(key)) {
-        localStorage.removeItem(sidebar);
-    }
+function toggleLinks(el){
     $(el).closest('.js-side-nav__item').toggleClass(active);
-    container = $('.js-sidebar-inner');
-    var content = container.html();
-    localStorage.setItem(key, content);
 }
 
 var controller = {
     init: function () {
         opener.on('click', function(e){
-            toggleLinks(this, e, 'sidebar');
+            toggleLinks(this);
         });
         if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
             helpers.initScrollbar(document.querySelector('.js-sidebar'));

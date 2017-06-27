@@ -6,7 +6,7 @@
 }
 <div class="feed__item @pinnedClass">
     <div class="clearfix">
-        @if (@Model.IsPinned)
+        @if (Model.IsPinned || Model.IsPinActual)
         {
             <span class="pinned__item">@Html.Localize("EventsItemView.Pinned.lbl")</span>
         }

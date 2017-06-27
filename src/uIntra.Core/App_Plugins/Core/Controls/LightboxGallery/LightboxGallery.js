@@ -1,12 +1,10 @@
-﻿import appInitializer from "./../../Content/scripts/AppInitializer";
-import helpers from "./../../Content/scripts/Helpers";
+﻿require('./_lightbox.css');
+require('./_lightboxGallery.css');
 
 var Photoswipe = require('photoswipe');
 var photoswipeUiDefault = require('photoswipe/dist/photoswipe-ui-default');
 
-
-require('./_lightbox.css');
-require('./_lightboxGallery.css');
+import helpers from "./../../Content/scripts/Helpers";
 
 var photoswipeElement = document.querySelector('.pswp');
 var galleries = [];
@@ -102,7 +100,5 @@ var controller = {
         });
     }
 }
-
-appInitializer.add(controller.init);
 
 export default controller;

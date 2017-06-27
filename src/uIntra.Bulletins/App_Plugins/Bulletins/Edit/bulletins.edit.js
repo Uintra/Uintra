@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 import alertify from 'alertifyjs/build/alertify.min';
@@ -52,6 +51,10 @@ function deleteClickHandler(event) {
     return false;
 }
 
+function getBulletinHolder() {
+    return document.querySelector(".js-edit-bulletin");
+}
+
 let controller = {
     init: function () {
         holder = getBulletinHolder();
@@ -65,10 +68,4 @@ let controller = {
     }
 }
 
-function getBulletinHolder() {
-    return document.querySelector(".js-edit-bulletin");
-}
-
-appInitializer.add(() => {
-    controller.init();
-});
+export default controller;

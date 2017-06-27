@@ -19,13 +19,29 @@ var initDeleteButton = function (holder) {
     });
 }
 
+function initListeners() {
+    $('#js-member-notifier-setting').on('change', function (event) {
+
+        let $this = $(this);
+        let element = event.currentTarget;
+        let notifierType = element.attributes.notifiertype.value;
+        let value = element.checked;
+        $.ajax({
+            type: "POST",
+            data: { id: $this.data("id") },
+            url: "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value
+        });
+    });
+}
+
+
 var controller = {
     init: function () {
         var holder = $('#js-profile-page');
         if (!holder.length) {
             return;
         }
-
+        initListeners();
         initDeleteButton(holder);
         fileUploadController.init(holder);
     }

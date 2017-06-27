@@ -1,6 +1,4 @@
-﻿﻿import appInitializer from "./AppInitializer";
-
-function initBlockOnSubmit() {
+﻿function initBlockOnSubmit() {
     $('form').on('submit', function () {
         var control = $(this).find('.js-disable-submit');
         if (!control.length) {
@@ -9,9 +7,5 @@ function initBlockOnSubmit() {
         control[0].disabled = true;
     });
 }
-
-appInitializer.add(function () {
-    initBlockOnSubmit();
-});
 
 export default initBlockOnSubmit;

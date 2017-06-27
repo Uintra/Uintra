@@ -1,6 +1,4 @@
-﻿import appInitializer from "./AppInitializer";
-
-var dataOldValue = "data-old-value";
+﻿var dataOldValue = "data-old-value";
 var holderSelect = ".js-check-before-unload";
 var checkingTypes = "input, select";
 
@@ -109,9 +107,5 @@ function toBoolean(str) {
         default: return false;
     }
 }
-
-appInitializer.add(function () {
-    initConfirmOnBeforeUnload();
-});
 
 export default initConfirmOnBeforeUnload;

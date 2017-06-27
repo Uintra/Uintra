@@ -12,16 +12,9 @@ var controller = {
         var currentPageID = addControlBtn.getAttribute('data-content-id');
         var className = '_disabled';
 
-        if(localStorage.getItem('myLinks')) {
-            $(container).html(localStorage.getItem('myLinks'));
-        }
-
         var sortable = Sortable.create(container, {
             onUpdate: function (evt) {
-                if(localStorage.getItem('myLinks')){
-                    localStorage.removeItem('myLinks');
-                }
-                localStorage.setItem('myLinks', $(container).html());
+
             }
         });
 
