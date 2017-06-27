@@ -53,21 +53,33 @@ function initTagsControl() {
                 $(element).append(hiddenTagText);
 
                 tagIndex++;
-            }
+            },
+            // checks if tag is among allowed ones
+            onBeforeTagAdd: (event, tag) => { return tagsStorage.includes(tag) }
         });
 
     var tagsControlInput = tagsControl.getInput();
 
+    let tagsAreTaken = false;
+    let tagsStorage = [];
+
+
+
     $(tagsControlInput).devbridgeAutocomplete({
         serviceUrl: '/umbraco/surface/Tags/Autocomplete',
         paramName: 'query',
-        minChars: 3,
+        minChars: 0,
         dataType: 'json',
         transformResult: function (response, originalQuery) {
             var result = {
-                suggestions: $.map(response.Tags, function (dataItem) {
-                    return { value: dataItem.Text, id: dataItem.Id };
-                })
+                suggestions: $.map(response.Tags,
+                    function (dataItem) {
+                        return { value: dataItem.Text, id: dataItem.Id };
+                    })
+            };
+            if (!tagsAreTaken) {
+                tagsStorage = response.Tags.map((tag) => { return tag.Text });
+                tagsAreTaken = true; console.log(tagsStorage)
             };
 
             return result;
@@ -80,10 +92,11 @@ function initTagsControl() {
             tagsControl.add(suggestion.value);
         }
     });
+
 }
 
 var controller = {
-    init: function() {
+    init: function () {
         initTagsControl();
     }
 }

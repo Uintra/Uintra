@@ -349,6 +349,7 @@
     <Compile Include="Core\Entities\TagDTO.cs" />
     <Compile Include="Core\ITagsActivityCreateEditModel.cs" />
     <Compile Include="Core\Models\TagEditModel.cs" />
+    <Compile Include="Core\Models\TagViewModel.cs" />
     <Compile Include="Core\Services\ITagsService.cs" />
     <Compile Include="Core\Sql\TagActivityRelation.cs" />
     <Compile Include="Core\Sql\Tag.cs" />
@@ -363,6 +364,7 @@
     <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+    <None Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
     <None Include="packages.config" />
     <None Include="uIntra.Tagging.nuspec">
       <SubType>Designer</SubType>

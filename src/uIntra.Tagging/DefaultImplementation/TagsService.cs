@@ -17,7 +17,7 @@ namespace uIntra.Tagging
             _tagActivityRelationRepository = tagActivityRelationRepository;
         }
 
-        public IEnumerable<Tag> GetMany(Guid activityId)
+        public IEnumerable<Tag> GetAllForActivity(Guid activityId)
         {
             var tagIds = _tagActivityRelationRepository
                 .FindAll(el => el.ActivityId == activityId)
@@ -40,7 +40,7 @@ namespace uIntra.Tagging
             return _tagRepository.GetAll();
         }
 
-        public void Save(Guid activityId, IEnumerable<TagDTO> tags)
+        public void SaveRelations(Guid activityId, IEnumerable<TagDTO> tags)
         {
             _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
             if (tags.IsEmpty())
