@@ -3,12 +3,8 @@
 require("./taggle.css");
 require("./tags.css");
 
-
-
 var controller = {
-    init: function () {
-
-    }
+    init: function () {}
 }
 
 export default controller;
