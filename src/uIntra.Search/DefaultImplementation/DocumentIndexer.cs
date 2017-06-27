@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.Hosting;
 using uIntra.Core.Extentions;
 using uIntra.Search.Core;
@@ -28,10 +29,45 @@ namespace uIntra.Search
 
         public void Index(int id)
         {
+            var document = GetSearchableDocument(id);
+            if (document == null)
+            {
+                return;
+            }
+
+            _documentIndex.Index(document);
+        }
+
+        public void Index(IEnumerable<int> ids)
+        {
+            var documents = ids.Select(GetSearchableDocument).Where(el => el != null).ToList();
+            if (!documents.Any())
+            {
+                return;
+            }
+
+            _documentIndex.Index(documents);
+        }
+
+        public void DeleteFromIndex(int id)
+        {
+            _documentIndex.Delete(id);
+        }
+
+        public void DeleteFromIndex(IEnumerable<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                _documentIndex.Delete(id);
+            }
+        }
+
+        private SearchableDocument GetSearchableDocument(int id)
+        {
             var media = _umbracoHelper.TypedMedia(id);
             if (media == null)
             {
-                return;
+                return null;
             }
 
             var fileName = Path.GetFileName(media.Url);
@@ -39,7 +75,7 @@ namespace uIntra.Search
 
             if (!_settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase))
             {
-                return;
+                return null;
             }
 
             var physicalPath = HostingEnvironment.MapPath(media.Url);
@@ -54,28 +90,7 @@ namespace uIntra.Search
                 Type = SearchableType.Document
             };
 
-            _documentIndex.Index(result);
-        }
-
-        public void Index(IEnumerable<int> ids)
-        {
-            foreach (var id in ids)
-            {
-                Index(id);
-            }
-        }
-
-        public void DeleteFromIndex(int id)
-        {
-            _documentIndex.Delete(id);
-        }
-
-        public void DeleteFromIndex(IEnumerable<int> ids)
-        {
-            foreach (var id in ids)
-            {
-                _documentIndex.Delete(id);
-            }
+            return result;
         }
     }
 }
