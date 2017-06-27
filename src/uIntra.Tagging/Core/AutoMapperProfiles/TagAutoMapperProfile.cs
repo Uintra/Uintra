@@ -1,4 +1,5 @@
 using AutoMapper;
+using uIntra.Tagging.Core.Models;
 
 namespace uIntra.Tagging
 {
@@ -8,6 +9,7 @@ namespace uIntra.Tagging
         {
             Mapper.CreateMap<TagEditModel, TagDTO>();
             Mapper.CreateMap<Tag, TagEditModel>();
+            Mapper.CreateMap<Tag, TagViewModel>();
         }
     }
 }
