@@ -35,7 +35,7 @@ namespace uIntra.Core.Extentions
             return fileIds.Count <= count ? str : fileIds.Take(count).JoinWithComma();
         }
 
-        public static bool Contains(this string[] source, string toCheck, StringComparison comp)
+        public static bool Contains(this IEnumerable<string> source, string toCheck, StringComparison comp)
         {
             return source.Any(s => s.IndexOf(toCheck, comp) >= 0);
         }
