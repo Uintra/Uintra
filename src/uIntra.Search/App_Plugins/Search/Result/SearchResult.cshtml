@@ -1,6 +1,6 @@
 ﻿@using uIntra.Core.Extentions
-@using uIntra.Search.Core
-@model IEnumerable<SearchTextResultModel>
+@using uIntra.Search
+@model IEnumerable<uIntra.Search.SearchTextResultModel>
 
 @{
     var countLabel = string.Format(Html.Localize("SearchResult.Count.lbl"), Model.Count());

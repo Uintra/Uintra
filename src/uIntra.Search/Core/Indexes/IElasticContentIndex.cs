@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public interface IElasticContentIndex
     {

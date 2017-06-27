@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class SearchResultAutoMapperProfile : Profile
     {

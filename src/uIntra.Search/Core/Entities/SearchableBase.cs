@@ -1,4 +1,4 @@
-﻿namespace uIntra.Search.Core
+﻿namespace uIntra.Search
 {
     public class SearchableBase
     {

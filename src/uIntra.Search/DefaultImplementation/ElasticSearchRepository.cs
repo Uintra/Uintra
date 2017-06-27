@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Nest;
 using uIntra.Core.Extentions;
-using uIntra.Search.Core;
-using uIntra.Search.Core.Configuration;
+using uIntra.Search.Configuration;
 using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
 
 namespace uIntra.Search

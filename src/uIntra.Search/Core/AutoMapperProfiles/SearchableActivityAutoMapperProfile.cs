@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.Core.Activity;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class SearchableActivityAutoMapperProfile : Profile
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using Nest;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class SearchResult<T>
     {

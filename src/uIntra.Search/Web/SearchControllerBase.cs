@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
-using uIntra.Search.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Search.Web
