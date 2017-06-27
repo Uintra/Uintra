@@ -5,6 +5,6 @@
   </configSections>
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <appSettings>
-    <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='SearchIndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 </configuration>
