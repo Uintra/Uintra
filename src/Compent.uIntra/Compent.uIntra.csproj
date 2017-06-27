@@ -998,6 +998,7 @@
     <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
+    <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs" />

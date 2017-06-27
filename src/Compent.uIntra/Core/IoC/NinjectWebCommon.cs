@@ -89,6 +89,8 @@ namespace Compent.uIntra.Core.IoC
         {
             var kernel = bootstrapper.Kernel;
 
+            UmbracoEventsModule.RegisterEvents();
+
             var configurationProvider = kernel.Get<IConfigurationProvider<NavigationConfiguration>>();
             configurationProvider.Initialize();
 
