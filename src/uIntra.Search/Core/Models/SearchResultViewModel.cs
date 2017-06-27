@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace uIntra.Search
 {
-    public class SearchTextResultModel
+    public class SearchResultViewModel
     {
         public string Id { get; set; }
 

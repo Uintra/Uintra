@@ -50,14 +50,21 @@ namespace uIntra.Search.Web
                 ApplyHighlights = true
             });
 
-            var result = searchResult.Documents.Select(d =>
+            var results = searchResult.Documents.Select(d =>
             {
-                var model = d.Map<SearchTextResultModel>();
+                var model = d.Map<SearchResultViewModel>();
                 model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
                 return model;
-            });
+            }).ToList();
 
-            return PartialView(SearchResultViewPath, result);
+            var resultModel = new SearchResultsOverviewViewModel
+            {
+                Query = query,
+                Results = results,
+                ResultsCount = results.Count
+            };
+
+            return PartialView(SearchResultViewPath, resultModel);
         }
 
         public virtual PartialViewResult SearchBox()
@@ -80,7 +87,7 @@ namespace uIntra.Search.Web
 
             var result = searchResult.Documents.Select(d =>
             {
-                var model = d.Map<SearchAutocompleteResultModel>();
+                var model = d.Map<SearchAutocompleteResultViewModel>();
                 model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
                 return model;
             });

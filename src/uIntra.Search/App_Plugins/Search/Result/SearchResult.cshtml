@@ -1,14 +1,15 @@
 ﻿@using uIntra.Core.Extentions
 @using uIntra.Search
-@model IEnumerable<uIntra.Search.SearchTextResultModel>
+@model SearchResultsOverviewViewModel
 
 @{
-    var countLabel = string.Format(Html.Localize("SearchResult.Count.lbl"), Model.Count());
+    var queryLabel = string.Format(Html.Localize("SearchResult.YouSearchedFor.lbl"), Model.Query);
+    var countLabel = string.Format(Html.Localize("SearchResult.Count.lbl"), Model.ResultsCount);
 }
 
-<h1 class="search-result__title">@countLabel</h1>
+<h1 class="search-result__title">@queryLabel @countLabel</h1>
 @{
-    foreach (var result in Model)
+    foreach (var result in Model.Results)
     {
         <div class="search-result__item">
             <a class="search-result__item-link" href="@result.Url"></a>
