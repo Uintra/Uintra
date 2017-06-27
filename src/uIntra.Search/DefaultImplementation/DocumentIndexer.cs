@@ -4,8 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using uIntra.Search.Core;
+using Umbraco.Core.Models;
 using Umbraco.Web;
+using File = System.IO.File;
 
 namespace uIntra.Search
 {
@@ -14,17 +17,36 @@ namespace uIntra.Search
         private readonly IElasticDocumentIndex _documentIndex;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchApplicationSettings _settings;
+        private readonly IMediaHelper _mediaHelper;
 
-        public DocumentIndexer(IElasticDocumentIndex documentIndex, UmbracoHelper umbracoHelper, ISearchApplicationSettings settings)
+        public DocumentIndexer(IElasticDocumentIndex documentIndex, UmbracoHelper umbracoHelper, ISearchApplicationSettings settings, IMediaHelper mediaHelper)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
+            _mediaHelper = mediaHelper;
         }
 
         public void FillIndex()
         {
-            //  throw new System.NotImplementedException();
+            var mediaFolderTypes = Enum.GetValues(typeof(MediaFolderTypeEnum));
+            foreach (MediaFolderTypeEnum folderType in mediaFolderTypes)
+            {
+                var mediaRootId = _mediaHelper.GetMediaFolderSettings(folderType).MediaRootId;
+                if (!mediaRootId.HasValue)
+                {
+                    continue;
+                }
+
+                var mediaFolder = _umbracoHelper.TypedMedia(mediaRootId.Value);
+                var documents = mediaFolder.Children.Select(GetSearchableDocument).Where(el => el != null).ToList();
+                if (!documents.Any())
+                {
+                    continue;
+                }
+
+                _documentIndex.Index(documents);
+            }
         }
 
         public void Index(int id)
@@ -64,13 +86,18 @@ namespace uIntra.Search
 
         private SearchableDocument GetSearchableDocument(int id)
         {
-            var media = _umbracoHelper.TypedMedia(id);
-            if (media == null)
+            var content = _umbracoHelper.TypedMedia(id);
+            if (content == null)
             {
                 return null;
             }
 
-            var fileName = Path.GetFileName(media.Url);
+            return GetSearchableDocument(content);
+        }
+
+        private SearchableDocument GetSearchableDocument(IPublishedContent content)
+        {
+            var fileName = Path.GetFileName(content.Url);
             var extension = Path.GetExtension(fileName)?.Trim('.');
 
             if (!_settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase))
@@ -78,14 +105,14 @@ namespace uIntra.Search
                 return null;
             }
 
-            var physicalPath = HostingEnvironment.MapPath(media.Url);
+            var physicalPath = HostingEnvironment.MapPath(content.Url);
             var base64File = Convert.ToBase64String(File.ReadAllBytes(physicalPath));
 
             var result = new SearchableDocument
             {
-                Id = media.Id,
+                Id = content.Id,
                 Title = fileName,
-                Url = media.Url,
+                Url = content.Url,
                 Data = base64File,
                 Type = SearchableType.Document
             };
