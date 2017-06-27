@@ -65,7 +65,11 @@ namespace uIntra.Search.Core
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.PanelTitle))
+                    .Field(f => f.PanelTitle)),
+                new QueryContainerDescriptor<SearchableDocument>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Attachment.Content))
             };
         }
 
@@ -93,13 +97,6 @@ namespace uIntra.Search.Core
                         .PreTags(SearchConstants.HighlightPreTag)
                         .PostTags(SearchConstants.HighlightPostTag))
                 );
-        }
-
-
-        private static void ApplyPaging(ISearchRequest searchRequest, int page, int pageSize)
-        {
-            searchRequest.From = page - 1;
-            searchRequest.Size = pageSize;
         }
 
         private void ApplySort<T>(SearchDescriptor<T> searchDescriptor)
@@ -138,8 +135,10 @@ namespace uIntra.Search.Core
                         documents.Add(SerializationExtentions.Deserialize<SearchableActivity>(document.ToString()));
                         break;
                     case SearchableType.Content:
-                    case SearchableType.Document:
                         documents.Add(SerializationExtentions.Deserialize<SearchableContent>(document.ToString()));
+                        break;
+                    case SearchableType.Document:
+                        documents.Add(SerializationExtentions.Deserialize<SearchableDocument>(document.ToString()));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(
@@ -171,6 +170,10 @@ namespace uIntra.Search.Core
 
                     case "panelTitle":
                         panelContent.AddRange(field.Highlights);
+                        break;
+
+                    case "attachment.content":
+                        document.attachment.content = highlightedField;
                         break;
                 }
             }

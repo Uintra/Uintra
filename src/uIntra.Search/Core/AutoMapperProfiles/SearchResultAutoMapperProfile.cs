@@ -10,7 +10,7 @@ namespace uIntra.Search.Core
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
-                .ForMember(d => d.Type, o => o.Ignore());              
+                .ForMember(d => d.Type, o => o.Ignore());
 
             Mapper.CreateMap<SearchableBase, SearchTextResultModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
@@ -32,6 +32,10 @@ namespace uIntra.Search.Core
 
             Mapper.CreateMap<SearchableContent, SearchTextResultModel>()
                 .ForMember(d => d.PanelContent, o => o.MapFrom(s => s.PanelContent))
+                .IncludeBase<SearchableBase, SearchTextResultModel>();
+
+            Mapper.CreateMap<SearchableDocument, SearchTextResultModel>()
+                .ForMember(d => d.Description, o => o.MapFrom(s => s.Attachment.Content))
                 .IncludeBase<SearchableBase, SearchTextResultModel>();
         }
     }

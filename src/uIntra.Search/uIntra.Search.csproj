@@ -238,6 +238,7 @@
       <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -323,10 +324,16 @@
     </Compile>
     <Compile Include="Core\Configuration\ElasticConfigurationSection.cs" />
     <Compile Include="Core\Configuration\IElasticConfigurationSection.cs" />
+    <Compile Include="Core\Entities\Mappings\SearchableDocumentMap.cs" />
+    <Compile Include="Core\Entities\SearchableDocument.cs" />
+    <Compile Include="Core\IDocumentIndexer.cs" />
+    <Compile Include="Core\Indexes\ElasticDocumentIndex.cs" />
+    <Compile Include="Core\Indexes\IElasticDocumentIndex.cs" />
     <Compile Include="Core\Models\SearchBoxViewModel.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\ElasticHelpers.cs" />
     <Compile Include="Core\SearchHelper.cs" />
+    <Compile Include="DefaultImplementation\DocumentIndexer.cs" />
     <Compile Include="DefaultImplementation\ElasticSearchRepository.cs" />
     <Compile Include="Core\Entities\Mappings\SearchableActivityMap.cs" />
     <Compile Include="Core\Entities\Mappings\SearchableBaseMap.cs" />

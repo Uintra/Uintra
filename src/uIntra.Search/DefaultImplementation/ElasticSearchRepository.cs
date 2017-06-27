@@ -85,6 +85,8 @@ namespace uIntra.Search
         where T : SearchableBase
     {
         private readonly PropertiesDescriptor<T> _properties;
+        private const string AttachmentPipelineName = "attachments";
+        private static readonly Type SearchableDocumentType = typeof(SearchableDocument);
 
         public ElasticSearchRepository(
             string indexName,
@@ -95,6 +97,7 @@ namespace uIntra.Search
             : base(indexName, configuration, exceptionLogger)
         {
             _properties = properties;
+            // AddAttachmentPipeline();
         }
 
         public T Get(object id)
@@ -111,6 +114,21 @@ namespace uIntra.Search
 
         public void Save(T document)
         {
+            if (typeof(T) == SearchableDocumentType)
+            {
+                Client.PutPipeline(AttachmentPipelineName,
+                    p => p.Description("Extract attachment information").Processors(pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Data).
+                    TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Data))));
+
+                var response1 = Client.Index(document, i => i.Index(IndexName).Type(GetTypeName()).Pipeline(AttachmentPipelineName));
+                if (!response1.IsValid)
+                {
+                    RequestError(response1);
+                }
+
+                return;
+            }
+
             var response = Client.Index(document, i => i.Index(IndexName).Type(GetTypeName()));
             if (!response.IsValid)
             {
@@ -175,6 +193,28 @@ namespace uIntra.Search
         public string GetTypeName()
         {
             return typeof(T).Name.ToLower();
+        }
+
+        //private void AddAttachmentPipeline()
+        //{
+        //    var pipelineResponse = Client.GetPipeline(el => el.Id(AttachmentPipelineName));
+        //    if (pipelineResponse.IsValid)
+        //    {
+        //        return;
+        //    }
+
+        //    Client.PutPipeline(AttachmentPipelineName,
+        //        p => p.Description("Document attachment pipeline").Processors(pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Attachment.Content).TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Content))));
+        //}
+
+        private IndexDescriptor<T> SetAttachmentPipeline(IndexDescriptor<T> indexDescriptor)
+        {
+            if (typeof(T) == SearchableDocumentType)
+            {
+                return indexDescriptor.Pipeline(AttachmentPipelineName);
+            }
+
+            return indexDescriptor;
         }
     }
 }
