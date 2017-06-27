@@ -333,8 +333,8 @@
     <Compile Include="Core\Indexes\IElasticDocumentIndex.cs" />
     <Compile Include="Core\Models\SearchBoxViewModel.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
-    <Compile Include="Core\ElasticHelpers.cs" />
-    <Compile Include="Core\SearchHelper.cs" />
+    <Compile Include="Core\Helpers\ElasticHelpers.cs" />
+    <Compile Include="Core\Helpers\SearchHelper.cs" />
     <Compile Include="DefaultImplementation\DocumentIndexer.cs" />
     <Compile Include="DefaultImplementation\ElasticSearchRepository.cs" />
     <Compile Include="Core\Entities\Mappings\SearchableActivityMap.cs" />
@@ -353,7 +353,7 @@
     <Compile Include="Core\Indexes\IElasticActivityIndex.cs" />
     <Compile Include="Core\Indexes\IElasticContentIndex.cs" />
     <Compile Include="Core\Indexes\IElasticIndex.cs" />
-    <Compile Include="Core\ISearchUmbracoHelper.cs" />
+    <Compile Include="Core\Helpers\ISearchUmbracoHelper.cs" />
     <Compile Include="Core\Models\SearchAutocompleteResultModel.cs" />
     <Compile Include="Core\Models\SearchTextResultModel.cs" />
     <Compile Include="Core\Models\SearchViewModel.cs" />
