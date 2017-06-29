@@ -17,6 +17,8 @@ namespace uIntra.Bulletins.Web
         private readonly IBulletinsService<BulletinBase> _bulletinService;
         private readonly IMediaHelper _mediaHelper;
 
+        private const int ActivityTypeId = (int) IntranetActivityTypeEnum.Bulletins;
+
         protected BulletinsBaseApiController(
             IIntranetUserService<IIntranetUser> intranetUserService,
             IBulletinsService<BulletinBase> bulletinService,
@@ -28,7 +30,7 @@ namespace uIntra.Bulletins.Web
         }
 
         [HttpPost]
-        [ContentRestrictedActionApi(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Create)]
+        [ContentRestrictedActionApi(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual BulletinCreationResultModel Create(BulletinCreateModel model)
         {
             var result = new BulletinCreationResultModel();

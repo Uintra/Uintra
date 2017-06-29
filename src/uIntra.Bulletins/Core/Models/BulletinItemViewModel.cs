@@ -19,5 +19,7 @@ namespace uIntra.Bulletins
         public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
+
+        public IActivityType ActivityType { get; set; }
     }
 }
