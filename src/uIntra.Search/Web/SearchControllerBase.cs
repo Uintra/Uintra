@@ -12,7 +12,9 @@ namespace uIntra.Search.Web
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Search/Result/Index.cshtml";
         protected virtual string SearchResultViewPath { get; } = "~/App_Plugins/Search/Result/SearchResult.cshtml";
         protected virtual string SearchBoxViewPath { get; } = "~/App_Plugins/Search/Controls/SearchBox.cshtml";
-        protected const int SuggestionSearchCount = 10;
+
+        protected virtual int SuggestionCount { get; } = 10;
+        protected virtual int ResultsPerPage { get; } = 20;
 
         private readonly ElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
@@ -41,12 +43,13 @@ namespace uIntra.Search.Web
             return PartialView(IndexViewPath, result);
         }
 
-        public virtual PartialViewResult Search(string query)
+        [HttpPost]
+        public virtual PartialViewResult Search(string query, int page = 1)
         {
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = query,
-                Take = 1000,//todo change after paging will be added
+                Take = ResultsPerPage * page,
                 ApplyHighlights = true
             });
 
@@ -82,7 +85,7 @@ namespace uIntra.Search.Web
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = query,
-                Take = SuggestionSearchCount
+                Take = SuggestionCount
             });
 
             var result = searchResult.Documents.Select(d =>

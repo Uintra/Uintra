@@ -1,12 +1,18 @@
 ﻿@model uIntra.Search.SearchViewModel
 
 <div class="search-result js-search-page">
-    <div class="search-result__textbox-holder">
-        <input class="search-result__textbox js-search-page-searchbox" type="search" value="@Model.Query" data-search-url="@Url.Action("Search","Search")" />
-        <span class="icon-search"></span>
-    </div>
+    @using (Html.BeginUmbracoForm("Search", "Search", null,
+                                    new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-searchResults-listContainer" } }))
+    {
+        <div class="search-result__textbox-holder">
+                <input class="search-result__textbox js-search-page-searchbox" type="search" name="query" value="@Model.Query" data-search-url="@Url.Action("Search","Search")" />
+                <span class="icon-search"></span>
+            </div>
 
-    <div class="js-search-page-search-result">
-        @Html.Action("Search", "Search", new { Model.Query })
-    </div>
+        <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
+
+            <input type="hidden" name="page" />
+            <div class="tab-content js-searchResults-listContainer">
+            </div>
+                    }
 </div>
