@@ -4,6 +4,7 @@ using Compent.uIntra.Core.Bulletins;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
 using uIntra.CentralFeed;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
@@ -19,8 +20,9 @@ namespace Compent.uIntra.Controllers
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper)
-            : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IActivityTypeProvider activityTypeProvider)
+            : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
         {
         }
 
@@ -34,6 +36,7 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as Bulletin;
             var extendedModel = GetItemViewModel(activity).Map<BulletinExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;

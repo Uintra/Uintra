@@ -245,6 +245,8 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
 
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
+
+            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

@@ -35,6 +35,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -45,8 +46,8 @@ namespace Compent.uIntra.Core.Bulletins
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService)
-            : base(intranetActivityRepository, cacheService)
+            INotificationsService notificationService, IActivityTypeProvider activityTypeProvider)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -55,6 +56,7 @@ namespace Compent.uIntra.Core.Bulletins
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public MediaSettings GetMediaSettings()
@@ -84,8 +86,8 @@ namespace Compent.uIntra.Core.Bulletins
         {
             return _umbracoHelper.TypedContent(1334);
         }
-
-        public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.Bulletins;
+        IntranetActivityTypeEnum ICentralFeedItemService.ActivityType => IntranetActivityTypeEnum.Bulletins;
+        public override IActivityType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.Bulletins);
 
         public override bool CanEdit(IIntranetActivity cached)
         {
@@ -298,7 +300,7 @@ namespace Compent.uIntra.Core.Bulletins
             var creatorId = Get(cached.Id).CreatorId;
             var isCreator = creatorId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Bulletins, action);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, action);
             return isCreator && isUserHasPermissions;
         }
     }

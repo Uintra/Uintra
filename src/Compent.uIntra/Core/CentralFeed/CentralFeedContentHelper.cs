@@ -22,19 +22,21 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly IGridHelper _gridHelper;
         private readonly ICookieProvider _cookieProvider;
         private readonly IPermissionsService _permissionsService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         public CentralFeedContentHelper(
             UmbracoHelper umbracoHelper,
             ICentralFeedService centralFeedService,
             IGridHelper gridHelper,
             ICookieProvider cookieProvider,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
             _gridHelper = gridHelper;
             _cookieProvider = cookieProvider;
             _permissionsService = permissionsService;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public IPublishedContent GetOverviewPage()
@@ -67,7 +69,12 @@ namespace Compent.uIntra.Core.CentralFeed
                     continue;
                 }
 
-                var canCreate = _permissionsService.IsCurrentUserHasAccess(activityType.Value, IntranetActivityActionEnum.Create);
+                // TODO: REMOVE 
+                var currentActivityType = _activityTypeProvider.Get((int)tabType);
+
+                // ------------
+
+                var canCreate = _permissionsService.IsCurrentUserHasAccess(currentActivityType, IntranetActivityActionEnum.Create);
 
                 var settings = _centralFeedService.GetSettings(tabType);
                 yield return new CentralFeedTabModel

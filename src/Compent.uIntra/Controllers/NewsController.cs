@@ -3,6 +3,7 @@ using AutoMapper;
 using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
 using uIntra.CentralFeed;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
@@ -26,13 +27,15 @@ namespace Compent.uIntra.Controllers
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IPermissionsService permissionsService)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, permissionsService)
+            IPermissionsService permissionsService,
+            IActivityTypeProvider activityTypeProvider)
+            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, permissionsService, activityTypeProvider)
         {
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as News;
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;

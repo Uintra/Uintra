@@ -19,7 +19,7 @@
     <div class="feed__item-feed">
         <div class="feed__item-feed-holder">
             @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
-            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, Model.Id) }); }
+            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
         </div>
     </div>
 </div>
