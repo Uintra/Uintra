@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using uIntra.Core.Localization;
-using uIntra.Search.Core;
+using uIntra.Search;
 using uIntra.Search.Web;
 
 namespace Compent.uIntra.Controllers

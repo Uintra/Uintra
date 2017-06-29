@@ -15,7 +15,7 @@ using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Search.Core;
+using uIntra.Search;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
@@ -158,7 +158,7 @@ namespace Compent.uIntra.Core.News
             if (IsNewsHidden(news))
             {
                 _activityIndex.Delete(id);
-                _documentIndexer.Index(news.MediaIds);
+                _documentIndexer.DeleteFromIndex(news.MediaIds);
                 return null;
             }
 
