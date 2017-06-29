@@ -30,16 +30,13 @@
 
             <div class="search-result__item-meta">
                 <span class="search-result__item-type">@Html.Raw(result.Type)</span>
-                @if (result.PublishedDate == default(DateTime))
+                @if (result.PublishedDate.HasValue)
                 {
-                    <span class="search-result__item-date">@result.StartDate - @result.EndDate</span>
+                    <span class="search-result__item-date">@result.PublishedDate.Value.ToShortDateString()</span>
                 }
                 else
                 {
-                    if (result.PublishedDate.HasValue)
-                    {
-                        <span class="search-result__item-date">@result.PublishedDate.Value.ToShortDateString()</span>
-                    }
+                    <span class="search-result__item-date">@result.StartDate - @result.EndDate</span>
                 }
             </div>
         </div>
