@@ -14,33 +14,3 @@
     font-style: normal;
     font-stretch: normal;
 }
-
-
-body {
-    margin:0;
-    background:#fff;
-    font:14px/1.3 'Open Sans', Arial, Helvetica, sans-serif;
-}
-
-#wrapper{
-    width:100%;
-    overflow:hidden;
-    padding: 50px 0 0 251px;
-
-    ._with-sub-nav._with-subtitle &{
-        padding-top:172px;
-    } 
-
-    @media (--for-tablet-portrait-down) {
-        &{
-            padding: 79px 0 0;
-        }
-        ._with-sub-nav & {
-            padding: 131px 0 0;
-        }
-
-        ._with-sub-nav._with-subtitle &{
-            padding:181px 0 0;
-        }
-    }
-}
