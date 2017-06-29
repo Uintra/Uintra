@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.Core.Activity;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class SearchableActivityAutoMapperProfile : Profile
     {
@@ -29,16 +29,6 @@ namespace uIntra.Search.Core
                             break;
                     }
                 });
-
-            //// Move to separate profile
-            //Mapper.CreateMap<Event, SearchableActivity>()
-            //    .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
-            //    .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
-            //    .IncludeBase<IntranetActivity, SearchableActivity>();
-
-            //Mapper.CreateMap<Intranet.Core.News.Entities.News, SearchableActivity>()
-            //    .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
-            //    .IncludeBase<IntranetActivity, SearchableActivity>();
 
             base.Configure();
         }

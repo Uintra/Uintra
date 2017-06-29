@@ -15,7 +15,7 @@ using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Search.Core;
+using uIntra.Search;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
@@ -43,6 +43,7 @@ namespace Compent.uIntra.Core.Events
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
@@ -54,7 +55,8 @@ namespace Compent.uIntra.Core.Events
             IPermissionsService permissionsService,
             INotificationsService notificationService, 
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex)
+            IElasticActivityIndex activityIndex, 
+            IDocumentIndexer documentIndexer)
             : base(intranetActivityRepository, cacheService)
         {
             _umbracoHelper = umbracoHelper;
@@ -66,6 +68,7 @@ namespace Compent.uIntra.Core.Events
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
         }
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
@@ -191,10 +194,12 @@ namespace Compent.uIntra.Core.Events
             if (IsEventHidden(@event))
             {
                 _activityIndex.Delete(id);
+                _documentIndexer.DeleteFromIndex(@event.MediaIds);
                 return null;
             }
 
             _activityIndex.Index(Map(@event));
+            _documentIndexer.Index(@event.MediaIds);
             return @event;
         }
 

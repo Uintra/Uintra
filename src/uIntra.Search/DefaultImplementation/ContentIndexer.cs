@@ -2,7 +2,6 @@
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
-using uIntra.Search.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

@@ -104,6 +104,8 @@
             &.ql-italic,
             &.ql-link{
                 max-width:30px;
+                max-height:30px;
+                display:inline-block;
             }
 		}
 	}

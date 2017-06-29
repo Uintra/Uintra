@@ -1,8 +1,10 @@
 ﻿require("./topNavigation.css");
+import helpers from "./../../Core/Content/scripts/Helpers";
 
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var body = $('body');
 var className = "_menu-expanded";
+var logout = $('.js-logout');
 
 function initMobileNav() {
     var opener = document.querySelector(".js-menu-opener");
@@ -31,6 +33,12 @@ var isOutsideClick = function (el, opener, target, className, callback) {
         }
     }
 };
+
+logout.on('click', function(){
+    helpers.localStorage.removeItem("leftNavigation");
+    helpers.localStorage.removeItem("myLinks");
+    helpers.localStorage.removeItem("systemLinks");
+});
 
 var controller = {
     init: function () {

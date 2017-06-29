@@ -1,6 +1,6 @@
-﻿namespace uIntra.Search.Core
+﻿namespace uIntra.Search
 {
-    public class SearchAutocompleteResultModel
+    public class SearchAutocompleteResultViewModel
     {
         public string Id { get; set; }
 

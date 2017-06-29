@@ -67,10 +67,12 @@ var helpers = {
     },
     initDatePicker: function (holder, dateElemSelector, valueSelector) {
         var dateElem = holder.find(dateElemSelector);
+        var dateParentNode = dateElem.parent();
         var dateFormat = dateElem.data('dateFormat');
         var dateElemValue = holder.find(valueSelector);
         var defaultDate = new Date(dateElem.data('defaultDate'));
         var closeButton = document.createElement("span");
+        var clearButton = dateParentNode.find('.js-clear-date');
         closeButton.className = "flatpickr__close";
         closeButton.addEventListener("click", function () {
             datePicker.close();
@@ -92,6 +94,7 @@ var helpers = {
 
                 var selectedDate = selectedDates[0].toISOString();
                 dateElemValue.val(selectedDate);
+                clearButton.removeClass("hide");
             }
         });
 
@@ -104,6 +107,15 @@ var helpers = {
         }
 
         datePicker.set('minDate', minDate.setHours(0));
+        if(datePicker.selectedDates.length > 0){
+            clearButton.removeClass("hide");
+        };
+
+        clearButton.click(function () {
+            datePicker.clear();
+            $(this).addClass("hide");
+        });
+
         return datePicker;
     },
     infiniteScrollFactory: function (onScroll) {

@@ -46,7 +46,11 @@
         }
 
         &-link{
-            display:inline-block;
+            color:var(--text-color-dark);
+
+            &:hover{
+                color:var(--text-color-dark);
+            }
 
             ._horizontal &{
                 background:#fbfbfb;
@@ -68,7 +72,6 @@
         &-name{
             display:block;
             overflow:hidden;
-            padding:4px 0 0;
 
             ._horizontal &{
                 font-size:11px;
@@ -76,7 +79,6 @@
                 word-break:break-all;
                 display:inline-block;
                 overflow:visible;
-                padding:0;
             }
         }
     }

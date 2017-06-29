@@ -7,7 +7,7 @@ using uIntra.Events;
 using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
-using uIntra.Search.Core;
+using uIntra.Search;
 using uIntra.Users;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;

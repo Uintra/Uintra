@@ -49,9 +49,14 @@
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-                        }
-    Enable Email Notifications
-    @Html.CheckBox("js-member-notifier-setting",
-        Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
-        new { notifiertype = NotifierTypeEnum.EmailNotifier })
+    }
+    <div class="check">
+        <label class="check__label">
+            @Html.CheckBox("js-member-notifier-setting",
+            Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+            new { notifiertype = NotifierTypeEnum.EmailNotifier, @class = "check__box" })
+            <span class="check__fake-input icon-check"></span>
+            <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
+        </label>
+    </div>
 </div>
