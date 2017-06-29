@@ -86,7 +86,7 @@ namespace uIntra.Subscribe.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IntranetActivityTypeEnum? type = null)
+        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IActivityType type = null)
         {
             var model = new SubscribeViewModel
             {
@@ -97,9 +97,9 @@ namespace uIntra.Subscribe.Web
                 IsNotificationDisabled = subscriber?.IsNotificationDisabled ?? false
             };
 
-            if (type.HasValue)
+            if (type != null)
             {
-                model.HasNotification = _subscribeService.HasNotification(type.Value);
+                model.HasNotification = _subscribeService.HasNotification(type);
             }
 
             return PartialView(IndexViewPath, model);
