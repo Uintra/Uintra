@@ -37,6 +37,44 @@ namespace uIntra.Core.Migrations
             }
         }
 
+        public static void AddIsDeletedProperty()
+        {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+            var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
+            var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
+
+            var dataType = dataTypeService.GetDataTypeDefinitionByName(ImageConstants.IsDeletedDataTypeDefinitionName);
+            if (dataType == null)
+            {
+                dataType = new DataTypeDefinition("Umbraco.TrueFalse")
+                {
+                    Name = ImageConstants.IsDeletedDataTypeDefinitionName
+                };
+
+                dataTypeService.Save(dataType);
+            }
+
+            var isDeletedPropertyType = new PropertyType(dataType)
+            {
+                Name = "Is deleted",
+                Alias = ImageConstants.IsDeletedPropertyTypeAlias
+            };
+
+            if (!imageType.PropertyTypeExists(isDeletedPropertyType.Alias))
+            {
+                imageType.AddPropertyType(isDeletedPropertyType);
+                contentTypeService.Save(imageType);
+            }
+
+            if (!fileType.PropertyTypeExists(isDeletedPropertyType.Alias))
+            {
+                fileType.AddPropertyType(isDeletedPropertyType);
+                contentTypeService.Save(fileType);
+            }
+        }
+
         public static void AddFolderProperties()
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
@@ -232,6 +270,7 @@ namespace uIntra.Core.Migrations
         public static void Migrate()
         {
             AddIntranetUserIdProperty();
+            AddIsDeletedProperty();
             AddFolderProperties();
             CreateDefaultFolders();
 
