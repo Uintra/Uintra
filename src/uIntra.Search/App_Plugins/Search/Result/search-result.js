@@ -1,29 +1,26 @@
 ﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
 import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
+import ajax from "./../../Core/Content/scripts/Ajax";
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var searchTimeout;
 
 function initSearchPage() {
-    var searchBox = $('.js-search-page-searchbox');
-    if (!searchBox.length) {
+    var searchBox = document.querySelector(".js-search-page-searchbox");
+    if (!searchBox) {
         return;
     }
-    var text = searchBox.val();
-    if (text.length > 1) {
-        search(text);
-    }
-
-    searchBox.on('input', function () {
-        clearTimeout(searchTimeout);
-        var text = searchBox.val();
-        if (text.length > 1) {
-            searchTimeout = setTimeout(function() {search(text)}, 250);
-        } else {
-            $(".js-search-page-search-result").html("");
-        }
-    });
+    searchBox.addEventListener('input',
+        function() {
+            clearTimeout(searchTimeout);
+            var text = searchBox.value;
+            if (text.length > 1) {
+                searchTimeout = setTimeout(function() {search(text)}, 250);
+            } else {
+                document.querySelector(".js-searchResults-listContainer").innerHTML = "";
+            }
+        });
 }
 
 function initInfinityScroll(holder) {
@@ -99,26 +96,22 @@ function initInfinityScroll(holder) {
 
 function search(query) {
     if (query) {
-        var url = $('.js-search-page-searchbox').data('searchUrl') + '?query='+ query;
+        var url = document.querySelector(".js-search-page-searchbox").getAttribute('data-search-url') + query;
 
-        $.ajax({
-            url: url,
-            type:"POST",
-            success: function (data) {
-                $(".js-searchResults-listContainer").html(data);
-            }
-        });
+        ajax.Get(url)
+         .then(function (response) {
+             document.querySelector(".js-searchResults-listContainer").innerHTML = response;
+         });
     }
 }
 
 appInitializer.add(function () {
-    var holder = $('.js-search-page');
-    var searchbox = $('.js-search-page-searchbox');
-    if (!holder.length || !searchbox.length) {
+    var holder = $(".js-search-page-holder");
+    if (!holder.length) {
         return;
     }
 
-    initSearchPage(holder);
+    initSearchPage();
     initInfinityScroll(holder);
 });
 

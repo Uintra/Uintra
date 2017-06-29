@@ -13,7 +13,7 @@ namespace uIntra.Search.Web
         protected virtual string SearchResultViewPath { get; } = "~/App_Plugins/Search/Result/SearchResult.cshtml";
         protected virtual string SearchBoxViewPath { get; } = "~/App_Plugins/Search/Controls/SearchBox.cshtml";
 
-        protected virtual int SuggestionCount { get; } = 10;
+        protected virtual int AutocompleteSuggestionCount { get; } = 10;
         protected virtual int ResultsPerPage { get; } = 20;
 
         private readonly ElasticIndex _elasticIndex;
@@ -43,7 +43,6 @@ namespace uIntra.Search.Web
             return PartialView(IndexViewPath, result);
         }
 
-        [HttpPost]
         public virtual PartialViewResult Search(string query, int page = 1)
         {
             var searchResult = _elasticIndex.Search(new SearchTextQuery
@@ -64,7 +63,7 @@ namespace uIntra.Search.Web
             {
                 Query = query,
                 Results = results,
-                ResultsCount = results.Count
+                ResultsCount = (int) searchResult.TotalHits
             };
 
             return PartialView(SearchResultViewPath, resultModel);
@@ -85,7 +84,7 @@ namespace uIntra.Search.Web
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = query,
-                Take = SuggestionCount
+                Take = AutocompleteSuggestionCount
             });
 
             var result = searchResult.Documents.Select(d =>
