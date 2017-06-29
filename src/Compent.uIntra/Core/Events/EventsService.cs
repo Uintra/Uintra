@@ -15,7 +15,7 @@ using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Search.Core;
+using uIntra.Search;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;

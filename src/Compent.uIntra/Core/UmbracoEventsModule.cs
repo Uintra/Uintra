@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using uIntra.Search.Core;
+using uIntra.Search;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
