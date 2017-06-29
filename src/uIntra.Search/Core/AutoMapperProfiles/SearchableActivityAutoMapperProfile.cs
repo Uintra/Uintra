@@ -16,15 +16,15 @@ namespace uIntra.Search.Core
                 .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description))
                 .AfterMap((dst, src) =>
                 {
-                    switch (dst.Type)
+                    switch (dst.Type.Id)
                     {
-                        case IntranetActivityTypeEnum.Events:
+                        case (int)IntranetActivityTypeEnum.Events:
                             src.Type = SearchableType.Events;
                             break;
-                        case IntranetActivityTypeEnum.News:
+                        case (int)IntranetActivityTypeEnum.News:
                             src.Type = SearchableType.News;
                             break;
-                        case IntranetActivityTypeEnum.Ideas:
+                        case (int)IntranetActivityTypeEnum.Ideas:
                             src.Type = SearchableType.Ideas;
                             break;
                     }
