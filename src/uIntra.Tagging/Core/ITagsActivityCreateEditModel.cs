@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using uIntra.Tagging.Core.Models;
 
 namespace uIntra.Tagging
 {
