@@ -398,6 +398,7 @@
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\navigation.js" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <None Include="App_Plugins\Navigation\Web.config" />
     <Compile Include="DefaultImplementation\SystemLinksViewModel.cs" />
