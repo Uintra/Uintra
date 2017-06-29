@@ -49,23 +49,24 @@
                     </div>
                 </div>
             </div>
-            <div class="form__row clearfix">
-                @Html.Action("PinActivity", "Activity", new { isPinned = false, pinDays = 0 })
-            </div>
-            <div class="form__row clearfix">
-                <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>
-                @{
-                    var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
-                    Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
-                }
-            </div>
-            <div class="form__row clearfix">
-                @Html.ValidationSummary()
-            </div>
-            <div class="form__row clearfix">
-                <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-                <input class="form__btn _black _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
-                <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News)))">@Html.Localize("Common.Cancel.lnk")</a>
-            </div>
+        <div class="form__row clearfix">
+           @Html.Action("PinActivity", "Activity", new { isPinned = false, pinDays = 0 })
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
+                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
+            }
+        </div>
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form__row clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _black _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
+            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
+        </div>
+
                     }
 </div>
