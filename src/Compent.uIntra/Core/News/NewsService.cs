@@ -158,7 +158,7 @@ namespace Compent.uIntra.Core.News
             if (IsNewsHidden(news))
             {
                 _activityIndex.Delete(id);
-                _documentIndexer.Index(news.MediaIds);
+                _documentIndexer.DeleteFromIndex(news.MediaIds);
                 return null;
             }
 

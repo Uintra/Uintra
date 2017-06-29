@@ -3,6 +3,7 @@ using Compent.uIntra.Core.News.Models;
 using uIntra.Core.Activity;
 using uIntra.News;
 using uIntra.News.Dashboard;
+using uIntra.Search;
 
 namespace Compent.uIntra.Core.News
 {
@@ -24,6 +25,14 @@ namespace Compent.uIntra.Core.News
 
             Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
+
+            Mapper.CreateMap<Entities.News, SearchableActivity>()
+                
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
+                .IncludeBase<IntranetActivity, SearchableActivity>();
         }
     }
 }
