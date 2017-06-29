@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
-    public class SearchTextResultModel
+    public class SearchResultViewModel
     {
         public string Id { get; set; }
 
@@ -12,7 +12,7 @@ namespace uIntra.Search.Core
 
         public string Description { get; set; }
 
-        public IEnumerable<string> PanelContent { get; set; }
+        public IEnumerable<string> PanelContent { get; set; } = Enumerable.Empty<string>();
 
         public string Url { get; set; }
 
@@ -23,10 +23,5 @@ namespace uIntra.Search.Core
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
-
-        public SearchTextResultModel()
-        {        
-            PanelContent = Enumerable.Empty<string>();
-        }
     }
 }

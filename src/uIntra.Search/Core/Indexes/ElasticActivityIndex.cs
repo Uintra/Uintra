@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class ElasticActivityIndex : IElasticActivityIndex
     {

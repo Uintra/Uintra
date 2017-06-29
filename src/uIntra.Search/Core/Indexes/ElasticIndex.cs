@@ -4,7 +4,7 @@ using System.Linq;
 using Nest;
 using uIntra.Core.Extentions;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class ElasticIndex : IElasticIndex
     {

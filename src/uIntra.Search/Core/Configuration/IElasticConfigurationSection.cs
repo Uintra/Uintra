@@ -1,4 +1,4 @@
-﻿namespace uIntra.Search.Core.Configuration
+﻿namespace uIntra.Search.Configuration
 {
     public interface IElasticConfigurationSection
     {

@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace uIntra.Search.Core.Configuration
+namespace uIntra.Search.Configuration
 {
     public class ElasticConfigurationSection : ConfigurationSection, IElasticConfigurationSection
     {

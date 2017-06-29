@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nest;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public static class ElasticHelpers
     {

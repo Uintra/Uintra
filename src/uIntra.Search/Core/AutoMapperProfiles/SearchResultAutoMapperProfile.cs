@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class SearchResultAutoMapperProfile : Profile
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<SearchableBase, SearchAutocompleteResultModel>()
+            Mapper.CreateMap<SearchableBase, SearchAutocompleteResultViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(d => d.Type, o => o.Ignore());
 
-            Mapper.CreateMap<SearchableBase, SearchTextResultModel>()
+            Mapper.CreateMap<SearchableBase, SearchResultViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
@@ -23,20 +23,20 @@ namespace uIntra.Search.Core
                 .ForMember(d => d.EndDate, o => o.Ignore())
                 .ForMember(d => d.PublishedDate, o => o.Ignore());
 
-            Mapper.CreateMap<SearchableActivity, SearchTextResultModel>()
+            Mapper.CreateMap<SearchableActivity, SearchResultViewModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
                 .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
                 .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishedDate))
-                .IncludeBase<SearchableBase, SearchTextResultModel>();
+                .IncludeBase<SearchableBase, SearchResultViewModel>();
 
-            Mapper.CreateMap<SearchableContent, SearchTextResultModel>()
+            Mapper.CreateMap<SearchableContent, SearchResultViewModel>()
                 .ForMember(d => d.PanelContent, o => o.MapFrom(s => s.PanelContent))
-                .IncludeBase<SearchableBase, SearchTextResultModel>();
+                .IncludeBase<SearchableBase, SearchResultViewModel>();
 
-            Mapper.CreateMap<SearchableDocument, SearchTextResultModel>()
+            Mapper.CreateMap<SearchableDocument, SearchResultViewModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Attachment.Content))
-                .IncludeBase<SearchableBase, SearchTextResultModel>();
+                .IncludeBase<SearchableBase, SearchResultViewModel>();
         }
     }
 }

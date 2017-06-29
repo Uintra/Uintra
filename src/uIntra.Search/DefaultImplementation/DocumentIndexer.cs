@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web.Hosting;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
-using uIntra.Search.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using File = System.IO.File;
