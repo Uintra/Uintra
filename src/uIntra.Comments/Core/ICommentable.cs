@@ -8,8 +8,6 @@ namespace uIntra.Comments
     {
         Guid Id { get; }
 
-        IntranetActivityTypeEnum Type { get; }
-
         IEnumerable<Comment> Comments { get; set; }
     }
 }
