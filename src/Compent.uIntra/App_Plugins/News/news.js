@@ -51,12 +51,11 @@ var initDescriptionControl = function (holder) {
 }
 
 var initDates = function (holder) {
-
     var publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
     var unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
     var pin = pinActivity.initPinDate(holder);
-
     var initialMinDate = publish.selectedDates[0] || null;
+
     setMinDate(initialMinDate);
 
     publish.config.onChange.push(publishDateChanged);
@@ -68,13 +67,7 @@ var initDates = function (holder) {
 
     function publishDateChanged(newDates) {
         setMinDate(newDates[0]);
-
     }
-    
-    var clearUnpublishDateBtn = holder.find('.js-clear-unpublish-date');
-    clearUnpublishDateBtn.click(function () {
-        unpublish.clear();
-    });
 }
 
 var controller = {
