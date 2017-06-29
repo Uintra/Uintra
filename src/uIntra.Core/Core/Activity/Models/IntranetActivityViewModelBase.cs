@@ -8,5 +8,6 @@ namespace uIntra.Core.Activity
         public bool CanEdit { get; set; }
         public bool IsPinned { get; set; }
         public IntranetActivityDetailsHeaderViewModel HeaderInfo { get; set; }
+        public IActivityType ActivityType { get; set; }
     }
 }

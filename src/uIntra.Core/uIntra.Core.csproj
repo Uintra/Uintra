@@ -379,6 +379,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Activity\ActivityType.cs" />
+    <Compile Include="Core\Activity\ActivityTypeProvider.cs" />
+    <Compile Include="Core\Activity\IActivityType.cs" />
+    <Compile Include="Core\Activity\IActivityTypeProvider.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />

@@ -15,7 +15,7 @@ namespace uIntra.Core.Activity
         [StringLength(int.MaxValue)]
         public string JsonData { get; set; }
 
-        public IntranetActivityTypeEnum Type { get; set; }
+        public int Type { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

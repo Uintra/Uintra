@@ -6,7 +6,7 @@ namespace uIntra.Core.Activity
 {
     public interface IIntranetActivityService<out TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
     {
-        IntranetActivityTypeEnum ActivityType { get; }
+        IActivityType ActivityType { get; }
 
         TActivity Get(Guid id);
         IEnumerable<TActivity> GetManyActual();

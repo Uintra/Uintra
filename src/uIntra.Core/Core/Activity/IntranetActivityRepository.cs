@@ -24,9 +24,9 @@ namespace uIntra.Core.Activity
             return _sqlRepository.GetAll();
         }
 
-        public IEnumerable<IntranetActivityEntity> GetMany(IntranetActivityTypeEnum activityType)
+        public IEnumerable<IntranetActivityEntity> GetMany(IActivityType activityType)
         {
-            return _sqlRepository.FindAll(a => a.Type == activityType);
+            return _sqlRepository.FindAll(a => a.Type == activityType.Id);
         }
 
         public IEnumerable<IntranetActivityEntity> FindAll(Expression<Func<IntranetActivityEntity, bool>> expression)

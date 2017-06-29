@@ -10,7 +10,7 @@ namespace uIntra.Core.Controls.LightboxGallery
         public IEnumerable<LightboxGalleryViewModel> Images { get; set; }
         public IEnumerable<LightboxGalleryViewModel> OtherFiles { get; set; }
         public Guid ActivityId { get; set; }
-        public IntranetActivityTypeEnum ActivityType { get; set; }
+        public IActivityType ActivityType { get; set; }
 
         public LightboxGalleryPreviewViewModel()
         {

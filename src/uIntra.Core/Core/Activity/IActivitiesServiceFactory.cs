@@ -6,7 +6,7 @@ namespace uIntra.Core.Activity
     {
         TService GetService<TService>(Guid id) where TService : class;
         TService GetServiceSafe<TService>(Guid id) where TService : class;
-        TService GetService<TService>(IntranetActivityTypeEnum type) where TService : class;
-        TService GetServiceSafe<TService>(IntranetActivityTypeEnum type) where TService : class;
+        TService GetService<TService>(int activityTypeId) where TService : class;
+        TService GetServiceSafe<TService>(int activityTypeId) where TService : class;
     }
 }

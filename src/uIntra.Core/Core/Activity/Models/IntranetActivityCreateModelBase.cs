@@ -17,5 +17,7 @@ namespace uIntra.Core.Activity
         public Guid CreatorId { get; set; }
 
         public IIntranetUser Creator { get; set; }
+
+        public IActivityType ActivityType { get; set; }
     }
 }
