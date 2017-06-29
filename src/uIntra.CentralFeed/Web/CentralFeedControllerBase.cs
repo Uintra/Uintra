@@ -23,6 +23,7 @@ namespace uIntra.CentralFeed.Web
         private readonly ISubscribeService _subscribeService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IActivityTypeProvider _activityTypeProvider;
         protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(
@@ -31,7 +32,7 @@ namespace uIntra.CentralFeed.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper, IActivityTypeProvider activityTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
@@ -39,6 +40,7 @@ namespace uIntra.CentralFeed.Web
             _subscribeService = subscribeService;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public virtual ActionResult Overview()
@@ -173,8 +175,8 @@ namespace uIntra.CentralFeed.Web
 
             foreach (var type in items.Select(i => i.Type).Distinct())
             {
-                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type);
-                ViewData.SetActivityDetailsPageUrl(type, service.GetDetailsPage(currentPage).Url);
+                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>((int)type);
+                ViewData.SetActivityDetailsPageUrl((int)type, service.GetDetailsPage(currentPage).Url);
             }
 
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
