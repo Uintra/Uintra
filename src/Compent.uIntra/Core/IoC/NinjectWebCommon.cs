@@ -247,6 +247,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
