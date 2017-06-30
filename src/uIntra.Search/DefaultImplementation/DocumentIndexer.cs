@@ -118,7 +118,7 @@ namespace uIntra.Search
                 Title = fileName,
                 Url = content.Url,
                 Data = base64File,
-                Type = SearchableType.Document
+                Type = (int)SearchableTypeEnum.Document
             };
 
             return result;
