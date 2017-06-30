@@ -145,6 +145,22 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Localization.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Core.0.0.2\lib\Net45\Localization.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Storage.UDictionary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.0.2\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Umbraco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.0.1\lib\Net45\Localization.Umbraco.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Web.0.0.2\lib\Net45\Localization.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\log4net.dll</HintPath>
       <Private>True</Private>
@@ -786,6 +802,13 @@
     <Content Include="App_Plugins\Events\style.css" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
+    <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-creation.dialog.html" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-overview.controller.js" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-overview.html" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -1004,6 +1027,7 @@
     <Content Include="config\ExamineIndex.config" />
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
+    <Content Include="App_Plugins\Localization\package.manifest" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
