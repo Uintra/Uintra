@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -109,13 +110,12 @@ namespace uIntra.News.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var cachedActivity = _newsService.Get(editModel.Id);
-            var cachedActivityMedias = cachedActivity.MediaIds;
+            var cachedActivityMedias = _newsService.Get(editModel.Id).MediaIds;
 
             var activity = MapToNews(editModel);
             _newsService.Save(activity);
 
-            _mediaHelper.DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
+            DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
             OnNewsEdited(activity, editModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
@@ -216,6 +216,11 @@ namespace uIntra.News.Web
             ViewData.SetActivityCreatePageUrl(ActivityTypeId, createPageUrl);
             ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
             ViewData.SetProfilePageUrl(profilePageUrl);
+        }
+
+        protected virtual void DeleteMedia(IEnumerable<int> mediaIds)
+        {
+            _mediaHelper.DeleteMedia(mediaIds);
         }
 
         protected virtual void OnNewsCreated(Guid activityId, NewsCreateModel model)

@@ -144,13 +144,12 @@ namespace uIntra.Events.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var cachedActivity = _eventsService.Get(editModel.Id);
-            var cachedActivityMedias = cachedActivity.MediaIds;
+            var cachedActivityMedias = _eventsService.Get(editModel.Id).MediaIds;
 
             var activity = MapToEvent(editModel);
             _eventsService.Save(activity);
 
-            _mediaHelper.DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
+            DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
             OnEventEdited(activity, editModel);
 
@@ -282,6 +281,11 @@ namespace uIntra.Events.Web
             ViewData.SetActivityCreatePageUrl(ActivityTypeId, createPageUrl);
             ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
             ViewData.SetProfilePageUrl(profilePageUrl);
+        }
+
+        protected virtual void DeleteMedia(IEnumerable<int> mediaIds)
+        {
+            _mediaHelper.DeleteMedia(mediaIds);
         }
 
         protected virtual void OnEventCreated(Guid activityId, EventCreateModel model)
