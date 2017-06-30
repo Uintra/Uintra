@@ -55,6 +55,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Is deleted
+		///</summary>
+		[ImplementPropertyType("isDeleted")]
+		public bool IsDeleted
+		{
+			get { return this.GetPropertyValue<bool>("isDeleted"); }
+		}
+
+		///<summary>
 		/// Size
 		///</summary>
 		[ImplementPropertyType("umbracoBytes")]

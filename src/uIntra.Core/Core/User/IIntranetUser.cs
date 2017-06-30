@@ -9,5 +9,6 @@ namespace uIntra.Core.User
         string DisplayedName { get; set; }
         string Photo { get; set; }
         IRole Role { get; set; }
+        string Email { get; set; }
     }
 }

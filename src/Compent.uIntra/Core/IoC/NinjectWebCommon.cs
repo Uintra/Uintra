@@ -20,6 +20,7 @@ using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Persistence.Sql;
+using EmailWorker.Ninject;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
 using Newtonsoft.Json.Serialization;
@@ -107,7 +108,7 @@ namespace Compent.uIntra.Core.IoC
 
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new EmailWorkerNinjectModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);

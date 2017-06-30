@@ -48,6 +48,10 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Archetype">
+      <HintPath>..\..\packages\Archetype.1.10\lib\net40\Archetype.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -90,6 +94,22 @@
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\..\packages\Elmah.MVC.2.0.0\lib\net40\Elmah.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EmailWorker.Data">
+      <HintPath>..\..\packages\EmailWorker.Data.0.3.11\lib\Net45\EmailWorker.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EmailWorker.Ninject">
+      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4\lib\Net45\EmailWorker.Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EmailWorker.Web">
+      <HintPath>..\..\packages\EmailWorker.Web.0.3.12\lib\Net45\EmailWorker.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -415,6 +435,10 @@
       <HintPath>..\..\packages\UrlRewritingNet.2.0.7\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebActivatorEx">
       <HintPath>..\..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -444,6 +468,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Archetype\css\archetype.css" />
+    <Content Include="App_Plugins\Archetype\js\archetype.js" />
+    <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
+    <Content Include="App_Plugins\Archetype\langs\da.js" />
+    <Content Include="App_Plugins\Archetype\langs\de-de.js" />
+    <Content Include="App_Plugins\Archetype\langs\de.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-gb.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-us.js" />
+    <Content Include="App_Plugins\Archetype\langs\en.js" />
+    <Content Include="App_Plugins\Archetype\langs\es-es.js" />
+    <Content Include="App_Plugins\Archetype\langs\es.js" />
+    <Content Include="App_Plugins\Archetype\langs\fr-fr.js" />
+    <Content Include="App_Plugins\Archetype\langs\he-il.js" />
+    <Content Include="App_Plugins\Archetype\langs\it-it.js" />
+    <Content Include="App_Plugins\Archetype\langs\ja-jp.js" />
+    <Content Include="App_Plugins\Archetype\langs\ko-kr.js" />
+    <Content Include="App_Plugins\Archetype\langs\nb-no.js" />
+    <Content Include="App_Plugins\Archetype\langs\nl-nl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pl-pl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pt-br.js" />
+    <Content Include="App_Plugins\Archetype\langs\ru-ru.js" />
+    <Content Include="App_Plugins\Archetype\langs\sv-se.js" />
+    <Content Include="App_Plugins\Archetype\langs\zh-cn.js" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.html" />
     <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.html" />
     <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.js" />
     <Content Include="App_Plugins\BaseControls\base.css" />
@@ -716,6 +766,7 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
+    <Content Include="App_Plugins\dummy.txt" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
@@ -788,6 +839,37 @@
     <Content Include="App_Plugins\Search\Result\search-result.js" />
     <Content Include="App_Plugins\Search\search.js" />
     <Content Include="App_Plugins\Search\styles.css" />
+    <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\7z.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\bmp.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\csv.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\doc.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\file.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\html.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\jpg.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\log.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pdf.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\png.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\ppt.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pptx.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\psd.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rar.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rtf.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\tiff.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\txt.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xlsx.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xml.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\zip.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\umb-styles.css" />
+    <Content Include="App_Plugins\SentMails\backoffice\Mails\mails.controller.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\columnSettings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\mails.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\smtpSettings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\Services\sentmails.service.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\SmtpSettings\smtpSettings.controller.js" />
+    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.css" />
+    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
+    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
@@ -912,6 +994,7 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -927,6 +1010,7 @@
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\BulletinsApiController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
@@ -986,6 +1070,7 @@
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
+    <Compile Include="Core\Mails\MailConfiguration.cs" />
     <Compile Include="Core\Navigation\UintraLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
@@ -1002,6 +1087,8 @@
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\CommentsEditPage.generated.cs" />
@@ -1010,6 +1097,7 @@
     <Compile Include="Core\UmbracoModelsBuilders\ContentPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\DataFolder.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\ErrorPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\EventsEditPage.generated.cs" />
@@ -1021,6 +1109,8 @@
     <Compile Include="Core\UmbracoModelsBuilders\HomePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\Image.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\LikesPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\MailTemplate.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\Member.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\NavigationComposition.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs" />
