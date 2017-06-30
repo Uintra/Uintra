@@ -14,6 +14,7 @@ using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
+using Compent.uIntra.Core.Mails;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
@@ -208,6 +209,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
+            kernel.Bind<IMailConfiguration>().To<MailConfiguration>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
