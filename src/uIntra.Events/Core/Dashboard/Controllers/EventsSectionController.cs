@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
 using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using uIntra.Core.User;
 using Umbraco.Web.WebApi;
 
@@ -12,11 +13,13 @@ namespace uIntra.Events.Dashboard
     {
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaHelper _mediaHelper; 
 
-        public EventsSectionController(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService)
+        public EventsSectionController(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;
+            _mediaHelper = mediaHelper;
         }
 
         public IEnumerable<EventBackofficeViewModel> GetAll()
@@ -47,6 +50,7 @@ namespace uIntra.Events.Dashboard
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             _eventsService.Save(@event);
+            _mediaHelper.RestoreMedia(@event.MediaIds);
 
             var updatedModel = _eventsService.Get(saveModel.Id);
             var result = updatedModel.Map<EventBackofficeViewModel>();
