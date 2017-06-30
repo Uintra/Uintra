@@ -9,6 +9,8 @@ namespace uIntra.Core.Media
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
         void DeleteMedia(int mediaId);
         void DeleteMedia(IEnumerable<int> mediaIds);
+        void RestoreMedia(int mediaId);
+        void RestoreMedia(IEnumerable<int> mediaIds);
         IMedia CreateMedia(TempFile file, int rootMediaId);
         MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType);
         bool IsMediaDeleted(IPublishedContent media);

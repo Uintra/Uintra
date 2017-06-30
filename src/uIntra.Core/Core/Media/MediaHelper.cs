@@ -78,10 +78,38 @@ namespace uIntra.Core.Media
 
         public void DeleteMedia(IEnumerable<int> mediaIds)
         {
-            foreach (var id in mediaIds)
+            var medias = _mediaService.GetByIds(mediaIds).ToList();
+
+            foreach (var media in medias)
             {
-                DeleteMedia(id);
+                media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
             }
+
+            _mediaService.Save(medias);
+        }
+
+        public void RestoreMedia(int mediaId)
+        {
+            var media = _mediaService.GetById(mediaId);
+            if (media == null)
+            {
+                throw new ArgumentNullException($"Media with id = {mediaId} doesn't exist.");
+            }
+
+            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, false);
+            _mediaService.Save(media);
+        }
+
+        public void RestoreMedia(IEnumerable<int> mediaIds)
+        {
+            var medias = _mediaService.GetByIds(mediaIds).ToList();
+
+            foreach (var media in medias)
+            {
+                media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, false);
+            }
+
+            _mediaService.Save(medias);
         }
 
         public MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType)
@@ -91,7 +119,7 @@ namespace uIntra.Core.Media
 
             return new MediaSettings
             {
-                AllowedMediaExtentions = mediaFolder.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, String.Empty),
+                AllowedMediaExtentions = mediaFolder.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty),
                 MediaRootId = mediaFolder.Id
             };
         }
