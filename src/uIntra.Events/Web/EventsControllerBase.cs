@@ -144,8 +144,14 @@ namespace uIntra.Events.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
+            var cachedActivity = _eventsService.Get(editModel.Id);
+            var cachedActivityMedias = cachedActivity.MediaIds;
+
             var activity = MapToEvent(editModel);
             _eventsService.Save(activity);
+
+            _mediaHelper.DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
+
             OnEventEdited(activity, editModel);
 
             return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activity.Id));

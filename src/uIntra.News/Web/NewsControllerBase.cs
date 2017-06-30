@@ -7,7 +7,6 @@ using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
@@ -29,8 +28,7 @@ namespace uIntra.News.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IPermissionsService _permissionsService;
-
+         
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
 
         protected NewsControllerBase(
@@ -38,13 +36,12 @@ namespace uIntra.News.Web
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
             _intranetUserContentHelper = intranetUserContentHelper;
-            _permissionsService = permissionsService;
             _activityTypeProvider = activityTypeProvider;
         }
 
@@ -112,8 +109,14 @@ namespace uIntra.News.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
+            var cachedActivity = _newsService.Get(editModel.Id);
+            var cachedActivityMedias = cachedActivity.MediaIds;
+
             var activity = MapToNews(editModel);
             _newsService.Save(activity);
+
+            _mediaHelper.DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
+
             OnNewsEdited(activity, editModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
         }
@@ -183,7 +186,6 @@ namespace uIntra.News.Web
             news.PublishDate = createModel.PublishDate.ToUniversalTime();
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
-
 
             return news;
         }
