@@ -162,11 +162,13 @@ namespace Compent.uIntra.Core.News
 
         protected override Entities.News UpdateCachedEntity(Guid id)
         {
+            var deletingNews = Get(id);
             var news = base.UpdateCachedEntity(id);
             if (IsNewsHidden(news))
             {
                 _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(news.MediaIds);
+                _documentIndexer.DeleteFromIndex(deletingNews.MediaIds);
+                _mediaHelper.DeleteMedia(deletingNews.MediaIds);
                 return null;
             }
 

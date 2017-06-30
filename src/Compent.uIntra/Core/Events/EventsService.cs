@@ -194,17 +194,18 @@ namespace Compent.uIntra.Core.Events
 
         protected override Event UpdateCachedEntity(Guid id)
         {
+            var deletingEvent = Get(id);
             var @event = base.UpdateCachedEntity(id);
             if (IsEventHidden(@event))
             {
                 _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(@event.MediaIds);
+                _documentIndexer.DeleteFromIndex(deletingEvent.MediaIds);
+                _mediaHelper.DeleteMedia(deletingEvent.MediaIds);
                 return null;
             }
 
             _activityIndex.Index(Map(@event));
             _documentIndexer.Index(@event.MediaIds);
-
             return @event;
         }
 
