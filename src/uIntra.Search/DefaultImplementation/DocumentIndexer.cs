@@ -96,6 +96,11 @@ namespace uIntra.Search
 
         private SearchableDocument GetSearchableDocument(IPublishedContent content)
         {
+            if (_mediaHelper.IsMediaDeleted(content))
+            {
+                return null;
+            }
+
             var fileName = Path.GetFileName(content.Url);
             var extension = Path.GetExtension(fileName)?.Trim('.');
 

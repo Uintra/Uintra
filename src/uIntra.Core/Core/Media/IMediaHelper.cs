@@ -7,8 +7,10 @@ namespace uIntra.Core.Media
     public interface IMediaHelper
     {
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
-        bool DeleteMedia(int mediaId);
+        void DeleteMedia(int mediaId);
+        void DeleteMedia(IEnumerable<int> mediaIds);
         IMedia CreateMedia(TempFile file, int rootMediaId);
         MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType);
+        bool IsMediaDeleted(IPublishedContent media);
     }
 }
