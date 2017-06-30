@@ -2,10 +2,9 @@
 
 namespace uIntra.Search
 {
-    public enum SearchableType
+    public enum SearchableTypeEnum
     {
         News = IntranetActivityTypeEnum.News,
-        Ideas = IntranetActivityTypeEnum.Ideas,
         Events = IntranetActivityTypeEnum.Events,
         Content,
         Document

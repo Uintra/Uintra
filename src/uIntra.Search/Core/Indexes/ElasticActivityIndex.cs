@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using uIntra.Core.Activity;
 
 namespace uIntra.Search
 {
@@ -30,7 +31,7 @@ namespace uIntra.Search
             _elasticSearchRepository.Delete(id);
         }
 
-        public void DeleteByType(SearchableType type)
+        public void DeleteByType(IActivityType type)
         {
             _elasticSearchRepository.DeleteAllByType(type);
         }

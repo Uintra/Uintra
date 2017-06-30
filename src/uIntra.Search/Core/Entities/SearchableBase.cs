@@ -8,6 +8,6 @@
 
         public string Url { get; set; }
 
-        public SearchableType Type { get; set; }
+        public int Type { get; set; }
     }
 }
