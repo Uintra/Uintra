@@ -7,7 +7,6 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Users;
@@ -27,9 +26,8 @@ namespace Compent.uIntra.Controllers
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IPermissionsService permissionsService,
             IActivityTypeProvider activityTypeProvider)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, permissionsService, activityTypeProvider)
+            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
         }
 
