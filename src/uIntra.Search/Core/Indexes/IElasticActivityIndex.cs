@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using uIntra.Core.Activity;
 
 namespace uIntra.Search
 {
@@ -8,6 +9,6 @@ namespace uIntra.Search
         void Index(SearchableActivity activity);
         void Index(IEnumerable<SearchableActivity> activities);
         void Delete(Guid id);
-        void DeleteByType(SearchableType type);
+        void DeleteByType(IActivityType type);
     }
 }

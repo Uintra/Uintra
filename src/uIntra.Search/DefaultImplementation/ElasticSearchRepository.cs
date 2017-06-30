@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nest;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Search.Configuration;
 using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
@@ -136,11 +137,11 @@ namespace uIntra.Search
             }
         }
 
-        public void DeleteAllByType(SearchableType type)
+        public void DeleteAllByType(IActivityType type)
         {
             var deleteQuery = new DeleteByQueryDescriptor<T>(Indices.Parse(IndexName))
                 .Type(Types.Parse(GetTypeName()))
-                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type)));
+                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.Id)));
             var response = Client.DeleteByQuery(deleteQuery);
 
             if (!response.IsValid)

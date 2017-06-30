@@ -23,9 +23,8 @@ namespace uIntra.Search
                 .TrackScores()
                 .Query(q =>
                     q.Bool(b => b
-                        .Should(
-                            GetQueryContainers(textQuery.Text)
-                        )))
+                        .Should(GetQueryContainers(textQuery.Text))
+                        .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))))
                 .Take(textQuery.Take);
 
             ApplySort(searchRequest);
@@ -71,6 +70,11 @@ namespace uIntra.Search
                     .Analyzer(ElasticHelpers.Replace)
                     .Field(f => f.Attachment.Content))
             };
+        }
+
+        private static QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)
+        {
+            return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
         }
 
         private static SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
@@ -127,22 +131,21 @@ namespace uIntra.Search
             var documents = new List<T>();
             foreach (var document in response.Documents)
             {
-                switch ((SearchableType)document.type)
+                switch ((SearchableTypeEnum)document.type)
                 {
-                    case SearchableType.Events:
-                    case SearchableType.Ideas:
-                    case SearchableType.News:
+                    case SearchableTypeEnum.Events:
+                    case SearchableTypeEnum.News:
                         documents.Add(SerializationExtentions.Deserialize<SearchableActivity>(document.ToString()));
                         break;
-                    case SearchableType.Content:
+                    case SearchableTypeEnum.Content:
                         documents.Add(SerializationExtentions.Deserialize<SearchableContent>(document.ToString()));
                         break;
-                    case SearchableType.Document:
+                    case SearchableTypeEnum.Document:
                         documents.Add(SerializationExtentions.Deserialize<SearchableDocument>(document.ToString()));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(
-                            $"Could not resolve type of searchable entity {(SearchableType)document.type}");
+                            $"Could not resolve type of searchable entity {(SearchableTypeEnum)document.type}");
                 }
             }
             return documents;

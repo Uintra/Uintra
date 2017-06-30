@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Events;
@@ -11,10 +10,10 @@ using uIntra.Core.Grid;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Events;
-using uIntra.Events.Core.Models;
 using uIntra.Events.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
+using uIntra.Search;
 using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
@@ -29,6 +28,7 @@ namespace Compent.uIntra.Controllers
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
+        private readonly IDocumentIndexer _documentIndexer;
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
@@ -36,11 +36,13 @@ namespace Compent.uIntra.Controllers
             IReminderService reminderService,
             IIntranetUserContentHelper intranetUserContentHelper,
             IGridHelper gridHelper,
-            IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider,
+            IDocumentIndexer documentIndexer)
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
+            _documentIndexer = documentIndexer;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
@@ -59,6 +61,12 @@ namespace Compent.uIntra.Controllers
             var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
             extendedModel = Mapper.Map(eventExtended, extendedModel);
             return extendedModel;
+        }
+
+        protected override void DeleteMedia(IEnumerable<int> mediaIds)
+        {
+            base.DeleteMedia(mediaIds);
+            _documentIndexer.DeleteFromIndex(mediaIds);
         }
 
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
