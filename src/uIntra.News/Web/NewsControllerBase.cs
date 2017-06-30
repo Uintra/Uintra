@@ -14,7 +14,7 @@ using Umbraco.Web.Mvc;
 
 namespace uIntra.News.Web
 {
-    [ActivityController(IntranetActivityTypeEnum.News)]
+    [ActivityController(ActivityTypeId)]
     public abstract class NewsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
@@ -28,20 +28,24 @@ namespace uIntra.News.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
+
+        private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
 
         protected NewsControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
             _intranetUserContentHelper = intranetUserContentHelper;
             _permissionsService = permissionsService;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public virtual ActionResult Details(Guid id)
@@ -51,7 +55,7 @@ namespace uIntra.News.Web
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News));
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
             var model = GetViewModel(news);
@@ -59,7 +63,7 @@ namespace uIntra.News.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create()
         {
             var model = GetCreateModel();
@@ -67,7 +71,7 @@ namespace uIntra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
             FillLinks();
@@ -79,10 +83,10 @@ namespace uIntra.News.Web
             var activityId = _newsService.Create(newsBaseCreateModel);
              
             OnNewsCreated(activityId, createModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, activityId));
+            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activityId));
         }
 
-        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -90,7 +94,7 @@ namespace uIntra.News.Web
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News));
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
             var model = GetEditViewModel(news);
@@ -98,7 +102,7 @@ namespace uIntra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
             FillLinks();
@@ -111,7 +115,7 @@ namespace uIntra.News.Web
             var activity = MapToNews(editModel);
             _newsService.Save(activity);
             OnNewsEdited(activity, editModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, editModel.Id));
+            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
         }
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
@@ -127,7 +131,8 @@ namespace uIntra.News.Web
             var model = new NewsCreateModel
             {
                 PublishDate = DateTime.UtcNow,
-                Creator = _intranetUserService.GetCurrentUser()
+                Creator = _intranetUserService.GetCurrentUser(),
+                ActivityType = _activityTypeProvider.Get(ActivityTypeId)
             };
 
             FillCreateEditData(model);
@@ -204,10 +209,10 @@ namespace uIntra.News.Web
             var editPageUrl = _newsService.GetEditPage(CurrentPage).Url;
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
 
-            ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.News, overviewPageUrl);
-            ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.News, detailsPageUrl);
-            ViewData.SetActivityCreatePageUrl(IntranetActivityTypeEnum.News, createPageUrl);
-            ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.News, editPageUrl);
+            ViewData.SetActivityOverviewPageUrl(ActivityTypeId, overviewPageUrl);
+            ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
+            ViewData.SetActivityCreatePageUrl(ActivityTypeId, createPageUrl);
+            ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
             ViewData.SetProfilePageUrl(profilePageUrl);
         }
 

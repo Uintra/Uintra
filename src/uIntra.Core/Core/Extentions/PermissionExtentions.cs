@@ -10,13 +10,13 @@ namespace uIntra.Core.Extentions
     public static class PermissionsExtentions
     {
         public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role,
-            IEnumerable<KeyValuePair<IntranetActivityTypeEnum, IntranetActivityActionEnum>> collection)
+            IEnumerable<KeyValuePair<IActivityType, IntranetActivityActionEnum>> collection)
         {
             var permissions = collection.Select(s => service.GetPermissionFromTypeAndAction(s.Key, s.Value)).ToArray();
             return service.IsRoleHasPermissions(role, permissions);
         }
 
-        public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role, IActivityType activityType, IntranetActivityActionEnum action)
         {
             var permission = service.GetPermissionFromTypeAndAction(activityType, action);
             return service.IsRoleHasPermissions(role, permission);
@@ -29,14 +29,14 @@ namespace uIntra.Core.Extentions
             return IsCurrentUserHasPermission(permissionsService, permissions);
         }
 
-        public static bool IsCurrentUserHasPermission(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public static bool IsCurrentUserHasPermission(IActivityType activityType, IntranetActivityActionEnum action)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var permission = permissionsService.GetPermissionFromTypeAndAction(activityType, action);
             return IsCurrentUserHasPermission(permissionsService, permission);
         }
 
-        public static bool IsCurrentUserHasPermission(IEnumerable<KeyValuePair<IntranetActivityTypeEnum, IntranetActivityActionEnum>> collection)
+        public static bool IsCurrentUserHasPermission(IEnumerable<KeyValuePair<IActivityType, IntranetActivityActionEnum>> collection)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var permissions = collection.Select(s => permissionsService.GetPermissionFromTypeAndAction(s.Key, s.Value)).ToArray();

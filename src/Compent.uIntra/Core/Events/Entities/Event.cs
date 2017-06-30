@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core.Activity;
 using uIntra.Events;
 using uIntra.Likes;
 using uIntra.Notification.Base;
@@ -20,5 +21,7 @@ namespace Compent.uIntra.Core.Events
         public IEnumerable<Comment> Comments { get; set; }
         [JsonIgnore]
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
+
+        IntranetActivityTypeEnum ICentralFeedItem.Type => IntranetActivityTypeEnum.Events;
     }
 }

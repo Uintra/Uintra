@@ -12,5 +12,7 @@ namespace Compent.uIntra.Core.Subscribe
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
         public IntranetActivityTypeEnum Type { get; set; }
+
+        IActivityType ISubscribable.Type { get; set; }
     }
 }

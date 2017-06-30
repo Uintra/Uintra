@@ -10,19 +10,21 @@ namespace uIntra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionApiAttribute : ActionFilterAttribute
     {
-        private readonly IntranetActivityTypeEnum _activityType;
+        private readonly int _activityTypeId;
         private readonly IntranetActivityActionEnum _action;
 
-        public ContentRestrictedActionApiAttribute(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public ContentRestrictedActionApiAttribute(int activityTypeId, IntranetActivityActionEnum action)
         {
-            _activityType = activityType;
+            _activityTypeId = activityTypeId;
             _action = action;
         }
 
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(_activityType, _action);
+            var activityTypeProvider = HttpContext.Current.GetService<IActivityTypeProvider>();
+
+            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(activityTypeProvider.Get(_activityTypeId), _action);
 
             if (!isUserHasAccess)
             {

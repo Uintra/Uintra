@@ -5,9 +5,9 @@ namespace uIntra.Core.User.Permissions.Web
 {
     public class ActivityControllerAttribute:ActionFilterAttribute
     {
-        public IntranetActivityTypeEnum ActivityType { get; private set; }
+        public int ActivityType { get; private set; }
 
-        public ActivityControllerAttribute(IntranetActivityTypeEnum type)
+        public ActivityControllerAttribute(int type)
         {
             ActivityType = type;
         }

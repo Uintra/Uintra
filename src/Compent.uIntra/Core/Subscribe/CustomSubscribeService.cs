@@ -11,9 +11,9 @@ namespace Compent.uIntra.Core.Subscribe
         {
         }
 
-        public override bool HasNotification(IntranetActivityTypeEnum type)
+        public override bool HasNotification(IActivityType type)
         {
-            return type == IntranetActivityTypeEnum.Events || type == IntranetActivityTypeEnum.News;
+            return type.Id == (int)IntranetActivityTypeEnum.Events || type.Id == (int)IntranetActivityTypeEnum.News;
         }
     }
 }

@@ -50,6 +50,7 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
                 .IncludeBase<IntranetActivity, SearchableActivity>();
         }
     }

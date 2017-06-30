@@ -44,6 +44,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
@@ -56,8 +57,9 @@ namespace Compent.uIntra.Core.Events
             INotificationsService notificationService, 
             IMediaHelper mediaHelper,
             IElasticActivityIndex activityIndex, 
-            IDocumentIndexer documentIndexer)
-            : base(intranetActivityRepository, cacheService)
+            IDocumentIndexer documentIndexer,
+			IActivityTypeProvider activityTypeProvider)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
@@ -69,11 +71,13 @@ namespace Compent.uIntra.Core.Events
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
 
-        public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.Events;
+        IntranetActivityTypeEnum ICentralFeedItemService.ActivityType => IntranetActivityTypeEnum.Events;
+        public override IActivityType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.Events);
 
         public override IPublishedContent GetOverviewPage()
         {
@@ -161,7 +165,7 @@ namespace Compent.uIntra.Core.Events
             var creatorId = Get(cached.Id).CreatorId;
             var isCreator = creatorId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
             return isCreator && isUserHasPermissions;
         }
 
@@ -200,6 +204,7 @@ namespace Compent.uIntra.Core.Events
 
             _activityIndex.Index(Map(@event));
             _documentIndexer.Index(@event.MediaIds);
+
             return @event;
         }
 
@@ -377,7 +382,7 @@ namespace Compent.uIntra.Core.Events
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
                         data.Value = new ActivityNotifierDataModel
                         {
-                            ActivityType = currentEvent.Type,
+                            ActivityType = (IntranetActivityTypeEnum)currentEvent.Type.Id,
                             Title = currentEvent.Title,
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             NotifierId = currentUser.Id

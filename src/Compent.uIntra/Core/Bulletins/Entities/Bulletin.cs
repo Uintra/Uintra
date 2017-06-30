@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.Subscribe;
 
@@ -19,5 +20,7 @@ namespace Compent.uIntra.Core.Bulletins
         public IEnumerable<Comment> Comments { get; set; }
 
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
+
+        IntranetActivityTypeEnum ICentralFeedItem.Type => IntranetActivityTypeEnum.Bulletins;
     }
 }

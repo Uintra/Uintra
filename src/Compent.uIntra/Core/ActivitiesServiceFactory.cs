@@ -27,36 +27,38 @@ namespace Compent.uIntra.Core
             var repository = _activityRepository.Get(id);
             return repository != null ? GetService<TService>(repository.Type) : null;
         }
-
-        public TService GetService<TService>(IntranetActivityTypeEnum type) where TService : class
-        {
-            return (TService)GetService(type);
-        }
+        
 
         public TService GetServiceSafe<TService>(Guid id) where TService : class
         {
             var repository = _activityRepository.Get(id);
             return repository != null ? GetServiceSafe<TService>(repository.Type) : null;
         }
+        
 
-        public TService GetServiceSafe<TService>(IntranetActivityTypeEnum type) where TService : class
+        private object GetService(int acitivityTypeId)
         {
-            return GetService(type) as TService;
-        }
-
-        private object GetService(IntranetActivityTypeEnum type)
-        {
-            switch (type)
+            switch (acitivityTypeId)
             {
-                case IntranetActivityTypeEnum.News:
+                case (int)IntranetActivityTypeEnum.News:
                     return _kernel.GetService<INewsService<News.Entities.News>>();
-                case IntranetActivityTypeEnum.Events:
+                case (int)IntranetActivityTypeEnum.Events:
                     return _kernel.GetService<IEventsService<Event>>();
-                case IntranetActivityTypeEnum.Bulletins:
+                case (int)IntranetActivityTypeEnum.Bulletins:
                     return _kernel.GetService<IBulletinsService<Bulletin>>();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public TService GetService<TService>(int acitivityTypeId) where TService : class
+        {
+            return (TService)GetService(acitivityTypeId);
+        }
+
+        public TService GetServiceSafe<TService>(int acitivityTypeId) where TService : class
+        {
+            return GetService(acitivityTypeId) as TService;
         }
     }
 }

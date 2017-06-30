@@ -7,10 +7,10 @@ namespace uIntra.Core.User.Permissions
     {
         bool IsRoleHasPermissions(IRole role, params string[] permissions);
         IEnumerable<string> GetRolePermission(IRole role);
-        string GetPermissionFromTypeAndAction(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
+        string GetPermissionFromTypeAndAction(IActivityType activityType, IntranetActivityActionEnum action);
 
-        bool IsCurrentUserHasAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
-        bool IsUserHasAccess(IIntranetUser user, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action);
+        bool IsCurrentUserHasAccess(IActivityType activityType, IntranetActivityActionEnum action);
+        bool IsUserHasAccess(IIntranetUser user, IActivityType activityType, IntranetActivityActionEnum action);
         bool IsUserWebmaster(IIntranetUser user);
     }
 }

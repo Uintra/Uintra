@@ -6,7 +6,7 @@ namespace uIntra.Core.Activity
     public interface IIntranetActivity
     {
         Guid Id { get; set; }
-        IntranetActivityTypeEnum Type { get; set; }
+        IActivityType Type { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime ModifyDate { get; set; }
         bool IsPinActual { get; set; }
@@ -23,7 +23,7 @@ namespace uIntra.Core.Activity
         public Guid Id { get; set; }
 
         [JsonIgnore]
-        public IntranetActivityTypeEnum Type { get; set; }
+        public IActivityType Type { get; set; }
 
         [JsonIgnore]
         public DateTime CreatedDate { get; set; }

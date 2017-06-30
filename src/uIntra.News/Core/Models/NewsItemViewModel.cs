@@ -25,5 +25,7 @@ namespace uIntra.News
         public bool IsPinned { get; set; }
 
         public bool IsPinActual { get; set; }
+
+        public IActivityType ActivityType { get; set; }
     }
 }

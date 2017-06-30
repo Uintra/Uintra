@@ -8,8 +8,6 @@ namespace uIntra.Likes
     {
         Guid Id { get; }
 
-        IntranetActivityTypeEnum Type { get; }
-
         IEnumerable<LikeModel> Likes { get; set; }
     }
 }

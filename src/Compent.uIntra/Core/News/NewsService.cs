@@ -42,6 +42,7 @@ namespace Compent.uIntra.Core.News
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias };
 
@@ -54,10 +55,13 @@ namespace Compent.uIntra.Core.News
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
+
             IMediaHelper mediaHelper, 
             IElasticActivityIndex activityIndex, 
-            IDocumentIndexer documentIndexer)
-            : base(intranetActivityRepository, cacheService, intranetUserService)
+            IDocumentIndexer documentIndexer,
+			IActivityTypeProvider activityTypeProvider)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider)
+
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -69,6 +73,7 @@ namespace Compent.uIntra.Core.News
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public MediaSettings GetMediaSettings()
@@ -97,8 +102,11 @@ namespace Compent.uIntra.Core.News
         }
 
 
-        public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.News;
 
+        IntranetActivityTypeEnum ICentralFeedItemService.ActivityType => IntranetActivityTypeEnum.News;
+
+        public override IActivityType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
+        
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -112,7 +120,7 @@ namespace Compent.uIntra.Core.News
             var creatorId = Get(cached.Id).CreatorId;
             var isCreator = creatorId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.News, IntranetActivityActionEnum.Edit);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
             return isCreator && isUserHasPermissions;
         }
 
@@ -124,7 +132,7 @@ namespace Compent.uIntra.Core.News
                 Controller = "News",
                 OverviewPage = GetOverviewPage(),
                 CreatePage = GetCreatePage(),
-                HasSubscribersFilter = false,                
+                HasSubscribersFilter = false,
                 HasPinnedFilter = true
             };
         }
@@ -349,5 +357,6 @@ namespace Compent.uIntra.Core.News
             searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(news.Id);
             return searchableActivity;
         }
+
     }
 }

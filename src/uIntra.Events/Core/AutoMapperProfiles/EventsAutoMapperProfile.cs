@@ -19,12 +19,14 @@ namespace uIntra.Events
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventCreateModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventEditModel>()
@@ -33,6 +35,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventCreateModel, EventBase>()
@@ -65,6 +68,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventBackofficeViewModel>()

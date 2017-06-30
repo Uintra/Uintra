@@ -10,6 +10,6 @@ namespace uIntra.Subscribe
 
         IEnumerable<Subscribe> Subscribers { get; set; }
 
-        IntranetActivityTypeEnum Type { get; set; }
+        IActivityType Type { get; set; }
     }
 }

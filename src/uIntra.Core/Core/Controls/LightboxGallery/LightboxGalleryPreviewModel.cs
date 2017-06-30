@@ -10,7 +10,7 @@ namespace uIntra.Core.Controls.LightboxGallery
         public IEnumerable<int> MediaIds { get; set; }
         public int DisplayedImagesCount { get; set; }
         public Guid ActivityId { get; set; }
-        public IntranetActivityTypeEnum ActivityType { get; set; }
+        public IActivityType ActivityType { get; set; }
 
         public LightboxGalleryPreviewModel()
         {

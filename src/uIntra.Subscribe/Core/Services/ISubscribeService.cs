@@ -26,7 +26,7 @@ namespace uIntra.Subscribe
 
         Subscribe UpdateNotification(Guid subscribeId, bool newValue);
 
-        bool HasNotification(IntranetActivityTypeEnum type);
+        bool HasNotification(IActivityType type);
 
         void FillSubscribers(ISubscribable entity);
     }

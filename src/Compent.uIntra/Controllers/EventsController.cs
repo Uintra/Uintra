@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Media;
@@ -34,8 +35,9 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IntranetUser> intranetUserService,
             IReminderService reminderService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IGridHelper gridHelper)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper)
+            IGridHelper gridHelper,
+            IActivityTypeProvider activityTypeProvider)
+            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
@@ -43,6 +45,7 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as Event;
             var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
             extendedModel.LikesInfo = activity;
