@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -29,14 +31,16 @@ namespace uIntra.Core.Extentions
             return content.GetValue<Guid?>(ImageConstants.IntranetCreatorId);
         }
 
-        public static MediaTypeEnum GetMediaType(this IPublishedContent content)
+        public static IIntranetType GetMediaType(this IPublishedContent content)
         {
+            var mediaTypeProvider = HttpContext.Current.GetService<IMediaTypeProvider>();
+
             switch (content.DocumentTypeAlias)
             {
                 case UmbracoAliases.Media.ImageTypeAlias:
-                    return MediaTypeEnum.Image;
+                    return mediaTypeProvider.Get(MediaTypeEnum.Image.ToInt());
                 case UmbracoAliases.Media.FileTypeAlias:
-                    return MediaTypeEnum.Document;
+                    return mediaTypeProvider.Get(MediaTypeEnum.Document.ToInt());
                 default:
                     throw new NotImplementedException();
 

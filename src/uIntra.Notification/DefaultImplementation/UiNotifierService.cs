@@ -11,12 +11,14 @@ namespace uIntra.Notification
     public class UiNotifierService : IUiNotifierService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
 
-        public UiNotifierService(ISqlRepository<Notification> notificationRepository)
+        public UiNotifierService(ISqlRepository<Notification> notificationRepository, INotificationTypeProvider notificationTypeProvider)
         {
             _notificationRepository = notificationRepository;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount)
@@ -49,7 +51,7 @@ namespace uIntra.Notification
                 Date = DateTime.UtcNow,
                 IsNotified = false,
                 IsViewed = false,
-                Type =  data.NotificationType,
+                Type =  data.NotificationType.Id,
                 Value = data.Value.ToJson(),
                 ReceiverId = el
             });

@@ -7,6 +7,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;

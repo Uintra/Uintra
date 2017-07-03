@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
@@ -17,7 +16,7 @@ namespace uIntra.Notification
         public DateTime Date { get; set; }
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
-        public NotificationTypeEnum Type { get; set; }
+        public int Type { get; set; }
         public string Value { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
@@ -7,7 +7,7 @@ namespace uIntra.CentralFeed
     {
         Guid Id { get; }
 
-        IntranetActivityTypeEnum Type { get; }
+        IIntranetType Type { get; }
 
         DateTime PublishDate { get; }
 

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 using Umbraco.Core.Models;
@@ -135,22 +136,21 @@ namespace uIntra.CentralFeed.Web
         public virtual JsonResult AvailableActivityTypes()
         {
             var activityTypes = _centralFeedService.GetAllSettings().Select(s => s.Type);
-            var activityTypeModelList = activityTypes.Select(a => new { Id = a.GetHashCode(), Name = a.ToString() }).ToList();
-            activityTypeModelList.Insert(0, new { Id = CentralFeedTypeEnum.All.GetHashCode(), Name = CentralFeedTypeEnum.All.ToString() });
+            var activityTypeModelList = activityTypes.Select(a => new { Id = a.Id, Name = a.Name }).ToList();
+            activityTypeModelList.Insert(0, new { Id = CentralFeedTypeEnum.All.ToInt(), Name = CentralFeedTypeEnum.All.ToString() });
 
             return Json(activityTypeModelList, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(CentralFeedTypeEnum type)
+        protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)
         {
-            if (type == CentralFeedTypeEnum.All)
+            if (type.Id == CentralFeedTypeEnum.All.ToInt())
             {
                 var items = _centralFeedService.GetFeed();
                 return items;
             }
-
-            var activityType = type.GetHashCode().ToEnum<IntranetActivityTypeEnum>().GetValueOrDefault();
-            return _centralFeedService.GetFeed(activityType);
+            
+            return _centralFeedService.GetFeed(type);
         }
 
         protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
@@ -175,8 +175,8 @@ namespace uIntra.CentralFeed.Web
 
             foreach (var type in items.Select(i => i.Type).Distinct())
             {
-                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>((int)type);
-                ViewData.SetActivityDetailsPageUrl((int)type, service.GetDetailsPage(currentPage).Url);
+                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type.Id);
+                ViewData.SetActivityDetailsPageUrl(type.Id, service.GetDetailsPage(currentPage).Url);
             }
 
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
@@ -213,9 +213,9 @@ namespace uIntra.CentralFeed.Web
             return !model.ShowPinned.HasValue && !model.IncludeBulletin.HasValue && !model.ShowSubscribed.HasValue;
         }
 
-        protected virtual IList<ICentralFeedItem> Sort(IEnumerable<ICentralFeedItem> items, CentralFeedTypeEnum type)
+        protected virtual IList<ICentralFeedItem> Sort(IEnumerable<ICentralFeedItem> items, IIntranetType type)
         {
-            if (type == CentralFeedTypeEnum.Events)
+            if (type.Id == CentralFeedTypeEnum.Events.ToInt())
             {
                 var events = items.OrderByDescending(el => el.IsPinActual).ThenBy(i => i, new CentralFeedEventComparer()).ToList();
                 return events;

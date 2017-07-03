@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Subscribe
 {
@@ -26,7 +27,7 @@ namespace uIntra.Subscribe
 
         Subscribe UpdateNotification(Guid subscribeId, bool newValue);
 
-        bool HasNotification(IActivityType type);
+        bool HasNotification(IIntranetType type);
 
         void FillSubscribers(ISubscribable entity);
     }

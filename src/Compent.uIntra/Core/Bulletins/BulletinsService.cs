@@ -8,6 +8,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Likes;
@@ -36,6 +37,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -46,7 +48,8 @@ namespace Compent.uIntra.Core.Bulletins
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, IActivityTypeProvider activityTypeProvider)
+            INotificationsService notificationService, IActivityTypeProvider activityTypeProvider, 
+            ICentralFeedTypeProvider centralFeedTypeProvider)
             : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
@@ -57,6 +60,7 @@ namespace Compent.uIntra.Core.Bulletins
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _activityTypeProvider = activityTypeProvider;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
         public MediaSettings GetMediaSettings()
@@ -86,8 +90,7 @@ namespace Compent.uIntra.Core.Bulletins
         {
             return _umbracoHelper.TypedContent(1334);
         }
-        IntranetActivityTypeEnum ICentralFeedItemService.ActivityType => IntranetActivityTypeEnum.Bulletins;
-        public override IActivityType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.Bulletins);
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
         public override bool CanEdit(IIntranetActivity cached)
         {
@@ -105,7 +108,7 @@ namespace Compent.uIntra.Core.Bulletins
         {
             return new CentralFeedSettings
             {
-                Type = CentralFeedTypeEnum.Bulletins,
+                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
                 Controller = "Bulletins",                
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false
@@ -182,7 +185,7 @@ namespace Compent.uIntra.Core.Bulletins
             return Get(activityId).Likes;
         }
 
-        public void Notify(Guid entityId, NotificationTypeEnum notificationType)
+        public void Notify(Guid entityId, IIntranetType notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
@@ -211,7 +214,7 @@ namespace Compent.uIntra.Core.Bulletins
             return GetEditPage();
         }
 
-        private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
+        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
             Bulletin bulletinsEntity;
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -220,43 +223,43 @@ namespace Compent.uIntra.Core.Bulletins
                 NotificationType = notificationType
             };
 
-            switch (notificationType)
+            switch (notificationType.Id)
             {
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     bulletinsEntity = Get(entityId);
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
                     data.Value = new LikesNotifierDataModel
                     {
                         Title = bulletinsEntity.Title,
-                        ActivityType = IntranetActivityTypeEnum.Bulletins,
+                        ActivityType = ActivityType,
                         NotifierId = currentUser.Id
                     };
                 }
                     break;
-                case NotificationTypeEnum.CommentAdded:
-                case NotificationTypeEnum.CommentEdited:
+                case (int) NotificationTypeEnum.CommentAdded:
+                case (int) NotificationTypeEnum.CommentEdited:
                 {
                     var comment = _commentsService.Get(entityId);
                     bulletinsEntity = Get(comment.ActivityId);
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
                     data.Value = new CommentNotifierDataModel
                     {
-                        ActivityType = IntranetActivityTypeEnum.Bulletins,
+                        ActivityType = ActivityType,
                         NotifierId = comment.UserId,
                         Title = bulletinsEntity.Title,
                         Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
                     };
                 }
                     break;
-                case NotificationTypeEnum.CommentReplyed:
+                case (int) NotificationTypeEnum.CommentReplyed:
                 {
                     var comment = _commentsService.Get(entityId);
                     bulletinsEntity = Get(comment.ActivityId);
                     data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                     data.Value = new CommentNotifierDataModel
                     {
-                        ActivityType = IntranetActivityTypeEnum.Bulletins,
+                        ActivityType = ActivityType,
                         NotifierId = currentUser.Id,
                         Title = bulletinsEntity.Title,
                         Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),

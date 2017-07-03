@@ -1,6 +1,7 @@
 ﻿using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 using uIntra.Users;

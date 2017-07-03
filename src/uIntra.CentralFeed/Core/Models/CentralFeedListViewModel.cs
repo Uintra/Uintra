@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
     public class CentralFeedListViewModel
     {
-        public CentralFeedTypeEnum? Type { get; set; }
+        public IIntranetType Type { get; set; }
         public IEnumerable<ICentralFeedItem> Items { get; set; }
         public IEnumerable<CentralFeedSettings> Settings { get; set; }
         public long Version { get; set; }

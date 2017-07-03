@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using uIntra.Core.Activity;
+﻿using uIntra.Core.TypeProviders;
 
 namespace uIntra.Search
 {
-    public interface ISearchableTypeProvider
+    public interface ISearchableTypeProvider : IIntranetTypeProvider
     {
-        IActivityType Get(int id);
-        IEnumerable<IActivityType> GetAll();
     }
 }
