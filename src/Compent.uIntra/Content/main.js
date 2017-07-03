@@ -2,7 +2,6 @@
 require('./../App_Plugins/CentralFeed/centralFeed');
 require('./../App_Plugins/Events/events');
 require('./../App_Plugins/Panels/ContentPanel/contentPanel');
-require('./../App_Plugins/Bulletins/bulletins');
 
 import initCore from './../App_Plugins/Core/Content/Scripts/Core';
 import initSearch from './../App_Plugins/Search/search';
@@ -13,6 +12,7 @@ import initTags from './../App_Plugins/Tagging/tags';
 import subscribe from "./../App_Plugins/Subscribe/subscribe";
 import initNavigation from './../App_Plugins/Navigation/navigation';
 import comment from "./../App_Plugins/Comments/comment";
+import initBulletings from './../App_Plugins/Bulletins/bulletins';
 import {} from './../App_Plugins/Likes/likes';
 
 initCore();
@@ -24,3 +24,4 @@ initTags();
 subscribe.initOnLoad();
 initNavigation();
 comment.init();
+initBulletings();
