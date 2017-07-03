@@ -1,4 +1,6 @@
-﻿namespace uIntra.Search
+﻿using uIntra.Core.TypeProviders;
+
+namespace uIntra.Search
 {
     public class SearchableBase
     {
@@ -8,6 +10,6 @@
 
         public string Url { get; set; }
 
-        public SearchableType Type { get; set; }
+        public IIntranetType Type { get; set; }
     }
 }

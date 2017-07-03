@@ -12,15 +12,18 @@ namespace uIntra.Search
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IElasticContentIndex _contentIndex;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         public ContentIndexer(
             UmbracoHelper umbracoHelper,
             ISearchUmbracoHelper searchUmbracoHelper,
-            IElasticContentIndex contentIndex)
+            IElasticContentIndex contentIndex,
+            ISearchableTypeProvider searchableTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _searchUmbracoHelper = searchUmbracoHelper;
             _contentIndex = contentIndex;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         public void FillIndex()
@@ -101,7 +104,7 @@ namespace uIntra.Search
             return new SearchableContent
             {
                 Id = publishedContent.Id,
-                Type = SearchableType.Content,
+                Type = _searchableTypeProvider.Get(SearchableType.Content.ToInt()),
                 Url = publishedContent.Url,
                 Title = publishedContent.Name,
                 PanelContent = content,

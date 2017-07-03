@@ -331,8 +331,10 @@
     <Compile Include="Core\IDocumentIndexer.cs" />
     <Compile Include="Core\Indexes\ElasticDocumentIndex.cs" />
     <Compile Include="Core\Indexes\IElasticDocumentIndex.cs" />
+    <Compile Include="Core\ISearchableTypeProvider.cs" />
     <Compile Include="Core\Models\SearchBoxViewModel.cs" />
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
+    <Compile Include="Core\SearchableTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\Helpers\ElasticHelpers.cs" />
     <Compile Include="Core\Helpers\SearchHelper.cs" />

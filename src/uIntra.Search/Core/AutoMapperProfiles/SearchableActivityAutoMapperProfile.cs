@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Web;
+using AutoMapper;
 using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 
 namespace uIntra.Search
 {
@@ -16,16 +18,17 @@ namespace uIntra.Search
                 .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description))
                 .AfterMap((dst, src) =>
                 {
+                    var searchableTypeProvider = HttpContext.Current.GetService<ISearchableTypeProvider>();
                     switch (dst.Type.Id)
                     {
                         case (int)IntranetActivityTypeEnum.Events:
-                            src.Type = SearchableType.Events;
+                            src.Type = searchableTypeProvider.Get(SearchableType.Events.ToInt());
                             break;
                         case (int)IntranetActivityTypeEnum.News:
-                            src.Type = SearchableType.News;
+                            src.Type = searchableTypeProvider.Get(SearchableType.News.ToInt());
                             break;
                         case (int)IntranetActivityTypeEnum.Ideas:
-                            src.Type = SearchableType.Ideas;
+                            src.Type = searchableTypeProvider.Get(SearchableType.Ideas.ToInt());
                             break;
                     }
                 });

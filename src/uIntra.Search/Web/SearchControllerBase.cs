@@ -55,7 +55,7 @@ namespace uIntra.Search.Web
             var results = searchResult.Documents.Select(d =>
             {
                 var model = d.Map<SearchResultViewModel>();
-                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
+                model.Type = _localizationService.Translate(d.Type.Id.GetLocalizeKey());
                 return model;
             }).ToList();
 
@@ -90,7 +90,7 @@ namespace uIntra.Search.Web
             var result = searchResult.Documents.Select(d =>
             {
                 var model = d.Map<SearchAutocompleteResultViewModel>();
-                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
+                model.Type = _localizationService.Translate(d.Type.Id.GetLocalizeKey());
                 return model;
             });
 

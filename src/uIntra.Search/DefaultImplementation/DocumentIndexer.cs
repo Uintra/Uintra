@@ -17,13 +17,19 @@ namespace uIntra.Search
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
-        public DocumentIndexer(IElasticDocumentIndex documentIndex, UmbracoHelper umbracoHelper, ISearchApplicationSettings settings, IMediaHelper mediaHelper)
+        public DocumentIndexer(IElasticDocumentIndex documentIndex,
+            UmbracoHelper umbracoHelper, 
+            ISearchApplicationSettings settings, 
+            IMediaHelper mediaHelper, 
+            ISearchableTypeProvider searchableTypeProvider)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         public void FillIndex()
@@ -118,7 +124,7 @@ namespace uIntra.Search
                 Title = fileName,
                 Url = content.Url,
                 Data = base64File,
-                Type = SearchableType.Document
+                Type = _searchableTypeProvider.Get(SearchableType.Document.ToInt())
             };
 
             return result;
