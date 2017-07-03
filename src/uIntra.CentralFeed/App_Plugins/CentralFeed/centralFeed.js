@@ -206,7 +206,8 @@ function init() {
 
     state = {
         get tab() {
-            return navigationHolder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
+            var el = navigationHolder.querySelector('.js-feed-links .js-feed-type._active');
+            return el && el.dataset['type'];
         },
         set tab(val) {
             var active = '_active';
@@ -253,7 +254,7 @@ function init() {
     document.body.addEventListener('cfShowBulletins', showBulletinsEventHandler);
 }
 
-export default {
+    export default {
     init: init,
     reload: reload
 }
