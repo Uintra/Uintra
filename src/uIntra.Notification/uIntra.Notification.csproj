@@ -232,6 +232,7 @@
       <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -334,6 +335,7 @@
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
+    <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\Models\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
     <Compile Include="Core\Models\NotificationViewModel.cs" />
@@ -341,6 +343,7 @@
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\INotificationHelper.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
