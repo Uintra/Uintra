@@ -360,6 +360,20 @@
     }
 
     &__avatar{
+        position:relative;
+        width:30px;
+        height:30px;
+        overflow:hidden;
+
+        &-img{
+            height: auto;
+            left: 50%;
+            max-width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         .user__menu &{
             float:left;
             width:30px;
