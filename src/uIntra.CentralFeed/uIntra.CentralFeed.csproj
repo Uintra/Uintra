@@ -332,8 +332,10 @@
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeedEventComparer.cs" />
+    <Compile Include="Core\CentralFeedTypeProvider.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
+    <Compile Include="Core\ICentralFeedTypeProvider.cs" />
     <Compile Include="Core\Models\CentralFeedFiltersStateModel.cs" />
     <Compile Include="Core\Models\CentralFeedTabModel.cs" />
     <Compile Include="Core\Models\CentralFeedTabViewModel.cs" />

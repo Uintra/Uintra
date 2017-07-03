@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
     public interface ICentralFeedService
     {
-        IEnumerable<ICentralFeedItem> GetFeed(IntranetActivityTypeEnum type);
+        IEnumerable<ICentralFeedItem> GetFeed(IIntranetType type);
 
         IEnumerable<ICentralFeedItem> GetFeed();        
 
         long GetFeedVersion(IEnumerable<ICentralFeedItem> centralFeedItems);
 
-        CentralFeedSettings GetSettings(CentralFeedTypeEnum type);
+        CentralFeedSettings GetSettings(IIntranetType type);
 
         IEnumerable<CentralFeedSettings> GetAllSettings();
     }
