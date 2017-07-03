@@ -1,6 +1,4 @@
-﻿require('./../App_Plugins/Core/Content/Scripts/Core');
-require('./../App_Plugins/Core/Content/Scripts/ScrollToTop');
-require('./../App_Plugins/Navigation/navigation');
+﻿require('./../App_Plugins/Navigation/navigation');
 require('./../App_Plugins/Tagging/tags');
 require('./../App_Plugins/News/news');
 require('./../App_Plugins/CentralFeed/centralFeed');
@@ -15,8 +13,10 @@ require('./../App_Plugins/Users/users');
 require('./../App_Plugins/Bulletins/bulletins');
 require('../App_Plugins/Core/Content/scripts/ConfirmOnBeforeUnload');
 
+import initCore from './../App_Plugins/Core/Content/Scripts/Core';
 import initSearch from './../App_Plugins/Search/search';
 import initActionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
 
+initCore();
 initSearch();
 initActionLinkWithConfirm();
