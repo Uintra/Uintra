@@ -320,8 +320,9 @@
       <HintPath>..\..\packages\uIntra.CentralFeed.1.1.5.4\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.1.12, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.1.12\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Comments.1.1.2\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Core, Version=1.1.15.0, Culture=neutral, processorArchitecture=MSIL">
@@ -921,11 +922,6 @@
     <Content Include="Content\fonts\open-sans-regular.woff2" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
@@ -996,6 +992,11 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
