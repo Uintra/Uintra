@@ -8,9 +8,12 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var searchTimeout;
 var formController;
 var holder;
+var select;
 
 var initTypesSelect = function () {
-    holder.find('.js-types-select').select2({});
+    select.select2({
+        placeholder: select.data("placeholder")
+    });
 }
 
 function initSearchPage() {
@@ -108,6 +111,7 @@ function search() {
 
 export default function () {
     holder = $(".js-search-page-holder");
+    select = holder.find('.js-types-select');
     if (!holder.length) {
         return;
     }
