@@ -48,6 +48,8 @@ namespace uIntra.Bulletins.Web
 
         public virtual PartialViewResult CreationForm()
         {
+            FillLinks();
+
             var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
 

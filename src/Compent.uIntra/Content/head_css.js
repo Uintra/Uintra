@@ -5,4 +5,3 @@ require('./../App_Plugins/Core/Content/styles/Core.css');
 require('./../App_Plugins/Core/Content/styles/libs.css');
 require('./../App_Plugins/Core/Content/styles/forms.css');
 require('./css/styles.css');
-require('./../App_Plugins/Core/Content/styles/custom.css');

@@ -1,10 +1,20 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../../Core/Content/scripts/Ajax";
 
+require('select2');
+
 var infinityScroll = helpers.infiniteScrollFactory;
 var searchTimeout;
+var formController;
+var holder;
+var select;
+
+var initTypesSelect = function () {
+    select.select2({
+        placeholder: select.data("placeholder")
+    });
+}
 
 function initSearchPage() {
     var searchBox = document.querySelector(".js-search-page-searchbox");
@@ -16,15 +26,15 @@ function initSearchPage() {
             clearTimeout(searchTimeout);
             var text = searchBox.value;
             if (text.length > 1) {
-                searchTimeout = setTimeout(function() {search(text)}, 250);
+                searchTimeout = setTimeout(function() {search()}, 250);
             } else {
                 document.querySelector(".js-searchResults-listContainer").innerHTML = "";
             }
         });
 }
 
-function initInfinityScroll(holder) {
-    var formController = umbracoAjaxForm(holder.find("form.js-ajax-form")[0]);
+function initInfinityScroll() {
+    formController = umbracoAjaxForm(holder.find("form.js-ajax-form")[0]);
 
     var state = {
         get page() {
@@ -94,24 +104,21 @@ function initInfinityScroll(holder) {
     infinityScroll(onScroll)();
 }
 
-function search(query) {
-    if (query) {
-        var url = document.querySelector(".js-search-page-searchbox").getAttribute('data-search-url') + query;
-
-        ajax.Get(url)
-         .then(function (response) {
-             document.querySelector(".js-searchResults-listContainer").innerHTML = response;
-         });
-    }
+function search() {
+    holder.find('input[name="page"]').val(1);
+    formController.reload();
 }
 
-appInitializer.add(function () {
-    var holder = $(".js-search-page-holder");
+export default function () {
+    holder = $(".js-search-page-holder");
+    select = holder.find('.js-types-select');
     if (!holder.length) {
         return;
     }
 
     initSearchPage();
-    initInfinityScroll(holder);
-});
+    initInfinityScroll();
+    initTypesSelect();
 
+    search();
+};

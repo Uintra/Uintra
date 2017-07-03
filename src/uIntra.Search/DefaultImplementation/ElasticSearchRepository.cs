@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nest;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Search.Configuration;
@@ -141,7 +142,8 @@ namespace uIntra.Search
         {
             var deleteQuery = new DeleteByQueryDescriptor<T>(Indices.Parse(IndexName))
                 .Type(Types.Parse(GetTypeName()))
-                .Query(q => q.Term(t => t.Field(f => f.Type.Id).Value(type.Id)));
+                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.Id)));
+
             var response = Client.DeleteByQuery(deleteQuery);
 
             if (!response.IsValid)

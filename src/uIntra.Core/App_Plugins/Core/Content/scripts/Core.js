@@ -3,7 +3,6 @@
 }
 
 import {} from './Polyfill';
-import appInitializer from './AppInitializer';
 ﻿import showContent from './ShowContent';
 ﻿import blockOnSubmit from './BlockOnSubmit';
 import anchorScroll from './AnchorScroll';
@@ -12,7 +11,7 @@ import scrollToTop from './ScrollToTop';
 import confirmOnBeforeUnload from './ConfirmOnBeforeUnload';
 import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
 
-appInitializer.add(function() {
+export default function() {
     anchorScroll();
     blockOnSubmit();
     validationExtensions();
@@ -20,4 +19,4 @@ appInitializer.add(function() {
     confirmOnBeforeUnload();
     lightboxGallery.init();
     showContent();
-});
+}

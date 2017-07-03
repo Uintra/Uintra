@@ -1,8 +1,5 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace uIntra.Core.Activity
+﻿namespace uIntra.Core.Activity
 {
-    [EnumAsInt]
     public enum IntranetActivityTypeEnum
     {
         News = 1,

@@ -20,50 +20,64 @@ namespace uIntra.Search.Web
         private readonly IEnumerable<IIndexer> _searchableServices;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         protected SearchControllerBase(
             ElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
-            ISearchUmbracoHelper searchUmbracoHelper)
+            ISearchUmbracoHelper searchUmbracoHelper,
+            ISearchableTypeProvider searchableTypeProvider)
         {
             _elasticIndex = elasticIndex;
             _searchableServices = searchableServices;
             _localizationService = localizationService;
             _searchUmbracoHelper = searchUmbracoHelper;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         public virtual PartialViewResult Index(string query)
         {
+            var filterItems = _searchableTypeProvider.GetAll().Select(el => new SearchFilterItemViewModel
+            {
+                Id = el.Id,
+                Name = _localizationService.Translate($"Search.Filter.{el.Name}")
+            });
+
             var result = new SearchViewModel
             {
-                Query = query
+                Query = query,
+                FilterItems = filterItems
             };
 
             return PartialView(IndexViewPath, result);
         }
 
-        public virtual PartialViewResult Search(string query, int page = 1)
+        [HttpPost]
+        public virtual PartialViewResult Search(SearchFilterModel model)
         {
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : _searchableTypeProvider.GetAll().Select(el => el.Id);
+
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
-                Text = query,
-                Take = ResultsPerPage * page,
+                Text = model.Query,
+                Take = ResultsPerPage * model.Page,
+                SearchableTypeIds = searchableTypeIds,
                 ApplyHighlights = true
             });
 
             var results = searchResult.Documents.Select(d =>
             {
-                var model = d.Map<SearchResultViewModel>();
-                model.Type = _localizationService.Translate(d.Type.Id.GetLocalizeKey());
-                return model;
+                var resultItem = d.Map<SearchResultViewModel>();
+                resultItem.Type = _localizationService.Translate(_searchableTypeProvider.Get(d.Type).Name);
+                return resultItem;
             }).ToList();
 
             var resultModel = new SearchResultsOverviewViewModel
             {
-                Query = query,
+                Query = model.Query,
                 Results = results,
-                ResultsCount = (int) searchResult.TotalHits
+                ResultsCount = (int)searchResult.TotalHits
             };
 
             return PartialView(SearchResultViewPath, resultModel);
@@ -90,7 +104,9 @@ namespace uIntra.Search.Web
             var result = searchResult.Documents.Select(d =>
             {
                 var model = d.Map<SearchAutocompleteResultViewModel>();
-                model.Type = _localizationService.Translate(d.Type.Id.GetLocalizeKey());
+
+                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
+
                 return model;
             });
 

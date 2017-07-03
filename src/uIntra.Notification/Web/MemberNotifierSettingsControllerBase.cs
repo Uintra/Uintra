@@ -1,10 +1,9 @@
 ﻿using System.Web.Http;
 using uIntra.Core.User;
-using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using Umbraco.Web.WebApi;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Notification.Web
 {
     public class MemberNotifierSettingsController : UmbracoApiController
     {
@@ -20,7 +19,6 @@ namespace Compent.uIntra.Controllers
         }
 
         [HttpPost]
-
         public void Update(NotifierTypeEnum type, bool isEnabled)
         {
             var currentUser = _intranetUserService.GetCurrentUser();

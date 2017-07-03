@@ -190,26 +190,6 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.4.5.4\lib\net45\ServiceStack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Client.4.5.4\lib\net45\ServiceStack.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Common.4.5.4\lib\net45\ServiceStack.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Interfaces.4.5.4\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Text.4.5.4\lib\net45\ServiceStack.Text.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SQLCE4Umbraco, Version=1.0.6136.27245, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\SQLCE4Umbraco.dll</HintPath>
       <Private>True</Private>
@@ -333,8 +313,9 @@
     <Compile Include="Core\Indexes\IElasticDocumentIndex.cs" />
     <Compile Include="Core\ISearchableTypeProvider.cs" />
     <Compile Include="Core\Models\SearchBoxViewModel.cs" />
+    <Compile Include="Core\Models\SearchFilterModel.cs" />
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
-    <Compile Include="Core\SearchableTypeProvider.cs" />
+    <Compile Include="DefaultImplementation\SearchableTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\Helpers\ElasticHelpers.cs" />
     <Compile Include="Core\Helpers\SearchHelper.cs" />
@@ -346,7 +327,7 @@
     <Compile Include="Core\Entities\SearchableActivity.cs" />
     <Compile Include="Core\Entities\SearchableBase.cs" />
     <Compile Include="Core\Entities\SearchableContent.cs" />
-    <Compile Include="Core\Entities\SearchableType.cs" />
+    <Compile Include="Core\Entities\SearchableTypeEnum.cs" />
     <Compile Include="Core\IContentIndexer.cs" />
     <Compile Include="Core\IElasticSearchRepository.cs" />
     <Compile Include="Core\IIndexer.cs" />
@@ -367,6 +348,7 @@
     <Compile Include="Core\Entities\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\SearchControllerBase.cs" />
+    <Compile Include="Core\Models\SearchFilterItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,6 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-
-require("./taggle.css");
+﻿require("./taggle.css");
 require("./tags.css");
 
 var Taggle = require("taggle");

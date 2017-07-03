@@ -6,15 +6,24 @@
                         new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-searchResults-listContainer" } }))
     {
         <div class="search-result__textbox-holder">
-            <input class="search-result__textbox js-search-page-searchbox" type="search" name="query" value="@Model.Query" data-search-url="@Url.Action("Search","Search")?query=" />
+            <input class="search-result__textbox js-search-page-searchbox" type="search" name="query" value="@Model.Query" />
             <span class="icon-search"></span>
+        </div>
+
+        <input type="hidden" name="page" value="1" />
+
+        <div class="search-result__filter">
+            <select data-placeholder="@Html.Localize("Search.Filter.All.lbl")" class="js-types-select" multiple="multiple" name="types">
+                @foreach (var item in Model.FilterItems)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
         </div>
 
         <div class="content__loader js-loading-status" style="display: none;">@Html.Localize("SearchResult.Loading.lbl")</div>
 
-        <input type="hidden" name="page" />
         <div class="tab-content js-searchResults-listContainer">
-            @Html.Action("Search", "Search", new { Model.Query })
         </div>
     }
 </div>

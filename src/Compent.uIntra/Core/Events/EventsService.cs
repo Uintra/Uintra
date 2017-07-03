@@ -45,6 +45,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
@@ -54,11 +55,12 @@ namespace Compent.uIntra.Core.Events
             ILikesService likesService,
             ISubscribeService subscribeService,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, 
+            INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex, 
+            IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-			IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider)
             : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
@@ -72,6 +74,7 @@ namespace Compent.uIntra.Core.Events
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _activityTypeProvider = activityTypeProvider;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
@@ -147,7 +150,7 @@ namespace Compent.uIntra.Core.Events
                 Controller = "Events",
                 OverviewPage = GetOverviewPage(),
                 CreatePage = GetCreatePage(),
-                HasSubscribersFilter = true,                
+                HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
         }
@@ -443,7 +446,7 @@ namespace Compent.uIntra.Core.Events
         {
             var activities = GetAll().Where(s => !IsEventHidden(s));
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(SearchableType.Events);
+            _activityIndex.DeleteByType(_searchableTypeProvider.Get((int)SearchableTypeEnum.Events));
             _activityIndex.Index(searchableActivities);
         }
 
