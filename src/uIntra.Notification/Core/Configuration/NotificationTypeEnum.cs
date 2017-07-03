@@ -1,8 +1,5 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace uIntra.Notification.Configuration
+﻿namespace uIntra.Notification.Configuration
 {
-    [EnumAsInt]
     public enum NotificationTypeEnum
     {
         Event = 1,
