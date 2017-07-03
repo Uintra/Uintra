@@ -292,7 +292,7 @@ namespace Compent.uIntra.Core.Events
 
             var data = new NotifierData
             {
-                NotificationType = notificationType,
+                NotificationType = notificationType
             };
 
             switch (notificationType.Id)
@@ -347,9 +347,10 @@ namespace Compent.uIntra.Core.Events
                         data.Value = new LikesNotifierDataModel
                         {
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
-                            Title = currentEvent?.Title,
+                            Title = currentEvent.Title,
                             ActivityType = ActivityType,
-                            NotifierId = currentUser.Id
+                            NotifierId = currentUser.Id,
+                            CreatedDate = DateTime.Now
                         };
                     }
                     break;

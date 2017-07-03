@@ -280,6 +280,7 @@ namespace Compent.uIntra.Core.News
                             Title = news.Title,
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
+                            CreatedDate = DateTime.Now
                         };
                     }
                     break;

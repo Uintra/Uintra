@@ -233,7 +233,8 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         Title = bulletinsEntity.Title,
                         ActivityType = ActivityType,
-                        NotifierId = currentUser.Id
+                        NotifierId = currentUser.Id,
+                        CreatedDate = DateTime.Now
                     };
                 }
                     break;
