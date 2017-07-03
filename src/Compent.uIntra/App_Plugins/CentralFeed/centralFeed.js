@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import helpers from "./../Core/Content/scripts/Helpers";
+﻿import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
 import subscribe from "./../Subscribe/subscribe";
@@ -184,7 +183,7 @@ function showBulletinsEventHandler(e) {
 function goToTab(tabNumber) {       
     var tab = document.querySelector("[data-type='"+tabNumber+"']");
     var link = $(tab).find('a');
-    $(link).length && $(link)[0].click();
+    $(link)[0].click();
 }
 
 function runReloadInverval() {
@@ -254,9 +253,7 @@ function init() {
     document.body.addEventListener('cfShowBulletins', showBulletinsEventHandler);
 }
 
-appInitializer.add(init);
-
 export default {
-init: init,
+    init: init,
     reload: reload
 }
