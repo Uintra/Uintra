@@ -12,13 +12,14 @@
 
         <input type="hidden" name="page" value="1" />
 
-        <select class="js-types-select" multiple="multiple" name="types">
-            @foreach (var item in Model.FilterItems)
-            {
-                <option value="@item.Id">@item.Name</option>
-            }
-        </select>
-        <span>@Html.Localize("Search.Filter.All.lbl")</span>
+        <div class="search-result__filter">
+            <select data-placeholder="@Html.Localize("Search.Filter.All.lbl")" class="js-types-select" multiple="multiple" name="types">
+                @foreach (var item in Model.FilterItems)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
 
         <div class="content__loader js-loading-status" style="display: none;">@Html.Localize("SearchResult.Loading.lbl")</div>
 
