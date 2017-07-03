@@ -16,7 +16,6 @@ namespace Compent.uIntra.Controllers
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
 
         public ProfileController(IMemberService memberService,
            UmbracoHelper umbracoHelper,
@@ -29,7 +28,6 @@ namespace Compent.uIntra.Controllers
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentHelper = intranetUserContentHelper;
-            _memberNotifiersSettingsService = memberNotifiersSettingsService;
         }
 
         public ActionResult EditPage()

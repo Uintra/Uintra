@@ -1,6 +1,8 @@
 ﻿var Sortable = require('sortablejs');
 import helpers from "./../../Core/Content/scripts/Helpers";
 
+require("./myLinks.css");
+
 var controller = {
     init: function () {
         var container = document.getElementById('js-myLinks-sortable');
