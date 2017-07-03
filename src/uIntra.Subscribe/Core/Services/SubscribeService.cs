@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Subscribe
 {
@@ -79,7 +80,7 @@ namespace uIntra.Subscribe
             return subscribe;
         }
 
-        public virtual bool HasNotification(IActivityType type)
+        public virtual bool HasNotification(IIntranetType type)
         {
             return type.Id == (int) IntranetActivityTypeEnum.Events;
         }
