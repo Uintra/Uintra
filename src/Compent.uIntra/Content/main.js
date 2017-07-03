@@ -2,8 +2,6 @@
 require('./../App_Plugins/News/news');
 require('./../App_Plugins/CentralFeed/centralFeed');
 require("./../App_Plugins/Comments/comment");
-require("./../App_Plugins/Subscribe/subscribe");
-require('./../App_Plugins/Subscribe/subscribeList');
 require('./../App_Plugins/Events/events');
 require('./../App_Plugins/Likes/likes');
 require('./../App_Plugins/Panels/ContentPanel/contentPanel');
@@ -16,6 +14,7 @@ import initActionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/Actio
 import initUsers from './../App_Plugins/Users/users';
 import initNotification from './../App_Plugins/Notification/notification';
 import initTags from './../App_Plugins/Tagging/tags';
+import subscribe from "./../App_Plugins/Subscribe/subscribe";
 
 initCore();
 initSearch();
@@ -23,3 +22,4 @@ initActionLinkWithConfirm();
 initUsers();
 initNotification();
 initTags();
+subscribe.initOnLoad();
