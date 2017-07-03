@@ -379,10 +379,13 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Activity\ActivityType.cs" />
-    <Compile Include="Core\Activity\ActivityTypeProvider.cs" />
-    <Compile Include="Core\Activity\IActivityType.cs" />
-    <Compile Include="Core\Activity\IActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
+    <Compile Include="Core\TypeProviders\IntranetType.cs" />
+    <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IIntranetType.cs" />
+    <Compile Include="Core\TypeProviders\IActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IIntranetTypeProvider.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
@@ -390,6 +393,7 @@
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
+    <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />

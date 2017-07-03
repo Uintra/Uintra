@@ -24,12 +24,12 @@
 
 @helper RenderFileView(FileViewModel file)
 {
-    switch (file.Type)
+    switch (file.Type.Id)
     {
-        case MediaTypeEnum.Image:
+        case (int) MediaTypeEnum.Image:
                 <img src="@file.Url" />
             break;
-        case MediaTypeEnum.Document:
+        case (int) MediaTypeEnum.Document:
                 <a href="@file.Url" target="_blank">
                     <span class="file-extension __@file.Extention"></span>
                 </a>

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract IActivityType ActivityType { get; }
+        public abstract IIntranetType ActivityType { get; }
 
         private const string CacheKey = "ActivityCache";
         private readonly IIntranetActivityRepository _activityRepository;

@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
@@ -8,6 +9,6 @@ namespace uIntra.Core.Activity
         public bool CanEdit { get; set; }
         public bool IsPinned { get; set; }
         public IntranetActivityDetailsHeaderViewModel HeaderInfo { get; set; }
-        public IActivityType ActivityType { get; set; }
+        public IIntranetType ActivityType { get; set; }
     }
 }
