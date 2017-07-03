@@ -163,19 +163,6 @@
         }
     }
 
-    .icon-close{
-        position: absolute;
-        right: 20px;
-        top: 7px;
-        display:none;
-
-        @media(--for-tablet-portrait-down){
-            &{
-                display:block;
-            }
-        }
-    }
-
     @media (--for-tablet-portrait-down) {
         &{
             font-size: 18px;
