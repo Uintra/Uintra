@@ -184,7 +184,7 @@ function showBulletinsEventHandler(e) {
 function goToTab(tabNumber) {       
     var tab = document.querySelector("[data-type='"+tabNumber+"']");
     var link = $(tab).find('a');
-    $(link)[0].click();
+    $(link).length && $(link)[0].click();
 }
 
 function runReloadInverval() {
