@@ -1,4 +1,7 @@
 ﻿@using uIntra.Core.Extentions
-@model IEnumerable<uIntra.Tagging.TagEditModel>
+@model IEnumerable<uIntra.Tagging.Core.Models.TagViewModel>
 
-<div class="activity-tags-holder js-activity-tags-holder input textarea clearfix" data-model-name="tags" data-placeholder="@Html.Localize("Tags.Placeholder")" data-activity-tags="@Model.ToJson()"></div>
+    @foreach (var tag in Model)
+    {
+        <span style="color:crimson"> <strong>#@tag.Text</strong> </span>
+    }

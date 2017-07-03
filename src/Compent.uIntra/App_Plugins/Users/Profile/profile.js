@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
+﻿import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
@@ -47,6 +46,4 @@ var controller = {
     }
 }
 
-appInitializer.add(function() {
-    controller.init();
-});
+export default controller;
