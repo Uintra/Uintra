@@ -512,7 +512,6 @@
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
-    <Content Include="App_Plugins\Core\Content\scripts\AppInitializer.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />

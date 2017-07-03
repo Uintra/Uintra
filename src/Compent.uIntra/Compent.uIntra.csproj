@@ -798,6 +798,14 @@
     <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
+    <Content Include="App_Plugins\News\backoffice\news-management.css" />
+    <Content Include="App_Plugins\News\backoffice\news-management.html" />
+    <Content Include="App_Plugins\News\backoffice\news-management.js" />
+    <Content Include="App_Plugins\News\Create\news-create.html" />
+    <Content Include="App_Plugins\News\Details\news-details.html" />
+    <Content Include="App_Plugins\News\Edit\news-edit.html" />
+    <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\style.css" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
@@ -979,6 +987,11 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
