@@ -355,8 +355,9 @@
       <HintPath>..\..\packages\uIntra.Notification.1.1.5\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.0.9\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Panels.2.1.1\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Search, Version=0.0.3.2, Culture=neutral, processorArchitecture=MSIL">
@@ -816,22 +817,6 @@
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
-    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\_documentPanel.css" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
@@ -924,10 +909,6 @@
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
