@@ -1,10 +1,11 @@
-﻿using Umbraco.Core.Models;
+﻿using uIntra.Core.TypeProviders;
+using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
 {
     public class CentralFeedSettings
     {
-        public CentralFeedTypeEnum Type { get; set; }
+        public IIntranetType Type { get; set; }
         public string Controller { get; set; }
         public IPublishedContent OverviewPage { get; set; }
         public IPublishedContent CreatePage { get; set; }

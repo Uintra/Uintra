@@ -17,6 +17,10 @@ namespace uIntra.Core.Extentions
         {
             return enm.ToString().ToLower();
         }
+        public static int ToInt(this Enum enm)
+        {
+            return (int) (object) enm;
+        }
 
         public static T? ToEnum<T>(this int a)
             where T : struct
@@ -42,5 +46,7 @@ namespace uIntra.Core.Extentions
         {
             return Enum.GetValues(typeof(T)).Cast<T>();
         }
+
+
     }
 }

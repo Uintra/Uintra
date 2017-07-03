@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
@@ -9,7 +10,7 @@ namespace uIntra.CentralFeed
 
         bool IsCentralFeedPage(IPublishedContent currentPage);
 
-        CentralFeedTypeEnum GetTabType(IPublishedContent content);
+        IIntranetType GetTabType(IPublishedContent content);
 
         IEnumerable<CentralFeedTabModel> GetTabs(IPublishedContent currentPage);
 

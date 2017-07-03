@@ -29,39 +29,39 @@ namespace uIntra.Notification
         public NotifierTypeEnum Type => NotifierTypeEnum.EmailNotifier;
         public void Notify(NotifierData data)
         {
-            switch (data.NotificationType)
+            switch (data.NotificationType.Id)
             {
-                case NotificationTypeEnum.Event:
+                case (int)NotificationTypeEnum.Event:
                     SendEventMail(data);
                     break;
-                case NotificationTypeEnum.EventUpdated:
+                case (int)NotificationTypeEnum.EventUpdated:
                     SendEventUpdatedMail(data);
                     break;
-                case NotificationTypeEnum.EventHided:
+                case (int)NotificationTypeEnum.EventHided:
                     SendEventHidedMail(data);
                     break;
-                case NotificationTypeEnum.BeforeStart:
+                case (int)NotificationTypeEnum.BeforeStart:
                     SendBeforeStartMail(data);
                     break;
-                case NotificationTypeEnum.News:
+                case (int)NotificationTypeEnum.News:
                     SendNewsMail(data);
                     break;
-                case NotificationTypeEnum.Idea:
+                case (int)NotificationTypeEnum.Idea:
                     SendIdeaMail(data);
                     break;
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     SendActivityLikeAddedMail(data);
                     break;
-                case NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentAdded:
                     SendCommentAddedMail(data);
                     break;
-                case NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentEdited:
                     SendCommentEditedMail(data);
                     break;
-                case NotificationTypeEnum.CommentReplyed:
+                case (int)NotificationTypeEnum.CommentReplyed:
                     SendCommentReplyedMail(data);
                     break;
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     SendCommentLikeAddedMail(data);
                     break;
                 default:

@@ -1,12 +1,13 @@
 ﻿using System;
 using Newtonsoft.Json;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
     public interface IIntranetActivity
     {
         Guid Id { get; set; }
-        IActivityType Type { get; set; }
+        IIntranetType Type { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime ModifyDate { get; set; }
         bool IsPinActual { get; set; }
@@ -23,7 +24,7 @@ namespace uIntra.Core.Activity
         public Guid Id { get; set; }
 
         [JsonIgnore]
-        public IActivityType Type { get; set; }
+        public IIntranetType Type { get; set; }
 
         [JsonIgnore]
         public DateTime CreatedDate { get; set; }
