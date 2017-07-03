@@ -369,6 +369,8 @@
     <Compile Include="DefaultImplementation\MyLinkItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
+    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />
+    <Content Include="App_Plugins\Navigation\MyLinks\sort.svg" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />

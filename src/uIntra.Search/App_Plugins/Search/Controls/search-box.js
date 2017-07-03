@@ -1,6 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-
-require('devbridge-autocomplete');
+﻿require('devbridge-autocomplete');
 
 function initSearchBox() {
     var searchBox = $('.js-searchbox');
@@ -91,8 +89,7 @@ function initMobileSearch() {
         });
 };
 
-appInitializer.add(function () {
+export default function () {
     initSearchBox();
     initMobileSearch();
-});
-
+}

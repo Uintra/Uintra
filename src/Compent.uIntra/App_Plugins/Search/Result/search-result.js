@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../../Core/Content/scripts/Ajax";
 
@@ -107,7 +106,7 @@ function search() {
     formController.reload();
 }
 
-appInitializer.add(function () {
+export default function () {
     holder = $(".js-search-page-holder");
     if (!holder.length) {
         return;
@@ -118,5 +117,4 @@ appInitializer.add(function () {
     initTypesSelect();
 
     search();
-});
-
+};

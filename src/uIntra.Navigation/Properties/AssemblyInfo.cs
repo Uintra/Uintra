@@ -4,5 +4,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("uIntra.Navigation")]
 [assembly: AssemblyDescription("Left Navigation, Sub Navigation Top Navigation")]
 
-[assembly: AssemblyVersion("1.1.3.25")]
+[assembly: AssemblyVersion("1.1.3.27")]
 [assembly: ComVisible(false)]
