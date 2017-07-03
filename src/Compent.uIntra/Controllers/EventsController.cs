@@ -8,6 +8,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
@@ -29,6 +30,7 @@ namespace Compent.uIntra.Controllers
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
@@ -37,12 +39,13 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
-            IDocumentIndexer documentIndexer)
+            IDocumentIndexer documentIndexer, INotificationTypeProvider notificationTypeProvider)
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
@@ -83,7 +86,8 @@ namespace Compent.uIntra.Controllers
 
             if (model.NotifyAllSubscribers)
             {
-                ((INotifyableService)_eventsService).Notify(@event.Id, NotificationTypeEnum.EventUpdated);
+                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventUpdated.ToInt());
+                ((INotifyableService) _eventsService).Notify(@event.Id, notificationType);
             }
 
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
@@ -91,7 +95,8 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnEventHidden(Guid id)
         {
-            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+            var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
+            ((INotifyableService)_eventsService).Notify(id, notificationType);
         }
     }
 }
