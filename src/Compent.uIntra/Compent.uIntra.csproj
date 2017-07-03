@@ -316,9 +316,9 @@
       <HintPath>..\..\packages\uIntra.Bulletins.0.0.2\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.CentralFeed, Version=1.1.6.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.6\lib\net452\uIntra.CentralFeed.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.6.1\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -542,13 +542,6 @@
     <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
     <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
     <Content Include="App_Plugins\Bulletins\style.css" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
@@ -817,6 +810,22 @@
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
+    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
+    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\_documentPanel.css" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
@@ -976,9 +985,10 @@
     <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
