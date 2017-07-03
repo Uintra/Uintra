@@ -84,8 +84,9 @@
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EmailWorker.Data">
-      <HintPath>..\..\packages\EmailWorker.Data.0.3.11\lib\Net45\EmailWorker.Data.dll</HintPath>
+    <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EmailWorker.Data.0.3.12\lib\Net45\EmailWorker.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

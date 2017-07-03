@@ -204,6 +204,7 @@ namespace Compent.uIntra.Core.IoC
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
             kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<INotifierService>().To<MailNotifierService>().InRequestScope();
             kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
             kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
             kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();

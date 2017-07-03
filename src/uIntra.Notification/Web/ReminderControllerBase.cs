@@ -3,7 +3,7 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Notification.Web
 {
-    public abstract class ReminderControllerBase: UmbracoApiController
+    public abstract class ReminderControllerBase : UmbracoApiController
     {
         private readonly IReminderJob _reminderJob;
 

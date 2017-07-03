@@ -29,16 +29,16 @@ namespace Compent.uIntra.Controllers
                 return like;
             }
 
-            var notifyableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
-            if (notifyableService != null)
+            var notifiableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
+            if (notifiableService != null)
             {
                 if (model.CommentId.HasValue)
                 {
-                    notifyableService.Notify(model.CommentId.Value, NotificationTypeEnum.CommentLikeAdded);
+                    notifiableService.Notify(model.CommentId.Value, NotificationTypeEnum.CommentLikeAdded);
                 }
                 else
                 {
-                    notifyableService.Notify(model.ActivityId, NotificationTypeEnum.ActivityLikeAdded);
+                    notifiableService.Notify(model.ActivityId, NotificationTypeEnum.ActivityLikeAdded);
                 }
             }
 

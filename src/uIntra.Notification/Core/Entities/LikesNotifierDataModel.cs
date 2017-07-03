@@ -10,5 +10,6 @@ namespace uIntra.Notification
         public string Title { get; set; }
         public string Url { get; set; }
         public Guid NotifierId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

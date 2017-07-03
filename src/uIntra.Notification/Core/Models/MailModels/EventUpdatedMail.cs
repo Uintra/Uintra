@@ -8,20 +8,22 @@ namespace uIntra.Notification.MailModels
 {
     public class EventUpdatedMail : EmailBase
     {
-        private readonly string xpath;
+        private readonly string _xpath;
 
         public EventUpdatedMail(string xpath)
         {
-            this.xpath = xpath;
+            _xpath = xpath;
         }
 
         public string Title { get; set; }
         public string Type { get; set; }
         public string Url { get; set; }
 
+        public string FullName { get; set; }
+
         protected override string GetXPath()
         {
-            return xpath;
+            return _xpath;
         }
 
         public override Enum MailTemplateTypeEnum => NotificationTypeEnum.EventUpdated;
@@ -32,6 +34,9 @@ namespace uIntra.Notification.MailModels
             result.Add(EmailTokensConstants.Title, Title);
             result.Add(EmailTokensConstants.Type, Type);
             result.Add(EmailTokensConstants.Url, Url);
+
+            result.Add(EmailTokensConstants.FullName, FullName);
+
             return result;
         }
     }
