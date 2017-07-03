@@ -1,5 +1,4 @@
 ﻿require('./../App_Plugins/Navigation/navigation');
-require('./../App_Plugins/Tagging/tags');
 require('./../App_Plugins/News/news');
 require('./../App_Plugins/CentralFeed/centralFeed');
 require("./../App_Plugins/Comments/comment");
@@ -16,9 +15,11 @@ import initSearch from './../App_Plugins/Search/search';
 import initActionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
 import initUsers from './../App_Plugins/Users/users';
 import initNotification from './../App_Plugins/Notification/notification';
+import initTags from './../App_Plugins/Tagging/tags';
 
 initCore();
 initSearch();
 initActionLinkWithConfirm();
 initUsers();
 initNotification();
+initTags();
