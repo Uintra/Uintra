@@ -42,7 +42,7 @@ namespace uIntra.Notification
 
             foreach (var notifier in notifiers)
             {
-                data.ReceiverIds = allReceiversIds.Where(reciverId => allReceiversNotifiersSettings[reciverId].Contains(notifier.Type));
+                data.ReceiverIds = allReceiversIds.Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifier.Type));
                 try
                 {
                     notifier.Notify(data);

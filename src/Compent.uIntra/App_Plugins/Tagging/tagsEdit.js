@@ -1,4 +1,6 @@
-﻿require("./taggle.css");
+﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
+
+require("./taggle.css");
 require("./tags.css");
 
 var Taggle = require("taggle");
@@ -6,6 +8,12 @@ var Taggle = require("taggle");
 require('devbridge-autocomplete');
 
 function initTagsControl() {
+    function arrIncludesElement(arr, el) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] === el) return true;
+        }
+        return false;
+    };
     var holder = $('.js-activity-tags-holder');
     if (!holder.length) return;
 
@@ -19,16 +27,19 @@ function initTagsControl() {
     var tagIndex = 0;
     var modelName = holder.data('model-name');
 
+    var tagsAreTaken = false;
+    var tagsStorage = [];
+
     var tagsControl = new Taggle(holder[0],
         {
             preserveCase: true,
             placeholder: holder.data('placeholder'),
             hiddenInputName: modelName,
             tags: activityTags,
-            tagFormatter: function (element) {
+            tagFormatter: function(element) {
                 var oldHiddenInput = $(element).find("input");
                 var hiddenValue = oldHiddenInput.val();
-                var existedTag = existedTags.filter(function (tag) { return tag.value === hiddenValue })[0];
+                var existedTag = existedTags.filter(function(tag) { return tag.value === hiddenValue })[0];
 
                 var hiddenTagIndex = document.createElement('input');
                 hiddenTagIndex.type = 'hidden';
@@ -51,21 +62,28 @@ function initTagsControl() {
                 $(element).append(hiddenTagText);
 
                 tagIndex++;
-            }
-        });
+            },
+            // checks if tag is among allowed ones
+            onBeforeTagAdd: (event, tag) => { return arrIncludesElement(tagsStorage, tag); }
+});
 
     var tagsControlInput = tagsControl.getInput();
 
     $(tagsControlInput).devbridgeAutocomplete({
         serviceUrl: '/umbraco/surface/Tags/Autocomplete',
         paramName: 'query',
-        minChars: 3,
+        minChars: 0,
         dataType: 'json',
         transformResult: function (response, originalQuery) {
             var result = {
-                suggestions: $.map(response.Tags, function (dataItem) {
-                    return { value: dataItem.Text, id: dataItem.Id };
-                })
+                suggestions: $.map(response.Tags,
+                    function(dataItem) {
+                        return { value: dataItem.Text, id: dataItem.Id };
+                    })
+        };
+            if (!tagsAreTaken) {
+                tagsStorage = response.Tags.map((tag) => { return tag.Text });
+                tagsAreTaken = true;
             };
 
             return result;
@@ -78,12 +96,13 @@ function initTagsControl() {
             tagsControl.add(suggestion.value);
         }
     });
-}
+
+};
 
 var controller = {
-    init: function() {
+    init: function () {
         initTagsControl();
     }
-}
+};
 
 export default controller;

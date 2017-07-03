@@ -14,12 +14,14 @@ using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
+using Compent.uIntra.Core.Mails;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Persistence.Sql;
+using EmailWorker.Ninject;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
 using Newtonsoft.Json.Serialization;
@@ -107,7 +109,7 @@ namespace Compent.uIntra.Core.IoC
 
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new EmailWorkerNinjectModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -207,6 +209,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
+            kernel.Bind<IMailConfiguration>().To<MailConfiguration>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -247,6 +250,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

@@ -48,6 +48,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Archetype">
+      <HintPath>..\..\packages\Archetype.1.10\lib\net40\Archetype.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -78,6 +82,19 @@
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EmailWorker.Data">
+      <HintPath>..\..\packages\EmailWorker.Data.0.3.11\lib\Net45\EmailWorker.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Examine">
@@ -178,26 +195,6 @@
     </Reference>
     <Reference Include="Semver">
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack">
-      <HintPath>..\..\packages\ServiceStack.4.5.4\lib\net45\ServiceStack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Client">
-      <HintPath>..\..\packages\ServiceStack.Client.4.5.4\lib\net45\ServiceStack.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\packages\ServiceStack.Common.4.5.4\lib\net45\ServiceStack.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\packages\ServiceStack.Interfaces.4.5.4\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\packages\ServiceStack.Text.4.5.4\lib\net45\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SQLCE4Umbraco">
@@ -324,6 +321,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
+    <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />
     <Compile Include="Core\Exceptions\MissingNotifierConfigurationException.cs" />
@@ -334,6 +332,17 @@
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
+    <Compile Include="Core\Models\MailModels\ActivityLikeAddedMail.cs" />
+    <Compile Include="Core\Models\MailModels\BeforeStartMail.cs" />
+    <Compile Include="Core\Models\MailModels\CommentAddedMail.cs" />
+    <Compile Include="Core\Models\MailModels\CommentEditedMail.cs" />
+    <Compile Include="Core\Models\MailModels\CommentLikeAddedMail.cs" />
+    <Compile Include="Core\Models\MailModels\CommentReplyedMail.cs" />
+    <Compile Include="Core\Models\MailModels\EventHidedMail.cs" />
+    <Compile Include="Core\Models\MailModels\EventMail.cs" />
+    <Compile Include="Core\Models\MailModels\EventUpdatedMail.cs" />
+    <Compile Include="Core\Models\MailModels\IdeaMail.cs" />
+    <Compile Include="Core\Models\MailModels\NewsMail.cs" />
     <Compile Include="Core\Models\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
     <Compile Include="Core\Models\NotificationViewModel.cs" />
@@ -341,6 +350,7 @@
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\Configuration\IMailConfiguration.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\INotificationHelper.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
@@ -357,6 +367,7 @@
     <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Sql\MemberNotifierSettingDataModel.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
+    <Compile Include="DefaultImplementation\MailNotifierService.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
@@ -372,6 +383,32 @@
     <Compile Include="Web\ReminderControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Archetype\css\archetype.css" />
+    <Content Include="App_Plugins\Archetype\js\archetype.js" />
+    <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
+    <Content Include="App_Plugins\Archetype\langs\da.js" />
+    <Content Include="App_Plugins\Archetype\langs\de-de.js" />
+    <Content Include="App_Plugins\Archetype\langs\de.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-gb.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-us.js" />
+    <Content Include="App_Plugins\Archetype\langs\en.js" />
+    <Content Include="App_Plugins\Archetype\langs\es-es.js" />
+    <Content Include="App_Plugins\Archetype\langs\es.js" />
+    <Content Include="App_Plugins\Archetype\langs\fr-fr.js" />
+    <Content Include="App_Plugins\Archetype\langs\he-il.js" />
+    <Content Include="App_Plugins\Archetype\langs\it-it.js" />
+    <Content Include="App_Plugins\Archetype\langs\ja-jp.js" />
+    <Content Include="App_Plugins\Archetype\langs\ko-kr.js" />
+    <Content Include="App_Plugins\Archetype\langs\nb-no.js" />
+    <Content Include="App_Plugins\Archetype\langs\nl-nl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pl-pl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pt-br.js" />
+    <Content Include="App_Plugins\Archetype\langs\ru-ru.js" />
+    <Content Include="App_Plugins\Archetype\langs\sv-se.js" />
+    <Content Include="App_Plugins\Archetype\langs\zh-cn.js" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.html" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />

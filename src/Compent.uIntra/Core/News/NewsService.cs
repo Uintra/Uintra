@@ -43,6 +43,7 @@ namespace Compent.uIntra.Core.News
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias };
 
@@ -55,11 +56,11 @@ namespace Compent.uIntra.Core.News
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
-
-            IMediaHelper mediaHelper, 
-            IElasticActivityIndex activityIndex, 
+            IMediaHelper mediaHelper,
+            IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-			IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider)
 
         {
@@ -74,6 +75,7 @@ namespace Compent.uIntra.Core.News
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _activityTypeProvider = activityTypeProvider;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         public MediaSettings GetMediaSettings()
@@ -106,7 +108,7 @@ namespace Compent.uIntra.Core.News
         IntranetActivityTypeEnum ICentralFeedItemService.ActivityType => IntranetActivityTypeEnum.News;
 
         public override IActivityType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
-        
+
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -252,7 +254,7 @@ namespace Compent.uIntra.Core.News
         {
             var activities = GetAll().Where(s => !IsNewsHidden(s));
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(SearchableType.News);
+            _activityIndex.DeleteByType(_searchableTypeProvider.Get((int)SearchableTypeEnum.News));
             _activityIndex.Index(searchableActivities);
         }
 
