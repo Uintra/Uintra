@@ -1,11 +1,9 @@
-﻿require("./../Core/Content/libs/jquery.validate.min.js");
-require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
-require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
-
-import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import initBlockOnSubmit from "./../Core/Content/scripts/BlockOnSubmit";
+﻿import initBlockOnSubmit from "./../Core/Content/scripts/BlockOnSubmit";
 import helpers from "./../Core/Content/scripts/Helpers";
 
+require("./../Core/Content/libs/jquery.validate.min.js");
+require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
+require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 require("./comments.css");
 
 const quillOptions = {
@@ -28,19 +26,19 @@ var initSubmitButton  = function(holder) {
         });
     });
     initBlockOnSubmit();
-}
+};
 
 var initCreateControl = function (holder) {
     var createControls = holder.find('.js-comment-create');
 
-    
+
     createControls.each(function () {
         var $this = $(this);
 
         if ($this.data('parentid')) {
             return true;
         }
-        
+
         $this.on('submit', function () {
             $this.valid();
         });
@@ -61,7 +59,7 @@ var initCreateControl = function (holder) {
         quill.setText('');
         dataStorage.value = '';
     });
-}
+};
 
 var initEdit = function (holder) {
     var editlink = findControl(holder, '.js-comment-editlink');
@@ -108,7 +106,7 @@ var initEdit = function (holder) {
             button.attr("disabled", "disabled");
         }
     });
-}
+};
 
 var initReply = function (holder) {
     var showReplyLink = findControl(holder, '.js-comment-showReplyLink');
@@ -145,7 +143,7 @@ var initReply = function (holder) {
             button.attr("disabled", "disabled");
         }
     });
-}
+};
 
 var initDelete = function (holder) {
     var deleteLink = findControl(holder, '.js-comment-delete');
@@ -191,7 +189,7 @@ var CommentOverview = function (selector) {
             new Comment(this);
         });
     });
-}
+};
 
 var Comment = function (selector) {
     var holders = $(selector);
@@ -205,12 +203,17 @@ var Comment = function (selector) {
         initReply($this);
         initDelete($this);
     });
+};
+
+function init() {
+    new CommentOverview('[id^=js-comments-overview-]');
 }
 
-appInitializer.add(function () {
-    new CommentOverview('[id^=js-comments-overview-]');
-});
+var controller = {
+    init: init,
+    factory: CommentOverview
+};
 
 window.CommentOverview = CommentOverview;
 
-export default CommentOverview;
+export default controller;
