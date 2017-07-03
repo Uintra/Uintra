@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import subscribeList from"./subscribeList";
+﻿import subscribeList from"./subscribeList";
 
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./subscribe.css");
@@ -38,14 +37,14 @@ function changeNotificationLabel(holder, control) {
 }
 
 var callbacks = [];
-
 var controller = {
     initOnLoad: function () {
         this.init('.js-subscribe');
     },
     init: function (selector) {
-        var holders = $(selector);
+        subscribeList.init();
 
+        var holders = $(selector);
         if (!holders.length) {
             return;
         }
@@ -62,12 +61,7 @@ var controller = {
             cb(data);
         });
     }
-}
-
-appInitializer.add(function () {
-    controller.initOnLoad();
-    subscribeList.init();
-});
+};
 
 window.subscribe = controller;
 
