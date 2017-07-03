@@ -1,5 +1,4 @@
-﻿require('./../App_Plugins/Navigation/navigation');
-require('./../App_Plugins/News/news');
+﻿require('./../App_Plugins/News/news');
 require('./../App_Plugins/CentralFeed/centralFeed');
 require("./../App_Plugins/Comments/comment");
 require('./../App_Plugins/Events/events');
@@ -14,6 +13,7 @@ import initUsers from './../App_Plugins/Users/users';
 import initNotification from './../App_Plugins/Notification/notification';
 import initTags from './../App_Plugins/Tagging/tags';
 import subscribe from "./../App_Plugins/Subscribe/subscribe";
+import initNavigation from './../App_Plugins/Navigation/navigation';
 
 initCore();
 initSearch();
@@ -22,3 +22,4 @@ initUsers();
 initNotification();
 initTags();
 subscribe.initOnLoad();
+initNavigation();
