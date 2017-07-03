@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import initGreaterThan from "./../Core/Content/scripts/ValidationExtensions";
+﻿import initGreaterThan from "./../Core/Content/scripts/ValidationExtensions";
 import helpers from "./../Core/Content/scripts/Helpers";
 import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
 import pinActivity from "./../Core/Content/scripts/PinActivity";
@@ -8,9 +7,9 @@ require('select2');
 
 var initUserSelect = function (holder) {
     holder.find('.js-user-select').select2({});
-}
+};
 
-var initSubmitButton = function (holder) {    
+var initSubmitButton = function (holder) {
     var form = holder.find('#form');
     var btn = holder.find('._submit');
 
@@ -27,7 +26,7 @@ var initSubmitButton = function (holder) {
 
         form.submit();
     });
-}
+};
 
 var initDescriptionControl = function (holder) {
     var dataStorage = holder.find('#js-hidden-description-container');
@@ -48,7 +47,7 @@ var initDescriptionControl = function (holder) {
         descriptionElem.toggleClass("input-validation-error", editor.getLength() <= 1);
 
     });
-}
+};
 
 var initDates = function (holder) {
     var publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
@@ -68,10 +67,14 @@ var initDates = function (holder) {
     function publishDateChanged(newDates) {
         setMinDate(newDates[0]);
     }
-}
+};
 
 var controller = {
-    init: function (holder) {
+    init: function () {
+        this.initItem($('#js-news-create-page'));
+        this.initItem($('#js-news-edit-page'));
+    },
+    initItem: function(holder) {
         if (!holder.length) {
             return;
         }
@@ -82,12 +85,6 @@ var controller = {
         initDescriptionControl(holder);
         fileUploadController.init(holder);
     }
-}
+};
 
-appInitializer.add(() => {
-    controller.init($('#js-news-create-page'));
-});
-
-appInitializer.add(() => {
-    controller.init($('#js-news-edit-page'));
-});
+export default controller;
