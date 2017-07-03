@@ -2,6 +2,7 @@
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 
 namespace uIntra.News
