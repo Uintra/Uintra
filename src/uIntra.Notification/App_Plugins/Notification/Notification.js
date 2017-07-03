@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import helpers from "./../Core/Content/scripts/Helpers";
+﻿import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../Core/Content/scripts/Ajax";
 
@@ -153,10 +152,10 @@ function initInfinityScroll() {
     infinityScroll(onScroll)();
 }
 
-appInitializer.add(function () {
+export default function() {
     initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
     initInfinityScroll();
-});
+}

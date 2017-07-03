@@ -14,7 +14,7 @@
             @foreach (var typeModel in tabsWithCreateUrls)
             {
                 <li class="feed-create__frame">
-                    <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
+                    <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
                 </li>
             }
         </ul>
@@ -26,7 +26,7 @@
                 @foreach (var tabModel in Model.Tabs)
                 {
                     <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.GetHashCode()" data-page-url="@tabModel.Url">
-                        <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type)</a>
+                        <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
             </ul>

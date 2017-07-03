@@ -221,26 +221,6 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.4.5.4\lib\net45\ServiceStack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Client.4.5.4\lib\net45\ServiceStack.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Common.4.5.4\lib\net45\ServiceStack.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Interfaces.4.5.4\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Text.4.5.4\lib\net45\ServiceStack.Text.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SQLCE4Umbraco, Version=1.0.6136.27245, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UmbracoCms.Core.7.5.4\lib\SQLCE4Umbraco.dll</HintPath>
@@ -379,10 +359,13 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Activity\ActivityType.cs" />
-    <Compile Include="Core\Activity\ActivityTypeProvider.cs" />
-    <Compile Include="Core\Activity\IActivityType.cs" />
-    <Compile Include="Core\Activity\IActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
+    <Compile Include="Core\TypeProviders\IntranetType.cs" />
+    <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IIntranetType.cs" />
+    <Compile Include="Core\TypeProviders\IActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IIntranetTypeProvider.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
@@ -390,6 +373,7 @@
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
+    <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />

@@ -41,6 +41,7 @@ using uIntra.Core.Localization;
 using uIntra.Core.Media;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Events;
@@ -251,6 +252,9 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
+            kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
         }
 

@@ -6,6 +6,7 @@ using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
@@ -44,43 +45,43 @@ namespace uIntra.Notification
             }
         }
 
-        private void SendMail(NotificationTypeEnum notificationType, INotifierDataValue notifierDataValue, IIntranetUser user)
+        private void SendMail(IIntranetType notificationType, INotifierDataValue notifierDataValue, IIntranetUser user)
         {
             var recipient = new EmailRecipient { Email = user.Email, Name = user.DisplayedName };
 
-            switch (notificationType)
+            switch (notificationType.Id)
             {
-                case NotificationTypeEnum.Event:
+                case (int)NotificationTypeEnum.Event:
                     SendEventMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.EventUpdated:
+                case (int)NotificationTypeEnum.EventUpdated:
                     SendEventUpdatedMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.EventHided:
+                case (int)NotificationTypeEnum.EventHided:
                     SendEventHidedMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.BeforeStart:
+                case (int)NotificationTypeEnum.BeforeStart:
                     SendBeforeStartMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.News:
+                case (int)NotificationTypeEnum.News:
                     SendNewsMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.Idea:
+                case (int)NotificationTypeEnum.Idea:
                     SendIdeaMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     SendActivityLikeAddedMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentAdded:
                     SendCommentAddedMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentEdited:
                     SendCommentEditedMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.CommentReplyed:
+                case (int)NotificationTypeEnum.CommentReplyed:
                     SendCommentReplyedMail(notifierDataValue, recipient);
                     break;
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     SendCommentLikeAddedMail(notifierDataValue, recipient);
                     break;
                 default:
@@ -278,9 +279,9 @@ namespace uIntra.Notification
             return result;
         }
 
-        private string GetActivityTypeText(IntranetActivityTypeEnum activityType)
+        private string GetActivityTypeText(IIntranetType activityType)
         {
-            var result = _intranetLocalizationService.Translate(activityType.GetLocalizeKey());
+            var result = _intranetLocalizationService.Translate(activityType.Id.GetLocalizeKey());
             return result;
         }
     }

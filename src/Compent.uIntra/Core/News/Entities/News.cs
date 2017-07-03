@@ -21,6 +21,5 @@ namespace Compent.uIntra.Core.News.Entities
         [JsonIgnore]
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
-        IntranetActivityTypeEnum ICentralFeedItem.Type => IntranetActivityTypeEnum.News;
     }
 }

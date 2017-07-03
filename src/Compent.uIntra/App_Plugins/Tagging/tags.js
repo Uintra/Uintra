@@ -1,8 +1,7 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import tagsView from './tagsView';
+﻿import tagsView from './tagsView';
 import tagsEdit from './tagsEdit';
 
-appInitializer.add(function () {
+export default function() {
     tagsView.init();
     tagsEdit.init();
-});
+}

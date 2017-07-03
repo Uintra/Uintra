@@ -14,18 +14,20 @@ namespace uIntra.Notification
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IConfigurationProvider<ReminderConfiguration> _configurationProvider;
         private readonly IExceptionLogger _exceptionLogger;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
         private static bool _isRunning;
 
         public ReminderJob(
             IReminderService reminderService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IConfigurationProvider<ReminderConfiguration> configurationProvider,
-            IExceptionLogger exceptionLogger)
+            IExceptionLogger exceptionLogger, INotificationTypeProvider notificationTypeProvider)
         {
             _reminderService = reminderService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _configurationProvider = configurationProvider;
             _exceptionLogger = exceptionLogger;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public void Run()
@@ -56,8 +58,9 @@ namespace uIntra.Notification
                         var configuration = GetConfiguration(reminder.Type);
                         if (ShouldNotify(configuration.Time, activity.StartDate))
                         {
-                            foreach (var notificationType in configuration.NotificationTypes)
+                            foreach (var notificationTypeName in configuration.NotificationTypes)
                             {
+                                var notificationType = _notificationTypeProvider.Get(notificationTypeName);
                                 notifiableService.Notify(activity.Id, notificationType);
                             }
                             _reminderService.SetAsDelivered(reminder.Id);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {
@@ -7,13 +8,13 @@ namespace uIntra.Notification.Configuration
     {
         public ReminderTypeEnum Type { get; set; }
 
-        public IEnumerable<NotificationTypeEnum> NotificationTypes { get; set; }
+        public IEnumerable<string> NotificationTypes { get; set; }
 
         public int Time { get; set; }
 
         public ReminderTypeConfiguration()
         {
-            NotificationTypes = Enumerable.Empty<NotificationTypeEnum>();
+            NotificationTypes = Enumerable.Empty<string>();
         }
     }
 }

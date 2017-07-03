@@ -20,7 +20,6 @@ namespace Compent.uIntra.Core.Bulletins
         public IEnumerable<Comment> Comments { get; set; }
 
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
-
-        IntranetActivityTypeEnum ICentralFeedItem.Type => IntranetActivityTypeEnum.Bulletins;
+        
     }
 }

@@ -50,8 +50,8 @@ namespace uIntra.Core.Controls.LightboxGallery
                 return new EmptyResult();
             }
 
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type == MediaTypeEnum.Image);
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type != MediaTypeEnum.Image);
+            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
+            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ForEach(i => i.IsHidden = true);
 
             return View(PreviewViewPath, galleryPreviewModel);

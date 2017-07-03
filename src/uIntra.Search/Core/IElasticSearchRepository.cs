@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Nest;
-using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Search
 {
@@ -25,6 +25,6 @@ namespace uIntra.Search
         void Delete(object id);
         void EnsureMappingExist();
         string GetTypeName();
-        void DeleteAllByType(IActivityType type);
+        void DeleteAllByType(IIntranetType type);
     }
 }

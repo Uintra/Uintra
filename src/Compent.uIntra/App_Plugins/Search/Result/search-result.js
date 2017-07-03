@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../../Core/Content/scripts/Ajax";
 
@@ -9,9 +8,12 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var searchTimeout;
 var formController;
 var holder;
+var select;
 
 var initTypesSelect = function () {
-    holder.find('.js-types-select').select2({});
+    select.select2({
+        placeholder: select.data("placeholder")
+    });
 }
 
 function initSearchPage() {
@@ -107,8 +109,9 @@ function search() {
     formController.reload();
 }
 
-appInitializer.add(function () {
+export default function () {
     holder = $(".js-search-page-holder");
+    select = holder.find('.js-types-select');
     if (!holder.length) {
         return;
     }
@@ -118,5 +121,4 @@ appInitializer.add(function () {
     initTypesSelect();
 
     search();
-});
-
+};

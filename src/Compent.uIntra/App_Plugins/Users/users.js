@@ -1,3 +1,7 @@
 ﻿require("./Login/login.css");
 
-require('./Profile/profile');
+import profile from './Profile/profile';
+
+export default function () {
+    profile.init();
+}

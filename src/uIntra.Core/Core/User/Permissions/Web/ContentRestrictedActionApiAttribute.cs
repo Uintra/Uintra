@@ -5,6 +5,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.User.Permissions.Web
 {

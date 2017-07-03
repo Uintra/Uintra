@@ -18,7 +18,10 @@ namespace uIntra.Search
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
 
-        public DocumentIndexer(IElasticDocumentIndex documentIndex, UmbracoHelper umbracoHelper, ISearchApplicationSettings settings, IMediaHelper mediaHelper)
+        public DocumentIndexer(IElasticDocumentIndex documentIndex,
+            UmbracoHelper umbracoHelper, 
+            ISearchApplicationSettings settings, 
+            IMediaHelper mediaHelper)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
@@ -118,7 +121,7 @@ namespace uIntra.Search
                 Title = fileName,
                 Url = content.Url,
                 Data = base64File,
-                Type = (int)SearchableTypeEnum.Document
+                Type = SearchableTypeEnum.Document.ToInt()
             };
 
             return result;
