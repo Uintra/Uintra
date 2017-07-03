@@ -35,18 +35,18 @@ namespace Compent.uIntra.Controllers
                 return like;
             }
 
-            var notifyableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
-            if (notifyableService != null)
+            var notifiableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
+            if (notifiableService != null)
             {
                 if (model.CommentId.HasValue)
                 {
                     var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
-                    notifyableService.Notify(model.CommentId.Value, notificationType);
+                    notifiableService.Notify(model.CommentId.Value, notificationType);
                 }
                 else
                 {
                     var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.ActivityLikeAdded.ToInt());
-                    notifyableService.Notify(model.ActivityId, notificationType);
+                    notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }
 

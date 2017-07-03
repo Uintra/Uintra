@@ -8,23 +8,23 @@ namespace uIntra.Notification.MailModels
 {
     public class EventHidedMail : EmailBase
     {
-        private readonly string xpath;
+        private readonly string _xpath;
 
         public EventHidedMail(string xpath)
         {
-            this.xpath = xpath;
+            _xpath = xpath;
         }
 
         public string Title { get; set; }
-        public string FullName { get; set; }
         public string NotifierFullName { get; set; }
         public string Type { get; set; }
         public string Url { get; set; }
 
+        public string FullName { get; set; }
 
         protected override string GetXPath()
         {
-            return xpath;
+            return _xpath;
         }
 
         public override Enum MailTemplateTypeEnum => NotificationTypeEnum.EventHided;
@@ -33,10 +33,12 @@ namespace uIntra.Notification.MailModels
         {
             var result = base.GetExtraTokens();
             result.Add(EmailTokensConstants.Title, Title);
-            result.Add(EmailTokensConstants.FullName, FullName);
             result.Add(EmailTokensConstants.NotifierFullName, NotifierFullName);
             result.Add(EmailTokensConstants.Type, Type);
             result.Add(EmailTokensConstants.Url, Url);
+
+            result.Add(EmailTokensConstants.FullName, FullName);
+
             return result;
         }
     }

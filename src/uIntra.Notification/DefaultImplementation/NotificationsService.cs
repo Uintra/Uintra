@@ -43,7 +43,17 @@ namespace uIntra.Notification
 
             foreach (var notifier in notifiers)
             {
-                data.ReceiverIds = allReceiversIds.Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifier.Type));
+                var receiverIds = allReceiversIds
+                    .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifier.Type))
+                    .ToList();
+
+                if (receiverIds.Count == 0)
+                {
+                    continue;
+                }
+
+                data.ReceiverIds = receiverIds;
+
                 try
                 {
                     notifier.Notify(data);
@@ -83,7 +93,7 @@ namespace uIntra.Notification
             var configuration = _notificationConfigurationService.GetSettings();
             var notificationTypeConfiguration = configuration.NotificationTypeConfigurations.SingleOrDefault(c => c.NotificationType == notificationType.Name);
 
-            if (notificationTypeConfiguration == null || !notificationTypeConfiguration.NotifierTypes.IsEmpty())
+            if (notificationTypeConfiguration == null || notificationTypeConfiguration.NotifierTypes.IsEmpty())
             {
                 return configuration.DefaultNotifier.ToEnumerableOfOne();
             }

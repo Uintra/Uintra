@@ -8,11 +8,11 @@ namespace uIntra.Notification.MailModels
 {
     public class ActivityLikeAddedMail : EmailBase
     {
-        private readonly string xpath;
+        private readonly string _xpath;
 
         public ActivityLikeAddedMail(string xpath)
         {
-            this.xpath = xpath;
+            _xpath = xpath;
         }
 
         public string ActivityTitle { get; set; }
@@ -20,9 +20,11 @@ namespace uIntra.Notification.MailModels
         public string CreatedDate { get; set; }
         public string Url { get; set; }
 
+        public string FullName { get; set; }
+
         protected override string GetXPath()
         {
-            return xpath;
+            return _xpath;
         }
 
         public override Enum MailTemplateTypeEnum => NotificationTypeEnum.ActivityLikeAdded;
@@ -34,6 +36,9 @@ namespace uIntra.Notification.MailModels
             result.Add(EmailTokensConstants.ActivityType, ActivityType);
             result.Add(EmailTokensConstants.CreatedDate, CreatedDate);
             result.Add(EmailTokensConstants.Url, Url);
+
+            result.Add(EmailTokensConstants.FullName, FullName);
+
             return result;
         }
     }

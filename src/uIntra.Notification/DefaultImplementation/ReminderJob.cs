@@ -45,9 +45,9 @@ namespace uIntra.Notification
                 {
                     var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(reminder.ActivityId);
                     var reminderService = service as IReminderableService<IReminderable>;
-                    var notifyableService = service as INotifyableService;
+                    var notifiableService = service as INotifyableService;
                     
-                    if (reminderService == null || notifyableService == null)
+                    if (reminderService == null || notifiableService == null)
                     {
                         continue;
                     }
@@ -61,7 +61,7 @@ namespace uIntra.Notification
                             foreach (var notificationTypeName in configuration.NotificationTypes)
                             {
                                 var notificationType = _notificationTypeProvider.Get(notificationTypeName);
-                                notifyableService.Notify(activity.Id, notificationType);
+                                notifiableService.Notify(activity.Id, notificationType);
                             }
                             _reminderService.SetAsDelivered(reminder.Id);
                         }
