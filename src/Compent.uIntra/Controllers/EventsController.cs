@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
-using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Media;

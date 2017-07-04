@@ -4,7 +4,6 @@ using AutoMapper;
 using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
 using uIntra.CentralFeed;
-using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
