@@ -27,18 +27,15 @@ namespace Compent.uIntra.Core
             var repository = _activityRepository.Get(id);
             return repository != null ? GetService<TService>(repository.Type) : null;
         }
-        
-
-        public TService GetServiceSafe<TService>(Guid id) where TService : class
+       
+        public TService GetService<TService>(int activityTypeId) where TService : class
         {
-            var repository = _activityRepository.Get(id);
-            return repository != null ? GetServiceSafe<TService>(repository.Type) : null;
+            return GetService(activityTypeId) as TService;
         }
-        
 
-        private object GetService(int acitivityTypeId)
+        private object GetService(int activityTypeId)
         {
-            switch (acitivityTypeId)
+            switch (activityTypeId)
             {
                 case (int)IntranetActivityTypeEnum.News:
                     return _kernel.GetService<INewsService<News.Entities.News>>();
@@ -49,16 +46,6 @@ namespace Compent.uIntra.Core
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public TService GetService<TService>(int acitivityTypeId) where TService : class
-        {
-            return (TService)GetService(acitivityTypeId);
-        }
-
-        public TService GetServiceSafe<TService>(int acitivityTypeId) where TService : class
-        {
-            return GetService(acitivityTypeId) as TService;
         }
     }
 }
