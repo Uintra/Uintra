@@ -214,6 +214,6 @@ var controller = {
     factory: CommentOverview
 };
 
-window.CommentOverview = CommentOverview;
+uIntra.methods.add("CommentOverview", CommentOverview);
 
 export default controller;
