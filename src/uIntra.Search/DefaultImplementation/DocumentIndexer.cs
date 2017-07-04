@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
+using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using Umbraco.Core.Models;
@@ -17,16 +18,19 @@ namespace uIntra.Search
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IExceptionLogger _exceptionLogger;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
             UmbracoHelper umbracoHelper, 
             ISearchApplicationSettings settings, 
-            IMediaHelper mediaHelper)
+            IMediaHelper mediaHelper,
+            IExceptionLogger exceptionLogger)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
+            _exceptionLogger = exceptionLogger;
         }
 
         public void FillIndex()
@@ -113,6 +117,13 @@ namespace uIntra.Search
             }
 
             var physicalPath = HostingEnvironment.MapPath(content.Url);
+
+            if (!File.Exists(physicalPath))
+            {
+                _exceptionLogger.Log(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
+                return null;
+            }
+
             var base64File = Convert.ToBase64String(File.ReadAllBytes(physicalPath));
 
             var result = new SearchableDocument

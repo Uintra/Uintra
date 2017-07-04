@@ -101,7 +101,7 @@ namespace uIntra.Search
             return new SearchableContent
             {
                 Id = publishedContent.Id,
-                Type = (int)SearchableTypeEnum.Content,
+                Type = SearchableTypeEnum.Content.ToInt(),
                 Url = publishedContent.Url,
                 Title = publishedContent.Name,
                 PanelContent = content,

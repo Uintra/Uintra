@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.props')" />
+  <Import Project="..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.props')" />
   <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -60,9 +60,8 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="businesslogic, Version=1.0.6274.27355, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\businesslogic.dll</HintPath>
+    <Reference Include="businesslogic, Version=1.0.6361.21157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\businesslogic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -74,14 +73,12 @@
       <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="cms, Version=1.0.6274.27356, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\cms.dll</HintPath>
+    <Reference Include="cms, Version=1.0.6361.21158, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\cms.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="controls, Version=1.0.6274.27357, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\controls.dll</HintPath>
+    <Reference Include="controls, Version=1.0.6361.21160, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
@@ -145,9 +142,32 @@
       <HintPath>..\..\packages\ImageProcessor.Web.4.8.3\lib\net45\ImageProcessor.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="interfaces, Version=1.0.6274.27351, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\interfaces.dll</HintPath>
+    <Reference Include="interfaces, Version=1.0.6361.21149, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Core.0.0.2\lib\Net45\Localization.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Storage.UDictionary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.0.2\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Umbraco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.0.1\lib\Net45\Localization.Umbraco.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Localization.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Web.0.0.2\lib\Net45\Localization.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Lucene.Net">
@@ -160,8 +180,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
@@ -170,6 +189,10 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -221,11 +244,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NEST.5.3.0\lib\net45\Nest.dll</HintPath>
+      <HintPath>..\..\packages\NEST.5.3.1\lib\net45\Nest.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject">
@@ -248,22 +271,19 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLCE4Umbraco, Version=1.0.6274.27357, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\SQLCE4Umbraco.dll</HintPath>
+    <Reference Include="SQLCE4Umbraco, Version=1.0.6361.21159, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\SQLCE4Umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\System.Data.SqlServerCe.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\System.Data.SqlServerCe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\System.Data.SqlServerCe.Entity.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -276,6 +296,10 @@
       <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -303,22 +327,20 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\TidyNet.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.BaseControls, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.0.5\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Bulletins, Version=0.0.2.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Bulletins.0.0.2\lib\net452\uIntra.Bulletins.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Bulletins.0.0.2.1\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.6.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.6.1\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.6.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.6.2\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -360,8 +382,8 @@
       <HintPath>..\..\packages\uIntra.Panels.2.1.1\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.3.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.3.3\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.3.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.3.4\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.2.1, Culture=neutral, processorArchitecture=MSIL">
@@ -379,48 +401,40 @@
       <HintPath>..\..\packages\uIntra.Users.1.1.3\lib\net452\uIntra.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.6274.27359, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.dll</HintPath>
+    <Reference Include="umbraco, Version=1.0.6361.21162, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.6274.27352, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\Umbraco.Core.dll</HintPath>
+    <Reference Include="Umbraco.Core, Version=1.0.6361.21154, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\Umbraco.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.DataLayer, Version=1.0.6274.27355, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.DataLayer.dll</HintPath>
+    <Reference Include="umbraco.DataLayer, Version=1.0.6361.21157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\umbraco.DataLayer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.6274.27361, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.editorControls.dll</HintPath>
+    <Reference Include="umbraco.editorControls, Version=1.0.6361.21165, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\umbraco.editorControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.MacroEngines, Version=1.0.6274.27362, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.MacroEngines.dll</HintPath>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.6361.21166, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\umbraco.MacroEngines.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.ModelsBuilder">
-      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.5\lib\Umbraco.ModelsBuilder.dll</HintPath>
+    <Reference Include="Umbraco.ModelsBuilder, Version=3.0.7.99, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.7\lib\Umbraco.ModelsBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.providers, Version=1.0.6274.27357, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\umbraco.providers.dll</HintPath>
+    <Reference Include="umbraco.providers, Version=1.0.6361.21161, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\umbraco.providers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.Web.UI, Version=1.0.6274.27363, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\Umbraco.Web.UI.dll</HintPath>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.6361.21168, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\Umbraco.Web.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="UmbracoExamine, Version=0.7.0.27356, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UmbracoCms.Core.7.5.11\lib\UmbracoExamine.dll</HintPath>
+    <Reference Include="UmbracoExamine, Version=0.7.0.21159, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\UmbracoExamine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="UrlRewritingNet.UrlRewriter">
@@ -541,6 +555,13 @@
     <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
     <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
     <Content Include="App_Plugins\Bulletins\style.css" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
+    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
+    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
@@ -777,10 +798,16 @@
     <Content Include="App_Plugins\Events\style.css" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
+    <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-creation.dialog.html" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-overview.controller.js" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-overview.html" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
-    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
@@ -955,21 +982,10 @@
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -986,6 +1002,30 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
+    <Content Include="Media\Web.config" />
+    <Content Include="config\tinyMceConfig.config" />
+    <Content Include="config\scripting.config" />
+    <Content Include="config\metablogConfig.config" />
+    <Content Include="config\log4net.config" />
+    <Content Include="config\FileSystemProviders.config" />
+    <Content Include="config\feedProxy.config" />
+    <Content Include="config\ExamineSettings.config" />
+    <Content Include="config\ExamineIndex.config" />
+    <Content Include="config\EmbeddedMedia.config" />
+    <Content Include="config\BaseRestExtensions.config" />
+    <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
@@ -999,6 +1039,16 @@
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <None Include="Web.NuGet.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1155,30 +1205,8 @@
     <None Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
-    <Content Include="Media\Web.config" />
-    <Content Include="config\UrlRewriting.config" />
     <Content Include="config\umbracoSettings.config" />
     <Content Include="config\trees.config" />
-    <Content Include="config\tinyMceConfig.config" />
-    <Content Include="config\scripting.config" />
-    <Content Include="config\metablogConfig.config" />
-    <Content Include="config\log4net.config" />
-    <Content Include="config\FileSystemProviders.config" />
-    <Content Include="config\feedProxy.config" />
-    <Content Include="config\ExamineSettings.config" />
-    <Content Include="config\ExamineIndex.config" />
-    <Content Include="config\EmbeddedMedia.config" />
-    <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\404handlers.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1279,11 +1307,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.targets'))" />
   </Target>
-  <Import Project="..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.5.11\build\UmbracoCms.targets')" />
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
     <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
@@ -1306,4 +1333,5 @@
     </Copy>
     <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
+  <Import Project="..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.6.3\build\UmbracoCms.targets')" />
 </Project>
