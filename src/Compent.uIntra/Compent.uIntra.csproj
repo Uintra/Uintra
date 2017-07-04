@@ -350,8 +350,7 @@
     </Reference>
     <Reference Include="uIntra.Core, Version=1.1.15.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.15.1\lib\net452\uIntra.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\uIntra.Core\bin\Debug\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -382,8 +381,8 @@
       <HintPath>..\..\packages\uIntra.Panels.2.1.1\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.3.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.3.4\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.3.5\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.2.1, Culture=neutral, processorArchitecture=MSIL">

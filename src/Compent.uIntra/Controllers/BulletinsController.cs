@@ -4,7 +4,6 @@ using Compent.uIntra.Core.Bulletins;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
 using uIntra.CentralFeed;
-using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
