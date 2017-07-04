@@ -388,6 +388,7 @@
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\Namespace.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
