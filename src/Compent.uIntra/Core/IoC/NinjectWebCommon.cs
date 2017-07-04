@@ -22,6 +22,11 @@ using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
+using Localization.Core;
+using Localization.Core.Configuration;
+using Localization.Storage.UDictionary;
+using Localization.Umbraco;
+using Localization.Umbraco.UmbracoEvents;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
 using Newtonsoft.Json.Serialization;
@@ -120,6 +125,7 @@ namespace Compent.uIntra.Core.IoC
                 RegisterServices(kernel);
                 RegisterModelBinders();
                 RegisterGlobalFilters(kernel);
+                RegisterLocalizationServices(kernel);
 
                 GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
@@ -140,7 +146,7 @@ namespace Compent.uIntra.Core.IoC
         {
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
-
+             
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();
@@ -153,7 +159,8 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IMemberService>().ToMethod(i => ApplicationContext.Current.Services.MemberService).InRequestScope();
             kernel.Bind<IMemberTypeService>().ToMethod(i => ApplicationContext.Current.Services.MemberTypeService).InRequestScope();
             kernel.Bind<IMemberGroupService>().ToMethod(i => ApplicationContext.Current.Services.MemberGroupService).InRequestScope();
-
+            kernel.Bind<ILocalizationService>().ToMethod(i => ApplicationContext.Current.Services.LocalizationService).InRequestScope();
+            kernel.Bind<IDomainService>().ToMethod(i => ApplicationContext.Current.Services.DomainService).InRequestScope();
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
@@ -270,6 +277,21 @@ namespace Compent.uIntra.Core.IoC
         private static void RegisterGlobalFilters(IKernel kernel)
         {
             GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
+        }
+
+        private static void RegisterLocalizationServices(IKernel kernel)
+        {
+            kernel.Bind<ILocalizationConfigurationSection>().ToMethod(c => (ILocalizationConfigurationSection)ConfigurationManager.GetSection("localizationConfiguration")).InSingletonScope();
+            kernel.Bind<ILocalizationSettingsService>().To<LocalizationSettingsService>().InRequestScope();
+            kernel.Bind<ILocalizationCacheProvider>().To<LocalizationMemoryCacheProvider>().InRequestScope();
+            kernel.Bind<ILocalizationCacheService>().To<LocalizationCacheService>().InRequestScope();
+            kernel.Bind<ILocalizationResourceCacheService>().To<LocalizationResourceCacheService>().InRequestScope();
+            kernel.Bind<ILocalizationStorageService>().To<LocalizationStorageService>().InRequestScope();
+            kernel.Bind<ILocalizationServiceLanguageEventHandlers>().To<LocalizationServiceLanguageEventHandlers>().InRequestScope();
+            kernel.Bind<ILocalizationCoreService>().To<LocalizationCoreService>().InRequestScope();
+
+            kernel.Bind<ICultureHelper>().To<CultureHelper>().InRequestScope();
+
         }
 
         private static UmbracoContext CreateUmbracoContext()
