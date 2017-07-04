@@ -24,7 +24,7 @@ namespace uIntra.CentralFeed.Web
         private readonly ISubscribeService _subscribeService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(
@@ -33,7 +33,8 @@ namespace uIntra.CentralFeed.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper, IActivityTypeProvider activityTypeProvider)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            ICentralFeedTypeProvider centralFeedTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
@@ -41,7 +42,7 @@ namespace uIntra.CentralFeed.Web
             _subscribeService = subscribeService;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
-            _activityTypeProvider = activityTypeProvider;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
         public virtual ActionResult Overview()
@@ -58,11 +59,12 @@ namespace uIntra.CentralFeed.Web
 
         public virtual ActionResult List(CentralFeedListModel model)
         {
-            var items = GetCentralFeedItems(model.Type).ToList();
+            var centralFeedType = _centralFeedTypeProvider.Get(model.Type);
+            var items = GetCentralFeedItems(centralFeedType).ToList();
 
             RestoreFiltersState(model);
 
-            var tabSettings = _centralFeedService.GetSettings(model.Type);
+            var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
             var filteredItems = ApplyFilters(items, model, tabSettings).ToList();
 
@@ -73,7 +75,7 @@ namespace uIntra.CentralFeed.Web
                 return null;
             }
 
-            var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems);
+            var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems, centralFeedType);
             var filterStateModel = GetFilterStateModel(centralFeedModel);
             _centralFeedContentHelper.SaveFiltersState(filterStateModel);
 
@@ -90,10 +92,10 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<ICentralFeedItem> filteredItems)
+        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<ICentralFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = Sort(filteredItems, model.Type).Take(take).ToList();
+            var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
 
 
             return new CentralFeedListViewModel
@@ -101,7 +103,7 @@ namespace uIntra.CentralFeed.Web
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
                 Items = pagedItemsList,
                 Settings = _centralFeedService.GetAllSettings(),
-                Type = model.Type,
+                Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
                 ShowPinned = model.ShowPinned ?? false,
                 IncludeBulletin = model.IncludeBulletin ?? false,
@@ -163,8 +165,7 @@ namespace uIntra.CentralFeed.Web
                     Type = singleSetting.Type,
                     CreateUrl = singleSetting.CreatePage.Url,
                     TabUrl = singleSetting.OverviewPage.Url,
-                    HasSubscribersFilter = singleSetting.HasSubscribersFilter,
-
+                    HasSubscribersFilter = singleSetting.HasSubscribersFilter
                 };
             }
         }
