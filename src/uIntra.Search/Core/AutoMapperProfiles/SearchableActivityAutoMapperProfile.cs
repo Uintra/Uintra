@@ -12,8 +12,12 @@ namespace uIntra.Search
                 .ForMember(dst => dst.StartDate, o => o.Ignore())
                 .ForMember(dst => dst.EndDate, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.MapFrom(el => el.Type.Id))
-                .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description));
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description))
+                .AfterMap((src, dst) =>
+                {
+                    dst.Type = src.Type.Id;
+                });
 
             base.Configure();
         }
