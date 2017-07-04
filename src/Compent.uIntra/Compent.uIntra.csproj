@@ -349,7 +349,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Core, Version=1.1.15.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uIntra.Core.1.1.15.2\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
