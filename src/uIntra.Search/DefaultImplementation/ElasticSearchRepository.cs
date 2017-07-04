@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nest;
-using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Search.Configuration;
@@ -14,6 +13,7 @@ namespace uIntra.Search
         protected readonly IElasticConfigurationSection Configuration;
         protected readonly IElasticClient Client;
         protected readonly string IndexName;
+        protected const string AttachmentsPipelineName = "attachments";
 
         private readonly IExceptionLogger _exceptionLogger;
 
@@ -37,7 +37,7 @@ namespace uIntra.Search
             return GetSearchResponse(descriptor);
         }
 
-        public void EnsureIndexExist(Func<AnalysisDescriptor, AnalysisDescriptor> analysis)
+        public void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis)
         {
             if (Client.IndexExists(IndexName).Exists) return;
 
@@ -49,6 +49,8 @@ namespace uIntra.Search
             {
                 RequestError(createIndexResponse);
             }
+
+            EnsureAttachmentsPipelineExists();
         }
 
         public void DeleteIndex()
@@ -80,13 +82,30 @@ namespace uIntra.Search
         {
             _exceptionLogger.Log(response.OriginalException);
         }
+
+        private void EnsureAttachmentsPipelineExists()
+        {
+            var pipelineResponse = Client.GetPipeline(el => el.Id(AttachmentsPipelineName));
+            if (pipelineResponse.IsValid)
+            {
+                return;
+            }
+
+            var putPipelineResponse = Client.PutPipeline(AttachmentsPipelineName,
+                       p => p.Description("Extract attachment information").Processors(pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Data).
+                       TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Data))));
+
+            if (!putPipelineResponse.IsValid)
+            {
+                RequestError(putPipelineResponse);
+            }
+        }
     }
 
     public class ElasticSearchRepository<T> : ElasticSearchRepository, IElasticSearchRepository<T>
         where T : SearchableBase
     {
         private readonly PropertiesDescriptor<T> _properties;
-        private const string AttachmentsPipelineName = "attachments";
         private static readonly Type SearchableDocumentType = typeof(SearchableDocument);
 
         public ElasticSearchRepository(
@@ -98,7 +117,6 @@ namespace uIntra.Search
             : base(indexName, configuration, exceptionLogger)
         {
             _properties = properties;
-            CreateAttachmentsPipeline();
         }
 
         public T Get(object id)
@@ -180,19 +198,6 @@ namespace uIntra.Search
         public string GetTypeName()
         {
             return typeof(T).Name.ToLower();
-        }
-
-        private void CreateAttachmentsPipeline()
-        {
-            var pipelineResponse = Client.GetPipeline(el => el.Id(AttachmentsPipelineName));
-            if (pipelineResponse.IsValid)
-            {
-                return;
-            }
-
-            Client.PutPipeline(AttachmentsPipelineName,
-                      p => p.Description("Extract attachment information").Processors(pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Data).
-                      TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Data))));
         }
 
         private static IndexDescriptor<T> SetPipelines(IndexDescriptor<T> indexDescriptor)

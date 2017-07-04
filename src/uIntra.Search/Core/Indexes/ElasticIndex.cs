@@ -42,7 +42,7 @@ namespace uIntra.Search
         public void RecreateIndex()
         {
             _elasticSearchRepository.DeleteIndex();
-            _elasticSearchRepository.EnsureIndexExist(ElasticHelpers.SetAnalysis);
+            _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis);
         }
 
         private static QueryContainer[] GetQueryContainers(string query)
