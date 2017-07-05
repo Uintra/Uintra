@@ -48,7 +48,7 @@ function updateNotificationsCount() {
     $.ajax({
         url: "/umbraco/surface/Notification/GetNotNotifiedCount",
         success: function (count) {
-            var countHolder = $('.notifications__number');
+            var countHolder = $('.js-notification__number');
             if (count > 0) {
                 countHolder.html(count);
                 countHolder.show();

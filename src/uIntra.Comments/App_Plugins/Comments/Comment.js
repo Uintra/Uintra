@@ -206,7 +206,7 @@ var Comment = function (selector) {
 };
 
 function init() {
-    new CommentOverview('[id^=js-comments-overview-]');
+    new CommentOverview('.js-comments-overview');
 }
 
 var controller = {
@@ -214,6 +214,6 @@ var controller = {
     factory: CommentOverview
 };
 
-window.CommentOverview = CommentOverview;
+uIntra.methods.add("CommentOverview", CommentOverview);
 
 export default controller;

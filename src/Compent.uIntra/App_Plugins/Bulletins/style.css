@@ -19,6 +19,12 @@
 
 	.ql-container .ql-editor {
 		height: auto;
+
+        &.ql-blank{
+            &:before{
+                font-size:12px;
+            }
+        }
 	}
 
 	&__close {
@@ -64,6 +70,11 @@
 
 			button {
 				margin: 0 0 0 15px;
+
+                svg{
+                    width:18px;
+                    height:18px;
+                }
 
 				&:first-child {
 					margin: 0;

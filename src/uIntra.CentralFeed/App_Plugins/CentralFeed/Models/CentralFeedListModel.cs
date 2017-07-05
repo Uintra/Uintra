@@ -1,10 +1,8 @@
-﻿using uIntra.Core.TypeProviders;
-
-namespace uIntra.CentralFeed.App_Plugins.CentralFeed.Models
+﻿namespace uIntra.CentralFeed.App_Plugins.CentralFeed.Models
 {
     public class CentralFeedListModel
     {
-        public IIntranetType Type { get; set; }
+        public int Type { get; set; }
         public long? Version { get; set; }
         public int Page { get; set; } = 1;
 

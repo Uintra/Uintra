@@ -91,7 +91,7 @@
             }
         }
 
-        &._black{
+        &._submit{
             border-color:var(--color-black);
             background:var(--color-black);
             color:var(--color-white);

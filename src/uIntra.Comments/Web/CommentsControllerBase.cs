@@ -19,27 +19,19 @@ namespace uIntra.Comments.Web
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserContentHelper intranetUserContentHelper;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper
-            )
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
-            this.intranetUserContentHelper = intranetUserContentHelper;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
-
-        protected virtual void FillProfileLink()
-        {
-            var profilePageUrl = intranetUserContentHelper.GetProfilePage().Url;
-            ViewData.SetProfilePageUrl(profilePageUrl);
-        }
-
 
         [HttpPost]
         public virtual PartialViewResult Add(CommentCreateModel model)
@@ -128,13 +120,10 @@ namespace uIntra.Comments.Web
             return PartialView(PreviewViewPath, model);
         }
 
-        protected virtual void OnCommentCreated(Comment comment)
+        protected virtual void FillProfileLink()
         {
-
-        }
-
-        protected virtual void OnCommentEdited(Comment comment)
-        {
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
+            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual PartialViewResult OverView(Guid activityId)
@@ -186,6 +175,15 @@ namespace uIntra.Comments.Web
         protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
+        }
+
+        protected virtual void OnCommentCreated(Comment comment)
+        {
+
+        }
+
+        protected virtual void OnCommentEdited(Comment comment)
+        {
         }
     }
 }

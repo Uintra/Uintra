@@ -10,7 +10,7 @@ namespace uIntra.Search
         ISearchResponse<T> SearchByIndex<T>(SearchDescriptor<T> descriptor)
             where T : class;
 
-        void EnsureIndexExist(Func<AnalysisDescriptor, AnalysisDescriptor> analysis);
+        void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis);
 
         void DeleteIndex();
     }

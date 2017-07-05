@@ -35,7 +35,7 @@ namespace Compent.uIntra.Controllers
                 return like;
             }
 
-            var notifiableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
+            var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
                 if (model.CommentId.HasValue)

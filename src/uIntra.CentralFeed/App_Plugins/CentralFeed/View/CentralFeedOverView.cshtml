@@ -25,7 +25,7 @@
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
-                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.GetHashCode()" data-page-url="@tabModel.Url">
+                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Url">
                         <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
@@ -37,7 +37,7 @@
             new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
             {
                 <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
-                <input type="hidden" name="type" value="@(Model.CurrentType.GetHashCode())" />
+                <input type="hidden" name="type" value="@Model.CurrentType.Id" />
                 <input type="hidden" name="page" />
                 <div class="tab-content js-feed-listContainer">
                     @{Html.RenderAction("List", "CentralFeed",
@@ -45,7 +45,7 @@
                         {
                             model = new CentralFeedListModel
                             {
-                                Type = Model.CurrentType
+                                Type = Model.CurrentType.Id
                             }
                         }); }
                 </div>

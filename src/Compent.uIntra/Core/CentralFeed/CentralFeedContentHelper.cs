@@ -65,7 +65,7 @@ namespace Compent.uIntra.Core.CentralFeed
             foreach (var content in GetContents())
             {
                 var tabType = GetTabType(content);
-                var activityType = tabType.GetHashCode().ToEnum<IntranetActivityTypeEnum>();
+                var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
                 if (activityType == null)
                 {

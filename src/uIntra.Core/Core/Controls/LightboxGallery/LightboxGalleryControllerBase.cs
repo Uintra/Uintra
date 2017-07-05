@@ -28,7 +28,7 @@ namespace uIntra.Core.Controls.LightboxGallery
             {
                 var ids = mediaIds.ToIntCollection();
                 var medias = _umbracoHelper.TypedMedia(ids).ToList();
-                result = medias.Map<IEnumerable<LightboxGalleryViewModel>>().OrderBy(s => s.Type);
+                result = medias.Map<IEnumerable<LightboxGalleryViewModel>>().OrderBy(s => s.Type.Id);
             }
 
             return View(GalleryViewPath, result);

@@ -9,12 +9,11 @@
     {
         return;
     }
-    //todo: Add horizontal or vertical alignment styles to UI
-    var isVertical = (viewModel.type == PanelsConstants.VerticalAlignmentAlias ? "_vertical" : "_horizontal");
+    var direction = (viewModel.type == PanelsConstants.VerticalAlignmentAlias ? "_vertical" : "_horizontal");
     string seeAllLink = viewModel?.link?.link;
 }
 
-<section class="block _document-panel clearfix @isVertical" id="@Guid.NewGuid()">
+<section class="block _document-panel clearfix @direction" id="@Guid.NewGuid()">
     @{
         int? mediaId = null;
         if (viewModel.media != null && viewModel.media != "")
