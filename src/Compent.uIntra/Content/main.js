@@ -14,6 +14,7 @@ import {} from './../App_Plugins/Panels/DocumentLibraryPanel/documentLibraryPane
 import initEvents from './../App_Plugins/Events/events';
 import news from './../App_Plugins/News/news';
 import {} from './../App_Plugins/Likes/likes';
+import confirmOnBeforeUnload from './../App_Plugins/Core/Content/Scripts/ConfirmOnBeforeUnload';
 
 initCore();
 centralFeed.init();
@@ -29,3 +30,4 @@ comment.init();
 contentPanel.init();
 news.init();
 initBulletings();
+confirmOnBeforeUnload();
