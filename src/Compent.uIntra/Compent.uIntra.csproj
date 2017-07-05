@@ -1025,6 +1025,26 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <None Include="config\umbracoSettings.Debug.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.DebugWithDll.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.Dev.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.NuGet.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.Release.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1044,6 +1064,9 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <None Include="Web.DebugWithDll.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.NuGet.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1125,7 +1148,7 @@
     <Compile Include="Core\Notification\Mails\CommentAddedMail.cs" />
     <Compile Include="Core\Notification\Mails\CommentEditedMail.cs" />
     <Compile Include="Core\Notification\Mails\CommentLikeAddedMail.cs" />
-    <Compile Include="Core\Notification\Mails\CommentReplyedMail.cs" />
+    <Compile Include="Core\Notification\Mails\CommentRepliedMail.cs" />
     <Compile Include="Core\Notification\Mails\EventHidedMail.cs" />
     <Compile Include="Core\Notification\Mails\EventMail.cs" />
     <Compile Include="Core\Notification\Mails\EventUpdatedMail.cs" />
@@ -1214,7 +1237,9 @@
     <None Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="config\umbracoSettings.config" />
+    <Content Include="config\umbracoSettings.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </Content>
     <Content Include="config\trees.config" />
     <Content Include="config\404handlers.config">
       <SubType>Designer</SubType>
@@ -1324,6 +1349,7 @@
   <Target Name="BeforeBuild">
     <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
     <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" />
+	<TransformXml Source="config\umbracoSettings.config" Transform="config\umbracoSettings.$(Configuration).config" Destination="config\umbracoSettings.config" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
