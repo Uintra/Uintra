@@ -38,7 +38,7 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnCommentCreated(Comment comment)
         {
-            var service = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
                 var notificationId = comment.ParentId.HasValue

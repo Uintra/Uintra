@@ -51,7 +51,7 @@ namespace uIntra.Core.User.Permissions
 
         public virtual string GetPermissionFromTypeAndAction(IIntranetType activityType, IntranetActivityActionEnum action)
         {
-            return $"{activityType.Id}{action}";
+            return $"{activityType.Name}{action}";
         }
 
         public virtual bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action)
@@ -78,7 +78,7 @@ namespace uIntra.Core.User.Permissions
                 return true;
             }
 
-            var permission = $"{activityType.Id}{action}";
+            var permission = $"{activityType.Name}{action}";
             var userHasPermissions = IsRoleHasPermissions(user.Role, permission);
 
             return userHasPermissions;
