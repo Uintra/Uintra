@@ -281,6 +281,31 @@
             }
         }
     }
+
+	.documents {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&__item {
+			margin: 0 15px 15px 0;
+
+			&:last-child {
+				margin: 0 0 15px;
+			}
+		}
+	}
+
+	&._horizontal .documents {
+		flex-direction: row;
+
+		&__item {
+			max-width: 150px;
+		}
+	}
 }
 
 ._sidebar-expanded{
