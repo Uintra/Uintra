@@ -359,6 +359,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Extentions\ListExtensions.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
     <Compile Include="Core\TypeProviders\IntranetType.cs" />

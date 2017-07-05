@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Linq;
-using EmailWorker.Data.Extensions;
-using EmailWorker.Data.Model;
-using EmailWorker.Data.Services.Interfaces;
-using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
 using uIntra.Core.TypeProviders;
@@ -14,21 +10,18 @@ using uIntra.Notification.MailModels;
 
 namespace uIntra.Notification
 {
-    public class MailNotifierService : INotifierService
+    public class MailNotifierServiceBase : INotifierService
     {
-        private readonly IEmailService _emailService;
-        private readonly IMailConfiguration _mailConfiguration;
+        private readonly IMailService _mailService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
 
-        public MailNotifierService(
-            IEmailService emailService,
-            IMailConfiguration mailConfiguration,
+        protected MailNotifierServiceBase(
+            IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetLocalizationService intranetLocalizationService)
         {
-            _emailService = emailService;
-            _mailConfiguration = mailConfiguration;
+            _mailService = mailService;
             _intranetUserService = intranetUserService;
             _intranetLocalizationService = intranetLocalizationService;
         }
@@ -45,109 +38,118 @@ namespace uIntra.Notification
             }
         }
 
-        private void SendMail(IIntranetType notificationType, INotifierDataValue notifierDataValue, IIntranetUser user)
+        protected virtual void SendMail(IIntranetType notificationType, INotifierDataValue notifierDataValue, IIntranetUser user)
         {
-            var recipient = new EmailRecipient { Email = user.Email, Name = user.DisplayedName };
+            var recipient = new MailRecipient { Email = user.Email, Name = user.DisplayedName };
+
+            MailBase mail;
 
             switch (notificationType.Id)
             {
                 case (int)NotificationTypeEnum.Event:
-                    SendEventMail(notifierDataValue, recipient);
-                    break;
-                case (int)NotificationTypeEnum.EventUpdated:
-                    SendEventUpdatedMail(notifierDataValue, recipient);
-                    break;
-                case (int)NotificationTypeEnum.EventHided:
-                    SendEventHidedMail(notifierDataValue, recipient);
-                    break;
-                case (int)NotificationTypeEnum.BeforeStart:
-                    SendBeforeStartMail(notifierDataValue, recipient);
+                    mail = GetEventMail<EventMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.News:
-                    SendNewsMail(notifierDataValue, recipient);
+                    mail = GetNewsMail<NewsMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.Idea:
-                    SendIdeaMail(notifierDataValue, recipient);
+                    mail = GetIdeaMail<IdeaMailBase>(notifierDataValue, recipient);
+                    break;
+                case (int)NotificationTypeEnum.EventUpdated:
+                    mail = GetEventUpdatedMail<EventUpdatedMailBase>(notifierDataValue, recipient);
+                    break;
+                case (int)NotificationTypeEnum.EventHided:
+                    mail = GetEventHidedMail<EventHidedMailBase>(notifierDataValue, recipient);
+                    break;
+                case (int)NotificationTypeEnum.BeforeStart:
+                    mail = GetBeforeStartMail<BeforeStartMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.ActivityLikeAdded:
-                    SendActivityLikeAddedMail(notifierDataValue, recipient);
+                    mail = GetActivityLikeAddedMail<ActivityLikeAddedMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.CommentAdded:
-                    SendCommentAddedMail(notifierDataValue, recipient);
+                    mail = GetCommentAddedMail<CommentAddedMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.CommentEdited:
-                    SendCommentEditedMail(notifierDataValue, recipient);
+                    mail = GetCommentEditedMail<CommentEditedMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.CommentReplyed:
-                    SendCommentReplyedMail(notifierDataValue, recipient);
+                    mail = GetCommentReplyedMail<CommentReplyedMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.CommentLikeAdded:
-                    SendCommentLikeAddedMail(notifierDataValue, recipient);
+                    mail = GetCommentLikeAddedMail<CommentLikeAddedMailBase>(notifierDataValue, recipient);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(notificationType), "Unknown Notification Type");
             }
+
+            _mailService.Send(mail);
         }
 
-        protected virtual void SendEventMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetEventMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : EventMailBase, new()
         {
-            var mail = new EventMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendNewsMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetNewsMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : NewsMailBase, new()
         {
-            var mail = new NewsMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendIdeaMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetIdeaMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : IdeaMailBase, new()
         {
-            var mail = new IdeaMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendEventUpdatedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetEventUpdatedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : EventUpdatedMailBase, new()
         {
             var notifierData = GetNotifierData<ActivityNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
 
-            var mail = new EventUpdatedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 Title = data.Title,
                 Type = GetActivityTypeText(data.ActivityType),
                 Url = data.Url,
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendEventHidedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetEventHidedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : EventHidedMailBase, new()
         {
             var notifierData = GetNotifierDataWithNotifier<ActivityNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
             var notifier = notifierData.Item2;
 
-            var mail = new EventHidedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 Title = data.Title,
                 NotifierFullName = notifier.DisplayedName,
                 Type = GetActivityTypeText(data.ActivityType),
@@ -155,17 +157,18 @@ namespace uIntra.Notification
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendBeforeStartMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetBeforeStartMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : BeforeStartMailBase, new()
         {
             var notifierData = GetNotifierData<ActivityReminderDataModel>(notifierDataValue);
             var data = notifierData.Item1;
 
-            var mail = new BeforeStartMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 ActivityTitle = data.Title,
                 ActivityType = GetActivityTypeText(data.ActivityType),
                 StartDate = data.StartDate.ToDateTimeFormat(),
@@ -173,17 +176,18 @@ namespace uIntra.Notification
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendActivityLikeAddedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetActivityLikeAddedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : ActivityLikeAddedMailBase, new()
         {
             var notifierData = GetNotifierData<LikesNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
 
-            var mail = new ActivityLikeAddedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 ActivityTitle = data.Title,
                 ActivityType = GetActivityTypeText(data.ActivityType),
                 CreatedDate = data.CreatedDate.ToDateTimeFormat(),
@@ -191,66 +195,70 @@ namespace uIntra.Notification
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendCommentAddedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetCommentAddedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : CommentAddedMailBase, new()
         {
             var notifierData = GetNotifierData<CommentNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
 
-            var mail = new CommentAddedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 ActivityTitle = GetActivityTypeText(data.ActivityType),
                 Url = data.Url,
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendCommentEditedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetCommentEditedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : CommentEditedMailBase, new()
         {
             var notifierData = GetNotifierData<CommentNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
 
-            var mail = new CommentEditedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 ActivityTitle = GetActivityTypeText(data.ActivityType),
                 Url = data.Url,
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendCommentReplyedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetCommentReplyedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : CommentReplyedMailBase, new()
         {
             var notifierData = GetNotifierData<CommentNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
 
-            var mail = new CommentReplyedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 ActivityTitle = GetActivityTypeText(data.ActivityType),
                 Url = data.Url,
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
-        protected virtual void SendCommentLikeAddedMail(INotifierDataValue notifierDataValue, EmailRecipient recipient)
+        protected virtual T GetCommentLikeAddedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : CommentLikeAddedMailBase, new()
         {
-            var mail = new CommentLikeAddedMail(_mailConfiguration.MailTemplateXpath)
+            var result = new T
             {
-                To = recipient.ToListOfOne(),
+                Recipients = recipient.ToListOfOne(),
                 FullName = recipient.Name
             };
 
-            _emailService.AddInMailQueue(mail);
+            return result;
         }
 
         private Tuple<T, Guid?> GetNotifierData<T>(INotifierDataValue notifierDataValue)
