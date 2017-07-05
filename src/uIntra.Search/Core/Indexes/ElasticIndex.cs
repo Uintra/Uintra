@@ -8,10 +8,11 @@ namespace uIntra.Search
 {
     public class ElasticIndex : IElasticIndex
     {
+        private const int MinimumShouldMatches = 1;
+
         private readonly IElasticSearchRepository _elasticSearchRepository;
 
-        public ElasticIndex(
-            IElasticSearchRepository elasticSearchRepository)
+        public ElasticIndex(IElasticSearchRepository elasticSearchRepository)
         {
             _elasticSearchRepository = elasticSearchRepository;
         }
@@ -23,8 +24,9 @@ namespace uIntra.Search
                 .TrackScores()
                 .Query(q =>
                     q.Bool(b => b
-                        .Should(GetQueryContainers(textQuery.Text))
-                        .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))))
+                       .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))
+                       .Should(GetQueryContainers(textQuery.Text))
+                       .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
                 .Take(textQuery.Take);
 
             ApplySort(searchRequest);

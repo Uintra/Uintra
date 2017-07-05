@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Comments;
+using Localization.Umbraco.Attributes;
 using uIntra.Comments;
 using uIntra.Comments.Web;
 using uIntra.Core.Activity;
@@ -12,6 +13,7 @@ using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
+    [ThreadCulture]
     public class CommentsController : CommentsControllerBase
     {
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
