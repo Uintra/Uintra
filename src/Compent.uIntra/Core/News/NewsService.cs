@@ -315,7 +315,7 @@ namespace Compent.uIntra.Core.News
                         };
                     }
                     break;
-                case (int) NotificationTypeEnum.CommentReplyed:
+                case (int) NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         news = Get(comment.ActivityId);

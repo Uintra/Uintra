@@ -70,9 +70,9 @@ namespace Compent.uIntra.Core.Notification
             return (T)(object)result;
         }
 
-        protected override T GetCommentReplyedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+        protected override T GetCommentRepliedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
         {
-            var result = base.GetCommentReplyedMail<CommentReplyedMail>(notifierDataValue, recipient);
+            var result = base.GetCommentRepliedMail<CommentRepliedMail>(notifierDataValue, recipient);
             return (T)(object)result;
         }
 
