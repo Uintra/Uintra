@@ -11,7 +11,7 @@
         ActivityLikeAdded,
         CommentAdded,
         CommentEdited,
-        CommentReplyed,
+        CommentReplied,
         CommentLikeAdded
     }
 }
