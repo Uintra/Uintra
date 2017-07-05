@@ -91,16 +91,16 @@
             }
         }
 
-        &._black{
-            border-color:var(--color-black);
-            background:var(--color-black);
+        &._submit{
+            border-color:var(--color-submit);
+            background:var(--color-submit);
             color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                background:var(--text-color-dark);
-                border-color:var(--text-color-dark);
+                background:var(--color-submit-hover);
+                border-color:var(--color-submit-hover);
                 text-decoration:none;
             }
         }
