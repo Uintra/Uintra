@@ -13,6 +13,7 @@
         <input type="hidden" name="page" value="1" />
 
         <div class="search-result__filter">
+            <h3 class="search-result__filter-title">@Html.Localize("Search.Filter.All.lbl")"</h3>
             <select data-placeholder="@Html.Localize("Search.Filter.All.lbl")" class="js-types-select" multiple="multiple" name="types">
                 @foreach (var item in Model.FilterItems)
                 {
