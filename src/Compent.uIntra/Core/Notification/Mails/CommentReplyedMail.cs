@@ -6,7 +6,7 @@ using uIntra.Notification.MailModels;
 
 namespace Compent.uIntra.Core.Notification.Mails
 {
-    public class CommentReplyedMail : CommentReplyedMailBase, IEmailBase
+    public class CommentRepliedMail : CommentRepliedMailBase, IEmailBase
     {
         public string GetXPath()
         {
