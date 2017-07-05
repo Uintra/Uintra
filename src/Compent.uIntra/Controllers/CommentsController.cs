@@ -44,7 +44,7 @@ namespace Compent.uIntra.Controllers
             if (service != null)
             {
                 var notificationId = comment.ParentId.HasValue
-                    ? NotificationTypeEnum.CommentReplyed.ToInt()
+                    ? NotificationTypeEnum.CommentReplied.ToInt()
                     : NotificationTypeEnum.CommentAdded.ToInt();
 
                 var notificationType = _notificationTypeProvider.Get(notificationId);
