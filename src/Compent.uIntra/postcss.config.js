@@ -16,6 +16,8 @@ module.exports = {
                         '--color-light-gray-4': '#aaa',
                         '--text-color-light': '#8f8f8f',
                         '--text-color-dark': '#333',
+                        '--color-submit': '#003693',
+                        '--color-submit-hover': '#1f4a93',
                         '--header-bg': '#373737',
                         '--font-custom': '"Open Sans", Arial, Helvetica, sans-serif',
                         '--font-general': '"Open Sans", Arial, Helvetica, sans-serif'
