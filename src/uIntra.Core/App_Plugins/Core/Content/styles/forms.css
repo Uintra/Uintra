@@ -92,15 +92,15 @@
         }
 
         &._submit{
-            border-color:var(--color-submit);
-            background:var(--color-submit);
+            border-color:var(--color-black);
+            background:var(--color-black);
             color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                background:var(--color-submit-hover);
-                border-color:var(--color-submit-hover);
+                background:var(--text-color-dark);
+                border-color:var(--text-color-dark);
                 text-decoration:none;
             }
         }

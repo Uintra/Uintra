@@ -22,7 +22,7 @@ var initSubMenuPosition = function () {
         return;
     }
 
-    var height = header.height() + tabset.height();
+    var height = header.outerHeight() + tabset.outerHeight();
 
     if(menu.length > 1){
         wrapper.css({
