@@ -16,6 +16,7 @@
 
         $scope.open = function() {
             $scope.overlay.show = true;
+            $scope.control.value.type = $scope.control.value.type || "vertical";
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
