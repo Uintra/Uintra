@@ -9,7 +9,6 @@ import {uIntra} from './Namespace';
 import anchorScroll from './AnchorScroll';
 import validationExtensions from './ValidationExtensions';
 import scrollToTop from './ScrollToTop';
-import confirmOnBeforeUnload from './ConfirmOnBeforeUnload';
 import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
 
 export default function() {
@@ -17,7 +16,6 @@ export default function() {
     blockOnSubmit();
     validationExtensions();
     scrollToTop();
-    confirmOnBeforeUnload();
     lightboxGallery.init();
     showContent();
 }
