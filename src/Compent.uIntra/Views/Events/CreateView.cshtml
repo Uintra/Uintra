@@ -8,7 +8,7 @@
 <div class="form js-check-before-unload" id="js-events-create-page">
     @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
     {
-        <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
+        <h1 class="form__title">@Html.Localize("EventsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("EventsCreate.Creator.lbl")</label>
             @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId) })
