@@ -29,6 +29,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<BulletinsAutoMapperProfile>();
             Mapper.AddProfile<Core.Bulletins.BulletinsAutoMapperProfile>();
             Mapper.AddProfile<NotificationAutoMapperProfile>();
+            Mapper.AddProfile<Core.Notification.NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<IntranetUserAutoMapperProfile>();
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
