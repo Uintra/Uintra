@@ -73,8 +73,8 @@ namespace uIntra.Notification
                 case (int)NotificationTypeEnum.CommentEdited:
                     mail = GetCommentEditedMail<CommentEditedMailBase>(notifierDataValue, recipient);
                     break;
-                case (int)NotificationTypeEnum.CommentReplyed:
-                    mail = GetCommentReplyedMail<CommentReplyedMailBase>(notifierDataValue, recipient);
+                case (int)NotificationTypeEnum.CommentReplied:
+                    mail = GetCommentRepliedMail<CommentRepliedMailBase>(notifierDataValue, recipient);
                     break;
                 case (int)NotificationTypeEnum.CommentLikeAdded:
                     mail = GetCommentLikeAddedMail<CommentLikeAddedMailBase>(notifierDataValue, recipient);
@@ -232,8 +232,8 @@ namespace uIntra.Notification
             return result;
         }
 
-        protected virtual T GetCommentReplyedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-            where T : CommentReplyedMailBase, new()
+        protected virtual T GetCommentRepliedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+            where T : CommentRepliedMailBase, new()
         {
             var notifierData = GetNotifierData<CommentNotifierDataModel>(notifierDataValue);
             var data = notifierData.Item1;
@@ -289,7 +289,7 @@ namespace uIntra.Notification
 
         private string GetActivityTypeText(IIntranetType activityType)
         {
-            var result = _intranetLocalizationService.Translate(activityType.Id.GetLocalizeKey());
+            var result = _intranetLocalizationService.Translate(activityType.Name);
             return result;
         }
     }

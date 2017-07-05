@@ -336,7 +336,7 @@
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentEditedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentLikeAddedMailBase.cs" />
-    <Compile Include="Core\Models\MailModels\CommentReplyedMailBase.cs" />
+    <Compile Include="Core\Models\MailModels\CommentRepliedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\EventHidedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\EventMailBase.cs" />
     <Compile Include="Core\Models\MailModels\EventUpdatedMailBase.cs" />
