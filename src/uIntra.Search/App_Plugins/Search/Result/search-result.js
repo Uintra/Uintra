@@ -31,6 +31,10 @@ function initSearchPage() {
                 document.querySelector(".js-searchResults-listContainer").innerHTML = "";
             }
         });
+
+    select.change(function() {
+        search()
+    });
 }
 
 function initInfinityScroll() {
