@@ -26,6 +26,11 @@
         position:relative;
         margin:0 0 40px;
 
+        &-title{
+            font:bold 13px/22px var(--font-general);
+            margin:0 0 3px;
+        }
+
         .select2{
             width:100% !important;
             width:100%;

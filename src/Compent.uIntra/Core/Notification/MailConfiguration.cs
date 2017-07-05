@@ -1,12 +1,11 @@
 ﻿using uIntra.Core;
-using uIntra.Notification.Configuration;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.Mails
+namespace Compent.uIntra.Core.Notification
 {
-    public class MailConfiguration : IMailConfiguration
+    public class MailConfiguration
     {
-        public string MailTemplateXpath => XPathHelper.GetXpath(
+        public static string MailTemplateXpath => XPathHelper.GetXpath(
             DataFolder.ModelTypeAlias, 
             MailTemplatesFolder.ModelTypeAlias,
             MailTemplate.ModelTypeAlias);

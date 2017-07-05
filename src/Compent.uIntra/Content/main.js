@@ -10,9 +10,11 @@ import initNavigation from './../App_Plugins/Navigation/navigation';
 import comment from "./../App_Plugins/Comments/comment";
 import initBulletings from './../App_Plugins/Bulletins/bulletins';
 import contentPanel from './../App_Plugins/Panels/ContentPanel/contentPanel';
+import {} from './../App_Plugins/Panels/DocumentLibraryPanel/documentLibraryPanel';
 import initEvents from './../App_Plugins/Events/events';
 import news from './../App_Plugins/News/news';
 import {} from './../App_Plugins/Likes/likes';
+import confirmOnBeforeUnload from './../App_Plugins/Core/Content/Scripts/ConfirmOnBeforeUnload';
 
 initCore();
 centralFeed.init();
@@ -28,3 +30,4 @@ comment.init();
 contentPanel.init();
 news.init();
 initBulletings();
+confirmOnBeforeUnload();

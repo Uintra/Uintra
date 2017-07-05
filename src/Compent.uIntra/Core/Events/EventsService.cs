@@ -297,7 +297,7 @@ namespace Compent.uIntra.Core.Events
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.CommentReplyed:
+                case (int) NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);

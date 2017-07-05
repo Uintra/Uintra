@@ -10,7 +10,7 @@
     @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
     {
         @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })
-        <h1 class="form__title">@Html.Localize("EventsEdit.Title.lbl")</h1>
+        <h1 class="form__title">@Html.Localize("EventsEditPage.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />
 
         <div class="form__row clearfix">

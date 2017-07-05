@@ -253,7 +253,7 @@ namespace Compent.uIntra.Core.Bulletins
                     };
                 }
                     break;
-                case (int) NotificationTypeEnum.CommentReplyed:
+                case (int) NotificationTypeEnum.CommentReplied:
                 {
                     var comment = _commentsService.Get(entityId);
                     bulletinsEntity = Get(comment.ActivityId);

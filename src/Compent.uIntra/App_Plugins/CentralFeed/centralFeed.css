@@ -14,11 +14,11 @@
             &{
                 max-width: 756px;
             }
-		}
+	    }
 
         &._pinned:not(._pinnedExpired) {
-			background: var(--color-light-gray-2);
-			border: solid var(--color-light-gray);
+		    background: var(--color-light-gray-2);
+		    border: solid var(--color-light-gray);
             border-width:1px 0;
             padding: 30px 20px;
             margin-top:-41px;
@@ -41,7 +41,7 @@
                     display:none;
                 }
             }
-		}
+	    }
 
         &-heading{
             margin:0 0 20px;
@@ -294,69 +294,73 @@
     }
 
     &-links {
-		 display: flex;
-		 flex-wrap: wrap;
-		 align-items: flex-start;
-		 margin: 25px 20px 25px 0;
-		 padding: 0;
-		 list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		margin: 25px 20px 25px 0;
+		padding: 0;
+		list-style: none;
 
-		 &__frame {
-			 margin: 5px 10px 5px 0;
-			 border: 1px solid #ccc;
+		&__frame {
+			margin: 5px 10px 5px 0;
+			border: 1px solid #ccc;
 
-			 &:last-child {
-				 margin: 5px 0;
-			 }
-		 }
+			&:last-child {
+				margin: 5px 0;
+			}
+		}
 
-		 &__item {
-			 display: block;
-			 padding: 8px 25px;
-			 color: #333;
-			 background: #fff;
-			 text-decoration: none;
+		&__item {
+			display: block;
+			padding: 8px 25px;
+			color: #333;
+			background: #fff;
+			text-decoration: none;
 
-			 &:hover {
-				 color: #333;
-			 }
+			&:hover {
+				color: #333;
+			}
 
-			 .feed-links__frame._active & {
-				 background: #ccc;
-				 color: #fff;
+			.feed-links__frame._active & {
+				background: #ccc;
+				color: #fff;
 
-				 &:hover {
-					 cursor: default;
-					 text-decoration: none;
-					 color: #fff;
-				 }
-			 }
-		 }
-	 }
+				&:hover {
+					cursor: default;
+					text-decoration: none;
+					color: #fff;
+				}
+			}
+		}
+	}
 
-	 &-create {
-		 display: flex;
-		 flex-wrap: wrap;
-		 justify-content: flex-end;
-		 margin: 0 0 20px;
-		 padding: 0;
-		 list-style: none;
+	&-create {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		margin: 0 0 20px;
+		padding: 0;
+		list-style: none;
 
-		 &__frame {
-			 margin: 0 0 0 10px;
-		 }
+		&__frame {
+			margin: 0 0 0 10px;
+		}
 
-		 &__item {
-			 display: block;
-			 padding: 8px 25px;
-			 background: #ccc;
-			 color: #fff;
+		&__item {
+			display: block;
+			padding: 8px 25px;
+			background: #ccc;
+			color: #fff;
 
-			 &:hover {
-				 color: #fff;
-			 }
-		 }
-	 }
+			&:hover {
+				color: #fff;
+			}
+		}
+	}
+
+    &__btns{
+        padding-right:10px;
+    }
 }
 
 .pinned {
@@ -370,12 +374,6 @@
 		color: #fff;
 		font-size: 15px;
 		line-height: 19px;
-
-        ._details &{
-            position:absolute;
-            right:-10px;
-            top:40px;
-        }
 
         @media (--for-tablet-portrait-down) {
             &{

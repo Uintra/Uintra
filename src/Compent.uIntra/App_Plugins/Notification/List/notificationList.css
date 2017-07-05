@@ -244,9 +244,18 @@
                 }
             }
 
+            .icon-time,
+            .icon-cancel,
+            .icon-lightning,
             .icon-comment{
                 display:block;
                 padding:5px 0 0;
+            }
+
+            .icon-lightning{
+                &:before{
+                    font-size:20px;
+                }
             }
 
             .notification &{
