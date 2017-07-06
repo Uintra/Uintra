@@ -306,7 +306,13 @@
             }
         }
 
-        &:active,
+	    &:not(._with-avatar) {
+		    .user__avatar {
+			    display: none !important;
+		    }
+	    }
+	    
+	&:active,
         &:focus,
         &:hover{
             text-decoration:none;

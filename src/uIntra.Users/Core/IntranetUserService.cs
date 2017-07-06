@@ -159,7 +159,7 @@ namespace uIntra.Users
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
         {
-            return !string.IsNullOrEmpty(userImage) ? userImage : _applicationSettings.DefaultAvatarPath;
+            return !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
         }
 
         private IntranetUser GetByName(string name)
