@@ -231,10 +231,11 @@ namespace Compent.uIntra.Core.Bulletins
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
                     data.Value = new LikesNotifierDataModel
                     {
-                        Title = bulletinsEntity.Title,
+                        Title = bulletinsEntity.Description,
                         ActivityType = ActivityType,
                         NotifierId = currentUser.Id,
-                        CreatedDate = DateTime.Now
+                        CreatedDate = DateTime.Now,
+                        Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
                     };
                 }
                     break;
@@ -248,7 +249,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         ActivityType = ActivityType,
                         NotifierId = comment.UserId,
-                        Title = bulletinsEntity.Title,
+                        Title = bulletinsEntity.Description,
                         Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
                     };
                 }
@@ -262,7 +263,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         ActivityType = ActivityType,
                         NotifierId = currentUser.Id,
-                        Title = bulletinsEntity.Title,
+                        Title = bulletinsEntity.Description,
                         Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
                         CommentId = comment.Id
                     };
