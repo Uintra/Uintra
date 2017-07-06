@@ -140,12 +140,12 @@ body{
 }
 
 a{
-    color:var(--color-red);
+    color:var(--color-contrast);
 
     &:hover,
     &:active,
     &:focus{
-        color:var(--color-red);
+        color:var(--color-contrast);
     }
 }
 

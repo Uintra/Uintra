@@ -193,10 +193,10 @@
             &:active,
             &focus{
                 &:before {
-                    border-color: var(--color-red);
+                    border-color: var(--color-contrast);
                 }
                 &:after {
-                    border-left-color: var(--color-red);
+                    border-left-color: var(--color-contrast);
                 }
             }
             ._active &{
