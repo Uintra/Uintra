@@ -378,9 +378,9 @@
       <HintPath>..\..\packages\uIntra.Notification.1.1.7.4\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.1.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Panels, Version=2.1.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Panels.2.1.1.5\lib\net452\uIntra.Panels.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Panels.2.1.1.6\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Search, Version=0.0.3.11, Culture=neutral, processorArchitecture=MSIL">
@@ -974,10 +974,6 @@
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css.orig" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
@@ -1003,6 +999,10 @@
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <None Include="config\umbracoSettings.Debug.config">
