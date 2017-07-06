@@ -57,12 +57,12 @@
                                     <h2 class="notification__list-title">
                                         @if (notification.Type.Id == NotificationTypeEnum.EventHided.ToInt())
                                         {
-                                            @notification.Value.title
+                                            @Html.Raw(notification.Value.title)
                                         }
                                         else
                                         {
                                             <a class="notification__list-link" href="@notification.Value.url">
-                                                @notification.Value.title
+                                                @Html.Raw(notification.Value.title)
                                             </a>
                                         }
                                     </h2>
@@ -90,7 +90,7 @@
                                     <span class="notification__list-name">@notification.NotifierName</span>
                                     <h2 class="notification__list-title">
                                         <a class="notification__list-link" href="@notification.Value.url">
-                                            @notification.Value.title
+                                            @Html.Raw(notification.Value.title)
                                         </a>
                                     </h2>
                                 </div>
