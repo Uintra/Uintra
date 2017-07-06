@@ -7,5 +7,6 @@ namespace uIntra.CentralFeed
     {
         public IEnumerable<CentralFeedTabViewModel> Tabs { get; set; }
         public IIntranetType CurrentType { get; set; }
+        public bool IsFiltersOpened { get; set; }
     }
 }
