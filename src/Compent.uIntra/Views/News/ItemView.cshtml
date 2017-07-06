@@ -4,11 +4,10 @@
 @model Compent.uIntra.Core.News.Models.NewsExtendedItemViewModel
 
 @{
-    var expired = Model.Expired ? "_expired" : "";
-    var pinnedClass = Model.IsPinned ? "_pinned" : "";
+    var pinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
 
-<div class="feed__item @expired @pinnedClass">
+<div class="feed__item @pinnedClass">
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
