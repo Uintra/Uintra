@@ -26,6 +26,22 @@ function toggleMobileMenu(element, container){
     });
 }
 
+function toggleUserMenu(){
+    var userOpener = document.querySelector('.user__opener');
+    var userContainer = document.querySelector('.user__menu');
+    var userClass = '_usermenu-expanded';
+
+    userOpener.addEventListener('click', () => {
+        body.toggleClass(userClass).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
+    });
+
+    body.on("click", function(ev) {
+        isOutsideClick(userContainer, userOpener, ev.target, userClass, function() {
+            body.removeClass(userClass);
+        });
+    });
+}
+
 var isOutsideClick = function (el, opener, target, className, callback) {
     if (el && !el.contains(target) && (opener && !opener.contains(target)) && body.hasClass(className)) {
         if (typeof callback === "function") {
@@ -42,6 +58,7 @@ logout.on('click', function(){
 
 var controller = {
     init: function () {
+        toggleUserMenu();
         if (mobileMediaQuery.matches) {
             initMobileNav();
         }
