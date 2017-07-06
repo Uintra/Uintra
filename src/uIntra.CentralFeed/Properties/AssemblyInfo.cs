@@ -4,6 +4,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("uIntra.CentralFeed")]
 [assembly: AssemblyDescription("Central feed activity package.")]
 
-[assembly: AssemblyVersion("1.1.7.1")]
+[assembly: AssemblyVersion("1.1.7.2")]
 [assembly: ComVisible(false)]
 [assembly: Guid("0b1998e4-8fa0-4328-9cd2-bbba92fc4e98")]
