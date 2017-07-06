@@ -1,6 +1,4 @@
-﻿@using System
-@using System.Web.Mvc
-@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc.Html
 @using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetPinActivityModel
 
@@ -23,7 +21,7 @@
         </div>
         <div class="pin-info__holder">
             <label class="form__label" for="js-endpin-date">@Html.Localize("Pin.EndPinDate.lbl")</label>
-            <input class="form__input js-endpin-date" id="js-endpin-date" data-default-date="@(Model.EndPinDate?.ToDateTimeValuePickerFormat())" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input class="form__input js-endpin-date" id="js-endpin-date" data-default-date="@(Model.EndPinDate?.ToDateTimeValuePickerFormat())" data-date-format="@Html.GetDatePickerFormat()" data-enable-time="false" />
             <input type="hidden" class="js-endpin-date-value" name="endPinDate" data-val="true" />
             <span class="js-clear-endpin-date form__clear icon-close"></span>
         </div>
