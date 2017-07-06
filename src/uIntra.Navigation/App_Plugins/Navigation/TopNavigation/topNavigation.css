@@ -306,6 +306,12 @@
             }
         }
 
+	    &:not(._with-avatar) {
+		    .user__avatar {
+			    display: none !important;
+		    }
+	    }
+
         &:hover{
             text-decoration:none;
         }
