@@ -394,6 +394,10 @@
 		background: none;
 		border: none;
 		color: #333;
+
+		&:hover {
+			color: #333;
+		}
 	}
 }
 
