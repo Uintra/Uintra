@@ -460,7 +460,7 @@
                 }
             }
 
-            &:hover{
+            &:not(._with-avatar):hover{
                 text-decoration:none;
                 color:var(--color-white);
                 background:#333;
