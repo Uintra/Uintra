@@ -9,7 +9,7 @@ namespace uIntra.Core.Controls.LightboxGallery
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<IPublishedContent, LightboxGalleryViewModel>()
+            Mapper.CreateMap<IPublishedContent, LightboxGalleryItemViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(d => d.Extention, o => o.MapFrom(s => s.GetMediaExtention()))

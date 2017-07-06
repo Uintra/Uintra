@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
-using Umbraco.Core;
+using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
@@ -22,18 +22,9 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         public virtual ActionResult RenderGallery(string mediaIds)
         {
-            var result = Enumerable.Empty<LightboxGalleryViewModel>();
-
-            if (mediaIds.IsNotNullOrEmpty())
-            {
-                var ids = mediaIds.ToIntCollection();
-                var medias = _umbracoHelper.TypedMedia(ids).ToList();
-                result = medias.Map<IEnumerable<LightboxGalleryViewModel>>().OrderBy(s => s.Type.Id);
-            }
-
-            return View(GalleryViewPath, result);
+            var model = GetGalleryOverviewModel(mediaIds);
+            return View(GalleryViewPath, model);
         }
-
 
         public virtual ActionResult Preview(LightboxGalleryPreviewModel model)
         {
@@ -42,19 +33,41 @@ namespace uIntra.Core.Controls.LightboxGallery
                 return new EmptyResult();
             }
 
-            var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
-            var galleryViewModelList = _umbracoHelper.TypedMedia(model.MediaIds).Map<List<LightboxGalleryViewModel>>();
-
-            if (galleryViewModelList.Count == 0)
+            var medias = _umbracoHelper.TypedMedia(model.MediaIds).ToList();
+            if (medias.IsEmpty())
             {
                 return new EmptyResult();
             }
 
+            var galleryPreviewModel = GetGalleryPreviewModel(model, medias);
+            return PartialView(PreviewViewPath, galleryPreviewModel);
+        }
+
+        protected virtual LightboxGalleryOverviewModel GetGalleryOverviewModel(string mediaIds)
+        {
+            var result = new LightboxGalleryOverviewModel();
+            if (mediaIds.IsNullOrEmpty())
+            {
+                return result;
+            }
+
+            var ids = mediaIds.ToIntCollection();
+            var medias = _umbracoHelper.TypedMedia(ids).ToList();
+            result.GalleryItems = medias.Map<IEnumerable<LightboxGalleryItemViewModel>>().OrderBy(s => s.Type.Id);
+
+            return result;
+        }
+
+        protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
+        {
+            var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
+            var galleryViewModelList = medias.Map<List<LightboxGalleryItemViewModel>>();
+
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
             galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
-            galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ForEach(i => i.IsHidden = true);
+            galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
-            return View(PreviewViewPath, galleryPreviewModel);
+            return galleryPreviewModel;
         }
     }
 }
