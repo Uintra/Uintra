@@ -33,7 +33,7 @@
                         self.gridEditors.push(editor);
                     }
 
-                    if (self.model.value.editor.alias == editor.alias) { //push fresh config
+                    if (self.model.value.editor && self.model.value.editor.alias == editor.alias) { //push fresh config
                         self.model.value.editor = editor;
                     }
                 });
