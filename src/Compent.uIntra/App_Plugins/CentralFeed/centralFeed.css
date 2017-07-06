@@ -385,6 +385,18 @@
 	}
 }
 
+.filter {
+	&__toggle {
+		display: flex;
+		align-items: center;
+		margin: 0 0 20px;
+		padding: 10px;
+		background: none;
+		border: none;
+		color: #333;
+	}
+}
+
 body:not(._show-filters) .filter__body {
 	display: none !important;
 }
