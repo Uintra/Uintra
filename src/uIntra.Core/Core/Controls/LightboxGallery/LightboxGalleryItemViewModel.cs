@@ -2,7 +2,7 @@
 
 namespace uIntra.Core.Controls.LightboxGallery
 {
-    public class LightboxGalleryViewModel
+    public class LightboxGalleryItemViewModel
     {
         public int Id { get; set; }
         public string Url { get; set; }

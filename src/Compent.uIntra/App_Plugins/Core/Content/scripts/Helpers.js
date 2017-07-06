@@ -71,6 +71,7 @@ var helpers = {
         var dateFormat = dateElem.data('dateFormat');
         var dateElemValue = holder.find(valueSelector);
         var defaultDate = new Date(dateElem.data('defaultDate'));
+        var enableTime = dateElem.data('enableTime');
         var closeButton = document.createElement("span");
         var clearButton = dateParentNode.find('.js-clear-date');
         closeButton.className = "flatpickr__close";
@@ -79,7 +80,7 @@ var helpers = {
         });
 
         var datePicker = new Flatpickr(dateElem[0], {
-            enableTime: true,
+            enableTime: enableTime != null ? enableTime : true,
             time_24hr: true,
             allowInput: false,
             weekNumbers: true,

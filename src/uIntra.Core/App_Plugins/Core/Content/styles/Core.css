@@ -1,4 +1,7 @@
-﻿@font-face {
+﻿@import "libs.css";
+@import "forms.css";
+
+@font-face {
   font-family: 'icomoon';
   src:  url('./icomoon.eot?2qd6e6');
   src:  url('./icomoon.eot?2qd6e6#iefix') format('embedded-opentype'),
@@ -137,12 +140,12 @@ body{
 }
 
 a{
-    color:var(--color-red);
+    color:var(--color-contrast);
 
     &:hover,
     &:active,
     &:focus{
-        color:var(--color-red);
+        color:var(--color-contrast);
     }
 }
 
@@ -254,11 +257,9 @@ a{
 }
 
 .logo {
-    padding: 23px 0;
-    overflow: hidden;
-    max-width: 126px;
-    position: relative;
-    z-index: 3;
+    float:left;
+    padding:14px 0 17px;
+    margin:0 190px 0 0;
 }
 
 #main{

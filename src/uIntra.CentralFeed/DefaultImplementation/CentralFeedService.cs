@@ -62,6 +62,16 @@ namespace uIntra.CentralFeed
             return settings;
         }
 
+        protected virtual CentralFeedSettings GetDefaultTabSetting()
+        {
+            return new CentralFeedSettings
+            {
+                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt()),
+                HasSubscribersFilter = false,
+                HasPinnedFilter = true
+            };
+        }
+
         private IEnumerable<ICentralFeedItem> GetAllItems()
         {
             var items = _feedItemServices.SelectMany(service => service.GetItems());
@@ -71,12 +81,7 @@ namespace uIntra.CentralFeed
         private IEnumerable<CentralFeedSettings> GetFeedItemServicesSettings()
         {
             var settings = _feedItemServices.Select(service => service.GetCentralFeedSettings()).ToList();
-            settings.Add(new CentralFeedSettings
-            {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt()),
-                HasSubscribersFilter = false,                
-                HasPinnedFilter = true
-            });
+            settings.Add(GetDefaultTabSetting());
 
             return settings;
         }

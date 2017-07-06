@@ -350,6 +350,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
@@ -444,7 +445,7 @@
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxAutomapperProfile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryControllerBase.cs" />
-    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemViewModel.cs" />
     <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Core\Exceptions\InconsistentDataException.cs" />
     <Compile Include="Core\Extentions\AutoMapperExtentions.cs" />
