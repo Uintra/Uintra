@@ -257,11 +257,9 @@ a{
 }
 
 .logo {
-    padding: 23px 0;
-    overflow: hidden;
-    max-width: 126px;
-    position: relative;
-    z-index: 3;
+    float:left;
+    padding:14px 0 17px;
+    margin:0 190px 0 0;
 }
 
 #main{
