@@ -1,4 +1,5 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
 @using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
 @using uIntra.Core.Extentions
 @using Umbraco.Web
@@ -19,7 +20,9 @@
             }
         </ul>
     }
-    <div class="feed__filter js-feed-navigation">
+    @Ajax.ActionLink("Open filters", "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+    @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
+    <div class="feed__filter filter__body js-feed-navigation">
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
         <div class="tabset__holder">
             <ul class="feed-links js-feed-links">
