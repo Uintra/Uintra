@@ -384,3 +384,7 @@
         }
 	}
 }
+
+body:not(._show-filters) .filter__body {
+	display: none !important;
+}

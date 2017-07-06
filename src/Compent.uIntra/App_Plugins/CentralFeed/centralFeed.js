@@ -2,6 +2,7 @@
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
 import subscribe from "./../Subscribe/subscribe";
+import initOpener from "./openCloseCentralFeed";
 
 require("./centralFeed.css");
 
@@ -198,6 +199,7 @@ function emitTabReloadedEvent(isReinit) {
 }
 
 function init() {
+    initOpener();
     holder = document.querySelector('.js-feed-overview');
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
@@ -254,7 +256,7 @@ function init() {
     document.body.addEventListener('cfShowBulletins', showBulletinsEventHandler);
 }
 
-    export default {
+export default {
     init: init,
     reload: reload
 }

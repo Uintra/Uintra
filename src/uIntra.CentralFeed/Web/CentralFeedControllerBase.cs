@@ -45,14 +45,25 @@ namespace uIntra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
+        public ActionResult OpenFilters()
+        {
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
+            centralFeedState.IsFiltersOpened = !centralFeedState.IsFiltersOpened;
+            _centralFeedContentHelper.SaveFiltersState(centralFeedState);
+            return new EmptyResult();
+        }
+
         public virtual ActionResult Overview()
         {
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
 
             var model = new CentralFeedOverviewModel
             {
                 Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
-                CurrentType = tabType
+                CurrentType = tabType,
+                IsFiltersOpened = centralFeedState.IsFiltersOpened
+
             };
             return PartialView(OverviewViewPath, model);
         }
@@ -151,7 +162,7 @@ namespace uIntra.CentralFeed.Web
                 var items = _centralFeedService.GetFeed();
                 return items;
             }
-            
+
             return _centralFeedService.GetFeed(type);
         }
 
