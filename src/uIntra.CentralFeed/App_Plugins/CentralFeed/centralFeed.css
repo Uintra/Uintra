@@ -336,19 +336,15 @@
 
 	&-create {
 		display: flex;
-		flex-wrap: wrap;
 		justify-content: flex-end;
+		flex-wrap: wrap;
 		margin: 0 0 10px;
 		padding: 0;
 		list-style: none;
 
-		@media (--for-phone-only) {
-			& {
-				display: block;
-			}
-		}
-
 		&__frame {
+			flex: 0 0 auto;
+			max-width: 100%;
 			margin: 0 0 10px 10px;
 		}
 
