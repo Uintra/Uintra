@@ -30,8 +30,8 @@
         </div>
         <div class="form__row clearfix">
             @Html.HiddenFor(bulletin => bulletin.MediaRootId)
-            <input class="form__btn _black js-disable-submit" type="submit" value="@Html.Localize("BulletinsEdit.Edit.btn")" />
-            <input class="form__btn _black js-edit-bulletin__delete" type="button" value="@Html.Localize("BulletinsEdit.Delete.btn")" data-id="@Model.Id"
+            <input class="form__btn _submit js-disable-submit" type="submit" value="@Html.Localize("BulletinsEdit.Edit.btn")" />
+            <input class="form__btn _submit js-edit-bulletin__delete" type="button" value="@Html.Localize("BulletinsEdit.Delete.btn")" data-id="@Model.Id"
                    data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")"
                    data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
             <a class="form__btn _default" href="@(Context.GetBackLink($"{ViewData["DetailsPageUrl"]}?Id={Model.Id}"))">@Html.Localize("Common.Cancel.lnk")</a>
