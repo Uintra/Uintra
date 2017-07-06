@@ -77,7 +77,7 @@
             }
         }
 
-        &._red{
+        &._cancel{
             border-color:var(--color-red);
             background:var(--color-red);
             color:var(--color-white);

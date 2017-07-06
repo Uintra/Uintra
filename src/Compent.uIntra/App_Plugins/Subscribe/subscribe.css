@@ -34,7 +34,7 @@
         display:inline-block;
         vertical-align:top;
         margin:4px 0 0;
-        color:var(--color-red);
+        color:var(--color-contrast);
         font-size:12px;
 
         .check {

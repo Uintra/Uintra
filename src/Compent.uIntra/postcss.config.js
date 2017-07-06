@@ -7,8 +7,9 @@ module.exports = {
                 customProperties: {
                     variables: {
                         '--color-white': '#fff',
-                        '--color-red': '#d97400',
-                        '--color-dark-red': '#dd0a2d',
+                        '--color-contrast': '#d97400',
+                        '--color-red': '#dd0a2d',
+                        '--color-dark-red': '#c00927',
                         '--color-black': '#000',
                         '--color-light-gray': '#ccc',
                         '--color-light-gray-2': '#eee',
