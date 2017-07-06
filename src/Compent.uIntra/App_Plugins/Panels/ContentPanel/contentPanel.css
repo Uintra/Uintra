@@ -64,7 +64,7 @@
         }
     }
     &__image{
-        margin:0 -10px 20px;
+        margin:0 0 20px;
 
         .img-responsive{
             width:100%;
@@ -77,7 +77,7 @@
         &._small{
             float:right;
             width:50%;
-            margin:5px -10px 22px 20px;
+            margin:5px 0 22px 20px;
 
             .sidebar &{
                 margin:5px -5px 20px 10px;
@@ -86,7 +86,7 @@
 
         &._large{
             width:auto;
-            margin:0 -10px 20px;
+            margin:0 0 20px;
 
             .sidebar &{
                 margin:-10px -20px 0;
@@ -96,6 +96,7 @@
 
     &__links{
         margin:0 0 20px;
+        overflow:hidden;
 
         &-list{
             margin:0;
@@ -128,7 +129,7 @@
     }
 
     &__video{
-        margin:0 -10px 20px;
+        margin:0 0 20px;
         position:relative;
 
         &-play{
@@ -212,7 +213,7 @@
         &._small{
             float:right;
             width:50%;
-            margin:5px -10px 22px 20px;
+            margin:5px 0 22px 20px;
 
             .sidebar &{
                 margin:5px -5px 20px 10px;
@@ -222,7 +223,7 @@
         &._large{
             float:none;
             width:auto;
-            margin:0 -10px 20px;
+            margin:0 0 20px;
 
             .sidebar &{
                 margin:-10px -20px 20px;
