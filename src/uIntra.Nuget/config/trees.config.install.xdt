@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<trees xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <add initialize="true" sortOrder="0" alias="SentMailsTree" application="SentMails" title="Sent Mails" iconClosed="icon-folder" iconOpen="icon-folder-open" type="EmailWorker.Web.Controllers.UmbracoControllers.SentMailsTreeController, EmailWorker.Web" xdt:Locator="Condition(@alias='SentMailsTree')" xdt:Transform="InsertIfMissing"/>
+  <add initialize="true" sortOrder="0" alias="LocalizationTree" application="Localization" title="Localization" iconClosed="icon-folder" iconOpen="icon-folder-open" type="Localization.Umbraco.TreeControllers.LocalizationTreeController, Localization.Umbraco" xdt:Locator="Condition(@alias='LocalizationTree')" xdt:Transform="InsertIfMissing"/>
+</trees>

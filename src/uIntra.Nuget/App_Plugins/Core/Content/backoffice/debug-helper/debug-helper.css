@@ -1,0 +1,25 @@
+﻿pre.debug-helper {
+    padding: 5px;
+    background: #263238;
+    color: #9DACBC;
+}
+
+    pre.debug-helper .string {
+        color: #B0D77B;
+    }
+
+    pre.debug-helper .number {
+        color: #E14C65;
+    }
+
+    pre.debug-helper .boolean {
+        color: #9A6EA3;
+    }
+
+    pre.debug-helper .null {
+        color: #9A6EA3;
+    }
+
+    pre.debug-helper .key {
+        color: #64BBB3;
+    }
