@@ -2,7 +2,7 @@
 using uIntra.Likes;
 using uIntra.News;
 
-namespace Compent.uIntra.Core.News.Models
+namespace uIntra.Core.News.Models
 {
     public class NewsExtendedViewModel : NewsViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace Compent.uIntra.Core.Helpers
+namespace uIntra.Core.Helpers
 {
     public interface IUmbracoContentHelper
     {

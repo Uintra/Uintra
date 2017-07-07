@@ -6,20 +6,6 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Compent.uIntra.Core.ApplicationSettings;
-using Compent.uIntra.Core.Bulletins;
-using Compent.uIntra.Core.CentralFeed;
-using Compent.uIntra.Core.Comments;
-using Compent.uIntra.Core.Events;
-using Compent.uIntra.Core.Exceptions;
-using Compent.uIntra.Core.Helpers;
-using Compent.uIntra.Core.IoC;
-using Compent.uIntra.Core.Navigation;
-using Compent.uIntra.Core.News;
-using Compent.uIntra.Core.Notification;
-using Compent.uIntra.Core.Search;
-using Compent.uIntra.Core.Subscribe;
-using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
 using Localization.Core;
 using Localization.Core.Configuration;
@@ -34,17 +20,27 @@ using Ninject.Web.Common;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Bulletins;
 using uIntra.Core.Caching;
+using uIntra.Core.CentralFeed;
+using uIntra.Core.Comments;
 using uIntra.Core.Configuration;
+using uIntra.Core.Events;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
+using uIntra.Core.Helpers;
+using uIntra.Core.IoC;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
 using uIntra.Core.ModelBinders;
+using uIntra.Core.Navigation;
+using uIntra.Core.News;
+using uIntra.Core.Notification;
 using uIntra.Core.Persistence;
+using uIntra.Core.Search;
+using uIntra.Core.Subscribe;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
@@ -58,6 +54,7 @@ using uIntra.Navigation.SystemLinks;
 using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
+using uIntra.Persistence.Sql;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
@@ -73,7 +70,7 @@ using Umbraco.Web.Security;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace Compent.uIntra.Core.IoC
+namespace uIntra.Core.IoC
 {
     public static class NinjectWebCommon
     {
@@ -139,7 +136,7 @@ namespace Compent.uIntra.Core.IoC
 
         private static void RegisterModelBinders()
         {
-            ModelBinders.Binders.DefaultBinder = new CustomModelBinder();
+            System.Web.Mvc.ModelBinders.Binders.DefaultBinder = new CustomModelBinder();
         }
 
         private static void RegisterServices(IKernel kernel)

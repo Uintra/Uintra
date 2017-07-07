@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
 using uIntra.Subscribe;
 
-namespace Compent.uIntra.Core.Subscribe
+namespace uIntra.Core.Subscribe
 {
     public class CustomSubscribable : ISubscribable
     {

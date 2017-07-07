@@ -4,7 +4,7 @@ using EmailWorker.Data.Model;
 using uIntra.Core.Extentions;
 using uIntra.Notification.MailModels;
 
-namespace Compent.uIntra.Core.Notification.Mails
+namespace uIntra.Core.Notification.Mails
 {
     public class CommentAddedMail : CommentAddedMailBase, IEmailBase
     {

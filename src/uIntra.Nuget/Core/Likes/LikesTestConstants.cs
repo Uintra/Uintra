@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.uIntra.Core.Likes
+namespace uIntra.Core.Likes
 {
     public static class LikesTestConstants
     {

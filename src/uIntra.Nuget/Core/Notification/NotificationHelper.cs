@@ -2,7 +2,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Notification
+namespace uIntra.Core.Notification
 {
     public class NotificationHelper : INotificationHelper
     {

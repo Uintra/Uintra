@@ -5,7 +5,7 @@ using uIntra.Core.User;
 using uIntra.Subscribe;
 using uIntra.Users;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class CentralFeedController : CentralFeedControllerBase
     {

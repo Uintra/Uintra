@@ -12,7 +12,7 @@ using uIntra.Users;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
 
-namespace Compent.uIntra
+namespace uIntra
 {
     public static class MapperConfig
     {

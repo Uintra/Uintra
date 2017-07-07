@@ -2,7 +2,7 @@
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Web;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class ActivityController: ActivityControllerBase
     {

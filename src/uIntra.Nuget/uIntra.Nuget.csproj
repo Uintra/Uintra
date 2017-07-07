@@ -919,7 +919,6 @@
     <Content Include="Content\fonts\open-sans-regular.woff2" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
-    <Content Include="Media\Web.config" />
     <Content Include="config\tinyMceConfig.config" />
     <Content Include="config\scripting.config" />
     <Content Include="config\metablogConfig.config" />
@@ -1018,6 +1017,7 @@
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
+    <Content Include="Media\Web.config" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1037,6 +1037,9 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <Content Include="uIntra.nuspec">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1178,18 +1181,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706221149395_Initial.cs" />
-    <Compile Include="Migrations\201706221149395_Initial.Designer.cs">
-      <DependentUpon>201706221149395_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706230716541_Rename.cs" />
-    <Compile Include="Migrations\201706230716541_Rename.Designer.cs">
-      <DependentUpon>201706230716541_Rename.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231339419_MemberNotifierSettings.cs" />
-    <Compile Include="Migrations\201706231339419_MemberNotifierSettings.Designer.cs">
-      <DependentUpon>201706231339419_MemberNotifierSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
     <Compile Include="Persistence\Sql\DbObjectContext.cs" />
@@ -1243,17 +1234,6 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706221149395_Initial.resx">
-      <DependentUpon>201706221149395_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706230716541_Rename.resx">
-      <DependentUpon>201706230716541_Rename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231339419_MemberNotifierSettings.resx">
-      <DependentUpon>201706231339419_MemberNotifierSettings.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\Events\ComingEvents\" />

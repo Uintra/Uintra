@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-namespace Compent.uIntra.Core.ApplicationSettings
+namespace uIntra.Core.ApplicationSettings
 {
     public class UintraApplicationSettings : ConfigurationSection, IuIntraApplicationSettings
     {

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Compent.uIntra.Core.ApplicationSettings;
+using uIntra.Core.ApplicationSettings;
 using uIntra.Core.User;
 using uIntra.Users;
 using Umbraco.Core.Models;
 
-namespace Compent.uIntra.Core.Helpers
+namespace uIntra.Core.Helpers
 {
     public class UmbracoContentHelper : IUmbracoContentHelper
     {

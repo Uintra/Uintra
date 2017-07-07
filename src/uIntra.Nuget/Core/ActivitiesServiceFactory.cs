@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Bulletins;
-using Compent.uIntra.Core.Events;
 using uIntra.Bulletins;
 using uIntra.Core.Activity;
+using uIntra.Core.Bulletins;
+using uIntra.Core.Events;
 using uIntra.Events;
 using uIntra.News;
 
-namespace Compent.uIntra.Core
+namespace uIntra.Core
 {
     public class ActivitiesServiceFactory : IActivitiesServiceFactory
     {

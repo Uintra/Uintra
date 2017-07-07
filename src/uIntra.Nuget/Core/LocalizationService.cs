@@ -1,7 +1,7 @@
 ﻿using Localization.Core;
 using uIntra.Core.Localization;
 
-namespace Compent.uIntra.Core
+namespace uIntra.Core
 {
     public class LocalizationService : IIntranetLocalizationService
     {

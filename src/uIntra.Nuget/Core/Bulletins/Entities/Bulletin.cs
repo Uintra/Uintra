@@ -4,11 +4,10 @@ using Newtonsoft.Json;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.Subscribe;
 
-namespace Compent.uIntra.Core.Bulletins
+namespace uIntra.Core.Bulletins
 {
     public class Bulletin : BulletinBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
     {

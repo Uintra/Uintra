@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.uIntra.Core.Comments
+namespace uIntra.Core.Comments
 {
     public static class CommentsTestConstants
     {

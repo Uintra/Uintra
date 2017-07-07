@@ -1,7 +1,7 @@
 ﻿using uIntra.Core;
 using uIntra.Users.Web;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     [System.Web.Http.AllowAnonymous]
     public class LoginController : LoginControllerBase

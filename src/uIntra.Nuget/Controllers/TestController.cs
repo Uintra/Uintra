@@ -5,7 +5,7 @@ using uIntra.Users;
 using Umbraco.Web.WebApi;
 using Role = uIntra.Core.User.Role;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class TestController : UmbracoApiController
     {

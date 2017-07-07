@@ -4,7 +4,6 @@ using System.Linq;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
@@ -23,7 +22,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.Bulletins
+namespace uIntra.Core.Bulletins
 {
     public class BulletinsService : IntranetActivityService<Bulletin>,
         IBulletinsService<Bulletin>,

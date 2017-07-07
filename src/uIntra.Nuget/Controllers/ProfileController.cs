@@ -10,7 +10,7 @@ using uIntra.Users.Web;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class ProfileController : ProfileControllerBase
     {

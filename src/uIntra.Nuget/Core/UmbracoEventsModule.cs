@@ -4,7 +4,7 @@ using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 
-namespace Compent.uIntra.Core
+namespace uIntra.Core
 {
     public static class UmbracoEventsModule
     {

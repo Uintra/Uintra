@@ -1,7 +1,7 @@
 ﻿using Umbraco.Core.Models;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.Extentions
+namespace uIntra.Core.Extentions
 {
     public static class PublishedContentExtentions
     {

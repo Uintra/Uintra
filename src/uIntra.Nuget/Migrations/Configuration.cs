@@ -1,18 +1,16 @@
-namespace Compent.uIntra.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
+using uIntra.Persistence.Sql;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Compent.uIntra.Persistence.Sql.DbObjectContext>
+namespace uIntra.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<DbObjectContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Compent.uIntra.Persistence.Sql.DbObjectContext context)
+        protected override void Seed(DbObjectContext context)
         {
             //  This method will be called after migrating to the latest version.
 

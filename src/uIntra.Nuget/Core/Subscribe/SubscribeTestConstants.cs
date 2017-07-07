@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.uIntra.Core.Subscribe
+namespace uIntra.Core.Subscribe
 {
     public static class SubscribeTestConstants
     {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
@@ -23,7 +22,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.Events
+namespace uIntra.Core.Events
 {
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,

@@ -1,11 +1,11 @@
-﻿using Compent.uIntra.Core.Helpers;
-using uIntra.Core.Configuration;
+﻿using uIntra.Core.Configuration;
+using uIntra.Core.Helpers;
 using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Navigation
+namespace uIntra.Core.Navigation
 {
     public class UintraLeftSideNavigationModelBuilder : LeftSideNavigationModelBuilder
     {

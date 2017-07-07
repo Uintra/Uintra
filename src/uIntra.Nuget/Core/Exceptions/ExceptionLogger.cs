@@ -1,8 +1,7 @@
 ﻿using System;
 using Elmah;
-using uIntra.Core.Exceptions;
 
-namespace Compent.uIntra.Core.Exceptions
+namespace uIntra.Core.Exceptions
 {
     public class ExceptionLogger: IExceptionLogger
     {

@@ -2,7 +2,7 @@
 using uIntra.Comments;
 using uIntra.Likes;
 
-namespace Compent.uIntra.Core.Bulletins
+namespace uIntra.Core.Bulletins
 {
     public class BulletinExtendedItemViewModel : BulletinItemViewModel
     {

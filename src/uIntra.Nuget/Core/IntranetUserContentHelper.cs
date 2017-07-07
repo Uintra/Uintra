@@ -1,10 +1,9 @@
-﻿using uIntra.Core;
-using uIntra.Core.User;
+﻿using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core
+namespace uIntra.Core
 {
     public class IntranetUserContentHelper : IIntranetUserContentHelper
     {

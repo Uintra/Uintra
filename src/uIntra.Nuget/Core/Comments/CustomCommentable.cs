@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 
-namespace Compent.uIntra.Core.Comments
+namespace uIntra.Core.Comments
 {
     public class CustomCommentable : ICommentable
     {

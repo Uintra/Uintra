@@ -3,7 +3,7 @@ using uIntra.Navigation.Web;
 using uIntra.Users;
 using Umbraco.Core.Services;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class NavigationAuthorizationController : NavigationAuthorizationControllerBase
     {

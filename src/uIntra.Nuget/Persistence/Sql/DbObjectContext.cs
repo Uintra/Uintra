@@ -8,9 +8,8 @@ using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;
-using uIntra.Subscribe;
 
-namespace Compent.uIntra.Persistence.Sql
+namespace uIntra.Persistence.Sql
 {
     public class DbObjectContext : DbContext
     {
@@ -32,9 +31,9 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<IntranetActivityEntity> IntranetActivityEntities { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<MyLink> MyLinks { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Notification.Notification> Notifications { get; set; }
         public DbSet<Reminder> Reminders { get; set; }
-        public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<Subscribe.Subscribe> Subscribes { get; set; }
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

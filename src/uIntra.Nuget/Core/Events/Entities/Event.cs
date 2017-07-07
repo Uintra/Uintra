@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 using uIntra.Events;
 using uIntra.Likes;
 using uIntra.Notification.Base;
 using uIntra.Subscribe;
 
-namespace Compent.uIntra.Core.Events
+namespace uIntra.Core.Events
 {
     public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IReminderable
     {

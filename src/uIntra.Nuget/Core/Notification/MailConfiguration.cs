@@ -1,7 +1,6 @@
-﻿using uIntra.Core;
-using Umbraco.Web.PublishedContentModels;
+﻿using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.Notification
+namespace uIntra.Core.Notification
 {
     public class MailConfiguration
     {

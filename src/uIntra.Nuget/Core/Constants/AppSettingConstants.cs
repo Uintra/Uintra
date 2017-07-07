@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Constants
+﻿namespace uIntra.Core.Constants
 {
     public static class AppSettingConstants
     {

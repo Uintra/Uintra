@@ -1,15 +1,15 @@
 ﻿using System.Web.Mvc;
 using AutoMapper;
-using Compent.uIntra.Core.Bulletins;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
 using uIntra.CentralFeed;
+using uIntra.Core.Bulletins;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class BulletinsController : BulletinsControllerBase
     {

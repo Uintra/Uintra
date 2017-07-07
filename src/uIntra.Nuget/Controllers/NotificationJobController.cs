@@ -1,7 +1,7 @@
 ﻿using uIntra.Notification;
 using uIntra.Notification.Web;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class NotificationJobController : NotificationJobControllerBase
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Extentions;
 using uIntra.CentralFeed;
+using uIntra.Core.Extentions;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
@@ -10,7 +10,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class NavigationController : NavigationControllerBase
     {

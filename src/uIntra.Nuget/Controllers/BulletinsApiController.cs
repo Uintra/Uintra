@@ -1,11 +1,11 @@
-﻿using Compent.uIntra.Core.Bulletins;
-using uIntra.Bulletins;
+﻿using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
+using uIntra.Core.Bulletins;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Users;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class BulletinsApiController : BulletinsBaseApiController
     {

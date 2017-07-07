@@ -5,7 +5,7 @@ using EmailWorker.Web.Helper;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 
-namespace Compent.uIntra.Core.Notification
+namespace uIntra.Core.Notification
 {
     public class MailService : IMailService
     {

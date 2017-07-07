@@ -3,7 +3,7 @@ using uIntra.Core.Persistence;
 using uIntra.Core.TypeProviders;
 using uIntra.Subscribe;
 
-namespace Compent.uIntra.Core.Subscribe
+namespace uIntra.Core.Subscribe
 {
     public class CustomSubscribeService : SubscribeService
     {

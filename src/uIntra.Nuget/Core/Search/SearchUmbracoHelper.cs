@@ -1,10 +1,9 @@
-﻿using uIntra.Core;
-using uIntra.Search;
+﻿using uIntra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.Search
+namespace uIntra.Core.Search
 {
     public class SearchUmbracoHelper: ISearchUmbracoHelper
     {

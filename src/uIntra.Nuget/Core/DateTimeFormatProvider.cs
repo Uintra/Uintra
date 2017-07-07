@@ -1,6 +1,4 @@
-﻿using uIntra.Core;
-
-namespace Compent.uIntra.Core
+﻿namespace uIntra.Core
 {
     public class DateTimeFormatProvider : IDateTimeFormatProvider
     {

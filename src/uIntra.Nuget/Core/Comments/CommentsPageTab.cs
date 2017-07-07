@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Comments
+﻿namespace uIntra.Core.Comments
 {
     public class CommentsPageTab
     {

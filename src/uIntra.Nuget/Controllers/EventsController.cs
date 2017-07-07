@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
+using uIntra.Core.Events;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Media;
@@ -16,7 +16,7 @@ using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Users;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class EventsController : EventsControllerBase
     {

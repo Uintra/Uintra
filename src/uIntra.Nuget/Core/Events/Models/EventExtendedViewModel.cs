@@ -3,7 +3,7 @@ using uIntra.Events;
 using uIntra.Likes;
 using uIntra.Subscribe;
 
-namespace Compent.uIntra.Core.Events
+namespace uIntra.Core.Events
 {
     public class EventExtendedViewModel : EventViewModel
     {

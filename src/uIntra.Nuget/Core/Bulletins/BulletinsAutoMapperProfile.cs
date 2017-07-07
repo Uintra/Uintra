@@ -3,7 +3,7 @@ using uIntra.Bulletins;
 using uIntra.Core.Activity;
 using uIntra.Search;
 
-namespace Compent.uIntra.Core.Bulletins
+namespace uIntra.Core.Bulletins
 {
     public class BulletinsAutoMapperProfile : Profile
     {

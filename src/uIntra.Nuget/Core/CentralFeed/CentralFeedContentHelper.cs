@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using uIntra.CentralFeed;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
@@ -13,7 +12,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
 
-namespace Compent.uIntra.Core.CentralFeed
+namespace uIntra.Core.CentralFeed
 {
     public class CentralFeedContentHelper : ICentralFeedContentHelper
     {

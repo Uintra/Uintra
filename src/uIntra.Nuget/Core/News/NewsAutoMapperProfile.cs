@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Compent.uIntra.Core.News.Models;
 using uIntra.Core.Activity;
+using uIntra.Core.News.Models;
 using uIntra.News;
 using uIntra.News.Dashboard;
 using uIntra.Search;
 
-namespace Compent.uIntra.Core.News
+namespace uIntra.Core.News
 {
     public class NewsAutoMapperProfile : Profile
     {

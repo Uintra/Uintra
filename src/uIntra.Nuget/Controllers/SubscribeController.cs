@@ -5,7 +5,7 @@ using uIntra.Subscribe;
 using uIntra.Subscribe.Web;
 using uIntra.Users;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     [ThreadCulture]
     public class SubscribeController : SubscribeControllerBase

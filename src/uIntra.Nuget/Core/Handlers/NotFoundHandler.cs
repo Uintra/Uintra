@@ -1,6 +1,4 @@
-﻿using uIntra.Core.Handlers;
-
-namespace Compent.uIntra.Core.Handlers
+﻿namespace uIntra.Core.Handlers
 {
     public class NotFoundHandler: NotFoundHandlerBase
     {

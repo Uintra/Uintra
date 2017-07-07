@@ -4,7 +4,7 @@ using uIntra.Core.Localization;
 using uIntra.Search;
 using uIntra.Search.Web;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     [ThreadCulture]
     public class SearchController : SearchControllerBase

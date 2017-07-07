@@ -3,7 +3,7 @@ using uIntra.Core.Activity;
 using uIntra.Events;
 using uIntra.Search;
 
-namespace Compent.uIntra.Core.Events
+namespace uIntra.Core.Events
 {
     public class EventsAutoMapperProfile : Profile
     {

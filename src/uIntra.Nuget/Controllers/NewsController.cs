@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.uIntra.Core.News.Entities;
-using Compent.uIntra.Core.News.Models;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.News.Models;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.News;
@@ -13,7 +12,7 @@ using uIntra.News.Web;
 using uIntra.Search;
 using uIntra.Users;
 
-namespace Compent.uIntra.Controllers
+namespace uIntra.Controllers
 {
     public class NewsController : NewsControllerBase
     {
@@ -27,7 +26,7 @@ namespace Compent.uIntra.Controllers
 
         public NewsController(
             IIntranetUserService<IntranetUser> intranetUserService,
-            INewsService<News> newsService,
+            INewsService<Core.News.Entities.News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
@@ -40,7 +39,7 @@ namespace Compent.uIntra.Controllers
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
             FillLinks();
-            var activity = item as News;
+            var activity = item as Core.News.Entities.News;
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
@@ -48,7 +47,7 @@ namespace Compent.uIntra.Controllers
 
         protected override NewsViewModel GetViewModel(NewsBase news)
         {
-            var extendedNews = (News)news;
+            var extendedNews = (Core.News.Entities.News)news;
             var extendedModel = base.GetViewModel(news).Map<NewsExtendedViewModel>();
             extendedModel = Mapper.Map(extendedNews, extendedModel);
             return extendedModel;
