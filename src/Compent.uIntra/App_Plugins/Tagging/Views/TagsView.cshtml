@@ -1,7 +1,9 @@
 ﻿@using uIntra.Core.Extentions
 @model IEnumerable<uIntra.Tagging.Core.Models.TagViewModel>
 
-    @foreach (var tag in Model)
-    {
-        <span style="color:crimson"> <strong>#@tag.Text</strong> </span>
-    }
+<h3 class="tags__title">@Html.Localize("DetailsView.GoBal.lbl")</h3>
+
+@foreach (var tag in Model)
+{
+    <span class="tags__item">@tag.Text</span>
+}

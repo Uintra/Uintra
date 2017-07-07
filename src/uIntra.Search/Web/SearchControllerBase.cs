@@ -15,6 +15,7 @@ namespace uIntra.Search.Web
 
         protected virtual int AutocompleteSuggestionCount { get; } = 10;
         protected virtual int ResultsPerPage { get; } = 20;
+        protected virtual string SearchTranslationPrefix { get; } = "Search.";
 
         private readonly ElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
@@ -41,7 +42,7 @@ namespace uIntra.Search.Web
             var filterItems = _searchableTypeProvider.GetAll().Select(el => new SearchFilterItemViewModel
             {
                 Id = el.Id,
-                Name = _localizationService.Translate($"Search.Filter.{el.Name}")
+                Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.Name}")
             });
 
             var result = new SearchViewModel
@@ -69,7 +70,7 @@ namespace uIntra.Search.Web
             var results = searchResult.Documents.Select(d =>
             {
                 var resultItem = d.Map<SearchResultViewModel>();
-                resultItem.Type = _localizationService.Translate(_searchableTypeProvider.Get(d.Type).Name);
+                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
                 return resultItem;
             }).ToList();
 
@@ -104,9 +105,7 @@ namespace uIntra.Search.Web
             var result = searchResult.Documents.Select(d =>
             {
                 var model = d.Map<SearchAutocompleteResultViewModel>();
-
-                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
-
+                model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
                 return model;
             });
 

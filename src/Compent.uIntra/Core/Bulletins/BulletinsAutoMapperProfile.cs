@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.Bulletins;
 using uIntra.Core.Activity;
+using uIntra.Search;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -20,6 +21,15 @@ namespace Compent.uIntra.Core.Bulletins
 
             Mapper.CreateMap<Bulletin, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<BulletinBase, IntranetActivityItemHeaderViewModel>();
+
+            Mapper.CreateMap<Bulletin, SearchableActivity>()
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
+                .ForMember(d => d.Title, o => o.MapFrom(s => s.Description))
+                .IncludeBase<IntranetActivity, SearchableActivity>();
         }
     }
 }

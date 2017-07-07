@@ -6,6 +6,7 @@ namespace uIntra.Search
     {
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,
+        Bulletins = IntranetActivityTypeEnum.Bulletins,
         Content,
         Document
     }
