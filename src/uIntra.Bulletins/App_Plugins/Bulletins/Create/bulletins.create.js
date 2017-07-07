@@ -113,7 +113,7 @@ function sentButtonClickHandler(event) {
     var url = this.dataset.url;
 
     ajax.PostJson(url, data).then(function(response) {
-        if (response.isSuccess) {
+        if (response.IsSuccess) {
             cfReloadTab();
             hide();
         }
