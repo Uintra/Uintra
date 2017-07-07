@@ -3,6 +3,10 @@
         margin:0 0 20px;
     }
 
+    &__header{
+        padding:0 20px 0 0;
+    }
+
     &__item{
         padding:0 15px;
         margin:0 -15px 40px;
