@@ -3,8 +3,7 @@
     public enum IntranetActivityTypeEnum
     {
         News = 1,
-        Ideas = 2,
-        Events = 3,
-        Bulletins = 4
+        Events = 2,
+        Bulletins = 3
     }
 }
