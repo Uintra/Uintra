@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Nest;
+using uIntra.Core.TypeProviders;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public interface IElasticSearchRepository
     {
         ISearchResponse<T> SearchByIndex<T>(SearchDescriptor<T> descriptor)
             where T : class;
 
-        void EnsureIndexExist(Func<AnalysisDescriptor, AnalysisDescriptor> analysis);
+        void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis);
 
         void DeleteIndex();
     }
@@ -24,6 +25,6 @@ namespace uIntra.Search.Core
         void Delete(object id);
         void EnsureMappingExist();
         string GetTypeName();
-        void DeleteAllByType(SearchableType type);
+        void DeleteAllByType(IIntranetType type);
     }
 }

@@ -64,7 +64,7 @@
         }
     }
     &__image{
-        margin:0 -10px 20px;
+        margin:0 0 20px;
 
         .img-responsive{
             width:100%;
@@ -74,19 +74,21 @@
             margin:-10px -20px 20px;
         }
 
-        &._small{
-            float:right;
-            width:50%;
-            margin:5px -10px 22px 20px;
+	    &._small{
+		    @media(--for-tablet-portrait-up) {
+			    float:right;
+			    width:50%;
+			    margin:5px 0 22px 20px;
 
-            .sidebar &{
-                margin:5px -5px 20px 10px;
-            }
-        }
+			    .sidebar &{
+				    margin:5px -5px 20px 10px;
+			    }
+		    }
+	    }
 
         &._large{
             width:auto;
-            margin:0 -10px 20px;
+            margin:0 0 20px;
 
             .sidebar &{
                 margin:-10px -20px 0;
@@ -96,6 +98,7 @@
 
     &__links{
         margin:0 0 20px;
+        overflow:hidden;
 
         &-list{
             margin:0;
@@ -128,7 +131,7 @@
     }
 
     &__video{
-        margin:0 -10px 20px;
+        margin:0 0 20px;
         position:relative;
 
         &-play{
@@ -190,10 +193,10 @@
             &:active,
             &focus{
                 &:before {
-                    border-color: var(--color-red);
+                    border-color: var(--color-contrast);
                 }
                 &:after {
-                    border-left-color: var(--color-red);
+                    border-left-color: var(--color-contrast);
                 }
             }
             ._active &{
@@ -209,20 +212,22 @@
             margin:-10px -20px 20px;
         }
 
-        &._small{
-            float:right;
-            width:50%;
-            margin:5px -10px 22px 20px;
+	    &._small{
+		    @media(--for-tablet-portrait-up) {
+			    float:right;
+			    width:50%;
+			    margin:5px 0 22px 20px;
 
-            .sidebar &{
-                margin:5px -5px 20px 10px;
-            }
-        }
+			    .sidebar &{
+				    margin:5px -5px 20px 10px;
+			    }
+		    }
+	    }
 
         &._large{
             float:none;
             width:auto;
-            margin:0 -10px 20px;
+            margin:0 0 20px;
 
             .sidebar &{
                 margin:-10px -20px 20px;
@@ -281,6 +286,31 @@
             }
         }
     }
+
+	.documents {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&__item {
+			margin: 0 15px 15px 0;
+
+			&:last-child {
+				margin: 0 0 15px;
+			}
+		}
+	}
+
+	&._horizontal .documents {
+		flex-direction: row;
+
+		&__item {
+			max-width: 150px;
+		}
+	}
 }
 
 ._sidebar-expanded{
@@ -375,97 +405,5 @@
                 }
              }
         }
-    }
-}
-
-.documents{
-    margin:0;
-    padding:5px 0 0;
-    list-style:none;
-
-    ._horizontal &{
-        display:flex;
-        align-items:stretch;
-        flex-wrap:wrap;
-        margin:0 0 0 -20px;
-    }
-
-    &__item{
-        overflow:hidden;
-        margin:0 0 10px;
-
-        ._vertical &{
-            overflow:hidden;
-            margin:0 0 16px;
-        }
-        
-        ._horizontal &{
-            text-align:center;
-            width:33%;
-            max-width:150px;
-            padding:0 0 10px 20px;
-        }
-
-        &-link{
-            color:var(--text-color-dark);
-
-            &:hover{
-                color:var(--text-color-dark);
-            }
-
-            ._horizontal &{
-                background:#fbfbfb;
-                display:block;
-                height:100%;
-                border:1px solid var(--color-light-gray-2);
-                border-radius:2px;
-                padding:11px 10px 8px;
-                color:var(--text-color-dark);
-
-                &:hover,
-                &:active,
-                &:focus{
-                    color:var(--text-color-dark);
-                    text-decoration:none;
-                }
-            }
-        }
-        &-name{
-            display:block;
-            overflow:hidden;
-
-            ._horizontal &{
-                font-size:11px;
-                line-height:13px;
-                word-break:break-all;
-                display:inline-block;
-                overflow:visible;
-            }
-        }
-    }
-
-    &__icon{
-        width: 24px;
-        height: 24px;
-        float:left;
-        margin:0 10px 0 0;
-
-        ._vertical &{
-            margin: 0 8px 0 0;
-        }
-
-        ._horizontal &{
-            float:none;
-            margin:0 auto 3px;
-            width: 30px;
-            height: 30px;
-        }
-    }
-
-    &__more{
-        display:inline-block;
-        font:bold 13px/15px var(--font-custom);
-        text-transform:uppercase;
-        margin:0 0 20px;
     }
 }

@@ -8,7 +8,7 @@
 <div class="form js-check-before-unload" id="js-events-create-page">
     @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
     {
-        <h1 class="form__title">@Html.Localize("EventsCreate.Title.lbl")</h1>
+        <h1 class="form__title">@Html.Localize("EventsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("EventsCreate.Creator.lbl")</label>
             @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId) })
@@ -28,14 +28,20 @@
                    data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
-            <label class="form__label" for="js-start-date">@Html.Localize("EventsCreate.StartDate.lbl")</label>
-            <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-            <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="js-end-date">@Html.Localize("EventsCreate.EndDate.lbl")</label>
-            <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-            <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form__label" for="js-start-date">@Html.Localize("EventsCreate.StartDate.lbl")</label>
+                    <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form__label" for="js-end-date">@Html.Localize("EventsCreate.EndDate.lbl")</label>
+                    <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+            </div>
         </div>
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
@@ -61,8 +67,8 @@
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _black _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
-            <a class="form__btn _default" href="@Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events))">@Html.Localize("Common.Cancel.lnk")</a>
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
+            <a class="form__btn _default" href="@Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
                 }
 </div>

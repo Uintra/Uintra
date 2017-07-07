@@ -7,8 +7,9 @@ module.exports = {
                 customProperties: {
                     variables: {
                         '--color-white': '#fff',
-                        '--color-red': '#d97400',
-                        '--color-dark-red': '#dd0a2d',
+                        '--color-contrast': '#d97400',
+                        '--color-red': '#dd0a2d',
+                        '--color-dark-red': '#c00927',
                         '--color-black': '#000',
                         '--color-light-gray': '#ccc',
                         '--color-light-gray-2': '#eee',
@@ -16,6 +17,8 @@ module.exports = {
                         '--color-light-gray-4': '#aaa',
                         '--text-color-light': '#8f8f8f',
                         '--text-color-dark': '#333',
+                        '--color-submit': '#003693',
+                        '--color-submit-hover': '#1f4a93',
                         '--header-bg': '#373737',
                         '--font-custom': '"Open Sans", Arial, Helvetica, sans-serif',
                         '--font-general': '"Open Sans", Arial, Helvetica, sans-serif'

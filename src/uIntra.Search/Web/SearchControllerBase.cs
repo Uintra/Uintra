@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
-using uIntra.Search.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Search.Web
@@ -13,52 +12,75 @@ namespace uIntra.Search.Web
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Search/Result/Index.cshtml";
         protected virtual string SearchResultViewPath { get; } = "~/App_Plugins/Search/Result/SearchResult.cshtml";
         protected virtual string SearchBoxViewPath { get; } = "~/App_Plugins/Search/Controls/SearchBox.cshtml";
-        protected const int SuggestionSearchCount = 10;
+
+        protected virtual int AutocompleteSuggestionCount { get; } = 10;
+        protected virtual int ResultsPerPage { get; } = 20;
 
         private readonly ElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         protected SearchControllerBase(
             ElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
-            ISearchUmbracoHelper searchUmbracoHelper)
+            ISearchUmbracoHelper searchUmbracoHelper,
+            ISearchableTypeProvider searchableTypeProvider)
         {
             _elasticIndex = elasticIndex;
             _searchableServices = searchableServices;
             _localizationService = localizationService;
             _searchUmbracoHelper = searchUmbracoHelper;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         public virtual PartialViewResult Index(string query)
         {
+            var filterItems = _searchableTypeProvider.GetAll().Select(el => new SearchFilterItemViewModel
+            {
+                Id = el.Id,
+                Name = _localizationService.Translate($"Search.Filter.{el.Name}")
+            });
+
             var result = new SearchViewModel
             {
-                Query = query
+                Query = query,
+                FilterItems = filterItems
             };
 
             return PartialView(IndexViewPath, result);
         }
 
-        public virtual PartialViewResult Search(string query)
+        [HttpPost]
+        public virtual PartialViewResult Search(SearchFilterModel model)
         {
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : _searchableTypeProvider.GetAll().Select(el => el.Id);
+
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
-                Text = query,
-                Take = 1000,//todo change after paging will be added
+                Text = model.Query,
+                Take = ResultsPerPage * model.Page,
+                SearchableTypeIds = searchableTypeIds,
                 ApplyHighlights = true
             });
 
-            var result = searchResult.Documents.Select(d =>
+            var results = searchResult.Documents.Select(d =>
             {
-                var model = d.Map<SearchTextResultModel>();
-                model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
-                return model;
-            });
+                var resultItem = d.Map<SearchResultViewModel>();
+                resultItem.Type = _localizationService.Translate(_searchableTypeProvider.Get(d.Type).Name);
+                return resultItem;
+            }).ToList();
 
-            return PartialView(SearchResultViewPath, result);
+            var resultModel = new SearchResultsOverviewViewModel
+            {
+                Query = model.Query,
+                Results = results,
+                ResultsCount = (int)searchResult.TotalHits
+            };
+
+            return PartialView(SearchResultViewPath, resultModel);
         }
 
         public virtual PartialViewResult SearchBox()
@@ -76,13 +98,15 @@ namespace uIntra.Search.Web
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = query,
-                Take = SuggestionSearchCount
+                Take = AutocompleteSuggestionCount
             });
 
             var result = searchResult.Documents.Select(d =>
             {
-                var model = d.Map<SearchAutocompleteResultModel>();
+                var model = d.Map<SearchAutocompleteResultViewModel>();
+
                 model.Type = _localizationService.Translate(d.Type.GetLocalizeKey());
+
                 return model;
             });
 

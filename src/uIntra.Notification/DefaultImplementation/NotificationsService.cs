@@ -4,6 +4,7 @@ using System.Linq;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Exceptions;
@@ -42,7 +43,17 @@ namespace uIntra.Notification
 
             foreach (var notifier in notifiers)
             {
-                data.ReceiverIds = allReceiversIds.Where(reciverId => allReceiversNotifiersSettings[reciverId].Contains(notifier.Type));
+                var receiverIds = allReceiversIds
+                    .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifier.Type))
+                    .ToList();
+
+                if (receiverIds.Count == 0)
+                {
+                    continue;
+                }
+
+                data.ReceiverIds = receiverIds;
+
                 try
                 {
                     notifier.Notify(data);
@@ -54,7 +65,7 @@ namespace uIntra.Notification
             }
         }
 
-        private IEnumerable<INotifierService> GetNotifiers(NotificationTypeEnum notificationType)
+        private IEnumerable<INotifierService> GetNotifiers(IIntranetType notificationType)
         {
             var notifierTypes = GetNotifierTypes(notificationType);
             var configuration = _notificationConfigurationService.GetSettings();
@@ -77,12 +88,12 @@ namespace uIntra.Notification
             }
         }
 
-        private IEnumerable<NotifierTypeEnum> GetNotifierTypes(NotificationTypeEnum notificationType)
+        private IEnumerable<NotifierTypeEnum> GetNotifierTypes(IIntranetType notificationType)
         {
             var configuration = _notificationConfigurationService.GetSettings();
-            var notificationTypeConfiguration = configuration.NotificationTypeConfigurations.SingleOrDefault(c => c.NotificationType == notificationType);
+            var notificationTypeConfiguration = configuration.NotificationTypeConfigurations.SingleOrDefault(c => c.NotificationType == notificationType.Name);
 
-            if (notificationTypeConfiguration == null || !notificationTypeConfiguration.NotifierTypes.IsEmpty())
+            if (notificationTypeConfiguration == null || notificationTypeConfiguration.NotifierTypes.IsEmpty())
             {
                 return configuration.DefaultNotifier.ToEnumerableOfOne();
             }

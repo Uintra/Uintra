@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User.Permissions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -22,19 +23,23 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly IGridHelper _gridHelper;
         private readonly ICookieProvider _cookieProvider;
         private readonly IPermissionsService _permissionsService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
 
         public CentralFeedContentHelper(
             UmbracoHelper umbracoHelper,
             ICentralFeedService centralFeedService,
             IGridHelper gridHelper,
             ICookieProvider cookieProvider,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider, ICentralFeedTypeProvider centralFeedTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
             _gridHelper = gridHelper;
             _cookieProvider = cookieProvider;
             _permissionsService = permissionsService;
+            _activityTypeProvider = activityTypeProvider;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
         public IPublishedContent GetOverviewPage()
@@ -60,14 +65,14 @@ namespace Compent.uIntra.Core.CentralFeed
             foreach (var content in GetContents())
             {
                 var tabType = GetTabType(content);
-                var activityType = tabType.GetHashCode().ToEnum<IntranetActivityTypeEnum>();
+                var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
                 if (activityType == null)
                 {
                     continue;
                 }
-
-                var canCreate = _permissionsService.IsCurrentUserHasAccess(activityType.Value, IntranetActivityActionEnum.Create);
+                
+                var canCreate = _permissionsService.IsCurrentUserHasAccess(tabType, IntranetActivityActionEnum.Create);
 
                 var settings = _centralFeedService.GetSettings(tabType);
                 yield return new CentralFeedTabModel
@@ -109,21 +114,21 @@ namespace Compent.uIntra.Core.CentralFeed
             return _cookieProvider.Exists(CentralFeedFiltersStateCookieName);
         }
 
-        public CentralFeedTypeEnum GetTabType(IPublishedContent content)
+        public IIntranetType GetTabType(IPublishedContent content)
         {
             var value = _gridHelper.GetValue(content, "custom.CentralFeed");
 
             if (value == null || value.tabType == null)
             {
-                return default(CentralFeedTypeEnum);
+                return _centralFeedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
             }
 
             int tabType;
             if (int.TryParse(value.tabType.ToString(), out tabType))
             {
-                return (CentralFeedTypeEnum)tabType;
+                return _centralFeedTypeProvider.Get(tabType);
             }
-            return default(CentralFeedTypeEnum);
+            return _centralFeedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
         }
 
         private IEnumerable<IPublishedContent> GetContents()

@@ -40,7 +40,7 @@
       "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
     },
     {
-      "NotificationType": "CommentReplyed",
+      "NotificationType": "CommentReplied",
       "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
     }
   ]

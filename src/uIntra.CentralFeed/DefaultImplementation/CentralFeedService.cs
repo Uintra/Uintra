@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
@@ -16,16 +18,20 @@ namespace uIntra.CentralFeed
     {
         private readonly ICacheService cacheService;
         private readonly IEnumerable<ICentralFeedItemService> _feedItemServices;
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
 
-        public CentralFeedService(ICacheService cacheService, IEnumerable<ICentralFeedItemService> feedItemServices)
+        public CentralFeedService(ICacheService cacheService, 
+            IEnumerable<ICentralFeedItemService> feedItemServices, 
+            ICentralFeedTypeProvider centralFeedTypeProvider)
         {
             this.cacheService = cacheService;
             _feedItemServices = feedItemServices;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
-        public IEnumerable<ICentralFeedItem> GetFeed(IntranetActivityTypeEnum type)
+        public IEnumerable<ICentralFeedItem> GetFeed(IIntranetType type)
         {
-            var service = _feedItemServices.Single(s => s.ActivityType == type);
+            var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
             return service.GetItems();
         }
 
@@ -44,9 +50,9 @@ namespace uIntra.CentralFeed
             return centralFeedItems.Max(item => item.ModifyDate).Ticks;
         }
 
-        public CentralFeedSettings GetSettings(CentralFeedTypeEnum type)
+        public CentralFeedSettings GetSettings(IIntranetType type)
         {
-            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type == type);
+            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
             return settings;
         }
 
@@ -54,6 +60,16 @@ namespace uIntra.CentralFeed
         {
             var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
             return settings;
+        }
+
+        protected virtual CentralFeedSettings GetDefaultTabSetting()
+        {
+            return new CentralFeedSettings
+            {
+                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt()),
+                HasSubscribersFilter = false,
+                HasPinnedFilter = true
+            };
         }
 
         private IEnumerable<ICentralFeedItem> GetAllItems()
@@ -65,12 +81,7 @@ namespace uIntra.CentralFeed
         private IEnumerable<CentralFeedSettings> GetFeedItemServicesSettings()
         {
             var settings = _feedItemServices.Select(service => service.GetCentralFeedSettings()).ToList();
-            settings.Add(new CentralFeedSettings()
-            {
-                Type = CentralFeedTypeEnum.All,
-                HasSubscribersFilter = false,                
-                HasPinnedFilter = true
-            });
+            settings.Add(GetDefaultTabSetting());
 
             return settings;
         }

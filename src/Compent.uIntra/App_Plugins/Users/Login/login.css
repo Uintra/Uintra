@@ -43,7 +43,7 @@
         }
 
         &__link{
-            color:var(--color-red);
+            color:var(--color-contrast);
             font-size:13px;
             margin:6px 0 0;
             display:inline-block;

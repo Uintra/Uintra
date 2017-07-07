@@ -1,14 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
 using uIntra.News;
 using uIntra.News.Web;
+using uIntra.Search;
 using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
@@ -21,18 +23,23 @@ namespace Compent.uIntra.Controllers
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
         protected override int ShortDescriptionLength { get; } = 500;
 
+        private readonly IDocumentIndexer _documentIndexer;
+
         public NewsController(
             IIntranetUserService<IntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IPermissionsService permissionsService)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, permissionsService)
+            IActivityTypeProvider activityTypeProvider, 
+            IDocumentIndexer documentIndexer)
+            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
+            _documentIndexer = documentIndexer;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as News;
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
@@ -45,6 +52,12 @@ namespace Compent.uIntra.Controllers
             var extendedModel = base.GetViewModel(news).Map<NewsExtendedViewModel>();
             extendedModel = Mapper.Map(extendedNews, extendedModel);
             return extendedModel;
+        }
+
+        protected override void DeleteMedia(IEnumerable<int> mediaIds)
+        {
+            base.DeleteMedia(mediaIds);
+            _documentIndexer.DeleteFromIndex(mediaIds);
         }
     }
 }

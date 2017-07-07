@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 
 namespace uIntra.Core
 {
@@ -12,6 +11,12 @@ namespace uIntra.Core
         public TimezoneOffsetProvider(ICookieProvider cookieProvider)
         {
             _cookieProvider = cookieProvider;
+        }
+
+        public bool HasTimeZoneOffset()
+        {
+            var cookie = _cookieProvider.Get(timezoneOffsetCookieAlias);
+            return cookie != null;
         }
 
         public void SetTimezoneOffset(int offsetInMinutes)

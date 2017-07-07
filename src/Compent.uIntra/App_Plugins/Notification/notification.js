@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import helpers from "./../Core/Content/scripts/Helpers";
+﻿import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../Core/Content/scripts/Ajax";
 
@@ -20,16 +19,13 @@ function initPreviewControls() {
             ajax.Get("/umbraco/surface/Notification/List")
                 .then(function (response) {
                     notificationList.innerHTML = response;
+                    initCustomControls();
                 });
 
             notificationList.classList.remove("hide");
         } else {
             notificationList.classList.add("hide");
         }
-    });
-
-    notificationList.addEventListener('click', function() {
-        notificationList.classList.add("hide");
     });
 
     body.addEventListener("click", function(ev) {
@@ -49,7 +45,7 @@ function updateNotificationsCount() {
     $.ajax({
         url: "/umbraco/surface/Notification/GetNotNotifiedCount",
         success: function (count) {
-            var countHolder = $('.notifications__number');
+            var countHolder = $('.js-notification__number');
             if (count > 0) {
                 countHolder.html(count);
                 countHolder.show();
@@ -61,7 +57,7 @@ function updateNotificationsCount() {
 }
 
 function initCustomControls() {
-    $('.notifications__list-item').on('click', function () {
+    $('.js-notification__list-item').on('click', function () {
         var $this = $(this);
         var delivered = $this.data("viewed");
 
@@ -71,7 +67,7 @@ function initCustomControls() {
                 data: {id: $this.data("id")},
                 url: "/umbraco/surface/Notification/View/",
                 success: function () {
-                    $this.data("viewed", 'true');
+                    $this.attr("data-viewed", true);
                 }
             });
         }
@@ -153,10 +149,10 @@ function initInfinityScroll() {
     infinityScroll(onScroll)();
 }
 
-appInitializer.add(function () {
+export default function() {
     initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
     initInfinityScroll();
-});
+}

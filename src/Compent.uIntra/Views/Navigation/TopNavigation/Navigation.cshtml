@@ -10,13 +10,13 @@
         <span class="menu__burger-line"></span>
         <span class="menu__burger-line"></span>
     </div>
-</div>
+</div>  
 @Html.Action("SearchBox", "Search")
 @Html.Action("Preview", "Notification")
 <div class="user">
     <a class="user__opener icon-user @userAvatar">
         <div class="user__avatar _for-desktop">
-            <img src="@Model.CurrentUser.Photo" width="30">
+            <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
         </div>
         <span class="user__opener-arrow"></span>
     </a>
@@ -28,6 +28,12 @@
                 </div>
                 <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
             </div>
+        </li>
+        <li class="user__menu-item">
+            <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
+                <span class="icon icon-user"></span>
+                Edit profile
+            </a>
         </li>
         @if (Model.CurrentUser.UmbracoId.HasValue)
         {

@@ -9,7 +9,7 @@ namespace uIntra.Core.Controls.LightboxGallery
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<IPublishedContent, LightboxGalleryViewModel>()
+            Mapper.CreateMap<IPublishedContent, LightboxGalleryItemViewModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(d => d.Extention, o => o.MapFrom(s => s.GetMediaExtention()))
@@ -20,7 +20,7 @@ namespace uIntra.Core.Controls.LightboxGallery
                 .ForMember(d => d.IsHidden, o => o.Ignore())
                 .AfterMap((s, d) =>
                 {
-                    if (d.Type == MediaTypeEnum.Image)
+                    if (d.Type.Id == MediaTypeEnum.Image.ToInt())
                     {
                         d.Height = s.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                         d.Width = s.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);

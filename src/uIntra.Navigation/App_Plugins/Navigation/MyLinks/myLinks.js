@@ -1,5 +1,7 @@
 ﻿var Sortable = require('sortablejs');
-import ajax from "./../../Core/Content/scripts/Ajax";
+import helpers from "./../../Core/Content/scripts/Helpers";
+
+require("./myLinks.css");
 
 var controller = {
     init: function () {
@@ -9,46 +11,96 @@ var controller = {
         }
 
         var addControlBtn = document.querySelector('.js-myLinks-add-btn');
+        var removeLinks = document.querySelectorAll('.js-myLinks-remove');
+        var currentPageID = addControlBtn.getAttribute('data-content-id');
         var className = '_disabled';
+        var myLinksState = helpers.localStorage.getItem("myLinks") || {};
+        var opener = $('.js-mylinks__opener');
+        var activeClass = '_expand';
 
-        Sortable.create(container, {
-            onUpdate: function () {
+        opener.on('click', function(e){
+            toggleLinks(this);
+        });
 
+        getNavState();
+
+        var sortable = Sortable.create(container, {
+            group: "myLinksSortable",
+            store: {
+                /**
+                 * Get the order of elements. Called once during initialization.
+                 * @param   {Sortable}  sortable
+                 * @returns {Array}
+                 */
+                get: function (sortable) {
+                    var order = localStorage.getItem(sortable.options.group.name);
+                    return order ? order.split('|') : [];
+                },
+
+                /**
+                 * Save the order of elements. Called onEnd (when the item is dropped).
+                 * @param {Sortable}  sortable
+                 */
+                set: function (sortable) {
+                    var order = sortable.toArray();
+                    localStorage.setItem(sortable.options.group.name, order.join('|'));
+                }
             }
         });
 
-        initRemoveLinks(container);
+        attachEvents();
 
-        addControlBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            ajax.PostJson(this.dataset.url, {contentId: this.dataset.contentId} , function(data) {
-                fillContainerData(container, data);
-                addControlBtn.classList.toggle(className);
-            });
+        addControlBtn.addEventListener('click', function(e){
+            toggleLinks(this, e, 'Add');
         });
 
-        function initRemoveLinks(container) {
-            var removeLinks = container.querySelectorAll('.js-myLinks-remove');
+        function toggleLinks(element, event, action){
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                data: {contentId: element.getAttribute('data-content-id')},
+                url: '/umbraco/surface/MyLinks/' + action,
+                success: function (data) {
+                    container.innerHTML = data;
+                    removeLinks = document.querySelectorAll('.js-myLinks-remove');
+                    attachEvents();
+                    if(element.getAttribute('data-content-id') == currentPageID){
+                        addControlBtn.classList.toggle(className);
+                    }
+                }
+            });
+        }
 
+        function attachEvents(){
             for(var i = 0; i < removeLinks.length; i++){
-                removeLinks[i].addEventListener('click', function(e) {
-                    e.preventDefault();
-                    var link = this;
-                    var url = this.dataset.url;
-                    ajax.Delete(url, function(data) {
-                        fillContainerData(container, data);    
-                        if (link.dataset.isCurrentPage) {
-                            addControlBtn.classList.toggle(className);
-                        }
-                    });
+                removeLinks[i].addEventListener('click', function(e){
+                    toggleLinks(this, e, 'Remove');
                 });
             }
         }
 
-        function fillContainerData(container, data) {
-            container.innerHTML = data;
-            initRemoveLinks(container);
+        function getNavState(){
+            var navItem = $('.js-mylinks__item');
+            var id = $(navItem).data("id");
+    
+            if(!jQuery.isEmptyObject(myLinksState)){
+                for(var item in myLinksState){
+                    $(navItem).toggleClass(activeClass, myLinksState[item]);
+                }
+            }
+        }
+
+        function toggleLinks(el){
+            var item = $(el).closest('.js-mylinks__item');
+            var itemId = item.data("id");
+            var isExpanded;
+
+            item.toggleClass(activeClass);
+            isExpanded = item.hasClass(activeClass);
+
+            myLinksState[itemId] = isExpanded;
+
+            helpers.localStorage.setItem("myLinks", myLinksState);
         }
     }
 }

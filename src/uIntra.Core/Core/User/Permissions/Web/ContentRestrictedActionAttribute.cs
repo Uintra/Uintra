@@ -2,15 +2,16 @@
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly IntranetActivityTypeEnum _activityType;
+        private readonly IIntranetType _activityType;
         private readonly IntranetActivityActionEnum _action;
 
-        public ContentRestrictedActionAttribute(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public ContentRestrictedActionAttribute(IIntranetType activityType, IntranetActivityActionEnum action)
         {
             _activityType = activityType;
             _action = action;

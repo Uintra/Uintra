@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using uIntra.Core.User;
@@ -15,6 +16,10 @@ namespace uIntra.Core.Extentions
         public static string ToRoleAlias(this IntranetRolesEnum enm)
         {
             return enm.ToString().ToLower();
+        }
+        public static int ToInt(this Enum enm)
+        {
+            return (int) (object) enm;
         }
 
         public static T? ToEnum<T>(this int a)
@@ -36,5 +41,12 @@ namespace uIntra.Core.Extentions
                             .First()
                             .GetCustomAttribute<TAttribute>();
         }
+
+        public static IEnumerable<T> GetEnumCases<T>() where T : struct, IConvertible
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
+        }
+
+
     }
 }

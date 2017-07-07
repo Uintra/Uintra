@@ -2,7 +2,6 @@
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
-using uIntra.Search.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -102,7 +101,7 @@ namespace uIntra.Search
             return new SearchableContent
             {
                 Id = publishedContent.Id,
-                Type = SearchableType.Content,
+                Type = SearchableTypeEnum.Content.ToInt(),
                 Url = publishedContent.Url,
                 Title = publishedContent.Name,
                 PanelContent = content,

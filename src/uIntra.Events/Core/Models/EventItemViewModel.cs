@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Events
 {
@@ -28,6 +29,8 @@ namespace uIntra.Events
 
         public bool IsPinned { get; set; }
 
-        public bool IsPinActual { get; set; }        
+        public bool IsPinActual { get; set; }
+
+        public IIntranetType ActivityType { get; set; }
     }
 }

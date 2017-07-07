@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Compent.uIntra.Core.Comments;
 using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Likes;
 using uIntra.Likes.Web;
@@ -13,11 +14,16 @@ namespace Compent.uIntra.Controllers
     public class LikesController : LikesControllerBase
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public LikesController(IActivitiesServiceFactory activitiesServiceFactory, IIntranetUserService<IntranetUser> intranetUserService, ILikesService likesService)
+        public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
+            IIntranetUserService<IntranetUser> intranetUserService, 
+            ILikesService likesService, 
+            INotificationTypeProvider notificationTypeProvider)
             : base(activitiesServiceFactory, intranetUserService, likesService)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
@@ -29,16 +35,18 @@ namespace Compent.uIntra.Controllers
                 return like;
             }
 
-            var notifyableService = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(model.ActivityId);
-            if (notifyableService != null)
+            var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
+            if (notifiableService != null)
             {
                 if (model.CommentId.HasValue)
                 {
-                    notifyableService.Notify(model.CommentId.Value, NotificationTypeEnum.CommentLikeAdded);
+                    var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
+                    notifiableService.Notify(model.CommentId.Value, notificationType);
                 }
                 else
                 {
-                    notifyableService.Notify(model.ActivityId, NotificationTypeEnum.ActivityLikeAdded);
+                    var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.ActivityLikeAdded.ToInt());
+                    notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }
 

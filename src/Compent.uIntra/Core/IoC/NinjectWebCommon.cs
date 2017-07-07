@@ -20,6 +20,12 @@ using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Persistence.Sql;
+using EmailWorker.Ninject;
+using Localization.Core;
+using Localization.Core.Configuration;
+using Localization.Storage.UDictionary;
+using Localization.Umbraco;
+using Localization.Umbraco.UmbracoEvents;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
 using Newtonsoft.Json.Serialization;
@@ -39,6 +45,7 @@ using uIntra.Core.Localization;
 using uIntra.Core.Media;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Events;
@@ -52,8 +59,7 @@ using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
-using uIntra.Search.Core;
-using uIntra.Search.Core.Configuration;
+using uIntra.Search.Configuration;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core;
@@ -89,6 +95,8 @@ namespace Compent.uIntra.Core.IoC
         {
             var kernel = bootstrapper.Kernel;
 
+            UmbracoEventsModule.RegisterEvents();
+
             var configurationProvider = kernel.Get<IConfigurationProvider<NavigationConfiguration>>();
             configurationProvider.Initialize();
 
@@ -106,7 +114,7 @@ namespace Compent.uIntra.Core.IoC
 
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new EmailWorkerNinjectModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -116,6 +124,7 @@ namespace Compent.uIntra.Core.IoC
                 RegisterServices(kernel);
                 RegisterModelBinders();
                 RegisterGlobalFilters(kernel);
+                RegisterLocalizationServices(kernel);
 
                 GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
@@ -136,7 +145,7 @@ namespace Compent.uIntra.Core.IoC
         {
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
-
+             
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();
@@ -149,7 +158,8 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IMemberService>().ToMethod(i => ApplicationContext.Current.Services.MemberService).InRequestScope();
             kernel.Bind<IMemberTypeService>().ToMethod(i => ApplicationContext.Current.Services.MemberTypeService).InRequestScope();
             kernel.Bind<IMemberGroupService>().ToMethod(i => ApplicationContext.Current.Services.MemberGroupService).InRequestScope();
-
+            kernel.Bind<ILocalizationService>().ToMethod(i => ApplicationContext.Current.Services.LocalizationService).InRequestScope();
+            kernel.Bind<IDomainService>().ToMethod(i => ApplicationContext.Current.Services.DomainService).InRequestScope();
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
@@ -201,11 +211,13 @@ namespace Compent.uIntra.Core.IoC
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
             kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<INotifierService>().To<MailNotifierService>().InRequestScope();
             kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
             kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
             kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
+            kernel.Bind<IMailService>().To<MailService>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -219,6 +231,7 @@ namespace Compent.uIntra.Core.IoC
 
             kernel.Bind<IApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
             kernel.Bind<IuIntraApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
+            kernel.Bind<ISearchApplicationSettings>().To<SearchApplicationSettings>().InSingletonScope();
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
@@ -228,17 +241,27 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IIndexer>().To<NewsService>().InRequestScope();
             kernel.Bind<IIndexer>().To<EventsService>().InRequestScope();
             kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
             kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
             kernel.Bind(typeof(IElasticSearchRepository<>)).To(typeof(ElasticSearchRepository<>)).InRequestScope().WithConstructorArgument(typeof(string), "intranet");
             kernel.Bind(typeof(PropertiesDescriptor<SearchableActivity>)).To<SearchableActivityMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
+            kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
             kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
 
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
+
+            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
+            kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
+            kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
@@ -253,6 +276,21 @@ namespace Compent.uIntra.Core.IoC
         private static void RegisterGlobalFilters(IKernel kernel)
         {
             GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
+        }
+
+        private static void RegisterLocalizationServices(IKernel kernel)
+        {
+            kernel.Bind<ILocalizationConfigurationSection>().ToMethod(c => (ILocalizationConfigurationSection)ConfigurationManager.GetSection("localizationConfiguration")).InSingletonScope();
+            kernel.Bind<ILocalizationSettingsService>().To<LocalizationSettingsService>().InRequestScope();
+            kernel.Bind<ILocalizationCacheProvider>().To<LocalizationMemoryCacheProvider>().InRequestScope();
+            kernel.Bind<ILocalizationCacheService>().To<LocalizationCacheService>().InRequestScope();
+            kernel.Bind<ILocalizationResourceCacheService>().To<LocalizationResourceCacheService>().InRequestScope();
+            kernel.Bind<ILocalizationStorageService>().To<LocalizationStorageService>().InRequestScope();
+            kernel.Bind<ILocalizationServiceLanguageEventHandlers>().To<LocalizationServiceLanguageEventHandlers>().InRequestScope();
+            kernel.Bind<ILocalizationCoreService>().To<LocalizationCoreService>().InRequestScope();
+
+            kernel.Bind<ICultureHelper>().To<CultureHelper>().InRequestScope();
+
         }
 
         private static UmbracoContext CreateUmbracoContext()

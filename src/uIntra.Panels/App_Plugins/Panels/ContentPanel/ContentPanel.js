@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import ajax from "./../../Core/Content/scripts/Ajax";
+﻿import ajax from "./../../Core/Content/scripts/Ajax";
 
 var MobileDetect = require('mobile-detect');
 var Photoswipe = require('photoswipe');
@@ -195,4 +194,4 @@ var controller = {
     }
 }
 
-appInitializer.add(controller.init);
+export default controller;

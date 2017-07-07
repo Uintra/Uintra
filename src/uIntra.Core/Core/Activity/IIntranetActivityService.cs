@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity
 {
     public interface IIntranetActivityService<out TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
     {
-        IntranetActivityTypeEnum ActivityType { get; }
+        IIntranetType ActivityType { get; }
 
         TActivity Get(Guid id);
         IEnumerable<TActivity> GetManyActual();

@@ -10,7 +10,7 @@
     @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
     {
         @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })
-        <h1 class="form__title">@Html.Localize("EventsEdit.Title.lbl")</h1>
+        <h1 class="form__title">@Html.Localize("EventsEditPage.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />
 
         <div class="form__row clearfix">
@@ -31,14 +31,20 @@
                    data-val-required="@Html.Localize("EventsEdit.DescriptionRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
-            <label class="form__label" for="js-start-date">@Html.Localize("EventsEdir.StartDate.lbl")</label>
-            <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-            <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="js-end-date">@Html.Localize("EventsEdit.EndDate.lbl")</label>
-            <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-            <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form__label" for="js-start-date">@Html.Localize("EventsEdir.StartDate.lbl")</label>
+                    <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form__label" for="js-end-date">@Html.Localize("EventsEdit.EndDate.lbl")</label>
+                    <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+            </div>
         </div>
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
@@ -71,8 +77,8 @@
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _black _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" data-text="@Html.Localize("Common.NotifyAllSubscribers")" data-yes="@Html.Localize("Common.NotifyAllSubscribers.Yes")" data-no="@Html.Localize("Common.NotifyAllSubscribers.No")" data-cancel="@Html.Localize("Common.NotifyAllSubscribers.Cancel")" />
-            <input class="form__btn _black js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Events)"/>
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" data-text="@Html.Localize("Common.NotifyAllSubscribers")" data-yes="@Html.Localize("Common.NotifyAllSubscribers.Yes")" data-no="@Html.Localize("Common.NotifyAllSubscribers.No")" data-cancel="@Html.Localize("Common.NotifyAllSubscribers.Cancel")" />
+            <input class="form__btn _cancel js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)"/>
             <a class="form__btn _default" href="@(Context.GetBackLink($"{ViewData["DetailsPageUrl"]}?Id={Model.Id}"))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }

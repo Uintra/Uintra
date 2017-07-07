@@ -21,7 +21,7 @@ namespace uIntra.Core.Media
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public MediaHelper(ICacheService cacheService,
-            IMediaService mediaService, 
+            IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             UmbracoHelper umbracoHelper)
         {
@@ -63,17 +63,53 @@ namespace uIntra.Core.Media
             _mediaService.Save(media);
             return media;
         }
-		
-		public bool DeleteMedia(int mediaId)
+
+        public void DeleteMedia(int mediaId)
         {
             var media = _mediaService.GetById(mediaId);
             if (media == null)
             {
-                return false;
+                throw new ArgumentNullException($"Media with id = {mediaId} doesn't exist.");
             }
 
-            _mediaService.Delete(media);
-            return true;
+            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
+            _mediaService.Save(media);
+        }
+
+        public void DeleteMedia(IEnumerable<int> mediaIds)
+        {
+            var medias = _mediaService.GetByIds(mediaIds).ToList();
+
+            foreach (var media in medias)
+            {
+                media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
+            }
+
+            _mediaService.Save(medias);
+        }
+
+        public void RestoreMedia(int mediaId)
+        {
+            var media = _mediaService.GetById(mediaId);
+            if (media == null)
+            {
+                throw new ArgumentNullException($"Media with id = {mediaId} doesn't exist.");
+            }
+
+            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, false);
+            _mediaService.Save(media);
+        }
+
+        public void RestoreMedia(IEnumerable<int> mediaIds)
+        {
+            var medias = _mediaService.GetByIds(mediaIds).ToList();
+
+            foreach (var media in medias)
+            {
+                media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, false);
+            }
+
+            _mediaService.Save(medias);
         }
 
         public MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType)
@@ -83,9 +119,14 @@ namespace uIntra.Core.Media
 
             return new MediaSettings
             {
-                AllowedMediaExtentions = mediaFolder.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, String.Empty),
+                AllowedMediaExtentions = mediaFolder.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty),
                 MediaRootId = mediaFolder.Id
             };
+        }
+
+        public bool IsMediaDeleted(IPublishedContent media)
+        {
+            return media.HasProperty(ImageConstants.IsDeletedPropertyTypeAlias) && media.GetPropertyValue<bool>(ImageConstants.IsDeletedPropertyTypeAlias, false);
         }
 
         private string GetMediaTypeAlias(byte[] fileBytes)

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using uIntra.Core.Extentions;
+using uIntra.Tagging.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Tagging.Web
@@ -8,6 +11,7 @@ namespace uIntra.Tagging.Web
     public abstract class TagsControllerBase : SurfaceController
     {
         protected virtual string TagsViewPath { get; set; } = "~/App_Plugins/Tagging/Views/TagsView.cshtml";
+        protected virtual string TagsEditViewPath { get; set; } = "~/App_Plugins/Tagging/Views/TagsEditView.cshtml";
 
         private readonly ITagsService _tagsService;
 
@@ -18,7 +22,7 @@ namespace uIntra.Tagging.Web
 
         public virtual ActionResult Tags(IEnumerable<TagEditModel> tags)
         {
-            return PartialView(TagsViewPath, tags);
+            return PartialView(TagsEditViewPath, tags);
         }
 
         public virtual JsonResult Autocomplete(string query)
@@ -29,6 +33,12 @@ namespace uIntra.Tagging.Web
                 .OrderBy(tag => tag.Text);
 
             return Json(new { Tags = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual ActionResult ForActivity(Guid activityId)
+        {
+            var tags = _tagsService.GetAllForActivity(activityId).Map<IEnumerable<TagViewModel>>();
+            return PartialView(TagsViewPath, tags);
         }
     }
 }

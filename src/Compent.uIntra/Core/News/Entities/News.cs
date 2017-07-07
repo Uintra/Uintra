@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.News;
 using uIntra.Subscribe;
@@ -19,5 +20,6 @@ namespace Compent.uIntra.Core.News.Entities
         public IEnumerable<Comment> Comments { get; set; }
         [JsonIgnore]
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
+
     }
 }

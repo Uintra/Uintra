@@ -13,6 +13,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.ShortDescription, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
 
             Mapper.CreateMap<BulletinBase, BulletinEditModel>()
@@ -56,6 +57,7 @@ namespace uIntra.Bulletins
             Mapper.CreateMap<BulletinBase, BulletinViewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, BulletinsBackofficeViewModel>()

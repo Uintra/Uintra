@@ -9,7 +9,7 @@
 <div class="form js-check-before-unload" id="js-news-create-page">
     @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
     {
-        <h1 class="form__title">@Html.Localize("NewsCreate.Title.lbl")</h1>
+        <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
             @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId) })
@@ -35,6 +35,7 @@
                     <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
                     <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" value="@Model.PublishDate.ToDateTimeValuePickerFormat()" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
                 </div>
                 <div class="col-md-6">
                     @{
@@ -43,7 +44,7 @@
                     <label class="form__label" for="js-unpublish-date">@Html.Localize("NewsCreate.UnpublishDate.lbl")</label>
                     <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
-                    <span class="js-clear-unpublish-date form__clear icon-close"></span>
+                    <span class="form__clear icon-close js-clear-date hide"></span>
                 </div>
             </div>
         </div>
@@ -64,8 +65,8 @@
         </div>
             <div class="form__row clearfix">
                 <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-                <input class="form__btn _black _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
-                <a class="form__btn _default" href="@Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News))">@Html.Localize("Common.Cancel.lnk")</a>
+                <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
+                <a class="form__btn _default" href="@Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))">@Html.Localize("Common.Cancel.lnk")</a>
             </div>
                 }
 </div>

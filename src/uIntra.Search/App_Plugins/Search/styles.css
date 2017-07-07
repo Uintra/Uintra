@@ -22,6 +22,43 @@
         border: 1px solid var(--color-light-gray);
     }
 
+    &__filter{
+        position:relative;
+        margin:0 0 40px;
+
+        &-title{
+            font:bold 13px/22px var(--font-general);
+            margin:0 0 3px;
+        }
+
+        .select2{
+            width:100% !important;
+            width:100%;
+        }
+
+        .select2-selection{
+            border-color:var(--color-light-gray) !important;
+            padding:8px 10px 9px;
+            border-radius:0 !important;
+            background:none !important;
+
+            &__rendered{
+                vertical-align:top;
+            }
+
+            &__choice{
+                margin-top:3px !important;
+            }
+        }
+
+        &-placeholder{
+            position:absolute;
+            top:13px;
+            left:10px;
+            color:var(--color-light-gray);
+        }
+    }
+
     &__title{
         font:bold 20px/22px var(--font-custom);
         text-transform:uppercase;

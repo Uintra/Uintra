@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Nest;
 using uIntra.Core.Extentions;
-using uIntra.Search.Core;
-using uIntra.Search.Core.Configuration;
+using uIntra.Core.TypeProviders;
+using uIntra.Search.Configuration;
 using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
 
 namespace uIntra.Search
@@ -13,6 +13,7 @@ namespace uIntra.Search
         protected readonly IElasticConfigurationSection Configuration;
         protected readonly IElasticClient Client;
         protected readonly string IndexName;
+        protected const string AttachmentsPipelineName = "attachments";
 
         private readonly IExceptionLogger _exceptionLogger;
 
@@ -36,7 +37,7 @@ namespace uIntra.Search
             return GetSearchResponse(descriptor);
         }
 
-        public void EnsureIndexExist(Func<AnalysisDescriptor, AnalysisDescriptor> analysis)
+        public void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis)
         {
             if (Client.IndexExists(IndexName).Exists) return;
 
@@ -48,6 +49,8 @@ namespace uIntra.Search
             {
                 RequestError(createIndexResponse);
             }
+
+            EnsureAttachmentsPipelineExists();
         }
 
         public void DeleteIndex()
@@ -79,12 +82,31 @@ namespace uIntra.Search
         {
             _exceptionLogger.Log(response.OriginalException);
         }
+
+        private void EnsureAttachmentsPipelineExists()
+        {
+            var pipelineResponse = Client.GetPipeline(el => el.Id(AttachmentsPipelineName));
+            if (pipelineResponse.IsValid)
+            {
+                return;
+            }
+
+            var putPipelineResponse = Client.PutPipeline(AttachmentsPipelineName,
+                       p => p.Description("Extract attachment information").Processors(pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Data).
+                       TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Data))));
+
+            if (!putPipelineResponse.IsValid)
+            {
+                RequestError(putPipelineResponse);
+            }
+        }
     }
 
     public class ElasticSearchRepository<T> : ElasticSearchRepository, IElasticSearchRepository<T>
         where T : SearchableBase
     {
         private readonly PropertiesDescriptor<T> _properties;
+        private static readonly Type SearchableDocumentType = typeof(SearchableDocument);
 
         public ElasticSearchRepository(
             string indexName,
@@ -111,7 +133,7 @@ namespace uIntra.Search
 
         public void Save(T document)
         {
-            var response = Client.Index(document, i => i.Index(IndexName).Type(GetTypeName()));
+            var response = Client.Index(document, i => SetPipelines(i.Index(IndexName).Type(GetTypeName())));
             if (!response.IsValid)
             {
                 RequestError(response);
@@ -123,9 +145,9 @@ namespace uIntra.Search
             foreach (var entity in documents.Split(Configuration.LimitBulkOperation))
             {
                 var closure = entity;
-                var bulkResponse = Client.Bulk(b => b
+                var bulkResponse = Client.Bulk(b => SetPipelines(b
                     .Index(IndexName).Type(GetTypeName())
-                    .IndexMany(closure));
+                    .IndexMany(closure)));
 
                 if (!bulkResponse.IsValid)
                 {
@@ -134,11 +156,12 @@ namespace uIntra.Search
             }
         }
 
-        public void DeleteAllByType(SearchableType type)
+        public void DeleteAllByType(IIntranetType type)
         {
             var deleteQuery = new DeleteByQueryDescriptor<T>(Indices.Parse(IndexName))
                 .Type(Types.Parse(GetTypeName()))
-                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type)));
+                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.Id)));
+
             var response = Client.DeleteByQuery(deleteQuery);
 
             if (!response.IsValid)
@@ -175,6 +198,26 @@ namespace uIntra.Search
         public string GetTypeName()
         {
             return typeof(T).Name.ToLower();
+        }
+
+        private static IndexDescriptor<T> SetPipelines(IndexDescriptor<T> indexDescriptor)
+        {
+            if (typeof(T) == SearchableDocumentType)
+            {
+                return indexDescriptor.Pipeline(AttachmentsPipelineName);
+            }
+
+            return indexDescriptor;
+        }
+
+        private static BulkDescriptor SetPipelines(BulkDescriptor bulkDescriptor)
+        {
+            if (typeof(T) == SearchableDocumentType)
+            {
+                return bulkDescriptor.Pipeline(AttachmentsPipelineName);
+            }
+
+            return bulkDescriptor;
         }
     }
 }

@@ -8,6 +8,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Events;
@@ -15,7 +16,7 @@ using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Search.Core;
+using uIntra.Search;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
@@ -43,6 +44,11 @@ namespace Compent.uIntra.Core.Events
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
@@ -52,10 +58,14 @@ namespace Compent.uIntra.Core.Events
             ILikesService likesService,
             ISubscribeService subscribeService,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, 
+            INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex)
-            : base(intranetActivityRepository, cacheService)
+            IElasticActivityIndex activityIndex,
+            IDocumentIndexer documentIndexer,
+			IActivityTypeProvider activityTypeProvider, 
+            ICentralFeedTypeProvider centralFeedTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
@@ -66,11 +76,15 @@ namespace Compent.uIntra.Core.Events
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
+            _activityTypeProvider = activityTypeProvider;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
+            _searchableTypeProvider = searchableTypeProvider;
         }
 
         protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
-
-        public override IntranetActivityTypeEnum ActivityType => IntranetActivityTypeEnum.Events;
+        
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
 
         public override IPublishedContent GetOverviewPage()
         {
@@ -136,11 +150,11 @@ namespace Compent.uIntra.Core.Events
         {
             return new CentralFeedSettings
             {
-                Type = CentralFeedTypeEnum.Events,
+                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Events.ToInt()),
                 Controller = "Events",
                 OverviewPage = GetOverviewPage(),
                 CreatePage = GetCreatePage(),
-                HasSubscribersFilter = true,                
+                HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
         }
@@ -158,7 +172,7 @@ namespace Compent.uIntra.Core.Events
             var creatorId = Get(cached.Id).CreatorId;
             var isCreator = creatorId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, IntranetActivityTypeEnum.Events, IntranetActivityActionEnum.Edit);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
             return isCreator && isUserHasPermissions;
         }
 
@@ -187,14 +201,18 @@ namespace Compent.uIntra.Core.Events
 
         protected override Event UpdateCachedEntity(Guid id)
         {
+            var cachedEvent = Get(id);
             var @event = base.UpdateCachedEntity(id);
             if (IsEventHidden(@event))
             {
                 _activityIndex.Delete(id);
+                _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+                _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
                 return null;
             }
 
             _activityIndex.Index(Map(@event));
+            _documentIndexer.Index(@event.MediaIds);
             return @event;
         }
 
@@ -257,7 +275,7 @@ namespace Compent.uIntra.Core.Events
             return !Get(activityId).Subscribers.Any();
         }
 
-        public void Notify(Guid entityId, NotificationTypeEnum notificationType)
+        public void Notify(Guid entityId, IIntranetType notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
 
@@ -267,26 +285,26 @@ namespace Compent.uIntra.Core.Events
             }
         }
 
-        private NotifierData GetNotifierData(Guid entityId, NotificationTypeEnum notificationType)
+        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
             Event currentEvent;
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var data = new NotifierData
             {
-                NotificationType = notificationType,
+                NotificationType = notificationType
             };
 
-            switch (notificationType)
+            switch (notificationType.Id)
             {
-                case NotificationTypeEnum.CommentReplyed:
+                case (int) NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
-                            ActivityType = IntranetActivityTypeEnum.Events,
+                            ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id),
@@ -294,48 +312,49 @@ namespace Compent.uIntra.Core.Events
                         };
                     }
                     break;
-                case NotificationTypeEnum.CommentEdited:
+                case (int) NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
                         data.Value = new CommentNotifierDataModel
                         {
-                            ActivityType = IntranetActivityTypeEnum.Events,
+                            ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                         break;
                     }
-                case NotificationTypeEnum.CommentAdded:
+                case (int) NotificationTypeEnum.CommentAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
                         data.Value = new CommentNotifierDataModel
                         {
-                            ActivityType = IntranetActivityTypeEnum.Events,
+                            ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                     }
                     break;
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int) NotificationTypeEnum.ActivityLikeAdded:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel
                         {
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
-                            Title = currentEvent?.Title,
-                            ActivityType = IntranetActivityTypeEnum.Events,
-                            NotifierId = currentUser.Id
+                            Title = currentEvent.Title,
+                            ActivityType = ActivityType,
+                            NotifierId = currentUser.Id,
+                            CreatedDate = DateTime.Now
                         };
                     }
                     break;
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int) NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
@@ -343,7 +362,7 @@ namespace Compent.uIntra.Core.Events
                         data.Value = new CommentNotifierDataModel
                         {
                             CommentId = entityId,
-                            ActivityType = IntranetActivityTypeEnum.Events,
+                            ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
                             Url = GetUrlWithComment(currentEvent.Id, comment.Id)
@@ -351,7 +370,7 @@ namespace Compent.uIntra.Core.Events
                     }
                     break;
 
-                case NotificationTypeEnum.BeforeStart:
+                case (int) NotificationTypeEnum.BeforeStart:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
@@ -359,20 +378,20 @@ namespace Compent.uIntra.Core.Events
                         {
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             Title = currentEvent.Title,
-                            ActivityType = IntranetActivityTypeEnum.Events,
+                            ActivityType = ActivityType,
                             StartDate = currentEvent.StartDate
                         };
                     }
                     break;
 
-                case NotificationTypeEnum.EventHided:
-                case NotificationTypeEnum.EventUpdated:
+                case (int) NotificationTypeEnum.EventHided:
+                case (int) NotificationTypeEnum.EventUpdated:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
                         data.Value = new ActivityNotifierDataModel
                         {
-                            ActivityType = currentEvent.Type,
+                            ActivityType = ActivityType,
                             Title = currentEvent.Title,
                             Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             NotifierId = currentUser.Id
@@ -432,7 +451,9 @@ namespace Compent.uIntra.Core.Events
         {
             var activities = GetAll().Where(s => !IsEventHidden(s));
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(SearchableType.Events);
+
+            var seachableType = _searchableTypeProvider.Get(SearchableTypeEnum.Events.ToInt());
+            _activityIndex.DeleteByType(seachableType);
             _activityIndex.Index(searchableActivities);
         }
 

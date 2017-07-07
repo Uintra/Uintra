@@ -1,23 +1,22 @@
 ﻿@using uIntra.Core
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<IEnumerable<uIntra.Core.Controls.LightboxGallery.LightboxGalleryViewModel>>
+@model uIntra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
 
-
-@if (Model.Any())
+@if (Model.GalleryItems.Any())
 {
-    <ul id ="js-lightbox-gallery" class="gallery js-lightbox-gallery clearfix">
+    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery clearfix">
         @{
-            foreach (var media in Model)
+            foreach (var media in Model.GalleryItems)
             {
-                switch (media.Type)
+                switch (media.Type.Id)
                 {
-                    case MediaTypeEnum.Image:
+                    case (int)MediaTypeEnum.Image:
                         var originalSize = $"{media.Width}x{media.Height}";
 
                         <li class="gallery__item">
                             <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" />
                         </li>
                         break;
-                    case MediaTypeEnum.Document:
+                    case (int)MediaTypeEnum.Document:
                         <li class="gallery__item">
                             <a href="@media.Url" target="_blank">
                                 <span class="file-extension __@media.Extention"></span>

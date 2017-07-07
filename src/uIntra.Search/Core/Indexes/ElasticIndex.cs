@@ -4,14 +4,15 @@ using System.Linq;
 using Nest;
 using uIntra.Core.Extentions;
 
-namespace uIntra.Search.Core
+namespace uIntra.Search
 {
     public class ElasticIndex : IElasticIndex
     {
+        private const int MinimumShouldMatches = 1;
+
         private readonly IElasticSearchRepository _elasticSearchRepository;
 
-        public ElasticIndex(
-            IElasticSearchRepository elasticSearchRepository)
+        public ElasticIndex(IElasticSearchRepository elasticSearchRepository)
         {
             _elasticSearchRepository = elasticSearchRepository;
         }
@@ -23,9 +24,9 @@ namespace uIntra.Search.Core
                 .TrackScores()
                 .Query(q =>
                     q.Bool(b => b
-                        .Should(
-                            GetQueryContainers(textQuery.Text)
-                        )))
+                       .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))
+                       .Should(GetQueryContainers(textQuery.Text))
+                       .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
                 .Take(textQuery.Take);
 
             ApplySort(searchRequest);
@@ -43,7 +44,7 @@ namespace uIntra.Search.Core
         public void RecreateIndex()
         {
             _elasticSearchRepository.DeleteIndex();
-            _elasticSearchRepository.EnsureIndexExist(ElasticHelpers.SetAnalysis);
+            _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis);
         }
 
         private static QueryContainer[] GetQueryContainers(string query)
@@ -65,8 +66,17 @@ namespace uIntra.Search.Core
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.PanelTitle))
+                    .Field(f => f.PanelTitle)),
+                new QueryContainerDescriptor<SearchableDocument>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Attachment.Content))
             };
+        }
+
+        private static QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)
+        {
+            return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
         }
 
         private static SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
@@ -93,13 +103,6 @@ namespace uIntra.Search.Core
                         .PreTags(SearchConstants.HighlightPreTag)
                         .PostTags(SearchConstants.HighlightPostTag))
                 );
-        }
-
-
-        private static void ApplyPaging(ISearchRequest searchRequest, int page, int pageSize)
-        {
-            searchRequest.From = page - 1;
-            searchRequest.Size = pageSize;
         }
 
         private void ApplySort<T>(SearchDescriptor<T> searchDescriptor)
@@ -130,20 +133,21 @@ namespace uIntra.Search.Core
             var documents = new List<T>();
             foreach (var document in response.Documents)
             {
-                switch ((SearchableType)document.type)
+                switch ((SearchableTypeEnum)document.type)
                 {
-                    case SearchableType.Events:
-                    case SearchableType.Ideas:
-                    case SearchableType.News:
+                    case SearchableTypeEnum.Events:
+                    case SearchableTypeEnum.News:
                         documents.Add(SerializationExtentions.Deserialize<SearchableActivity>(document.ToString()));
                         break;
-                    case SearchableType.Content:
-                    case SearchableType.Document:
+                    case SearchableTypeEnum.Content:
                         documents.Add(SerializationExtentions.Deserialize<SearchableContent>(document.ToString()));
+                        break;
+                    case SearchableTypeEnum.Document:
+                        documents.Add(SerializationExtentions.Deserialize<SearchableDocument>(document.ToString()));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(
-                            $"Could not resolve type of searchable entity {(SearchableType)document.type}");
+                            $"Could not resolve type of searchable entity {(SearchableTypeEnum)document.type}");
                 }
             }
             return documents;
@@ -171,6 +175,10 @@ namespace uIntra.Search.Core
 
                     case "panelTitle":
                         panelContent.AddRange(field.Highlights);
+                        break;
+
+                    case "attachment.content":
+                        document.attachment.content = highlightedField;
                         break;
                 }
             }

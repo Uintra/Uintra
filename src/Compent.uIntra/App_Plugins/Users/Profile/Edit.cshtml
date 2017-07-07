@@ -1,5 +1,9 @@
-﻿@using uIntra.Core.Controls.FileUpload
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extentions
+@using uIntra.Notification.Configuration
+@using Umbraco.Web
 @model uIntra.Users.ProfileEditModel
 
 <div id="js-profile-page" class="form profile-edit _profile">
@@ -40,10 +44,19 @@
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _black _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
+            <input class="form__btn _submit _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
         </div>
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-                        }
+    }
+    <div class="check">
+        <label class="check__label">
+            @Html.CheckBox("js-member-notifier-setting",
+            Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+            new { notifiertype = NotifierTypeEnum.EmailNotifier, @class = "check__box" })
+            <span class="check__fake-input icon-check"></span>
+            <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
+        </label>
+    </div>
 </div>

@@ -1,6 +1,6 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
+﻿require('devbridge-autocomplete');
 
-require('devbridge-autocomplete');
+var body = document.querySelector('body');
 
 function initSearchBox() {
     var searchBox = $('.js-searchbox');
@@ -76,8 +76,8 @@ function initMobileSearch() {
     if (!opener) {
         return;
     }
-
-    var body = document.querySelector('body');
+    
+    var searchContainer = document.querySelector('.search');
 
     opener.addEventListener('click',
         () => {
@@ -89,10 +89,23 @@ function initMobileSearch() {
                 body.classList.remove('_menu-expanded');
             }
         });
+
+    body.addEventListener("click", function(ev) {
+        isOutsideClick(searchContainer, opener, ev.target, "_search-expanded", function() {
+            body.classList.remove("_search-expanded");
+        });
+    });
 };
 
-appInitializer.add(function () {
+function isOutsideClick(el, trigger, target, className, callback){
+    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(className)) {
+        if (typeof callback === "function") {
+            callback();
+        }
+    }
+}
+
+export default function () {
     initSearchBox();
     initMobileSearch();
-});
-
+}

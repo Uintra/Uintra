@@ -1,5 +1,5 @@
 ﻿using uIntra.Core;
-using uIntra.Search.Core;
+using uIntra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
@@ -24,9 +25,9 @@ namespace uIntra.Core.Activity
             return _sqlRepository.GetAll();
         }
 
-        public IEnumerable<IntranetActivityEntity> GetMany(IntranetActivityTypeEnum activityType)
+        public IEnumerable<IntranetActivityEntity> GetMany(IIntranetType activityType)
         {
-            return _sqlRepository.FindAll(a => a.Type == activityType);
+            return _sqlRepository.FindAll(a => a.Type == activityType.Id);
         }
 
         public IEnumerable<IntranetActivityEntity> FindAll(Expression<Func<IntranetActivityEntity, bool>> expression)

@@ -1,4 +1,7 @@
 ﻿var Sortable = require('sortablejs');
+import helpers from "./../../Core/Content/scripts/Helpers";
+
+require("./myLinks.css");
 
 var controller = {
     init: function () {
@@ -11,10 +14,37 @@ var controller = {
         var removeLinks = document.querySelectorAll('.js-myLinks-remove');
         var currentPageID = addControlBtn.getAttribute('data-content-id');
         var className = '_disabled';
+        var myLinksState = helpers.localStorage.getItem("myLinks") || {};
+        var opener = $('.js-mylinks__opener');
+        var activeClass = '_expand';
+
+        opener.on('click', function(e){
+            toggleLinks(this);
+        });
+
+        getNavState();
 
         var sortable = Sortable.create(container, {
-            onUpdate: function (evt) {
+            group: "myLinksSortable",
+            store: {
+                /**
+                 * Get the order of elements. Called once during initialization.
+                 * @param   {Sortable}  sortable
+                 * @returns {Array}
+                 */
+                get: function (sortable) {
+                    var order = localStorage.getItem(sortable.options.group.name);
+                    return order ? order.split('|') : [];
+                },
 
+                /**
+                 * Save the order of elements. Called onEnd (when the item is dropped).
+                 * @param {Sortable}  sortable
+                 */
+                set: function (sortable) {
+                    var order = sortable.toArray();
+                    localStorage.setItem(sortable.options.group.name, order.join('|'));
+                }
             }
         });
 
@@ -47,6 +77,30 @@ var controller = {
                     toggleLinks(this, e, 'Remove');
                 });
             }
+        }
+
+        function getNavState(){
+            var navItem = $('.js-mylinks__item');
+            var id = $(navItem).data("id");
+    
+            if(!jQuery.isEmptyObject(myLinksState)){
+                for(var item in myLinksState){
+                    $(navItem).toggleClass(activeClass, myLinksState[item]);
+                }
+            }
+        }
+
+        function toggleLinks(el){
+            var item = $(el).closest('.js-mylinks__item');
+            var itemId = item.data("id");
+            var isExpanded;
+
+            item.toggleClass(activeClass);
+            isExpanded = item.hasClass(activeClass);
+
+            myLinksState[itemId] = isExpanded;
+
+            helpers.localStorage.setItem("myLinks", myLinksState);
         }
     }
 }

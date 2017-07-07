@@ -1,4 +1,5 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
 @using uIntra.CentralFeed.App_Plugins.CentralFeed.Models
 @using uIntra.Core.Extentions
 @using Umbraco.Web
@@ -14,19 +15,21 @@
             @foreach (var typeModel in tabsWithCreateUrls)
             {
                 <li class="feed-create__frame">
-                    <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type}.lnk")</a>
+                    <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
                 </li>
             }
         </ul>
     }
-    <div class="feed__filter js-feed-navigation">
+    @Ajax.ActionLink("Open filters", "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+    @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
+    <div class="feed__filter filter__body js-feed-navigation">
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
         <div class="tabset__holder">
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
-                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.GetHashCode()" data-page-url="@tabModel.Url">
-                        <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type)</a>
+                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Url">
+                        <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
             </ul>
@@ -37,7 +40,7 @@
             new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
             {
                 <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
-                <input type="hidden" name="type" value="@(Model.CurrentType.GetHashCode())" />
+                <input type="hidden" name="type" value="@Model.CurrentType.Id" />
                 <input type="hidden" name="page" />
                 <div class="tab-content js-feed-listContainer">
                     @{Html.RenderAction("List", "CentralFeed",
@@ -45,7 +48,7 @@
                         {
                             model = new CentralFeedListModel
                             {
-                                Type = Model.CurrentType
+                                Type = Model.CurrentType.Id
                             }
                         }); }
                 </div>

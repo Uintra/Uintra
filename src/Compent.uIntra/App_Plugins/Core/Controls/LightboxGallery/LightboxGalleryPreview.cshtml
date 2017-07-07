@@ -1,7 +1,7 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 @{
-    var url = $"{ViewData.GetActivityDetailsPageUrl(Model.ActivityType, Model.ActivityId)}#js-lightbox-gallery";
+    var url = $"{ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.ActivityId)}#js-lightbox-gallery";
 }
 
 <ul class="gallery js-lightbox-gallery clearfix">

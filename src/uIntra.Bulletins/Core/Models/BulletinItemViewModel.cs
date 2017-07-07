@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Bulletins
 {
@@ -19,5 +20,7 @@ namespace uIntra.Bulletins
         public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
+
+        public IIntranetType ActivityType { get; set; }
     }
 }

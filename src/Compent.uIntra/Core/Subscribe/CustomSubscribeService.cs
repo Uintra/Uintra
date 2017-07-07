@@ -1,5 +1,6 @@
 ﻿using uIntra.Core.Activity;
 using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Subscribe
@@ -11,9 +12,9 @@ namespace Compent.uIntra.Core.Subscribe
         {
         }
 
-        public override bool HasNotification(IntranetActivityTypeEnum type)
+        public override bool HasNotification(IIntranetType type)
         {
-            return type == IntranetActivityTypeEnum.Events || type == IntranetActivityTypeEnum.News;
+            return type.Id == (int)IntranetActivityTypeEnum.Events || type.Id == (int)IntranetActivityTypeEnum.News;
         }
     }
 }

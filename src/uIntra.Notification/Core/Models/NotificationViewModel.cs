@@ -1,5 +1,5 @@
 ﻿using System;
-using uIntra.Notification.Configuration;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification
 {
@@ -9,7 +9,7 @@ namespace uIntra.Notification
         public string Date { get; set; }
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
-        public NotificationTypeEnum Type { get; set; }
+        public IIntranetType Type { get; set; }
         public string NotifierName { get; set; }
         public string NotifierPhoto { get; set; }
         public dynamic Value { get; set; }

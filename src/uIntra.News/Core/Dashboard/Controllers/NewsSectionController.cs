@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using uIntra.Core.User;
 using Umbraco.Web.WebApi;
 
@@ -13,11 +14,13 @@ namespace uIntra.News.Dashboard
     {
         private readonly INewsService<NewsBase> _newsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaHelper _mediaHelper;
 
-        public NewsSectionController(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService)
+        public NewsSectionController(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
         {
             _newsService = newsService;
             _intranetUserService = intranetUserService;
+            _mediaHelper = mediaHelper;
         }
 
         public IEnumerable<NewsBackofficeViewModel> GetAll()
@@ -48,6 +51,7 @@ namespace uIntra.News.Dashboard
             var news = _newsService.Get(saveModel.Id);
             news = Mapper.Map(saveModel, news);
             _newsService.Save(news);
+            _mediaHelper.RestoreMedia(news.MediaIds);
 
             var updatedModel = _newsService.Get(saveModel.Id);
             var result = updatedModel.Map<NewsBackofficeViewModel>();

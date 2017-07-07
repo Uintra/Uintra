@@ -1,8 +1,5 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace uIntra.Notification.Configuration
+﻿namespace uIntra.Notification.Configuration
 {
-    [EnumAsInt]
     public enum NotificationTypeEnum
     {
         Event = 1,
@@ -14,7 +11,7 @@ namespace uIntra.Notification.Configuration
         ActivityLikeAdded,
         CommentAdded,
         CommentEdited,
-        CommentReplyed,
+        CommentReplied,
         CommentLikeAdded
     }
 }

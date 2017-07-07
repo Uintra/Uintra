@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
@@ -86,7 +87,7 @@ namespace uIntra.Subscribe.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IntranetActivityTypeEnum? type = null)
+        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IIntranetType type = null)
         {
             var model = new SubscribeViewModel
             {
@@ -97,9 +98,9 @@ namespace uIntra.Subscribe.Web
                 IsNotificationDisabled = subscriber?.IsNotificationDisabled ?? false
             };
 
-            if (type.HasValue)
+            if (type != null)
             {
-                model.HasNotification = _subscribeService.HasNotification(type.Value);
+                model.HasNotification = _subscribeService.HasNotification(type);
             }
 
             return PartialView(IndexViewPath, model);

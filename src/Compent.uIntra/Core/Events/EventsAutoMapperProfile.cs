@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Events;
+using uIntra.Search;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -43,6 +44,14 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
                 .ForMember(dst => dst.Subscribers, o => o.Ignore());
+
+            Mapper.CreateMap<Event, SearchableActivity>()
+                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
+                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.PublishedDate, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .IncludeBase<IntranetActivity, SearchableActivity>();
         }
     }
 }

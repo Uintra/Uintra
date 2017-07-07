@@ -2,7 +2,7 @@
 @using uIntra.Core.Extentions
 @model Compent.uIntra.Core.Events.EventExtendedItemModel
 @{
-    var pinnedClass = Model.IsPinned ? "_pinned" : "";
+    var pinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
 <div class="feed__item @pinnedClass">
     <div class="clearfix">
@@ -26,7 +26,7 @@
     <div class="feed__item-feed">
         <div class="feed__item-feed-holder">
             @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Events, Model.Id) }); }
+            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
         </div>
         @if (Model.CanSubscribe)
         {

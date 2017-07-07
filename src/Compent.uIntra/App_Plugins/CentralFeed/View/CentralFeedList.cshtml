@@ -4,13 +4,13 @@
 @model CentralFeedListViewModel
 
 @{
-    var tabSettings = Model.Settings.First(s => s.Type.GetHashCode() == Model.Type.GetHashCode());
+    var tabSettings = Model.Settings.First(s => s.Type.Id == Model.Type.Id);
 }
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <input type="hidden" name="version" value="@Model.Version" />
 
-<div class="feed__filter">
+<div class="feed__filter filter__body">
     <div class="row clearfix">
         <div class="col-md-3" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
             <div class="check">
@@ -30,7 +30,7 @@
                 </label>
             </div>
         </div>
-        <div class="col-md-3" style="display: @(tabSettings.Type != CentralFeedTypeEnum.Bulletins ? "block" : "none")">
+        <div class="col-md-3" style="display: @(tabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
             <input class="btn" type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
         </div>
     </div>
@@ -44,7 +44,7 @@
 <div class="feed__list">
     @foreach (var item in Model.Items)
     {
-        var itemSettings = Model.Settings.First(s => s.Type.GetHashCode() == item.Type.GetHashCode());
+        var itemSettings = Model.Settings.First(s => s.Type.Id == item.Type.Id);
 
         <div data-anchor="@item.Id">
             @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item }); }

@@ -1,7 +1,7 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type, Model.ActivityId);
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type.Id, Model.ActivityId);
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
 }
 
@@ -15,7 +15,7 @@
                 <span class="feed__item-date">@date</span>
                 <span class="feed__item-divider"> - </span>
             }
-            <span class="feed__item-category">@Html.Localize(Model.Type)@(Model.Creator != null ? "," : string.Empty)</span>
+            <span class="feed__item-category">@Html.Localize(Model.Type.Name)@(Model.Creator != null ? "," : string.Empty)</span>
             @if (Model.Creator != null)
             {
                 <a href="@profilePageUrl">

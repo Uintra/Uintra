@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Comments;
+using Localization.Umbraco.Attributes;
 using uIntra.Comments;
 using uIntra.Comments.Web;
 using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
@@ -11,6 +13,7 @@ using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
+    [ThreadCulture]
     public class CommentsController : CommentsControllerBase
     {
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
@@ -19,15 +22,17 @@ namespace Compent.uIntra.Controllers
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public CommentsController(
             ICommentsService commentsService,
             IIntranetUserService<IntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper)
+            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper, INotificationTypeProvider notificationTypeProvider)
             : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)
         {
             _customCommentableService = customCommentableService;
+            _notificationTypeProvider = notificationTypeProvider;
             _activitiesServiceFactory = activitiesServiceFactory;
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
@@ -35,13 +40,15 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnCommentCreated(Comment comment)
         {
-            var service = _activitiesServiceFactory.GetServiceSafe<INotifyableService>(comment.ActivityId);
+            var service = _activitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
-                service.Notify(comment.ParentId ?? comment.Id,
-                    comment.ParentId.HasValue
-                        ? NotificationTypeEnum.CommentReplyed
-                        : NotificationTypeEnum.CommentAdded);
+                var notificationId = comment.ParentId.HasValue
+                    ? NotificationTypeEnum.CommentReplied.ToInt()
+                    : NotificationTypeEnum.CommentAdded.ToInt();
+
+                var notificationType = _notificationTypeProvider.Get(notificationId);
+                service.Notify(comment.ParentId ?? comment.Id, notificationType);
             }
         }
 
@@ -50,7 +57,8 @@ namespace Compent.uIntra.Controllers
             var service = _activitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
-                service.Notify(comment.Id, NotificationTypeEnum.CommentEdited);
+                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentEdited.ToInt());
+                service.Notify(comment.Id, notificationType);
             }
         }
 

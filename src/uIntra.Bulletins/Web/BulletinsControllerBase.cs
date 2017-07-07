@@ -7,6 +7,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Core;
@@ -14,7 +15,7 @@ using Umbraco.Web.Mvc;
 
 namespace uIntra.Bulletins.Web
 {
-    [ActivityController(IntranetActivityTypeEnum.Bulletins)]
+    [ActivityController(ActivityTypeId)]
     public abstract class BulletinsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemView.cshtml";
@@ -28,21 +29,27 @@ namespace uIntra.Bulletins.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+
+        private const int ActivityTypeId = (int) IntranetActivityTypeEnum.Bulletins;
 
         protected BulletinsControllerBase(
             IBulletinsService<BulletinBase> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> userService,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper, IActivityTypeProvider activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _mediaHelper = mediaHelper;
             _userService = userService;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public virtual PartialViewResult CreationForm()
         {
+            FillLinks();
+
             var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
 
@@ -51,7 +58,7 @@ namespace uIntra.Bulletins.Web
                 HeaderInfo = new IntranetActivityItemHeaderViewModel
                 {
                     Title = currentUser.DisplayedName,
-                    Type = IntranetActivityTypeEnum.Bulletins,
+                    Type = _activityTypeProvider.Get(ActivityTypeId),
                     Dates = DateTime.UtcNow
                         .ToString(IntranetConstants.Common.DefaultDateFormat)
                         .ToEnumerableOfOne(),
@@ -69,7 +76,7 @@ namespace uIntra.Bulletins.Web
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins));
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
             var model = GetViewModel(bulletin);
@@ -77,7 +84,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
             FillLinks();
@@ -85,7 +92,7 @@ namespace uIntra.Bulletins.Web
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins));
+                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
             var model = GetEditViewModel(bulletin);
@@ -93,7 +100,7 @@ namespace uIntra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             FillLinks();
@@ -105,18 +112,18 @@ namespace uIntra.Bulletins.Web
 
             var activity = UpdateBulletin(editModel);
             OnBulletinEdited(activity, editModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, editModel.Id));
+            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
         }
 
         [HttpPost]
-        [RestrictedAction(IntranetActivityTypeEnum.Bulletins, IntranetActivityActionEnum.Delete)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Delete)]
         public virtual JsonResult Delete(Guid id)
         {
             _bulletinsService.Delete(id);
             OnBulletinDeleted(id);
 
             FillLinks();
-            return Json(new { Url = ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins) });
+            return Json(new { Url = ViewData.GetActivityOverviewPageUrl(ActivityTypeId) });
         }
 
         protected virtual void FillMediaEditData(IContentWithMediaCreateEditModel model)
@@ -188,9 +195,9 @@ namespace uIntra.Bulletins.Web
             var editPageUrl = _bulletinsService.GetEditPage().Url;
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
 
-            ViewData.SetActivityOverviewPageUrl(IntranetActivityTypeEnum.Bulletins, overviewPageUrl);
-            ViewData.SetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins, detailsPageUrl);
-            ViewData.SetActivityEditPageUrl(IntranetActivityTypeEnum.Bulletins, editPageUrl);
+            ViewData.SetActivityOverviewPageUrl(ActivityTypeId, overviewPageUrl);
+            ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
+            ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
             ViewData.SetProfilePageUrl(profilePageUrl);
         }
 

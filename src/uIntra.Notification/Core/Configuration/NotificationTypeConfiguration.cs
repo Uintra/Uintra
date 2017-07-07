@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {
     public class NotificationTypeConfiguration
     {
-        public NotificationTypeEnum NotificationType { get; set; }
+        public string NotificationType { get; set; }
 
         public IEnumerable<NotifierTypeEnum> NotifierTypes { get; set; }
     }

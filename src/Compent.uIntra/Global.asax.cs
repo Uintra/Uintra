@@ -20,7 +20,7 @@ namespace Compent.uIntra
             NewsSection.AddSectionToAllUsers(applicationContext);
             EventsSection.AddSectionToAllUsers(applicationContext);
             BulletinsSection.AddSectionToAllUsers(applicationContext);
-
+             
             RegisterRoutes();
 
             base.ApplicationStarted(umbracoApplication, applicationContext);

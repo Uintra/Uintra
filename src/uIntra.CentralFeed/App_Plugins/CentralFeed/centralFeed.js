@@ -1,8 +1,8 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
-import helpers from "./../Core/Content/scripts/Helpers";
+﻿import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
 import subscribe from "./../Subscribe/subscribe";
+import initOpener from "./openCloseCentralFeed";
 
 require("./centralFeed.css");
 
@@ -199,6 +199,7 @@ function emitTabReloadedEvent(isReinit) {
 }
 
 function init() {
+    initOpener();
     holder = document.querySelector('.js-feed-overview');
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
@@ -207,7 +208,8 @@ function init() {
 
     state = {
         get tab() {
-            return navigationHolder.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
+            var el = navigationHolder.querySelector('.js-feed-links .js-feed-type._active');
+            return el && el.dataset['type'];
         },
         set tab(val) {
             var active = '_active';
@@ -254,9 +256,7 @@ function init() {
     document.body.addEventListener('cfShowBulletins', showBulletinsEventHandler);
 }
 
-appInitializer.add(init);
-
 export default {
-init: init,
+    init: init,
     reload: reload
 }

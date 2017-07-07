@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 using Umbraco.Core.Models;
@@ -23,6 +24,7 @@ namespace uIntra.CentralFeed.Web
         private readonly ISubscribeService _subscribeService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(
@@ -31,7 +33,8 @@ namespace uIntra.CentralFeed.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            ICentralFeedTypeProvider centralFeedTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
@@ -39,27 +42,40 @@ namespace uIntra.CentralFeed.Web
             _subscribeService = subscribeService;
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
+        }
+
+        public ActionResult OpenFilters()
+        {
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
+            centralFeedState.IsFiltersOpened = !centralFeedState.IsFiltersOpened;
+            _centralFeedContentHelper.SaveFiltersState(centralFeedState);
+            return new EmptyResult();
         }
 
         public virtual ActionResult Overview()
         {
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
 
             var model = new CentralFeedOverviewModel
             {
                 Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
-                CurrentType = tabType
+                CurrentType = tabType,
+                IsFiltersOpened = centralFeedState.IsFiltersOpened
+
             };
             return PartialView(OverviewViewPath, model);
         }
 
         public virtual ActionResult List(CentralFeedListModel model)
         {
-            var items = GetCentralFeedItems(model.Type).ToList();
+            var centralFeedType = _centralFeedTypeProvider.Get(model.Type);
+            var items = GetCentralFeedItems(centralFeedType).ToList();
 
             RestoreFiltersState(model);
 
-            var tabSettings = _centralFeedService.GetSettings(model.Type);
+            var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
             var filteredItems = ApplyFilters(items, model, tabSettings).ToList();
 
@@ -70,7 +86,7 @@ namespace uIntra.CentralFeed.Web
                 return null;
             }
 
-            var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems);
+            var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems, centralFeedType);
             var filterStateModel = GetFilterStateModel(centralFeedModel);
             _centralFeedContentHelper.SaveFiltersState(filterStateModel);
 
@@ -87,10 +103,10 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<ICentralFeedItem> filteredItems)
+        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<ICentralFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = Sort(filteredItems, model.Type).Take(take).ToList();
+            var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
 
 
             return new CentralFeedListViewModel
@@ -98,7 +114,7 @@ namespace uIntra.CentralFeed.Web
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
                 Items = pagedItemsList,
                 Settings = _centralFeedService.GetAllSettings(),
-                Type = model.Type,
+                Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
                 ShowPinned = model.ShowPinned ?? false,
                 IncludeBulletin = model.IncludeBulletin ?? false,
@@ -132,23 +148,24 @@ namespace uIntra.CentralFeed.Web
 
         public virtual JsonResult AvailableActivityTypes()
         {
-            var activityTypes = _centralFeedService.GetAllSettings().Select(s => s.Type);
-            var activityTypeModelList = activityTypes.Select(a => new { Id = a.GetHashCode(), Name = a.ToString() }).ToList();
-            activityTypeModelList.Insert(0, new { Id = CentralFeedTypeEnum.All.GetHashCode(), Name = CentralFeedTypeEnum.All.ToString() });
+            var activityTypes = _centralFeedService
+                .GetAllSettings()
+                .Select(s => s.Type)
+                .Select(a => new { a.Id, a.Name })
+                .OrderBy(el => el.Id);
 
-            return Json(activityTypeModelList, JsonRequestBehavior.AllowGet);
+            return Json(activityTypes, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(CentralFeedTypeEnum type)
+        protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)
         {
-            if (type == CentralFeedTypeEnum.All)
+            if (type.Id == CentralFeedTypeEnum.All.ToInt())
             {
                 var items = _centralFeedService.GetFeed();
                 return items;
             }
 
-            var activityType = type.GetHashCode().ToEnum<IntranetActivityTypeEnum>().GetValueOrDefault();
-            return _centralFeedService.GetFeed(activityType);
+            return _centralFeedService.GetFeed(type);
         }
 
         protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
@@ -161,8 +178,7 @@ namespace uIntra.CentralFeed.Web
                     Type = singleSetting.Type,
                     CreateUrl = singleSetting.CreatePage.Url,
                     TabUrl = singleSetting.OverviewPage.Url,
-                    HasSubscribersFilter = singleSetting.HasSubscribersFilter,
-
+                    HasSubscribersFilter = singleSetting.HasSubscribersFilter
                 };
             }
         }
@@ -173,8 +189,8 @@ namespace uIntra.CentralFeed.Web
 
             foreach (var type in items.Select(i => i.Type).Distinct())
             {
-                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type);
-                ViewData.SetActivityDetailsPageUrl(type, service.GetDetailsPage(currentPage).Url);
+                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type.Id);
+                ViewData.SetActivityDetailsPageUrl(type.Id, service.GetDetailsPage(currentPage).Url);
             }
 
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
@@ -211,9 +227,9 @@ namespace uIntra.CentralFeed.Web
             return !model.ShowPinned.HasValue && !model.IncludeBulletin.HasValue && !model.ShowSubscribed.HasValue;
         }
 
-        protected virtual IList<ICentralFeedItem> Sort(IEnumerable<ICentralFeedItem> items, CentralFeedTypeEnum type)
+        protected virtual IList<ICentralFeedItem> Sort(IEnumerable<ICentralFeedItem> items, IIntranetType type)
         {
-            if (type == CentralFeedTypeEnum.Events)
+            if (type.Id == CentralFeedTypeEnum.Events.ToInt())
             {
                 var events = items.OrderByDescending(el => el.IsPinActual).ThenBy(i => i, new CentralFeedEventComparer()).ToList();
                 return events;

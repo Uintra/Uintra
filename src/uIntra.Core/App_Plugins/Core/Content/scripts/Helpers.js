@@ -3,7 +3,7 @@ var Delta = require('quill-delta');
 var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 var FlatpickrLang = require('flatpickr/dist/l10n/da');
-var Scrollbar = require('simple-scrollbar');
+require('simple-scrollbar');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
@@ -67,17 +67,20 @@ var helpers = {
     },
     initDatePicker: function (holder, dateElemSelector, valueSelector) {
         var dateElem = holder.find(dateElemSelector);
+        var dateParentNode = dateElem.parent();
         var dateFormat = dateElem.data('dateFormat');
         var dateElemValue = holder.find(valueSelector);
         var defaultDate = new Date(dateElem.data('defaultDate'));
+        var enableTime = dateElem.data('enableTime');
         var closeButton = document.createElement("span");
+        var clearButton = dateParentNode.find('.js-clear-date');
         closeButton.className = "flatpickr__close";
         closeButton.addEventListener("click", function () {
             datePicker.close();
         });
 
         var datePicker = new Flatpickr(dateElem[0], {
-            enableTime: true,
+            enableTime: enableTime != null ? enableTime : true,
             time_24hr: true,
             allowInput: false,
             weekNumbers: true,
@@ -92,6 +95,7 @@ var helpers = {
 
                 var selectedDate = selectedDates[0].toISOString();
                 dateElemValue.val(selectedDate);
+                clearButton.removeClass("hide");
             }
         });
 
@@ -104,6 +108,15 @@ var helpers = {
         }
 
         datePicker.set('minDate', minDate.setHours(0));
+        if(datePicker.selectedDates.length > 0){
+            clearButton.removeClass("hide");
+        };
+
+        clearButton.click(function () {
+            datePicker.clear();
+            $(this).addClass("hide");
+        });
+
         return datePicker;
     },
     infiniteScrollFactory: function (onScroll) {

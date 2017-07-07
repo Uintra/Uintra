@@ -7,41 +7,41 @@
     @foreach (var notification in Model.Notifications)
     {
         var icon = "";
-        switch (notification.Type)
+        switch (notification.Type.Id)
         {
-            case NotificationTypeEnum.EventUpdated:
+            case (int) NotificationTypeEnum.EventUpdated:
                 icon = "icon-lightning";
                 break;
 
-            case NotificationTypeEnum.EventHided:
+            case (int) NotificationTypeEnum.EventHided:
                 icon = "icon-cancel";
                 break;
 
-            case NotificationTypeEnum.BeforeStart:
+            case (int) NotificationTypeEnum.BeforeStart:
                 icon = "icon-time";
                 break;
 
-            case NotificationTypeEnum.CommentLikeAdded:
-            case NotificationTypeEnum.ActivityLikeAdded:
+            case (int) NotificationTypeEnum.CommentLikeAdded:
+            case (int) NotificationTypeEnum.ActivityLikeAdded:
                 icon = "icon-like";
                 break;
-            case NotificationTypeEnum.CommentAdded:
-            case NotificationTypeEnum.CommentEdited:
-            case NotificationTypeEnum.CommentReplyed:
+            case (int) NotificationTypeEnum.CommentAdded:
+            case (int) NotificationTypeEnum.CommentEdited:
+            case (int) NotificationTypeEnum.CommentReplied:
                 icon = "icon-comment";
                 break;
             default:
                 break;
         }
-        <li data-anchor="@notification.Id" class="notification__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+        <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
             <span class="notification__list-avatar">
                 <img class="notification__list-avatar-img" src="@notification.NotifierPhoto">
             </span>
-            @switch (notification.Type)
+            @switch (notification.Type.Id)
             {
-                case NotificationTypeEnum.EventUpdated:
-                case NotificationTypeEnum.EventHided:
-                case NotificationTypeEnum.BeforeStart:
+                case (int) NotificationTypeEnum.EventUpdated:
+                case (int) NotificationTypeEnum.EventHided:
+                case (int) NotificationTypeEnum.BeforeStart:
                     {
                         <div class="notification__list-meta">
                             <span class="notification__list-icon">
@@ -50,35 +50,35 @@
                             <div class="notification__list-description">
                                 <div class="notification__list-row">
                                     <span class="notification__list-date">@notification.Date</span>
-                                    @if (notification.Type != NotificationTypeEnum.BeforeStart)
+                                    @if (notification.Type.Id != NotificationTypeEnum.BeforeStart.ToInt())
                                     {
                                         <span class="notification__list-name">@notification.NotifierName</span>
                                     }
                                     <h2 class="notification__list-title">
-                                        @if (notification.Type == NotificationTypeEnum.EventHided)
+                                        @if (notification.Type.Id == NotificationTypeEnum.EventHided.ToInt())
                                         {
-                                            @notification.Value.title
+                                            @Html.Raw(notification.Value.title)
                                         }
                                         else
                                         {
                                             <a class="notification__list-link" href="@notification.Value.url">
-                                                @notification.Value.title
+                                                @Html.Raw(notification.Value.title)
                                             </a>
                                         }
                                     </h2>
                                 </div>
                                 <div class="notification__list-row">
-                                    <span class="notification__list-type">@Html.Localize(notification.Type)</span>
+                                    <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
                                 </div>
                             </div>
                         </div>
                     }
                     break;
-                case NotificationTypeEnum.ActivityLikeAdded:
-                case NotificationTypeEnum.CommentAdded:
-                case NotificationTypeEnum.CommentEdited:
-                case NotificationTypeEnum.CommentReplyed:
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int) NotificationTypeEnum.ActivityLikeAdded:
+                case (int) NotificationTypeEnum.CommentAdded:
+                case (int) NotificationTypeEnum.CommentEdited:
+                case (int) NotificationTypeEnum.CommentReplied:
+                case (int) NotificationTypeEnum.CommentLikeAdded:
                     {
                         <div class="notification__list-meta">
                             <span class="notification__list-icon">
@@ -90,12 +90,12 @@
                                     <span class="notification__list-name">@notification.NotifierName</span>
                                     <h2 class="notification__list-title">
                                         <a class="notification__list-link" href="@notification.Value.url">
-                                            @notification.Value.title
+                                            @Html.Raw(notification.Value.title)
                                         </a>
                                     </h2>
                                 </div>
                                 <div class="notification__list-row">
-                                    <span class="notification__list-type">@Html.Localize(notification.Type)</span>
+                                    <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
                                 </div>
                             </div>
                         </div>

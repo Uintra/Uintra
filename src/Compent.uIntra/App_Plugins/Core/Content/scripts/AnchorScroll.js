@@ -1,6 +1,4 @@
-﻿import appInitializer from "./AppInitializer";
-
-function initAnchorScroll() {
+﻿function initAnchorScroll() {
     // navbar height 
     var navHeigth = 170;
 
@@ -42,9 +40,5 @@ function initAnchorScroll() {
         scrollToAnchor(location.hash);
     }
 }
-
-appInitializer.add(function() {
-    initAnchorScroll();
-});
 
 export default initAnchorScroll;

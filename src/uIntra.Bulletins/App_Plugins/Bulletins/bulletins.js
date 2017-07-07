@@ -1,4 +1,9 @@
 ﻿require('./style.css');
 
-require("./Create/bulletins.create.js");
-require("./Edit/bulletins.edit.js");
+import bulletinsCreate from './Create/bulletins.create';
+import bulletinsEdit from './Edit/bulletins.edit';
+
+export default function () {
+    bulletinsCreate.init();
+    bulletinsEdit.init();
+}

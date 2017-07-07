@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
+﻿import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
@@ -19,18 +18,32 @@ var initDeleteButton = function (holder) {
     });
 }
 
+function initListeners() {
+    $('#js-member-notifier-setting').on('change', function (event) {
+
+        let $this = $(this);
+        let element = event.currentTarget;
+        let notifierType = element.attributes.notifiertype.value;
+        let value = element.checked;
+        $.ajax({
+            type: "POST",
+            data: { id: $this.data("id") },
+            url: "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value
+        });
+    });
+}
+
+
 var controller = {
     init: function () {
         var holder = $('#js-profile-page');
         if (!holder.length) {
             return;
         }
-
+        initListeners();
         initDeleteButton(holder);
         fileUploadController.init(holder);
     }
 }
 
-appInitializer.add(function() {
-    controller.init();
-});
+export default controller;

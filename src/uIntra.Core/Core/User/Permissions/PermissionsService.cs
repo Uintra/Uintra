@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.User.Permissions
 {
@@ -48,12 +49,12 @@ namespace uIntra.Core.User.Permissions
             return roleConfiguration.Permissions.Select(s => s.Key);
         }
 
-        public virtual string GetPermissionFromTypeAndAction(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public virtual string GetPermissionFromTypeAndAction(IIntranetType activityType, IntranetActivityActionEnum action)
         {
-            return $"{activityType}{action}";
+            return $"{activityType.Name}{action}";
         }
 
-        public virtual bool IsCurrentUserHasAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public virtual bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             if (currentUser == null)
@@ -65,7 +66,7 @@ namespace uIntra.Core.User.Permissions
             return result;
         }
 
-        public virtual bool IsUserHasAccess(IIntranetUser user, IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        public virtual bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action)
         {
             if (user == null)
             {
@@ -77,7 +78,7 @@ namespace uIntra.Core.User.Permissions
                 return true;
             }
 
-            var permission = $"{activityType}{action}";
+            var permission = $"{activityType.Name}{action}";
             var userHasPermissions = IsRoleHasPermissions(user.Role, permission);
 
             return userHasPermissions;

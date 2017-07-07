@@ -1,6 +1,4 @@
-﻿import appInitializer from "./AppInitializer";
-
-appInitializer.add(function () {
+﻿export default function() {
     var trigger = document.getElementById('toTop');
 
     window.addEventListener('scroll', function (e) {
@@ -17,4 +15,4 @@ appInitializer.add(function () {
             scrollTop: 0
         }, 500);
     });
-});
+}

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Events;
@@ -8,12 +7,13 @@ using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Events;
-using uIntra.Events.Core.Models;
 using uIntra.Events.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
+using uIntra.Search;
 using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
@@ -28,21 +28,28 @@ namespace Compent.uIntra.Controllers
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IReminderService _reminderService;
+        private readonly IDocumentIndexer _documentIndexer;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             IReminderService reminderService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IGridHelper gridHelper)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper)
+            IGridHelper gridHelper,
+            IActivityTypeProvider activityTypeProvider,
+            IDocumentIndexer documentIndexer, INotificationTypeProvider notificationTypeProvider)
+            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
             _reminderService = reminderService;
+            _documentIndexer = documentIndexer;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public ActionResult CentralFeedItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as Event;
             var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
             extendedModel.LikesInfo = activity;
@@ -56,6 +63,12 @@ namespace Compent.uIntra.Controllers
             var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
             extendedModel = Mapper.Map(eventExtended, extendedModel);
             return extendedModel;
+        }
+
+        protected override void DeleteMedia(IEnumerable<int> mediaIds)
+        {
+            base.DeleteMedia(mediaIds);
+            _documentIndexer.DeleteFromIndex(mediaIds);
         }
 
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
@@ -72,7 +85,8 @@ namespace Compent.uIntra.Controllers
 
             if (model.NotifyAllSubscribers)
             {
-                ((INotifyableService)_eventsService).Notify(@event.Id, NotificationTypeEnum.EventUpdated);
+                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventUpdated.ToInt());
+                ((INotifyableService) _eventsService).Notify(@event.Id, notificationType);
             }
 
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
@@ -80,7 +94,8 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnEventHidden(Guid id)
         {
-            ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+            var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
+            ((INotifyableService)_eventsService).Notify(id, notificationType);
         }
     }
 }

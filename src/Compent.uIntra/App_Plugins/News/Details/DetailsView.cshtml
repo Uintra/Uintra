@@ -15,9 +15,9 @@
                 <header class="feed__header">
                     @if (Model.CanEdit)
                     {
-                        <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(IntranetActivityTypeEnum.News, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                        <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
                     }
-                    <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(IntranetActivityTypeEnum.News))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
+                    <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
                 </header>
 
                 <div class="feed__item _details">
