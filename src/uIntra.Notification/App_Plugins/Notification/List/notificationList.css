@@ -213,6 +213,13 @@
         &-title{
             margin:0 0 5px;
             font:bold 16px/22px var(--font-general);
+            max-width:500px;
+
+            p{
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
         }
 
         &-meta{
