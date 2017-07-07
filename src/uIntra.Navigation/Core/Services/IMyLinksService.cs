@@ -13,7 +13,7 @@ namespace uIntra.Navigation
 
         IEnumerable<MyLink> GetMany(Guid userId);
 
-        void Create(MyLinkDTO model);
+        Guid Create(MyLinkDTO model);
 
         void Delete(Guid id);
     }

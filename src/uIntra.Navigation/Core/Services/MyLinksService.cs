@@ -36,7 +36,7 @@ namespace uIntra.Navigation
             return _myLinksRepository.FindAll(myLink => myLink.UserId == userId);
         }
 
-        public void Create(MyLinkDTO model)
+        public Guid Create(MyLinkDTO model)
         {
             var entity = new MyLink
             {
@@ -48,6 +48,7 @@ namespace uIntra.Navigation
             };
 
             _myLinksRepository.Add(entity);
+            return entity.Id;
         }
 
         public void Delete(Guid id)

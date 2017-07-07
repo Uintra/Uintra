@@ -33,25 +33,25 @@ namespace uIntra.Navigation.Web
 
         public virtual PartialViewResult Overview()
         {
-            var links = GetMyLinkItemViewModel().ToList();
+            var dto = GetLinkDTO(CurrentPage.Id, Request.QueryString.ToString());
+            var currentContentLinkId = _myLinksService.Get(dto)?.Id;
 
             var model = new MyLinksViewModel
             {
                 ContentId = CurrentPage.Id,
-                IsLinked = links.Exists(l => l.IsCurrentPage),
-                Links = links
+                CurrentMyLinkId = currentContentLinkId,
             };
 
             return PartialView(MyLinksViewPath, model);
         }
 
-        public virtual PartialViewResult List(IEnumerable<MyLinkItemViewModel> model)
+        public virtual PartialViewResult List()
         {
-            return PartialView(MyLinksListViewPath, model);
+            return PartialView(MyLinksListViewPath, GetMyLinkItemViewModel());
         }
 
         [System.Web.Mvc.HttpPost]
-        public virtual ActionResult Add([FromBody]int contentId)
+        public virtual JsonResult Add([FromBody]int contentId)
         {
             var model = GetLinkDTO(contentId, Request.UrlReferrer.Query);
 
@@ -60,31 +60,21 @@ namespace uIntra.Navigation.Web
                 throw new MyLinksDuplicatedException(model);
             }
 
-            _myLinksService.Create(model);
+            var id = _myLinksService.Create(model);
 
-            return PartialView(MyLinksListViewPath, GetMyLinkItemViewModel());
+            return Json(new { Id = id });
         }
 
         [System.Web.Mvc.HttpDelete]
-        public virtual ActionResult Remove(Guid id)
+        public virtual void Remove(Guid id)
         {
             _myLinksService.Delete(id);
-
-            return PartialView(MyLinksListViewPath, GetMyLinkItemViewModel());
         }
 
         protected virtual IEnumerable<MyLinkItemViewModel> GetMyLinkItemViewModel()
         {
-            var dto = GetLinkDTO(CurrentPage.Id, Request.QueryString.ToString());
-            var currentPageMyLink = _myLinksService.Get(dto);
-
             var linkModels = _myLinksModelBuilder.GetMenu();
-            foreach (var linkModel in linkModels)
-            {
-                var model = linkModel.Map<MyLinkItemViewModel>();
-                model.IsCurrentPage = currentPageMyLink?.Id == linkModel.Id;
-                yield return model;
-            }
+            return linkModels.Map<IEnumerable<MyLinkItemViewModel>>();
         }
 
         protected virtual MyLinkDTO GetLinkDTO(int contentId, string queryString)

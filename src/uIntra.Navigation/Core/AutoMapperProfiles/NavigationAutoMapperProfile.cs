@@ -11,8 +11,7 @@ namespace uIntra.Navigation
             Mapper.CreateMap<SubNavigationMenuModel, SubNavigationMenuViewModel>();
             Mapper.CreateMap<TopNavigationModel, TopNavigationViewModel>();
 
-            Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>()
-                .ForMember(dst => dst.IsCurrentPage, o => o.Ignore());
+            Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
 
             Mapper.CreateMap<SystemLinksModel, SystemLinksViewModel>();
             Mapper.CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
