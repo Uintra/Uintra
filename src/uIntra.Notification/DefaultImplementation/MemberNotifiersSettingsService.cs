@@ -25,23 +25,45 @@ namespace uIntra.Notification
 
         public void SetForMember(Guid memberId, NotifierTypeEnum notifierType, bool isEnabled)
         {
-            var dbEntry = _memberNotifierSettingRepository.FindAll(e => e.MemberId == memberId).First(e => e.NotifierType == notifierType);
+            var dbEntry = _memberNotifierSettingRepository
+                .FindAll(e => e.MemberId == memberId)
+                .First(e => e.NotifierType == notifierType);
             dbEntry.IsEnabled = isEnabled;
             _memberNotifierSettingRepository.Update(dbEntry);
         }
 
         public IDictionary<Guid, IEnumerable<NotifierTypeEnum>> GetForMembers(IEnumerable<Guid> memberIds)
         {
-            return _memberNotifierSettingRepository.FindAll(e => memberIds.Contains(e.MemberId) && e.IsEnabled)
+            var memberIdsList = memberIds.ToList();
+            memberIdsList.ForEach(SetupAbsentSettings);
+            var memberNotifierSettings = _memberNotifierSettingRepository.FindAll(e => memberIdsList.Contains(e.MemberId));
+            var result = memberNotifierSettings
                 .GroupBy(e => e.MemberId)
-                .ToDictionary(e => e.Key, e => e.Select(n => n.NotifierType));
+                .ToDictionary(e => e.Key, e => e
+                    .Where(n => n.IsEnabled)
+                    .Select(n => n.NotifierType));
+            return result;
         }
 
-        private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(Guid memberId, IEnumerable<NotifierTypeEnum> existingSettings)
+
+        private void SetupAbsentSettings(Guid memberId)
+        {
+            var dbNotifiers = _memberNotifierSettingRepository.FindAll(r => r.MemberId == memberId).ToList();
+            CreateAbsentSettings(memberId, dbNotifiers.Select(e => e.NotifierType));
+        }
+
+        private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(Guid memberId,
+            IEnumerable<NotifierTypeEnum> existingSettings)
         {
             var absentSettings = EnumExtentions.GetEnumCases<NotifierTypeEnum>().Except(existingSettings);
             var newEntities = absentSettings
-                .Select(s => new MemberNotifierSetting() {Id = Guid.NewGuid(), MemberId = memberId, NotifierType = s, IsEnabled = true})
+                .Select(s => new MemberNotifierSetting()
+                {
+                    Id = Guid.NewGuid(),
+                    MemberId = memberId,
+                    NotifierType = s,
+                    IsEnabled = true
+                })
                 .ToList();
             _memberNotifierSettingRepository.Add(newEntities);
             return newEntities;
