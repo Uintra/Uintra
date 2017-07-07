@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<applications xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <add alias="events" name="Events" icon="icon-calendar-alt _events-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
+  <add alias="news" name="News" icon="icon-newspaper-alt _news-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
+  <add alias="SentMails" name="Sent Mails" icon="icon-message" sortOrder="10" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
+  <add alias="Localization" name="Localization" icon="icon-file-cabinet" sortOrder="30" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
+  <add alias="bulletins" name="Bulletins" icon="icon-notepad _bulletins-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
+</applications>

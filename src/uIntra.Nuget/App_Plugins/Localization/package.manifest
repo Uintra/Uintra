@@ -1,0 +1,9 @@
+﻿{
+    javascript: [
+		'~/App_Plugins/Localization/backoffice/Shared/localization-resource.service.js',
+		'~/App_Plugins/Localization/backoffice/LocalizationOverview/localization-overview.controller.js'
+    ],
+	css: [
+		'~/App_Plugins/Localization/backoffice/css/localization.css',
+	]
+}

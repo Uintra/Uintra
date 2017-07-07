@@ -1,0 +1,34 @@
+﻿@define-mixin icon $name {
+    &.__$(name){
+        background-image: url(./images/file-type-icons/$(name).svg);
+    }
+}
+
+.file-extension{
+    width: 35px;
+    height: 35px;
+    display: block;
+    background-size: cover;
+
+    @mixin icon pdf;
+    @mixin icon svg;
+    @mixin icon doc;
+    @mixin icon docx;
+    @mixin icon xls;
+    @mixin icon xlsx;
+    @mixin icon csv;
+    @mixin icon txt;
+    @mixin icon mp4;
+    @mixin icon ppt;
+    @mixin icon pptx;
+    @mixin icon png;
+
+
+    &.__jpg,
+    &.__jpeg{
+        background-image: url(./images/file-type-icons/jpg.svg);
+    }
+    &.__mp4{
+        background-image: url(./images/file-type-icons/m4v.svg);
+    }
+}

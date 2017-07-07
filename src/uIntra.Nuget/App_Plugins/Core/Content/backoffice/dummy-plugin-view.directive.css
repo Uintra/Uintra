@@ -1,0 +1,29 @@
+﻿.dummy-plugin-view-holder {
+    display: block;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+    border: 3px dashed #ccc;
+    width: auto;
+    height: 800px;
+}
+
+.dummy-plugin-view-holder .title-holder {
+    display: block;
+    margin: 250px 0;
+}
+
+.dummy-plugin-view-holder .title-holder .text {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    display: block;
+    margin: 20px;
+}
+
+.dummy-plugin-view-holder .title-holder .icon {
+    font-size: 100px;
+    color: silver;
+    display: inline;
+}
+
