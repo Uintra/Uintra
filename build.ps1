@@ -6,6 +6,7 @@ param
 ( 
     [string]$projName = "",
     [string]$configuration = "",
+	[string]$exclude = "",
     [string]$tagPrefix = "",
     [string]$packagesLocation = "C:\inetpub\Nuget\Packages"
 )
@@ -42,7 +43,7 @@ if(-not (Test-Path $projFile)){
 
 Invoke-Expression "$nuget restore '$projFile' -ConfigFile '$nugetConfig'";
 
-Invoke-Expression "$nuget pack -Build '$projFile' -Properties Configuration=$configuration";
+Invoke-Expression "$nuget pack -Exclude $exclude -Build '$projFile' -Properties Configuration=$configuration";
 
 $nugetFile = Get-ChildItem "$projName*.nupkg";
 
