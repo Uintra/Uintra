@@ -1,12 +1,11 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using uIntra;
 using uIntra.Bulletins;
 using uIntra.Events.Dashboard;
 using uIntra.News.Dashboard;
 using Umbraco.Core;
 
-namespace Compent.uIntra
+namespace uIntra
 {
     public class Global : ApplicationEventHandler
     {

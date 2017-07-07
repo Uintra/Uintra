@@ -1,5 +1,5 @@
-[assembly: WebActivator.PreApplicationStartMethod(typeof(Compent.uIntra.App_Start.ElmahMvc), "Start")]
-namespace Compent.uIntra.App_Start
+[assembly: WebActivator.PreApplicationStartMethod(typeof(uIntra.App_Start.ElmahMvc), "Start")]
+namespace uIntra.App_Start
 {
     public class ElmahMvc
     {
