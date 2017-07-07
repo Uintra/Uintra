@@ -232,7 +232,7 @@
         &-icon{
             float:left;
             width:30px;
-            padding:0;
+            padding:24px 0 0;
 
             .icon-lightning,
             .icon-cancel,
