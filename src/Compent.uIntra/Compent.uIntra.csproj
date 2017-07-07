@@ -335,9 +335,8 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.0.5\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.0.2.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.0.2.5\lib\net452\uIntra.Bulletins.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uIntra.Bulletins, Version=0.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.0.3\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.7.14, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.CentralFeed.1.1.7.14\lib\net452\uIntra.CentralFeed.dll</HintPath>
@@ -941,7 +940,6 @@
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css.orig" />
@@ -951,13 +949,6 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
@@ -1008,6 +999,14 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1058,7 +1057,6 @@
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
-    <Compile Include="Controllers\BulletinsApiController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
