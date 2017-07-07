@@ -1,9 +1,12 @@
 ﻿@using uIntra.Core.Extentions
 @model IEnumerable<uIntra.Tagging.Core.Models.TagViewModel>
 
-<h3 class="tags__title">@Html.Localize("DetailsView.GoBal.lbl")</h3>
-
-@foreach (var tag in Model)
+@if (Model.Any())
 {
-    <span class="tags__item">@tag.Text</span>
+    <h3 class="tags__title">@Html.Localize("DetailsView.GoBal.lbl")</h3>
+
+    foreach (var tag in Model)
+    {
+        <span class="tags__item">@tag.Text</span>
+    }
 }
