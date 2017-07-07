@@ -137,6 +137,7 @@ namespace uIntra.Search
                 {
                     case SearchableTypeEnum.Events:
                     case SearchableTypeEnum.News:
+                    case SearchableTypeEnum.Bulletins:
                         documents.Add(SerializationExtentions.Deserialize<SearchableActivity>(document.ToString()));
                         break;
                     case SearchableTypeEnum.Content:
