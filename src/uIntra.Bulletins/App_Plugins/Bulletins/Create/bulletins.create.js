@@ -57,7 +57,7 @@ function initEventListeners() {
 
     cfReloadTabEvent = new CustomEvent("cfReloadTab", {
         detail: {
-            isReinit: true
+            isReinit: false
         }
     });
 
@@ -114,10 +114,8 @@ function sentButtonClickHandler(event) {
 
     ajax.PostJson(url, data).then(function(response) {
         if (response.isSuccess) {
-            isBulletinsTab()? cfReloadTab():cfShowBulletins();            
+            cfReloadTab();
             hide();
-            dropzone.removeAllFiles(true);
-
         }
     });
 }
