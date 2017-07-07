@@ -1,0 +1,15 @@
+﻿@using Compent.uIntra.Core.Comments
+@using uIntra.Comments
+
+@{
+    var commentsPageHelper = DependencyResolver.Current.GetService<ICommentsPageHelper>();
+    var tabs = commentsPageHelper.GetCommentsPageTab();
+
+    var commentableService = DependencyResolver.Current.GetService<ICommentableService>();
+    var commentsInfo = commentableService.GetCommentsInfo(CommentsTestConstants.ActivityId);
+}
+
+@{ Html.RenderPartial("~/Views/CommentsPage/Tabs.cshtml", tabs);}
+
+
+@Html.Action("OverView", "Comments", new { commentsInfo })

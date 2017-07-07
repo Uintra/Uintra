@@ -1,0 +1,27 @@
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
+@model uIntra.Likes.LikesViewModel
+@{
+    var isLiked = Model.CanAddLike ? "" : "_isLiked";
+    var entityId = Model.CommentId.HasValue ? Model.CommentId.Value : Model.ActivityId;
+}
+
+<div class="like" id="likes_@entityId">
+    <span class="like__set @isLiked"><i class="icon-like"></i> @Model.Users.Count()</span>
+
+    @(Model.CanAddLike
+        ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
+        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
+
+    @if (Model.Users.Any())
+    {
+        <div class="like__popup">
+            <ul class="like__list">
+                @foreach (var name in Model.Users)
+                {
+                    <li class="like__list-item">@Html.Label(name)</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

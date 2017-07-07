@@ -1,0 +1,37 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Activity
+@using uIntra.Core.Extentions
+@model Compent.uIntra.Core.News.Models.NewsExtendedViewModel
+<section class="content">
+    <div class="row clearfix">
+        <div class="col-md-9">
+            <header class="feed__header">
+                @*<a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>*@
+                @if (Model.CanEdit)
+                {
+                    <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                }
+                <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
+            </header>
+
+            <div class="feed__item _details">
+                @*<span class="pinned__item">@Html.Localize("DetailsView.Important.lbl")</span>*@
+                @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+                <div class="feed__item-txt">
+                    @Html.Raw(Model.Description)
+                </div>
+                <div class="feed__item-images">
+                    @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+                </div>
+                <div class="feed__item-feed">
+                    <div class="feed__item-feed-holder">
+                        @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                    </div>
+                </div>
+                <div class="comments">
+                    @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

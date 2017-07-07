@@ -1,0 +1,16 @@
+﻿@font-face {
+    font-family:'Open Sans';
+    src: url('../fonts/open-sans-regular.woff2') format('woff2'),
+		url('../fonts/open-sans-regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family:'Open Sans';
+    src: url('../fonts/open-sans-700.woff2') format('woff2'),
+		url('../fonts/open-sans-700.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+}

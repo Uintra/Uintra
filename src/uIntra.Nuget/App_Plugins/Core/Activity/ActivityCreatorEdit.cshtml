@@ -1,0 +1,17 @@
+﻿@model uIntra.Core.Activity.IntranetActivityCreatorEditModel
+
+@if (Model.CanEditCreator)
+{
+    <select class="js-user-select form-control" name="@Model.CreatorIdPropertyName">
+        @foreach (var user in Model.Users)
+        {
+            <option value="@user.Id" selected="@(user.Id == Model.Creator.Id)">@user.DisplayedName</option>
+        }
+    </select>
+}
+else
+{
+    <input type="hidden" name="@Model.CreatorIdPropertyName" value="@Model.Creator.Id" />
+    @Html.Action("Photo", "User", new { user = Model.Creator })
+    <span>@Model.Creator.DisplayedName</span>
+}
