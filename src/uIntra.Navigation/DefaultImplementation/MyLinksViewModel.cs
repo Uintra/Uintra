@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
 namespace uIntra.Navigation
 {
     public class MyLinksViewModel
     {
         public int ContentId { get; set; }
-        public bool IsLinked { get; set; }
-        public IEnumerable<MyLinkItemViewModel> Links { get; set; } = Enumerable.Empty<MyLinkItemViewModel>();
+        public Guid? CurrentMyLinkId { get; set; }
     }
 }

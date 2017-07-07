@@ -20,6 +20,12 @@ namespace uIntra.Navigation
             return _myLinksRepository.Get(id);
         }
 
+        public MyLink Get(MyLinkDTO model)
+        {
+            var links = _myLinksRepository.FindAll(link => link.UserId == model.UserId && link.ContentId == model.ContentId);
+            return links.SingleOrDefault(l => IsQueryStringEqual(model.QueryString, l.QueryString));
+        }
+
         public IEnumerable<MyLink> GetMany(IEnumerable<Guid> ids)
         {
             return _myLinksRepository.GetMany(ids);
@@ -30,7 +36,7 @@ namespace uIntra.Navigation
             return _myLinksRepository.FindAll(myLink => myLink.UserId == userId);
         }
 
-        public void Create(MyLinkDTO model)
+        public Guid Create(MyLinkDTO model)
         {
             var entity = new MyLink
             {
@@ -42,24 +48,12 @@ namespace uIntra.Navigation
             };
 
             _myLinksRepository.Add(entity);
+            return entity.Id;
         }
 
-        public void Delete(MyLinkDTO model)
+        public void Delete(Guid id)
         {
-            var link = Get(model);
-            _myLinksRepository.DeleteById(link.Id);
-        }
-
-        public bool Exists(MyLinkDTO model)
-        {
-            var link = Get(model);
-            return link != null;
-        }
-
-        private MyLink Get(MyLinkDTO model)
-        {
-            var links = _myLinksRepository.FindAll(link => link.UserId == model.UserId && link.ContentId == model.ContentId);
-            return links.SingleOrDefault(l => IsQueryStringEqual(model.QueryString, l.QueryString));
+            _myLinksRepository.DeleteById(id);
         }
 
         private static bool IsQueryStringEqual(string query, string queryToCompare)
