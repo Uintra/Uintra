@@ -125,6 +125,7 @@ namespace Compent.uIntra.Core.IoC
                 RegisterModelBinders();
                 RegisterGlobalFilters(kernel);
                 RegisterLocalizationServices(kernel);
+                RegisterSearchServices(kernel);
 
                 GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
@@ -237,26 +238,6 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
-            //Search
-            kernel.Bind<IIndexer>().To<NewsService>().InRequestScope();
-            kernel.Bind<IIndexer>().To<EventsService>().InRequestScope();
-            kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
-            kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
-            kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
-            kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
-            kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
-            kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
-            kernel.Bind(typeof(IElasticSearchRepository<>)).To(typeof(ElasticSearchRepository<>)).InRequestScope().WithConstructorArgument(typeof(string), "intranet");
-            kernel.Bind(typeof(PropertiesDescriptor<SearchableActivity>)).To<SearchableActivityMap>().InSingletonScope();
-            kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
-            kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
-            kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
-            kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
-            kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
-            kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
-
-            kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
-
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
             kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
@@ -290,7 +271,29 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ILocalizationCoreService>().To<LocalizationCoreService>().InRequestScope();
 
             kernel.Bind<ICultureHelper>().To<CultureHelper>().InRequestScope();
+        }
 
+        private static void RegisterSearchServices(IKernel kernel)
+        {
+            kernel.Bind<IIndexer>().To<NewsService>().InRequestScope();
+            kernel.Bind<IIndexer>().To<EventsService>().InRequestScope();
+            kernel.Bind<IIndexer>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
+            kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
+            kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
+            kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
+            kernel.Bind(typeof(IElasticSearchRepository<>)).To(typeof(ElasticSearchRepository<>)).InRequestScope().WithConstructorArgument(typeof(string), "intranet");
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableActivity>)).To<SearchableActivityMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
+            kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
+            kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
+            kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
+
+            kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }
 
         private static UmbracoContext CreateUmbracoContext()
