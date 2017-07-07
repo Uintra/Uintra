@@ -74,7 +74,7 @@ var initSubmitButton = function () {
             alertify.defaults.glossary.yes = btn.data('yes');
             alertify.defaults.glossary.no = btn.data('no');
 
-            confirm.showDialog(btn.data('text'), callbacks, confirm.defaultSettings);
+            confirm.showDialog(btn.data('title'), btn.data('text'), callbacks, confirm.defaultSettings);
         });
     });
 }
@@ -104,6 +104,7 @@ var initDescriptionControl = function () {
 var initHideControl = function () {
     var hideControl = holder.find('.js-event-hide');
     var text = hideControl.data('text');
+    var title = hideControl.data('title');
     var textOk = hideControl.data('ok');
     var textCancel = hideControl.data('cancel');
 
@@ -111,7 +112,7 @@ var initHideControl = function () {
     alertify.defaults.glossary.ok = textOk;
 
     hideControl.on('click', function () {
-        confirm.showConfirm(text, function () {
+        confirm.showConfirm(title, text, function () {
             $.post('/umbraco/surface/Events/Hide?id=' + hideControl.data('id'),function () {
                 var url = hideControl.data('return-url');
                 window.location.href = url;
