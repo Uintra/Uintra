@@ -110,7 +110,9 @@ function sentButtonClickHandler(event) {
         newMedia: newMedia.value
     };
 
-    ajax.PostJson("/umbraco/api/BulletinsApi/Create", data).then(function(response) {
+    var url = this.dataset.url;
+
+    ajax.PostJson(url, data).then(function(response) {
         if (response.isSuccess) {
             isBulletinsTab()? cfReloadTab():cfShowBulletins();            
             hide();
