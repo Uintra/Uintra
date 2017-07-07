@@ -6,7 +6,6 @@ namespace uIntra.CentralFeed
     {
         All = 0,
         News = IntranetActivityTypeEnum.News,
-        Ideas = IntranetActivityTypeEnum.Ideas,
         Events = IntranetActivityTypeEnum.Events,
         Bulletins = IntranetActivityTypeEnum.Bulletins
     }
