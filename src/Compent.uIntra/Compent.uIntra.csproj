@@ -357,9 +357,9 @@
       <HintPath>..\..\packages\uIntra.Events.1.1.9.6\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.1.7, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Likes, Version=1.1.1.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Likes.1.1.1.7\lib\net452\uIntra.Likes.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Likes.1.1.1.8\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
@@ -949,7 +949,6 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css.orig" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
@@ -1013,6 +1012,7 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
