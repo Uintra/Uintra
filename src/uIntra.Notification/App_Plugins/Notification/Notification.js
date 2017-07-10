@@ -75,7 +75,7 @@ function initCustomControls() {
 }
 
 function initInfinityScroll() {
-    var holder = $('.js-notifications-overview');
+    var holder = $('.js-notification-overview');
     if (!holder.length) return;
     
     var formController = umbracoAjaxForm(holder.find("form.js-ajax-form")[0]);
