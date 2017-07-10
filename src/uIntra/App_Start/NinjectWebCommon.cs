@@ -17,9 +17,11 @@ using Nest;
 using Newtonsoft.Json.Serialization;
 using Ninject;
 using Ninject.Web.Common;
+using uIntra;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Bulletins;
@@ -70,7 +72,7 @@ using Umbraco.Web.Security;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace uIntra.Core.IoC
+namespace uIntra
 {
     public static class NinjectWebCommon
     {
@@ -143,7 +145,7 @@ namespace uIntra.Core.IoC
         {
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
-             
+
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();
@@ -160,7 +162,7 @@ namespace uIntra.Core.IoC
             kernel.Bind<IDomainService>().ToMethod(i => ApplicationContext.Current.Services.DomainService).InRequestScope();
 
             // Plugin services
-            kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
+            kernel.Bind<IIntranetLocalizationService>().To<uIntra.Core.LocalizationService>().InRequestScope();
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
@@ -177,7 +179,7 @@ namespace uIntra.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<Core.News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();

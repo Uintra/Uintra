@@ -2,7 +2,6 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
     <section name="userPermissions" type="uIntra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
-    <section name="emailWorker" type="EmailWorker.Data.ConfigurationService, EmailWorker.Data" allowDefinition="Everywhere" requirePermission="false" xdt:Transform="InsertAfter(/configuration/configSections/sectionGroup)" />
     <section name="elasticConfiguration" type="uIntra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
@@ -13,7 +12,7 @@
     <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
 
-    <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsMode')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsMode')" xdt:Transform="SetAttributes(value)"/>
     <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
 
@@ -21,7 +20,6 @@
     <add key="PinDaysRangeEnd" value="30" xdt:Locator="Condition(@key='PinDaysRangeEnd')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
-  <emailWorker connectionStringName="umbracoDbDSN" xdt:Transform="InsertBefore(/configuration/appSettings)" />
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
                             useDefaultLabel="true" saveDefaultLabel="false"

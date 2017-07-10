@@ -945,8 +945,6 @@
     <Content Include="Content\images\sort.svg" />
     <Content Include="Content\main.js" />
     <Content Include="Content\head_css.js" />
-    <Content Include="default.aspx" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
@@ -1036,25 +1034,11 @@
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Dev.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.NuGet.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Start\ElmahMvc_Start.cs" />
     <Content Include="Controllers\ActivityController.cs" />
-    <Content Include="Controllers\BulletinsApiController.cs" />
     <Content Include="Controllers\BulletinsController.cs" />
     <Content Include="Controllers\CentrallFeedController.cs" />
     <Content Include="Controllers\LightboxGalleryController.cs" />
@@ -1094,7 +1078,6 @@
     <Content Include="Controllers\TestController.cs" />
     <Content Include="Core\ActivitiesServiceFactory.cs" />
     <Content Include="Core\Constants\AppSettingConstants.cs" />
-    <Content Include="Core\CommentsService.cs" />
     <Content Include="Core\Comments\CommentsPageHelper.cs" />
     <Content Include="Core\Comments\CommentsPageTab.cs" />
     <Content Include="Core\Comments\CustomCommentable.cs" />
@@ -1108,7 +1091,7 @@
     <Content Include="Core\Exceptions\ExceptionLogger.cs" />
     <Content Include="Core\IntranetUserContentHelper.cs" />
     <Content Include="Core\IoC\NinjectDependencyResolver.cs" />
-    <Content Include="Core\IoC\NinjectWebCommon.cs" />
+    <Content Include="App_Start\NinjectWebCommon.cs" />
     <Content Include="Core\Likes\LikesTestConstants.cs" />
     <Content Include="Core\Likes\CustomLikeable.cs" />
     <Content Include="Core\LocalizationService.cs" />
@@ -1255,8 +1238,6 @@
   </Target>
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
-    <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
-    <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
