@@ -10,7 +10,7 @@
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
 
     <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
-    <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='UnobtrusiveJavaScriptEnabled')" xdt:Transform="InsertIfMissing" />
 
     <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsMode')" xdt:Transform="SetAttributes(value)"/>
     <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
