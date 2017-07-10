@@ -8,20 +8,13 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 var body = document.querySelector('body');
+var notification = document.querySelector(".js-notification");
+var notificationList = document.querySelector(".js-notification-list");
 
 function initPreviewControls() {
-    var notification = document.querySelector(".js-notification");
-    var notificationList = document.querySelector(".js-notification-list");
-
     notification.addEventListener('click', function() {
         if (notificationList.classList.contains("hide")) { 
-
-            ajax.Get("/umbraco/surface/Notification/List")
-                .then(function (response) {
-                    notificationList.innerHTML = response;
-                    initCustomControls();
-                });
-
+            loadNotifications(notificationList);
             notificationList.classList.remove("hide");
         } else {
             notificationList.classList.add("hide");
@@ -32,6 +25,14 @@ function initPreviewControls() {
         isOutsideClick(notificationList, notification, ev.target, "hide");
         
     });
+}
+
+function loadNotifications(container){
+    ajax.Get("/umbraco/surface/Notification/List")
+        .then(function (response) {
+            container.innerHTML = response;
+            initCustomControls();
+        });
 }
 
 function isOutsideClick(el, trigger, target, classname){
@@ -150,6 +151,7 @@ function initInfinityScroll() {
 }
 
 export default function() {
+    loadNotifications(notificationList);
     initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
