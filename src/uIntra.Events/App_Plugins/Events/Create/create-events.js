@@ -1,12 +1,6 @@
-﻿require("./../../Core/Content/libs/jquery.validate.min.js");
-require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
-require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
-require('select2');
-
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import pinActivity from "./../../Core/Content/scripts/PinActivity";
-import {} from './../../Core/Content/scripts/ValidationExtensions';
 
 var holder;
 var userSelect;
