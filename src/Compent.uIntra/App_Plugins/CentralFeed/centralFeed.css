@@ -56,6 +56,11 @@
             @media(--for-tablet-portrait-down){
                 &{
                     max-width:100%;
+                    display:block;
+
+                    .avatar{
+                        float:left;
+                    }
                 }
             }
 
