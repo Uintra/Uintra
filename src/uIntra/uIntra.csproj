@@ -1078,7 +1078,6 @@
     <Content Include="Controllers\TestController.cs" />
     <Content Include="Core\ActivitiesServiceFactory.cs" />
     <Content Include="Core\Constants\AppSettingConstants.cs" />
-    <Content Include="Core\CommentsService.cs" />
     <Content Include="Core\Comments\CommentsPageHelper.cs" />
     <Content Include="Core\Comments\CommentsPageTab.cs" />
     <Content Include="Core\Comments\CustomCommentable.cs" />
