@@ -1,12 +1,4 @@
-﻿require("./../../Core/Content/libs/jquery.validate.min.js");
-require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
-require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
-require('select2');
-require('alertifyjs/build/css/alertify.min.css');
-require('alertifyjs/build/css/themes/default.min.css');
-
-import {} from './../../Core/Content/scripts/ValidationExtensions';
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 import pinActivity from "./../../Core/Content/scripts/PinActivity";
