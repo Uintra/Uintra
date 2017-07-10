@@ -1009,7 +1009,7 @@
     <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <None Include="postcss.config.js" />
+    <Content Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
     <Content Include="Views\News\CreateView.cshtml" />
@@ -1034,7 +1034,7 @@
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="webpack.config.js" />
+    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Start\ElmahMvc_Start.cs" />
@@ -1172,7 +1172,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="package.json" />
+    <Content Include="package.json" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
