@@ -1092,7 +1092,7 @@
     <Content Include="Core\Exceptions\ExceptionLogger.cs" />
     <Content Include="Core\IntranetUserContentHelper.cs" />
     <Content Include="Core\IoC\NinjectDependencyResolver.cs" />
-    <Content Include="Core\IoC\NinjectWebCommon.cs" />
+    <Content Include="App_Start\NinjectWebCommon.cs" />
     <Content Include="Core\Likes\LikesTestConstants.cs" />
     <Content Include="Core\Likes\CustomLikeable.cs" />
     <Content Include="Core\LocalizationService.cs" />

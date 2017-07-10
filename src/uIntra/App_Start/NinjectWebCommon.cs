@@ -70,7 +70,7 @@ using Umbraco.Web.Security;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace uIntra.Core.IoC
+namespace uIntra
 {
     public static class NinjectWebCommon
     {
