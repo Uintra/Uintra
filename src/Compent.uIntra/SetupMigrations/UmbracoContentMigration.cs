@@ -28,8 +28,16 @@ namespace Compent.uIntra.SetupMigrations
             CreateProfilePage();
             CreateProfileEditPage();
             CreateSearchResultPage();
+
             CreateNewsOverviewPage();
             CreateNewsCreatePage();
+            CreateNewsEditPage();
+            CreateNewsDetailsPage();
+
+            CreateEventsOverviewPage();
+            CreateEventsCreatePage();
+            CreateEventsEditPage();
+            CreateEventsDetailsPage();
         }
 
         private void CreateHomePage()
@@ -159,6 +167,107 @@ namespace Compent.uIntra.SetupMigrations
             _contentService.SaveAndPublishWithStatus(content);
         }
 
+        private void CreateNewsEditPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            var newsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsEditPageDocTypeName)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Edit", newsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.NewsEditPageDocTypeName);
+
+            var gridContent = GetGridContent("newsEditPageGrid.json");
+            content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
+
+        private void CreateNewsDetailsPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            var newsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsDetailsPageDocTypeName)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Details", newsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.NewsDetailsPageDocTypeName);
+
+            var gridContent = GetGridContent("newsDetailsPageGrid.json");
+            content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
+
+        private void CreateEventsOverviewPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Events", homePage.Id, UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName);
+
+            var gridContent = GetGridContent("eventsOverviewPageGrid.json");
+            content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
+
+        private void CreateEventsCreatePage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            var eventsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName));
+            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsCreatePageDocTypeName)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Create", eventsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.EventsCreatePageDocTypeName);
+
+            var gridContent = GetGridContent("eventsCreatePageGrid.json");
+            content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
+
+        private void CreateEventsEditPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            var eventsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName));
+            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsEditPageDocTypeName)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Edit", eventsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.EventsEditPageDocTypeName);
+
+            var gridContent = GetGridContent("eventsEditPageGrid.json");
+            content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
+
+        private void CreateEventsDetailsPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            var eventsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName));
+            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsDetailsPageDocTypeName)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Details", eventsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.EventsDetailsPageDocTypeName);
+
+            var gridContent = GetGridContent("eventsDetailsPageGrid.json");
+            content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
+
         private static string GetGridContent(string fileName)
         {
             var filePath = HostingEnvironment.MapPath($"{JsonFilesFolder}{fileName}");
@@ -180,8 +289,16 @@ namespace Compent.uIntra.SetupMigrations
             public const string ProfilePageDocTypeName = "profilePage";
             public const string ProfileEditPageDocTypeName = "profileEditPage";
             public const string SearchResultPageDocTypeName = "searchResultPage";
+
             public const string NewsOverviewPageDocTypeName = "newsOverviewPage";
             public const string NewsCreatePageDocTypeName = "newsCreatePage";
+            public const string NewsEditPageDocTypeName = "newsEditPage";
+            public const string NewsDetailsPageDocTypeName = "newsDetailsPage";
+
+            public const string EventsOverviewPageDocTypeName = "eventsOverviewPage";
+            public const string EventsCreatePageDocTypeName = "eventsCreatePage";
+            public const string EventsEditPageDocTypeName = "eventsEditPage";
+            public const string EventsDetailsPageDocTypeName = "eventsDetailsPage";
         }
 
         public static class Navigation

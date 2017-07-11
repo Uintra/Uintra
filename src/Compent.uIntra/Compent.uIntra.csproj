@@ -1093,6 +1093,13 @@
     <Content Include="SetupMigrations\json\profileEditPageGrid.json" />
     <Content Include="SetupMigrations\json\searchResultPageGrid.json" />
     <Content Include="SetupMigrations\json\newsOverviewPageGrid.json" />
+    <Content Include="SetupMigrations\json\newsCreatePageGrid.json" />
+    <Content Include="SetupMigrations\json\newsEditPageGrid.json" />
+    <Content Include="SetupMigrations\json\newsDetailsPageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsCreatePageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsDetailsPageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsEditPageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsOverviewPageGrid.json" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
