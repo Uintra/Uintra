@@ -5,7 +5,7 @@
             show: false,
             view: "/App_Plugins/Panels/ContentPanel/backoffice/overlay.html",
             title: "Content panel",
-            close: function() {
+            close: function () {
                 $scope.overlay.show = false;
                 $scope.control.value = $scope.backupModel;
             },
@@ -14,14 +14,20 @@
             }
         }
 
-        $scope.open = function() {
+        $scope.open = function () {
             $scope.overlay.show = true;
-            $scope.control.value.type = $scope.control.value.type || "vertical";
+            $scope.control.value = $scope.control.value || getDefaultModel();
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
-        $scope.init = function(control) {
+        $scope.init = function (control) {
             $scope.control = control;
+        }
+
+        function getDefaultModel() {
+            return {
+                type: "vertical"
+            };
         }
     }
     controller.$inject = ["$scope"];
