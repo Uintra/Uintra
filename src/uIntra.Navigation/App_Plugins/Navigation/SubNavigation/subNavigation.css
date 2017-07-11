@@ -49,10 +49,9 @@
     &__holder{
         order:1;
         flex-grow:1;
-        
 
         ._with-sub-nav &{
-            padding:29px 0 0;
+            padding:45px 0 0;
         }
     }
 

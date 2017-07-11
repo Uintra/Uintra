@@ -6,9 +6,8 @@
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
   </configSections>
-  <appSettings>
-    <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
 
+  <appSettings>
     <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='UnobtrusiveJavaScriptEnabled')" xdt:Transform="InsertIfMissing" />
 
@@ -16,17 +15,24 @@
     <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
 
+    <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
+    <add key="NotWebMasterRole.DisabledDocumentTypes" value="likesPage, commentsPage, commentsEditPage, subscribePage" xdt:Locator="Condition(@key='NotWebMasterRole.DisabledDocumentTypes')" xdt:Transform="InsertIfMissing" />
     <add key="PinDaysRangeStart" value="0" xdt:Locator="Condition(@key='PinDaysRangeStart')" xdt:Transform="InsertIfMissing"/>
     <add key="PinDaysRangeEnd" value="30" xdt:Locator="Condition(@key='PinDaysRangeEnd')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
+
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
                             useDefaultLabel="true" saveDefaultLabel="false"
                             xdt:Transform="InsertIfMissing" />
-  <authentication>
-    <forms domain="test.com" xdt:Transform="SetAttributes(domain)" />
-  </authentication>
+
+  <system.web>
+    <authentication mode="Forms">
+      <forms loginUrl="~/login" xdt:Transform="SetAttributes(loginUrl)" />
+    </authentication>
+  </system.web>
+  
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">

@@ -4,7 +4,7 @@
 
     .sidebar &{
         border:1px solid var(--color-light-gray);
-        padding:0 19px;
+        padding:0 19px 20px;
         margin:0 -10px 20px;
 
         &__title{
@@ -294,14 +294,6 @@
 		margin: 0;
 		padding: 0;
 		list-style: none;
-
-		&__item {
-			margin: 0 15px 15px 0;
-
-			&:last-child {
-				margin: 0 0 15px;
-			}
-		}
 	}
 
 	&._horizontal .documents {

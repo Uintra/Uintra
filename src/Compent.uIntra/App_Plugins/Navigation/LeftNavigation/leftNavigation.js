@@ -1,7 +1,6 @@
 ﻿require('./leftNavigation.css');
 import helpers from "./../../Core/Content/scripts/Helpers";
 
-//var container = $('.js-sidebar-inner');
 var active = '_expand';
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var navState = helpers.localStorage.getItem("leftNavigation") || {};
@@ -57,11 +56,12 @@ var controller = {
         opener.on('click', function(e){
             toggleLinks(this);
         });
+
         if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
             helpers.initScrollbar(document.querySelector('.js-sidebar'));
         }
 
-        uIntra.events.cfTabChanged.addListener(locationChagned);
+        uIntra.events.addListener("cfTabChanged", locationChagned);
     }
 }
 

@@ -30,15 +30,16 @@
                 eventBody: new CustomEvent(name, params),
                 dispatch: function() {
                     document.body.dispatchEvent(this.eventBody);
-                },
-                addListener: function(callback) {
-                    document.body.addEventListener(this.eventName, callback);
                 }
             }
 
             this.list.push(name);
         },
-
+        addListener: function(eventName, callback) {
+            if(this.exist(eventName)){
+                document.body.addEventListener(eventName, callback);
+            }
+        },
         exist: function (name) {
             return this.list.indexOf(name) !== -1;
         },

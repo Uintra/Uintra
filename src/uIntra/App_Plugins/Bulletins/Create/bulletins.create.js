@@ -1,9 +1,8 @@
 ﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
-import ajax from "./../../Core/Content/scripts/Ajax";
+import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
 const toolbarSelector = ".js-create-bulletin__toolbar";
-const bulletinsTabNumber = 4;
 
 let mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
@@ -48,8 +47,8 @@ function initEditor() {
 
 function initEventListeners() {    
     mobileMediaQuery.matches ? 
-    mobileBtn.addEventListener("click", descriptionClickHandler) : 
-    description.addEventListener("click", descriptionClickHandler);
+        mobileBtn.addEventListener("click", descriptionClickHandler) : 
+        description.addEventListener("click", descriptionClickHandler);
 
     sentButton.addEventListener("click", sentButtonClickHandler);
     closeButton.addEventListener("click", closeBtnClickHandler);
@@ -57,16 +56,16 @@ function initEventListeners() {
 
     cfReloadTabEvent = new CustomEvent("cfReloadTab", {
         detail: {
-            isReinit: true
+            isReinit: false
         }
     });
 
     cfShowBulletinsEvent = new CustomEvent("cfShowBulletins",
-    {
-        detail: {
-            isReinit: true
-        }
-    });
+        {
+            detail: {
+                isReinit: true
+            }
+        });
 }
 
 function initFileUploader() {
@@ -98,26 +97,14 @@ function descriptionClickHandler(event) {
     show();
 }
 
-function isBulletinsTab() {
-    var currentTabNumber=document.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
-    return currentTabNumber == bulletinsTabNumber;
-}
-
-function sentButtonClickHandler(event) {
-    let newMedia = holder.querySelector(".js-new-media");
-    let data = {
-        description: dataStorage.value,
-        newMedia: newMedia.value
-    };
-
-    var url = this.dataset.url;
-
-    ajax.PostJson(url, data).then(function(response) {
-        if (response.isSuccess) {
-            isBulletinsTab()? cfReloadTab():cfShowBulletins();            
-            hide();
-            dropzone.removeAllFiles(true);
-
+function sentButtonClickHandler() {
+    let form = umbracoAjaxForm(holder.querySelector('form'));
+  
+    let promise = form.submit();
+    promise.then(function(data) {
+        if (data.IsSuccess) {
+            cfReloadTab();
+            hide();    
         }
     });
 }

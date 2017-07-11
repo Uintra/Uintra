@@ -27,16 +27,18 @@
 
     @media (--for-tablet-portrait-down) {
         &{
-            padding: 34px 0 25px;
+	        display: flex;
+	        justify-content: center;
+	        align-items: center;
+	        padding: 0;
 
             &__burger{
                 width: 20px;
-                height: 20px;
+                height: 17px;
                 position: relative;
                 transform: rotate(0deg);
                 transition: .5s ease-in-out;
                 cursor: pointer;
-                margin:0 auto;
                 
                 &-line{
                     display: block;
@@ -138,14 +140,17 @@
             }
 
             &__opener {
-                padding: 31px 0 28px;
-                margin: 0 0 -3px;
-                width: 57px;
-                float: right;
-                text-align: center;
-                color:var(--color-white);
-                position: relative;
-                z-index: 3;
+	            display: flex;
+	            justify-content: center;
+	            align-items: center;
+	            padding: 0;
+	            margin: 0;
+	            width: 57px;
+	            float: right;
+	            text-align: center;
+	            color:var(--color-white);
+	            position: relative;
+	            z-index: 3;
 
                 .icon-search{
                     font-size:18px;
@@ -270,12 +275,13 @@
     padding:10px 10px 10px 37px;
     margin:0 -10px 0 0;
 
-    @media (--for-tablet-portrait-down){
-        &{
-            padding:0;
-            position:static;
-        }
-    }
+	@media (--for-tablet-portrait-down){
+		&{
+			position:static;
+			display: flex;
+			padding:0;
+		}
+	}
 
     .icon-user{
         &._with-avatar:before{
@@ -311,7 +317,7 @@
 			    display: none !important;
 		    }
 	    }
-	    
+
 	&:active,
         &:focus,
         &:hover{
@@ -321,10 +327,13 @@
 
         @media (--for-tablet-portrait-down){
             &{
-                padding:31px 20px 30px 20px;
-                position:relative;
-                z-index:3;
-                margin:0;
+	            display: flex;
+	            justify-content: center;
+	            align-items: center;
+	            padding:0 20px 0;
+	            position:relative;
+	            z-index:3;
+	            margin:0;
 
                 ._usermenu-expanded &{
                     background-color:var(--color-light-gray-2);

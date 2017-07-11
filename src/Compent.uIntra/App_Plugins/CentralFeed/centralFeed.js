@@ -175,7 +175,7 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function reloadTabEventHandler(e) {   
+function reloadTabEventHandler(e) {
     clearInterval(reloadintervalId);
 
     reload(true, true, e.detail.isReinit);
@@ -258,9 +258,7 @@ function init() {
     attachEventFilter();
     runReloadInverval();
 
-    if (uIntra.events.exist("cfReloadTab")) {
-        uIntra.events.cfReloadTab.addListener(reloadTabEventHandler);
-    }
+    uIntra.events.addListener("cfReloadTab", reloadTabEventHandler);
 }
 
 export default {

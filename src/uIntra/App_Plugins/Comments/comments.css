@@ -209,6 +209,12 @@
         &-field{
             margin:0 0 10px;
         }
+
+	    .btn {
+		    @media (--for-tablet-portrait-down) {
+			    display: inline-block !important;
+		    }
+	    }
     }
 
     &__reply {

@@ -253,9 +253,7 @@ function init() {
     attachEventFilter();
     runReloadInverval();
 
-    if (uIntra.events.exist("cfReloadTab")) {
-        uIntra.events.cfReloadTab.addListener(reloadTabEventHandler);
-    }
+    uIntra.events.addListener("cfReloadTab", reloadTabEventHandler);
 }
 
 export default {
