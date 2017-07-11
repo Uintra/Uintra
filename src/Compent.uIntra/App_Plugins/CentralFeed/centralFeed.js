@@ -10,17 +10,23 @@ var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
-var holder;
-var navigationHolder
-var state;
-var formController;
-var reloadintervalId;
-var centralFeedTabEvent = new CustomEvent("cfTabChanged");
-var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
+uIntra.events.add("cfTabChanged");
+uIntra.events.add("cfTabReloaded", {
     detail: {
         isReinit: false
     }
 });
+
+var holder;
+var navigationHolder;
+var state;
+var formController;
+var reloadintervalId;
+//var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
+//    detail: {
+//        isReinit: false
+//    }
+//});
 
 function initDescription(){
     var container = $('._clamp');
@@ -194,8 +200,8 @@ function runReloadInverval() {
 }
 
 function emitTabReloadedEvent(isReinit) {
-    centralFeedTabReloadedEvent.detail.isReinit = isReinit;
-    document.body.dispatchEvent(centralFeedTabReloadedEvent);
+    uIntra.events.cfTabReloaded.eventBody.detail.isReinit = isReinit;
+    uIntra.events.cfTabReloaded.dispatch();
 }
 
 function init() {
@@ -228,7 +234,7 @@ function init() {
 
             reload(false, false, true);
 
-            document.body.dispatchEvent(centralFeedTabEvent);
+            uIntra.events.cfTabChanged.dispatch();
         },
         get page() {
             return holder.querySelector('input[name="page"]').value || 1;
@@ -252,8 +258,9 @@ function init() {
     attachEventFilter();
     runReloadInverval();
 
-    document.body.addEventListener('cfReloadTab', reloadTabEventHandler);
-    document.body.addEventListener('cfShowBulletins', showBulletinsEventHandler);
+    if (uIntra.events.exist("cfReloadTab")) {
+        uIntra.events.cfReloadTab.addListener(reloadTabEventHandler);
+    }
 }
 
 export default {

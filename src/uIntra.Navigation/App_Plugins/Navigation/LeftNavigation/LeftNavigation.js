@@ -57,10 +57,12 @@ var controller = {
         opener.on('click', function(e){
             toggleLinks(this);
         });
+
         if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
             helpers.initScrollbar(document.querySelector('.js-sidebar'));
         }
-        document.body.addEventListener('cfTabChanged', locationChagned);
+
+        uIntra.events.cfTabChanged.addListener(locationChagned);
     }
 }
 

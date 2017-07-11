@@ -7,8 +7,6 @@ const bulletinsTabNumber = 4;
 
 let mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
-var cfReloadTabEvent;
-var cfShowBulletinsEvent;
 let holder;
 let dropzone;
 let dataStorage;
@@ -55,16 +53,9 @@ function initEventListeners() {
     closeButton.addEventListener("click", closeBtnClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
 
-    cfReloadTabEvent = new CustomEvent("cfReloadTab", {
+    uIntra.events.add("cfReloadTab",{
         detail: {
             isReinit: false
-        }
-    });
-
-    cfShowBulletinsEvent = new CustomEvent("cfShowBulletins",
-    {
-        detail: {
-            isReinit: true
         }
     });
 }
@@ -98,10 +89,10 @@ function descriptionClickHandler(event) {
     show();
 }
 
-function isBulletinsTab() {
-    var currentTabNumber=document.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
-    return currentTabNumber == bulletinsTabNumber;
-}
+//function isBulletinsTab() {
+//    var currentTabNumber=document.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
+//    return currentTabNumber == bulletinsTabNumber;
+//}
 
 function sentButtonClickHandler(event) {
     let newMedia = holder.querySelector(".js-new-media");
@@ -197,11 +188,7 @@ function getBulletinHolder() {
 }
 
 function cfReloadTab() {
-    document.body.dispatchEvent(cfReloadTabEvent);
-}
-
-function cfShowBulletins() {    
-    document.body.dispatchEvent(cfShowBulletinsEvent);
+    uIntra.events.cfReloadTab.dispatch();
 }
 
 function cfTabReloadedEventHandler(e) {
@@ -225,7 +212,7 @@ let controller = {
         initEditor();
         initEventListeners();
         initFileUploader();
-        document.body.addEventListener('cfTabReloaded', cfTabReloadedEventHandler);
+        uIntra.events.cfTabReloaded.addListener(cfTabReloadedEventHandler);
     }
 }
 
