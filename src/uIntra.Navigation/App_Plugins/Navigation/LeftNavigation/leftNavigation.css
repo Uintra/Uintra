@@ -64,11 +64,12 @@
 
 	&__arrow{
 		position: absolute;
-		top: 8px;
-		right: 17px;
-		width: 14px;
-		height: 14px;
+		top: 0;
+		left: 0;
+        right:0;
+        height:30px;
         display:none;
+        cursor:pointer;
 
         .sidebar__holder > .side-nav > .side-nav__item > &{
             display:block;
@@ -77,18 +78,18 @@
 		&:after {
 			content: '';
 			position: absolute;
-			left: calc(50% - 5px);
-			top:  calc(50% - 2px);
+			right: 17px;
+			top:  13px;
 			width: 8px;
 			height: 8px;
-			border: solid #a1a4ac;
+			border: solid var(--text-color-dark);
 			border-width: 1px 0 0 1px;
 			transform: rotate(45deg);
 
 			._expand & {
 				transform: rotate(225deg);
-				top:  calc(50% - 7px);
-				border-color: #000;
+                top:  10px;
+				border-color: var(--text-color-dark);
 			}
 		}
 	}
