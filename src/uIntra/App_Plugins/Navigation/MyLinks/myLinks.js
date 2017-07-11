@@ -1,5 +1,6 @@
 ﻿var Sortable = require('sortablejs');
 import helpers from "./../../Core/Content/scripts/Helpers";
+import ajax from "./../../Core/Content/scripts/Ajax";
 
 require("./myLinks.css");
 
@@ -11,8 +12,7 @@ var controller = {
         }
 
         var addControlBtn = document.querySelector('.js-myLinks-add-btn');
-        var removeLinks = document.querySelectorAll('.js-myLinks-remove');
-        var currentPageID = addControlBtn.getAttribute('data-content-id');
+        var currentLinkId = addControlBtn.dataset.mylinkId;
         var className = '_disabled';
         var myLinksState = helpers.localStorage.getItem("myLinks") || {};
         var opener = $('.js-mylinks__opener');
@@ -24,7 +24,7 @@ var controller = {
 
         getNavState();
 
-        var sortable = Sortable.create(container, {
+        Sortable.create(container, {
             group: "myLinksSortable",
             store: {
                 /**
@@ -48,40 +48,20 @@ var controller = {
             }
         });
 
-        attachEvents();
-
+        initRemoveLinks(container);
         addControlBtn.addEventListener('click', function(e){
-            toggleLinks(this, e, 'Add');
-        });
+            e.preventDefault();
 
-        function toggleLinks(element, event, action){
-            event.preventDefault();
-            $.ajax({
-                type: "POST",
-                data: {contentId: element.getAttribute('data-content-id')},
-                url: '/umbraco/surface/MyLinks/' + action,
-                success: function (data) {
-                    container.innerHTML = data;
-                    removeLinks = document.querySelectorAll('.js-myLinks-remove');
-                    attachEvents();
-                    if(element.getAttribute('data-content-id') == currentPageID){
-                        addControlBtn.classList.toggle(className);
-                    }
-                }
+            ajax.PostJson(this.dataset.url, {contentId: this.dataset.contentId} , function(data) {
+                currentLinkId = data.Id;
+                reloadList(container);
+                addControlBtn.classList.toggle(className);
             });
-        }
-
-        function attachEvents(){
-            for(var i = 0; i < removeLinks.length; i++){
-                removeLinks[i].addEventListener('click', function(e){
-                    toggleLinks(this, e, 'Remove');
-                });
-            }
-        }
+        });
 
         function getNavState(){
             var navItem = $('.js-mylinks__item');
-            var id = $(navItem).data("id");
+            $(navItem).data("id");
     
             if(!jQuery.isEmptyObject(myLinksState)){
                 for(var item in myLinksState){
@@ -93,14 +73,38 @@ var controller = {
         function toggleLinks(el){
             var item = $(el).closest('.js-mylinks__item');
             var itemId = item.data("id");
-            var isExpanded;
 
             item.toggleClass(activeClass);
-            isExpanded = item.hasClass(activeClass);
+            var isExpanded = item.hasClass(activeClass);
 
             myLinksState[itemId] = isExpanded;
 
             helpers.localStorage.setItem("myLinks", myLinksState);
+        }
+
+        function initRemoveLinks(container) {
+            var removeLinks = container.querySelectorAll('.js-myLinks-remove');
+
+            for(var i = 0; i < removeLinks.length; i++){
+                removeLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var link = this;
+                    var url = this.dataset.url;
+                    ajax.Delete(url, function() {
+                        reloadList(container);    
+                        if (link.dataset.id == currentLinkId) {
+                            addControlBtn.classList.toggle(className);
+                        }
+                    });
+                });
+            }
+        }
+
+        function reloadList(container) {
+            ajax.Get(container.dataset.url,function(data) {
+                container.innerHTML = data;
+                initRemoveLinks(container);
+            });
         }
     }
 }

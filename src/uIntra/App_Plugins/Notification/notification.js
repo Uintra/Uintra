@@ -12,16 +12,14 @@ var body = document.querySelector('body');
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
     var notificationList = document.querySelector(".js-notification-list");
-
     notification.addEventListener('click', function() {
         if (notificationList.classList.contains("hide")) { 
-
             ajax.Get("/umbraco/surface/Notification/List")
-                .then(function (response) {
-                    notificationList.innerHTML = response;
-                    initCustomControls();
-                });
-
+            .then(function (response) {
+                notificationList.innerHTML = response;
+                notificationList.classList.remove('_loading');
+                initCustomControls();
+            });
             notificationList.classList.remove("hide");
         } else {
             notificationList.classList.add("hide");
@@ -75,7 +73,7 @@ function initCustomControls() {
 }
 
 function initInfinityScroll() {
-    var holder = $('.js-notifications-overview');
+    var holder = $('.js-notification-overview');
     if (!holder.length) return;
     
     var formController = umbracoAjaxForm(holder.find("form.js-ajax-form")[0]);

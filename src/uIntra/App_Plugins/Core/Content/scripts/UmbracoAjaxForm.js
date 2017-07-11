@@ -54,6 +54,9 @@ function umbracoAjaxFormFactory(form) {
         form: form,
         reload: function () {
             return submit(form);
+        },
+        submit: function() {
+            return submit(form);
         }
     }
 }

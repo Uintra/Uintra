@@ -231,9 +231,11 @@ a{
 
     @media (--for-tablet-portrait-down) {
         & {
-            padding:0 0 0 20px;
-            min-height: 79px;
-            position: absolute;
+	        position: absolute;
+	        display: flex;
+	        flex-direction: row-reverse;
+	        min-height: 79px;
+	        padding:0 0 0 20px;
 
             &:before {
                 position: absolute;

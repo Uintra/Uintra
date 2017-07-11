@@ -1,12 +1,4 @@
-﻿require("./../../Core/Content/libs/jquery.validate.min.js");
-require("./../../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
-require("./../../Core/Content/libs/jquery.validate.unobtrusive.min.js");
-require('select2');
-require('alertifyjs/build/css/alertify.min.css');
-require('alertifyjs/build/css/themes/default.min.css');
-
-import {} from './../../Core/Content/scripts/ValidationExtensions';
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 import pinActivity from "./../../Core/Content/scripts/PinActivity";
@@ -74,7 +66,7 @@ var initSubmitButton = function () {
             alertify.defaults.glossary.yes = btn.data('yes');
             alertify.defaults.glossary.no = btn.data('no');
 
-            confirm.showDialog(btn.data('text'), callbacks, confirm.defaultSettings);
+            confirm.showDialog(btn.data('title'), btn.data('text'), callbacks, confirm.defaultSettings);
         });
     });
 }
@@ -104,6 +96,7 @@ var initDescriptionControl = function () {
 var initHideControl = function () {
     var hideControl = holder.find('.js-event-hide');
     var text = hideControl.data('text');
+    var title = hideControl.data('title');
     var textOk = hideControl.data('ok');
     var textCancel = hideControl.data('cancel');
 
@@ -111,7 +104,7 @@ var initHideControl = function () {
     alertify.defaults.glossary.ok = textOk;
 
     hideControl.on('click', function () {
-        confirm.showConfirm(text, function () {
+        confirm.showConfirm(title, text, function () {
             $.post('/umbraco/surface/Events/Hide?id=' + hideControl.data('id'),function () {
                 var url = hideControl.data('return-url');
                 window.location.href = url;
