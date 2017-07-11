@@ -1,6 +1,13 @@
 ﻿.feed{
     &__filter{
-        margin:0 0 20px;
+	    display: flex;
+	    flex-wrap: wrap;
+	    align-items: center;
+	    margin:0 0 10px;
+
+	    &-item {
+		    margin: 0 20px 10px 0;
+	    }
     }
 
     &__header{
