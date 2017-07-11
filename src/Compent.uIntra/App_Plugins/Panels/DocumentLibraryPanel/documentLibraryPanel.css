@@ -40,9 +40,15 @@
         
         ._horizontal &{
             text-align:center;
-            width:33%;
+            width:100%;
             max-width:150px;
             padding:0 0 10px 20px;
+
+            @media (--for-desktop-up){
+                &{
+                    width:33%;
+                }
+            }
         }
 
         &-link{
