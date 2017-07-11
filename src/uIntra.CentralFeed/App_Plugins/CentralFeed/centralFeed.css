@@ -126,6 +126,14 @@
                 font-family:var(--font-general);
             }
 
+            a{
+                color:var(--color-red);
+
+                &:hover{
+                    color:var(--color-red);
+                }
+            }
+
             &._clamp{
                 overflow:hidden;
                 margin:0 0 20px;
