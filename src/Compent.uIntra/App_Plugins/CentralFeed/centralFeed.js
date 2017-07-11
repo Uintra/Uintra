@@ -22,11 +22,6 @@ var navigationHolder;
 var state;
 var formController;
 var reloadintervalId;
-//var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
-//    detail: {
-//        isReinit: false
-//    }
-//});
 
 function initDescription(){
     var container = $('._clamp');
@@ -175,7 +170,7 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function reloadTabEventHandler(e) {
+function reloadTabEventHandler(e) {   
     clearInterval(reloadintervalId);
 
     reload(true, true, e.detail.isReinit);

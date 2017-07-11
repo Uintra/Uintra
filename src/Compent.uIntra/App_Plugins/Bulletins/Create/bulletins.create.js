@@ -202,7 +202,7 @@ let controller = {
         initEditor();
         initEventListeners();
         initFileUploader();
-        uIntra.events.addListener("cfTabReloaded",cfTabReloadedEventHandler);
+        uIntra.events.addListener("cfTabReloaded", cfTabReloadedEventHandler);
     }
 }
 
