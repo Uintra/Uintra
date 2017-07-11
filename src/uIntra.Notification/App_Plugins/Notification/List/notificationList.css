@@ -61,18 +61,27 @@
 
     @media (--for-tablet-portrait-down) {
         & {
-            float: right;
-            width: 57px;
-            margin:0 0 0 10px;
-            position:static;
+	        position:static;
+	        display: flex;
+	        justify-content: center;
+	        align-items: center;
+	        width: 57px;
+	        margin: 0 0 0 10px;
 
-            &__icon {
-                display: block;
-                text-align: center;
-                padding: 34px 0 29px;
-                position:relative;
-                z-index:3;
-            }
+	        &__icon {
+		        position:relative;
+		        z-index:3;
+		        flex: 1 1 auto;
+		        display: flex;
+		        justify-content: center;
+		        align-items: center;
+		        height: 100%;
+		        padding: 0;
+
+		        span {
+			        margin: 0 0 0 5px;
+		        }
+	        }
 
             &__number {
                 top: 50%;
