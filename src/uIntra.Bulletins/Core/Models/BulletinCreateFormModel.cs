@@ -2,7 +2,7 @@
 
 namespace uIntra.Bulletins
 {
-    public class BulletinListCreateFormModel
+    public class BulletinCreateFormModel : BulletinCreateModel
     {
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
 
