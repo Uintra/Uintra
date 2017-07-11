@@ -1068,14 +1068,10 @@
     <Content Include="Controllers\LoginController.cs" />
     <Content Include="Controllers\NewsController.cs" />
     <Content Include="App_Start\MapperConfig.cs" />
-    <Content Include="Controllers\CommentsEditPageController.cs" />
-    <Content Include="Controllers\CommentsPageController.cs" />
     <Content Include="Controllers\EventsController.cs" />
     <Content Include="Controllers\NotificationController.cs" />
     <Content Include="Controllers\SubscribeController.cs" />
-    <Content Include="Controllers\SubscribePageController.cs" />
     <Content Include="Controllers\LikesPageController.cs" />
-    <Content Include="Controllers\TestController.cs" />
     <Content Include="Core\ActivitiesServiceFactory.cs" />
     <Content Include="Core\Constants\AppSettingConstants.cs" />
     <Content Include="Core\Comments\CommentsPageHelper.cs" />
