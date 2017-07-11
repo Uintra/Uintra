@@ -183,7 +183,7 @@ namespace uIntra.CentralFeed.Web
             }
         }
 
-        protected void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
+        protected virtual void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
         {
             var currentPage = GetCurrentPage();
 
