@@ -17,7 +17,7 @@ function post(url, data, onSuccess, onError, options) {
         request.onload = () => {
             if (request.status >= 200 && request.status < 400) {
                 var responseText = request.responseText;
-                var resultData = options.jsonRegex.test(responseText) ? JSON.parse(responseText) : responseText;
+                var resultData = jsonParseSafe(responseText);
                 onSuccess && onSuccess(resultData);
                 resolve(resultData);
             } else {
@@ -28,6 +28,16 @@ function post(url, data, onSuccess, onError, options) {
         request.onerror = onError;
         request.send(data);
     });
+}
+
+function jsonParseSafe(text) {
+    try {
+        return JSON.parse(text);
+    }
+    catch(err){
+        
+    }
+    return text;
 }
 
 var ajax = {
