@@ -107,7 +107,7 @@ namespace uIntra.CentralFeed.Web
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
-
+            FillActivityDetailLinks(pagedItemsList);
 
             return new CentralFeedListViewModel
             {
