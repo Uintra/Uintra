@@ -57,16 +57,6 @@ function initEventListeners() {
             isReinit: false
         }
     });
-<<<<<<< HEAD
-=======
-
-    cfShowBulletinsEvent = new CustomEvent("cfShowBulletins",
-        {
-            detail: {
-                isReinit: true
-            }
-        });
->>>>>>> master
 }
 
 function initFileUploader() {
@@ -98,14 +88,6 @@ function descriptionClickHandler(event) {
     show();
 }
 
-<<<<<<< HEAD
-//function isBulletinsTab() {
-//    var currentTabNumber=document.querySelector('.js-feed-links .js-feed-type._active').dataset['type'];
-//    return currentTabNumber == bulletinsTabNumber;
-//}
-
-=======
->>>>>>> master
 function sentButtonClickHandler(event) {
     event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
@@ -220,7 +202,7 @@ let controller = {
         initEditor();
         initEventListeners();
         initFileUploader();
-        uIntra.events.cfTabReloaded.addListener(cfTabReloadedEventHandler);
+        uIntra.events.addListener("cfTabReloaded",cfTabReloadedEventHandler);
     }
 }
 
