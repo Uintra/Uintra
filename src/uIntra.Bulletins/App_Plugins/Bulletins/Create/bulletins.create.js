@@ -97,7 +97,8 @@ function descriptionClickHandler(event) {
     show();
 }
 
-function sentButtonClickHandler() {
+function sentButtonClickHandler(event) {
+    event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
   
     let promise = form.submit();
