@@ -100,7 +100,7 @@ function descriptionClickHandler(event) {
 function sentButtonClickHandler() {
     let form = umbracoAjaxForm(holder.querySelector('form'));
   
-    var promise = form.submit(options);
+    let promise = form.submit();
     promise.then(function(data) {
         if (data.IsSuccess) {
             cfReloadTab();
