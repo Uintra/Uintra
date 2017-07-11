@@ -22,6 +22,8 @@ namespace uIntra.Bulletins.Web
         protected virtual string CreationFormPath { get; } = "~/App_Plugins/Bulletins/Create/CreationForm.cshtml";
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/Bulletins/Details/DetailsView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Bulletins/Edit/EditView.cshtml";
+        protected virtual string CreationFormItemHeaderPath { get; } = "~/App_Plugins/Bulletins/Create/CreationFormItemHeader.cshtml";
+
         protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
@@ -82,6 +84,11 @@ namespace uIntra.Bulletins.Web
 
             var model = GetEditViewModel(bulletin);
             return PartialView(EditViewPath, model);
+        }
+
+        public virtual ActionResult CreationFormItemHeader(IntranetActivityItemHeaderViewModel model)
+        {
+            return PartialView(CreationFormItemHeaderPath, model);
         }
 
         [HttpPost]
