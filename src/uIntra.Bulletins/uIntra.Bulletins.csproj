@@ -305,7 +305,7 @@
     <Compile Include="Core\Models\BulletinCreationResultModel.cs" />
     <Compile Include="Core\Models\BulletinEditModel.cs" />
     <Compile Include="Core\Models\BulletinItemViewModel.cs" />
-    <Compile Include="Core\Models\BulletinListCreateFormModel.cs" />
+    <Compile Include="Core\Models\BulletinCreateFormModel.cs" />
     <Compile Include="Core\Models\BulletinViewModel.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
