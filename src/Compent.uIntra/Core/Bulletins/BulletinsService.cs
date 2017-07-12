@@ -4,6 +4,7 @@ using System.Linq;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
@@ -15,10 +16,12 @@ using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
+using uIntra.Search;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -27,7 +30,8 @@ namespace Compent.uIntra.Core.Bulletins
         ICentralFeedItemService,
         ICommentableService,
         ILikeableService,
-        INotifyableService
+        INotifyableService,
+        IIndexer
     {
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
@@ -38,6 +42,10 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly INotificationsService _notificationService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
+        private readonly IMediaHelper _mediaHelper;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -48,8 +56,13 @@ namespace Compent.uIntra.Core.Bulletins
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, IActivityTypeProvider activityTypeProvider, 
-            ICentralFeedTypeProvider centralFeedTypeProvider)
+            INotificationsService notificationService, 
+            IActivityTypeProvider activityTypeProvider, 
+            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IElasticActivityIndex activityIndex, 
+            IDocumentIndexer documentIndexer,
+            ISearchableTypeProvider searchableTypeProvider, 
+            IMediaHelper mediaHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
@@ -61,24 +74,27 @@ namespace Compent.uIntra.Core.Bulletins
             _notificationService = notificationService;
             _activityTypeProvider = activityTypeProvider;
             _centralFeedTypeProvider = centralFeedTypeProvider;
+            _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
+            _searchableTypeProvider = searchableTypeProvider;
+            _mediaHelper = mediaHelper;
         }
+
+        protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, BulletinsOverviewPage.ModelTypeAlias };
 
         public MediaSettings GetMediaSettings()
         {
-            return new MediaSettings
-            {
-                MediaRootId = 1249
-            };
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
         }
 
         public override IPublishedContent GetOverviewPage()
         {
-            return _umbracoHelper.TypedContent(1245);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath()));
         }
 
         public override IPublishedContent GetDetailsPage()
         {
-            return _umbracoHelper.TypedContent(1333);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(BulletinsDetailsPage.ModelTypeAlias)));
         }
 
         public override IPublishedContent GetCreatePage()
@@ -88,8 +104,9 @@ namespace Compent.uIntra.Core.Bulletins
 
         public override IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContent(1334);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(BulletinsEditPage.ModelTypeAlias)));
         }
+
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
         public override bool CanEdit(IIntranetActivity cached)
@@ -141,6 +158,23 @@ namespace Compent.uIntra.Core.Bulletins
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
+        }
+
+        protected override Bulletin UpdateCachedEntity(Guid id)
+        {
+            var cachedBulletin = Get(id);
+            var bulletin = base.UpdateCachedEntity(id);
+            if (IsBulletinHidden(bulletin))
+            {
+                _activityIndex.Delete(id);
+                _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+                _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
+                return null;
+            }
+
+            _activityIndex.Index(Map(bulletin));
+            _documentIndexer.Index(bulletin.MediaIds);
+            return bulletin;
         }
 
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
@@ -214,6 +248,16 @@ namespace Compent.uIntra.Core.Bulletins
             return GetEditPage();
         }
 
+        public void FillIndex()
+        {
+            var activities = GetAll().Where(s => !IsBulletinHidden(s));
+            var searchableActivities = activities.Select(Map);
+
+            var searchableType = _searchableTypeProvider.Get(SearchableTypeEnum.Bulletins.ToInt());
+            _activityIndex.DeleteByType(searchableType);
+            _activityIndex.Index(searchableActivities);
+        }
+
         private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
             Bulletin bulletinsEntity;
@@ -231,10 +275,11 @@ namespace Compent.uIntra.Core.Bulletins
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
                     data.Value = new LikesNotifierDataModel
                     {
-                        Title = bulletinsEntity.Title,
+                        Title = bulletinsEntity.Description,
                         ActivityType = ActivityType,
                         NotifierId = currentUser.Id,
-                        CreatedDate = DateTime.Now
+                        CreatedDate = DateTime.Now,
+                        Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
                     };
                 }
                     break;
@@ -248,7 +293,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         ActivityType = ActivityType,
                         NotifierId = comment.UserId,
-                        Title = bulletinsEntity.Title,
+                        Title = bulletinsEntity.Description,
                         Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
                     };
                 }
@@ -262,7 +307,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         ActivityType = ActivityType,
                         NotifierId = currentUser.Id,
-                        Title = bulletinsEntity.Title,
+                        Title = bulletinsEntity.Description,
                         Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
                         CommentId = comment.Id
                     };
@@ -306,6 +351,29 @@ namespace Compent.uIntra.Core.Bulletins
 
             var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, action);
             return isCreator && isUserHasPermissions;
+        }
+
+        private string[] GetPath(params string[] aliases)
+        {
+            var basePath = OverviewXPath;
+
+            if (aliases.Any())
+            {
+                basePath.AddRange(aliases.ToList());
+            }
+            return basePath.ToArray();
+        }
+
+        private bool IsBulletinHidden(Bulletin bulletin)
+        {
+            return bulletin == null || bulletin.IsHidden;
+        }
+
+        private SearchableActivity Map(Bulletin bulletin)
+        {
+            var searchableActivity = bulletin.Map<SearchableActivity>();
+            searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(bulletin.Id);
+            return searchableActivity;
         }
     }
 }

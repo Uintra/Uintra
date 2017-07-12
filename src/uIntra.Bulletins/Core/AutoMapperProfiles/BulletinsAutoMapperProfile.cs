@@ -68,7 +68,7 @@ namespace uIntra.Bulletins
 
             Mapper.CreateMap<BulletinBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToString(IntranetConstants.Common.DefaultDateFormat).ToEnumerableOfOne()));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
 
             Mapper.CreateMap<BulletinBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<BulletinBase, IntranetActivityDetailsHeaderViewModel>()

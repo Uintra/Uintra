@@ -29,12 +29,12 @@ var Confirm = {
         movable: false,
         resizable: false,
         closable: true,
-        modal: true,
-        title: "<h2 class='ajs-title'>hardcode Confirm</h1>"
+        modal: true
     },
 
-    showConfirm: function (text, firstCallback, secondCallback,settings) {
-        Alertify.confirm('',
+    showConfirm: function (title, text, firstCallback, secondCallback,settings) {
+        Alertify.confirm(
+                title,
                 text,
                 function () {
                     firstCallback();
@@ -47,7 +47,7 @@ var Confirm = {
             .set(settings);
     },
 
-    showDialog: function (text, callbacks,settings) {
+    showDialog: function (title, text, callbacks,settings) {
         var callbackWrapper = function (closeEvent) {
             var callback = callbacks[closeEvent.index];
             if (callback) {
@@ -57,7 +57,7 @@ var Confirm = {
             }
             return false;
         }
-        Alertify.customDialog('', text, callbackWrapper).set(settings);
+        Alertify.customDialog(title, text, callbackWrapper).set(settings);
     }
 }
 

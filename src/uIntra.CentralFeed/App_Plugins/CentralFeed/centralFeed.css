@@ -1,6 +1,17 @@
 ﻿.feed{
     &__filter{
-        margin:0 0 20px;
+	    display: flex;
+	    flex-wrap: wrap;
+	    align-items: center;
+	    margin:0 0 10px;
+
+	    &-item {
+		    margin: 0 20px 10px 0;
+	    }
+    }
+
+    &__header{
+        padding:0 20px 0 0;
     }
 
     &__item{
@@ -52,6 +63,11 @@
             @media(--for-tablet-portrait-down){
                 &{
                     max-width:100%;
+                    display:block;
+
+                    .avatar{
+                        float:left;
+                    }
                 }
             }
 
@@ -214,6 +230,12 @@
             &-holder{
                 align-self:center;
                 padding-right:130px;
+
+                @media(--for-tablet-portrait-down){
+                    &{
+                        padding-right:0;
+                    }
+                }
             }
         }
 
@@ -338,12 +360,14 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: flex-end;
-		margin: 0 0 20px;
+		margin: 0 0 10px;
 		padding: 0;
 		list-style: none;
 
 		&__frame {
-			margin: 0 0 0 10px;
+			flex: 0 0 auto;
+			max-width: 100%;
+			margin: 0 0 10px 10px;
 		}
 
 		&__item {
@@ -351,6 +375,7 @@
 			padding: 8px 25px;
 			background: #ccc;
 			color: #fff;
+			word-wrap: break-word;
 
 			&:hover {
 				color: #fff;

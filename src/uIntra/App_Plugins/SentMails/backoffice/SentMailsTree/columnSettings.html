@@ -1,0 +1,60 @@
+﻿<umb-panel ng-controller="columnSettingsController as columnCtrl">
+    <umb-header>
+        <!--header title-->
+        <div class="umb-headline-editor-wrapper span12 ng-scope">
+            <h1 class="ng-binding">Column Settings</h1>
+        </div>
+    </umb-header>
+
+    <div class="umb-panel-body">
+        <div class="umb-pane">
+
+            <form name="settingsForm" ng-submit="columnCtrl.save()">
+
+                <!--Column settings-->
+                <div class="umb-pane">
+                    <div style="margin-bottom: 125px;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Alias</th>
+                                    <th>Name</th>
+                                    <th>Visibility</th>
+                                    <th>Sort Order</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="colSetting in columnCtrl.columnSettings">
+                                    <td>
+                                        <label>{{colSetting.Alias}}</label>
+                                    </td>
+                                    <td class="td-txt-input">
+                                        <input type="text" ng-model="colSetting.Name" maxlength="50" />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" ng-model="colSetting.IsVisible" style="float: left; margin-right: 10px;" />
+                                        <p ng-if="colSetting.IsVisible == true">Visible</p>
+                                        <p ng-if="colSetting.IsVisible == false">Hidden</p>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="colSetting.SortOrder" min="0" max="100" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="umb-tab-buttons" style="bottom: 0 !important; height: 75px;" detect-fold>
+                            <div class="btn-group">
+                                <button type="submit" data-hotkey="ctrl+s" class="btn btn-success" ng-disabled="columnCtrl.isSaveBtnDisable">
+                                    <localize key="buttons_save">Save</localize>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</umb-panel>

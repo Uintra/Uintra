@@ -22,6 +22,8 @@ namespace uIntra.Bulletins.Web
         protected virtual string CreationFormPath { get; } = "~/App_Plugins/Bulletins/Create/CreationForm.cshtml";
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/Bulletins/Details/DetailsView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Bulletins/Edit/EditView.cshtml";
+        protected virtual string CreationFormItemHeaderPath { get; } = "~/App_Plugins/Bulletins/Create/CreationFormItemHeader.cshtml";
+
         protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
@@ -31,13 +33,14 @@ namespace uIntra.Bulletins.Web
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
-        private const int ActivityTypeId = (int) IntranetActivityTypeEnum.Bulletins;
+        private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
 
         protected BulletinsControllerBase(
             IBulletinsService<BulletinBase> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> userService,
-            IIntranetUserContentHelper intranetUserContentHelper, IActivityTypeProvider activityTypeProvider)
+            IIntranetUserContentHelper intranetUserContentHelper, 
+            IActivityTypeProvider activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _mediaHelper = mediaHelper;
@@ -50,22 +53,7 @@ namespace uIntra.Bulletins.Web
         {
             FillLinks();
 
-            var currentUser = _userService.GetCurrentUser();
-            var mediaSettings = _bulletinsService.GetMediaSettings();
-
-            var result = new BulletinListCreateFormModel
-            {
-                HeaderInfo = new IntranetActivityItemHeaderViewModel
-                {
-                    Title = currentUser.DisplayedName,
-                    Type = _activityTypeProvider.Get(ActivityTypeId),
-                    Dates = DateTime.UtcNow
-                        .ToString(IntranetConstants.Common.DefaultDateFormat)
-                        .ToEnumerableOfOne(),
-                    Creator = currentUser
-                },
-                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions
-            };
+            var result = GetCreateFormModel();
 
             return PartialView(CreationFormPath, result);
         }
@@ -99,6 +87,29 @@ namespace uIntra.Bulletins.Web
             return PartialView(EditViewPath, model);
         }
 
+        public virtual ActionResult CreationFormItemHeader(IntranetActivityItemHeaderViewModel model)
+        {
+            return PartialView(CreationFormItemHeaderPath, model);
+        }
+
+        [HttpPost]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        public virtual JsonResult Create(BulletinCreateModel model)
+        {
+            var result = new BulletinCreationResultModel();
+
+            if (!ModelState.IsValid)
+            {
+                return Json(result);
+            }
+
+            var bulletin = MapToBulletin(model);
+            _bulletinsService.Create(bulletin);
+            OnBulletinCreated(bulletin, model);
+            result.IsSuccess = true;
+            return Json(result);
+        }
+
         [HttpPost]
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
@@ -110,8 +121,9 @@ namespace uIntra.Bulletins.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var activity = UpdateBulletin(editModel);
-            OnBulletinEdited(activity, editModel);
+            var bulletin = MapToBulletin(editModel);
+            _bulletinsService.Save(bulletin);
+            OnBulletinEdited(bulletin, editModel);
             return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
         }
 
@@ -126,13 +138,24 @@ namespace uIntra.Bulletins.Web
             return Json(new { Url = ViewData.GetActivityOverviewPageUrl(ActivityTypeId) });
         }
 
-        protected virtual void FillMediaEditData(IContentWithMediaCreateEditModel model)
+        protected virtual BulletinCreateFormModel GetCreateFormModel()
         {
+            var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
 
-            ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
-
-            model.MediaRootId = mediaSettings.MediaRootId;
+            var result = new BulletinCreateFormModel
+            {
+                HeaderInfo = new IntranetActivityItemHeaderViewModel
+                {
+                    Title = currentUser.DisplayedName,
+                    Type = _activityTypeProvider.Get(ActivityTypeId),
+                    Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
+                    Creator = currentUser
+                },
+                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
+                MediaRootId = mediaSettings.MediaRootId
+            };
+            return result;
         }
 
         protected virtual BulletinEditModel GetEditViewModel(BulletinBase bulletin)
@@ -156,14 +179,27 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
-        protected virtual BulletinBase UpdateBulletin(BulletinEditModel editModel)
+        protected virtual BulletinBase MapToBulletin(BulletinCreateModel model)
         {
-            var activity = _bulletinsService.Get(editModel.Id);
-            activity = Mapper.Map(editModel, activity);
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            var bulletin = model.Map<BulletinBase>();
+            bulletin.PublishDate = DateTime.UtcNow;
+            bulletin.CreatorId = _userService.GetCurrentUserId();
 
-            _bulletinsService.Save(activity);
-            return activity;
+            if (model.NewMedia.IsNotNullOrEmpty())
+            {
+                bulletin.MediaIds = _mediaHelper.CreateMedia(model);
+            }
+
+            return bulletin;
+        }
+
+        protected virtual BulletinBase MapToBulletin(BulletinEditModel editModel)
+        {
+            var bulletin = _bulletinsService.Get(editModel.Id);
+            bulletin = Mapper.Map(editModel, bulletin);
+            bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+
+            return bulletin;
         }
 
         protected virtual BulletinItemViewModel GetItemViewModel(BulletinBase bulletin)
@@ -188,6 +224,15 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
+        protected virtual void FillMediaEditData(IContentWithMediaCreateEditModel model)
+        {
+            var mediaSettings = _bulletinsService.GetMediaSettings();
+
+            ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
+
+            model.MediaRootId = mediaSettings.MediaRootId;
+        }
+
         protected virtual void FillLinks()
         {
             var overviewPageUrl = _bulletinsService.GetOverviewPage().Url;
@@ -199,6 +244,11 @@ namespace uIntra.Bulletins.Web
             ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
             ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
             ViewData.SetProfilePageUrl(profilePageUrl);
+        }
+
+        protected virtual void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
+        {
+
         }
 
         protected virtual void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)

@@ -452,8 +452,8 @@ namespace Compent.uIntra.Core.Events
             var activities = GetAll().Where(s => !IsEventHidden(s));
             var searchableActivities = activities.Select(Map);
 
-            var seachableType = _searchableTypeProvider.Get(SearchableTypeEnum.Events.ToInt());
-            _activityIndex.DeleteByType(seachableType);
+            var searchableType = _searchableTypeProvider.Get(SearchableTypeEnum.Events.ToInt());
+            _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
         }
 

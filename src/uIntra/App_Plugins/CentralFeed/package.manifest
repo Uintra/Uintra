@@ -1,0 +1,18 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Central feed",
+      "alias": "custom.CentralFeed",
+      "view": "/App_Plugins/CentralFeed/backoffice/central-feed-view.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "OverView"
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/CentralFeed/backoffice/centralFeedController.js",
+    "/App_Plugins/CentralFeed/backoffice/centralFeedService.js"
+  ]
+}

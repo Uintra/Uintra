@@ -140,12 +140,12 @@ body{
 }
 
 a{
-    color:var(--color-red);
+    color:var(--color-contrast);
 
     &:hover,
     &:active,
     &:focus{
-        color:var(--color-red);
+        color:var(--color-contrast);
     }
 }
 
@@ -231,9 +231,11 @@ a{
 
     @media (--for-tablet-portrait-down) {
         & {
-            padding:0 0 0 20px;
-            min-height: 79px;
-            position: absolute;
+	        position: absolute;
+	        display: flex;
+	        flex-direction: row-reverse;
+	        min-height: 79px;
+	        padding:0 0 0 20px;
 
             &:before {
                 position: absolute;
@@ -257,11 +259,9 @@ a{
 }
 
 .logo {
-    padding: 23px 0;
-    overflow: hidden;
-    max-width: 126px;
-    position: relative;
-    z-index: 3;
+    float:left;
+    padding:14px 0 17px;
+    margin:0 190px 0 0;
 }
 
 #main{
@@ -321,6 +321,61 @@ a{
                 top:0;
                 left:0;
             }
+        }
+    }
+}
+
+.alertify .ajs-footer .ajs-buttons{
+    &,
+    &.ajs-auxiliary{
+        float:none;
+        text-align:right;
+    }
+
+    .ajs-button{
+        border:1px solid;
+        padding:4px 20px 5px;
+        margin:0 20px 0 0;
+        display:inline-block;
+        vertical-align:top;
+        border-radius:3px;
+        font:bold 16px/20px var(--font-custom);
+        text-transform:uppercase;
+        cursor:pointer;
+        max-width:100%;
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        border-color:var(--color-black);
+        background:var(--color-black);
+        color:var(--color-white);
+
+        &:hover,
+        &:active,
+        &:focus{
+            background:var(--text-color-dark);
+            border-color:var(--text-color-dark);
+            text-decoration:none;
+        }
+
+        &.ajs-cancel{
+            border-color:var(--text-color-dark);
+            background:var(--color-white);
+            color:var(--text-color-dark);
+
+            &:hover,
+            &:active,
+            &:focus{
+                background:#e2e2e2;
+                text-decoration:none;
+                border-color:#d4d4d4;
+            }
+        }
+
+        &[disabled]{
+            opacity:0.8;
+            cursor:default;
+            pointer-events:none;
         }
     }
 }

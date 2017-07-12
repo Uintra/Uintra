@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/build/head_css.js"></script>
+    <title>@{Html.RenderAction("GetTitle", "Navigation");} uIntra</title>
+    <link rel="icon" href="~/favicon.ico" />
+    <link type="text/css" href="/build/app.css" rel="stylesheet" />
+    <link type="text/css" href="/build/head_css.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="wrapper" class="_loading">
+        <header id="header">
+            <strong class="logo">
+                <a class="logo__link" href="/"><img src="~/Content/images/logo.png" class="logo__img"></a>
+            </strong>
+            @{Html.RenderAction("TopNavigation", "Navigation");}
+            <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
+        </header>
+        <aside id="sidebar" class="js-sidebar">
+            <div class="sidebar__holder js-sidebar-inner">
+                @{Html.RenderAction("LeftNavigation", "Navigation"); }
+                @{Html.RenderAction("SystemLinks", "Navigation"); }
+                @{Html.RenderAction("Overview", "MyLinks"); }
+            </div>
+        </aside>
+        <main id="main">
+            @*@{Html.RenderAction("Login", "Login");}*@
+            @{Html.RenderAction("SubNavigation", "Navigation");}
+            @RenderBody()
+            </main>
+        </div>
+        <a id="toTop" class="top">Go to top</a>
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="pswp__bg"></div>
+            <div class="pswp__scroll-wrap">
+                <div class="pswp__container">
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
+
+                <div class="pswp__ui pswp__ui--hidden">
+                    <div class="pswp__counter"></div>
+                    <div class="pswp__top-bar">
+                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                        <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                                <div class="pswp__preloader__cut">
+                                    <div class="pswp__preloader__donut"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div>
+                    </div>
+                    <button class="pswp__button pswp__button--arrow--left icon-arrow-left" title="Previous (arrow left)"></button>
+                    <button class="pswp__button pswp__button--arrow--right icon-arrow-right" title="Next (arrow right)"></button>
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/build/app.js"></script>
+    </body>
+    </html>

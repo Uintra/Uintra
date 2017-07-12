@@ -77,9 +77,9 @@
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" data-text="@Html.Localize("Common.NotifyAllSubscribers")" data-yes="@Html.Localize("Common.NotifyAllSubscribers.Yes")" data-no="@Html.Localize("Common.NotifyAllSubscribers.No")" data-cancel="@Html.Localize("Common.NotifyAllSubscribers.Cancel")" />
-            <input class="form__btn _submit js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)"/>
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.NotifyAllSubscribers")" data-yes="@Html.Localize("Common.NotifyAllSubscribers.Yes")" data-no="@Html.Localize("Common.NotifyAllSubscribers.No")" data-cancel="@Html.Localize("Common.NotifyAllSubscribers.Cancel")" />
+            <input class="form__btn _cancel js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)" />
             <a class="form__btn _default" href="@(Context.GetBackLink($"{ViewData["DetailsPageUrl"]}?Id={Model.Id}"))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
-    }
+                }
 </div>

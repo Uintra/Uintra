@@ -346,10 +346,10 @@
     <Compile Include="Core\Entities\SearchableTypeEnum.cs" />
     <Compile Include="Core\IContentIndexer.cs" />
     <Compile Include="Core\IElasticSearchRepository.cs" />
-    <Compile Include="Core\IIndexer.cs" />
+    <Compile Include="DefaultImplementation\IIndexer.cs" />
     <Compile Include="Core\Indexes\ElasticActivityIndex.cs" />
     <Compile Include="Core\Indexes\ElasticContentIndex.cs" />
-    <Compile Include="Core\Indexes\ElasticIndex.cs" />
+    <Compile Include="DefaultImplementation\ElasticIndex.cs" />
     <Compile Include="Core\Indexes\IElasticActivityIndex.cs" />
     <Compile Include="Core\Indexes\IElasticContentIndex.cs" />
     <Compile Include="Core\Indexes\IElasticIndex.cs" />

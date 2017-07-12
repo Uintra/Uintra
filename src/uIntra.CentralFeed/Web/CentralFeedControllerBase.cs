@@ -148,11 +148,13 @@ namespace uIntra.CentralFeed.Web
 
         public virtual JsonResult AvailableActivityTypes()
         {
-            var activityTypes = _centralFeedService.GetAllSettings().Select(s => s.Type);
-            var activityTypeModelList = activityTypes.Select(a => new { Id = a.Id, Name = a.Name }).ToList();
-            activityTypeModelList.Insert(0, new { Id = CentralFeedTypeEnum.All.ToInt(), Name = CentralFeedTypeEnum.All.ToString() });
+            var activityTypes = _centralFeedService
+                .GetAllSettings()
+                .Select(s => s.Type)
+                .Select(a => new { a.Id, a.Name })
+                .OrderBy(el => el.Id);
 
-            return Json(activityTypeModelList, JsonRequestBehavior.AllowGet);
+            return Json(activityTypes, JsonRequestBehavior.AllowGet);
         }
 
         protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <section name="userPermissions" type="uIntra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
+    <section name="elasticConfiguration" type="uIntra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
+    <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
+            xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
+  </configSections>
+
+  <appSettings>
+    <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='UnobtrusiveJavaScriptEnabled')" xdt:Transform="InsertIfMissing" />
+
+    <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsMode')" xdt:Transform="SetAttributes(value)"/>
+    <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
+
+    <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
+    <add key="NotWebMasterRole.DisabledDocumentTypes" value="likesPage, commentsPage, commentsEditPage, subscribePage" xdt:Locator="Condition(@key='NotWebMasterRole.DisabledDocumentTypes')" xdt:Transform="InsertIfMissing" />
+    <add key="PinDaysRangeStart" value="0" xdt:Locator="Condition(@key='PinDaysRangeStart')" xdt:Transform="InsertIfMissing"/>
+    <add key="PinDaysRangeEnd" value="30" xdt:Locator="Condition(@key='PinDaysRangeEnd')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing"/>
+  </appSettings>
+
+  <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
+  <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
+                            useDefaultLabel="true" saveDefaultLabel="false"
+                            xdt:Transform="InsertIfMissing" />
+
+  <system.web>
+    <authentication mode="Forms">
+      <forms loginUrl="~/login" xdt:Transform="SetAttributes(loginUrl)" />
+    </authentication>
+  </system.web>
+  
+  <userPermissions xdt:Transform="InsertIfMissing">
+    <roles>
+      <role key="WebMaster">
+        <permissions>
+          <permission key="NewsView" />
+          <permission key="NewsCreate" />
+          <permission key="NewsEdit" />
+          <permission key="EventsView" />
+          <permission key="EventsCreate" />
+          <permission key="EventsEdit" />
+          <permission key="BulletinsCreate" />
+          <permission key="BulletinsEdit" />
+          <permission key="BulletinsDelete" />
+          <permission key="CanEditCreator" />
+        </permissions>
+      </role>
+      <role key="UiPublisher">
+        <permissions>
+          <permission key="NewsView" />
+          <permission key="NewsCreate" />
+          <permission key="NewsEdit" />
+          <permission key="EventsView" />
+          <permission key="EventsCreate" />
+          <permission key="EventsEdit" />
+          <permission key="BulletinsCreate" />
+          <permission key="BulletinsEdit" />
+          <permission key="BulletinsDelete" />
+        </permissions>
+      </role>
+      <role key="UiUser">
+        <permissions>
+          <permission key="NewsView" />
+          <permission key="EventsEdit" />
+          <permission key="BulletinsCreate" />
+          <permission key="BulletinsEdit" />
+          <permission key="BulletinsDelete" />
+        </permissions>
+      </role>
+    </roles>
+  </userPermissions>
+</configuration>

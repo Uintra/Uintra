@@ -1,0 +1,35 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Activity
+@using uIntra.Core.Extentions
+@model uIntra.News.NewsViewModel
+@{
+    if (Model == null)
+    {
+        <div>News doesn't exists!</div>
+        return;
+    }
+
+    <section class="content">
+        <div class="row clearfix">
+            <div class="col-md-9">
+                <header class="feed__header">
+                    @if (Model.CanEdit)
+                    {
+                        <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+                    }
+                    <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
+                </header>
+
+                <div class="feed__item _details">
+                    @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+                    <div class="feed__item-txt">
+                        @Html.Raw(Model.Description)
+                    </div>
+                    <div class="feed__item-images">
+                        @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+} 
