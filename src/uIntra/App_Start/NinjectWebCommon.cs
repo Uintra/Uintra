@@ -290,7 +290,7 @@ namespace uIntra
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
-            kernel.Bind<IElasticIndex>().To<ElasticIndex>().InRequestScope();
+            kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
 
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }
