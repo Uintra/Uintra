@@ -201,6 +201,7 @@
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -294,6 +295,8 @@
     </Compile>
     <Compile Include="Core\Models\DocumentPanelMediaViewModel.cs" />
     <Compile Include="Core\PanelsConstants.cs" />
+    <Compile Include="Installer\PanelsInstallationConstants.cs" />
+    <Compile Include="Installer\PanelsInstallationStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +327,7 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <None Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

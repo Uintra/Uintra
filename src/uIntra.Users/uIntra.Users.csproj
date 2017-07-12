@@ -272,6 +272,8 @@
     <Compile Include="Core\ProfileEditModel.cs" />
     <Compile Include="Core\ProfileViewModel.cs" />
     <Compile Include="Core\RoleServiceBase.cs" />
+    <Compile Include="Installer\UsersInstallationConstants.cs" />
+    <Compile Include="Installer\UsersInstallationStep.cs" />
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />

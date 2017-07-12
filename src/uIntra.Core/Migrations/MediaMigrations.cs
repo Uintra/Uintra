@@ -267,6 +267,9 @@ namespace uIntra.Core.Migrations
             dataTypeService.SavePreValues(imageCropperDataType, preValues.PreValuesAsDictionary);
         }
 
+        
+
+
         public static void Migrate()
         {
             AddIntranetUserIdProperty();
