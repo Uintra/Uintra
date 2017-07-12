@@ -11,12 +11,12 @@ var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
 var holder;
-var navigationHolder
+var navigationHolder;
 var state;
 var formController;
 var reloadintervalId;
 var centralFeedTabEvent = new CustomEvent("cfTabChanged");
-var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded",{
+var centralFeedTabReloadedEvent = new CustomEvent("cfTabReloaded", {
     detail: {
         isReinit: false
     }

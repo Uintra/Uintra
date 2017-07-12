@@ -6,8 +6,6 @@ const toolbarSelector = ".js-create-bulletin__toolbar";
 
 let mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
-var cfReloadTabEvent;
-var cfShowBulletinsEvent;
 let holder;
 let dropzone;
 let dataStorage;
@@ -54,18 +52,11 @@ function initEventListeners() {
     closeButton.addEventListener("click", closeBtnClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
 
-    cfReloadTabEvent = new CustomEvent("cfReloadTab", {
+    uIntra.events.add("cfReloadTab",{
         detail: {
             isReinit: false
         }
     });
-
-    cfShowBulletinsEvent = new CustomEvent("cfShowBulletins",
-        {
-            detail: {
-                isReinit: true
-            }
-        });
 }
 
 function initFileUploader() {
@@ -111,7 +102,14 @@ function sentButtonClickHandler(event) {
 }
 
 function closeBtnClickHandler(event) {
-    close(event);
+    event.preventDefault();
+    if (isEdited()) {
+        if (showConfirmMessage(this.dataset.message)) {
+            hide();
+        } 
+        return;
+    } 
+    hide();
 }
 
 function beforeUnloadHander(event) {
@@ -130,18 +128,6 @@ function initMobile(){
 }
 
 // editor helpers
-
-function close(event) {
-    if (isEdited()) {
-        if (showConfirmMessage()) {
-            hide();
-        } else {
-            event.preventDefault();
-        }
-    } else {
-        hide();
-    }
-}
 
 function show() {
     toolbar.classList.remove("hidden");
@@ -178,8 +164,8 @@ function isEdited() {
     return isDescriptionEdited || isFilesUploaded;
 }
 
-function showConfirmMessage() {
-    return window.confirm("TODO: are you sure ?");
+function showConfirmMessage(message) {
+    return window.confirm(message);
 }
 
 function getBulletinHolder() {
@@ -187,11 +173,7 @@ function getBulletinHolder() {
 }
 
 function cfReloadTab() {
-    document.body.dispatchEvent(cfReloadTabEvent);
-}
-
-function cfShowBulletins() {    
-    document.body.dispatchEvent(cfShowBulletinsEvent);
+    uIntra.events.cfReloadTab.dispatch();
 }
 
 function cfTabReloadedEventHandler(e) {
@@ -215,7 +197,7 @@ let controller = {
         initEditor();
         initEventListeners();
         initFileUploader();
-        document.body.addEventListener('cfTabReloaded', cfTabReloadedEventHandler);
+        uIntra.events.addListener("cfTabReloaded", cfTabReloadedEventHandler);
     }
 }
 
