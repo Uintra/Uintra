@@ -26,7 +26,7 @@ namespace uIntra.Search
         public void FillIndex()
         {
             var rootPage = _umbracoHelper.TypedContentAtRoot().First();
-            var publishedContents = _umbracoHelper.TypedContent(rootPage.Id).Descendants();
+            var publishedContents = _umbracoHelper.TypedContent(rootPage.Id).Children();
             var searchableContents = new List<SearchableContent>();
 
             foreach (var pc in publishedContents)
@@ -36,9 +36,30 @@ namespace uIntra.Search
                 {
                     searchableContents.Add(GetContent(pc));
                 }
+                searchableContents.AddRange(FillSubContent(pc));
             }
 
             _contentIndex.Index(searchableContents);
+        }
+
+        private IEnumerable<SearchableContent> FillSubContent(IPublishedContent pc)
+        {
+            var subContent = new List<SearchableContent>();
+            var children = pc.Children().ToList();
+
+            if (!children.Any()) return Enumerable.Empty<SearchableContent>();
+
+            foreach (var c in children)
+            {
+                var isSearchable = _searchUmbracoHelper.IsSearchable(pc);
+                if (isSearchable)
+                {
+                    subContent.Add(GetContent(pc));
+                }
+
+                subContent.AddRange(FillSubContent(c));
+            }
+            return subContent;
         }
 
         public void FillIndex(int id)
@@ -80,17 +101,20 @@ namespace uIntra.Search
                             {
                                 if (control.editor.alias == "custom.ContentPanel")
                                 {
-                                    string title = control.value.title;
-                                    if (!string.IsNullOrEmpty(title))
+                                    if (control.value!=null)
                                     {
-                                        titles.Add(title.StripHtml());
-                                    }
+                                        string title = control.value.title;
+                                        if (!string.IsNullOrEmpty(title))
+                                        {
+                                            titles.Add(title.StripHtml());
+                                        }
 
-                                    string desc = control.value.description;
-                                    if (!string.IsNullOrEmpty(desc))
-                                    {
-                                        content.Add(desc.StripHtml());
-                                    }
+                                        string desc = control.value.description;
+                                        if (!string.IsNullOrEmpty(desc))
+                                        {
+                                            content.Add(desc.StripHtml());
+                                        }
+                                    }                                    
                                 }
                             }
                         }
