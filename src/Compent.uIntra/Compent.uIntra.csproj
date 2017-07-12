@@ -1100,6 +1100,7 @@
     <Content Include="SetupMigrations\json\eventsDetailsPageGrid.json" />
     <Content Include="SetupMigrations\json\eventsEditPageGrid.json" />
     <Content Include="SetupMigrations\json\eventsOverviewPageGrid.json" />
+    <Content Include="SetupMigrations\json\errorPageGrid.json" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

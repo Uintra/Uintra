@@ -32,6 +32,7 @@ namespace Compent.uIntra.SetupMigrations
             CreateProfilePage();
             CreateProfileEditPage();
             CreateSearchResultPage();
+            CreateErrorPage();
 
             CreateNewsOverviewPage();
             CreateNewsCreatePage();
@@ -137,6 +138,22 @@ namespace Compent.uIntra.SetupMigrations
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "searchResultPageGrid.json");
+        }
+
+        private void CreateErrorPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(ErrorPage.ModelTypeAlias)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Error Page", homePage.Id, ErrorPage.ModelTypeAlias);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Error Page");
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
+
+            SetGridValueAndSaveAndPublishContent(content, "errorPageGrid.json");
         }
 
         private void CreateNewsOverviewPage()
