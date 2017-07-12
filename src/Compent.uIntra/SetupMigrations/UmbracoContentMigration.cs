@@ -62,13 +62,13 @@ namespace Compent.uIntra.SetupMigrations
 
         private void CreateHomePage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().FirstOrDefault(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
+            var homePage = _umbracoHelper.TypedContentAtRoot().FirstOrDefault(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
             if (homePage != null)
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Home Page", -1, UmbracoContentMigrationConstants.DocType.HomePageDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("Home Page", -1, HomePage.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Home Page");
 
             SetGridValueAndSaveAndPublishContent(content, "homePageGrid.json");
@@ -76,13 +76,13 @@ namespace Compent.uIntra.SetupMigrations
 
         private void CreateNotificationPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NotificationPageDocTypeName)))
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(NotificationPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Notifications", homePage.Id, UmbracoContentMigrationConstants.DocType.NotificationPageDocTypeName);
+            var content = _contentService.CreateContent("Notifications", homePage.Id, NotificationPage.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Notifications");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
@@ -93,13 +93,13 @@ namespace Compent.uIntra.SetupMigrations
 
         private void CreateProfilePage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.ProfilePageDocTypeName)))
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(ProfilePage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Profile", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfilePageDocTypeName);
+            var content = _contentService.CreateContent("Profile", homePage.Id, ProfilePage.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
@@ -109,13 +109,13 @@ namespace Compent.uIntra.SetupMigrations
 
         private void CreateProfileEditPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.ProfileEditPageDocTypeName)))
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(ProfileEditPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Profile Edit Page", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfileEditPageDocTypeName);
+            var content = _contentService.CreateContent("Profile Edit Page", homePage.Id, ProfileEditPage.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile Edit");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
@@ -125,13 +125,13 @@ namespace Compent.uIntra.SetupMigrations
 
         private void CreateSearchResultPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.SearchResultPageDocTypeName)))
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(SearchResultPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Search Page", homePage.Id, UmbracoContentMigrationConstants.DocType.SearchResultPageDocTypeName);
+            var content = _contentService.CreateContent("Search Page", homePage.Id, SearchResultPage.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Search Page");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
@@ -141,161 +141,155 @@ namespace Compent.uIntra.SetupMigrations
 
         private void CreateNewsOverviewPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName)))
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(NewsOverviewPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("News", homePage.Id, UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName);
+            var content = _contentService.CreateContent("News", homePage.Id, NewsOverviewPage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "newsOverviewPageGrid.json");
         }
 
         private void CreateNewsCreatePage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            var newsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName));
-            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsCreatePageDocTypeName)))
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(NewsCreatePage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Create", newsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.NewsCreatePageDocTypeName);
+            var content = _contentService.CreateContent("Create", newsOverviewPage.Id, NewsCreatePage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "newsCreatePageGrid.json");
         }
 
         private void CreateNewsEditPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            var newsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName));
-            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsEditPageDocTypeName)))
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(NewsEditPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Edit", newsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.NewsEditPageDocTypeName);
+            var content = _contentService.CreateContent("Edit", newsOverviewPage.Id, NewsEditPage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "newsEditPageGrid.json");
         }
 
         private void CreateNewsDetailsPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            var newsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName));
-            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.NewsDetailsPageDocTypeName)))
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(NewsDetailsPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Details", newsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.NewsDetailsPageDocTypeName);
+            var content = _contentService.CreateContent("Details", newsOverviewPage.Id, NewsDetailsPage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "newsDetailsPageGrid.json");
         }
 
         private void CreateEventsOverviewPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName)))
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(EventsOverviewPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Events", homePage.Id, UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName);
+            var content = _contentService.CreateContent("Events", homePage.Id, EventsOverviewPage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "eventsOverviewPageGrid.json");
         }
 
         private void CreateEventsCreatePage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            var eventsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName));
-            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsCreatePageDocTypeName)))
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias));
+            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(EventsCreatePage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Create", eventsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.EventsCreatePageDocTypeName);
+            var content = _contentService.CreateContent("Create", eventsOverviewPage.Id, EventsCreatePage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "eventsCreatePageGrid.json");
         }
 
         private void CreateEventsEditPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            var eventsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName));
-            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsEditPageDocTypeName)))
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias));
+            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(EventsEditPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Edit", eventsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.EventsEditPageDocTypeName);
+            var content = _contentService.CreateContent("Edit", eventsOverviewPage.Id, EventsEditPage.ModelTypeAlias);
 
             SetGridValueAndSaveAndPublishContent(content, "eventsEditPageGrid.json");
         }
 
         private void CreateEventsDetailsPage()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.HomePageDocTypeName));
-            var eventsOverviewPage = homePage.Children.Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName));
-            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.EventsDetailsPageDocTypeName)))
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias));
+            if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(EventsDetailsPage.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContent("Details", eventsOverviewPage.Id, UmbracoContentMigrationConstants.DocType.EventsDetailsPageDocTypeName);
+            var content = _contentService.CreateContent("Details", eventsOverviewPage.Id, EventsDetailsPage.ModelTypeAlias);
             SetGridValueAndSaveAndPublishContent(content, "eventsDetailsPageGrid.json");
         }
 
         private void CreateDataFolder()
         {
-            var dataFolder = _umbracoHelper.TypedContentAtRoot().FirstOrDefault(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.DataFolderDocTypeName));
+            var dataFolder = _umbracoHelper.TypedContentAtRoot().FirstOrDefault(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
             if (dataFolder != null)
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Data folder", -1, UmbracoContentMigrationConstants.DocType.DataFolderDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("Data folder", -1, DataFolder.ModelTypeAlias);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
 
         private void CreateGlobalPanelFolder()
         {
-            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.DataFolderDocTypeName));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.GlobalPanelFolderDocTypeName)))
+            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(GlobalPanelFolder.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Global Panel Folder", dataFolder.Id, UmbracoContentMigrationConstants.DocType.GlobalPanelFolderDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("Global Panel Folder", dataFolder.Id, GlobalPanelFolder.ModelTypeAlias);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
 
         private void CreateSystemLinkFolder()
         {
-            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.DataFolderDocTypeName));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.SystemLinkFolderDocTypeName)))
+            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(SystemLinkFolder.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("System Link Folder", dataFolder.Id, UmbracoContentMigrationConstants.DocType.SystemLinkFolderDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("System Link Folder", dataFolder.Id, SystemLinkFolder.ModelTypeAlias);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
 
         private void CreateMailTemplatesFolder()
         {
-            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.DataFolderDocTypeName));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(UmbracoContentMigrationConstants.DocType.MailTemplatesFolderDocTypeName)))
+            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(MailTemplatesFolder.ModelTypeAlias)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplatesFolderDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, MailTemplatesFolder.ModelTypeAlias);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
@@ -308,7 +302,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Event", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("Event", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "Event");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, "<p>Event</p><p>FullName: ##FullName##</p>");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.ExtraTokensPropName, "##FullName##");
@@ -325,7 +319,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("EventUpdated", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("EventUpdated", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "Dear ##FullName## the event was updated");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>EventUpdated</p>
 <p>FullName: ##FullName##</p>
@@ -347,7 +341,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("EventHided", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("EventHided", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "EventHided");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>EventHided</p>
 <p><span>FullName: </span>##FullName##</p>
@@ -370,7 +364,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("BeforeStart", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("BeforeStart", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "BeforeStart");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>BeforeStart</p>
 <p><span>FullName: </span><span>##FullName##</span></p>
@@ -393,7 +387,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("News", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("News", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "News");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>News</p>
 <p>FullName: ##FullName##</p>");
@@ -411,7 +405,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("ActivityLikeAdded", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("ActivityLikeAdded", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "ActivityLikeAdded");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>ActivityLikeAdded</p>
 <p>FullName: ##FullName##</p>
@@ -434,7 +428,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("CommentAdded", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("CommentAdded", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "CommentAdded");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>CommentAdded</p>
 <p>FullName: ##FullName##</p>
@@ -455,7 +449,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("CommentEdited", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("CommentEdited", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "CommentEdited");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>CommentEdited</p>
 <p>FullName: ##FullName##</p>
@@ -476,7 +470,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("CommentReplied", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("CommentReplied", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "CommentReplied");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>CommentReplyed</p>
 <p>FullName: ##FullName##</p>
@@ -497,7 +491,7 @@ namespace Compent.uIntra.SetupMigrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("CommentLikeAdded", mailTemplatesFolder.Id, UmbracoContentMigrationConstants.DocType.MailTemplateDocTypeName);
+            var content = _contentService.CreateContentWithIdentity("CommentLikeAdded", mailTemplatesFolder.Id, MailTemplate.ModelTypeAlias);
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "CommentLikeAdded");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>CommentLikeAdded</p>
 <p>FullName: ##FullName##</p>");
@@ -529,31 +523,6 @@ namespace Compent.uIntra.SetupMigrations
 
     public static class UmbracoContentMigrationConstants
     {
-        public static class DocType
-        {
-            public const string HomePageDocTypeName = "homePage";
-            public const string NotificationPageDocTypeName = "notificationPage";
-            public const string ProfilePageDocTypeName = "profilePage";
-            public const string ProfileEditPageDocTypeName = "profileEditPage";
-            public const string SearchResultPageDocTypeName = "searchResultPage";
-
-            public const string NewsOverviewPageDocTypeName = "newsOverviewPage";
-            public const string NewsCreatePageDocTypeName = "newsCreatePage";
-            public const string NewsEditPageDocTypeName = "newsEditPage";
-            public const string NewsDetailsPageDocTypeName = "newsDetailsPage";
-
-            public const string EventsOverviewPageDocTypeName = "eventsOverviewPage";
-            public const string EventsCreatePageDocTypeName = "eventsCreatePage";
-            public const string EventsEditPageDocTypeName = "eventsEditPage";
-            public const string EventsDetailsPageDocTypeName = "eventsDetailsPage";
-
-            public const string DataFolderDocTypeName = "dataFolder";
-            public const string GlobalPanelFolderDocTypeName = "globalPanelFolder";
-            public const string SystemLinkFolderDocTypeName = "systemLinkFolder";
-            public const string MailTemplatesFolderDocTypeName = "mailTemplatesFolder";
-            public const string MailTemplateDocTypeName = "MailTemplate";
-        }
-
         public static class Navigation
         {
             public const string NavigationNamePropName = "navigationName";
