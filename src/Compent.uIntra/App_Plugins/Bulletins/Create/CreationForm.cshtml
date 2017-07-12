@@ -16,7 +16,7 @@
         <div class="dropzone">
             <div class="dropzone-previews js-dropzone-previews hidden"></div>
         </div>
-        <button class="create-bulletin__close js-create-bulletin__description-close hidden"></button>
+        <button class="create-bulletin__close js-create-bulletin__description-close hidden" data-message="@Html.Localize("Common.AreYouSure")"></button>
         <div class="create-bulletin__description js-create-bulletin__description"
              data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>
         <input type="hidden" class="js-create-bulletin__description-hidden" name="@nameof(Model.Description)" />
