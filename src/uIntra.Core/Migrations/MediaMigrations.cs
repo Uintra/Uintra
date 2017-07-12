@@ -275,7 +275,7 @@ namespace uIntra.Core.Migrations
             CreateDefaultFolders();
 
             AddDefaultMemberGroups();
-            AddMemberProperties();
+            //AddMemberProperties();
             AddImageCropperPreset();
         }
     }

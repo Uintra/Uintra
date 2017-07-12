@@ -64,12 +64,18 @@
 
 	&__arrow{
 		position: absolute;
-		top: 0;
-		left: 0;
-        right:0;
-        height:30px;
+        top:7px;
+        right:17px;
         display:none;
         cursor:pointer;
+
+        ._system &,
+        ._links &{
+            top: 0;
+		    left: 0;
+            right:0;
+            height:30px;
+        }
 
         .sidebar__holder > .side-nav > .side-nav__item > &{
             display:block;
@@ -78,18 +84,30 @@
 		&:after {
 			content: '';
 			position: absolute;
-			right: 17px;
-			top:  10px;
+            top:0;
+            right:0;
 			width: 8px;
 			height: 8px;
 			border: solid var(--text-color-dark);
 			border-width: 1px 0 0 1px;
             transform: rotate(225deg);
 
+            ._system &,
+            ._links &{
+                right:17px;
+			    top:10px;
+                left:auto;
+            }
+
 			._expand & {
 				transform: rotate(45deg);
-                top:  13px;
 				border-color: var(--text-color-dark);
+                top:3px;
+
+                ._system &,
+                ._links &{
+                    top:13px;
+                }
 			}
 		}
 	}
