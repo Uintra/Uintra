@@ -107,7 +107,7 @@ namespace uIntra.Search
             return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
         }
 
-        private static SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
+        protected SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
         {
             var searchResult = new SearchResult<SearchableBase>
             {
@@ -139,39 +139,40 @@ namespace uIntra.Search
             searchDescriptor.Sort(s => s.Descending("_score"));
         }
 
-        private static List<T> ParseDocuments<T>(ISearchResponse<dynamic> response, bool applyHighlight = false)
-            where T : SearchableBase
+
+
+        protected virtual void HighlightResponse(ISearchResponse<dynamic> response)
         {
-            if (applyHighlight)
+            var highlights = response.Hits.ToDictionary(x => x.Id, x => x.Highlights).ToList();
+
+            foreach (var document in response.Documents)
             {
-                var highlights = response.Hits.ToDictionary(x => x.Id, x => x.Highlights).ToList();
-
-                foreach (var document in response.Documents)
+                var highlight = highlights.Find(el => el.Key == document.id.ToString());
+                if (highlight.Key == null)
                 {
-                    var highlight = highlights.Find(el => el.Key == document.id.ToString());
-                    if (highlight.Key == null)
-                    {
-                        continue;
-                    }
-                    Highlight(document, highlight.Value);
+                    continue;
                 }
-
+                Highlight(document, highlight.Value);
             }
+        }
 
+        protected virtual List<T> CollectDocuments<T>(ISearchResponse<dynamic> response)
+            where T : SearchableBase            
+        {
             var documents = new List<T>();
             foreach (var document in response.Documents)
             {
-                switch ((SearchableTypeEnum)document.type)
+                switch ((int)document.type)
                 {
-                    case SearchableTypeEnum.Events:
-                    case SearchableTypeEnum.News:
-                    case SearchableTypeEnum.Bulletins:
+                    case (int)SearchableTypeEnum.Events:
+                    case (int)SearchableTypeEnum.News:
+                    case (int)SearchableTypeEnum.Bulletins:
                         documents.Add(SerializationExtentions.Deserialize<SearchableActivity>(document.ToString()));
                         break;
-                    case SearchableTypeEnum.Content:
+                    case (int)SearchableTypeEnum.Content:
                         documents.Add(SerializationExtentions.Deserialize<SearchableContent>(document.ToString()));
                         break;
-                    case SearchableTypeEnum.Document:
+                    case (int)SearchableTypeEnum.Document:
                         documents.Add(SerializationExtentions.Deserialize<SearchableDocument>(document.ToString()));
                         break;
                     default:
@@ -180,6 +181,17 @@ namespace uIntra.Search
                 }
             }
             return documents;
+        }
+
+        protected virtual List<T> ParseDocuments<T>(ISearchResponse<dynamic> response, bool applyHighlight = false)
+            where T : SearchableBase
+        {
+            if (applyHighlight)
+            {
+                HighlightResponse(response);
+            }
+
+            return CollectDocuments<T>(response);
         }
 
         private static void Highlight(dynamic document, Dictionary<string, HighlightHit> fields)
