@@ -47,18 +47,19 @@ namespace uIntra.Search
             _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis);
         }
 
-        private static QueryContainer[] GetQueryContainers(string query)
+        protected virtual QueryContainer GetBaseDescriptor(string query)
         {
-            return new[]
+            var desc = new QueryContainerDescriptor<SearchableBase>().Match(m => m
+                 .Query(query)
+                 .Analyzer(ElasticHelpers.Replace)
+                 .Field(f => f.Title));
+            return desc;
+        }
+
+        protected virtual QueryContainer[] GetContentDescriptors(string query)
+        {
+            var desc = new List<QueryContainer>
             {
-                new QueryContainerDescriptor<SearchableBase>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.Title)),
-                new QueryContainerDescriptor<SearchableActivity>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.Description)),
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
@@ -66,12 +67,39 @@ namespace uIntra.Search
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.PanelTitle)),
-                new QueryContainerDescriptor<SearchableDocument>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.Attachment.Content))
+                    .Field(f => f.PanelTitle))
             };
+
+
+            return desc.ToArray();
+        }
+
+        protected virtual QueryContainer GetActivityDescriptor(string query)
+        {
+            var desc = new QueryContainerDescriptor<SearchableActivity>().Match(m => m
+                .Query(query)
+                .Analyzer(ElasticHelpers.Replace)
+                .Field(f => f.Description));
+            return desc;
+        }
+
+        protected virtual QueryContainer GetDocumentsDescriptor(string query)
+        {
+            var desc = new QueryContainerDescriptor<SearchableDocument>().Match(m => m
+                 .Query(query)
+                 .Analyzer(ElasticHelpers.Replace)
+                 .Field(f => f.Attachment.Content));
+            return desc;
+        }
+
+        protected virtual QueryContainer[] GetQueryContainers(string query)
+        {
+            var containers = new List<QueryContainer>();
+            containers.AddRange(GetBaseDescriptor(query).ToEnumerableOfOne());
+            containers.AddRange(GetContentDescriptors(query));
+            containers.AddRange(GetActivityDescriptor(query).ToEnumerableOfOne());
+            containers.AddRange(GetDocumentsDescriptor(query).ToEnumerableOfOne());
+            return containers.ToArray();
         }
 
         private static QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)

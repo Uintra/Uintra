@@ -102,7 +102,14 @@ function sentButtonClickHandler(event) {
 }
 
 function closeBtnClickHandler(event) {
-    close(event);
+    event.preventDefault();
+    if (isEdited()) {
+        if (showConfirmMessage(this.dataset.message)) {
+            hide();
+        } 
+        return;
+    } 
+    hide();
 }
 
 function beforeUnloadHander(event) {
@@ -121,18 +128,6 @@ function initMobile(){
 }
 
 // editor helpers
-
-function close(event) {
-    if (isEdited()) {
-        if (showConfirmMessage()) {
-            hide();
-        } else {
-            event.preventDefault();
-        }
-    } else {
-        hide();
-    }
-}
 
 function show() {
     toolbar.classList.remove("hidden");
@@ -169,8 +164,8 @@ function isEdited() {
     return isDescriptionEdited || isFilesUploaded;
 }
 
-function showConfirmMessage() {
-    return window.confirm("TODO: are you sure ?");
+function showConfirmMessage(message) {
+    return window.confirm(message);
 }
 
 function getBulletinHolder() {
