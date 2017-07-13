@@ -131,7 +131,6 @@ namespace uIntra.Bulletins.Web
             _bulletinsService.Delete(id);
             OnBulletinDeleted(id);
 
-            FillLinks();
             return Json(new { IsSuccess = true });
         }
 
