@@ -1,8 +1,16 @@
 ﻿(function () {
 
+    let controller = function ($scope, centralFeedService) {
 
 
-    let controller = function ($scope) {
+        $scope.availableActivityTypes = [];
+
+        $scope.init = function () {
+            centralFeedService.getActivityTypes().success(function (data) {
+                $scope.availableActivityTypes = data;
+            });
+        };
+
         $scope.overlay = {
             show: false,
             title: "Latest activities",
@@ -53,6 +61,6 @@
         }
 
     };
-    controller.$inject = ["$scope"];
+    controller.$inject = ["$scope", "centralFeedService"];
     angular.module('umbraco').controller('latestActivititesController', controller);
 })();

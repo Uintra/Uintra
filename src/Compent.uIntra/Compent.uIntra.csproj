@@ -813,6 +813,9 @@
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
@@ -1042,6 +1045,7 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1273,6 +1277,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Plugins\LatestActivities\View\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

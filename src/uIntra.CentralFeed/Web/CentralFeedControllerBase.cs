@@ -17,6 +17,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
         protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
+        protected virtual string LatestActivitiesViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
 
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
@@ -91,6 +92,12 @@ namespace uIntra.CentralFeed.Web
             _centralFeedContentHelper.SaveFiltersState(filterStateModel);
 
             return PartialView(ListViewPath, centralFeedModel);
+        }
+
+        public virtual ActionResult LatestActivities()
+        {
+            var panelViewModel = 12;
+            return PartialView(LatestActivitiesViewPath, panelViewModel);
         }
 
         protected virtual CentralFeedFiltersStateModel GetFilterStateModel(CentralFeedListViewModel centralFeedModel)
