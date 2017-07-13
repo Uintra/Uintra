@@ -11,14 +11,12 @@ namespace uIntra.Notification
     public class UiNotifierService : IUiNotifierService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
 
-        public UiNotifierService(ISqlRepository<Notification> notificationRepository, INotificationTypeProvider notificationTypeProvider)
+        public UiNotifierService(ISqlRepository<Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
-            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount)
@@ -30,33 +28,34 @@ namespace uIntra.Notification
 
             totalCount = allNotifications.Count();
 
-            var result = allNotifications.Take(count).ToList();
-
-            if (result.Any(n => !n.IsNotified))
-            {
-                var notNotified = result.Where(n => !n.IsNotified).ToList();
-                notNotified.ForEach(n => n.IsNotified = true);
-                _notificationRepository.Update(notNotified);
-            }
-
-            return result;
+            return allNotifications.Take(count);
         }
 
         public void Notify(NotifierData data)
         {
             var notifications = data.ReceiverIds
-                .Select(el=> new Notification
-            {
-                Id = Guid.NewGuid(),
-                Date = DateTime.UtcNow,
-                IsNotified = false,
-                IsViewed = false,
-                Type =  data.NotificationType.Id,
-                Value = data.Value.ToJson(),
-                ReceiverId = el
-            });
+                .Select(el => new Notification
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.UtcNow,
+                    IsNotified = false,
+                    IsViewed = false,
+                    Type = data.NotificationType.Id,
+                    Value = data.Value.ToJson(),
+                    ReceiverId = el
+                });
 
             _notificationRepository.Add(notifications);
+        }
+
+        public void Notify(IEnumerable<Notification> notifications)
+        {
+            foreach (var n in notifications)
+            {
+                n.IsNotified = true;
+            }
+
+            _notificationRepository.Update(notifications);
         }
 
         public int GetNotNotifiedCount(Guid receiverId)
@@ -70,7 +69,5 @@ namespace uIntra.Notification
             notification.IsViewed = true;
             _notificationRepository.Update(notification);
         }
-
-       
     }
 }
