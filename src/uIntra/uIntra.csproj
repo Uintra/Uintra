@@ -1094,9 +1094,9 @@
     <Content Include="Persistence\Sql\DbContextFactory.cs" />
     <Content Include="Persistence\Sql\DbObjectContext.cs" />
     <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
+    <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
-    </Compile>
+    </Content>
     <Content Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1189,9 +1189,9 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
+    <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
