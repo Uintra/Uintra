@@ -1,0 +1,84 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": true,
+              "allowed": [
+                "custom.NewsEdit",
+                "custom.NewsCreate",
+                "custom.NewsOverview",
+                "custom.NewsDetails"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.BulletinsCreate"
+                  },
+                  "active": false
+                },
+                {
+                  "value": {
+                    "tabType": 0
+                  },
+                  "editor": {
+                    "alias": "custom.CentralFeed"
+                  },
+                  "active": false
+                }
+              ],
+              "active": false
+            }
+          ],
+          "hasConfig": false,
+          "id": "06cd2c29-b464-45d4-3f81-1791cccada50",
+          "active": false
+        }
+      ]
+    },
+    {
+      "grid": 3,
+      "allowAll": false,
+      "allowed": [
+        "Right side"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Right side",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker"
+              ],
+              "hasConfig": false,
+              "controls": [],
+              "hasActiveChild": true,
+              "active": true
+            }
+          ],
+          "hasConfig": false,
+          "id": "a3560b0f-718d-57fc-22d7-3f79391ab215",
+          "hasActiveChild": true,
+          "active": true
+        }
+      ]
+    }
+  ]
+}

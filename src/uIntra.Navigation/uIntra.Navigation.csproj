@@ -400,6 +400,8 @@
     <None Include="config\Dashboard.config.install.xdt" />
     <None Include="config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
+    <Compile Include="Installer\NavigationInstallationConstants.cs" />
+    <Compile Include="Installer\NavigationInstallationStep.cs" />
     <Compile Include="Web\MyLinksControllerBase.cs" />
     <Compile Include="Web\NavigationAuthorizationControllerBase.cs" />
     <Compile Include="Web\NavigationControllerBase.cs" />
@@ -417,6 +419,7 @@
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
+    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="uIntra.Navigation.nuspec">
       <SubType>Designer</SubType>
     </None>

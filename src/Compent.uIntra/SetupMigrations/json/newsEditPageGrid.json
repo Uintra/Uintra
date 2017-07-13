@@ -1,0 +1,64 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": true,
+              "allowed": [
+                "custom.NewsEdit",
+                "custom.NewsCreate",
+                "custom.NewsOverview",
+                "custom.NewsDetails"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.NewsEdit"
+                  },
+                  "active": false
+                }
+              ]
+            }
+          ],
+          "hasConfig": false,
+          "id": "c5b5ec15-5738-d2b8-527b-8c80543c534f"
+        }
+      ]
+    },
+    {
+      "grid": 3,
+      "allowAll": false,
+      "allowed": [
+        "Right side"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Right side",
+          "areas": [
+            {
+              "grid": 12,
+              "hasConfig": false,
+              "controls": []
+            }
+          ],
+          "hasConfig": false,
+          "id": "773c3bf7-7f25-2518-69c9-b728d4b1ba1c"
+        }
+      ]
+    }
+  ]
+}
