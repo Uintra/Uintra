@@ -26,8 +26,10 @@
 
         function isValidModel(model) {
 
-            if (!model) { return false;}
-                
+            if (!model) {
+                $scope.control.validationMessage = "Fields can not be empty";
+                return false;
+            }
 
             if (!isValidTitle(model)) {
                 $scope.control.validationMessage = "Title is required";
