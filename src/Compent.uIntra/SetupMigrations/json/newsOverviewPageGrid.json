@@ -24,20 +24,18 @@
               "hasConfig": false,
               "controls": [
                 {
-                  "value": {
-                    "tabType": 1
-                  },
+                  "value": null,
                   "editor": {
-                    "alias": "custom.CentralFeed"
+                    "alias": "custom.BulletinsCreate"
                   },
                   "active": false
                 },
                 {
                   "value": {
-                    "eventsAmount": 5
+                    "tabType": 1
                   },
                   "editor": {
-                    "alias": "custom.ComingEvents"
+                    "alias": "custom.CentralFeed"
                   },
                   "active": false
                 }

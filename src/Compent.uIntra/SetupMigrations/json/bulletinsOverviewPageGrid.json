@@ -32,22 +32,18 @@
                 },
                 {
                   "value": {
-                    "tabType": 3
+                    "tabType": 4
                   },
                   "editor": {
                     "alias": "custom.CentralFeed"
                   },
                   "active": false
                 }
-              ],
-              "hasActiveChild": true,
-              "active": true
+              ]
             }
           ],
           "hasConfig": false,
-          "id": "0af4d0bc-aefe-0104-ac2e-097858e175ba",
-          "hasActiveChild": true,
-          "active": true
+          "id": "7aae0cf9-a4a5-114e-32b7-fd48a2180214"
         }
       ]
     },
@@ -64,12 +60,31 @@
           "areas": [
             {
               "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker"
+              ],
               "hasConfig": false,
-              "controls": []
+              "controls": [
+                {
+                  "value": {
+                    "id": 1483,
+                    "name": "Content panel"
+                  },
+                  "editor": {
+                    "alias": "custom.GlobalPanelPicker"
+                  },
+                  "active": true
+                }
+              ],
+              "active": true
             }
           ],
           "hasConfig": false,
-          "id": "b1a3319e-5b60-cfe5-ecd6-b69e19860b69"
+          "id": "761b37db-8db7-9177-d6ea-2863a79f75b1",
+          "hasActiveChild": true,
+          "active": true
         }
       ]
     }

@@ -26,28 +26,15 @@
                 {
                   "value": null,
                   "editor": {
-                    "alias": "custom.BulletinsCreate"
-                  },
-                  "active": false
-                },
-                {
-                  "value": {
-                    "tabType": 3
-                  },
-                  "editor": {
-                    "alias": "custom.CentralFeed"
+                    "alias": "custom.BulletinsEdit"
                   },
                   "active": false
                 }
-              ],
-              "hasActiveChild": true,
-              "active": true
+              ]
             }
           ],
           "hasConfig": false,
-          "id": "0af4d0bc-aefe-0104-ac2e-097858e175ba",
-          "hasActiveChild": true,
-          "active": true
+          "id": "9c988130-be42-b5fe-f05e-e4cf9ff0fbd6"
         }
       ]
     },
@@ -64,12 +51,17 @@
           "areas": [
             {
               "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker"
+              ],
               "hasConfig": false,
               "controls": []
             }
           ],
           "hasConfig": false,
-          "id": "b1a3319e-5b60-cfe5-ecd6-b69e19860b69"
+          "id": "281c9bb6-f2bc-c109-f095-9f77621e9f5a"
         }
       ]
     }
