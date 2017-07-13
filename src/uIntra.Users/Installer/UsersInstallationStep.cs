@@ -1,4 +1,5 @@
 ﻿using uIntra.Core.Installer;
+using uIntra.Core.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
@@ -16,6 +17,7 @@ namespace uIntra.Users.Installer
 
             CreateMemberUserPickerDataType();
             AddProfileTabProperties();
+            AddDefaultMemberGroups();
         }
 
         private void CreateProfilePage()
@@ -106,24 +108,62 @@ namespace uIntra.Users.Installer
                 Name = UsersInstallationConstants.DataTypePropertyNames.ProfileRelatedUser,
             };
 
-            if (!memberType.PropertyTypeExists(UsersInstallationConstants.DataTypePropertyAliases.ProfileFirstName))
+            var profileTab = UsersInstallationConstants.DataTypeTabAliases.ProfileTabAlias;
+
+            if (!memberType.PropertyTypeExists(firstNameProperty.Alias))
             {
-                memberType.AddPropertyType(firstNameProperty, UsersInstallationConstants.DataTypeTabAliases.ProfileTabAlias);
+                memberType.AddPropertyType(firstNameProperty, profileTab);
             }
-            if (!memberType.PropertyTypeExists(UsersInstallationConstants.DataTypePropertyAliases.ProfileLastName))
+            if (!memberType.PropertyTypeExists(lastNameProperty.Alias))
             {
-                memberType.AddPropertyType(lastNameProperty, UsersInstallationConstants.DataTypeTabAliases.ProfileTabAlias);
+                memberType.AddPropertyType(lastNameProperty, profileTab);
             }
-            if (!memberType.PropertyTypeExists(UsersInstallationConstants.DataTypePropertyAliases.ProfilePhoto))
+            if (!memberType.PropertyTypeExists(photoProperty.Alias))
             {
-                memberType.AddPropertyType(photoProperty, UsersInstallationConstants.DataTypeTabAliases.ProfileTabAlias);
+                memberType.AddPropertyType(photoProperty, profileTab);
             }
-            if (!memberType.PropertyTypeExists(UsersInstallationConstants.DataTypePropertyAliases.ProfileRelatedUser))
+            if (!memberType.PropertyTypeExists(relatedUserProperty.Alias))
             {
-                memberType.AddPropertyType(relatedUserProperty, UsersInstallationConstants.DataTypeTabAliases.ProfileTabAlias);
+                memberType.AddPropertyType(relatedUserProperty, profileTab);
             }
 
             memberTypeService.Save(memberType);
+        }
+        public static void AddDefaultMemberGroups()
+        {
+            var memberGroupService = ApplicationContext.Current.Services.MemberGroupService;
+
+            var uiUserGroup = memberGroupService.GetByName(UsersInstallationConstants.MemberGroups.GroupUiUser);
+            var webMasterGroup = memberGroupService.GetByName(UsersInstallationConstants.MemberGroups.GroupWebMaster);
+            var uiPublisherGroup = memberGroupService.GetByName(UsersInstallationConstants.MemberGroups.GroupUiPublisher);
+
+            if (uiUserGroup == null)
+            {
+                uiUserGroup = new MemberGroup
+                {
+                    Name = UsersInstallationConstants.MemberGroups.GroupUiUser,
+                    CreatorId = 0
+                };
+                memberGroupService.Save(uiUserGroup);
+            }
+            if (webMasterGroup == null)
+            {
+                webMasterGroup = new MemberGroup
+                {
+                    Name = UsersInstallationConstants.MemberGroups.GroupWebMaster,
+                    CreatorId = 0
+                };
+                memberGroupService.Save(webMasterGroup);
+            }
+            if (uiPublisherGroup == null)
+            {
+                uiPublisherGroup = new MemberGroup
+                {
+                    Name = UsersInstallationConstants.MemberGroups.GroupUiPublisher,
+                    CreatorId = 0
+                };
+                memberGroupService.Save(uiPublisherGroup);
+            }
         }
     }
 }

@@ -50,5 +50,12 @@
         {
             public const string ProfileTabAlias = "Profile";
         }
+
+        public class MemberGroups
+        {
+            public const string GroupUiPublisher = "UiPublisher";
+            public const string GroupWebMaster = "WebMaster";
+            public const string GroupUiUser = "UiUser";
+        }
     }
 }
