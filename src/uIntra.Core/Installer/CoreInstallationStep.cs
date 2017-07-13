@@ -472,6 +472,8 @@ namespace uIntra.Core.Installer
             var composition = contentService.GetContentType(compositionTypeAlias);
             if (page == null || composition == null) return;
 
+            if (page.ContentTypeCompositionExists(composition.Alias)) return;
+
             page.AddContentType(composition);
             contentService.Save(page);
         }
