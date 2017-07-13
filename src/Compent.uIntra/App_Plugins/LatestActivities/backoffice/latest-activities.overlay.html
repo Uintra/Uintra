@@ -1,0 +1,13 @@
+﻿<div class="m-b-20 _clearfix">
+    <div>
+        <p><b>Title:</b></p>
+        <input name="title" id="title" ng-model="control.value.displayTitle" />
+
+        <p><b>Number of activities to display:</b></p>
+        <input name="nubmerOfActivities" id="nubmerOfActivities" ng-model="control.value.nubmerOfActivities" />
+    </div>
+
+    <div ng-show="control.validationMessage">
+        <p><label><font color="red">{{control.validationMessage}}</font></label></p>
+    </div>
+</div>

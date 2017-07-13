@@ -1,4 +1,4 @@
-﻿<div class="panel" ng-controller="centralFeedController  as ctrl" ng-init="init(control)">
+﻿<div class="panel" ng-controller="latestActivititesController as ctrl" ng-init="init(control)">
     <div class="span12">
         <span class="span12 control-label">{{control.value.title}}</span>
     </div>
@@ -7,9 +7,8 @@
         <umb-overlay ng-if="overlay.show"
                      model="overlay"
                      position="right"
-                     style="width: 1200px">
+                     style="width: 300px">
             <div ng-include="overlay.view"></div>
         </umb-overlay>
     </div>
 </div>
-<!--mmm-->
