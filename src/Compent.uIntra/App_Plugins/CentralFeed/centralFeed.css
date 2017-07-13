@@ -97,16 +97,6 @@
 
         &-meta{
             margin:0;
-
-            &-link{
-                color:var(--text-color-dark);
-
-                &:hover,
-                &:focus,
-                &:active{
-                    color:var(--text-color-dark);
-                }
-            }
         }
 
         &-location{
