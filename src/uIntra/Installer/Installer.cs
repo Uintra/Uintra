@@ -1,4 +1,5 @@
-﻿using Compent.uIntra.SetupMigrations;
+﻿using System;
+using Compent.uIntra.SetupMigrations;
 using uIntra.Bulletins.Installer;
 using uIntra.Core.Installer;
 using uIntra.Events.Installer;
@@ -20,6 +21,8 @@ namespace Compent.uIntra.Installer
             installer.Install();
             InheritNavigationCompositions();
             umbracoContentMigration.Init();
+
+            RunWebpackBuild();
         }
 
         private void InheritNavigationCompositions()
@@ -43,6 +46,23 @@ namespace Compent.uIntra.Installer
             CoreInstallationStep.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, homeNav);
             CoreInstallationStep.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, nav);
 
+        }
+
+        private void RunWebpackBuild()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            var startInfo = new System.Diagnostics.ProcessStartInfo
+            {
+                WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace(@"\\", @"\"),
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                UseShellExecute = false
+            };
+
+            process.StartInfo = startInfo;
+            process.Start();
+            process.StandardInput.WriteLine("webpack");
         }
     }
 }

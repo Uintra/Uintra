@@ -82,7 +82,7 @@ namespace uIntra.Core.News
 
         public MediaSettings GetMediaSettings()
         {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent.ToInt());
         }
 
         public override IPublishedContent GetOverviewPage()

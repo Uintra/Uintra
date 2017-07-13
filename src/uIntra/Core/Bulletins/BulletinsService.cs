@@ -83,7 +83,7 @@ namespace uIntra.Core.Bulletins
 
         public MediaSettings GetMediaSettings()
         {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
         }
 
         public override IPublishedContent GetOverviewPage()
