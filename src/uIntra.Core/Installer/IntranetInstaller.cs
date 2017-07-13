@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace uIntra.Core.Installer
 {
-    public class IntranetInstaller : IIntranetInstaller
+    public class IntranetInstaller
     {
         public void Install()
         {

@@ -383,7 +383,6 @@
     <Compile Include="Installer\CoreInstallationConstants.cs" />
     <Compile Include="Installer\CoreInstallationStep.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
-    <Compile Include="Installer\IIntranetInstaller.cs" />
     <Compile Include="Installer\IntranetInstaller.cs" />
     <Compile Include="Migrations\ImageCropperConstants.cs" />
     <Compile Include="Migrations\MemberConstants.cs" />
