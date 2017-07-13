@@ -1091,9 +1091,13 @@
     <Content Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
-    <Content Include="Migrations\Configuration.cs" />
-    <Content Include="Persistence\Sql\DbContextFactory.cs" />
-    <Content Include="Persistence\Sql\DbObjectContext.cs" />
+    <Compile Include="Persistence\Sql\DbContextFactory.cs" />
+    <Compile Include="Persistence\Sql\DbObjectContext.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
+      <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1184,7 +1188,11 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
+      <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

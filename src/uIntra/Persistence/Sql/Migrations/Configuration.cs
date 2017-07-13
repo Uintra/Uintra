@@ -1,13 +1,13 @@
 using System.Data.Entity.Migrations;
-using uIntra.Persistence.Sql;
 
-namespace uIntra.Migrations
+namespace uIntra.Persistence.Sql.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<DbObjectContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Persistence\Sql\Migrations";
         }
 
         protected override void Seed(DbObjectContext context)
