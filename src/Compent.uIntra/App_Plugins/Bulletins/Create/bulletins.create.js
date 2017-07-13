@@ -51,12 +51,6 @@ function initEventListeners() {
     sentButton.addEventListener("click", sentButtonClickHandler);
     closeButton.addEventListener("click", closeBtnClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
-
-    uIntra.events.add("cfReloadTab",{
-        detail: {
-            isReinit: false
-        }
-    });
 }
 
 function initFileUploader() {

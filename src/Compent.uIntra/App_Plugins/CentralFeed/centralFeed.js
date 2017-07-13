@@ -11,6 +11,11 @@ var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
 uIntra.events.add("cfTabChanged");
+uIntra.events.add("cfReloadTab",{
+    detail: {
+        isReinit: false
+    }
+});
 uIntra.events.add("cfTabReloaded", {
     detail: {
         isReinit: false
