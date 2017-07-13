@@ -38,7 +38,7 @@ function deleteClickHandler(event) {
     let button = event.target;
     let id = button.dataset["id"];
     let text = button.dataset["text"];
-    var returnUrl = button.dataset["return-url"];
+    var returnUrl = button.dataset["returnUrl"];
 
     alertify.defaults.glossary.cancel = button.dataset["cancel"];
     alertify.defaults.glossary.ok = button.dataset["ok"];
