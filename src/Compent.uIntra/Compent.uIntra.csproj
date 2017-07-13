@@ -1225,17 +1225,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706221149395_Initial.cs" />
-    <Compile Include="Migrations\201706221149395_Initial.Designer.cs">
-      <DependentUpon>201706221149395_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706230716541_Rename.cs" />
-    <Compile Include="Migrations\201706230716541_Rename.Designer.cs">
-      <DependentUpon>201706230716541_Rename.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231339419_MemberNotifierSettings.cs" />
-    <Compile Include="Migrations\201706231339419_MemberNotifierSettings.Designer.cs">
-      <DependentUpon>201706231339419_MemberNotifierSettings.cs</DependentUpon>
+    <Compile Include="Migrations\201707130639523_uIntra_Initial.cs" />
+    <Compile Include="Migrations\201707130639523_uIntra_Initial.Designer.cs">
+      <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
@@ -1282,17 +1274,10 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706221149395_Initial.resx">
-      <DependentUpon>201706221149395_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706230716541_Rename.resx">
-      <DependentUpon>201706230716541_Rename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231339419_MemberNotifierSettings.resx">
-      <DependentUpon>201706231339419_MemberNotifierSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707130639523_uIntra_Initial.resx">
+      <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
