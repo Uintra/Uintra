@@ -12,7 +12,7 @@ namespace uIntra.Core.Media
         void RestoreMedia(int mediaId);
         void RestoreMedia(IEnumerable<int> mediaIds);
         IMedia CreateMedia(TempFile file, int rootMediaId);
-        MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType);
+        MediaSettings GetMediaFolderSettings(int mediaFolderType);
         bool IsMediaDeleted(IPublishedContent media);
     }
 }

@@ -13,6 +13,6 @@ namespace uIntra.Core.User
         IEnumerable<T> GetMany(IEnumerable<int> ids);
         IEnumerable<T> GetAll();
         T GetCurrentUser();
-        IEnumerable<T> GetByRole(IntranetRolesEnum role);
+        IEnumerable<T> GetByRole(int role);
     }
 }

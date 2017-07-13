@@ -352,7 +352,10 @@
     </Compile>
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
+    <Compile Include="Core\TypeProviders\IIntranetRoleTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IntranetRoleTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
     <Compile Include="Core\TypeProviders\IntranetType.cs" />
     <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
@@ -366,6 +369,7 @@
     <Compile Include="Core\CookieProvider.cs" />
     <Compile Include="Core\ICookieProvider.cs" />
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
+    <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
