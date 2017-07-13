@@ -1,15 +1,13 @@
-namespace Compent.uIntra.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
 
+namespace Compent.uIntra.Persistence.Sql.Migrations
+{
     internal sealed class Configuration : DbMigrationsConfiguration<Compent.uIntra.Persistence.Sql.DbObjectContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Persistence\Sql\Migrations";
         }
 
         protected override void Seed(Compent.uIntra.Persistence.Sql.DbObjectContext context)

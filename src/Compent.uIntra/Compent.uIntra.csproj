@@ -1227,11 +1227,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707130639523_uIntra_Initial.cs" />
-    <Compile Include="Migrations\201707130639523_uIntra_Initial.Designer.cs">
+    <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
     <Compile Include="Persistence\Sql\DbObjectContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1276,7 +1276,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707130639523_uIntra_Initial.resx">
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
