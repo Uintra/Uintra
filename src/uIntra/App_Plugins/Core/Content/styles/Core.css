@@ -414,6 +414,10 @@ a{
         }
     }
 
+    &.pull-right{
+        margin-left:20px;
+    }
+
     &:hover{
         background-color:#afafaf;
         color: var(--text-color-dark);

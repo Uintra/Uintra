@@ -44,9 +44,6 @@
                 case (int) NotificationTypeEnum.BeforeStart:
                     {
                         <div class="notification__list-meta">
-                            <span class="notification__list-icon">
-                                <i class="icon @icon"></i>
-                            </span>
                             <div class="notification__list-description">
                                 <div class="notification__list-row">
                                     <span class="notification__list-date">@notification.Date</span>
@@ -55,6 +52,9 @@
                                         <span class="notification__list-name">@notification.NotifierName</span>
                                     }
                                     <h2 class="notification__list-title">
+                                        <span class="notification__list-icon">
+                                            <i class="icon @icon"></i>
+                                        </span>
                                         @if (notification.Type.Id == NotificationTypeEnum.EventHided.ToInt())
                                         {
                                             @Html.Raw(notification.Value.title)
@@ -81,14 +81,14 @@
                 case (int) NotificationTypeEnum.CommentLikeAdded:
                     {
                         <div class="notification__list-meta">
-                            <span class="notification__list-icon">
-                                <i class="icon @icon"></i>
-                            </span>
                             <div class="notification__list-description">
                                 <div class="notification__list-row">
                                     <span class="notification__list-date">@notification.Date</span>
                                     <span class="notification__list-name">@notification.NotifierName</span>
                                     <h2 class="notification__list-title">
+                                        <span class="notification__list-icon">
+                                            <i class="icon @icon"></i>
+                                        </span>
                                         <a class="notification__list-link" href="@notification.Value.url">
                                             @Html.Raw(notification.Value.title)
                                         </a>
