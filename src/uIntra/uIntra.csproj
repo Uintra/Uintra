@@ -1220,9 +1220,9 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
