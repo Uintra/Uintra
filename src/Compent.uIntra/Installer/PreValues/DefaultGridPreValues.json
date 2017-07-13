@@ -1,0 +1,110 @@
+{
+  "items": {
+    "styles": [
+      {
+        "label": "Set a background image",
+        "description": "Set a row background",
+        "key": "background-image",
+        "view": "imagepicker",
+        "modifier": "url({0})"
+      }
+    ],
+    "config": [
+      {
+        "label": "Class",
+        "description": "Set a css class",
+        "key": "class",
+        "view": "textstring"
+      }
+    ],
+    "columns": 12,
+    "templates": [
+      {
+        "name": "1 column layout",
+        "sections": [
+          {
+            "grid": 8,
+            "allowAll": false,
+            "allowed": [
+              "Main"
+            ]
+          },
+          {
+            "grid": 3,
+            "allowAll": false,
+            "allowed": [
+              "Right side"
+            ]
+          }
+        ]
+      }
+    ],
+    "layouts": [
+      {
+        "label": "",
+        "name": "Main",
+        "areas": [
+          {
+            "grid": 12,
+            "editors": [
+              "headline"
+            ],
+            "allowAll": true,
+            "allowed": [
+              "custom.NewsEdit",
+              "custom.NewsCreate",
+              "custom.NewsOverview",
+              "custom.NewsDetails",
+              "custom.EventsEdit",
+              "custom.EventsCreate",
+              "custom.EventsOverview",
+              "custom.EventsDetails",
+              "custom.BulletinsCreate",
+              "custom.BulletinsEdit",
+              "custom.BulletinsDetails"
+            ]
+          }
+        ]
+      },
+      {
+        "label": "",
+        "name": "Right side",
+        "areas": [
+          {
+            "grid": 12,
+            "allowAll": false,
+            "allowed": [
+              "custom.ContentPanel",
+              "custom.GlobalPanelPicker",
+              "custom.ComingEvents"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "rte": {
+    "toolbar": [
+      "code",
+      "styleselect",
+      "bold",
+      "italic",
+      "alignleft",
+      "aligncenter",
+      "alignright",
+      "bullist",
+      "numlist",
+      "outdent",
+      "indent",
+      "link",
+      "umbmediapicker",
+      "umbmacro",
+      "umbembeddialog"
+    ],
+    "stylesheets": [ ],
+    "dimensions": {
+      "height": 500
+    },
+    "maxImageSize": 500
+  }
+}
