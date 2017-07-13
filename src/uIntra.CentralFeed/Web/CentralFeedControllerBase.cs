@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
+using uIntra.CentralFeed.Core.Models;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
@@ -94,12 +95,6 @@ namespace uIntra.CentralFeed.Web
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-        public virtual ActionResult LatestActivities()
-        {
-            var panelViewModel = 12;
-            return PartialView(LatestActivitiesViewPath, panelViewModel);
-        }
-
         protected virtual CentralFeedFiltersStateModel GetFilterStateModel(CentralFeedListViewModel centralFeedModel)
         {
             return new CentralFeedFiltersStateModel
@@ -162,6 +157,15 @@ namespace uIntra.CentralFeed.Web
                 .OrderBy(el => el.Id);
 
             return Json(activityTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual ActionResult LatestActivities()
+        {
+            var latestActivitiesModel = _centralFeedContentHelper.GetLatestActivities(CurrentPage);
+
+            var viewModel = latestActivitiesModel.Map<LatestActivitiesViewModel>();
+
+            return PartialView(LatestActivitiesViewPath, viewModel);
         }
 
         protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)

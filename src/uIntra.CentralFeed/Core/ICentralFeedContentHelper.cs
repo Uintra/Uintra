@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using uIntra.CentralFeed.Core.Models;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
@@ -19,5 +20,7 @@ namespace uIntra.CentralFeed
         T GetFiltersState<T>();
 
         bool CentralFeedCookieExists();
+
+        LatestActivitiesModel GetLatestActivities(IPublishedContent currentPage);
     }
 }
