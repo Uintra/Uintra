@@ -132,7 +132,7 @@ namespace uIntra.Bulletins.Web
             OnBulletinDeleted(id);
 
             FillLinks();
-            return Json(new { Url = ViewData.GetActivityOverviewPageUrl(ActivityTypeId) });
+            return Json(new { IsSuccess = true });
         }
 
         public virtual ActionResult CreationFormItemHeader(IntranetActivityItemHeaderViewModel model)
