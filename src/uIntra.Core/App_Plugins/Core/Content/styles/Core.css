@@ -1,4 +1,4 @@
-﻿@import "libs.css";
+﻿﻿@import "libs.css";
 @import "forms.css";
 
 @font-face {
@@ -154,19 +154,14 @@ a{
     overflow:hidden;
     padding:50px 0 0 251px;
     opacity:1;
-    transition:all linear 250ms;
     position:relative;
     left:0;
     min-height:100%;
 
     ._with-sub-nav._with-subtitle &{
         padding-top:172px;
-    } 
-
-    &._loading{
-        opacity:0;
     }
-
+    
     @media (--for-tablet-portrait-down) {
         &{
             padding: 79px 0 0;
@@ -195,7 +190,7 @@ a{
     height:calc(100vh - 50px);
     z-index:11;
     background:var(--color-white);
-        
+
     @media (--for-tablet-portrait-down) {
         &{
             position: fixed;
@@ -216,6 +211,25 @@ a{
                 right:0;
                 box-shadow:0 82px 10px rgba(0,0,0,0.5);
             }
+        }
+    }
+
+    &::before{
+        content:'';
+        background:#fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAB4CAMAAACATE3ZAAAATlBMVEUAAADl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eVX7iFCAAAAGXRSTlMAM8zStPCm4Vr7kBjECtW+uKAjsX5FLoFR8qv8zgAAANlJREFUeNrt2ksOgkAQRdESBPn/QWv/GzXRmSEqgYYC7tnBTSc9eCkBAABHMlS6teAuCyjVgF7m89WAiBBCXggh5A+eGvCQ+aJYN1fksoDmsrlcAAAAAADAp6HUpcVhKuvL1IFa1ndTB67yEyGEEPIdIYcPqdSBRNbXlLEuLGhTAQAAAAAAMzUj68Mux/lWx+1unPd1zA5nLkIIeSOEkL2EJOpeJyvIk8xzK+u4fQcAAAAAYLpLpubEdSqTFWpRIpMFalFIiDGEWHPmkMN8v73FJ/G5SQcA4NyesiLQmJSCooMAAAAASUVORK5CYII=') no-repeat 50px 50px;
+        transition:opacity 0.6s ease, visibility 0.6s ease;
+        visibility:hidden;
+        opacity:0;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index: 2;
+
+        ._loading &{
+            opacity:1;
+            visibility:visible;
         }
     }
 }
@@ -267,15 +281,77 @@ a{
 #main{
     width:100%;
     overflow:hidden;
-    padding:50px 80px 20px 70px;    
+    padding:50px 80px 20px 70px;
+    position:relative;
+    min-height:190px;
 
     @media (--for-tablet-portrait-down) {
-        & {
-            padding: 20px;
-            overflow: visible;
+        padding: 20px;
+        overflow: visible;
+    }
+
+    &::before{
+        content:'';
+        background:#fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAI3AQMAAABQ4iceAAAABlBMVEUAAADl5eX5J7raAAAAAXRSTlMAQObYZgAAAKRJREFUeNrt2TEKwzAQRUHfLEfT1XKklC4MG3AaxcSIJBi00kz9KrGq/lJity7n4mWTSCSpkhLvJFcmnR+DpPFJaqvkn+QWu8dpAowmWjbJ7wlXKvHRvUpC8mXSfl0AAADGZ3yWSEZNetphp0x6OgaJ8dn4DNSMz0kSjozPWRLjMwAAwMSMzxLJqElPO+yUSU/HIDE+G5+BmvE5ScKR8TlLUprJE4Dzhbh7L2IZAAAAAElFTkSuQmCC') no-repeat 25px 25px;
+        transition:opacity 0.6s ease, visibility 0.6s ease;
+        visibility:hidden;
+        opacity:0;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index: 8;
+
+        @media (--for-tablet-portrait-up) {
+            background:#fff
+            url('data:image/png;base64,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') no-repeat 25px 25px;
+        }
+
+        @media (--for-tablet-landscape-up) {
+            background-position:66px 50px;
+        }
+
+        ._loading &{
+            opacity:1;
+            visibility:visible;
         }
     }
+
+
  }
+
+ .tabset{
+     transition:opacity 0.6s ease;
+     opacity:1;
+
+     ._loading &{
+         opacity:0;
+     }
+ }
+
+ /*.tabset__holder{
+     position:relative;
+
+     &::before{
+         content:'';
+         background:#fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ8AAAAOBAMAAADDD9M1AAAAJFBMVEXl5eXl5eXl5eUAAADl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXbMC7NAAAAC3RSTlNmMx4ACPVX566TVJwYypUAAAA8SURBVDjLYzB2FKQiEDZgMNhNTbA1gcF1N1VBAYM2dQ3cMGrgqIHkGOhNXQMDGCyoa+AEBpMEBioCLgMAfPK74slpeq8AAAAASUVORK5CYII=') no-repeat 66px 50px;
+         transition:opacity 0.6s ease, visibility 0.6s ease;
+         visibility:hidden;
+         opacity:0;
+         position:absolute;
+         top:0;
+         left:0;
+         right:0;
+         bottom:0;
+         z-index: 2;
+
+         ._loading &{
+             opacity:1;
+             visibility:visible;
+         }
+     }
+ }*/
 
 .content{
     padding:0;
@@ -470,7 +546,7 @@ a{
     width: 41px;
     height: 41px;
     opacity: 0;
-    
+
     cursor: pointer;
     z-index:-1;
     transition: opacity 0.3s ease;

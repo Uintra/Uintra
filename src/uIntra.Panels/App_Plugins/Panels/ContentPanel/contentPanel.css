@@ -314,7 +314,7 @@
     @media (--for-tablet-portrait-down) {
         & {
             position: absolute !important;
-            top: 79px;
+            top: 0;
             left: 0;
             right: 0;
             background: var(--color-white);
@@ -325,9 +325,9 @@
             ._sidebar-expanded & {
                 transform: translate(0, 0);
                 box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-                top:131px;
+                top:52px;
                 overflow:auto;
-                height:calc(100vh - 131px);
+                height:calc(100vh - 52px);
 
                 &__opener {
                     background: var(--color-white);
