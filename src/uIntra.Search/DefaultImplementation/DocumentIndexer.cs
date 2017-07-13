@@ -6,6 +6,7 @@ using System.Web.Hosting;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using File = System.IO.File;
@@ -19,26 +20,29 @@ namespace uIntra.Search
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
         private readonly IExceptionLogger _exceptionLogger;
+        private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
             UmbracoHelper umbracoHelper, 
             ISearchApplicationSettings settings, 
             IMediaHelper mediaHelper,
-            IExceptionLogger exceptionLogger)
+            IExceptionLogger exceptionLogger, 
+            IMediaFolderTypeProvider mediaFolderTypeProvider)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
             _exceptionLogger = exceptionLogger;
+            _mediaFolderTypeProvider = mediaFolderTypeProvider;
         }
 
         public void FillIndex()
         {
-            var mediaFolderTypes = Enum.GetValues(typeof(MediaFolderTypeEnum));
-            foreach (MediaFolderTypeEnum folderType in mediaFolderTypes)
+            var mediaFolderTypes = _mediaFolderTypeProvider.GetAll();
+            foreach (var folderType in mediaFolderTypes)
             {
-                var mediaRootId = _mediaHelper.GetMediaFolderSettings(folderType).MediaRootId;
+                var mediaRootId = _mediaHelper.GetMediaFolderSettings(folderType.Id).MediaRootId;
                 if (!mediaRootId.HasValue)
                 {
                     continue;

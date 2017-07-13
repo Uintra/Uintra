@@ -64,11 +64,17 @@
 
 	&__arrow{
 		position: absolute;
-		top: 8px;
-		right: 17px;
-		width: 14px;
-		height: 14px;
+        top:0;
+        height:30px;
+        width:30px;
+        right:0;
         display:none;
+        cursor:pointer;
+
+        ._system &,
+        ._links &{
+		    left: 0;
+        }
 
         .sidebar__holder > .side-nav > .side-nav__item > &{
             display:block;
@@ -77,18 +83,29 @@
 		&:after {
 			content: '';
 			position: absolute;
-			left: calc(50% - 5px);
-			top:  calc(50% - 2px);
+            top:9px;
+            right:17px;
 			width: 8px;
 			height: 8px;
-			border: solid #a1a4ac;
+			border: solid var(--text-color-dark);
 			border-width: 1px 0 0 1px;
-			transform: rotate(45deg);
+            transform: rotate(225deg);
+
+            ._system &,
+            ._links &{
+			    top:10px;
+                left:auto;
+            }
 
 			._expand & {
-				transform: rotate(225deg);
-				top:  calc(50% - 7px);
-				border-color: #000;
+				transform: rotate(45deg);
+				border-color: var(--text-color-dark);
+                top:12px;
+
+                ._system &,
+                ._links &{
+                    top:13px;
+                }
 			}
 		}
 	}

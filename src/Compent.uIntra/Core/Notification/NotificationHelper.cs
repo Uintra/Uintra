@@ -1,6 +1,8 @@
-﻿using uIntra.Notification;
+﻿using uIntra.Core;
+using uIntra.Notification;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Notification
 {
@@ -15,7 +17,7 @@ namespace Compent.uIntra.Core.Notification
 
         public IPublishedContent GetNotificationListPage()
         {
-            return _umbracoHelper.TypedContent(1174);
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, NotificationPage.ModelTypeAlias));
         }
     }
 }

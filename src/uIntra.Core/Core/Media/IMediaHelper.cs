@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using uIntra.Core.Controls.FileUpload;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Media
@@ -12,7 +13,9 @@ namespace uIntra.Core.Media
         void RestoreMedia(int mediaId);
         void RestoreMedia(IEnumerable<int> mediaIds);
         IMedia CreateMedia(TempFile file, int rootMediaId);
-        MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType);
         bool IsMediaDeleted(IPublishedContent media);
+
+        MediaSettings GetMediaFolderSettings(int mediaFolderType);
+        MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType);
     }
 }

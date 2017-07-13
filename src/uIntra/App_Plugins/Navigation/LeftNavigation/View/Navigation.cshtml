@@ -21,7 +21,10 @@
                 </a>
                 @if (hasNavigableChildren)
                 {
-                    <span class="side-nav__arrow js-side-nav__opener"></span>
+                    if (!item.IsHomePage)
+                    {
+                        <span class="side-nav__arrow js-side-nav__opener"></span>
+                    }
                     @RenderTreeRecursive(item.Children)
                 }
             </li>

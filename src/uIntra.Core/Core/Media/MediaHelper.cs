@@ -6,6 +6,7 @@ using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Controls.FileUpload;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -15,20 +16,23 @@ namespace uIntra.Core.Media
 {
     public class MediaHelper : IMediaHelper
     {
-        private readonly ICacheService cacheService;
+        private readonly ICacheService _cacheService;
         private readonly IMediaService _mediaService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            UmbracoHelper umbracoHelper)
+            UmbracoHelper umbracoHelper,
+            IMediaFolderTypeProvider mediaFolderTypeProvider)
         {
-            this.cacheService = cacheService;
+            _cacheService = cacheService;
             _mediaService = mediaService;
             _intranetUserService = intranetUserService;
             _umbracoHelper = umbracoHelper;
+            _mediaFolderTypeProvider = mediaFolderTypeProvider;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model)
@@ -36,7 +40,7 @@ namespace uIntra.Core.Media
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
             var mediaIds = model.NewMedia.Split(';').Where(s => s.IsNotNullOrEmpty()).Select(Guid.Parse);
-            var cachedTempMedia = mediaIds.Select(s => cacheService.Get<TempFile>(s.ToString(), ""));
+            var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
             var rootMediaId = model.MediaRootId ?? -1;
 
             var umbracoMediaIds = new List<int>();
@@ -112,10 +116,21 @@ namespace uIntra.Core.Media
             _mediaService.Save(medias);
         }
 
-        public MediaSettings GetMediaFolderSettings(MediaFolderTypeEnum mediaFolderType)
+        public MediaSettings GetMediaFolderSettings(int mediaFolderType)
+        {
+            var folderType = _mediaFolderTypeProvider.Get(mediaFolderType);
+            var result = GetMediaFolderSettings(folderType);
+            return result;
+        }
+
+        public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType)
         {
             var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
-            var mediaFolder = folders.Single(m => m.GetPropertyValue<MediaFolderTypeEnum>(FolderConstants.FolderTypePropertyTypeAlias) == mediaFolderType);
+            var mediaFolder = folders.Single(m =>
+            {
+                var folderType = m.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
+                return !string.IsNullOrEmpty(folderType) && folderType.Equals(mediaFolderType.Name);
+            });
 
             return new MediaSettings
             {

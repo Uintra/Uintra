@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web.Hosting;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -21,18 +22,21 @@ namespace uIntra.Users
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IApplicationSettings _applicationSettings;
         private readonly IRoleService _roleService;
+        private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
 
         public IntranetUserService(IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IApplicationSettings applicationSettings,
-            IRoleService roleService)
+            IRoleService roleService, 
+            IIntranetRoleTypeProvider intranetRoleTypeProvider)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _applicationSettings = applicationSettings;
             _roleService = roleService;
+            _intranetRoleTypeProvider = intranetRoleTypeProvider;
         }
 
         public virtual IntranetUser Get(int umbracoId)
@@ -115,7 +119,7 @@ namespace uIntra.Users
             return user;
         }
 
-        public virtual IEnumerable<IntranetUser> GetByRole(IntranetRolesEnum role)
+        public virtual IEnumerable<IntranetUser> GetByRole(int role)
         {
             var members = _memberService.GetMembersByGroup(GetGroupNameFromRole(role));
             return members.Select(Map);
@@ -152,9 +156,10 @@ namespace uIntra.Users
             return _roleService.GetActualRole(roles);
         }
 
-        protected virtual string GetGroupNameFromRole(IntranetRolesEnum role)
+        protected virtual string GetGroupNameFromRole(int role)
         {
-            return role.ToString();
+            var roleMode = _intranetRoleTypeProvider.Get(role);
+            return roleMode.Name;
         }
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)

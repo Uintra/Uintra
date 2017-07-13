@@ -64,17 +64,16 @@
 
 	&__arrow{
 		position: absolute;
-        top:7px;
-        right:17px;
+        top:0;
+        height:30px;
+        width:30px;
+        right:0;
         display:none;
         cursor:pointer;
 
         ._system &,
         ._links &{
-            top: 0;
 		    left: 0;
-            right:0;
-            height:30px;
         }
 
         .sidebar__holder > .side-nav > .side-nav__item > &{
@@ -84,8 +83,8 @@
 		&:after {
 			content: '';
 			position: absolute;
-            top:0;
-            right:0;
+            top:9px;
+            right:17px;
 			width: 8px;
 			height: 8px;
 			border: solid var(--text-color-dark);
@@ -94,7 +93,6 @@
 
             ._system &,
             ._links &{
-                right:17px;
 			    top:10px;
                 left:auto;
             }
@@ -102,7 +100,7 @@
 			._expand & {
 				transform: rotate(45deg);
 				border-color: var(--text-color-dark);
-                top:3px;
+                top:12px;
 
                 ._system &,
                 ._links &{
