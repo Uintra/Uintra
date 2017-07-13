@@ -327,7 +327,7 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <None Include="Installer\PreValues\PanelPickerPreValues.json" />
+    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
