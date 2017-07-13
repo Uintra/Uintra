@@ -17,6 +17,7 @@ namespace uIntra.Core.Extentions
         {
             return enm.ToString().ToLower();
         }
+
         public static int ToInt(this Enum enm)
         {
             return (int) (object) enm;
