@@ -1241,6 +1241,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Installer\Installer.cs" />
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>

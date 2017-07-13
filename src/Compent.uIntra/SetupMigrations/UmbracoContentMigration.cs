@@ -5,7 +5,9 @@ using System.Web.Hosting;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
 using uIntra.Core.Extentions;
+using uIntra.Core.Installer;
 using uIntra.Notification.Configuration;
+using uIntra.Notification.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -59,9 +61,9 @@ namespace Compent.uIntra.SetupMigrations
             CreateGlobalPanelFolder();
             CreateSystemLinkFolder();
 
-            //CreateMailTemplatesFolderDataType();
-            //CreateMailWorkerDataTypes();
-            //CreateMailTemplatesFolder();
+            CreateMailTemplatesFolderDataType();
+            CreateMailWorkerDataTypes();
+            CreateMailTemplatesFolder();
 
             CreateEventMailTemplate();
             CreateEventUpdatedMailTemplate();
@@ -182,6 +184,7 @@ namespace Compent.uIntra.SetupMigrations
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "News");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "newsOverviewPageGrid.json");
         }
@@ -279,6 +282,7 @@ namespace Compent.uIntra.SetupMigrations
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Events");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "eventsOverviewPageGrid.json");
         }
@@ -360,61 +364,61 @@ namespace Compent.uIntra.SetupMigrations
             _contentService.SaveAndPublishWithStatus(content);
         }
 
-        //private void CreateMailWorkerDataTypes()
-        //{
-        //    var contentService = ApplicationContext.Current.Services.ContentTypeService;
-        //    var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+        private void CreateMailWorkerDataTypes()
+        {
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
 
-        //    var mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
-        //    if (mailTemplateDocType != null) return;
-           
-        //    var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 1).First();
-        //    sentMailsDocumentTypeService.CreateMailTemplateDocTypes(dataContentFolder.Id.ToString());
+            var mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
+            if (mailTemplateDocType != null) return;
 
-        //    mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
+            var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 1).First();
+            sentMailsDocumentTypeService.CreateMailTemplateDocTypes(dataContentFolder.Id.ToString());
 
-        //    mailTemplateDocType.RemovePropertyType(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
-        //    var notificationTypeEnumDropdown = dataTypeService.GetDataTypeDefinitionByName(NotificationInstallationConstants.DataTypeNames.NotificationTypeEnum);
-        //    var newEmailTypeProperty = new PropertyType(notificationTypeEnumDropdown)
-        //    {
-        //        Name = "Email type",
-        //        Alias= "emailType"
-        //    };
+            mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
 
-        //    mailTemplateDocType.AddPropertyType(newEmailTypeProperty, "Content");
-        //    contentService.Save(mailTemplateDocType);
+            mailTemplateDocType.RemovePropertyType(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
+            var notificationTypeEnumDropdown = dataTypeService.GetDataTypeDefinitionByName(NotificationInstallationConstants.DataTypeNames.NotificationTypeEnum);
+            var newEmailTypeProperty = new PropertyType(notificationTypeEnumDropdown)
+            {
+                Name = "Email type",
+                Alias = "emailType"
+            };
 
-        //    CoreInstallationStep.AddAllowedChildNode(MailTemplatesFolder.ModelTypeAlias, MailTemplate.ModelTypeAlias);
-        //}
-        //private void CreateMailTemplatesFolderDataType()
-        //{
-        //    var contentService = ApplicationContext.Current.Services.ContentTypeService;
-        //    var mailTemplateFolderDataType = contentService.GetContentType(MailTemplatesFolder.ModelTypeAlias);
-        //    if (mailTemplateFolderDataType != null) return;
+            mailTemplateDocType.AddPropertyType(newEmailTypeProperty, "Content");
+            contentService.Save(mailTemplateDocType);
 
-        //    var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
+            CoreInstallationStep.AddAllowedChildNode(MailTemplatesFolder.ModelTypeAlias, MailTemplate.ModelTypeAlias);
+        }
+        private void CreateMailTemplatesFolderDataType()
+        {
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var mailTemplateFolderDataType = contentService.GetContentType(MailTemplatesFolder.ModelTypeAlias);
+            if (mailTemplateFolderDataType != null) return;
 
-        //    mailTemplateFolderDataType = new ContentType(dataContentFolder.Id)
-        //    {
-        //        Name = UmbracoContentMigrationConstants.MailTemplate.MailTemplatesFolderName,
-        //        Alias = MailTemplatesFolder.ModelTypeAlias
-        //    };
+            var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
 
-        //    contentService.Save(mailTemplateFolderDataType);
+            mailTemplateFolderDataType = new ContentType(dataContentFolder.Id)
+            {
+                Name = UmbracoContentMigrationConstants.MailTemplate.MailTemplatesFolderName,
+                Alias = MailTemplatesFolder.ModelTypeAlias
+            };
 
-        //}
-        //private void CreateMailTemplatesFolder()
-        //{
-        //    var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
-        //    if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(MailTemplatesFolder.ModelTypeAlias)))
-        //    {
-        //        return;
-        //    }
+            contentService.Save(mailTemplateFolderDataType);
 
-        //    var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, MailTemplatesFolder.ModelTypeAlias);
+        }
+        private void CreateMailTemplatesFolder()
+        {
+            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(MailTemplatesFolder.ModelTypeAlias)))
+            {
+                return;
+            }
 
-        //    _contentService.SaveAndPublishWithStatus(content);
-        //}
+            var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, MailTemplatesFolder.ModelTypeAlias);
+
+            _contentService.SaveAndPublishWithStatus(content);
+        }
 
         private void CreateEventMailTemplate()
         {
