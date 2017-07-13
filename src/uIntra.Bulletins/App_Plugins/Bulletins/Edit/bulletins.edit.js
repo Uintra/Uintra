@@ -43,12 +43,11 @@ function deleteClickHandler(event) {
     alertify.defaults.glossary.cancel = button.dataset["cancel"];
     alertify.defaults.glossary.ok = button.dataset["ok"];
 
-    confirm.showConfirm(text, function () {
+    confirm.showConfirm('',text, function () {
         $.post('/umbraco/surface/Bulletins/Delete?id=' + id,function (data) {
             if (data.IsSuccess) {
                 window.location.href = returnUrl;
             }
-            
         });
     }, function () { }, confirm.defaultSettings);
 

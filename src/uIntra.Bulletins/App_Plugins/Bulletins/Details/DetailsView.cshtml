@@ -15,7 +15,7 @@
                 <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
             </div>
             <div class="feed__item _details">
-                @{ Html.RenderAction("DetailsHeader", "Bulletins", Model.HeaderInfo); }
+                @{ Html.RenderAction("DetailsHeader", "Bulletins", new { model = Model.HeaderInfo }); }
                 <div class="feed__item-txt">
                     @Html.Raw(Model.Description)
                 </div>
