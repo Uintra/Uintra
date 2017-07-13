@@ -17,14 +17,14 @@ namespace uIntra.Search.Web
         protected virtual int ResultsPerPage { get; } = 20;
         protected virtual string SearchTranslationPrefix { get; } = "Search.";
 
-        private readonly ElasticIndex _elasticIndex;
+        private readonly IElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
 
         protected SearchControllerBase(
-            ElasticIndex elasticIndex,
+            IElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
             ISearchUmbracoHelper searchUmbracoHelper,

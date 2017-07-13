@@ -243,6 +243,8 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
+            kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
+            kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
@@ -291,7 +293,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
-            kernel.Bind<IElasticIndex>().To<IElasticIndex>().InRequestScope();
+            kernel.Bind<IElasticIndex>().To<ElasticIndex>().InRequestScope();
 
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }

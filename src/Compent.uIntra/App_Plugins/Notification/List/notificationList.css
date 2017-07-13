@@ -209,7 +209,7 @@
             min-width:60px;
             height:60px;
             border:1px solid var(--color-light-gray);
-            margin:7px 20px 0 0;
+            margin:7px 50px 0 0;
             position:relative;
             overflow:hidden;
 
@@ -239,6 +239,7 @@
         }
 
         &-title{
+	        position: relative;
             margin:0 0 5px;
             font:bold 16px/22px var(--font-general);
             max-width:500px;
@@ -250,17 +251,24 @@
             }
         }
 
-        &-meta{
-            font-size: 13px;
-            margin:0;
-            overflow:hidden;
-            flex-grow:2;
-        }
+	    &-meta{
+		    flex-grow:2;
+		    max-width: calc(100% - 110px);
+		    margin:0;
+		    font-size: 13px;
+
+		    &:after {
+			    content: '';
+			    display: block;
+			    clear: both;
+		    }
+	    }
 
         &-icon{
-            float:left;
-            width:30px;
-            padding:24px 0 0;
+	        position: absolute;
+	        left: -30px;
+	        top: 0;
+	        width:30px;
 
             .icon-lightning,
             .icon-cancel,
@@ -284,7 +292,7 @@
             .icon-lightning,
             .icon-comment{
                 display:block;
-                padding:5px 0 0;
+                padding:4px 0 0;
             }
 
             .icon-lightning{
@@ -299,7 +307,11 @@
         }
 
         &-description{
-            overflow:hidden;
+	        &:after {
+		        content: '';
+		        display: block;
+		        clear: both;
+	        }
         }
 
         &-type,

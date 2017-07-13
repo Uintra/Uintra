@@ -12,7 +12,7 @@
     <section class="content">
         <div class="row clearfix">
             <div class="col-md-9">
-                <header class="feed__header">
+                <header class="feed__header clearfix">
                     @if (Model.CanEdit)
                     {
                         <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>

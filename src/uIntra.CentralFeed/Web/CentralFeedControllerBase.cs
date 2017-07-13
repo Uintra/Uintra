@@ -107,7 +107,7 @@ namespace uIntra.CentralFeed.Web
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
-
+            FillActivityDetailLinks(pagedItemsList);
 
             return new CentralFeedListViewModel
             {
@@ -183,7 +183,7 @@ namespace uIntra.CentralFeed.Web
             }
         }
 
-        protected void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
+        protected virtual void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
         {
             var currentPage = GetCurrentPage();
 

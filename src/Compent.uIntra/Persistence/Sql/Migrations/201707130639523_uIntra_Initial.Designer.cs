@@ -7,13 +7,13 @@ namespace Compent.uIntra.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Rename : IMigrationMetadata
+    public sealed partial class uIntra_Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Rename));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(uIntra_Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706230716541_Rename"; }
+            get { return "201707130639523_uIntra_Initial"; }
         }
         
         string IMigrationMetadata.Source

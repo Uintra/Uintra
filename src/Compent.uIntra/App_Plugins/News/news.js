@@ -1,5 +1,4 @@
-﻿import initGreaterThan from "./../Core/Content/scripts/ValidationExtensions";
-import helpers from "./../Core/Content/scripts/Helpers";
+﻿import helpers from "./../Core/Content/scripts/Helpers";
 import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
 import pinActivity from "./../Core/Content/scripts/PinActivity";
 

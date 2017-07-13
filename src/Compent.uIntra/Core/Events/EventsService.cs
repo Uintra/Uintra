@@ -143,7 +143,7 @@ namespace Compent.uIntra.Core.Events
 
         public MediaSettings GetMediaSettings()
         {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
         }
 
         public CentralFeedSettings GetCentralFeedSettings()

@@ -63,22 +63,25 @@ function initTagsControl() {
             },
             // checks if tag is among allowed ones
             onBeforeTagAdd: (event, tag) => { return arrIncludesElement(tagsStorage, tag); }
-});
+        });
 
     var tagsControlInput = tagsControl.getInput();
+    var tagsControlContainer = tagsControl.getContainer();
 
     $(tagsControlInput).devbridgeAutocomplete({
         serviceUrl: '/umbraco/surface/Tags/Autocomplete',
         paramName: 'query',
         minChars: 0,
         dataType: 'json',
+        appendTo: tagsControlContainer,
+        position: { at: "left bottom", of: tagsControlInput },
         transformResult: function (response, originalQuery) {
             var result = {
                 suggestions: $.map(response.Tags,
                     function(dataItem) {
                         return { value: dataItem.Text, id: dataItem.Id };
                     })
-        };
+            };
             if (!tagsAreTaken) {
                 tagsStorage = response.Tags.map((tag) => { return tag.Text });
                 tagsAreTaken = true;
