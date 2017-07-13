@@ -974,7 +974,7 @@
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SetupMigrations\UmbracoContentMigration.cs" />
+    <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
     <Content Include="App_Start\ElmahMvc_Start.cs" />
     <Content Include="Controllers\ActivityController.cs" />
     <Content Include="Controllers\BulletinsController.cs" />
@@ -1103,7 +1103,7 @@
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </Content>
     <Content Include="Persistence\Sql\Migrations\Configuration.cs" />
-    <Content Include="Installer\Installer.cs" />
+    <Compile Include="Installer\Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
