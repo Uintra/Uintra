@@ -6,7 +6,7 @@ namespace uIntra.Core.Migrations
     {
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            MediaMigrations.Migrate();
+            //MediaMigrations.Migrate();
         }
     }
 }

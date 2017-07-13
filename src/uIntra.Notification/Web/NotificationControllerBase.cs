@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
-using Umbraco.Core;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
@@ -24,7 +22,8 @@ namespace uIntra.Notification.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationHelper _notificationHelper;
 
-        protected NotificationControllerBase(IUiNotifierService uiNotifierService,
+        protected NotificationControllerBase(
+            IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationHelper notificationHelper)
         {
@@ -44,9 +43,22 @@ namespace uIntra.Notification.Web
             int totalCount;
             var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out totalCount).ToList();
 
+            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
+            if (notNotifiedNotifications.Count > 0)
+            {
+                _uiNotifierService.Notify(notNotifiedNotifications);
+            }
+
+            var notificationsViewModels = notifications.Select(d =>
+            {
+                var resultItem = d.Map<NotificationViewModel>();
+                FillNotifierData(resultItem);
+                return resultItem;
+            }).ToList();
+
             var result = new NotificationListViewModel
             {
-                Notifications = notifications.Map<IEnumerable<NotificationViewModel>>().ForEach(FillNotifierData),
+                Notifications = notificationsViewModels,
                 BlockScrolling = totalCount <= take
             };
 
@@ -72,11 +84,24 @@ namespace uIntra.Notification.Web
             int totalCount;
             var notificationListPage = _notificationHelper.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount);
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount).ToList();
+
+            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
+            if (notNotifiedNotifications.Count > 0)
+            {
+                _uiNotifierService.Notify(notNotifiedNotifications);
+            }
+
+            var notificationsViewModels = notifications.Select(d =>
+            {
+                var resultItem = d.Map<NotificationViewModel>();
+                FillNotifierData(resultItem);
+                return resultItem;
+            }).ToList();
 
             var result = new NotificationListViewModel
             {
-                Notifications = notifications.Map<IEnumerable<NotificationViewModel>>().ForEach(FillNotifierData),
+                Notifications = notificationsViewModels,
                 BlockScrolling = false
             };
 
