@@ -5,8 +5,6 @@ using System.Web.Hosting;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
 using uIntra.Core.Extentions;
-using uIntra.Core.Installer;
-using uIntra.Navigation.Installer;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Installer;
 using Umbraco.Core;
@@ -62,9 +60,9 @@ namespace Compent.uIntra.SetupMigrations
             CreateGlobalPanelFolder();
             CreateSystemLinkFolder();
 
-            CreateMailTemplatesFolderDataType();
-            CreateMailWorkerDataTypes();
-            CreateMailTemplatesFolder();
+            //CreateMailTemplatesFolderDataType();
+            //CreateMailWorkerDataTypes();
+            //CreateMailTemplatesFolder();
 
             CreateEventMailTemplate();
             CreateEventUpdatedMailTemplate();
@@ -363,61 +361,61 @@ namespace Compent.uIntra.SetupMigrations
             _contentService.SaveAndPublishWithStatus(content);
         }
 
-        private void CreateMailWorkerDataTypes()
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+        //private void CreateMailWorkerDataTypes()
+        //{
+        //    var contentService = ApplicationContext.Current.Services.ContentTypeService;
+        //    var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
 
-            var mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
-            if (mailTemplateDocType != null) return;
+        //    var mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
+        //    if (mailTemplateDocType != null) return;
            
-            var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 1).First();
-            sentMailsDocumentTypeService.CreateMailTemplateDocTypes(dataContentFolder.Id.ToString());
+        //    var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 1).First();
+        //    sentMailsDocumentTypeService.CreateMailTemplateDocTypes(dataContentFolder.Id.ToString());
 
-            mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
+        //    mailTemplateDocType = contentService.GetContentType(MailTemplate.ModelTypeAlias);
 
-            mailTemplateDocType.RemovePropertyType(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
-            var notificationTypeEnumDropdown = dataTypeService.GetDataTypeDefinitionByName(NotificationInstallationConstants.DataTypeNames.NotificationTypeEnum);
-            var newEmailTypeProperty = new PropertyType(notificationTypeEnumDropdown)
-            {
-                Name = "Email type",
-                Alias= "emailType"
-            };
+        //    mailTemplateDocType.RemovePropertyType(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
+        //    var notificationTypeEnumDropdown = dataTypeService.GetDataTypeDefinitionByName(NotificationInstallationConstants.DataTypeNames.NotificationTypeEnum);
+        //    var newEmailTypeProperty = new PropertyType(notificationTypeEnumDropdown)
+        //    {
+        //        Name = "Email type",
+        //        Alias= "emailType"
+        //    };
 
-            mailTemplateDocType.AddPropertyType(newEmailTypeProperty, "Content");
-            contentService.Save(mailTemplateDocType);
+        //    mailTemplateDocType.AddPropertyType(newEmailTypeProperty, "Content");
+        //    contentService.Save(mailTemplateDocType);
 
-            CoreInstallationStep.AddAllowedChildNode(MailTemplatesFolder.ModelTypeAlias, MailTemplate.ModelTypeAlias);
-        }
-        private void CreateMailTemplatesFolderDataType()
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-            var mailTemplateFolderDataType = contentService.GetContentType(MailTemplatesFolder.ModelTypeAlias);
-            if (mailTemplateFolderDataType != null) return;
+        //    CoreInstallationStep.AddAllowedChildNode(MailTemplatesFolder.ModelTypeAlias, MailTemplate.ModelTypeAlias);
+        //}
+        //private void CreateMailTemplatesFolderDataType()
+        //{
+        //    var contentService = ApplicationContext.Current.Services.ContentTypeService;
+        //    var mailTemplateFolderDataType = contentService.GetContentType(MailTemplatesFolder.ModelTypeAlias);
+        //    if (mailTemplateFolderDataType != null) return;
 
-            var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
+        //    var dataContentFolder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
 
-            mailTemplateFolderDataType = new ContentType(dataContentFolder.Id)
-            {
-                Name = UmbracoContentMigrationConstants.MailTemplate.MailTemplatesFolderName,
-                Alias = MailTemplatesFolder.ModelTypeAlias
-            };
+        //    mailTemplateFolderDataType = new ContentType(dataContentFolder.Id)
+        //    {
+        //        Name = UmbracoContentMigrationConstants.MailTemplate.MailTemplatesFolderName,
+        //        Alias = MailTemplatesFolder.ModelTypeAlias
+        //    };
 
-            contentService.Save(mailTemplateFolderDataType);
+        //    contentService.Save(mailTemplateFolderDataType);
 
-        }
-        private void CreateMailTemplatesFolder()
-        {
-            var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(MailTemplatesFolder.ModelTypeAlias)))
-            {
-                return;
-            }
+        //}
+        //private void CreateMailTemplatesFolder()
+        //{
+        //    var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DataFolder.ModelTypeAlias));
+        //    if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(MailTemplatesFolder.ModelTypeAlias)))
+        //    {
+        //        return;
+        //    }
 
-            var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, MailTemplatesFolder.ModelTypeAlias);
+        //    var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, MailTemplatesFolder.ModelTypeAlias);
 
-            _contentService.SaveAndPublishWithStatus(content);
-        }
+        //    _contentService.SaveAndPublishWithStatus(content);
+        //}
 
         private void CreateEventMailTemplate()
         {
