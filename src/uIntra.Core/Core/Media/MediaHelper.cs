@@ -20,16 +20,19 @@ namespace uIntra.Core.Media
         private readonly IMediaService _mediaService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            UmbracoHelper umbracoHelper)
+            UmbracoHelper umbracoHelper,
+            IMediaFolderTypeProvider mediaFolderTypeProvider)
         {
             _cacheService = cacheService;
             _mediaService = mediaService;
             _intranetUserService = intranetUserService;
             _umbracoHelper = umbracoHelper;
+            _mediaFolderTypeProvider = mediaFolderTypeProvider;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model)
@@ -115,8 +118,15 @@ namespace uIntra.Core.Media
 
         public MediaSettings GetMediaFolderSettings(int mediaFolderType)
         {
+            var folderType = _mediaFolderTypeProvider.Get(mediaFolderType);
+            var result = GetMediaFolderSettings(folderType);
+            return result;
+        }
+
+        public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType)
+        {
             var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
-            var mediaFolder = folders.Single(m => m.GetPropertyValue<int>(FolderConstants.FolderTypePropertyTypeAlias) == mediaFolderType);
+            var mediaFolder = folders.Single(m => m.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias).Equals(mediaFolderType.Name));
 
             return new MediaSettings
             {
