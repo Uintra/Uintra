@@ -6,7 +6,6 @@ using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
