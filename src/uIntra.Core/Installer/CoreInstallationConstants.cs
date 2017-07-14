@@ -2,6 +2,11 @@
 {
     public class CoreInstallationConstants
     {
+        public class AppSettingKey
+        {
+            public const string UIntraConfigurationStatus = "uIntraConfigurationStatus";
+        }
+
         public class DocumentTypesContainerNames
         {
             public const string Compositions = "Compositions";
@@ -62,18 +67,20 @@
         {
             public const string LinksPicker = "custom.LinksPicker";
         }
+
         public class DataTypePropertyNames
         {
             public const string Grid = "Grid";
         }
+
         public class DataTypePropertyAliases
         {
             public const string Grid = "grid";
         }
+
         public class DataTypePropertyGroupNames
         {
             public const string Content = "Content";
         }
-
     }
 }
