@@ -57,5 +57,13 @@
             public const string GroupWebMaster = "WebMaster";
             public const string GroupUiUser = "UiUser";
         }
+
+        public class DefaultMember
+        {
+            public const string Email = "admin@testmember.com";
+            public const string Name = "admin";
+            public const string UmbracoAdminUserId = "0";
+            public const string Password = "qwerty1234";
+        }
     }
 }

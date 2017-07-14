@@ -1,11 +1,10 @@
 ﻿using uIntra.Core.Installer;
-using uIntra.Core.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
 namespace uIntra.Users.Installer
 {
-    public class UsersInstallationStep: IIntranetInstallationStep
+    public class UsersInstallationStep : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Users";
         public int Priority => 2;
@@ -18,16 +17,20 @@ namespace uIntra.Users.Installer
             CreateMemberUserPickerDataType();
             AddProfileTabProperties();
             AddDefaultMemberGroups();
+            AddDefaultMember();
         }
 
         private void CreateProfilePage()
         {
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
 
-            var usersProfilePage = contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfilePage);
+            var usersProfilePage =
+                contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfilePage);
             if (usersProfilePage != null) return;
 
-            usersProfilePage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            usersProfilePage =
+                CoreInstallationStep.GetBasePageWithGridBase(
+                    CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             usersProfilePage.Name = UsersInstallationConstants.DocumentTypeNames.ProfilePage;
@@ -42,7 +45,8 @@ namespace uIntra.Users.Installer
         {
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
 
-            var usersProfileEditPage = contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
+            var usersProfileEditPage =
+                contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
             if (usersProfileEditPage != null) return;
 
             usersProfileEditPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
@@ -51,15 +55,17 @@ namespace uIntra.Users.Installer
             usersProfileEditPage.Name = UsersInstallationConstants.DocumentTypeNames.ProfileEditPage;
             usersProfileEditPage.Alias = UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage;
             usersProfileEditPage.Icon = UsersInstallationConstants.DocumentTypeIcons.ProfileEditPage;
-            
+
             contentService.Save(usersProfileEditPage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
+            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage,
+                UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
         }
 
         private void CreateMemberUserPickerDataType()
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-            var dataType = dataTypeService.GetDataTypeDefinitionByName(UsersInstallationConstants.DataTypeNames.MemberUserPicker);
+            var dataType =
+                dataTypeService.GetDataTypeDefinitionByName(UsersInstallationConstants.DataTypeNames.MemberUserPicker);
             if (dataType != null) return;
 
             dataType = new DataTypeDefinition(UsersInstallationConstants.DataTypePropertyEditors.MemberUserPicker)
@@ -100,7 +106,8 @@ namespace uIntra.Users.Installer
                 Name = UsersInstallationConstants.DataTypePropertyNames.ProfilePhoto,
             };
 
-            var relatedUserDataType = dataTypeService.GetDataTypeDefinitionByName(UsersInstallationConstants.DataTypeNames.MemberUserPicker);
+            var relatedUserDataType =
+                dataTypeService.GetDataTypeDefinitionByName(UsersInstallationConstants.DataTypeNames.MemberUserPicker);
 
             var relatedUserProperty = new PropertyType(relatedUserDataType)
             {
@@ -129,6 +136,7 @@ namespace uIntra.Users.Installer
 
             memberTypeService.Save(memberType);
         }
+
         public static void AddDefaultMemberGroups()
         {
             var memberGroupService = ApplicationContext.Current.Services.MemberGroupService;
@@ -164,6 +172,25 @@ namespace uIntra.Users.Installer
                 };
                 memberGroupService.Save(uiPublisherGroup);
             }
+        }
+
+        public static void AddDefaultMember()
+        {
+            var memberService = ApplicationContext.Current.Services.MemberService;
+            var member = memberService.GetByEmail(UsersInstallationConstants.DefaultMember.Email);
+            if (member != null)
+            {
+                return;
+            }
+
+            member = memberService.CreateMember(UsersInstallationConstants.DefaultMember.Name, UsersInstallationConstants.DefaultMember.Email, UsersInstallationConstants.DefaultMember.Name,
+                UsersInstallationConstants.DataTypeAliases.Member);
+            member.SetValue(UsersInstallationConstants.DataTypePropertyAliases.ProfileFirstName, UsersInstallationConstants.DefaultMember.Name);
+            member.SetValue(UsersInstallationConstants.DataTypePropertyAliases.ProfileLastName, UsersInstallationConstants.DefaultMember.Name);
+            member.SetValue(UsersInstallationConstants.DataTypePropertyAliases.ProfileRelatedUser, UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
+
+            memberService.Save(member);
+            memberService.SavePassword(member, UsersInstallationConstants.DefaultMember.Password);
         }
     }
 }
