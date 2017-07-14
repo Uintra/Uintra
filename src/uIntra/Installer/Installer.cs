@@ -16,8 +16,7 @@ namespace Compent.uIntra.Installer
 {
     public class Installer : ApplicationEventHandler
     {
-        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication,
-            ApplicationContext applicationContext)
+        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             var installer = new IntranetInstaller();
             var umbracoContentMigration = new UmbracoContentMigration();
