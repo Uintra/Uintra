@@ -46,9 +46,9 @@ namespace Compent.uIntra.SetupMigrations
             CreateEventsEditPage();
             CreateEventsDetailsPage();
 
-            CreateBulletinsOverviewPage();
-            CreateBulletinsDetailsPage();
-            CreateBulletinsEditPage();
+            //CreateBulletinsOverviewPage();
+            //CreateBulletinsDetailsPage();
+            //CreateBulletinsEditPage();
 
             CreateNotificationPage();
             CreateProfilePage();

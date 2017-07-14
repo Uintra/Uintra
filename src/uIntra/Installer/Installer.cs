@@ -24,7 +24,7 @@ namespace Compent.uIntra.Installer
             installer.Install();
             InheritNavigationCompositions();
             umbracoContentMigration.Init();
-            AddWebpackBuildTarget();
+            //AddWebpackBuildTarget();
         }
 
         private void InheritNavigationCompositions()
