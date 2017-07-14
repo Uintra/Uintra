@@ -19,7 +19,5 @@ namespace uIntra.CentralFeed
         T GetFiltersState<T>();
 
         bool CentralFeedCookieExists();
-
-        LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel);
     }
 }

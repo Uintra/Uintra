@@ -15,5 +15,7 @@ namespace uIntra.CentralFeed
         CentralFeedSettings GetSettings(IIntranetType type);
 
         IEnumerable<CentralFeedSettings> GetAllSettings();
+
+        LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel);
     }
 }

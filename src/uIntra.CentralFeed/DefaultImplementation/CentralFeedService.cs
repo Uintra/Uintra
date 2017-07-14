@@ -28,7 +28,7 @@ namespace uIntra.CentralFeed
             _feedItemServices = feedItemServices;
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
-
+        
         public IEnumerable<ICentralFeedItem> GetFeed(IIntranetType type)
         {
             var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
@@ -60,6 +60,18 @@ namespace uIntra.CentralFeed
         {
             var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
             return settings;
+        }
+
+        public LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
+        {
+            var latestActivities = GetFeed(panelModel.TypeOfActivities).Take(panelModel.NumberOfActivities);
+
+            return new LatestActivitiesModel()
+            {
+                Title = panelModel.Title,
+                Teaser = panelModel.Teaser,
+                Items = latestActivities
+            };
         }
 
         protected virtual CentralFeedSettings GetDefaultTabSetting()

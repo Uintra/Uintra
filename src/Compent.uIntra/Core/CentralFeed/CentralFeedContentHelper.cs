@@ -158,10 +158,5 @@ namespace Compent.uIntra.Core.CentralFeed
                     return null;
             }
         }
-
-        public LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
-        {
-            return null;
-        }
     }
 }

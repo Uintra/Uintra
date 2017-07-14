@@ -7,6 +7,6 @@ namespace uIntra.CentralFeed
     {
         public string Title { get; set; }
         public string Teaser { get; set; }
-        public IEnumerable<IIntranetActivity> Activities { get; set; }
+        public IEnumerable<ICentralFeedItem> Items { get; set; }
     }
 }
