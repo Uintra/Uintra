@@ -237,7 +237,10 @@ namespace uIntra.Core.Installer
         {
             var fileService = ApplicationContext.Current.Services.FileService;
             var alias = CoreInstallationConstants.DocumentTypeAliases.GridPageLayoutTemplateAlias;
-            var gridPageLayoutTemplate = new Template(alias, alias);
+            var gridPageLayoutTemplate = fileService.GetTemplate(alias);
+            if (gridPageLayoutTemplate != null) return;
+
+            gridPageLayoutTemplate = new Template(alias, alias);
 
             var path = HostingEnvironment.MapPath("~/Installer/PreValues/GridPageLayout.cshtml");
             gridPageLayoutTemplate.Content = System.IO.File.ReadAllText(path);
