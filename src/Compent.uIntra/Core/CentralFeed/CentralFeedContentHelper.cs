@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using uIntra.CentralFeed;
+using uIntra.CentralFeed.Core.Models;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
@@ -157,6 +158,24 @@ namespace Compent.uIntra.Core.CentralFeed
                 default:
                     return null;
             }
+        }
+
+        public LatestActivitiesModel GetLatestActivities(IPublishedContent currentPage)
+        {
+            var panelModel = GetLatestActivitiesModel(currentPage);
+
+
+
+            return new LatestActivitiesModel()
+            {
+                Title = panelModel.Title,
+                Teaser = panelModel.Teaser
+            };
+        }
+
+        private LatestActivitiesPanelModel GetLatestActivitiesModel(IPublishedContent currentPage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

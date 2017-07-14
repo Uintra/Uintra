@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using uIntra.CentralFeed.Core.Models;
 
 namespace uIntra.CentralFeed
 {
@@ -8,6 +9,7 @@ namespace uIntra.CentralFeed
         {
             Mapper.CreateMap<CentralFeedTabModel, CentralFeedTabViewModel>()
                 .ForMember(d => d.Url, o => o.MapFrom(el => el.Content.Url));
+            Mapper.CreateMap<LatestActivitiesModel, LatestActivitiesViewModel>();               
         }
     }
 }
