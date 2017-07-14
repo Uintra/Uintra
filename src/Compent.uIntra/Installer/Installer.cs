@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Linq;
-using System.Web;
+using System.Web.Hosting;
 using Compent.uIntra.SetupMigrations;
+using Microsoft.Build.Construction;
 using uIntra.Bulletins.Installer;
 using uIntra.Core.Installer;
 using uIntra.Events.Installer;
@@ -24,6 +24,7 @@ namespace Compent.uIntra.Installer
             installer.Install();
             InheritNavigationCompositions();
             umbracoContentMigration.Init();
+            AddWebpackBuildTarget();
         }
 
         private void InheritNavigationCompositions()
@@ -46,7 +47,26 @@ namespace Compent.uIntra.Installer
 
             CoreInstallationStep.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, homeNav);
             CoreInstallationStep.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, nav);
+        }
 
+        private void AddWebpackBuildTarget()
+        {
+            var projectDirectoryPath = HostingEnvironment.MapPath("~");
+            var fileProjectPath = Directory.GetFiles(projectDirectoryPath, "*.csproj")[0];
+
+            var projectFile = ProjectRootElement.Open(fileProjectPath);
+            if (projectFile.Targets.Any(t => t.Name.Equals("WebpackBuild")))
+            {
+                return;
+            }
+
+            var webpackTarget = projectFile.AddTarget("WebpackBuild");
+            webpackTarget.AfterTargets = "AfterBuild";
+
+            var webpackTask = webpackTarget.AddTask("Exec");
+            webpackTask.SetParameter("Command", "webpack");
+
+            projectFile.Save();
         }
     }
 }
