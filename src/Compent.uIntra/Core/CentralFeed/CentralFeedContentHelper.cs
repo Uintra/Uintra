@@ -159,22 +159,9 @@ namespace Compent.uIntra.Core.CentralFeed
             }
         }
 
-        public LatestActivitiesModel GetLatestActivities(IPublishedContent currentPage)
+        public LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
         {
-            var panelModel = GetLatestActivitiesModel(currentPage);
-
-            _centralFeedService.GetFeed();
-
-            return new LatestActivitiesModel()
-            {
-                Title = panelModel.Title,
-                Teaser = panelModel.Teaser
-            };
-        }
-
-        private LatestActivitiesPanelModel GetLatestActivitiesModel(IPublishedContent currentPage)
-        {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

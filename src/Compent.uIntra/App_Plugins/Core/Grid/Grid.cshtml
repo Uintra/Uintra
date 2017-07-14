@@ -64,6 +64,7 @@ try
         RouteValueDictionary controllerParams =  new RouteValueDictionary(ParseControllerModel(control));
         @Html.Action(action, controller, controllerParams);        
     }
+
     else
     {
         @Html.Action(action, controller)
@@ -112,6 +113,6 @@ catch (Exception ex)
         
     public static IDictionary<string, object> ParseControllerModel(dynamic control)
     {
-        return ((Newtonsoft.Json.Linq.JToken)control).Next["value"].ToObject<Dictionary<string, object>>();
+        return ((Newtonsoft.Json.Linq.JToken)control)["value"].ToObject<Dictionary<string, object>>();
     }   
 }

@@ -1,6 +1,6 @@
 ﻿<div class="m-b-20 _clearfix">
     <p class="span3"><b>Title:</b></p>
-    <input name="title" id="title" ng-model="control.value.displayTitle" />
+    <input name="title" id="title" ng-model="control.value.title" />
 </div>
 
 
@@ -11,14 +11,14 @@
 
     <div class="m-b-20 _clearfix">
     <b class="span3">Tab Type:</b>
-    <select name="tabType" id="tabType" ng-model="control.value.tabType" ng-options="option.Id as option.Name for option in availableActivityTypes" required>
+    <select name="tabType" id="tabType" ng-model="control.value.typeOfActivities" ng-options="option.Id as option.Name for option in availableActivityTypes" required>
         <option value="">None</option>
     </select>
 </div>
 
 <div class="m-b-20 _clearfix">
     <p class="span3"><b>Number of activities to display:</b></p>
-    <input name="nubmerOfActivities" id="nubmerOfActivities" ng-model="control.value.nubmerOfActivities" />
+    <input name="nubmerOfActivities" id="nubmerOfActivities" ng-model="control.value.numberOfActivities" />
 </div>
 
 <div ng-show="control.validationMessage">

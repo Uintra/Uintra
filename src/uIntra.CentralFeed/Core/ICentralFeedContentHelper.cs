@@ -20,6 +20,6 @@ namespace uIntra.CentralFeed
 
         bool CentralFeedCookieExists();
 
-        LatestActivitiesModel GetLatestActivities(IPublishedContent currentPage);
+        LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel);
     }
 }

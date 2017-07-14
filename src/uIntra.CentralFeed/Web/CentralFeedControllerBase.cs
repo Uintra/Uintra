@@ -160,7 +160,7 @@ namespace uIntra.CentralFeed.Web
 
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
         {
-            var latestActivitiesModel = _centralFeedContentHelper.GetLatestActivities(CurrentPage);
+            var latestActivitiesModel = _centralFeedContentHelper.GetLatestActivities(panelModel);
 
             var viewModel = latestActivitiesModel.Map<LatestActivitiesViewModel>();
 

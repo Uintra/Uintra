@@ -10,7 +10,6 @@
                 $scope.availableActivityTypes = data;
             });
         };
-
         $scope.overlay = {
             show: false,
             title: "Latest activities",
@@ -52,11 +51,11 @@
             return true;
 
             function isValidNumberOfActivities(model) {
-                return !isNaN(model.nubmerOfActivities) && parseInt(model.nubmerOfActivities) > 0; 
+                return !isNaN(model.numberOfActivities) && parseInt(model.numberOfActivities) > 0; 
             }
 
             function isValidTitle(model) {
-                return model.displayTitle && model.displayTitle.length > 0;
+                return model.title && model.title.length > 0;
             }
         }
 
