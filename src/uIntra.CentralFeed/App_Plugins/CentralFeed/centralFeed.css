@@ -207,6 +207,7 @@
 
         &-feed{
             font-size:13px;
+            line-height:1.3em;
             margin: 0;
 
             ._details &{
