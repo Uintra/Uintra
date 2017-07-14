@@ -974,6 +974,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Core\UmbracoModelsBuilders\NotificationPage.generated.cs" />
+    <Compile Include="Installer\MaxIntranetUsersCountVerificator.cs" />
     <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
     <Content Include="App_Start\ElmahMvc_Start.cs" />
     <Content Include="Controllers\ActivityController.cs" />
