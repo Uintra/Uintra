@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using uIntra.CentralFeed;
-using uIntra.CentralFeed.Core.Models;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
@@ -164,7 +163,7 @@ namespace Compent.uIntra.Core.CentralFeed
         {
             var panelModel = GetLatestActivitiesModel(currentPage);
 
-
+            _centralFeedService.GetFeed();
 
             return new LatestActivitiesModel()
             {

@@ -319,7 +319,6 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
-    <None Include="App_Plugins\LatestActivities\package.manifest" />
     <Compile Include="Core\AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeedEventComparer.cs" />
     <Compile Include="Core\CentralFeedTypeProvider.cs" />

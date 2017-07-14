@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using uIntra.CentralFeed.Core.Models;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 

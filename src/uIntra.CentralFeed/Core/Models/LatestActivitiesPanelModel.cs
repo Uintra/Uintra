@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.TypeProviders;
 
-namespace uIntra.CentralFeed.Core.Models
+namespace uIntra.CentralFeed
 {
     public class LatestActivitiesPanelModel
     {

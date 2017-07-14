@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using uIntra.Core.Activity;
 
-namespace uIntra.CentralFeed.Core.Models
+namespace uIntra.CentralFeed
 {
     public class LatestActivitiesViewModel
     {

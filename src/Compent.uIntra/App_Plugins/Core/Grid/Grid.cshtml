@@ -47,18 +47,27 @@
 @helper RenderControl(string partialViewName, dynamic control)
 {
 try
-{       
+{
     var config = control.editor?.config;
     if (config == null || config.action == null || config.controller == null)
     {
         var controlObject = control as object;
-        @Html.Partial(partialViewName, controlObject)
+            @Html.Partial(partialViewName, controlObject)
         return;
     }
 
     string action = config.action;
     string controller = config.controller;
-    @Html.Action(action, controller)
+
+    if (config.sendModelToController != null && (bool)config.sendModelToController)
+    {
+        RouteValueDictionary controllerParams =  new RouteValueDictionary(ParseControllerModel(control));
+        @Html.Action(action, controller, controllerParams);        
+    }
+    else
+    {
+        @Html.Action(action, controller)
+    }
 }
 catch (Exception ex)
 {
@@ -100,4 +109,9 @@ catch (Exception ex)
         var path = chosen.ToString().ToLower().Replace(".html", ".cshtml");
         return path.Contains("/") ? path : "grid/editors/" + path;
     }
+        
+    public static IDictionary<string, object> ParseControllerModel(dynamic control)
+    {
+        return ((Newtonsoft.Json.Linq.JToken)control).Next["value"].ToObject<Dictionary<string, object>>();
+    }   
 }
