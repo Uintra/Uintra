@@ -1,4 +1,5 @@
-﻿@model uIntra.Bulletins.BulletinItemViewModel
+﻿@using uIntra.Core.Extentions
+@model uIntra.Bulletins.BulletinItemViewModel
 
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
@@ -9,7 +10,7 @@
         @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
     </div>
     <div class="feed__item-image"> </div>
-    @if (!string.IsNullOrWhiteSpace(Model.ShortDescription.StripHtml()))
+    @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.ShortDescription)))
     {
         <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
             @Html.Raw(Model.ShortDescription)
