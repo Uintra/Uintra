@@ -1048,8 +1048,8 @@
     <Content Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
       <Link>Core\ActivitiesServiceFactory.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Core\IoC\NinjectWebCommon.cs">
-      <Link>Core\IoC\NinjectWebCommon.cs</Link>
+    <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
+      <Link>App_Start\NinjectWebCommon.cs</Link>
     </Content>
     <Compile Include="Installer\MaxIntranetUsersCountVerificator.cs" />
     <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
