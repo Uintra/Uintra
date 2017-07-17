@@ -180,7 +180,18 @@ function getCookie(name) {
 function reloadTabEventHandler(e) {   
     clearInterval(reloadintervalId);
 
-    reload(true, true, e.detail.isReinit);
+    let hash = (window.location.hash || "").replace("#", "");
+
+    reload(true, true, e.detail.isReinit).then(function () {
+        if (hash) {
+            let elem = document.querySelector('[data-anchor="' + hash + '"]');
+
+            if (elem) {
+                scrollTo(document.body, elem.offsetTop, 300);
+                window.history.pushState("", document.title, window.location.pathname);
+            }
+        }
+    });
 
     runReloadInverval();
 }
