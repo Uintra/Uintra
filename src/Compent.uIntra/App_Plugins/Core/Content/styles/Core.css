@@ -1,4 +1,4 @@
-﻿@import "libs.css";
+﻿﻿@import "libs.css";
 @import "forms.css";
 
 @font-face {
@@ -605,6 +605,14 @@ a{
         margin: 0 10px 0 0;
         vertical-align:middle;
     }
+}
+
+.ellipsis{
+    width:20px;
+    height:20px;
+    display:inline-block;
+    position:absolute;
+    margin:0 0 0 -20px;
 }
 
 .ajs-footer {

@@ -194,10 +194,22 @@ var helpers = {
 
         return s.join("&").replace(/%20/g, "+");
     },
-    clampText: function(container){
-        $(container).dotdotdot({
-            watch: 'window'
-        });
+    clampText: function(container, url){
+        if(url){
+            var ellepsisLink = document.createElement('a');
+            ellepsisLink.setAttribute('href', url);
+            ellepsisLink.classList.add('ellipsis');
+            container.append(ellepsisLink);
+            $(container).dotdotdot({
+                after: 'a.ellipsis',
+                watch: 'window'
+            });
+        }
+        else{
+            $(container).dotdotdot({
+                watch: 'window'
+            });
+        }
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);

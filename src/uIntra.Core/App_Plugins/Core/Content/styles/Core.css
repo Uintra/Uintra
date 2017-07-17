@@ -607,6 +607,14 @@ a{
     }
 }
 
+.ellipsis{
+    width:20px;
+    height:20px;
+    display:inline-block;
+    position:absolute;
+    margin:0 0 0 -20px;
+}
+
 .ajs-footer {
     overflow: hidden;
 }
