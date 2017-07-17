@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.uIntra;
+using Compent.uIntra.Core;
 using Compent.uIntra.Core.ApplicationSettings;
 using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.CentralFeed;
@@ -73,7 +75,7 @@ using Umbraco.Web.Security;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace Compent.uIntra.Core.IoC
+namespace Compent.uIntra
 {
     public static class NinjectWebCommon
     {
@@ -163,7 +165,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<IDomainService>().ToMethod(i => ApplicationContext.Current.Services.DomainService).InRequestScope();
 
             // Plugin services
-            kernel.Bind<IIntranetLocalizationService>().To<LocalizationService>().InRequestScope();
+            kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
             kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
@@ -180,7 +182,7 @@ namespace Compent.uIntra.Core.IoC
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<News.Entities.News>().InRequestScope();
+            kernel.Bind<ICentralFeedItem>().To<Core.News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();

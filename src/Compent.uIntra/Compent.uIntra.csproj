@@ -1183,7 +1183,6 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Constants\AppSettingConstants.cs" />
-    <Compile Include="Core\CommentsService.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
@@ -1197,7 +1196,7 @@
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\IntranetUserContentHelper.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
-    <Compile Include="Core\IoC\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LocalizationService.cs" />
