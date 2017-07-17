@@ -4,7 +4,7 @@
 @{
     var expired = Model.Expired ? "_expired" : "";
     var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
-    //TODO: Add link to the details page to the .feed__item-txt attr data-url
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
 <div class="feed__item @expired @currentPinnedClass">
     <div class="clearfix">
@@ -18,7 +18,7 @@
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
     {
-        <div class="feed__item-txt _clamp" data-url="">
+        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
             <p>@Html.Raw(Model.ShortDescription)</p>
         </div>
     }

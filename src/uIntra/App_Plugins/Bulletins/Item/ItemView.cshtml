@@ -1,7 +1,8 @@
-﻿@model uIntra.Bulletins.BulletinItemViewModel
+﻿@using uIntra.Core.Extentions
+@model uIntra.Bulletins.BulletinItemViewModel
 
 @{
-//TODO: Add link to the details page to the .feed__item-txt attr data-url
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
 
 <div class="feed__item">
@@ -11,7 +12,7 @@
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.ShortDescription.StripHtml()))
     {
-        <div class="feed__item-txt _clamp" data-url="">
+        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
             @Html.Raw(Model.ShortDescription)
         </div>
     }
