@@ -376,9 +376,8 @@
       <HintPath>..\..\packages\uIntra.Notification.1.1.7.15\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.1.13, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Panels.2.1.1.13\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.1.16, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.1.16\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Search, Version=0.0.4.4, Culture=neutral, processorArchitecture=MSIL">
@@ -1035,10 +1034,6 @@
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
@@ -1095,6 +1090,10 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
