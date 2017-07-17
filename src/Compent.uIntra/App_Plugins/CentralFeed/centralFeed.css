@@ -387,6 +387,10 @@
 			flex: 0 0 auto;
 			max-width: 100%;
 			margin: 0 0 10px 10px;
+
+			&:first-child {
+				margin-left: 0;
+			}
 		}
 
 		&__item {

@@ -340,8 +340,9 @@
       <HintPath>..\..\packages\uIntra.Bulletins.0.0.10.5\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.9.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.9.4\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.9.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.9.5\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -1047,13 +1048,13 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
