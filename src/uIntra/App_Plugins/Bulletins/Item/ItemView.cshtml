@@ -2,7 +2,7 @@
 
 <div class="feed__item">
     <div class="clearfix">
-        @Html.Partial("~/App_Plugins/Bulletins/Item/ActivityItemHeader.cshtml", Model.HeaderInfo)
+        @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.ShortDescription.StripHtml()))
