@@ -89,8 +89,10 @@ function sentButtonClickHandler(event) {
     let promise = form.submit();
     promise.then(function(data) {
         if (data.IsSuccess) {
+            window.location.hash = data.Id;
+
             cfReloadTab();
-            hide();    
+            hide(); 
         }
     });
 }
