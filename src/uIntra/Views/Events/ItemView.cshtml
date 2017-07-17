@@ -1,19 +1,17 @@
-﻿@using System.Web.Mvc.Html
 @using uIntra.Core.Activity
 @using uIntra.Core.Extentions
-@model Compent.uIntra.Core.News.Models.NewsExtendedItemViewModel
-
+@model uIntra.Core.Events.EventExtendedItemModel
 @{
     var pinnedClass = Model.IsPinActual ? "_pinned" : "";
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
-
 <div class="feed__item @pinnedClass">
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
-            <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+            <span class="pinned__item">@Html.Localize("EventsItemView.Pinned.lbl")</span>
         }
+
 
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
     </div>
@@ -32,5 +30,9 @@
             @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
         </div>
+        @if (Model.CanSubscribe)
+        {
+            Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
+        }
     </div>
 </div> 

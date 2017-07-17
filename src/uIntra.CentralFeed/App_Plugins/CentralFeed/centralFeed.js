@@ -30,9 +30,10 @@ var reloadintervalId;
 
 function initDescription(){
     var container = $('._clamp');
+    var url = container.data('url');
     if(container.length > 0){
         for(var i = 0; i < container.length; i++){
-            helpers.clampText(container[i]);
+            helpers.clampText(container[i], url);
         }
     }
 }
@@ -49,10 +50,11 @@ function hideLoadingStatus() {
 
 function displayDescription() {
     var container = $('._clamp');
+    var url = container.data('url');
     if (container.length > 0) {
         for (var i = 0; i < container.length; i++) {
             if (container[i].textContent.trim().length > 300) {
-                helpers.clampText(container[i]);
+                helpers.clampText(container[i], url);
             }
         }
     }
@@ -178,7 +180,18 @@ function getCookie(name) {
 function reloadTabEventHandler(e) {   
     clearInterval(reloadintervalId);
 
-    reload(true, true, e.detail.isReinit);
+    let hash = (window.location.hash || "").replace("#", "");
+
+    reload(true, false, e.detail.isReinit).then(function () {
+        if (hash) {
+            let elem = document.querySelector('[data-anchor="' + hash + '"]');
+
+            if (elem) {
+                scrollTo(document.body, elem.offsetTop, 300);
+                window.history.pushState("", document.title, window.location.pathname);
+            }
+        }
+    });
 
     runReloadInverval();
 }
@@ -262,6 +275,6 @@ function init() {
 }
 
 export default {
-    init: init,
+init: init,
     reload: reload
 }

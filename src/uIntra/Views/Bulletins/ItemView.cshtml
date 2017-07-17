@@ -1,6 +1,6 @@
 ﻿@using uIntra.Core.Activity
 @using uIntra.Core.Extentions
-@model Compent.uIntra.Core.Bulletins.BulletinExtendedItemViewModel
+@model uIntra.Core.Bulletins.BulletinExtendedItemViewModel
 
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
@@ -8,7 +8,7 @@
 
 <div class="feed__item">
     <div class="clearfix">
-        @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
+        @Html.Partial("~/App_Plugins/Bulletins/Item/ActivityItemHeader.cshtml", Model.HeaderInfo)
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.ShortDescription)))
