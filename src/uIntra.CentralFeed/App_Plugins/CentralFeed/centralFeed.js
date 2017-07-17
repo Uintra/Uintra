@@ -182,7 +182,7 @@ function reloadTabEventHandler(e) {
 
     let hash = (window.location.hash || "").replace("#", "");
 
-    reload(true, true, e.detail.isReinit).then(function () {
+    reload(true, false, e.detail.isReinit).then(function () {
         if (hash) {
             let elem = document.querySelector('[data-anchor="' + hash + '"]');
 
