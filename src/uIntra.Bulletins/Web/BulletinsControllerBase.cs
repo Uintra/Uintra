@@ -101,9 +101,12 @@ namespace uIntra.Bulletins.Web
             }
 
             var bulletin = MapToBulletin(model);
-            _bulletinsService.Create(bulletin);
+            var createdBulletinId = _bulletinsService.Create(bulletin);
             OnBulletinCreated(bulletin, model);
+
+            result.Id = createdBulletinId;
             result.IsSuccess = true;
+
             return Json(result);
         }
 

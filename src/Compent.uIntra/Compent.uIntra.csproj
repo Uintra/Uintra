@@ -336,14 +336,8 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.2\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-<<<<<<< HEAD
-    <Reference Include="uIntra.Bulletins, Version=0.0.10.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Bulletins.0.0.10.2\lib\net452\uIntra.Bulletins.dll</HintPath>
-=======
     <Reference Include="uIntra.Bulletins, Version=0.0.10.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.0.10.3\lib\net452\uIntra.Bulletins.dll</HintPath>
->>>>>>> 09ea6d6c4cecf9f414176b929a38fdaee47595a1
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.9.1, Culture=neutral, processorArchitecture=MSIL">
@@ -355,14 +349,8 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.2.4\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-<<<<<<< HEAD
-    <Reference Include="uIntra.Core, Version=1.1.18.9, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.18.9\lib\net452\uIntra.Core.dll</HintPath>
-=======
     <Reference Include="uIntra.Core, Version=1.1.18.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Core.1.1.18.10\lib\net452\uIntra.Core.dll</HintPath>
->>>>>>> 09ea6d6c4cecf9f414176b929a38fdaee47595a1
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.1.9.9, Culture=neutral, processorArchitecture=MSIL">
@@ -1048,7 +1036,6 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
-<<<<<<< HEAD
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
@@ -1109,7 +1096,6 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-=======
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
@@ -1125,7 +1111,6 @@
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
->>>>>>> 09ea6d6c4cecf9f414176b929a38fdaee47595a1
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
