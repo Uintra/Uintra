@@ -1504,7 +1504,6 @@
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-    <None Include="package.config" />
     <Content Include="..\Compent.uIntra\package.json">
       <Link>package.json</Link>
     </Content>
