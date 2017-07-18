@@ -1051,7 +1051,6 @@
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
     </Content>
-    <Compile Include="Installer\MaxIntranetUsersCountVerificator.cs" />
     <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
     <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
       <Link>App_Start\ElmahMvc_Start.cs</Link>
