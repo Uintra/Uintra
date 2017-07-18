@@ -36,6 +36,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Comments", "uIntra.Comments\uIntra.Comments.csproj", "{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.CentralFeed", "uIntra.CentralFeed\uIntra.CentralFeed.csproj", "{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB} = {3F8C785A-48D0-41F5-9257-6F73AFCA41EB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.News", "uIntra.News\uIntra.News.csproj", "{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}"
 EndProject

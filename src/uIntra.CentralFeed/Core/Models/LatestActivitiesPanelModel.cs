@@ -6,7 +6,7 @@ namespace uIntra.CentralFeed
     {
         public string Title { get; set; }
         public string Teaser { get; set; }
-        public IIntranetType TypeOfActivities { get; set; }
+        public int TypeOfActivities { get; set; }
         public int NumberOfActivities { get; set; }
     }
 }

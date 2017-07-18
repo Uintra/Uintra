@@ -1,4 +1,19 @@
-﻿<dl>
-    <dt>BANANA</dt>
-    <dd></dd>
-</dl>
+﻿@model uIntra.CentralFeed.LatestActivitiesViewModel
+
+
+<section class="block clearfix">
+
+    <h2 class="block__title"><span class="icon-calendar"></span> @Model.Title</h2>
+    <h3>@Html.Raw(Model.Teaser)</h3>
+    <ol>
+        
+
+    @foreach (var item in Model.Items)
+    {
+        <li>
+            <span>@item.Id</span>
+            <span>@item.PublishDate</span>
+        </li>
+    }
+    </ol>
+</section>

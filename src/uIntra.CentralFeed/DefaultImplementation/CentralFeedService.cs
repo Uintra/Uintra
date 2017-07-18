@@ -64,7 +64,8 @@ namespace uIntra.CentralFeed
 
         public LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
         {
-            var latestActivities = GetFeed(panelModel.TypeOfActivities).Take(panelModel.NumberOfActivities);
+            var activitiesType = _centralFeedTypeProvider.Get(panelModel.TypeOfActivities);
+            var latestActivities = GetFeed(activitiesType).Take(panelModel.NumberOfActivities);
 
             return new LatestActivitiesModel()
             {

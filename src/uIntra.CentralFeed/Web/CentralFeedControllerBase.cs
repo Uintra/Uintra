@@ -16,8 +16,8 @@ namespace uIntra.CentralFeed.Web
     {
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
-        protected virtual string NavigationViewPath { get; } = "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
-        protected virtual string LatestActivitiesViewPath { get; } = "";
+        protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
+        protected virtual string LatestActivitiesViewPath { get; } = "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
