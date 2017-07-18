@@ -126,7 +126,11 @@ namespace uIntra.Core.Media
         public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType)
         {
             var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
-            var mediaFolder = folders.Single(m => m.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias).Equals(mediaFolderType.Name));
+            var mediaFolder = folders.Single(m =>
+            {
+                var folderType = m.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
+                return !string.IsNullOrEmpty(folderType) && folderType.Equals(mediaFolderType.Name);
+            });
 
             return new MediaSettings
             {

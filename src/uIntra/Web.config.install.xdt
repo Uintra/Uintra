@@ -31,8 +31,15 @@
     <authentication mode="Forms">
       <forms loginUrl="~/login" xdt:Transform="SetAttributes(loginUrl)" />
     </authentication>
+
+    <membership>
+      <providers>
+        <add name="UmbracoMembershipProvider" allowManuallyChangingPassword="true" xdt:Locator="Condition(@name='UmbracoMembershipProvider')" xdt:Transform="SetAttributes(allowManuallyChangingPassword)"/>
+        <add name="UsersMembershipProvider" allowManuallyChangingPassword="true" xdt:Locator="Condition(@name='UsersMembershipProvider')"  xdt:Transform="SetAttributes(allowManuallyChangingPassword)" />
+      </providers>
+    </membership>
   </system.web>
-  
+
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">

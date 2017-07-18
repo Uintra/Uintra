@@ -351,7 +351,9 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
+    <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
+    <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\TypeProviders\IIntranetRoleTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
@@ -380,6 +382,10 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
+    <Compile Include="Installer\CoreInstallationConstants.cs" />
+    <Compile Include="Installer\CoreInstallationStep.cs" />
+    <Compile Include="Installer\IIntranetInstallationStep.cs" />
+    <Compile Include="Installer\IntranetInstaller.cs" />
     <Compile Include="Migrations\ImageCropperConstants.cs" />
     <Compile Include="Migrations\MemberConstants.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
@@ -541,6 +547,9 @@
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+    <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
+    <Content Include="Installer\PreValues\ContentGridPreValues.json" />
+    <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

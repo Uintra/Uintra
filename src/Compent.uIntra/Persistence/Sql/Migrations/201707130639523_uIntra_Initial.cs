@@ -1,8 +1,7 @@
-namespace Compent.uIntra.Migrations
+using System.Data.Entity.Migrations;
+
+namespace Compent.uIntra.Persistence.Sql.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class uIntra_Initial : DbMigration
     {
         public override void Up()

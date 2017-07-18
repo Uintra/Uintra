@@ -3,7 +3,7 @@
 
     var onError = function (error) { console.error(error); }
 
-    var controller = function ($http, authResource, $scope, bulletinsManagementConfig) {
+    var controller = function ($http, authResource, $scope, bulletinsManagementConfig, bulletinsManagementFactory) {
         var self = this;
         self.bulletinsList = [];
         self.currentUser = null;
@@ -85,8 +85,8 @@
             if (!confirm('Are you sure?')) {
                 return;
             }
-
-            $http.delete('/Umbraco/backoffice/Api/BulletinsSection/Delete?id=' + bulletins.id).then(function (response) {
+            
+            bulletinsManagementFactory.delete(bulletins.id).then(function (response) {
                 self.bulletinsList.splice($index, 1);
                 self.clearSelected();
             }, onError);
@@ -97,27 +97,26 @@
         }
 
         var create = function (bulletin) {
-            $http.post('/Umbraco/backoffice/Api/BulletinsSection/Create', bulletin).then(function (response) {
+            bulletinsManagementFactory.create(bulletin).then(function (response) {
                 self.bulletinsList.push(response.data);
                 self.clearSelected();
             }, onError);
         }
 
         var save = function (bulletins, index) {
-            $http.post('/Umbraco/backoffice/Api/BulletinsSection/Save', bulletins).then(function (response) {
+            bulletinsManagementFactory.save(bulletins).then(function (response) {
                 self.bulletinsList.splice(index, 1, response.data);
                 self.clearSelected();
             }, onError);
         }
 
         var loadAll = function () {
-            var promise = $http.get('/Umbraco/backoffice/Api/BulletinsSection/GetAll');
             var success = function (response) {
                 self.bulletinsList = response.data.sort(function (prev, next) {
                     return prev.createdDate < next.createdDate ? 1 : -1;
                 }) || [];
             }
-            promise.then(success, onError);
+            bulletinsManagementFactory.getAll().then(success, onError);
         }
 
         var activate = function () {
@@ -131,6 +130,6 @@
         activate();
     }
 
-    controller.$inject = ["$http", "authResource", "$scope", "bulletinsManagementConfig"];
+    controller.$inject = ["$http", "authResource", "$scope", "bulletinsManagementConfig", "bulletinsManagementFactory"];
     angular.module('umbraco').controller('BulletinsManagementController', controller);
 })(angular);

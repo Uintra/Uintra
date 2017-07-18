@@ -56,16 +56,7 @@ namespace uIntra.CentralFeed.Web
 
         public virtual ActionResult Overview()
         {
-            var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
-            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
-
-            var model = new CentralFeedOverviewModel
-            {
-                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
-                CurrentType = tabType,
-                IsFiltersOpened = centralFeedState.IsFiltersOpened
-
-            };
+            var model = GetOverviewModel();
             return PartialView(OverviewViewPath, model);
         }
 
@@ -92,6 +83,20 @@ namespace uIntra.CentralFeed.Web
             _centralFeedContentHelper.SaveFiltersState(filterStateModel);
 
             return PartialView(ListViewPath, centralFeedModel);
+        }
+
+        protected virtual CentralFeedOverviewModel GetOverviewModel()
+        {
+            var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
+
+            var model = new CentralFeedOverviewModel
+            {
+                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
+                CurrentType = tabType,
+                IsFiltersOpened = centralFeedState.IsFiltersOpened
+            };
+            return model;
         }
 
         protected virtual CentralFeedFiltersStateModel GetFilterStateModel(CentralFeedListViewModel centralFeedModel)

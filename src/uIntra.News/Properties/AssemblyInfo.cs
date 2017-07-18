@@ -4,6 +4,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("uIntra.News")]
 [assembly: AssemblyDescription("News activity package")]
 
-[assembly: AssemblyVersion("1.1.3.5")]
+[assembly: AssemblyVersion("1.1.3.7")]
 [assembly: ComVisible(false)]
 [assembly: Guid("53386df1-d6a7-484b-8b07-c4fddebf4b83")]

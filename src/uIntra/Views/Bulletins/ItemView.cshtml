@@ -2,6 +2,10 @@
 @using uIntra.Core.Extentions
 @model uIntra.Core.Bulletins.BulletinExtendedItemViewModel
 
+@{
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
+}
+
 <div class="feed__item">
     <div class="clearfix">
         @Html.Partial("~/App_Plugins/Bulletins/Item/ActivityItemHeader.cshtml", Model.HeaderInfo)
@@ -9,7 +13,7 @@
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.ShortDescription)))
     {
-        <div class="feed__item-txt _clamp">
+        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
             @Html.Raw(Model.ShortDescription)
         </div>
     }

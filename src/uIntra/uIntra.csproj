@@ -195,6 +195,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.CodeAnalysis, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.1.3.2\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
@@ -334,61 +335,69 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.2\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Bulletins, Version=0.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Bulletins.0.0.6\lib\net452\uIntra.Bulletins.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Bulletins.0.0.10\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.7.17, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.7.17\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.9\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.2.4\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.17.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.1.17.1\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.18.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.18.7\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.1.9.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.1.9.7\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.1.9.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Events.1.1.9.8\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.1.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.1.8\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.5.1\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.1.5.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.5.10\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.1.3.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.1.3.4\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.1.3.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.News.1.1.3.6\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.1.7.12, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.1.7.12\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.1.7.15, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Notification.1.1.7.15\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.1.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.1.11\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.1.13, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Panels.2.1.1.13\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.4.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.4.2\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.4.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Search.0.0.4.4\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.2.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.2.3\lib\net452\uIntra.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Tagging, Version=1.1.3.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Tagging.1.1.3.5\lib\net452\uIntra.Tagging.dll</HintPath>
+    <Reference Include="uIntra.Tagging, Version=1.1.3.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Tagging.1.1.3.6\lib\net452\uIntra.Tagging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.1.3.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.1.3.5\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.1.4.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.1.4.2\lib\net452\uIntra.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6361.21162, Culture=neutral, processorArchitecture=MSIL">
@@ -898,32 +907,55 @@
     <Content Include="App_Plugins\Tagging\tags.js" />
     <Content Include="App_Plugins\Tagging\tagsEdit.js" />
     <Content Include="App_Plugins\Tagging\tagsView.js" />
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
     <Content Include="App_Plugins\Users\users.js" />
     <Content Include="App_Plugins\Web.config" />
-    <Content Include="Content\css\styles.css" />
-    <Content Include="Content\images\default-avatar.png" />
-    <Content Include="Content\images\logo.png" />
-    <Content Include="Content\images\sort.svg" />
-    <Content Include="Content\main.js" />
-    <Content Include="Content\head_css.js" />
-    <Content Include="Global.asax" />
-    <Content Include="Views\Comments\CommentsView.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Comments\CommentsOverView.cshtml" />
-    <Content Include="Content\fonts\open-sans-700.woff" />
-    <Content Include="Content\fonts\open-sans-700.woff2" />
-    <Content Include="Content\fonts\open-sans-regular.woff" />
-    <Content Include="Content\fonts\open-sans-regular.woff2" />
+    <Content Include="..\Compent.uIntra\Content\css\styles.css">
+      <Link>Content\css\styles.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
+      <Link>Content\images\default-avatar.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\logo.png">
+      <Link>Content\images\logo.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\sort.svg">
+      <Link>Content\images\sort.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\main.js">
+      <Link>Content\main.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\head_css.js">
+      <Link>Content\head_css.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Global.asax">
+      <Link>Global.asax</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Comments\CommentsView.cshtml">
+      <Link>Views\Comments\CommentsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Login\Login.cshtml">
+      <Link>Views\Login\Login.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Comments\CommentsOverView.cshtml">
+      <Link>Views\Comments\CommentsOverView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-700.woff">
+      <Link>Content\fonts\open-sans-700.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-700.woff2">
+      <Link>Content\fonts\open-sans-700.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-regular.woff">
+      <Link>Content\fonts\open-sans-regular.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-regular.woff2">
+      <Link>Content\fonts\open-sans-regular.woff2</Link>
+    </Content>
     <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="config\404handlers.config.install.xdt" />
     <Content Include="config\404handlers.config.uninstall.xdt" />
@@ -942,167 +974,504 @@
     <Content Include="config\Lang\en-GB.user.xml.uninstall.xdt" />
     <Content Include="config\Lang\en-US.user.xml.install.xdt" />
     <Content Include="config\Lang\en-US.user.xml.uninstall.xdt" />
-    <Content Include="postcss.config.js" />
-    <Content Include="Views\News\DetailsView.cshtml" />
-    <Content Include="Views\News\ItemView.cshtml" />
-    <Content Include="Views\News\CreateView.cshtml" />
-    <Content Include="Views\News\EditView.cshtml" />
-    <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
-    <Content Include="Views\Bulletins\DetailsView.cshtml" />
-    <Content Include="Views\Bulletins\ItemView.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <Content Include="..\Compent.uIntra\postcss.config.js">
+      <Link>postcss.config.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\DetailsView.cshtml">
+      <Link>Views\News\DetailsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\ItemView.cshtml">
+      <Link>Views\News\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\CreateView.cshtml">
+      <Link>Views\News\CreateView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\EditView.cshtml">
+      <Link>Views\News\EditView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Navigation\TopNavigation\Navigation.cshtml">
+      <Link>Views\Navigation\TopNavigation\Navigation.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Bulletins\DetailsView.cshtml">
+      <Link>Views\Bulletins\DetailsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Bulletins\ItemView.cshtml">
+      <Link>Views\Bulletins\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Textstring.cshtml">
+      <Link>Views\Partials\Grid\Editors\Textstring.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Rte.cshtml">
+      <Link>Views\Partials\Grid\Editors\Rte.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Media.cshtml">
+      <Link>Views\Partials\Grid\Editors\Media.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Macro.cshtml">
+      <Link>Views\Partials\Grid\Editors\Macro.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Embed.cshtml">
+      <Link>Views\Partials\Grid\Editors\Embed.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Base.cshtml">
+      <Link>Views\Partials\Grid\Editors\Base.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap3.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap3.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap3-Fluid.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap3-Fluid.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap2.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap2.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap2-Fluid.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap2-Fluid.cshtml</Link>
+    </Content>
     <Content Include="uIntra.nuspec">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="..\Compent.uIntra\Views\HomePage\Index.cshtml">
+      <Link>Views\HomePage\Index.cshtml</Link>
+    </Content>
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="webpack.config.js" />
+    <Content Include="..\Compent.uIntra\webpack.config.js">
+      <Link>webpack.config.js</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Start\ElmahMvc_Start.cs" />
-    <Content Include="Controllers\ActivityController.cs" />
-    <Content Include="Controllers\BulletinsController.cs" />
-    <Content Include="Controllers\CentrallFeedController.cs" />
-    <Content Include="Controllers\LightboxGalleryController.cs" />
-    <Content Include="Controllers\MyLinksController.cs" />
-    <Content Include="Controllers\NavigationAuthorizationController.cs" />
-    <Content Include="Controllers\NavigationController.cs" />
-    <Content Include="Controllers\ProfileController.cs" />
-    <Content Include="Controllers\NotificationJobController.cs" />
-    <Content Include="Controllers\SearchController.cs" />
-    <Content Include="Controllers\UserController.cs" />
-    <Content Include="Core\ApplicationSettings\IuIntraApplicationSettings.cs" />
-    <Content Include="Core\ApplicationSettings\UintraApplicationSettings.cs" />
-    <Content Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
-    <Content Include="Core\Bulletins\BulletinsService.cs" />
-    <Content Include="Core\Bulletins\Entities\Bulletin.cs" />
-    <Content Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
-    <Content Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
-    <Content Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
-    <Content Include="Core\Comments\CustomCommentableService.cs" />
-    <Content Include="Core\DateTimeFormatProvider.cs" />
-    <Content Include="Core\Extentions\PublishedContentExtentions.cs" />
-    <Content Include="Core\Handlers\NotFoundHandler.cs" />
-    <Content Include="Core\Helpers\IUmbracoContentHelper.cs" />
-    <Content Include="Core\Helpers\UmbracoContentHelper.cs" />
-    <Content Include="Controllers\CommentsController.cs" />
-    <Content Include="Controllers\LikesController.cs" />
-    <Content Include="Controllers\LoginController.cs" />
-    <Content Include="Controllers\NewsController.cs" />
-    <Content Include="App_Start\MapperConfig.cs" />
-    <Content Include="Controllers\EventsController.cs" />
-    <Content Include="Controllers\NotificationController.cs" />
-    <Content Include="Controllers\SubscribeController.cs" />
-    <Content Include="Controllers\LikesPageController.cs" />
-    <Content Include="Core\ActivitiesServiceFactory.cs" />
-    <Content Include="Core\Constants\AppSettingConstants.cs" />
-    <Content Include="Core\Comments\CommentsPageHelper.cs" />
-    <Content Include="Core\Comments\CommentsPageTab.cs" />
-    <Content Include="Core\Comments\CustomCommentable.cs" />
-    <Content Include="Core\Comments\ICommentsPageHelper.cs" />
-    <Content Include="Core\Comments\CommentsTestConstants.cs" />
-    <Content Include="Core\Events\Entities\Event.cs" />
-    <Content Include="Core\Events\EventsService.cs" />
-    <Content Include="Core\Events\EventsAutoMapperProfile.cs" />
-    <Content Include="Core\Events\Models\EventExtendedItemModel.cs" />
-    <Content Include="Core\Events\Models\EventExtendedViewModel.cs" />
-    <Content Include="Core\Exceptions\ExceptionLogger.cs" />
-    <Content Include="Core\IntranetUserContentHelper.cs" />
-    <Content Include="Core\IoC\NinjectDependencyResolver.cs" />
-    <Content Include="App_Start\NinjectWebCommon.cs" />
-    <Content Include="Core\Likes\LikesTestConstants.cs" />
-    <Content Include="Core\Likes\CustomLikeable.cs" />
-    <Content Include="Core\LocalizationService.cs" />
-    <Content Include="Core\Notification\MailConfiguration.cs" />
-    <Content Include="Core\Navigation\UintraLeftSideNavigationModelBuilder.cs" />
-    <Content Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
-    <Content Include="Core\News\Entities\News.cs" />
-    <Content Include="Core\News\NewsService.cs" />
-    <Content Include="Core\News\Models\NewsExtendedItemViewModel.cs" />
-    <Content Include="Core\News\Models\NewsExtendedViewModel.cs" />
-    <Content Include="Core\News\NewsAutoMapperProfile.cs" />
-    <Content Include="Core\Notification\MailNotifierService .cs" />
-    <Content Include="Core\Notification\MailService .cs" />
-    <Content Include="Core\Notification\Mails\ActivityLikeAddedMail.cs" />
-    <Content Include="Core\Notification\Mails\BeforeStartMail.cs" />
-    <Content Include="Core\Notification\Mails\CommentAddedMail.cs" />
-    <Content Include="Core\Notification\Mails\CommentEditedMail.cs" />
-    <Content Include="Core\Notification\Mails\CommentLikeAddedMail.cs" />
-    <Content Include="Core\Notification\Mails\CommentRepliedMail.cs" />
-    <Content Include="Core\Notification\Mails\EventHidedMail.cs" />
-    <Content Include="Core\Notification\Mails\EventMail.cs" />
-    <Content Include="Core\Notification\Mails\EventUpdatedMail.cs" />
-    <Content Include="Core\Notification\Mails\IdeaMail.cs" />
-    <Content Include="Core\Notification\Mails\NewsMail.cs" />
-    <Content Include="Core\Notification\NotificationAutoMapperProfile .cs" />
-    <Content Include="Core\Notification\NotificationHelper.cs" />
-    <Content Include="Core\Search\SearchUmbracoHelper.cs" />
-    <Content Include="Core\Subscribe\CustomSubscribeService.cs" />
-    <Content Include="Core\Subscribe\SubscribeTestConstants.cs" />
-    <Content Include="Core\Subscribe\CustomSubscribable.cs" />
-    <Content Include="Core\Navigation\TopMenuViewModel.cs" />
-    <Content Include="Core\UmbracoEventsModule.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\ContentPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\DataFolder.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\ErrorPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\EventsEditPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\File.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\Folder.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\HomePage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\Image.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\MailTemplate.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\Member.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\NavigationComposition.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\NewsEditPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\Panel.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\ProfilePage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\SearchResultPage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\SubscribePage.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\SystemLink.generated.cs" />
-    <Content Include="Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs" />
-    <Content Include="Global.asax.cs">
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NotificationPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\NotificationPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
+      <Link>Core\ActivitiesServiceFactory.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
+      <Link>App_Start\NinjectWebCommon.cs</Link>
+    </Content>
+    <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
+    <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
+      <Link>App_Start\ElmahMvc_Start.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\ActivityController.cs">
+      <Link>Controllers\ActivityController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\BulletinsController.cs">
+      <Link>Controllers\BulletinsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\CentrallFeedController.cs">
+      <Link>Controllers\CentrallFeedController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LightboxGalleryController.cs">
+      <Link>Controllers\LightboxGalleryController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\MyLinksController.cs">
+      <Link>Controllers\MyLinksController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NavigationAuthorizationController.cs">
+      <Link>Controllers\NavigationAuthorizationController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NavigationController.cs">
+      <Link>Controllers\NavigationController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\ProfileController.cs">
+      <Link>Controllers\ProfileController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NotificationJobController.cs">
+      <Link>Controllers\NotificationJobController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\SearchController.cs">
+      <Link>Controllers\SearchController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\UserController.cs">
+      <Link>Controllers\UserController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\ApplicationSettings\IuIntraApplicationSettings.cs">
+      <Link>Core\ApplicationSettings\IuIntraApplicationSettings.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\ApplicationSettings\UintraApplicationSettings.cs">
+      <Link>Core\ApplicationSettings\UintraApplicationSettings.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Bulletins\BulletinsAutoMapperProfile.cs">
+      <Link>Core\Bulletins\BulletinsAutoMapperProfile.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Bulletins\BulletinsService.cs">
+      <Link>Core\Bulletins\BulletinsService.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Bulletins\Entities\Bulletin.cs">
+      <Link>Core\Bulletins\Entities\Bulletin.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedViewModel.cs">
+      <Link>Core\Bulletins\Models\BulletinExtendedViewModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedItemViewModel.cs">
+      <Link>Core\Bulletins\Models\BulletinExtendedItemViewModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\CentralFeed\CentralFeedContentHelper.cs">
+      <Link>Core\CentralFeed\CentralFeedContentHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Comments\CustomCommentableService.cs">
+      <Link>Core\Comments\CustomCommentableService.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\DateTimeFormatProvider.cs">
+      <Link>Core\DateTimeFormatProvider.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
+      <Link>Core\Extentions\PublishedContentExtentions.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Handlers\NotFoundHandler.cs">
+      <Link>Core\Handlers\NotFoundHandler.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Helpers\IUmbracoContentHelper.cs">
+      <Link>Core\Helpers\IUmbracoContentHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Helpers\UmbracoContentHelper.cs">
+      <Link>Core\Helpers\UmbracoContentHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\CommentsController.cs">
+      <Link>Controllers\CommentsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LikesController.cs">
+      <Link>Controllers\LikesController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LoginController.cs">
+      <Link>Controllers\LoginController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NewsController.cs">
+      <Link>Controllers\NewsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
+      <Link>App_Start\MapperConfig.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\EventsController.cs">
+      <Link>Controllers\EventsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NotificationController.cs">
+      <Link>Controllers\NotificationController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\SubscribeController.cs">
+      <Link>Controllers\SubscribeController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LikesPageController.cs">
+      <Link>Controllers\LikesPageController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Constants\AppSettingConstants.cs">
+      <Link>Core\Constants\AppSettingConstants.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Comments\CommentsPageHelper.cs">
+      <Link>Core\Comments\CommentsPageHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Comments\CommentsPageTab.cs">
+      <Link>Core\Comments\CommentsPageTab.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Comments\CustomCommentable.cs">
+      <Link>Core\Comments\CustomCommentable.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Comments\ICommentsPageHelper.cs">
+      <Link>Core\Comments\ICommentsPageHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Comments\CommentsTestConstants.cs">
+      <Link>Core\Comments\CommentsTestConstants.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Events\Entities\Event.cs">
+      <Link>Core\Events\Entities\Event.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Events\EventsService.cs">
+      <Link>Core\Events\EventsService.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Events\EventsAutoMapperProfile.cs">
+      <Link>Core\Events\EventsAutoMapperProfile.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Events\Models\EventExtendedItemModel.cs">
+      <Link>Core\Events\Models\EventExtendedItemModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Events\Models\EventExtendedViewModel.cs">
+      <Link>Core\Events\Models\EventExtendedViewModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Exceptions\ExceptionLogger.cs">
+      <Link>Core\Exceptions\ExceptionLogger.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\IntranetUserContentHelper.cs">
+      <Link>Core\IntranetUserContentHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\IoC\NinjectDependencyResolver.cs">
+      <Link>Core\IoC\NinjectDependencyResolver.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Likes\LikesTestConstants.cs">
+      <Link>Core\Likes\LikesTestConstants.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Likes\CustomLikeable.cs">
+      <Link>Core\Likes\CustomLikeable.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\LocalizationService.cs">
+      <Link>Core\LocalizationService.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\MailConfiguration.cs">
+      <Link>Core\Notification\MailConfiguration.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Navigation\UintraLeftSideNavigationModelBuilder.cs">
+      <Link>Core\Navigation\UintraLeftSideNavigationModelBuilder.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Navigation\NavigationAutoMapperProfile.cs">
+      <Link>Core\Navigation\NavigationAutoMapperProfile.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\News\Entities\News.cs">
+      <Link>Core\News\Entities\News.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\News\NewsService.cs">
+      <Link>Core\News\NewsService.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\News\Models\NewsExtendedItemViewModel.cs">
+      <Link>Core\News\Models\NewsExtendedItemViewModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\News\Models\NewsExtendedViewModel.cs">
+      <Link>Core\News\Models\NewsExtendedViewModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\News\NewsAutoMapperProfile.cs">
+      <Link>Core\News\NewsAutoMapperProfile.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\MailNotifierService .cs">
+      <Link>Core\Notification\MailNotifierService .cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\MailService .cs">
+      <Link>Core\Notification\MailService .cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\ActivityLikeAddedMail.cs">
+      <Link>Core\Notification\Mails\ActivityLikeAddedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\BeforeStartMail.cs">
+      <Link>Core\Notification\Mails\BeforeStartMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentAddedMail.cs">
+      <Link>Core\Notification\Mails\CommentAddedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentEditedMail.cs">
+      <Link>Core\Notification\Mails\CommentEditedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentLikeAddedMail.cs">
+      <Link>Core\Notification\Mails\CommentLikeAddedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentRepliedMail.cs">
+      <Link>Core\Notification\Mails\CommentRepliedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\EventHidedMail.cs">
+      <Link>Core\Notification\Mails\EventHidedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\EventMail.cs">
+      <Link>Core\Notification\Mails\EventMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\EventUpdatedMail.cs">
+      <Link>Core\Notification\Mails\EventUpdatedMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\IdeaMail.cs">
+      <Link>Core\Notification\Mails\IdeaMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\Mails\NewsMail.cs">
+      <Link>Core\Notification\Mails\NewsMail.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\NotificationAutoMapperProfile .cs">
+      <Link>Core\Notification\NotificationAutoMapperProfile .cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Notification\NotificationHelper.cs">
+      <Link>Core\Notification\NotificationHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Search\SearchUmbracoHelper.cs">
+      <Link>Core\Search\SearchUmbracoHelper.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribeService.cs">
+      <Link>Core\Subscribe\CustomSubscribeService.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Subscribe\SubscribeTestConstants.cs">
+      <Link>Core\Subscribe\SubscribeTestConstants.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribable.cs">
+      <Link>Core\Subscribe\CustomSubscribable.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\Navigation\TopMenuViewModel.cs">
+      <Link>Core\Navigation\TopMenuViewModel.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoEventsModule.cs">
+      <Link>Core\UmbracoEventsModule.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BasePage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\BasePage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ContentPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\ContentPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\DataFolder.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\DataFolder.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ErrorPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\ErrorPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsEditPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\EventsEditPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\File.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\File.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Folder.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\Folder.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\HomePage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\HomePage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Image.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\Image.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\MailTemplate.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\MailTemplate.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Member.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\Member.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NavigationComposition.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\NavigationComposition.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsEditPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\NewsEditPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Panel.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\Panel.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ProfilePage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\ProfilePage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SearchResultPage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\SearchResultPage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SubscribePage.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\SubscribePage.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SystemLink.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\SystemLink.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs">
+      <Link>Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
-    <Content Include="Persistence\Sql\DbContextFactory.cs" />
-    <Content Include="Persistence\Sql\DbObjectContext.cs" />
-    <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
-    <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\DbContextFactory.cs">
+      <Link>Persistence\Sql\DbContextFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\DbObjectContext.cs">
+      <Link>Persistence\Sql\DbObjectContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs">
+      <Link>Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
+      <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
+    </Compile>
+    <Content Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
+      <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Content>
-    <Content Include="Persistence\Sql\Migrations\Configuration.cs" />
+    <Compile Include="Installer\Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
+    <Content Include="Installer\PreValues\ContentGridPreValues.json" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1121,77 +1490,71 @@
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\ActivityDetailsHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="package.json" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\GridPageLayout.cshtml" />
-    <Content Include="Views\Events\ItemView.cshtml" />
-    <Content Include="Views\Events\DetailsView.cshtml" />
-    <Content Include="Views\Events\EditView.cshtml" />
-    <Content Include="Views\Events\CreateView.cshtml" />
+    <Content Include="..\Compent.uIntra\package.json">
+      <Link>package.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Shared\_Layout.cshtml">
+      <Link>Views\Shared\_Layout.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\_ViewStart.cshtml">
+      <Link>Views\_ViewStart.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\GridPageLayout.cshtml">
+      <Link>Views\GridPageLayout.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\ItemView.cshtml">
+      <Link>Views\Events\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\DetailsView.cshtml">
+      <Link>Views\Events\DetailsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\EditView.cshtml">
+      <Link>Views\Events\EditView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\CreateView.cshtml">
+      <Link>Views\Events\CreateView.cshtml</Link>
+    </Content>
+    <Content Include="SetupMigrations\json\bulletinsDetailsPageGrid.json" />
+    <Content Include="SetupMigrations\json\bulletinsEditPageGrid.json" />
+    <Content Include="SetupMigrations\json\bulletinsOverviewPageGrid.json" />
+    <Content Include="SetupMigrations\json\errorPageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsCreatePageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsDetailsPageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsEditPageGrid.json" />
+    <Content Include="SetupMigrations\json\eventsOverviewPageGrid.json" />
+    <Content Include="SetupMigrations\json\homePageGrid.json" />
+    <Content Include="SetupMigrations\json\newsCreatePageGrid.json" />
+    <Content Include="SetupMigrations\json\newsDetailsPageGrid.json" />
+    <Content Include="SetupMigrations\json\newsEditPageGrid.json" />
+    <Content Include="SetupMigrations\json\newsOverviewPageGrid.json" />
+    <Content Include="SetupMigrations\json\notificationPageGrid.json" />
+    <Content Include="SetupMigrations\json\profileEditPageGrid.json" />
+    <Content Include="SetupMigrations\json\profilePageGrid.json" />
+    <Content Include="SetupMigrations\json\searchResultPageGrid.json" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
+      <Link>Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx</Link>
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

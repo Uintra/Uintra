@@ -57,6 +57,11 @@ namespace uIntra.Core.Extentions
      
         public static string StripHtml(this string input)
         {
+            if (input.IsNullOrEmpty())
+            {
+                return string.Empty;
+            }
+
             return Regex.Replace(input, "<.*?>", string.Empty);
         }
 

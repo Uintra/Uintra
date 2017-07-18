@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.Bulletins;
 using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using uIntra.Search;
 
 namespace Compent.uIntra.Core.Bulletins
@@ -23,13 +24,17 @@ namespace Compent.uIntra.Core.Bulletins
                  .IncludeBase<BulletinBase, IntranetActivityItemHeaderViewModel>();
 
             Mapper.CreateMap<Bulletin, SearchableActivity>()
+                .IncludeBase<IntranetActivity, SearchableActivity>()
                 .ForMember(dst => dst.StartDate, o => o.Ignore())
                 .ForMember(dst => dst.EndDate, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
-                .ForMember(d => d.Title, o => o.MapFrom(s => s.Description))
-                .IncludeBase<IntranetActivity, SearchableActivity>();
+                .AfterMap((src, dst) =>
+                {
+                    var description = src.Description?.StripHtml();
+                    dst.Title = description?.Substring(0, description.Length > 50 ? 50 : description.Length);
+                });
         }
     }
 }

@@ -97,6 +97,16 @@
 
         &-meta{
             margin:0;
+
+            &-link{
+                color:var(--text-color-dark);
+
+                &:hover,
+                &:focus,
+                &:active{
+                    color:var(--text-color-dark);
+                }
+            }
         }
 
         &-location{
@@ -131,6 +141,14 @@
             h6 {
                 font-weight:bold;
                 font-family:var(--font-general);
+            }
+
+            a{
+                color:var(--color-red);
+
+                &:hover{
+                    color:var(--color-red);
+                }
             }
 
             &._clamp{
