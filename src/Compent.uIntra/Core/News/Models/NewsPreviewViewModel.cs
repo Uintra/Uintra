@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using uIntra.Core.User;
 
 namespace Compent.uIntra.Core.News.Models

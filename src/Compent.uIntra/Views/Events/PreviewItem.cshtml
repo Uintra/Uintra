@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
 @using uIntra.Core.Activity
 @using uIntra.Core.Extentions
-@model Compent.uIntra.Core.News.Models.NewsPreviewViewModel
+@model Compent.uIntra.Core.Events.EventPreviewViewModel
 <section class="content">
     <div class="row clearfix">
         <h2>
@@ -13,7 +13,8 @@
         </h3>
         
         <h4>
-            Publish date: @Model.PublishDate
+            Start date: @Model.StartDate
+            End date: @Model.EndDate
         </h4>
     </div>
 </section>

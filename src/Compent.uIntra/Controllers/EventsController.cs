@@ -27,6 +27,7 @@ namespace Compent.uIntra.Controllers
         protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
@@ -42,6 +43,7 @@ namespace Compent.uIntra.Controllers
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
+            _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
             _notificationTypeProvider = notificationTypeProvider;
@@ -55,6 +57,27 @@ namespace Compent.uIntra.Controllers
             extendedModel.LikesInfo = activity;
             extendedModel.SubscribeInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        public ActionResult PreviewItem(ICentralFeedItem item)
+        {
+            var activity = item as Event;
+
+            EventPreviewViewModel viewModel = GetPreviewViewModel(activity);
+
+            return PartialView(viewModel);
+        }
+
+        private EventPreviewViewModel GetPreviewViewModel(Event @event)
+        {
+            IIntranetUser creator = _intranetUserService.Get(@event);
+            return new EventPreviewViewModel()
+            {
+                Title = @event.Title,
+                StartDate = @event.StartDate,
+                EndDate = @event.EndDate,
+                Creator = creator
+            };
         }
 
         protected override EventViewModel GetViewModel(EventBase @event)
