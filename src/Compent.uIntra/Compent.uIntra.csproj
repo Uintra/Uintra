@@ -385,8 +385,9 @@
       <HintPath>..\..\packages\uIntra.Search.0.0.4.4\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Subscribe, Version=1.1.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Subscribe.1.1.2.3\lib\net452\uIntra.Subscribe.dll</HintPath>
+    <Reference Include="uIntra.Subscribe, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.2.4\lib\net452\uIntra.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Tagging, Version=1.1.3.6, Culture=neutral, processorArchitecture=MSIL">
@@ -924,9 +925,6 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\tags.js" />
@@ -1039,6 +1037,9 @@
     <Content Include="App_Plugins\Bulletins\package.manifest" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
