@@ -349,8 +349,8 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.2.4\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.18.13, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.1.18.13\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.18.15, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.18.15\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events">
@@ -1016,6 +1016,17 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1034,17 +1045,6 @@
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

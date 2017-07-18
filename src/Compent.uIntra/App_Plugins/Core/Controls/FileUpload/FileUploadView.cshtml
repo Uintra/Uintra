@@ -1,7 +1,9 @@
 ﻿@using uIntra.Core.Extentions
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Core.Controls.FileUpload.FileUploadSettings>
+@inherits UmbracoViewPage<uIntra.Core.Controls.FileUpload.FileUploadSettings>
+    
 <div>
-    <div class="dropzone js-dropzone"  data-allowed="@Model.AllowedExtentions" data-max-count="@Model.MaxFilesCount"
+    <div class="dropzone js-dropzone" data-allowed="@Model.AllowedExtentions" data-max-count="@Model.MaxFilesCount"
+         data-upload-url="@Url.HttpRouteUrl(null, new { controller = "File", action= "UploadSingle" })"
          data-default-text="@Html.Localize("FileUploadView.UploadFiles.lbl")" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></div>
     <input type="hidden" name="newMedia" class="js-new-media"/>
 </div>
