@@ -74,6 +74,7 @@
         ._system &,
         ._links &{
 		    left: 0;
+            width:auto;
         }
 
         .sidebar__holder > .side-nav > .side-nav__item > &{
