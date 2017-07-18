@@ -1,5 +1,5 @@
 ﻿@using uIntra.Core.Extentions
-@model Compent.uIntra.Core.Events.EventPreviewViewModel
+@model Compent.uIntra.Core.Bulletins.BulletinPreviewViewModel
     
 @{
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
@@ -17,8 +17,8 @@
         </h3>
         
         <h4>
-            Start date: @Model.StartDate
-            End date: @Model.EndDate
+            Publish date: @Model.PublishDate
+
         </h4>
     </div>
 </section>

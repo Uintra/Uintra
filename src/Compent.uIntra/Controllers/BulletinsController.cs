@@ -13,6 +13,7 @@ namespace Compent.uIntra.Controllers
 {
     public class BulletinsController : BulletinsControllerBase
     {
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         protected override string DetailsViewPath => "~/Views/Bulletins/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/Bulletins/ItemView.cshtml";
 
@@ -24,6 +25,7 @@ namespace Compent.uIntra.Controllers
             IActivityTypeProvider activityTypeProvider)
             : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
         {
+            _intranetUserService = intranetUserService;
         }
 
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin)
@@ -41,6 +43,26 @@ namespace Compent.uIntra.Controllers
             var extendedModel = GetItemViewModel(activity).Map<BulletinExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        public ActionResult PreviewItem(ICentralFeedItem item)
+        {
+            var activity = item as Bulletin;
+
+            BulletinPreviewViewModel viewModel = GetPreviewViewModel(activity);
+
+            return PartialView(viewModel);
+        }
+
+        private BulletinPreviewViewModel GetPreviewViewModel(Bulletin bulletin)
+        {
+            IIntranetUser creator = _intranetUserService.Get(bulletin);
+            return new BulletinPreviewViewModel()
+            {
+                Title = bulletin.Title,
+                PublishDate = bulletin.PublishDate,
+                Creator = creator
+            };
         }
     }
 }
