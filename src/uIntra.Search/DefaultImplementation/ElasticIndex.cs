@@ -70,7 +70,6 @@ namespace uIntra.Search
                     .Field(f => f.PanelTitle))
             };
 
-
             return desc.ToArray();
         }
 
@@ -138,8 +137,6 @@ namespace uIntra.Search
         {
             searchDescriptor.Sort(s => s.Descending("_score"));
         }
-
-
 
         protected virtual void HighlightResponse(ISearchResponse<dynamic> response)
         {
