@@ -316,6 +316,7 @@
     <Compile Include="Web\BulletinsControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management-factory.js" />
     <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.config.js" />
     <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.css" />
     <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.html" />
