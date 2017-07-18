@@ -165,11 +165,24 @@ namespace uIntra.CentralFeed.Web
 
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
         {
-            var latestActivitiesModel = _centralFeedService.GetLatestActivities(panelModel);
-
-            var viewModel = latestActivitiesModel.Map<LatestActivitiesViewModel>();
-
+            var viewModel = GetLatestActivities(panelModel);
             return PartialView(LatestActivitiesViewPath, viewModel);
+        }
+
+
+        protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
+        {
+            var activitiesType = _centralFeedTypeProvider.Get(panelModel.TypeOfActivities);
+            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.NumberOfActivities);
+            var settings = _centralFeedService.GetAllSettings();
+
+            return new LatestActivitiesViewModel()
+            {
+                Title = panelModel.Title,
+                Teaser = panelModel.Teaser,
+                Settings = settings,
+                Items = latestActivities
+            };
         }
 
         protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)

@@ -16,7 +16,7 @@ namespace uIntra.CentralFeed
 
     public class CentralFeedService : ICentralFeedService
     {
-        private readonly ICacheService cacheService;
+        private readonly ICacheService _cacheService;
         private readonly IEnumerable<ICentralFeedItemService> _feedItemServices;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
 
@@ -24,7 +24,7 @@ namespace uIntra.CentralFeed
             IEnumerable<ICentralFeedItemService> feedItemServices, 
             ICentralFeedTypeProvider centralFeedTypeProvider)
         {
-            this.cacheService = cacheService;
+            this._cacheService = cacheService;
             _feedItemServices = feedItemServices;
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
@@ -52,27 +52,14 @@ namespace uIntra.CentralFeed
 
         public CentralFeedSettings GetSettings(IIntranetType type)
         {
-            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
+            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
             return settings;
         }
 
         public IEnumerable<CentralFeedSettings> GetAllSettings()
         {
-            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
+            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
             return settings;
-        }
-
-        public LatestActivitiesModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
-        {
-            var activitiesType = _centralFeedTypeProvider.Get(panelModel.TypeOfActivities);
-            var latestActivities = GetFeed(activitiesType).Take(panelModel.NumberOfActivities);
-
-            return new LatestActivitiesModel()
-            {
-                Title = panelModel.Title,
-                Teaser = panelModel.Teaser,
-                Items = latestActivities
-            };
         }
 
         protected virtual CentralFeedSettings GetDefaultTabSetting()

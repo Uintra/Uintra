@@ -42,6 +42,5 @@ namespace Compent.uIntra.Controllers
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
         }
-
     }
 }

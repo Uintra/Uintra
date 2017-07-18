@@ -341,7 +341,6 @@
     <Compile Include="Core\Models\CentralFeedFiltersStateModel.cs" />
     <Compile Include="Core\Models\CentralFeedTabModel.cs" />
     <Compile Include="Core\Models\CentralFeedTabViewModel.cs" />
-    <Compile Include="Core\Models\LatestActivitiesModel.cs" />
     <Compile Include="Core\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Core\Models\LatestActivitiesViewModel.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
