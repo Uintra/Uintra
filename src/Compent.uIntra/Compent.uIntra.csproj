@@ -357,9 +357,9 @@
       <HintPath>..\..\packages\uIntra.Events.1.1.9.9\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.1.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Likes, Version=1.1.1.10, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Likes.1.1.1.9\lib\net452\uIntra.Likes.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Likes.1.1.1.10\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.1.5.11, Culture=neutral, processorArchitecture=MSIL">
@@ -812,7 +812,6 @@
     <Content Include="App_Plugins\Events\style.css" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-creation.dialog.html" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-overview.controller.js" />
@@ -1045,6 +1044,7 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
