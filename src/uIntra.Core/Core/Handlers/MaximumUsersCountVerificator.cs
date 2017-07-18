@@ -5,7 +5,7 @@ namespace uIntra.Core.Handlers
 {
     public class MaximumUsersCountVerificator : ApplicationEventHandler
     {
-        private const int MaxIntranetUsersCount = 3;
+        private const int MaxIntranetUsersCount = 30;
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
