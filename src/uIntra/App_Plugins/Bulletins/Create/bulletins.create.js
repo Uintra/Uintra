@@ -89,8 +89,10 @@ function sentButtonClickHandler(event) {
     let promise = form.submit();
     promise.then(function(data) {
         if (data.IsSuccess) {
+            window.location.hash = data.Id;
+
             cfReloadTab();
-            hide();    
+            hide(); 
         }
     });
 }
@@ -131,6 +133,7 @@ function show() {
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.remove("hidden");
+        mobileBtn.classList.add("hide");
     }
 }
 
@@ -142,6 +145,7 @@ function hide() {
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.add("hidden");
+        mobileBtn.classList.remove("hide");
     }
 
     clear();

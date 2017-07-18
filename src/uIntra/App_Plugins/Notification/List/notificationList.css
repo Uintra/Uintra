@@ -289,11 +289,15 @@
 
             .icon-time,
             .icon-cancel,
-            .icon-lightning,
-            .icon-comment{
+            .icon-lightning {
                 display:block;
                 padding:4px 0 0;
             }
+
+	        .icon-comment{
+		        display:block;
+		        padding:2px 0 0;
+	        }
 
             .icon-lightning{
                 &:before{

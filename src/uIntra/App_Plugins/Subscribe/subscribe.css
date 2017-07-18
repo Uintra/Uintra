@@ -96,6 +96,7 @@
 }
 
 .subscribe-overview {
+	clear: both;
     color:var(--text-color-dark);
     padding:10px 0 0;
     
