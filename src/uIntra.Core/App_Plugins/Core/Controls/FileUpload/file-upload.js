@@ -45,9 +45,10 @@ let fileUploader = (function () {
             if (dropzoneAllowedData == undefined) return;
             let allowedExtentions = dropzoneAllowedData.replace(/\s/g, '') || "";
             let maxCount = dropzoneElem.data('maxCount');
+            let uploadUrl = dropzoneElem.data('uploadUrl');
 
             let defaultOptions = {
-                url: "/Umbraco/Api/File/UploadSingle",
+                url: uploadUrl,
                 maxFiles: maxCount,
                 addRemoveLinks: true,
                 maxFilesize: 50,
