@@ -129,7 +129,7 @@ namespace uIntra.Navigation
                 return;
             }
 
-            activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') == activeItem.Url.Trim('/');
+            activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/');
         }
     }
 }

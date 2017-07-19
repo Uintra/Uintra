@@ -46,6 +46,10 @@
             pointer-events:none;
         }
 
+        ._clickable > &{
+            pointer-events:initial;
+        }
+
         &._title-link{
             &:hover,
             &:focus,
