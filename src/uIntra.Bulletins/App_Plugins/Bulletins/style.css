@@ -162,3 +162,9 @@
         }
     }
 }
+
+.btn._edit-bulletin {
+	@media(--for-tablet-portrait-down) {
+		display: inline-block !important;
+	}
+}
