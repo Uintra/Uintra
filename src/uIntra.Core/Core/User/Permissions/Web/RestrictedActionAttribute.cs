@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
@@ -7,6 +8,7 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.User.Permissions.Web
 {
+    [System.AttributeUsage(AttributeTargets.Method | AttributeTargets.Class , Inherited = false)]
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly int _activityTypeId;
