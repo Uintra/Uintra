@@ -466,9 +466,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Config\grid.editors.config.js">
-      <Link>config\grid.editors.config.js</Link>
-    </Content>
     <Content Include="App_Plugins\Archetype\css\archetype.css" />
     <Content Include="App_Plugins\Archetype\js\archetype.js" />
     <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
