@@ -207,6 +207,7 @@
 
         &-feed{
             font-size:13px;
+            line-height:1.3em;
             margin: 0;
 
             ._details &{
@@ -386,6 +387,10 @@
 			flex: 0 0 auto;
 			max-width: 100%;
 			margin: 0 0 10px 10px;
+
+			&:first-child {
+				margin-left: 0;
+			}
 		}
 
 		&__item {
@@ -430,13 +435,35 @@
 
 .filter {
 	&__toggle {
+		position: relative;
 		display: flex;
 		align-items: center;
 		margin: 0 0 20px;
-		padding: 10px;
+		padding: 10px 10px 10px 30px;
 		background: none;
 		border: none;
 		color: #333;
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: 10px;
+			top: 13px;
+			width: 8px;
+			height: 8px;
+			border: 1px solid #333;
+			border-width: 1px 1px 0 0;
+			transform: rotate(135deg);
+		}
+
+		body._show-filters & {
+			margin: 0;
+
+			&:after {
+				top: 18px;
+				transform: rotate(-45deg);
+			}
+		}
 
 		&:hover {
 			color: #333;

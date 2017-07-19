@@ -39,17 +39,8 @@ namespace uIntra.Search.Web
 
         public virtual PartialViewResult Index(string query)
         {
-            var filterItems = _searchableTypeProvider.GetAll().Select(el => new SearchFilterItemViewModel
-            {
-                Id = el.Id,
-                Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.Name}")
-            });
-
-            var result = new SearchViewModel
-            {
-                Query = query,
-                FilterItems = filterItems
-            };
+            var result = GetSearchViewModel();
+            result.Query = query;
 
             return PartialView(IndexViewPath, result);
         }
@@ -67,19 +58,9 @@ namespace uIntra.Search.Web
                 ApplyHighlights = true
             });
 
-            var results = searchResult.Documents.Select(d =>
-            {
-                var resultItem = d.Map<SearchResultViewModel>();
-                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
-                return resultItem;
-            }).ToList();
-
-            var resultModel = new SearchResultsOverviewViewModel
-            {
-                Query = model.Query,
-                Results = results,
-                ResultsCount = (int)searchResult.TotalHits
-            };
+            var resultModel = GetSearchResultsOverviewModel(searchResult.Documents);
+            resultModel.Query = model.Query;
+            resultModel.ResultsCount = (int) searchResult.TotalHits;
 
             return PartialView(SearchResultViewPath, resultModel);
         }
@@ -99,21 +80,61 @@ namespace uIntra.Search.Web
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = query,
-                Take = AutocompleteSuggestionCount
+                Take = AutocompleteSuggestionCount,
+                SearchableTypeIds = _searchableTypeProvider.GetAll().Select(el => el.Id)
             });
 
-            var result = searchResult.Documents.Select(d =>
+            var result = GetAutocompleteResultModels(searchResult.Documents);
+            return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        protected virtual SearchViewModel GetSearchViewModel()
+        {
+            var filterItems = _searchableTypeProvider.GetAll().Select(el => new SearchFilterItemViewModel
+            {
+                Id = el.Id,
+                Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.Name}")
+            });
+
+            var result = new SearchViewModel
+            {
+                FilterItems = filterItems
+            };
+
+            return result;
+        }
+
+        protected virtual SearchResultsOverviewViewModel GetSearchResultsOverviewModel(IEnumerable<SearchableBase> searchResults)
+        {
+            var searchResultViewModels = searchResults.Select(d =>
+            {
+                var resultItem = d.Map<SearchResultViewModel>();
+                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
+                return resultItem;
+            }).ToList();
+
+            var result = new SearchResultsOverviewViewModel
+            {
+                Results = searchResultViewModels,
+            };
+
+            return result;
+        }
+
+        protected virtual IEnumerable<SearchAutocompleteResultViewModel> GetAutocompleteResultModels(IEnumerable<SearchableBase> searchResults)
+        {
+            var result = searchResults.Select(d =>
             {
                 var model = d.Map<SearchAutocompleteResultViewModel>();
                 model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
                 return model;
             });
 
-            return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
+            return result;
         }
 
         [HttpPost]
-        public void RebuildIndex()
+        public virtual void RebuildIndex()
         {
             _elasticIndex.RecreateIndex();
             foreach (var service in _searchableServices)

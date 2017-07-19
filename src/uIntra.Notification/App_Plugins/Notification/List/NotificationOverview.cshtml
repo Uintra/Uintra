@@ -1,7 +1,6 @@
 ﻿@using uIntra.Core.Extentions
 <section class="notification-page">
     <div class="js-notification-overview">
-        <h1 class="notification__title">@Html.Localize("NotificationList.Title.lbl")</h1>
         @using (Html.BeginUmbracoForm("Index", "Notification", null,
                     new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-notifications-listContainer" } }))
         {

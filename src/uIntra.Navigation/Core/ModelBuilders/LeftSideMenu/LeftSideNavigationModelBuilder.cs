@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Navigation.Configuration;
@@ -10,11 +11,15 @@ namespace uIntra.Navigation
 {
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {
+        private readonly HttpContext _httpContext;
+
         public LeftSideNavigationModelBuilder(
+            HttpContext httpContext,
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider
             ) : base(umbracoHelper, navigationConfigurationProvider)
         {
+            _httpContext = httpContext;
         }
 
         public override MenuModel GetMenu()
@@ -34,6 +39,7 @@ namespace uIntra.Navigation
             var leftMenuTree = BuildLeftMenuTree(homePage, homePageMenuItemsIds);
             result.MenuItems.AddRange(leftMenuTree);
 
+            FillClickable(result.MenuItems);
             return result;
         }
 
@@ -52,7 +58,7 @@ namespace uIntra.Navigation
                 Url = homePage.Url,
                 IsActive = homePage.Id == CurrentPage.Id,
                 IsHomePage = true,
-                Children = GetHomeSubNavigation(homePage)
+                Children = GetHomeSubNavigation(homePage).ToList()
             };
 
             return result;
@@ -107,12 +113,25 @@ namespace uIntra.Navigation
                     Id = publishedContentChildrenItem.Id,
                     Name = GetNavigationName(publishedContentChildrenItem),
                     Url = publishedContentChildrenItem.Url,
-                    Children = BuildLeftMenuTree(publishedContentChildrenItem, excludeContentIds),
+                    Children = BuildLeftMenuTree(publishedContentChildrenItem, excludeContentIds).ToList(),
                     IsActive = CurrentPage.Id == publishedContentChildrenItem.Id
                 };
 
                 yield return newmenuItem;
             }
+        }
+
+        private void FillClickable(List<MenuItemModel> resultMenuItems)
+        {
+            var activeItem = resultMenuItems.Find(item => item.IsActive);
+            if (activeItem == null)
+            {
+                var childrens = resultMenuItems.SelectMany(item => item.Children).ToList();
+                FillClickable(childrens);
+                return;
+            }
+
+            activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/');
         }
     }
 }
