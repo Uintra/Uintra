@@ -193,6 +193,28 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
+        protected virtual BulletinItemViewModel GetItemViewModel(BulletinBase bulletin)
+        {
+            var model = bulletin.Map<BulletinItemViewModel>();
+
+            model.ShortDescription = bulletin.Description.Truncate(ShortDescriptionLength);
+            model.MediaIds = bulletin.MediaIds;
+            model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
+
+            var creator = _userService.Get(bulletin);
+            model.HeaderInfo.Creator = _userService.Get(bulletin);
+            model.HeaderInfo.Title = creator.DisplayedName;
+
+            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+            {
+                MediaIds = bulletin.MediaIds,
+                DisplayedImagesCount = DisplayedImagesCount,
+                ActivityId = bulletin.Id,
+                ActivityType = bulletin.Type
+            };
+            return model;
+        }
+
         protected virtual BulletinBase MapToBulletin(BulletinCreateModel model)
         {
             var bulletin = model.Map<BulletinBase>();
@@ -214,28 +236,6 @@ namespace uIntra.Bulletins.Web
             bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
 
             return bulletin;
-        }
-
-        protected virtual BulletinItemViewModel GetItemViewModel(BulletinBase bulletin)
-        {
-            var model = bulletin.Map<BulletinItemViewModel>();
-
-            model.ShortDescription = bulletin.Description.Truncate(ShortDescriptionLength);
-            model.MediaIds = bulletin.MediaIds;
-            model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
-
-            var creator = _userService.Get(bulletin);
-            model.HeaderInfo.Creator = _userService.Get(bulletin);
-            model.HeaderInfo.Title = creator.DisplayedName;
-
-            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
-            {
-                MediaIds = bulletin.MediaIds,
-                DisplayedImagesCount = DisplayedImagesCount,
-                ActivityId = bulletin.Id,
-                ActivityType = bulletin.Type
-            };
-            return model;
         }
 
         protected virtual void FillMediaEditData(IContentWithMediaCreateEditModel model)

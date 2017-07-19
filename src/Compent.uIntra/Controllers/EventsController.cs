@@ -61,10 +61,10 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult PreviewItem(ICentralFeedItem item)
         {
+            FillLinks();
+
             var activity = item as Event;
-
             EventPreviewViewModel viewModel = GetPreviewViewModel(activity);
-
             return PartialView(viewModel);
         }
 

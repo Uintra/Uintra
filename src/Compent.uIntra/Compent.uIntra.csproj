@@ -1118,6 +1118,7 @@
     </None>
     <Content Include="Views\News\PreviewItem.cshtml" />
     <Content Include="Views\Events\PreviewItem.cshtml" />
+    <Content Include="Views\Bulletins\PreviewItem.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
