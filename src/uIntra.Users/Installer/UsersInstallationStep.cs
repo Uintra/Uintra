@@ -70,7 +70,8 @@ namespace uIntra.Users.Installer
 
             dataType = new DataTypeDefinition(UsersInstallationConstants.DataTypePropertyEditors.MemberUserPicker)
             {
-                Name = UsersInstallationConstants.DataTypeNames.MemberUserPicker
+                Name = UsersInstallationConstants.DataTypeNames.MemberUserPicker,
+                DatabaseType = DataTypeDatabaseType.Integer
             };
 
             dataTypeService.Save(dataType);
@@ -191,6 +192,7 @@ namespace uIntra.Users.Installer
 
             memberService.Save(member);
             memberService.SavePassword(member, UsersInstallationConstants.DefaultMember.Password);
+            memberService.AssignRole(member.Id, UsersInstallationConstants.MemberGroups.GroupWebMaster);
         }
     }
 }
