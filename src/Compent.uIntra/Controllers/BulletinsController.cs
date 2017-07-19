@@ -47,22 +47,11 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult PreviewItem(ICentralFeedItem item)
         {
+            FillLinks();
+
             var activity = item as Bulletin;
-
             BulletinPreviewViewModel viewModel = GetPreviewViewModel(activity);
-
-            return PartialView(viewModel);
-        }
-
-        private BulletinPreviewViewModel GetPreviewViewModel(Bulletin bulletin)
-        {
-            IIntranetUser creator = _intranetUserService.Get(bulletin);
-            return new BulletinPreviewViewModel()
-            {
-                Title = bulletin.Title,
-                PublishDate = bulletin.PublishDate,
-                Creator = creator
-            };
+            return PartialView(PreviewItemViewPath, viewModel);
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@using uIntra.Core.Extentions
+@model uIntra.Bulletins.BulletinPreviewViewModel
+    
+@{
+    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
+}
+<section class="content">
+    <div class="row clearfix">
+        <h2>
+            Title: @Model.Title
+        </h2>
+        
+        <h3>
+            Creator: 
+            <a href="@profilePageUrl">@Model.Creator.DisplayedName</a>
+        </h3>
+        
+        <h4>
+            Publish date: @Model.PublishDate
+
+        </h4>
+    </div>
+</section>

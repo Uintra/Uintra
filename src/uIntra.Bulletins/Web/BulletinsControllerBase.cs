@@ -19,13 +19,14 @@ namespace uIntra.Bulletins.Web
     public abstract class BulletinsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemView.cshtml";
+        protected virtual string PreviewItemViewPath { get; } = "~/App_Plugins/Bulletins/PreviewItem/PreviewItem.cshtml";
         protected virtual string CreationFormViewPath { get; } = "~/App_Plugins/Bulletins/Create/CreationForm.cshtml";
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/Bulletins/Details/DetailsView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Bulletins/Edit/EditView.cshtml";
         protected virtual string CreationFormItemHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Create/CreationFormItemHeader.cshtml";
         protected virtual string DetailsHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Details/DetailsHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemHeader.cshtml";
-        
+
         protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
@@ -41,7 +42,7 @@ namespace uIntra.Bulletins.Web
             IBulletinsService<BulletinBase> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> userService,
-            IIntranetUserContentHelper intranetUserContentHelper, 
+            IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
@@ -213,6 +214,19 @@ namespace uIntra.Bulletins.Web
                 ActivityType = bulletin.Type
             };
             return model;
+        }
+
+        protected virtual BulletinPreviewViewModel GetPreviewViewModel(BulletinBase bulletin)
+        {
+            IIntranetUser creator = _userService.Get(bulletin);
+            return new BulletinPreviewViewModel()
+            {
+                Id = bulletin.Id,
+                Description = bulletin.Description,
+                PublishDate = bulletin.PublishDate,
+                Creator = creator,
+                ActivityType = bulletin.Type
+            };
         }
 
         protected virtual BulletinBase MapToBulletin(BulletinCreateModel model)
