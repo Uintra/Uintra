@@ -68,14 +68,14 @@ namespace uIntra.Navigation.Installer
             var isHideFromLeftNav = dataTypeService.GetDataTypeDefinitionByName(NavigationInstallationConstants.DataTypeNames.IsHideFromLeftNavigation);
             var isHideFromLeftProperty = new PropertyType(isHideFromLeftNav)
             {
-                Name = NavigationInstallationConstants.DocumentTypePropertyNames.IsHideFromLeftNavigation,
+                Name = NavigationInstallationConstants.DocumentTypePropertyNames.HideFromLeftNavigation,
                 Alias = NavigationInstallationConstants.DocumentTypePropertyAliases.IsHideFromLeftNavigation
             };
 
             var isHideFromSubNav = dataTypeService.GetDataTypeDefinitionByName(NavigationInstallationConstants.DataTypeNames.IsHideFromSubNavigation);
             var isHideFromSubProperty = new PropertyType(isHideFromSubNav)
             {
-                Name = NavigationInstallationConstants.DocumentTypePropertyNames.IsHideFromSubNavigation,
+                Name = NavigationInstallationConstants.DocumentTypePropertyNames.HideFromSubNavigation,
                 Alias = NavigationInstallationConstants.DocumentTypePropertyAliases.IsHideFromSubNavigation
             };
 

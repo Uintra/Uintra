@@ -160,7 +160,7 @@
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
             padding:13px 20px;
-            align-items:flex-start;
+            align-items:flex-end;
 
             &:last-child{
                 border:none;
@@ -213,6 +213,10 @@
             position:relative;
             overflow:hidden;
 
+	        .notification & {
+		        margin:2px 20px 0 0;
+	        }
+
             &-img{
                 height: auto !important;
                 left: 50%;
@@ -228,15 +232,10 @@
             }
         }
 
-        &-link{             
-            color:var(--text-color-dark);
-
-            &:active,
-            &:focus,
-            &:hover{
-                color:var(--text-color-dark);
-            }
-        }
+	    &-heading{
+		    font:13px/22px var(--font-general);
+		    color:var(--text-color-dark);
+	    }
 
         &-title{
 	        position: relative;
@@ -244,11 +243,25 @@
             font:bold 16px/22px var(--font-general);
             max-width:500px;
 
+	        .notification & {
+		        margin: 0;
+	        }
+
             p{
                 white-space:nowrap;
                 overflow:hidden;
                 text-overflow:ellipsis;
             }
+
+	        &-link {
+		        color: var(--text-color-dark);
+
+		        &:active,
+		        &:focus,
+		        &:hover{
+			        color:var(--text-color-dark);
+		        }
+	        }
         }
 
 	    &-meta{
@@ -289,11 +302,15 @@
 
             .icon-time,
             .icon-cancel,
-            .icon-lightning,
-            .icon-comment{
+            .icon-lightning {
                 display:block;
                 padding:4px 0 0;
             }
+
+	        .icon-comment{
+		        display:block;
+		        padding:2px 0 0;
+	        }
 
             .icon-lightning{
                 &:before{
@@ -314,20 +331,18 @@
 	        }
         }
 
-        &-type,
-        &-name{
-            margin:0;
-            font:13px/22px var(--font-general);
-        }
+	    &-name{
+		    margin:0 5px 0 0;
+	    }
 
-        &-date{
-            margin:0 0 0 20px;
-            float:right;
+	    &-date{
+		    margin:0 0 0 20px;
+		    float:right;
 
-            .notification &{
-                float:none;
-                margin:0;
-            }
-        }
+		    .notification &{
+			    float:none;
+			    margin:0 0 5px;
+		    }
+	    }
     }
 }

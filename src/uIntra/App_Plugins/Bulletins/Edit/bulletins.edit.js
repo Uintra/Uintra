@@ -38,13 +38,14 @@ function deleteClickHandler(event) {
     let button = event.target;
     let id = button.dataset["id"];
     let text = button.dataset["text"];
-    var returnUrl = button.dataset["returnUrl"];
+    let returnUrl = button.dataset["returnUrl"];
+    let deleteUrl = button.dataset["deleteUrl"];
 
     alertify.defaults.glossary.cancel = button.dataset["cancel"];
     alertify.defaults.glossary.ok = button.dataset["ok"];
 
-    confirm.showConfirm('',text, function () {
-        $.post('/umbraco/surface/Bulletins/Delete?id=' + id,function (data) {
+    confirm.showConfirm('', text, function () {
+        $.post(deleteUrl + '?id=' + id, function (data) {
             if (data.IsSuccess) {
                 window.location.href = returnUrl;
             }

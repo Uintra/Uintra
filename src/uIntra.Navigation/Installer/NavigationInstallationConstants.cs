@@ -22,8 +22,8 @@
             public const string Sort = "Sort";
             public const string Links = "Links";
             public const string NavigationName = "Navigation Name";
-            public const string IsHideFromLeftNavigation = "Is hide from Left Navigation";
-            public const string IsHideFromSubNavigation = "Is hide from Sub Navigation";
+            public const string HideFromLeftNavigation = "Hide from Left Navigation";
+            public const string HideFromSubNavigation = "Hide from Sub Navigation";
             public const string IsShowInHomeNavigation = "Is show in Home Navigation";
         }
         public class DocumentTypePropertyAliases

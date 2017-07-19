@@ -10,6 +10,7 @@ namespace uIntra.Navigation
         public string Url { get; set; }
         public bool IsActive { get; set; }
         public bool IsHomePage { get; set; }
+        public bool IsClickable { get; set; }
 
         public IEnumerable<MenuItemModel> Children { get; set; }
 
