@@ -1,14 +1,14 @@
-﻿using System;
+﻿using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Core.User.Permissions.Web;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.User.Permissions.Web
 {
-    [System.AttributeUsage(AttributeTargets.Method | AttributeTargets.Class , Inherited = false)]
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly int _activityTypeId;
@@ -22,6 +22,11 @@ namespace uIntra.Core.User.Permissions.Web
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (Skip(filterContext))
+            {
+                return;
+            }
+
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var provider = HttpContext.Current.GetService<IActivityTypeProvider>();
             var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider.Get(_activityTypeId), _action);
@@ -37,6 +42,12 @@ namespace uIntra.Core.User.Permissions.Web
         {
             context.Response.StatusCode = HttpStatusCode.Forbidden.GetHashCode();
             context.Response.End();
+        }
+
+        private static bool Skip(ActionExecutingContext context)
+        {
+            return context.ActionDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any() || 
+                context.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any();
         }
     }
 }

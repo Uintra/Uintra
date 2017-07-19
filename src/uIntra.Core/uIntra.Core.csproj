@@ -381,6 +381,7 @@
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
+    <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Installer\CoreInstallationConstants.cs" />
     <Compile Include="Installer\CoreInstallationStep.cs" />
