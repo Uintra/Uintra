@@ -158,7 +158,8 @@ function clear() {
 
 function isEdited() {
     let isDescriptionEdited = editor.getLength() > 1;
-    return isDescriptionEdited;
+    let isFilesUploaded = dropzone.files.length;
+    return isDescriptionEdited || isFilesUploaded;
 }
 
 function showConfirmMessage(message) {
