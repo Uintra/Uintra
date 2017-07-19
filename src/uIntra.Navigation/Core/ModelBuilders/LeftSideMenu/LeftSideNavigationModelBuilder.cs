@@ -58,7 +58,7 @@ namespace uIntra.Navigation
                 Url = homePage.Url,
                 IsActive = homePage.Id == CurrentPage.Id,
                 IsHomePage = true,
-                Children = GetHomeSubNavigation(homePage)
+                Children = GetHomeSubNavigation(homePage).ToList()
             };
 
             return result;
@@ -113,7 +113,7 @@ namespace uIntra.Navigation
                     Id = publishedContentChildrenItem.Id,
                     Name = GetNavigationName(publishedContentChildrenItem),
                     Url = publishedContentChildrenItem.Url,
-                    Children = BuildLeftMenuTree(publishedContentChildrenItem, excludeContentIds),
+                    Children = BuildLeftMenuTree(publishedContentChildrenItem, excludeContentIds).ToList(),
                     IsActive = CurrentPage.Id == publishedContentChildrenItem.Id
                 };
 
@@ -121,12 +121,12 @@ namespace uIntra.Navigation
             }
         }
 
-        private void FillClickable(IEnumerable<MenuItemModel> resultMenuItems)
+        private void FillClickable(List<MenuItemModel> resultMenuItems)
         {
-            var activeItem = resultMenuItems.FirstOrDefault(item => item.IsActive);
+            var activeItem = resultMenuItems.Find(item => item.IsActive);
             if (activeItem == null)
             {
-                var childrens = resultMenuItems.SelectMany(item => item.Children);
+                var childrens = resultMenuItems.SelectMany(item => item.Children).ToList();
                 FillClickable(childrens);
                 return;
             }

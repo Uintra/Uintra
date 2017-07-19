@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace uIntra.Navigation
 {
@@ -11,12 +10,6 @@ namespace uIntra.Navigation
         public bool IsActive { get; set; }
         public bool IsHomePage { get; set; }
         public bool IsClickable { get; set; }
-
-        public IEnumerable<MenuItemModel> Children { get; set; }
-
-        public MenuItemModel()
-        {
-            Children = Enumerable.Empty<MenuItemModel>();
-        }
+        public List<MenuItemModel> Children { get; set; } = new List<MenuItemModel>();
     }
 }
