@@ -121,11 +121,13 @@ namespace uIntra.Navigation
             }
         }
 
-        private void FillClickable(List<MenuItemModel> resultMenuItems)
+        private void FillClickable(IEnumerable<MenuItemModel> resultMenuItems)
         {
-            var activeItem = resultMenuItems.Find(item => item.IsActive);
+            var activeItem = resultMenuItems.FirstOrDefault(item => item.IsActive);
             if (activeItem == null)
             {
+                var childrens = resultMenuItems.SelectMany(item => item.Children);
+                FillClickable(childrens);
                 return;
             }
 
