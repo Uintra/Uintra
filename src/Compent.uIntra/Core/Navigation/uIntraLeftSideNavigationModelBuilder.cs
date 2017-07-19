@@ -4,6 +4,7 @@ using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using System.Web;
 
 namespace Compent.uIntra.Core.Navigation
 {
@@ -12,10 +13,11 @@ namespace Compent.uIntra.Core.Navigation
         private readonly IUmbracoContentHelper _umbracoContentHelper;
 
         public UintraLeftSideNavigationModelBuilder(
+            HttpContext context,
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IUmbracoContentHelper umbracoContentHelper)
-            : base(umbracoHelper, navigationConfigurationProvider)
+            : base(context, umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoContentHelper = umbracoContentHelper;
         }
