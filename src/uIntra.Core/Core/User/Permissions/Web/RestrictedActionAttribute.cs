@@ -3,6 +3,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Core.User.Permissions.Web;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 
@@ -45,7 +46,8 @@ namespace uIntra.Core.User.Permissions.Web
 
         private static bool Skip(ActionExecutingContext context)
         {
-            return context.ActionDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), false).Any();
+            return context.ActionDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any() || 
+                context.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any();
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
 
 namespace uIntra.Core.Core.User.Permissions.Web
 {
-    public class IgnoreRestrictedActionAttribute : ActionFilterAttribute
+    public class IgnoreRestrictedActionAttribute : Attribute
     {
 
     }
