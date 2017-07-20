@@ -20,9 +20,11 @@ namespace Compent.uIntra.Controllers
         protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
-        protected override string EditViewPath => "~/Views/News/EditView.cshtml";
+        protected override string EditViewPath => "~/Views/News/EditView.cshtml";        
+
         protected override int ShortDescriptionLength { get; } = 500;
 
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IDocumentIndexer _documentIndexer;
 
         public NewsController(
@@ -34,6 +36,7 @@ namespace Compent.uIntra.Controllers
             IDocumentIndexer documentIndexer)
             : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
+            _intranetUserService = intranetUserService;
             _documentIndexer = documentIndexer;
         }
 
@@ -44,6 +47,26 @@ namespace Compent.uIntra.Controllers
             var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        public ActionResult PreviewItem(ICentralFeedItem item)
+        {
+            var activity = item as News;
+
+            NewsPreviewViewModel viewModel = GetPreviewViewModel(activity);
+
+            return PartialView(viewModel);
+        }
+
+        private NewsPreviewViewModel GetPreviewViewModel(News news)
+        {
+            IIntranetUser creator = _intranetUserService.Get(news);
+            return new NewsPreviewViewModel()
+            {
+                Title = news.Title,
+                PublishDate = news.PublishDate,
+                Creator = creator
+            };
         }
 
         protected override NewsViewModel GetViewModel(NewsBase news)
@@ -60,4 +83,5 @@ namespace Compent.uIntra.Controllers
             _documentIndexer.DeleteFromIndex(mediaIds);
         }
     }
+
 }

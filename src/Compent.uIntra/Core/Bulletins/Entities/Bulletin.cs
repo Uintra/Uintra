@@ -19,7 +19,6 @@ namespace Compent.uIntra.Core.Bulletins
         [JsonIgnore]
         public IEnumerable<Comment> Comments { get; set; }
 
-        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
-        
+        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }        
     }
 }

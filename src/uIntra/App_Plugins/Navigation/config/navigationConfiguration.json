@@ -3,7 +3,7 @@
   "Exclude": [ "dataFolder" ],
   "IsHideFromLeftNavigation": {
     "Alias": "isHideFromLeftNavigation",
-    "Name": "Hide from Left Navigation",
+    "Name": "Is hide from Left Navigation",
     "DefaultValue": false
   },
   "IsShowInHomeNavigation": {
@@ -13,7 +13,7 @@
   },
   "IsHideFromSubNavigation": {
     "Alias": "isHideFromSubNavigation",
-    "Name": "Hide from Sub Navigation",
+    "Name": "Is hide from Sub Navigation",
     "DefaultValue": false
   },
   "NavigationName": {

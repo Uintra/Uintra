@@ -1,18 +1,17 @@
 ﻿@using uIntra.Navigation
 @model uIntra.Navigation.MenuViewModel
+
 @RenderTreeRecursive(Model.MenuItems)
 
-@helper RenderTreeRecursive(IEnumerable<MenuItemViewModel> tree)
+@helper RenderTreeRecursive(List<MenuItemViewModel> tree)
 {
     <ul class="side-nav">
         @foreach (var item in tree)
         {
             var hasNavigableChildren = item.Children.Count > 0;
-            var isActive = item.IsActive ? "_active" : string.Empty;
-            var isExpanded = hasNavigableChildren ? "_expand" : string.Empty;
-            var isClickable = item.IsClickable ? "_clickable" : string.Empty;
+            var hasActiveChild = item.Children.Any(s => s.IsActive);
 
-            <li @(hasNavigableChildren ? "data-id=" + item.Id : "") class="@isActive side-nav__item js-side-nav__item @isExpanded @isClickable">
+            <li @(hasNavigableChildren ? "data-id=" + item.Id : "") class="@(item.IsActive ? "_active" : "") side-nav__item js-side-nav__item @(hasNavigableChildren ? "_expand" : "")">
                 <a class="side-nav__link js-side-nav__link" href="@item.Url">
                     @item.Name
                     @if (item.IsHomePage)

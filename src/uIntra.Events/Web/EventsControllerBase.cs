@@ -85,7 +85,7 @@ namespace uIntra.Events.Web
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
                 comingEvents.Add(viewModel);
             }
-
+            
             var model = new ComingEventsPanelViewModel()
             {
                 Title = title,

@@ -24,18 +24,18 @@ function initSearchBox() {
         showNoSuggestionNotice: true,
         noSuggestionNotice: emptyText,
         dataType: 'json',
-        noCache: true,
         transformResult: function (response, originalQuery) {
             query = originalQuery;
             var result = {
                 suggestions: $.map(response.Documents, function (dataItem) {
-                    return { value: dataItem.Title, url: dataItem.Url, type: dataItem.Type };
+                    return { value: dataItem.Title, data: dataItem.Id, url: dataItem.Url, type: dataItem.Type };
                 })
             };
 
             if (response.Documents.length) {
                 result.suggestions.push({
                     value: seeAllText,
+                    data: -1,
                     url: url + originalQuery,
                     type: 'all'
                 });

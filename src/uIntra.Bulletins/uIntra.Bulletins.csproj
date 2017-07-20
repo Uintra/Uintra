@@ -306,6 +306,7 @@
     <Compile Include="Core\Models\BulletinEditModel.cs" />
     <Compile Include="Core\Models\BulletinItemViewModel.cs" />
     <Compile Include="Core\Models\BulletinCreateFormModel.cs" />
+    <Compile Include="Core\Models\BulletinPreviewViewModel.cs" />
     <Compile Include="Core\Models\BulletinViewModel.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
@@ -349,6 +350,7 @@
     <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <None Include="packages.config" />
     <None Include="uIntra.Bulletins.nuspec" />
   </ItemGroup>

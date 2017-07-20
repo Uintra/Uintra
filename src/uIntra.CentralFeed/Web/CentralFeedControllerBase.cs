@@ -17,6 +17,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
         protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
+        protected virtual string LatestActivitiesViewPath { get; } = "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
@@ -160,6 +161,29 @@ namespace uIntra.CentralFeed.Web
                 .OrderBy(el => el.Id);
 
             return Json(activityTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
+        {
+            var viewModel = GetLatestActivities(panelModel);
+            return PartialView(LatestActivitiesViewPath, viewModel);
+        }
+
+
+        protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
+        {
+            IIntranetType activitiesType = _centralFeedTypeProvider.Get(panelModel.TypeOfActivities);
+
+            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.NumberOfActivities);
+            var settings = _centralFeedService.GetAllSettings();
+
+            return new LatestActivitiesViewModel()
+            {
+                Title = panelModel.Title,
+                Teaser = panelModel.Teaser,
+                Settings = settings,
+                Items = latestActivities
+            };
         }
 
         protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)

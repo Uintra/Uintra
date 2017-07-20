@@ -1,0 +1,19 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Activity
+@using uIntra.Core.Extentions
+@model Compent.uIntra.Core.News.Models.NewsPreviewViewModel
+<section class="content">
+    <div class="row clearfix">
+        <h2>
+            Title: @Model.Title
+        </h2>
+        
+        <h3>
+            Creator: @Model.Creator.DisplayedName
+        </h3>
+        
+        <h4>
+            Publish date: @Model.PublishDate
+        </h4>
+    </div>
+</section>

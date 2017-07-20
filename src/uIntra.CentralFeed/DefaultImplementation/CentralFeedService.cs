@@ -16,7 +16,7 @@ namespace uIntra.CentralFeed
 
     public class CentralFeedService : ICentralFeedService
     {
-        private readonly ICacheService cacheService;
+        private readonly ICacheService _cacheService;
         private readonly IEnumerable<ICentralFeedItemService> _feedItemServices;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
 
@@ -24,11 +24,11 @@ namespace uIntra.CentralFeed
             IEnumerable<ICentralFeedItemService> feedItemServices, 
             ICentralFeedTypeProvider centralFeedTypeProvider)
         {
-            this.cacheService = cacheService;
+            this._cacheService = cacheService;
             _feedItemServices = feedItemServices;
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
-
+        
         public IEnumerable<ICentralFeedItem> GetFeed(IIntranetType type)
         {
             var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
@@ -52,13 +52,13 @@ namespace uIntra.CentralFeed
 
         public CentralFeedSettings GetSettings(IIntranetType type)
         {
-            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
+            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
             return settings;
         }
 
         public IEnumerable<CentralFeedSettings> GetAllSettings()
         {
-            var settings = cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
+            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration());
             return settings;
         }
 

@@ -46,11 +46,6 @@
             pointer-events:none;
         }
 
-        ._clickable > &{
-            pointer-events:initial;
-            cursor:pointer;
-        }
-
         &._title-link{
             &:hover,
             &:focus,

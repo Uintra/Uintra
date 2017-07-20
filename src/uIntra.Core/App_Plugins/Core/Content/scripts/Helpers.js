@@ -194,20 +194,19 @@ var helpers = {
 
         return s.join("&").replace(/%20/g, "+");
     },
-    clampText: function(container, url) {
-        var $container = $(container);
+    clampText: function(container, url){
         if(url){
             var ellepsisLink = document.createElement('a');
             ellepsisLink.setAttribute('href', url);
             ellepsisLink.classList.add('ellipsis');
-            $container.append(ellepsisLink);
-            $container.dotdotdot({
+            container.append(ellepsisLink);
+            $(container).dotdotdot({
                 after: 'a.ellipsis',
                 watch: 'window'
             });
         }
         else{
-            $container.dotdotdot({
+            $(container).dotdotdot({
                 watch: 'window'
             });
         }
