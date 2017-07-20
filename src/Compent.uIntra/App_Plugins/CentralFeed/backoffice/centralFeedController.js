@@ -1,7 +1,6 @@
 ﻿(function () {
 
     var controller = function ($scope, centralFeedService) {
-
         var self = this;
         self.availableActivityTypes = [];
 

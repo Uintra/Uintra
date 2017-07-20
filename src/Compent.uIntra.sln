@@ -26,6 +26,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.BaseControls", "uInt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Core", "uIntra.Core\uIntra.Core.csproj", "{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{469DC179-83EE-4696-9D36-2173E4BEAFDA} = {469DC179-83EE-4696-9D36-2173E4BEAFDA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Likes", "uIntra.Likes\uIntra.Likes.csproj", "{B99F0F05-598C-4F4A-A972-7282DCF9FED8}"
 EndProject

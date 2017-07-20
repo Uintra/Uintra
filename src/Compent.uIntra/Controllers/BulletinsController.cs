@@ -45,13 +45,13 @@ namespace Compent.uIntra.Controllers
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(ICentralFeedItem item)
-        {
-            FillLinks();
+        //public ActionResult PreviewItem(ICentralFeedItem item)
+        //{
+        //    FillLinks();
 
-            var activity = item as Bulletin;
-            BulletinPreviewViewModel viewModel = GetPreviewViewModel(activity);
-            return PartialView(PreviewItemViewPath, viewModel);
-        }
+        //    var activity = item as Bulletin;
+        //    BulletinPreviewViewModel viewModel = GetPreviewViewModel(activity);
+        //    return PartialView(PreviewItemViewPath, viewModel);
+        //}
     }
 }
