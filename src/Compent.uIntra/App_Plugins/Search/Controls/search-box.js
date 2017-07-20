@@ -62,6 +62,8 @@ function initSearchBox() {
     });
 
     function renderIcon(data) {
+        if (!data) return "";
+
         const filteredData = data.filter((item) => {return item.Name === "Photo"});
         if (!filteredData.length || !filteredData[0].Value) return "";
 
@@ -69,7 +71,7 @@ function initSearchBox() {
     }
 
     function renderAdditionData(data) {
-        if (!data.length) return "";
+        if (!data || !data.length) return "";
 
         const result = data.map((item) => {
             if (item.Name === "Photo" || item.Value === null || item.Value === "undefined") return "";
