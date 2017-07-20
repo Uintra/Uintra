@@ -335,8 +335,8 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.2\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.0.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.0.11\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.0.11.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.0.11.1\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.9.6, Culture=neutral, processorArchitecture=MSIL">
@@ -1613,30 +1613,6 @@
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
   </ItemGroup>
   <ItemGroup>
@@ -1692,6 +1668,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
