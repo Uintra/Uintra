@@ -7,7 +7,7 @@
       "icon": "icon-settings-alt color-blue",
       "config": {
         "controller": "CentralFeed",
-        "action": "LatestActivities"
+        "action": "OverView"
       }
     }
   ],
