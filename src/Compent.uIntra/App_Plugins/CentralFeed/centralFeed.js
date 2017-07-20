@@ -32,7 +32,7 @@ function initDescription(){
     var container = $('._clamp');
     if(container.length > 0){
         for(var i = 0; i < container.length; i++){
-            var url = container[i].data('url');
+            var url = $(container[i]).data('url');
             helpers.clampText(container[i], url);
         }
     }
@@ -48,18 +48,6 @@ function hideLoadingStatus() {
     loadingElem && (loadingElem.style.display = "none");
 }
 
-function displayDescription() {
-    var container = $('._clamp');
-    var url = container.data('url');
-    if (container.length > 0) {
-        for (var i = 0; i < container.length; i++) {
-            if (container[i].textContent.trim().length > 300) {
-                helpers.clampText(container[i], url);
-            }
-        }
-    }
-}
-
 function initCustomControls(data) {
     if (!data) {
         return;
@@ -68,7 +56,6 @@ function initCustomControls(data) {
     lightbox.init();
     initDescription();
     subscribe.initOnLoad();
-    displayDescription();
 }
 
 function scrollPrevented() {
