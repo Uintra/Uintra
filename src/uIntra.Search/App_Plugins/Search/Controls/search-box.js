@@ -29,7 +29,7 @@ function initSearchBox() {
             query = originalQuery;
             var result = {
                 suggestions: $.map(response.Documents, function (dataItem) {
-                    return { value: dataItem.Title, url: dataItem.Url, type: dataItem.Type };
+                    return { value: dataItem.Title?dataItem.Title:"", additionalInfo: dataItem.AdditionalInfo, url: dataItem.Url, type: dataItem.Type };
                 })
             };
 
@@ -43,17 +43,44 @@ function initSearchBox() {
             return result;
         },
         formatResult: function (suggestion, currentValue) {
-            var newData = suggestion.value.split('(?i)' + currentValue).join('<strong>' + currentValue + '</strong>');
+            var newData;
+            if (suggestion.value) {
+                newData = suggestion.value.split('(?i)' + currentValue).join('<strong>' + currentValue + '</strong>');    
+            } else {
+                newData = "";
+            }
+            
             if (suggestion.type === 'all') {
-                return "<span class='title _all'>" + newData + "</span>";
+                return `<span class='title _all'>${newData}</span>`;
             }
 
-            return "<span class='type'>" + suggestion.type + "</span><span class='title'>" + newData + "</span>";
+            return `${renderIcon(suggestion.additionalInfo)}<span class='title'>${newData}</span>${renderAdditionData(suggestion.additionalInfo)}<span class='type'>${suggestion.type}</span>`;
         },
         onSelect: function (suggestion) {
             window.location = suggestion.url;
         }
     });
+
+    function renderIcon(data) {
+        const filteredData = data.filter((item) => {return item.Name === "Photo"});
+        if (!filteredData.length || !filteredData[0].Value) return "";
+
+        return `<img class="icon" src="${filteredData[0].Value}" />`;
+    }
+
+    function renderAdditionData(data) {
+        if (!data.length) return "";
+
+        const result = data.map((item) => {
+            if (item.Name === "Photo" || item.Value === null || item.Value === "undefined") return "";
+
+            return `<li class="autocomplete-suggestion__frame">${item.Value}</li>`;
+        }).join('');
+
+        if (!result) return;
+
+        return `<ul class="autocomplete-suggestion__list">${result}</ul>`;
+    }
 
     searchBox.on('keypress', function (e) {
         if (e.which == 13 || e.keyCode == 13) {
