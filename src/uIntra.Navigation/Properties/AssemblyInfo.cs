@@ -5,4 +5,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Left Navigation, Sub Navigation Top Navigation")]
 
 [assembly: AssemblyVersion("1.1.6.3")]
+[assembly: AssemblyInformationalVersion("1.1.6.3-v1")]
 [assembly: ComVisible(false)]

@@ -5,5 +5,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Notification activity package")]
 
 [assembly: AssemblyVersion("1.1.7.19")]
+[assembly: AssemblyInformationalVersion("1.1.7.19-v1")]
 [assembly: ComVisible(false)]
 [assembly: Guid("774eba5a-679c-401d-b3f1-130562785c60")]

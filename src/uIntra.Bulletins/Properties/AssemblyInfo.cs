@@ -5,5 +5,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Bulletins activity package")]
 
 [assembly: AssemblyVersion("0.0.12.1")]
+[assembly: AssemblyInformationalVersion("0.0.12.1-v1")]
 [assembly: ComVisible(false)]
 [assembly: Guid("9cdb39aa-aa5a-4691-b942-8f2ee3297e64")]
