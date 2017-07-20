@@ -51,22 +51,10 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult PreviewItem(ICentralFeedItem item)
         {
+            FillLinks();
             var activity = item as News;
-
             NewsPreviewViewModel viewModel = GetPreviewViewModel(activity);
-
-            return PartialView(viewModel);
-        }
-
-        private NewsPreviewViewModel GetPreviewViewModel(News news)
-        {
-            IIntranetUser creator = _intranetUserService.Get(news);
-            return new NewsPreviewViewModel()
-            {
-                Title = news.Title,
-                PublishDate = news.PublishDate,
-                Creator = creator
-            };
+            return PartialView(PreviewItemViewPath, viewModel);
         }
 
         protected override NewsViewModel GetViewModel(NewsBase news)

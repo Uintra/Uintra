@@ -441,6 +441,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Models\NewsCreateModel.cs" />
+    <Compile Include="Core\Models\NewsPreviewViewModel.cs" />
     <Compile Include="Core\Models\NewsViewModel.cs" />
     <Compile Include="Core\NewsBase.cs" />
     <Compile Include="Core\INewsService.cs" />
@@ -458,6 +459,7 @@
     <Compile Include="Installer\NewsInstallationStep.cs" />
     <Compile Include="Web\NewsControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <None Include="Config\Lang\da-DK.user.xml.install.xdt" />
     <None Include="Config\Lang\da-DK.user.xml.uninstall.xdt" />
     <None Include="Config\Lang\en-GB.user.xml.install.xdt" />

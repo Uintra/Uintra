@@ -19,6 +19,7 @@ namespace uIntra.News.Web
     public abstract class NewsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
+        protected virtual string PreviewItemViewPath { get; } = "~/App_Plugins/News/PreviewItem/PreviewItemView.cshtml";
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/News/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
@@ -178,6 +179,20 @@ namespace uIntra.News.Web
                 ActivityType = news.Type
             };
             return model;
+        }
+
+
+        protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news)
+        {
+            IIntranetUser creator = _intranetUserService.Get(news);
+            return new NewsPreviewViewModel()
+            {
+                Id = news.Id,
+                Title = news.Title,
+                PublishDate = news.PublishDate,
+                Creator = creator,
+                ActivityType = news.Type
+            };
         }
 
         protected virtual NewsBase MapToNews(NewsCreateModel createModel)
