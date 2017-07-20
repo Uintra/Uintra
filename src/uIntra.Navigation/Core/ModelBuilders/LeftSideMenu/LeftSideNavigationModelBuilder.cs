@@ -124,14 +124,17 @@ namespace uIntra.Navigation
         private void FillClickable(List<MenuItemModel> resultMenuItems)
         {
             var activeItem = resultMenuItems.Find(item => item.IsActive);
-            if (activeItem == null)
+            if (activeItem != null)
             {
-                var childrens = resultMenuItems.SelectMany(item => item.Children).ToList();
-                FillClickable(childrens);
+                activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/');
                 return;
             }
 
-            activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/');
+            var children = resultMenuItems.SelectMany(item => item.Children).ToList();
+            if (children.Count > 0)
+            {
+                FillClickable(children);
+            }
         }
     }
 }
