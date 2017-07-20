@@ -30,9 +30,9 @@ var reloadintervalId;
 
 function initDescription(){
     var container = $('._clamp');
-    var url = container.data('url');
     if(container.length > 0){
         for(var i = 0; i < container.length; i++){
+            var url = container[i].data('url');
             helpers.clampText(container[i], url);
         }
     }
