@@ -1,7 +1,8 @@
 ﻿using System;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 
-namespace Compent.uIntra.Core.Events
+namespace uIntra.Events
 {
     public class EventPreviewViewModel
     {
@@ -9,5 +10,7 @@ namespace Compent.uIntra.Core.Events
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IIntranetUser Creator { get; set; }
+        public IIntranetType ActivityType { get; set; }
+        public Guid Id { get; set; }
     }
 }

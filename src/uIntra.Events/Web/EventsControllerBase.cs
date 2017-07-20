@@ -18,13 +18,14 @@ using Umbraco.Web.Mvc;
 namespace uIntra.Events.Web
 {
     [ActivityController(ActivityTypeId)]
-    public abstract class EventsControllerBase : SurfaceController
+    public abstract class EventsControllerBase : SurfaceController 
     {
         protected virtual string ComingEventsViewPath => "~/App_Plugins/Events/ComingEvents/ComingEventsView.cshtml";
         protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath => "~/App_Plugins/Events/Create/CreateView.cshtml";
         protected virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
         protected virtual string ItemViewPath => "~/App_Plugins/Events/List/ItemView.cshtml";
+        protected virtual string PreviewItemViewPath => "~/App_Plugins/Events/PreviewItem/PreviewItemView.cshtml";
         protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
@@ -184,6 +185,20 @@ namespace uIntra.Events.Web
             };
             FillCreateEditData(model);
             return model;
+        }
+
+        protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event)
+        {
+            IIntranetUser creator = _intranetUserService.Get(@event);
+            return new EventPreviewViewModel()
+            {
+                Id = @event.Id,
+                Title = @event.Title,
+                StartDate = @event.StartDate,
+                EndDate = @event.EndDate,
+                Creator = creator,
+                ActivityType = @event.Type
+            };
         }
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)

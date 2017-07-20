@@ -65,20 +65,9 @@ namespace Compent.uIntra.Controllers
 
             var activity = item as Event;
             EventPreviewViewModel viewModel = GetPreviewViewModel(activity);
-            return PartialView(viewModel);
+            return PartialView(PreviewItemViewPath, viewModel);
         }
 
-        private EventPreviewViewModel GetPreviewViewModel(Event @event)
-        {
-            IIntranetUser creator = _intranetUserService.Get(@event);
-            return new EventPreviewViewModel()
-            {
-                Title = @event.Title,
-                StartDate = @event.StartDate,
-                EndDate = @event.EndDate,
-                Creator = creator
-            };
-        }
 
         protected override EventViewModel GetViewModel(EventBase @event)
         {

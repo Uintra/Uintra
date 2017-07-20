@@ -319,6 +319,7 @@
     <Compile Include="Core\Dashboard\EventsSection.cs" />
     <Compile Include="Core\Models\ComingEventsPanelViewModel.cs" />
     <Compile Include="Core\Models\ComingEventViewModel.cs" />
+    <Compile Include="Core\Models\EventPreviewViewModel.cs" />
     <Compile Include="Installer\EventsInstallationConstants.cs" />
     <Compile Include="Installer\EventsInstallationStep.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
@@ -349,6 +350,7 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\style.css" />
     <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <None Include="Config\Lang\da-DK.user.xml.uninstall.xdt" />
     <None Include="Config\Lang\da-DK.user.xml.install.xdt" />
     <None Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />

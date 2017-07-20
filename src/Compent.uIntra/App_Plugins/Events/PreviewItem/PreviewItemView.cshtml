@@ -1,24 +1,27 @@
 ﻿@using uIntra.Core.Extentions
-@model Compent.uIntra.Core.Events.EventPreviewViewModel
-    
+@model uIntra.Events.EventPreviewViewModel
+
 @{
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
-    //var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type.Id, Model.ActivityId);
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
+
 <section class="content">
     <div class="row clearfix">
         <h2>
-            Title: @Model.Title
+            <h4>
+                <a href="@detailsPageUrl">@Html.Raw(Model.Title)</a>
+            </h4>
         </h2>
-        
+
         <h3>
-            Creator: 
+            Creator:
             <a href="@profilePageUrl">@Model.Creator.DisplayedName</a>
         </h3>
-        
+
         <h4>
-            Start date: @Model.StartDate
-            End date: @Model.EndDate
+            From: @Model.StartDate
+            Till: @Model.EndDate
         </h4>
     </div>
 </section>
