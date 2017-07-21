@@ -1044,7 +1044,6 @@
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
     </Content>
-    <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
     <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
       <Link>App_Start\ElmahMvc_Start.cs</Link>
     </Content>
@@ -1396,6 +1395,12 @@
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
+    <Compile Include="..\Compent.uIntra\Installer\Installer.cs">
+      <Link>Installer\Installer.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\UmbracoContentMigration.cs">
+      <Link>Installer\UmbracoContentMigration.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\DbContextFactory.cs">
       <Link>Persistence\Sql\DbContextFactory.cs</Link>
     </Compile>
@@ -1412,7 +1417,6 @@
     <Content Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Content>
-    <Compile Include="Installer\Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1451,23 +1455,6 @@
     <Content Include="..\Compent.uIntra\Views\Events\CreateView.cshtml">
       <Link>Views\Events\CreateView.cshtml</Link>
     </Content>
-    <Content Include="SetupMigrations\json\bulletinsDetailsPageGrid.json" />
-    <Content Include="SetupMigrations\json\bulletinsEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\bulletinsOverviewPageGrid.json" />
-    <Content Include="SetupMigrations\json\errorPageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsCreatePageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsDetailsPageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsOverviewPageGrid.json" />
-    <Content Include="SetupMigrations\json\homePageGrid.json" />
-    <Content Include="SetupMigrations\json\newsCreatePageGrid.json" />
-    <Content Include="SetupMigrations\json\newsDetailsPageGrid.json" />
-    <Content Include="SetupMigrations\json\newsEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\newsOverviewPageGrid.json" />
-    <Content Include="SetupMigrations\json\notificationPageGrid.json" />
-    <Content Include="SetupMigrations\json\profileEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\profilePageGrid.json" />
-    <Content Include="SetupMigrations\json\searchResultPageGrid.json" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1491,9 +1478,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
@@ -1655,15 +1639,6 @@
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Installer\PreValues\ContentGridPreValues.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1716,6 +1691,74 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\bulletinsEditPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\errorPageGrid.json">
+      <Link>Installer\ContentPageJsons\errorPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsCreatePageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsDetailsPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsEditPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsOverviewPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\homePageGrid.json">
+      <Link>Installer\ContentPageJsons\homePageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\newsCreatePageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\newsDetailsPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\newsEditPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\newsOverviewPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\notificationPageGrid.json">
+      <Link>Installer\ContentPageJsons\notificationPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\profileEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\profileEditPageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\profilePageGrid.json">
+      <Link>Installer\ContentPageJsons\profilePageGrid.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
+      <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\ContentGridPreValues.json">
+      <Link>Installer\PreValues\ContentGridPreValues.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\DefaultGridPreValues.json">
+      <Link>Installer\PreValues\DefaultGridPreValues.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\GridPageLayout.cshtml">
+      <Link>Installer\PreValues\GridPageLayout.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\PanelPickerPreValues.json">
+      <Link>Installer\PreValues\PanelPickerPreValues.json</Link>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 using System.Web.Configuration;
-using Compent.uIntra.SetupMigrations;
 using uIntra.Bulletins.Installer;
 using uIntra.Core.Extentions;
 using uIntra.Core.Installer;

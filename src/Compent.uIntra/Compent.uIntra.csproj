@@ -1086,20 +1086,20 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
-    <Content Include="SetupMigrations\json\homePageGrid.json" />
-    <Content Include="SetupMigrations\json\notificationPageGrid.json" />
-    <Content Include="SetupMigrations\json\profilePageGrid.json" />
-    <Content Include="SetupMigrations\json\profileEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\searchResultPageGrid.json" />
-    <Content Include="SetupMigrations\json\newsOverviewPageGrid.json" />
-    <Content Include="SetupMigrations\json\newsCreatePageGrid.json" />
-    <Content Include="SetupMigrations\json\newsEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\newsDetailsPageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsCreatePageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsDetailsPageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsEditPageGrid.json" />
-    <Content Include="SetupMigrations\json\eventsOverviewPageGrid.json" />
-    <Content Include="SetupMigrations\json\errorPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\homePageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\notificationPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\profilePageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\profileEditPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\searchResultPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\newsOverviewPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\newsCreatePageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\newsEditPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\newsDetailsPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\eventsCreatePageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\eventsDetailsPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\eventsEditPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\eventsOverviewPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\errorPageGrid.json" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1126,6 +1126,9 @@
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
+    <Content Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />
+    <Content Include="Installer\ContentPageJsons\bulletinsOverviewPageGrid.json" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1274,7 +1277,7 @@
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
     <Compile Include="Persistence\Sql\DbObjectContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupMigrations\UmbracoContentMigration.cs" />
+    <Compile Include="Installer\UmbracoContentMigration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
