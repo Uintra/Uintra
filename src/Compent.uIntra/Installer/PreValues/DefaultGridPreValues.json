@@ -33,7 +33,7 @@
             "grid": 3,
             "allowAll": false,
             "allowed": [
-              "Right side"
+              "Right side column"
             ]
           }
         ]
