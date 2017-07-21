@@ -46,7 +46,7 @@ namespace uIntra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
-        public ActionResult OpenFilters()
+        public virtual ActionResult OpenFilters()
         {
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
             centralFeedState.IsFiltersOpened = !centralFeedState.IsFiltersOpened;
