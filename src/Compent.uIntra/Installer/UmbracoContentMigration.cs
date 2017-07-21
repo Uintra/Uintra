@@ -180,10 +180,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("News", homePage.Id, UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "News");
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "newsOverviewPageGrid.json");
         }
@@ -236,10 +232,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Bulletins", homePage.Id, UmbracoContentMigrationConstants.DocType.BulletinsOverviewPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Bulletins");
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "bulletinsOverviewPageGrid.json");
         }
@@ -278,10 +270,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Events", homePage.Id, UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Events");
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "eventsOverviewPageGrid.json");
         }
