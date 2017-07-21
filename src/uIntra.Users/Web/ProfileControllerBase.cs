@@ -38,9 +38,14 @@ namespace uIntra.Users.Web
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
         }
 
-        public virtual ActionResult Overview(Guid id)
+        public virtual ActionResult Overview(Guid? id)
         {
-            var user = _intranetUserService.Get(id);
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+
+            var user = _intranetUserService.Get(id.Value);
             if (user == null)
             {
                 return HttpNotFound();

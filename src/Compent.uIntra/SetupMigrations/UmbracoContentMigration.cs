@@ -46,9 +46,9 @@ namespace Compent.uIntra.SetupMigrations
             CreateEventsEditPage();
             CreateEventsDetailsPage();
 
-            //CreateBulletinsOverviewPage();
-            //CreateBulletinsDetailsPage();
-            //CreateBulletinsEditPage();
+            CreateBulletinsOverviewPage();
+            CreateBulletinsDetailsPage();
+            CreateBulletinsEditPage();
 
             CreateNotificationPage();
             CreateProfilePage();
@@ -116,9 +116,9 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("Profile", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfilePageDocTypeName);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile");
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile");
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "profilePageGrid.json");
         }
@@ -132,9 +132,9 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("Profile Edit Page", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfileEditPageDocTypeName);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile Edit");
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile Edit");
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "profileEditPageGrid.json");
         }
