@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Core.Localization;
+using uIntra.Core.TypeProviders;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Search.Web
@@ -48,7 +49,7 @@ namespace uIntra.Search.Web
         [HttpPost]
         public virtual PartialViewResult Search(SearchFilterModel model)
         {
-            var searchableTypeIds = model.Types.Count > 0 ? model.Types : _searchableTypeProvider.GetAll().Select(el => el.Id);
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.Id);
 
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
@@ -60,7 +61,7 @@ namespace uIntra.Search.Web
 
             var resultModel = GetSearchResultsOverviewModel(searchResult.Documents);
             resultModel.Query = model.Query;
-            resultModel.ResultsCount = (int) searchResult.TotalHits;
+            resultModel.ResultsCount = (int)searchResult.TotalHits;
 
             return PartialView(SearchResultViewPath, resultModel);
         }
@@ -81,16 +82,26 @@ namespace uIntra.Search.Web
             {
                 Text = query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = _searchableTypeProvider.GetAll().Select(el => el.Id)
+                SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(t => t.Id)
             });
 
             var result = GetAutocompleteResultModels(searchResult.Documents);
             return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
         }
 
+        protected virtual IEnumerable<IIntranetType> GetSearchableTypes()
+        {
+            return _searchableTypeProvider.GetAll();
+        }
+
+        protected virtual IEnumerable<IIntranetType> GetAutoCompleteSearchableTypes()
+        {
+            return _searchableTypeProvider.GetAll();
+        }
+
         protected virtual SearchViewModel GetSearchViewModel()
         {
-            var filterItems = _searchableTypeProvider.GetAll().Select(el => new SearchFilterItemViewModel
+            var filterItems = GetFilterItemTypes().Select(el => new SearchFilterItemViewModel
             {
                 Id = el.Id,
                 Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.Name}")
@@ -102,6 +113,11 @@ namespace uIntra.Search.Web
             };
 
             return result;
+        }
+
+        protected virtual IEnumerable<IIntranetType> GetFilterItemTypes()
+        {
+            return _searchableTypeProvider.GetAll();
         }
 
         protected virtual SearchResultsOverviewViewModel GetSearchResultsOverviewModel(IEnumerable<SearchableBase> searchResults)

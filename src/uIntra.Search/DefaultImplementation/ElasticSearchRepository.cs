@@ -68,7 +68,14 @@ namespace uIntra.Search
         protected ISearchResponse<T> GetSearchResponse<T>(SearchDescriptor<T> descriptor)
              where T : class
         {
+#if DEBUG
+            descriptor.RequestConfiguration(r => r.DisableDirectStreaming());
+#endif
+
             var searchRequest = Client.Search<T>(descriptor);
+#if DEBUG
+            Console.WriteLine(searchRequest.DebugInformation);
+#endif
 
             if (!searchRequest.IsValid)
             {
