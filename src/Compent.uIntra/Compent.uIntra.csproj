@@ -368,9 +368,9 @@
     <Reference Include="uIntra.News, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.1.4\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.1.7.20, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Notification, Version=1.1.7.22, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Notification.1.1.7.20\lib\net452\uIntra.Notification.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Notification.1.1.7.22\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.1.16, Culture=neutral, processorArchitecture=MSIL">
@@ -847,6 +847,7 @@
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\style.css" />
+    <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
