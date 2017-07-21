@@ -160,14 +160,14 @@
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
             padding:13px 20px;
-            align-items:flex-start;
+            align-items:flex-end;
 
             &:last-child{
                 border:none;
             }
 
             .notification-page &{
-                padding:10px 0;
+                padding:10px 20px;
                 align-items:center;
 
                 @media(--for-tablet-portrait-down){
@@ -180,8 +180,8 @@
             &:after{
                 position:absolute;
                 top:-1px;
-                left:-20px;
-                right:-20px;
+                left:0;
+                right:0;
                 bottom:-1px;
                 background:var(--color-light-gray-2);
                 display:none;
@@ -213,6 +213,10 @@
             position:relative;
             overflow:hidden;
 
+	        .notification & {
+		        margin:2px 20px 0 0;
+	        }
+
             &-img{
                 height: auto !important;
                 left: 50%;
@@ -228,15 +232,10 @@
             }
         }
 
-        &-link{             
-            color:var(--text-color-dark);
-
-            &:active,
-            &:focus,
-            &:hover{
-                color:var(--text-color-dark);
-            }
-        }
+	    &-heading{
+		    font:13px/22px var(--font-general);
+		    color:var(--text-color-dark);
+	    }
 
         &-title{
 	        position: relative;
@@ -244,11 +243,25 @@
             font:bold 16px/22px var(--font-general);
             max-width:500px;
 
+	        .notification & {
+		        margin: 0;
+	        }
+
             p{
                 white-space:nowrap;
                 overflow:hidden;
                 text-overflow:ellipsis;
             }
+
+	        &-link {
+		        color: var(--text-color-dark);
+
+		        &:active,
+		        &:focus,
+		        &:hover{
+			        color:var(--text-color-dark);
+		        }
+	        }
         }
 
 	    &-meta{
@@ -318,20 +331,18 @@
 	        }
         }
 
-        &-type,
-        &-name{
-            margin:0;
-            font:13px/22px var(--font-general);
-        }
+	    &-name{
+		    margin:0 5px 0 0;
+	    }
 
-        &-date{
-            margin:0 0 0 20px;
-            float:right;
+	    &-date{
+		    margin:0 0 0 20px;
+		    float:right;
 
-            .notification &{
-                float:none;
-                margin:0;
-            }
-        }
+		    .notification &{
+			    float:none;
+			    margin:0 0 5px;
+		    }
+	    }
     }
 }
