@@ -24,7 +24,6 @@ namespace uIntra.Bulletins.Web
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/Bulletins/Details/DetailsView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Bulletins/Edit/EditView.cshtml";
         protected virtual string CreationFormItemHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Create/CreationFormItemHeader.cshtml";
-        protected virtual string DetailsHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Details/DetailsHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemHeader.cshtml";
 
         protected virtual int ShortDescriptionLength { get; } = 500;
@@ -143,11 +142,6 @@ namespace uIntra.Bulletins.Web
             return PartialView(CreationFormItemHeaderViewPath, model);
         }
 
-        public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel model)
-        {
-            return PartialView(DetailsHeaderViewPath, model);
-        }
-
         public virtual ActionResult ItemHeader(IntranetActivityItemHeaderViewModel model)
         {
             return PartialView(ItemHeaderViewPath, model);
@@ -185,10 +179,7 @@ namespace uIntra.Bulletins.Web
             var model = bulletin.Map<BulletinViewModel>();
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
-
-            var creator = _userService.Get(bulletin);
             model.HeaderInfo.Creator = _userService.Get(bulletin);
-            model.HeaderInfo.Title = creator.DisplayedName;
 
             model.CanEdit = _bulletinsService.CanEdit(bulletin);
             return model;
