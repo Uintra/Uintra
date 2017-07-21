@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.CentralFeed.App_Plugins.CentralFeed.Models;
-using uIntra.CentralFeed.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
@@ -191,8 +190,7 @@ namespace uIntra.CentralFeed.Web
         {
             if (type.Id == CentralFeedTypeEnum.All.ToInt())
             {
-                var items = _centralFeedService.GetFeed().ToList();
-                items.Sort(new CentralFeedComparer());
+                var items = _centralFeedService.GetFeed();
                 return items;
             }
 
