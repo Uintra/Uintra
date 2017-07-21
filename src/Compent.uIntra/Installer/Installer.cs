@@ -8,6 +8,7 @@ using uIntra.Navigation.Installer;
 using uIntra.News.Installer;
 using uIntra.Notification.Installer;
 using uIntra.Search.Installer;
+using uIntra.Users.Installer;
 using Umbraco.Core;
 
 namespace Compent.uIntra.Installer
@@ -56,6 +57,9 @@ namespace Compent.uIntra.Installer
 
             CoreInstallationStep.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, homeNav);
             CoreInstallationStep.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, nav);
+
+            CoreInstallationStep.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfilePage, nav);
+            CoreInstallationStep.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage, nav);
         }
 
         private void UpdateUIntraConfigurationStatus()
