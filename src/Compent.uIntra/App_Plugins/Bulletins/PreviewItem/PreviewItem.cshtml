@@ -7,18 +7,17 @@
 }
 <section class="content">
     <div class="row clearfix">
-        <h4>
-            <a href="@detailsPageUrl">@Html.Raw(Model.Description)</a>            
-        </h4>
+        <h2>
+            Title: @Model.Description
+        </h2>
         
-        <h4>
+        <h3>
             Creator: 
             <a href="@profilePageUrl">@Model.Creator.DisplayedName</a>
-        </h4>
+        </h3>
         
         <h4>
             Publish date: @Model.PublishDate
-
         </h4>
     </div>
 </section>
