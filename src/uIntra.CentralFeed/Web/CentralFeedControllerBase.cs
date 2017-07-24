@@ -176,14 +176,22 @@ namespace uIntra.CentralFeed.Web
 
             var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.NumberOfActivities);
             var settings = _centralFeedService.GetAllSettings();
+            var tab = GetTabForActivities(activitiesType);
 
             return new LatestActivitiesViewModel()
             {
                 Title = panelModel.Title,
                 Teaser = panelModel.Teaser,
                 Settings = settings,
-                Items = latestActivities
+                Items = latestActivities,
+                Tab = tab
             };
+        }
+
+        private CentralFeedTabViewModel GetTabForActivities(IIntranetType activitiesType)
+        {
+            var result = _centralFeedContentHelper.GetTabs(CurrentPage).First(el => el.Type.Id == activitiesType.Id).Map<CentralFeedTabViewModel>();
+            return result;
         }
 
         protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)
