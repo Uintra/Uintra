@@ -5,19 +5,10 @@
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
-<section class="content">
-    <div class="row clearfix">
-        <h2>
-            Title: @Model.Description
-        </h2>
-        
-        <h3>
-            Creator: 
-            <a href="@profilePageUrl">@Model.Creator.DisplayedName</a>
-        </h3>
-        
-        <h4>
-            Publish date: @Model.PublishDate
-        </h4>
-    </div>
-</section>
+<h3 class="block__subtitle">
+    <a href="@detailsPageUrl">@Html.Raw(Model.Description)</a>
+</h3>
+<div class="block__about">
+    <p class="block__about-item"><a href="@profilePageUrl">@Model.Creator.DisplayedName</a></p>
+    <p class="block__about-item">@Model.PublishDate</p>
+</div>
