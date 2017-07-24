@@ -17,6 +17,10 @@
             padding:20px;
             margin:0 -20px;
             border-bottom:1px solid var(--color-light-gray);
+
+            &:last-child{
+                border:none;
+            }
         }
     }
 
