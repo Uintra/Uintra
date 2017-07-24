@@ -208,7 +208,7 @@
 .autocomplete-suggestions{
     background-color:var(--color-white);
     box-shadow:2px 3px 5px rgba(0,0,0,0.3);
-    max-height: 441px !important;
+    max-height: 450px !important;
     overflow:auto;
     border:1px solid var(--color-light-gray-3);
     border-top:none;
@@ -257,22 +257,24 @@
             font-family:var(--font-custom);
             text-transform:uppercase;
             color:var(--text-color-light);
+            order:1;
         }
 
         .title {
-            margin:-9px 10px -8px 0;
+            margin:-9px 0 -8px;
             padding:9px 0 8px;
+            order:0;
 
             &._all{
 	            position: relative;
 	            flex-grow: 1;
                 font-size: 13px;
-	            padding: 13px 0 13px;
+	            padding:8px 0 9px;
 
                 &:after{
                     position:absolute;
                     top: 16px;
-                    right: 2px;
+                    right: 0;
                     width: 10px;
                     height: 10px;
                     border:solid var(--text-color-dark);
