@@ -172,9 +172,8 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
         {
-            IIntranetType activitiesType = _centralFeedTypeProvider.Get(panelModel.TypeOfActivities);
-
-            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.NumberOfActivities);
+            var activitiesType = _centralFeedTypeProvider.Get(panelModel.ActivityTypeId);
+            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.ActivityAmount);
             var settings = _centralFeedService.GetAllSettings();
             var tab = GetTabForActivities(activitiesType);
 

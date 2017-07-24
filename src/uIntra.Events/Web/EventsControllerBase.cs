@@ -189,7 +189,7 @@ namespace uIntra.Events.Web
 
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event)
         {
-            IIntranetUser creator = _intranetUserService.Get(@event);
+            var creator = _intranetUserService.Get(@event);
             return new EventPreviewViewModel()
             {
                 Id = @event.Id,
