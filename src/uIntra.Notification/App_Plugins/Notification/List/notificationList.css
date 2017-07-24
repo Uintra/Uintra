@@ -214,7 +214,7 @@
             overflow:hidden;
 
 	        .notification & {
-		        margin:2px 20px 0 0;
+		        margin: 0 20px 0 0;
 	        }
 
             &-img{
@@ -235,6 +235,17 @@
 	    &-heading{
 		    font:13px/22px var(--font-general);
 		    color:var(--text-color-dark);
+
+		    &:hover {
+			    color:var(--text-color-dark);
+		    }
+
+		    p {
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    margin: 0;
+		    }
 	    }
 
         &-title{

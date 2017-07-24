@@ -20,7 +20,7 @@
             }
         </ul>
     }
-    @Ajax.ActionLink("Open filters", "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
     @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter filter__body js-feed-navigation">
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>

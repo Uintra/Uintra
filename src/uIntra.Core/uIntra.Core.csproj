@@ -426,7 +426,6 @@
     <Compile Include="Core\NotificationConstants.cs" />
     <Compile Include="Core\TimezoneOffsetProvider.cs" />
     <Compile Include="Migrations\MigrationsHandler.cs" />
-    <Compile Include="Migrations\MediaMigrations.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />

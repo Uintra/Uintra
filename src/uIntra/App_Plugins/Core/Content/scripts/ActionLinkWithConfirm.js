@@ -18,7 +18,7 @@ function showConfirm(link) {
     alertify.defaults.glossary.cancel = no;
     alertify.defaults.glossary.ok = ok;
 
-    confirm.showConfirm(text, () => {
+    confirm.showConfirm('', text, () => {
         link.confirmed = true;
         link.click();
     }, noop, confirm.defaultSettings);

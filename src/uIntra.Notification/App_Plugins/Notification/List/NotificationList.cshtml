@@ -32,9 +32,9 @@
                 break;
         }
         <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-            <span class="notification__list-avatar">
+            <a class="notification__list-avatar" href="@notification.Value.url">
                 <img class="notification__list-avatar-img" src="@notification.NotifierPhoto">
-            </span>
+            </a>
 
             <div class="notification__list-meta">
                 <div class="notification__list-description">
@@ -48,16 +48,16 @@
                                 @if (notification.Type.Id != NotificationTypeEnum.BeforeStart.ToInt())
                                 {
                                     <span class="notification__list-name">@notification.NotifierName</span>
-                                }
-                                @if (notification.Type.Name.IsNotNullOrEmpty())
-                                {
-                                    <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
-                                }
+                                }                               
                             </a>
+                            @if (notification.Type.Name.IsNullOrEmpty())
+                            {
+                                <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
+                            }
                         </h2>
-                        <span class="notification__list-heading">
+                        <a class="notification__list-heading" href="@notification.Value.url">
                             @Html.Raw(notification.Value.title)
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -49,26 +49,34 @@
             "editors": [
               "headline"
             ],
-            "allowAll": true,
+            "allowAll": false,
             "allowed": [
               "custom.NewsEdit",
               "custom.NewsCreate",
               "custom.NewsOverview",
               "custom.NewsDetails",
-              "custom.EventsEdit",
-              "custom.EventsCreate",
-              "custom.EventsOverview",
-              "custom.EventsDetails",
               "custom.BulletinsCreate",
               "custom.BulletinsEdit",
-              "custom.BulletinsDetails"
+              "custom.BulletinsDetails",
+              "custom.CentralFeed",
+              "custom.EventsCreate",
+              "custom.EventsEdit",
+              "custom.EventsDetails",
+              "custom.ComingEvents",
+              "custom.NotificationList",
+              "custom.ContentPanel",
+              "custom.GlobalPanelPicker",
+              "custom.DocumentLibraryPanel",
+              "custom.SearchResult",
+              "custom.Profile",
+              "custom.ProfileEdit"
             ]
           }
         ]
       },
       {
         "label": "",
-        "name": "Right side",
+        "name": "Right side column",
         "areas": [
           {
             "grid": 12,
@@ -76,6 +84,8 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
+              "custom.DocumentLibraryPanel",
+              "custom.LatestActivities",
               "custom.ComingEvents"
             ]
           }

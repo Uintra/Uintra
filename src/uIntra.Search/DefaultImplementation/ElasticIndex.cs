@@ -154,7 +154,7 @@ namespace uIntra.Search
         }
 
         protected virtual List<T> CollectDocuments<T>(ISearchResponse<dynamic> response)
-            where T : SearchableBase            
+            where T : SearchableBase
         {
             var documents = new List<T>();
             foreach (var document in response.Documents)
@@ -191,7 +191,13 @@ namespace uIntra.Search
             return CollectDocuments<T>(response);
         }
 
-        private static void Highlight(dynamic document, Dictionary<string, HighlightHit> fields)
+        protected virtual void HighlightAdditional(dynamic document, Dictionary<string, HighlightHit> fieldsm,
+            List<string> panelContent)
+        {
+            return;
+        }
+
+        protected virtual void Highlight(dynamic document, Dictionary<string, HighlightHit> fields)
         {
             var panelContent = new List<string>();
 
@@ -220,6 +226,8 @@ namespace uIntra.Search
                         break;
                 }
             }
+
+            HighlightAdditional(document, fields, panelContent);
 
             if (panelContent.Any())
             {

@@ -41,7 +41,7 @@
         "areas": [
           {
             "grid": 12,
-            "allowAll": true,
+            "allowAll": false,
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
