@@ -50,7 +50,7 @@
                                     <span class="notification__list-name">@notification.NotifierName</span>
                                 }                               
                             </a>
-                            @if (notification.Type.Name.IsNullOrEmpty())
+                            @if (notification.Type.Name.IsNotNullOrEmpty())
                             {
                                 <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
                             }
