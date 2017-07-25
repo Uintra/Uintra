@@ -236,6 +236,10 @@
 		    font:13px/22px var(--font-general);
 		    color:var(--text-color-dark);
 
+		    &:hover {
+			    color:var(--text-color-dark);
+		    }
+
 		    p {
 			    overflow: hidden;
 			    text-overflow: ellipsis;
