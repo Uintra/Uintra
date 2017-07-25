@@ -2,9 +2,11 @@
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
 import subscribe from "./../Subscribe/subscribe";
+import initOpener from "./openCloseCentralFeed";
 
 require("./centralFeed.css");
 
+const hideClass = "_hide";
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
@@ -207,7 +209,16 @@ function emitTabReloadedEvent(isReinit) {
     uIntra.events.cfTabReloaded.dispatch();
 }
 
+function setBulletinCreateMode(feed) {
+    feed.classList.add(hideClass);
+}
+
+function removeBulletinCreateMode(feed) {
+    feed.classList.remove(hideClass);
+}
+
 function init() {
+    initOpener();
     holder = document.querySelector('.js-feed-overview');
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
@@ -261,6 +272,12 @@ function init() {
     runReloadInverval();
 
     uIntra.events.addListener("cfReloadTab", reloadTabEventHandler);
+
+    const feedCreate = document.querySelector(".js-feed-create");
+    if (feedCreate) {
+        uIntra.events.addListener("setBulletinCreateMode", () => setBulletinCreateMode(feedCreate));
+        uIntra.events.addListener("removeBulletinCreateMode", () => removeBulletinCreateMode(feedCreate));
+    }
 }
 
 export default {
