@@ -174,15 +174,6 @@ function cfReloadTab() {
     uIntra.events.cfReloadTab.dispatch();
 }
 
-function cfTabReloadedEventHandler(e) {
-    let bulletinHolder = getBulletinHolder();
-    if (!bulletinHolder || !e.detail.isReinit) {
-        return;
-    }
-
-    controller.init();
-}
-
 let controller = {
     init: function () {
         holder = getBulletinHolder();
@@ -195,7 +186,6 @@ let controller = {
         initEditor();
         initEventListeners();
         initFileUploader();
-        uIntra.events.addListener("cfTabReloaded", cfTabReloadedEventHandler);
     }
 }
 

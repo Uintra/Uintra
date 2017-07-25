@@ -6,22 +6,10 @@
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
 
-<section class="content">
-    <div class="row clearfix">
-        <h2>
-            <h4>
-                <a href="@detailsPageUrl">@Html.Raw(Model.Title)</a>
-            </h4>
-        </h2>
-
-        <h3>
-            Creator:
-            <a href="@profilePageUrl">@Model.Creator.DisplayedName</a>
-        </h3>
-
-        <h4>
-            From: @Model.StartDate
-            Till: @Model.EndDate
-        </h4>
-    </div>
-</section>
+<h3 class="block__subtitle">
+    <a href="@detailsPageUrl">@Html.Raw(Model.Title)</a>
+</h3>
+<div class="block__about">
+    <p class="block__about-item"><a href="@profilePageUrl">@Model.Creator.DisplayedName</a></p>
+    <p class="block__about-item">@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</p>
+</div>

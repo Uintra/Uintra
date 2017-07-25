@@ -14,11 +14,11 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using File = System.IO.File;
 
-namespace Compent.uIntra.SetupMigrations
+namespace Compent.uIntra.Installer
 {
     public class UmbracoContentMigration
     {
-        private const string JsonFilesFolder = "~/SetupMigrations/json/";
+        private const string JsonFilesFolder = "~/Installer/ContentPageJsons/";
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IContentService _contentService;
@@ -116,9 +116,9 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("Profile", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfilePageDocTypeName);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile");
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile");
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "profilePageGrid.json");
         }
@@ -132,9 +132,9 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("Profile Edit Page", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfileEditPageDocTypeName);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile Edit");
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
-            //content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile Edit");
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "profileEditPageGrid.json");
         }
@@ -180,10 +180,6 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("News", homePage.Id, UmbracoContentMigrationConstants.DocType.NewsOverviewPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "News");
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "newsOverviewPageGrid.json");
         }
@@ -236,10 +232,6 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("Bulletins", homePage.Id, UmbracoContentMigrationConstants.DocType.BulletinsOverviewPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Bulletins");
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "bulletinsOverviewPageGrid.json");
         }
@@ -278,10 +270,6 @@ namespace Compent.uIntra.SetupMigrations
             }
 
             var content = _contentService.CreateContent("Events", homePage.Id, UmbracoContentMigrationConstants.DocType.EventsOverviewPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Events");
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, false);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.IsShowInHomeNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "eventsOverviewPageGrid.json");
         }

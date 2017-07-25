@@ -13,47 +13,48 @@
 </div>  
 @Html.Action("SearchBox", "Search")
 @Html.Action("Preview", "Notification")
-<div class="user">
-    <a class="user__opener icon-user @userAvatar">
-        <div class="user__avatar _for-desktop">
-            <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
-        </div>
-        <span class="user__opener-arrow"></span>
-    </a>
-    <ul class="user__menu">
-        <li class="user__menu-item _for-mobile">
-            <div class="user__menu-link @userAvatar">
-                <div class="user__avatar icon-user">
-                    <img src="@Model.CurrentUser.Photo" width="30">
-                </div>
-                <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
+<div class="header__right">
+    <div class="greeting _for-desktop">
+        <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
+        <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
+    </div>
+    <div class="user">
+        <a class="user__opener icon-user @userAvatar">
+            <div class="user__avatar _for-desktop">
+                <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
             </div>
-        </li>
-        <li class="user__menu-item">
-            <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
-                <span class="icon icon-user"></span>
-                Edit profile
-            </a>
-        </li>
-        @if (Model.CurrentUser.UmbracoId.HasValue)
-        {
+            <span class="user__opener-arrow"></span>
+        </a>
+        <ul class="user__menu">
+            <li class="user__menu-item _for-mobile">
+                <div class="user__menu-link @userAvatar">
+                    <div class="user__avatar icon-user">
+                        <img src="@Model.CurrentUser.Photo" width="30">
+                    </div>
+                    <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
+                </div>
+            </li>
             <li class="user__menu-item">
-                <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                    <span class="icon icon-umbraco"></span>
-                    LoginToUmbraco
+                <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
+                    <span class="icon icon-user"></span>
+                    Edit profile
                 </a>
             </li>
-        }
-        <li class="user__menu-item">
-            <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
-                <span class="icon icon-logout"></span>
-                Logout
-            </a>
-        </li>
-    </ul>
+            @if (Model.CurrentUser.UmbracoId.HasValue)
+            {
+                <li class="user__menu-item">
+                    <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
+                        <span class="icon icon-umbraco"></span>
+                        LoginToUmbraco
+                    </a>
+                </li>
+            }
+            <li class="user__menu-item">
+                <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
+                    <span class="icon icon-logout"></span>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
-
-<div class="greeting _for-desktop">
-    <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
-    <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
-</div> 

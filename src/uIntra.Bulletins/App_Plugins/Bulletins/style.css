@@ -67,14 +67,19 @@
 		}
 	}
 
-	&__toolbar {
+	&__toolbar.ql-toolbar{
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
 		border-width: 1px 0 0 !important;
+        flex-wrap:wrap;
+        padding:8px 15px 0;
 
 		.ql-formats {
 			display: flex;
+            margin-bottom: 8px;
+            margin-left: 15px;
+            margin-right:0;
 
 			button {
 				margin: 0 0 0 15px;
@@ -87,10 +92,6 @@
 				&:first-child {
 					margin: 0;
 				}
-			}
-
-			&:last-child {
-				margin: 0;
 			}
 		}
 

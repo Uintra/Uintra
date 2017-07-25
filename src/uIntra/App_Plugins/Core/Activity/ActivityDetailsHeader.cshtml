@@ -23,4 +23,7 @@
         </p>
     </div>
 </header>
-<h2 class="feed__item-title">@Model.Title</h2>
+@if (Model.Title.IsNotNullOrEmpty())
+{
+    <h2 class="feed__item-title">@Model.Title</h2>    
+}

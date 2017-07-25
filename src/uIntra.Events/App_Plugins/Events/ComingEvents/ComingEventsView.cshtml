@@ -4,12 +4,19 @@
 <section class="block coming-events clearfix">
     <h2 class="block__title"><span class="icon-calendar"></span>@Model.Title</h2>
     <ul class="coming-events__list">
+        @if (Model.Events.IsEmpty())
+        {
+            <li class="coming-events__list-item clearfix">
+                @Html.Localize("Events.ComingEvents.Empty.lbl")
+            </li>
+        }
+
         @foreach (var e in Model.Events)
         {
             <li class="coming-events__list-item clearfix">
                 <div class="coming-events__date">
                     <span class="coming-events__day">@e.StartDate.Day</span>
-                    <span class="coming-events__month">@e.StartDate.ToString("MMMM")</span>
+                    <span class="coming-events__month">@e.StartDate.ToString("MMM")</span>
                 </div>
                 <div class="coming-events__description">
                     <a href="@e.DetailsPageUrl">

@@ -6,7 +6,6 @@ using System.Web.Hosting;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
-using uIntra.Core.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
@@ -331,23 +330,28 @@ namespace uIntra.Core.Installer
                 dataTypeService.Save(dataType);
             }
 
-            var isDeletedPropertyType = new PropertyType(dataType)
+            var imageIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
+            if (!imageType.PropertyTypeExists(imageIsDeletedPropertyType.Alias))
+            {
+                imageType.AddPropertyType(imageIsDeletedPropertyType);
+                contentTypeService.Save(imageType);
+            }
+
+            var fileIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
+            if (!fileType.PropertyTypeExists(fileIsDeletedPropertyType.Alias))
+            {
+                fileType.AddPropertyType(fileIsDeletedPropertyType);
+                contentTypeService.Save(fileType);
+            }
+        }
+
+        private PropertyType GetIsDeletedPropertyType(IDataTypeDefinition dataType)
+        {
+            return new PropertyType(dataType)
             {
                 Name = "Is deleted",
                 Alias = ImageConstants.IsDeletedPropertyTypeAlias
             };
-
-            if (!imageType.PropertyTypeExists(isDeletedPropertyType.Alias))
-            {
-                imageType.AddPropertyType(isDeletedPropertyType);
-                contentTypeService.Save(imageType);
-            }
-
-            if (!fileType.PropertyTypeExists(isDeletedPropertyType.Alias))
-            {
-                fileType.AddPropertyType(isDeletedPropertyType);
-                contentTypeService.Save(fileType);
-            }
         }
 
         private void CreateMediaFolderTypeDataType()
@@ -426,29 +430,35 @@ namespace uIntra.Core.Installer
             }
         }
 
-        private static void AddIntranetUserIdProperty()
+        private void AddIntranetUserIdProperty()
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
 
             var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
             var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
 
-            var userIdPropertyType = new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar, ImageConstants.IntranetCreatorId)
+            var imageIntranetUserId = GetIntranetUserIdPropertyType();
+            if (!imageType.PropertyTypeExists(imageIntranetUserId.Alias))
             {
-                Name = "Intranet user id"
-            };
-
-            if (!imageType.PropertyTypeExists(userIdPropertyType.Alias))
-            {
-                imageType.AddPropertyType(userIdPropertyType);
+                imageType.AddPropertyType(imageIntranetUserId);
                 contentTypeService.Save(imageType);
             }
 
-            if (!fileType.PropertyTypeExists(userIdPropertyType.Alias))
+            var fileIntranetUserId = GetIntranetUserIdPropertyType();
+            if (!fileType.PropertyTypeExists(fileIntranetUserId.Alias))
             {
-                fileType.AddPropertyType(userIdPropertyType);
+                fileType.AddPropertyType(fileIntranetUserId);
                 contentTypeService.Save(fileType);
             }
+        }
+
+        private PropertyType GetIntranetUserIdPropertyType()
+        {
+            return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
+            {
+                Name = "Intranet user id",
+                Alias = ImageConstants.IntranetCreatorId
+            };
         }
 
         public static void CreateTrueFalseDataType(string name)

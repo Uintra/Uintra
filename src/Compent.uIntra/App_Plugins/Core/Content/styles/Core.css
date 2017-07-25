@@ -235,13 +235,15 @@ a{
 }
 
 #header {
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    background:var(--header-bg);
-    padding:0;
-    z-index:12;
+	position:fixed;
+	z-index:12;
+	top:0;
+	left:0;
+	right:0;
+	display: flex;
+	align-items: center;
+	background:var(--header-bg);
+	padding:0;
 
     @media (--for-tablet-portrait-down) {
         & {
@@ -270,6 +272,13 @@ a{
             min-height:50px;
         }
     }
+
+	.header__right {
+		flex-grow: 1;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
 }
 
 .logo {
