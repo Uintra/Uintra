@@ -332,8 +332,8 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.3\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.BaseControls, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.BaseControls.2.3.2\lib\net452\uIntra.BaseControls.dll</HintPath>
+    <Reference Include="uIntra.BaseControls, Version=2.3.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.3.3.1\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -349,9 +349,8 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.2.4\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.21.7, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.21.7\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.21.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.21.8\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -510,7 +509,6 @@
     <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.js" />
     <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
     <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\l10n\da.js" />
     <Content Include="App_Plugins\BaseControls\directives.js" />
     <Content Include="App_Plugins\BaseControls\filters.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
@@ -535,7 +533,6 @@
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.css" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.html" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.js" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\BaseControls\TinyMce\link-picker-overlay.html" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
@@ -996,24 +993,6 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
-    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.ttf" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.eot" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
@@ -1057,6 +1036,25 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+    <Content Include="App_Plugins\Core\package.manifest" />
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.ttf" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.eot" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1077,10 +1075,10 @@
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
+    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
     <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
     <Content Include="Installer\PreValues\ContentGridPreValues.json" />
-    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

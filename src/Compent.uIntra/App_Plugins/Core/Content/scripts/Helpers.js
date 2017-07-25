@@ -2,7 +2,6 @@
 var Delta = require('quill-delta');
 var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
-var FlatpickrLang = require('flatpickr/dist/l10n/da');
 require('simple-scrollbar');
 
 require('flatpickr/dist/flatpickr.min.css');
@@ -85,7 +84,6 @@ var helpers = {
             allowInput: false,
             weekNumbers: true,
             dateFormat: dateFormat,
-            locale: FlatpickrLang.da,
             minuteIncrement: 1,
             onChange: function (selectedDates) {
                 if (selectedDates.length === 0) {
