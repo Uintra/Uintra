@@ -10,6 +10,7 @@ namespace uIntra.Notification
         protected override void Configure()
         {
             Mapper.CreateMap<Notification, NotificationViewModel>()
+                .ForMember(d => d.NotifierId, o => o.Ignore())
                 .ForMember(d => d.NotifierName, o => o.Ignore())
                 .ForMember(d => d.NotifierPhoto, o => o.Ignore())
                 .ForMember(d => d.Type, o => o.Ignore())

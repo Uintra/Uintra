@@ -1113,9 +1113,9 @@
     <Content Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
       <Link>Core\Extentions\PublishedContentExtentions.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Core\Handlers\NotFoundHandler.cs">
+    <Compile Include="..\Compent.uIntra\Core\Handlers\NotFoundHandler.cs">
       <Link>Core\Handlers\NotFoundHandler.cs</Link>
-    </Content>
+    </Compile>
     <Content Include="..\Compent.uIntra\Core\Helpers\IUmbracoContentHelper.cs">
       <Link>Core\Helpers\IUmbracoContentHelper.cs</Link>
     </Content>
