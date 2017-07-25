@@ -15,7 +15,7 @@ let toolbar;
 let sentButton;
 let closeButton;
 let header;
-let editor; 
+let editor;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -25,6 +25,8 @@ function initElements() {
     closeButton = holder.querySelector(".js-create-bulletin__description-close");
     header = holder.querySelector(".js-create-bulletin__user");
     mobileBtn = document.querySelector(".js-expand-bulletin");
+    uIntra.events.add("setBulletinCreateMode");
+    uIntra.events.add("removeBulletinCreateMode");
 }
 
 function initEditor() {
@@ -43,9 +45,9 @@ function initEditor() {
     });
 }
 
-function initEventListeners() {    
-    mobileMediaQuery.matches ? 
-        mobileBtn.addEventListener("click", descriptionClickHandler) : 
+function initEventListeners() {
+    mobileMediaQuery.matches ?
+        mobileBtn.addEventListener("click", descriptionClickHandler) :
         description.addEventListener("click", descriptionClickHandler);
 
     sentButton.addEventListener("click", sentButtonClickHandler);
@@ -82,17 +84,25 @@ function descriptionClickHandler(event) {
     show();
 }
 
+function setGlobalEventShow() {
+    uIntra.events.setBulletinCreateMode.dispatch();
+}
+
+function setGlobalEventHide() {
+    uIntra.events.removeBulletinCreateMode.dispatch();
+}
+
 function sentButtonClickHandler(event) {
     event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
-  
+
     let promise = form.submit();
     promise.then(function(data) {
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
             cfReloadTab();
-            hide(); 
+            hide();
         }
     });
 }
@@ -102,9 +112,9 @@ function closeBtnClickHandler(event) {
     if (isEdited()) {
         if (showConfirmMessage(this.dataset.message)) {
             hide();
-        } 
+        }
         return;
-    } 
+    }
     hide();
 }
 
@@ -126,6 +136,7 @@ function initMobile(){
 // editor helpers
 
 function show() {
+    setGlobalEventShow();
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeButton.classList.remove("hidden");
@@ -138,6 +149,7 @@ function show() {
 }
 
 function hide() {
+    setGlobalEventHide();
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
     closeButton.classList.add("hidden");
@@ -187,6 +199,6 @@ let controller = {
         initEventListeners();
         initFileUploader();
     }
-}
+};
 
 export default controller;
