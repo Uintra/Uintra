@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Bulletins activity package")]
 
 [assembly: AssemblyVersion("0.1.0.2")]
-[assembly: AssemblyInformationalVersion("0.1.0.2-v1")]
+[assembly: AssemblyInformationalVersion("0.1.0.3-v1")]
 
 [assembly: ComVisible(false)]
 [assembly: Guid("9cdb39aa-aa5a-4691-b942-8f2ee3297e64")]

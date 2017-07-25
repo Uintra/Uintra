@@ -10,5 +10,5 @@
 </h3>
 <div class="block__about">
     <p class="block__about-item"><a href="@profilePageUrl">@Model.Creator.DisplayedName</a></p>
-    <p class="block__about-item">@Model.PublishDate</p>
+    <p class="block__about-item">@Model.PublishDate.ToDateTimeFormat()</p>
 </div>
