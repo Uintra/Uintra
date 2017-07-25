@@ -1118,26 +1118,6 @@
     <Content Include="config\umbracoSettings.config">
       <TransformOnBuild>true</TransformOnBuild>
     </Content>
-    <None Include="config\umbracoSettings.Debug.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.DebugWithDll.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Dev.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.NuGet.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Release.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <Content Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
     <Content Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />
     <Content Include="Installer\ContentPageJsons\bulletinsOverviewPageGrid.json" />
