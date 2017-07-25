@@ -21,15 +21,18 @@ namespace uIntra.Notification.Web
         private readonly IUiNotifierService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationHelper _notificationHelper;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected NotificationControllerBase(
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            INotificationHelper notificationHelper)
+            INotificationHelper notificationHelper, 
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
             _notificationHelper = notificationHelper;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public virtual ActionResult Overview()
@@ -39,6 +42,8 @@ namespace uIntra.Notification.Web
 
         public virtual ActionResult Index(int page = 1)
         {
+            FillLinks();
+
             var take = page * ItemsPerPage;
             int totalCount;
             var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out totalCount).ToList();
@@ -81,6 +86,8 @@ namespace uIntra.Notification.Web
 
         public virtual PartialViewResult List()
         {
+            FillLinks();
+
             int totalCount;
             var notificationListPage = _notificationHelper.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
@@ -118,6 +125,12 @@ namespace uIntra.Notification.Web
             return PartialView(PreviewViewPath, result);
         }
 
+        protected virtual void FillLinks()
+        {
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
+            ViewData.SetProfilePageUrl(profilePageUrl);
+        }
+
         #region utils
 
         private void FillNotifierData(NotificationViewModel notification)
@@ -129,6 +142,7 @@ namespace uIntra.Notification.Web
             }
 
             var notifier = _intranetUserService.Get(notifierId);
+            notification.NotifierId = notifierId;
             notification.NotifierName = notifier.DisplayedName;
             notification.NotifierPhoto = notifier.Photo;
         }
