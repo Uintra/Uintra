@@ -264,6 +264,12 @@ namespace uIntra.CentralFeed.Web
                 return events;
             }
 
+            if (type.Id == CentralFeedTypeEnum.All.ToInt())
+            {
+                var allItemsList = items.OrderByDescending(el => el.IsPinActual).ThenBy(i => i, new CentralFeedItemComparer()).ToList();
+                return allItemsList;
+            }
+
             var itemList = items.OrderByDescending(el => el.IsPinActual).ThenByDescending(el => el.PublishDate).ToList();
             return itemList;
         }
