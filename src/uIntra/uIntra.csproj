@@ -1394,6 +1394,9 @@
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
+    <Compile Include="..\Compent.uIntra\Installer\DefaultLocalizationsMigration.cs">
+      <Link>Installer\DefaultLocalizationsMigration.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Installer\Installer.cs">
       <Link>Installer\Installer.cs</Link>
     </Compile>
@@ -1570,7 +1573,11 @@
   <ItemGroup>
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
+      <Link>Installer\PreValues\DefaultLocalizations.json</Link>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
