@@ -10,7 +10,7 @@ namespace Compent.uIntra.Installer
 {
     public class DefaultLocalizationsMigration
     {
-        private const string JsonFilesFolder = "~/Installer/PreValues/DefaultLocalizations.json";
+        private const string DefaultLocalizationsFilePath = "~/Installer/PreValues/DefaultLocalizations.json";
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
@@ -57,10 +57,10 @@ namespace Compent.uIntra.Installer
 
         private string GetDefaultLocalizationsFileContent()
         {
-            var filePath = HostingEnvironment.MapPath(JsonFilesFolder);
+            var filePath = HostingEnvironment.MapPath(DefaultLocalizationsFilePath);
             if (filePath.IsNullOrEmpty() || !File.Exists(filePath))
             {
-                throw new FileNotFoundException($"File {JsonFilesFolder} doesn't exist.");
+                throw new FileNotFoundException($"File {DefaultLocalizationsFilePath} doesn't exist.");
             }
 
             return File.ReadAllText(filePath);
