@@ -242,7 +242,7 @@
 	    }
 	    &__frame {
 		    display: inline-block;
-		    margin: 0 5px 0 0;
+		    margin: 0 5px;
 	    }
 
 	    .icon {
