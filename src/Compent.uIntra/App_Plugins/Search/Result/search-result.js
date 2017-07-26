@@ -9,6 +9,7 @@ var searchTimeout;
 var formController;
 var holder;
 var select;
+let scrollHeight = 0;
 
 var initTypesSelect = function () {
     select.select2({
@@ -50,7 +51,7 @@ function initInfinityScroll() {
         get storageName() {
             return "searchResults";
         }
-    } 
+    }
 
     function saveState() {
         localStorage.setItem(state.storageName, { page: state.page });
@@ -76,7 +77,7 @@ function initInfinityScroll() {
         promise.catch(hideLoadingStatus);
         return promise;
     }
-    
+
     function restoreState() {
         var hash = (window.location.hash || "").replace("#", "");
         if (hash) {
@@ -101,16 +102,26 @@ function initInfinityScroll() {
         }
         state.page++;
         var promise = reload();
-        promise.then(done, done);
+        if (isScrollDirectionBottom()) {
+            promise.then(done, done);
+        }
     }
 
     restoreState();
     infinityScroll(onScroll)();
 }
 
+function isScrollDirectionBottom() {
+    const tempScrollHeight = Math.max(scrollHeight, window.pageYOffset);
+    scrollHeight = window.pageYOffset;
+
+    return tempScrollHeight < scrollHeight;
+}
+
 function search() {
     holder.find('input[name="page"]').val(1);
     formController.reload();
+    initInfinityScroll();
 }
 
 export default function () {

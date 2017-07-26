@@ -385,7 +385,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Search, Version=0.0.4.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.4.9\lib\net452\uIntra.Search.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Search.0.0.4.10-v2\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
