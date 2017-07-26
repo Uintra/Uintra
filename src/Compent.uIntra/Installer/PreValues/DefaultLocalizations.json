@@ -843,5 +843,26 @@
       "en-US": "System Links Block"
     },
     "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "TopNavigation.EditProfile.lbl",
+    "translations": {
+      "en-US": "Edit profile"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "TopNavigation.LoginToUmbraco.lbl",
+    "translations": {
+      "en-US": "Login to Umbraco"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "TopNavigation.Logout.lbl",
+    "translations": {
+      "en-US": "Logout"
+    },
+    "updateDate": "0001-01-01T00:00:00"
   }
 ]
