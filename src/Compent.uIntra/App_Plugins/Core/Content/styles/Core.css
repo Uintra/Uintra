@@ -641,11 +641,9 @@ a{
 }
 
 .ellipsis{
-    width:20px;
-    height:20px;
-    display:inline-block;
-    position:absolute;
-    margin:0 0 0 -20px;
+	opacity: 0;
+	width: 15px;
+	margin: 0 0 0 -17px;
 }
 
 .ajs-footer {
