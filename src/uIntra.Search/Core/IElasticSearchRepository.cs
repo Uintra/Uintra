@@ -11,7 +11,7 @@ namespace uIntra.Search
             where T : class;
 
         void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis);
-        string GetTypeName(Type type);
+
         void DeleteIndex();
     }
 

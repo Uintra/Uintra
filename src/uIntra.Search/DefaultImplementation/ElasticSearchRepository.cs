@@ -53,11 +53,6 @@ namespace uIntra.Search
             EnsureAttachmentsPipelineExists();
         }
 
-        public virtual string GetTypeName(Type type)
-        {
-            return type.Name.ToLower();
-        }
-
         public void DeleteIndex()
         {
             if (!Client.IndexExists(IndexName).Exists) return;
@@ -225,6 +220,11 @@ namespace uIntra.Search
             }
 
             return bulkDescriptor;
+        }
+
+        protected virtual string GetTypeName(Type type)
+        {
+            return type.Name.ToLower();
         }
 
         private string GetTypeName()
