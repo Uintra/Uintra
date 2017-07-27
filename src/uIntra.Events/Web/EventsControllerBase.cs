@@ -69,16 +69,32 @@ namespace uIntra.Events.Web
         }
 
         [HttpGet]
-        public virtual ActionResult ComingEvents()
+        public virtual ActionResult ComingEvents(ComingEventsPanelModel panelModel)
         {
-            var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
-            var title = _gridHelper.GetContentProperty<string>(CurrentPage, "custom.ComingEvents", "displayTitle");
-            var currentDate = DateTime.UtcNow;
-            var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
-            var events = _eventsService.GetComingEvents(currentDate).Take(eventsAmount);
+            var viewModel = GetComingEventsViewModel(panelModel);
+            return PartialView(ComingEventsViewPath, viewModel);
+        }
+
+        protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
+        {
+            var viewModel = new ComingEventsPanelViewModel()
+            {
+                Title = panelModel.DisplayTitle,
+                Events = GetComingEvents(panelModel.EventsAmount)
+            };
+            return viewModel;
+        }
+
+        protected virtual IList<ComingEventViewModel> GetComingEvents(int eventsAmount)
+        {
+            var events = _eventsService.GetComingEvents(DateTime.UtcNow).Take(eventsAmount);
             var eventsList = events as IList<EventBase> ?? events.ToList();
+
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
+
+            var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
             var comingEvents = new List<ComingEventViewModel>();
+
             foreach (var e in eventsList)
             {
                 var viewModel = e.Map<ComingEventViewModel>();
@@ -86,13 +102,8 @@ namespace uIntra.Events.Web
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
                 comingEvents.Add(viewModel);
             }
-            
-            var model = new ComingEventsPanelViewModel()
-            {
-                Title = title,
-                Events = comingEvents
-            };
-            return PartialView(ComingEventsViewPath, model);
+
+            return comingEvents;
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
