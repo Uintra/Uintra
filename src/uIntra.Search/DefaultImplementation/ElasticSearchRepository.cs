@@ -53,6 +53,11 @@ namespace uIntra.Search
             EnsureAttachmentsPipelineExists();
         }
 
+        public virtual string GetTypeName(Type type)
+        {
+            return type.Name.ToLower();
+        }
+
         public void DeleteIndex()
         {
             if (!Client.IndexExists(IndexName).Exists) return;
@@ -202,11 +207,6 @@ namespace uIntra.Search
             }
         }
 
-        public virtual string GetTypeName()
-        {
-            return typeof(T).Name.ToLower();
-        }
-
         private static IndexDescriptor<T> SetPipelines(IndexDescriptor<T> indexDescriptor)
         {
             if (typeof(T) == SearchableDocumentType)
@@ -225,6 +225,11 @@ namespace uIntra.Search
             }
 
             return bulkDescriptor;
+        }
+
+        private string GetTypeName()
+        {
+            return GetTypeName(typeof(T));
         }
     }
 }

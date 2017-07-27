@@ -11,7 +11,7 @@ namespace uIntra.Search
             where T : class;
 
         void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis);
-
+        string GetTypeName(Type type);
         void DeleteIndex();
     }
 
@@ -24,7 +24,6 @@ namespace uIntra.Search
         void Save(IEnumerable<T> documents);
         void Delete(object id);
         void EnsureMappingExist();
-        string GetTypeName();
         void DeleteAllByType(IIntranetType type);
     }
 }
