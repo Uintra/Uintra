@@ -28,20 +28,15 @@ namespace uIntra.Likes.Web
             _likesService = likesService;
         }
 
-        public virtual PartialViewResult Index()
+        public virtual PartialViewResult ContentPageLikes()
         {
             var guid = new CMSNode(CurrentPage.Id).UniqueId;
-            return ContentPageLikes(guid);
+            return Likes(_likesService.GetLikeModels(guid), guid);
         }
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
         {
             return Likes(likesInfo.Likes, likesInfo.Id);
-        }
-
-        public virtual PartialViewResult ContentPageLikes(Guid pageId)
-        {
-            return Likes(_likesService.GetLikeModels(pageId), pageId);
         }
 
         public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
