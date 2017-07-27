@@ -92,3 +92,11 @@ if (!Array.from) {
 
     window.CustomEvent = CustomEvent;
 })();
+
+/**
+ * Difference;
+ * Returns the elements of the first array that are not in the second array
+ */
+Array.prototype.except = function (a) {
+    return this.filter(el => a.indexOf(el) === -1);
+};

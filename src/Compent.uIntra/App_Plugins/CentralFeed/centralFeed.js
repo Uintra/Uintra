@@ -267,7 +267,7 @@ function init() {
 
     initDescription();
     restoreState();
-    infinityScroll(onScroll)();
+    infinityScroll(onScroll, formController.form)();
     attachEventFilter();
     runReloadInverval();
 

@@ -343,7 +343,7 @@
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.10.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.10.10-v1\lib\net452\uIntra.CentralFeed.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.10.10-v5\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -352,7 +352,7 @@
     </Reference>
     <Reference Include="uIntra.Core, Version=1.1.21.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.21.9-v2\lib\net452\uIntra.Core.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Core.1.1.21.9-v4\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -1350,6 +1350,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\CentralFeed\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>
   <PropertyGroup>

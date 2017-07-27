@@ -43,15 +43,15 @@
                 return false;
             }
 
-            if (!isValidNumberOfActivities(model)) {
+            if (!isValidActivityAmount(model)) {
                 $scope.control.validationMessage = "Number of activities is invalid";
                 return false;
             }
 
             return true;
 
-            function isValidNumberOfActivities(model) {
-                return !isNaN(model.numberOfActivities) && parseInt(model.numberOfActivities) > 0; 
+            function isValidActivityAmount(model) {
+                return !isNaN(model.activityAmount) && parseInt(model.activityAmount) > 0;
             }
 
             function isValidTitle(model) {
