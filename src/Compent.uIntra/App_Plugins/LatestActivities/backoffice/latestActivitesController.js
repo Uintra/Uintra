@@ -32,7 +32,6 @@
         };
 
         function isValidModel(model) {
-
             if (!model) {
                 $scope.control.validationMessage = "Fields can not be empty";
                 return false;
