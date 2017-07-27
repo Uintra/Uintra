@@ -276,7 +276,7 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "CONTENT",
+    "key": "Content",
     "translations": {
       "en-US": "Content"
     },
@@ -823,7 +823,7 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "SUBSCRIBEVIEW.SUBSCRIBE.LNK",
+    "key": "SubscribeView.Subscribe.lnk",
     "translations": {
       "en-US": "Subscribe"
     },
