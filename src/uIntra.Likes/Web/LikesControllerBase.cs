@@ -6,6 +6,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
+using umbraco.cms.businesslogic;
 
 namespace uIntra.Likes.Web
 {
@@ -27,9 +28,20 @@ namespace uIntra.Likes.Web
             _likesService = likesService;
         }
 
+        public virtual PartialViewResult Index()
+        {
+            var guid = new CMSNode(CurrentPage.Id).UniqueId;
+            return ContentPageLikes(guid);
+        }
+
         public virtual PartialViewResult Likes(ILikeable likesInfo)
         {
             return Likes(likesInfo.Likes, likesInfo.Id);
+        }
+
+        public virtual PartialViewResult ContentPageLikes(Guid pageId)
+        {
+            return Likes(_likesService.GetLikeModels(pageId), pageId);
         }
 
         public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
@@ -45,6 +57,11 @@ namespace uIntra.Likes.Web
                 _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
+            if (Umbraco.TypedContent(model.ActivityId).DocumentTypeAlias == "contentPage")
+            {
+                _likesService.Add(GetCurrentUserId(), model.ActivityId);
+                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
+            }
 
             return AddActivityLike(model.ActivityId);
         }
@@ -56,6 +73,11 @@ namespace uIntra.Likes.Web
             {
                 _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
+            }
+            if (Umbraco.TypedContent(model.ActivityId).DocumentTypeAlias == "contentPage")
+            {
+                _likesService.Remove(GetCurrentUserId(), model.ActivityId);
+                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
             }
 
             return RemoveActivityLike(model.ActivityId);
