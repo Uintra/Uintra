@@ -202,7 +202,7 @@ namespace uIntra.Search
             }
         }
 
-        public string GetTypeName()
+        public virtual string GetTypeName()
         {
             return typeof(T).Name.ToLower();
         }
