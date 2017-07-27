@@ -131,7 +131,7 @@ var helpers = {
                 if (scrollContainer) {
                     let params = scrollContainer.getBoundingClientRect();
 
-                    if (-params.top + defaultScrollKoef >= params.height - screen.height) {
+                    if (Math.abs(params.top) + defaultScrollKoef >= params.height - screen.height) {
                         if (!lock) {
                             lock = true;
                             onScroll(unlock);
