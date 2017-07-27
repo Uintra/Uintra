@@ -1,7 +1,8 @@
-﻿using uIntra.Core.TypeProviders;
-
-namespace uIntra.CentralFeed
+﻿namespace uIntra.CentralFeed
 {
+    /// <summary>
+    /// Bounded with Umbraco's backoffice control.value 
+    /// </summary>
     public class LatestActivitiesPanelModel
     {
         public string Title { get; set; }
