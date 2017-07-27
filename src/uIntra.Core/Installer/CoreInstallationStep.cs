@@ -203,6 +203,7 @@ namespace uIntra.Core.Installer
 
             contentService.Save(contentPage);
             AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
+            AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.ContentPage, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
         }
 
         public static PropertyType GetGridPropertyType(string gridTypeName)
@@ -252,10 +253,10 @@ namespace uIntra.Core.Installer
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
             var parentNodeDataType = contentService.GetContentType(parentDocumentTypeAlias);
             var childNodeDataType = contentService.GetContentType(childDocumentTypeAlias);
-            var allowedChilds = parentNodeDataType.AllowedContentTypes.ToList();
+            var allowedChildren = parentNodeDataType.AllowedContentTypes.ToList();
 
-            allowedChilds.Add(new ContentTypeSort(childNodeDataType.Id, 1));
-            parentNodeDataType.AllowedContentTypes = allowedChilds;
+            allowedChildren.Add(new ContentTypeSort(childNodeDataType.Id, 1));
+            parentNodeDataType.AllowedContentTypes = allowedChildren;
 
             contentService.Save(parentNodeDataType);
         }
