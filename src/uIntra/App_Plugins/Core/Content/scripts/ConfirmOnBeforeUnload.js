@@ -1,9 +1,9 @@
 ﻿var dataOldValue = "data-old-value";
-var holderSelect = ".js-check-before-unload";
+var holderCssSelector = ".js-check-before-unload";
 var checkingTypes = "input, select";
 
 function initConfirmOnBeforeUnload() {
-    var holders = $(holderSelect);
+    var holders = $(holderCssSelector);
     if (holders.length === 0) {
         return;
     }
@@ -13,7 +13,7 @@ function initConfirmOnBeforeUnload() {
     }
     attachOnBeforeUnloadEvent();
 
-    $(document).on("submit", "form", function() {
+    $(document).on("submit", "form", function () {
         $(window).off('beforeunload');
     });
 }
@@ -48,20 +48,18 @@ function saveCurrentValues(holder) {
 }
 
 function attachOnBeforeUnloadEvent() {
-    $(window).on('beforeunload', function(){
-        var holders = $(holderSelect);
+    $(window).on('beforeunload', function (event) {
+        var holders = Array.from(document.querySelectorAll(holderCssSelector)); // Convert NodeList into array
+        var isDocumentChanged = holders.some(isHolderValuesChanged);
 
-        var result = false;
-        for (var i = 0; i < holders.length; i++) {
-            result = isHolderValuesChanged(holders[i]);
-        }
-        if (result) {
+        if (isDocumentChanged) {
             return true;
         }
+        event.preventDefault();
     });
 }
 
-function isHolderValuesChanged(holder) { 
+function isHolderValuesChanged(holder) {
     var elements = $(holder).find(checkingTypes);
 
     for (var i = 0; i < elements.length; i++) {
@@ -86,7 +84,7 @@ function isHolderValuesChanged(holder) {
             if (field.getAttribute(dataOldValue) !== field.value) {
                 return true;
             }
-        }  else if (field.checked) {
+        } else if (field.checked) {
             if (toBoolean(field.getAttribute(dataOldValue)) !== field.checked) {
                 return true;
             }
@@ -101,10 +99,10 @@ function isHolderValuesChanged(holder) {
 }
 
 function toBoolean(str) {
-    switch(str.toLowerCase().trim()){
-        case "true": return true;
-        case "false": return false;
-        default: return false;
+    switch (str.toLowerCase().trim()) {
+    case "true": return true;
+    case "false": return false;
+    default: return false;
     }
 }
 
