@@ -37,7 +37,8 @@
       "icon": "icon-settings-alt color-blue",
       "config": {
         "controller": "Events",
-        "action": "ComingEvents"
+        "action": "ComingEvents",
+        "sendModelToController": true 
       }
     }
   ],
