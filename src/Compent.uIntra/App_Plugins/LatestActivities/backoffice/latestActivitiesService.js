@@ -1,9 +1,9 @@
 ﻿(function (angular) {
     'use strict';
 
-     function findIndex (array, predicate) {
-         for (var i = 0; i < array.length; i++)
-             if (predicate(array[i])) return i;
+    function findIndex(array, predicate) {
+        for (var i = 0; i < array.length; i++)
+            if (predicate(array[i])) return i;
         return -1;
     };
 
@@ -11,8 +11,8 @@
         if (arr.length < 2) return arr;
         var el = arr[i];
         for (var j = i; j < arr.length - 1; j++)
-            arr[j] = arr[j + 1];        
-        arr[j] = el;           
+            arr[j] = arr[j + 1];
+        arr[j] = el;
         return arr;
     };
 
