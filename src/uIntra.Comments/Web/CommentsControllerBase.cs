@@ -6,6 +6,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
+using umbraco.cms.businesslogic;
 
 namespace uIntra.Comments.Web
 {
@@ -81,6 +82,12 @@ namespace uIntra.Comments.Web
             service.DeleteComment(id);
 
             return OverView(comment.ActivityId);
+        }
+
+        public virtual PartialViewResult ContentPageComments()
+        {
+            var guid = new CMSNode(CurrentPage.Id).UniqueId;
+            return OverView(guid, _commentsService.GetMany(guid));
         }
 
         public virtual PartialViewResult CreateView(Guid activityId)
