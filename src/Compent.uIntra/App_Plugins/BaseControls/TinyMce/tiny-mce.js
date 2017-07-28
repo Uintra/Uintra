@@ -101,7 +101,7 @@
     }
 
     var defaultConfig = {
-        plugins: "paste code media",
+        plugins: "paste code media lists",
         paste_preprocess: function (plugin, args) {
             var content = args.content.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/<\/br>/gi, ''); // ¯\_(ツ)_/¯
             args.content = angular.element('<div>' + content + '</div>').text();
