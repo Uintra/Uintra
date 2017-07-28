@@ -783,7 +783,8 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
-    <Content Include="App_Plugins\dummy.txt" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitiesService.js" />
+    <Content Include="App_Plugins\Tagging\dummy.txt" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
