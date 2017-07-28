@@ -7,11 +7,13 @@
         return -1;
     };
 
-    function moveElementToTheEnd(data, i) {
-        var el = data[i];
-        data.splice(i, 1);
-        data.push(el);
-        return data;
+    function moveElementToTheEnd(arr, i) {
+        if (arr.length < 2) return arr;
+        var el = arr[i];
+        for (var j = i; j < arr.length - 1; j++)
+            arr[j] = arr[j + 1];        
+        arr[j] = el;           
+        return arr;
     };
 
     var service = function (centralFeedService, $q) {
