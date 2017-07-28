@@ -52,7 +52,7 @@ namespace uIntra.Likes.Web
                 _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
-            if (Umbraco.TypedContent(model.ActivityId).DocumentTypeAlias == "contentPage")
+            if (Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == "contentPage")
             {
                 _likesService.Add(GetCurrentUserId(), model.ActivityId);
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
@@ -69,7 +69,7 @@ namespace uIntra.Likes.Web
                 _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
-            if (Umbraco.TypedContent(model.ActivityId).DocumentTypeAlias == "contentPage")
+            if (Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == "contentPage")
             {
                 _likesService.Remove(GetCurrentUserId(), model.ActivityId);
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
