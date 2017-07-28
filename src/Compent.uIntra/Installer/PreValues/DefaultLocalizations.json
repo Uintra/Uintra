@@ -802,6 +802,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "SitePrefix.lbl",
+    "translations": {
+      "en-US": "uIntra"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "SubscribersOverView.Title.lbl",
     "translations": {
       "en-US": "List of subscribed users"

@@ -67,7 +67,7 @@ namespace Compent.uIntra.Controllers
                 return string.Empty;
             }
 
-            var result = currentPageNavigation.NavigationName + " -";
+            var result = " - " + currentPageNavigation.NavigationName;
 
             while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias))
             {
@@ -75,7 +75,7 @@ namespace Compent.uIntra.Controllers
                 currentPageNavigation = currentPage as INavigationComposition;
                 if (currentPageNavigation != null)
                 {
-                    result = $"{currentPageNavigation.NavigationName} - {result}";
+                    result = $" - {currentPageNavigation.NavigationName}{result}";
                 }
             }
 

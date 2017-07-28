@@ -84,8 +84,8 @@ namespace Compent.uIntra.Installer
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Home Page", -1, UmbracoContentMigrationConstants.DocType.HomePageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Home Page");
+            var content = _contentService.CreateContentWithIdentity("Home", -1, UmbracoContentMigrationConstants.DocType.HomePageDocTypeName);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Home");
 
             SetGridValueAndSaveAndPublishContent(content, "homePageGrid.json");
         }
@@ -131,7 +131,7 @@ namespace Compent.uIntra.Installer
                 return;
             }
 
-            var content = _contentService.CreateContent("Profile Edit Page", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfileEditPageDocTypeName);
+            var content = _contentService.CreateContent("Profile Edit", homePage.Id, UmbracoContentMigrationConstants.DocType.ProfileEditPageDocTypeName);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Profile Edit");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
@@ -147,8 +147,8 @@ namespace Compent.uIntra.Installer
                 return;
             }
 
-            var content = _contentService.CreateContent("Search Page", homePage.Id, UmbracoContentMigrationConstants.DocType.SearchResultPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Search Page");
+            var content = _contentService.CreateContent("Search", homePage.Id, UmbracoContentMigrationConstants.DocType.SearchResultPageDocTypeName);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Search");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
@@ -163,8 +163,8 @@ namespace Compent.uIntra.Installer
                 return;
             }
 
-            var content = _contentService.CreateContent("Error Page", homePage.Id, UmbracoContentMigrationConstants.DocType.ErrorPageDocTypeName);
-            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Error Page");
+            var content = _contentService.CreateContent("Error", homePage.Id, UmbracoContentMigrationConstants.DocType.ErrorPageDocTypeName);
+            content.SetValue(UmbracoContentMigrationConstants.Navigation.NavigationNamePropName, "Error");
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromLeftNavigationPropName, true);
             content.SetValue(UmbracoContentMigrationConstants.Navigation.IsHideFromSubNavigationPropName, true);
 
