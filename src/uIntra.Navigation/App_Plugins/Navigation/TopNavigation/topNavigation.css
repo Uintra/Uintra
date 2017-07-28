@@ -1,4 +1,4 @@
-﻿.greeting {
+﻿﻿.greeting {
     color: #ccc;
     overflow: hidden;
     white-space:nowrap;
@@ -41,7 +41,7 @@
                 transform: rotate(0deg);
                 transition: .5s ease-in-out;
                 cursor: pointer;
-                
+
                 &-line{
                     display: block;
                     position: absolute;
@@ -212,7 +212,7 @@
     overflow:auto;
     border:1px solid var(--color-light-gray-3);
     border-top:none;
-    
+
     .autocomplete-suggestion{
 	    display: flex;
 	    align-items: center;
@@ -298,11 +298,9 @@
     margin:0 -10px 0 0;
 
 	@media (--for-tablet-portrait-down){
-		&{
-			position:static;
-			display: flex;
-			padding:0;
-		}
+		position:static;
+		display: flex;
+		padding:0;
 	}
 
     .icon-user{
@@ -340,7 +338,7 @@
 		    }
 	    }
 
-	&:active,
+        &:active,
         &:focus,
         &:hover{
             text-decoration:none;
@@ -418,7 +416,7 @@
             }
         }
     }
-    
+
     &__menu{
         position:absolute;
         top:100%;
@@ -436,14 +434,12 @@
         display:none;
 
         @media (--for-tablet-portrait-down){
-            &{
-                right:0;
-                left:0;
-                width:auto;
-                border:none;
-                background:var(--color-light-gray-2);
-                display:block;
-            }
+            right:0;
+            left:0;
+            width:auto;
+            border:none;
+            background:var(--color-light-gray-2);
+            display:block;
         }
 
         &:before{
@@ -460,22 +456,61 @@
             right:14px;
 
             @media (--for-tablet-portrait-down){
-                &{
-                    display:none;
-                }
+                display:none;
             }
         }
 
         ._usermenu-expanded &{
             transform: translate(0, 0);
             display:block;
+
+            @media (--for-tablet-portrait-down){
+                display:flex;
+                flex-direction:column;
+            }
         }
 
         &-item{
-            border-bottom:1px solid #bfbfbf;
+            border-top:1px solid #bfbfbf;
 
-            &:last-child{
+            @media (--for-tablet-portrait-down){
+                order:1;
+
+                &._for-mobile{
+                    order:0;
+                    border-bottom:1px solid #bfbfbf;
+                }
+            }
+
+
+            &:first-child{
                 border:none;
+
+                @media (--for-tablet-portrait-up){
+                    .user__menu-link{
+                        position:relative;
+
+                        &:hover{
+                            &::before{
+                                display:block;
+                            }
+                        }
+                        
+                        &::before{
+                            display:none;
+                            content: '';
+                            width: 10px;
+                            height: 10px;
+                            background: #333;
+                            transform: rotate(-45deg);
+                            position: absolute;
+                            top: -6px;
+                            right: 14px;
+                        }
+
+
+                    }
+                }
             }
         }
 
