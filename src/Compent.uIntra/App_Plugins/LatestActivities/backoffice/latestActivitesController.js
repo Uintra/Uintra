@@ -1,15 +1,29 @@
 ﻿(function () {
 
+    const defaultActivityAmount = 5;
+    const defaultTitle = "Latest activities";
+
     let controller = function ($scope, centralFeedService) {
-
-
+        
         $scope.availableActivityTypes = [];
 
         $scope.init = function () {
             centralFeedService.getActivityTypes().success(function (data) {
                 $scope.availableActivityTypes = data;
             });
+
+            if (!$scope.control.value) {
+                $scope.control.value = getDefaultModel();
+            };
         };
+
+        function getDefaultModel() {
+            return {
+                activityAmount: defaultActivityAmount,
+                title: defaultTitle
+            }
+        }
+
         $scope.overlay = {
             show: false,
             title: "Latest activities",
