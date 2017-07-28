@@ -1,15 +1,29 @@
 ﻿(function () {
 
-    let controller = function ($scope, centralFeedService) {
+    var defaultActivityAmount = 5;
+    var defaultTitle = "Latest activities";
 
-
+    let controller = function ($scope, latestActivitiesService) {
+        
         $scope.availableActivityTypes = [];
 
         $scope.init = function () {
-            centralFeedService.getActivityTypes().success(function (data) {
+            latestActivitiesService.getActivityTypes().then(function (data) {
                 $scope.availableActivityTypes = data;
             });
+
+            if (!$scope.control.value) {
+                $scope.control.value = getDefaultModel();
+            };
         };
+
+        function getDefaultModel() {
+            return {
+                activityAmount: defaultActivityAmount,
+                title: defaultTitle
+            }
+        };
+
         $scope.overlay = {
             show: false,
             title: "Latest activities",
@@ -56,9 +70,9 @@
             function isValidTitle(model) {
                 return model.title && model.title.length > 0;
             }
-        }
+        };
 
     };
-    controller.$inject = ["$scope", "centralFeedService"];
+    controller.$inject = ["$scope", "latestActivitiesService"];
     angular.module('umbraco').controller('latestActivititesController', controller);
 })();
