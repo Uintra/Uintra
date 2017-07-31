@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Http;
+using System.Web.Mvc;
 using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.BrowserCompatibility.Models;
 using uIntra.Core.Extentions;
@@ -14,6 +14,8 @@ namespace uIntra.Core.Web
         private readonly IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration;
         private readonly ICookieProvider cookieProvider;
 
+        protected virtual string BrowserCompatibilityNotificationViewPath { get; } = "~/App_Plugins/Core/BrowserCompatibility/BrowserCompatibilityNotificationView.cshtml";
+
         protected BrowserCompatibilityControllerBase(IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
         {
             this.browserCompatibilityConfiguration = browserCompatibilityConfiguration;
@@ -21,21 +23,36 @@ namespace uIntra.Core.Web
         }
 
         [HttpGet]
-        public bool ShowBrowserCompatibilityNotification()
+        public ActionResult BrowserCompatibility()
         {
+            return PartialView(BrowserCompatibilityNotificationViewPath, GetBrowserCompatibilityModel());
+        }
+        
+        protected virtual BrowserCompatibilityModel GetBrowserCompatibilityModel()
+        {
+            BrowserCompatibilityModel browserCompatibilityCookieValue;
             var compatibilityCookie = cookieProvider.Get(BrowserCompatibilityCookieName);
 
             if (string.IsNullOrEmpty(compatibilityCookie?.Value))
             {
-                return false;
+                browserCompatibilityCookieValue = new BrowserCompatibilityModel
+                {
+                    BrowserNotSupported = IsBrowserSupported(),
+                    ShowNotification = true
+                };                
+            }
+            else
+            {
+                browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
+                browserCompatibilityCookieValue.BrowserNotSupported = IsBrowserSupported();                
             }
 
-            var browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
-            return browserCompatibilityCookieValue.ShowNotification &&
-                   browserCompatibilityCookieValue.BrowserNotSupported;
+            cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
+
+            return browserCompatibilityCookieValue;
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public void DisableBrowserCompatibilityNotification()
         {
             var compatibilityCookie = cookieProvider.Get(BrowserCompatibilityCookieName);
@@ -48,32 +65,7 @@ namespace uIntra.Core.Web
             var browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
             browserCompatibilityCookieValue.ShowNotification = false;
             cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
-        }
-
-        [HttpPost]
-        public void CheckBrowserCompatibility()
-        {
-            var compatibilityCookie = cookieProvider.Get(BrowserCompatibilityCookieName);
-
-            BrowserCompatibilityModel browserCompatibilityCookieValue;
-
-            if (string.IsNullOrEmpty(compatibilityCookie?.Value))
-            {
-                browserCompatibilityCookieValue = new BrowserCompatibilityModel
-                {
-                    BrowserNotSupported = IsBrowserSupported(),
-                    ShowNotification = true
-                };
-            }
-            else
-            {
-                browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
-                browserCompatibilityCookieValue.BrowserNotSupported = IsBrowserSupported();
-                cookieProvider.Delete(BrowserCompatibilityCookieName);
-            }
-
-            cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
-        }
+        }        
 
         private bool IsBrowserSupported()
         {

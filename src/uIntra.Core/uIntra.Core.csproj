@@ -555,6 +555,7 @@
     <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
     <Content Include="Installer\PreValues\ContentGridPreValues.json" />
     <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <None Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

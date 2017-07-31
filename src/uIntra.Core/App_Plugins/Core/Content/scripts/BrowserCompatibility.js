@@ -1,13 +1,31 @@
-﻿var checkContainer;
-var checkBrowswerCompatibility = {
-    initCheck: function (holder) {
-        var checkContainer = holder.find('.js-browser-compatibility');
+﻿var btnDisableBrowserCompatibilityNotification;
+var browserCompatibilityNotification;
 
-        if (checkContainer) {
-            $.ajax({
-                type: "POST",
-                url: "/umbraco/surface/BrowserCompatibility/CheckBrowserCompatibility/"
-            });
-        }
-    }
+var checkBrowswerCompatibility = {
+    init: function () {
+
+        browserCompatibilityNotification = document.querySelector('.js-browser-compatibility-notification');
+
+        if (browserCompatibilityNotification) {
+
+            btnDisableBrowserCompatibilityNotification=document.querySelector('.js-disable-browser-compatibility-notification');
+
+            if (btnDisableBrowserCompatibilityNotification) {
+                btnDisableBrowserCompatibilityNotification.addEventListener('click',
+                    function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "/umbraco/surface/BrowserCompatibility/DisableBrowserCompatibilityNotification/",
+                            success:function() {
+                                browserCompatibilityNotification = document.querySelector('.js-browser-compatibility-notification ');
+                                if (browserCompatibilityNotification) {
+                                    $(browserCompatibilityNotification).hide();
+                                }   
+                            }
+                        });
+                    });
+            }
+        }                
+    }    
 }
+export default checkBrowswerCompatibility;
