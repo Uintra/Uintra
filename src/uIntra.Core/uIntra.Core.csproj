@@ -350,6 +350,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\BrowserCompatibility\BrowserCompatibilityConfigurationSection.cs" />
+    <Compile Include="Core\BrowserCompatibility\IBrowserCompatibilityConfigurationSection.cs" />
+    <Compile Include="Core\BrowserCompatibility\Models\BrowserCompatibilityModel.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
@@ -390,7 +393,9 @@
     <Compile Include="Migrations\ImageCropperConstants.cs" />
     <Compile Include="Migrations\MemberConstants.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
+    <Content Include="App_Plugins\Core\Content\scripts\BrowserCompatibility.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Namespace.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
