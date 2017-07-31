@@ -8,13 +8,13 @@ using Umbraco.Web.Mvc;
 
 namespace uIntra.Core.Web
 {
-    public class BrowserCompatibilityControllerBase : SurfaceController
+    public abstract class BrowserCompatibilityControllerBase : SurfaceController
     {
         private const string BrowserCompatibilityCookieName = "browserCompatibilityCookie";
         private readonly IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration;
         private readonly ICookieProvider cookieProvider;
 
-        public BrowserCompatibilityControllerBase(IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
+        protected BrowserCompatibilityControllerBase(IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
         {
             this.browserCompatibilityConfiguration = browserCompatibilityConfiguration;
             this.cookieProvider = cookieProvider;
