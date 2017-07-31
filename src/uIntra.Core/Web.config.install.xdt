@@ -6,7 +6,7 @@
   <appSettings>
     <add key="uIntraConfigurationStatus" value="" xdt:Locator="Condition(@key='uIntraConfigurationStatus')" xdt:Transform="InsertIfMissing" />
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
-    
+
     <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
 
@@ -14,6 +14,12 @@
     <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
+  
+  <system.webServer>
+    <httpErrors existingResponse="PassThrough" xdt:Transform="InsertIfMissing" />
+    <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
+  </system.webServer>
+
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">
