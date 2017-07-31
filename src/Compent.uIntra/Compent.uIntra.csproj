@@ -364,9 +364,9 @@
       <HintPath>..\..\packages\uIntra.Likes.1.1.1.11\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.6.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Navigation, Version=1.1.6.9, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.6.8\lib\net452\uIntra.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.6.9\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.News, Version=1.1.4.2, Culture=neutral, processorArchitecture=MSIL">
@@ -1019,14 +1019,6 @@
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <Content Include="App_Plugins\LatestActivities\package.manifest" />
@@ -1055,6 +1047,14 @@
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1076,10 +1076,10 @@
       <IsTransformFile>True</IsTransformFile>
     </None>
     <Content Include="Installer\PreValues\DefaultLocalizations.json" />
-    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
     <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
     <Content Include="Installer\PreValues\ContentGridPreValues.json" />
+    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
