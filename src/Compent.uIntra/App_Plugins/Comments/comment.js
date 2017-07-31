@@ -1,15 +1,20 @@
 ﻿import initBlockOnSubmit from "./../Core/Content/scripts/BlockOnSubmit";
 import helpers from "./../Core/Content/scripts/Helpers";
+import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
 
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 require("./comments.css");
 
+let sentButton = document.querySelector(".js-toolbar__send-button");
+const toolbarSelector = ".comments-toolbar";
+
+
 const quillOptions = {
     theme: 'snow',
     modules: {
-        toolbar: [['bold', 'italic', 'underline'], ['link']]
+        toolbar: toolbarSelector//[['file', 'link']]
     }
 };
 
@@ -27,6 +32,35 @@ var initSubmitButton  = function(holder) {
     });
     initBlockOnSubmit();
 };
+
+function initFileUploader(holder) {
+    let dropZonePreview = holder.querySelector('.js-dropzone-previews');
+    if (dropZonePreview) {
+        let options = {
+            previewsContainer: dropZonePreview
+        };
+
+        //if ("undefined" === typeof dropzone) {
+        let dropzone = fileUploadController.init(holder, options);
+
+        dropzone.on('success',
+            function(file, fileId) {
+                dropZonePreview.classList.remove("hidden");
+
+                //sentButton.disabled = !isEdited();
+            });
+
+        dropzone.on('removedfile',
+            function(file) {
+                if (this.files.length === 0) {
+                    dropZonePreview.classList.add("hidden");
+                }
+
+                //sentButton.disabled = !isEdited();
+            });
+        //}
+    }
+}
 
 var initCreateControl = function (holder) {
     var createControls = holder.find('.js-comment-create');
@@ -56,10 +90,38 @@ var initCreateControl = function (holder) {
             }
         });
 
+        initQuillCustomFileButtonEventHandlers();
+        //initQuillCustomLincButtonEventHandlers();
+
         quill.setText('');
         dataStorage.value = '';
     });
 };
+
+function initQuillCustomFileButtonEventHandlers() {    
+    //var fileButtons = document.querySelectorAll('.ql-image');
+    var commentsList = document.querySelector('.js-comments-overview');
+    commentsList.addEventListener('click',
+        function (event) {
+            var customQlLinkBtn = event.target.findAncestorByClassName('js-custom-ql-link-btn');
+            if (customQlLinkBtn) {
+                qlLinkButtonHandler(customQlLinkBtn);
+            }
+            var customQlFileBtn = event.target.findAncestorByClassName('js-custom-ql-image-btn')
+            if (customQlFileBtn) {
+                qlImageButtonHandler(customQlFileBtn);
+            }                        
+        });
+
+}
+
+function qlLinkButtonHandler(customQlLinkBtn) {
+
+}
+
+function qlImageButtonHandler(customQlFileBtn) {
+    customQlFileBtn.click();
+}
 
 var initEdit = function (holder) {
     var editlink = findControl(holder, '.js-comment-editlink');
@@ -184,9 +246,13 @@ var CommentOverview = function (selector) {
     holders.each(function () {
         var $this = $(this);
         initCreateControl($this);
-        initSubmitButton($this)
+        initSubmitButton($this);
+        
         $this.find('.js-comment-view').each(function () {
             new Comment(this);
+        });
+        $this.find('.comments__form-field').each(function(commentsHolders) {
+            initFileUploader(this);
         });
     });
 };
