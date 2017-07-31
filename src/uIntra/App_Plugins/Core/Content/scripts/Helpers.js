@@ -198,6 +198,7 @@ var helpers = {
             var ellepsisLink = document.createElement('a');
             ellepsisLink.setAttribute('href', url);
             ellepsisLink.classList.add('ellipsis');
+            ellepsisLink.innerText = "...";
             $container.append(ellepsisLink);
             $container.dotdotdot({
                 after: 'a.ellipsis',

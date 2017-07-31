@@ -339,16 +339,16 @@
       <HintPath>..\..\packages\uIntra.Bulletins.0.1.0.2\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.10.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.10.11\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.10.12, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.10.12\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.2.4\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.21.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.1.21.9\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.21.12, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.21.12\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
@@ -375,8 +375,8 @@
       <HintPath>..\..\packages\uIntra.Panels.2.1.1.16\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.4.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.4.9\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.4.12, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.4.12\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -1562,18 +1562,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
       <Link>Installer\PreValues\DefaultLocalizations.json</Link>
     </Content>
@@ -1657,9 +1645,6 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
   </ItemGroup>
   <ItemGroup>
@@ -1687,16 +1672,7 @@
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
@@ -1762,7 +1738,31 @@
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
