@@ -24,14 +24,6 @@
             <span class="user__opener-arrow"></span>
         </a>
         <ul class="user__menu">
-            <li class="user__menu-item _for-mobile">
-                <div class="user__menu-link @userAvatar">
-                    <div class="user__avatar icon-user">
-                        <img src="@Model.CurrentUser.Photo" width="30">
-                    </div>
-                    <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
-                </div>
-            </li>
             @if (Model.CurrentUser.UmbracoId.HasValue)
             {
                 <li class="user__menu-item">
@@ -46,6 +38,14 @@
                     <span class="icon icon-logout"></span>
                     Logout
                 </a>
+            </li>
+            <li class="user__menu-item _for-mobile">
+                <div class="user__menu-link @userAvatar">
+                    <div class="user__avatar icon-user">
+                        <img src="@Model.CurrentUser.Photo" width="30">
+                    </div>
+                    <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
+                </div>
             </li>
         </ul>
     </div>
