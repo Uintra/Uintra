@@ -383,6 +383,12 @@
 		padding: 0;
 		list-style: none;
 
+        @media(--for-tablet-portrait-down){
+            &{
+                display:none;
+            }
+        }
+
 		&__frame {
 			flex: 0 0 auto;
 			max-width: 100%;
