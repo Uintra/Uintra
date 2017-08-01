@@ -50,6 +50,7 @@
 }
 .icon-bell:before {
   content: "\e903";
+  font-size:19px;
 }
 .icon-logout:before {
   content: "\e909";
@@ -61,10 +62,11 @@
 }
 .icon-user:before {
   content: "\e90f";
-  font-size:18px;
+  font-size: 28px;
 }
 .icon-search:before {
   content: "\e90d";
+  font-size:30px;
 }
 .icon-home:before {
   content: "\e902";
