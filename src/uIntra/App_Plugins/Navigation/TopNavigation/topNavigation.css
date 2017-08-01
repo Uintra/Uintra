@@ -107,7 +107,7 @@
     }
     &__button{
         position:absolute;
-        top:16px;
+        top:9px;
         right:5px;
         border:none;
         background:none;
@@ -217,7 +217,7 @@
 	    display: flex;
 	    align-items: center;
         border-top:1px solid var(--color-light-gray-3);
-        padding:9px 20px 8px;
+        padding:9px 15px 8px 20px;
         font-size:14px;
 
         &.autocomplete-selected,
@@ -273,7 +273,7 @@
 
                 &:after{
                     position:absolute;
-                    top: 16px;
+                    top: 12px;
                     right: 0;
                     width: 10px;
                     height: 10px;
