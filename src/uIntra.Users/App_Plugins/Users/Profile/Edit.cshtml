@@ -9,6 +9,7 @@
 <div id="js-profile-page" class="form profile-edit _profile">
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
+        @Html.HiddenFor(el => el.Id)
         <div class="form__row clearfix">
             <div class="form__header">
                 @{
@@ -49,7 +50,7 @@
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-    }
+                        }
     <div class="check">
         <label class="check__label">
             @Html.CheckBox("js-member-notifier-setting",

@@ -105,6 +105,25 @@ namespace uIntra.Users
             return users;
         }
 
+        public virtual void Save(IntranetUserDTO user)
+        {
+            var member = _memberService.GetByKey(user.Id);
+            member.SetValue("firstName", user.FirstName);
+            member.SetValue("lastName", user.LastName);
+
+            if (user.NewMedia.HasValue)
+            {
+                member.SetValue("photo", user.NewMedia.Value);
+            }
+
+            if (user.DeleteMedia)
+            {
+                member.SetValue("photo", null);
+            }
+
+            _memberService.Save(member);
+        }
+
         protected virtual IEnumerable<IntranetUser> GetAllFromSql()
         {
             var members = _memberService.GetAllMembers().Select(Map).ToList();

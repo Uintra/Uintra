@@ -376,6 +376,7 @@
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
     <Compile Include="Core\User\IIntranetUserContentHelper.cs" />
+    <Compile Include="Core\User\IntranetUserDTO.cs" />
     <Compile Include="Core\User\IRole.cs" />
     <Compile Include="Core\User\Models\UserPhotoViewModel.cs" />
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />

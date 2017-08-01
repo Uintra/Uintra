@@ -14,5 +14,6 @@ namespace uIntra.Core.User
         IEnumerable<T> GetAll();
         T GetCurrentUser();
         IEnumerable<T> GetByRole(int role);
+        void Save(IntranetUserDTO user);
     }
 }
