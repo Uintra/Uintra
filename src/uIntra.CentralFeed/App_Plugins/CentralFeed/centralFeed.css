@@ -406,8 +406,12 @@
 			color: #fff;
 			word-wrap: break-word;
 
+            &:active,
+            &:focus,
 			&:hover {
-				color: #fff;
+				background:#999;
+                color:var(--color-white);
+                text-decoration:none;
 			}
 		}
 	}
