@@ -91,7 +91,6 @@ var initCreateControl = function (holder) {
         });
 
         initQuillCustomFileButtonEventHandlers();
-        //initQuillCustomLincButtonEventHandlers();
 
         quill.setText('');
         dataStorage.value = '';
@@ -99,7 +98,6 @@ var initCreateControl = function (holder) {
 };
 
 function initQuillCustomFileButtonEventHandlers() {    
-    //var fileButtons = document.querySelectorAll('.ql-image');
     var commentsList = document.querySelector('.js-comments-overview');
     commentsList.addEventListener('click',
         function (event) {

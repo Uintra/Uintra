@@ -55,13 +55,14 @@
             }
         </div>
         <div class="comments__list-text js-comment-description">
+            TEST
             @Html.Raw(Model.Text)
         </div>
         @if (Model.CanEdit)
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
                 <span class="js-comment-hideEditLink">Hide</span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel {Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId})
             </div>
                     }
 

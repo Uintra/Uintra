@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
@@ -154,10 +155,20 @@ namespace uIntra.Comments.Web
             foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
                 var model = GetCommentView(comment, currentUserId, creators.SingleOrDefault(c => c.Id == comment.UserId));
+                model.LightboxGalleryPreviewInfo = GetCommentViewLightboxGalleryPreviewModel(comment);
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
                 model.Replies = commentReplies.Select(reply => GetCommentView(reply, currentUserId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
                 yield return model;
             }
+        }
+
+        protected virtual LightboxGalleryPreviewModel GetCommentViewLightboxGalleryPreviewModel(Comment comment)
+        {
+            return new LightboxGalleryPreviewModel
+            {
+                MediaIds = comment.MediaIds.ToIntCollection(),
+                ActivityId = comment.ActivityId
+            };
         }
 
         protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
@@ -169,6 +180,7 @@ namespace uIntra.Comments.Web
             model.Creator = creator;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
+            model.LightboxGalleryPreviewInfo = GetCommentViewLightboxGalleryPreviewModel(comment);
             return model;
         }
 

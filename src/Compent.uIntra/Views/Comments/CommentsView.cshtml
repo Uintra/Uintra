@@ -54,7 +54,11 @@
                 <a class="js-comment-showReplyLink comments__reply">@Html.Localize("CommentsView.Reply.lnk")</a>
             }
         </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+        </div>
         <div class="comments__list-text js-comment-description">
+            HERE should be list of added images
             @Html.Raw(Model.Text)
         </div>
         
@@ -64,7 +68,7 @@
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
                 <span class="js-comment-hideEditLink">Hide</span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel {Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId})
             </div>
         }
 

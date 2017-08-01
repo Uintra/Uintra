@@ -54,6 +54,9 @@
                 <a class="js-comment-showReplyLink comments__reply">@Html.Localize("CommentsView.Reply.lnk")</a>
             }
         </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+        </div>
         <div class="comments__list-text js-comment-description">
             @Html.Raw(Model.Text)
         </div>
