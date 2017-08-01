@@ -39,6 +39,7 @@ using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
+using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.Caching;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
@@ -146,6 +147,7 @@ namespace Compent.uIntra
 
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
 

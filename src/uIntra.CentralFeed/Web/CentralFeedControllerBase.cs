@@ -197,7 +197,7 @@ namespace uIntra.CentralFeed.Web
         {
             if (type.Id == CentralFeedTypeEnum.All.ToInt())
             {
-                var items = _centralFeedService.GetFeed();
+                var items = _centralFeedService.GetFeed().OrderByDescending(item => item.PublishDate);
                 return items;
             }
 

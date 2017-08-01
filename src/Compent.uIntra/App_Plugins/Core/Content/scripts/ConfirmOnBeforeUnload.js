@@ -48,16 +48,14 @@ function saveCurrentValues(holder) {
 }
 
 function attachOnBeforeUnloadEvent() {
-    $(window).on('beforeunload', function(){
+    $(window).on('beforeunload', function (event) {
         var holders = $(holderSelect);
+        var isDocumentChanged = holders.toArray().some(isHolderValuesChanged);
 
-        var result = false;
-        for (var i = 0; i < holders.length; i++) {
-            result = isHolderValuesChanged(holders[i]);
-        }
-        if (result) {
+        if (isDocumentChanged) {
             return true;
         }
+        event.preventDefault();
     });
 }
 

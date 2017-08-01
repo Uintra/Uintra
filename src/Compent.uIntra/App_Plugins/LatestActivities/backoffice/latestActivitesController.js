@@ -1,15 +1,29 @@
 ﻿(function () {
 
-    let controller = function ($scope, centralFeedService) {
+    var defaultActivityAmount = 5;
+    var defaultTitle = "Latest activities";
 
-
+    let controller = function ($scope, latestActivitiesService) {
+        
         $scope.availableActivityTypes = [];
 
         $scope.init = function () {
-            centralFeedService.getActivityTypes().success(function (data) {
+            latestActivitiesService.getActivityTypes().then(function (data) {
                 $scope.availableActivityTypes = data;
             });
+
+            if (!$scope.control.value) {
+                $scope.control.value = getDefaultModel();
+            };
         };
+
+        function getDefaultModel() {
+            return {
+                activityAmount: defaultActivityAmount,
+                title: defaultTitle
+            }
+        };
+
         $scope.overlay = {
             show: false,
             title: "Latest activities",
@@ -32,7 +46,6 @@
         };
 
         function isValidModel(model) {
-
             if (!model) {
                 $scope.control.validationMessage = "Fields can not be empty";
                 return false;
@@ -43,23 +56,23 @@
                 return false;
             }
 
-            if (!isValidNumberOfActivities(model)) {
+            if (!isValidActivityAmount(model)) {
                 $scope.control.validationMessage = "Number of activities is invalid";
                 return false;
             }
 
             return true;
 
-            function isValidNumberOfActivities(model) {
-                return !isNaN(model.numberOfActivities) && parseInt(model.numberOfActivities) > 0; 
+            function isValidActivityAmount(model) {
+                return !isNaN(model.activityAmount) && parseInt(model.activityAmount) > 0;
             }
 
             function isValidTitle(model) {
                 return model.title && model.title.length > 0;
             }
-        }
+        };
 
     };
-    controller.$inject = ["$scope", "centralFeedService"];
+    controller.$inject = ["$scope", "latestActivitiesService"];
     angular.module('umbraco').controller('latestActivititesController', controller);
 })();

@@ -13,7 +13,8 @@
     }
   ],
   "javascript": [
-    "/App_Plugins/LatestActivities/backoffice/latestActivitesController.js",
-    "/App_Plugins/LatestActivities/backoffice/latestActivitiesService.js"
+    "/App_Plugins/LatestActivities/backoffice/latestActivitiesService.js",
+    "/App_Plugins/LatestActivities/backoffice/latestActivitesController.js"
+
   ]
 }

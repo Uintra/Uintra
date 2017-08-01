@@ -1,4 +1,6 @@
-﻿if (!window.Promise) {
+﻿window.$ = jQuery;
+
+if (!window.Promise) {
     window.Promise = require('promise-polyfill');
 }
 
