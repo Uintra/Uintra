@@ -3,11 +3,11 @@
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('./icomoon.eot?q22jjl');
-  src:  url('./icomoon.eot?q22jjl#iefix') format('embedded-opentype'),
-    url('./icomoon.ttf?q22jjl') format('truetype'),
-    url('./icomoon.woff?q22jjl') format('woff'),
-    url('./icomoon.svg?q22jjl#icomoon') format('svg');
+  src:  url('./icomoon.eot?2qd6e6');
+  src:  url('./icomoon.eot?2qd6e6#iefix') format('embedded-opentype'),
+    url('./icomoon.ttf?2qd6e6') format('truetype'),
+    url('./icomoon.woff?2qd6e6') format('woff'),
+    url('./icomoon.svg?2qd6e6#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -49,8 +49,7 @@
   content: "\e914";
 }
 .icon-bell:before {
-  content: "\e903";
-  font-size:19px;
+  content: "\e902";
 }
 .icon-logout:before {
   content: "\e909";
@@ -62,17 +61,16 @@
 }
 .icon-user:before {
   content: "\e90f";
-  font-size: 28px;
+  font-size:18px;
 }
 .icon-search:before {
   content: "\e90d";
-  font-size:30px;
 }
 .icon-home:before {
-  content: "\e902";
+  content: "\e906";
 }
 .icon-check:before {
-  content: "\e906";
+  content: "\e903";
 }
 .icon-comment:before {
   content: "\e904";

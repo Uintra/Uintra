@@ -9,7 +9,7 @@ var initDeleteButton = function (holder) {
 
     btn.click(function () { 
         var confirmMessage = btn.data('confirm-message');
-        confirm.showConfirm(confirmMessage, 
+        confirm.showConfirm('', confirmMessage, 
             function () {
                 ajax.Delete("/umbraco/surface/Profile/DeletePhoto").then(function(response) {
                     location.reload();
