@@ -2,8 +2,10 @@
 @model uIntra.Core.BrowserCompatibility.Models.BrowserCompatibilityModel
 @if (!@Model.BrowserSupported && @Model.ShowNotification)
 {
-    <div class="js-browser-compatibility-notification">
-        <input type="button" class="js-disable-browser-compatibility-notification" />
-        @Html.Localize("BrowserCompatibility.Notification.Message")
+    <div class="message js-browser-compatibility-notification">
+        <div class="message__content">
+            <p class="message__txt">@Html.Localize("BrowserCompatibility.Notification.Message")</p>
+            <span class="message__close icon-close js-disable-browser-compatibility-notification"></span>
+        </div>
     </div>
 }

@@ -1,4 +1,6 @@
-﻿var btnDisableBrowserCompatibilityNotification;
+﻿require('./style.css');
+
+var btnDisableBrowserCompatibilityNotification;
 var browserCompatibilityNotification;
 
 var checkBrowswerCompatibility = {
@@ -19,7 +21,7 @@ var checkBrowswerCompatibility = {
                             success:function() {
                                 browserCompatibilityNotification = document.querySelector('.js-browser-compatibility-notification ');
                                 if (browserCompatibilityNotification) {
-                                    $(browserCompatibilityNotification).hide();
+                                    $(browserCompatibilityNotification).addClass("_hidden");
                                 }   
                             }
                         });
