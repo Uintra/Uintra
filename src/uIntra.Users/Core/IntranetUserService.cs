@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
-using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -17,50 +17,43 @@ namespace uIntra.Users
     {
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string UmbracoUserIdPropertyAlias => "relatedUser";
+
+        protected virtual string IntranetUsersCacheKey => "IntranetUsersCache";
+        protected virtual string CurrentUserCacheKey => "CurrentUserCache";
+
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IApplicationSettings _applicationSettings;
         private readonly IRoleService _roleService;
         private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
+        private readonly ICacheService _cache;
 
-        public IntranetUserService(IMemberService memberService,
+        public IntranetUserService(
+            IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
-            IApplicationSettings applicationSettings,
-            IRoleService roleService, 
-            IIntranetRoleTypeProvider intranetRoleTypeProvider)
+            IRoleService roleService,
+            IIntranetRoleTypeProvider intranetRoleTypeProvider,
+            ICacheService cache)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
-            _applicationSettings = applicationSettings;
             _roleService = roleService;
             _intranetRoleTypeProvider = intranetRoleTypeProvider;
+            _cache = cache;
         }
 
         public virtual IntranetUser Get(int umbracoId)
         {
-            var member = _memberService.GetMembersByPropertyValue(UmbracoUserIdPropertyAlias, umbracoId).SingleOrDefault();
-
-            if (member != null)
-            {
-                return Map(member);
-            }
-
-            return null;
+            var member = GetAll().SingleOrDefault(el => el.UmbracoId == umbracoId);
+            return member;
         }
 
         public virtual IntranetUser Get(Guid id)
         {
-            var member = _memberService.GetByKey(id);
-
-            if (member != null)
-            {
-                return Map(member);
-            }
-
-            return null;
+            var member = GetAll().SingleOrDefault(el => el.Id == id);
+            return member;
         }
 
         public virtual IntranetUser Get(IHaveCreator model)
@@ -80,23 +73,45 @@ namespace uIntra.Users
 
         public virtual IEnumerable<IntranetUser> GetMany(IEnumerable<Guid> ids)
         {
-            var members = _memberService.GetAllMembers().Where(s => ids.Contains(s.Key)).Select(Map);
-            return members;
+            return ids.Distinct().Join(GetAll(),
+               id => id,
+               user => user.Id,
+               (id, user) => user);
         }
 
         public virtual IEnumerable<IntranetUser> GetMany(IEnumerable<int> ids)
         {
-            var members = _memberService.GetAllMembers().Select(Map);
-            return members.Where(s => s.UmbracoId.HasValue && ids.Contains(s.UmbracoId.Value));
+            return ids.Distinct().Join(GetAll(),
+                 id => id,
+                 user => user.UmbracoId.GetValueOrDefault(),
+                 (id, user) => user);
         }
 
         public virtual IEnumerable<IntranetUser> GetAll()
         {
-            var members = _memberService.GetAllMembers().Select(Map);
-            return members;
+            var users = _cache.GetOrSet(IntranetUsersCacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            return users;
         }
 
         public virtual IntranetUser GetCurrentUser()
+        {
+            var currentUser = _cache.GetOrSet(CurrentUserCacheKey, GetCurrentUserFromSql, CacheHelper.GetMidnightUtcDateTimeOffset());
+            return currentUser;
+        }
+
+        public virtual IEnumerable<IntranetUser> GetByRole(int role)
+        {
+            var users = GetAll().Where(el => el.Role.Priority == role);
+            return users;
+        }
+
+        protected virtual IEnumerable<IntranetUser> GetAllFromSql()
+        {
+            var members = _memberService.GetAllMembers().Select(Map).ToList();
+            return members;
+        }
+
+        protected virtual IntranetUser GetCurrentUserFromSql()
         {
             var userName = "";
             if (HostingEnvironment.IsHosted) //TODO: WTF IS THIS
@@ -117,12 +132,6 @@ namespace uIntra.Users
             }
             var user = GetByName(userName);
             return user;
-        }
-
-        public virtual IEnumerable<IntranetUser> GetByRole(int role)
-        {
-            var members = _memberService.GetMembersByGroup(GetGroupNameFromRole(role));
-            return members.Select(Map);
         }
 
         protected virtual IntranetUser Map(IMember member)
@@ -167,7 +176,7 @@ namespace uIntra.Users
             return !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
         }
 
-        private IntranetUser GetByName(string name)
+        protected virtual IntranetUser GetByName(string name)
         {
             var user = _memberService.GetByUsername(name);
 
