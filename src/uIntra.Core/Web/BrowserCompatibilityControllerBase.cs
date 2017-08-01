@@ -37,14 +37,14 @@ namespace uIntra.Core.Web
             {
                 browserCompatibilityCookieValue = new BrowserCompatibilityModel
                 {
-                    BrowserNotSupported = IsBrowserSupported(),
+                    BrowserSupported = IsBrowserSupported(),
                     ShowNotification = true
                 };                
             }
             else
             {
                 browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
-                browserCompatibilityCookieValue.BrowserNotSupported = IsBrowserSupported();                
+                browserCompatibilityCookieValue.BrowserSupported = IsBrowserSupported();                
             }
 
             cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));

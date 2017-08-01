@@ -1,6 +1,6 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.BrowserCompatibility.Models.BrowserCompatibilityModel
-@if (@Model.BrowserNotSupported && @Model.ShowNotification)
+@if (!@Model.BrowserSupported && @Model.ShowNotification)
 {
     <div>
         <input type="button" class="js-disable-browser-compatibility-notification" />
