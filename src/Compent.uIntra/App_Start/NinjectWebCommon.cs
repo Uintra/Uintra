@@ -247,6 +247,8 @@ namespace Compent.uIntra
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
+
+            kernel.Bind<ISetupOnStartup>().To<IntranetUserService>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

@@ -7,7 +7,6 @@ using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Users;
 using uIntra.Users.Web;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
@@ -17,14 +16,15 @@ namespace Compent.uIntra.Controllers
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
-        public ProfileController(IMemberService memberService,
-           UmbracoHelper umbracoHelper,
-           IMediaHelper mediaHelper,
-           IApplicationSettings applicationSettings,
-           IIntranetUserService<IntranetUser> intranetUserService,
-           IIntranetUserContentHelper intranetUserContentHelper,
-           IMemberNotifiersSettingsService memberNotifiersSettingsService)
-            : base(memberService, umbracoHelper, mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
+
+        public ProfileController(
+            IMediaHelper mediaHelper,
+            IApplicationSettings applicationSettings,
+            IIntranetUserService<IntranetUser> intranetUserService,
+            IMemberNotifiersSettingsService memberNotifiersSettingsService, 
+            UmbracoHelper umbracoHelper,
+            IIntranetUserContentHelper intranetUserContentHelper) 
+            : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentHelper = intranetUserContentHelper;

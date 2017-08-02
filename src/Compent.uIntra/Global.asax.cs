@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using uIntra.Bulletins;
+using uIntra.Core;
 using uIntra.Events.Dashboard;
 using uIntra.News.Dashboard;
 using Umbraco.Core;
@@ -20,8 +21,9 @@ namespace Compent.uIntra
             NewsSection.AddSectionToAllUsers(applicationContext);
             EventsSection.AddSectionToAllUsers(applicationContext);
             BulletinsSection.AddSectionToAllUsers(applicationContext);
-             
+
             RegisterRoutes();
+            SetupOnStartup();
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }
@@ -36,6 +38,15 @@ namespace Compent.uIntra
                     controller = "Login",
                     action = "Login"
                 });
+        }
+
+        private void SetupOnStartup()
+        {
+            var services = DependencyResolver.Current.GetServices<ISetupOnStartup>();
+            foreach (var service in services)
+            {
+                service.Setup();
+            }
         }
     }
 }
