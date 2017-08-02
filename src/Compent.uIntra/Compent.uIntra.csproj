@@ -1255,6 +1255,9 @@
     <Compile Include="Core\UmbracoModelsBuilders\SubscribePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SystemLink.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Installer\Installer.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
