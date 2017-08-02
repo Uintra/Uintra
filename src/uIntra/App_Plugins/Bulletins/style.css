@@ -22,7 +22,7 @@
 
         &.ql-blank{
             &:before{
-                font-size:12px;
+                font-style:normal;
             }
         }
 
