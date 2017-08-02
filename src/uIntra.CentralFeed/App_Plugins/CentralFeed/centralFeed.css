@@ -358,8 +358,12 @@
 			background: #fff;
 			text-decoration: none;
 
-			&:hover {
-				color: #333;
+			&:hover,
+            &:active,
+            &:focus{
+                background: #ccc;
+				color: #fff;
+                text-decoration:none;
 			}
 
 			.feed-links__frame._active & {
@@ -406,8 +410,12 @@
 			color: #fff;
 			word-wrap: break-word;
 
+            &:active,
+            &:focus,
 			&:hover {
-				color: #fff;
+				background:#999;
+                color:var(--color-white);
+                text-decoration:none;
 			}
 		}
 	}
