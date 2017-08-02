@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 using Compent.uIntra.Core.Constants;
@@ -19,8 +20,6 @@ namespace Compent.uIntra.Installer
 {
     public class UmbracoContentMigration
     {
-        private const string JsonFilesFolder = "~/Installer/ContentPageJsons/";
-
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IContentService _contentService;
 
@@ -615,24 +614,14 @@ namespace Compent.uIntra.Installer
             _contentService.SaveAndPublishWithStatus(content);
         }
 
-        private void SetGridValueAndSaveAndPublishContent(IContent content, string gridfileName)
+        private void SetGridValueAndSaveAndPublishContent(IContent content, string gridEmbeddedResourceFileName)
         {
-            var gridContent = GetGridContent(gridfileName);
+            var gridContent = CoreInstallationStep.GetEmbeddedResourceValue($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
-
-        private static string GetGridContent(string fileName)
-        {
-            var filePath = HostingEnvironment.MapPath($"{JsonFilesFolder}{fileName}");
-            if (filePath.IsNullOrEmpty() || !File.Exists(filePath))
-            {
-                throw new Exception($"File {fileName} doesn't exist.");
-            }
-
-            return File.ReadAllText(filePath);
-        }
+        
     }
 
     public static class UmbracoContentMigrationConstants

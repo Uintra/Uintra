@@ -12,6 +12,7 @@
     <tags>Compent uIntra Panels ContentPanel GlobalPanel</tags>
     <dependencies>
       <dependency id="uIntra.BaseControls" version="2.2.1.2" />
+      <dependency id="uIntra.Core" version="1.1.24.2" />
     </dependencies>
   </metadata>
 </package>

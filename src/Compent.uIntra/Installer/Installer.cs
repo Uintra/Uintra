@@ -22,6 +22,7 @@ namespace Compent.uIntra.Installer
                 InitMigration();
                 UpdateUIntraConfigurationStatus();
             }
+            
         }
 
         private void InitMigration()

@@ -43,7 +43,7 @@ namespace uIntra.Users.Web
                 return HttpNotFound();
             }
 
-            var result = user.Map<ProfileViewModel>();
+            var result = MapToViewModel(user);
 
             return View(ProfileOverViewPath, result);
         }
@@ -60,12 +60,8 @@ namespace uIntra.Users.Web
         [HttpPost]
         public virtual ActionResult Edit(ProfileEditModel model)
         {
-            var newMedias = _mediaHelper.CreateMedia(model).ToList();
-
-            var updateUser = model.Map<IntranetUserDTO>();
-            updateUser.NewMedia = newMedias.Count > 0 ? newMedias.First() : default(int?);
-
-            _intranetUserService.Save(updateUser);
+            var user = MapToUserDTO(model);
+            _intranetUserService.Save(user);
 
             return RedirectToCurrentUmbracoPage();
         }
@@ -82,6 +78,12 @@ namespace uIntra.Users.Web
             _intranetUserService.Save(updateUser);
         }
 
+        protected virtual ProfileViewModel MapToViewModel(IIntranetUser user)
+        {
+            var result = user.Map<ProfileViewModel>();
+            return result;
+        }
+
         protected virtual ProfileEditModel MapToEditModel(IIntranetUser user)
         {
             var result = user.Map<ProfileEditModel>();
@@ -90,6 +92,16 @@ namespace uIntra.Users.Web
             FillEditData(result);
 
             return result;
+        }
+
+        protected virtual IntranetUserDTO MapToUserDTO(ProfileEditModel model)
+        {
+            var newMedias = _mediaHelper.CreateMedia(model).ToList();
+
+            var updateUser = model.Map<IntranetUserDTO>();
+            updateUser.NewMedia = newMedias.Count > 0 ? newMedias.First() : default(int?);
+
+            return updateUser;
         }
 
         protected virtual void FillEditData(ProfileEditModel model)

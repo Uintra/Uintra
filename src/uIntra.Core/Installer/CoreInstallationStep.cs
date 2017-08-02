@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web.Hosting;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
@@ -496,9 +495,9 @@ namespace uIntra.Core.Installer
             contentService.Save(page);
         }
 
-        public static string GetEmbeddedResourceValue(string embeddedResourceName)
+        public static string GetEmbeddedResourceValue(string embeddedResourceName, Assembly sourceAssembly = null)
         {
-            var assembly = Assembly.GetCallingAssembly();
+            var assembly = sourceAssembly != null ? sourceAssembly : Assembly.GetCallingAssembly();
             string json;
             using (Stream stream = assembly.GetManifestResourceStream(embeddedResourceName))
             {
