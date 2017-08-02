@@ -616,7 +616,7 @@ namespace Compent.uIntra.Installer
 
         private void SetGridValueAndSaveAndPublishContent(IContent content, string gridEmbeddedResourceFileName)
         {
-            var gridContent = CoreInstallationStep.GetEmbeddedResourceValue($"{Assembly.GetExecutingAssembly().FullName}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
+            var gridContent = CoreInstallationStep.GetEmbeddedResourceValue($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
             _contentService.SaveAndPublishWithStatus(content);
