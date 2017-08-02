@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web.Hosting;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
@@ -84,22 +86,24 @@ namespace uIntra.Core.Installer
 
         private void CreateDefaultGridDataType()
         {
-            var configPath = HostingEnvironment.MapPath("~/Installer/PreValues/DefaultGridPreValues.json");
-            CreateGrid(CoreInstallationConstants.DataTypeNames.DefaultGrid, configPath);
+            var embeddedResourceFileName = "uIntra.Core.Installer.PreValues.DefaultGridPreValues.json";
+            CreateGrid(CoreInstallationConstants.DataTypeNames.DefaultGrid, embeddedResourceFileName);
         }
         private void CreateContentGridDataType()
         {
-            var configPath = HostingEnvironment.MapPath("~/Installer/PreValues/ContentGridPreValues.json");
-            CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, configPath);
+            var embeddedResourceFileName = "uIntra.Core.Installer.PreValues.ContentGridPreValues.json";
+            CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, embeddedResourceFileName);
         }
 
-        private void CreateGrid(string dataTypeName, string configFilePath)
+        private void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
             if (defaultGridDataType != null) return;
 
-            var jsonPrevalues = JObject.Parse(System.IO.File.ReadAllText(configFilePath));
+            var gridJson = GetEmbeddedResourceValue(gridEmbeddedResourceFileName);
+
+            var jsonPrevalues = JObject.Parse(gridJson);
             var preValueItemsAlias = CoreInstallationConstants.DataTypePropertyPreValues.DefaultGridItems;
             var preValueRteAlias = CoreInstallationConstants.DataTypePropertyPreValues.DefaultGridRte;
             defaultGridDataType = new DataTypeDefinition(-1, "Umbraco.Grid")
@@ -242,8 +246,8 @@ namespace uIntra.Core.Installer
 
             gridPageLayoutTemplate = new Template(alias, alias);
 
-            var path = HostingEnvironment.MapPath("~/Installer/PreValues/GridPageLayout.cshtml");
-            gridPageLayoutTemplate.Content = System.IO.File.ReadAllText(path);
+            var layoutEmbeddedResourceFileName = "uIntra.Core.Installer.PreValues.GridPageLayout.cshtml";
+            gridPageLayoutTemplate.Content = GetEmbeddedResourceValue(layoutEmbeddedResourceFileName);
 
             fileService.SaveTemplate(gridPageLayoutTemplate);
         }
@@ -490,6 +494,26 @@ namespace uIntra.Core.Installer
 
             page.AddContentType(composition);
             contentService.Save(page);
+        }
+
+        public static string GetEmbeddedResourceValue(string embeddedResourceName)
+        {
+            var assembly = Assembly.GetCallingAssembly();
+            string json;
+            using (Stream stream = assembly.GetManifestResourceStream(embeddedResourceName))
+            {
+                if (stream == null)
+                {
+                    throw new FileNotFoundException($"Embedded resource {embeddedResourceName} doesn't exist.");
+                }
+                using (TextReader reader = new StreamReader(stream))
+                {
+                    json = reader.ReadToEnd();
+                }
+
+            }
+
+            return json;
         }
     }
 }

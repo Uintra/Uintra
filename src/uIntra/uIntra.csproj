@@ -1002,12 +1002,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NotificationPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NotificationPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
+    <Compile Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
       <Link>Core\ActivitiesServiceFactory.cs</Link>
-    </Content>
+    </Compile>
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
     </Content>
@@ -1047,48 +1044,54 @@
     <Content Include="..\Compent.uIntra\Controllers\UserController.cs">
       <Link>Controllers\UserController.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Core\ApplicationSettings\IuIntraApplicationSettings.cs">
+    <Compile Include="..\Compent.uIntra\Core\ApplicationSettings\IuIntraApplicationSettings.cs">
       <Link>Core\ApplicationSettings\IuIntraApplicationSettings.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\ApplicationSettings\UintraApplicationSettings.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\ApplicationSettings\UintraApplicationSettings.cs">
       <Link>Core\ApplicationSettings\UintraApplicationSettings.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Bulletins\BulletinsAutoMapperProfile.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\BulletinsAutoMapperProfile.cs">
       <Link>Core\Bulletins\BulletinsAutoMapperProfile.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Bulletins\BulletinsService.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\BulletinsService.cs">
       <Link>Core\Bulletins\BulletinsService.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Bulletins\Entities\Bulletin.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Entities\Bulletin.cs">
       <Link>Core\Bulletins\Entities\Bulletin.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedViewModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedViewModel.cs">
       <Link>Core\Bulletins\Models\BulletinExtendedViewModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedItemViewModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedItemViewModel.cs">
       <Link>Core\Bulletins\Models\BulletinExtendedItemViewModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\CentralFeed\CentralFeedContentHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\CentralFeed\CentralFeedContentHelper.cs">
       <Link>Core\CentralFeed\CentralFeedContentHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Comments\CustomCommentableService.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CustomCommentableService.cs">
       <Link>Core\Comments\CustomCommentableService.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\DateTimeFormatProvider.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Constants\DocumentTypeConstants.cs">
+      <Link>Core\Constants\DocumentTypeConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\DateTimeFormatProvider.cs">
       <Link>Core\DateTimeFormatProvider.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\DocumentTypeProvider.cs">
+      <Link>Core\DocumentTypeProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
       <Link>Core\Extentions\PublishedContentExtentions.cs</Link>
-    </Content>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\Handlers\NotFoundHandler.cs">
       <Link>Core\Handlers\NotFoundHandler.cs</Link>
     </Compile>
-    <Content Include="..\Compent.uIntra\Core\Helpers\IUmbracoContentHelper.cs">
+    <Compile Include="..\Compent.uIntra\Core\Helpers\IUmbracoContentHelper.cs">
       <Link>Core\Helpers\IUmbracoContentHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Helpers\UmbracoContentHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Helpers\UmbracoContentHelper.cs">
       <Link>Core\Helpers\UmbracoContentHelper.cs</Link>
-    </Content>
+    </Compile>
     <Content Include="..\Compent.uIntra\Controllers\CommentsController.cs">
       <Link>Controllers\CommentsController.cs</Link>
     </Content>
@@ -1116,249 +1119,147 @@
     <Content Include="..\Compent.uIntra\Controllers\LikesPageController.cs">
       <Link>Controllers\LikesPageController.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Core\Constants\AppSettingConstants.cs">
+    <Compile Include="..\Compent.uIntra\Core\Constants\AppSettingConstants.cs">
       <Link>Core\Constants\AppSettingConstants.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Comments\CommentsPageHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CommentsPageHelper.cs">
       <Link>Core\Comments\CommentsPageHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Comments\CommentsPageTab.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CommentsPageTab.cs">
       <Link>Core\Comments\CommentsPageTab.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Comments\CustomCommentable.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CustomCommentable.cs">
       <Link>Core\Comments\CustomCommentable.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Comments\ICommentsPageHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\ICommentsPageHelper.cs">
       <Link>Core\Comments\ICommentsPageHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Comments\CommentsTestConstants.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CommentsTestConstants.cs">
       <Link>Core\Comments\CommentsTestConstants.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Events\Entities\Event.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\Entities\Event.cs">
       <Link>Core\Events\Entities\Event.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Events\EventsService.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\EventsService.cs">
       <Link>Core\Events\EventsService.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Events\EventsAutoMapperProfile.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\EventsAutoMapperProfile.cs">
       <Link>Core\Events\EventsAutoMapperProfile.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Events\Models\EventExtendedItemModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\Models\EventExtendedItemModel.cs">
       <Link>Core\Events\Models\EventExtendedItemModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Events\Models\EventExtendedViewModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\Models\EventExtendedViewModel.cs">
       <Link>Core\Events\Models\EventExtendedViewModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Exceptions\ExceptionLogger.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Exceptions\ExceptionLogger.cs">
       <Link>Core\Exceptions\ExceptionLogger.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\IntranetUserContentHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\IDocumentTypeProvider.cs">
+      <Link>Core\IDocumentTypeProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\IntranetUserContentHelper.cs">
       <Link>Core\IntranetUserContentHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\IoC\NinjectDependencyResolver.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\IoC\NinjectDependencyResolver.cs">
       <Link>Core\IoC\NinjectDependencyResolver.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Likes\LikesTestConstants.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Likes\LikesTestConstants.cs">
       <Link>Core\Likes\LikesTestConstants.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Likes\CustomLikeable.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Likes\CustomLikeable.cs">
       <Link>Core\Likes\CustomLikeable.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\LocalizationService.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\LocalizationService.cs">
       <Link>Core\LocalizationService.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\MailConfiguration.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MailConfiguration.cs">
       <Link>Core\Notification\MailConfiguration.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Navigation\UintraLeftSideNavigationModelBuilder.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Navigation\UintraLeftSideNavigationModelBuilder.cs">
       <Link>Core\Navigation\UintraLeftSideNavigationModelBuilder.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Navigation\NavigationAutoMapperProfile.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Navigation\NavigationAutoMapperProfile.cs">
       <Link>Core\Navigation\NavigationAutoMapperProfile.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\News\Entities\News.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\Entities\News.cs">
       <Link>Core\News\Entities\News.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\News\NewsService.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\NewsService.cs">
       <Link>Core\News\NewsService.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\News\Models\NewsExtendedItemViewModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\Models\NewsExtendedItemViewModel.cs">
       <Link>Core\News\Models\NewsExtendedItemViewModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\News\Models\NewsExtendedViewModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\Models\NewsExtendedViewModel.cs">
       <Link>Core\News\Models\NewsExtendedViewModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\News\NewsAutoMapperProfile.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\NewsAutoMapperProfile.cs">
       <Link>Core\News\NewsAutoMapperProfile.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\MailNotifierService .cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MailNotifierService .cs">
       <Link>Core\Notification\MailNotifierService .cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\MailService .cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MailService .cs">
       <Link>Core\Notification\MailService .cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\ActivityLikeAddedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\ActivityLikeAddedMail.cs">
       <Link>Core\Notification\Mails\ActivityLikeAddedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\BeforeStartMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\BeforeStartMail.cs">
       <Link>Core\Notification\Mails\BeforeStartMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentAddedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentAddedMail.cs">
       <Link>Core\Notification\Mails\CommentAddedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentEditedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentEditedMail.cs">
       <Link>Core\Notification\Mails\CommentEditedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentLikeAddedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentLikeAddedMail.cs">
       <Link>Core\Notification\Mails\CommentLikeAddedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\CommentRepliedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentRepliedMail.cs">
       <Link>Core\Notification\Mails\CommentRepliedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\EventHidedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\EventHidedMail.cs">
       <Link>Core\Notification\Mails\EventHidedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\EventMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\EventMail.cs">
       <Link>Core\Notification\Mails\EventMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\EventUpdatedMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\EventUpdatedMail.cs">
       <Link>Core\Notification\Mails\EventUpdatedMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\IdeaMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\IdeaMail.cs">
       <Link>Core\Notification\Mails\IdeaMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\Mails\NewsMail.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\NewsMail.cs">
       <Link>Core\Notification\Mails\NewsMail.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\NotificationAutoMapperProfile .cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\NotificationAutoMapperProfile .cs">
       <Link>Core\Notification\NotificationAutoMapperProfile .cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Notification\NotificationHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\NotificationHelper.cs">
       <Link>Core\Notification\NotificationHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Search\SearchUmbracoHelper.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Search\SearchUmbracoHelper.cs">
       <Link>Core\Search\SearchUmbracoHelper.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribeService.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribeService.cs">
       <Link>Core\Subscribe\CustomSubscribeService.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Subscribe\SubscribeTestConstants.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Subscribe\SubscribeTestConstants.cs">
       <Link>Core\Subscribe\SubscribeTestConstants.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribable.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribable.cs">
       <Link>Core\Subscribe\CustomSubscribable.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Navigation\TopMenuViewModel.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Navigation\TopMenuViewModel.cs">
       <Link>Core\Navigation\TopMenuViewModel.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoEventsModule.cs">
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\UmbracoEventsModule.cs">
       <Link>Core\UmbracoEventsModule.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BasePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BasePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ContentPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ContentPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\DataFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\DataFolder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ErrorPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ErrorPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\File.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\File.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Folder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Folder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\HomePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\HomePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Image.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Image.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\MailTemplate.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\MailTemplate.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Member.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Member.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NavigationComposition.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NavigationComposition.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Panel.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Panel.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ProfilePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ProfilePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SearchResultPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SearchResultPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SubscribePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SubscribePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SystemLink.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SystemLink.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs</Link>
-    </Content>
+    </Compile>
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
@@ -1384,9 +1285,9 @@
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </Compile>
-    <Content Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
-    </Content>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
