@@ -9,15 +9,17 @@ namespace Compent.uIntra.Core.Notification
     public class NotificationHelper : INotificationHelper
     {
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
-        public NotificationHelper(UmbracoHelper umbracoHelper)
+        public NotificationHelper(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public IPublishedContent GetNotificationListPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, NotificationPage.ModelTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetNotificationPage()));
         }
     }
 }

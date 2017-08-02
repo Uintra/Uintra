@@ -249,6 +249,7 @@ namespace Compent.uIntra
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
             kernel.Bind<ISetupOnStartup>().To<IntranetUserService>().InRequestScope();
+            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
