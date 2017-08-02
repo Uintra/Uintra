@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
+using uIntra.Core;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace uIntra.Users
 {
-    public class IntranetUserService : IIntranetUserService<IntranetUser>
+    public class IntranetUserService : IIntranetUserService<IntranetUser>, ISetupOnStartup
     {
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string UmbracoUserIdPropertyAlias => "relatedUser";
@@ -26,7 +28,7 @@ namespace uIntra.Users
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IRoleService _roleService;
         private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
-        private readonly ICacheService _cache;
+        private readonly ICacheService _cacheService;
 
         public IntranetUserService(
             IMemberService memberService,
@@ -34,14 +36,14 @@ namespace uIntra.Users
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             IIntranetRoleTypeProvider intranetRoleTypeProvider,
-            ICacheService cache)
+            ICacheService cacheService)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _roleService = roleService;
             _intranetRoleTypeProvider = intranetRoleTypeProvider;
-            _cache = cache;
+            _cacheService = cacheService;
         }
 
         public virtual IntranetUser Get(int umbracoId)
@@ -89,13 +91,13 @@ namespace uIntra.Users
 
         public virtual IEnumerable<IntranetUser> GetAll()
         {
-            var users = _cache.GetOrSet(IntranetUsersCacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var users = _cacheService.GetOrSet(IntranetUsersCacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
             return users;
         }
 
         public virtual IntranetUser GetCurrentUser()
         {
-            var currentUser = _cache.GetOrSet(CurrentUserCacheKey, GetCurrentUserFromSql, CacheHelper.GetMidnightUtcDateTimeOffset());
+            var currentUser = _cacheService.GetOrSet(CurrentUserCacheKey, GetCurrentUserFromSql, CacheHelper.GetMidnightUtcDateTimeOffset());
             return currentUser;
         }
 
@@ -122,6 +124,14 @@ namespace uIntra.Users
             }
 
             _memberService.Save(member);
+
+            UpdateCache(user.Id);
+        }
+
+        protected virtual IntranetUser GetFromSql(Guid id)
+        {
+            var member = _memberService.GetByKey(id);
+            return Map(member);
         }
 
         protected virtual IEnumerable<IntranetUser> GetAllFromSql()
@@ -205,6 +215,63 @@ namespace uIntra.Users
             }
 
             return Map(user);
+        }
+
+        protected virtual void UpdateCache(Guid userId)
+        {
+            var updatedUser = GetFromSql(userId);
+
+            var currentUser = GetCurrentUser();
+            if (currentUser.Id == userId)
+            {
+                _cacheService.Set(CurrentUserCacheKey, updatedUser, CacheHelper.GetMidnightUtcDateTimeOffset());
+            }
+
+            var allCachedUsers = GetAll().ToList();
+            var oldCachedUser = allCachedUsers.Find(el => el.Id == userId);
+            allCachedUsers.Remove(oldCachedUser);
+            allCachedUsers.Add(updatedUser);
+
+            _cacheService.Set(IntranetUsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
+
+        public void Setup()
+        {
+            MemberService.Created += MemberService_Created;
+            MemberService.Saved += MemberService_Saved;
+            MemberService.Deleted += MemberService_Deleted;
+        }
+
+        private void MemberService_Created(IMemberService sender, NewEventArgs<IMember> e)
+        {
+            var user = GetFromSql(e.Entity.Key);
+            var allCachedUsers = GetAll().ToList();
+            allCachedUsers.Add(user);
+
+            _cacheService.Set(IntranetUsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
+
+        private void MemberService_Saved(IMemberService sender, SaveEventArgs<IMember> e)
+        {
+            foreach (var member in e.SavedEntities)
+            {
+                UpdateCache(member.Key);
+            }
+        }
+
+        private void MemberService_Deleted(IMemberService sender, DeleteEventArgs<IMember> e)
+        {
+            var currentUser = GetCurrentUser();
+            var deletingUserIds = e.DeletedEntities.Select(el => el.Key).ToList();
+            if (deletingUserIds.Contains(currentUser.Id))
+            {
+                _cacheService.Clear(CurrentUserCacheKey);
+            }
+
+            var allCachedUsers = GetAll().ToList();
+            allCachedUsers.RemoveAll(el => deletingUserIds.Contains(el.Id));
+
+            _cacheService.Set(IntranetUsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
     }
 }
