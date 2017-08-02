@@ -419,7 +419,6 @@
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
-    <Content Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="uIntra.Navigation.nuspec">
       <SubType>Designer</SubType>
     </None>
