@@ -1149,7 +1149,9 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
+    <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
+    <Compile Include="Core\DocumentTypeProvider.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
@@ -1180,6 +1182,7 @@
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
+    <Compile Include="Core\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IntranetUserContentHelper.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />

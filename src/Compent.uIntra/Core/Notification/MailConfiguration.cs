@@ -1,13 +1,23 @@
-﻿using uIntra.Core;
-using Umbraco.Web.PublishedContentModels;
+﻿using System.Web;
+using uIntra.Core;
+using uIntra.Core.Extentions;
 
 namespace Compent.uIntra.Core.Notification
 {
     public class MailConfiguration
     {
-        public static string MailTemplateXpath => XPathHelper.GetXpath(
-            DataFolder.ModelTypeAlias, 
-            MailTemplatesFolder.ModelTypeAlias,
-            MailTemplate.ModelTypeAlias);
+
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        public MailConfiguration()
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+
+            MailTemplateXpath = XPathHelper.GetXpath(
+            docTypeAliasProvider.GetDataFolder(),
+            docTypeAliasProvider.GetMailTemplateFolder(),
+            docTypeAliasProvider.GetMailTemplate());
+        }
+        public static string MailTemplateXpath { get; set; }
     }
+    
 }
