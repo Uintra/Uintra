@@ -1034,9 +1034,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NotificationPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NotificationPage.generated.cs</Link>
-    </Content>
     <Compile Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
       <Link>Core\ActivitiesServiceFactory.cs</Link>
     </Compile>
@@ -1106,8 +1103,14 @@
     <Compile Include="..\Compent.uIntra\Core\Comments\CustomCommentableService.cs">
       <Link>Core\Comments\CustomCommentableService.cs</Link>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Constants\DocumentTypeConstants.cs">
+      <Link>Core\Constants\DocumentTypeConstants.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\DateTimeFormatProvider.cs">
       <Link>Core\DateTimeFormatProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\DocumentTypeProvider.cs">
+      <Link>Core\DocumentTypeProvider.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
       <Link>Core\Extentions\PublishedContentExtentions.cs</Link>
@@ -1183,6 +1186,9 @@
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\Exceptions\ExceptionLogger.cs">
       <Link>Core\Exceptions\ExceptionLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\IDocumentTypeProvider.cs">
+      <Link>Core\IDocumentTypeProvider.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\IntranetUserContentHelper.cs">
       <Link>Core\IntranetUserContentHelper.cs</Link>
@@ -1286,111 +1292,6 @@
     <Compile Include="..\Compent.uIntra\Core\UmbracoEventsModule.cs">
       <Link>Core\UmbracoEventsModule.cs</Link>
     </Compile>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BasePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BasePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\BulletinsOverviewPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\CentralFeedPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ContentPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ContentPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\DataFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\DataFolder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\DefaultGridComposition.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ErrorPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ErrorPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsCreatePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsDetailsPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\EventsOverviewPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\File.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\File.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Folder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Folder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\HomePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\HomePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Image.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Image.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\MailTemplate.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\MailTemplate.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\MailTemplatesFolder.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Member.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Member.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NavigationComposition.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NavigationComposition.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsCreatePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsDetailsPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\NewsOverviewPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\Panel.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\Panel.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ProfileEditPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\ProfilePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\ProfilePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SearchResultPage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SearchResultPage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SubscribePage.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SubscribePage.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SystemLink.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SystemLink.generated.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs">
-      <Link>Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs</Link>
-    </Content>
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>

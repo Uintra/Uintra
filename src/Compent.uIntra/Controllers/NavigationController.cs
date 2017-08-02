@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.uIntra.Core;
+using Compent.uIntra.Core.Constants;
 using Compent.uIntra.Core.Extentions;
 using uIntra.CentralFeed;
 using uIntra.Navigation;
@@ -19,20 +21,25 @@ namespace Compent.uIntra.Controllers
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
-        protected override string SystemLinksContentXPath { get; } = $"root/{DataFolder.ModelTypeAlias}[@isDoc]/{SystemLinkFolder.ModelTypeAlias}[@isDoc]/{SystemLink.ModelTypeAlias}[@isDoc]";
+        protected override string SystemLinksContentXPath { get; } 
 
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ICentralFeedContentHelper centralFeedContentHelper,
-            ISystemLinksModelBuilder systemLinksModelBuilder) :
+            ISystemLinksModelBuilder systemLinksModelBuilder, IDocumentTypeAliasProvider documentTypeAliasProvider) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
             _centralFeedContentHelper = centralFeedContentHelper;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
+
+            SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
 
         public override ActionResult SubNavigation()
@@ -55,27 +62,27 @@ namespace Compent.uIntra.Controllers
         public string GetTitle()
         {
             var currentPage = CurrentPage;
-            var currentPageNavigation = currentPage as INavigationComposition;
-            while (currentPageNavigation == null && currentPage.Parent != null)
+            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+            while (!isPageHasNavigation && currentPage.Parent != null)
             {
                 currentPage = currentPage.Parent;
-                currentPageNavigation = currentPage as INavigationComposition;
+                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
             }
 
-            if (currentPageNavigation == null)
+            if (!isPageHasNavigation)
             {
                 return string.Empty;
             }
 
-            var result = currentPageNavigation.NavigationName + " -";
+            var result = currentPage.GetPropertyValue<string>(NavigationPropertiesConstants.NavigationNamePropName) + " -"; 
 
-            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias))
+            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
             {
                 currentPage = currentPage.Parent;
-                currentPageNavigation = currentPage as INavigationComposition;
-                if (currentPageNavigation != null)
+                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+                if (isPageHasNavigation)
                 {
-                    result = $"{currentPageNavigation.NavigationName} - {result}";
+                    result = $"{currentPage.GetPropertyValue<string>(NavigationPropertiesConstants.NavigationNamePropName)} - {result}";
                 }
             }
 
@@ -92,9 +99,9 @@ namespace Compent.uIntra.Controllers
             return content.Parent.Children;
         }
 
-        private static bool IsHomePage(IPublishedContent content)
+        private bool IsHomePage(IPublishedContent content)
         {
-            return content.DocumentTypeAlias == HomePage.ModelTypeAlias;
+            return content.DocumentTypeAlias == _documentTypeAliasProvider.GetHomePage();
         }
 
         private MenuItemViewModel MapSubNavigationItem(IPublishedContent content)
