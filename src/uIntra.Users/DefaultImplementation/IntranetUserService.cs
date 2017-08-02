@@ -110,17 +110,17 @@ namespace uIntra.Users
         public virtual void Save(IntranetUserDTO user)
         {
             var member = _memberService.GetByKey(user.Id);
-            member.SetValue("firstName", user.FirstName);
-            member.SetValue("lastName", user.LastName);
+            member.SetValue(ProfileConstants.FirstName, user.FirstName);
+            member.SetValue(ProfileConstants.LastName, user.LastName);
 
             if (user.NewMedia.HasValue)
             {
-                member.SetValue("photo", user.NewMedia.Value);
+                member.SetValue(ProfileConstants.Photo, user.NewMedia.Value);
             }
 
             if (user.DeleteMedia)
             {
-                member.SetValue("photo", null);
+                member.SetValue(ProfileConstants.Photo, null);
             }
 
             _memberService.Save(member);
@@ -170,13 +170,13 @@ namespace uIntra.Users
                 Id = member.Key,
                 UmbracoId = member.GetValueOrDefault<int?>(UmbracoUserIdPropertyAlias),
                 Email = member.Email,
-                FirstName = member.GetValueOrDefault<string>("firstName"),
-                LastName = member.GetValueOrDefault<string>("lastName"),
+                FirstName = member.GetValueOrDefault<string>(ProfileConstants.FirstName),
+                LastName = member.GetValueOrDefault<string>(ProfileConstants.LastName),
                 Role = GetMemberRole(member)
             };
 
             string userPhoto = null;
-            var userPhotoId = member.GetValueOrDefault<int?>("photo");
+            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
 
             if (userPhotoId.HasValue)
             {
