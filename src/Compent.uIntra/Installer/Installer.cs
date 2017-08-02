@@ -17,11 +17,14 @@ namespace Compent.uIntra.Installer
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             var uIntraConfigurationStatus = ConfigurationManager.AppSettings[CoreInstallationConstants.AppSettingKey.UIntraConfigurationStatus];
-            if (uIntraConfigurationStatus.IsNullOrEmpty())
+            //if (uIntraConfigurationStatus.IsNullOrEmpty())
             {
                 InitMigration();
                 UpdateUIntraConfigurationStatus();
             }
+            //var coreInstaller = new CoreInstallationStep();
+            //coreInstaller.Execute();
+
         }
 
         private void InitMigration()

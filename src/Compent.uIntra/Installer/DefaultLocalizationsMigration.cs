@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 using Localization.Core;
 using uIntra.Core.Extentions;
+using uIntra.Core.Installer;
 
 namespace Compent.uIntra.Installer
 {
     public class DefaultLocalizationsMigration
     {
-        private const string DefaultLocalizationsFilePath = "~/Installer/PreValues/DefaultLocalizations.json";
+        private readonly string DefaultLocalizationsEmbeddedResourceFilePath = $"{Assembly.GetExecutingAssembly().FullName}.Installer.PreValues.DefaultLocalizations.json";
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
@@ -28,7 +30,7 @@ namespace Compent.uIntra.Installer
         {
             var existedLocalizations = _localizationCoreService.GetAllResourceModels();
 
-            var fileContent = GetDefaultLocalizationsFileContent();
+            var fileContent = CoreInstallationStep.GetEmbeddedResourceValue(DefaultLocalizationsEmbeddedResourceFilePath, Assembly.GetExecutingAssembly());
             var newLocalizations = fileContent.Deserialize<List<ResourceModel>>();
 
             var parentKeys = newLocalizations
@@ -53,17 +55,6 @@ namespace Compent.uIntra.Installer
 
                 _localizationCoreService.Create(loc);
             }
-        }
-
-        private string GetDefaultLocalizationsFileContent()
-        {
-            var filePath = HostingEnvironment.MapPath(DefaultLocalizationsFilePath);
-            if (filePath.IsNullOrEmpty() || !File.Exists(filePath))
-            {
-                throw new FileNotFoundException($"File {DefaultLocalizationsFilePath} doesn't exist.");
-            }
-
-            return File.ReadAllText(filePath);
         }
     }
 }
