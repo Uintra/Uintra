@@ -13,7 +13,7 @@ using Umbraco.Web;
 
 namespace uIntra.Users
 {
-    public class IntranetIntranetUserService : IIntranetUserService<IntranetUser>, ICacheableIntranetUserService
+    public class IntranetUserService : IIntranetUserService<IntranetUser>, ICacheableIntranetUserService
     {
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string IntranetUsersCacheKey => "IntranetUsersCache";
@@ -25,7 +25,7 @@ namespace uIntra.Users
         private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
         private readonly ICacheService _cacheService;
 
-        public IntranetIntranetUserService(
+        public IntranetUserService(
             IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
