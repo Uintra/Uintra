@@ -1734,6 +1734,11 @@
   <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Views\Web.config">
+      <Link>Views\Web.config</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
