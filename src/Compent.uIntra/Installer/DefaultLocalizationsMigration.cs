@@ -12,7 +12,7 @@ namespace Compent.uIntra.Installer
 {
     public class DefaultLocalizationsMigration
     {
-        private readonly string DefaultLocalizationsEmbeddedResourceFilePath = $"{Assembly.GetExecutingAssembly().FullName}.Installer.PreValues.DefaultLocalizations.json";
+        private readonly string DefaultLocalizationsEmbeddedResourceFilePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.PreValues.DefaultLocalizations.json";
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
