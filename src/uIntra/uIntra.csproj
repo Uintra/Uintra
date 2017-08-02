@@ -331,6 +331,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.BaseControls, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -342,12 +343,13 @@
       <HintPath>..\..\packages\uIntra.CentralFeed.1.1.11\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.3\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.24.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Core.1.1.24.1\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.24.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.1.24\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Comments.1.1.3\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -1330,64 +1332,73 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
       <Link>Installer\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsEditPageGrid.json">
       <Link>Installer\ContentPageJsons\bulletinsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsOverviewPageGrid.json">
       <Link>Installer\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\errorPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\errorPageGrid.json">
       <Link>Installer\ContentPageJsons\errorPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsCreatePageGrid.json">
       <Link>Installer\ContentPageJsons\eventsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsDetailsPageGrid.json">
       <Link>Installer\ContentPageJsons\eventsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsEditPageGrid.json">
       <Link>Installer\ContentPageJsons\eventsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsOverviewPageGrid.json">
       <Link>Installer\ContentPageJsons\eventsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\homePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\homePageGrid.json">
       <Link>Installer\ContentPageJsons\homePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsCreatePageGrid.json">
       <Link>Installer\ContentPageJsons\newsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsDetailsPageGrid.json">
       <Link>Installer\ContentPageJsons\newsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsEditPageGrid.json">
       <Link>Installer\ContentPageJsons\newsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\newsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsOverviewPageGrid.json">
       <Link>Installer\ContentPageJsons\newsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\notificationPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\notificationPageGrid.json">
       <Link>Installer\ContentPageJsons\notificationPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\profileEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profileEditPageGrid.json">
       <Link>Installer\ContentPageJsons\profileEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\profilePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profilePageGrid.json">
       <Link>Installer\ContentPageJsons\profilePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
       <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
       <Link>Installer\PreValues\DefaultLocalizations.json</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\SentMails\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Views\Web.config">
+      <Link>Views\Web.config</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
   </ItemGroup>
   <ItemGroup>
@@ -1414,6 +1425,22 @@
     <Content Include="App_Plugins\Core\package.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1432,6 +1459,37 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
@@ -1468,7 +1526,20 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+
+    <Content Include="App_Plugins\Panels\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
@@ -1483,7 +1554,19 @@
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
@@ -1498,6 +1581,24 @@
     <Content Include="App_Plugins\Events\package.manifest" />
   </ItemGroup>
   <ItemGroup>
+
+    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1505,6 +1606,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
@@ -1560,6 +1662,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\Notification\package.manifest" />
   </ItemGroup>
+
   <ItemGroup>
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
   </ItemGroup>
@@ -1641,6 +1744,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
   </ItemGroup>
+
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
