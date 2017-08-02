@@ -265,6 +265,7 @@
   <ItemGroup>
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\IntranetUser.cs" />
+    <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="DefaultImplementation\IntranetUserService.cs" />
     <Compile Include="Core\IRoleService.cs" />
     <Compile Include="Core\Models\LoginModelBase.cs" />
