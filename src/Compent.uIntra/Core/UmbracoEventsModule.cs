@@ -19,7 +19,6 @@ namespace Compent.uIntra.Core
             ContentService.Published += ContentServiceOnPublished;
             ContentService.UnPublished += ContentServiceOnUnPublished;
 
-            MemberService.Created += MemberServiceOnCreated;
             MemberService.Saved += MemberServiceOnSaved;
             MemberService.Deleted += MemberServiceOnDeleted;
         }
@@ -43,12 +42,6 @@ namespace Compent.uIntra.Core
             {
                 _contentIndexer.DeleteFromIndex(entity.Id);
             }
-        }
-
-        private static void MemberServiceOnCreated(IMemberService sender, NewEventArgs<IMember> e)
-        {
-            var cacheableUserService = GetCacheableUserService();
-            cacheableUserService?.UpdateUserCache(e.Entity.Key);
         }
 
         private static void MemberServiceOnSaved(IMemberService sender, SaveEventArgs<IMember> e)

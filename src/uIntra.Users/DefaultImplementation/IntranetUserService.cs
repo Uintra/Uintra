@@ -143,7 +143,7 @@ namespace uIntra.Users
         protected virtual IntranetUser GetFromSql(Guid id)
         {
             var member = _memberService.GetByKey(id);
-            return Map(member);
+            return member != null ? Map(member) : null;
         }
 
         protected virtual IEnumerable<IntranetUser> GetAllFromSql()
