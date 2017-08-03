@@ -10,5 +10,8 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uIntra Core</tags>
+    <dependencies>
+      <dependency id="uIntra.BaseControls" version="2.3.3" />
+    </dependencies>
   </metadata>
 </package>

@@ -25,13 +25,16 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly IPermissionsService _permissionsService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public CentralFeedContentHelper(
             UmbracoHelper umbracoHelper,
             ICentralFeedService centralFeedService,
             IGridHelper gridHelper,
             ICookieProvider cookieProvider,
-            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider, ICentralFeedTypeProvider centralFeedTypeProvider)
+            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider,
+            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
@@ -40,11 +43,12 @@ namespace Compent.uIntra.Core.CentralFeed
             _permissionsService = permissionsService;
             _activityTypeProvider = activityTypeProvider;
             _centralFeedTypeProvider = centralFeedTypeProvider;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public IPublishedContent GetOverviewPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage()));
         }
 
         public bool IsCentralFeedPage(IPublishedContent currentPage)
@@ -71,7 +75,7 @@ namespace Compent.uIntra.Core.CentralFeed
                 {
                     continue;
                 }
-                
+
                 var canCreate = _permissionsService.IsCurrentUserHasAccess(tabType, IntranetActivityActionEnum.Create);
 
                 var settings = _centralFeedService.GetSettings(tabType);
@@ -79,9 +83,9 @@ namespace Compent.uIntra.Core.CentralFeed
                 {
                     Content = content,
                     Type = tabType,
-                    HasSubscribersFilter = settings.HasSubscribersFilter,                    
+                    HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
-                    CreateUrl = canCreate ? content.Children.SingleOrDefault(n => n.DocumentTypeAlias.Equals(GetCreateDocumentType(activityType.Value)))?.Url : null,
+                    CreateUrl = canCreate ? content.Children.SingleOrDefault(n => n.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetCreatePage(tabType)))?.Url : null,
                     IsActive = content.IsAncestorOrSelf(currentPage)
                 };
             }
@@ -133,7 +137,10 @@ namespace Compent.uIntra.Core.CentralFeed
 
         private IEnumerable<IPublishedContent> GetContents()
         {
-            return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(NewsOverviewPage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias, BulletinsOverviewPage.ModelTypeAlias));
+            var activityTypes = _activityTypeProvider.GetAll();
+            var activitiesList = activityTypes.Select(_documentTypeAliasProvider.GetOverviewPage).ToArray();
+
+            return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activitiesList));
         }
 
         private CentralFeedFiltersStateModel GetDefaultCentralFeedFiltersState()
@@ -142,21 +149,6 @@ namespace Compent.uIntra.Core.CentralFeed
             {
                 BulletinFilterSelected = true
             };
-        }
-
-        private string GetCreateDocumentType(IntranetActivityTypeEnum activityType)
-        {
-            switch (activityType)
-            {
-                case IntranetActivityTypeEnum.News:
-                    return NewsCreatePage.ModelTypeAlias;
-
-                case IntranetActivityTypeEnum.Events:
-                    return EventsCreatePage.ModelTypeAlias;
-
-                default:
-                    return null;
-            }
         }
     }
 }

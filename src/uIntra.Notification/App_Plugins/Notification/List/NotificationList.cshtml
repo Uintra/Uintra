@@ -1,5 +1,4 @@
-﻿@using uIntra.Core
-@using uIntra.Core.Extentions
+﻿@using uIntra.Core.Extentions
 @using uIntra.Notification.Configuration
 @model uIntra.Notification.NotificationListViewModel
 
@@ -32,7 +31,7 @@
                 break;
         }
         <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-            <a class="notification__list-avatar" href="@notification.Value.url">
+            <a class="notification__list-avatar" href="@(notification.NotifierId.HasValue ? ViewData.GetProfilePageUrl(notification.NotifierId.Value) : string.Empty)">
                 <img class="notification__list-avatar-img" src="@notification.NotifierPhoto">
             </a>
 
@@ -41,7 +40,7 @@
                     <div class="notification__list-row">
                         <span class="notification__list-date">@notification.Date</span>
                         <h2 class="notification__list-title">
-                            <a class="notification__list-title-link" href="@notification.Value.url">
+                            <a class="notification__list-title-link" href="@(notification.NotifierId.HasValue ? ViewData.GetProfilePageUrl(notification.NotifierId.Value) : string.Empty)">
                                 <span class="notification__list-icon">
                                     <i class="icon @icon"></i>
                                 </span>
@@ -54,6 +53,7 @@
                             {
                                 <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
                             }
+
                         </h2>
                         <a class="notification__list-heading" href="@notification.Value.url">
                             @Html.Raw(notification.Value.title)

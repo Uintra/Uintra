@@ -9,20 +9,22 @@ namespace Compent.uIntra.Core
     public class IntranetUserContentHelper : IIntranetUserContentHelper
     {
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
-        public IntranetUserContentHelper(UmbracoHelper umbracoHelper)
+        public IntranetUserContentHelper(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public IPublishedContent GetProfilePage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, ProfilePage.ModelTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetProfilePage()));
         }
 
         public IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePage.ModelTypeAlias, ProfileEditPage.ModelTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetProfileEditPage()));
         }
     }
 }

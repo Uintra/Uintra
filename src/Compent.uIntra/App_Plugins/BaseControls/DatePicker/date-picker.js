@@ -5,7 +5,6 @@
     //WARNING: DO NOT USE 'APPEND TO' OPTION
     var defaultOptions = {
         weekNumbers: true,
-        locale: 'da',
         allowInput: false, // allowInput + dateFormat cause bug
         clickOpens: true,
         mode: "single" //"single", "multiple", or "range"

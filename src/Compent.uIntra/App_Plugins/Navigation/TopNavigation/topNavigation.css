@@ -107,7 +107,7 @@
     }
     &__button{
         position:absolute;
-        top:16px;
+        top:9px;
         right:5px;
         border:none;
         background:none;
@@ -217,7 +217,7 @@
 	    display: flex;
 	    align-items: center;
         border-top:1px solid var(--color-light-gray-3);
-        padding:9px 20px 8px;
+        padding:9px 15px 8px 20px;
         font-size:14px;
 
         &.autocomplete-selected,
@@ -273,7 +273,7 @@
 
                 &:after{
                     position:absolute;
-                    top: 16px;
+                    top: 12px;
                     right: 0;
                     width: 10px;
                     height: 10px;
@@ -294,7 +294,7 @@
 .user {
     float:right;
     position:relative;
-    padding:10px 10px 10px 37px;
+    padding:13px 10px 8px 37px;
     margin:0 -10px 0 0;
 
 	@media (--for-tablet-portrait-down){
@@ -319,7 +319,7 @@
         color:var(--color-white);
         display:block;
         position:relative;
-        padding:6px 2px 6px 17px;
+        padding:2px 2px 4px 17px;
         cursor:pointer;
 
         &._with-avatar{
@@ -526,6 +526,38 @@
                 }
             }
 
+            :nth-child(2) > &{
+                &:before{
+                    display:block;
+                    content:'';
+                    width:10px;
+                    height:10px;
+                    background:var(--color-white);
+                    border:solid #bfbfbf;
+                    border-width:1px 1px 0 0;
+                    transform:rotate(-45deg);
+                    position:absolute;
+                    top:-6px;
+                    right:14px;
+
+                    @media (--for-tablet-portrait-down){
+                        &{
+                            display:none;
+                        }
+                    }
+                }
+
+                &:hover,
+                &:active,
+                &:focus{
+                    &:before{
+                        background:#333;
+                    }
+                }
+            }
+
+            &:not(._with-avatar):active,
+            &:not(._with-avatar):focus,
             &:not(._with-avatar):hover{
                 text-decoration:none;
                 color:var(--color-white);
@@ -542,6 +574,20 @@
             position:absolute;
             top:11px;
             left:17px;
+
+            &.icon-user{
+                top:6px;
+                left: 16px;
+            }
+
+            &.icon-logout{
+                left: 21px;
+                top: 10px;
+            }
+
+            &.icon-umbraco{
+                top: 8px;
+            }
 
             @media (--for-tablet-portrait-down){
                 &{

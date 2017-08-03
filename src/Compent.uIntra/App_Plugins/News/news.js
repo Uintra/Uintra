@@ -23,6 +23,7 @@ var initSubmitButton = function (holder) {
             return;
         }
 
+        $(this).addClass('_loading');
         form.submit();
     });
 };

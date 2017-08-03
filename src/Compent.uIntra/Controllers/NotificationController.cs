@@ -1,20 +1,19 @@
-﻿using uIntra.Core.User;
+using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Web;
-using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
-    public class NotificationController: NotificationControllerBase
+    public class NotificationController : NotificationControllerBase
     {
         protected override int ItemsPerPage { get; } = 10;
 
         public NotificationController(
             IUiNotifierService uiNotifierService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationHelper notificationHelper,
-            IIntranetUserContentHelper intranentUserContentHelper) 
-            : base(uiNotifierService, intranetUserService, notificationHelper, intranentUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper)
+            : base(uiNotifierService, intranetUserService, notificationHelper, intranetUserContentHelper)
         {
         }
     }

@@ -19,7 +19,6 @@
     "~/App_Plugins/BaseControls/LinksPicker/links-picker.js",
     "/App_Plugins/BaseControls/DatePicker/date-picker.js",
     "/App_Plugins/BaseControls/DatePicker/flatpickr/flatpickr.js",
-    "/App_Plugins/BaseControls/DatePicker/flatpickr/l10n/da.js",
     "/App_Plugins/BaseControls/TinyMce/tiny-mce.js",
     "/App_Plugins/BaseControls/TinyMce/RteLinksPicker/rte-links-picker.js",
     "~/App_Plugins/BaseControls/ContentPicker/contentPickerController.js",

@@ -80,6 +80,18 @@ namespace uIntra.Core.Media
             _mediaService.Save(media);
         }
 
+        public void DeleteMedia(string mediaPath)
+        {
+            var media = _mediaService.GetMediaByPath(mediaPath);
+            if (media == null)
+            {
+                throw new ArgumentNullException($"Media \"{mediaPath}\" doesn't exist.");
+            }
+
+            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
+            _mediaService.Save(media);
+        }
+
         public void DeleteMedia(IEnumerable<int> mediaIds)
         {
             var medias = _mediaService.GetByIds(mediaIds).ToList();

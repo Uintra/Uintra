@@ -13,18 +13,20 @@ let description;
 let mobileBtn;
 let toolbar;
 let sentButton;
-let closeButton;
 let header;
 let editor; 
+let body;
+let bulletin;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
     description = holder.querySelector(".js-create-bulletin__description");
     toolbar = holder.querySelector(toolbarSelector);
     sentButton = document.querySelector(".js-toolbar__send-button");
-    closeButton = holder.querySelector(".js-create-bulletin__description-close");
     header = holder.querySelector(".js-create-bulletin__user");
     mobileBtn = document.querySelector(".js-expand-bulletin");
+    body = document.querySelector("body");
+    bulletin = document.querySelector(".js-create-bulletin");
 }
 
 function initEditor() {
@@ -49,8 +51,12 @@ function initEventListeners() {
         description.addEventListener("click", descriptionClickHandler);
 
     sentButton.addEventListener("click", sentButtonClickHandler);
-    closeButton.addEventListener("click", closeBtnClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
+    body.addEventListener("click", function(ev) {
+        isOutsideClick(bulletin, ev.target, function() {
+            closeBulletin();
+        });
+    });
 }
 
 function initFileUploader() {
@@ -97,8 +103,7 @@ function sentButtonClickHandler(event) {
     });
 }
 
-function closeBtnClickHandler(event) {
-    event.preventDefault();
+function closeBulletin() {
     if (isEdited()) {
         if (showConfirmMessage(this.dataset.message)) {
             hide();
@@ -128,7 +133,6 @@ function initMobile(){
 function show() {
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
-    closeButton.classList.remove("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
@@ -140,7 +144,6 @@ function show() {
 function hide() {
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
-    closeButton.classList.add("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
@@ -173,6 +176,14 @@ function getBulletinHolder() {
 function cfReloadTab() {
     uIntra.events.cfReloadTab.dispatch();
 }
+
+function isOutsideClick (el, target, callback) {
+    if (el && !el.contains(target)) {
+        if (typeof callback === "function") {
+            callback();
+        }
+    }
+};
 
 let controller = {
     init: function () {

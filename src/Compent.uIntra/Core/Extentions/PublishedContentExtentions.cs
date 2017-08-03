@@ -1,5 +1,8 @@
-﻿using Umbraco.Core.Models;
-using Umbraco.Web.PublishedContentModels;
+﻿using System.Web;
+using Compent.uIntra.Core.Constants;
+using uIntra.Core.Extentions;
+using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Extentions
 {
@@ -7,10 +10,13 @@ namespace Compent.uIntra.Core.Extentions
     {
         public static bool GetHideInNavigation(this IPublishedContent content)
         {
-            if (content is INavigationComposition)
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+
+            if (content.IsComposedOf(docTypeAliasProvider.GetNavigationComposition()))
             {
-                var typedModel = (INavigationComposition)content;
-                return typedModel.IsHideFromLeftNavigation;
+                var isHideFromLeftNavigationPropName = content.GetPropertyValue<bool>(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName);
+
+                return isHideFromLeftNavigationPropName;
             }
 
             return true;
@@ -18,10 +24,13 @@ namespace Compent.uIntra.Core.Extentions
 
         public static bool IsShowPageInSubNavigation(this IPublishedContent content)
         {
-            if (content is INavigationComposition)
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            
+            if (content.IsComposedOf(docTypeAliasProvider.GetNavigationComposition()))
             {
-                var typedModel = (INavigationComposition)content;
-                return !typedModel.IsHideFromSubNavigation;
+                var isHideFromSubNavigation = content.GetPropertyValue<bool>(NavigationPropertiesConstants.IsHideFromSubNavigationPropName);
+
+                return !isHideFromSubNavigation;
             }
 
             return true;
@@ -29,14 +38,15 @@ namespace Compent.uIntra.Core.Extentions
 
         public static string GetNavigationName(this IPublishedContent content)
         {
-            if (content is INavigationComposition)
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            if (content.IsComposedOf(docTypeAliasProvider.GetNavigationComposition()))
             {
-                var typedModel = (INavigationComposition)content;
-                return typedModel.NavigationName;
+                var navigationName = content.GetPropertyValue<string>(NavigationPropertiesConstants.NavigationNamePropName);
+                
+                return navigationName;
             }
 
             return string.Empty;
         }
-
     }
 }

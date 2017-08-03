@@ -22,16 +22,19 @@ namespace Compent.uIntra.Installer
                 InitMigration();
                 UpdateUIntraConfigurationStatus();
             }
+            
         }
 
         private void InitMigration()
         {
             var installer = new IntranetInstaller();
             var umbracoContentMigration = new UmbracoContentMigration();
+            var defaultLocalizationsMigration = new DefaultLocalizationsMigration();
 
             installer.Install();
             InheritNavigationCompositions();
             umbracoContentMigration.Init();
+            defaultLocalizationsMigration.Init();
         }
 
         private void InheritNavigationCompositions()

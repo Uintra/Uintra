@@ -19,9 +19,7 @@ namespace uIntra.Search
 
         public SearchResult<SearchableBase> Search(SearchTextQuery textQuery)
         {
-            var searchRequest = new SearchDescriptor<dynamic>()
-                .AllTypes()
-                .TrackScores()
+            var searchRequest = GetSearchDescriptor()
                 .Query(q =>
                     q.Bool(b => b
                        .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))
@@ -39,6 +37,13 @@ namespace uIntra.Search
             var queryResult = _elasticSearchRepository.SearchByIndex(searchRequest);
             var searchResult = ParseResults(queryResult);
             return searchResult;
+        }
+
+        protected virtual SearchDescriptor<dynamic> GetSearchDescriptor()
+        {
+            return new SearchDescriptor<dynamic>()
+                .TrackScores()
+                .AllTypes();
         }
 
         public void RecreateIndex()
@@ -194,7 +199,6 @@ namespace uIntra.Search
         protected virtual void HighlightAdditional(dynamic document, Dictionary<string, HighlightHit> fieldsm,
             List<string> panelContent)
         {
-            return;
         }
 
         protected virtual void Highlight(dynamic document, Dictionary<string, HighlightHit> fields)

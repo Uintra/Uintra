@@ -9,6 +9,7 @@ namespace uIntra.Core.Media
     {
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model);
         void DeleteMedia(int mediaId);
+        void DeleteMedia(string mediaPath);
         void DeleteMedia(IEnumerable<int> mediaIds);
         void RestoreMedia(int mediaId);
         void RestoreMedia(IEnumerable<int> mediaIds);
