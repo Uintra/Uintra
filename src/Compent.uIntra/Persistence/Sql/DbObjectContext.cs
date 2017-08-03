@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using uIntra.Comments;
 using uIntra.Core.Activity;
+using uIntra.Core.Media;
 using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;
@@ -36,6 +37,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
+        public DbSet<IntranetMediaEntity> IntranetMediaEntities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

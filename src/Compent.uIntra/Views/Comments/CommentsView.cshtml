@@ -55,10 +55,9 @@
             }
         </div>
         <div class="feed__item-images">
-            @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.MediaIds }); }
         </div>
         <div class="comments__list-text js-comment-description">
-            HERE should be list of added images
             @Html.Raw(Model.Text)
         </div>
         
@@ -85,7 +84,7 @@
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId, MediaRootId = Model.MediaSettings.MediaRootId})
             </div>
         }
     </div>

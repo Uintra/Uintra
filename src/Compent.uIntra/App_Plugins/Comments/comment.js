@@ -9,7 +9,7 @@ require("./comments.css");
 
 let sentButton = document.querySelector(".js-toolbar__send-button");
 const toolbarSelector = ".comments-toolbar";
-
+let isCommentClickEventListenersAdded;
 
 const quillOptions = {
     theme: 'snow',
@@ -40,7 +40,6 @@ function initFileUploader(holder) {
             previewsContainer: dropZonePreview
         };
 
-        //if ("undefined" === typeof dropzone) {
         let dropzone = fileUploadController.init(holder, options);
 
         dropzone.on('success',
@@ -58,7 +57,6 @@ function initFileUploader(holder) {
 
                 //sentButton.disabled = !isEdited();
             });
-        //}
     }
 }
 
@@ -97,20 +95,23 @@ var initCreateControl = function (holder) {
     });
 };
 
-function initQuillCustomFileButtonEventHandlers() {    
-    var commentsList = document.querySelector('.js-comments-overview');
-    commentsList.addEventListener('click',
-        function (event) {
-            var customQlLinkBtn = event.target.findAncestorByClassName('js-custom-ql-link-btn');
-            if (customQlLinkBtn) {
-                qlLinkButtonHandler(customQlLinkBtn);
-            }
-            var customQlFileBtn = event.target.findAncestorByClassName('js-custom-ql-image-btn')
-            if (customQlFileBtn) {
-                qlImageButtonHandler(customQlFileBtn);
-            }                        
-        });
-
+function initQuillCustomFileButtonEventHandlers() {
+    if (!isCommentClickEventListenersAdded) {
+        var commentsList = document.querySelector('.js-comments-overview');
+        commentsList.addEventListener('click',
+            function(event) {
+                var customQlLinkBtn = event.target.findAncestorByClassName('js-custom-ql-link-btn');
+                if (customQlLinkBtn) {
+                    qlLinkButtonHandler(customQlLinkBtn);
+                }
+                var customQlFileBtn = event.target.findAncestorByClassName('js-custom-ql-image-btn')
+                if (customQlFileBtn) {
+                    qlImageButtonHandler(customQlFileBtn);
+                }
+                event.stopPropagation();
+            });
+        isCommentClickEventListenersAdded = true;
+    }
 }
 
 function qlLinkButtonHandler(customQlLinkBtn) {

@@ -39,7 +39,8 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
-            IDocumentIndexer documentIndexer, INotificationTypeProvider notificationTypeProvider)
+            IDocumentIndexer documentIndexer,
+            INotificationTypeProvider notificationTypeProvider)
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;

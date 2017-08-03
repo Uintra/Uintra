@@ -11,7 +11,7 @@
                 <button type="button" class="js-custom-ql-image-btn js-dropzone" data-allowed=".png" data-remove-text="remove">
                     <svg viewBox="0 0 18 18"> <rect class="ql-stroke" height="10" width="12" x="3" y="4"></rect> <circle class="ql-fill" cx="6" cy="7" r="1"></circle> <polyline class="ql-even ql-fill" points="5 12 5 11 7 9 8 10 11 7 13 9 13 12 5 12"></polyline> </svg>
                 </button>
-                <input type="hidden" class="js-new-media" name="test" />
+                <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
             </span>
             <span class="ql-formats">
                 <button type="button" class="js-custom-ql-link-btn"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="11" y1="7" y2="11"></line> <path class="ql-even ql-stroke" d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path> <path class="ql-even ql-stroke" d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path> </svg></button>
@@ -27,5 +27,6 @@
     <input class="js-hidden-comment-create-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />
     <input type="hidden" name="activityId" value="@Model.ActivityId" />
     <input type="hidden" name="parentId" value="@Model.ParentId" />
+    <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
     <button disabled="disabled" class="btn btn-black js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
 }

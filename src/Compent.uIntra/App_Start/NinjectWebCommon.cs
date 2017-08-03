@@ -71,6 +71,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+using uIntra.Core.Media;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -175,7 +176,8 @@ namespace Compent.uIntra
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
-            kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
+            kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();            
+            kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();

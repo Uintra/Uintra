@@ -23,7 +23,5 @@ namespace uIntra.Comments
         public string Text { get; set; }
 
         public Guid? ParentId { get; set; }
-
-        public string MediaIds { get; set; } = string.Empty;
     }
 }
