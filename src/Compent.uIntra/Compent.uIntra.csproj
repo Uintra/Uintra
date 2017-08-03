@@ -335,9 +335,9 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.1.1.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Bulletins, Version=0.1.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.1.1\lib\net452\uIntra.Bulletins.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Bulletins.0.1.1.2\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
@@ -535,7 +535,6 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
-    <Content Include="App_Plugins\Bulletins\Create\bulletins.create.js" />
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
@@ -954,11 +953,6 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -1017,8 +1011,6 @@
     <Content Include="config\ExamineIndex.config" />
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
@@ -1316,6 +1308,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\Bulletins\Details\" />
+    <Folder Include="App_Plugins\Bulletins\Edit\" />
+    <Folder Include="App_Plugins\Bulletins\PreviewItem\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>
   <PropertyGroup>
