@@ -1,8 +1,11 @@
 ﻿using System.Web.Mvc;
+using uIntra.Core.User;
 using uIntra.Search;
+using uIntra.Users;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
+using Umbraco.Core.Services;
 
 namespace Compent.uIntra.Core
 {
@@ -13,8 +16,12 @@ namespace Compent.uIntra.Core
         public static void RegisterEvents()
         {
             Init();
-            Umbraco.Core.Services.ContentService.Published += ContentServiceOnPublished;
-            Umbraco.Core.Services.ContentService.UnPublished += ContentServiceOnUnPublished;
+            ContentService.Published += ContentServiceOnPublished;
+            ContentService.UnPublished += ContentServiceOnUnPublished;
+
+            MemberService.Created += MemberServiceOnCreated;
+            MemberService.Saved += MemberServiceOnSaved;
+            MemberService.Deleted += MemberServiceOnDeleted;
         }
 
         private static void Init()
@@ -37,5 +44,40 @@ namespace Compent.uIntra.Core
                 _contentIndexer.DeleteFromIndex(entity.Id);
             }
         }
+
+        private static void MemberServiceOnCreated(IMemberService sender, NewEventArgs<IMember> e)
+        {
+            var cacheableUserService = GetCacheableUserService();
+            cacheableUserService?.UpdateUserCache(e.Entity.Key);
+        }
+
+        private static void MemberServiceOnSaved(IMemberService sender, SaveEventArgs<IMember> e)
+        {
+            var cacheableUserService = GetCacheableUserService();
+
+            foreach (var member in e.SavedEntities)
+            {
+                cacheableUserService?.UpdateUserCache(member.Key);
+            }
+        }
+
+        private static void MemberServiceOnDeleted(IMemberService sender, DeleteEventArgs<IMember> e)
+        {
+            var cacheableUserService = GetCacheableUserService();
+
+            foreach (var member in e.DeletedEntities)
+            {
+                cacheableUserService?.UpdateUserCache(member.Key);
+            }
+        }
+
+        private static ICacheableIntranetUserService GetCacheableUserService()
+        {
+            var userService = DependencyResolver.Current.GetService<IIntranetUserService<IntranetUser>>();
+            var cacheableUserService = userService as ICacheableIntranetUserService;
+
+            return cacheableUserService;
+        }
+
     }
 }

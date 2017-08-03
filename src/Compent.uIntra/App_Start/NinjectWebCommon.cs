@@ -248,7 +248,6 @@ namespace Compent.uIntra
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
-            kernel.Bind<ISetupOnStartup>().To<IntranetUserService>().InRequestScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
         }
 
