@@ -1,4 +1,4 @@
-// Production steps of ECMA-262, Edition 6, 22.1.2.1
+﻿// Production steps of ECMA-262, Edition 6, 22.1.2.1
 if (!Array.from) {
     Array.from = (function () {
         var toStr = Object.prototype.toString;
@@ -92,6 +92,7 @@ if (!Array.from) {
 
     window.CustomEvent = CustomEvent;
 })();
+
 // https://tc39.github.io/ecma262/#sec-array.prototype.includes
 if (!Array.prototype.includes) {
     Object.defineProperty(Array.prototype, 'includes', {
@@ -143,3 +144,11 @@ if (!Array.prototype.includes) {
         }
     });
 }
+
+/**
+ * Difference;
+ * Returns the elements of the first array that are not in the second array
+ */
+Array.prototype.except = function (a) {
+    return this.filter(el => a.indexOf(el) === -1);
+};

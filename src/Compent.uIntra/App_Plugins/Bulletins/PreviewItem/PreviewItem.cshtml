@@ -8,6 +8,9 @@
 <h3 class="block__subtitle">
     <a href="@detailsPageUrl">@Html.Raw(Model.Description)</a>
 </h3>
+<div class="clearfix">
+    <span class="feed__item-category">@Html.Localize(Model.ActivityType.Name)</span>
+</div>
 <div class="block__about">
     <p class="block__about-item"><a href="@profilePageUrl">@Model.Creator.DisplayedName</a></p>
     <p class="block__about-item">@Model.PublishDate.ToDateTimeFormat()</p>
