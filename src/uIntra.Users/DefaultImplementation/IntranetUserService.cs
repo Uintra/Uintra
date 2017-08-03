@@ -92,6 +92,13 @@ namespace uIntra.Users
 
         public virtual IntranetUser GetCurrentUser()
         {
+            string userName = GetCurrentUserName();
+            var user = GetByName(userName);
+            return user;
+        }
+
+        protected virtual string GetCurrentUserName()
+        {
             var userName = "";
             if (HostingEnvironment.IsHosted) //TODO: WTF IS THIS
             {
@@ -109,8 +116,8 @@ namespace uIntra.Users
                     userName = currentPrincipal.Identity.Name;
                 }
             }
-            var user = GetByName(userName);
-            return user;
+
+            return userName;
         }
 
         public virtual IEnumerable<IntranetUser> GetByRole(int role)
