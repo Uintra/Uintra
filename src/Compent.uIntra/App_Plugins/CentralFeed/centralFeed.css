@@ -10,6 +10,11 @@
 	    }
     }
 
+    &__overview{
+        position:relative;
+        padding-bottom:50px;
+    }
+
     &__header{
         padding:0 20px 0 0;
     }
