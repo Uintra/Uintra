@@ -23,8 +23,6 @@
 
         <div class="js-comment-create-description" data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>
         
-        @*<div class="create-bulletin__description js-create-bulletin__description"
-             data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>*@
     </div>
     @Html.ValidationMessageFor(model => model.Text)
     <input class="js-hidden-comment-create-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />

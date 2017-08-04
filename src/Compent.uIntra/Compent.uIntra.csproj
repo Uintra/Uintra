@@ -1041,6 +1041,9 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201708041510587_ReimplementedMedia.resx">
+      <DependentUpon>201708041510587_ReimplementedMedia.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1256,6 +1259,10 @@
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201708041510587_ReimplementedMedia.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201708041510587_ReimplementedMedia.Designer.cs">
+      <DependentUpon>201708041510587_ReimplementedMedia.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

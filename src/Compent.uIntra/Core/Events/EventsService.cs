@@ -67,7 +67,7 @@ namespace Compent.uIntra.Core.Events
             IActivityTypeProvider activityTypeProvider,
             ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
-            IIntranetMediaService intranetMediaService)
+            IIntranetMediaService intranetMediaService,
             IDocumentTypeAliasProvider documentTypeAliasProvider)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {

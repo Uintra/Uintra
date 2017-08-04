@@ -22,6 +22,7 @@ using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.PublishedContentModels;
+using uIntra.Core.Media;
 
 namespace Compent.uIntra.Core.News
 {
@@ -62,9 +63,9 @@ namespace Compent.uIntra.Core.News
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
-            ISearchableTypeProvider searchableTypeProvider,
-            ISearchableTypeProvider searchableTypeProvider, IDocumentTypeAliasProvider documentTypeAliasProvider)
+            ICentralFeedTypeProvider centralFeedTypeProvider,            
+            ISearchableTypeProvider searchableTypeProvider, 
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {

@@ -14,9 +14,9 @@ let isCommentClickEventListenersAdded;
 
 const quillOptions = {
     theme: 'snow',
-    placeholder: description.dataset["placeholder"],
+    placeholder: description ? description.dataset["placeholder"] : '',
     modules: {
-        toolbar: toolbarSelector//[['file', 'link']]
+        toolbar: toolbarSelector
     }
 };
 
