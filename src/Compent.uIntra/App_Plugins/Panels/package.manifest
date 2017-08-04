@@ -49,9 +49,13 @@
               "block": "p"
             }
           ]
-      },
+        },
         "linksList": {
-          "linkTypes": [ "internal", "external", "media" ]
+          "linkTypes": [ "internal", "external", "media" ],
+          "internalPicker": {
+            "startNodeXPath": "$root/homePage",
+            "allowedAliases": []
+          }
         },
         "mediaPicker": {
           "disableFolderSelect": "1",
