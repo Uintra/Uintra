@@ -46,6 +46,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IDocumentIndexer _documentIndexer;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -56,12 +57,13 @@ namespace Compent.uIntra.Core.Bulletins
             ISubscribeService subscribeService,
             UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
-            INotificationsService notificationService, 
-            IActivityTypeProvider activityTypeProvider, 
+            INotificationsService notificationService,
+            IActivityTypeProvider activityTypeProvider,
             ICentralFeedTypeProvider centralFeedTypeProvider,
-            IElasticActivityIndex activityIndex, 
+            IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-            ISearchableTypeProvider searchableTypeProvider, 
+            ISearchableTypeProvider searchableTypeProvider,
+            IMediaHelper mediaHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
@@ -79,9 +81,11 @@ namespace Compent.uIntra.Core.Bulletins
             _documentIndexer = documentIndexer;
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
-        protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, BulletinsOverviewPage.ModelTypeAlias };
+        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
         public MediaSettings GetMediaSettings()
         {
@@ -95,7 +99,7 @@ namespace Compent.uIntra.Core.Bulletins
 
         public override IPublishedContent GetDetailsPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(BulletinsDetailsPage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetDetailsPage(ActivityType))));
         }
 
         public override IPublishedContent GetCreatePage()
@@ -105,10 +109,9 @@ namespace Compent.uIntra.Core.Bulletins
 
         public override IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(BulletinsEditPage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
         public override bool CanEdit(IIntranetActivity cached)
         {
@@ -127,7 +130,7 @@ namespace Compent.uIntra.Core.Bulletins
             return new CentralFeedSettings
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
-                Controller = "Bulletins",                
+                Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false
             };
@@ -270,49 +273,49 @@ namespace Compent.uIntra.Core.Bulletins
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
-                {
-                    bulletinsEntity = Get(entityId);
-                    data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                    data.Value = new LikesNotifierDataModel
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
-                        Title = bulletinsEntity.Description,
-                        ActivityType = ActivityType,
-                        NotifierId = currentUser.Id,
-                        CreatedDate = DateTime.Now,
-                        Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
-                    };
-                }
+                        bulletinsEntity = Get(entityId);
+                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.Value = new LikesNotifierDataModel
+                        {
+                            Title = bulletinsEntity.Description,
+                            ActivityType = ActivityType,
+                            NotifierId = currentUser.Id,
+                            CreatedDate = DateTime.Now,
+                            Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
+                        };
+                    }
                     break;
-                case (int) NotificationTypeEnum.CommentAdded:
-                case (int) NotificationTypeEnum.CommentEdited:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    bulletinsEntity = Get(comment.ActivityId);
-                    data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                    data.Value = new CommentNotifierDataModel
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
                     {
-                        ActivityType = ActivityType,
-                        NotifierId = comment.UserId,
-                        Title = bulletinsEntity.Description,
-                        Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
-                    };
-                }
+                        var comment = _commentsService.Get(entityId);
+                        bulletinsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            ActivityType = ActivityType,
+                            NotifierId = comment.UserId,
+                            Title = bulletinsEntity.Description,
+                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
+                        };
+                    }
                     break;
-                case (int) NotificationTypeEnum.CommentReplied:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    bulletinsEntity = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    data.Value = new CommentNotifierDataModel
+                case (int)NotificationTypeEnum.CommentReplied:
                     {
-                        ActivityType = ActivityType,
-                        NotifierId = currentUser.Id,
-                        Title = bulletinsEntity.Description,
-                        Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
-                        CommentId = comment.Id
-                    };
-                }
+                        var comment = _commentsService.Get(entityId);
+                        bulletinsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            ActivityType = ActivityType,
+                            NotifierId = currentUser.Id,
+                            Title = bulletinsEntity.Description,
+                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
+                            CommentId = comment.Id
+                        };
+                    }
                     break;
                 default:
                     return null;
@@ -356,8 +359,7 @@ namespace Compent.uIntra.Core.Bulletins
 
         private string[] GetPath(params string[] aliases)
         {
-            var basePath = OverviewXPath;
-
+            var basePath = new List<string>(OverviewXPath);
             if (aliases.Any())
             {
                 basePath.AddRange(aliases.ToList());

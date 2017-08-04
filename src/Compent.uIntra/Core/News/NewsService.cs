@@ -46,8 +46,8 @@ namespace Compent.uIntra.Core.News
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
-        protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, NewsOverviewPage.ModelTypeAlias };
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -61,9 +61,10 @@ namespace Compent.uIntra.Core.News
             IMediaHelper mediaHelper,
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-			IActivityTypeProvider activityTypeProvider, 
-            ICentralFeedTypeProvider centralFeedTypeProvider, 
+            IActivityTypeProvider activityTypeProvider,
+            ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider, IDocumentTypeAliasProvider documentTypeAliasProvider)
             IIntranetMediaService intranetMediaService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
@@ -80,7 +81,11 @@ namespace Compent.uIntra.Core.News
             _activityTypeProvider = activityTypeProvider;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
+
+        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
 
         public MediaSettings GetMediaSettings()
         {
@@ -94,20 +99,19 @@ namespace Compent.uIntra.Core.News
 
         public override IPublishedContent GetDetailsPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(NewsDetailsPage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetDetailsPage(ActivityType))));
         }
 
         public override IPublishedContent GetCreatePage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(NewsCreatePage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetCreatePage(ActivityType))));
         }
 
         public override IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(NewsEditPage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
 
         public override bool CanEdit(IIntranetActivity cached)
         {
@@ -271,7 +275,7 @@ namespace Compent.uIntra.Core.News
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         news = Get(entityId);
                         data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
@@ -285,7 +289,7 @@ namespace Compent.uIntra.Core.News
                         };
                     }
                     break;
-                case (int) NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         news = Get(comment.ActivityId);
@@ -301,8 +305,8 @@ namespace Compent.uIntra.Core.News
                     }
                     break;
 
-                case (int) NotificationTypeEnum.CommentAdded:
-                case (int) NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         news = Get(comment.ActivityId);
@@ -316,7 +320,7 @@ namespace Compent.uIntra.Core.News
                         };
                     }
                     break;
-                case (int) NotificationTypeEnum.CommentReplied:
+                case (int)NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         news = Get(comment.ActivityId);
@@ -344,7 +348,7 @@ namespace Compent.uIntra.Core.News
 
         private string[] GetPath(params string[] aliases)
         {
-            var basePath = OverviewXPath;
+            var basePath = new List<string>(OverviewXPath);
 
             if (aliases.Any())
             {

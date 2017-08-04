@@ -9,6 +9,7 @@
 <div id="js-profile-page" class="form profile-edit _profile">
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
+        @Html.HiddenFor(el => el.Id)
         <div class="form__row clearfix">
             <div class="form__header">
                 @{
@@ -27,7 +28,7 @@
                         <div class="form__avatar">
                             <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
                         </div>
-                        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")"></span>
+                        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
                     </div>
                 }
                 <div class="form__meta">
@@ -49,7 +50,7 @@
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-    }
+                        }
     <div class="check">
         <label class="check__label">
             @Html.CheckBox("js-member-notifier-setting",

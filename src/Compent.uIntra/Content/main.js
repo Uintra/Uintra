@@ -1,5 +1,5 @@
 ﻿import initCore from './../App_Plugins/Core/Content/Scripts/Core';
-import browserCompatibility from './../App_Plugins/Core/Content/Scripts/BrowserCompatibility';
+import browserCompatibility from './../App_Plugins/Core/BrowserCompatibility/BrowserCompatibility';
 import centralFeed from './../App_Plugins/CentralFeed/centralFeed';
 import initSearch from './../App_Plugins/Search/search';
 import initActionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";

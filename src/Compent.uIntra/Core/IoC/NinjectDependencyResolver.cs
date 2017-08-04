@@ -10,7 +10,7 @@ namespace Compent.uIntra.Core.IoC
     {
         private readonly IResolutionRoot resolver;
 
-        internal NinjectDependencyResolver(IResolutionRoot resolver)
+        public NinjectDependencyResolver(IResolutionRoot resolver)
         {
             this.resolver = resolver;
         }

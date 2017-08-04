@@ -10,6 +10,11 @@
 	    }
     }
 
+    &__overview{
+        position:relative;
+        padding-bottom:50px;
+    }
+
     &__header{
         padding:0 20px 0 0;
     }
@@ -358,8 +363,12 @@
 			background: #fff;
 			text-decoration: none;
 
-			&:hover {
-				color: #333;
+			&:hover,
+            &:active,
+            &:focus{
+                background: #ccc;
+				color: #fff;
+                text-decoration:none;
 			}
 
 			.feed-links__frame._active & {
@@ -383,6 +392,12 @@
 		padding: 0;
 		list-style: none;
 
+        @media(--for-tablet-portrait-down){
+            &{
+                display:none;
+            }
+        }
+
 		&__frame {
 			flex: 0 0 auto;
 			max-width: 100%;
@@ -400,8 +415,12 @@
 			color: #fff;
 			word-wrap: break-word;
 
+            &:active,
+            &:focus,
 			&:hover {
-				color: #fff;
+				background:#999;
+                color:var(--color-white);
+                text-decoration:none;
 			}
 		}
 	}

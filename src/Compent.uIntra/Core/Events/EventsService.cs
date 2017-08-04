@@ -50,6 +50,8 @@ namespace Compent.uIntra.Core.Events
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
 
+
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -62,10 +64,11 @@ namespace Compent.uIntra.Core.Events
             IMediaHelper mediaHelper,
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-			IActivityTypeProvider activityTypeProvider, 
+            IActivityTypeProvider activityTypeProvider,
             ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService)
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _umbracoHelper = umbracoHelper;
@@ -81,10 +84,10 @@ namespace Compent.uIntra.Core.Events
             _activityTypeProvider = activityTypeProvider;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
-        protected List<string> OverviewXPath => new List<string> { HomePage.ModelTypeAlias, EventsOverviewPage.ModelTypeAlias };
-        
+        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
 
         public override IPublishedContent GetOverviewPage()
@@ -94,17 +97,17 @@ namespace Compent.uIntra.Core.Events
 
         public override IPublishedContent GetDetailsPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(EventsDetailsPage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetDetailsPage(ActivityType))));
         }
 
         public override IPublishedContent GetCreatePage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(EventsCreatePage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetCreatePage(ActivityType))));
         }
 
         public override IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(EventsEditPage.ModelTypeAlias)));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
         public IEnumerable<Event> GetPastEvents()
@@ -298,7 +301,7 @@ namespace Compent.uIntra.Core.Events
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.CommentReplied:
+                case (int)NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
@@ -313,7 +316,7 @@ namespace Compent.uIntra.Core.Events
                         };
                     }
                     break;
-                case (int) NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
@@ -327,7 +330,7 @@ namespace Compent.uIntra.Core.Events
                         };
                         break;
                     }
-                case (int) NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
@@ -341,7 +344,7 @@ namespace Compent.uIntra.Core.Events
                         };
                     }
                     break;
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
@@ -355,7 +358,7 @@ namespace Compent.uIntra.Core.Events
                         };
                     }
                     break;
-                case (int) NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
@@ -371,7 +374,7 @@ namespace Compent.uIntra.Core.Events
                     }
                     break;
 
-                case (int) NotificationTypeEnum.BeforeStart:
+                case (int)NotificationTypeEnum.BeforeStart:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
@@ -385,8 +388,8 @@ namespace Compent.uIntra.Core.Events
                     }
                     break;
 
-                case (int) NotificationTypeEnum.EventHided:
-                case (int) NotificationTypeEnum.EventUpdated:
+                case (int)NotificationTypeEnum.EventHided:
+                case (int)NotificationTypeEnum.EventUpdated:
                     {
                         currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
@@ -460,7 +463,7 @@ namespace Compent.uIntra.Core.Events
 
         private string[] GetPath(params string[] aliases)
         {
-            var basePath = OverviewXPath;
+            var basePath = new List<string>(OverviewXPath);
 
             if (aliases.Any())
             {

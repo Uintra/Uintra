@@ -26,8 +26,8 @@ namespace uIntra.Panels.Installer
             var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(PanelsInstallationConstants.DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
-            var configPath = HostingEnvironment.MapPath("~/Installer/PreValues/PanelPickerPreValues.json");
-            var jsonPrevalues = JObject.Parse(System.IO.File.ReadAllText(configPath));
+            var jsonValue = CoreInstallationStep.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
+            var jsonPrevalues = JObject.Parse(jsonValue);
 
             panelPickerDataType = new DataTypeDefinition(-1, PanelsInstallationConstants.DataTypePropertyEditors.PanelPicker)
             {

@@ -24,6 +24,12 @@
       <browser name="Safari" version="10.1.2"></browser>
     </browsers>
   </browserCompatibilityConfiguration>
+  
+  <system.webServer>
+    <httpErrors existingResponse="PassThrough" xdt:Transform="InsertIfMissing" />
+    <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
+  </system.webServer>
+
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">
