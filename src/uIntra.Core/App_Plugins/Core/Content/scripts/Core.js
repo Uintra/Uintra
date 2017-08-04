@@ -3,6 +3,7 @@
 }
 
 import {} from './Polyfill';
+import {} from './QuillExtender';
 import {uIntra} from './Namespace';
 ﻿import showContent from './ShowContent';
 ﻿import blockOnSubmit from './BlockOnSubmit';
