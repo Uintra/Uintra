@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DF5381CA-82B8-44E0-A419-73BBC6290AD3}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,9 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.BaseControls", "uIntra.BaseControls\uIntra.BaseControls.csproj", "{2E4A8B55-37F6-46A8-B108-30E346870720}"
-	ProjectSection(ProjectDependencies) = postProject
-		{469DC179-83EE-4696-9D36-2173E4BEAFDA} = {469DC179-83EE-4696-9D36-2173E4BEAFDA}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.Core", "uIntra.Core\uIntra.Core.csproj", "{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}"
 EndProject

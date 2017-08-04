@@ -1,4 +1,6 @@
-﻿using uIntra.Core.User;
+﻿using uIntra.Core;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 using uIntra.Navigation;
 using uIntra.Navigation.MyLinks;
 using uIntra.Navigation.Web;
@@ -12,8 +14,10 @@ namespace Compent.uIntra.Controllers
         public MyLinksController(UmbracoHelper umbracoHelper, 
             IMyLinksModelBuilder myLinksModelBuilder, 
             IMyLinksService myLinksService, 
-            IIntranetUserService<IntranetUser> intranetUserService) 
-            : base(umbracoHelper, myLinksModelBuilder, myLinksService, intranetUserService)
+            IIntranetUserService<IntranetUser> intranetUserService, 
+            IDocumentTypeAliasProvider documentTypeAliasProvider, 
+            IActivityTypeProvider activityTypeProvider) 
+            : base(umbracoHelper, myLinksModelBuilder, myLinksService, intranetUserService, documentTypeAliasProvider, activityTypeProvider)
         {
         }
     }

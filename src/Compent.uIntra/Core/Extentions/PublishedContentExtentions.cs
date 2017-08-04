@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using Compent.uIntra.Core.Constants;
+using uIntra.Core;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;

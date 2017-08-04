@@ -64,6 +64,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                         ContentId = c.Int(nullable: false),
                         QueryString = c.String(),
                         CreatedDate = c.DateTime(nullable: false),
+                        ActivityId = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id);
             
