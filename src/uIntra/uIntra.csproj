@@ -346,8 +346,9 @@
       <HintPath>..\..\packages\uIntra.Comments.1.1.3\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.25.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.1.25\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Core.1.1.26\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -578,6 +579,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\Namespace.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\QuillExtender.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ScrollToTop.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
@@ -1655,6 +1657,18 @@
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1707,18 +1721,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
