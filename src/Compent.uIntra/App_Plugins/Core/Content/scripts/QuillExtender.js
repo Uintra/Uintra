@@ -2,13 +2,28 @@
 
 const Link = Quill.import('formats/link');
 class linkType extends Link {
-    static create(value) {
-        let node = super.create(value);
-        value = this.sanitize(value);
-        if (!value.startsWith('https://') && !value.startsWith('http://')) {
-            node.setAttribute('href', 'http://' + value);
+
+    static sanitize(url) {
+        var protocols = ['http', 'https', 'mailto'];
+
+        if (!hasProtocol(url, protocols)) {
+            url = 'http://' + url;
         }
-        return node;
+
+        return super.sanitize(url, ['http', 'https', 'mailto']) ? url : this.SANITIZED_URL;
     }
+
+
 }
+
+function hasProtocol(url, protocols) {
+    if (!url) {
+        return false;
+    }
+
+    return protocols.some(function (element) {
+        return url.startsWith(element);
+    });
+}
+
 Quill.register(linkType);
