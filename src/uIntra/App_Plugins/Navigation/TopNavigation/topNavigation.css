@@ -213,7 +213,7 @@
     border:1px solid var(--color-light-gray-3);
     border-top:none;
     position:fixed !important;
-    top:50px !important;
+    top:46px !important;
     
     .autocomplete-suggestion{
 	    display: flex;
