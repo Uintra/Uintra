@@ -7,12 +7,14 @@ require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 require("./comments.css");
 
+let description = document.querySelector(".js-comment-create-description");
 let sentButton = document.querySelector(".js-toolbar__send-button");
 const toolbarSelector = ".comments-toolbar";
 let isCommentClickEventListenersAdded;
 
 const quillOptions = {
     theme: 'snow',
+    placeholder: description.dataset["placeholder"],
     modules: {
         toolbar: toolbarSelector//[['file', 'link']]
     }
@@ -115,7 +117,11 @@ function initQuillCustomFileButtonEventHandlers() {
 }
 
 function qlLinkButtonHandler(customQlLinkBtn) {
-
+    $.get("/Umbraco/Api/LinkPreview/GetHtmlPreview?url=www.google.com", function (data) {
+        //$(".result").html(data);
+        //alert(data);
+        //alert("Load was performed.");
+    });
 }
 
 function qlImageButtonHandler(customQlFileBtn) {

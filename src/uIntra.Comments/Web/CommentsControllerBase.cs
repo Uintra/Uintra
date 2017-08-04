@@ -106,7 +106,8 @@ namespace uIntra.Comments.Web
             {
                 ActivityId = activityId,
                 UpdateElementId = GetOverviewElementId(activityId),
-                MediaRootId = mediaSettings.MediaRootId
+                MediaRootId = mediaSettings.MediaRootId,
+                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
             };
             return PartialView(CreateViewPath, model);
         }

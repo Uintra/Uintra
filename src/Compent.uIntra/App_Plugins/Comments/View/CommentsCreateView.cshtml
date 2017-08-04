@@ -8,7 +8,7 @@
     <div class="comments__form-field">
         <div class="comments-toolbar ql-toolbar ql-snow">
             <span class="ql-formats">
-                <button type="button" class="js-custom-ql-image-btn js-dropzone" data-allowed=".png" data-remove-text="remove">
+                <button type="button" class="js-custom-ql-image-btn js-dropzone" data-allowed="@Model.AllowedMediaExtentions" data-remove-text="remove">
                     <svg viewBox="0 0 18 18"> <rect class="ql-stroke" height="10" width="12" x="3" y="4"></rect> <circle class="ql-fill" cx="6" cy="7" r="1"></circle> <polyline class="ql-even ql-fill" points="5 12 5 11 7 9 8 10 11 7 13 9 13 12 5 12"></polyline> </svg>
                 </button>
                 <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
@@ -21,7 +21,10 @@
             <div class="dropzone-previews js-dropzone-previews hidden"></div>
         </div>
 
-        <div class="js-comment-create-description"></div>
+        <div class="js-comment-create-description" data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>
+        
+        @*<div class="create-bulletin__description js-create-bulletin__description"
+             data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>*@
     </div>
     @Html.ValidationMessageFor(model => model.Text)
     <input class="js-hidden-comment-create-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />

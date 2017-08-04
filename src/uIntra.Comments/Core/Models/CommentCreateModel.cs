@@ -16,7 +16,9 @@ namespace uIntra.Comments
 
         [Required(ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }
-        
+
+        public string AllowedMediaExtentions { get; set; }
+
         [Required]
         public int? MediaRootId { get; set; }
 
