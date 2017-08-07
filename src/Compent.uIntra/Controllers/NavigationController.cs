@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core;
-using Compent.uIntra.Core.Constants;
 using Compent.uIntra.Core.Extentions;
 using uIntra.CentralFeed;
 using uIntra.Core;
@@ -11,7 +9,6 @@ using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Controllers
 {
@@ -59,12 +56,12 @@ namespace Compent.uIntra.Controllers
 
             return PartialView(SubNavigationViewPath, model);
         }
-         
+
         public ContentResult GetTitle()
         {
             var currentPage = CurrentPage;
             var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-            var result = isPageHasNavigation ? currentPage.Name : currentPage.GetNavigationName();
+            var result = isPageHasNavigation ? currentPage.GetNavigationName() : currentPage.Name;
 
             while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
             {
