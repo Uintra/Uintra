@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core;
-using Compent.uIntra.Core.Constants;
 using Compent.uIntra.Core.Extentions;
 using uIntra.CentralFeed;
 using uIntra.Navigation;
@@ -21,7 +20,7 @@ namespace Compent.uIntra.Controllers
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
-        protected override string SystemLinksContentXPath { get; } 
+        protected override string SystemLinksContentXPath { get; }
 
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
@@ -59,34 +58,21 @@ namespace Compent.uIntra.Controllers
             return PartialView(SubNavigationViewPath, model);
         }
 
-        public string GetTitle()
+        public ContentResult GetTitle()
         {
             var currentPage = CurrentPage;
-            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-            while (!isPageHasNavigation && currentPage.Parent != null)
+            var currentPageNavigation = currentPage as INavigationComposition;
+
+            var result = currentPageNavigation == null ? currentPage.Name : currentPageNavigation.NavigationName;
+
+            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias))
             {
                 currentPage = currentPage.Parent;
-                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+                currentPageNavigation = currentPage as INavigationComposition;
+                result = currentPageNavigation != null ? $"{currentPageNavigation.NavigationName} - {result}" : $"{currentPage.Name} - {result}";
             }
 
-            if (!isPageHasNavigation)
-            {
-                return string.Empty;
-            }
-
-            var result = " - " + currentPage.GetPropertyValue<string>(NavigationPropertiesConstants.NavigationNamePropName);
-
-            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
-            {
-                currentPage = currentPage.Parent;
-                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-                if (isPageHasNavigation)
-                {
-                    result = $" - {currentPage.GetPropertyValue<string>(NavigationPropertiesConstants.NavigationNamePropName)}{result}";
-                }
-            }
-
-            return result;
+            return Content($" - {result}");
         }
 
         private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent content)
