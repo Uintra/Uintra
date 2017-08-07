@@ -289,6 +289,10 @@
             &:before {
                 display: none;
             }   
+
+            ._with-sub-nav._with-subtitle &{
+                top: -102px;
+            }
                      
             &__holder{
                 padding:0;
@@ -318,7 +322,7 @@
             &__navigation {
                 border: none;
                 margin: 0;
-                padding:50px 0 0;
+                padding:51px 0 0;
                 position:relative;
                 z-index:9;
                 overflow:hidden;
