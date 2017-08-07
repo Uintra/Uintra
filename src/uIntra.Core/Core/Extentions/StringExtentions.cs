@@ -84,5 +84,9 @@ namespace uIntra.Core.Extentions
             queryCollection.Add(paramName, paramValue.ToString());
             return $"{url.TrimEnd('/')}?{queryCollection}";
         }
+        public static string RemoveHtmlTags(this string input)
+        {
+            return Regex.Replace(input, "<.*?>", String.Empty);
+        }
     }
 }

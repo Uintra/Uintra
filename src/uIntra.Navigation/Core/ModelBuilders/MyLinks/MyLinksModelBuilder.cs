@@ -58,7 +58,9 @@ namespace uIntra.Navigation.MyLinks
 
             if (activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt())
             {
-                return activity.Description.Substring(10) + "...";
+                var lengthForPreview = 10;
+                var description = activity.Description.RemoveHtmlTags();
+                return description.Length > lengthForPreview ? description.Substring(0, lengthForPreview) + "..." : description;
             }
 
             return activity.Title;
