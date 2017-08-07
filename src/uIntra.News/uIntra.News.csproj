@@ -455,7 +455,7 @@
     <Compile Include="Core\Models\NewsItemViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewViewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
-    <Compile Include="Core\Dashboard\Controllers\NewsSectionController.cs" />
+    <Compile Include="Core\Dashboard\Controllers\NewsSectionControllerBase.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeCreateModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />

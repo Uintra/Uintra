@@ -4,6 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
 using uIntra.Comments;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.Navigation;
@@ -36,6 +37,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
+        public DbSet<MigrationHistory> MigrationHistories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

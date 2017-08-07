@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
@@ -14,17 +16,20 @@ namespace uIntra.Navigation.MyLinks
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMyLinksService _myLinksService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         public MyLinksModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IMyLinksService myLinksService)
+            IMyLinksService myLinksService, 
+            IActivitiesServiceFactory activitiesServiceFactory)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
             _myLinksService = myLinksService;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         public override IEnumerable<MyLinkItemModel> GetMenu()
@@ -39,11 +44,17 @@ namespace uIntra.Navigation.MyLinks
                 {
                     Id = link.Id,
                     ContentId = link.ContentId,
-                    Name = GetNavigationName(content),
+                    Name = link.ActivityId.HasValue ? GetActivityLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
             return models;
+        }
+
+        private string GetActivityLinkName(Guid activityId)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
+            return service.Get(activityId).Title;
         }
 
         private static string GetUrl(MyLink link, IPublishedContent content)

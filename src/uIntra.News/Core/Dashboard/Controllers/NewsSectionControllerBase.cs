@@ -10,13 +10,13 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.News.Dashboard
 {
-    public class NewsSectionController : UmbracoAuthorizedApiController
+    public abstract class NewsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly INewsService<NewsBase> _newsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMediaHelper _mediaHelper;
 
-        public NewsSectionController(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
+        public NewsSectionControllerBase(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
         {
             _newsService = newsService;
             _intranetUserService = intranetUserService;
@@ -36,7 +36,7 @@ namespace uIntra.News.Dashboard
         }
 
         [HttpPost]
-        public NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
+        public virtual NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
             var newsId = _newsService.Create(createModel.Map<NewsBase>());
             var createdModel = _newsService.Get(newsId);
@@ -46,7 +46,7 @@ namespace uIntra.News.Dashboard
         }
 
         [HttpPost]
-        public NewsBackofficeViewModel Save(NewsBackofficeSaveModel saveModel)
+        public virtual NewsBackofficeViewModel Save(NewsBackofficeSaveModel saveModel)
         {
             var news = _newsService.Get(saveModel.Id);
             news = Mapper.Map(saveModel, news);
@@ -60,7 +60,7 @@ namespace uIntra.News.Dashboard
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             _newsService.Delete(id);
         }
