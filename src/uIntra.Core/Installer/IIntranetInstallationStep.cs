@@ -4,6 +4,7 @@
     {
         string PackageName { get; }
         int Priority { get; }
+        string Version { get; }
         void Execute();
     }
 }

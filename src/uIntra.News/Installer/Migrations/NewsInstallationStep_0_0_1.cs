@@ -1,12 +1,14 @@
 ﻿using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 
-namespace uIntra.News.Installer
+namespace uIntra.News.Installer.Migrations
 {
     public class NewsInstallationStep: IIntranetInstallationStep
     {
         public string PackageName => "uIntra.News";
         public int Priority => 2;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {
@@ -23,7 +25,7 @@ namespace uIntra.News.Installer
             var newsOverviewPage = contentService.GetContentType(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage);
             if (newsOverviewPage != null) return;
 
-            newsOverviewPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            newsOverviewPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             newsOverviewPage.Name = NewsInstallationConstants.DocumentTypeNames.NewsOverviewPage;
@@ -31,7 +33,7 @@ namespace uIntra.News.Installer
             newsOverviewPage.Icon = NewsInstallationConstants.DocumentTypeIcons.NewsOverviewPage;
 
             contentService.Save(newsOverviewPage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage);
         }
 
         private void CreateNewsCreatePage()
@@ -41,7 +43,7 @@ namespace uIntra.News.Installer
             var newsCreatePage = contentService.GetContentType(NewsInstallationConstants.DocumentTypeAliases.NewsCreatePage);
             if (newsCreatePage != null) return;
 
-            newsCreatePage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            newsCreatePage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             newsCreatePage.Name = NewsInstallationConstants.DocumentTypeNames.NewsCreatePage;
@@ -49,7 +51,7 @@ namespace uIntra.News.Installer
             newsCreatePage.Icon = NewsInstallationConstants.DocumentTypeIcons.NewsCreatePage;
 
             contentService.Save(newsCreatePage);
-            CoreInstallationStep.AddAllowedChildNode(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, NewsInstallationConstants.DocumentTypeAliases.NewsCreatePage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, NewsInstallationConstants.DocumentTypeAliases.NewsCreatePage);
         }
         private void CreateNewsEditPage()
         {
@@ -58,7 +60,7 @@ namespace uIntra.News.Installer
             var newsEditPage = contentService.GetContentType(NewsInstallationConstants.DocumentTypeAliases.NewsEditPage);
             if (newsEditPage != null) return;
 
-            newsEditPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            newsEditPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             newsEditPage.Name = NewsInstallationConstants.DocumentTypeNames.NewsEditPage;
@@ -66,7 +68,7 @@ namespace uIntra.News.Installer
             newsEditPage.Icon = NewsInstallationConstants.DocumentTypeIcons.NewsEditPage;
 
             contentService.Save(newsEditPage);
-            CoreInstallationStep.AddAllowedChildNode(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, NewsInstallationConstants.DocumentTypeAliases.NewsEditPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, NewsInstallationConstants.DocumentTypeAliases.NewsEditPage);
         }
         private void CreateNewsDetailsPage()
         {
@@ -75,7 +77,7 @@ namespace uIntra.News.Installer
             var newsDetailsPage = contentService.GetContentType(NewsInstallationConstants.DocumentTypeAliases.NewsDetailsPage);
             if (newsDetailsPage != null) return;
 
-            newsDetailsPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            newsDetailsPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             newsDetailsPage.Name = NewsInstallationConstants.DocumentTypeNames.NewsDetailsPage;
@@ -83,7 +85,7 @@ namespace uIntra.News.Installer
             newsDetailsPage.Icon = NewsInstallationConstants.DocumentTypeIcons.NewsDetailsPage;
 
             contentService.Save(newsDetailsPage);
-            CoreInstallationStep.AddAllowedChildNode(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, NewsInstallationConstants.DocumentTypeAliases.NewsDetailsPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, NewsInstallationConstants.DocumentTypeAliases.NewsDetailsPage);
         }
 
     }

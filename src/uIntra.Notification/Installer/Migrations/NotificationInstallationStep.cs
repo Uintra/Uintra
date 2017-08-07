@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using uIntra.Core;
 using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using uIntra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Notification.Installer
+namespace uIntra.Notification.Installer.Migrations
 {
     public class NotificationInstallationStep : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Notification";
         public int Priority => 0;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {
@@ -43,7 +45,7 @@ namespace uIntra.Notification.Installer
             var notificationPage = contentService.GetContentType(NotificationInstallationConstants.DocumentTypeAliases.NotificationPage);
             if (notificationPage != null) return;
 
-            notificationPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithContentGrid);
+            notificationPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithContentGrid);
 
             notificationPage.Name = NotificationInstallationConstants.DocumentTypeNames.NotificationPage;
             notificationPage.Alias = NotificationInstallationConstants.DocumentTypeAliases.NotificationPage;
@@ -57,7 +59,7 @@ namespace uIntra.Notification.Installer
             notificationPage.AddPropertyType(itemCountForPopupProperty, "Content");
 
             contentService.Save(notificationPage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, NotificationInstallationConstants.DocumentTypeAliases.NotificationPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, NotificationInstallationConstants.DocumentTypeAliases.NotificationPage);
         }
     }
 }

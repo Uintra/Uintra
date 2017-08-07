@@ -296,7 +296,7 @@
     <Compile Include="Core\Models\DocumentPanelMediaViewModel.cs" />
     <Compile Include="Core\PanelsConstants.cs" />
     <Compile Include="Installer\PanelsInstallationConstants.cs" />
-    <Compile Include="Installer\PanelsInstallationStep.cs" />
+    <Compile Include="Installer\Migrations\PanelsInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

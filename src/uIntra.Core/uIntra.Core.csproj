@@ -384,12 +384,11 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
-    <Compile Include="Installer\CoreInstallationConstants.cs" />
-    <Compile Include="Installer\CoreInstallationStep.cs" />
+    <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
+    <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
+    <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
     <Compile Include="Installer\IntranetInstaller.cs" />
-    <Compile Include="Migrations\ImageCropperConstants.cs" />
-    <Compile Include="Migrations\MemberConstants.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
@@ -427,7 +426,6 @@
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Core\NotificationConstants.cs" />
     <Compile Include="Core\TimezoneOffsetProvider.cs" />
-    <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
