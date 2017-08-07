@@ -1,7 +1,6 @@
 ﻿using uIntra.Core.TypeProviders;
-using Umbraco.Core.Models;
 
-namespace Compent.uIntra.Core
+namespace uIntra.Core
 {
     public interface IDocumentTypeAliasProvider
     {
@@ -24,6 +23,5 @@ namespace Compent.uIntra.Core
         string GetDataFolder();
         string GetSystemLink();
         string GetSystemLinkFolder();
-
     }
 }

@@ -20,5 +20,8 @@ namespace uIntra.Navigation
         public string QueryString { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public Guid? ActivityId { get; set; }
+
     }
 }

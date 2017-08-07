@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Mvc;
+using uIntra.Core;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Navigation.Exceptions;
 using uIntra.Navigation.MyLinks;
@@ -14,9 +17,13 @@ namespace uIntra.Navigation.Web
 {
     public abstract class MyLinksControllerBase : SurfaceController
     {
+        private readonly UmbracoHelper _umbracoHelper;
         private readonly IMyLinksModelBuilder _myLinksModelBuilder;
         private readonly IMyLinksService _myLinksService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+
         protected virtual string MyLinksViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinks.cshtml";
         protected virtual string MyLinksListViewPath { get; } = "~/App_Plugins/Navigation/MyLinks/View/MyLinksList.cshtml";
 
@@ -24,11 +31,16 @@ namespace uIntra.Navigation.Web
             UmbracoHelper umbracoHelper,
             IMyLinksModelBuilder myLinksModelBuilder,
             IMyLinksService myLinksService,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IActivityTypeProvider activityTypeProvider)
         {
+            _umbracoHelper = umbracoHelper;
             _myLinksModelBuilder = myLinksModelBuilder;
             _myLinksService = myLinksService;
             _intranetUserService = intranetUserService;
+            _activityTypeProvider = activityTypeProvider;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public virtual PartialViewResult Overview()
@@ -65,6 +77,8 @@ namespace uIntra.Navigation.Web
             return Json(new { Id = id });
         }
 
+
+
         [System.Web.Mvc.HttpDelete]
         public virtual void Remove(Guid id)
         {
@@ -85,8 +99,39 @@ namespace uIntra.Navigation.Web
                 UserId = _intranetUserService.GetCurrentUser().Id,
                 QueryString = queryString
             };
+            if (IsActivityLink(contentId))
+            {
+                model.ActivityId = GetActivityLinkFromQuery(queryString);
+            }
 
             return model;
         }
+
+        protected bool IsActivityLink(int contentId)
+        {
+            var page = _umbracoHelper.TypedContent(contentId);
+            var activityTypes = _activityTypeProvider.GetAll();
+            foreach (var type in activityTypes)
+            {
+                if (page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetDetailsPage(type)) ||
+                    page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetEditPage(type)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected Guid? GetActivityLinkFromQuery(string query)
+        {
+            var activityIdMatch = Regex.Match(query, @"id=([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})", RegexOptions.IgnoreCase);
+
+            if (activityIdMatch.Success)
+            {
+                return new Guid(activityIdMatch.Groups[1].Value);
+            }
+            return null;
+        }
+
     }
 }

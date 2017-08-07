@@ -9,20 +9,20 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Events.Dashboard
 {
-    public class EventsSectionController : UmbracoAuthorizedApiController
+    public abstract class EventsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMediaHelper _mediaHelper; 
 
-        public EventsSectionController(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
+        public EventsSectionControllerBase(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;
             _mediaHelper = mediaHelper;
         }
 
-        public IEnumerable<EventBackofficeViewModel> GetAll()
+        public virtual IEnumerable<EventBackofficeViewModel> GetAll()
         {
             var events = _eventsService.GetAll(true);
             foreach (var @event in events)
@@ -35,7 +35,7 @@ namespace uIntra.Events.Dashboard
         }
 
         [HttpPost]
-        public EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
+        public virtual EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
             var eventId = _eventsService.Create(createModel.Map<EventBase>());
             var createdModel = _eventsService.Get(eventId);
@@ -45,7 +45,7 @@ namespace uIntra.Events.Dashboard
         }
 
         [HttpPost]
-        public EventBackofficeViewModel Save(EventBackofficeSaveModel saveModel)
+        public virtual EventBackofficeViewModel Save(EventBackofficeSaveModel saveModel)
         {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
@@ -59,7 +59,7 @@ namespace uIntra.Events.Dashboard
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             _eventsService.Delete(id);
         }

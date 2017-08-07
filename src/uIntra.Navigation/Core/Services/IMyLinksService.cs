@@ -16,5 +16,7 @@ namespace uIntra.Navigation
         Guid Create(MyLinkDTO model);
 
         void Delete(Guid id);
+
+        void DeleteByActivityId(Guid activityId);
     }
 }

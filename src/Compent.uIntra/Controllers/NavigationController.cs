@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core;
+using Compent.uIntra.Core.Constants;
 using Compent.uIntra.Core.Extentions;
 using uIntra.CentralFeed;
+using uIntra.Core;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
@@ -57,19 +59,19 @@ namespace Compent.uIntra.Controllers
 
             return PartialView(SubNavigationViewPath, model);
         }
-
+         
         public ContentResult GetTitle()
         {
             var currentPage = CurrentPage;
-            var currentPageNavigation = currentPage as INavigationComposition;
+            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+            var result = isPageHasNavigation ? currentPage.Name : currentPage.GetNavigationName();
 
-            var result = currentPageNavigation == null ? currentPage.Name : currentPageNavigation.NavigationName;
-
-            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(HomePage.ModelTypeAlias))
+            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
             {
                 currentPage = currentPage.Parent;
-                currentPageNavigation = currentPage as INavigationComposition;
-                result = currentPageNavigation != null ? $"{currentPageNavigation.NavigationName} - {result}" : $"{currentPage.Name} - {result}";
+                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+
+                result = isPageHasNavigation ? $"{currentPage.GetNavigationName()} - {result}" : $"{currentPage.Name} - {result}";
             }
 
             return Content($" - {result}");

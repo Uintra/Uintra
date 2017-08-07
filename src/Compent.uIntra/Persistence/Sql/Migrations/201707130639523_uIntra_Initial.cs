@@ -1,7 +1,8 @@
-using System.Data.Entity.Migrations;
-
 namespace Compent.uIntra.Persistence.Sql.Migrations
 {
+    using System;
+    using System.Data.Entity.Migrations;
+    
     public partial class uIntra_Initial : DbMigration
     {
         public override void Up()
@@ -56,6 +57,17 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.uIntra_MigrationHistory",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 255),
+                        CreateDate = c.DateTime(nullable: false),
+                        Version = c.String(maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.uIntra_MyLink",
                 c => new
                     {
@@ -64,6 +76,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                         ContentId = c.Int(nullable: false),
                         QueryString = c.String(),
                         CreatedDate = c.DateTime(nullable: false),
+                        ActivityId = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -115,6 +128,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
             DropTable("dbo.uIntra_Reminder");
             DropTable("dbo.uIntra_Notification");
             DropTable("dbo.uIntra_MyLink");
+            DropTable("dbo.uIntra_MigrationHistory");
             DropTable("dbo.uIntra_MemberNotifiersSetting");
             DropTable("dbo.uIntra_Like");
             DropTable("dbo.uIntra_Activity");

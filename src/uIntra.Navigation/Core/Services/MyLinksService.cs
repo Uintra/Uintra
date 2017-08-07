@@ -45,6 +45,7 @@ namespace uIntra.Navigation
                 ContentId = model.ContentId,
                 QueryString = model.QueryString.Trim('?'),
                 CreatedDate = DateTime.Now,
+                ActivityId = model.ActivityId
             };
 
             _myLinksRepository.Add(entity);
@@ -54,6 +55,11 @@ namespace uIntra.Navigation
         public void Delete(Guid id)
         {
             _myLinksRepository.DeleteById(id);
+        }
+
+        public void DeleteByActivityId(Guid activityId)
+        {
+            _myLinksRepository.Delete(link => link.ActivityId == activityId);
         }
 
         private static bool IsQueryStringEqual(string query, string queryToCompare)

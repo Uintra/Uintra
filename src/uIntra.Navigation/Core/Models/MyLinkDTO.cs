@@ -9,5 +9,7 @@ namespace uIntra.Navigation
         public int ContentId { get; set; }
 
         public string QueryString { get; set; }
+
+        public Guid? ActivityId { get; set; }
     }
 }

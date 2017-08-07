@@ -312,7 +312,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Dashboard\Controllers\EventsSectionController.cs" />
+    <Compile Include="Core\Dashboard\Controllers\EventsSectionControllerBase.cs" />
     <Compile Include="Core\Dashboard\Models\EventBackofficeCreateModel.cs" />
     <Compile Include="Core\Dashboard\Models\EventBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\EventBackofficeViewModel.cs" />
