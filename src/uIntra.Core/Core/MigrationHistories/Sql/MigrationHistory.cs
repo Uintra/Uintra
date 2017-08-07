@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 
-namespace uIntra.Core
+namespace uIntra.Core.MigrationHistories.Sql
 {
     [uIntraTable("MigrationHistory")]
     public class MigrationHistory : SqlEntity<int>
