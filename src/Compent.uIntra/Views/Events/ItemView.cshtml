@@ -1,4 +1,3 @@
-@using uIntra.Core.Activity
 @using uIntra.Core.Extentions
 @model Compent.uIntra.Core.Events.EventExtendedItemModel
 @{
@@ -13,6 +12,10 @@
         }
 
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+        @if (Model.IsSubscribed)
+        {
+            @Html.Localize("CentralFeed.IsSubscribed.lbl");
+        }
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
@@ -29,9 +32,5 @@
             @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
         </div>
-        @if (Model.CanSubscribe)
-        {
-            Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
-        }
     </div>
 </div> 
