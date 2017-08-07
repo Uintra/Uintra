@@ -10,12 +10,13 @@ using uIntra.Core.Media;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.Installer
+namespace uIntra.Core.Installer.Migrations
 {
-    public class CoreInstallationStep : IIntranetInstallationStep
+    public class CoreInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Core";
         public int Priority => 0;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {

@@ -331,41 +331,48 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.1.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.1.5\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.1.26.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.1.26.4\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.12\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.2.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Events.1.2.1.2\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.1.27.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.1.27\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.7.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.7.4\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.2.2\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.1.5.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.News.1.1.5.2\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.8\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.News.1.1.6\lib\net452\uIntra.News.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uIntra.Notification, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.1.9\lib\net452\uIntra.Notification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uIntra.Panels, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.3\lib\net452\uIntra.Panels.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uIntra.Search, Version=0.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.6\lib\net452\uIntra.Search.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="uIntra.Users, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.3.2\lib\net452\uIntra.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.BaseControls, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.11\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -376,18 +383,6 @@
       <HintPath>..\..\packages\uIntra.Likes.1.1.2\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.1.8\lib\net452\uIntra.Notification.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.2.2\lib\net452\uIntra.Panels.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.5\lib\net452\uIntra.Search.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.3\lib\net452\uIntra.Subscribe.dll</HintPath>
       <Private>True</Private>
@@ -396,8 +391,8 @@
       <HintPath>..\..\packages\uIntra.Tagging.1.1.4\lib\net452\uIntra.Tagging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.3.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.3.1.3\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Umbraco.Core, Version=1.0.6396.36621, Culture=neutral, processorArchitecture=MSIL">
@@ -550,16 +545,9 @@
     <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
     <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
     <Content Include="App_Plugins\Bulletins\style.css" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\loader.gif" />
     <Content Include="App_Plugins\CentralFeed\loader.svg" />
-    <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
@@ -777,12 +765,6 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
     <Content Include="App_Plugins\dummy.txt" />
-    <Content Include="App_Plugins\EnumLists\enum.resource.js" />
-    <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
-    <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
-    <Content Include="App_Plugins\EnumLists\enumdropdownlist.html" />
-    <Content Include="App_Plugins\EnumLists\enumlist.controller.js" />
-    <Content Include="App_Plugins\EnumLists\enumradiobuttonlist.html" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\Events\backoffice\date-greater-or-equal.directive.js" />
     <Content Include="App_Plugins\Events\backoffice\events-management.config.js" />
@@ -800,9 +782,6 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\style.css" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
@@ -974,22 +953,8 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
     <Content Include="config\tinyMceConfig.config" />
@@ -1003,14 +968,6 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
@@ -1018,21 +975,6 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1051,6 +993,15 @@
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
@@ -1059,6 +1010,26 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1267,7 +1238,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Installer\Installer.cs" />
+    <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using System.Web.Hosting;
 using Localization.Core;
 using uIntra.Core.Extentions;
-using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 
 namespace Compent.uIntra.Installer
 {
@@ -30,7 +28,7 @@ namespace Compent.uIntra.Installer
         {
             var existedLocalizations = _localizationCoreService.GetAllResourceModels();
 
-            var fileContent = CoreInstallationStep.GetEmbeddedResourceValue(DefaultLocalizationsEmbeddedResourceFilePath, Assembly.GetExecutingAssembly());
+            var fileContent = CoreInstallationStep_0_0_1.GetEmbeddedResourceValue(DefaultLocalizationsEmbeddedResourceFilePath, Assembly.GetExecutingAssembly());
             var newLocalizations = fileContent.Deserialize<List<ResourceModel>>();
 
             var parentKeys = newLocalizations

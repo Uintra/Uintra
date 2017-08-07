@@ -45,6 +45,7 @@ using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
+using uIntra.Core.MigrationHistories;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.Persistence;
 using uIntra.Core.TypeProviders;
@@ -189,6 +190,7 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
+            kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
             kernel.Bind<IIntranetUserContentHelper>().To<IntranetUserContentHelper>().InRequestScope();

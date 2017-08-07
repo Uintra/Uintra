@@ -1,13 +1,15 @@
 ﻿using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Users.Installer
+namespace uIntra.Users.Installers.Migrations
 {
-    public class UsersInstallationStep : IIntranetInstallationStep
+    public class UsersInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Users";
         public int Priority => 2;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {
@@ -29,7 +31,7 @@ namespace uIntra.Users.Installer
             if (usersProfilePage != null) return;
 
             usersProfilePage =
-                CoreInstallationStep.GetBasePageWithGridBase(
+                CoreInstallationStep_0_0_1.GetBasePageWithGridBase(
                     CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
@@ -38,7 +40,7 @@ namespace uIntra.Users.Installer
             usersProfilePage.Icon = UsersInstallationConstants.DocumentTypeIcons.ProfilePage;
 
             contentService.Save(usersProfilePage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, UsersInstallationConstants.DocumentTypeAliases.ProfilePage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, UsersInstallationConstants.DocumentTypeAliases.ProfilePage);
         }
 
         private void CreateUsersEditProfilePage()
@@ -49,7 +51,7 @@ namespace uIntra.Users.Installer
                 contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
             if (usersProfileEditPage != null) return;
 
-            usersProfileEditPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            usersProfileEditPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             usersProfileEditPage.Name = UsersInstallationConstants.DocumentTypeNames.ProfileEditPage;
@@ -57,7 +59,7 @@ namespace uIntra.Users.Installer
             usersProfileEditPage.Icon = UsersInstallationConstants.DocumentTypeIcons.ProfileEditPage;
 
             contentService.Save(usersProfileEditPage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage,
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage,
                 UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
         }
 
