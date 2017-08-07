@@ -6,7 +6,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Navigation.Installer.Migrations
 {
-    public class NavigationInstallationStep : IIntranetInstallationStep
+    public class NavigationInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Navigation";
         public int Priority => 2;

@@ -8,7 +8,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Notification.Installer.Migrations
 {
-    public class NotificationInstallationStep : IIntranetInstallationStep
+    public class NotificationInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Notification";
         public int Priority => 0;
