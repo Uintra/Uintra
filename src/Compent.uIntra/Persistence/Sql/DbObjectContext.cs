@@ -6,6 +6,7 @@ using System.Reflection;
 using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.MigrationHistories.Sql;
 using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;

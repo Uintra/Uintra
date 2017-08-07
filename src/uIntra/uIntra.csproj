@@ -350,8 +350,9 @@
       <HintPath>..\..\packages\uIntra.Core.1.1.27\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.2.2\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.2.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Events.1.2.1.2\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -1273,8 +1274,8 @@
     <Compile Include="..\Compent.uIntra\Installer\DefaultLocalizationsMigration.cs">
       <Link>Installer\DefaultLocalizationsMigration.cs</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Installer.cs">
-      <Link>Installer\Installer.cs</Link>
+    <Compile Include="..\Compent.uIntra\Installer\MainInstaller.cs">
+      <Link>Installer\MainInstaller.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Installer\UmbracoContentMigration.cs">
       <Link>Installer\UmbracoContentMigration.cs</Link>
