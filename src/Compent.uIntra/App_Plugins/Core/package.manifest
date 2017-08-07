@@ -1,7 +1,9 @@
 ﻿{
   "javascript": [
     "~/App_Plugins/Core/Content/backoffice/dummy-plugin-view.directive.js",
-    "~/App_Plugins/Core/Content/backoffice/debug-helper/debug-helper.directive.js"
+    "~/App_Plugins/Core/Content/backoffice/debug-helper/debug-helper.directive.js",
+    "~/App_Plugins/Core/User/backoffice/intranetUserService.js"
+
   ],
   "css": [
     "~/App_Plugins/Core/Content/backoffice/dummy-plugin-view.directive.css",
