@@ -12,29 +12,29 @@ var body = document.querySelector('body');
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
     var notificationList = document.querySelector(".js-notification-list");
+    var notificationBlock = document.querySelector(".notification");
     notification.addEventListener('click', function() {
-        if (notificationList.classList.contains("hide")) { 
+        if (!body.classList.contains("_notifications-expanded")) { 
             ajax.Get("/umbraco/surface/Notification/List")
             .then(function (response) {
                 notificationList.innerHTML = response;
                 notificationList.classList.remove('_loading');
                 initCustomControls();
             });
-            notificationList.classList.remove("hide");
+            body.classList.add("_notifications-expanded");
         } else {
-            notificationList.classList.add("hide");
+            body.classList.remove("_notifications-expanded");
         }
     });
 
     body.addEventListener("click", function(ev) {
-        isOutsideClick(notificationList, notification, ev.target, "hide");
-        
+        isOutsideClick(notificationBlock, notification, ev.target, "_notifications-expanded");
     });
 }
 
 function isOutsideClick(el, trigger, target, classname){
-    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && !el.classList.contains(classname)) {
-        el.classList.add(classname);
+    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(classname)) {
+        body.classList.remove(classname);
         body.removeEventListener("click", isOutsideClick);
     }
 }

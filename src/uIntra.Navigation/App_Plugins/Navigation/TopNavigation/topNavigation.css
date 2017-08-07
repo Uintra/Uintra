@@ -145,7 +145,7 @@
 	            display: flex;
 	            justify-content: center;
 	            align-items: center;
-	            padding: 0;
+	            padding: 25px 0 24px;
 	            margin: 0;
 	            width: 57px;
 	            float: right;
@@ -354,7 +354,7 @@
 	            display: flex;
 	            justify-content: center;
 	            align-items: center;
-	            padding:0 20px 0;
+	            padding:26px 15px 25px;
 	            position:relative;
 	            z-index:3;
 	            margin:0;
