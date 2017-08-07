@@ -1,24 +1,10 @@
 ﻿require('./leftNavigation.css');
 import helpers from "./../../Core/Content/scripts/Helpers";
 
-var active = '_expand';
+var classExpanded = '_expand';
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var navState = helpers.localStorage.getItem("leftNavigation") || {};
 var opener = $('.js-side-nav__opener');
-
-function locationChagned() {
-    var path = window.location.pathname;
-    var links = document.querySelectorAll('.js-side-nav__link');
-
-    for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        if (link.pathname == path) {
-            link.parentElement.classList.add(active);
-        } else {
-            link.parentElement.classList.remove(active);
-        }
-    }
-}
 
 function getNavState(){
     var navItems = $('.js-side-nav__item');
@@ -29,7 +15,7 @@ function getNavState(){
             if(id){
                 for(var item in navState){
                     if(id == item){
-                        $(navItems[i]).toggleClass('_expand', navState[item]);
+                        $(navItems[i]).toggleClass(classExpanded, navState[item]);
                     }
                 }
             }
@@ -43,7 +29,7 @@ function toggleLinks(el){
     var isExpanded;
 
     item.toggleClass(active);
-    isExpanded = item.hasClass('_expand');
+    isExpanded = item.hasClass(classExpanded);
 
     navState[itemId] = isExpanded;
 
@@ -60,8 +46,6 @@ var controller = {
         if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
             helpers.initScrollbar(document.querySelector('.js-sidebar'));
         }
-
-        uIntra.events.addListener("cfTabChanged", locationChagned);
     }
 }
 
