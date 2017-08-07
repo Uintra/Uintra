@@ -2,6 +2,7 @@
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
+using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 
@@ -14,9 +15,10 @@ namespace uIntra.News
         protected NewsServiceBase(IIntranetActivityRepository activityRepository, 
             ICacheService cache, 
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IActivityTypeProvider activityTypeProvider
+            IActivityTypeProvider activityTypeProvider,
+            IIntranetMediaService intranetMediaService
             ) 
-            : base(activityRepository, cache, activityTypeProvider)
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
         }

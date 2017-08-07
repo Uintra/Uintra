@@ -63,8 +63,10 @@ namespace Compent.uIntra.Core.Bulletins
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
-            IMediaHelper mediaHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider)
+            IMediaHelper mediaHelper,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,            
+            IIntranetMediaService intranetMediaService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;

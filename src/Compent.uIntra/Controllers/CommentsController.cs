@@ -6,6 +6,7 @@ using uIntra.Comments;
 using uIntra.Comments.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
@@ -28,8 +29,8 @@ namespace Compent.uIntra.Controllers
             ICommentsService commentsService,
             IIntranetUserService<IntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper, INotificationTypeProvider notificationTypeProvider)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)
+            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper, INotificationTypeProvider notificationTypeProvider, IIntranetMediaService intranetMediaService, IMediaHelper mediaHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, intranetMediaService, mediaHelper)
         {
             _customCommentableService = customCommentableService;
             _notificationTypeProvider = notificationTypeProvider;
@@ -79,6 +80,7 @@ namespace Compent.uIntra.Controllers
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            CreateMedia(comment.Id, model);
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -103,6 +105,7 @@ namespace Compent.uIntra.Controllers
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
+            UpdateCommentsMedia(comment.Id, model);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -127,6 +130,7 @@ namespace Compent.uIntra.Controllers
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
+            DeleteMedia(id);
 
             return OverView(comment.ActivityId);
         }

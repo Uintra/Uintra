@@ -298,6 +298,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -357,6 +358,9 @@
     <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
+    <Compile Include="Core\Media\IIntranetMediaService.cs" />
+    <Compile Include="Core\Media\IntranetMediaService.cs" />
+    <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
     <Compile Include="Core\TypeProviders\IIntranetRoleTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
@@ -387,6 +391,9 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
+    <Compile Include="Core\WebPagePreview\ILinkPreviewService.cs" />
+    <Compile Include="Core\WebPagePreview\LinkPreviewController.cs" />
+    <Compile Include="Core\WebPagePreview\LinkPreviewService.cs" />
     <Compile Include="Installer\CoreInstallationConstants.cs" />
     <Compile Include="Installer\CoreInstallationStep.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
