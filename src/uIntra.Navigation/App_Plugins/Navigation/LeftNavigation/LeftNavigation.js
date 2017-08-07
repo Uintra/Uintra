@@ -28,7 +28,7 @@ function toggleLinks(el){
     var itemId = item.data("id");
     var isExpanded;
 
-    item.toggleClass(active);
+    item.toggleClass(classExpanded);
     isExpanded = item.hasClass(classExpanded);
 
     navState[itemId] = isExpanded;
