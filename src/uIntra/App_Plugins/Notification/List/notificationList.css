@@ -45,16 +45,22 @@
             top:100%;
             left:0;
             width:400px;
-            transform:translate(0, -100%);
-            transition: transform linear 200ms;
+            display:none;
 
             ._notifications-expanded &{
-                transform:translate(0, 0);
+                display:block;
             }
 
             @media(--for-tablet-portrait-down){
                 &{
                     width:100%;
+                    transform:translate(0, -100%);
+                    transition: transform linear 200ms;
+                    display:block;
+
+                    ._notifications-expanded &{
+                        transform:translate(0, 0);
+                    }
                 }
             }
         }

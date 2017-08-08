@@ -23,7 +23,6 @@
     @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
     @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter filter__body js-feed-navigation">
-        <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
         <div class="tabset__holder">
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
