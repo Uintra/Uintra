@@ -6,12 +6,13 @@ import initOpener from "./openCloseCentralFeed";
 
 require("./centralFeed.css");
 
+const hideClass = "_hide";
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
 uIntra.events.add("cfTabChanged");
-uIntra.events.add("cfReloadTab",{
+uIntra.events.add("cfReloadTab", {
     detail: {
         isReinit: false
     }
@@ -28,10 +29,10 @@ var state;
 var formController;
 var reloadintervalId;
 
-function initDescription(){
+function initDescription() {
     var container = $('._clamp');
-    if(container.length > 0){
-        for(var i = 0; i < container.length; i++){
+    if (container.length > 0) {
+        for (var i = 0; i < container.length; i++) {
             var url = $(container[i]).data('url');
             helpers.clampText(container[i], url);
         }
@@ -56,6 +57,7 @@ function initCustomControls(data) {
     lightbox.init();
     initDescription();
     subscribe.initOnLoad();
+    placeSubscribedLabel();
 }
 
 function scrollPrevented() {
@@ -66,12 +68,12 @@ function attachEventFilter() {
 
     var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
     if (clearFiltersElem) {
-        clearFiltersElem.addEventListener('click', function () {            
-            var showSubscribed=formController.form.querySelector('input[name="showSubscribed"]');            
-            var showPinned = formController.form.querySelector('input[name="showPinned"]');            
-            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');            
+        clearFiltersElem.addEventListener('click', function () {
+            var showSubscribed = formController.form.querySelector('input[name="showSubscribed"]');
+            var showPinned = formController.form.querySelector('input[name="showPinned"]');
+            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
             $(showSubscribed).val(false);
-            $(showPinned).val(false);            
+            $(showPinned).val(false);
             $(inlcudeBulletin).val(false);
             reload(false, false, false);
         });
@@ -79,14 +81,14 @@ function attachEventFilter() {
 
     var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
     if (showSubscribedElem) {
-        showSubscribedElem.addEventListener('change', function () {            
+        showSubscribedElem.addEventListener('change', function () {
             reload(false, false, false);
         });
     }
 
     var showPinnedElem = formController.form.querySelector('input[name="showPinned"]');
     if (showPinnedElem) {
-        showPinnedElem.addEventListener('change', function () {                
+        showPinnedElem.addEventListener('change', function () {
             reload(false, false, false);
         });
     }
@@ -111,7 +113,7 @@ function reload(useVersion, skipLoadingStatus, isReinit) {
     promise.then(attachEventFilter);
     promise.then(hideLoadingStatus);
     promise.then(initCustomControls);
-    promise.then(function() { emitTabReloadedEvent(isReinit); });
+    promise.then(function () { emitTabReloadedEvent(isReinit); });
     promise.catch(hideLoadingStatus);
     return promise;
 }
@@ -128,7 +130,7 @@ function restoreState() {
         reload(false, false, true).then(function () {
             var elem = document.querySelector('[data-anchor="' + hash + '"]');
 
-            if(elem){
+            if (elem) {
                 scrollTo(document.body, elem.offsetTop, 300);
                 window.history.pushState("", document.title, window.location.pathname);
             }
@@ -164,7 +166,7 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function reloadTabEventHandler(e) {   
+function reloadTabEventHandler(e) {
     clearInterval(reloadintervalId);
 
     let hash = (window.location.hash || "").replace("#", "");
@@ -187,14 +189,18 @@ function showBulletinsEventHandler(e) {
     goToTab(4);
 }
 
-function goToTab(tabNumber) {       
-    var tab = document.querySelector("[data-type='"+tabNumber+"']");
+function goToTab(tabNumber) {
+    var tab = document.querySelector("[data-type='" + tabNumber + "']");
     var link = $(tab).find('a');
     $(link)[0].click();
 }
 
+function goToAllTab() {
+    goToTab(0);
+}
+
 function runReloadInverval() {
-    reloadintervalId = setInterval(function() {
+    reloadintervalId = setInterval(function () {
         reload(true, true, false);
     }, 30000);
 }
@@ -204,8 +210,27 @@ function emitTabReloadedEvent(isReinit) {
     uIntra.events.cfTabReloaded.dispatch();
 }
 
+function setBulletinCreateMode(feed) {
+    feed.classList.add(hideClass);
+}
+
+function removeBulletinCreateMode(feed) {
+    feed.classList.remove(hideClass);
+}
+
+function placeSubscribedLabel(){
+    let subscribedLabel = document.querySelectorAll('.js-feed__item-subscribed');
+
+    for(var i = 0; i < subscribedLabel.length; i++){
+        let feedItem = subscribedLabel[i].closest('.feed__item');
+        let feedItemMeta = feedItem.querySelector('.feed__item-meta');
+        feedItemMeta.appendChild(subscribedLabel[i]);
+    }
+}
+
 function init() {
     initOpener();
+    placeSubscribedLabel();
     holder = document.querySelector('.js-feed-overview');
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
@@ -254,14 +279,21 @@ function init() {
 
     initDescription();
     restoreState();
-    infinityScroll(onScroll)();
+    infinityScroll(onScroll, formController.form)();
     attachEventFilter();
     runReloadInverval();
 
     uIntra.events.addListener("cfReloadTab", reloadTabEventHandler);
+
+    const feedCreate = document.querySelector(".js-feed-create");
+    if (feedCreate) {
+        uIntra.events.addListener("setBulletinCreateMode", () => setBulletinCreateMode(feedCreate));
+        uIntra.events.addListener("removeBulletinCreateMode", () => removeBulletinCreateMode(feedCreate));
+    }
 }
 
 export default {
 init: init,
-    reload: reload
+    reload: reload,
+goToAllTab: goToAllTab
 }

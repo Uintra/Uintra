@@ -14,7 +14,7 @@
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
         @if (Model.IsSubscribed)
         {
-            @Html.Localize("CentralFeed.IsSubscribed.lbl");
+            <span class="feed__item-subscribed js-feed__item-subscribed"><i class="icon-check"></i> @Html.Localize("CentralFeed.IsSubscribed.lbl")</span>
         }
     </div>
     <div class="feed__item-image"> </div>

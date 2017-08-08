@@ -57,6 +57,7 @@ function initCustomControls(data) {
     lightbox.init();
     initDescription();
     subscribe.initOnLoad();
+    placeSubscribedLabel();
 }
 
 function scrollPrevented() {
@@ -217,8 +218,19 @@ function removeBulletinCreateMode(feed) {
     feed.classList.remove(hideClass);
 }
 
+function placeSubscribedLabel(){
+    let subscribedLabel = document.querySelectorAll('.js-feed__item-subscribed');
+
+    for(var i = 0; i < subscribedLabel.length; i++){
+        let feedItem = subscribedLabel[i].closest('.feed__item');
+        let feedItemMeta = feedItem.querySelector('.feed__item-meta');
+        feedItemMeta.appendChild(subscribedLabel[i]);
+    }
+}
+
 function init() {
     initOpener();
+    placeSubscribedLabel();
     holder = document.querySelector('.js-feed-overview');
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
@@ -281,7 +293,7 @@ function init() {
 }
 
 export default {
-    init: init,
+init: init,
     reload: reload,
-    goToAllTab: goToAllTab
+goToAllTab: goToAllTab
 }

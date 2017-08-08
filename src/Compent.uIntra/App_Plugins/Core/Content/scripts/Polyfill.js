@@ -160,3 +160,22 @@ if (!Array.prototype.includes) {
 Array.prototype.except = function (a) {
     return this.filter(el => a.indexOf(el) === -1);
 };
+
+
+/*
+    The Element.closest() method returns the closest ancestor of the current element (or the current element itself) which matches the selectors given in parameter. If there isn't such an ancestor, it returns null.
+*/
+if (!Element.prototype.matches)
+    Element.prototype.matches = Element.prototype.msMatchesSelector ||
+                                Element.prototype.webkitMatchesSelector;
+
+if (!Element.prototype.closest)
+    Element.prototype.closest = function (s) {
+        var ancestor = this;
+        if (!document.documentElement.contains(el)) return null;
+        do {
+            if (ancestor.matches(s)) return ancestor;
+            ancestor = ancestor.parentElement;
+        } while (ancestor !== null);
+        return el;
+    };
