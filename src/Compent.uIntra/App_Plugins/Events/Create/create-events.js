@@ -21,7 +21,6 @@ var initSubmitButton = function () {
             return;
         }
 
-        $(this).addClass('_loading');
         form.submit();
     });
 }

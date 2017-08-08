@@ -3,7 +3,7 @@
 
     var onError = function (error) { console.error(error); }
 
-    var controller = function ($http, authResource, $scope, $timeout, eventsManagementConfig, intranetUserService) {
+    var controller = function ($http, authResource, $scope, $timeout, eventsManagementConfig) {
         var self = this;
         self.eventsList = [];
         self.currentUser = null;
@@ -184,7 +184,7 @@
         }
 
         var loadUsers = function () {
-            var promise = intranetUserService.getAll();
+            var promise = $http.get('/Umbraco/backoffice/Api/IntranetUser/GetAll');
             var success = function (response) {
                 self.users = response.data || [];
             }
@@ -203,6 +203,6 @@
         activate();
     }
 
-    controller.$inject = ["$http", "authResource", "$scope", "$timeout", "eventsManagementConfig", "intranetUserService"];
+    controller.$inject = ["$http", "authResource", "$scope", "$timeout", "eventsManagementConfig"];
     angular.module('umbraco').controller('EventsManagementController', controller);
 })(angular);
