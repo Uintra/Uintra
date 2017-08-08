@@ -257,6 +257,7 @@ namespace Compent.uIntra
         {
             kernel.Bind(typeof(IDbContextFactory<DbObjectContext>)).To<DbContextFactory>().WithConstructorArgument(typeof(string), "umbracoDbDSN");
             kernel.Bind<DbContext>().ToMethod(c => kernel.Get<IDbContextFactory<DbObjectContext>>().Create()).InRequestScope();
+            kernel.Bind<IntranetDbContext>().To<DbObjectContext>();
             kernel.Bind<Database>().ToMethod(c => kernel.Get<DbObjectContext>().Database);
             kernel.Bind(typeof(ISqlRepository<,>)).To(typeof(SqlRepository<,>));
             kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>));

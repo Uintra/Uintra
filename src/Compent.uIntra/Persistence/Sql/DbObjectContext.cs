@@ -1,12 +1,8 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Reflection;
+﻿using System.Data.Entity;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.MigrationHistories.Sql;
+using uIntra.Core.Persistence;
 using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;
@@ -14,7 +10,7 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Persistence.Sql
 {
-    public class DbObjectContext : DbContext
+    public class DbObjectContext : IntranetDbContext
     {
         public DbObjectContext() : this("umbracoDbDSN")
         {
