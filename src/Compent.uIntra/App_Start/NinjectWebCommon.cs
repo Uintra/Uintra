@@ -71,7 +71,6 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using uIntra.Core.Media;
 using uIntra.Core.WebPagePreview;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
@@ -170,7 +169,7 @@ namespace Compent.uIntra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
