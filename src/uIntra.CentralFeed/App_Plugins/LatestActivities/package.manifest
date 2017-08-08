@@ -4,7 +4,7 @@
       "name": "Latest activities",
       "alias": "custom.LatestActivities",
       "view": "/App_Plugins/LatestActivities/backoffice/latest-activities.view.html",
-      "icon": "icon-settings-alt color-blue",
+      "icon": "icon-activity color-blue",
       "config": {
         "controller": "CentralFeed",
         "action": "LatestActivities",
