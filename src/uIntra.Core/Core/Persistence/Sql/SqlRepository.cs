@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Dynamic;
 using uIntra.Core.Extentions;
 
 namespace uIntra.Core.Persistence
 {
     public class SqlRepository<TKey, T> : ISqlRepository<TKey, T> where T : SqlEntity<TKey>
     {
-        private readonly DbContext _dbContext;
+        private readonly IntranetDbContext _dbContext;
         private readonly DbSet<T> _dbSet;
         private bool disposed;
 
-        public SqlRepository(DbContext dbContext)
+        public SqlRepository(IntranetDbContext dbContext)
         {
             if (dbContext == null)
             {
@@ -159,7 +158,7 @@ namespace uIntra.Core.Persistence
 
     public class SqlRepository<T> : SqlRepository<Guid, T>, ISqlRepository<T> where T : SqlEntity<Guid>
     {
-        public SqlRepository(DbContext dbContext) : base(dbContext)
+        public SqlRepository(IntranetDbContext dbContext) : base(dbContext)
         {
         }
     }
