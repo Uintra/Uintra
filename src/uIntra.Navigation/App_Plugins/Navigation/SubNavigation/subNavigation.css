@@ -125,7 +125,8 @@
             margin:0 0 -1px;
             cursor: pointer;
 
-            :first-child > &{
+            :first-child > &,
+            :nth-child(2) > &{
                 border-left-color:var(--color-light-gray);
             }
 
