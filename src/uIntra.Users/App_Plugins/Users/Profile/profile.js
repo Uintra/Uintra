@@ -3,16 +3,17 @@ import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
 require("./profile.css");
+require("bootstrap-notify");
 
-var initDeleteButton = function (holder) {    
-    var btn = holder.find('.js-delete-btn');  
+var initDeleteButton = function (holder) {
+    var btn = holder.find('.js-delete-btn');
 
-    btn.click(function () { 
+    btn.click(function () {
         var confirmMessage = btn.data('confirm-message');
         var photo = btn.data('photo');
-        confirm.showConfirm('', confirmMessage, 
+        confirm.showConfirm('', confirmMessage,
             function () {
-                ajax.Delete("/umbraco/surface/Profile/DeletePhoto?photoPath=" + photo).then(function(response) {
+                ajax.Delete("/umbraco/surface/Profile/DeletePhoto?photoPath=" + photo).then(function (response) {
                     location.reload();
                 });
             }, function () { }, confirm.defaultSettings);
@@ -20,24 +21,38 @@ var initDeleteButton = function (holder) {
 }
 
 function initListeners() {
-    $('#js-member-notifier-setting').on('change', function (event) {
+    $('#js-member-notifier-setting').on('change',
+        function (event) {
 
-        let $this = $(this);
-        let element = event.currentTarget;
-        let notifierType = element.attributes.notifiertype.value;
-        let value = element.checked;
-        $.ajax({
-            type: "POST",
-            data: { id: $this.data("id") },
-            url: "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value
+            let $this = $(this);
+            let element = event.currentTarget;
+            let confirmMessage = $(element).attr('dataConfirmMessage');
+            confirm.showConfirm('',
+                confirmMessage,
+                function () {
+                    let notifierType = element.attributes.notifiertype.value;
+                    let value = element.checked;
+                    SetNotifierSetting(notifierType, value);
+                },
+                function () {
+                    element.checked = !element.checked;
+                },
+                confirm.defaultSettings);
         });
-    });
 }
 
+function SetNotifierSetting(notifierType, value) {
+    $.ajax({
+        type: "POST",
+        url: "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value,
+        complete: () => $.notify("Settings has been saved.")
+    });
 
-var controller = {
+}
+
+let controller = {
     init: function () {
-        var holder = $('#js-profile-page');
+        let holder = $('#js-profile-page');
         if (!holder.length) {
             return;
         }
