@@ -22,7 +22,7 @@ namespace uIntra.Core.Installer
                         Version = new Version(installationStep?.Version)
                     };
                 })
-                .Where(el => (el.Version > installedVersion) && (el.Version < updatingVersion))
+                .Where(el => (el.Version > installedVersion) && (el.Version <= updatingVersion))
                 .Select(el => el.Step)
                 .OrderBy(s => s?.Priority)
                 .ToList();
