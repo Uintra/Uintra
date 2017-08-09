@@ -141,8 +141,8 @@
         }
 
         $scope.processEmailChange = function (link) {
-            link.caption = encode(link.prettyLink);
-            link.link = "mailTo:" + link.prettyLink;
+            link.link = link.caption = encode(link.prettyLink);
+            link.link = "mailTo:" + link.link;
             link.prettyCaption = link.prettyLink;
         }
 

@@ -28,9 +28,9 @@ function initElements() {
     mobileBtn = document.querySelector(".js-expand-bulletin");
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
+    confirmMessage = bulletin.dataset.message;
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
-    confirmMessage = bulletin.dataset.message;
 }
 
 function initEditor() {

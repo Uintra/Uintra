@@ -1,4 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using System.Reflection;
 using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Media;
@@ -13,6 +17,8 @@ namespace Compent.uIntra.Persistence.Sql
 {
     public class DbObjectContext : IntranetDbContext
     {
+        protected Type EntityTypeConfiguration => typeof(EntityTypeConfiguration<>);
+
         public DbObjectContext() : this("umbracoDbDSN")
         {
         }
@@ -39,9 +45,9 @@ namespace Compent.uIntra.Persistence.Sql
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(type => !string.IsNullOrEmpty(type.Namespace))
-            .Where(type => type.BaseType != null && type.BaseType.IsGenericType &&
-                type.BaseType.GetGenericTypeDefinition() == EntityTypeConfiguration).ToList();
+                .Where(type => !string.IsNullOrEmpty(type.Namespace))
+                .Where(type => type.BaseType != null && type.BaseType.IsGenericType &&
+                               type.BaseType.GetGenericTypeDefinition() == EntityTypeConfiguration).ToList();
 
             foreach (var type in typesToRegister)
             {
