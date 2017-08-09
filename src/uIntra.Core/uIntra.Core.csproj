@@ -399,10 +399,11 @@
     <Compile Include="Core\WebPagePreview\ILinkPreviewService.cs" />
     <Compile Include="Core\WebPagePreview\LinkPreviewController.cs" />
     <Compile Include="Core\WebPagePreview\LinkPreviewService.cs" />
-    <Compile Include="Installer\CoreInstallationConstants.cs" />
-    <Compile Include="Installer\CoreInstallationStep.cs" />
+    <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
+    <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
     <Compile Include="Installer\IntranetInstaller.cs" />
+    <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
