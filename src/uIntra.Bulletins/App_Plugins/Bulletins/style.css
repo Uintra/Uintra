@@ -19,10 +19,13 @@
 
 	.ql-container .ql-editor {
 		height: auto;
+        font-size:16px;
 
         &.ql-blank{
             &:before{
                 font-style:normal;
+                color:var(--text-color-dark);
+                opacity:0.5;
             }
         }
 

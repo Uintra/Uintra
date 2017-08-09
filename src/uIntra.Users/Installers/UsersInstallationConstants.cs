@@ -1,4 +1,4 @@
-﻿namespace uIntra.Users.Installer
+﻿namespace uIntra.Users.Installers
 {
     public class UsersInstallationConstants
     {

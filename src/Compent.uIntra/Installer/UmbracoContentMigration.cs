@@ -1,20 +1,18 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Web;
-using System.Web.Hosting;
 using Compent.uIntra.Core.Constants;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using File = System.IO.File;
 
 namespace Compent.uIntra.Installer
 {
@@ -375,7 +373,7 @@ namespace Compent.uIntra.Installer
             mailTemplateDocType.AddPropertyType(newEmailTypeProperty, "Content");
             contentService.Save(mailTemplateDocType);
 
-            CoreInstallationStep.AddAllowedChildNode(DocumentTypeAliasConstants.MailTemplatesFolder, DocumentTypeAliasConstants.MailTemplate);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(DocumentTypeAliasConstants.MailTemplatesFolder, DocumentTypeAliasConstants.MailTemplate);
         }
         private void CreateMailTemplatesFolderDataType()
         {
@@ -616,7 +614,7 @@ namespace Compent.uIntra.Installer
 
         private void SetGridValueAndSaveAndPublishContent(IContent content, string gridEmbeddedResourceFileName)
         {
-            var gridContent = CoreInstallationStep.GetEmbeddedResourceValue($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
+            var gridContent = CoreInstallationStep_0_0_1.GetEmbeddedResourceValue($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
             _contentService.SaveAndPublishWithStatus(content);
@@ -626,8 +624,6 @@ namespace Compent.uIntra.Installer
 
     public static class UmbracoContentMigrationConstants
     {
-        
-
         public static class Grid
         {
             public const string GridPropName = "grid";

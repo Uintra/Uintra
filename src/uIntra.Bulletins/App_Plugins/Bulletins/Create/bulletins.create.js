@@ -17,6 +17,7 @@ let header;
 let editor; 
 let body;
 let bulletin;
+let confirmMessage;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -27,6 +28,7 @@ function initElements() {
     mobileBtn = document.querySelector(".js-expand-bulletin");
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
+    confirmMessage = bulletin.dataset.message;
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
 }
@@ -115,7 +117,7 @@ function sentButtonClickHandler(event) {
 
 function closeBulletin() {
     if (isEdited()) {
-        if (showConfirmMessage(this.dataset.message)) {
+        if (showConfirmMessage(confirmMessage)) {
             hide();
         }
         return;
@@ -190,7 +192,8 @@ function cfReloadTab() {
 }
 
 function isOutsideClick (el, target, callback) {
-    if (el && !el.contains(target)) {
+    let hiddenInput = document.querySelector(".dz-hidden-input");
+    if (el && !el.contains(target) && target != hiddenInput) {
         if (typeof callback === "function") {
             callback();
         }

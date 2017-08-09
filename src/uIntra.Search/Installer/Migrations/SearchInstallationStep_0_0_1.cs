@@ -1,13 +1,15 @@
 ﻿using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Search.Installer
+namespace uIntra.Search.Installer.Migrations
 {
-    public class SearchInstallationStep : IIntranetInstallationStep
+    public class SearchInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Search";
         public int Priority => 2;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {
@@ -23,7 +25,7 @@ namespace uIntra.Search.Installer
             var searchResultPage = contentService.GetContentType(SearchInstallationConstants.DocumentTypeAliases.SearchResultPage);
             if (searchResultPage != null) return;
 
-            searchResultPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            searchResultPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             searchResultPage.Name = SearchInstallationConstants.DocumentTypeNames.SearchResultPage;
@@ -31,12 +33,12 @@ namespace uIntra.Search.Installer
             searchResultPage.Icon = SearchInstallationConstants.DocumentTypeIcons.SearchResultPage;
 
             contentService.Save(searchResultPage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, SearchInstallationConstants.DocumentTypeAliases.SearchResultPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, SearchInstallationConstants.DocumentTypeAliases.SearchResultPage);
         }
 
         private void CreateContentPageUseInSearchTrueFalse()
         {
-            CoreInstallationStep.CreateTrueFalseDataType(SearchInstallationConstants.DataTypeNames.ContentPageUseInSearch);
+            CoreInstallationStep_0_0_1.CreateTrueFalseDataType(SearchInstallationConstants.DataTypeNames.ContentPageUseInSearch);
         }
 
         private void AddSearchToContentPage()

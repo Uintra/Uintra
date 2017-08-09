@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Hosting;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Panels.Installer
+namespace uIntra.Panels.Installer.Migrations
 {
     public class PanelsInstallationStep : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Panels";
         public int Priority => 2;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {
@@ -26,7 +27,7 @@ namespace uIntra.Panels.Installer
             var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(PanelsInstallationConstants.DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
-            var jsonValue = CoreInstallationStep.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
+            var jsonValue = CoreInstallationStep_0_0_1.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
             var jsonPrevalues = JObject.Parse(jsonValue);
 
             panelPickerDataType = new DataTypeDefinition(-1, PanelsInstallationConstants.DataTypePropertyEditors.PanelPicker)
@@ -64,7 +65,7 @@ namespace uIntra.Panels.Installer
             panelDocumentType.AddPropertyType(panelPickerProperty, "Panel");
 
             contentService.Save(panelDocumentType);
-            CoreInstallationStep.AddAllowedChildNode(PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder, PanelsInstallationConstants.DocumentTypeAliases.Panel);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder, PanelsInstallationConstants.DocumentTypeAliases.Panel);
         }
 
         private void CreateGlobalPanelFolder()
@@ -83,7 +84,7 @@ namespace uIntra.Panels.Installer
 
             contentService.Save(dataFolderDocType);
 
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder);
         }
     }
 }

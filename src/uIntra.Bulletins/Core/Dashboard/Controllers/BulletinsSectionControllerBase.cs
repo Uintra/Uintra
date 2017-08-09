@@ -7,18 +7,18 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Bulletins
 {
-    public class BulletinsSectionController : UmbracoAuthorizedApiController
+    public abstract class BulletinsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public BulletinsSectionController(IBulletinsService<BulletinBase> bulletinsService, IIntranetUserService<IIntranetUser> intranetUserService)
+        public BulletinsSectionControllerBase(IBulletinsService<BulletinBase> bulletinsService, IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _bulletinsService = bulletinsService;
             _intranetUserService = intranetUserService;
         }
 
-        public IEnumerable<BulletinsBackofficeViewModel> GetAll()
+        public virtual IEnumerable<BulletinsBackofficeViewModel> GetAll()
         {
             var bulletins = _bulletinsService.GetAll(true);
             foreach (var bulletin in bulletins)
@@ -31,7 +31,7 @@ namespace uIntra.Bulletins
         }
 
         [HttpPost]
-        public BulletinsBackofficeViewModel Create(BulletinsBackofficeCreateModel createModel)
+        public virtual BulletinsBackofficeViewModel Create(BulletinsBackofficeCreateModel createModel)
         {
             var bulletinId = _bulletinsService.Create(createModel.Map<BulletinBase>());
             var createdModel = _bulletinsService.Get(bulletinId);
@@ -42,7 +42,7 @@ namespace uIntra.Bulletins
         }
 
         [HttpPost]
-        public BulletinsBackofficeViewModel Save(BulletinsBackofficeSaveModel saveModel)
+        public virtual BulletinsBackofficeViewModel Save(BulletinsBackofficeSaveModel saveModel)
         {
             _bulletinsService.Save(saveModel.Map<BulletinBase>());
 
@@ -53,7 +53,7 @@ namespace uIntra.Bulletins
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             _bulletinsService.Delete(id);
         }

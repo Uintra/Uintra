@@ -62,7 +62,7 @@
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="form__btn _submit _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />
-            <a class="form__btn _default" href="@(Context.GetBackLink($"{ViewData["DetailsPageUrl"]}?Id={Model.Id}"))">@Html.Localize("Common.Cancel.lnk")</a>
+            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
                 }
 </div>

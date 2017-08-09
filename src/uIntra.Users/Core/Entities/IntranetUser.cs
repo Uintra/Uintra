@@ -5,7 +5,7 @@ namespace uIntra.Users
 {
     public class IntranetUser : IIntranetUser
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } 
         public int? UmbracoId { get; set; }
         public virtual string DisplayedName => $"{FirstName} {LastName}";
         public virtual string Photo { get; set; }

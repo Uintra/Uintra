@@ -358,6 +358,11 @@
     <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
+    <Compile Include="Core\IDocumentTypeProvider.cs" />
+    <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
+    <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
+    <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
+    <Compile Include="Core\Persistence\IntranetDbContext.cs" />
     <Compile Include="Core\Media\IIntranetMediaService.cs" />
     <Compile Include="Core\Media\IntranetMediaService.cs" />
     <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
@@ -398,8 +403,6 @@
     <Compile Include="Installer\CoreInstallationStep.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
     <Compile Include="Installer\IntranetInstaller.cs" />
-    <Compile Include="Migrations\ImageCropperConstants.cs" />
-    <Compile Include="Migrations\MemberConstants.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
@@ -411,6 +414,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\QuillExtender.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ScrollToTop.js" />
     <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
@@ -440,7 +444,6 @@
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Core\NotificationConstants.cs" />
     <Compile Include="Core\TimezoneOffsetProvider.cs" />
-    <Compile Include="Migrations\MigrationsHandler.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />

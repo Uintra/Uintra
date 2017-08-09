@@ -455,14 +455,14 @@
     <Compile Include="Core\Models\NewsItemViewModel.cs" />
     <Compile Include="Core\Models\NewsOverviewViewModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\NewsAutoMapperProfile.cs" />
-    <Compile Include="Core\Dashboard\Controllers\NewsSectionController.cs" />
+    <Compile Include="Core\Dashboard\Controllers\NewsSectionControllerBase.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeCreateModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
     <Compile Include="Core\NewsServiceBase.cs" />
     <Compile Include="Installer\NewsInstallationConstants.cs" />
-    <Compile Include="Installer\NewsInstallationStep.cs" />
+    <Compile Include="Installer\Migrations\NewsInstallationStep_0_0_1.cs" />
     <Compile Include="Web\NewsControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />

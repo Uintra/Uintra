@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Bulletins;
 using uIntra.Bulletins;
@@ -8,6 +9,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using uIntra.Navigation;
 
 namespace Compent.uIntra.Controllers
 {
@@ -16,16 +18,18 @@ namespace Compent.uIntra.Controllers
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         protected override string DetailsViewPath => "~/Views/Bulletins/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/Bulletins/ItemView.cshtml";
+        private readonly IMyLinksService _myLinksService;
 
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider, IMyLinksService myLinksService)
             : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
+            _myLinksService = myLinksService;
         }
 
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin)
@@ -52,6 +56,11 @@ namespace Compent.uIntra.Controllers
             var activity = item as Bulletin;
             BulletinPreviewViewModel viewModel = GetPreviewViewModel(activity);
             return PartialView(PreviewItemViewPath, viewModel);
+        }
+
+        protected override void OnBulletinDeleted(Guid id)
+        {
+            _myLinksService.DeleteByActivityId(id);
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using uIntra.Core.Installer;
+using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 
-namespace uIntra.Bulletins.Installer
+namespace uIntra.Bulletins.Installer.Migrations
 {
-    public class BulletinsInstallationStep: IIntranetInstallationStep
+    public class BulletinsInstallationStep_0_0_1: IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Bulletins";
         public int Priority => 2;
+        public string Version => InstallationVersionConstrants.Version_0_0_1;
 
         public void Execute()
         {
@@ -22,7 +24,7 @@ namespace uIntra.Bulletins.Installer
             var bulletinsOverviewPage = contentService.GetContentType(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
             if (bulletinsOverviewPage != null) return;
 
-            bulletinsOverviewPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            bulletinsOverviewPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             bulletinsOverviewPage.Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsOverviewPage;
@@ -30,7 +32,7 @@ namespace uIntra.Bulletins.Installer
             bulletinsOverviewPage.Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsOverviewPage;
 
             contentService.Save(bulletinsOverviewPage);
-            CoreInstallationStep.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
         }
         private void CreateBulletinsEditPage()
         {
@@ -39,7 +41,7 @@ namespace uIntra.Bulletins.Installer
             var bulletinsEditPage = contentService.GetContentType(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage);
             if (bulletinsEditPage != null) return;
 
-            bulletinsEditPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            bulletinsEditPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             bulletinsEditPage.Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsEditPage;
@@ -47,7 +49,7 @@ namespace uIntra.Bulletins.Installer
             bulletinsEditPage.Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsEditPage;
 
             contentService.Save(bulletinsEditPage);
-            CoreInstallationStep.AddAllowedChildNode(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage);
         }
         private void CreateBulletinsDetailsPage()
         {
@@ -56,7 +58,7 @@ namespace uIntra.Bulletins.Installer
             var bulletinsDetailsPage = contentService.GetContentType(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage);
             if (bulletinsDetailsPage != null) return;
 
-            bulletinsDetailsPage = CoreInstallationStep.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+            bulletinsDetailsPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             bulletinsDetailsPage.Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsDetailsPage;
@@ -64,7 +66,7 @@ namespace uIntra.Bulletins.Installer
             bulletinsDetailsPage.Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsDetailsPage;
 
             contentService.Save(bulletinsDetailsPage);
-            CoreInstallationStep.AddAllowedChildNode(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage);
         }
 
     }

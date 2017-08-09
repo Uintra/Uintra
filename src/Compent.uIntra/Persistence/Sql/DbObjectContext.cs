@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Reflection;
+﻿using System.Data.Entity;
 using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Media;
+using uIntra.Core.MigrationHistories.Sql;
+using uIntra.Core.Persistence;
 using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;
@@ -13,10 +11,8 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Persistence.Sql
 {
-    public class DbObjectContext : DbContext
+    public class DbObjectContext : IntranetDbContext
     {
-        protected Type EntityTypeConfiguration => typeof(EntityTypeConfiguration<>);
-
         public DbObjectContext() : this("umbracoDbDSN")
         {
         }
@@ -37,6 +33,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
+        public DbSet<MigrationHistory> MigrationHistories { get; set; }
         public DbSet<IntranetMediaEntity> IntranetMediaEntities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -2,11 +2,6 @@
 {
     public class CoreInstallationConstants
     {
-        public class AppSettingKey
-        {
-            public const string UIntraConfigurationStatus = "uIntraConfigurationStatus";
-        }
-
         public class DocumentTypesContainerNames
         {
             public const string Compositions = "Compositions";

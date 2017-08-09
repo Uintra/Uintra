@@ -206,7 +206,7 @@ namespace uIntra.Users
         protected virtual T GetByName(string name)
         {
             var users = GetAll();
-            return users.FirstOrDefault(user => user.LoginName.Equals(name));
+            return users.SingleOrDefault(user => user.LoginName.Equals(name));
         }
 
         public virtual void UpdateUserCache(Guid userId)

@@ -401,7 +401,7 @@
     <None Include="config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
     <Compile Include="Installer\NavigationInstallationConstants.cs" />
-    <Compile Include="Installer\NavigationInstallationStep.cs" />
+    <Compile Include="Installer\Migrations\NavigationInstallationStep_0_0_1.cs" />
     <Compile Include="Web\MyLinksControllerBase.cs" />
     <Compile Include="Web\NavigationAuthorizationControllerBase.cs" />
     <Compile Include="Web\NavigationControllerBase.cs" />
