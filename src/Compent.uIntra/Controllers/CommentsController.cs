@@ -77,12 +77,6 @@ namespace Compent.uIntra.Controllers
                 return OverView(model.ActivityId);
             }
 
-            if (Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == "contentPage")
-            {
-                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
-                return OverView(model.ActivityId);
-            }
-
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
@@ -107,11 +101,6 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            if (Umbraco.TypedContent(comment.ActivityId)?.DocumentTypeAlias == "contentPage")
-            {
-                _customCommentableService.UpdateComment(model.Id, model.Text);
-                return OverView(comment.ActivityId);
-            }
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
@@ -137,11 +126,6 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            if (Umbraco.TypedContent(comment.ActivityId)?.DocumentTypeAlias == "contentPage")
-            {
-                _customCommentableService.DeleteComment(id);
-                return OverView(comment.ActivityId);
-            }
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
