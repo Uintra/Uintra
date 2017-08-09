@@ -32,32 +32,7 @@ var createGallery = function (gallery) {
 }
 
 var buildPhotoswipeItems = function (imagesItems) {
-    var result = [];
-
-    for (var i = 0; i < imagesItems.length; i++) {
-        if (!imagesItems[i].dataset.fullUrl || !imagesItems[i].dataset.fullSize) {
-            continue;   
-        }
-        var item = imagesItems[i];
-        var size = item.getAttribute('data-full-size').split('x');
-        var width;
-        var height;
-
-        if (size && size.length == 2) {
-            width = parseInt(size[0]);
-            height = parseInt(size[1]);
-        } else {
-            width = window.screen.availWidth;
-            height = window.screen.availHeight;
-        }
-
-        var newItem = {
-            src: item.dataset['fullUrl'],
-            w: width,
-            h: height
-        }
-        result.push(newItem);
-    }
+    var result = imagesItems;
     return result;
 }
 
