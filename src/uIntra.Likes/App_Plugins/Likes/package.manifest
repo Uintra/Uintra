@@ -7,7 +7,7 @@
       "icon": "icon-settings-alt color-blue",
       "config": {
         "controller": "Likes",
-        "action": "ContentPageLikes"
+        "action": "ContentLikes"
       }
     }
   ]
