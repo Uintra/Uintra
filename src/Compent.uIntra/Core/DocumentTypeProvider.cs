@@ -8,11 +8,6 @@ namespace Compent.uIntra.Core
 {
     public class DocumentTypeProvider : IDocumentTypeAliasProvider
     {
-        public string Get(string alias)
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetNavigationComposition()
         {
             return DocumentTypeAliasConstants.NavigationComposition;
