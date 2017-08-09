@@ -348,8 +348,7 @@
 		list-style: none;
 
 		&__frame {
-			margin: 5px 10px 5px 0;
-			border: 1px solid #ccc;
+			margin: 5px 5px 5px 0;
 
 			&:last-child {
 				margin: 5px 0;
@@ -358,22 +357,25 @@
 
 		&__item {
 			display: block;
-			padding: 8px 25px;
+			padding: 9px 18px 10px;
 			color: #333;
 			background: #fff;
 			text-decoration: none;
+            border: 1px solid #ccc;
 
 			&:hover,
             &:active,
             &:focus{
-                background: #ccc;
+                background: #333;
 				color: #fff;
                 text-decoration:none;
+                border-color:#333;
 			}
 
 			.feed-links__frame._active & {
-				background: #ccc;
+				background: #333;
 				color: #fff;
+                border-color:#333;
 
 				&:hover {
 					cursor: default;
@@ -381,6 +383,30 @@
 					color: #fff;
 				}
 			}
+
+            .icon-news{
+                font-size: 16px;
+                left: -7px;
+                line-height: 15px;
+                position: relative;
+                top: 2px;
+            }
+
+            .icon-events{
+                font-size: 16px;
+                left: -6px;
+                line-height: 15px;
+                position: relative;
+                top: 1px;
+            }
+
+            .icon-bulletins{
+                font-size: 16px;
+                left: -5px;
+                line-height: 15px;
+                position: relative;
+                top: 2px;
+            }
 		}
 	}
 

@@ -27,8 +27,24 @@
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
+                    var iconClass = String.Empty;
+                    switch (tabModel.Type.Id)
+                    {
+                        case 1:
+                            iconClass = "icon-news";
+                            break;
+                        case 3:
+                            iconClass = "icon-events";
+                            break;
+                        case 4:
+                            iconClass = "icon-bulletins";
+                            break;
+                        default:
+                            iconClass = "";
+                            break;
+                    }
                     <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Url">
-                        <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type.Name)</a>
+                        <a class="feed-links__item" href="@tabModel.Url"><i class="@iconClass"></i> @Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
             </ul>
