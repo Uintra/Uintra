@@ -4,7 +4,6 @@ namespace uIntra.Core
 {
     public interface IDocumentTypeAliasProvider
     {
-        string Get(string alias);
         string GetNavigationComposition();
         string GetContentPage();
         string GetSearchResultPage();
