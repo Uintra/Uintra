@@ -21,12 +21,12 @@ namespace Compent.uIntra.Controllers
         private readonly ICommentableService _customCommentableService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public CommentsController(
             ICommentsService commentsService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
             ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper, INotificationTypeProvider notificationTypeProvider)
             : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)

@@ -6,9 +6,10 @@ namespace uIntra.Core.User
     {
         Guid Id { get; set; }
         int? UmbracoId { get; set; }
-        string DisplayedName { get; set; }
+        string DisplayedName { get; }
         string Photo { get; set; }
         IRole Role { get; set; }
         string Email { get; set; }
+        string LoginName { get; set; }
     }
 }

@@ -24,11 +24,11 @@ namespace Compent.uIntra.Controllers
 
         protected override int ShortDescriptionLength { get; } = 500;
 
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IDocumentIndexer _documentIndexer;
 
         public NewsController(
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,

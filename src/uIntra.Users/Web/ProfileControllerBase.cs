@@ -17,12 +17,12 @@ namespace uIntra.Users.Web
 
         private readonly IMediaHelper _mediaHelper;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected ProfileControllerBase(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService)
         {
             _mediaHelper = mediaHelper;
