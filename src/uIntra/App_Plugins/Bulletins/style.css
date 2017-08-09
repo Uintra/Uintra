@@ -24,6 +24,8 @@
         &.ql-blank{
             &:before{
                 font-style:normal;
+                color:var(--text-color-dark);
+                opacity:0.5;
             }
         }
 

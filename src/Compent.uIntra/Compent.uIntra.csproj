@@ -331,8 +331,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.1.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.2\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.12.0, Culture=neutral, processorArchitecture=MSIL">
@@ -348,9 +349,9 @@
       <HintPath>..\..\packages\uIntra.Events.1.2.2\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.8.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Navigation, Version=1.1.8.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.8.1\lib\net452\uIntra.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.8.6\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.News, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
@@ -799,21 +800,9 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
-    <Content Include="App_Plugins\Navigation\MyLinks\sort.svg" />
-    <Content Include="App_Plugins\Navigation\navigation.js" />
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
     <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
@@ -977,7 +966,6 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
@@ -1001,14 +989,6 @@
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1027,6 +1007,7 @@
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

@@ -214,6 +214,13 @@
     border-top:none;
     position:fixed !important;
     top:46px !important;
+
+    @media (--for-tablet-portrait-down){
+        &{
+            top:140px !important; 
+            position:absolute !important;
+        }
+    }
     
     .autocomplete-suggestion{
 	    display: flex;
