@@ -3,11 +3,11 @@
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('./icomoon.eot?q22jjl');
-  src:  url('./icomoon.eot?q22jjl#iefix') format('embedded-opentype'),
-    url('./icomoon.ttf?q22jjl') format('truetype'),
-    url('./icomoon.woff?q22jjl') format('woff'),
-    url('./icomoon.svg?q22jjl#icomoon') format('svg');
+  src:  url('./icomoon.eot?bn61eq');
+  src:  url('./icomoon.eot?bn61eq#iefix') format('embedded-opentype'),
+    url('./icomoon.ttf?bn61eq') format('truetype'),
+    url('./icomoon.woff?bn61eq') format('woff'),
+    url('./icomoon.svg?bn61eq#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,14 +27,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-bulletins:before {
+  content: "\e914";
+}
+.icon-ideas:before {
+  content: "\e915";
+}
+.icon-events:before {
+  content: "\e916";
+}
+.icon-news:before {
+  content: "\e917";
+}
 .icon-cancel:before {
   content: "\e912";
 }
 .icon-time:before {
-  content: "\e910";
+  content: "\e911";
 }
 .icon-lightning:before {
-  content: "\e917";
+  content: "\e913";
 }
 .icon-calendar:before {
   content: "\e916";
@@ -43,17 +55,17 @@
   content: "\e915";
 }
 .icon-link:before {
-  content: "\e913";
+  content: "\e907";
 }
 .icon-star:before {
-  content: "\e914";
+  content: "\e90d";
 }
 .icon-bell:before {
-  content: "\e903";
+  content: "\e901";
   font-size:19px;
 }
 .icon-logout:before {
-  content: "\e909";
+  content: "\e908";
   font-size:22px;
 }
 .icon-umbraco:before {
@@ -61,27 +73,27 @@
   font-size:26px;
 }
 .icon-user:before {
-  content: "\e90f";
+  content: "\e910";
   font-size: 28px;
 }
 .icon-search:before {
-  content: "\e90d";
+  content: "\e90b";
   font-size:30px;
 }
 .icon-home:before {
-  content: "\e902";
+  content: "\e905";
 }
 .icon-check:before {
-  content: "\e906";
+  content: "\e902";
 }
 .icon-comment:before {
   content: "\e904";
 }
 .icon-like:before {
-  content: "\e908";
+  content: "\e906";
 }
 .icon-pin:before {
-  content: "\e90a";
+  content: "\e909";
   color: rgb(37, 37, 37);
 }
 .icon-arrow-left:before {
@@ -94,10 +106,16 @@
   content: "\e905" !important;
 }
 .icon-close:before {
-  content: "\e907" !important;
+  content: "\e903" !important;
 }
 .icon-play:before {
-  content: "\e90c" !important;
+  content: "\e918" !important;
+}
+.icon-print:before {
+  content: "\e90a";
+}
+.icon-sort:before {
+  content: "\e90c";
 }
 
 ._hide {
