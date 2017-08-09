@@ -20,7 +20,7 @@ namespace Compent.uIntra.Controllers
         public ProfileController(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService, 
             UmbracoHelper umbracoHelper,
             IIntranetUserContentHelper intranetUserContentHelper) 

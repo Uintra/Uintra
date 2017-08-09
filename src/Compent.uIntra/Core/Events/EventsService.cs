@@ -36,7 +36,7 @@ namespace Compent.uIntra.Core.Events
         IIndexer
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
@@ -55,7 +55,7 @@ namespace Compent.uIntra.Core.Events
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,

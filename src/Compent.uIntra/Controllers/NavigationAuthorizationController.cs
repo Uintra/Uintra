@@ -7,7 +7,7 @@ namespace Compent.uIntra.Controllers
 {
     public class NavigationAuthorizationController : NavigationAuthorizationControllerBase
     {
-        public NavigationAuthorizationController(IIntranetUserService<IntranetUser> intranetUserService, IUserService userService) : 
+        public NavigationAuthorizationController(IIntranetUserService<IIntranetUser> intranetUserService, IUserService userService) : 
             base(intranetUserService, userService)
         {
         }

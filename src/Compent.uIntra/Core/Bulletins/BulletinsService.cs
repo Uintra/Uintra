@@ -18,10 +18,8 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -33,7 +31,7 @@ namespace Compent.uIntra.Core.Bulletins
         INotifyableService,
         IIndexer
     {
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly UmbracoHelper _umbracoHelper;
@@ -51,7 +49,7 @@ namespace Compent.uIntra.Core.Bulletins
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,

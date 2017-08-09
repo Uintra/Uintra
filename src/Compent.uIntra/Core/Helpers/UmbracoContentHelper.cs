@@ -1,17 +1,16 @@
 ﻿using System.Linq;
 using Compent.uIntra.Core.ApplicationSettings;
 using uIntra.Core.User;
-using uIntra.Users;
 using Umbraco.Core.Models;
 
 namespace Compent.uIntra.Core.Helpers
 {
     public class UmbracoContentHelper : IUmbracoContentHelper
     {
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IuIntraApplicationSettings _applicationSettings;
 
-        public UmbracoContentHelper(IIntranetUserService<IntranetUser> intranetUserService, IuIntraApplicationSettings applicationSettings)
+        public UmbracoContentHelper(IIntranetUserService<IIntranetUser> intranetUserService, IuIntraApplicationSettings applicationSettings)
         {
             _intranetUserService = intranetUserService;
             _applicationSettings = applicationSettings;

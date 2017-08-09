@@ -3,7 +3,6 @@ using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.User;
 using uIntra.Subscribe;
-using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
@@ -12,7 +11,7 @@ namespace Compent.uIntra.Controllers
     {
         public CentralFeedController(ICentralFeedService centralFeedService,
             ICentralFeedContentHelper centralFeedContentHelper,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             ISubscribeService subscribeService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,   

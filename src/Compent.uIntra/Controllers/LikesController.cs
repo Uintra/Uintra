@@ -17,7 +17,7 @@ namespace Compent.uIntra.Controllers
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
-            IIntranetUserService<IntranetUser> intranetUserService, 
+            IIntranetUserService<IIntranetUser> intranetUserService, 
             ILikesService likesService, 
             INotificationTypeProvider notificationTypeProvider)
             : base(activitiesServiceFactory, intranetUserService, likesService)

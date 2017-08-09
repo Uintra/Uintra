@@ -33,7 +33,7 @@ namespace Compent.uIntra.Core.News
         INotifyableService,
         IIndexer
     {
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly UmbracoHelper _umbracoHelper;
@@ -51,7 +51,7 @@ namespace Compent.uIntra.Core.News
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
