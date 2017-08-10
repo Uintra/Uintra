@@ -193,9 +193,14 @@ function cfReloadTab() {
 
 function isOutsideClick (el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
-    if (el && !el.contains(target) && target != hiddenInput && target != mobileBtn) {
-        if (typeof callback === "function") {
-            callback();
+    let closeChoiceBtn = document.querySelectorAll(".select2-selection__choice__remove");
+    for(var i = 0; i < closeChoiceBtn.length; i++){
+        if(target != closeChoiceBtn[i]){
+            if (el && !el.contains(target) && target != hiddenInput && target != mobileBtn) {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
         }
     }
 };
