@@ -29,6 +29,8 @@ function initElements() {
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
     confirmMessage = bulletin.dataset.message;
+    uIntra.events.add("setBulletinCreateMode");
+    uIntra.events.add("removeBulletinCreateMode");
 }
 
 function initEditor() {
@@ -47,9 +49,9 @@ function initEditor() {
     });
 }
 
-function initEventListeners() {    
-    mobileMediaQuery.matches ? 
-        mobileBtn.addEventListener("click", descriptionClickHandler) : 
+function initEventListeners() {
+    mobileMediaQuery.matches ?
+        mobileBtn.addEventListener("click", descriptionClickHandler) :
         description.addEventListener("click", descriptionClickHandler);
 
     sentButton.addEventListener("click", sentButtonClickHandler);
@@ -90,17 +92,25 @@ function descriptionClickHandler(event) {
     show();
 }
 
+function setGlobalEventShow() {
+    uIntra.events.setBulletinCreateMode.dispatch();
+}
+
+function setGlobalEventHide() {
+    uIntra.events.removeBulletinCreateMode.dispatch();
+}
+
 function sentButtonClickHandler(event) {
     event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
-  
+
     let promise = form.submit();
     promise.then(function(data) {
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
             cfReloadTab();
-            hide(); 
+            hide();
         }
     });
 }
@@ -109,9 +119,9 @@ function closeBulletin() {
     if (isEdited()) {
         if (showConfirmMessage(confirmMessage)) {
             hide();
-        } 
+        }
         return;
-    } 
+    }
     hide();
 }
 
@@ -133,6 +143,7 @@ function initMobile(){
 // editor helpers
 
 function show() {
+    setGlobalEventShow();
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
 
@@ -144,6 +155,7 @@ function show() {
 }
 
 function hide() {
+    setGlobalEventHide();
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
 
@@ -181,9 +193,14 @@ function cfReloadTab() {
 
 function isOutsideClick (el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
-    if (el && !el.contains(target) && target != hiddenInput && target != mobileBtn) {
-        if (typeof callback === "function") {
-            callback();
+    let closeChoiceBtn = document.querySelectorAll(".select2-selection__choice__remove");
+    for(var i = 0; i < closeChoiceBtn.length; i++){
+        if(target != closeChoiceBtn[i]){
+            if (el && !el.contains(target) && target != hiddenInput && target != mobileBtn) {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
         }
     }
 };
@@ -201,6 +218,6 @@ let controller = {
         initEventListeners();
         initFileUploader();
     }
-}
+};
 
 export default controller;
