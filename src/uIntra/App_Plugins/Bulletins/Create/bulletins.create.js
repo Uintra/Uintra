@@ -181,7 +181,7 @@ function cfReloadTab() {
 
 function isOutsideClick (el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
-    if (el && !el.contains(target) && target != hiddenInput) {
+    if (el && !el.contains(target) && target != hiddenInput && target != mobileBtn) {
         if (typeof callback === "function") {
             callback();
         }
