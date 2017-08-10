@@ -278,6 +278,7 @@
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
+    <Compile Include="Web\MemberApiControllerBase.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +292,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
+    <Content Include="App_Plugins\Members\member-changes-watcher.html" />
+    <Content Include="App_Plugins\Members\member.service.js" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
@@ -301,6 +305,7 @@
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <None Include="App_Plugins\Members\package.manifest" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <None Include="uIntra.Users.nuspec">
