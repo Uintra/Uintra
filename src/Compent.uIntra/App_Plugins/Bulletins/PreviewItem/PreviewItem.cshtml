@@ -5,7 +5,7 @@
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
-<h3 class="block__subtitle">
+<h3 class="block__subtitle _clamp">
     <a href="@detailsPageUrl">@Html.Raw(Model.Description)</a>
 </h3>
 <div class="clearfix">
