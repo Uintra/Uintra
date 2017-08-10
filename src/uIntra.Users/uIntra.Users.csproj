@@ -305,7 +305,7 @@
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <None Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <None Include="uIntra.Users.nuspec">
