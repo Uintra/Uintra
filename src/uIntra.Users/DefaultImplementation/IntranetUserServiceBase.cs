@@ -87,7 +87,7 @@ namespace uIntra.Users
 
         public virtual IEnumerable<T> GetAll()
         {
-            var users = GetAllFromSql();// _cacheService.GetOrSet(UsersCacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var users = _cacheService.GetOrSet(UsersCacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
             return users;
         }
 
