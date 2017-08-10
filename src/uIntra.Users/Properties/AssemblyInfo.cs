@@ -6,6 +6,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 
 [assembly: AssemblyVersion("1.3.2.0")]
-[assembly: AssemblyInformationalVersion("1.3.2.0-v1")]
+[assembly: AssemblyInformationalVersion("1.3.2.0-v2")]
 [assembly: ComVisible(false)]
 [assembly: Guid("3e868f15-ac47-4962-a6a5-c9084752dde9")]
