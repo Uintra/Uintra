@@ -335,9 +335,7 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.1.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.2\lib\net452\uIntra.Bulletins.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.2-v1\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.12.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.CentralFeed.1.1.12.1-v1\lib\net452\uIntra.CentralFeed.dll</HintPath>
@@ -520,7 +518,18 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\tiny-mce.js" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videolink.html" />
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management-factory.js" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.config.js" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.css" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.html" />
+    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.js" />
+    <Content Include="App_Plugins\Bulletins\bulletins.js" />
+    <Content Include="App_Plugins\Bulletins\Create\bulletins-create.html" />
     <Content Include="App_Plugins\Bulletins\Create\bulletins.create.js" />
+    <Content Include="App_Plugins\Bulletins\Details\bulletins-details.html" />
+    <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
+    <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
+    <Content Include="App_Plugins\Bulletins\style.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\loader.gif" />
     <Content Include="App_Plugins\CentralFeed\loader.svg" />
@@ -980,6 +989,7 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
@@ -988,9 +998,16 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
