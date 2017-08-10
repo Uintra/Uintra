@@ -322,6 +322,10 @@
             max-height:60px;
         }
     }
+
+    &__teaser{
+        font-weight:normal;
+    }
 }
 
 ._sidebar-expanded{
