@@ -1,4 +1,6 @@
 ﻿let Dropzone = require("dropzone");
+let loadImage = require("blueimp-load-image");
+let exif = require("exif-js");
 Dropzone.autoDiscover = false;
 
 require('dropzone/dist/min/dropzone.min.css');
@@ -53,7 +55,8 @@ let fileUploader = (function () {
                 maxFilesize: 50,
                 acceptedFiles: allowedExtentions,
                 dictDefaultMessage: dropzoneElem.data('defaultText'),
-                dictRemoveFile: dropzoneElem.data('removeText')
+                dictRemoveFile: dropzoneElem.data('removeText'),
+                createImageThumbnails: false
             };
 
             let dropzoneOptions = $.extend(defaultOptions, options);
@@ -83,6 +86,26 @@ let fileUploader = (function () {
                 if (dropzone.options.maxFiles > this.files.length) {
                     dropzone.setupEventListeners();
                 }
+            });
+
+            /* rotation portrait images fix */
+            dropzone.on('addedfile', function(file) {
+                var self = this;
+                loadImage.parseMetaData(file, function (data) {
+                    // use embedded thumbnail if exists.
+                    if (data.exif) {
+                        var thumbnail = data.exif.get('Thumbnail');
+                        var orientation = data.exif.get('Orientation');
+                        if (thumbnail && orientation) {
+                            loadImage(thumbnail, function (img) {
+                                self.emit('thumbnail', file, img.toDataURL());
+                            }, { orientation: orientation });
+                            return;
+                        }
+                    }
+                    // use default implementation for PNG, etc.
+                    self.createThumbnail(file);
+                });
             });
 
             return dropzone;
