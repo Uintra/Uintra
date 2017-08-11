@@ -31,20 +31,29 @@
                 dispatch: function() {
                     document.body.dispatchEvent(this.eventBody);
                 }
-            }
+            };
 
             this.list.push(name);
+
+            if (this._timeoutListeners[name]) {
+                document.body.addEventListener(name, this._timeoutListeners[name].bind(this));
+                delete this._timeoutListeners[name];
+            }
         },
         addListener: function(eventName, callback) {
-            if(this.exist(eventName)){
+            if (this.exist(eventName)) {
                 document.body.addEventListener(eventName, callback);
+            } else {
+                this._timeoutListeners[eventName] = callback;
             }
         },
         exist: function (name) {
-            return this.list.indexOf(name) !== -1;
+            return this.list.includes(name);
         },
 
-        list: []
+        list: [],
+
+        _timeoutListeners: {}
     }
 };
 

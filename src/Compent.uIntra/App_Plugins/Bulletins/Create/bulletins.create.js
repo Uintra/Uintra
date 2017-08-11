@@ -18,6 +18,8 @@ let editor;
 let body;
 let bulletin;
 let confirmMessage;
+let expandBulletinBtn;
+let closeBulletinBtn;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -29,6 +31,10 @@ function initElements() {
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
     confirmMessage = bulletin.dataset.message;
+    expandBulletinBtn = document.querySelector(".js-bulletin-open");
+    closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");
+    uIntra.events.add("setBulletinCreateMode");
+    uIntra.events.add("removeBulletinCreateMode");
 }
 
 function initEditor() {
@@ -54,9 +60,13 @@ function initEventListeners() {
 
     sentButton.addEventListener("click", sentButtonClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
+    expandBulletinBtn.addEventListener("click", descriptionClickHandler);
+    closeBulletinBtn.addEventListener("click", function(ev){
+        closeBulletin(ev);
+    });
     body.addEventListener("click", function(ev) {
         isOutsideClick(bulletin, ev.target, function() {
-            closeBulletin();
+            closeBulletin(ev);
         });
     });
 }
@@ -90,6 +100,14 @@ function descriptionClickHandler(event) {
     show();
 }
 
+function setGlobalEventShow() {
+    uIntra.events.setBulletinCreateMode.dispatch();
+}
+
+function setGlobalEventHide() {
+    uIntra.events.removeBulletinCreateMode.dispatch();
+}
+
 function sentButtonClickHandler(event) {
     event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
@@ -105,14 +123,14 @@ function sentButtonClickHandler(event) {
     });
 }
 
-function closeBulletin() {
+function closeBulletin(event) {
     if (isEdited()) {
         if (showConfirmMessage(confirmMessage)) {
-            hide();
+            hide(event);
         } 
         return;
     } 
-    hide();
+    hide(event);
 }
 
 function beforeUnloadHander(event) {
@@ -133,8 +151,10 @@ function initMobile(){
 // editor helpers
 
 function show() {
+    setGlobalEventShow();
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
+    closeBulletinBtn.classList.remove("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
@@ -143,9 +163,12 @@ function show() {
     }
 }
 
-function hide() {
+function hide(event) {
+    if(event){event.preventDefault();}
+    setGlobalEventHide();
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
+    closeBulletinBtn.classList.add("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
@@ -181,7 +204,7 @@ function cfReloadTab() {
 
 function isOutsideClick (el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
-    if (el && !el.contains(target) && target != hiddenInput) {
+    if (el && !el.contains(target) && target != hiddenInput && target != expandBulletinBtn && target != mobileBtn) {
         if (typeof callback === "function") {
             callback();
         }

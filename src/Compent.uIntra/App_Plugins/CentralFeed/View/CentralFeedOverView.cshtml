@@ -11,13 +11,16 @@
 <section class="content _central-feed">
     @if (tabsWithCreateUrls.Any())
     {
-        <ul class="feed-create">
+        <ul class="feed-create js-feed-create">
             @foreach (var typeModel in tabsWithCreateUrls)
             {
                 <li class="feed-create__frame">
                     <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
                 </li>
             }
+            <li class="feed-create__frame">
+                <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+            </li>
         </ul>
     }
     @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
