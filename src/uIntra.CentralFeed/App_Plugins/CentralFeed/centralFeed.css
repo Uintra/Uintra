@@ -1,11 +1,24 @@
 ﻿.feed{
     &__filter{
-	    display: flex;
+        ._show-filters &{
+            border:solid var(--color-light-gray);
+            border-width:1px 1px 0;
+            margin: -40px -15px 10px;
+            padding: 8px 19px 0;
+        }
+    }
+
+    &__subfilter{
+        display: flex;
 	    flex-wrap: wrap;
 	    align-items: center;
-	    margin:0 0 10px;
+        border:solid var(--color-light-gray);
+        border-width:0 1px 1px;
+        margin: -25px -15px 50px;
+        padding:12px 19px 5px;
+        box-shadow:0 3px 3px -3px rgba(0, 0, 0, 0.3);
 
-	    &-item {
+        &-item {
 		    margin: 0 20px 10px 0;
 	    }
     }
@@ -348,7 +361,7 @@
 		list-style: none;
 
 		&__frame {
-			margin: 5px 5px 5px 0;
+			margin: 5px 10px 5px 0;
 
 			&:last-child {
 				margin: 5px 0;
@@ -357,19 +370,21 @@
 
 		&__item {
 			display: block;
-			padding: 9px 18px 10px;
-			color: #333;
-			background: #fff;
+			padding: 8px 19px 9px;
+            font-size:16px;
+            text-transform:uppercase;
+			color: var(--color-white);
+			background: var(--color-light-gray);
 			text-decoration: none;
-            border: 1px solid #ccc;
+            border: 1px solid var(--color-light-gray);
 
 			&:hover,
             &:active,
             &:focus{
-                background: #333;
-				color: #fff;
+                background: var(--text-color-dark);
                 text-decoration:none;
-                border-color:#333;
+                color: var(--color-white);
+                border-color:var(--text-color-dark);
 			}
 
 			.feed-links__frame._active & {
@@ -481,35 +496,39 @@
 .filter {
 	&__toggle {
 		position: relative;
-		display: flex;
+		display: inline-block;
 		align-items: center;
 		margin: 0 0 20px;
 		padding: 10px 10px 10px 30px;
 		background: none;
 		border: none;
 		color: #333;
+        font-size:16px;
 
 		&:after {
 			content: '';
 			position: absolute;
-			left: 10px;
-			top: 13px;
-			width: 8px;
-			height: 8px;
+			left: 5px;
+			top: 17px;
+			width: 7px;
+			height: 7px;
 			border: 1px solid #333;
 			border-width: 1px 1px 0 0;
-			transform: rotate(135deg);
+			transform: rotate(45deg);
 		}
 
 		body._show-filters & {
 			margin: 0;
 
 			&:after {
-				top: 18px;
-				transform: rotate(-45deg);
+				top: 16px;
+                left:7px;
+				transform: rotate(135deg);
 			}
 		}
-
+        
+        &:active,
+        &:focus,
 		&:hover {
 			color: #333;
 		}
