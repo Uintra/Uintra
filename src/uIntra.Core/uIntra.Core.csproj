@@ -351,6 +351,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
     <Compile Include="Core\BrowserCompatibility\BrowserCompatibilityConfigurationSection.cs" />
     <Compile Include="Core\BrowserCompatibility\IBrowserCompatibilityConfigurationSection.cs" />
     <Compile Include="Core\BrowserCompatibility\Models\BrowserCompatibilityModel.cs" />
