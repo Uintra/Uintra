@@ -114,5 +114,10 @@ namespace Compent.uIntra.Core
         {
             return DocumentTypeAliasConstants.SystemLinkFolder;
         }
+
+        public string Get(string alias)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
