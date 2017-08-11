@@ -57,6 +57,7 @@
         margin:0;
         overflow:hidden;
         color:var(--text-color-dark);
+        line-height:1.4;
 
         p{
             margin:0 0 22px;
