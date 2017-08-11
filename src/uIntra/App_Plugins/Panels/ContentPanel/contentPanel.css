@@ -7,6 +7,13 @@
         padding:0 19px 20px;
         margin:0 -10px 20px;
 
+        &._latest-activities,
+        &._content-panel,
+        &._document-panel,
+        &.coming-events{
+            padding-bottom:0;
+        }
+
         &__title{
             background:var(--header-bg);
             color:var(--color-white);
@@ -61,6 +68,10 @@
 
         .sidebar &{
             padding:0 0 20px;
+        }
+
+        ._content-panel &{
+            padding:0;
         }
     }
     &__image{
