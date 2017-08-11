@@ -717,6 +717,19 @@ a{
 
     .dz-preview{
         max-width:120px;
+
+        .dz-image{
+            position:relative;
+
+            img{
+                height: auto !important;
+                left: 50%;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 100%;
+            }
+        }
     }
 
     .dz-message{
