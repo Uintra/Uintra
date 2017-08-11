@@ -143,7 +143,7 @@ namespace uIntra.Users
                 member.SetValue(ProfileConstants.Photo, null);
             }
 
-            _memberService.Save(member);
+            _memberService.Save(member, raiseEvents: false);
 
             UpdateUserCache(user.Id);
         }
