@@ -17,19 +17,22 @@ namespace uIntra.Navigation.MyLinks
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMyLinksService _myLinksService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly INavigationApplicationSettings _navigationApplicationSettings;
 
         public MyLinksModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMyLinksService myLinksService,
-            IActivitiesServiceFactory activitiesServiceFactory)
+            IActivitiesServiceFactory activitiesServiceFactory, 
+            INavigationApplicationSettings navigationApplicationSettings)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
             _myLinksService = myLinksService;
             _activitiesServiceFactory = activitiesServiceFactory;
+            _navigationApplicationSettings = navigationApplicationSettings;
         }
 
         public override IEnumerable<MyLinkItemModel> GetMenu()
@@ -48,7 +51,7 @@ namespace uIntra.Navigation.MyLinks
                     Url = GetUrl(link, content)
                 });
 
-            return models;
+            return models.Distinct();
         }
 
         private string GetActivityLinkName(Guid activityId)
@@ -58,7 +61,7 @@ namespace uIntra.Navigation.MyLinks
 
             if (activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt())
             {
-                var lengthForPreview = 10;
+                var lengthForPreview = _navigationApplicationSettings.MyLinksBulletinsTitleLength;
                 var description = activity.Description.RemoveHtmlTags();
                 return description.Length > lengthForPreview ? description.Substring(0, lengthForPreview) + "..." : description;
             }
