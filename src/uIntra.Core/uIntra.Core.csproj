@@ -389,6 +389,7 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
+    <Compile Include="Core\User\UserPhotoHelper.cs" />
     <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
     <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
