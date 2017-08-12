@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using uIntra.Core;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -12,54 +13,30 @@ namespace uIntra.Search
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IElasticContentIndex _contentIndex;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public ContentIndexer(
             UmbracoHelper umbracoHelper,
             ISearchUmbracoHelper searchUmbracoHelper,
-            IElasticContentIndex contentIndex)
+            IElasticContentIndex contentIndex,
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
             _searchUmbracoHelper = searchUmbracoHelper;
             _contentIndex = contentIndex;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public void FillIndex()
         {
-            var rootPage = _umbracoHelper.TypedContentAtRoot().First();
-            var publishedContents = _umbracoHelper.TypedContent(rootPage.Id).Children();
-            var searchableContents = new List<SearchableContent>();
+            var homePage = _umbracoHelper.TypedContentAtRoot().First(pc => pc.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()));
+            var contentPages = homePage.Descendants(_documentTypeAliasProvider.GetContentPage());
 
-            foreach (var pc in publishedContents)
-            {
-                var isSearchable = _searchUmbracoHelper.IsSearchable(pc);
-                if (isSearchable)
-                {
-                    searchableContents.Add(GetContent(pc));
-                }
-                searchableContents.AddRange(FillSubContent(pc));
-            }
+            var searchableContents = contentPages
+                .Where(pc => _searchUmbracoHelper.IsSearchable(pc))
+                .Select(GetContent);
 
             _contentIndex.Index(searchableContents);
-        }
-
-        private IEnumerable<SearchableContent> FillSubContent(IPublishedContent pc)
-        {
-            var subContent = new List<SearchableContent>();
-            var children = pc.Children().ToList();
-
-            if (!children.Any()) return Enumerable.Empty<SearchableContent>();
-
-            foreach (var c in children)
-            {
-                var isSearchable = _searchUmbracoHelper.IsSearchable(pc);
-                if (isSearchable)
-                {
-                    subContent.Add(GetContent(pc));
-                }
-
-                subContent.AddRange(FillSubContent(c));
-            }
-            return subContent;
         }
 
         public void FillIndex(int id)
@@ -101,7 +78,7 @@ namespace uIntra.Search
                             {
                                 if (control.editor.alias == "custom.ContentPanel")
                                 {
-                                    if (control.value!=null)
+                                    if (control.value != null)
                                     {
                                         string title = control.value.title;
                                         if (!string.IsNullOrEmpty(title))
@@ -114,7 +91,7 @@ namespace uIntra.Search
                                         {
                                             content.Add(desc.StripHtml());
                                         }
-                                    }                                    
+                                    }
                                 }
                             }
                         }
