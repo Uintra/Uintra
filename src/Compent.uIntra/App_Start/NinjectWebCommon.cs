@@ -237,6 +237,7 @@ namespace Compent.uIntra
             kernel.Bind<IApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
             kernel.Bind<IuIntraApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
             kernel.Bind<ISearchApplicationSettings>().To<SearchApplicationSettings>().InSingletonScope();
+            kernel.Bind<INavigationApplicationSettings>().To<NavigationApplicationSettings>().InSingletonScope();
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
