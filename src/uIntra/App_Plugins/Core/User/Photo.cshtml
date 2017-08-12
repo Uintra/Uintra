@@ -1,8 +1,9 @@
 ﻿@using uIntra.Core.Extentions
-@model uIntra.Core.User.UserPhotoViewModel
+@using uIntra.Core.User
+@model UserPhotoViewModel
 @{
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Id);
-    var userAvatarSrc = !String.IsNullOrEmpty(Model.Photo) ? Model.Photo : "/content/images/default-avatar.png";
+    var userAvatarSrc = UserPhotoHelper.GetUserPhotoOrDefaultAvatar(Model.Photo);
 }
 
 <div class="avatar">
