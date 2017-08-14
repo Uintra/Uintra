@@ -786,6 +786,9 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
@@ -871,6 +874,8 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
+    <Content Include="App_Plugins\Subscribe\subscribe.js" />
+    <Content Include="App_Plugins\Subscribe\subscribeList.js" />
     <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\tags.js" />
@@ -1010,6 +1015,11 @@
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

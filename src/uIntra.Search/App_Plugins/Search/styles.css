@@ -105,6 +105,7 @@
         &-teaser{
             margin:0 0 12px;
             color:var(--text-color-light);
+            line-height:1.4;
 
             b{
                  font-weight:normal;
