@@ -21,18 +21,20 @@ namespace uIntra.Core.Media
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
+        private readonly IImageHelper _imageHelper;
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             UmbracoHelper umbracoHelper,
-            IMediaFolderTypeProvider mediaFolderTypeProvider)
+            IMediaFolderTypeProvider mediaFolderTypeProvider, IImageHelper imageHelper)
         {
             _cacheService = cacheService;
             _mediaService = mediaService;
             _intranetUserService = intranetUserService;
             _umbracoHelper = umbracoHelper;
             _mediaFolderTypeProvider = mediaFolderTypeProvider;
+            _imageHelper = imageHelper;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model)
@@ -58,12 +60,17 @@ namespace uIntra.Core.Media
             var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
             var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
 
-            using (var stream = new MemoryStream(file.FileBytes))
+            var stream = new MemoryStream(file.FileBytes);
+            if (_imageHelper.IsFileImage(file.FileBytes))
             {
-                media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId().ToString());
-                media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
-                stream.Close();
+                var fileStream = new MemoryStream(file.FileBytes, 0, file.FileBytes.Length, true, true);
+                stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
             }
+
+            media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId().ToString());
+            media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
+            stream.Close();
+
             _mediaService.Save(media);
             return media;
         }
@@ -158,26 +165,9 @@ namespace uIntra.Core.Media
 
         private string GetMediaTypeAlias(byte[] fileBytes)
         {
-            return IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
+            return _imageHelper.IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
         }
 
-        private bool IsFileImage(byte[] fileBytes)
-        {
-            bool fileIsImage;
-            try
-            {
-                using (var stream = new MemoryStream(fileBytes))
-                {
-                    Image.FromStream(stream).Dispose();
-                }
-                fileIsImage = true;
-            }
-            catch
-            {
-                fileIsImage = false;
-            }
 
-            return fileIsImage;
-        }
     }
 }

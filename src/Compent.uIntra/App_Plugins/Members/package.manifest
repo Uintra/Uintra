@@ -1,0 +1,15 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "MemberChangesWatcher",
+      "name": "Member Changes Watcher",
+      "editor": {
+        "view": "~/App_Plugins/Members/member-changes-watcher.html"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/Members/member-changes-watcher.controller.js",
+    "~/App_Plugins/Members/member.service.js"
+  ]
+}
