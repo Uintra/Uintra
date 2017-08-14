@@ -68,7 +68,7 @@
         &._subscribe{
             &:before{
                 font-size:10px;
-                content: "\e906";
+                content: "\e902";
             }
         }
 
@@ -79,7 +79,7 @@
 
             &:before{
                 font-size:14px;
-                content: "\e907";
+                content: "\e903";
             }
         }
     }
