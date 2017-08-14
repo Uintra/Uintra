@@ -164,7 +164,7 @@ function show() {
 }
 
 function hide(event) {
-    if(event){event.preventDefault();}
+    if(event && event.target == closeBulletinBtn){event.preventDefault();}
     setGlobalEventHide();
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
