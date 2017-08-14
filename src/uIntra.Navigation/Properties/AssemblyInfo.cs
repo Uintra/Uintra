@@ -2,7 +2,8 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("uIntra.Navigation")]
-[assembly: AssemblyDescription("Left Navigation, Sub Navigation Top Navigation")]
+[assembly: AssemblyDescription("The navigation is positioned in the left side of uIntra and serves as a overview of the pages and their sub-pages. It is also possible to add" +
+                               " links to the navigation for quick access.")]
 
-[assembly: AssemblyVersion("1.1.8.7")]
+[assembly: AssemblyVersion("1.1.9.0")]
 [assembly: ComVisible(false)]
