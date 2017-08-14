@@ -17,8 +17,8 @@ using Umbraco.Web.Mvc;
 
 namespace uIntra.Events.Web
 {
-    [ActivityController(ActivityTypeId)] 
-    public abstract class EventsControllerBase : SurfaceController 
+    [ActivityController(ActivityTypeId)]
+    public abstract class EventsControllerBase : SurfaceController
     {
         protected virtual string ComingEventsViewPath => "~/App_Plugins/Events/ComingEvents/ComingEventsView.cshtml";
         protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
@@ -35,14 +35,14 @@ namespace uIntra.Events.Web
         private readonly IGridHelper _gridHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
-        private const int ActivityTypeId = (int) IntranetActivityTypeEnum.Events;
+        private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IGridHelper gridHelper, 
+            IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider)
         {
             _eventsService = eventsService;
@@ -72,9 +72,9 @@ namespace uIntra.Events.Web
         {
             var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
             var title = _gridHelper.GetContentProperty<string>(CurrentPage, "custom.ComingEvents", "displayTitle");
-            var currentDate = DateTime.UtcNow;
             var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
-            var events = _eventsService.GetComingEvents(currentDate).Take(eventsAmount);
+            var currentDate = DateTime.UtcNow;
+            var events = GetComingEvents(currentDate).Take(eventsAmount);
             var eventsList = events as IList<EventBase> ?? events.ToList();
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
             var comingEvents = new List<ComingEventViewModel>();
@@ -85,7 +85,7 @@ namespace uIntra.Events.Web
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
                 comingEvents.Add(viewModel);
             }
-            
+
             var model = new ComingEventsPanelViewModel()
             {
                 Title = title,
@@ -200,8 +200,13 @@ namespace uIntra.Events.Web
             };
         }
 
+        protected virtual IEnumerable<EventBase> GetComingEvents(DateTime fromDate)
+        {
+            return _eventsService.GetComingEvents(fromDate);
+        }
+
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
-        { 
+        {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
