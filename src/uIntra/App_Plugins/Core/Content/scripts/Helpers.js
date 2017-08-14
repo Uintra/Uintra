@@ -194,22 +194,9 @@ var helpers = {
     },
     clampText: function(container, url) {
         var $container = $(container);
-        if(url){
-            var ellepsisLink = document.createElement('a');
-            ellepsisLink.setAttribute('href', url);
-            ellepsisLink.classList.add('ellipsis');
-            ellepsisLink.innerText = "...";
-            $container.append(ellepsisLink);
-            $container.dotdotdot({
-                after: 'a.ellipsis',
-                watch: 'window'
-            });
-        }
-        else{
-            $container.dotdotdot({
-                watch: 'window'
-            });
-        }
+        $container.dotdotdot({
+            watch: 'window'
+        });
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);
