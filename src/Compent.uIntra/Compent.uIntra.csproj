@@ -331,8 +331,8 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.3\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.2.3\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
@@ -352,9 +352,9 @@
       <HintPath>..\..\packages\uIntra.Core.1.3.1\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.2.3\lib\net452\uIntra.Events.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uIntra.Events, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Events.1.3.0\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.3\lib\net452\uIntra.Likes.dll</HintPath>
@@ -364,8 +364,8 @@
       <HintPath>..\..\packages\uIntra.Navigation.1.1.9\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.1.7\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.News.1.2.0\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
@@ -951,27 +951,14 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -995,6 +982,19 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
