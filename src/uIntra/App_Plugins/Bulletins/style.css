@@ -92,6 +92,7 @@
 
 			button {
 				margin: 0 0 0 15px;
+                height:30px !important;
 
                 svg{
                     width:18px;

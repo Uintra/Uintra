@@ -462,6 +462,7 @@
             font-size:13px;
             text-transform:uppercase;
             cursor:pointer;
+            height:30px;
 
             :last-child > &{
                 background:var(--text-color-dark);
