@@ -107,10 +107,13 @@ namespace Compent.uIntra.Controllers
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
         }
 
-        protected override void OnEventHidden(Guid id)
+        protected override void OnEventHidden(Guid id, bool isNotificationNeeded)
         {
-            var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
-            ((INotifyableService)_eventsService).Notify(id, notificationType);
+            if (isNotificationNeeded)
+            {
+                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
+                ((INotifyableService)_eventsService).Notify(id, notificationType);
+            }
         }
     }
 }

@@ -3,26 +3,26 @@ import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 import pinActivity from "./../../Core/Content/scripts/PinActivity";
 
-var alertify = require('alertifyjs/build/alertify.min');
+let alertify = require('alertifyjs/build/alertify.min');
 
-var holder;
-var userSelect;
-var editor;
-var form;
+let holder;
+let userSelect;
+let editor;
+let form;
 
-var initUserSelect = function () {
+let initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
 
-var continueSubmit = function (notifyAllSubscribers) {
+let continueSubmit = function (notifyAllSubscribers) {
     $('#notifyAllSubscribers').val(notifyAllSubscribers);
     form.submit();
 }
 
-var initSubmitButton = function () {
+let initSubmitButton = function () {
     form = holder.find('#editForm');
-    var btn = holder.find('.form__btn._submit');
-    var descriptionElem = holder.find('#description');   
+    let btn = holder.find('.js-disable-submit');
+    let descriptionElem = holder.find('#description');
 
     btn.click(function (event) {
         if (!form.valid()) {
@@ -43,7 +43,7 @@ var initSubmitButton = function () {
         descriptionElem.removeClass('input-validation-error');
         event.preventDefault();
 
-        var data = helpers.serialize(form[0]);
+        let data = helpers.serialize(form[0]);
 
         $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
             if (result && !result.HasConfirmation) {
@@ -51,15 +51,15 @@ var initSubmitButton = function () {
                 return;
             }
 
-            var callbacks = [
-                     function () {
-                         continueSubmit(true);
-                     }, function () {
-                         continueSubmit(false);
-                     },
-                     function () {
-                         return true;
-                     }
+            let callbacks = [
+                function () {
+                    continueSubmit(true);
+                }, function () {
+                    continueSubmit(false);
+                },
+                function () {
+                    return true;
+                }
             ];
 
             alertify.defaults.glossary.cancel = btn.data('cancel');
@@ -71,12 +71,12 @@ var initSubmitButton = function () {
     });
 }
 
-var initDescriptionControl = function () {
-    var dataStorage = holder.find('#js-hidden-description-container');
+let initDescriptionControl = function () {
+    let dataStorage = holder.find('#js-hidden-description-container');
     if (!dataStorage) {
         throw new Error("EditNews: Hiden input field missing");
     }
-    var descriptionElem = holder.find('#description');
+    let descriptionElem = holder.find('#description');
 
     editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
 
@@ -93,36 +93,55 @@ var initDescriptionControl = function () {
     });
 }
 
-var initHideControl = function () {
-    var hideControl = holder.find('.js-event-hide');
-    var text = hideControl.data('text');
-    var title = hideControl.data('title');
-    var textOk = hideControl.data('ok');
-    var textCancel = hideControl.data('cancel');
+let initHideControl = function () {
+    let hideControl = holder.find('.js-event-hide');
+    let text = hideControl.data('text');
+    let title = hideControl.data('title');
+    let textOk = hideControl.data('ok');
+    let textCancel = hideControl.data('cancel');
 
     alertify.defaults.glossary.cancel = textCancel;
     alertify.defaults.glossary.ok = textOk;
 
     hideControl.on('click', function () {
         confirm.showConfirm(title, text, function () {
-            $.post('/umbraco/surface/Events/Hide?id=' + hideControl.data('id'),function () {
-                var url = hideControl.data('return-url');
-                window.location.href = url;
-            });
-        }, function () { }, confirm.defaultSettings);
+            let eventId = hideControl.data('id');
+            let redirectUrl = hideControl.data('return-url');
+            let callbacks = [
+                () => hideEvent(eventId, true, () => redirectToUrl(redirectUrl)),
+                () => hideEvent(eventId, false, () => redirectToUrl(redirectUrl)),
+                () => true
+            ];
+
+            let popupStringsHolder = holder.find(".js-notification-popup-strings-holder")
+
+            alertify.defaults.glossary.cancel = popupStringsHolder.data('cancel');
+            alertify.defaults.glossary.yes = popupStringsHolder.data('yes');
+            alertify.defaults.glossary.no = popupStringsHolder.data('no');
+
+            confirm.showDialog(popupStringsHolder.data('title'), popupStringsHolder.data('text'), callbacks, confirm.defaultSettings);
+        }, () => { }, confirm.defaultSettings);
 
         return false;
     });
 }
 
-var initDatePickers = function () {
-    var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
-    var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
-    var pin = pinActivity.initPinDate(holder);
+function redirectToUrl(url) {
+    window.location.href = url;
+}
+
+function hideEvent(eventId, isNotificationNeeded, callback) {
+    $.post('/umbraco/surface/Events/Hide?id=' + eventId + '&isNotificationNeeded=' + isNotificationNeeded, callback);
+}
+
+let initDatePickers = function () {
+    let start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
+    let end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+    let pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {
-        var newDate = newDates[0];
-        var endDate = end.selectedDates[0];
+        let newDate = newDates[0];
+        let endDate = end.selectedDates[0];
         if (endDate != null && endDate < new Date(newDate)) {
             end.setDate(newDate);
             pin.setDate(newDate);
@@ -134,7 +153,7 @@ var initDatePickers = function () {
     start.config.onChange.push(startOnChange);
 }
 
-var controller = {
+let controller = {
     init: function () {
         holder = $('#js-events-edit-page');
         if (!holder.length) {
