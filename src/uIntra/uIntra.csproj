@@ -334,33 +334,32 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.2.3\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.2.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.2.3.1\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.13\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.1.13.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.1.13.2\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.4\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.4.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Comments.1.1.4.2\lib\net452\uIntra.Comments.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Core.1.3.1\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.3.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.3.1.1\lib\net452\uIntra.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.3.0\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.3.0.1\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.3\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.9\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.1.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.9.1\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.News, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -371,16 +370,16 @@
       <HintPath>..\..\packages\uIntra.Notification.1.1.10\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.4\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.4.1\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.0.8\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.0.8.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.0.8.2\lib\net452\uIntra.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Subscribe, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Subscribe.1.1.4\lib\net452\uIntra.Subscribe.dll</HintPath>
+    <Reference Include="uIntra.Subscribe, Version=1.1.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.4.1\lib\net452\uIntra.Subscribe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Tagging, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -1416,67 +1415,19 @@
     <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Notification\package.manifest" />
@@ -1497,43 +1448,7 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Panels\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
@@ -1546,51 +1461,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
@@ -1663,6 +1533,135 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
