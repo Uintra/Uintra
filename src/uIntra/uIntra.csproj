@@ -334,8 +334,8 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.1.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.3\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.1.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.4\lib\net452\uIntra.Bulletins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.12.5, Culture=neutral, processorArchitecture=MSIL">
@@ -1485,9 +1485,6 @@
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1638,27 +1635,6 @@
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Panels\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1690,6 +1666,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
