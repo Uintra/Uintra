@@ -16,10 +16,10 @@
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
     </div>
     <div class="feed__item-image"> </div>
-    @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+    @if (!string.IsNullOrWhiteSpace(Model.Description))
     {
         <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
-            <p>@Html.Raw(Model.ShortDescription)</p>
+            <p>@Html.Raw(Model.Description)</p>
         </div>
     }
     <div class="feed__item-images">

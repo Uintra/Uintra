@@ -1,5 +1,4 @@
 using AutoMapper;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 
@@ -10,7 +9,6 @@ namespace uIntra.Bulletins
         protected override void Configure()
         {
             Mapper.CreateMap<BulletinBase, BulletinItemViewModel>()
-                .ForMember(dst => dst.ShortDescription, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))

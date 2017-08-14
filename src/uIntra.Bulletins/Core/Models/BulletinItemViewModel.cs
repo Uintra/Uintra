@@ -13,7 +13,7 @@ namespace uIntra.Bulletins
 
         public string Title { get; set; }
 
-        public string ShortDescription { get; set; }
+        public string Description { get; set; }
 
         public LightboxGalleryPreviewModel LightboxGalleryPreviewInfo { get; set; }
 

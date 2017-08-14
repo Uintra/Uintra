@@ -10,7 +10,6 @@ using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
-using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Bulletins.Web
@@ -26,7 +25,6 @@ namespace uIntra.Bulletins.Web
         protected virtual string CreationFormItemHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Create/CreationFormItemHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemHeader.cshtml";
 
-        protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
@@ -189,7 +187,6 @@ namespace uIntra.Bulletins.Web
         {
             var model = bulletin.Map<BulletinItemViewModel>();
 
-            model.ShortDescription = bulletin.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = bulletin.MediaIds;
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
 

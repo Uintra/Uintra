@@ -15,7 +15,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
-                .ForMember(dst => dst.ShortDescription, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
