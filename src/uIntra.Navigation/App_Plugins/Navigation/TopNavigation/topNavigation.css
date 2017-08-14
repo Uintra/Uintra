@@ -108,7 +108,7 @@
     &__button{
         position:absolute;
         top:9px;
-        right:5px;
+        right:-2px;
         border:none;
         background:none;
         padding:0 8px;
