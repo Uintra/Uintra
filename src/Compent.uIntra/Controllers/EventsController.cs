@@ -23,7 +23,6 @@ namespace Compent.uIntra.Controllers
         protected override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/Events/EditView.cshtml";
         protected override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
-        protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;

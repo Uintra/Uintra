@@ -10,10 +10,10 @@
         @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
     </div>
     <div class="feed__item-image"> </div>
-    @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.ShortDescription)))
+    @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.Description)))
     {
         <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
-            @Html.Raw(Model.ShortDescription)
+            @Html.Raw(Model.Description)
         </div>
     }
     <div class="feed__item-images">
