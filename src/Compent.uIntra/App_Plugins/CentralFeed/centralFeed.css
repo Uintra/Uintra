@@ -404,12 +404,11 @@
 	}
 
 	&-create {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-end;
-		margin: 0 0 10px;
-		padding: 0;
+		margin: -21px -15px 10px;
+		padding: 10px 20px 0;
 		list-style: none;
+        border:1px solid var(--color-light-gray);
+        overflow:hidden;
 
         @media(--for-tablet-portrait-down){
             &{
@@ -418,21 +417,33 @@
         }
 
 		&__frame {
-			flex: 0 0 auto;
+			float:left;
 			max-width: 100%;
-			margin: 0 0 10px 10px;
+			margin: 0 0 8px 10px;
 
 			&:first-child {
 				margin-left: 0;
 			}
+
+            &:last-child{
+                float:right;
+            }
 		}
 
 		&__item {
 			display: block;
-			padding: 8px 25px;
+			padding: 7px 11px 6px;
 			background: #ccc;
 			color: #fff;
 			word-wrap: break-word;
+            font-size:13px;
+            text-transform:uppercase;
+            cursor:pointer;
+            height:30px;
+
+            :last-child > &{
+                background:var(--text-color-dark);
+            }
 
             &:active,
             &:focus,

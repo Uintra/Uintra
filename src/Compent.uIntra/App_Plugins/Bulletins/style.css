@@ -46,6 +46,8 @@
 		height: 20px;
 		border: none;
 		background: none;
+        text-indent:-9999px;
+        overflow:hidden;
 
 		&:before {
 			content: '';
@@ -86,6 +88,7 @@
 
 			button {
 				margin: 0 0 0 15px;
+                height:30px !important;
 
                 svg{
                     width:18px;
