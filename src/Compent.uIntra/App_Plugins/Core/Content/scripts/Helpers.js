@@ -208,15 +208,12 @@ var helpers = {
     clampText: function(container, url) {
         var $container = $(container);
         if(url){
-            var ellepsisLink = document.createElement('a');
-            ellepsisLink.setAttribute('href', url);
-            ellepsisLink.classList.add('ellipsis');
-            ellepsisLink.innerText = "...";
-            $container.append(ellepsisLink);
+            var ellepsisLink = $container.find('.ellipsis');
             $container.dotdotdot({
-                after: 'a.ellipsis',
                 watch: 'window'
             });
+            var $parent = $container.find(":last-child");
+            $parent.append(ellepsisLink);
         }
         else{
             $container.dotdotdot({

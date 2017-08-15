@@ -18,7 +18,8 @@
     @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
     {
         <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
-            <p>@Html.Raw(Model.ShortDescription)</p>
+            @Html.Raw(Model.ShortDescription)
+            <a href="@detailsPageUrl" class="ellipsis">...</a>
         </div>
     }
     <div class="feed__item-images">
