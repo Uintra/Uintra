@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.BrowserCompatibility.Models;
@@ -11,13 +12,15 @@ namespace uIntra.Core.Web
     public abstract class BrowserCompatibilityControllerBase : SurfaceController
     {
         private const string BrowserCompatibilityCookieName = "browserCompatibilityCookie";
+        private readonly HttpContext _httpContext;
         private readonly IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration;
         private readonly ICookieProvider cookieProvider;
 
         protected virtual string BrowserCompatibilityNotificationViewPath { get; } = "~/App_Plugins/Core/BrowserCompatibility/BrowserCompatibilityNotificationView.cshtml";
 
-        protected BrowserCompatibilityControllerBase(IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
+        protected BrowserCompatibilityControllerBase(HttpContext httpContext,IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
         {
+            _httpContext = httpContext;
             this.browserCompatibilityConfiguration = browserCompatibilityConfiguration;
             this.cookieProvider = cookieProvider;
         }
@@ -71,7 +74,7 @@ namespace uIntra.Core.Web
         {
             var supportableBrowsers = browserCompatibilityConfiguration.Browsers;
 
-            var currentBrowser = ControllerContext.HttpContext.Request.Browser;
+            var currentBrowser = _httpContext.Request.Browser;
 
             var supportableBrowser = supportableBrowsers.FirstOrDefault(b => String.Equals(b.Name, currentBrowser.Browser, StringComparison.OrdinalIgnoreCase));
 
