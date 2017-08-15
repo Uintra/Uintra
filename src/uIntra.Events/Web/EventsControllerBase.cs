@@ -170,10 +170,10 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        public virtual void Hide(Guid id)
+        public virtual void Hide(Guid id, bool isNotificationNeeded)
         {
             _eventsService.Hide(id);
-            OnEventHidden(id);
+            OnEventHidden(id, isNotificationNeeded);
         }
 
         [HttpPost]
@@ -323,7 +323,7 @@ namespace uIntra.Events.Web
         {
         }
 
-        protected virtual void OnEventHidden(Guid id)
+        protected virtual void OnEventHidden(Guid id, bool isNotificationNeeded)
         {
         }
     }

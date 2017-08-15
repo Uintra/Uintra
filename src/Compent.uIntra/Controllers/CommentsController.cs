@@ -18,6 +18,7 @@ namespace Compent.uIntra.Controllers
     public class CommentsController : CommentsControllerBase
     {
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
+        protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
 
         private readonly ICommentableService _customCommentableService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;

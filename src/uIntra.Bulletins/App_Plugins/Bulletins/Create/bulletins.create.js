@@ -18,6 +18,8 @@ let editor;
 let body;
 let bulletin;
 let confirmMessage;
+let expandBulletinBtn;
+let closeBulletinBtn;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -29,6 +31,8 @@ function initElements() {
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
     confirmMessage = bulletin.dataset.message;
+    expandBulletinBtn = document.querySelector(".js-bulletin-open");
+    closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
 }
@@ -49,16 +53,20 @@ function initEditor() {
     });
 }
 
-function initEventListeners() {
-    mobileMediaQuery.matches ?
-        mobileBtn.addEventListener("click", descriptionClickHandler) :
+function initEventListeners() {    
+    mobileMediaQuery.matches ? 
+        mobileBtn.addEventListener("click", descriptionClickHandler) : 
         description.addEventListener("click", descriptionClickHandler);
 
     sentButton.addEventListener("click", sentButtonClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
+    expandBulletinBtn.addEventListener("click", descriptionClickHandler);
+    closeBulletinBtn.addEventListener("click", function(ev){
+        closeBulletin(ev);
+    });
     body.addEventListener("click", function(ev) {
         isOutsideClick(bulletin, ev.target, function() {
-            closeBulletin();
+            closeBulletin(ev);
         });
     });
 }
@@ -103,26 +111,26 @@ function setGlobalEventHide() {
 function sentButtonClickHandler(event) {
     event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
-
+  
     let promise = form.submit();
     promise.then(function(data) {
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
             cfReloadTab();
-            hide();
+            hide(); 
         }
     });
 }
 
-function closeBulletin() {
+function closeBulletin(event) {
     if (isEdited()) {
         if (showConfirmMessage(confirmMessage)) {
-            hide();
-        }
+            hide(event);
+        } 
         return;
-    }
-    hide();
+    } 
+    hide(event);
 }
 
 function beforeUnloadHander(event) {
@@ -144,8 +152,10 @@ function initMobile(){
 
 function show() {
     setGlobalEventShow();
+    bulletin.classList.add("_expanded");
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
+    closeBulletinBtn.classList.remove("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
@@ -154,10 +164,13 @@ function show() {
     }
 }
 
-function hide() {
+function hide(event) {
+    if(event && event.target == closeBulletinBtn){event.preventDefault();}
     setGlobalEventHide();
+    bulletin.classList.remove("_expanded");
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
+    closeBulletinBtn.classList.add("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
@@ -193,14 +206,9 @@ function cfReloadTab() {
 
 function isOutsideClick (el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
-    let closeChoiceBtn = document.querySelectorAll(".select2-selection__choice__remove");
-    for(var i = 0; i < closeChoiceBtn.length; i++){
-        if(target != closeChoiceBtn[i]){
-            if (el && !el.contains(target) && target != hiddenInput && target != mobileBtn) {
-                if (typeof callback === "function") {
-                    callback();
-                }
-            }
+    if (el && !el.contains(target) && target != hiddenInput && target != expandBulletinBtn && target != mobileBtn) {
+        if (typeof callback === "function") {
+            callback();
         }
     }
 };
@@ -218,6 +226,6 @@ let controller = {
         initEventListeners();
         initFileUploader();
     }
-};
+}
 
 export default controller;
