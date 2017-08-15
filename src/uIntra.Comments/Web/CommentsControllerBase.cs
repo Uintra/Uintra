@@ -18,6 +18,7 @@ namespace uIntra.Comments.Web
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsPreView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Comments/View/CommentsEditView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
+        protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -137,6 +138,11 @@ namespace uIntra.Comments.Web
                 Link = $"{link}#{GetOverviewElementId(activityId)}"
             };
             return PartialView(PreviewViewPath, model);
+        }
+
+        public virtual PartialViewResult CommentsView(CommentViewModel viewModel)
+        {
+            return PartialView(ViewPath, viewModel);
         }
 
         protected virtual void FillProfileLink()
