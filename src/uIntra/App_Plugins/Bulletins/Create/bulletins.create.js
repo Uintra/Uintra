@@ -20,6 +20,7 @@ let bulletin;
 let confirmMessage;
 let expandBulletinBtn;
 let closeBulletinBtn;
+let wrapper;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -33,6 +34,7 @@ function initElements() {
     confirmMessage = bulletin.dataset.message;
     expandBulletinBtn = document.querySelector(".js-bulletin-open");
     closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");
+    wrapper = document.getElementById("wrapper");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
 }
@@ -206,12 +208,23 @@ function cfReloadTab() {
 
 function isOutsideClick (el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
-    if (el && !el.contains(target) && target != hiddenInput && target != expandBulletinBtn && target != mobileBtn) {
+    if (el && !el.contains(target) && target != hiddenInput && target != expandBulletinBtn && target != mobileBtn && isDescendant(wrapper, target)) {
         if (typeof callback === "function") {
             callback();
         }
     }
 };
+
+function isDescendant(parent, child) {
+    var node = child.parentNode;
+    while (node != null) {
+        if (node == parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
 
 let controller = {
     init: function () {
