@@ -152,6 +152,7 @@ function initMobile(){
 
 function show() {
     setGlobalEventShow();
+    bulletin.classList.add("_expanded");
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeBulletinBtn.classList.remove("hidden");
@@ -166,6 +167,7 @@ function show() {
 function hide(event) {
     if(event && event.target == closeBulletinBtn){event.preventDefault();}
     setGlobalEventHide();
+    bulletin.classList.remove("_expanded");
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
     closeBulletinBtn.classList.add("hidden");
