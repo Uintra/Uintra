@@ -27,7 +27,7 @@ namespace uIntra.Core.Web
         {
             return PartialView(BrowserCompatibilityNotificationViewPath, GetBrowserCompatibilityModel());
         }
-        
+
         protected virtual BrowserCompatibilityModel GetBrowserCompatibilityModel()
         {
             BrowserCompatibilityModel browserCompatibilityCookieValue;
@@ -39,12 +39,12 @@ namespace uIntra.Core.Web
                 {
                     BrowserSupported = IsBrowserSupported(),
                     ShowNotification = true
-                };                
+                };
             }
             else
             {
                 browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
-                browserCompatibilityCookieValue.BrowserSupported = IsBrowserSupported();                
+                browserCompatibilityCookieValue.BrowserSupported = IsBrowserSupported();
             }
 
             cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
@@ -65,13 +65,13 @@ namespace uIntra.Core.Web
             var browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
             browserCompatibilityCookieValue.ShowNotification = false;
             cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
-        }        
+        }
 
-        private bool IsBrowserSupported()
+        protected virtual bool IsBrowserSupported()
         {
             var supportableBrowsers = browserCompatibilityConfiguration.Browsers;
 
-            var currentBrowser = HttpContext.Request.Browser;
+            var currentBrowser = ControllerContext.HttpContext.Request.Browser;
 
             var supportableBrowser = supportableBrowsers.FirstOrDefault(b => String.Equals(b.Name, currentBrowser.Browser, StringComparison.OrdinalIgnoreCase));
 
@@ -83,7 +83,7 @@ namespace uIntra.Core.Web
             var currentBrowserVersion = new Version(currentBrowser.Version);
             var supportableBrowserVersion = new Version(supportableBrowser.Version);
 
-            return currentBrowserVersion.CompareTo(supportableBrowserVersion) > 0;
+            return currentBrowserVersion >= supportableBrowserVersion;
         }
     }
 }
