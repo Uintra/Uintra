@@ -460,6 +460,11 @@
 		color: #fff;
 		font-size: 15px;
 		line-height: 19px;
+        opacity:0.5;
+
+        ._pinned &{
+            opacity:1;
+        }   
 
         @media (--for-tablet-portrait-down) {
             &{
