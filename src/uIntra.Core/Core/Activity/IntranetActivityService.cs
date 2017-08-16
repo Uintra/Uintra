@@ -17,15 +17,17 @@ namespace uIntra.Core.Activity
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IIntranetMediaService _intranetMediaService;
 
         protected IntranetActivityService(IIntranetActivityRepository activityRepository,
-            ICacheService cache, IActivityTypeProvider activityTypeProvider
+            ICacheService cache, IActivityTypeProvider activityTypeProvider,IIntranetMediaService intranetMediaService
             )
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
-      }
+            _intranetMediaService = intranetMediaService;
+        }
 
         public TActivity Get(Guid id)
         {
@@ -61,6 +63,7 @@ namespace uIntra.Core.Activity
             _activityRepository.Create(newActivity);
 
             var newActivityId = newActivity.Id;
+            _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
             UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
@@ -70,12 +73,14 @@ namespace uIntra.Core.Activity
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
             _activityRepository.Update(entity);
+            _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
             UpdateCachedEntity(activity.Id);
         }
 
         public void Delete(Guid id)
         {
             _activityRepository.Delete(id);
+            _intranetMediaService.Delete(id);
             UpdateCachedEntity(id);
         }
 
@@ -145,7 +150,7 @@ namespace uIntra.Core.Activity
             cachedActivity.CreatedDate = activity.CreatedDate;
             cachedActivity.ModifyDate = activity.ModifyDate;
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);
-            cachedActivity.MediaIds = Enumerable.Empty<int>();
+            cachedActivity.MediaIds = _intranetMediaService.GetEntityMedia(cachedActivity.Id);
             return cachedActivity;
         }
 
