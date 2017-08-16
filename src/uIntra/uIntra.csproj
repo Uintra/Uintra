@@ -1299,6 +1299,10 @@
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201708161549447_AddMediaTable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201708161549447_AddMediaTable.Designer.cs">
+      <DependentUpon>201708161549447_AddMediaTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1336,6 +1340,9 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
       <Link>Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx</Link>
       <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201708161549447_AddMediaTable.resx">
+      <DependentUpon>201708161549447_AddMediaTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
