@@ -117,7 +117,17 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => new { t.UserId, t.ActivityId }, unique: true, name: "UQ_Subscribe_UserId_ActivityId");
-            
+
+            CreateTable(
+               "dbo.uIntra_Media",
+               c => new
+               {
+                   Id = c.Guid(nullable: false),
+                   EntityId = c.Guid(nullable: false),
+                   MediaIds = c.String(),
+               })
+               .PrimaryKey(t => t.Id);
+
         }
         
         public override void Down()
@@ -133,6 +143,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
             DropTable("dbo.uIntra_Like");
             DropTable("dbo.uIntra_Activity");
             DropTable("dbo.uIntra_Comment");
+            DropTable("dbo.uIntra_Media");
         }
     }
 }
