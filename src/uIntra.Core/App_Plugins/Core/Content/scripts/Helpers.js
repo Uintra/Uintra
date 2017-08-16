@@ -197,6 +197,7 @@ var helpers = {
         if(url){
             var ellepsisLink = $container.find('.ellipsis');
             $container.dotdotdot({
+                ellipsis: "",
                 watch: 'window'
             });
             var $parent = $container.find(":last-child");

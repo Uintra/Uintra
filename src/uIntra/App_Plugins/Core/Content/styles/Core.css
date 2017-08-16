@@ -682,9 +682,13 @@ h5{
 }
 
 .ellipsis{
-	opacity: 0;
+    color:var(--text-color_dark) !important;
 	width: 15px;
-	margin: 0 0 0 -17px;
+    position:absolute;
+
+    &:hover{
+        text-decoration:none;
+    }
 }
 
 .ajs-footer {
