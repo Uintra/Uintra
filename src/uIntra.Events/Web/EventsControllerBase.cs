@@ -77,8 +77,10 @@ namespace uIntra.Events.Web
 
         protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
         {
+            string overviewUrl = _eventsService.GetOverviewPage().Url;
             var viewModel = new ComingEventsPanelViewModel()
             {
+                OverviewUrl = overviewUrl,
                 Title = panelModel.DisplayTitle,
                 Events = GetComingEvents(panelModel.EventsAmount)
             };
