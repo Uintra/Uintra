@@ -198,10 +198,16 @@ var helpers = {
             var ellepsisLink = $container.find('.ellipsis');
             $container.dotdotdot({
                 ellipsis: "",
-                watch: 'window'
+                watch: 'window',
+                callback: function( isTruncated, orgContent ) {
+                    if(isTruncated){
+                        var $parent = $container.find(":last-child");
+                        $parent.append(ellepsisLink);
+                        $container.addClass("_isTruncated");
+                    }
+                }
             });
-            var $parent = $container.find(":last-child");
-            $parent.append(ellepsisLink);
+            
         }
         else{
             $container.dotdotdot({
