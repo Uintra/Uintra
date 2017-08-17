@@ -1289,19 +1289,14 @@
     <Compile Include="..\Compent.uIntra\Persistence\Sql\DbObjectContext.cs">
       <Link>Persistence\Sql\DbObjectContext.cs</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs">
-      <Link>Persistence\Sql\Migrations\201707130639523_uIntra_Initial.cs</Link>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs">
+      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.Designer.cs">
-      <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
-      <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201708161549447_AddMediaTable.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201708161549447_AddMediaTable.Designer.cs">
-      <DependentUpon>201708161549447_AddMediaTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1335,15 +1330,6 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx">
-      <Link>Persistence\Sql\Migrations\201707130639523_uIntra_Initial.resx</Link>
-      <DependentUpon>201707130639523_uIntra_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201708161549447_AddMediaTable.resx">
-      <DependentUpon>201708161549447_AddMediaTable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
@@ -1399,6 +1385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
       <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
+      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
