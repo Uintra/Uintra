@@ -46,9 +46,7 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.ActivityId);
             }
-
-
-            if (IsContentPage(model.ActivityId))
+            if (IsForContentPage(model.ActivityId))
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
                 return OverView(model.ActivityId);
@@ -72,7 +70,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.Id);
             }
 
-            if (IsContentPage(comment.ActivityId))
+            if (IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.UpdateComment(model.Id, model.Text);
                 return OverView(comment.ActivityId);
@@ -96,7 +94,7 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
-            if (IsContentPage(comment.ActivityId))
+            if (IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.DeleteComment(id);
                 return OverView(comment.ActivityId);
@@ -203,7 +201,7 @@ namespace uIntra.Comments.Web
             return model;
         }
 
-        private bool IsContentPage(Guid id)
+        protected virtual bool IsForContentPage(Guid id)
         {
             return Umbraco.TypedContent(id)?.DocumentTypeAlias == ContentPageAlias;
         }
