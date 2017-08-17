@@ -12,6 +12,8 @@ namespace uIntra.Likes.Web
 {
     public abstract class LikesControllerBase : SurfaceController
     {
+        private const string ContentPageAlias = "contentPage";
+
         protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -47,12 +49,12 @@ namespace uIntra.Likes.Web
         [HttpPost]
         public virtual PartialViewResult AddLike(AddRemoveLikeModel model)
         {
-            if (model.CommentId.HasValue)
+            if (IsLikeForComment(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
-            if (Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == "contentPage")
+            if (IsLikeForContentPage(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.ActivityId);
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
@@ -64,18 +66,28 @@ namespace uIntra.Likes.Web
         [HttpPost]
         public virtual PartialViewResult RemoveLike(AddRemoveLikeModel model)
         {
-            if (model.CommentId.HasValue)
+            if (IsLikeForComment(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
-            if (Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == "contentPage")
+            if (IsLikeForContentPage(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.ActivityId);
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
             }
 
             return RemoveActivityLike(model.ActivityId);
+        }
+
+        protected virtual bool IsLikeForComment(AddRemoveLikeModel model)
+        {
+            return model.CommentId.HasValue;
+        }
+
+        protected virtual bool IsLikeForContentPage(AddRemoveLikeModel model)
+        {
+            return Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == ContentPageAlias;
         }
 
         protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null)
