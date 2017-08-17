@@ -290,9 +290,9 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "DetailsView.GoBal.lbl",
+    "key": "DetailsView.GoToList.lbl",
     "translations": {
-      "en-US": "Go back"
+      "en-US": "Go to list"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
