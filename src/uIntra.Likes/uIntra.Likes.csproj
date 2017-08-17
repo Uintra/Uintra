@@ -342,7 +342,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Likes\View\likes-view.html" />
+    <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <None Include="app.config" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />

@@ -342,7 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\Comments\View\comments-view.html" />
+    <Content Include="App_Plugins\Comments\backoffice\comments-view.html" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
