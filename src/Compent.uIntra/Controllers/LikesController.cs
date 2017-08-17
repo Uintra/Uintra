@@ -8,6 +8,7 @@ using uIntra.Likes.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Users;
+using Compent.uIntra.Core.Constants;
 
 namespace Compent.uIntra.Controllers
 {
@@ -15,6 +16,8 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+
+        protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
 
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
             IIntranetUserService<IntranetUser> intranetUserService, 

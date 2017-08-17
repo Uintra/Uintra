@@ -11,6 +11,7 @@ using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Users;
+using Compent.uIntra.Core.Constants;
 
 namespace Compent.uIntra.Controllers
 {
@@ -19,6 +20,8 @@ namespace Compent.uIntra.Controllers
     {
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
         protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
+
+        protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
 
         private readonly ICommentableService _customCommentableService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -30,8 +33,12 @@ namespace Compent.uIntra.Controllers
             ICommentsService commentsService,
             IIntranetUserService<IntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper, INotificationTypeProvider notificationTypeProvider, IIntranetMediaService intranetMediaService, IMediaHelper mediaHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, intranetMediaService, mediaHelper)
+            ICommentableService customCommentableService,
+            IIntranetUserContentHelper intranetUserContentHelper,
+            INotificationTypeProvider notificationTypeProvider,
+            IIntranetMediaService intranetMediaService,
+            IMediaHelper mediaHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, customCommentableService, intranetMediaService, mediaHelper)
         {
             _customCommentableService = customCommentableService;
             _notificationTypeProvider = notificationTypeProvider;
