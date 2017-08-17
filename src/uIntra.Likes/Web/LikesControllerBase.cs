@@ -14,7 +14,7 @@ namespace uIntra.Likes.Web
     {
         protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
-        protected virtual string ContentPageAlias { get; } = "contentPage";
+        protected abstract string ContentPageAlias { get; }
 
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;

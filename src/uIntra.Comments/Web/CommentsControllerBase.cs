@@ -21,7 +21,7 @@ namespace uIntra.Comments.Web
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
         protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
-        protected virtual string ContentPageAlias { get; } = "contentPage";
+        protected abstract string ContentPageAlias { get; }
 
         private readonly ICommentableService _customCommentableService;
         private readonly ICommentsService _commentsService;
