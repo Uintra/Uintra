@@ -12,9 +12,9 @@ namespace uIntra.Likes.Web
 {
     public abstract class LikesControllerBase : SurfaceController
     {
-        private const string ContentPageAlias = "contentPage";
-
         protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
+
+        protected virtual string ContentPageAlias { get; } = "contentPage";
 
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -30,7 +30,7 @@ namespace uIntra.Likes.Web
             _likesService = likesService;
         }
 
-        public virtual PartialViewResult ContentPageLikes()
+        public virtual PartialViewResult ContentLikes()
         {
             var guid = new CMSNode(CurrentPage.Id).UniqueId;
             return Likes(_likesService.GetLikeModels(guid), guid);
@@ -49,12 +49,12 @@ namespace uIntra.Likes.Web
         [HttpPost]
         public virtual PartialViewResult AddLike(AddRemoveLikeModel model)
         {
-            if (IsLikeForComment(model))
+            if (IsForComment(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
-            if (IsLikeForContentPage(model))
+            if (IsForContentPage(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.ActivityId);
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
@@ -66,12 +66,12 @@ namespace uIntra.Likes.Web
         [HttpPost]
         public virtual PartialViewResult RemoveLike(AddRemoveLikeModel model)
         {
-            if (IsLikeForComment(model))
+            if (IsForComment(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
-            if (IsLikeForContentPage(model))
+            if (IsForContentPage(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.ActivityId);
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
@@ -80,12 +80,12 @@ namespace uIntra.Likes.Web
             return RemoveActivityLike(model.ActivityId);
         }
 
-        protected virtual bool IsLikeForComment(AddRemoveLikeModel model)
+        protected virtual bool IsForComment(AddRemoveLikeModel model)
         {
             return model.CommentId.HasValue;
         }
 
-        protected virtual bool IsLikeForContentPage(AddRemoveLikeModel model)
+        protected virtual bool IsForContentPage(AddRemoveLikeModel model)
         {
             return Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == ContentPageAlias;
         }

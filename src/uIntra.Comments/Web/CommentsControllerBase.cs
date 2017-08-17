@@ -9,6 +9,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
+using umbraco.cms.businesslogic;
 
 namespace uIntra.Comments.Web
 {
@@ -20,6 +21,9 @@ namespace uIntra.Comments.Web
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
         protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
+        protected virtual string ContentPageAlias { get; } = "contentPage";
+
+        private readonly ICommentableService _customCommentableService;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -31,7 +35,8 @@ namespace uIntra.Comments.Web
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper, 
+            IIntranetUserContentHelper intranetUserContentHelper,
+            ICommentableService customCommentableService,
             IIntranetMediaService intranetMediaService, 
             IMediaHelper mediaHelper)
         {
@@ -39,6 +44,7 @@ namespace uIntra.Comments.Web
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _customCommentableService = customCommentableService;
             _intranetMediaService = intranetMediaService;
             _mediaHelper = mediaHelper;
         }
@@ -51,6 +57,12 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.ActivityId);
             }
+            if (IsForContentPage(model.ActivityId))
+            {
+                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                return OverView(model.ActivityId);
+            }
+
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
 
@@ -70,6 +82,12 @@ namespace uIntra.Comments.Web
             if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
             {
                 return OverView(model.Id);
+            }
+
+            if (IsForContentPage(comment.ActivityId))
+            {
+                _customCommentableService.UpdateComment(model.Id, model.Text);
+                return OverView(comment.ActivityId);
             }
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
@@ -93,11 +111,23 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
+            if (IsForContentPage(comment.ActivityId))
+            {
+                _customCommentableService.DeleteComment(id);
+                return OverView(comment.ActivityId);
+            }
+
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
             _intranetMediaService.Delete(id);
 
             return OverView(comment.ActivityId);
+        }
+
+        public virtual PartialViewResult ContentComments()
+        {
+            var guid = new CMSNode(CurrentPage.Id).UniqueId;
+            return OverView(guid, _commentsService.GetMany(guid));
         }
 
         public virtual PartialViewResult CreateView(Guid activityId)
@@ -198,6 +228,11 @@ namespace uIntra.Comments.Web
             model.MediaIds = _intranetMediaService.GetEntityMediaString(comment.Id);
             model.MediaSettings = mediaSettings;
             return model;
+        }
+
+        protected virtual bool IsForContentPage(Guid id)
+        {
+            return Umbraco.TypedContent(id)?.DocumentTypeAlias == ContentPageAlias;
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)

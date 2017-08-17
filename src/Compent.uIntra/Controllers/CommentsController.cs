@@ -72,12 +72,17 @@ namespace Compent.uIntra.Controllers
             {
                 return OverView(model.ActivityId);
             }
-
             if (model.ActivityId == CommentsTestConstants.ActivityId)
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
                 return OverView(model.ActivityId);
             }
+            if (IsForContentPage(model.ActivityId))
+            {
+                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                return OverView(model.ActivityId);
+            }
+
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
@@ -104,6 +109,13 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
+            if (IsForContentPage(comment.ActivityId))
+            {
+                _customCommentableService.UpdateComment(model.Id, model.Text);
+                return OverView(comment.ActivityId);
+            }
+
+
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
             UpdateCommentsMedia(comment.Id, model);
@@ -124,6 +136,12 @@ namespace Compent.uIntra.Controllers
             }
 
             if (comment.ActivityId == CommentsTestConstants.ActivityId)
+            {
+                _customCommentableService.DeleteComment(id);
+                return OverView(comment.ActivityId);
+            }
+
+            if (IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.DeleteComment(id);
                 return OverView(comment.ActivityId);

@@ -537,6 +537,7 @@
     <Content Include="App_Plugins\CentralFeed\loader.gif" />
     <Content Include="App_Plugins\CentralFeed\loader.svg" />
     <Content Include="App_Plugins\Comments\comment.js" />
+    <Content Include="App_Plugins\Comments\View\comments-view.html" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
