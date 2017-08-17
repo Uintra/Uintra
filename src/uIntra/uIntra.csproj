@@ -1292,8 +1292,9 @@
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs">
       <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
-      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs</Link>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.designer.cs">
+      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.designer.cs</Link>
+      <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
@@ -1386,9 +1387,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
       <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
-    </EmbeddedResource>
+      <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
