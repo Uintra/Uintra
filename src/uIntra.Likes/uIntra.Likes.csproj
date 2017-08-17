@@ -347,7 +347,7 @@
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <None Include="App_Plugins\Likes\package.manifest" />
+    <Content Include="App_Plugins\Likes\package.manifest" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
