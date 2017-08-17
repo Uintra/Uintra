@@ -13,7 +13,7 @@
                         var originalSize = $"{media.Width}x{media.Height}";
 
                         <li class="gallery__item">
-                            <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" />
+                            <img class="gallery__image" src="@media.Url" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
                         </li>
                         break;
                     case (int)MediaTypeEnum.Document:

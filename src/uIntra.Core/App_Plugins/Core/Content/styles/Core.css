@@ -86,9 +86,11 @@
 }
 .icon-arrow-left:before {
   content: "\e900" !important;
+  transform:rotate(90deg);
 }
 .icon-arrow-right:before {
-  content: "\e901" !important;
+  content: "\e900" !important;
+  transform:rotate(270deg);
 }
 .icon-fullscreen:before {
   content: "\e905" !important;
