@@ -11,7 +11,7 @@
                 {
                     <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
                 }
-                <a class="link__back" href="@($"{Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))}#{Model.Id}")">@Html.Localize("DetailsView.GoBal.lbl")</a>
+                <a class="link__back" href="@($"{ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)}#{Model.Id}")">@Html.Localize("DetailsView.GoToList.lbl")</a>
             </header>
 
             <div class="feed__item _details">
