@@ -1387,10 +1387,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
       <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
     </EmbeddedResource>
-    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
-    </Compile>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
