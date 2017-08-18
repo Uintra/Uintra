@@ -33,8 +33,7 @@ function initDescription() {
     var container = $('._clamp');
     if (container.length > 0) {
         for (var i = 0; i < container.length; i++) {
-            var url = $(container[i]).data('url');
-            helpers.clampText(container[i], url);
+            helpers.clampText(container[i]);
         }
     }
 }
@@ -293,7 +292,7 @@ function init() {
 }
 
 export default {
-    init: init,
+init: init,
     reload: reload,
-    goToAllTab: goToAllTab
+goToAllTab: goToAllTab
 }

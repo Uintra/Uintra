@@ -132,6 +132,14 @@
         &-txt{
             margin:0 0 18px;
 
+            &-link{
+                color:var(--text-color-dark) !important;
+
+                &:hover{
+                    text-decoration:none;
+                }
+            }
+
             p{
                 margin:0;
             }
