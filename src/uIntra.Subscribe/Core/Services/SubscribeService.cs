@@ -16,43 +16,43 @@ namespace uIntra.Subscribe
             _subscribeRepository = subscribeRepository;
         }
 
-        public Subscribe Get(Guid activityId, Guid userId)
+        public virtual Subscribe Get(Guid activityId, Guid userId)
         {
             return _subscribeRepository.Find(s => s.ActivityId == activityId && s.UserId == userId);
         }
 
-        public IEnumerable<Subscribe> Get(Guid activityId)
+        public virtual IEnumerable<Subscribe> Get(Guid activityId)
         {
             return _subscribeRepository.FindAll(s => s.ActivityId == activityId);
         }
 
-        public IEnumerable<Subscribe> GetByUserId(Guid userId)
+        public virtual IEnumerable<Subscribe> GetByUserId(Guid userId)
         {
             return _subscribeRepository.FindAll(s => s.UserId == userId);
         }
 
-        public bool IsSubscribed(Guid userId, Guid activityId)
+        public virtual bool IsSubscribed(Guid userId, Guid activityId)
         {
             return _subscribeRepository.Exists(s => s.UserId == userId && s.ActivityId == activityId);
         }
 
-        public bool IsSubscribed(Guid userId, ISubscribable subscribers)
+        public virtual bool IsSubscribed(Guid userId, ISubscribable subscribers)
         {
             return subscribers.Subscribers.Any(s => s.UserId == userId);
         }
 
-        public long GetVersion(Guid activityId)
+        public virtual long GetVersion(Guid activityId)
         {
             var subscriber = _subscribeRepository.FindAll(subscribe => subscribe.ActivityId == activityId).OrderByDescending(subscribe => subscribe.CreatedDate).FirstOrDefault();
             return subscriber?.CreatedDate.Ticks ?? default(long);
         }
 
-        public bool HasSubscribers(Guid activityId)
+        public virtual bool HasSubscribers(Guid activityId)
         {
             return _subscribeRepository.Exists(s => s.ActivityId == activityId);
         }
 
-        public Subscribe Subscribe(Guid userId, Guid activityId)
+        public virtual Subscribe Subscribe(Guid userId, Guid activityId)
         {
             var entity = new Subscribe
             {
@@ -67,12 +67,12 @@ namespace uIntra.Subscribe
             return entity;
         }
 
-        public void Unsubscribe(Guid userId, Guid activityId)
+        public virtual void Unsubscribe(Guid userId, Guid activityId)
         {
             _subscribeRepository.Delete(s => s.UserId == userId && s.ActivityId == activityId);
         }
 
-        public Subscribe UpdateNotification(Guid subscribeId, bool newValue)
+        public virtual Subscribe UpdateNotification(Guid subscribeId, bool newValue)
         {
             var subscribe = _subscribeRepository.Get(subscribeId);
             subscribe.IsNotificationDisabled = newValue;
@@ -85,7 +85,7 @@ namespace uIntra.Subscribe
             return type.Id == (int) IntranetActivityTypeEnum.Events;
         }
 
-        public void FillSubscribers(ISubscribable entity)
+        public virtual void FillSubscribers(ISubscribable entity)
         {
             entity.Subscribers = Get(entity.Id);
         }
