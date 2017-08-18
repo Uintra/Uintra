@@ -17,12 +17,12 @@ namespace uIntra.Likes
             _intranetUserService = intranetUserService;
         }
 
-        public IEnumerable<Like> Get(Guid entityId)
+        public virtual IEnumerable<Like> Get(Guid entityId)
         {
             return _likesRepository.FindAll(l => l.EntityId == entityId);
         }
 
-        public IEnumerable<LikeModel> GetLikeModels(Guid entityId)
+        public virtual IEnumerable<LikeModel> GetLikeModels(Guid entityId)
         {
             var likes = Get(entityId).OrderByDescending(el => el.CreatedDate).ToList();
             if (likes.Count == 0)
@@ -41,12 +41,12 @@ namespace uIntra.Likes
             return result;
         }
 
-        public int GetCount(Guid entityId)
+        public virtual int GetCount(Guid entityId)
         {
             return (int)_likesRepository.Count(l => l.EntityId == entityId);
         }
 
-        public void Add(Guid userId, Guid entityId)
+        public virtual void Add(Guid userId, Guid entityId)
         {
             var like = new Like
             {
@@ -59,23 +59,23 @@ namespace uIntra.Likes
             _likesRepository.Add(like);
         }
 
-        public void Remove(Guid userId, Guid entityId)
+        public virtual void Remove(Guid userId, Guid entityId)
         {
             _likesRepository.Delete(like => like.EntityId == entityId && like.UserId == userId);
         }
 
-        public bool CanAdd(Guid userId, Guid entityId)
+        public virtual bool CanAdd(Guid userId, Guid entityId)
         {
             var exists = _likesRepository.Exists(like => like.EntityId == entityId && like.UserId == userId);
             return !exists;
         }
 
-        public void FillLikes(ILikeable entity)
+        public virtual void FillLikes(ILikeable entity)
         {
             entity.Likes = GetLikeModels(entity.Id);
         }
 
-        private IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
+        protected virtual IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
         {
             var users = _intranetUserService.GetMany(usersIds);
             return users.Select(el => new Tuple<Guid, string>(el.Id, el.DisplayedName));
