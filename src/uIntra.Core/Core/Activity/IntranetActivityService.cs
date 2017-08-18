@@ -114,7 +114,7 @@ namespace uIntra.Core.Activity
 
             if (activity != null)
             {
-                MapBeforeCache(Enumerable.Repeat((IIntranetActivity)activity, 1).ToList());
+                MapBeforeCache(((IIntranetActivity)activity).ToListOfOne());
                 cachedList.Add(activity);
             }
 
