@@ -364,9 +364,9 @@
       <HintPath>..\..\packages\uIntra.Likes.1.1.3\lib\net452\uIntra.Likes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.1.9.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Navigation, Version=1.1.9.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Navigation.1.1.9.1\lib\net452\uIntra.Navigation.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Navigation.1.1.9.2\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.News, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
@@ -810,6 +810,7 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
