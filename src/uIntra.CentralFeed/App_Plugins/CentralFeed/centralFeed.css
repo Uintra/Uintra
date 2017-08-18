@@ -146,6 +146,14 @@
             margin:0 0 18px;
             line-height:1.4em;
 
+            &-link{
+                color:var(--text-color-dark) !important;
+
+                &:hover{
+                    text-decoration:none;
+                }
+            }
+
             p{
                 margin:0;
             }

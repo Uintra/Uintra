@@ -192,28 +192,11 @@ var helpers = {
 
         return s.join("&").replace(/%20/g, "+");
     },
-    clampText: function(container, url) {
+    clampText: function(container) {
         var $container = $(container);
-        if(url){
-            var ellepsisLink = $container.find('.ellipsis');
-            $container.dotdotdot({
-                ellipsis: "",
-                watch: 'window',
-                callback: function( isTruncated, orgContent ) {
-                    if(isTruncated){
-                        var $parent = $container.find(":last-child");
-                        $parent.append(ellepsisLink);
-                        $container.addClass("_isTruncated");
-                    }
-                }
-            });
-            
-        }
-        else{
-            $container.dotdotdot({
-                watch: 'window'
-            });
-        }
+        $container.dotdotdot({
+            watch: 'window'
+        });
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);

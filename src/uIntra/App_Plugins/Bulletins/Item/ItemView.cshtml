@@ -12,9 +12,8 @@
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.Description)))
     {
-        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
-            @Html.Raw(Model.Description)
-            <a href="@detailsPageUrl" class="ellipsis">...</a>
+        <div class="feed__item-txt _clamp">
+            <a class="feed__item-txt-link" href="@detailsPageUrl">@Html.Raw(Model.Description)</a>
         </div>
     }
     <div class="feed__item-images">
