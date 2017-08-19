@@ -11,6 +11,23 @@ namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
+        public static EventHandler<ActivityPinExpiredEventArgs> ActivityPinExpired;
+
+        public class ActivityPinExpiredEventArgs
+        {
+            public TActivity ExpiredActivity { get; set; }
+        }
+
+        protected virtual void OnActivityPinExpired(TActivity acitity)
+        {
+            var eventArgs = new ActivityPinExpiredEventArgs()
+            {
+                ExpiredActivity = acitity
+            };
+
+            ActivityPinExpired?.Invoke(this, eventArgs);
+        }
+
         public abstract IIntranetType ActivityType { get; }
 
         private const string CacheKey = "ActivityCache";
