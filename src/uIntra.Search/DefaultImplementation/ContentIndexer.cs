@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using System;
 
 namespace uIntra.Search
 {
@@ -84,43 +85,12 @@ namespace uIntra.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-            dynamic grid = publishedContent.GetPropertyValue<JToken>("grid").ToString().Deserialize<dynamic>();
+            dynamic grid = GetGrid(publishedContent);
 
-            var titles = new List<string>();
-            var content = new List<string>();
-
-            foreach (var section in grid.sections)
-            {
-                foreach (var row in section.rows)
-                {
-                    foreach (var area in row.areas)
-                    {
-                        foreach (var control in area.controls)
-                        {
-                            if (control != null && control.editor != null && control.editor.view != null)
-                            {
-                                if (control.editor.alias == "custom.ContentPanel")
-                                {
-                                    if (control.value!=null)
-                                    {
-                                        string title = control.value.title;
-                                        if (!string.IsNullOrEmpty(title))
-                                        {
-                                            titles.Add(title.StripHtml());
-                                        }
-
-                                        string desc = control.value.description;
-                                        if (!string.IsNullOrEmpty(desc))
-                                        {
-                                            content.Add(desc.StripHtml());
-                                        }
-                                    }                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            // We cant use pretty 2k17 syntax cause few of us use VS2015
+            Tuple<List<string>, List<string>> result = ParseTitlesAndContent(grid);
+            var titles = result.Item1;
+            var content = result.Item2;
 
             return new SearchableContent
             {
@@ -131,6 +101,53 @@ namespace uIntra.Search
                 PanelContent = content,
                 PanelTitle = titles
             };
+        }
+
+        private Tuple<List<string>, List<string>> ParseTitlesAndContent(dynamic grid)
+        {
+            var titles = new List<string>();
+            var content = new List<string>();
+            if (grid != null)
+            {
+                foreach (var section in grid.sections)
+                {
+                    foreach (var row in section.rows)
+                    {
+                        foreach (var area in row.areas)
+                        {
+                            foreach (var control in area.controls)
+                            {
+                                if (control != null && control.editor != null && control.editor.view != null)
+                                {
+                                    if (control.editor.alias == "custom.ContentPanel")
+                                    {
+                                        if (control.value != null)
+                                        {
+                                            string title = control.value.title;
+                                            if (!string.IsNullOrEmpty(title))
+                                            {
+                                                titles.Add(title.StripHtml());
+                                            }
+
+                                            string desc = control.value.description;
+                                            if (!string.IsNullOrEmpty(desc))
+                                            {
+                                                content.Add(desc.StripHtml());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }           
+            return Tuple.Create(titles, content);
+        }
+
+        private dynamic GetGrid(IPublishedContent publishedContent)
+        {
+            return publishedContent.GetPropertyValue<JToken>("grid")?.ToString().Deserialize<dynamic>();
         }
     }
 }
