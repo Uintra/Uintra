@@ -62,6 +62,12 @@ namespace uIntra.Core.Activity
             FillCache();
         }
 
+        private void FillCache()
+        {
+            var items = GetAllFromSql();
+            _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
+        }
+
         public virtual bool IsActual(IIntranetActivity cachedActivity)
         {
             return !cachedActivity.IsHidden;
@@ -131,13 +137,6 @@ namespace uIntra.Core.Activity
             _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
-        }
-
-
-        private void FillCache()
-        {
-            var items = GetAllFromSql();
-            _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
         }
 
         private TActivity GetFromSql(Guid id)
