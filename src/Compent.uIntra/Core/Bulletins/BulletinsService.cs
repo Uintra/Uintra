@@ -21,7 +21,6 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -112,6 +111,11 @@ namespace Compent.uIntra.Core.Bulletins
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
+        }
 
         public override bool CanEdit(IIntranetActivity cached)
         {

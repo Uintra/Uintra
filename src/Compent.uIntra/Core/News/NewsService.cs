@@ -21,8 +21,6 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
-using uIntra.Core.Media;
 
 namespace Compent.uIntra.Core.News
 {
@@ -165,6 +163,12 @@ namespace Compent.uIntra.Core.News
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
+        }
+
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
         }
 
         protected override Entities.News UpdateCachedEntity(Guid id)

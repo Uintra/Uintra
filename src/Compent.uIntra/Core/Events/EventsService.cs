@@ -203,6 +203,12 @@ namespace Compent.uIntra.Core.Events
             }
         }
 
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
+        }
+
         protected override Event UpdateCachedEntity(Guid id)
         {
             var cachedEvent = Get(id);
