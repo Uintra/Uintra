@@ -5,15 +5,13 @@
 
         function initFormSubmitEventListener() {
             $scope.$on("formSubmitted", function (ev, args) {
-                var memberId = args.scope.content.id !== 0 ? args.scope.content.key : null;
-
-                if (memberId) {
-                    memberService.memberChanged(memberId);
+                if (args.scope.content.id !== 0) {
+                    memberService.memberChanged(args.scope.content.key);
                     return;
                 }
 
                 args.scope.$watch('page.saveButtonState', function () {
-                    if (args.scope.page.saveButtonState === "success") {
+                    if (args.scope.content.id !== 0) {
                         memberService.memberChanged(args.scope.content.key);
                     }
                 });
