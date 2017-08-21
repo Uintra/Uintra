@@ -5,6 +5,10 @@
 
         function initFormSubmitEventListener() {
             $scope.$on("formSubmitted", function (ev, args) {
+                if (!args.scope.content) {
+                    return;
+                }
+
                 if (args.scope.content.id !== 0) {
                     memberService.memberChanged(args.scope.content.key);
                     return;
