@@ -52,7 +52,7 @@ namespace uIntra.Core.Persistence
 
         public T Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.FirstOrDefault(predicate);
+            return _dbSet.Find(predicate);
         }
 
         public IEnumerable<T> FindAll(System.Linq.Expressions.Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue)

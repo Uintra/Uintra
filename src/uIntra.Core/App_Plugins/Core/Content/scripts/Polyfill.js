@@ -77,14 +77,6 @@ if (!Array.from) {
     }());
 }
 
-if (window.Element) {
-    Element.prototype.findAncestorByClassName = function (className) {
-        var el = this;
-        while ((el = el.parentElement) && !el.classList.contains(className));
-        return el;
-    };
-}
-
 (function () {
 
     if (typeof window.CustomEvent === "function") return false;

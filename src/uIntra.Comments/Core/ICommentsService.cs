@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.Media;
 
 namespace uIntra.Comments
 {
@@ -29,7 +28,5 @@ namespace uIntra.Comments
         void FillComments(ICommentable entity);
 
         string GetCommentViewId(Guid commentId);
-
-        MediaSettings GetMediaSettings();
     }
 }

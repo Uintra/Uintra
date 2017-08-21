@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using uIntra.Core.TypeProviders;
 
@@ -22,9 +20,6 @@ namespace uIntra.Core.Activity
 
         [JsonIgnore]
         public bool IsPinActual { get; set; }
-
-        [JsonIgnore]
-        public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
 
         public string Title { get; set; }
 

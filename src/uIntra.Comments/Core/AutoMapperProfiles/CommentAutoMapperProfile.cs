@@ -14,8 +14,6 @@ namespace uIntra.Comments
                 .ForMember(dst => dst.ElementOverviewId, o => o.Ignore())
                 .ForMember(dst => dst.CommentViewId, o => o.Ignore())
                 .ForMember(dst => dst.Replies, o => o.Ignore())
-                .ForMember(dst => dst.MediaIds, o => o.Ignore())
-                .ForMember(dst => dst.MediaSettings, o => o.Ignore())
                 .ForMember(dst => dst.IsReply, o => o.MapFrom(el => el.ParentId.HasValue));
         }
     }
