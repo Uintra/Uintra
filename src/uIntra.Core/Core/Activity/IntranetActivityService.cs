@@ -11,26 +11,10 @@ namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public static EventHandler<ActivityPinExpiredEventArgs> ActivityPinExpired;
-
-        public class ActivityPinExpiredEventArgs
-        {
-            public TActivity ExpiredActivity { get; set; }
-        }
-
-        protected virtual void OnActivityPinExpired(TActivity acitity)
-        {
-            var eventArgs = new ActivityPinExpiredEventArgs()
-            {
-                ExpiredActivity = acitity
-            };
-
-            ActivityPinExpired?.Invoke(this, eventArgs);
-        }
-
         public abstract IIntranetType ActivityType { get; }
 
         private const string CacheKey = "ActivityCache";
+        private string ActivityCacheSuffix => $"{ActivityType.Id}";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
@@ -60,13 +44,22 @@ namespace uIntra.Core.Activity
         }
 
         public IEnumerable<TActivity> GetAll(bool includeHidden = false)
-        {
+        {            
+            if (!_cache.HasValue(CacheKey, ActivityCacheSuffix))
+            {
+                UpdateCache();
+            }
             var cached = GetAllFromCache();
             if (!includeHidden)
             {
                 cached = cached.Where(s => !s.IsHidden);
             }
             return cached;
+        }
+
+        protected virtual void UpdateCache()
+        {
+            FillCache();
         }
 
         public virtual bool IsActual(IIntranetActivity cachedActivity)
@@ -119,7 +112,7 @@ namespace uIntra.Core.Activity
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
-            var activities = _cache.GetOrSet(CacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset(), $"{ActivityType.Id}");
+            var activities = _cache.Get<IList<TActivity>>(CacheKey, ActivityCacheSuffix);
             return activities;
         }
 
@@ -135,9 +128,16 @@ namespace uIntra.Core.Activity
                 cachedList.Add(activity);
             }
 
-            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), $"{ActivityType.Id}");
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
+        }
+
+
+        private void FillCache()
+        {
+            var items = GetAllFromSql();
+            _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
         }
 
         private TActivity GetFromSql(Guid id)
