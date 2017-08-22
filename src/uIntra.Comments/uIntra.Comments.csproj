@@ -333,16 +333,14 @@
     <Compile Include="Core\Sql\Comment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\CommentsControllerBase.cs" />
-    <Content Include="App_Plugins\Comments\package.manifest" />
     <None Include="uIntra.Comments.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\comment.js" />
-    <Content Include="App_Plugins\Comments\comments.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="App_Plugins\Comments\backoffice\comments-view.html" />
+    <Content Include="App_Plugins\Comments\comment.js" />
+    <Content Include="App_Plugins\Comments\comments.css" />
+    <Content Include="App_Plugins\Comments\package.manifest" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
