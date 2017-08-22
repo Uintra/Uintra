@@ -21,5 +21,8 @@ namespace uIntra.Core.Media
 
         [Display(Name = "Bulletins Content")]
         BulletinsContent,
+
+        [Display(Name = "Comments Content")]
+        CommentsContent,
     }
 }

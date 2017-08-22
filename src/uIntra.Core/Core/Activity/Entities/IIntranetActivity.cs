@@ -16,5 +16,6 @@ namespace uIntra.Core.Activity
         bool IsHidden { get; set; }
         bool IsPinned { get; set; }
         DateTime? EndPinDate { get; set; }
+        IEnumerable<int> MediaIds { get; set; }
     }
 }

@@ -9,7 +9,7 @@ function initEditor() {
     let description = holder.querySelector(".js-edit-bulletin__description");
     let dataStorage = holder.querySelector(".js-edit-bulletin__description-hidden");
 
-    let editor = helpers.initQuill(description, dataStorage, {
+    let editor = helpers.initQuill(description, dataStorage,{
         theme: 'snow',
         modules: {
             toolbar: [
@@ -32,24 +32,6 @@ function initFileUploader() {
 function initEventListeners() {
     let deleteButton = holder.querySelector(".js-edit-bulletin__delete");
     deleteButton.addEventListener("click", deleteClickHandler);
-
-    let submitButton = holder.querySelector(".js-disable-submit");
-    submitButton.addEventListener("click", submitClickHandler);
-}
-
-function submitClickHandler(event) {
-    if (!isModelValid()) {
-        holder.querySelector('.form__required').style.display = 'block';
-        event.preventDefault();
-        event.stopPropagation();
-    }
-}
-
-function isModelValid() {
-    let decription = holder.querySelector('input[name="description"]').value;
-    let media = holder.querySelector('input[name="newMedia"]').value;
-    let newMedia = holder.querySelector('input[name="media"]').value;
-    return decription || media || newMedia ? true : false;
 }
 
 function deleteClickHandler(event) {

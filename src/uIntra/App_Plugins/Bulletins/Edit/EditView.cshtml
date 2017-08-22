@@ -12,11 +12,12 @@
         @Html.HiddenFor(bulletin => bulletin.Id)
 
         <div class="form__row clearfix">
-            <label class="form__label" for="description">@Html.Localize("BulletinsEdit.Description.lbl")</label>
+            <label class="form__label" for="description">@Html.Localize("BulletinsEdit.Description.lbl") <span class="form__required">*</span></label>
             <div id="description" class="js-edit-bulletin__description">
                 @Html.Raw(Model.Description)
             </div>
-            <input type="hidden" name="description" class="js-edit-bulletin__description-hidden" value="@(Model.Description)" />
+            <input type="hidden" name="description" class="js-edit-bulletin__description-hidden" value="@(Model.Description)"
+                   data-val-required="@Html.Localize("BulletinsEdit.DescriptionRequired.lbl")" data-val="true" />
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("BulletinsEdit.UploadFiles.lbl")</label>
@@ -26,7 +27,7 @@
             }
         </div>
         <div class="form__row clearfix">
-            <span class="form__required" style="display:none">@Html.Localize("BulletinsEdit.AtLeastOneFieldMustBeFilled.lbl")</span>
+            @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
             @Html.HiddenFor(bulletin => bulletin.MediaRootId)
@@ -36,5 +37,5 @@
                    data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
             <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityDetailsPageUrl(IntranetActivityTypeEnum.Bulletins.ToInt(), Model.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
-                }
+    }
 </div>

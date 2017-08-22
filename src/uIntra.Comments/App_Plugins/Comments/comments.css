@@ -1,7 +1,31 @@
-﻿.comments{
-    margin:0;
-    padding:24px 0 0;
-    border-top:1px solid var(--color-light-gray);
+﻿.comments {
+    margin: 0;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--color-light-gray);
+    
+    	.ql-container .ql-editor {
+		height: auto;
+
+        &.ql-blank{
+            &:before{
+                font-size:12px;
+            }
+        }
+
+        a{
+            color:var(--color-red);
+
+            &:hover{
+                color:var(--color-red);
+            }
+        }
+	}
+
+    .dropzone{
+        border: none !important;
+        padding: 0;
+        max-width: 100%;
+    }
 
     &__title{
         font:bold 16px/23px var(--font-general);

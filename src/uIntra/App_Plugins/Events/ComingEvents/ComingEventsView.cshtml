@@ -11,29 +11,21 @@
             </li>
         }
 
-        else
+        @foreach (var e in Model.Events)
         {
-
-            foreach (var e in Model.Events)
-            {
-                <li class="coming-events__list-item clearfix">
-                    <div class="coming-events__date">
-                        <span class="coming-events__day">@e.StartDate.Day</span>
-                        <span class="coming-events__month">@e.StartDate.ToString("MMM")</span>
-                    </div>
-                    <div class="coming-events__description">
-                        <a href="@e.DetailsPageUrl">
-                            <h3 class="coming-events__title">@e.Title</h3>
-                        </a>
-                        <span class="coming-events__creator">@e.Creator.DisplayedName</span>
-                        <span class="coming-events__time">@e.StartDate.ToDateTimeFormat() - @e.EndDate.ToDateTimeFormat()</span>
-                    </div>
-                </li>
-            }
             <li class="coming-events__list-item clearfix">
-                <a href="@Model.OverviewUrl" class="btn">@Html.Localize("ComingEvents.SeeAll.btn")</a>
+                <div class="coming-events__date">
+                    <span class="coming-events__day">@e.StartDate.Day</span>
+                    <span class="coming-events__month">@e.StartDate.ToString("MMM")</span>
+                </div>
+                <div class="coming-events__description">
+                    <a href="@e.DetailsPageUrl">
+                        <h3 class="coming-events__title">@e.Title</h3>
+                    </a>
+                    <span class="coming-events__creator">@e.Creator.DisplayedName</span>
+                    <span class="coming-events__time">@e.StartDate.ToDateTimeFormat() - @e.EndDate.ToDateTimeFormat()</span>
+                </div>
             </li>
         }
-
     </ul>
 </section>

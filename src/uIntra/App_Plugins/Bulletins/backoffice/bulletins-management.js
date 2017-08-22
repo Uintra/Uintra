@@ -3,7 +3,7 @@
 
     var onError = function (error) { console.error(error); }
 
-    var controller = function (authResource, $scope, bulletinsManagementConfig, bulletinsManagementFactory) {
+    var controller = function ($http, authResource, $scope, bulletinsManagementConfig, bulletinsManagementFactory) {
         var self = this;
         self.bulletinsList = [];
         self.currentUser = null;
@@ -130,6 +130,6 @@
         activate();
     }
 
-    controller.$inject = ["authResource", "$scope", "bulletinsManagementConfig", "bulletinsManagementFactory"];
+    controller.$inject = ["$http", "authResource", "$scope", "bulletinsManagementConfig", "bulletinsManagementFactory"];
     angular.module('umbraco').controller('BulletinsManagementController', controller);
 })(angular);
