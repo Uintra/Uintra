@@ -9,20 +9,18 @@
 }
 
 <section class="content _central-feed">
-    @if (tabsWithCreateUrls.Any())
-    {
-        <ul class="feed-create js-feed-create">
-            @foreach (var typeModel in tabsWithCreateUrls)
-            {
-                <li class="feed-create__frame">
-                    <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
-                </li>
-            }
+    <ul class="feed-create js-feed-create">
+        @foreach (var typeModel in tabsWithCreateUrls)
+        {
             <li class="feed-create__frame">
-                <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+                <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
             </li>
-        </ul>
-    }
+        }
+
+        <li class="feed-create__frame">
+            <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+        </li>
+    </ul>
     @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
     @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter filter__body js-feed-navigation">
@@ -39,13 +37,13 @@
     </div>
     <div class="feed__overview js-feed-overview">
         @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
-                new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
+                                    new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
         {
             <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50" /></div>
-                <input type="hidden" name="type" value="@Model.CurrentType.Id" />
-                <input type="hidden" name="page" />
-                <div class="tab-content js-feed-listContainer">
-                    @{Html.RenderAction("List", "CentralFeed",
+            <input type="hidden" name="type" value="@Model.CurrentType.Id" />
+            <input type="hidden" name="page" />
+            <div class="tab-content js-feed-listContainer">
+                @{Html.RenderAction("List", "CentralFeed",
                         new
                         {
                             model = new CentralFeedListModel
@@ -53,7 +51,7 @@
                                 Type = Model.CurrentType.Id
                             }
                         }); }
-                </div>
-                        }
+            </div>
+                    }
     </div>
 </section>
