@@ -67,9 +67,8 @@ namespace Compent.uIntra.Core.Events
             IActivityTypeProvider activityTypeProvider,
             ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
-            IIntranetMediaService intranetMediaService,
             IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;

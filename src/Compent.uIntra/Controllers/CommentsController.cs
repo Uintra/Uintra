@@ -35,10 +35,8 @@ namespace Compent.uIntra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             ICommentableService customCommentableService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            INotificationTypeProvider notificationTypeProvider,
-            IIntranetMediaService intranetMediaService,
-            IMediaHelper mediaHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, customCommentableService, intranetMediaService, mediaHelper)
+            INotificationTypeProvider notificationTypeProvider)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)
         {
             _customCommentableService = customCommentableService;
             _notificationTypeProvider = notificationTypeProvider;
@@ -93,7 +91,6 @@ namespace Compent.uIntra.Controllers
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
-            CreateMedia(comment.Id, model);
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -125,7 +122,6 @@ namespace Compent.uIntra.Controllers
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
-            UpdateCommentsMedia(comment.Id, model);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -156,7 +152,6 @@ namespace Compent.uIntra.Controllers
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
-            DeleteMedia(id);
 
             return OverView(comment.ActivityId);
         }

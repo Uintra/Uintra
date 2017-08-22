@@ -63,9 +63,8 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,            
-            IIntranetMediaService intranetMediaService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -170,18 +169,14 @@ namespace Compent.uIntra.Core.Bulletins
 
         protected override Bulletin UpdateCachedEntity(Guid id)
         {
-            var cachedBulletin = Get(id);
             var bulletin = base.UpdateCachedEntity(id);
             if (IsBulletinHidden(bulletin))
             {
                 _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
-                _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
                 return null;
             }
 
             _activityIndex.Index(Map(bulletin));
-            _documentIndexer.Index(bulletin.MediaIds);
             return bulletin;
         }
 

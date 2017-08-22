@@ -40,7 +40,6 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
         public DbSet<MigrationHistory> MigrationHistories { get; set; }
-        public DbSet<IntranetMediaEntity> IntranetMediaEntities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
