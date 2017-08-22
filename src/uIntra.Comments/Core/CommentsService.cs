@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.Extentions;
-using uIntra.Core.Media;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Comments
@@ -9,13 +7,10 @@ namespace uIntra.Comments
     public class CommentsService : ICommentsService
     {
         private readonly ISqlRepository<Guid, Comment> _commentsRepository;
-        private readonly IMediaHelper _mediaHelper;
 
-        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository,
-            IMediaHelper mediaHelper)
+        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository)
         {
             _commentsRepository = commentsRepository;
-            _mediaHelper = mediaHelper;
         }
 
         public Comment Get(Guid id)
@@ -102,11 +97,6 @@ namespace uIntra.Comments
         public string GetCommentViewId(Guid commentId)
         {
             return $"js-comment-view-{commentId}";
-        }
-
-        public MediaSettings GetMediaSettings()
-        {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.CommentsContent.ToInt());
         }
     }
 }

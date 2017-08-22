@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Media;
 using uIntra.Core.User;
 
 namespace uIntra.Comments
@@ -32,10 +30,6 @@ namespace uIntra.Comments
         public string CommentViewId { get; set; }
 
         public IEnumerable<CommentViewModel> Replies { get; set; }
-
-        public string MediaIds { get; set; }
-
-        public MediaSettings MediaSettings { get; set; }
 
         public CommentViewModel()
         {

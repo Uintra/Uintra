@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using uIntra.Core.Activity;
-using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
-using uIntra.Core.Media;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 using umbraco.cms.businesslogic;
@@ -28,27 +25,19 @@ namespace uIntra.Comments.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly IIntranetMediaService _intranetMediaService;
-        private readonly IMediaHelper _mediaHelper;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
-            ICommentableService customCommentableService,
-            IIntranetMediaService intranetMediaService, 
-            IMediaHelper mediaHelper)
+            IIntranetUserContentHelper intranetUserContentHelper)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserContentHelper = intranetUserContentHelper;
-            _customCommentableService = customCommentableService;
-            _intranetMediaService = intranetMediaService;
-            _mediaHelper = mediaHelper;
         }
-        
+
         [HttpPost]
         public virtual PartialViewResult Add(CommentCreateModel model)
         {
@@ -65,9 +54,6 @@ namespace uIntra.Comments.Web
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
-
-            CreateMedia(comment.Id, model);
-
             OnCommentCreated(comment);
 
             return OverView(model.ActivityId);
@@ -92,9 +78,6 @@ namespace uIntra.Comments.Web
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
-
-            UpdateCommentsMedia(comment.Id, model);
- 
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -119,7 +102,6 @@ namespace uIntra.Comments.Web
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
-            _intranetMediaService.Delete(id);
 
             return OverView(comment.ActivityId);
         }
@@ -132,13 +114,10 @@ namespace uIntra.Comments.Web
 
         public virtual PartialViewResult CreateView(Guid activityId)
         {
-            var mediaSettings = _commentsService.GetMediaSettings();
             var model = new CommentCreateModel
             {
                 ActivityId = activityId,
-                UpdateElementId = GetOverviewElementId(activityId),
-                MediaRootId = mediaSettings.MediaRootId,
-                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
+                UpdateElementId = GetOverviewElementId(activityId)
             };
             return PartialView(CreateViewPath, model);
         }
@@ -205,18 +184,17 @@ namespace uIntra.Comments.Web
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             var creators = _intranetUserService.GetAll().ToList();
             var replies = commentsList.FindAll(_commentsService.IsReply);
-            var mediaSettings = _commentsService.GetMediaSettings();
+
             foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
-                var model = GetCommentView(comment, currentUserId, creators.SingleOrDefault(c => c.Id == comment.UserId), mediaSettings);
-                model.MediaIds = _intranetMediaService.GetEntityMediaString(comment.Id);
+                var model = GetCommentView(comment, currentUserId, creators.SingleOrDefault(c => c.Id == comment.UserId));
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
-                model.Replies = commentReplies.Select(reply => GetCommentView(reply, currentUserId, creators.SingleOrDefault(c => c.Id == reply.UserId), mediaSettings));
+                model.Replies = commentReplies.Select(reply => GetCommentView(reply, currentUserId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
                 yield return model;
             }
         }
 
-        protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator, MediaSettings mediaSettings)
+        protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
@@ -225,8 +203,6 @@ namespace uIntra.Comments.Web
             model.Creator = creator;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
-            model.MediaIds = _intranetMediaService.GetEntityMediaString(comment.Id);
-            model.MediaSettings = mediaSettings;
             return model;
         }
 
@@ -238,32 +214,6 @@ namespace uIntra.Comments.Web
         protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
-        }
-
-        protected virtual void UpdateCommentsMedia(Guid entityId, CommentEditModel model)
-        {
-            var existingMediaIds = _intranetMediaService.GetEntityMedia(model.Id);
-
-            if (model.NewMedia.IsNotNullOrEmpty())
-            {
-                var newMediaIds = _mediaHelper.CreateMedia(model);
-                var resultMediaIds = existingMediaIds.Concat(newMediaIds);
-                _intranetMediaService.Update(entityId, resultMediaIds.JoinToString());
-            }
-        }
-
-        protected virtual void CreateMedia(Guid entityId, IContentWithMediaCreateEditModel model)
-        {
-            if (model.NewMedia.IsNotNullOrEmpty())
-            {
-                var resultMediaIds = _mediaHelper.CreateMedia(model);
-                _intranetMediaService.Create(entityId, resultMediaIds.JoinToString());
-            }
-        }
-
-        protected virtual void DeleteMedia(Guid entityId)
-        {
-            _intranetMediaService.Delete(entityId);
         }
 
         protected virtual void OnCommentCreated(Comment comment)
