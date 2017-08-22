@@ -10,7 +10,6 @@ namespace uIntra.Bulletins
     {
         public int? UmbracoCreatorId { get; set; }
         public Guid CreatorId { get; set; }
-
         public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
         public DateTime PublishDate { get; set; }
     }
