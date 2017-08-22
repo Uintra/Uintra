@@ -1057,9 +1057,6 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201708220815002_CommentsMediaRevert.resx">
-      <DependentUpon>201708220815002_CommentsMediaRevert.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -1282,10 +1279,6 @@
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201708220815002_CommentsMediaRevert.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201708220815002_CommentsMediaRevert.Designer.cs">
-      <DependentUpon>201708220815002_CommentsMediaRevert.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
