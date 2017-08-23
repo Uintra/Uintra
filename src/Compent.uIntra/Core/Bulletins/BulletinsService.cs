@@ -63,7 +63,7 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,            
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
@@ -323,23 +323,23 @@ namespace Compent.uIntra.Core.Bulletins
                     break;
 
                 case (int)NotificationTypeEnum.CommentLikeAdded:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    bulletinsEntity = Get(comment.ActivityId);
-
-                    data.ReceiverIds = currentUser.Id == comment.UserId
-                        ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerableOfOne();
-
-                    data.Value = new CommentNotifierDataModel
                     {
-                        CommentId = entityId,
-                        ActivityType = ActivityType,
-                        NotifierId = currentUser.Id,
-                        Title = bulletinsEntity.Title,
-                        Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
-                    };
-                }
+                        var comment = _commentsService.Get(entityId);
+                        bulletinsEntity = Get(comment.ActivityId);
+
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
+
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            CommentId = entityId,
+                            ActivityType = ActivityType,
+                            NotifierId = currentUser.Id,
+                            Title = bulletinsEntity.Title,
+                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
+                        };
+                    }
                     break;
 
                 default:

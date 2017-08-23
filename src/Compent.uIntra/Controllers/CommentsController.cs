@@ -79,11 +79,7 @@ namespace Compent.uIntra.Controllers
             {
                 return OverView(model.ActivityId);
             }
-            if (model.ActivityId == CommentsTestConstants.ActivityId)
-            {
-                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
-                return OverView(model.ActivityId);
-            }
+
             if (IsForContentPage(model.ActivityId))
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
@@ -109,12 +105,6 @@ namespace Compent.uIntra.Controllers
                 return OverView(model.Id);
             }
 
-            if (comment.ActivityId == CommentsTestConstants.ActivityId)
-            {
-                _customCommentableService.UpdateComment(model.Id, model.Text);
-                return OverView(comment.ActivityId);
-            }
-
             if (IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.UpdateComment(model.Id, model.Text);
@@ -137,12 +127,6 @@ namespace Compent.uIntra.Controllers
 
             if (!_commentsService.CanDelete(comment, currentUserId))
             {
-                return OverView(comment.ActivityId);
-            }
-
-            if (comment.ActivityId == CommentsTestConstants.ActivityId)
-            {
-                _customCommentableService.DeleteComment(id);
                 return OverView(comment.ActivityId);
             }
 

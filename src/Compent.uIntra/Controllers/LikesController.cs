@@ -33,10 +33,6 @@ namespace Compent.uIntra.Controllers
         {
             var like = base.AddLike(model);
 
-            if (model.ActivityId == CommentsTestConstants.ActivityId)
-            {
-                return like;
-            }
 
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)

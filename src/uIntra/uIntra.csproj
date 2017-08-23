@@ -1142,9 +1142,6 @@
     <Compile Include="..\Compent.uIntra\Core\Comments\ICommentsPageHelper.cs">
       <Link>Core\Comments\ICommentsPageHelper.cs</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Core\Comments\CommentsTestConstants.cs">
-      <Link>Core\Comments\CommentsTestConstants.cs</Link>
-    </Compile>
     <Compile Include="..\Compent.uIntra\Core\Events\Entities\Event.cs">
       <Link>Core\Events\Entities\Event.cs</Link>
     </Compile>
