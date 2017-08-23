@@ -368,8 +368,12 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
+
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
+                        
+                            data.Value = new CommentNotifierDataModel
                         {
                             CommentId = entityId,
                             ActivityType = ActivityType,

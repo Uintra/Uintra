@@ -298,7 +298,11 @@ namespace Compent.uIntra.Core.News
                     {
                         var comment = _commentsService.Get(entityId);
                         news = Get(comment.ActivityId);
-                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
+
                         data.Value = new CommentNotifierDataModel
                         {
                             CommentId = entityId,
