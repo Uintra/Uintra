@@ -63,9 +63,8 @@ namespace Compent.uIntra.Core.News
             IActivityTypeProvider activityTypeProvider,
             ICentralFeedTypeProvider centralFeedTypeProvider,            
             ISearchableTypeProvider searchableTypeProvider, 
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IIntranetMediaService intranetMediaService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;

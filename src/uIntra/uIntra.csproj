@@ -334,42 +334,35 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.3.4\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.1.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.2\lib\net452\uIntra.Bulletins.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="uIntra.Bulletins, Version=0.1.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.1.2.2-v5\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.1.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.CentralFeed.1.1.12\lib\net452\uIntra.CentralFeed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.3\lib\net452\uIntra.Comments.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\uIntra.Comments.1.1.3-v8\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Core, Version=1.1.27.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.1.27.2-v10\lib\net452\uIntra.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\uIntra.Core.1.1.27.2-v14\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.2.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Events.1.2.1.2\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.2.2-v6\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.2\lib\net452\uIntra.Likes.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\uIntra.Likes.1.1.2-v5\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.1.8.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Navigation.1.1.8.6\lib\net452\uIntra.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.News, Version=1.1.9.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.1.9.2-v5\lib\net452\uIntra.News.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\uIntra.News.1.1.9.2-v8\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.1.9.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.1.9.2\lib\net452\uIntra.Notification.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\uIntra.Notification.1.1.9.2-v1\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.3\lib\net452\uIntra.Panels.dll</HintPath>
@@ -554,6 +547,7 @@
     <Content Include="App_Plugins\CentralFeed\loader.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
+    <Content Include="App_Plugins\Comments\backoffice\comments-view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js" />
@@ -800,6 +794,7 @@
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
+    <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
@@ -1420,22 +1415,10 @@
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -1466,9 +1449,6 @@
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1487,37 +1467,10 @@
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\package.manifest" />
@@ -1565,27 +1518,6 @@
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1610,7 +1542,28 @@
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Comments\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -1623,6 +1576,51 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
@@ -1689,18 +1687,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
