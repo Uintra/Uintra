@@ -41,7 +41,7 @@ namespace Compent.uIntra.Controllers
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
-                if (model.CommentId.HasValue)
+                if (IsForComment(model))
                 {
                     var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
                     notifiableService.Notify(model.CommentId.Value, notificationType);

@@ -1,22 +1,15 @@
 ﻿import initBlockOnSubmit from "./../Core/Content/scripts/BlockOnSubmit";
 import helpers from "./../Core/Content/scripts/Helpers";
-import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
 
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 require("./comments.css");
 
-let description = document.querySelector(".js-comment-create-description");
-let sentButton = document.querySelector(".js-toolbar__send-button");
-const toolbarSelector = ".comments-toolbar";
-let isCommentClickEventListenersAdded;
-
 const quillOptions = {
     theme: 'snow',
-    placeholder: description ? description.dataset["placeholder"] : '',
     modules: {
-        toolbar: toolbarSelector
+        toolbar: [['bold', 'italic', 'underline'], ['link']]
     }
 };
 
@@ -34,33 +27,6 @@ var initSubmitButton  = function(holder) {
     });
     initBlockOnSubmit();
 };
-
-function initFileUploader(holder) {
-    let dropZonePreview = holder.querySelector('.js-dropzone-previews');
-    if (dropZonePreview) {
-        let options = {
-            previewsContainer: dropZonePreview
-        };
-
-        let dropzone = fileUploadController.init(holder, options);
-
-        dropzone.on('success',
-            function(file, fileId) {
-                dropZonePreview.classList.remove("hidden");
-
-                //sentButton.disabled = !isEdited();
-            });
-
-        dropzone.on('removedfile',
-            function(file) {
-                if (this.files.length === 0) {
-                    dropZonePreview.classList.add("hidden");
-                }
-
-                //sentButton.disabled = !isEdited();
-            });
-    }
-}
 
 var initCreateControl = function (holder) {
     var createControls = holder.find('.js-comment-create');
@@ -90,43 +56,10 @@ var initCreateControl = function (holder) {
             }
         });
 
-        initQuillCustomFileButtonEventHandlers();
-
         quill.setText('');
         dataStorage.value = '';
     });
 };
-
-function initQuillCustomFileButtonEventHandlers() {
-    if (!isCommentClickEventListenersAdded) {
-        var commentsList = document.querySelector('.js-comments-overview');
-        commentsList.addEventListener('click',
-            function(event) {
-                var customQlLinkBtn = event.target.findAncestorByClassName('js-custom-ql-link-btn');
-                if (customQlLinkBtn) {
-                    qlLinkButtonHandler(customQlLinkBtn);
-                }
-                var customQlFileBtn = event.target.findAncestorByClassName('js-custom-ql-image-btn')
-                if (customQlFileBtn) {
-                    qlImageButtonHandler(customQlFileBtn);
-                }
-                event.stopPropagation();
-            });
-        isCommentClickEventListenersAdded = true;
-    }
-}
-
-function qlLinkButtonHandler(customQlLinkBtn) {
-    $.get("/Umbraco/Api/LinkPreview/GetHtmlPreview?url=www.google.com", function (data) {
-        //$(".result").html(data);
-        //alert(data);
-        //alert("Load was performed.");
-    });
-}
-
-function qlImageButtonHandler(customQlFileBtn) {
-    customQlFileBtn.click();
-}
 
 var initEdit = function (holder) {
     var editlink = findControl(holder, '.js-comment-editlink');
@@ -251,13 +184,9 @@ var CommentOverview = function (selector) {
     holders.each(function () {
         var $this = $(this);
         initCreateControl($this);
-        initSubmitButton($this);
-        
+        initSubmitButton($this)
         $this.find('.js-comment-view').each(function () {
             new Comment(this);
-        });
-        $this.find('.comments__form-field').each(function(commentsHolders) {
-            initFileUploader(this);
         });
     });
 };
