@@ -532,6 +532,7 @@
     <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
     <Content Include="App_Plugins\Bulletins\style.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
+    <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\loader.gif" />
     <Content Include="App_Plugins\CentralFeed\loader.svg" />
     <Content Include="App_Plugins\Comments\backoffice\comments-view.html" />

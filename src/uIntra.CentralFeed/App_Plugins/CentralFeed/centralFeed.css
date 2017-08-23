@@ -353,7 +353,8 @@
             font-size:11px;
             line-height:2em;
             text-transform:uppercase;
-            padding:3px 10px 5px;
+            padding:0 10px;
+            float:right;
 
             .icon-check{
                 &:before{
