@@ -52,6 +52,10 @@ function updateNotificationsCount() {
             }
         }
     });
+
+    $.ajaxSetup ({
+        cache: false
+    });
 }
 
 function initCustomControls() {
