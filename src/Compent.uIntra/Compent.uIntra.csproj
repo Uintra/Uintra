@@ -1140,6 +1140,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\BrowserCompatibilityController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\BulletinsSectionController.cs" />
