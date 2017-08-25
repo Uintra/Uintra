@@ -47,6 +47,10 @@
             flex-direction:column;
             color:var(--text-color-dark);
 
+            ._attachments &{
+                padding-top:25px;
+            }
+
             &:hover{
                 color:var(--text-color-dark);
                 text-decoration:none;

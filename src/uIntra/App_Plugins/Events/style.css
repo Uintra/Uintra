@@ -55,6 +55,7 @@
 
     &__title{
         font-size:14px;
+        line-height:1.4em;
         font-weight:bold;
         margin:0 0 3px;
     }

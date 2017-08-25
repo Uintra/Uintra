@@ -20,7 +20,7 @@ namespace Compent.uIntra.Controllers
         protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
 
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
-            IIntranetUserService<IntranetUser> intranetUserService, 
+            IIntranetUserService<IIntranetUser> intranetUserService, 
             ILikesService likesService, 
             INotificationTypeProvider notificationTypeProvider)
             : base(activitiesServiceFactory, intranetUserService, likesService)

@@ -11,7 +11,7 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IPermissionsService _permissionsService;
 
-        public TestController(IIntranetUserService<IntranetUser> intranetUserService,
+        public TestController(IIntranetUserService<IIntranetUser> intranetUserService,
             IPermissionsConfiguration permissionsConfiguration,
             IPermissionsService permissionsService)
         {

@@ -31,7 +31,7 @@
 
             <!--TODO: tree -->
 
-            <input type="search" placeholder="Choose parent..." class="search-box" 
+            <input type="search" placeholder="Choose relation ..." class="search-box" 
                    ng-model="searchText" />
             <ul class="unstyled search-result">
                 <li ng-repeat="storedKey in dialogData.storedKeys | filter:searchText" 
@@ -40,7 +40,7 @@
                     {{storedKey}}
                 </li>
             </ul>
-            Parent: {{dialogData.resource.parentKey}}
+            Relation: {{dialogData.resource.parentKey}}
         </div>
     </div>
 

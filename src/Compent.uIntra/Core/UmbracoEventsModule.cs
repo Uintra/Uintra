@@ -66,7 +66,7 @@ namespace Compent.uIntra.Core
 
         private static ICacheableIntranetUserService GetCacheableUserService()
         {
-            var userService = DependencyResolver.Current.GetService<IIntranetUserService<IntranetUser>>();
+            var userService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
             var cacheableUserService = userService as ICacheableIntranetUserService;
 
             return cacheableUserService;

@@ -12,7 +12,7 @@ namespace Compent.uIntra.Controllers
     {
         public SubscribeController(
             ISubscribeService subscribeService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory) :
             base(subscribeService, intranetUserService, activitiesServiceFactory)
         {

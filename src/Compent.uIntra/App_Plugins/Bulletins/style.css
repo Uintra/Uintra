@@ -20,12 +20,16 @@
 	.ql-container .ql-editor {
 		height: auto;
         font-size:16px;
+        padding:12px 20px;
 
         &.ql-blank{
             &:before{
                 font-style:normal;
                 color:var(--text-color-dark);
                 opacity:0.5;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                overflow:hidden;
             }
         }
 
@@ -166,6 +170,7 @@
             background: var(--color-white);
             position: relative;
             z-index: 5;
+            min-height:51px;
         }
     }
 }

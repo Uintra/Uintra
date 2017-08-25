@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("uIntra")]
-[assembly: AssemblyDescription("uIntra nuget package")]
+[assembly: AssemblyDescription("This package contains all the NuGet packages for uIntra. All the different packages can be accessed here and possibly changed by a developer.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("compent.dk")]
 [assembly: AssemblyProduct("uIntra")]
@@ -32,5 +32,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 //[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyVersion("0.0.1.55")]
-[assembly: AssemblyInformationalVersion("0.0.1.55-v6")]
+
+[assembly: AssemblyVersion("0.0.1.62")]
+[assembly: AssemblyInformationalVersion("0.0.1.62-v1")]

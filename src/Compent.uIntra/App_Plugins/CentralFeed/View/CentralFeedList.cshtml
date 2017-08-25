@@ -10,8 +10,8 @@
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <input type="hidden" name="version" value="@Model.Version" />
 
-<div class="feed__filter filter__body">
-    <div class="feed__filter-item" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
+<div class="feed__subfilter filter__body">
+    <div class="feed__subfilter-item" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
         <div class="check">
             <label class="check__label">
                 <input type="checkbox" class="check__box" name="showSubscribed" @(Model.ShowSubscribed ? "checked" : "") value="true">
@@ -20,7 +20,7 @@
             </label>
         </div>
     </div>
-    <div class="feed__filter-item" style="display: @(tabSettings.HasPinnedFilter ? "block" : "none")">
+    <div class="feed__subfilter-item" style="display: @(tabSettings.HasPinnedFilter ? "block" : "none")">
         <div class="check">
             <label class="check__label">
                 <input type="checkbox" class="check__box" name="showPinned" @(Model.ShowPinned ? "checked" : "") value="true">
@@ -29,7 +29,7 @@
             </label>
         </div>
     </div>
-    <div class="feed__filter-item" style="display: @(tabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
+    <div class="feed__subfilter-item" style="display: @(tabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
         <input class="btn" type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
     </div>
 </div>

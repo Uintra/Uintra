@@ -49,7 +49,7 @@ var initCreateControl = function (holder) {
         var button = $this.find('.js-comment-create-btn');
 
         quill.on('text-change', function () {
-            if (quill.getLength() > 1) {
+            if (quill.getText().trim().length > 0) {
                 button.removeAttr("disabled");
             } else {
                 button.attr("disabled", "disabled");

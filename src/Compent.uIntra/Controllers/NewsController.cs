@@ -11,7 +11,6 @@ using uIntra.Core.User;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
-using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
@@ -22,13 +21,11 @@ namespace Compent.uIntra.Controllers
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";        
 
-        protected override int ShortDescriptionLength { get; } = 500;
-
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IDocumentIndexer _documentIndexer;
 
         public NewsController(
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,

@@ -15,7 +15,6 @@ using uIntra.Events.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
-using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {
@@ -25,17 +24,16 @@ namespace Compent.uIntra.Controllers
         protected override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/Events/EditView.cshtml";
         protected override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
-        protected override int ShortDescriptionLength { get; } = 500;
 
         private readonly IEventsService<Event> _eventsService;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public EventsController(IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
             IReminderService reminderService,
             IIntranetUserContentHelper intranetUserContentHelper,
             IGridHelper gridHelper,
