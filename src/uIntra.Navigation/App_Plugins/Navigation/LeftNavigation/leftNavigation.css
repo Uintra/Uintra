@@ -78,7 +78,7 @@
 
         ._system &,
         ._links &{
-		    left: 0;
+		    left: -12px;
             width:auto;
         }
 

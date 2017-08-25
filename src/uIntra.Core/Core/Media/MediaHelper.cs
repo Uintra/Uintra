@@ -167,7 +167,5 @@ namespace uIntra.Core.Media
         {
             return _imageHelper.IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
         }
-
-
     }
 }

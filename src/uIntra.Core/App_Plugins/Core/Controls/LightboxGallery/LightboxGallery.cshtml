@@ -1,25 +1,31 @@
 ﻿@using uIntra.Core
 @using System.Linq
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
-@{
-    var medias = Model.GalleryItems.ToLookup(m => m.Type.Id);
-    var images = medias[(int)MediaTypeEnum.Image];
-    var documents = medias[(int)MediaTypeEnum.Document];
-}
-<ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery clearfix">
-    @foreach (var image in images)
-    {
-        var originalSize = $"{image.Width}x{image.Height}";
-        <li class="gallery__item">
-            <img class="gallery__image" src="@image.Url" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
-        </li>
-    }
-    @foreach (var document in documents)
-    {
-        <li class="gallery__item">
-            <a href="@document.Url" target="_blank">
-                <span class="file-extension __@document.Name">@document.Name</span>
-            </a>
-        </li>
-    }
-</ul>
+
+@if (Model.GalleryItems.Any())
+{
+    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery clearfix">
+        @{
+            foreach (var media in Model.GalleryItems)
+            {
+                switch (media.Type.Id)
+                {
+                    case (int)MediaTypeEnum.Image:
+                        var originalSize = $"{media.Width}x{media.Height}";
+
+                        <li class="gallery__item">
+                            <img class="gallery__image" src="@media.Url" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
+                        </li>
+                        break;
+                    case (int)MediaTypeEnum.Document:
+                        <li class="gallery__item">
+                            <a href="@media.Url" target="_blank">
+                                <span class="file-extension __@media.Extention"></span>
+                            </a>
+                        </li>
+                        break;
+                }
+            }
+        }
+    </ul>
+            }

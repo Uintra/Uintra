@@ -10,7 +10,6 @@ using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
-using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.News.Web
@@ -23,7 +22,6 @@ namespace uIntra.News.Web
         protected virtual string DetailsViewPath { get; } = "~/App_Plugins/News/Details/DetailsView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/News/Create/CreateView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/News/Edit/EditView.cshtml";
-        protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
         private readonly INewsService<NewsBase> _newsService;
@@ -165,11 +163,11 @@ namespace uIntra.News.Web
         protected virtual NewsItemViewModel GetItemViewModel(NewsBase news)
         {
             var model = news.Map<NewsItemViewModel>();
-            model.ShortDescription = news.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = news.MediaIds;
+            model.Expired = _newsService.IsExpired(news);
+
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Creator = _intranetUserService.Get(news);
-            model.Expired = _newsService.IsExpired(news);
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

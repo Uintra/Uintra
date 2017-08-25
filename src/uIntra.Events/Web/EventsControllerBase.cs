@@ -18,7 +18,7 @@ using Umbraco.Web.Mvc;
 namespace uIntra.Events.Web
 {
     [ActivityController(ActivityTypeId)]
-    public abstract class EventsControllerBase : SurfaceController 
+    public abstract class EventsControllerBase : SurfaceController
     {
         protected virtual string ComingEventsViewPath => "~/App_Plugins/Events/ComingEvents/ComingEventsView.cshtml";
         protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
@@ -26,7 +26,6 @@ namespace uIntra.Events.Web
         protected virtual string EditViewPath => "~/App_Plugins/Events/Edit/EditView.cshtml";
         protected virtual string ItemViewPath => "~/App_Plugins/Events/List/ItemView.cshtml";
         protected virtual string PreviewItemViewPath => "~/App_Plugins/Events/PreviewItem/PreviewItemView.cshtml";
-        protected virtual int ShortDescriptionLength { get; } = 500;
         protected virtual int DisplayedImagesCount { get; } = 3;
 
         private readonly IEventsService<EventBase> _eventsService;
@@ -36,14 +35,14 @@ namespace uIntra.Events.Web
         private readonly IGridHelper _gridHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
-        private const int ActivityTypeId = (int) IntranetActivityTypeEnum.Events;
+        private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IGridHelper gridHelper, 
+            IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider)
         {
             _eventsService = eventsService;
@@ -214,8 +213,13 @@ namespace uIntra.Events.Web
             };
         }
 
+        protected virtual IEnumerable<EventBase> GetComingEvents(DateTime fromDate)
+        {
+            return _eventsService.GetComingEvents(fromDate);
+        }
+
         protected virtual EventBase MapEditModel(EventEditModel saveModel)
-        { 
+        {
             var @event = _eventsService.Get(saveModel.Id);
             @event = Mapper.Map(saveModel, @event);
             return @event;
@@ -244,8 +248,6 @@ namespace uIntra.Events.Web
         protected virtual EventItemViewModel GetItemViewModel(EventBase @event)
         {
             var model = @event.Map<EventItemViewModel>();
-
-            model.ShortDescription = @event.Description.Truncate(ShortDescriptionLength);
             model.MediaIds = @event.MediaIds;
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
 

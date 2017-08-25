@@ -43,6 +43,7 @@
         &-text{
             position:relative;
             padding-bottom:27px;
+            line-height:1.4em;
 
             p{
                 margin:0;

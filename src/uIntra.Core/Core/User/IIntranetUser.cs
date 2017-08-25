@@ -10,5 +10,6 @@ namespace uIntra.Core.User
         string Photo { get; set; }
         IRole Role { get; set; }
         string Email { get; set; }
+        string LoginName { get; set; }
     }
 }

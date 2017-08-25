@@ -13,43 +13,43 @@ namespace uIntra.Comments
             _commentsRepository = commentsRepository;
         }
 
-        public Comment Get(Guid id)
+        public virtual Comment Get(Guid id)
         {
             return _commentsRepository.Get(id);
         }
 
-        public IEnumerable<Comment> GetMany(Guid activityId)
+        public virtual IEnumerable<Comment> GetMany(Guid activityId)
         {
             return _commentsRepository.FindAll(comment => comment.ActivityId == activityId);
         }
 
-        public int GetCount(Guid activityId)
+        public virtual int GetCount(Guid activityId)
         {
             var count = _commentsRepository.Count(comment => comment.ActivityId == activityId);
             return (int)count;
         }
 
-        public bool CanEdit(Comment comment, Guid editorId)
+        public virtual bool CanEdit(Comment comment, Guid editorId)
         {
             return comment.UserId == editorId;
         }
 
-        public bool CanDelete(Comment comment, Guid editorId)
+        public virtual bool CanDelete(Comment comment, Guid editorId)
         {
             return comment.UserId == editorId;
         }
 
-        public bool WasChanged(Comment comment)
+        public virtual bool WasChanged(Comment comment)
         {
             return comment.CreatedDate != comment.ModifyDate;
         }
 
-        public bool IsReply(Comment comment)
+        public virtual bool IsReply(Comment comment)
         {
             return comment.ParentId.HasValue;
         }
 
-        public Comment Create(Guid userId, Guid activityId, string text, Guid? parentId)
+        public virtual Comment Create(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var entity = new Comment
             {
@@ -65,7 +65,7 @@ namespace uIntra.Comments
             return entity;
         }
 
-        public Comment Update(Guid id, string text)
+        public virtual Comment Update(Guid id, string text)
         {
             var comment = _commentsRepository.Get(id);
 
@@ -75,7 +75,7 @@ namespace uIntra.Comments
             return comment;
         }
 
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             var comment = _commentsRepository.Get(id);
 
@@ -88,13 +88,13 @@ namespace uIntra.Comments
             _commentsRepository.Delete(comment);
         }
 
-        public void FillComments(ICommentable entity)
+        public virtual void FillComments(ICommentable entity)
         {
             var comments = GetMany(entity.Id);
             entity.Comments = comments;
         }
 
-        public string GetCommentViewId(Guid commentId)
+        public virtual string GetCommentViewId(Guid commentId)
         {
             return $"js-comment-view-{commentId}";
         }
