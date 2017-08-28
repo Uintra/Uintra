@@ -328,7 +328,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Plugins\CentralFeed\Models\CentralFeedListModel.cs" />
+    <Compile Include="Core\Models\CentralFeedListModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeedItemComparer.cs" />
     <Compile Include="Core\CentralFeedEventComparer.cs" />
@@ -407,6 +407,7 @@
       <Name>uIntra.Subscribe</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>
