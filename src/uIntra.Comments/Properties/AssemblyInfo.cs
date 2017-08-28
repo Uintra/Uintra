@@ -6,6 +6,6 @@ using System.Runtime.InteropServices;
                                " will result in a nested comment. All user roles can comment.")]
 
 [assembly: AssemblyVersion("1.1.4.3")]
-[assembly: AssemblyInformationalVersion("1.1.4.3-v1")]
+[assembly: AssemblyInformationalVersion("1.1.4.3-v2")]
 [assembly: ComVisible(false)]
 [assembly: Guid("54e782d4-8298-4b78-8d7a-cde398521374")]

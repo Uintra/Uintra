@@ -32,9 +32,7 @@
                         Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });
                     }
                 </div>
-                <div class="comments">
-                    @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
-                </div>
+                @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
 
             </div>
         </div>
