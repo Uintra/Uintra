@@ -386,8 +386,8 @@
       <HintPath>..\..\packages\uIntra.Tagging.1.1.4\lib\net452\uIntra.Tagging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.4.2.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.4.2.5\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.4.2.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.4.2.6\lib\net452\uIntra.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
@@ -1030,6 +1030,9 @@
     <Content Include="..\Compent.uIntra\Controllers\NewsSectionController.cs">
       <Link>Controllers\NewsSectionController.cs</Link>
     </Content>
+    <Compile Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
+      <Link>Controllers\Api\MemberApiController.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
       <Link>Core\ActivitiesServiceFactory.cs</Link>
     </Compile>
@@ -1655,21 +1658,6 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Members\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1683,6 +1671,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
