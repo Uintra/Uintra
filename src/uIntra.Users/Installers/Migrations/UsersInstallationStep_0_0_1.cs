@@ -17,6 +17,8 @@ namespace uIntra.Users.Installers.Migrations
             CreateUsersEditProfilePage();
 
             CreateMemberUserPickerDataType();
+            CreateMemberChangesWatcherDataType();
+            AddMembershipTabProperties();
             AddProfileTabProperties();
             AddDefaultMemberGroups();
             AddDefaultMember();
@@ -79,7 +81,47 @@ namespace uIntra.Users.Installers.Migrations
             dataTypeService.Save(dataType);
         }
 
-        public static void AddProfileTabProperties()
+        private void CreateMemberChangesWatcherDataType()
+        {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+            var dataType = dataTypeService.GetDataTypeDefinitionByName(UsersInstallationConstants.DataTypeNames.MemberChangesWatcher);
+            if (dataType != null)
+            {
+                return;
+            }
+
+            dataType = new DataTypeDefinition(UsersInstallationConstants.DataTypePropertyEditors.MemberChangesWatcher)
+            {
+                Name = UsersInstallationConstants.DataTypeNames.MemberChangesWatcher,
+                DatabaseType = DataTypeDatabaseType.Nvarchar
+            };
+
+            dataTypeService.Save(dataType);
+        }
+
+        private static void AddMembershipTabProperties()
+        {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+            var memberTypeService = ApplicationContext.Current.Services.MemberTypeService;
+            var memberType = memberTypeService.Get(UsersInstallationConstants.DataTypeAliases.Member);
+
+            var memberChangesWatcherDataType = dataTypeService.GetDataTypeDefinitionByName(UsersInstallationConstants.DataTypeNames.MemberChangesWatcher);
+
+            var memberChangesWatcherProperty = new PropertyType(memberChangesWatcherDataType)
+            {
+                Alias = UsersInstallationConstants.DataTypePropertyAliases.MembershipMemberChangesWatcher,
+                Name = UsersInstallationConstants.DataTypePropertyNames.MembershipMemberChangesWatcher,
+            };
+
+            if (!memberType.PropertyTypeExists(memberChangesWatcherProperty.Alias))
+            {
+                memberType.AddPropertyType(memberChangesWatcherProperty, UsersInstallationConstants.DataTypeTabAliases.MembershipTabAlias);
+            }
+
+            memberTypeService.Save(memberType);
+        }
+
+        private static void AddProfileTabProperties()
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var memberTypeService = ApplicationContext.Current.Services.MemberTypeService;
@@ -140,7 +182,7 @@ namespace uIntra.Users.Installers.Migrations
             memberTypeService.Save(memberType);
         }
 
-        public static void AddDefaultMemberGroups()
+        private static void AddDefaultMemberGroups()
         {
             var memberGroupService = ApplicationContext.Current.Services.MemberGroupService;
 
@@ -177,7 +219,7 @@ namespace uIntra.Users.Installers.Migrations
             }
         }
 
-        public static void AddDefaultMember()
+        private static void AddDefaultMember()
         {
             var memberService = ApplicationContext.Current.Services.MemberService;
             var member = memberService.GetByEmail(UsersInstallationConstants.DefaultMember.Email);

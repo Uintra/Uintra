@@ -7,6 +7,7 @@
             public const string ProfilePage = "Profile Page";
             public const string ProfileEditPage = "Profile Edit Page";
         }
+
         public class DocumentTypeAliases
         {
             public const string ProfilePage = "profilePage";
@@ -18,18 +19,22 @@
             public const string ProfilePage = "icon-user";
             public const string ProfileEditPage = "icon-umb-members";
         }
+
         public class DataTypeNames
         {
             public const string MemberUserPicker = "Member - User picker";
+            public const string MemberChangesWatcher = "Member - Member Changes Watcher";
         }
 
         public class DataTypeAliases
         {
             public const string Member = "Member";
         }
+
         public class DataTypePropertyEditors
         {
             public const string MemberUserPicker = "Umbraco.UserPicker";
+            public const string MemberChangesWatcher = "MemberChangesWatcher";
         }
 
         public class DataTypePropertyNames
@@ -38,17 +43,22 @@
             public const string ProfileLastName = "Last name";
             public const string ProfilePhoto = "Photo";
             public const string ProfileRelatedUser = "Related user";
+            public const string MembershipMemberChangesWatcher = "Member Changes Watcher";
         }
+
         public class DataTypePropertyAliases
         {
             public const string ProfileFirstName = "firstName";
             public const string ProfileLastName = "lastName";
             public const string ProfilePhoto = "photo";
             public const string ProfileRelatedUser = "relatedUser";
+            public const string MembershipMemberChangesWatcher = "memberChangesWatcher";
         }
+
         public class DataTypeTabAliases
         {
             public const string ProfileTabAlias = "Profile";
+            public const string MembershipTabAlias = "Membership";
         }
 
         public class MemberGroups
