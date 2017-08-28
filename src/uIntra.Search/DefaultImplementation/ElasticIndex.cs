@@ -23,16 +23,12 @@ namespace uIntra.Search
                 .Query(q =>
                     q.Bool(b => b                   
                        .Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds))
+                       .Must(GetOnlyPinnedQueryContainer(query.OnlyPinned))
                        .Should(GetQueryContainers(query.Text))
                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
                 .Take(query.Take);
 
             ApplySort(searchRequest);
-
-            if (query.OnlyPinned)
-            {
-                ApplyOnlyPinned(searchRequest);
-            }
 
             if (query.ApplyHighlights)
             {
@@ -42,13 +38,6 @@ namespace uIntra.Search
             var queryResult = _elasticSearchRepository.SearchByIndex(searchRequest);
             var searchResult = ParseResults(queryResult);
             return searchResult;
-        }
-
-        private void ApplyOnlyPinned(SearchDescriptor<dynamic> request)
-        {
-            request.Query(q =>
-               q.Bool(b =>
-               b.Must(GetOnlyPinnedQueryContainer())));
         }
 
         protected virtual SearchDescriptor<dynamic> GetSearchDescriptor()
@@ -123,9 +112,14 @@ namespace uIntra.Search
             return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
         }
 
-        private QueryContainer GetOnlyPinnedQueryContainer()
+        private QueryContainer[] GetOnlyPinnedQueryContainer(bool onlyPinned)
         {
-            return new QueryContainerDescriptor<SearchableActivity>().Terms(t => t.Field(f => f.IsPinActual).Terms(true));
+            var result = onlyPinned
+                ? new QueryContainerDescriptor<SearchableActivity>()
+                    .Terms(t => t.Field(f => f.IsPinActual).Terms(true))
+                    .ToEnumerableOfOne()
+                : Enumerable.Empty<QueryContainer>();
+            return result.ToArray();
         }
 
         protected SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
