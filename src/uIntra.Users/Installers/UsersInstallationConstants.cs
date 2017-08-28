@@ -72,7 +72,7 @@
         {
             public const string Email = "admin@testmember.com";
             public const string Name = "admin";
-            public const string UmbracoAdminUserId = "0";
+            public const int UmbracoAdminUserId = 0;
             public const string Password = "qwerty1234";
         }
     }
