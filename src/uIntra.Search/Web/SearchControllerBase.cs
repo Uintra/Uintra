@@ -56,6 +56,7 @@ namespace uIntra.Search.Web
                 Text = model.Query,
                 Take = ResultsPerPage * model.Page,
                 SearchableTypeIds = searchableTypeIds,
+                OnlyPinned = model.OnlyPinned,
                 ApplyHighlights = true
             });
 

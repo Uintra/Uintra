@@ -17,19 +17,25 @@ namespace uIntra.Search
             _elasticSearchRepository = elasticSearchRepository;
         }
 
-        public SearchResult<SearchableBase> Search(SearchTextQuery textQuery)
+        public SearchResult<SearchableBase> Search(SearchTextQuery query)
         {
+            query.OnlyPinned = true;
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
-                    q.Bool(b => b
-                       .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))
-                       .Should(GetQueryContainers(textQuery.Text))
+                    q.Bool(b => b                   
+                       .Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds))
+                       .Should(GetQueryContainers(query.Text))
                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                .Take(textQuery.Take);
+                .Take(query.Take);
 
             ApplySort(searchRequest);
 
-            if (textQuery.ApplyHighlights)
+            if (query.OnlyPinned)
+            {
+                ApplyOnlyPinned(searchRequest);
+            }
+
+            if (query.ApplyHighlights)
             {
                 ApplyHighlight(searchRequest);
             }
@@ -37,6 +43,13 @@ namespace uIntra.Search
             var queryResult = _elasticSearchRepository.SearchByIndex(searchRequest);
             var searchResult = ParseResults(queryResult);
             return searchResult;
+        }
+
+        private void ApplyOnlyPinned(SearchDescriptor<dynamic> request)
+        {
+            request.Query(q =>
+               q.Bool(b =>
+               b.Must(GetOnlyPinnedQueryContainer())));
         }
 
         protected virtual SearchDescriptor<dynamic> GetSearchDescriptor()
@@ -109,6 +122,11 @@ namespace uIntra.Search
         private static QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)
         {
             return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
+        }
+
+        private QueryContainer GetOnlyPinnedQueryContainer()
+        {
+            return new QueryContainerDescriptor<SearchableActivity>().Terms(t => t.Field(f => f.IsPinActual).Terms(true));
         }
 
         protected SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
