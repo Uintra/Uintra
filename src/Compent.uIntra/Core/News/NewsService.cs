@@ -18,7 +18,6 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

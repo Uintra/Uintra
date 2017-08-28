@@ -3,7 +3,6 @@ using uIntra.Core.Activity;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 using uIntra.Subscribe.Web;
-using uIntra.Users;
 
 namespace Compent.uIntra.Controllers
 {

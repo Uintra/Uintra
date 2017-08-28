@@ -2,7 +2,6 @@
 using uIntra.Notification;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Notification
 {
