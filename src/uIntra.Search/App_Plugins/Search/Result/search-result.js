@@ -4,6 +4,8 @@ import ajax from "./../../Core/Content/scripts/Ajax";
 
 require('select2');
 
+const onlyPinnedFilterSelector = 'input[name="onlyPinned"]';
+
 var infinityScroll = helpers.infiniteScrollFactory;
 var searchTimeout;
 var formController;
@@ -15,6 +17,14 @@ var initTypesSelect = function () {
     select.select2({
         placeholder: select.data("placeholder")
     });
+}
+
+function initOnlyPinnedFilter() {
+    $(onlyPinnedFilterSelector).on('change', onlyPinnedFilterChangeHandler);
+}
+
+function onlyPinnedFilterChangeHandler(event) {
+    search();
 }
 
 function initSearchPage() {
@@ -134,6 +144,6 @@ export default function () {
     initSearchPage();
     initInfinityScroll();
     initTypesSelect();
-
+    initOnlyPinnedFilter();
     search();
 };

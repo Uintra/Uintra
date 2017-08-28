@@ -19,7 +19,6 @@ namespace uIntra.Search
 
         public SearchResult<SearchableBase> Search(SearchTextQuery query)
         {
-            query.OnlyPinned = true;
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
                     q.Bool(b => b                   
