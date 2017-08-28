@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Web;
+using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
@@ -19,7 +19,7 @@ namespace Compent.uIntra.Installer
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            var migrationHistoryService = HttpContext.Current.GetService<IMigrationHistoryService>();
+            var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
             var lastMigrationHistory = migrationHistoryService.GetLast();
 
             var installedVersion = lastMigrationHistory != null ? new Version(lastMigrationHistory.Version) : new Version("0.0.0.0");
@@ -46,6 +46,8 @@ namespace Compent.uIntra.Installer
             InheritNavigationCompositions();
             umbracoContentMigration.Init();
             defaultLocalizationsMigration.Init();
+
+            AddActivityBackofficeSectionsToAdmin();
         }
 
         private void InheritNavigationCompositions()
@@ -61,6 +63,15 @@ namespace Compent.uIntra.Installer
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfilePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage, nav);
+        }
+
+        private void AddActivityBackofficeSectionsToAdmin()
+        {
+            var userService = ApplicationContext.Current.Services.UserService;
+
+            userService.AddSectionToAllUsers("news", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
+            userService.AddSectionToAllUsers("events", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
+            userService.AddSectionToAllUsers("bulletins", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
         }
     }
 }
