@@ -47,6 +47,13 @@ var initCreateControl = function (holder) {
         var descriptionElem = $this.find('.js-comment-create-description')[0];
         var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
         var button = $this.find('.js-comment-create-btn');
+        var toolbarBtns = $this.find('.ql-formats button');
+
+        toolbarBtns.each(function(){
+            var className = $(this).attr('class').split("-");
+            var tooltip = className[className.length - 1];
+            $(this).attr('title', tooltip);
+        });
 
         quill.on('text-change', function () {
             if (quill.getText().trim().length > 0) {
@@ -99,6 +106,15 @@ var initEdit = function (holder) {
     });
 
     button.removeAttr("disabled");
+
+    var toolbarBtns = editControlContainer.find('.ql-formats button');
+
+    toolbarBtns.each(function(){
+        var className = $(this).attr('class').split("-");
+        var tooltip = className[className.length - 1];
+        $(this).attr('title', tooltip);
+    });
+
     quill.on('text-change', function () {
         if (quill.getLength() > 1) {
             button.removeAttr("disabled");
@@ -135,6 +151,14 @@ var initReply = function (holder) {
     var descriptionElem = findControl(holder, '.js-comment-create-description')[0];
     var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
     var button = holder.find('.js-comment-create-btn');
+
+    var toolbarBtns = commentReply.find('.ql-formats button');
+
+    toolbarBtns.each(function(){
+        var className = $(this).attr('class').split("-");
+        var tooltip = className[className.length - 1];
+        $(this).attr('title', tooltip);
+    });
 
     quill.on('text-change', function () {
         if (quill.getLength() > 1) {
