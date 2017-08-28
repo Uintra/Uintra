@@ -23,9 +23,9 @@
             <button class="create-bulletin__close js-create-bulletin__close hidden">X</button>
             <div class="create-bulletin__toolbar ql-toolbar ql-snow js-create-bulletin__toolbar hidden">
                 <span class="ql-formats">
-                    <button type="button" class="ql-bold"></button>
-                    <button type="button" class="ql-italic"></button>
-                    <button type="button" class="ql-link"></button>
+                    <button type="button" class="ql-bold" title="bold"></button>
+                    <button type="button" class="ql-italic" title="italic"></button>
+                    <button type="button" class="ql-link" title="link"></button>
                 </span>
                 <span class="ql-formats">
                     <button type="button" class="js-dropzone _upload" data-allowed="@Model.AllowedMediaExtentions" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")">
@@ -38,5 +38,5 @@
                 </span>
             </div>
             <input type="hidden" name="@nameof(Model.MediaRootId)" value="@Model.MediaRootId" />
-                }
+        }
 </div>
