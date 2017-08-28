@@ -181,7 +181,8 @@
             &._clamp{
                 overflow:hidden;
                 margin:0 0 20px;
-                max-height:70px;
+                max-height:66px;
+                line-height:22px;
 
                 > p:last-child{
                     margin-bottom:0;
