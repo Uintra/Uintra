@@ -11,6 +11,8 @@ namespace uIntra.Search
 
         public IEnumerable<int> SearchableTypeIds { get; set; } = Enumerable.Empty<int>();
 
+        public bool OnlyPinned { get; set; } = true;
+
         public bool ApplyHighlights { get; set; }
     }
 }

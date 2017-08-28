@@ -1051,13 +1051,13 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
