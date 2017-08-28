@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using uIntra.Core;
+using uIntra.Core.Extentions;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Users.Web
@@ -27,12 +28,17 @@ namespace uIntra.Users.Web
         public virtual ActionResult Login(LoginModelBase model)
         {
             var redirectUrl = model.ReturnUrl ?? DefaultRedirectUrl;
+
+            if (model.Login.IsNullOrEmpty() || model.Password.IsNullOrEmpty())
+            {
+                return Redirect(redirectUrl);
+            }
+
             if (Members.Login(model.Login, model.Password))
             {
                 _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
             }
             return Redirect(redirectUrl);
-
         }
 
         public virtual void Logout()
