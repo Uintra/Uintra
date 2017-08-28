@@ -463,6 +463,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Compent.uIntra\build\89889688147bd7575d6327160d64e760.svg">
+      <Link>build\89889688147bd7575d6327160d64e760.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\app.css">
+      <Link>build\app.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\app.js">
+      <Link>build\app.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\head_css.css">
+      <Link>build\head_css.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\head_css.js">
+      <Link>build\head_css.js</Link>
+    </Content>
     <Content Include="App_Plugins\Archetype\css\archetype.css" />
     <Content Include="App_Plugins\Archetype\js\archetype.js" />
     <Content Include="App_Plugins\Archetype\langs\da-dk.js" />

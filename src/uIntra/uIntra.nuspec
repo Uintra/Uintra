@@ -10,5 +10,8 @@
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uIntra</tags>
+    <dependencies>
+      <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.3" />
+    </dependencies>
   </metadata>
 </package>
