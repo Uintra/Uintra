@@ -94,6 +94,17 @@
         }
     }
 
+    &__link{
+        color:var(--text-color-dark);
+
+        &:focus,
+        &:active,
+        &:hover{
+            color:var(--text-color-dark);
+            text-decoration:none;
+        }
+    }
+
     &__icon{
         display:inline-block !important;
         vertical-align:top;
