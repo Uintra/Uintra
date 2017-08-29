@@ -6,6 +6,6 @@ using System.Runtime.InteropServices;
                                " which notifications they would like to receive in emails.")]
 
 [assembly: AssemblyVersion("1.1.10.0")]
-[assembly: AssemblyInformationalVersion("1.1.10.0-v1")]
+[assembly: AssemblyInformationalVersion("1.1.10.0-v2")]
 [assembly: ComVisible(false)]
 [assembly: Guid("774eba5a-679c-401d-b3f1-130562785c60")]
