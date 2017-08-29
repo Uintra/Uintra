@@ -23,7 +23,6 @@ namespace uIntra.Core.Web
             //#if RELEASE
             UmbracoApplicationBase.ApplicationInit += Init;
             //#endif
-            UmbracoApplicationBase.ApplicationInit += Init;
         }
 
         private void Init(object sender, EventArgs eventArgs)
