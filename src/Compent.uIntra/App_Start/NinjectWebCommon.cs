@@ -71,6 +71,8 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+using uIntra.LicenceService.ApiClient.Interfaces;
+using uIntra.LicenceService.ApiClient;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -149,6 +151,12 @@ namespace Compent.uIntra
         {
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
+
+            //licence
+            kernel.Bind<ILicenceValidationServiceClient>().To<LicenceValidationServiceClient>().InRequestScope();
+            kernel.Bind<IValidateLicenceService>().To<ValidateLicenceService>().InRequestScope();
+            kernel.Bind<IWebApiClient>().ToMethod((ctx => new WebApiClient() { Connection = new WebApiConnection() })).InSingletonScope();
+
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
