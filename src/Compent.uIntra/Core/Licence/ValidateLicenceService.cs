@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using uIntra.Core.User;
 using uIntra.LicenceService.ApiClient.Interfaces;
+using Umbraco.Core.Services;
 
 namespace Compent.uIntra.Core
 {
@@ -12,22 +10,22 @@ namespace Compent.uIntra.Core
         private const int MaxAllowedTrialUsers = 30;
         private const string CompentLicenceKey = "CompentLicenceKey";
 
-        private readonly IIntranetUserService<IIntranetUser> _userService;
+        private readonly IMemberService _memberService;
         private readonly ILicenceValidationServiceClient _validationServiceClient;
 
-        public ValidateLicenceService(IIntranetUserService<IIntranetUser> userService, ILicenceValidationServiceClient validationServiceClient)
+        public ValidateLicenceService(IMemberService memberService, ILicenceValidationServiceClient validationServiceClient)
         {
-            _userService = userService;
+            _memberService = memberService;
             _validationServiceClient = validationServiceClient;
         }
 
         public bool Validate()
         {
-            IEnumerable<IIntranetUser> allUsers = _userService.GetAll();
+            var membersCount = _memberService.Count();
             var licenceKey = new Lazy<string>(() => ConfigurationManager.AppSettings.Get(CompentLicenceKey));
             var isLicenceKeyValid = new Lazy<bool>(() => _validationServiceClient.Validate(licenceKey.Value));
 
-            bool isUserCountGraterThanAllowed = IsUserCountGraterThanAllowed(allUsers, MaxAllowedTrialUsers);
+            bool isUserCountGraterThanAllowed = IsUserCountGraterThanAllowed(membersCount, MaxAllowedTrialUsers);
             bool result = Validate(isUserCountGraterThanAllowed, licenceKey, isLicenceKeyValid);
             return result;
         }
@@ -37,9 +35,9 @@ namespace Compent.uIntra.Core
             return isUserCountGraterThanAllowed || (!String.IsNullOrEmpty(licenceKey.Value) && isLicenceKeyValid.Value);
         }
 
-        private bool IsUserCountGraterThanAllowed(IEnumerable<IIntranetUser> allUsers, int allowedCount)
+        private bool IsUserCountGraterThanAllowed(int actualCount, int allowedCount)
         {
-            return allUsers.Count() > allowedCount;
+            return actualCount > allowedCount;
         }
     }
 }

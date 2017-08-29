@@ -13,7 +13,7 @@ namespace uIntra.Core.Web
     public sealed class ValidateLicenceHandler : ApplicationEventHandler
     {
         private IEnumerable<string> StaticFileExtensions => new[] { ".js", ".css", ".png", ".ttf", ".img", ".map", ".jpg", ".jpeg", ".ico" };
-        private IEnumerable<string> DisallowedContentTypes => new[] {"application/json", "application/xml"};
+        private IEnumerable<string> DisallowedContentTypes => new[] { "application/json", "application/xml" };
         private const string StagingEnvironmentRegex = ".*\\.axd.*|.*\\.ashx.*|.*asmx.*|.*\\.svc.*";
         private const string HandlerRequestRegex = ".*stage.*|.*staging.*|.*preview.*|.*demo.*|.*uat\\..*|.*developer.*|.*\\.local|test\\..*|dev\\..*";
         private const string LicenceMessage = "<div style='text-align: center; background-color: #dd0a2d; color: #ffffff; font-size: 20px;  width: 100%; position: fixed; top: 0; left: 0;'><span>Please purchase a licence</span></div>";
@@ -21,10 +21,9 @@ namespace uIntra.Core.Web
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             //#if RELEASE
-                UmbracoApplicationBase.ApplicationInit += Init;
+            UmbracoApplicationBase.ApplicationInit += Init;
             //#endif
             UmbracoApplicationBase.ApplicationInit += Init;
-            base.ApplicationStarted(umbracoApplication, applicationContext);
         }
 
         private void Init(object sender, EventArgs eventArgs)
@@ -37,24 +36,23 @@ namespace uIntra.Core.Web
         {
             var validateLicenceService = DependencyResolver.Current.GetService<IValidateLicenceService>();
             HttpRequest currentRequest = HttpContext.Current.Request;
-            validateLicenceService.Validate();
             var isLisenceValid = new Lazy<bool>(() => validateLicenceService.Validate());
 
-            bool requestValidationResult = GetRequestValidationResult(currentRequest, isLisenceValid);
+            bool requestValidationResult = GetRequestValidationResult(IsRequestLicenceValidationNeeded, currentRequest, isLisenceValid);
             if (requestValidationResult)
             {
                 HttpContext.Current.Response.Write(LicenceMessage);
             }
         }
 
-        private bool GetRequestValidationResult(HttpRequest request, Lazy<bool> isLisenceValid)
+        private bool GetRequestValidationResult(Func<HttpRequest, bool> isRequestLicenceValidationNeededFunc, HttpRequest request, Lazy<bool> isLisenceValid)
         {
-            return IsRequestLicenceValidationNeeded(request) && !isLisenceValid.Value;
+            return isRequestLicenceValidationNeededFunc(request) && !isLisenceValid.Value;
         }
 
         private bool IsRequestLicenceValidationNeeded(HttpRequest request)
         {
-            return IsStaticFile(request.PhysicalPath) || IsServiceRequest(request) || IsIgnoredPath(request.Path, request.Url.Host);
+            return IsStaticFile(request.PhysicalPath) || IsServiceRequest(IsContentTypeAllowed, request) || IsIgnoredPath(request.Path, request.Url.Host);
         }
 
         private bool IsIgnoredPath(string path, string host)
@@ -65,12 +63,12 @@ namespace uIntra.Core.Web
             return isHandlerRequest || isStagingEnvironment;
         }
 
-        private bool IsServiceRequest(HttpRequest request)
+        private bool IsServiceRequest(Func<IEnumerable<string>, IEnumerable<string>, string, bool> isContentTypeAllowedFunc, HttpRequest request)
         {
             bool isGetRequest = request.Url.ToString().Contains("?") || request.HttpMethod != "GET";
             bool isAcceptTypesEmpty = request.AcceptTypes == null || !request.AcceptTypes.Any();
 
-            return isGetRequest || (!isAcceptTypesEmpty && IsContentTypeAllowed(DisallowedContentTypes, request.AcceptTypes, request.ContentType));
+            return isGetRequest || (!isAcceptTypesEmpty && isContentTypeAllowedFunc(DisallowedContentTypes, request.AcceptTypes, request.ContentType));
         }
 
         private bool IsContentTypeAllowed(IEnumerable<string> disallowedContentTypes, IEnumerable<string> acceptTypes, string contentType)
