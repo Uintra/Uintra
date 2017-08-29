@@ -10,42 +10,42 @@
     display: block;
     background-size: cover;
 
-    &.__jpg,
-    &.__jpeg{
+    &._jpg,
+    &._jpeg{
         background-image: url(./images/file-type-icons/jpg.svg);
     }
-    &.__mp4{
+    &._mp4{
         background-image: url(./images/file-type-icons/m4v.svg);
     }
-    &.__pdf{
+    &._pdf{
         background-image: url(./images/file-type-icons/pdf.svg);
     }
-    &.__svg{
+    &._svg{
         background-image: url(./images/file-type-icons/svg.svg);
     }
-    &.__doc{
+    &._doc{
         background-image: url(./images/file-type-icons/doc.svg);
     }
-    &.__docx{
+    &._docx{
         background-image: url(./images/file-type-icons/docx.svg);
     }
-    &.__xlsx,
-    &.__xls{
+    &._xlsx,
+    &._xls{
         background-image: url(./images/file-type-icons/xls.svg);
     }
-    &.__csv{
+    &._csv{
         background-image: url(./images/file-type-icons/csv.svg);
     }
-    &.__txt{
+    &._txt{
         background-image: url(./images/file-type-icons/txt.svg);
     }
-    &.__mp4{
+    &._mp4{
         background-image: url(./images/file-type-icons/mp4.svg);
     }
-    &.__ppt{
+    &._ppt{
         background-image: url(./images/file-type-icons/ppt.svg);
     }
-    &.__png{
+    &._png{
         background-image: url(./images/file-type-icons/png.svg);
     }
 }
