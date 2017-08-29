@@ -10,7 +10,7 @@ using Umbraco.Core;
 
 namespace uIntra.Core.Web
 {
-    public class ValidateLicenceHandler : ApplicationEventHandler
+    public sealed class ValidateLicenceHandler : ApplicationEventHandler
     {
         private IEnumerable<string> StaticFileExtensions => new[] { ".js", ".css", ".png", ".ttf", ".img", ".map", ".jpg", ".jpeg", ".ico" };
         private IEnumerable<string> DisallowedContentTypes => new[] {"application/json", "application/xml"};
