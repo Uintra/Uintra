@@ -10,25 +10,42 @@
     display: block;
     background-size: cover;
 
-    @mixin icon pdf;
-    @mixin icon svg;
-    @mixin icon doc;
-    @mixin icon docx;
-    @mixin icon xls;
-    @mixin icon xlsx;
-    @mixin icon csv;
-    @mixin icon txt;
-    @mixin icon mp4;
-    @mixin icon ppt;
-    @mixin icon pptx;
-    @mixin icon png;
-
-
     &.__jpg,
     &.__jpeg{
         background-image: url(./images/file-type-icons/jpg.svg);
     }
     &.__mp4{
         background-image: url(./images/file-type-icons/m4v.svg);
+    }
+    &.__pdf{
+        background-image: url(./images/file-type-icons/pdf.svg);
+    }
+    &.__svg{
+        background-image: url(./images/file-type-icons/svg.svg);
+    }
+    &.__doc{
+        background-image: url(./images/file-type-icons/doc.svg);
+    }
+    &.__docx{
+        background-image: url(./images/file-type-icons/docx.svg);
+    }
+    &.__xlsx,
+    &.__xls{
+        background-image: url(./images/file-type-icons/xls.svg);
+    }
+    &.__csv{
+        background-image: url(./images/file-type-icons/csv.svg);
+    }
+    &.__txt{
+        background-image: url(./images/file-type-icons/txt.svg);
+    }
+    &.__mp4{
+        background-image: url(./images/file-type-icons/mp4.svg);
+    }
+    &.__ppt{
+        background-image: url(./images/file-type-icons/ppt.svg);
+    }
+    &.__png{
+        background-image: url(./images/file-type-icons/png.svg);
     }
 }
