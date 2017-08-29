@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -353,6 +354,9 @@
     <Reference Include="uIntra.Events, Version=1.3.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.3.0.5\lib\net452\uIntra.Events.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="uIntra.LicenceService.ApiClient, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.1.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.3.1\lib\net452\uIntra.Likes.dll</HintPath>
@@ -1117,6 +1121,9 @@
     <Compile Include="..\Compent.uIntra\Core\Handlers\NotFoundHandler.cs">
       <Link>Core\Handlers\NotFoundHandler.cs</Link>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Handlers\ValidateLicenceHandler.cs">
+      <Link>Core\Handlers\ValidateLicenceHandler.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\Helpers\IUmbracoContentHelper.cs">
       <Link>Core\Helpers\IUmbracoContentHelper.cs</Link>
     </Compile>
@@ -1191,6 +1198,12 @@
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\IoC\NinjectDependencyResolver.cs">
       <Link>Core\IoC\NinjectDependencyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\IValidateLicenceService.cs">
+      <Link>Core\Licence\IValidateLicenceService.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\ValidateLicenceService.cs">
+      <Link>Core\Licence\ValidateLicenceService.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\Likes\LikesTestConstants.cs">
       <Link>Core\Likes\LikesTestConstants.cs</Link>
@@ -1687,6 +1700,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

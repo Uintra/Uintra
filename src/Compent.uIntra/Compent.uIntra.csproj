@@ -1146,7 +1146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
-    <Compile Include="App_Start\ValidateLicenceHandler.cs" />
+    <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
