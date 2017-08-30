@@ -72,7 +72,7 @@ namespace uIntra.Core.Web
 
         private bool IsContentTypeAllowed(IEnumerable<string> disallowedContentTypes, IEnumerable<string> acceptTypes, string contentType)
         {
-            return disallowedContentTypes.Any(x => !acceptTypes.Contains(x) ? contentType.Contains(x) : true);
+            return disallowedContentTypes.Any(x => acceptTypes.Contains(x) || contentType.Contains(x));
         }
 
         private bool IsStaticFile(string physicalPath)
