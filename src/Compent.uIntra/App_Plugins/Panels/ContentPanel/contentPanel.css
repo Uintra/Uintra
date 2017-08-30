@@ -367,6 +367,12 @@
     &__teaser{
         font-weight:normal;
     }
+
+    &._latest-activities{
+        .btn{
+            margin-bottom:20px;
+        }
+    }
 }
 
 ._sidebar-expanded{

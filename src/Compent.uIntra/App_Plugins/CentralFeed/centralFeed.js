@@ -56,7 +56,6 @@ function initCustomControls(data) {
     lightbox.init();
     initDescription();
     subscribe.initOnLoad();
-    placeSubscribedLabel();
 }
 
 function scrollPrevented() {
