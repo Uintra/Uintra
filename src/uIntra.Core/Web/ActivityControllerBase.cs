@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using Umbraco.Web.Mvc;
@@ -17,11 +18,16 @@ namespace uIntra.Core.Web
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IPermissionsService _permissionsService;
+        private readonly ActivityTypeProvider _activityTypeProvider;
 
-        protected ActivityControllerBase(IIntranetUserService<IIntranetUser> intranetUserService, IPermissionsService permissionsService)
+        protected ActivityControllerBase(
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IPermissionsService permissionsService,
+            ActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _permissionsService = permissionsService;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel header)
@@ -34,7 +40,7 @@ namespace uIntra.Core.Web
             return PartialView(ItemHeaderViewPath, header);
         }
 
-        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName)
+        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName, IntranetActivityTypeEnum activityType)
         {
             var model = new IntranetActivityCreatorEditModel
             {
@@ -46,7 +52,8 @@ namespace uIntra.Core.Web
             model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
             if (model.CanEditCreator)
             {
-                model.Users = _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
+                var intranetType = _activityTypeProvider.Get((int)activityType);
+                model.Users = _intranetUserService.GetAll().Where(x => _permissionsService.IsUserHasAccess(x, intranetType, IntranetActivityActionEnum.Create)).OrderBy(user => user.DisplayedName);
             }
 
             return PartialView(CreatorEditViewPath, model);
