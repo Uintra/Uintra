@@ -16,6 +16,7 @@ using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
+using Compent.uIntra.Core.Licence;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
@@ -155,7 +156,7 @@ namespace Compent.uIntra
             //licence
             kernel.Bind<ILicenceValidationServiceClient>().To<LicenceValidationServiceClient>().InRequestScope();
             kernel.Bind<IValidateLicenceService>().To<ValidateLicenceService>().InRequestScope();
-            kernel.Bind<IWebApiClient>().ToMethod((ctx => new WebApiClient() { Connection = new WebApiConnection() })).InSingletonScope();
+            kernel.Bind<IWebApiClient>().ToMethod((ctx => new WebApiClient() { Connection = new LicenceServiceConnection() })).InSingletonScope();
 
 
             // Umbraco
