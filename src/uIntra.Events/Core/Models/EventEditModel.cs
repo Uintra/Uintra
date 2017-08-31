@@ -31,7 +31,7 @@ namespace uIntra.Events
 
         public bool NotifyAllSubscribers { get; set; }
 
-        [RequiredIf("IsPinned", true)]
+        [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
     }
 }
