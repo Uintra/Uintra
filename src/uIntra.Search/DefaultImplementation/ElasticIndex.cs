@@ -21,12 +21,11 @@ namespace uIntra.Search
         {
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
-                    q.Bool(b => b                   
-                       .Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds))
-                       .Must(GetOnlyPinnedQueryContainer(query.OnlyPinned))
+                    q.Bool(b => b
                        .Should(GetQueryContainers(query.Text))
                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                .Take(query.Take);
+                       .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))))
+                       .Take(query.Take);
 
             ApplySort(searchRequest);
 
@@ -112,14 +111,12 @@ namespace uIntra.Search
             return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
         }
 
-        private QueryContainer[] GetOnlyPinnedQueryContainer(bool onlyPinned)
+        private QueryContainer GetOnlyPinnedQueryContainer(bool onlyPinned)
         {
             var result = onlyPinned
-                ? new QueryContainerDescriptor<SearchableActivity>()
-                    .Terms(t => t.Field(f => f.IsPinActual).Terms(true))
-                    .ToEnumerableOfOne()
-                : Enumerable.Empty<QueryContainer>();
-            return result.ToArray();
+                ? new QueryContainerDescriptor<SearchableActivity>().Terms(t => t.Field(f => f.IsPinActual).Terms(true))
+                : new QueryContainerDescriptor<SearchableActivity>();
+            return result;
         }
 
         protected SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
