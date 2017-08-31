@@ -7,7 +7,7 @@ namespace Compent.uIntra.Core
 {
     public sealed class ValidateLicenceService : IValidateLicenceService
     {
-        private const int MaxAllowedTrialUsers = 30;
+        private const int MaxAllowedTrialUsers = 5;
         private const string CompentLicenceKey = "CompentLicenceKey";
 
         private readonly IMemberService _memberService;
@@ -32,7 +32,7 @@ namespace Compent.uIntra.Core
 
         private bool Validate(bool isUserCountGraterThanAllowed, Lazy<string> licenceKey, Lazy<bool> isLicenceKeyValid)
         {
-            return isUserCountGraterThanAllowed || (!String.IsNullOrEmpty(licenceKey.Value) && isLicenceKeyValid.Value);
+            return !isUserCountGraterThanAllowed || !String.IsNullOrEmpty(licenceKey.Value) && isLicenceKeyValid.Value;
         }
 
         private bool IsUserCountGraterThanAllowed(int actualCount, int allowedCount)

@@ -1,8 +1,10 @@
-﻿using Compent.uIntra.Core;
+﻿#define DEBUG
+using Compent.uIntra.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -14,15 +16,16 @@ namespace uIntra.Core.Web
     {
         private IEnumerable<string> StaticFileExtensions => new[] { ".js", ".css", ".png", ".ttf", ".img", ".map", ".jpg", ".jpeg", ".ico" };
         private IEnumerable<string> DisallowedContentTypes => new[] { "application/json", "application/xml" };
-        private const string StagingEnvironmentRegex = ".*\\.axd.*|.*\\.ashx.*|.*asmx.*|.*\\.svc.*";
-        private const string HandlerRequestRegex = ".*stage.*|.*staging.*|.*preview.*|.*demo.*|.*uat\\..*|.*developer.*|.*\\.local|test\\..*|dev\\..*";
-        private const string LicenceMessage = "<div style='text-align: center; background-color: #dd0a2d; color: #ffffff; font-size: 20px;  width: 100%; position: fixed; top: 0; left: 0;'><span>Please purchase a licence</span></div>";
+        private const string HandlerRequestRegex = ".*\\.axd.*|.*\\.ashx.*|.*asmx.*|.*\\.svc.*";
+        private const string StagingEnvironmentRegex = ".*stage.*|.*staging.*|.*preview.*|.*local.*|.*demo.*|.*uat\\..*|.*developer.*|.*\\.local|test\\..*|dev\\..*";
+        private const string LicenceViewName ="licence.html";
+        private string LicenceViewPath => String.Concat("~/", LicenceViewName);
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            //#if RELEASE
+           // #if (!DEBUG)
             UmbracoApplicationBase.ApplicationInit += Init;
-            //#endif
+          //  #endif
         }
 
         private void Init(object sender, EventArgs eventArgs)
@@ -37,21 +40,26 @@ namespace uIntra.Core.Web
             HttpRequest currentRequest = HttpContext.Current.Request;
             var isLisenceValid = new Lazy<bool>(() => validateLicenceService.Validate());
 
-            bool requestValidationResult = GetRequestValidationResult(IsRequestLicenceValidationNeeded, currentRequest, isLisenceValid);
-            if (requestValidationResult)
+            bool isValidationSucceeded = IsValidationSucceeded(IsAllowedRequest, currentRequest, isLisenceValid);
+            if (!isValidationSucceeded)
             {
-                HttpContext.Current.Response.Write(LicenceMessage);
+                HttpContext.Current.Response.Redirect(LicenceViewPath);
             }
         }
 
-        private bool GetRequestValidationResult(Func<HttpRequest, bool> isRequestLicenceValidationNeededFunc, HttpRequest request, Lazy<bool> isLisenceValid)
+        private bool IsLicencePage(Uri url, string licenceViewName) => url.ToString().Contains(licenceViewName);
+
+        private bool IsValidationSucceeded(Func<HttpRequest, bool> isAllowedRequest, HttpRequest request, Lazy<bool> isLisenceValid)
         {
-            return isRequestLicenceValidationNeededFunc(request) && !isLisenceValid.Value;
+            return isAllowedRequest(request) || isLisenceValid.Value;
         }
 
-        private bool IsRequestLicenceValidationNeeded(HttpRequest request)
+        private bool IsAllowedRequest(HttpRequest request)
         {
-            return IsStaticFile(request.PhysicalPath) || IsServiceRequest(IsContentTypeAllowed, request) || IsIgnoredPath(request.Path, request.Url.Host);
+            return IsLicencePage(request.Url, LicenceViewName)||
+                       IsStaticFile(request.PhysicalPath) ||
+                       IsServiceRequest(IsContentTypeAllowed, request) ||
+                       IsIgnoredPath(request.Path, request.Url.Host);
         }
 
         private bool IsIgnoredPath(string path, string host)
@@ -67,7 +75,7 @@ namespace uIntra.Core.Web
             bool isGetRequest = request.Url.ToString().Contains("?") || request.HttpMethod != "GET";
             bool isAcceptTypesEmpty = request.AcceptTypes == null || !request.AcceptTypes.Any();
 
-            return isGetRequest || (!isAcceptTypesEmpty && isContentTypeAllowedFunc(DisallowedContentTypes, request.AcceptTypes, request.ContentType));
+            return isGetRequest || !isAcceptTypesEmpty && isContentTypeAllowedFunc(DisallowedContentTypes, request.AcceptTypes, request.ContentType);
         }
 
         private bool IsContentTypeAllowed(IEnumerable<string> disallowedContentTypes, IEnumerable<string> acceptTypes, string contentType)
