@@ -5,6 +5,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Events are a type of post that can be created by UI publishers and webmasters. It is intended for creating events that users can subscribe to and attend.")]
 
 [assembly: AssemblyVersion("1.3.0.5")]
-[assembly: AssemblyInformationalVersion("1.3.0.5-v3")]
+[assembly: AssemblyInformationalVersion("1.3.0.5-v2")]
 [assembly: ComVisible(false)]
 [assembly: Guid("85aa3a0a-738e-4e0d-9448-ea34aa3a537c")]
