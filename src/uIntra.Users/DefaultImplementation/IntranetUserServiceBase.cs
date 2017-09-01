@@ -172,7 +172,7 @@ namespace uIntra.Users
             };
 
             string userPhoto = null;
-            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+            var userPhotoId = member.GetMemberImageId(ProfileConstants.Photo);
 
             if (userPhotoId.HasValue)
             {
