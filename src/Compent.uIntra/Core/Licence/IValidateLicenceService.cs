@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.uIntra.Core
+namespace Compent.uIntra.Core.Licence
 {
     public interface IValidateLicenceService
     {

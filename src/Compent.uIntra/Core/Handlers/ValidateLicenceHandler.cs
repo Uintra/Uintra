@@ -1,16 +1,15 @@
 ﻿#define DEBUG
-using Compent.uIntra.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Licence;
 using Umbraco.Core;
 
-namespace uIntra.Core.Web
+namespace Compent.uIntra.Core.Handlers
 {
     public sealed class ValidateLicenceHandler : ApplicationEventHandler
     {
@@ -18,14 +17,14 @@ namespace uIntra.Core.Web
         private IEnumerable<string> DisallowedContentTypes => new[] { "application/json", "application/xml" };
         private const string HandlerRequestRegex = ".*\\.axd.*|.*\\.ashx.*|.*asmx.*|.*\\.svc.*";
         private const string StagingEnvironmentRegex = ".*stage.*|.*staging.*|.*preview.*|.*local.*|.*demo.*|.*uat\\..*|.*developer.*|.*\\.local|test\\..*|dev\\..*";
-        private const string LicenceViewName ="licence.html";
+        private const string LicenceViewName = "licence.html";
         private string LicenceViewPath => String.Concat("~/", LicenceViewName);
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-           // #if (!DEBUG)
-            UmbracoApplicationBase.ApplicationInit += Init;
-          //  #endif
+#if (!DEBUG)
+              UmbracoApplicationBase.ApplicationInit += Init;
+#endif
         }
 
         private void Init(object sender, EventArgs eventArgs)
@@ -47,19 +46,15 @@ namespace uIntra.Core.Web
             }
         }
 
-        private bool IsLicencePage(Uri url, string licenceViewName) => url.ToString().Contains(licenceViewName);
-
         private bool IsValidationSucceeded(Func<HttpRequest, bool> isAllowedRequest, HttpRequest request, Lazy<bool> isLisenceValid)
         {
-            return isAllowedRequest(request) || isLisenceValid.Value;
+            return isAllowedRequest(request) || isLisenceValid.Value || IsLicencePage(request.Url, LicenceViewName);
         }
 
         private bool IsAllowedRequest(HttpRequest request)
         {
-            return IsLicencePage(request.Url, LicenceViewName)||
-                       IsStaticFile(request.PhysicalPath) ||
-                       IsServiceRequest(IsContentTypeAllowed, request) ||
-                       IsIgnoredPath(request.Path, request.Url.Host);
+            var isContentTypeAllowed = new Lazy<bool>(() => IsContentTypeAllowed(DisallowedContentTypes, request.AcceptTypes, request.ContentType));
+            return IsStaticFile(request.PhysicalPath) || IsServiceRequest(isContentTypeAllowed, request) || IsIgnoredPath(request.Path, request.Url.Host);
         }
 
         private bool IsIgnoredPath(string path, string host)
@@ -70,12 +65,12 @@ namespace uIntra.Core.Web
             return isHandlerRequest || isStagingEnvironment;
         }
 
-        private bool IsServiceRequest(Func<IEnumerable<string>, IEnumerable<string>, string, bool> isContentTypeAllowedFunc, HttpRequest request)
+        private bool IsServiceRequest(Lazy<bool> isContentTypeAllowed, HttpRequest request)
         {
-            bool isGetRequest = request.Url.ToString().Contains("?") || request.HttpMethod != "GET";
+            bool isGetRequest = request.Url.ToString().Contains('?') || request.HttpMethod != "GET";
             bool isAcceptTypesEmpty = request.AcceptTypes == null || !request.AcceptTypes.Any();
 
-            return isGetRequest || !isAcceptTypesEmpty && isContentTypeAllowedFunc(DisallowedContentTypes, request.AcceptTypes, request.ContentType);
+            return isGetRequest || !isAcceptTypesEmpty && isContentTypeAllowed.Value;
         }
 
         private bool IsContentTypeAllowed(IEnumerable<string> disallowedContentTypes, IEnumerable<string> acceptTypes, string contentType)
@@ -86,6 +81,11 @@ namespace uIntra.Core.Web
         private bool IsStaticFile(string physicalPath)
         {
             return !string.IsNullOrEmpty(physicalPath) && StaticFileExtensions.Contains(Path.GetExtension(physicalPath));
+        }
+
+        private bool IsLicencePage(Uri url, string licenceViewName)
+        {
+            return url.ToString().Contains(licenceViewName);
         }
     }
 }
