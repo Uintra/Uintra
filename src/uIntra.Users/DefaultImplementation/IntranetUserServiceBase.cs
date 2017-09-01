@@ -184,6 +184,16 @@ namespace uIntra.Users
             return user;
         }
 
+
+        protected virtual IEnumerable<T> GetUnassignedToMemberUsers()
+        {
+            var users = GetAll();
+            var assignedUsersIds = _memberService.GetAllMembers().Select(m => m.GetValue<Guid>("relatedUser"));
+            var unassignedUsers = users.Join(assignedUsersIds, user => user.Id, id => id, (user, id) => user);
+
+            return unassignedUsers;
+        }
+
         protected virtual IRole GetMemberRole(IMember member)
         {
             var roles = _memberService.GetAllRoles(member.Id).ToList();
