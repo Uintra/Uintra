@@ -7,9 +7,11 @@ using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using CacheHelper = uIntra.Core.Caching.CacheHelper;
 
 namespace uIntra.Users
 {
@@ -172,7 +174,7 @@ namespace uIntra.Users
             };
 
             string userPhoto = null;
-            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+            var userPhotoId = member.GetMemberImageId(ProfileConstants.Photo);
 
             if (userPhotoId.HasValue)
             {
