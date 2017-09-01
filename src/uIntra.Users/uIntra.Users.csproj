@@ -266,6 +266,8 @@
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Entities\IntranetUser.cs" />
     <Compile Include="Core\ICachableUserService.cs" />
+    <Compile Include="Core\IMemberServiceHelper.cs" />
+    <Compile Include="Core\Models\UserPickerModel.cs" />
     <Compile Include="DefaultImplementation\IntranetUserService.cs" />
     <Compile Include="DefaultImplementation\IntranetUserServiceBase.cs" />
     <Compile Include="Core\IRoleService.cs" />
@@ -281,6 +283,7 @@
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Web\MemberApiControllerBase.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
+    <Compile Include="Web\UserApiController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
@@ -296,6 +299,10 @@
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />
+    <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
+    <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
+    <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
+    <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
@@ -307,6 +314,7 @@
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <None Include="packages.config" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <None Include="uIntra.Users.nuspec">
