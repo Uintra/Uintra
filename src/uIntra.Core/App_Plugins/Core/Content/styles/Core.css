@@ -672,6 +672,10 @@ h5{
         width: 30px;
         min-width:30px;
         height: 30px;
+
+        .comments &{
+            margin:0;
+        }
     }
 
     .form &{
