@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc
+@using uIntra.Core.Activity
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extentions
 @using Umbraco.Web
@@ -10,7 +11,7 @@
         <h1 class="form__title">@Html.Localize("NewsEditPage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsEdit.Creator.lbl")</label>
-            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId) })
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), IntranetActivityTypeEnum.News })
         </div>
         <input type="hidden" name="id" value="@Model.Id" />
         <div class="form__row clearfix">
