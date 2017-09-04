@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Compent.uIntra.Core.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
@@ -7,7 +6,7 @@ using uIntra.Likes;
 using uIntra.Likes.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
-using uIntra.Users;
+using Compent.uIntra.Core.Constants;
 
 namespace Compent.uIntra.Controllers
 {
@@ -15,6 +14,8 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+
+        protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
 
         public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
             IIntranetUserService<IIntranetUser> intranetUserService, 
@@ -30,15 +31,11 @@ namespace Compent.uIntra.Controllers
         {
             var like = base.AddLike(model);
 
-            if (model.ActivityId == CommentsTestConstants.ActivityId)
-            {
-                return like;
-            }
 
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
-                if (model.CommentId.HasValue)
+                if (IsForComment(model))
                 {
                     var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
                     notifiableService.Notify(model.CommentId.Value, notificationType);

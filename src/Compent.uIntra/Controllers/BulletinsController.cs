@@ -15,7 +15,6 @@ namespace Compent.uIntra.Controllers
 {
     public class BulletinsController : BulletinsControllerBase
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         protected override string DetailsViewPath => "~/Views/Bulletins/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/Bulletins/ItemView.cshtml";
         private readonly IMyLinksService _myLinksService;
@@ -28,7 +27,6 @@ namespace Compent.uIntra.Controllers
             IActivityTypeProvider activityTypeProvider, IMyLinksService myLinksService)
             : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
         {
-            _intranetUserService = intranetUserService;
             _myLinksService = myLinksService;
         }
 

@@ -7,12 +7,13 @@ require('alertifyjs/build/css/themes/default.min.css');
     Alertify.defaults.glossary.no = 'no';
     Alertify.defaults.theme.cancel = 'ajs-cancel';
     Alertify.defaults.theme.ok = 'ajs-ok';
+    Alertify.defaults.theme.no = 'ajs-no';
 
     Alertify.dialog('customDialog', function factory() {
         return {
             setup: function () {
                 return {
-                    buttons: [{ text: Alertify.defaults.glossary.yes, key: 13, scope: 'auxiliary', className: Alertify.defaults.theme.ok }, { text: Alertify.defaults.glossary.no, scope: 'auxiliary' }, { text: Alertify.defaults.glossary.cancel, key: 27, scope: 'auxiliary', className: Alertify.defaults.theme.cancel }],
+                    buttons: [{ text: Alertify.defaults.glossary.yes, key: 13, scope: 'auxiliary', className: Alertify.defaults.theme.ok }, { text: Alertify.defaults.glossary.no, scope: 'auxiliary', className: Alertify.defaults.theme.no }, { text: Alertify.defaults.glossary.cancel, key: 27, scope: 'auxiliary', className: Alertify.defaults.theme.cancel }],
                     options: {
                         modal: true
                     }

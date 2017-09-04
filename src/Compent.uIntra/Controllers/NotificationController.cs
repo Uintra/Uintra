@@ -1,4 +1,4 @@
-﻿using uIntra.Core.User;
+using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Web;
 

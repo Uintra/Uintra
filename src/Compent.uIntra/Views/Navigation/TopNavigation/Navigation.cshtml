@@ -27,14 +27,7 @@
             <span class="user__opener-arrow"></span>
         </a>
         <ul class="user__menu">
-            <li class="user__menu-item _for-mobile">
-                <div class="user__menu-link @userAvatar">
-                    <div class="user__avatar icon-user">
-                        <img src="@Model.CurrentUser.Photo" width="30">
-                    </div>
-                    <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
-                </div>
-            </li>
+            
             <li class="user__menu-item">
                 <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
                     <span class="icon icon-user"></span>
@@ -55,6 +48,14 @@
                     <span class="icon icon-logout"></span>
                     @Html.Localize("TopNavigation.Logout.lbl")
                 </a>
+            </li>
+            <li class="user__menu-item _for-mobile">
+                <div class="user__menu-link @userAvatar">
+                    <div class="user__avatar icon-user">
+                        <img src="@Model.CurrentUser.Photo" width="30">
+                    </div>
+                    <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
+                </div>
             </li>
         </ul>
     </div>

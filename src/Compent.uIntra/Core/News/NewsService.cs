@@ -18,10 +18,8 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.News
 {
@@ -62,9 +60,11 @@ namespace Compent.uIntra.Core.News
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
-            ISearchableTypeProvider searchableTypeProvider, IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider)
+            ICentralFeedTypeProvider centralFeedTypeProvider,            
+            ISearchableTypeProvider searchableTypeProvider, 
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IIntranetMediaService intranetMediaService)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -162,6 +162,12 @@ namespace Compent.uIntra.Core.News
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
+        }
+
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
         }
 
         protected override Entities.News UpdateCachedEntity(Guid id)
@@ -291,7 +297,11 @@ namespace Compent.uIntra.Core.News
                     {
                         var comment = _commentsService.Get(entityId);
                         news = Get(comment.ActivityId);
-                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
+
                         data.Value = new CommentNotifierDataModel
                         {
                             CommentId = entityId,

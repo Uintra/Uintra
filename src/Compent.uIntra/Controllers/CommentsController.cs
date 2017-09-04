@@ -6,10 +6,12 @@ using uIntra.Comments;
 using uIntra.Comments.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Users;
+using Compent.uIntra.Core.Constants;
 
 namespace Compent.uIntra.Controllers
 {
@@ -17,6 +19,9 @@ namespace Compent.uIntra.Controllers
     public class CommentsController : CommentsControllerBase
     {
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
+        protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
+
+        protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
 
         private readonly ICommentableService _customCommentableService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -28,7 +33,11 @@ namespace Compent.uIntra.Controllers
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService, IIntranetUserContentHelper intranetUserContentHelper, INotificationTypeProvider notificationTypeProvider)
+            ICommentableService customCommentableService,
+            IIntranetUserContentHelper intranetUserContentHelper,
+            INotificationTypeProvider notificationTypeProvider,
+            IIntranetMediaService intranetMediaService,
+            IMediaHelper mediaHelper)
             : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)
         {
             _customCommentableService = customCommentableService;
@@ -71,11 +80,12 @@ namespace Compent.uIntra.Controllers
                 return OverView(model.ActivityId);
             }
 
-            if (model.ActivityId == CommentsTestConstants.ActivityId)
+            if (IsForContentPage(model.ActivityId))
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
                 return OverView(model.ActivityId);
             }
+
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
@@ -95,11 +105,12 @@ namespace Compent.uIntra.Controllers
                 return OverView(model.Id);
             }
 
-            if (comment.ActivityId == CommentsTestConstants.ActivityId)
+            if (IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.UpdateComment(model.Id, model.Text);
                 return OverView(comment.ActivityId);
             }
+
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
@@ -119,7 +130,7 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            if (comment.ActivityId == CommentsTestConstants.ActivityId)
+            if (IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.DeleteComment(id);
                 return OverView(comment.ActivityId);

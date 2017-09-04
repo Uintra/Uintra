@@ -19,6 +19,7 @@ function initPreviewControls() {
             .then(function (response) {
                 notificationList.innerHTML = response;
                 notificationList.classList.remove('_loading');
+                initDesrcription();
                 initCustomControls();
             });
             body.classList.add("_notifications-expanded");
@@ -52,6 +53,10 @@ function updateNotificationsCount() {
             }
         }
     });
+
+    $.ajaxSetup ({
+        cache: false
+    });
 }
 
 function initCustomControls() {
@@ -69,6 +74,15 @@ function initCustomControls() {
                 }
             });
         }
+    });
+}
+
+function initDesrcription(){
+    var item = $(".js-notification__list-item");
+    item.each(function(i){
+        var title = $(item[i]).find(".js-notification__list-heading");
+        var url = title.data("url");
+        title.contents().wrap("<a href='" + url +"' class='notification__list-heading-link'></a>")
     });
 }
 

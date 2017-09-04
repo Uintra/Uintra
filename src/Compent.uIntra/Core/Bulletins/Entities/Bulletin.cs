@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.Subscribe;
 

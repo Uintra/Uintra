@@ -8,19 +8,17 @@
             <div class="umb-control-group control-group">
                 <textarea class="editor-label" placeholder="Enter a key..." style="height: 40px;"
                           maxlength="1000"
-                          ng-model="dialogData.resource.key" 
+                          ng-model="dialogData.resource.key"
                           ng-change="dialogData.checkKey(dialogData.resource)"
                           ng-class="{'_invalid': dialogData.resource.invalid}"></textarea>
                 <small ng-if="dialogData.resource.invalid">Key already exists</small>
             </div>
 
-            <div class="umb-control-group control-group">
-                <div ng-repeat="(isoCode, name) in dialogData.languages" style="margin-bottom: 15px;">
-                    {{name}}
-                    <textarea class="editor-description" placeholder="Enter a translation..." style="height: 60px;"
-                              maxlength="1000"
-                              ng-model="dialogData.resource.translations[isoCode]"></textarea>
-                </div>
+            <div class="umb-control-group control-group" ng-repeat="(isoCode, name) in dialogData.languages">
+                {{name}}
+                <textarea class="editor-description" placeholder="Enter a translation..." style="height: 60px;"
+                          maxlength="1000"
+                          ng-model="dialogData.resource.translations[isoCode]"></textarea>
             </div>
 
             <div class="umb-control-group control-group" ng-if="dialogData.isShowDescription">
@@ -31,10 +29,12 @@
 
             <!--TODO: tree -->
 
-            <input type="search" placeholder="Choose relation ..." class="search-box" 
+            <input type="search" placeholder="Choose relation ..." class="search-box"
                    ng-model="searchText" />
             <ul class="unstyled search-result">
-                <li ng-repeat="storedKey in dialogData.storedKeys | filter:searchText" 
+                <li ng-click="dialogData.chooseParent('', dialogData.resource)"
+                    ng-class="{'_active': storedKey == dialogData.resource.parentKey}">---Empty---</li>
+                <li ng-repeat="storedKey in dialogData.storedKeys | filter:searchText"
                     ng-click="dialogData.chooseParent(storedKey, dialogData.resource)"
                     ng-class="{'_active': storedKey == dialogData.resource.parentKey}">
                     {{storedKey}}
@@ -47,10 +47,10 @@
     <div class="umb-overlay-drawer">
         <div class="umb-overlay-drawer__align-right">
             <!--remove active-->
-            <input type="button" class="btn btn-link" value="Close" ng-click="close()"/>
+            <input type="button" class="btn btn-link" value="Close" ng-click="close()" />
             <input type="button" class="btn btn-success" value="Save"
                    ng-click="submit(dialogData.resource)"
-                   ng-disabled="dialogData.resource.invalid || dialogData.resource.disabled"/>
+                   ng-disabled="dialogData.resource.invalid || dialogData.resource.disabled" />
         </div>
     </div>
 </div>

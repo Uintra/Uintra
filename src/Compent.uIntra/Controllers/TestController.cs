@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
-using uIntra.Users;
 using Umbraco.Web.WebApi;
 using Role = uIntra.Core.User.Role;
 

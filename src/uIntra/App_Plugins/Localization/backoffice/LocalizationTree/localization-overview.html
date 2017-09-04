@@ -7,12 +7,12 @@
 
     <div class="umb-panel-body custom-umb-panel-body">
         <fieldset class="umb-pane localization" ng-controller="localizationOverviewController as vm"
-                  ng-disabled="vm.workspaceDisalbed">
+                  ng-disabled="vm.workspaceDisabled">
 
-            <input type="button" value="Create" class="btn btn-success" ng-click="vm.create()" />
-            <input type="button" value="Refresh" class="btn btn-info" ng-click="vm.refresh()" />
-
-            <br />
+            <div class="btn-holder">
+                <input type="button" value="Create" class="btn btn-success" ng-click="vm.create()" />
+                <input type="button" value="Refresh" class="btn btn-info" ng-click="vm.refresh()" />
+            </div>
 
             <ul class="localization__table">
                 <li class="localization__table-heading">
@@ -50,6 +50,7 @@
                         <input type="button" value="Edit" class="btn btn-success"
                                ng-click="vm.edit(resource, $event)" ng-disabled="resource.disabled" />
                         <input type="button" value="Delete" class="btn btn-danger"
+                               ng-if="vm.permissions.isCanDelete"
                                ng-click="vm.delete(resource, $event)" ng-disabled="resource.disabled" />
                     </div>
                 </li>

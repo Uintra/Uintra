@@ -11,7 +11,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User.Permissions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.CentralFeed
 {

@@ -348,6 +348,31 @@
 			max-width: 150px;
 		}
 	}
+
+    &__subtitle{
+        ._latest-activities &{
+            margin:0 0 5px;
+
+            p{
+                margin:0;
+            }
+        }
+
+        &._clamp{
+            overflow:hidden;
+            max-height:60px;
+        }
+    }
+
+    &__teaser{
+        font-weight:normal;
+    }
+
+    &._latest-activities{
+        .btn{
+            margin-bottom:20px;
+        }
+    }
 }
 
 ._sidebar-expanded{

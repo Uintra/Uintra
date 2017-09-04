@@ -3,7 +3,7 @@
 
     var onError = function (error) { console.error(error); }
 
-    var controller = function ($http, authResource, $scope, newsManagementConfig) {
+    var controller = function ($http, authResource, $scope, newsManagementConfig, intranetUserService) {
         var self = this;
         self.newsList = [];
         self.currentUser = null;
@@ -77,7 +77,7 @@
             }
 
             if (news == null) {
-                var currentCreator = self.users.filter(function(user) { return user.umbracoId === self.currentUser.id })[0];
+                var currentCreator = self.users.filter(function (user) { return user.umbracoId === self.currentUser.id })[0];
                 news = { creator: currentCreator };
             } else {
                 news.creator = self.users.filter(function (user) { return user.id === news.creatorId })[0];
@@ -92,7 +92,7 @@
             if ($scope.editForm.$invalid) {
                 $scope.editForm.$setDirty();
                 return;
-            } 
+            }
 
             self.selected.creatorId = self.selected.creator.id;
             self.selected.umbracoCreatorId = self.selected.creator.umbracoId;
@@ -157,7 +157,7 @@
         }
 
         var loadUsers = function () {
-            var promise = $http.get('/Umbraco/backoffice/Api/IntranetUser/GetAll');
+            var promise = intranetUserService.getAll();
             var success = function (response) {
                 self.users = response.data || [];
             }
@@ -177,6 +177,6 @@
         activate();
     }
 
-    controller.$inject = ["$http", "authResource", "$scope", "newsManagementConfig"];
+    controller.$inject = ["$http", "authResource", "$scope", "newsManagementConfig", "intranetUserService"];
     angular.module('umbraco').controller('NewManagementController', controller);
 })(angular);
