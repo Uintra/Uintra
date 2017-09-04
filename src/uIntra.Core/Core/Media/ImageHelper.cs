@@ -12,7 +12,7 @@ namespace uIntra.Core.Media
         {
             var img = Image.FromStream(imageStream);
             FixOrientation(img, removeExifOrientationTag);
-
+            
             var newImageStream = ToStream(img, GetImageFormat(imageExtension));
             return newImageStream;
         }

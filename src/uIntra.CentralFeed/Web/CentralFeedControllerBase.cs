@@ -45,7 +45,7 @@ namespace uIntra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
-        public ActionResult OpenFilters()
+        public virtual ActionResult OpenFilters()
         {
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
             centralFeedState.IsFiltersOpened = !centralFeedState.IsFiltersOpened;
@@ -171,25 +171,32 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
         {
-            IIntranetType activitiesType = _centralFeedTypeProvider.Get(panelModel.TypeOfActivities);
-
-            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.NumberOfActivities);
+            var activitiesType = _centralFeedTypeProvider.Get(panelModel.ActivityTypeId);
+            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.ActivityAmount);
             var settings = _centralFeedService.GetAllSettings();
+            var tab = GetTabForActivities(activitiesType);
 
             return new LatestActivitiesViewModel()
             {
                 Title = panelModel.Title,
                 Teaser = panelModel.Teaser,
                 Settings = settings,
-                Items = latestActivities
+                Items = latestActivities,
+                Tab = tab
             };
+        }
+
+        private CentralFeedTabViewModel GetTabForActivities(IIntranetType activitiesType)
+        {
+            var result = _centralFeedContentHelper.GetTabs(CurrentPage).First(el => el.Type.Id == activitiesType.Id).Map<CentralFeedTabViewModel>();
+            return result;
         }
 
         protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)
         {
             if (type.Id == CentralFeedTypeEnum.All.ToInt())
             {
-                var items = _centralFeedService.GetFeed();
+                var items = _centralFeedService.GetFeed().OrderByDescending(item => item.PublishDate);
                 return items;
             }
 

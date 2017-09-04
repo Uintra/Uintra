@@ -7,9 +7,11 @@ using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using CacheHelper = uIntra.Core.Caching.CacheHelper;
 
 namespace uIntra.Users
 {
@@ -211,10 +213,16 @@ namespace uIntra.Users
             return !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
         }
 
-        protected virtual T GetByName(string name)
+        public virtual T GetByName(string name)
         {
             var users = GetAll();
-            return users.SingleOrDefault(user => user.LoginName.Equals(name));
+            return users.SingleOrDefault(user => user.LoginName.ToLowerInvariant().Equals(name.ToLowerInvariant()));
+        }
+
+        public virtual T GetByEmail(string email)
+        {
+            var users = GetAll();
+            return users.SingleOrDefault(user => user.Email.ToLowerInvariant().Equals(email.ToLowerInvariant()));
         }
 
         public virtual void UpdateUserCache(Guid userId)

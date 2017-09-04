@@ -1,4 +1,5 @@
-﻿@model uIntra.CentralFeed.LatestActivitiesViewModel
+﻿@using uIntra.Core.Extentions
+@model uIntra.CentralFeed.LatestActivitiesViewModel
 
 
 <section class="block clearfix _latest-activities">
@@ -14,4 +15,5 @@
                 @{ Html.RenderAction("PreviewItem", itemSettings.Controller, new { item = item }); }
             </div>
          }
+    <a href="@Model.Tab.Url" class="btn">@Html.Localize("LatestActivities.SeeAll.btn")</a>
 </section>

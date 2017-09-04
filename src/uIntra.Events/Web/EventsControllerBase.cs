@@ -68,16 +68,34 @@ namespace uIntra.Events.Web
         }
 
         [HttpGet]
-        public virtual ActionResult ComingEvents()
+        public virtual ActionResult ComingEvents(ComingEventsPanelModel panelModel)
         {
-            var eventsAmount = _gridHelper.GetContentProperty<int>(CurrentPage, "custom.ComingEvents", "eventsAmount");
-            var title = _gridHelper.GetContentProperty<string>(CurrentPage, "custom.ComingEvents", "displayTitle");
-            var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
-            var currentDate = DateTime.UtcNow;
-            var events = GetComingEvents(currentDate).Take(eventsAmount);
+            var viewModel = GetComingEventsViewModel(panelModel);
+            return PartialView(ComingEventsViewPath, viewModel);
+        }
+
+        protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
+        {
+            string overviewUrl = _eventsService.GetOverviewPage().Url;
+            var viewModel = new ComingEventsPanelViewModel()
+            {
+                OverviewUrl = overviewUrl,
+                Title = panelModel.DisplayTitle,
+                Events = GetComingEvents(panelModel.EventsAmount)
+            };
+            return viewModel;
+        }
+
+        protected virtual IList<ComingEventViewModel> GetComingEvents(int eventsAmount)
+        {
+            var events = _eventsService.GetComingEvents(DateTime.UtcNow).Take(eventsAmount);
             var eventsList = events as IList<EventBase> ?? events.ToList();
+
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
+
+            var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
             var comingEvents = new List<ComingEventViewModel>();
+
             foreach (var e in eventsList)
             {
                 var viewModel = e.Map<ComingEventViewModel>();
@@ -86,12 +104,7 @@ namespace uIntra.Events.Web
                 comingEvents.Add(viewModel);
             }
 
-            var model = new ComingEventsPanelViewModel()
-            {
-                Title = title,
-                Events = comingEvents
-            };
-            return PartialView(ComingEventsViewPath, model);
+            return comingEvents;
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
@@ -158,10 +171,10 @@ namespace uIntra.Events.Web
         }
 
         [HttpPost]
-        public virtual void Hide(Guid id)
+        public virtual void Hide(Guid id, bool isNotificationNeeded)
         {
             _eventsService.Hide(id);
-            OnEventHidden(id);
+            OnEventHidden(id, isNotificationNeeded);
         }
 
         [HttpPost]
@@ -188,7 +201,7 @@ namespace uIntra.Events.Web
 
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event)
         {
-            IIntranetUser creator = _intranetUserService.Get(@event);
+            var creator = _intranetUserService.Get(@event);
             return new EventPreviewViewModel()
             {
                 Id = @event.Id,
@@ -314,7 +327,7 @@ namespace uIntra.Events.Web
         {
         }
 
-        protected virtual void OnEventHidden(Guid id)
+        protected virtual void OnEventHidden(Guid id, bool isNotificationNeeded)
         {
         }
     }

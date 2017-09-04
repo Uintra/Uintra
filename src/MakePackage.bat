@@ -4,6 +4,7 @@ if %errorlevel% equ 1 del *.nupkg
  
 .\.nuget\nuget pack uIntra.Users\uIntra.Users.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uIntra.BaseControls\uIntra.BaseControls.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Bulletins\uIntra.Bulletins.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uIntra.CentralFeed\uIntra.CentralFeed.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uIntra.Comments\uIntra.Comments.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uIntra.Core\uIntra.Core.csproj -Build -Prop Configuration=Release
@@ -13,5 +14,8 @@ if %errorlevel% equ 1 del *.nupkg
 .\.nuget\nuget pack uIntra.Notification\uIntra.Notification.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uIntra.Subscribe\uIntra.Subscribe.csproj -Build -Prop Configuration=Release
 .\.nuget\nuget pack uIntra.Events\uIntra.Events.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Panels\uIntra.Panels.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Tagging\uIntra.Tagging.csproj -Build -Prop Configuration=Release
+.\.nuget\nuget pack uIntra.Search\uIntra.Search.csproj -Build -Prop Configuration=Release
 
 pause

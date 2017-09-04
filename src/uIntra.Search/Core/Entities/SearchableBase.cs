@@ -1,5 +1,4 @@
-﻿
-namespace uIntra.Search
+﻿namespace uIntra.Search
 {
     public class SearchableBase
     {

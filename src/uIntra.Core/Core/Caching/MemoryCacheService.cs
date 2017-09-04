@@ -14,6 +14,12 @@ namespace uIntra.Core.Caching
             return item;
         }
 
+        public bool HasValue(string cacheKey, params string[] uniqueSuffixes)
+        {
+            var key = CreateKey(cacheKey, uniqueSuffixes);
+            return MemoryCache.Default.Contains(key);
+        }
+
         public void Set<T>(string cacheKey, T item, DateTimeOffset lifeTime, params string[] uniqueSuffixes)
         {
             var key = CreateKey(cacheKey, uniqueSuffixes);

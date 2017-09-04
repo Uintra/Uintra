@@ -35,6 +35,11 @@ namespace uIntra.Tagging
             return _tagRepository.FindAll(el => el.Text.StartsWith(trimmedQuery));
         }
 
+        public IEnumerable<Tag> GetTagsById(IEnumerable<Guid> tagsIds)
+        {
+            return _tagRepository.GetMany(tagsIds);
+        }
+
         public IEnumerable<Tag> GetAll()
         {
             return _tagRepository.GetAll();

@@ -17,19 +17,19 @@ namespace uIntra.Search
             _elasticSearchRepository = elasticSearchRepository;
         }
 
-        public SearchResult<SearchableBase> Search(SearchTextQuery textQuery)
+        public SearchResult<SearchableBase> Search(SearchTextQuery query)
         {
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
                     q.Bool(b => b
-                       .Must(GetSearchableTypeQueryContainers(textQuery.SearchableTypeIds))
-                       .Should(GetQueryContainers(textQuery.Text))
+                       .Should(GetQueryContainers(query.Text))
                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                .Take(textQuery.Take);
+                       .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))))
+                       .Take(query.Take);
 
             ApplySort(searchRequest);
 
-            if (textQuery.ApplyHighlights)
+            if (query.ApplyHighlights)
             {
                 ApplyHighlight(searchRequest);
             }
@@ -109,6 +109,14 @@ namespace uIntra.Search
         private static QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)
         {
             return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
+        }
+
+        private QueryContainer GetOnlyPinnedQueryContainer(bool onlyPinned)
+        {
+            var result = onlyPinned
+                ? new QueryContainerDescriptor<SearchableActivity>().Terms(t => t.Field(f => f.IsPinActual).Terms(true))
+                : new QueryContainerDescriptor<SearchableActivity>();
+            return result;
         }
 
         protected SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)

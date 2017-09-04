@@ -6,6 +6,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
+using umbraco.cms.businesslogic;
 
 namespace uIntra.Comments.Web
 {
@@ -15,7 +16,11 @@ namespace uIntra.Comments.Web
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsPreView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Comments/View/CommentsEditView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
+        protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
+        protected abstract string ContentPageAlias { get; }
+
+        private readonly ICommentableService _customCommentableService;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -41,6 +46,12 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.ActivityId);
             }
+            if (IsForContentPage(model.ActivityId))
+            {
+                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                return OverView(model.ActivityId);
+            }
+
             var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
@@ -57,6 +68,12 @@ namespace uIntra.Comments.Web
             if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
             {
                 return OverView(model.Id);
+            }
+
+            if (IsForContentPage(comment.ActivityId))
+            {
+                _customCommentableService.UpdateComment(model.Id, model.Text);
+                return OverView(comment.ActivityId);
             }
 
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
@@ -77,10 +94,22 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
+            if (IsForContentPage(comment.ActivityId))
+            {
+                _customCommentableService.DeleteComment(id);
+                return OverView(comment.ActivityId);
+            }
+
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(id);
 
             return OverView(comment.ActivityId);
+        }
+
+        public virtual PartialViewResult ContentComments()
+        {
+            var guid = new CMSNode(CurrentPage.Id).UniqueId;
+            return OverView(guid, _commentsService.GetMany(guid));
         }
 
         public virtual PartialViewResult CreateView(Guid activityId)
@@ -118,6 +147,11 @@ namespace uIntra.Comments.Web
                 Link = $"{link}#{GetOverviewElementId(activityId)}"
             };
             return PartialView(PreviewViewPath, model);
+        }
+
+        public virtual PartialViewResult CommentsView(CommentViewModel viewModel)
+        {
+            return PartialView(ViewPath, viewModel);
         }
 
         protected virtual void FillProfileLink()
@@ -170,6 +204,11 @@ namespace uIntra.Comments.Web
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             return model;
+        }
+
+        protected virtual bool IsForContentPage(Guid id)
+        {
+            return Umbraco.TypedContent(id)?.DocumentTypeAlias == ContentPageAlias;
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)

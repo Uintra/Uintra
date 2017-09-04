@@ -6,7 +6,7 @@
         },
 
         exist: function (name) {
-            return this.list.indexOf(name) !== -1;
+            return this.list.includes(name);
         },
 
         list: []
@@ -18,7 +18,7 @@
         },
 
         exist: function (name) {
-            return this.list.indexOf(name) !== -1;
+            return this.list.includes(name);
         },
 
         list: []

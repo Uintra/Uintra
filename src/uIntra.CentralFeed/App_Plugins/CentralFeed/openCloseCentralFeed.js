@@ -1,19 +1,41 @@
-﻿export default function() {
-    let filterToggler = document.querySelector(".js-filter__toggle");
-    if (!filterToggler) return;
-    
-    filterToggler.addEventListener("click", () => {
-        changeInputState();
-        changeFiltersState();
-    });
+﻿export default function () {
+    var currentState;
+    let stateSourceElement = document.querySelector("[name='isFiltersOpened']");
 
-    function changeInputState() {
-        var isOpened = document.querySelector("[name='isFiltersOpened']");
-        var state = $(isOpened).val();
-        state === "true" ? $(isOpened).val("false") : $(isOpened).val("true");
+    function readState() {
+        return $(stateSourceElement).val() === "true";
     }
 
-    function changeFiltersState() {
-        document.body.classList.toggle("_show-filters");
+    function saveState(state) {
+        $(stateSourceElement).val(state);
     }
+
+    function applyState(state) {
+        let element = $(document.body);
+        if (state) {
+            element.addClass("_show-filters");
+        } else {
+            element.removeClass("_show-filters");
+        }
+    }
+
+    function onFilterTogglerClick() {
+        currentState = !currentState;
+        saveState(currentState);
+        applyState(currentState);
+    }
+
+    function initListeners() {
+        let filterToggler = document.querySelector(".js-filter__toggle");
+        if (!filterToggler) return;
+        filterToggler.addEventListener("click", onFilterTogglerClick);
+    }
+
+    function init() {
+        initListeners();
+        currentState = readState();
+        applyState(currentState);
+    }
+
+    init();
 }

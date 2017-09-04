@@ -1,15 +1,20 @@
 ﻿(function () {
     'use strict';
 
-    var controller = function (dialogService, entityResource, $q) {
+    var controller = function (dialogService, entityResource, contentResource, $q) {
         var self = this;
-        self.hi = "Hi there!";
+
         self.init = function (control) {
             self.control = control;
-            !self.control.value && openNodePicker();
+
+            if (!self.control.value) {
+                openNodePicker();
+            } else {
+                fillPanelName(self.control.value.id);
+            }
         }
 
-        self.selectPanel = function() {
+        self.selectPanel = function () {
             openNodePicker();
         }
 
@@ -29,7 +34,23 @@
             getStartNodeId().then(openDialog);
         }
 
+        function fillPanelName(contentId) {
+            contentResource.getById(contentId).then(function (response) {
+                var panelTab = response.tabs.filter(function (tab) {
+                    return tab.alias === "Panel";
+                })[0];
+
+                var panelConfigProperty = panelTab.properties.filter(function (property) {
+                    return property.alias === "panelConfig";
+                })[0];
+
+                self.panelName = panelConfigProperty.value.editor.name;
+            });
+        }
+
         function nodeSelected(content) {
+            fillPanelName(content.id);
+
             self.control.value = {
                 id: content.id,
                 name: content.name
@@ -40,6 +61,6 @@
             return entityResource.getByQuery(self.control.editor.config.startNodeXPath, -1, "Document");
         }
     }
-    controller.$inject = ['dialogService', 'entityResource', '$q'];
+    controller.$inject = ['dialogService', 'entityResource', 'contentResource', '$q'];
     angular.module("umbraco").controller('globalPanelPickerController', controller);
 })();
