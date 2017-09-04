@@ -5,23 +5,21 @@
 
 <section class="content">
     <div class="row clearfix">
-        <div class="col-md-9">
-            <div class="feed__btns clearfix">
-                <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
-                @if (Model.CanEdit)
-                {
-                    <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
-                }
-                <a class="link__back" href="@($"{ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)}#{Model.Id}")">@Html.Localize("DetailsView.GoToList.lbl")</a>
+        <div class="feed__btns clearfix">
+            <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+            @if (Model.CanEdit)
+            {
+                <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+            }
+            <a class="link__back" href="@($"{ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)}#{Model.Id}")">@Html.Localize("DetailsView.GoToList.lbl")</a>
+        </div>
+        <div class="feed__item _details">
+            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+            <div class="feed__item-txt">
+                @Html.Raw(Model.Description)
             </div>
-            <div class="feed__item _details">
-                @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-                <div class="feed__item-txt">
-                    @Html.Raw(Model.Description)
-                </div>
-                <div class="feed__item-images">
-                    @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
-                </div>
+            <div class="feed__item-images">
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
             </div>
         </div>
     </div>

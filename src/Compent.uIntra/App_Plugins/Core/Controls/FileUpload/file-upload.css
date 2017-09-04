@@ -1,5 +1,5 @@
 ﻿@define-mixin icon $name {
-    &.__$(name){
+    &._$(name){
         background-image: url(./images/file-type-icons/$(name).svg);
     }
 }
@@ -9,6 +9,7 @@
     height: 35px;
     display: block;
     background-size: cover;
+    background-image: url(./images/file-type-icons/doc.svg);
 
     &._jpg,
     &._jpeg{

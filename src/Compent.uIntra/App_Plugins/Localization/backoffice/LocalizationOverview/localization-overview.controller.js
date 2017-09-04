@@ -2,7 +2,7 @@
     'use strict';
 
     var controller = function ($scope, notificationsService, dialogService, assetsService,
-        localizationResourceService) {
+        userService, localizationResourceService) {
         var self = this;
 
         // Don't move it to package.manifest
@@ -14,13 +14,17 @@
         var defaultDateTime = "";
         var defaultResource = {};
 
-        self.resources = {};
-        self.languages = {};
+        self.resources = [];
+        self.languages = [];
         self.listSettings = {
             isShowUpdateDate: false,
             isShowDescription: false
         };
-        self.workspaceDisalbed = true;
+        self.workspaceDisabled = true;
+
+        self.permissions = {
+            isCanDelete: false
+        };
 
         self.activate = function (resource) {
             resource.isActive = !resource.isActive;
@@ -58,7 +62,7 @@
         }
 
         self.refresh = function () {
-            self.workspaceDisalbed = true;
+            self.workspaceDisabled = true;
             init();
         }
 
@@ -158,12 +162,12 @@
         function init() {
             localizationResourceService.getLocalizationOverview().then(function (response) {
                 self.resources = response.data.resources;
-                defaultDateTime = response.data.defaultDateTime;
                 defaultResource = response.data.defaultResourceModel;
                 defaultResource.isDefault = true;
 
                 self.languages = response.data.languages;
 
+                defaultDateTime = response.data.defaultDateTime;
                 self.listSettings.isShowUpdateDate = self.resources.some(function (resource) {
                     return resource.updateDate !== defaultDateTime;
                 });
@@ -172,9 +176,13 @@
                     return resource.description !== null;
                 });
 
-                self.workspaceDisalbed = false;
+                self.workspaceDisabled = false;
             }, function () {
                 notificationsService.error("Error", "Resources were not loaded");
+            });
+
+            userService.getCurrentUser().then(function (currentUserData) {
+                self.permissions.isCanDelete = currentUserData.userType === "admin";
             });
         }
 
@@ -182,7 +190,7 @@
     }
 
     controller.$inject = ["$scope", "notificationsService", "dialogService", "assetsService",
-        "localizationResourceService"];
+        "userService", "localizationResourceService"];
 
     angular.module('umbraco').controller('localizationOverviewController', controller);
 })(angular);

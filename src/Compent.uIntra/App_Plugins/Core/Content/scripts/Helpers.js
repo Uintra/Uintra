@@ -205,11 +205,12 @@ var helpers = {
 
         return s.join("&").replace(/%20/g, "+");
     },
-    clampText: function(container) {
+    clampText: function(container, url) {
         var $container = $(container);
         $container.dotdotdot({
             watch: 'window'
         });
+        $container.contents().wrap( "<a href='" + url +"' class='feed__item-txt-link'></a>" );
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);

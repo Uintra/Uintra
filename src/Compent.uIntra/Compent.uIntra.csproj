@@ -149,15 +149,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Localization.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Core.0.0.2\lib\Net45\Localization.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.Localization.Core.0.1.0\lib\Net45\Localization.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Localization.Storage.UDictionary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.0.2\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Localization.Umbraco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.0.1\lib\Net45\Localization.Umbraco.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.0\lib\Net45\Localization.Umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Localization.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -787,11 +790,13 @@
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationExportImport\localization-exportimport.controller.js" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-creation.dialog.html" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-overview.controller.js" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-exportimport.html" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-overview.html" />
-    <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
-    <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\directives\upload-file\upload-file.directive.html" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\directives\upload-file\upload-file.directive.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
     <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
@@ -853,14 +858,8 @@
     <Content Include="App_Plugins\Tagging\dummy.txt" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
-    <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
-    <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-creation.dialog.html" />
-    <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-overview.controller.js" />
-    <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-overview.html" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
-    <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
-    <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />

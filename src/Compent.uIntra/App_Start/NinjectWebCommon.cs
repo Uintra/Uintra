@@ -27,6 +27,8 @@ using Localization.Core;
 using Localization.Core.Configuration;
 using Localization.Storage.UDictionary;
 using Localization.Umbraco;
+using Localization.Umbraco.Export;
+using Localization.Umbraco.Import;
 using Localization.Umbraco.UmbracoEvents;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
@@ -286,6 +288,8 @@ namespace Compent.uIntra
             kernel.Bind<ILocalizationStorageService>().To<LocalizationStorageService>().InRequestScope();
             kernel.Bind<ILocalizationServiceLanguageEventHandlers>().To<LocalizationServiceLanguageEventHandlers>().InRequestScope();
             kernel.Bind<ILocalizationCoreService>().To<LocalizationCoreService>().InRequestScope();
+            kernel.Bind<ILocalizationExportService>().To<LocalizationExportService>().InRequestScope();
+            kernel.Bind<ILocalizationImportService>().To<LocalizationImportService>().InRequestScope();
 
             kernel.Bind<ICultureHelper>().To<CultureHelper>().InRequestScope();
         }
