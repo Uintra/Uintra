@@ -10,7 +10,7 @@
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
-            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), IntranetActivityTypeEnum.News })
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), activityType = IntranetActivityTypeEnum.News })
         </div>
 
         <div class="form__row clearfix">
