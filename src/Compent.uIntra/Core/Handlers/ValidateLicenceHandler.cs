@@ -22,9 +22,7 @@ namespace Compent.uIntra.Core.Handlers
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-#if (!DEBUG)
               UmbracoApplicationBase.ApplicationInit += Init;
-#endif
         }
 
         private void Init(object sender, EventArgs eventArgs)
