@@ -10,7 +10,7 @@
     }
     var panelId = "js-content-panel-" + Guid.NewGuid();
 }
-
+@viewModel.isImportant
 <section class="block _content-panel clearfix" id="@panelId">
     @{
         string titleLink = viewModel.titleLink?.link;
