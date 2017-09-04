@@ -722,7 +722,7 @@ h5{
 	}
 
 	.icon-close {
-		right: 15px;
+		display:none;
 	}
 }
 /*end pin-info*/
