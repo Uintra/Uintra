@@ -81,7 +81,7 @@ namespace uIntra.Core.Controls.LightboxGallery
         protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
         {
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
-            var galleryViewModelList = medias.Map<List<LightboxGalleryItemViewModel>>();
+            var galleryViewModelList = medias.Select(MapToMedia).ToList();
 
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
             galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
