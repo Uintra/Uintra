@@ -30,6 +30,7 @@
 
     &__header{
         padding:0 20px 0 0;
+        max-width:756px;
     }
 
     &__item{
