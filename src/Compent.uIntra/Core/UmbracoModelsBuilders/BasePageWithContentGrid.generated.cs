@@ -20,16 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>Home Page</summary>
-	[PublishedContentModel("homePage")]
-	public partial class HomePage : BasePageWithGrid, INavigationComposition
+	/// <summary>Base Page With Content Grid</summary>
+	[PublishedContentModel("basePageWithContentGrid")]
+	public partial class BasePageWithContentGrid : BasePage
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "homePage";
+		public new const string ModelTypeAlias = "basePageWithContentGrid";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public HomePage(IPublishedContent content)
+		public BasePageWithContentGrid(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -40,36 +40,18 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HomePage, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<BasePageWithContentGrid, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
 
 		///<summary>
-		/// Hide from Left Navigation
+		/// Grid
 		///</summary>
-		[ImplementPropertyType("isHideFromLeftNavigation")]
-		public bool IsHideFromLeftNavigation
+		[ImplementPropertyType("grid")]
+		public Newtonsoft.Json.Linq.JToken Grid
 		{
-			get { return Umbraco.Web.PublishedContentModels.NavigationComposition.GetIsHideFromLeftNavigation(this); }
-		}
-
-		///<summary>
-		/// Hide from Sub Navigation
-		///</summary>
-		[ImplementPropertyType("isHideFromSubNavigation")]
-		public bool IsHideFromSubNavigation
-		{
-			get { return Umbraco.Web.PublishedContentModels.NavigationComposition.GetIsHideFromSubNavigation(this); }
-		}
-
-		///<summary>
-		/// Navigation Name
-		///</summary>
-		[ImplementPropertyType("navigationName")]
-		public string NavigationName
-		{
-			get { return Umbraco.Web.PublishedContentModels.NavigationComposition.GetNavigationName(this); }
+			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("grid"); }
 		}
 	}
 }

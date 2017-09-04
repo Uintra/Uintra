@@ -46,6 +46,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// FileName
+		///</summary>
+		[ImplementPropertyType("fileName")]
+		public string FileName
+		{
+			get { return this.GetPropertyValue<string>("fileName"); }
+		}
+
+		///<summary>
 		/// Intranet user id
 		///</summary>
 		[ImplementPropertyType("IntranetUserId")]
