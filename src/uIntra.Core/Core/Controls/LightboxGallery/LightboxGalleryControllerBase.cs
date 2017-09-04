@@ -52,9 +52,29 @@ namespace uIntra.Core.Controls.LightboxGallery
             }
 
             var ids = mediaIds.ToIntCollection();
-            var medias = _umbracoHelper.TypedMedia(ids).ToList();
-            result.GalleryItems = medias.Map<IEnumerable<LightboxGalleryItemViewModel>>().OrderBy(s => s.Type.Id);
+            var medias = _umbracoHelper.TypedMedia(ids).ToList();            
+            result.GalleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type.Id);
 
+            return result;
+        }
+
+        protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
+        {
+            var result = new LightboxGalleryItemViewModel()
+            {
+                Id = media.Id,
+                Url = media.Url,
+                Name = media.GetFileName(),
+                Extention = media.GetMediaExtention(),
+                Type = media.GetMediaType(),
+            };
+
+            if (result.Type.Id == MediaTypeEnum.Image.ToInt())
+            {
+                result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
+                result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
+                result.PreviewUrl = media.GetCropUrl(UmbracoAliases.GalleryPreviewImageCrop);
+            }
             return result;
         }
 

@@ -21,6 +21,11 @@ namespace uIntra.Core.Extentions
             return content.GetPropertyValue<string>(UmbracoExtensionPropertyAlias, default(string));
         }
 
+        public static string GetFileName(this IPublishedContent content)
+        {
+            return content.GetPropertyValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias, content.Name);
+        }
+
         public static Guid? GetIntranetUserId(this IPublishedContent content)
         {
             return content.GetPropertyValue<Guid?>(ImageConstants.IntranetCreatorId, null);
