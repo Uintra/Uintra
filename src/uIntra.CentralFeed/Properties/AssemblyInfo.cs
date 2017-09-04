@@ -6,6 +6,6 @@ using System.Runtime.InteropServices;
                                " can be filtered as the user sees fit. It is possible to create News and Events from the central feed if you have user role of UI publisher or webmaster.")]
 
 [assembly: AssemblyVersion("1.1.13.5")]
-[assembly: AssemblyInformationalVersion("1.1.13.5-v3")]
+[assembly: AssemblyInformationalVersion("1.1.13.5-v4")]
 [assembly: ComVisible(false)]
 [assembly: Guid("0b1998e4-8fa0-4328-9cd2-bbba92fc4e98")]

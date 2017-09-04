@@ -33,7 +33,8 @@ function initDescription() {
     var container = $('._clamp');
     if (container.length > 0) {
         for (var i = 0; i < container.length; i++) {
-            helpers.clampText(container[i]);
+            var target = $(container[i]).data('url');
+            helpers.clampText(container[i], target);
         }
     }
 }
