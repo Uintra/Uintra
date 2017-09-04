@@ -1,13 +1,14 @@
 ﻿.localization {
+    margin: 0;
 }
 
 .localization__table {
     display: table;
+    table-layout: fixed;
     width: 100%;
     margin: 0 0 25px;
     padding: 0;
     list-style: none;
-    text-align: center;
 }
 
 .localization__table-heading {
@@ -36,11 +37,9 @@
 .localization__table-cell {
     display: table-cell;
     vertical-align: middle;
-    padding: 10px 8px 9px;
+    padding: 10px;
     border-bottom: 1px solid #d4d4d4;
-
     word-wrap: break-word;
-    max-width: 150px;
 }
 
 ._invalid {
@@ -61,10 +60,18 @@
     overflow-y: scroll;
 }
 
-    .search-result li._active {
-        background-color: #E0E0E0;
+    .search-result li {
+        cursor: pointer;
     }
 
-    .search-result li:hover {
-        background-color: #FAFAFA;
-    }
+        .search-result li:hover {
+            background-color: #FAFAFA;
+        }
+
+        .search-result li._active {
+            background-color: #E0E0E0;
+        }
+
+.btn-holder {
+    padding: 10px;
+}

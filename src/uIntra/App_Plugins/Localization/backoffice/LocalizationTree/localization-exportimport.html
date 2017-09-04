@@ -1,0 +1,23 @@
+﻿<umb-panel>
+    <umb-header>
+        <div class="umb-headline-editor-wrapper span12 ng-scope">
+            <h1 class="ng-binding">Localization export | import</h1>
+        </div>
+    </umb-header>
+
+    <div class="umb-panel-body custom-umb-panel-body">
+        <div class="umb-pane localization" ng-controller="localizationExportImportController as vm">
+
+            <div class="btn-holder">
+                <a href="/umbraco/backoffice/api/LocalizationSectionExportApi/Export" class="btn btn-primary">Export</a>
+                <input type="button" value="Import" class="btn btn-info" ng-click="vm.importToggle()"
+                       style="margin: 5px 0 5px 0;" />
+
+                <span ng-if="vm.isImportVisible">
+                    <upload-file upload-button-text="Import" on-loaded="vm.import"></upload-file>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</umb-panel>
