@@ -1023,6 +1023,9 @@
     <Compile Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
       <Link>Controllers\Api\MemberApiController.cs</Link>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Controllers\BrowserCompatibilityController.cs">
+      <Link>Controllers\BrowserCompatibilityController.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
       <Link>Core\ActivitiesServiceFactory.cs</Link>
     </Compile>
