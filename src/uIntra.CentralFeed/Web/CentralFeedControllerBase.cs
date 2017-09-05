@@ -7,16 +7,15 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 using Umbraco.Core.Models;
-using Umbraco.Web.Mvc;
 
 namespace uIntra.CentralFeed.Web
 {
-    public abstract class CentralFeedControllerBase : SurfaceController
+    public abstract class CentralFeedControllerBase : FeedControllerBase
     {
-        protected virtual string OverviewViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
-        protected virtual string ListViewPath { get; } = "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
-        protected virtual string NavigationViewPath { get; } = "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
-        protected virtual string LatestActivitiesViewPath { get; } = "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
+        protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
+        protected override string ListViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
+        protected override string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
+        protected override string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
@@ -25,7 +24,6 @@ namespace uIntra.CentralFeed.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
-        protected const int ItemsPerPage = 8;
 
         protected CentralFeedControllerBase(
             ICentralFeedService centralFeedService,
@@ -167,7 +165,6 @@ namespace uIntra.CentralFeed.Web
             var viewModel = GetLatestActivities(panelModel);
             return PartialView(LatestActivitiesViewPath, viewModel);
         }
-
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
         {
