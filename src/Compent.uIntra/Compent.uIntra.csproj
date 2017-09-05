@@ -377,8 +377,10 @@
     <Reference Include="uIntra.Tagging, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Tagging.1.1.5\lib\net452\uIntra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.5.0\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.5.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Users.1.5.0.1\lib\net452\uIntra.Users.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.dll</HintPath>
@@ -1016,8 +1018,6 @@
     <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\Comments\package.manifest" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -1026,9 +1026,7 @@
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1047,7 +1045,6 @@
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Notification\package.manifest" />
@@ -1057,6 +1054,10 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
