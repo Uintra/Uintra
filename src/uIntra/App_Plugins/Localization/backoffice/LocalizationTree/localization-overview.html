@@ -12,6 +12,14 @@
             <div class="btn-holder">
                 <input type="button" value="Create" class="btn btn-success" ng-click="vm.create()" />
                 <input type="button" value="Refresh" class="btn btn-info" ng-click="vm.refresh()" />
+
+                <input type="text" class="filter-input filter-field" placeholder="Filter by key, values, etc"
+                       ng-model="vm.filter.text" /> 
+                
+                <label>
+                    <input type="checkbox" class="filter-field" ng-model="vm.filter.showActive" />
+                    Show choosen
+                </label>
             </div>
 
             <ul class="localization__table">
@@ -26,8 +34,8 @@
                     <div class="localization__table-title localization__table-cell">Parent</div>
                     <div class="localization__table-title localization__table-cell">Edit</div>
                 </li>
-
-                <li class="localization__table-row" ng-repeat="resource in vm.resources"
+                
+                <li class="localization__table-row" ng-repeat="resource in vm.resources | filter: vm.filterResources | filter: vm.filterActive"
                     ng-class="{'_new': resource.isNew, '_active': resource.isActive }"
                     ng-click="vm.activate(resource)">
                     <div class="localization__table-cell">

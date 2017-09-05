@@ -158,7 +158,7 @@
     </Reference>
     <Reference Include="Localization.Umbraco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.0\lib\Net45\Localization.Umbraco.dll</HintPath>
+      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.1\lib\Net45\Localization.Umbraco.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Localization.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
