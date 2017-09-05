@@ -3,7 +3,7 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
-    public interface ICentralFeedItem
+    public interface IFeedItem
     {
         Guid Id { get; }
 

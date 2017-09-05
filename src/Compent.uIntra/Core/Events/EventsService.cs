@@ -178,13 +178,13 @@ namespace Compent.uIntra.Core.Events
             return isCreator && isUserHasPermissions;
         }
 
-        public ICentralFeedItem GetItem(Guid activityId)
+        public IFeedItem GetItem(Guid activityId)
         {
             var item = Get(activityId);
             return item;
         }
 
-        public IEnumerable<ICentralFeedItem> GetItems()
+        public IEnumerable<IFeedItem> GetItems()
         {
             var items = GetManyActual().OrderByDescending(i => i.PublishDate);
             return items;

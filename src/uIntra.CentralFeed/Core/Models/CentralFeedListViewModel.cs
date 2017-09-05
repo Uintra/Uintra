@@ -7,7 +7,7 @@ namespace uIntra.CentralFeed
     public class CentralFeedListViewModel
     {
         public IIntranetType Type { get; set; }
-        public IEnumerable<ICentralFeedItem> Items { get; set; }
+        public IEnumerable<IFeedItem> Items { get; set; }
         public IEnumerable<CentralFeedSettings> Settings { get; set; }
         public long Version { get; set; }
         public bool BlockScrolling { get; set; }
@@ -17,7 +17,7 @@ namespace uIntra.CentralFeed
 
         public CentralFeedListViewModel()
         {
-            Items = Enumerable.Empty<ICentralFeedItem>();
+            Items = Enumerable.Empty<IFeedItem>();
             Settings = Enumerable.Empty<CentralFeedSettings>();
         }
     }

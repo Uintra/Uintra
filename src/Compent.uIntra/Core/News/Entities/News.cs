@@ -9,7 +9,7 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.News.Entities
 {
-    public class News : NewsBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
+    public class News : NewsBase, IFeedItem, ICommentable, ILikeable, ISubscribable
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;

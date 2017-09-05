@@ -106,7 +106,7 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<ICentralFeedItem> filteredItems, IIntranetType centralFeedType)
+        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
@@ -145,7 +145,7 @@ namespace uIntra.CentralFeed.Web
 
         public virtual JsonResult CacheVersion()
         {
-            var version = _centralFeedService.GetFeedVersion(Enumerable.Empty<ICentralFeedItem>());
+            var version = _centralFeedService.GetFeedVersion(Enumerable.Empty<IFeedItem>());
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
@@ -189,7 +189,7 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected virtual IEnumerable<ICentralFeedItem> GetCentralFeedItems(IIntranetType type)
+        protected virtual IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
         {
             if (type.Id == CentralFeedTypeEnum.All.ToInt())
             {
@@ -215,7 +215,7 @@ namespace uIntra.CentralFeed.Web
             }
         }
 
-        protected virtual void FillActivityDetailLinks(IEnumerable<ICentralFeedItem> items)
+        protected virtual void FillActivityDetailLinks(IEnumerable<IFeedItem> items)
         {
             var currentPage = GetCurrentPage();
 
@@ -239,7 +239,7 @@ namespace uIntra.CentralFeed.Web
             return null;
         }
 
-        protected virtual IEnumerable<ICentralFeedItem> ApplyFilters(IEnumerable<ICentralFeedItem> items, CentralFeedListModel model, CentralFeedSettings settings)
+        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, CentralFeedListModel model, CentralFeedSettings settings)
         {
             if (model.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
@@ -259,7 +259,7 @@ namespace uIntra.CentralFeed.Web
             return !model.ShowPinned.HasValue && !model.IncludeBulletin.HasValue && !model.ShowSubscribed.HasValue;
         }
 
-        protected virtual IList<ICentralFeedItem> Sort(IEnumerable<ICentralFeedItem> items, IIntranetType type)
+        protected virtual IList<IFeedItem> Sort(IEnumerable<IFeedItem> items, IIntranetType type)
         {
             if (type.Id == CentralFeedTypeEnum.Events.ToInt())
             {

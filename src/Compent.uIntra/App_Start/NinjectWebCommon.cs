@@ -192,7 +192,7 @@ namespace Compent.uIntra
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<Core.News.Entities.News>().InRequestScope();
+            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();

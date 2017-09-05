@@ -49,7 +49,7 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
         }
 
-        public ActionResult CentralFeedItem(ICentralFeedItem item)
+        public ActionResult CentralFeedItem(IFeedItem item)
         {
             FillLinks();
             var activity = item as Event;
@@ -60,7 +60,7 @@ namespace Compent.uIntra.Controllers
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(ICentralFeedItem item)
+        public ActionResult PreviewItem(IFeedItem item)
         {
             FillLinks();
 

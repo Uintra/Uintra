@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedEventComparer : IComparer<ICentralFeedItem>
+    public class CentralFeedEventComparer : IComparer<IFeedItem>
     {
         private readonly DateTime _currentDate;
 
@@ -12,7 +12,7 @@ namespace uIntra.CentralFeed
             _currentDate = DateTime.Now.Date.AddHours(8);
         }
 
-        public int Compare(ICentralFeedItem x, ICentralFeedItem y)
+        public int Compare(IFeedItem x, IFeedItem y)
         {
             if (IsFuture(x) && IsFuture(y))
             {
@@ -32,7 +32,7 @@ namespace uIntra.CentralFeed
             return DateTime.Compare(y.PublishDate, x.PublishDate);
         }
 
-        private bool IsFuture(ICentralFeedItem item)
+        private bool IsFuture(IFeedItem item)
         {
             return item.PublishDate.Date >= _currentDate.Date;
         }

@@ -10,7 +10,7 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Events
 {
-    public class Event : EventBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable, IReminderable
+    public class Event : EventBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IReminderable
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
