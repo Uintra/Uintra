@@ -3,7 +3,6 @@ import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
 require("./profile.css");
-require("bootstrap-notify");
 
 var initDeleteButton = function (holder) {
     var btn = holder.find('.js-delete-btn');
