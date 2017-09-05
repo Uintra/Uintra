@@ -1672,6 +1672,17 @@
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\ContentGridPreValues.json">
+      <Link>Installer\PreValues\ContentGridPreValues.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\DefaultGridPreValues.json">
+      <Link>Installer\PreValues\DefaultGridPreValues.json</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Installer\PreValues\GridPageLayout.cshtml">
+      <Link>Installer\PreValues\GridPageLayout.cshtml</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
