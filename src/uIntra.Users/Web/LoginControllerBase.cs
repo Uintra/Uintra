@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Localization;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Users.Web
@@ -12,10 +13,14 @@ namespace uIntra.Users.Web
         protected virtual string DefaultRedirectUrl { get; } = "/";
 
         private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
+        private readonly IIntranetLocalizationService _intranetLocalizationService;
 
-        protected LoginControllerBase(ITimezoneOffsetProvider timezoneOffsetProvider)
+        protected LoginControllerBase(
+            ITimezoneOffsetProvider timezoneOffsetProvider,
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
+            _intranetLocalizationService = intranetLocalizationService;
         }
 
         public virtual ActionResult Login()
@@ -27,12 +32,19 @@ namespace uIntra.Users.Web
         [HttpPost]
         public virtual ActionResult Login(LoginModelBase model)
         {
-            var redirectUrl = model.ReturnUrl ?? DefaultRedirectUrl;
-
-            if (model.Login.IsNullOrEmpty() || model.Password.IsNullOrEmpty())
+            if (!ModelState.IsValid)
             {
-                return Redirect(redirectUrl);
+                return View(LoginViewPath, model);
             }
+
+            if (!Membership.ValidateUser(model.Login, model.Password))
+            {
+                ModelState.AddModelError("UserValidation",
+                    _intranetLocalizationService.Translate("Login.Validation.UserNotValid"));
+                return View(LoginViewPath, model);
+            }
+
+            var redirectUrl = model.ReturnUrl ?? DefaultRedirectUrl;
 
             if (Members.Login(model.Login, model.Password))
             {
