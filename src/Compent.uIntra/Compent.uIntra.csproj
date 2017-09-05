@@ -1081,8 +1081,8 @@
     <EmbeddedResource Include="Installer\PreValues\DefaultLocalizations.json" />
     <Content Include="Media\Web.config" />
     <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
-    <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
-    <Content Include="Installer\PreValues\ContentGridPreValues.json" />
+    <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
+    <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

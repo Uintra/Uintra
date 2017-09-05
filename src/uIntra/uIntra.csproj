@@ -1400,11 +1400,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
-      <Link>Installer\PreValues\DefaultLocalizations.json</Link>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1673,15 +1668,20 @@
     <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Installer\PreValues\ContentGridPreValues.json">
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\ContentGridPreValues.json">
       <Link>Installer\PreValues\ContentGridPreValues.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Installer\PreValues\DefaultGridPreValues.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultGridPreValues.json">
       <Link>Installer\PreValues\DefaultGridPreValues.json</Link>
-    </Content>
+    </EmbeddedResource>
     <Content Include="..\Compent.uIntra\Installer\PreValues\GridPageLayout.cshtml">
       <Link>Installer\PreValues\GridPageLayout.cshtml</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
+      <Link>Installer\PreValues\DefaultLocalizations.json</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
