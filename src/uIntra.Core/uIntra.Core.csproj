@@ -571,9 +571,9 @@
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-    <Content Include="Installer\PreValues\DefaultGridPreValues.json" />
-    <Content Include="Installer\PreValues\ContentGridPreValues.json" />
-    <Content Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
+    <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
+    <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
