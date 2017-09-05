@@ -25,8 +25,13 @@ namespace uIntra.Users.Web
 
         public virtual ActionResult Login()
         {
-            var loginStatus = Members.GetCurrentLoginStatus();
-            return View(LoginViewPath, loginStatus);
+            if (Members.GetCurrentLoginStatus().IsLoggedIn)
+            {
+                return Redirect(DefaultRedirectUrl);
+            }
+
+            var model = new LoginModelBase();
+            return View(LoginViewPath, model);
         }
 
         [HttpPost]
