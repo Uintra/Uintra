@@ -1188,6 +1188,9 @@
     <Compile Include="..\Compent.uIntra\Core\LocalizationService.cs">
       <Link>Core\LocalizationService.cs</Link>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Core\MemberServiceHelper.cs">
+      <Link>Core\MemberServiceHelper.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\Notification\MailConfiguration.cs">
       <Link>Core\Notification\MailConfiguration.cs</Link>
     </Compile>
