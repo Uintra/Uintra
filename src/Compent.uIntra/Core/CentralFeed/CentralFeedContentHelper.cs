@@ -90,7 +90,7 @@ namespace Compent.uIntra.Core.CentralFeed
             }
         }
 
-        public void SaveFiltersState(CentralFeedFiltersStateModel stateModel)
+        public void SaveFiltersState(FeedFiltersState stateModel)
         {
             var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
             cookie.Value = stateModel.ToJson();
@@ -142,9 +142,9 @@ namespace Compent.uIntra.Core.CentralFeed
             return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activitiesList));
         }
 
-        private CentralFeedFiltersStateModel GetDefaultCentralFeedFiltersState()
+        private FeedFiltersState GetDefaultCentralFeedFiltersState()
         {
-            return new CentralFeedFiltersStateModel()
+            return new FeedFiltersState()
             {
                 BulletinFilterSelected = true
             };

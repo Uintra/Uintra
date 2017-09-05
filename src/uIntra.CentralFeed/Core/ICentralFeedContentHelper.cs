@@ -14,7 +14,7 @@ namespace uIntra.CentralFeed
 
         IEnumerable<CentralFeedTabModel> GetTabs(IPublishedContent currentPage);
 
-        void SaveFiltersState(CentralFeedFiltersStateModel stateModel);
+        void SaveFiltersState(FeedFiltersState stateModel);
 
         T GetFiltersState<T>();
 

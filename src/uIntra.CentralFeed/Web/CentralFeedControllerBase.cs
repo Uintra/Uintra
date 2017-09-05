@@ -33,6 +33,7 @@ namespace uIntra.CentralFeed.Web
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper,
             ICentralFeedTypeProvider centralFeedTypeProvider)
+            : base(centralFeedContentHelper)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
@@ -45,7 +46,7 @@ namespace uIntra.CentralFeed.Web
 
         public virtual ActionResult OpenFilters()
         {
-            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
             centralFeedState.IsFiltersOpened = !centralFeedState.IsFiltersOpened;
             _centralFeedContentHelper.SaveFiltersState(centralFeedState);
             return new EmptyResult();
@@ -62,11 +63,14 @@ namespace uIntra.CentralFeed.Web
             var centralFeedType = _centralFeedTypeProvider.Get(model.Type);
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
-            RestoreFiltersState(model);
+            if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
+            {
+                model.FilterState = GetFilterStateModel();
+            }
 
             var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
-            var filteredItems = ApplyFilters(items, model, tabSettings).ToList();
+            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
             var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
 
@@ -76,8 +80,8 @@ namespace uIntra.CentralFeed.Web
             }
 
             var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems, centralFeedType);
-            var filterStateModel = GetFilterStateModel(centralFeedModel);
-            _centralFeedContentHelper.SaveFiltersState(filterStateModel);
+            var filterState = MapToFilterState(centralFeedModel.FilterState);
+            _centralFeedContentHelper.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
         }
@@ -85,7 +89,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
-            var centralFeedState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
             var model = new CentralFeedOverviewModel
             {
@@ -94,16 +98,6 @@ namespace uIntra.CentralFeed.Web
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
             return model;
-        }
-
-        protected virtual CentralFeedFiltersStateModel GetFilterStateModel(CentralFeedListViewModel centralFeedModel)
-        {
-            return new CentralFeedFiltersStateModel
-            {
-                PinnedFilterSelected = centralFeedModel.ShowPinned,
-                BulletinFilterSelected = centralFeedModel.IncludeBulletin,
-                SubscriberFilterSelected = centralFeedModel.ShowSubscribed
-            };
         }
 
         protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
@@ -119,23 +113,8 @@ namespace uIntra.CentralFeed.Web
                 Settings = _centralFeedService.GetAllSettings(),
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
-                ShowPinned = model.ShowPinned ?? false,
-                IncludeBulletin = model.IncludeBulletin ?? false,
-                ShowSubscribed = model.ShowSubscribed ?? false
+                FilterState = MapToFilterStateModel(model.FilterState)
             };
-        }
-
-        protected virtual void RestoreFiltersState(CentralFeedListModel model)
-        {
-            if (_centralFeedContentHelper.CentralFeedCookieExists() && !IsEmptyFilters(model))
-            {
-                return;
-            }
-
-            var filtersState = _centralFeedContentHelper.GetFiltersState<CentralFeedFiltersStateModel>();
-            model.ShowPinned = filtersState.PinnedFilterSelected;
-            model.IncludeBulletin = filtersState.BulletinFilterSelected;
-            model.ShowSubscribed = filtersState.SubscriberFilterSelected;
         }
 
         public virtual ActionResult Tabs()
@@ -239,24 +218,19 @@ namespace uIntra.CentralFeed.Web
             return null;
         }
 
-        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, CentralFeedListModel model, CentralFeedSettings settings)
+        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, CentralFeedSettings settings)
         {
-            if (model.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
+            if (filterState.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
                 items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
             }
 
-            if (model.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
+            if (filterState.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
             {
                 items = items.Where(i => i.IsPinned);
             }
 
             return items;
-        }
-
-        protected virtual bool IsEmptyFilters(CentralFeedListModel model)
-        {
-            return !model.ShowPinned.HasValue && !model.IncludeBulletin.HasValue && !model.ShowSubscribed.HasValue;
         }
 
         protected virtual IList<IFeedItem> Sort(IEnumerable<IFeedItem> items, IIntranetType type)
