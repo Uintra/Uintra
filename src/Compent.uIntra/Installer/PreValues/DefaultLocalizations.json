@@ -1010,5 +1010,41 @@
       "en-US": "Logout"
     },
     "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Login.Login.Required",
+    "translations": {
+      "en-US": "Required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+
+  {
+    "key": "Login.Login.ph",
+    "translations": {
+      "en-US": "Required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Login.Password.Required",
+    "translations": {
+      "en-US": "Required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Login.Password.ph",
+    "translations": {
+      "en-US": "Required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Login.Login.btn",
+    "translations": {
+      "en-US": "Login"
+    },
+    "updateDate": "0001-01-01T00:00:00"
   }
 ]
