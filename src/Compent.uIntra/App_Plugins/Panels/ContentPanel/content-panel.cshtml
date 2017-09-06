@@ -9,9 +9,9 @@
         return;
     }
     var panelId = "js-content-panel-" + Guid.NewGuid();
+    var isImportant = (bool)viewModel.isImportant ? "_important" : String.Empty;
 }
-
-<section class="block _content-panel clearfix" id="@panelId">
+<section class="block _content-panel clearfix @isImportant" id="@panelId">
     @{
         string titleLink = viewModel.titleLink?.link;
         string title = viewModel.title;

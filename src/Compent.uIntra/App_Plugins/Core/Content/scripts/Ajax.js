@@ -49,6 +49,11 @@ var ajax = {
         return new Promise(function (resolve, reject) {
             var request = new XMLHttpRequest();
             request.open('GET', url, true);
+            request.setRequestHeader('Cache-Control', 'max-age=0');
+            request.setRequestHeader('Cache-control', 'no-cache');
+            request.setRequestHeader('Cache-control', 'no-store');
+            request.setRequestHeader('Pragma', 'no-cache');
+            request.setRequestHeader('Expires', '0');
             request.onload = () => {
                 if (request.status >= 200 && request.status < 400) {
                     var responseText = request.responseText;
@@ -66,14 +71,28 @@ var ajax = {
     },
     Post: function (url, data, onSuccess, onError) {
         let options = {
-            headers: [{name: 'Content-Type', value: 'application/x-www-form-urlencoded; charset=UTF-8'}],
+            headers: [
+                {name: 'Content-Type', value: 'application/x-www-form-urlencoded; charset=UTF-8'},
+                {name: 'Cache-Control', value: 'max-age=0'},
+                {name: 'Cache-Control', value: 'no-cache'},
+                {name: 'Cache-Control', value: 'no-store'},
+                {name: 'Pragma', value: 'no-cache'},
+                {name: 'Expires', value: '0'}
+            ],
             jsonRegex: formJsonRegex
         };
         return post(url, data, onSuccess, onError, options);
     },
     PostJson: function (url, data, onSuccess, onError) {
         let options = {
-            headers: [{name: 'Content-Type', value: 'application/json; charset=utf-8'}],
+            headers: [
+                {name: 'Content-Type', value: 'application/json; charset=utf-8'},
+                {name: 'Cache-Control', value: 'max-age=0'},
+                {name: 'Cache-Control', value: 'no-cache'},
+                {name: 'Cache-Control', value: 'no-store'},
+                {name: 'Pragma', value: 'no-cache'},
+                {name: 'Expires', value: '0'}
+            ],
             jsonRegex: applicationJsonRegex
         };
         return post(url, JSON.stringify(data), onSuccess, onError, options);
@@ -86,6 +105,11 @@ var ajax = {
         return new Promise(function (resolve, reject) {
             var request = new XMLHttpRequest();
             request.open('DELETE', url, true);
+            request.setRequestHeader('Cache-Control', 'max-age=0');
+            request.setRequestHeader('Cache-control', 'no-cache');
+            request.setRequestHeader('Cache-control', 'no-store');
+            request.setRequestHeader('Pragma', 'no-cache');
+            request.setRequestHeader('Expires', '0');
 
             request.onload = () => {
                 if (request.status >= 200 && request.status < 400) {

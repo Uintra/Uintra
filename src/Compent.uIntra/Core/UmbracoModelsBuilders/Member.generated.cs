@@ -64,6 +64,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Member Changes Watcher
+		///</summary>
+		[ImplementPropertyType("memberChangesWatcher")]
+		public object MemberChangesWatcher
+		{
+			get { return this.GetPropertyValue("memberChangesWatcher"); }
+		}
+
+		///<summary>
 		/// Photo
 		///</summary>
 		[ImplementPropertyType("photo")]

@@ -46,7 +46,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Is hide from Left Navigation
+		/// Hide from Left Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromLeftNavigation")]
 		public bool IsHideFromLeftNavigation
@@ -55,7 +55,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Is hide from Sub Navigation
+		/// Hide from Sub Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromSubNavigation")]
 		public bool IsHideFromSubNavigation
