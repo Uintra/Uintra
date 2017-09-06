@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
@@ -19,6 +21,28 @@ namespace uIntra.Core.Extentions
         public static string GetMediaExtention(this IPublishedContent content)
         {
             return content.GetPropertyValue<string>(UmbracoExtensionPropertyAlias, default(string));
+        }
+
+        public static string GetFileName(this IPublishedContent content)
+        {
+            var fullName = content.GetPropertyValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias, content.Name);
+            var result = ParseFullFileName(fullName);
+            return result;
+        }
+
+        private static string ParseFullFileName(string fullName)
+        {
+            string regex = @"^/media/[0-9]*/(.*)$";
+            var match = Regex.Match(fullName, regex);
+            try
+            {
+                var result = match.Groups[1].Value;
+                return result;
+            }
+            catch (Exception) // if somebody [upload file with potentially invalid name]/[break umbraco structure], we will have global crash
+            {
+                return fullName;
+            }
         }
 
         public static Guid? GetIntranetUserId(this IPublishedContent content)
