@@ -1,5 +1,7 @@
-﻿@using Umbraco.Web
-@model Umbraco.Web.Models.LoginStatusModel
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extentions
+@using Umbraco.Web
+@model uIntra.Users.LoginModelBase
 @{
     Layout = null;
 }
@@ -12,27 +14,31 @@
     <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
 </head>
 <body>
-    @using (Html.BeginUmbracoForm("Login", "Login"))
-    {
-        <div class="login">
-            <div class="form">
-                <div class="form__row">
-                    <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" /></strong>
-                </div>
-                <div class="form__row">
-                    <input class="form__input" type="text" name="login" placeholder="Login" autofocus />
-                </div>
-                <div class="form__row">
-                    <input class="form__input" type="password" name="password" placeholder="Password" />
-                </div>
-                <div class="form__row">
-                    <!--a class="pull-right form__link">Glemt kodeord</a-->
-                    <input class="form__btn _submit" type="submit" value="Login" />
-                </div>
-                <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
+@using (Html.BeginUmbracoForm("Login", "Login"))
+{
+    <div class="login">
+        <div class="form">
+            <div class="form__row">
+                <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" /></strong>
             </div>
+            <div class="form__row">
+                @Html.TextBoxFor(m => Model.Login, new { data_val_required = Html.Localize("Login.Login.Required"),
+                    @class = "form__input", placeholder = Html.Localize("Login.Login.ph") })
+            </div>
+            <div class="form__row">
+                @Html.PasswordFor(m => Model.Password, new { data_val_required = Html.Localize("Login.Password.Required"),
+                    @class = "form__input", placeholder = Html.Localize("Login.Password.ph"), value = Model.Password })
+            </div>
+            <div class="form__row">
+                <input class="form__btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
+            </div>
+            <div class="form__row">
+                @Html.ValidationSummary()
+            </div>
+            <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
         </div>
-        <script src="~/App_Plugins/Core/Content/scripts/TimezoneOffsetSetter.js"></script>
-    }
+    </div>
+    <script src="~/App_Plugins/Core/Content/scripts/TimezoneOffsetSetter.js"></script>
+}
 </body>
 </html>
