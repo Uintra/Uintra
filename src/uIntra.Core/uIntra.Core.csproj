@@ -361,6 +361,7 @@
     <Compile Include="Core\Extentions\ListExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
+    <Compile Include="Core\Links\ProfileLink.cs" />
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />

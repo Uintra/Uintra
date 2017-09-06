@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using uIntra.Core;
+using uIntra.Core.Core.Links;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Web;
@@ -42,8 +43,6 @@ namespace uIntra.Notification.Web
 
         public virtual ActionResult Index(int page = 1)
         {
-            FillLinks();
-
             var take = page * ItemsPerPage;
             int totalCount;
             var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out totalCount).ToList();
@@ -54,12 +53,7 @@ namespace uIntra.Notification.Web
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notifications.Select(d =>
-            {
-                var resultItem = d.Map<NotificationViewModel>();
-                FillNotifierData(resultItem);
-                return resultItem;
-            }).ToList();
+            var notificationsViewModels = notifications.Select(MapNotificationToViewModel).ToList();
 
             var result = new NotificationListViewModel
             {
@@ -86,8 +80,6 @@ namespace uIntra.Notification.Web
 
         public virtual PartialViewResult List()
         {
-            FillLinks();
-
             int totalCount;
             var notificationListPage = _notificationHelper.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
@@ -99,12 +91,7 @@ namespace uIntra.Notification.Web
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notifications.Select(d =>
-            {
-                var resultItem = d.Map<NotificationViewModel>();
-                FillNotifierData(resultItem);
-                return resultItem;
-            }).ToList();
+            var notificationsViewModels = notifications.Select(MapNotificationToViewModel).ToList();
 
             var result = new NotificationListViewModel
             {
@@ -113,6 +100,16 @@ namespace uIntra.Notification.Web
             };
 
             return PartialView(ListViewPath, result);
+        }
+
+        private NotificationViewModel MapNotificationToViewModel(Notification notification)
+        {
+                var result = notification.Map<NotificationViewModel>();
+
+                if (Guid.TryParse((string)result.Value.notifierId, out var id))
+                    result.Notifier = GetNotifierViewModel(id);
+
+                return result;
         }
 
         public virtual PartialViewResult Preview()
@@ -125,28 +122,27 @@ namespace uIntra.Notification.Web
             return PartialView(PreviewViewPath, result);
         }
 
-        protected virtual void FillLinks()
+        //TODO : move into helper
+        protected virtual ProfileLink GetProfileLink(Guid memberId)
         {
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-            ViewData.SetProfilePageUrl(profilePageUrl);
-        }
-
-        #region utils
-
-        private void FillNotifierData(NotificationViewModel notification)
-        {
-            Guid notifierId;
-            if (!Guid.TryParse((string)notification.Value.notifierId, out notifierId))
+            return new ProfileLink()
             {
-                return;
-            }
-
-            var notifier = _intranetUserService.Get(notifierId);
-            notification.NotifierId = notifierId;
-            notification.NotifierName = notifier.DisplayedName;
-            notification.NotifierPhoto = notifier.Photo;
+                Value = profilePageUrl.AddIdParameter(memberId)
+            };
         }
 
-        #endregion
+        protected NotifierViewModel GetNotifierViewModel(Guid notifierId)
+        {
+            var notifier = _intranetUserService.Get(notifierId);
+            var result = new NotifierViewModel()
+            {
+                Id = notifierId,
+                ProfileLink = GetProfileLink(notifierId),
+                Name = notifier.DisplayedName,
+                Photo = notifier.Photo
+            };
+            return result;
+        }
     }
 }
