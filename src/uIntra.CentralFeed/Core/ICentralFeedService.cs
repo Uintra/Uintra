@@ -6,11 +6,11 @@ namespace uIntra.CentralFeed
 {
     public interface ICentralFeedService
     {
-        IEnumerable<ICentralFeedItem> GetFeed(IIntranetType type);
+        IEnumerable<IFeedItem> GetFeed(IIntranetType type);
 
-        IEnumerable<ICentralFeedItem> GetFeed();        
+        IEnumerable<IFeedItem> GetFeed();        
 
-        long GetFeedVersion(IEnumerable<ICentralFeedItem> centralFeedItems);
+        long GetFeedVersion(IEnumerable<IFeedItem> centralFeedItems);
 
         CentralFeedSettings GetSettings(IIntranetType type);
 

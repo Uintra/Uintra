@@ -29,18 +29,18 @@ namespace uIntra.CentralFeed
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
         
-        public IEnumerable<ICentralFeedItem> GetFeed(IIntranetType type)
+        public IEnumerable<IFeedItem> GetFeed(IIntranetType type)
         {
             var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
             return service.GetItems();
         }
 
-        public IEnumerable<ICentralFeedItem> GetFeed()
+        public IEnumerable<IFeedItem> GetFeed()
         {
             return GetAllItems();
         }
 
-        public long GetFeedVersion(IEnumerable<ICentralFeedItem> centralFeedItems)
+        public long GetFeedVersion(IEnumerable<IFeedItem> centralFeedItems)
         {
             if (!centralFeedItems.Any())
             {
@@ -72,7 +72,7 @@ namespace uIntra.CentralFeed
             };
         }
 
-        private IEnumerable<ICentralFeedItem> GetAllItems()
+        private IEnumerable<IFeedItem> GetAllItems()
         {
             var items = _feedItemServices.SelectMany(service => service.GetItems());
             return items;

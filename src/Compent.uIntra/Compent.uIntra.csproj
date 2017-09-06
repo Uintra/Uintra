@@ -341,9 +341,6 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.4\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.0\lib\net452\uIntra.CentralFeed.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.5\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
@@ -1325,6 +1322,12 @@
     <Folder Include="App_Plugins\Events\PreviewItem\" />
     <Folder Include="App_Plugins\News\PreviewItem\" />
     <Folder Include="Content\scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+      <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
+      <Name>uIntra.CentralFeed</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

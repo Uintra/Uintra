@@ -9,7 +9,7 @@ namespace uIntra.CentralFeed
         public string Title { get; set; }
         public string Teaser { get; set; }
         public IEnumerable<CentralFeedSettings> Settings { get; set; } = Enumerable.Empty<CentralFeedSettings>();
-        public IEnumerable<ICentralFeedItem> Items { get; set; }
+        public IEnumerable<IFeedItem> Items { get; set; }
         public CentralFeedTabViewModel Tab { get; set; }
     }
 }

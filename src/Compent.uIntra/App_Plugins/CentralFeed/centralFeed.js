@@ -68,9 +68,9 @@ function attachEventFilter() {
     var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
     if (clearFiltersElem) {
         clearFiltersElem.addEventListener('click', function () {
-            var showSubscribed = formController.form.querySelector('input[name="showSubscribed"]');
-            var showPinned = formController.form.querySelector('input[name="showPinned"]');
-            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+            var showSubscribed = formController.form.querySelector('input[name="filterState.showSubscribed"]');
+            var showPinned = formController.form.querySelector('input[name="filterState.showPinned"]');
+            var inlcudeBulletin = formController.form.querySelector('input[name="filterState.includeBulletin"]');
             $(showSubscribed).val(false);
             $(showPinned).val(false);
             $(inlcudeBulletin).val(false);
@@ -78,21 +78,21 @@ function attachEventFilter() {
         });
     }
 
-    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
+    var showSubscribedElem = formController.form.querySelector('input[name="filterState.showSubscribed"]');
     if (showSubscribedElem) {
         showSubscribedElem.addEventListener('change', function () {
             reload(false, false, false);
         });
     }
 
-    var showPinnedElem = formController.form.querySelector('input[name="showPinned"]');
+    var showPinnedElem = formController.form.querySelector('input[name="filterState.showPinned"]');
     if (showPinnedElem) {
         showPinnedElem.addEventListener('change', function () {
             reload(false, false, false);
         });
     }
 
-    var inlcudeBulletinElem = formController.form.querySelector('input[name="includeBulletin"]');
+    var inlcudeBulletinElem = formController.form.querySelector('input[name="filterState.includeBulletin"]');
     if (inlcudeBulletinElem) {
         inlcudeBulletinElem.addEventListener('change', function () {
             reload(false, false, false);

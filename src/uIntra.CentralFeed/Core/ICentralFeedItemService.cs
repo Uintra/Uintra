@@ -10,8 +10,8 @@ namespace uIntra.CentralFeed
 
         CentralFeedSettings GetCentralFeedSettings();
 
-        ICentralFeedItem GetItem(Guid activityId);
+        IFeedItem GetItem(Guid activityId);
 
-        IEnumerable<ICentralFeedItem> GetItems();
+        IEnumerable<IFeedItem> GetItems();
     }
 }

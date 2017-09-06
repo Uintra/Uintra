@@ -1,6 +1,6 @@
 ﻿namespace uIntra.CentralFeed
 {
-    public class CentralFeedFiltersStateModel
+    public class FeedFiltersState
     {
         public bool SubscriberFilterSelected { get; set; }
         public bool PinnedFilterSelected { get; set; }

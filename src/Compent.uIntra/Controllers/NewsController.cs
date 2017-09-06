@@ -37,7 +37,7 @@ namespace Compent.uIntra.Controllers
             _documentIndexer = documentIndexer;
         }
 
-        public ActionResult CentralFeedItem(ICentralFeedItem item)
+        public ActionResult CentralFeedItem(IFeedItem item)
         {
             FillLinks();
             var activity = item as News;
@@ -46,7 +46,7 @@ namespace Compent.uIntra.Controllers
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(ICentralFeedItem item)
+        public ActionResult PreviewItem(IFeedItem item)
         {
             FillLinks();
             var activity = item as News;
