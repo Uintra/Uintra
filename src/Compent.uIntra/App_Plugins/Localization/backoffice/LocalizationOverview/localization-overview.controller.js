@@ -14,6 +14,7 @@
         var defaultDateTime = "";
         var defaultResource = {};
 
+        self.filter = { text: "", showActive: false };
         self.resources = [];
         self.languages = [];
         self.listSettings = {
@@ -63,15 +64,66 @@
 
         self.refresh = function () {
             self.workspaceDisabled = true;
+            self.filter = {
+                showActive: false,
+                text: ""
+            };
+
             init();
+        }
+
+        self.filterResources = function (resource) {
+            var filterValue = self.filter.text.toLowerCase();
+
+            function isKeyContains() {
+                var result = resource.key.toLowerCase().indexOf(filterValue) >= 0;
+                return result;
+            }
+
+            function isTranslationsContains() {
+                var result = false;
+
+                for (var transaction in resource.transactions) {
+                    if (resource.transactions.hasOwnProperty(transaction) && resource.transactions[transaction].toLowerCase().indexOf(filterValue) >= 0) {
+                        result = true;
+                        break;
+                    }
+                }
+
+                return result;
+            }
+
+            function isDescriptionContains() {
+                var result = resource.description !== null && resource.description.toLowerCase().indexOf(filterValue) >= 0;
+                return result;
+            }
+
+            function isParentContains() {
+                var result = resource.parentKey !== null && resource.parentKey.toLowerCase().indexOf(filterValue) >= 0;
+                return result;
+            }
+
+            if (!self.filter.text.trim()) {
+                return true;
+            }
+
+            var result = isKeyContains() || isTranslationsContains() || isDescriptionContains() || isParentContains();
+            return result;
+        }
+
+        self.filterActive = function (resource) {
+            var result = !self.filter.showActive || resource.isActive;
+            return result;
         }
 
         function saveResource(resource) {
             localizationResourceService.saveResource(resource.oldKey, resource).then(function (response) {
-
                 var index = self.resources.findIndex(function (sResource) {
                     return sResource.key === resource.oldKey;
                 });
+
+                var oldResource = self.resources[index];
+                response.data.isActive = oldResource.isActive;
                 self.resources[index] = response.data;
 
                 notificationsService.success("Success", "Resource " + resource.key + " was saved successfully");
@@ -121,11 +173,11 @@
                     return;
                 }
 
-                var storedResource = self.resources.filter(function (sResource) {
+                var storedResource = self.resources.find(function (sResource) {
                     return sResource.key.toLowerCase() === resource.key.toLowerCase();
                 });
 
-                resource.invalid = storedResource.length > 0;
+                resource.invalid = typeof storedResource !== "undefined";
             }
 
             function getStoredKeys() {

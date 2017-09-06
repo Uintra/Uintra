@@ -1,4 +1,5 @@
 ﻿using uIntra.Core;
+using uIntra.Core.Localization;
 using uIntra.Users.Web;
 
 namespace Compent.uIntra.Controllers
@@ -8,8 +9,8 @@ namespace Compent.uIntra.Controllers
     {
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
-        public LoginController(ITimezoneOffsetProvider timezoneOffsetProvider) :
-            base(timezoneOffsetProvider)
+        public LoginController(ITimezoneOffsetProvider timezoneOffsetProvider, IIntranetLocalizationService  intranetLocalizationService) :
+            base(timezoneOffsetProvider, intranetLocalizationService)
         {
         }
     }
