@@ -1328,6 +1328,10 @@
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
       <Name>uIntra.CentralFeed</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
+      <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
+      <Name>uIntra.Groups</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
