@@ -1018,12 +1018,15 @@
     <Content Include="..\Compent.uIntra\Controllers\NewsSectionController.cs">
       <Link>Controllers\NewsSectionController.cs</Link>
     </Content>
-    <Compile Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
+    <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
       <Link>Controllers\Api\MemberApiController.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Controllers\BrowserCompatibilityController.cs">
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\Api\UserApiController.cs">
+      <Link>Controllers\Api\UserApiController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\BrowserCompatibilityController.cs">
       <Link>Controllers\BrowserCompatibilityController.cs</Link>
-    </Compile>
+    </Content>
     <Compile Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
       <Link>Core\ActivitiesServiceFactory.cs</Link>
     </Compile>
