@@ -1,12 +1,12 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
-appInitializer.add(function () {
+
+export default function () {
 
     var holder = document.querySelector('.js-groups-overview');
 
@@ -82,4 +82,4 @@ appInitializer.add(function () {
 
     restoreState();
     infinityScroll(onScroll)();
-});
+};

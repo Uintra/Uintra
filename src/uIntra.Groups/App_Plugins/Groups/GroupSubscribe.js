@@ -1,31 +1,25 @@
-﻿import appInitializer from "./../Core/Content/scripts/AppInitializer";
+﻿require("./_groups.css");
 
-require("./_groups.css");
+var controller = {
+    initOnLoad: function () {
+        this.init('.js-group-subscribe');
+    },
+    init: function (selector) {
+        var holders = $(selector);
 
-var GroupSubscribe = (function() {
-    var controller = {
-        initOnLoad: function () {
-            this.init('.js-group-subscribe');
-        },
-        init: function (selector) {
-            var holders = $(selector);
-
-            if (!holders.length) {
-                return;
-            }
-
-            holders.each(function () {
-                init($(this));
-            });
-        },
-
-        changeCount: function (count) {
-            var countHolder = $('#membersCount');
-            $(countHolder).text(count);
+        if (!holders.length) {
+            return;
         }
-    }    
-    appInitializer.add(controller.init);
-    return controller;
-})();
 
-export default GroupSubscribe;
+        holders.each(function () {
+            init($(this));
+        });
+    },
+
+    changeCount: function (count) {
+        var countHolder = $('#membersCount');
+        $(countHolder).text(count);
+    }
+}
+
+export default controller;

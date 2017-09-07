@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
 var holder;
@@ -21,4 +20,5 @@ var controller = {
         fileUploadController.init(holder);
     }
 }
-appInitializer.add(controller.init);
+
+export default controller;
