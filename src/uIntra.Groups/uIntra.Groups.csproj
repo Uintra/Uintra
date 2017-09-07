@@ -292,6 +292,7 @@
     <Compile Include="Core\Dashboard\Models\BackofficeGroupViewModel.cs" />
     <Compile Include="Core\Dashboard\GroupsSection.cs" />
     <Compile Include="Core\Dashboard\Controllers\GroupsSectionControllerBase.cs" />
+    <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
     <Compile Include="Core\Models\GroupCentralFeedOverviewModel.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
@@ -321,6 +322,7 @@
     <Compile Include="Core\IGroupMember.cs" />
     <Compile Include="Core\Services\GroupDocumentsService.cs" />
     <Compile Include="Core\Services\GroupMemberService.cs" />
+    <Compile Include="Installer\GroupsInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\GroupMigrations.cs" />
     <Compile Include="Core\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />
     <Compile Include="Core\Services\GroupService.cs" />
@@ -328,6 +330,7 @@
     <Compile Include="Core\Services\IGroupDocumentsService.cs" />
     <Compile Include="Core\Services\IGroupMemberService.cs" />
     <Compile Include="Core\Services\IGroupService.cs" />
+    <Compile Include="Installer\Migrations\GroupsInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Sql\Group.cs" />
     <Compile Include="Core\Sql\GroupDocument.cs" />
@@ -349,6 +352,7 @@
     <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
     <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
     <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\groups.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\Info\group-info.html" />
     <Content Include="App_Plugins\Groups\List\group-list.html" />
@@ -375,6 +379,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Web\" />
     <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using uIntra.Core.Controls.FileUpload;
+using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -45,6 +46,8 @@ namespace uIntra.Groups
 
         private IMedia GetOrCreateGroupMediaFolder(Guid groupId)
         {
+            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
+
             var medias = _mediaService.GetChildren(-1);
             var groupFolder = medias.FirstOrDefault(s =>
             {
@@ -59,7 +62,7 @@ namespace uIntra.Groups
             if (groupFolder == null)
             {
                 var group = _groupService.Get(groupId);
-                groupFolder = _mediaService.CreateMedia(group.Title, -1, "Folder");
+                groupFolder = _mediaService.CreateMedia(group.Title, groupFolderSettings.MediaRootId ?? -1, "Folder");
                 groupFolder.SetValue(GroupIdPropertyTypeAlias, groupId.ToString());
                 _mediaService.Save(groupFolder);
             }

@@ -1,6 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-
-var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
+﻿var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
 function initMobileTable(){
     var tableHolder = document.querySelector(".table-holder");
@@ -29,4 +27,4 @@ var controller = {
         }
     }
 }
-appInitializer.add(controller.init);
+export default controller;

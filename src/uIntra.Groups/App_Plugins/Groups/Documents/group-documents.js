@@ -1,5 +1,4 @@
-﻿import appInitializer from "./../../Core/Content/scripts/AppInitializer";
-var Dropzone = require("dropzone");
+﻿var Dropzone = require("dropzone");
 import actionLinkWithConfirm from "../../Core/Content/scripts/ActionLinkWithConfirm";
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
@@ -51,4 +50,6 @@ var controller = {
 
     }
 }
-appInitializer.add(controller.init);
+
+
+export default controller;

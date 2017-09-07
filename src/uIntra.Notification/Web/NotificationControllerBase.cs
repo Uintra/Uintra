@@ -27,7 +27,7 @@ namespace uIntra.Notification.Web
         protected NotificationControllerBase(
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            INotificationHelper notificationHelper, 
+            INotificationHelper notificationHelper,
             IIntranetUserContentHelper intranetUserContentHelper)
         {
             _uiNotifierService = uiNotifierService;
@@ -104,12 +104,13 @@ namespace uIntra.Notification.Web
 
         private NotificationViewModel MapNotificationToViewModel(Notification notification)
         {
-                var result = notification.Map<NotificationViewModel>();
+            var result = notification.Map<NotificationViewModel>();
 
-                if (Guid.TryParse((string)result.Value.notifierId, out var id))
-                    result.Notifier = GetNotifierViewModel(id);
+            Guid id;
+            if (Guid.TryParse((string)result.Value.notifierId, out id))
+                result.Notifier = GetNotifierViewModel(id);
 
-                return result;
+            return result;
         }
 
         public virtual PartialViewResult Preview()

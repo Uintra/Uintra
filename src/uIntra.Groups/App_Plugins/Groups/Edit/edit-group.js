@@ -44,5 +44,7 @@ var controller = {
         fileUploadController.init(holder);
     }
 }
-appInitializer.add(controller.init);
+
+
+export default controller;
 
