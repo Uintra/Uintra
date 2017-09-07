@@ -60,21 +60,18 @@ namespace Compent.uIntra.Controllers
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(IFeedItem item)
+        public ActionResult PreviewItem(IFeedItem item, ActivityLinks links)
         {
-            //FillLinks();
-
             var activity = item as Event;
-            EventPreviewViewModel viewModel = GetPreviewViewModel(activity);
+            EventPreviewViewModel viewModel = GetPreviewViewModel(activity, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }
 
-
-        protected override EventViewModel GetViewModel(EventBase @event)
+        protected override EventViewModel GetViewModel(EventBase @event, ActivityLinks links)
         {
             var eventExtended = (Event)@event;
-            var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
-            extendedModel = Mapper.Map(eventExtended, extendedModel);
+            var extendedModel = base.GetViewModel(@event, links).Map<EventExtendedViewModel>();
+            extendedModel = Mapper.Map(eventExtended, extendedModel); // TODO : investigate why not ev.Map<extended>();
             return extendedModel;
         }
 

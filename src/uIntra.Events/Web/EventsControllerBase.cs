@@ -13,7 +13,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
 using uIntra.Events.Core.Models;
-using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Events.Web
@@ -54,17 +53,15 @@ namespace uIntra.Events.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public virtual ActionResult Details(Guid id)
+        public virtual ActionResult Details(Guid id, ActivityLinks links)
         {
-            //FillLinks();
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
-                return Redirect("/");
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
-            var model = GetViewModel(@event);
+            var model = GetViewModel(@event, links);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -204,7 +201,7 @@ namespace uIntra.Events.Web
             return model;
         }
 
-        protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event)
+        protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event, ActivityLinks links)
         {
             var creator = _intranetUserService.Get(@event);
             return new EventPreviewViewModel()
@@ -214,7 +211,8 @@ namespace uIntra.Events.Web
                 StartDate = @event.StartDate,
                 EndDate = @event.EndDate,
                 Creator = creator,
-                ActivityType = @event.Type
+                ActivityType = @event.Type,
+                Links = links                
             };
         }
 
@@ -239,14 +237,19 @@ namespace uIntra.Events.Web
             return model;
         }
 
-        protected virtual EventViewModel GetViewModel(EventBase @event)
+        protected virtual EventViewModel GetViewModel(EventBase @event, ActivityLinks links)
         {
             var model = @event.Map<EventViewModel>();
+
+            model.CanEdit = _eventsService.CanEdit(@event);
+            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.Links = links;
+
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.HeaderInfo.Creator = _intranetUserService.Get(@event);
-            model.CanEdit = _eventsService.CanEdit(@event);
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.HeaderInfo.Links = links;
+
             return model;
         }
 
@@ -287,6 +290,7 @@ namespace uIntra.Events.Web
         protected virtual EventBase MapToEvent(EventCreateModel createModel)
         {
             var @event = createModel.Map<EventBase>();
+
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.StartDate = createModel.StartDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
@@ -298,6 +302,7 @@ namespace uIntra.Events.Web
         protected virtual EventBase MapToEvent(EventEditModel editModel)
         {
             var @event = MapEditModel(editModel);
+
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
             @event.StartDate = editModel.StartDate.ToUniversalTime();

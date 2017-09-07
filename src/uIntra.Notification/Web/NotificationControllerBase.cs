@@ -124,13 +124,10 @@ namespace uIntra.Notification.Web
         }
 
         //TODO : move into helper
-        protected virtual ProfileLink GetProfileLink(Guid memberId)
+        protected virtual string GetProfileLink(Guid memberId)
         {
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-            return new ProfileLink()
-            {
-                Value = profilePageUrl.AddIdParameter(memberId)
-            };
+            return profilePageUrl.AddIdParameter(memberId);
         }
 
         protected NotifierViewModel GetNotifierViewModel(Guid notifierId)

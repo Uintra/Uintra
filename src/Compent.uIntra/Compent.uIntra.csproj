@@ -1040,6 +1040,7 @@
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1304,7 +1305,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\Bulletins\PreviewItem\" />
-    <Folder Include="App_Plugins\Events\PreviewItem\" />
     <Folder Include="App_Plugins\News\PreviewItem\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>

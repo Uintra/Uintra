@@ -36,6 +36,16 @@ namespace Compent.uIntra
                     controller = "Login",
                     action = "Login"
                 });
+
+            RouteTable.Routes.MapRoute(
+                "feed",
+                "feed/{action}",
+                new
+                {
+                    controller = "CentralFeed",
+                    action = "Chicken"
+                });
+
         }
     }
 }

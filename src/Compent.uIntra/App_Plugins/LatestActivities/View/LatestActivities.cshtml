@@ -7,12 +7,12 @@
     <h2 class="block__title">@Model.Title</h2>
     <h3 class="block__teaser">@Html.Raw(Model.Teaser)</h3>
 
-        @foreach (var item in Model.Items)
+        @foreach (var activity in Model.Feed)
         {
 
-            var itemSettings = Model.Settings.First(s => s.Type.Id == item.Type.Id);
+            var itemSettings = Model.Settings.First(s => s.Type.Id == activity.Item.Type.Id);
             <div class="block__item">
-                @{ Html.RenderAction("PreviewItem", itemSettings.Controller, new { item = item }); }
+                @{ Html.RenderAction("PreviewItem", itemSettings.Controller, new { item = activity.Item, links = activity.Links }); }
             </div>
          }
     <a href="@Model.Tab.Url" class="btn">@Html.Localize("LatestActivities.SeeAll.btn")</a>

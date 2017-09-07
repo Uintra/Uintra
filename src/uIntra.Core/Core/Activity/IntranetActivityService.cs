@@ -106,7 +106,7 @@ namespace uIntra.Core.Activity
             return CanEdit(cached);
         }
 
-        public abstract ActivityLinks GetCentralFeedLinks(Guid id);
+        public abstract ActivityLinks GetCentralFeedLinks(Guid id, Guid creatorId);
         public abstract bool CanEdit(IIntranetActivity cached);
         public abstract IPublishedContent GetOverviewPage();
         public abstract IPublishedContent GetDetailsPage();

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
-using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -151,7 +150,7 @@ namespace uIntra.CentralFeed.Web
             ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
-        protected virtual IEnumerable<FeedItem> GetFeedItems(IEnumerable<IFeedItem> items)
+        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items)
         {
             var services = items
                 .Select(i => i.Type)
@@ -160,7 +159,7 @@ namespace uIntra.CentralFeed.Web
                 .ToDictionary(s => s.ActivityType.Name);
 
             var result = items
-                .Select(i => new FeedItem() {Item = i, Links = services[i.Type.Name].GetCentralFeedLinks(i.Id)});
+                .Select(i => new FeedItemViewModel() {Item = i, Links = services[i.Type.Name].GetCentralFeedLinks(i.Id, i.CreatorId)});
 
             return result;
         }
@@ -268,6 +267,7 @@ namespace uIntra.CentralFeed.Web
         {
             var activitiesType = _centralFeedTypeProvider.Get(panelModel.ActivityTypeId);
             var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.ActivityAmount);
+            var feedItems = GetFeedItems(latestActivities);
             var settings = _centralFeedService.GetAllSettings();
             var tab = GetTabForActivities(activitiesType);
 
@@ -276,7 +276,7 @@ namespace uIntra.CentralFeed.Web
                 Title = panelModel.Title,
                 Teaser = panelModel.Teaser,
                 Settings = settings,
-                Items = latestActivities,
+                Feed = feedItems,
                 Tab = tab
             };
         }
@@ -317,12 +317,5 @@ namespace uIntra.CentralFeed.Web
                 SubscriberFilterSelected = model.ShowSubscribed
             };
         }
-    }
-
-    // TODO : pick better name
-    public class FeedItem
-    {
-        public IFeedItem Item { get; set; }
-        public ActivityLinks Links { get; set; }
     }
 }

@@ -353,6 +353,7 @@
     <Compile Include="Core\Models\CentralFeedTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\FeedControllerBase.cs" />
+    <Compile Include="Core\Models\FeedItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\CentralFeed\loader.gif" />

@@ -28,5 +28,10 @@ namespace uIntra.CentralFeed.Web
             : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService)
         {}
 
+        [HttpGet]
+        public ActionResult Chicken()
+        {
+            return Json("I love beakon!", JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -166,14 +166,14 @@ namespace Compent.uIntra.Core.Events
             };
         }
 
-        public override ActivityLinks GetCentralFeedLinks(Guid id)
+        public override ActivityLinks GetCentralFeedLinks(Guid id, Guid creatorId)
         {
             return new ActivityLinks(
                 overview: GetOverviewPage().Url,
                 create: GetCreatePage().Url,
                 details: GetDetailsPage().Url.AddIdParameter(id),
                 edit: GetEditPage().Url.AddIdParameter(id),
-                profile: _intranetUserContentHelper.GetProfilePage().Url
+                profile: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(id)
             );
         }
 

@@ -7,6 +7,8 @@ namespace uIntra.CentralFeed
     {
         Guid Id { get; }
 
+        Guid CreatorId { get; set; }
+
         IIntranetType Type { get; }
 
         DateTime PublishDate { get; }
