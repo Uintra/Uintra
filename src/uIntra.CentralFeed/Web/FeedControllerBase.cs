@@ -160,7 +160,7 @@ namespace uIntra.CentralFeed.Web
                 .ToDictionary(s => s.ActivityType.Name);
 
             var result = items
-                .Select(i => new FeedItem() {Item = i, Links = services[i.Type.Name].GetActivityLinks()});
+                .Select(i => new FeedItem() {Item = i, Links = services[i.Type.Name].GetCentralFeedLinks(i.Id)});
 
             return result;
         }

@@ -166,15 +166,15 @@ namespace Compent.uIntra.Core.Events
             };
         }
 
-        public override ActivityLinks GetActivityLinks()
+        public override ActivityLinks GetCentralFeedLinks(Guid id)
         {
             return new ActivityLinks(
-                    overview: GetOverviewPage().Url,
-                    create: GetCreatePage().Url,
-                    details: GetDetailsPage().Url,
-                    edit: GetEditPage().Url,
-                    profile: _intranetUserContentHelper.GetProfilePage().Url
-                );
+                overview: GetOverviewPage().Url,
+                create: GetCreatePage().Url,
+                details: GetDetailsPage().Url.AddIdParameter(id),
+                edit: GetEditPage().Url.AddIdParameter(id),
+                profile: _intranetUserContentHelper.GetProfilePage().Url
+            );
         }
 
         public override bool CanEdit(IIntranetActivity cached)

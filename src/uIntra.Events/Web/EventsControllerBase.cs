@@ -7,6 +7,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -249,23 +250,31 @@ namespace uIntra.Events.Web
             return model;
         }
 
-        protected virtual EventItemViewModel GetItemViewModel(EventBase @event)
+        protected virtual EventItemViewModel GetItemViewModel(EventBase @event, ActivityLinks links)
         {
             var model = @event.Map<EventItemViewModel>();
+
             model.MediaIds = @event.MediaIds;
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.LightboxGalleryPreviewInfo = GetGalleryPreviewInfo(@event);
+            model.Links = links;
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Creator = _intranetUserService.Get(@event);
+            model.HeaderInfo.Links = links;
 
-            model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
+            return model;
+        }
+
+        private LightboxGalleryPreviewModel GetGalleryPreviewInfo(EventBase @event)
+        {
+            return new LightboxGalleryPreviewModel
             {
                 MediaIds = @event.MediaIds,
                 DisplayedImagesCount = DisplayedImagesCount,
                 ActivityId = @event.Id,
-                ActivityType = @event.Type
+                ActivityType = @event.Type,
             };
-            return model;
         }
 
         protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)

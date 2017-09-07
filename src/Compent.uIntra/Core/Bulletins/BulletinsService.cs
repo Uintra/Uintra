@@ -117,7 +117,7 @@ namespace Compent.uIntra.Core.Bulletins
             FillIndex();
         }
 
-        public override ActivityLinks GetActivityLinks()
+        public override ActivityLinks GetCentralFeedLinks(Guid id)
         {
             throw new NotImplementedException();
         }

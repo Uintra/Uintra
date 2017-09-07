@@ -52,9 +52,8 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult CentralFeedItem(IFeedItem item, ActivityLinks links)
         {
-            //FillLinks();
             var activity = item as Event;
-            var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
+            var extendedModel = GetItemViewModel(activity, links).Map<EventExtendedItemModel>();
             var  userId =_intranetUserService.GetCurrentUser();
             extendedModel.LikesInfo = activity;
             extendedModel.IsSubscribed = activity.Subscribers.Any(s => s.UserId == userId.Id);
