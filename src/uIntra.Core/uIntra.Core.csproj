@@ -405,6 +405,7 @@
     <Compile Include="Core\WebPagePreview\LinkPreviewController.cs" />
     <Compile Include="Core\WebPagePreview\LinkPreviewService.cs" />
     <Compile Include="Core\User\UserPhotoHelper.cs" />
+    <Compile Include="Installer\BasePageWithDefaultGridCreateModel.cs" />
     <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
