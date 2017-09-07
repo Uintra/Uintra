@@ -8,7 +8,7 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Groups.Dashboard
 {
-    public class GroupsSectionControllerBase : UmbracoAuthorizedApiController
+    public abstract class GroupsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IGroupService _groupsService;
         private readonly IGroupContentHelper _groupContentHelper;

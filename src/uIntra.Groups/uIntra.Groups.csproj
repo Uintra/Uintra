@@ -335,6 +335,7 @@
     <Compile Include="Core\Sql\Group.cs" />
     <Compile Include="Core\Sql\GroupDocument.cs" />
     <Compile Include="Core\Sql\GroupMember.cs" />
+    <Compile Include="Web\GroupFeedControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
@@ -379,11 +380,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Web\" />
+    <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+      <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
+      <Name>uIntra.CentralFeed</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
+      <Project>{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}</Project>
+      <Name>uIntra.Subscribe</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
