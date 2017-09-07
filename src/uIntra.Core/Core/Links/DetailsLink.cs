@@ -1,6 +1,6 @@
 ﻿namespace uIntra.Core.Links
 {
-    public class ProfileLink
+    public class DetailsLink
     {
         public string Value { get; set; }
     }

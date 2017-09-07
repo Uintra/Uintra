@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -110,6 +111,11 @@ namespace Compent.uIntra.Core.News
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
+
+        public override ActivityLinks GetActivityLinks()
+        {
+            throw new NotImplementedException();
+        }
 
         public override bool CanEdit(IIntranetActivity cached)
         {

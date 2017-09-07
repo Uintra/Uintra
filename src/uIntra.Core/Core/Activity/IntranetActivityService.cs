@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
@@ -105,6 +106,7 @@ namespace uIntra.Core.Activity
             return CanEdit(cached);
         }
 
+        public abstract ActivityLinks GetActivityLinks();
         public abstract bool CanEdit(IIntranetActivity cached);
         public abstract IPublishedContent GetOverviewPage();
         public abstract IPublishedContent GetDetailsPage();

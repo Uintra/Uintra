@@ -1,8 +1,9 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type.Id, Model.ActivityId);
-    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
+
+    var detailsPageUrl = "";
+    var profilePageUrl = "";
 }
 
 <header class="feed__item-heading clearfix">

@@ -345,7 +345,7 @@
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
-    <Compile Include="Core\ICentralFeedItem.cs" />
+    <Compile Include="Core\IFeedItem.cs" />
     <Compile Include="Core\ICentralFeedItemService.cs" />
     <Compile Include="Core\ICentralFeedService.cs" />
     <Compile Include="Core\Models\CentralFeedListViewModel.cs" />

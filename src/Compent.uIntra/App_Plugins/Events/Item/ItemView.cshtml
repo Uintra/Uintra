@@ -3,7 +3,7 @@
 @model uIntra.Events.EventItemViewModel
 @{
     var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
+    //var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
 <div class="feed__item @currentPinnedClass">
     <div class="clearfix">

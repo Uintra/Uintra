@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using uIntra.CentralFeed.Web;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
@@ -7,7 +8,7 @@ namespace uIntra.CentralFeed
     public class CentralFeedListViewModel
     {
         public IIntranetType Type { get; set; }
-        public IEnumerable<IFeedItem> Items { get; set; } = Enumerable.Empty<IFeedItem>();
+        public IEnumerable<FeedItem> Feed { get; set; } = Enumerable.Empty<FeedItem>();
         public IEnumerable<CentralFeedSettings> Settings { get; set; } = Enumerable.Empty<CentralFeedSettings>();
         public long Version { get; set; }
         public bool BlockScrolling { get; set; }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -124,12 +125,11 @@ namespace uIntra.CentralFeed.Web
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
-            FillActivityDetailLinks(pagedItemsList);
 
             return new CentralFeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
-                Items = pagedItemsList,
+                Feed = GetFeedItems(pagedItemsList),
                 Settings = _centralFeedService.GetAllSettings(),
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
@@ -137,7 +137,7 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual void FillActivityDetailLinks(IEnumerable<IFeedItem> items)
+        protected virtual void FillActivityDetailLinkss(IEnumerable<IFeedItem> items)
         {
             var currentPage = GetCurrentPage();
 
@@ -149,6 +149,20 @@ namespace uIntra.CentralFeed.Web
 
             var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
             ViewData.SetProfilePageUrl(profilePageUrl);
+        }
+
+        protected virtual IEnumerable<FeedItem> GetFeedItems(IEnumerable<IFeedItem> items)
+        {
+            var services = items
+                .Select(i => i.Type)
+                .Distinct(new IntranetTypeComparer())
+                .Select(t => _activitiesServiceFactory.GetService<IIntranetActivityService>(t.Id))
+                .ToDictionary(s => s.ActivityType.Name);
+
+            var result = items
+                .Select(i => new FeedItem() {Item = i, Links = services[i.Type.Name].GetActivityLinks()});
+
+            return result;
         }
 
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, CentralFeedSettings settings)
@@ -303,5 +317,12 @@ namespace uIntra.CentralFeed.Web
                 SubscriberFilterSelected = model.ShowSubscribed
             };
         }
+    }
+
+    // TODO : pick better name
+    public class FeedItem
+    {
+        public IFeedItem Item { get; set; }
+        public ActivityLinks Links { get; set; }
     }
 }

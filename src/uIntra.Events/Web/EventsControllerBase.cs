@@ -55,10 +55,11 @@ namespace uIntra.Events.Web
 
         public virtual ActionResult Details(Guid id)
         {
-            FillLinks();
+            //FillLinks();
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
+                return Redirect("/");
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
@@ -119,7 +120,7 @@ namespace uIntra.Events.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
-            FillLinks();
+            //FillLinks();
             if (!ModelState.IsValid)
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -129,13 +130,15 @@ namespace uIntra.Events.Web
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
 
+            return Redirect("/");
+
             return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activityId));
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            FillLinks();
+            //FillLinks();
 
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
@@ -151,7 +154,7 @@ namespace uIntra.Events.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel editModel)
         {
-            FillLinks();
+            //FillLinks();
 
             if (!ModelState.IsValid)
             {
@@ -167,6 +170,7 @@ namespace uIntra.Events.Web
 
             OnEventEdited(activity, editModel);
 
+            return Redirect("/");
             return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activity.Id));
         }
 
@@ -186,7 +190,7 @@ namespace uIntra.Events.Web
 
         protected virtual EventCreateModel GetCreateModel()
         {
-            FillLinks();
+            //FillLinks();
             var model = new EventCreateModel
             {
                 StartDate = DateTime.UtcNow,
@@ -299,7 +303,7 @@ namespace uIntra.Events.Web
             return @event;
         }
 
-        protected virtual void FillLinks()
+        protected virtual void FillLinkss()
         {
             var overviewPageUrl = _eventsService.GetOverviewPage(CurrentPage).Url;
             var createPageUrl = _eventsService.GetCreatePage(CurrentPage).Url;

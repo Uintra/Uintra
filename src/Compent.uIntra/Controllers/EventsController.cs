@@ -7,6 +7,7 @@ using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -49,9 +50,9 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
         }
 
-        public ActionResult CentralFeedItem(IFeedItem item)
+        public ActionResult CentralFeedItem(IFeedItem item, ActivityLinks links)
         {
-            FillLinks();
+            //FillLinks();
             var activity = item as Event;
             var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
             var  userId =_intranetUserService.GetCurrentUser();
@@ -62,7 +63,7 @@ namespace Compent.uIntra.Controllers
 
         public ActionResult PreviewItem(IFeedItem item)
         {
-            FillLinks();
+            //FillLinks();
 
             var activity = item as Event;
             EventPreviewViewModel viewModel = GetPreviewViewModel(activity);

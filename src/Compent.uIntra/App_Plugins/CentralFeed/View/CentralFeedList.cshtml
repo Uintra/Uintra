@@ -34,18 +34,18 @@
     </div>
 </div>
 
-@if (!Model.Items.Any())
+@if (!Model.Feed.Any())
 {
     @Html.Localize("CentralFeedList.Empty.lbl")
 }
 
 <div class="feed__list">
-    @foreach (var item in Model.Items)
+    @foreach (var activity in Model.Feed)
     {
-        var itemSettings = Model.Settings.First(s => s.Type.Id == item.Type.Id);
+        var itemSettings = Model.Settings.First(s => s.Type.Id == activity.Item.Type.Id);
 
-        <div data-anchor="@item.Id">
-            @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = item }); }
+        <div data-anchor="@activity.Item.Id">
+            @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = activity.Item, links = activity.Links }); }
         </div>
     }
 </div>
