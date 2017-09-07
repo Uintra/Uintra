@@ -24,5 +24,8 @@ namespace uIntra.Core.Media
 
         [Display(Name = "Comments Content")]
         CommentsContent,
+
+        [Display(Name = "Groups Content")]
+        GroupsContent,
     }
 }

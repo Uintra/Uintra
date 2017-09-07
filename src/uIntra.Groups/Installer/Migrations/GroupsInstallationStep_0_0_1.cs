@@ -1,5 +1,8 @@
-﻿using uIntra.Core.Installer;
+﻿using uIntra.Core;
+using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
+using Umbraco.Core;
+using Umbraco.Core.Models;
 
 namespace uIntra.Groups.Installer.Migrations
 {
@@ -19,6 +22,8 @@ namespace uIntra.Groups.Installer.Migrations
             CreateGroupsDocumentsPage();
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
+
+            AddFolderGroupIdProperty();
         }
 
         private void CreateGroupsOverviewPage()
@@ -46,7 +51,6 @@ namespace uIntra.Groups.Installer.Migrations
 
             CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
         }
-
 
         private void CreateMyGroupsOverviewPage()
         {
@@ -124,6 +128,24 @@ namespace uIntra.Groups.Installer.Migrations
             };
 
             CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+        }
+
+        public static void AddFolderGroupIdProperty()
+        {
+            var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var folderType = contentTypeService.GetMediaType(UmbracoAliases.Media.FolderTypeAlias);
+
+            var groupIdProperty = new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar, "GroupId")
+            {
+                Name = "Group Id"
+            };
+
+            if (!folderType.PropertyTypeExists(groupIdProperty.Alias))
+            {
+                folderType.AddPropertyType(groupIdProperty);
+                contentTypeService.Save(folderType);
+            }
         }
     }
 }
