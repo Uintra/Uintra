@@ -63,6 +63,16 @@
         white-space:nowrap;
         text-overflow:ellipsis;
 
+        @media (--for-tablet-portrait-down) {
+            &{
+                margin:0 0 0 10px;
+
+                &:first-child{
+                    margin:0;
+                }
+            }
+        }
+
         &._default{
             border-color:var(--text-color-dark);
             background:var(--color-white);
