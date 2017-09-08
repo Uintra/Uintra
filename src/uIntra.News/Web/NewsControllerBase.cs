@@ -47,17 +47,15 @@ namespace uIntra.News.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public virtual ActionResult Details(Guid id)
+        public virtual ActionResult Details(Guid id, ActivityLinks links)
         {
-            FillLinks();
-
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
-            var model = GetViewModel(news);
+            var model = GetViewModel(news, links);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -158,6 +156,22 @@ namespace uIntra.News.Web
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
             model.HeaderInfo.Creator = _intranetUserService.Get(news);
             model.CanEdit = _newsService.CanEdit(news);
+            return model;
+        }
+
+        protected virtual NewsViewModel GetViewModel(NewsBase news, ActivityLinks links)
+        {
+            var model = news.Map<NewsViewModel>();
+
+            model.CanEdit = _newsService.CanEdit(news);
+            model.Links = links;
+
+            // TODO : try to move this logic smwhere to avoid duplication
+            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
+            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Links = links;
+
             return model;
         }
 
