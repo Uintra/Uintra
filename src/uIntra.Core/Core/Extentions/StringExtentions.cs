@@ -88,5 +88,13 @@ namespace uIntra.Core.Extentions
         {
             return Regex.Replace(input, "<.*?>", String.Empty);
         }
+
+        public static int? ToNullableInt(this string str)
+        {
+            int result;
+            if (Int32.TryParse(str, out result))
+                return result;
+            return null;
+        }
     }
 }

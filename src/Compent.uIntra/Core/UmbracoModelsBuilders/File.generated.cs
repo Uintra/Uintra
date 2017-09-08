@@ -89,5 +89,14 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			get { return this.GetPropertyValue<string>("umbracoFile"); }
 		}
+
+		///<summary>
+		/// File Name
+		///</summary>
+		[ImplementPropertyType("umbracoFileName")]
+		public string UmbracoFileName
+		{
+			get { return this.GetPropertyValue<string>("umbracoFileName"); }
+		}
 	}
 }

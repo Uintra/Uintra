@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using uIntra.CentralFeed;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Groups
@@ -13,6 +14,6 @@ namespace uIntra.Groups
 
         public IEnumerable<GroupNavigationCreateTabViewModel> CreateTabs = Enumerable.Empty<GroupNavigationCreateTabViewModel>();
 
-        //public IEnumerable<CentralFeedTabViewModel> ActivityTabs = Enumerable.Empty<CentralFeedTabViewModel>();
+        public IEnumerable<CentralFeedTabViewModel> ActivityTabs = Enumerable.Empty<CentralFeedTabViewModel>();
     }
 }

@@ -293,6 +293,7 @@
     <Compile Include="Core\Dashboard\GroupsSection.cs" />
     <Compile Include="Core\Dashboard\Controllers\GroupsSectionControllerBase.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
+    <Compile Include="Core\GroupContentHelper.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
     <Compile Include="Core\Models\GroupCentralFeedOverviewModel.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
@@ -335,6 +336,7 @@
     <Compile Include="Core\Sql\Group.cs" />
     <Compile Include="Core\Sql\GroupDocument.cs" />
     <Compile Include="Core\Sql\GroupMember.cs" />
+    <Compile Include="Web\GroupControllerBase.cs" />
     <Compile Include="Web\GroupFeedControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -378,10 +380,7 @@
     <None Include="App_Plugins\Groups\package.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Web\" />
-    <Folder Include="Core\Extentions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>

@@ -1,28 +1,17 @@
-﻿using System;
-using System.Web.Mvc;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
+﻿using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Groups;
 using uIntra.Groups.Web;
-using uIntra.Subscribe;
+using Umbraco.Core.Services;
 
 namespace Compent.uIntra.Controllers
 {
-    public class GroupController : GroupFeedControllerBase
+    public class GroupController : GroupControllerBase
     {
-        public GroupController(ICentralFeedContentHelper centralFeedContentHelper, ISubscribeService subscribeService, ICentralFeedService centralFeedService, IActivitiesServiceFactory activitiesServiceFactory, IIntranetUserContentHelper intranetUserContentHelper, ICentralFeedTypeProvider centralFeedTypeProvider, IIntranetUserService<IIntranetUser> intranetUserService) : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService)
+        public GroupController(IGroupService groupService, IGroupMemberService groupMemberService, IMediaHelper mediaHelper, IGroupContentHelper groupContentHelper, IUserService userService, IGroupMediaService groupMediaService, IIntranetUserService<IGroupMember> intranetUserService) : base(groupService, groupMemberService, mediaHelper, groupContentHelper, userService, groupMediaService, intranetUserService)
         {
         }
 
-        protected override string OverviewViewPath { get; }
-        protected override string ListViewPath { get; }
-        protected override string NavigationViewPath { get; }
-        protected override string LatestActivitiesViewPath { get; }
-        protected override string DetailsViewPath { get; }
-
-        protected override DetailsViewModel GetDetailsViewModel(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public override string GroupOverviewPageTypeAlias => "groupsOverviewPage";
     }
 }

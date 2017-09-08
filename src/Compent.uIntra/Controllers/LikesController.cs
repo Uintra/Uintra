@@ -7,6 +7,7 @@ using uIntra.Likes.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using Compent.uIntra.Core.Constants;
+using uIntra.Groups.Installer.Migrations;
 
 namespace Compent.uIntra.Controllers
 {
