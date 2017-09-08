@@ -46,6 +46,15 @@ namespace Compent.uIntra
                     action = "Chicken"
                 });
 
+            RouteTable.Routes.MapRoute(
+                "group",
+                "group/{action}",
+                new
+                {
+                    controller = "Group",
+                    action = "Index"
+                });
+
         }
     }
 }

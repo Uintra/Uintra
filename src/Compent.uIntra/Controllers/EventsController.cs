@@ -32,7 +32,8 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public EventsController(IEventsService<Event> eventsService,
+        public EventsController(
+            IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IReminderService reminderService,

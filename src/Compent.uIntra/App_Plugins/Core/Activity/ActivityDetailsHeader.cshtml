@@ -1,8 +1,5 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityDetailsHeaderViewModel
-@{
-    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
-}
 
 <header class="feed__item-heading clearfix">
     @Html.Action("Photo", "User", new { user = Model.Creator })
@@ -16,7 +13,7 @@
             <span class="feed__item-category">@Html.Localize(Model.Type.Name)@(Model.Creator != null ? "," : string.Empty)</span>
             @if (Model.Creator != null)
             {
-                <a href="@profilePageUrl">
+                <a href="@Model.Links.Profile">
                     <span class="feed__item-name">@Model.Creator.DisplayedName</span>
                 </a>
             }

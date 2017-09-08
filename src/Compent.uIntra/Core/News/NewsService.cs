@@ -111,7 +111,7 @@ namespace Compent.uIntra.Core.News
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
-        public override ActivityLinks GetCentralFeedLinks(Guid id, Guid creatorId)
+        public override ActivityLinks GetCentralFeedLinks(Guid id)
         {
             throw new NotImplementedException();
         }

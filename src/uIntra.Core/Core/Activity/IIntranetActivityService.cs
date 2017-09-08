@@ -22,7 +22,7 @@ namespace uIntra.Core.Activity
     public interface IIntranetActivityService
     {
         IIntranetType ActivityType { get; }
-        ActivityLinks GetCentralFeedLinks(Guid id, Guid creatorId);
+        ActivityLinks GetCentralFeedLinks(Guid id);
 
         void Delete(Guid id);
         bool CanEdit(Guid id);

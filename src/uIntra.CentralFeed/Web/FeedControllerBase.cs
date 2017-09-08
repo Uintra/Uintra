@@ -28,7 +28,6 @@ namespace uIntra.CentralFeed.Web
         private readonly ISubscribeService _subscribeService;
         private readonly ICentralFeedService _centralFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         
@@ -45,7 +44,6 @@ namespace uIntra.CentralFeed.Web
             _subscribeService = subscribeService;
             _centralFeedService = centralFeedService;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserContentHelper = intranetUserContentHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
         }
@@ -136,20 +134,6 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual void FillActivityDetailLinkss(IEnumerable<IFeedItem> items)
-        {
-            var currentPage = GetCurrentPage();
-
-            foreach (var type in items.Select(i => i.Type).Distinct())
-            {
-                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type.Id);
-                ViewData.SetActivityDetailsPageUrl(type.Id, service.GetDetailsPage(currentPage).Url);
-            }
-
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-            ViewData.SetProfilePageUrl(profilePageUrl);
-        }
-
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items)
         {
             var services = items
@@ -159,7 +143,7 @@ namespace uIntra.CentralFeed.Web
                 .ToDictionary(s => s.ActivityType.Name);
 
             var result = items
-                .Select(i => new FeedItemViewModel() {Item = i, Links = services[i.Type.Name].GetCentralFeedLinks(i.Id, i.CreatorId)});
+                .Select(i => new FeedItemViewModel() {Item = i, Links = services[i.Type.Name].GetCentralFeedLinks(i.Id)});
 
             return result;
         }
@@ -236,16 +220,6 @@ namespace uIntra.CentralFeed.Web
             };
 
             return result;
-        }
-
-        protected virtual IPublishedContent GetCurrentPage()
-        {
-            if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
-            {
-                return _centralFeedContentHelper.GetOverviewPage();
-            }
-
-            return null;
         }
 
         protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()

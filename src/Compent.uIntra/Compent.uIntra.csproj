@@ -1041,6 +1041,8 @@
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1126,6 +1128,7 @@
     <Compile Include="Controllers\BulletinsSectionController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\EventsSectionController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
     <Compile Include="Controllers\MyLinksController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />

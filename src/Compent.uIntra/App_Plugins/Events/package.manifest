@@ -26,7 +26,7 @@
       "view": "/App_Plugins/Events/Details/events-details.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "Events",
+        "controller": "CentralFeed",
         "action": "Details"
       }
     },
