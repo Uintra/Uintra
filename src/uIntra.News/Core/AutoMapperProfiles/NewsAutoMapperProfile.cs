@@ -10,6 +10,7 @@ namespace uIntra.News
         protected override void Configure()
         {
             Mapper.CreateMap<NewsBase, NewsItemViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Expired, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())

@@ -822,7 +822,6 @@
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\News\news.js" />
-    <Content Include="App_Plugins\News\style.css" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
@@ -863,7 +862,6 @@
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\Web.config" />
-    <Content Include="App_Plugins\News\style.css" />
     <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
     <Content Include="App_Plugins\SentMails\backoffice\css\icons\7z.svg" />
     <Content Include="App_Plugins\SentMails\backoffice\css\icons\bmp.svg" />
@@ -1043,6 +1041,8 @@
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

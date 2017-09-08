@@ -6,6 +6,7 @@ using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -160,14 +161,16 @@ namespace uIntra.News.Web
             return model;
         }
 
-        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news)
+        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news, ActivityLinks links)
         {
             var model = news.Map<NewsItemViewModel>();
             model.MediaIds = news.MediaIds;
             model.Expired = _newsService.IsExpired(news);
+            model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

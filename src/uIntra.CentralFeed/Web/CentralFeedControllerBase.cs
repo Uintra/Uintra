@@ -52,20 +52,5 @@ namespace uIntra.CentralFeed.Web
             };
             return viewModel;
         }
-
-        #region Just for test
-
-        [HttpGet]
-        public ActionResult Potato(Guid id)
-        {
-            return RedirectToUmbracoPage(1165, $"?id={id}");
-        }
-
-        [HttpGet]
-        public ActionResult Chicken()
-        {
-            return Json("I love beakon!", JsonRequestBehavior.AllowGet);
-        } 
-        #endregion
     }
 }
