@@ -158,8 +158,8 @@
       <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Localization.Umbraco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.1\lib\Net45\Localization.Umbraco.dll</HintPath>
+    <Reference Include="Localization.Umbraco">
+      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.1\lib\net452\Localization.Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Web.0.0.2\lib\Net45\Localization.Web.dll</HintPath>
