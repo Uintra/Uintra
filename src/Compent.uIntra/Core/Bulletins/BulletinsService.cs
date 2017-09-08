@@ -46,6 +46,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -64,7 +65,8 @@ namespace Compent.uIntra.Core.Bulletins
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IIntranetMediaService intranetMediaService)
+            IIntranetMediaService intranetMediaService,
+            IIntranetUserContentHelper intranetUserContentHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -81,6 +83,7 @@ namespace Compent.uIntra.Core.Bulletins
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -111,15 +114,16 @@ namespace Compent.uIntra.Core.Bulletins
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
+        protected override string GetProfileLink(Guid activityId)
+        {
+            var creatorId = Get(activityId).CreatorId;
+            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
+        }
+
         protected override void UpdateCache()
         {
             base.UpdateCache();
             FillIndex();
-        }
-
-        public override ActivityLinks GetCentralFeedLinks(Guid id)
-        {
-            throw new NotImplementedException();
         }
 
         public override bool CanEdit(IIntranetActivity cached)

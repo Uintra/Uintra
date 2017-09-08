@@ -355,6 +355,7 @@
     <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Models\Feed\DetailsViewModel.cs" />
     <Compile Include="Web\FeedControllerBase.cs" />
     <Compile Include="Core\Models\Feed\FeedItemViewModel.cs" />
   </ItemGroup>

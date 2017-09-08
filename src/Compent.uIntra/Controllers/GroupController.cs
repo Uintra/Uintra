@@ -18,5 +18,11 @@ namespace Compent.uIntra.Controllers
         protected override string ListViewPath { get; }
         protected override string NavigationViewPath { get; }
         protected override string LatestActivitiesViewPath { get; }
+        protected override string DetailsViewPath { get; }
+
+        protected override DetailsViewModel GetDetailsViewModel(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

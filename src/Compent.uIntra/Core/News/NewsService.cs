@@ -64,8 +64,9 @@ namespace Compent.uIntra.Core.News
             ICentralFeedTypeProvider centralFeedTypeProvider,            
             ISearchableTypeProvider searchableTypeProvider, 
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IIntranetMediaService intranetMediaService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
+            IIntranetMediaService intranetMediaService,
+            IIntranetUserContentHelper intranetUserContentHelper)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, intranetUserContentHelper)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -111,17 +112,12 @@ namespace Compent.uIntra.Core.News
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
-        public override ActivityLinks GetCentralFeedLinks(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            var isWebmater = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmater)
+            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
+            if (isWebmaster)
             {
                 return true;
             }

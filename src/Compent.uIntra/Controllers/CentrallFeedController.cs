@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using uIntra.CentralFeed;
+﻿using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.User;
@@ -18,7 +16,7 @@ namespace Compent.uIntra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,   
             ICentralFeedTypeProvider centralFeedTypeProvider)
-            : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory, subscribeService, intranetUserService, intranetUserContentHelper, centralFeedTypeProvider)
+            : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory, subscribeService, intranetUserService, intranetUserContentHelper, centralFeedTypeProvider, activitiesServiceFactory)
         {
         }
     } 

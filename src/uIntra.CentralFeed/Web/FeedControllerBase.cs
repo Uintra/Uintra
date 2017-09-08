@@ -22,6 +22,8 @@ namespace uIntra.CentralFeed.Web
         protected abstract string NavigationViewPath { get; }
         protected abstract string LatestActivitiesViewPath { get; }
 
+        protected abstract string DetailsViewPath { get; }
+
         protected virtual int ItemsPerPage => 8;
 
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
@@ -47,6 +49,15 @@ namespace uIntra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
         }
+
+        [HttpGet]
+        public virtual ActionResult Details(Guid id)
+        {
+            DetailsViewModel viewModel = GetDetailsViewModel(id);
+            return PartialView(DetailsViewPath, viewModel);
+        }
+
+        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
 
         public virtual ActionResult Overview()
         {

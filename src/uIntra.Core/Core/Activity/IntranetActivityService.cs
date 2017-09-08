@@ -30,6 +30,20 @@ namespace uIntra.Core.Activity
             _intranetMediaService = intranetMediaService;
         }
 
+
+        public  ActivityLinks GetCentralFeedLinks(Guid id)
+        {
+            return new ActivityLinks(
+                overview: GetOverviewPage().Url,
+                create: GetCreatePage().Url,
+                details: GetDetailsPage().Url.AddIdParameter(id),
+                edit: GetEditPage().Url.AddIdParameter(id),
+                profile: GetProfileLink(id)
+            );
+        }
+
+        protected abstract string GetProfileLink(Guid activityId);
+
         public TActivity Get(Guid id)
         {
             var cached = GetAll(true).SingleOrDefault(s => s.Id == id);
@@ -106,7 +120,6 @@ namespace uIntra.Core.Activity
             return CanEdit(cached);
         }
 
-        public abstract ActivityLinks GetCentralFeedLinks(Guid id);
         public abstract bool CanEdit(IIntranetActivity cached);
         public abstract IPublishedContent GetOverviewPage();
         public abstract IPublishedContent GetDetailsPage();

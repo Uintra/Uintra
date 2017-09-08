@@ -166,18 +166,6 @@ namespace Compent.uIntra.Core.Events
             };
         }
 
-        public override ActivityLinks GetCentralFeedLinks(Guid id)
-        {
-            var creatorId = Get(id).CreatorId;
-            return new ActivityLinks(
-                overview: GetOverviewPage().Url,
-                create: GetCreatePage().Url,
-                details: GetDetailsPage().Url.AddIdParameter(id),
-                edit: GetEditPage().Url.AddIdParameter(id),
-                profile: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId) 
-            );
-        }
-
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -216,6 +204,12 @@ namespace Compent.uIntra.Core.Events
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
+        }
+
+        protected override string GetProfileLink(Guid activityId)
+        {
+            var creatorId = Get(activityId).CreatorId;
+            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
         }
 
         protected override void UpdateCache()
