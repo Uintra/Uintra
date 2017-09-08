@@ -4,6 +4,8 @@ var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 require('simple-scrollbar');
 
+var EmojiConvertor = require('emoji-js');
+
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
@@ -36,6 +38,7 @@ var helpers = {
             }
 
             dataStorage.value = quill.container.firstChild.innerHTML;
+            this.initSmiles(quill.container.firstChild, quill.container.firstChild.innerHTML);
         });
 
         quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
@@ -44,6 +47,15 @@ var helpers = {
         });
 
         return quill;
+    },
+    initSmiles: function(container, content){
+        var emoji = new EmojiConvertor();
+        for (var i in emoji.img_sets){
+            emoji.img_sets[i].path = '/App_Plugins/Core/Content/styles/emoji-data/img-'+i+'-64/';
+            emoji.img_sets[i].sheet = '/App_Plugins/Core/Content/styles/emoji-data/sheet_'+i+'_64.png';
+        }
+        emoji.use_sheet = true;
+        container.innerHTML = emoji.replace_colons(content);
     },
     initActivityDescription: function (holder, dataStorageElement, descId, btnElement) {
         var dataStorage = holder.find(dataStorageElement);

@@ -42,7 +42,8 @@
     "blueimp-load-image": "2.14.0"
   },
   "dependencies": {
-    "alertifyjs": "^1.9.0"
+    "alertifyjs": "^1.9.0",
+    "emoji-js": "^3.2.2"
   },
   "description": ""
 }
