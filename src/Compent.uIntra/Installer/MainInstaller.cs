@@ -72,6 +72,8 @@ namespace Compent.uIntra.Installer
             userService.AddSectionToAllUsers("news", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
             userService.AddSectionToAllUsers("events", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
             userService.AddSectionToAllUsers("bulletins", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
+            userService.AddSectionToAllUsers("SentMails", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
+            userService.AddSectionToAllUsers("Localization", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
         }
     }
 }
