@@ -47,7 +47,7 @@ namespace Compent.uIntra.Installer
             umbracoContentMigration.Init();
             defaultLocalizationsMigration.Init();
 
-            AddActivityBackofficeSectionsToAdmin();
+            AddDefaultBackofficeSectionsToAdmin();
         }
 
         private void InheritNavigationCompositions()
@@ -65,7 +65,7 @@ namespace Compent.uIntra.Installer
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage, nav);
         }
 
-        private void AddActivityBackofficeSectionsToAdmin()
+        private void AddDefaultBackofficeSectionsToAdmin()
         {
             var userService = ApplicationContext.Current.Services.UserService;
 
