@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.Links;
 
 namespace uIntra.Core.User
 {
@@ -6,5 +7,6 @@ namespace uIntra.Core.User
     {
         public Guid Id { get; set; }
         public string Photo { get; set; }
+        public ActivityLinks Links { get; set; }
     }
 }

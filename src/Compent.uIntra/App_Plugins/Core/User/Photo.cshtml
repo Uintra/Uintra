@@ -2,12 +2,11 @@
 @using uIntra.Core.User
 @model UserPhotoViewModel
 @{
-    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Id);
     var userAvatarSrc = UserPhotoHelper.GetUserPhotoOrDefaultAvatar(Model.Photo);
 }
 
 <div class="avatar">
-    <a href="@profilePageUrl">
+    <a href="@Model.Links.Profile">
         <img style="width: 60px; height: 60px;" class="avatar__img" src="@userAvatarSrc" />
     </a>
 </div>

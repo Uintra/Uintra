@@ -27,5 +27,6 @@ namespace uIntra.Bulletins
         public string NewMedia { get; set; }
 
         public Guid CreatorId { get; set; }
+
     }
 }

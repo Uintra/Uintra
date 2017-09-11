@@ -4,7 +4,6 @@
 @{
     var expired = Model.Expired ? "_expired" : "";
     var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
 <div class="feed__item @expired @currentPinnedClass">
     <div class="clearfix">
@@ -18,7 +17,7 @@
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
     {
-        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">@Html.Raw(Model.Description)</div>
+        <div class="feed__item-txt _clamp" data-url="@Model.Links.Details">@Html.Raw(Model.Description)</div>
     }
     <div class="feed__item-images">
         @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }

@@ -29,6 +29,7 @@ namespace uIntra.Core.Controls.LightboxGallery
                 });
 
             Mapper.CreateMap<LightboxGalleryPreviewModel, LightboxGalleryPreviewViewModel>()
+                .ForMember(d => d.Links, o => o.Ignore())
                 .ForMember(d => d.Images, o => o.Ignore())
                 .ForMember(d => d.OtherFiles, o => o.Ignore());
         }
