@@ -8,8 +8,12 @@
       "config": {
         "controller": "CentralFeed",
         "action": "Create",
-        "includeParams":  true 
+        "includeParams": true,
+        "params": {
+          "typeId": 4
+        }
       }
+
     },
     {
       "name": "Bulletins edit",
