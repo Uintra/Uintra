@@ -792,7 +792,7 @@
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\Info\group-info.html" />
     <Content Include="App_Plugins\Groups\List\group-list.html" />
-    <Content Include="App_Plugins\Groups\List\Groups.js" />
+    <Content Include="App_Plugins\Groups\List\group-list.js" />
     <Content Include="App_Plugins\Groups\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Members\group-members.js" />
     <Content Include="App_Plugins\Groups\_groups.css" />
