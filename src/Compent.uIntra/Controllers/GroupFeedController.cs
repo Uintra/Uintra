@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups.Web;
 using uIntra.Subscribe;

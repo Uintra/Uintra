@@ -6,7 +6,7 @@
       "view": "/App_Plugins/News/Create/news-create.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "News",
+        "controller": "CentralFeed",
         "action": "Create"
       }
     },
@@ -16,48 +16,13 @@
       "view": "/App_Plugins/News/Edit/news-edit.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "News",
+        "controller": "CentralFeed",
         "action": "Edit"
       }
     },
     {
       "name": "News Details",
       "alias": "custom.NewsDetails",
-      "view": "/App_Plugins/News/Details/news-details.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "News",
-        "action": "Details"
-      }
-    },
-
-
-
-
-
-    {
-      "name": "Feed News create",
-      "alias": "custom.FeedNewsCreate",
-      "view": "/App_Plugins/News/Create/news-create.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "CentralFeed",
-        "action": "Create"
-      }
-    },
-    {
-      "name": "Feed News edit",
-      "alias": "custom.FeedNewsEdit",
-      "view": "/App_Plugins/News/Edit/news-edit.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "CentralFeed",
-        "action": "Edit"
-      }
-    },
-    {
-      "name": "Feed News Details",
-      "alias": "custom.FeedNewsDetails",
       "view": "/App_Plugins/News/Details/news-details.html",
       "icon": "icon-settings-alt color-blue",
       "config": {

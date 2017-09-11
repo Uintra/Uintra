@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.Links;
 using uIntra.Core.User;
 
 namespace uIntra.Core.Activity
@@ -13,5 +14,6 @@ namespace uIntra.Core.Activity
         public bool CanEditCreator { get; set; }
 
         public string CreatorIdPropertyName { get; set; }
+        public ActivityLinks Links { get; set; }
     }
 }

@@ -59,7 +59,7 @@
         string action = config.action;
         string controller = config.controller;
 
-        if (config.sendModelToController != null && (bool)config.sendModelToController)
+        if (config.includeParams != null && (bool)config.includeParams)
         {
             RouteValueDictionary controllerParams =  new RouteValueDictionary(ParseControllerModel(control));
             @Html.Action(action, controller, controllerParams);        

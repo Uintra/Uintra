@@ -6,6 +6,7 @@ using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 
@@ -15,9 +16,14 @@ namespace uIntra.Groups.Web
     {
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly ICentralFeedService _centralFeedService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
+
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
+
         protected override string ListViewPath => "~/App_Plugins/Groups/Feed/GroupFeedList.cshtml";
         protected override string NavigationViewPath => "-";
         protected override string LatestActivitiesViewPath => "-";
@@ -40,6 +46,7 @@ namespace uIntra.Groups.Web
         {
             _centralFeedContentHelper = centralFeedContentHelper;
             _centralFeedService = centralFeedService;
+            _activitiesServiceFactory = activitiesServiceFactory;
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
@@ -111,9 +118,52 @@ namespace uIntra.Groups.Web
             return model;
         }
 
+        protected override CreateViewModel GetCreateViewModel(IIntranetType activityType)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(activityType.Id);
+            var links = service.GetGroupFeedCreateLinks();
+
+            var settings = _centralFeedService.GetSettings(activityType);
+
+            return new CreateViewModel()
+            {
+                Links = links,
+                Settings = settings
+            };
+        }
+
+        protected override EditViewModel GetEditViewModel(Guid id)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
+            var links = service.GetCentralFeedLinks(id);
+
+            var type = service.ActivityType;
+            var settings = _centralFeedService.GetSettings(type);
+
+            var viewModel = new EditViewModel()
+            {
+                Id = id,
+                Links = links,
+                Settings = settings
+            };
+            return viewModel;
+        }
+
         protected override DetailsViewModel GetDetailsViewModel(Guid id)
         {
-            throw new NotImplementedException();
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
+            var links = service.GetCentralFeedLinks(id);
+
+            var type = service.ActivityType;
+            var settings = _centralFeedService.GetSettings(type);
+
+            var viewModel = new DetailsViewModel()
+            {
+                Id = id,
+                Links = links,
+                Settings = settings
+            };
+            return viewModel;
         }
     }
 }

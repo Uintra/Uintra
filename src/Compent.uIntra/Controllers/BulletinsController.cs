@@ -6,6 +6,7 @@ using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -63,11 +64,11 @@ namespace Compent.uIntra.Controllers
             
         }
 
-        public ActionResult CentralFeedItem(Bulletin item)
+        public ActionResult CentralFeedItem(Bulletin item, ActivityLinks links)
         {
             FillLinks();
             var activity = item;
-            var extendedModel = GetItemViewModel(activity).Map<BulletinExtendedItemViewModel>();
+            var extendedModel = GetItemViewModel(activity, links).Map<BulletinExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
         }

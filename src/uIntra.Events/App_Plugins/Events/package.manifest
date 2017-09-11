@@ -38,7 +38,7 @@
       "config": {
         "controller": "Events",
         "action": "ComingEvents",
-        "sendModelToController": true
+        "includeParams": true
       }
     }
   ],

@@ -1084,6 +1084,7 @@
     <Content Include="App_Plugins\Groups\Feed\GroupFeedList.cshtml" />
     <Content Include="App_Plugins\Groups\Feed\GroupFeedDetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

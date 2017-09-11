@@ -77,36 +77,6 @@ namespace uIntra.Groups.Web
         }
 
         [DisabledGroupActionFilter]
-        public ActionResult GrouplFeedOverview(Guid groupId)
-        {
-            var model = new GroupFeedOverviewModel
-            {
-                CurrentType = _groupContentHelper.GetTabType(CurrentPage),
-                GroupId = groupId,
-
-            };
-
-            var allTabs = _groupContentHelper.GetTabs(groupId, _userService.GetCurrentUser(), CurrentPage).ToList();
-            var activityTabs = allTabs.FindAll(t => t.Type != null);
-
-            model.ActivityTabs = activityTabs.Select(tab => new CentralFeedTabViewModel
-            {
-                Type = tab.Type,
-                Url = tab.Content.UrlWithGroupId(groupId),
-                IsActive = tab.IsActive
-            });
-
-            model.CreateTabs = activityTabs.Where(t => !StringExtentions.IsNullOrEmpty(t.CreateUrl)).Select(tab =>
-            {
-                var tabModel = tab.Map<GroupNavigationCreateTabViewModel>();
-                tabModel.Url = tab.CreateUrl.UrlWithGroupId(groupId);
-                return tabModel;
-            });
-
-            return PartialView(GroupFeedOverview, model);
-        }
-
-        [DisabledGroupActionFilter]
         public ActionResult Edit(Guid groupId)
         {
             var group = _groupService.Get(groupId);

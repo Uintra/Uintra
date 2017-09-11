@@ -6,7 +6,7 @@
       "view": "/App_Plugins/Events/Create/events-create.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "Events",
+        "controller": "CentralFeed",
         "action": "Create"
       }
     },
@@ -16,74 +16,13 @@
       "view": "/App_Plugins/Events/Edit/events-edit.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "Events",
+        "controller": "CentralFeed",
         "action": "Edit"
       }
     },
     {
       "name": "Events details",
       "alias": "custom.EventsDetails",
-      "view": "/App_Plugins/Events/Details/events-details.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "Events",
-        "action": "Details"
-      }
-    },
-    {
-      "name": "Coming Events",
-      "alias": "custom.ComingEvents",
-      "view": "/App_Plugins/Events/ComingEvents/coming-events-view.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "Events",
-        "action": "ComingEvents"
-      }
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {
-      "name": "Feed Events create",
-      "alias": "custom.FeedEventsCreate",
-      "view": "/App_Plugins/Events/Create/events-create.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "CentralFeed",
-        "action": "Create"
-      }
-    },
-    {
-      "name": "Feed Events edit",
-      "alias": "custom.FeedEventsEdit",
-      "view": "/App_Plugins/Events/Edit/events-edit.html",
-      "icon": "icon-settings-alt color-blue",
-      "config": {
-        "controller": "CentralFeed",
-        "action": "Edit"
-      }
-    },
-    {
-      "name": "Feed Events details",
-      "alias": "custom.FeedEventsDetails",
       "view": "/App_Plugins/Events/Details/events-details.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
