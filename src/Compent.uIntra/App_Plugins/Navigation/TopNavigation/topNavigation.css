@@ -429,7 +429,7 @@
     &__menu{
         position:absolute;
         top:100%;
-        right:2px;
+        right:37px;
         background:var(--color-white);
         margin:0;
         padding:0;
@@ -535,7 +535,7 @@
                 }
             }
 
-            :nth-child(2) > &{
+            :nth-child(1):not(._for-mobile) > &{
                 &:before{
                     display:block;
                     content:'';
