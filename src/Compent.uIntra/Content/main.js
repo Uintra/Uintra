@@ -16,6 +16,7 @@ import initEvents from './../App_Plugins/Events/events';
 import news from './../App_Plugins/News/news';
 import {} from './../App_Plugins/Likes/likes';
 import confirmOnBeforeUnload from './../App_Plugins/Core/Content/Scripts/ConfirmOnBeforeUnload';
+import initGroups from './../App_Plugins/Groups/groups';
 
 initCore();
 centralFeed.init();
@@ -33,3 +34,4 @@ news.init();
 initBulletings();
 confirmOnBeforeUnload();
 browserCompatibility.init();
+initGroups();

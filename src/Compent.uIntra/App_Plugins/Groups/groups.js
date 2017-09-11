@@ -1,7 +1,7 @@
 ﻿import createGroup from './Create/create-group';
 import groupDocuments from './Documents/group-documents';
 import editGroup from './Edit/edit-group';
-import listGroup from './List/Groups';
+import listGroup from './List/group-list';
 import groupMembers from './Members/group-members';
 import groupSubscribe from './GroupSubscribe';
 
