@@ -21,7 +21,7 @@
         </div>
         <div class="pin-info__holder">
             <label class="form__label" for="js-endpin-date">@Html.Localize("Pin.EndPinDate.lbl")</label>
-            <input class="form__input js-endpin-date" id="js-endpin-date" data-default-date="@(Model.EndPinDate?.ToDateTimeValuePickerFormat())"  data-date-format="@Html.GetDateTimePickerFormat()" data-enable-time="true" />
+            <input class="form__input js-endpin-date" id="js-endpin-date" data-default-date="@(Model.EndPinDate?.ToDateTimeValuePickerFormat())" data-date-format="@Html.GetDateTimePickerFormat()" data-enable-time="true" />
             <input type="hidden" class="js-endpin-date-value" name="endPinDate" data-val="true" data-val-required="@Html.Localize("CreateActivity.EndPinDateRequired.lbl")" />
             <span class="js-clear-endpin-date form__clear icon-close"></span>
         </div>
