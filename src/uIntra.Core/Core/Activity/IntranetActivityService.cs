@@ -31,7 +31,7 @@ namespace uIntra.Core.Activity
         }
 
 
-        public virtual  ActivityLinks GetCentralFeedLinks(Guid id)
+        public virtual ActivityLinks GetCentralFeedLinks(Guid id)
         {
             return new ActivityLinks(
                 overview: GetOverviewPage().Url,
@@ -42,7 +42,7 @@ namespace uIntra.Core.Activity
             );
         }
 
-        public ActivityLinks GetCentralFeedCreateLinks()
+        public virtual ActivityLinks GetCentralFeedCreateLinks()
         {
             return new ActivityLinks(
                 overview: GetOverviewPage().Url,
@@ -58,7 +58,7 @@ namespace uIntra.Core.Activity
             return GetCentralFeedLinks(id);
         }
 
-        public ActivityLinks GetGroupFeedCreateLinks()
+        public virtual ActivityLinks GetGroupFeedCreateLinks()
         {
             return GetCentralFeedCreateLinks();
         }

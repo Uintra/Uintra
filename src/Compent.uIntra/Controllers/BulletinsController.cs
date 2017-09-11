@@ -44,21 +44,6 @@ namespace Compent.uIntra.Controllers
             return extendedModel;
         }
 
-        [NonAction]
-        public override JsonResult Create(BulletinCreateModel model)
-        {
-            return base.Create(model);
-        }
-
-        public virtual JsonResult Create(BulletinExtendedCreateModel model)
-        {
-            if (model.GroupId.HasValue)
-            {
-                AddActivityToGroup(model.GroupId.Value);
-            }
-            return base.Create(model);
-        }
-
         private void AddActivityToGroup(Guid groupId)
         {
             

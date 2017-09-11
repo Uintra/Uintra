@@ -100,6 +100,17 @@ namespace Compent.uIntra.Core.Bulletins
             );
         }
 
+        public override ActivityLinks GetGroupFeedCreateLinks()
+        {
+            return new ActivityLinks(
+                overview: GetOverviewPage().Url,
+                create: null,
+                details: null,
+                edit: null,
+                profile: null
+            );
+        }
+
         public MediaSettings GetMediaSettings()
         {
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
