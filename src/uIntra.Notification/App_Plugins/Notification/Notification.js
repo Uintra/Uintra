@@ -19,7 +19,7 @@ function initPreviewControls() {
             .then(function (response) {
                 notificationList.innerHTML = response;
                 notificationList.classList.remove('_loading');
-                initDesrcription();
+                initDescription();
                 initCustomControls();
             });
             body.classList.add("_notifications-expanded");
@@ -77,7 +77,7 @@ function initCustomControls() {
     });
 }
 
-function initDesrcription(){
+function initDescription(){
     var item = $(".js-notification__list-item");
     item.each(function(i){
         var title = $(item[i]).find(".js-notification__list-heading");
@@ -126,7 +126,7 @@ function initInfinityScroll() {
         var promise = formController.reload();
         promise.then(hideLoadingStatus);
         promise.then(initCustomControls);
-        promise.then(initDesrcription);
+        promise.then(initDescription);
         promise.catch(hideLoadingStatus);
         return promise;
     }
@@ -167,6 +167,6 @@ export default function() {
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
-    initDesrcription();
+    initDescription();
     initInfinityScroll();
 }
