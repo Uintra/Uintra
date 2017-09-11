@@ -686,7 +686,7 @@ h5{
 }
 
 .ellipsis{
-    color:var(--text-color_dark) !important;
+    color:var(--text-color-dark) !important;
 	width: 15px;
     position:absolute;
     display:none;
