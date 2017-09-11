@@ -66,8 +66,8 @@ namespace uIntra.CentralFeed.Web
         }
 
         public virtual ActionResult List(CentralFeedListModel model)
-        {
-            var centralFeedType = _centralFeedTypeProvider.Get(model.Type);
+        {           
+            var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
             if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))

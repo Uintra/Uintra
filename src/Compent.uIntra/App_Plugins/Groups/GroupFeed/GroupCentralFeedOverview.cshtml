@@ -1,5 +1,4 @@
-﻿@using uIntra.Groups.Models
-@using uIntra.Core.Extentions
+﻿@using uIntra.Core.Extentions
 @model uIntra.Groups.GroupCentralFeedOverviewModel
 
 <section class="content _central-feed">
@@ -17,7 +16,7 @@
     <div class="feed__filter js-feed-navigation">
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
         <div class="tabset__holder">
-            <ul class="feed-links js-feed-links">
+            @*<ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.ActivityTabs)
                 {
                     var iconClass = String.Empty;
@@ -46,19 +45,19 @@
                         <a class="feed-links__item" href="@tabModel.Url"><i class="@iconClass"></i> @Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
-            </ul>
+            </ul>*@
         </div>
     </div>
     <div class="content__list js-feed-overview">
         <div>
-            @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
-                new Dictionary<string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-feed-listContainer"}}))
+            using (Html.BeginUmbracoForm("List", "CentralFeed", null,
+                new Dictionary< string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-feed-listContainer"}}))
             {
                 <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
                 <input type="hidden" name="type" value="@Model.CurrentType.Id"/>
                 <input type="hidden" name="page"/>
                 <div class="tab-content js-feed-listContainer">
-                    @{Html.RenderAction("List", "CentralFeed", new {model = new CentralFeedListExtendedModel {Type = Model.CurrentType.Id, GroupId = Model.GroupId}});}
+                    {Html.RenderAction("List", "CentralFeed", new {model = new CentralFeedListExtendedModel {Type = Model.CurrentType.Id, GroupId = Model.GroupId}});}
                 </div>
             }
         </div>
