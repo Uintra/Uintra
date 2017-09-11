@@ -13,10 +13,10 @@ namespace uIntra.Groups.Sql
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
 
-        [Required, Index("UQ_GroupMember_GroupId_MemeberId", 1, IsUnique = true)]
+        [Required, Index("UQ_GroupMember_GroupId_MemberId", 1, IsUnique = true)]
         public Guid GroupId { get; set; }
 
-        [Required, Index("UQ_GroupMember_GroupId_MemeberId", 2, IsUnique = true)]
-        public Guid MemeberId { get; set; } 
+        [Required, Index("UQ_GroupMember_GroupId_MemberId", 2, IsUnique = true)]
+        public Guid MemberId { get; set; } 
     }
 }

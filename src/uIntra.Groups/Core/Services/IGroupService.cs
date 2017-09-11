@@ -12,8 +12,6 @@ namespace uIntra.Groups
         void Edit(Group group);
 
         Group Get(Guid id);
-
-        Group GetGroupByActivity(Guid activityId);
         
         IEnumerable<Group> GetAllNotHidden();              
 

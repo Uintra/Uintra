@@ -23,12 +23,12 @@ namespace uIntra.Core.Extentions
 
         public static Guid? GetIntranetUserId(this IPublishedContent content)
         {
-            return content.GetPropertyValue<Guid?>(ImageConstants.IntranetCreatorId, null);
+            return content.GetPropertyValue<Guid?>(IntranetConstants.IntranetCreatorId, null);
         }
 
         public static Guid? GetIntranetUserId(this IMedia content)
         {
-            return content.GetValue<Guid?>(ImageConstants.IntranetCreatorId);
+            return content.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
         }
 
         public static IIntranetType GetMediaType(this IPublishedContent content)

@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
+using uIntra.Groups.Constants;
 using uIntra.Groups.Extentions;
 
 namespace uIntra.Groups
@@ -46,7 +47,7 @@ namespace uIntra.Groups
 
         private bool IsGroupPage(ActionExecutingContext filterContext, out Guid groupId)
         {
-            var groupIdValue = filterContext.HttpContext.Request.QueryString.Get("groupId");
+            var groupIdValue = filterContext.HttpContext.Request.QueryString.Get(GroupConstants.GroupIdQueryParam);
             return Guid.TryParse(groupIdValue, out groupId);
         }
     }

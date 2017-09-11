@@ -55,12 +55,7 @@ namespace uIntra.Groups
         {
             return GetAll().SingleOrDefault(g => g.Id == id);
         }
-
-        public Group GetGroupByActivity(Guid activityId)
-        {
-            return GetAll().SingleOrDefault(g => g.ParentActivityId == activityId);
-        }
-
+        
         public IEnumerable<Group> GetAllHided()
         {
             return GetAll().Where(g => g.IsHidden);

@@ -1,8 +1,9 @@
 ﻿@using uIntra.Core.Extentions
+@using uIntra.Groups.Constants
 @model IList<uIntra.Groups.GroupMemberViewModel>
 @{
     Layout = null;
-    var groupId = Request.QueryString.Get("groupId");
+    var groupId = Request.QueryString.Get(GroupConstants.GroupIdQueryParam);
 }
 <div class="table-holder" id="js-group-members">
     <table class="members-table">

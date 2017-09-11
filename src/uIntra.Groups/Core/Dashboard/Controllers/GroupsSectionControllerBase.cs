@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
+using uIntra.Groups.Constants;
 using Umbraco.Web.WebApi;
 
 namespace uIntra.Groups.Dashboard
@@ -30,7 +31,7 @@ namespace uIntra.Groups.Dashboard
             {
                 var viewModel = s.Map<BackofficeGroupViewModel>();
                 viewModel.CreatorName = _intranetUserService.Get(s.CreatorId).DisplayedName;
-                viewModel.Link = _groupContentHelper.GetGroupRoomPage().Url.UrlWithQueryString("groupId", s.Id);
+                viewModel.Link = _groupContentHelper.GetGroupRoomPage().Url.UrlWithQueryString(GroupConstants.GroupIdQueryParam, s.Id);
                 return viewModel;
             });
 

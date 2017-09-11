@@ -462,7 +462,7 @@ namespace uIntra.Core.Installer.Migrations
             return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
             {
                 Name = "Intranet user id",
-                Alias = ImageConstants.IntranetCreatorId
+                Alias = IntranetConstants.IntranetCreatorId
             };
         }
 

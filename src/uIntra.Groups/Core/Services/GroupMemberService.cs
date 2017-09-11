@@ -21,7 +21,7 @@ namespace uIntra.Groups
             {
                 Id = Guid.NewGuid(),
                 GroupId = groupId,
-                MemeberId = memberId,
+                MemberId = memberId,
             };
 
             _groupMemberRepository.Add(groupMember);
@@ -32,7 +32,7 @@ namespace uIntra.Groups
             var groupMembers = memberId.Select(m => new GroupMember()
             {
                 Id = Guid.NewGuid(),
-                MemeberId = m,
+                MemberId = m,
                 GroupId = groupId
             });
 
@@ -41,17 +41,17 @@ namespace uIntra.Groups
 
         public void Remove(Guid groupId, Guid memberId)
         {
-            _groupMemberRepository.Delete(gm => gm.GroupId == groupId && gm.MemeberId == memberId);
+            _groupMemberRepository.Delete(gm => gm.GroupId == groupId && gm.MemberId == memberId);
         }
 
         public IEnumerable<GroupMember> GetGroupMemberByMember(Guid memberId)
         {
-            return _groupMemberRepository.FindAll(gm => gm.MemeberId == memberId);
+            return _groupMemberRepository.FindAll(gm => gm.MemberId == memberId);
         }
 
         public IEnumerable<GroupMember> GetManyGroupMember(IEnumerable<Guid> memberIds)
         {
-            return memberIds.Join(_groupMemberRepository.GetAll(), m => m, gm => gm.MemeberId, (m, gm) => gm);
+            return memberIds.Join(_groupMemberRepository.GetAll(), m => m, gm => gm.MemberId, (m, gm) => gm);
         }
 
         public int GetMembersCount(Guid groupId)
@@ -66,7 +66,7 @@ namespace uIntra.Groups
 
         public bool IsGroupMember(Guid groupId, Guid userId)
         {
-            return _groupMemberRepository.Exists(gm => gm.GroupId == groupId && gm.MemeberId == userId);
+            return _groupMemberRepository.Exists(gm => gm.GroupId == groupId && gm.MemberId == userId);
         }
 
         public bool IsGroupMember(Guid groupId, IGroupMember member)
