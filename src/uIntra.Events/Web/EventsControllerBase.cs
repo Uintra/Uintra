@@ -107,10 +107,9 @@ namespace uIntra.Events.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
-        public virtual ActionResult Create()
+        public virtual ActionResult Create(ActivityLinks links)
         {
-            var model = GetCreateModel();
-
+            var model = GetCreateModel(links);
             return PartialView(CreateViewPath, model);
         }
 
@@ -186,18 +185,19 @@ namespace uIntra.Events.Web
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
         }
 
-        protected virtual EventCreateModel GetCreateModel()
+        protected virtual EventCreateModel GetCreateModel(ActivityLinks links)
         {
-            //FillLinks();
+            var mediaSettings = _eventsService.GetMediaSettings();
             var model = new EventCreateModel
             {
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
                 CanSubscribe = true,
                 Creator = _intranetUserService.GetCurrentUser(),
-                ActivityType = _activityTypeProvider.Get(ActivityTypeId)
+                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                Links = links,
+                MediaRootId = mediaSettings.MediaRootId
             };
-            FillCreateEditData(model);
             return model;
         }
 
@@ -233,7 +233,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventEditModel>();
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             model.Creator = _intranetUserService.Get(@event);
-            FillCreateEditData(model);
+            //FillCreateEditData(model);
             return model;
         }
 
@@ -278,13 +278,6 @@ namespace uIntra.Events.Web
                 ActivityId = @event.Id,
                 ActivityType = @event.Type,
             };
-        }
-
-        protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
-        {
-            var mediaSettings = _eventsService.GetMediaSettings();
-            ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
-            model.MediaRootId = mediaSettings.MediaRootId;
         }
 
         protected virtual EventBase MapToEvent(EventCreateModel createModel)

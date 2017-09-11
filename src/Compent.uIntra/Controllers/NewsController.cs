@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
-using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;

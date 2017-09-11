@@ -49,7 +49,7 @@ namespace uIntra.Core.Activity
                 create: GetCreatePage().Url,
                 details: null,
                 edit: null,
-                profile: GetProfileLink(Guid.Empty) // TOOD
+                profile: null // TOOD
             );
         }
 
