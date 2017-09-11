@@ -7,7 +7,6 @@ using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
-using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -174,7 +173,7 @@ namespace uIntra.Users
             };
 
             string userPhoto = null;
-            var userPhotoId = member.GetMemberImageId(ProfileConstants.Photo);
+            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo) ?? member.GetMemberImageId(ProfileConstants.Photo);
 
             if (userPhotoId.HasValue)
             {
