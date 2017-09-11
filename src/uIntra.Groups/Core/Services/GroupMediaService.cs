@@ -48,7 +48,7 @@ namespace uIntra.Groups
         {
             var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
 
-            var medias = _mediaService.GetChildren(-1);
+            var medias = _mediaService.GetChildren(groupFolderSettings.MediaRootId ?? -1);
             var groupFolder = medias.FirstOrDefault(s =>
             {
                 if (s.HasProperty(GroupIdPropertyTypeAlias))

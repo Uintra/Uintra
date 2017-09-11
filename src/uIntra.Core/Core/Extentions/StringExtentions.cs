@@ -54,9 +54,9 @@ namespace uIntra.Core.Extentions
         {
             return list == null ? "" : string.Join(separator, list);
         }
-     
+
         public static string StripHtml(this string input)
-            {
+        {
             if (input.IsNullOrEmpty())
             {
                 return string.Empty;
@@ -92,9 +92,9 @@ namespace uIntra.Core.Extentions
         public static int? ToNullableInt(this string str)
         {
             int result;
-            if (Int32.TryParse(str, out result))
-                return result;
-            return null;
+            if (int.TryParse(str, out result))
+                return new int?(result);
+            return new int?();
         }
     }
 }

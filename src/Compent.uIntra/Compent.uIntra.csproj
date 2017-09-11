@@ -1077,8 +1077,8 @@
     <Content Include="App_Plugins\Groups\List\GroupsOverview.cshtml" />
     <Content Include="App_Plugins\Groups\Members\GroupMembers.cshtml" />
     <Content Include="App_Plugins\Groups\package.manifest" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201709110741345_Groups.resx">
-      <DependentUpon>201709110741345_Groups.cs</DependentUpon>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201709111219353_Groups.resx">
+      <DependentUpon>201709111219353_Groups.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="App_Plugins\Groups\Feed\GroupFeedOverviewView.cshtml" />
     <Content Include="App_Plugins\Groups\Feed\GroupFeedList.cshtml" />
@@ -1171,6 +1171,7 @@
     <Compile Include="Controllers\EventsSectionController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\GroupFeedController.cs" />
+    <Compile Include="Controllers\GroupsSectionController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
     <Compile Include="Controllers\MyLinksController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
@@ -1317,9 +1318,9 @@
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201709110741345_Groups.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201709110741345_Groups.Designer.cs">
-      <DependentUpon>201709110741345_Groups.cs</DependentUpon>
+    <Compile Include="Persistence\Sql\Migrations\201709111219353_Groups.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201709111219353_Groups.Designer.cs">
+      <DependentUpon>201709111219353_Groups.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

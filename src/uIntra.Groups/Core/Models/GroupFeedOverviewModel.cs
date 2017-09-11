@@ -6,7 +6,7 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Groups
 {
-    public class GroupCentralFeedOverviewModel
+    public class GroupFeedOverviewModel
     {
         public IIntranetType CurrentType { get; set; }
 

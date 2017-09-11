@@ -2,11 +2,12 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extentions
 @using uIntra.Groups
+@using uIntra.Groups.Constants
 @model GroupDocumentsViewModel
 
 @{
     Guid groupId;
-    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out groupId))
+    if (!Guid.TryParse(Request.QueryString.Get(GroupConstants.GroupIdQueryParam), out groupId))
     {
         <h3>Group id is not defined!!</h3>
         return;

@@ -15,6 +15,7 @@
 
             public const string MediaHeight = "umbracoHeight";
             public const string MediaWidth = "umbracoWidth";
+            public const string MediaExtension = "umbracoExtension";
         }
     }
 }

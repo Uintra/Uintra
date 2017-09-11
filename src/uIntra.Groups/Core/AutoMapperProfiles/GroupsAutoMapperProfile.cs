@@ -24,14 +24,12 @@ namespace uIntra.Groups
                 .ForMember(d => d.ImageId, o => o.Ignore())
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId))
-                .ForMember(d => d.ParentActivityId, o => o.MapFrom(s => s.ParentActivityId));
+                .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId));
 
             Mapper.CreateMap<Group, GroupCreateModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId))
-                .ForMember(d => d.ParentActivityId, o => o.MapFrom(s => s.ParentActivityId))
                 .ForMember(d => d.Media, o => o.MapFrom(el => el.ImageId))
                 .ForMember(d => d.AllowedMediaExtentions, o => o.Ignore())
                 .ForMember(d => d.MediaRootId, o => o.Ignore())
@@ -49,7 +47,6 @@ namespace uIntra.Groups
                 .ForMember(d => d.IsHidden, o => o.Ignore())
                 .ForMember(d => d.CreatorId, o => o.Ignore())
                 .ForMember(d => d.GroupTypeId, o => o.Ignore())
-                .ForMember(d => d.ParentActivityId, o => o.Ignore())
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description));
 

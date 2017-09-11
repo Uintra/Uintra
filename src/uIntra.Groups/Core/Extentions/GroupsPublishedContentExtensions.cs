@@ -1,13 +1,12 @@
 ﻿using System;
 using uIntra.Core.Extentions;
+using uIntra.Groups.Constants;
 using Umbraco.Core.Models;
 
 namespace uIntra.Groups.Extentions
 {
-    public static class PublishedContentExtentions
+    public static class GroupsPublishedContentExtensions
     {
-        public const string GroupIdQueryParam = "groupId";
-
         public static string UrlWithGroupId(this IPublishedContent content, Guid? groupId)
         {
             return content.Url.UrlWithGroupId(groupId);
@@ -20,7 +19,7 @@ namespace uIntra.Groups.Extentions
                 return url;
             }
 
-            return url.AddParameter(GroupIdQueryParam, groupId);
+            return url.AddParameter(GroupConstants.GroupIdQueryParam, groupId);
         }
     }
 }

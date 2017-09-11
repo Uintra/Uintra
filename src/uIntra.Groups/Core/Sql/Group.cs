@@ -21,8 +21,6 @@ namespace uIntra.Groups.Sql
         public DateTime UpdatedDate { get; set; }
 
         public Guid CreatorId { get; set; }
-
-        public Guid? ParentActivityId { get; set; }
         
         public int? ImageId { get; set; }
 

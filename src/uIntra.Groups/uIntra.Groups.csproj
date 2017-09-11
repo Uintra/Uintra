@@ -289,13 +289,14 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Constants\GroupConstants.cs" />
     <Compile Include="Core\Dashboard\Models\BackofficeGroupViewModel.cs" />
     <Compile Include="Core\Dashboard\GroupsSection.cs" />
     <Compile Include="Core\Dashboard\Controllers\GroupsSectionControllerBase.cs" />
-    <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
+    <Compile Include="Core\Extentions\GroupsPublishedContentExtensions.cs" />
     <Compile Include="Core\GroupContentHelper.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
-    <Compile Include="Core\Models\GroupCentralFeedOverviewModel.cs" />
+    <Compile Include="Core\Models\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
     <Compile Include="Core\DisabledGroupActionFilter.cs" />
     <Compile Include="Core\Models\DisabledGroupViewModel.cs" />
@@ -339,6 +340,7 @@
     <Compile Include="Core\Sql\GroupDocument.cs" />
     <Compile Include="Core\Sql\GroupMember.cs" />
     <Compile Include="Web\GroupControllerBase.cs" />
+    <Compile Include="Web\GroupDocumentsControllerBase.cs" />
     <Compile Include="Web\GroupFeedControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -367,7 +369,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Plugins\Groups\CentralFeed\GroupCentralFeedOverview.cshtml" />
+    <None Include="App_Plugins\Groups\Feed\GroupFeedOverview.cshtml" />
     <None Include="App_Plugins\Groups\Create\CreateGroupView.cshtml" />
     <None Include="App_Plugins\Groups\DisablerGroupView\DisabledGroup.cshtml" />
     <None Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
@@ -380,6 +382,16 @@
     <None Include="App_Plugins\Groups\List\GroupsOverview.cshtml" />
     <None Include="App_Plugins\Groups\Members\GroupMembers.cshtml" />
     <None Include="App_Plugins\Groups\package.manifest" />
+    <None Include="Config\applications.config.install.xdt" />
+    <None Include="Config\applications.config.uninstall.xdt" />
+    <None Include="Config\Dashboard.config.install.xdt" />
+    <None Include="Config\Dashboard.config.uninstall.xdt" />
+    <None Include="Config\Lang\da-DK.user.xml.install.xdt" />
+    <None Include="Config\Lang\da-DK.user.xml.uninstall.xdt" />
+    <None Include="Config\Lang\en-GB.user.xml.install.xdt" />
+    <None Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />
+    <None Include="Config\Lang\en-US.user.xml.install.xdt" />
+    <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

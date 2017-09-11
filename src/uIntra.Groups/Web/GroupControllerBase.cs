@@ -4,64 +4,62 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Examine;
 using uIntra.CentralFeed;
+using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Groups.Constants;
 using uIntra.Groups.Extentions;
-using Umbraco.Core.Services;
-using Umbraco.Web;
+using uIntra.Groups.Sql;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Groups.Web
 {
     public abstract class GroupControllerBase : SurfaceController
     {
-        protected virtual string GroupsListViewPath => "~/App_Plugins/Groups/List/GroupsList.cshtml";
-        protected virtual string GroupsOverviewViewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
-        protected virtual string DisabledViewPath => "~/App_Plugins/Groups/DisablerGroupView/DisabledGroup.cshtml";
-        protected virtual string MyGroupsOverviewViewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
-        protected virtual string CreateGroupViewPath => "~/App_Plugins/Groups/Create/CreateGroupView.cshtml";
-        protected virtual string GroupInfoViewPath => "~/App_Plugins/Groups/Info/GroupInfoView.cshtml";
-        protected virtual string GroupSubscribeViewPath => "~/App_Plugins/Groups/Info/GroupSubscribeView.cshtml";
-        protected virtual string EditGroupViewPath => "~/App_Plugins/Groups/Edit/EditGroupView.cshtml";
-        protected virtual string GroupMemberViewPath => "~/App_Plugins/Groups/Members/GroupMembers.cshtml";
 
-
+        protected virtual string OverviewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
+        protected virtual string DisabledGroupViewPath => "~/App_Plugins/Groups/DisablerGroupView/DisabledGroup.cshtml";
+        protected virtual string MyGroupsOverviewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
+        protected virtual string GroupFeedOverview => "~/App_Plugins/Groups/CentralFeed/GroupFeedOverview.cshtml";
+        protected virtual string GroupCreateView => "~/App_Plugins/Groups/Create/CreateGroupView.cshtml";
+        protected virtual string GroupsListView => "~/App_Plugins/Groups/List/GroupsList.cshtml";
+        protected virtual string GroupEditView => "~/App_Plugins/Groups/Edit/EditGroupView.cshtml";
+        protected virtual string GroupInfoView => "~/App_Plugins/Groups/Info/GroupInfoView.cshtml";
+        protected virtual string GroupSubscribeView => "~/App_Plugins/Groups/Info/GroupSubscribeView.cshtml";
+        protected virtual string GroupMembersView => "~/App_Plugins/Groups/Members/GroupMembers.cshtml";
 
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupContentHelper _groupContentHelper;
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly IGroupMediaService _groupMediaService;
-        public abstract string GroupOverviewPageTypeAlias { get; }
 
-        private int ItemsPerPage = 10;
+        protected int ItemsPerPage = 10;
 
         public GroupControllerBase(IGroupService groupService,
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
             IGroupContentHelper groupContentHelper,
-            IUserService userService,
             IGroupMediaService groupMediaService,
-            IIntranetUserService<IGroupMember> intranetUserService)
+            IIntranetUserService<IIntranetUser> userService)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
             _mediaHelper = mediaHelper;
             _groupContentHelper = groupContentHelper;
             _groupMediaService = groupMediaService;
-            _intranetUserService = intranetUserService;
+            _userService = userService;
         }
 
-        public ActionResult Overview()
+        public virtual ActionResult Overview()
         {
-            return PartialView(GroupsOverviewViewPath, new GroupsOverviewModel { IsMyGroupsPage = false });
+            return PartialView(OverviewPath, new GroupsOverviewModel { IsMyGroupsPage = false });
         }
 
-        public ActionResult DisabledView(Guid groupId)
+        public virtual ActionResult DisabledView(Guid groupId)
         {
             var group = _groupService.Get(groupId);
             if (!group.IsHidden)
@@ -70,25 +68,25 @@ namespace uIntra.Groups.Web
                 Response.Redirect(deactivatedGroupPage.UrlWithGroupId(groupId), true);
             }
 
-            return PartialView(DisabledViewPath);
+            return PartialView(DisabledGroupViewPath);
         }
 
         public ActionResult MyGroupsOverview()
         {
-            return PartialView(MyGroupsOverviewViewPath, new GroupsOverviewModel() { IsMyGroupsPage = true });
+            return PartialView(MyGroupsOverviewPath, new GroupsOverviewModel() { IsMyGroupsPage = true });
         }
 
         [DisabledGroupActionFilter]
-        public ActionResult CentralFeedOverview(Guid groupId)
+        public ActionResult GrouplFeedOverview(Guid groupId)
         {
-            var model = new GroupCentralFeedOverviewModel
+            var model = new GroupFeedOverviewModel
             {
                 CurrentType = _groupContentHelper.GetTabType(CurrentPage),
                 GroupId = groupId,
 
             };
 
-            var allTabs = _groupContentHelper.GetTabs(groupId, _intranetUserService.GetCurrentUser(), CurrentPage).ToList();
+            var allTabs = _groupContentHelper.GetTabs(groupId, _userService.GetCurrentUser(), CurrentPage).ToList();
             var activityTabs = allTabs.FindAll(t => t.Type != null);
 
             model.ActivityTabs = activityTabs.Select(tab => new CentralFeedTabViewModel
@@ -105,7 +103,7 @@ namespace uIntra.Groups.Web
                 return tabModel;
             });
 
-            return PartialView("~/App_Plugins/Groups/CentralFeed/GroupCentralFeedOverview.cshtml", model);
+            return PartialView(GroupFeedOverview, model);
         }
 
         [DisabledGroupActionFilter]
@@ -113,19 +111,18 @@ namespace uIntra.Groups.Web
         {
             var group = _groupService.Get(groupId);
 
-            if (!_groupService.CanEdit(group, _intranetUserService.GetCurrentUser()))
+            if (!_groupService.CanEdit(group, _userService.GetCurrentUser()))
             {
                 HttpContext.Response.Redirect(_groupContentHelper.GetGroupRoomPage().UrlWithGroupId(groupId));
             }
 
             var model = group.Map<GroupEditModel>();
-            //var mediaRootAlias = GroupOverviewPageTypeAlias.GetModelPropertyType(s => s.MediaRootId).PropertyTypeAlias; TODO
-            var overviewPage = _groupContentHelper.GetOverviewPage();
-            //model.MediaRootId = overviewPage.GetPropertyValue<int?>(mediaRootAlias);
-            model.AllowedMediaExtentions = overviewPage.GetPropertyValue<string>("allowedMediaExtensions", "");
+            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
+            model.MediaRootId = mediaSettings.MediaRootId;
+            model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
 
             FillLinks();
-            return PartialView(EditGroupViewPath, model);
+            return PartialView(GroupEditView, model);
         }
 
         [HttpPost]
@@ -146,22 +143,20 @@ namespace uIntra.Groups.Web
             }
             _groupService.Edit(group);
             _groupMediaService.GroupTitleChanged(group.Id, group.Title);
-            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { "groupId", group.Id.ToString() } });
+            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();
+            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
 
-
-            //var mediaRootAlias = GroupOverviewPageTypeAlias.GetModelPropertyType(s => s.MediaRootId).PropertyTypeAlias;
-            var overviewPage = _groupContentHelper.GetOverviewPage();
-            //createGroupModel.MediaRootId = overviewPage.GetPropertyValue<int?>(mediaRootAlias);
-            createGroupModel.CreatorId = _intranetUserService.GetCurrentUser().Id;
-            //createGroupModel.AllowedMediaExtentions = overviewPage.GetPropertyValue<string>("allowedMediaExtensions", "");
+            createGroupModel.MediaRootId = mediaSettings.MediaRootId;
+            createGroupModel.CreatorId = _userService.GetCurrentUserId();
+            createGroupModel.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
 
             FillLinks();
-            return PartialView(CreateGroupViewPath, createGroupModel);
+            return PartialView(GroupCreateView, createGroupModel);
         }
 
         [HttpPost]
@@ -172,16 +167,7 @@ namespace uIntra.Groups.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            if (createModel.ParentActivityId.HasValue)
-            {
-                var existedGroup = _groupService.GetGroupByActivity(createModel.ParentActivityId.Value);
-                if (existedGroup != null)
-                {
-                    return RedirectToCurrentUmbracoPage(Request.QueryString);
-                }
-            }
-
-            var group = createModel.Map<Sql.Group>();
+            var group = createModel.Map<Group>();
             group.GroupTypeId = GroupTypeEnum.Open.GetHashCode();
             var createdMedias = _mediaHelper.CreateMedia(createModel).ToList();
             group.ImageId = createdMedias.Any() ? (int?)createdMedias.First() : null;
@@ -189,29 +175,32 @@ namespace uIntra.Groups.Web
             _groupService.Create(group);
             _groupMediaService.GroupTitleChanged(group.Id, group.Title);
 
+            _groupMemberService.Add(group.Id, createModel.CreatorId);
 
-                _groupMemberService.Add(group.Id, createModel.CreatorId);
-                var creator = _intranetUserService.Get(createModel.CreatorId);
-                creator.GroupIds = creator.GroupIds.Concat(Enumerable.Repeat(group.Id, 1));
-                //_intranetUserService.UpdateCache(Enumerable.Repeat(creator, 1));
+            // TODO
+            // var creator = _userService.Get(createModel.CreatorId);
+            //creator.GroupIds = creator.GroupIds.Concat(Enumerable.Repeat(group.Id, 1));
+            //_userService.UpdateCache(Enumerable.Repeat(creator, 1));
 
-
-            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { "groupId", group.Id.ToString() } });
+            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 
-        public ActionResult Index(bool isMyGroupsPage = false, int page = 1)
+        public virtual ActionResult Index(bool isMyGroupsPage = false, int page = 1)
         {
             var take = page * ItemsPerPage;
-            var currentUser = _intranetUserService.GetCurrentUser();
-            List<Sql.Group> allGroups;
-            if (isMyGroupsPage)
-            {
-                allGroups = _groupService.GetMany(currentUser.GroupIds).ToList();
-            }
-            else
-            {
-                allGroups = _groupService.GetAllNotHidden().ToList();
-            }
+            var currentUser = _userService.GetCurrentUser();
+            List<Group> allGroups;
+
+            //if (isMyGroupsPage)
+            //{
+            //    allGroups = _groupService.GetMany(currentUser.GroupIds).ToList();
+            //}
+            //else
+            //{
+            //    allGroups = _groupService.GetAllNotHidden().ToList();
+            //}
+
+            allGroups = _groupService.GetAllNotHidden().ToList();
 
             var groups = allGroups.Select(g =>
             {
@@ -219,7 +208,7 @@ namespace uIntra.Groups.Web
 
             }).OrderByDescending(g => g.Creator.Id == currentUser.Id).ThenByDescending(s => s.IsMember).ThenBy(g => g.Title);
 
-            return PartialView(GroupsListViewPath, new GroupsListModel()
+            return PartialView(GroupEditView, new GroupsListModel()
             {
                 Groups = groups.Take(take),
                 BlockScrolling = allGroups.Count <= take
@@ -231,8 +220,8 @@ namespace uIntra.Groups.Web
         {
             var group = _groupService.Get(groupId);
             var groupInfo = group.Map<GroupInfoViewModel>();
-            groupInfo.Creator = _intranetUserService.Get(group.CreatorId);
-            var currentUser = _intranetUserService.GetCurrentUser();
+            groupInfo.Creator = _userService.Get(group.CreatorId);
+            var currentUser = _userService.GetCurrentUser();
             groupInfo.IsMember = _groupMemberService.IsGroupMember(group.Id, currentUser.Id);
             groupInfo.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupInfo.CanUnsubscribe = group.CreatorId != currentUser.Id;
@@ -240,22 +229,20 @@ namespace uIntra.Groups.Web
             {
                 groupInfo.GroupImageUrl = Umbraco.TypedMedia(group.ImageId.Value).Url;
             }
-            return PartialView(GroupInfoViewPath, groupInfo);
+            return PartialView(GroupInfoView, groupInfo);
         }
 
         [HttpPost]
-        public ActionResult Hide(Guid id)
+        public virtual ActionResult Hide(Guid id)
         {
             _groupService.Hide(id);
-            //(_eventsService as IIndexer).FillIndex();
-            //(_newsService as IIndexer).FillIndex();
             return Json(new { _groupContentHelper.GetOverviewPage().Url });
         }
 
         [DisabledGroupActionFilter]
-        public PartialViewResult GroupSubscribe(Guid groupId)
+        public virtual PartialViewResult GroupSubscribe(Guid groupId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentUser = _userService.GetCurrentUser();
 
             var subscribeModel = new GroupSubscribeViewModel
             {
@@ -265,14 +252,14 @@ namespace uIntra.Groups.Web
                 MembersCount = _groupMemberService.GetMembersCount(groupId)
             };
 
-            return PartialView(GroupSubscribeViewPath, subscribeModel);
+            return PartialView(GroupSubscribeView, subscribeModel);
         }
 
         [HttpPost]
         [DisabledGroupActionFilter]
-        public RedirectToUmbracoPageResult Subscribe(Guid groupId)
+        public virtual RedirectToUmbracoPageResult Subscribe(Guid groupId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentUser = _userService.GetCurrentUser();
             if (_groupMemberService.IsGroupMember(groupId, currentUser.Id))
             {
                 _groupMemberService.Remove(groupId, currentUser.Id);
@@ -289,7 +276,7 @@ namespace uIntra.Groups.Web
 
 
         [DisabledGroupActionFilter]
-        public ActionResult Unsubscribe(Guid groupId, Guid memberId)
+        public virtual ActionResult Unsubscribe(Guid groupId, Guid memberId)
         {
             _groupMemberService.Remove(groupId, memberId);
 
@@ -298,49 +285,49 @@ namespace uIntra.Groups.Web
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
-        private void UpdateUserCache(Guid memberId)
+        protected virtual void UpdateUserCache(Guid memberId)
         {
-            var user = _intranetUserService.Get(memberId);
-            user.GroupIds = _groupMemberService.GetGroupMemberByMember(user.Id).Select(u => u.GroupId);
-            //_intranetUserService.UpdateCache(Utils.EnumerableExtensions.ToEnumerableOfOne(user));
+            //var user = _userService.Get(memberId);
+            //user.GroupIds = _groupMemberService.GetGroupMemberByMember(user.Id).Select(u => u.GroupId);
+            //_userService.UpdateCache(user.ToEnumerableOfOne());
         }
 
         [DisabledGroupActionFilter]
-        public ActionResult GroupMembers(Guid groupId)
+        public virtual ActionResult GroupMembers(Guid groupId)
         {
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
-            var membersIdsList = groupMembers.Select(s => s.MemeberId).ToList();
-            var groupUsers = _intranetUserService.GetMany(membersIdsList);
+            var membersIdsList = groupMembers.Select(s => s.MemberId).ToList();
+            var groupUsers = _userService.GetMany(membersIdsList);
             var group = _groupService.Get(groupId);
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var currentUserId = _userService.GetCurrentUserId();
 
             var model = groupUsers.Select(s =>
-                {
-                    var viewModel = s.Map<GroupMemberViewModel>();
-                    viewModel.IsGroupAdmin = s.Id == group.CreatorId;
-                    viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != group.CreatorId;
-                    return viewModel;
-                })
-                .OrderByDescending(s => s.IsGroupAdmin)
-                .ThenBy(s => s.Name)
-                .ToList();
+            {
+                var viewModel = s.Map<GroupMemberViewModel>();
+                viewModel.IsGroupAdmin = s.Id == group.CreatorId;
+                viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != group.CreatorId;
+                return viewModel;
+            })
+            .OrderByDescending(s => s.IsGroupAdmin)
+            .ThenBy(s => s.Name)
+            .ToList();
 
-            return PartialView(GroupMemberViewPath, model);
+            return PartialView(GroupMembersView, model);
         }
 
 
-        private void FillLinks()
+        protected virtual void FillLinks()
         {
-            //ViewData.SetActivityOverviewPageUrl(_ideasService.ActivityType.Id, _ideasService.GetOverviewPage().Url);
+
         }
 
-        private GroupViewModel MapGroupViewModel(Sql.Group group, Func<bool> fillIsMember)
+        private GroupViewModel MapGroupViewModel(Group group, Func<bool> fillIsMember)
         {
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = fillIsMember();
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
-            groupModel.Creator = _intranetUserService.Get(group.CreatorId);
-            groupModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().Url.UrlWithQueryString("groupId", group.Id);
+            groupModel.Creator = _userService.Get(group.CreatorId);
+            groupModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().Url.UrlWithQueryString(GroupConstants.GroupIdQueryParam, group.Id);
             if (groupModel.HasImage)
             {
                 groupModel.GroupImageUrl = Umbraco.TypedMedia(group.ImageId).Url;
