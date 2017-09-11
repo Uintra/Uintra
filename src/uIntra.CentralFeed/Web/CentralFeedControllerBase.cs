@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
-using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed.Web
 {
@@ -17,6 +12,8 @@ namespace uIntra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedDetailsView.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedCreateView.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedEditView.cshtml";
         protected override string ListViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
         protected override string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
         protected override string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
@@ -34,6 +31,38 @@ namespace uIntra.CentralFeed.Web
         {
             _centralFeedService = centralFeedService;
             _activitiesServiceFactory = activitiesServiceFactory1;
+        }
+
+        // TODO : duplication
+        protected override CreateViewModel GetCreateViewModel(IIntranetType activityType)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(activityType.Id);
+            var links = service.GetGroupFeedCreateLinks();
+
+            var settings = _centralFeedService.GetSettings(activityType);
+
+            return new CreateViewModel()
+            {
+                Links = links,
+                Settings = settings
+            };
+        }
+
+        protected override EditViewModel GetEditViewModel(Guid id)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
+            var links = service.GetCentralFeedLinks(id);
+
+            var type = service.ActivityType;
+            var settings = _centralFeedService.GetSettings(type);
+
+            var viewModel = new EditViewModel()
+            {
+                Id = id,
+                Links = links,
+                Settings = settings
+            };
+            return viewModel;
         }
 
         protected override DetailsViewModel GetDetailsViewModel(Guid id)

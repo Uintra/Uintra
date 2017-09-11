@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
-using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.CentralFeed.Web
@@ -23,6 +20,8 @@ namespace uIntra.CentralFeed.Web
         protected abstract string LatestActivitiesViewPath { get; }
 
         protected abstract string DetailsViewPath { get; }
+        protected abstract string CreateViewPath { get; }
+        protected abstract string EditViewPath { get; }
 
         protected virtual int ItemsPerPage => 8;
 
@@ -50,20 +49,37 @@ namespace uIntra.CentralFeed.Web
             _intranetUserService = intranetUserService;
         }
 
-        [HttpGet]
-        public virtual ActionResult Details(Guid id)
-        {
-            DetailsViewModel viewModel = GetDetailsViewModel(id);
-            return PartialView(DetailsViewPath, viewModel);
-        }
-
-        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
-
         public virtual ActionResult Overview()
         {
             var model = GetOverviewModel();
             return PartialView(OverviewViewPath, model);
         }
+
+        [HttpGet]
+        public virtual ActionResult Details(Guid id)
+        {
+            var viewModel = GetDetailsViewModel(id);
+            return PartialView(DetailsViewPath, viewModel);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Create(int typeId)
+        {
+            var activityType = _centralFeedTypeProvider.Get(typeId);
+            var viewModel = GetCreateViewModel(activityType);
+            return PartialView(CreateViewPath, viewModel);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Edit(Guid id)
+        {
+            var viewModel = GetEditViewModel(id);
+            return PartialView(CreateViewPath, viewModel);
+        }
+
+        protected abstract CreateViewModel GetCreateViewModel(IIntranetType activityType);
+        protected abstract EditViewModel GetEditViewModel(Guid id);
+        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
 
         public virtual ActionResult List(CentralFeedListModel model)
         {           
@@ -129,7 +145,7 @@ namespace uIntra.CentralFeed.Web
             return new EmptyResult();
         }
 
-        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
+        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();

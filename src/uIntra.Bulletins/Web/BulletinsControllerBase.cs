@@ -6,6 +6,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -49,18 +50,14 @@ namespace uIntra.Bulletins.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public virtual PartialViewResult CreationForm()
+        public virtual PartialViewResult Create(ActivityLinks links)
         {
-            FillLinks();
-
-            var result = GetCreateFormModel();
-
+            var result = GetCreateFormModel(links);
             return PartialView(CreationFormViewPath, result);
         }
 
         public virtual ActionResult Details(Guid id)
         {
-            FillLinks();
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
@@ -75,8 +72,6 @@ namespace uIntra.Bulletins.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            FillLinks();
-
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
@@ -145,7 +140,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(ItemHeaderViewPath, model);
         }
 
-        protected virtual BulletinCreateFormModel GetCreateFormModel()
+        protected virtual BulletinCreateFormModel GetCreateFormModel(ActivityLinks links)
         {
             var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
@@ -157,7 +152,8 @@ namespace uIntra.Bulletins.Web
                     Title = currentUser.DisplayedName,
                     Type = _activityTypeProvider.Get(ActivityTypeId),
                     Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
-                    Creator = currentUser
+                    Creator = currentUser,
+                    Links = links
                 },
                 AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
                 MediaRootId = mediaSettings.MediaRootId
@@ -183,23 +179,25 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
-        protected virtual BulletinItemViewModel GetItemViewModel(BulletinBase bulletin)
+        protected virtual BulletinItemViewModel GetItemViewModel(BulletinBase bulletin, ActivityLinks links)
         {
             var model = bulletin.Map<BulletinItemViewModel>();
-
-            model.MediaIds = bulletin.MediaIds;
-            model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
-
             var creator = _userService.Get(bulletin);
+
+            model.Links = links;
+            model.MediaIds = bulletin.MediaIds;
+
+            model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Creator = _userService.Get(bulletin);
             model.HeaderInfo.Title = creator.DisplayedName;
+            model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
                 MediaIds = bulletin.MediaIds,
                 DisplayedImagesCount = DisplayedImagesCount,
                 ActivityId = bulletin.Id,
-                ActivityType = bulletin.Type
+                ActivityType = bulletin.Type,                
             };
             return model;
         }

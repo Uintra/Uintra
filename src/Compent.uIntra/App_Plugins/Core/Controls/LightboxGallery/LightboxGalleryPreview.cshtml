@@ -1,8 +1,5 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
-@{
-    var url = $"{ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.ActivityId)}#js-lightbox-gallery";
-}
 
 <ul class="gallery js-lightbox-gallery clearfix">
     @foreach (var image in Model.Images)
@@ -15,7 +12,7 @@
     @if (Model.OtherFiles.Any())
     {
         <li class="gallery__item _attachments ">
-            <a class="gallery__item-link" href="@url">
+            <a class="gallery__item-link" href="@Model.Links.Details">
                 <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" width="20" height="27" />
                 <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
             </a>

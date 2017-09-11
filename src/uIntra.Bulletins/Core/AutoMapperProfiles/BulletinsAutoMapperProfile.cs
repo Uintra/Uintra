@@ -9,6 +9,7 @@ namespace uIntra.Bulletins
         protected override void Configure()
         {
             Mapper.CreateMap<BulletinBase, BulletinItemViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))

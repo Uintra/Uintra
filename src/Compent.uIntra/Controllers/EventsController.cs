@@ -51,9 +51,9 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
         }
 
-        public ActionResult CentralFeedItem(IFeedItem item, ActivityLinks links)
+        public ActionResult CentralFeedItem(Event item, ActivityLinks links)
         {
-            var activity = item as Event;
+            var activity = item;
             var extendedModel = GetItemViewModel(activity, links).Map<EventExtendedItemModel>();
             var  userId =_intranetUserService.GetCurrentUser();
             extendedModel.LikesInfo = activity;

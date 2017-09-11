@@ -89,6 +89,28 @@ namespace Compent.uIntra.Core.Bulletins
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
+        public override ActivityLinks GetCentralFeedLinks(Guid id)
+        {
+            return new ActivityLinks(
+                overview: GetOverviewPage().Url,
+                create: null,
+                details: GetDetailsPage().Url.AddIdParameter(id),
+                edit: GetEditPage().Url.AddIdParameter(id),
+                profile: GetProfileLink(id)
+            );
+        }
+
+        public override ActivityLinks GetGroupFeedCreateLinks()
+        {
+            return new ActivityLinks(
+                overview: GetOverviewPage().Url,
+                create: null,
+                details: null,
+                edit: null,
+                profile: null
+            );
+        }
+
         public MediaSettings GetMediaSettings()
         {
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());

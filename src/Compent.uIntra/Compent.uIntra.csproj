@@ -1065,7 +1065,6 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Groups\CentralFeed\GroupCentralFeedOverview.cshtml" />
     <Content Include="App_Plugins\Groups\Create\CreateGroupView.cshtml" />
     <Content Include="App_Plugins\Groups\DisablerGroupView\DisabledGroup.cshtml" />
     <Content Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
@@ -1081,6 +1080,12 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201709111219353_Groups.resx">
       <DependentUpon>201709111219353_Groups.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedOverviewView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedList.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedDetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedCreateView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1183,6 +1188,7 @@
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedCreateModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />

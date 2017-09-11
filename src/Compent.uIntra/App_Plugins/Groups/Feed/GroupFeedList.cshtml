@@ -1,0 +1,51 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.CentralFeed
+@using uIntra.Core.Extentions
+@model CentralFeedListViewModel
+
+@{
+    var tabSettings = Model.Settings.First(s => s.Type.Id == Model.Type.Id);
+}
+
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
+<input type="hidden" name="version" value="@Model.Version" />
+
+<div class="feed__subfilter filter__body">
+    <div class="feed__subfilter-item" style="display: @(tabSettings.HasSubscribersFilter ? "block" : "none") ">
+        <div class="check">
+            <label class="check__label">
+                <input type="checkbox" class="check__box" name="filterState.showSubscribed" @(Model.FilterState.ShowSubscribed ? "checked" : "") value="true">
+                <span class="check__fake-input icon-check"></span>
+                <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
+            </label>
+        </div>
+    </div>
+    <div class="feed__subfilter-item" style="display: @(tabSettings.HasPinnedFilter ? "block" : "none")">
+        <div class="check">
+            <label class="check__label">
+                <input type="checkbox" class="check__box" name="filterState.showPinned" @(Model.FilterState.ShowPinned ? "checked" : "") value="true">
+                <span class="check__fake-input icon-check"></span>
+                <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
+            </label>
+        </div>
+    </div>
+    <div class="feed__subfilter-item" style="display: @(tabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
+        <input class="btn" type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
+    </div>
+</div>
+
+@if (!Model.Feed.Any())
+{
+    @Html.Localize("CentralFeedList.Empty.lbl")
+}
+
+<div class="feed__list">
+    @foreach (var activity in Model.Feed)
+    {
+        var itemSettings = Model.Settings.First(s => s.Type.Id == activity.Item.Type.Id);
+
+        <div data-anchor="@activity.Item.Id">
+            @{ Html.RenderAction("CentralFeedItem", itemSettings.Controller, new { item = activity.Item, links = activity.Links }); }
+        </div>
+    }
+</div>

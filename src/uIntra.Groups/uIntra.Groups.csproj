@@ -296,7 +296,6 @@
     <Compile Include="Core\Extentions\GroupsPublishedContentExtensions.cs" />
     <Compile Include="Core\GroupContentHelper.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
-    <Compile Include="Core\Models\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
     <Compile Include="Core\DisabledGroupActionFilter.cs" />
     <Compile Include="Core\Models\DisabledGroupViewModel.cs" />
@@ -306,6 +305,8 @@
     <Compile Include="Core\Models\GroupDocumentsViewModel.cs" />
     <Compile Include="Core\Models\GroupDocumentTableRowViewModel.cs" />
     <Compile Include="Core\Models\GroupEditModel.cs" />
+    <Compile Include="Core\Models\GroupFeed\GroupFeedListModel.cs" />
+    <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
     <Compile Include="Core\Models\GroupMemberViewModel.cs" />

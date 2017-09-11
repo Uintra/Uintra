@@ -6,8 +6,8 @@
       "view": "/App_Plugins/Groups/backoffice/group-central-feed-view.html",
       "icon": "icon-chat color-green",
       "config": {
-        "controller": "Group",
-        "action": "CentralFeedOverview"
+        "controller": "GroupFeed",
+        "action": "Overview"
       }
     },
     {
