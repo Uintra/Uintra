@@ -38,18 +38,19 @@ namespace Compent.uIntra.Controllers
             _documentIndexer = documentIndexer;
         }
 
-        public ActionResult CentralFeedItem(IFeedItem item, ActivityLinks links)
+        public ActionResult CentralFeedItem(News item, ActivityLinks links)
         {
-            var activity = item as News;
+            var activity = item;
+
             var extendedModel = GetItemViewModel(activity, links).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(IFeedItem item)
+        public ActionResult PreviewItem(News item)
         {
             FillLinks();
-            var activity = item as News;
+            var activity = item;
             NewsPreviewViewModel viewModel = GetPreviewViewModel(activity);
             return PartialView(PreviewItemViewPath, viewModel);
         }

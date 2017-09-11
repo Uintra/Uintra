@@ -129,7 +129,7 @@ namespace uIntra.CentralFeed.Web
             return new EmptyResult();
         }
 
-        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(CentralFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
+        protected virtual CentralFeedListViewModel GetCentralFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();

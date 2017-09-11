@@ -3,7 +3,7 @@
 @using uIntra.CentralFeed
 @using uIntra.Core.Extentions
 @using Umbraco.Web
-@model uIntra.CentralFeed.CentralFeedOverviewModel
+@model uIntra.Groups.GroupFeedOverviewModel
 @{
     var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
 }
@@ -21,7 +21,7 @@
             <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
         </li>
     </ul>
-    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "GroupFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
     @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter filter__body js-feed-navigation">
         <div class="tabset__holder">
@@ -43,12 +43,13 @@
             <input type="hidden" name="type" value="@Model.CurrentType.Id" />
             <input type="hidden" name="page" />
             <div class="tab-content js-feed-listContainer">
-                @{Html.RenderAction("List", "CentralFeed",
+                @{Html.RenderAction("List", "GroupFeed",
                         new
                         {
-                            model = new CentralFeedListModel
+                            model = new GroupFeedListModel
                             {
-                                Type = Model.CurrentType.Id
+                                TypeId = Model.CurrentType.Id,
+                                GroupId = Model.GroupId
                             }
                         }); }
             </div>

@@ -1184,6 +1184,7 @@
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedCreateModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />

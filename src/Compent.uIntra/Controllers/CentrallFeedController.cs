@@ -1,4 +1,5 @@
-﻿using uIntra.CentralFeed;
+﻿using System.Web.Mvc;
+using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.User;
@@ -26,5 +27,7 @@ namespace Compent.uIntra.Controllers
                   activitiesServiceFactory)
         {
         }
+
+
     } 
 }

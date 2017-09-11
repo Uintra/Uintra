@@ -305,6 +305,8 @@
     <Compile Include="Core\Models\GroupDocumentsViewModel.cs" />
     <Compile Include="Core\Models\GroupDocumentTableRowViewModel.cs" />
     <Compile Include="Core\Models\GroupEditModel.cs" />
+    <Compile Include="Core\Models\GroupFeed\GroupFeedListModel.cs" />
+    <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
     <Compile Include="Core\Models\GroupMemberViewModel.cs" />
