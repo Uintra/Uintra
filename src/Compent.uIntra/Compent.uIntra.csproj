@@ -158,8 +158,9 @@
       <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Localization.Umbraco">
-      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.1\lib\net452\Localization.Umbraco.dll</HintPath>
+    <Reference Include="Localization.Umbraco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.1\lib\Net45\Localization.Umbraco.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Localization.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Web.0.0.2\lib\Net45\Localization.Web.dll</HintPath>
@@ -880,7 +881,6 @@
     <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
-    <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />
@@ -1107,6 +1107,7 @@
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Localization\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

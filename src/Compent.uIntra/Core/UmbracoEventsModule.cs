@@ -17,8 +17,7 @@ namespace Compent.uIntra.Core
             Init();
             ContentService.Published += ContentServiceOnPublished;
             ContentService.UnPublished += ContentServiceOnUnPublished;
-
-            MemberService.Deleted += MemberServiceOnDeleted;
+            MemberService.Deleting += MemberServiceOnDeleting;
         }
 
         private static void Init()
@@ -42,13 +41,21 @@ namespace Compent.uIntra.Core
             }
         }
 
-        private static void MemberServiceOnDeleted(IMemberService sender, DeleteEventArgs<IMember> e)
+        private static void MemberServiceOnDeleting(IMemberService sender, DeleteEventArgs<IMember> e)
         {
             var cacheableUserService = DependencyResolver.Current.GetService<ICacheableIntranetUserService>();
+            var memberService = DependencyResolver.Current.GetService<IMemberService>();
 
             foreach (var member in e.DeletedEntities)
             {
+                member.IsLockedOut = true;
+                memberService?.Save(member);
                 cacheableUserService?.UpdateUserCache(member.Key);
+            }
+
+            if (e.CanCancel)
+            {
+                e.Cancel = true;                           
             }
         }
     }
