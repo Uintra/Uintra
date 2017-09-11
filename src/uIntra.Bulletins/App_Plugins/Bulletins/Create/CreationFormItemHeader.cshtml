@@ -3,7 +3,8 @@
 
 <header class="feed__item-heading clearfix">
     @Html.Action("Photo", "User", new { user = Model.Creator })
-    <div class="feed__item-title-holder">
+
+    <div class="feed__item-title-holder js-create-bulletin__user hidden">
         <h2 class="feed__item-title">
             @Model.Title
         </h2>
