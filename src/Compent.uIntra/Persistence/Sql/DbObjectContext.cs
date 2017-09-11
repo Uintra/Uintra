@@ -43,6 +43,8 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<MigrationHistory> MigrationHistories { get; set; }
         public DbSet<IntranetMediaEntity> IntranetMediaEntities { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<GroupDocument> GroupDocuments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

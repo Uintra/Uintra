@@ -13,7 +13,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201709110627076_Groups"; }
+            get { return "201709110741345_Groups"; }
         }
         
         string IMigrationMetadata.Source
