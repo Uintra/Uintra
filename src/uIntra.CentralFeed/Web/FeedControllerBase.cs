@@ -50,6 +50,12 @@ namespace uIntra.CentralFeed.Web
             _intranetUserService = intranetUserService;
         }
 
+        public virtual ActionResult Overview()
+        {
+            var model = GetOverviewModel();
+            return PartialView(OverviewViewPath, model);
+        }
+
         [HttpGet]
         public virtual ActionResult Details(Guid id)
         {
@@ -58,12 +64,6 @@ namespace uIntra.CentralFeed.Web
         }
 
         protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
-
-        public virtual ActionResult Overview()
-        {
-            var model = GetOverviewModel();
-            return PartialView(OverviewViewPath, model);
-        }
 
         public virtual ActionResult List(CentralFeedListModel model)
         {           

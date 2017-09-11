@@ -23,6 +23,7 @@ namespace uIntra.Core.Activity
     {
         IIntranetType ActivityType { get; }
         ActivityLinks GetCentralFeedLinks(Guid id);
+        ActivityLinks GetGroupFeedLinks(Guid id);
 
         void Delete(Guid id);
         bool CanEdit(Guid id);

@@ -18,6 +18,18 @@ namespace uIntra.Groups.Web
 {
     public abstract class GroupControllerBase : SurfaceController
     {
+        protected virtual string GroupsListViewPath => "~/App_Plugins/Groups/List/GroupsList.cshtml";
+        protected virtual string GroupsOverviewViewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
+        protected virtual string DisabledViewPath => "~/App_Plugins/Groups/DisablerGroupView/DisabledGroup.cshtml";
+        protected virtual string MyGroupsOverviewViewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
+        protected virtual string CreateGroupViewPath => "~/App_Plugins/Groups/Create/CreateGroupView.cshtml";
+        protected virtual string GroupInfoViewPath => "~/App_Plugins/Groups/Info/GroupInfoView.cshtml";
+        protected virtual string GroupSubscribeViewPath => "~/App_Plugins/Groups/Info/GroupSubscribeView.cshtml";
+        protected virtual string EditGroupViewPath => "~/App_Plugins/Groups/Edit/EditGroupView.cshtml";
+        protected virtual string GroupMemberViewPath => "~/App_Plugins/Groups/Members/GroupMembers.cshtml";
+
+
+
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
@@ -46,7 +58,7 @@ namespace uIntra.Groups.Web
 
         public ActionResult Overview()
         {
-            return PartialView("~/App_Plugins/Groups/List/GroupsOverview.cshtml", new GroupsOverviewModel { IsMyGroupsPage = false });
+            return PartialView(GroupsOverviewViewPath, new GroupsOverviewModel { IsMyGroupsPage = false });
         }
 
         public ActionResult DisabledView(Guid groupId)
@@ -58,12 +70,12 @@ namespace uIntra.Groups.Web
                 Response.Redirect(deactivatedGroupPage.UrlWithGroupId(groupId), true);
             }
 
-            return PartialView("~/App_Plugins/Groups/DisablerGroupView/DisabledGroup.cshtml");
+            return PartialView(DisabledViewPath);
         }
 
         public ActionResult MyGroupsOverview()
         {
-            return PartialView("~/App_Plugins/Groups/List/GroupsOverview.cshtml", new GroupsOverviewModel() { IsMyGroupsPage = true });
+            return PartialView(MyGroupsOverviewViewPath, new GroupsOverviewModel() { IsMyGroupsPage = true });
         }
 
         [DisabledGroupActionFilter]
@@ -113,7 +125,7 @@ namespace uIntra.Groups.Web
             model.AllowedMediaExtentions = overviewPage.GetPropertyValue<string>("allowedMediaExtensions", "");
 
             FillLinks();
-            return PartialView("~/App_Plugins/Groups/Edit/EditGroupView.cshtml", model);
+            return PartialView(EditGroupViewPath, model);
         }
 
         [HttpPost]
@@ -149,7 +161,7 @@ namespace uIntra.Groups.Web
             //createGroupModel.AllowedMediaExtentions = overviewPage.GetPropertyValue<string>("allowedMediaExtensions", "");
 
             FillLinks();
-            return PartialView("~/App_Plugins/Groups/Create/CreateGroupView.cshtml", createGroupModel);
+            return PartialView(CreateGroupViewPath, createGroupModel);
         }
 
         [HttpPost]
@@ -207,7 +219,7 @@ namespace uIntra.Groups.Web
 
             }).OrderByDescending(g => g.Creator.Id == currentUser.Id).ThenByDescending(s => s.IsMember).ThenBy(g => g.Title);
 
-            return PartialView("~/App_Plugins/Groups/List/GroupsList.cshtml", new GroupsListModel()
+            return PartialView(GroupsListViewPath, new GroupsListModel()
             {
                 Groups = groups.Take(take),
                 BlockScrolling = allGroups.Count <= take
@@ -228,7 +240,7 @@ namespace uIntra.Groups.Web
             {
                 groupInfo.GroupImageUrl = Umbraco.TypedMedia(group.ImageId.Value).Url;
             }
-            return PartialView("~/App_Plugins/Groups/Info/GroupInfoView.cshtml", groupInfo);
+            return PartialView(GroupInfoViewPath, groupInfo);
         }
 
         [HttpPost]
@@ -253,7 +265,7 @@ namespace uIntra.Groups.Web
                 MembersCount = _groupMemberService.GetMembersCount(groupId)
             };
 
-            return PartialView("~/App_Plugins/Groups/Info/GroupSubscribeView.cshtml", subscribeModel);
+            return PartialView(GroupSubscribeViewPath, subscribeModel);
         }
 
         [HttpPost]
@@ -313,7 +325,7 @@ namespace uIntra.Groups.Web
                 .ThenBy(s => s.Name)
                 .ToList();
 
-            return PartialView("~/App_Plugins/Groups/Members/GroupMembers.cshtml", model);
+            return PartialView(GroupMemberViewPath, model);
         }
 
 

@@ -21,10 +21,10 @@ namespace uIntra.Groups
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
 
         private const string HomePageTypeAlias = "homePage";
-        private const string GroupOverviewTypeAlias = "groupOverview";
-        private const string GroupRoomTypeAlias = "";
-        private const string GroupEditTypeAlias = "";
-        private const string MyGroupEditTypeAlias = "";
+        private const string GroupOverviewTypeAlias = "groupsOverviewPage";
+        private const string GroupRoomTypeAlias = "groupsRoomPage";
+        private const string GroupEditTypeAlias = "groupsEditPage";
+        private const string MyGroupEditTypeAlias = "groupsMyGroupsOverviewPage";
 
 
         public string NewsCreateTypeAlias { get; set; }

@@ -42,6 +42,11 @@ namespace uIntra.Core.Activity
             );
         }
 
+        public ActivityLinks GetGroupFeedLinks(Guid id)
+        {
+            return GetCentralFeedLinks(id);
+        }
+
         protected abstract string GetProfileLink(Guid activityId);
 
         public TActivity Get(Guid id)
