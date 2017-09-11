@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
@@ -6,7 +7,7 @@ using uIntra.Likes;
 using uIntra.Likes.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
-using Compent.uIntra.Core.Constants;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -15,13 +16,14 @@ namespace Compent.uIntra.Controllers
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
-
-        public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
-            IIntranetUserService<IIntranetUser> intranetUserService, 
-            ILikesService likesService, 
+        public LikesController(
+            IActivitiesServiceFactory activitiesServiceFactory,
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            ILikesService likesService,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper,
             INotificationTypeProvider notificationTypeProvider)
-            : base(activitiesServiceFactory, intranetUserService, likesService)
+            : base(activitiesServiceFactory, intranetUserService, likesService, documentTypeAliasProvider, umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _notificationTypeProvider = notificationTypeProvider;

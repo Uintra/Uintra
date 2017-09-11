@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Comments;
 using Localization.Umbraco.Attributes;
 using uIntra.Comments;
 using uIntra.Comments.Web;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
-using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
-using uIntra.Users;
-using Compent.uIntra.Core.Constants;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -21,30 +19,27 @@ namespace Compent.uIntra.Controllers
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
         protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
 
-        protected override string ContentPageAlias => DocumentTypeAliasConstants.ContentPage;
-
         private readonly ICommentableService _customCommentableService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public CommentsController(
-            ICommentsService commentsService,
+        public CommentsController(ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            INotificationTypeProvider notificationTypeProvider,
-            IIntranetMediaService intranetMediaService,
-            IMediaHelper mediaHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper,
+            ICommentableService customCommentableService,
+            INotificationTypeProvider notificationTypeProvider)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper)
         {
             _customCommentableService = customCommentableService;
-            _notificationTypeProvider = notificationTypeProvider;
             _activitiesServiceFactory = activitiesServiceFactory;
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         protected override void OnCommentCreated(Comment comment)
