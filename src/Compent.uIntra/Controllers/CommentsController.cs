@@ -28,26 +28,24 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly UmbracoHelper _umbracoHelper;
 
-        public CommentsController(
-            ICommentsService commentsService,
+        public CommentsController(ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ICommentableService customCommentableService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            INotificationTypeProvider notificationTypeProvider,
-            IIntranetMediaService intranetMediaService,
-            IMediaHelper mediaHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper)
+            UmbracoHelper umbracoHelper,
+            IMediaHelper mediaHelper,
+            ICommentableService customCommentableService,
+            INotificationTypeProvider notificationTypeProvider)           
             : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper)
         {
             _customCommentableService = customCommentableService;
-            _notificationTypeProvider = notificationTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _umbracoHelper = umbracoHelper;
             _activitiesServiceFactory = activitiesServiceFactory;
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         protected override void OnCommentCreated(Comment comment)
