@@ -45,7 +45,8 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
-              "custom.ComingEvents"
+              "custom.ComingEvents",
+              "custom.LatestActivities"
             ]
           }
         ]
@@ -59,7 +60,8 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
-              "custom.ComingEvents"
+              "custom.ComingEvents",
+              "custom.LatestActivities"
             ]
           },
           {
@@ -68,7 +70,8 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
-              "custom.ComingEvents"
+              "custom.ComingEvents",
+              "custom.LatestActivities"
             ]
           }
         ]
