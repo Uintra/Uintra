@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
+using Umbraco.Web;
 using Umbraco.Web.Mvc;
-using umbraco.cms.businesslogic;
 
 namespace uIntra.Comments.Web
 {
@@ -18,24 +19,28 @@ namespace uIntra.Comments.Web
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
         protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
-        protected abstract string ContentPageAlias { get; }
-
         private readonly ICommentableService _customCommentableService;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly UmbracoHelper _umbracoHelper;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserContentHelper = intranetUserContentHelper;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _umbracoHelper = umbracoHelper;
         }
 
         [HttpPost]
@@ -46,6 +51,7 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.ActivityId);
             }
+
             if (IsForContentPage(model.ActivityId))
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
@@ -108,7 +114,7 @@ namespace uIntra.Comments.Web
 
         public virtual PartialViewResult ContentComments()
         {
-            var guid = new CMSNode(CurrentPage.Id).UniqueId;
+            var guid = CurrentPage.GetGuidKey();
             return OverView(guid, _commentsService.GetMany(guid));
         }
 
@@ -208,7 +214,7 @@ namespace uIntra.Comments.Web
 
         protected virtual bool IsForContentPage(Guid id)
         {
-            return Umbraco.TypedContent(id)?.DocumentTypeAlias == ContentPageAlias;
+            return _umbracoHelper.TypedContent(id).DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)

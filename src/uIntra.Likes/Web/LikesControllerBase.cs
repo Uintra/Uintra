@@ -4,9 +4,10 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using uIntra.Core.User;
+using Umbraco.Web;
 using Umbraco.Web.Mvc;
-using umbraco.cms.businesslogic;
 
 namespace uIntra.Likes.Web
 {
@@ -14,25 +15,28 @@ namespace uIntra.Likes.Web
     {
         protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
-        protected abstract string ContentPageAlias { get; }
-
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ILikesService _likesService;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly UmbracoHelper _umbracoHelper;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            ILikesService likesService)
+            ILikesService likesService,
+            IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserService = intranetUserService;
             _likesService = likesService;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _umbracoHelper = umbracoHelper;
         }
 
         public virtual PartialViewResult ContentLikes()
         {
-            var guid = new CMSNode(CurrentPage.Id).UniqueId;
+            var guid = CurrentPage.GetGuidKey();
             return Likes(_likesService.GetLikeModels(guid), guid);
         }
 
@@ -54,6 +58,7 @@ namespace uIntra.Likes.Web
                 _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
+
             if (IsForContentPage(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.ActivityId);
@@ -71,6 +76,7 @@ namespace uIntra.Likes.Web
                 _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
+
             if (IsForContentPage(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.ActivityId);
@@ -87,7 +93,7 @@ namespace uIntra.Likes.Web
 
         protected virtual bool IsForContentPage(AddRemoveLikeModel model)
         {
-            return Umbraco.TypedContent(model.ActivityId)?.DocumentTypeAlias == ContentPageAlias;
+            return _umbracoHelper.TypedContent(model.ActivityId).DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
         protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null)

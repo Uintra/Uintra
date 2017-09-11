@@ -1,10 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace uIntra.Core.Extentions
@@ -105,6 +105,27 @@ namespace uIntra.Core.Extentions
             }
 
             return result;
+        }
+
+        public static Guid GetGuidKey(this IPublishedContent content)
+        {
+            var contentWithKey = content as IPublishedContentWithKey;
+            if (contentWithKey != null)
+            {
+                return contentWithKey.Key;
+            }
+
+            var wrapped = content as PublishedContentWrapped;
+            if (wrapped != null)
+            {
+                contentWithKey = wrapped.Unwrap() as IPublishedContentWithKey;
+                if (contentWithKey != null)
+                {
+                    return contentWithKey.Key;
+                }
+            }
+
+            return Guid.Empty;
         }
     }
 }
