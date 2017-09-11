@@ -82,7 +82,7 @@ function initDesrcription(){
     item.each(function(i){
         var title = $(item[i]).find(".js-notification__list-heading");
         var url = title.data("url");
-        title.contents().wrap("<a href='" + url +"' class='notification__list-heading-link'></a>")
+        title.contents().wrap("<a href='" + url + "' class='notification__list-heading-link'></a>");
     });
 }
 
@@ -126,6 +126,7 @@ function initInfinityScroll() {
         var promise = formController.reload();
         promise.then(hideLoadingStatus);
         promise.then(initCustomControls);
+        promise.then(initDesrcription);
         promise.catch(hideLoadingStatus);
         return promise;
     }
@@ -166,5 +167,6 @@ export default function() {
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
+    initDesrcription();
     initInfinityScroll();
 }
