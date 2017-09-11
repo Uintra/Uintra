@@ -9,7 +9,6 @@
         return;
     }
     var panelId = "js-content-panel-" + Guid.NewGuid();
-    string importantCssSelector = (viewModel.isImportant as bool?) ?? false ? "_important" : String.Empty;
     bool isImportant = viewModel.isImportant != null ? viewModel.isImportant.Value : false; //Actual type of viewModel.isImportant will be JValue, not pure boolean
     string importantCssSelector = isImportant ? "_important" : String.Empty;
 }
