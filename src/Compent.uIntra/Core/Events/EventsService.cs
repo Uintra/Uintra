@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -50,10 +51,13 @@ namespace Compent.uIntra.Core.Events
 
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+
         public EventsService(UmbracoHelper umbracoHelper,
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
             IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetUserContentHelper intranetUserContentHelper,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
@@ -71,6 +75,7 @@ namespace Compent.uIntra.Core.Events
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
+            _intranetUserContentHelper = intranetUserContentHelper;
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
@@ -199,6 +204,12 @@ namespace Compent.uIntra.Core.Events
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
+        }
+
+        protected override string GetProfileLink(Guid activityId)
+        {
+            var creatorId = Get(activityId).CreatorId;
+            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
         }
 
         protected override void UpdateCache()

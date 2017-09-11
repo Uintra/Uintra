@@ -15,6 +15,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
@@ -64,6 +65,7 @@ namespace uIntra.Events
                 });
 
             Mapper.CreateMap<EventBase, EventViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
@@ -78,6 +80,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 

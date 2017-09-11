@@ -7,6 +7,7 @@ using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -31,7 +32,8 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public EventsController(IEventsService<Event> eventsService,
+        public EventsController(
+            IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IReminderService reminderService,
@@ -49,32 +51,28 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
         }
 
-        public ActionResult CentralFeedItem(IFeedItem item)
+        public ActionResult CentralFeedItem(IFeedItem item, ActivityLinks links)
         {
-            FillLinks();
             var activity = item as Event;
-            var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
+            var extendedModel = GetItemViewModel(activity, links).Map<EventExtendedItemModel>();
             var  userId =_intranetUserService.GetCurrentUser();
             extendedModel.LikesInfo = activity;
             extendedModel.IsSubscribed = activity.Subscribers.Any(s => s.UserId == userId.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(IFeedItem item)
+        public ActionResult PreviewItem(IFeedItem item, ActivityLinks links)
         {
-            FillLinks();
-
             var activity = item as Event;
-            EventPreviewViewModel viewModel = GetPreviewViewModel(activity);
+            EventPreviewViewModel viewModel = GetPreviewViewModel(activity, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }
 
-
-        protected override EventViewModel GetViewModel(EventBase @event)
+        protected override EventViewModel GetViewModel(EventBase @event, ActivityLinks links)
         {
             var eventExtended = (Event)@event;
-            var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
-            extendedModel = Mapper.Map(eventExtended, extendedModel);
+            var extendedModel = base.GetViewModel(@event, links).Map<EventExtendedViewModel>();
+            extendedModel = Mapper.Map(eventExtended, extendedModel); // TODO : investigate why not ev.Map<extended>();
             return extendedModel;
         }
 

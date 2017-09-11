@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
@@ -7,8 +8,6 @@ namespace uIntra.Core.Activity
 {
     public interface IIntranetActivityService<out TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
     {
-        IIntranetType ActivityType { get; }
-
         TActivity Get(Guid id);
         IEnumerable<TActivity> GetManyActual();
         IEnumerable<TActivity> GetAll(bool includeHidden = false);
@@ -19,8 +18,12 @@ namespace uIntra.Core.Activity
 
     }
 
+
     public interface IIntranetActivityService
     {
+        IIntranetType ActivityType { get; }
+        ActivityLinks GetCentralFeedLinks(Guid id);
+
         void Delete(Guid id);
         bool CanEdit(Guid id);
 

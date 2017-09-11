@@ -75,6 +75,7 @@ using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.WebPagePreview;
+using uIntra.Groups;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -172,8 +173,8 @@ namespace Compent.uIntra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
-            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<CompentIntranetUser>>().InRequestScope();
+            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<CompentIntranetUser>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
@@ -255,6 +256,14 @@ namespace Compent.uIntra
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
             kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
+
+            kernel.Bind<IGroupService>().To<GroupService>().InRequestScope(); 
+            kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
+            kernel.Bind<IGroupContentHelper>().To<GroupContentHelper>().InRequestScope();
+            kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
+
+            
+
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();

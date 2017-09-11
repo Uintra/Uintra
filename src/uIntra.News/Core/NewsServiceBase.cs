@@ -2,6 +2,7 @@
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -11,15 +12,18 @@ namespace uIntra.News
     public abstract class NewsServiceBase<TNews> : IntranetActivityService<TNews> where TNews : NewsBase
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected NewsServiceBase(IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService)
+            IIntranetMediaService intranetMediaService,
+            IIntranetUserContentHelper intranetUserContentHelper)
             : base(activityRepository, cache, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public override bool IsActual(IIntranetActivity cachedActivity)
@@ -31,6 +35,12 @@ namespace uIntra.News
         public virtual bool IsExpired(INewsBase news)
         {
             return news.UnpublishDate.HasValue && news.UnpublishDate.Value.Date < DateTime.Now;
+        }
+
+        protected override string GetProfileLink(Guid activityId)
+        {
+            var creatorId = Get(activityId).CreatorId;
+            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
         }
 
         protected virtual bool IsShowIfUnpublish(NewsBase newsEntity)

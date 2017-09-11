@@ -338,23 +338,14 @@
     <Reference Include="uIntra.BaseControls, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.0\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.2.4\lib\net452\uIntra.Bulletins.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.5\lib\net452\uIntra.Comments.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Events, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.3.1\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.4\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Navigation.1.2.0\lib\net452\uIntra.Navigation.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.News, Version=1.2.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.2.1.2\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.5\lib\net452\uIntra.Panels.dll</HintPath>
@@ -783,6 +774,28 @@
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
+    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
+    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
+    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
+    <Content Include="App_Plugins\Groups\Create\create-group.js" />
+    <Content Include="App_Plugins\Groups\Create\group-create.html" />
+    <Content Include="App_Plugins\Groups\DisablerGroupView\disabled-group.html" />
+    <Content Include="App_Plugins\Groups\Documents\group-documents.html" />
+    <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
+    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
+    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\groups.js" />
+    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
+    <Content Include="App_Plugins\Groups\Info\group-info.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.js" />
+    <Content Include="App_Plugins\Groups\Members\group-members.html" />
+    <Content Include="App_Plugins\Groups\Members\group-members.js" />
+    <Content Include="App_Plugins\Groups\_groups.css" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
@@ -831,7 +844,6 @@
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\News\news.js" />
-    <Content Include="App_Plugins\News\style.css" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
@@ -872,7 +884,6 @@
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\Web.config" />
-    <Content Include="App_Plugins\News\style.css" />
     <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
     <Content Include="App_Plugins\SentMails\backoffice\css\icons\7z.svg" />
     <Content Include="App_Plugins\SentMails\backoffice\css\icons\bmp.svg" />
@@ -1049,6 +1060,27 @@
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Groups\CentralFeed\GroupCentralFeedOverview.cshtml" />
+    <Content Include="App_Plugins\Groups\Create\CreateGroupView.cshtml" />
+    <Content Include="App_Plugins\Groups\DisablerGroupView\DisabledGroup.cshtml" />
+    <Content Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
+    <Content Include="App_Plugins\Groups\Documents\GroupDocumentsTable.cshtml" />
+    <Content Include="App_Plugins\Groups\Edit\EditGroupView.cshtml" />
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\Info\GroupInfoView.cshtml" />
+    <Content Include="App_Plugins\Groups\Info\GroupSubscribeView.cshtml" />
+    <Content Include="App_Plugins\Groups\List\GroupsList.cshtml" />
+    <Content Include="App_Plugins\Groups\List\GroupsOverview.cshtml" />
+    <Content Include="App_Plugins\Groups\Members\GroupMembers.cshtml" />
+    <Content Include="App_Plugins\Groups\package.manifest" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201709110741345_Groups.resx">
+      <DependentUpon>201709110741345_Groups.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1134,6 +1166,8 @@
     <Compile Include="Controllers\BulletinsSectionController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\EventsSectionController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\GroupFeedController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
     <Compile Include="Controllers\MyLinksController.cs" />
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
@@ -1152,6 +1186,7 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
+    <Compile Include="Core\CompentIntranetUser.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
@@ -1221,6 +1256,7 @@
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\BasePageWithContentGrid.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BasePageWithGrid.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BulletinsDetailsPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\BulletinsEditPage.generated.cs" />
@@ -1240,6 +1276,14 @@
     <Compile Include="Core\UmbracoModelsBuilders\File.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\Folder.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\GlobalPanelFolder.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsCreatePage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsDeactivatedGroupPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsDocumentsPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsEditPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsMembersPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsMyGroupsOverviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsOverviewPage.generated.cs" />
+    <Compile Include="Core\UmbracoModelsBuilders\GroupsRoomPage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\HomeNavigationComposition.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\HomePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\Image.generated.cs" />
@@ -1268,6 +1312,10 @@
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201709110741345_Groups.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201709110741345_Groups.Designer.cs">
+      <DependentUpon>201709110741345_Groups.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
@@ -1313,11 +1361,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\Bulletins\PreviewItem\" />
-    <Folder Include="App_Plugins\Events\PreviewItem\" />
     <Folder Include="App_Plugins\News\PreviewItem\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
+      <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
+      <Name>uIntra.Bulletins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
       <Name>uIntra.CentralFeed</Name>
@@ -1326,9 +1377,17 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
+      <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
+      <Name>uIntra.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
       <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
       <Name>uIntra.Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
+      <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>
+      <Name>uIntra.News</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
       <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>

@@ -91,6 +91,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// File Name
+		///</summary>
+		[ImplementPropertyType("umbracoFileName")]
+		public string UmbracoFileName
+		{
+			get { return this.GetPropertyValue<string>("umbracoFileName"); }
+		}
+
+		///<summary>
 		/// Height
 		///</summary>
 		[ImplementPropertyType("umbracoHeight")]

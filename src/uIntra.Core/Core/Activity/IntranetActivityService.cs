@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
@@ -28,6 +29,20 @@ namespace uIntra.Core.Activity
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
         }
+
+
+        public  ActivityLinks GetCentralFeedLinks(Guid id)
+        {
+            return new ActivityLinks(
+                overview: GetOverviewPage().Url,
+                create: GetCreatePage().Url,
+                details: GetDetailsPage().Url.AddIdParameter(id),
+                edit: GetEditPage().Url.AddIdParameter(id),
+                profile: GetProfileLink(id)
+            );
+        }
+
+        protected abstract string GetProfileLink(Guid activityId);
 
         public TActivity Get(Guid id)
         {

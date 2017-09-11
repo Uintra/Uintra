@@ -1,0 +1,57 @@
+﻿@using uIntra.Core.Extentions
+@model IList<uIntra.Groups.GroupMemberViewModel>
+@{
+    Layout = null;
+    var groupId = Request.QueryString.Get("groupId");
+}
+<div class="table-holder" id="js-group-members">
+    <table class="members-table">
+        <tr class="members-table__row">
+            <th colspan="2" class="members-table__head">@Html.Localize("GroupMembers.Table.Name.lbl")</th>
+            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Email.lbl")</th>
+            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Phone.lbl")</th>
+            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Role.lbl")</th>
+            <th class="members-table__head"></th>
+        </tr>
+        @foreach (var member in Model)
+            {
+            <tr class="members-table__row">
+                <td class="members-table__cell">
+                    <img class="members-table__img" src="@member.Photo" height="60" />
+                </td>
+                <td class="members-table__cell">
+                    <span>@member.Name</span>
+                </td>
+                <td class="members-table__cell">
+                    <a class="members-table__link" href="mailto:@member.Email">@member.Email</a>
+                </td>
+                <td class="members-table__cell _phone">
+                    @if (!member.PhoneCountryCode.IsNullOrEmpty() || !member.Phone.IsNullOrEmpty())
+                    {
+                        var dialablePhone = $"+{member.PhoneCountryCode + member.Phone}";
+                        var phone = $"{ulong.Parse(member.PhoneCountryCode + member.Phone): +(##) ##-##-##-##}";
+                        <a class="members-table__link" href="tel:@dialablePhone">@phone</a>
+                    }
+                </td>
+                <td class="members-table__cell _role">
+                    @{var role = member.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
+                    <span>@Html.Localize(role)</span>
+                </td>
+                <td class="members-table__cell _delete">
+                    @if (member.CanUnsubscribe)
+                    {
+                        var htmlAttributes = new
+                        {
+                            @class = "members-table__delete icon-close js-action-with-confirm",
+                            data_text = Html.Localize("GroupMembers.Delete.Text.lbl"),
+                            data_ok = Html.Localize("GroupMembers.Delete.Confirm.btn"),
+                            data_cancel = Html.Localize("GroupMembers.Delete.ConfirmCancel.btn")
+                        };
+                        @Html.ActionLink("x", "Unsubscribe", "Group", new { memberId = member.Id, groupId }, htmlAttributes)
+                        ;
+                    }
+                </td>
+            </tr>
+            }
+    </table>
+</div>

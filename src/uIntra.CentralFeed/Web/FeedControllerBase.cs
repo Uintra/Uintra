@@ -22,13 +22,14 @@ namespace uIntra.CentralFeed.Web
         protected abstract string NavigationViewPath { get; }
         protected abstract string LatestActivitiesViewPath { get; }
 
+        protected abstract string DetailsViewPath { get; }
+
         protected virtual int ItemsPerPage => 8;
 
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly ISubscribeService _subscribeService;
         private readonly ICentralFeedService _centralFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         
@@ -45,10 +46,18 @@ namespace uIntra.CentralFeed.Web
             _subscribeService = subscribeService;
             _centralFeedService = centralFeedService;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserContentHelper = intranetUserContentHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
         }
+
+        [HttpGet]
+        public virtual ActionResult Details(Guid id)
+        {
+            DetailsViewModel viewModel = GetDetailsViewModel(id);
+            return PartialView(DetailsViewPath, viewModel);
+        }
+
+        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
 
         public virtual ActionResult Overview()
         {
@@ -57,8 +66,8 @@ namespace uIntra.CentralFeed.Web
         }
 
         public virtual ActionResult List(CentralFeedListModel model)
-        {
-            var centralFeedType = _centralFeedTypeProvider.Get(model.Type);
+        {           
+            var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
             if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
@@ -124,12 +133,11 @@ namespace uIntra.CentralFeed.Web
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
-            FillActivityDetailLinks(pagedItemsList);
 
             return new CentralFeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
-                Items = pagedItemsList,
+                Feed = GetFeedItems(pagedItemsList),
                 Settings = _centralFeedService.GetAllSettings(),
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
@@ -137,18 +145,18 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual void FillActivityDetailLinks(IEnumerable<IFeedItem> items)
+        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items)
         {
-            var currentPage = GetCurrentPage();
+            var services = items
+                .Select(i => i.Type)
+                .Distinct(new IntranetTypeComparer())
+                .Select(t => _activitiesServiceFactory.GetService<IIntranetActivityService>(t.Id))
+                .ToDictionary(s => s.ActivityType.Name);
 
-            foreach (var type in items.Select(i => i.Type).Distinct())
-            {
-                var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(type.Id);
-                ViewData.SetActivityDetailsPageUrl(type.Id, service.GetDetailsPage(currentPage).Url);
-            }
+            var result = items
+                .Select(i => new FeedItemViewModel() {Item = i, Links = services[i.Type.Name].GetCentralFeedLinks(i.Id)});
 
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-            ViewData.SetProfilePageUrl(profilePageUrl);
+            return result;
         }
 
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, CentralFeedSettings settings)
@@ -225,16 +233,6 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected virtual IPublishedContent GetCurrentPage()
-        {
-            if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
-            {
-                return _centralFeedContentHelper.GetOverviewPage();
-            }
-
-            return null;
-        }
-
         protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
         {
             var allSettings = _centralFeedService.GetAllSettings();
@@ -254,6 +252,7 @@ namespace uIntra.CentralFeed.Web
         {
             var activitiesType = _centralFeedTypeProvider.Get(panelModel.ActivityTypeId);
             var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.ActivityAmount);
+            var feedItems = GetFeedItems(latestActivities);
             var settings = _centralFeedService.GetAllSettings();
             var tab = GetTabForActivities(activitiesType);
 
@@ -262,7 +261,7 @@ namespace uIntra.CentralFeed.Web
                 Title = panelModel.Title,
                 Teaser = panelModel.Teaser,
                 Settings = settings,
-                Items = latestActivities,
+                Feed = feedItems,
                 Tab = tab
             };
         }

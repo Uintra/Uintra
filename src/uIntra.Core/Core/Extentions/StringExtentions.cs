@@ -54,7 +54,7 @@ namespace uIntra.Core.Extentions
         {
             return list == null ? "" : string.Join(separator, list);
         }
-     
+
         public static string StripHtml(this string input)
         {
             if (input.IsNullOrEmpty())

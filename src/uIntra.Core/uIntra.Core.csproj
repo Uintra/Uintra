@@ -351,6 +351,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Links\ActivityLinks.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
     <Compile Include="Core\BrowserCompatibility\BrowserCompatibilityConfigurationSection.cs" />
@@ -362,7 +363,6 @@
     <Compile Include="Core\Extentions\StreamExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
-    <Compile Include="Core\Links\ProfileLink.cs" />
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
@@ -377,6 +377,7 @@
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IntranetRoleTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IntranetTypeComparer.cs" />
     <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
     <Compile Include="Core\TypeProviders\IntranetType.cs" />
     <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />

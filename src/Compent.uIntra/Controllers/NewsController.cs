@@ -5,6 +5,7 @@ using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -37,11 +38,10 @@ namespace Compent.uIntra.Controllers
             _documentIndexer = documentIndexer;
         }
 
-        public ActionResult CentralFeedItem(IFeedItem item)
+        public ActionResult CentralFeedItem(IFeedItem item, ActivityLinks links)
         {
-            FillLinks();
             var activity = item as News;
-            var extendedModel = GetItemViewModel(activity).Map<NewsExtendedItemViewModel>();
+            var extendedModel = GetItemViewModel(activity, links).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
             return PartialView(ItemViewPath, extendedModel);
         }

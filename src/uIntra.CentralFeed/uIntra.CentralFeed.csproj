@@ -237,6 +237,7 @@
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -328,7 +329,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Models\CentralFeedListModel.cs" />
+    <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedListModel.cs" />
     <Compile Include="Core\AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeedItemComparer.cs" />
     <Compile Include="Core\CentralFeedEventComparer.cs" />
@@ -336,23 +337,27 @@
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
-    <Compile Include="Core\Models\CentralFeedFiltersStateModel.cs" />
-    <Compile Include="Core\Models\CentralFeedTabModel.cs" />
-    <Compile Include="Core\Models\CentralFeedTabViewModel.cs" />
-    <Compile Include="Core\Models\LatestActivitiesPanelModel.cs" />
-    <Compile Include="Core\Models\LatestActivitiesViewModel.cs" />
+    <Compile Include="Core\Models\FilterState\FeedFilterStateViewModel.cs" />
+    <Compile Include="Core\Models\FilterState\FeedFilterStateModel.cs" />
+    <Compile Include="Core\Models\FilterState\FeedFiltersState.cs" />
+    <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedTabModel.cs" />
+    <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedTabViewModel.cs" />
+    <Compile Include="Core\Models\LatestActivities\LatestActivitiesPanelModel.cs" />
+    <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
-    <Compile Include="Core\ICentralFeedItem.cs" />
+    <Compile Include="Core\Models\Feed\IFeedItem.cs" />
     <Compile Include="Core\ICentralFeedItemService.cs" />
     <Compile Include="Core\ICentralFeedService.cs" />
-    <Compile Include="Core\Models\CentralFeedListViewModel.cs" />
-    <Compile Include="Core\Models\CentralFeedOverviewModel.cs" />
-    <Compile Include="Core\Models\CentralFeedTypeModel.cs" />
+    <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedListViewModel.cs" />
+    <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedOverviewModel.cs" />
+    <Compile Include="Core\Models\Feed\CentralFeed\CentralFeedTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Models\Feed\DetailsViewModel.cs" />
     <Compile Include="Web\FeedControllerBase.cs" />
+    <Compile Include="Core\Models\Feed\FeedItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\CentralFeed\loader.gif" />

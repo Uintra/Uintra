@@ -29,6 +29,40 @@
         "controller": "Bulletins",
         "action": "Details"
       }
+    },
+
+
+
+
+    {
+      "name": "Feed Create bulletins",
+      "alias": "custom.FeedBulletinsCreate",
+      "view": "/App_Plugins/Bulletins/Create/bulletins-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "CreationForm"
+      }
+    },
+    {
+      "name": "Feed Bulletins edit",
+      "alias": "custom.FeedBulletinsEdit",
+      "view": "/App_Plugins/Bulletins/Edit/bulletins-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "Edit"
+      }
+    },
+    {
+      "name": "Feed Bulletins Details",
+      "alias": "custom.FeedBulletinsDetails",
+      "view": "/App_Plugins/Bulletins/Details/bulletins-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "Details"
+      }
     }
   ],
   "javascript": [

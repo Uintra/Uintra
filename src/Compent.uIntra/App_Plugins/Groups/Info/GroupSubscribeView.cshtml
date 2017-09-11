@@ -1,0 +1,20 @@
+﻿@using uIntra.Core.Extentions
+@model uIntra.Groups.GroupSubscribeViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var elementId = $"subscribe_{Model.GroupId}";
+}
+@if (Model.UserId.HasValue)
+{
+    <div class="content__item-subscribe js-group-subscribe" id="@elementId">
+        <div class="content__item-subscribe-set">
+            @using (Html.BeginUmbracoForm("Subscribe", "Group", FormMethod.Post))
+            {
+                <input type="submit" 
+                       value="@(Model.IsMember ? Html.Localize("GroupInfo.Unsubscribe.lnk") : Html.Localize("GroupInfo.Subscribe.lnk"))" 
+                       class="@(Model.IsMember ? "form__btn _submit _unsubscribe" : "form__btn _submit _subscribe")" />
+                <input type="hidden" name="@nameof(Model.GroupId)" value="@Model.GroupId" />
+            }
+        </div>
+    </div>
+}

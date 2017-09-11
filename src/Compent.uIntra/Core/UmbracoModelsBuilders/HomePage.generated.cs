@@ -17,7 +17,6 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -47,7 +46,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Is hide from Left Navigation
+		/// Hide from Left Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromLeftNavigation")]
 		public bool IsHideFromLeftNavigation
@@ -56,7 +55,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Is hide from Sub Navigation
+		/// Hide from Sub Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromSubNavigation")]
 		public bool IsHideFromSubNavigation

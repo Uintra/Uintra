@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using uIntra.Core.User;
 
 namespace uIntra.Groups
 {
-    public interface IGroupMember
+    public interface IGroupMember : IIntranetUser
     {
-        Guid Id { get; }
-
         IEnumerable<Guid> GroupIds { get; set; }
     }
 }

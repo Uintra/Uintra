@@ -4,6 +4,7 @@ using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Events;
+using uIntra.Groups;
 using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
@@ -34,6 +35,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<IntranetUserAutoMapperProfile>();
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
+            Mapper.AddProfile<GroupsAutoMapperProfile>();
 
             var typemaps = Mapper.GetAllTypeMaps();
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using uIntra.Core.Core.Links;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification
@@ -21,6 +21,6 @@ namespace uIntra.Notification
         public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
-        public ProfileLink ProfileLink { get; set; }
+        public string ProfileLink { get; set; }
     }
 }
