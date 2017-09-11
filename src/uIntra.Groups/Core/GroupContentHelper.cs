@@ -19,60 +19,60 @@ namespace uIntra.Groups
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGridHelper _gridHelper;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
-
-        private const string HomePageTypeAlias = "homePage";
-        private const string GroupOverviewTypeAlias = "groupOverview";
-        private const string GroupRoomTypeAlias = "";
-        private const string GroupEditTypeAlias = "";
-        private const string MyGroupEditTypeAlias = "";
-
-
-        public string NewsCreateTypeAlias { get; set; }
-
-        public string EventsCreateTypeAlias { get; set; }
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         public GroupContentHelper(
             UmbracoHelper umbracoHelper,
             IGroupService groupService,
             IGroupMemberService groupMemberService,
             IGridHelper gridHelper,
-            ICentralFeedTypeProvider centralFeedTypeProvider)
+            ICentralFeedTypeProvider centralFeedTypeProvider, 
+            IDocumentTypeAliasProvider documentTypeAliasProvider, IActivityTypeProvider activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _groupService = groupService;
             _groupMemberService = groupMemberService;
             _gridHelper = gridHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public IPublishedContent GetGroupRoomPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePageTypeAlias, GroupOverviewTypeAlias, GroupRoomTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
+                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupRoomPage()));
         }
 
         public IPublishedContent GetCreateGroupPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePageTypeAlias, GroupOverviewTypeAlias, GroupRoomTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
+                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupCreatePage()));
         }
 
         public IPublishedContent GetOverviewPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePageTypeAlias, GroupOverviewTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
+                _documentTypeAliasProvider.GetGroupOverviewPage()));
         }
 
         public IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePageTypeAlias, GroupOverviewTypeAlias, GroupRoomTypeAlias, GroupEditTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
+                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupRoomPage(), _documentTypeAliasProvider.GetGroupEditPage()));
         }
 
         public IPublishedContent GetMyGroupsOverviewPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePageTypeAlias, GroupOverviewTypeAlias, MyGroupEditTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
+                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupMyGroupsOverviewPage()));
         }
 
         public IPublishedContent GetDeactivatedGroupPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(HomePageTypeAlias, GroupOverviewTypeAlias, GroupRoomTypeAlias, GroupRoomTypeAlias));
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
+                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupRoomPage(), _documentTypeAliasProvider.GetGroupDeactivatedPage()));
         }
 
         public bool IsGroupPage(IPublishedContent currentPage)
@@ -98,6 +98,10 @@ namespace uIntra.Groups
             var canEdit = _groupService.CanEdit(groupId, user);
             var memberOfGroup = _groupMemberService.IsGroupMember(groupId, user.Id);
             var editGroupPage = GetEditPage();
+
+            var activityTypes = _activityTypeProvider.GetAll();
+            var activitiesList = activityTypes.Select(_documentTypeAliasProvider.GetCreatePage).ToArray();
+
             foreach (var content in GetContents())
             {
                 if (!canEdit && editGroupPage.Id == content.Id )
@@ -113,9 +117,10 @@ namespace uIntra.Groups
                     IsActive = content.IsAncestorOrSelf(currentContent)
                 };
 
+
                 if (tab.Type != null && memberOfGroup)
                 {
-                    tab.CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(NewsCreateTypeAlias, EventsCreateTypeAlias))?.Url;
+                    tab.CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url;
                 }
 
                 yield return tab;
