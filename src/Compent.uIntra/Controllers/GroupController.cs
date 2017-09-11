@@ -8,10 +8,16 @@ namespace Compent.uIntra.Controllers
 {
     public class GroupController : GroupControllerBase
     {
-        public GroupController(IGroupService groupService, IGroupMemberService groupMemberService, IMediaHelper mediaHelper, IGroupContentHelper groupContentHelper, IUserService userService, IGroupMediaService groupMediaService, IIntranetUserService<IGroupMember> intranetUserService) : base(groupService, groupMemberService, mediaHelper, groupContentHelper, userService, groupMediaService, intranetUserService)
+        public GroupController(IGroupService groupService, 
+            IGroupMemberService groupMemberService, 
+            IMediaHelper mediaHelper,
+            IGroupContentHelper groupContentHelper, 
+            IUserService userService, 
+            IGroupMediaService groupMediaService, 
+            IIntranetUserService<IGroupMember> intranetUserService) 
+            : base(groupService, groupMemberService, mediaHelper, groupContentHelper, groupMediaService, intranetUserService)
         {
         }
-
-        public override string GroupOverviewPageTypeAlias => "groupsOverviewPage";
+        
     }
 }

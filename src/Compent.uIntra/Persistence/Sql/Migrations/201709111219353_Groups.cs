@@ -23,10 +23,10 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         GroupId = c.Guid(nullable: false),
-                        MemeberId = c.Guid(nullable: false),
+                        MemberId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => new { t.GroupId, t.MemeberId }, unique: true, name: "UQ_GroupMember_GroupId_MemeberId");
+                .Index(t => new { t.GroupId, t.MemberId }, unique: true, name: "UQ_GroupMember_GroupId_MemberId");
             
             CreateTable(
                 "dbo.uIntra_Group",
@@ -38,7 +38,6 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                         CreatedDate = c.DateTime(nullable: false),
                         UpdatedDate = c.DateTime(nullable: false),
                         CreatorId = c.Guid(nullable: false),
-                        ParentActivityId = c.Guid(),
                         ImageId = c.Int(),
                         IsHidden = c.Boolean(nullable: false),
                         GroupTypeId = c.Int(nullable: false),
@@ -49,7 +48,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
         
         public override void Down()
         {
-            DropIndex("dbo.uIntra_GroupMember", "UQ_GroupMember_GroupId_MemeberId");
+            DropIndex("dbo.uIntra_GroupMember", "UQ_GroupMember_GroupId_MemberId");
             DropTable("dbo.uIntra_Group");
             DropTable("dbo.uIntra_GroupMember");
             DropTable("dbo.uIntra_GroupDocument");
