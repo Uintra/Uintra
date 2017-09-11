@@ -169,7 +169,8 @@ namespace uIntra.Users
                 UmbracoId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser),
                 Email = member.Email,
                 LoginName = member.Username,
-                Role = GetMemberRole(member)
+                Role = GetMemberRole(member),
+                Inactive = member.IsLockedOut
             };
 
             string userPhoto = null;
