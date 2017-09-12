@@ -21,6 +21,7 @@ using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
+using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
 using Localization.Core;
@@ -173,8 +174,8 @@ namespace Compent.uIntra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<CompentIntranetUser>>().InRequestScope();
-            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<CompentIntranetUser>>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<IntranetUser>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();

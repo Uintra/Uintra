@@ -23,8 +23,8 @@ namespace Compent.uIntra
             Mapper.AddProfile<NewsAutoMapperProfile>();
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
             Mapper.AddProfile<LightboxAutoMapperProfile>();
-            Mapper.AddProfile<NavigationAutoMapperProfile>();
             Mapper.AddProfile<Core.Navigation.NavigationAutoMapperProfile>();
+            Mapper.AddProfile<NavigationAutoMapperProfile>();
             Mapper.AddProfile<EventsAutoMapperProfile>();
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
             Mapper.AddProfile<BulletinsAutoMapperProfile>();
@@ -33,6 +33,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<Core.Notification.NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<IntranetUserAutoMapperProfile>();
+            Mapper.AddProfile<Core.Users.IntranetUserAutoMapperProfile>();
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
             Mapper.AddProfile<GroupsAutoMapperProfile>();

@@ -359,11 +359,6 @@
     <Reference Include="uIntra.Tagging, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Tagging.1.1.5\lib\net452\uIntra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.5.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Users.1.5.0.1\lib\net452\uIntra.Users.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.dll</HintPath>
       <Private>True</Private>
@@ -1193,7 +1188,6 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
-    <Compile Include="Core\CompentIntranetUser.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
@@ -1311,6 +1305,9 @@
     <Compile Include="Core\UmbracoModelsBuilders\SubscribePage.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SystemLink.generated.cs" />
     <Compile Include="Core\UmbracoModelsBuilders\SystemLinkFolder.generated.cs" />
+    <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Users\Entities\IntranetUser.cs" />
+    <Compile Include="Core\Users\IntranetUserService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1399,6 +1396,10 @@
     <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
       <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
       <Name>uIntra.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
+      <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
+      <Name>uIntra.Users</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

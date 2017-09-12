@@ -1,11 +1,12 @@
 ﻿using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
+using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace uIntra.Users
+namespace Compent.uIntra.Core.Users
 {
     public class IntranetUserService<T> : IntranetUserServiceBase<T>
          where T : IntranetUser, new()
