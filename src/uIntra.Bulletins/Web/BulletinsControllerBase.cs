@@ -199,7 +199,7 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
-        protected virtual BulletinPreviewViewModel GetPreviewViewModel(BulletinBase bulletin)
+        protected virtual BulletinPreviewViewModel GetPreviewViewModel(BulletinBase bulletin, ActivityLinks links)
         {
             var creator = _userService.Get(bulletin);
             return new BulletinPreviewViewModel()
@@ -208,7 +208,8 @@ namespace uIntra.Bulletins.Web
                 Description = bulletin.Description,
                 PublishDate = bulletin.PublishDate,
                 Creator = creator,
-                ActivityType = bulletin.Type
+                ActivityType = bulletin.Type,
+                Links = links
             };
         }
 

@@ -60,10 +60,9 @@ namespace Compent.uIntra.Controllers
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(IFeedItem item, ActivityLinks links)
+        public ActionResult PreviewItem(Event item, ActivityLinks links)
         {
-            var activity = item as Event;
-            EventPreviewViewModel viewModel = GetPreviewViewModel(activity, links);
+            EventPreviewViewModel viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }
 

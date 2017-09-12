@@ -5,7 +5,7 @@
 @model uIntra.Comments.CommentViewModel
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
-   @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.Links.Profile })
+   @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.Links.Creator })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about">

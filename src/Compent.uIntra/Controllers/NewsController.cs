@@ -44,11 +44,9 @@ namespace Compent.uIntra.Controllers
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(News item)
+        public ActionResult PreviewItem(News item, ActivityLinks links)
         {
-            FillLinks();
-            var activity = item;
-            NewsPreviewViewModel viewModel = GetPreviewViewModel(activity);
+            NewsPreviewViewModel viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }
 

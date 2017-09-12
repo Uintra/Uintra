@@ -191,7 +191,7 @@ namespace uIntra.News.Web
         }
 
 
-        protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news)
+        protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news, ActivityLinks links)
         {
             IIntranetUser creator = _intranetUserService.Get(news);
             return new NewsPreviewViewModel()
@@ -200,7 +200,8 @@ namespace uIntra.News.Web
                 Title = news.Title,
                 PublishDate = news.PublishDate,
                 Creator = creator,
-                ActivityType = news.Type
+                ActivityType = news.Type,
+                Links = links
             };
         }
 
