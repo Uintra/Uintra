@@ -23,7 +23,7 @@ namespace Compent.uIntra.Controllers
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             UmbracoHelper umbracoHelper,
             INotificationTypeProvider notificationTypeProvider)
-            : base(activitiesServiceFactory, intranetUserService, likesService, documentTypeAliasProvider, umbracoHelper)
+            : base(activitiesServiceFactory, intranetUserService, likesService)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _notificationTypeProvider = notificationTypeProvider;
@@ -51,5 +51,7 @@ namespace Compent.uIntra.Controllers
 
             return like;
         }
+
+        protected override string ContentPageAlias { get; }
     }
 }

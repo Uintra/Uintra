@@ -6,6 +6,7 @@ using uIntra.Comments.Web;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
@@ -24,6 +25,8 @@ namespace Compent.uIntra.Controllers
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly UmbracoHelper _umbracoHelper;
 
         public CommentsController(ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -31,11 +34,14 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             UmbracoHelper umbracoHelper,
+            IMediaHelper mediaHelper,
             ICommentableService customCommentableService,
-            INotificationTypeProvider notificationTypeProvider)
+            INotificationTypeProvider notificationTypeProvider)           
             : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper)
         {
             _customCommentableService = customCommentableService;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _umbracoHelper = umbracoHelper;
             _activitiesServiceFactory = activitiesServiceFactory;
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;

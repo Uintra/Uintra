@@ -234,6 +234,15 @@
             }
         }
 
+        &-inactive{
+            color:var(--text-color-light);
+            display:none;
+
+            ._inactive &{
+                display:inline-block;
+            }
+        }
+
         &-feed{
             font-size:13px;
             line-height:1.3em;
