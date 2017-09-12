@@ -7,7 +7,7 @@ namespace Compent.uIntra.Core.Licence
 {
     public sealed class ValidateLicenceService : IValidateLicenceService
     {
-        private const int MaxAllowedTrialUsers = 5;
+        private const int MaxAllowedTrialUsers = 30;
         private const string CompentLicenceKey = "CompentLicenceKey";
 
         private readonly IMemberService _memberService;

@@ -7,11 +7,11 @@ using System.Web;
 
 namespace Compent.uIntra.Core.Licence
 {
-    public class LicenceRequestHandler: ILicenceRequestHandler
+    public class LicenceRequestHandler : ILicenceRequestHandler
 
     {
-        private IEnumerable<string> StaticFileExtensions => new[] {".js", ".css", ".png", ".ttf", ".img", ".map", ".jpg", ".jpeg", ".ico"};
-        private IEnumerable<string> DisallowedContentTypes => new[] {"application/json", "application/xml"};
+        private IEnumerable<string> StaticFileExtensions => new[] { ".js", ".css", ".png", ".ttf", ".img", ".map", ".jpg", ".jpeg", ".ico" };
+        private IEnumerable<string> DisallowedContentTypes => new[] { "application/json", "application/xml" };
         private const string HandlerRequestRegex = ".*\\.axd.*|.*\\.ashx.*|.*asmx.*|.*\\.svc.*";
         private const string StagingEnvironmentRegex = ".*stage.*|.*staging.*|.*preview.*|.*local.*|.*demo.*|.*uat\\..*|.*developer.*|.*\\.local|test\\..*|dev\\..*";
         private const string LicenceViewName = "licence.html";
@@ -56,7 +56,7 @@ namespace Compent.uIntra.Core.Licence
 
         private bool IsServiceRequest(Lazy<bool> isContentTypeAllowed, HttpRequest request)
         {
-            bool isGetRequest = request.Url.ToString().Contains('?') || request.HttpMethod != "GET";
+            bool isGetRequest = request.HttpMethod != "GET";
             bool isAcceptTypesEmpty = request.AcceptTypes == null || !request.AcceptTypes.Any();
 
             return isGetRequest || !isAcceptTypesEmpty && isContentTypeAllowed.Value;

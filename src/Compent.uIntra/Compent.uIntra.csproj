@@ -977,6 +977,7 @@
     <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="licence.html" />
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
