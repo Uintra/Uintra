@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using uIntra.Groups.Sql;
-
+// TODO TODO TODO TODO x100 : services now work with SQL entities!!1
 namespace uIntra.Groups
 {
     public interface IGroupMemberService
@@ -23,7 +23,5 @@ namespace uIntra.Groups
         bool IsGroupMember(Guid groupId, Guid userId);
 
         bool IsGroupMember(Guid groupId, IGroupMember member);
-
-        void FillGroupMember(IGroupMember member);
     }
 }

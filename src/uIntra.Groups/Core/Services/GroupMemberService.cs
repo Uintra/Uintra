@@ -17,26 +17,24 @@ namespace uIntra.Groups
 
         public void Add(Guid groupId, Guid memberId)
         {
-            var groupMember = new GroupMember()
-            {
-                Id = Guid.NewGuid(),
-                GroupId = groupId,
-                MemberId = memberId,
-            };
-
+            var groupMember = GetNewGroupMember(groupId, memberId);
             _groupMemberRepository.Add(groupMember);
         }
 
-        public void AddMany(Guid groupId, IEnumerable<Guid> memberId)
+        public void AddMany(Guid groupId, IEnumerable<Guid> memberIds)
         {
-            var groupMembers = memberId.Select(m => new GroupMember()
+            var groupMembers = memberIds.Select(m => GetNewGroupMember(groupId, m));
+            _groupMemberRepository.Add(groupMembers);
+        }
+
+        private GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
+        {
+            return new GroupMember()
             {
                 Id = Guid.NewGuid(),
-                MemberId = m,
+                MemberId = memberId,
                 GroupId = groupId
-            });
-
-            _groupMemberRepository.Add(groupMembers);
+            };
         }
 
         public void Remove(Guid groupId, Guid memberId)
@@ -72,11 +70,6 @@ namespace uIntra.Groups
         public bool IsGroupMember(Guid groupId, IGroupMember member)
         {
             return member.GroupIds.Contains(groupId);
-        }
-
-        public void FillGroupMember(IGroupMember member)
-        {
-            member.GroupIds = GetGroupMemberByMember(member.Id).Select(g => g.GroupId);
         }
     }
 }
