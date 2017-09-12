@@ -1086,6 +1086,9 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedCreateView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201709121545185_GroupActivity.resx">
+      <DependentUpon>201709121545185_GroupActivity.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1323,6 +1326,10 @@
     <Compile Include="Persistence\Sql\Migrations\201709111219353_Groups.cs" />
     <Compile Include="Persistence\Sql\Migrations\201709111219353_Groups.Designer.cs">
       <DependentUpon>201709111219353_Groups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201709121545185_GroupActivity.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201709121545185_GroupActivity.Designer.cs">
+      <DependentUpon>201709121545185_GroupActivity.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

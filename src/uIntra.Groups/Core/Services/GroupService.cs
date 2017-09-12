@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using uIntra.Core;
 using uIntra.Core.Caching;
 using uIntra.Core.Persistence;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
+using uIntra.Groups.Constants;
 using uIntra.Groups.Sql;
+using Group = uIntra.Groups.Sql.Group;
 
 namespace uIntra.Groups
 {
     public class GroupService : IGroupService
     {
         private readonly ISqlRepository<Group> _groupRepository;
+        private readonly ISqlRepository<GroupActivity> _groupActivityRepository;
         private readonly ICacheService _memoryCacheService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -24,13 +28,15 @@ namespace uIntra.Groups
             ICacheService memoryCacheService,
             IGroupMemberService groupMemberService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            ISqlRepository<GroupActivity> groupActivityRepository)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
             _groupMemberService = groupMemberService;
             _intranetUserService = intranetUserService;
             _permissionsService = permissionsService;
+            _groupActivityRepository = groupActivityRepository;
         }
 
         public void Create(Group group)
@@ -142,6 +148,24 @@ namespace uIntra.Groups
             Edit(group);
         }
 
+        public void AddGroupActivityRelation(Guid groupId, Guid activityId)
+        {
+            var relation = new GroupActivity()
+            {
+                ActivityId = activityId,
+                GroupId = groupId,
+                Id = new Guid()
+            };
+
+            _groupActivityRepository.Add(relation);
+        }
+
+        public void RemoveGroupActivityRelation(Guid groupId, Guid activityId)
+        {
+            _groupActivityRepository.Delete(r => r.ActivityId.Equals(activityId) && r.GroupId.Equals(groupId));
+        }
+
+
         private static DateTimeOffset GetCacheExpiration()
         {
             return DateTimeOffset.Now.AddDays(1);
@@ -153,6 +177,18 @@ namespace uIntra.Groups
             groups = groups.FindAll(a => a.Id != group.Id);
             groups.Add(group);
             _memoryCacheService.Set(GroupCacheKey, groups, GetCacheExpiration());
+        }
+
+        public Guid? GetGroupIdFromQuery(string query)
+        {
+            var regEx = GroupConstants.GroupIdQueryParam + @"=([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})";
+            var activityIdMatch = Regex.Match(query, regEx, RegexOptions.IgnoreCase);
+
+            if (activityIdMatch.Success)
+            {
+                return new Guid(activityIdMatch.Groups[1].Value);
+            }
+            return null;
         }
     }
 }

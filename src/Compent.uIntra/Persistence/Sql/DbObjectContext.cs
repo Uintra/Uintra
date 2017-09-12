@@ -45,6 +45,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<GroupDocument> GroupDocuments { get; set; }
+        public DbSet<GroupActivity> GroupActivities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

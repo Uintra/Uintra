@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.News.Entities;
@@ -8,6 +9,7 @@ using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using uIntra.Groups;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
@@ -23,6 +25,7 @@ namespace Compent.uIntra.Controllers
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly IGroupService _groupService;
 
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -30,11 +33,12 @@ namespace Compent.uIntra.Controllers
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
-            IDocumentIndexer documentIndexer)
+            IDocumentIndexer documentIndexer, IGroupService groupService)
             : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _documentIndexer = documentIndexer;
+            _groupService = groupService;
         }
 
         public ActionResult CentralFeedItem(News item, ActivityLinks links)
@@ -66,6 +70,15 @@ namespace Compent.uIntra.Controllers
         {
             base.DeleteMedia(mediaIds);
             _documentIndexer.DeleteFromIndex(mediaIds);
+        }
+
+        protected override void OnNewsCreated(Guid activityId, NewsCreateModel model)
+        {
+            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            if (groupId.HasValue)
+            {
+                _groupService.AddGroupActivityRelation(groupId.Value, activityId);
+            }
         }
     }
 

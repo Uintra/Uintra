@@ -71,5 +71,16 @@ namespace Compent.uIntra.Controllers
         {
             _myLinksService.DeleteByActivityId(id);
         }
+
+        protected override void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
+        {
+            base.OnBulletinCreated(bulletin, model);
+
+            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            if (groupId.HasValue)
+            {
+                _groupService.AddGroupActivityRelation(groupId.Value, bulletin.Id);
+            }
+        }
     }
 }
