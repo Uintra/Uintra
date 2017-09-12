@@ -4,8 +4,8 @@
 @using uIntra.Core.Extentions
 @model uIntra.Comments.CommentViewModel
 
-@{ 
-    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty; 
+@{
+    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
