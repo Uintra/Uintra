@@ -31,17 +31,16 @@ namespace Compent.uIntra.Controllers
             _myLinksService = myLinksService;
         }
 
-        protected override BulletinViewModel GetViewModel(BulletinBase bulletin)
+        protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityLinks links)
         {
             var extendedBullet = (Bulletin)bulletin;
-            var extendedModel = base.GetViewModel(bulletin).Map<BulletinExtendedViewModel>();
+            var extendedModel = base.GetViewModel(bulletin, links).Map<BulletinExtendedViewModel>();
             extendedModel = Mapper.Map(extendedBullet, extendedModel);
             return extendedModel;
         }
 
         public ActionResult CentralFeedItem(Bulletin item, ActivityLinks links)
         {
-            FillLinks();
             var activity = item;
             var extendedModel = GetItemViewModel(activity, links).Map<BulletinExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;

@@ -56,15 +56,15 @@ namespace uIntra.Bulletins.Web
             return PartialView(CreationFormViewPath, result);
         }
 
-        public virtual ActionResult Details(Guid id)
+        public virtual ActionResult Details(Guid id, ActivityLinks links)
         {
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
-            var model = GetViewModel(bulletin);
+            var model = GetViewModel(bulletin, links);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -161,14 +161,18 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
-        protected virtual BulletinViewModel GetViewModel(BulletinBase bulletin)
+        protected virtual BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityLinks links)
         {
             var model = bulletin.Map<BulletinViewModel>();
+
+            model.CanEdit = _bulletinsService.CanEdit(bulletin);
+            model.Links = links;
+
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
             model.HeaderInfo.Creator = _userService.Get(bulletin);
+            model.HeaderInfo.Links = links;
 
-            model.CanEdit = _bulletinsService.CanEdit(bulletin);
             return model;
         }
 
