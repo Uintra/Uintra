@@ -24,8 +24,8 @@ namespace uIntra.Groups.Web
         protected virtual string MyGroupsOverviewPath => "~/App_Plugins/Groups/List/GroupsOverview.cshtml";
         protected virtual string GroupFeedOverview => "~/App_Plugins/Groups/CentralFeed/GroupFeedOverview.cshtml";
         protected virtual string GroupCreateView => "~/App_Plugins/Groups/Create/CreateGroupView.cshtml";
-        protected virtual string GroupsListView => "~/App_Plugins/Groups/List/GroupsList.cshtml";
-        protected virtual string GroupEditView => "~/App_Plugins/Groups/Edit/EditGroupView.cshtml";
+        protected virtual string ListView => "~/App_Plugins/Groups/List/GroupsList.cshtml";
+        protected virtual string EditView => "~/App_Plugins/Groups/Edit/EditGroupView.cshtml";
         protected virtual string GroupInfoView => "~/App_Plugins/Groups/Info/GroupInfoView.cshtml";
         protected virtual string GroupSubscribeView => "~/App_Plugins/Groups/Info/GroupSubscribeView.cshtml";
         protected virtual string GroupMembersView => "~/App_Plugins/Groups/Members/GroupMembers.cshtml";
@@ -34,7 +34,7 @@ namespace uIntra.Groups.Web
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupContentHelper _groupContentHelper;
-        private readonly IIntranetUserService<IIntranetUser> _userService;
+        private readonly IIntranetUserService<IGroupMember> _userService;
         private readonly IGroupMediaService _groupMediaService;
 
         protected int ItemsPerPage = 10;
@@ -44,7 +44,7 @@ namespace uIntra.Groups.Web
             IMediaHelper mediaHelper,
             IGroupContentHelper groupContentHelper,
             IGroupMediaService groupMediaService,
-            IIntranetUserService<IIntranetUser> userService)
+            IIntranetUserService<IGroupMember> userService)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
@@ -92,7 +92,7 @@ namespace uIntra.Groups.Web
             model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
 
             FillLinks();
-            return PartialView(GroupEditView, model);
+            return PartialView(EditView, model);
         }
 
         [HttpPost]
@@ -161,16 +161,14 @@ namespace uIntra.Groups.Web
             var currentUser = _userService.GetCurrentUser();
             List<Group> allGroups;
 
-            //if (isMyGroupsPage)
-            //{
-            //    allGroups = _groupService.GetMany(currentUser.GroupIds).ToList();
-            //}
-            //else
-            //{
-            //    allGroups = _groupService.GetAllNotHidden().ToList();
-            //}
-
-            allGroups = _groupService.GetAllNotHidden().ToList();
+            if (isMyGroupsPage)
+            {
+                allGroups = _groupService.GetMany(currentUser.GroupIds).ToList();
+            }
+            else
+            {
+                allGroups = _groupService.GetAllNotHidden().ToList();
+            }
 
             var groups = allGroups.Select(g =>
             {
@@ -178,7 +176,7 @@ namespace uIntra.Groups.Web
 
             }).OrderByDescending(g => g.Creator.Id == currentUser.Id).ThenByDescending(s => s.IsMember).ThenBy(g => g.Title);
 
-            return PartialView(GroupEditView, new GroupsListModel()
+            return PartialView(ListView, new GroupsListModel()
             {
                 Groups = groups.Take(take),
                 BlockScrolling = allGroups.Count <= take
