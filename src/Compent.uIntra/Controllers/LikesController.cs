@@ -23,7 +23,7 @@ namespace Compent.uIntra.Controllers
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             UmbracoHelper umbracoHelper,
             INotificationTypeProvider notificationTypeProvider)
-            : base(activitiesServiceFactory, intranetUserService, likesService)
+            : base(activitiesServiceFactory, intranetUserService, likesService, documentTypeAliasProvider, umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _notificationTypeProvider = notificationTypeProvider;
@@ -32,7 +32,6 @@ namespace Compent.uIntra.Controllers
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
             var like = base.AddLike(model);
-
 
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
@@ -51,7 +50,5 @@ namespace Compent.uIntra.Controllers
 
             return like;
         }
-
-        protected override string ContentPageAlias { get; }
     }
 }
