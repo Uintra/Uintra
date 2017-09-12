@@ -60,7 +60,9 @@ var initDates = function (holder) {
     publish.config.onChange.push(publishDateChanged);
 
     function setMinDate(minDate) {
-        minDate && unpublish.set('minDate', minDate);
+        if(unpublish){
+            minDate && unpublish.set('minDate', minDate);
+        }
         pin.set('minDate', minDate);
     }
 

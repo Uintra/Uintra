@@ -18,10 +18,8 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Web.PublishedContentModels;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -67,8 +65,9 @@ namespace Compent.uIntra.Core.Events
             IActivityTypeProvider activityTypeProvider,
             ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
+            IIntranetMediaService intranetMediaService,
             IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
@@ -200,6 +199,12 @@ namespace Compent.uIntra.Core.Events
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
+        }
+
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
         }
 
         protected override Event UpdateCachedEntity(Guid id)
@@ -361,8 +366,12 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
+
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
+                        
+                            data.Value = new CommentNotifierDataModel
                         {
                             CommentId = entityId,
                             ActivityType = ActivityType,

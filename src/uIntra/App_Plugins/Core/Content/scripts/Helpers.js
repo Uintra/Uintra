@@ -117,17 +117,30 @@ var helpers = {
 
         return datePicker;
     },
-    infiniteScrollFactory: function (onScroll) {
+    infiniteScrollFactory: function (onScroll, scrollContainer) {
+        const defaultScrollKoef = 150;
+
         return function () {
             var lock = false;
             var win = $(window);
             var doc = $(document);
             var unlock = function () { lock = false; }
             win.scroll(function () {
-                if ((win.scrollTop() + 70) >= doc.height() - win.height()) {
-                    if (!lock) {
-                        lock = true;
-                        onScroll(unlock);
+                if (scrollContainer) {
+                    let params = scrollContainer.getBoundingClientRect();
+
+                    if (-params.top + defaultScrollKoef >= params.height - screen.height) {
+                        if (!lock) {
+                            lock = true;
+                            onScroll(unlock);
+                        }
+                    }
+                } else {
+                    if ((win.scrollTop() + defaultScrollKoef) >= doc.height() - win.height()) {
+                        if (!lock) {
+                            lock = true;
+                            onScroll(unlock);
+                        }
                     }
                 }
             });
@@ -192,11 +205,12 @@ var helpers = {
 
         return s.join("&").replace(/%20/g, "+");
     },
-    clampText: function(container) {
+    clampText: function(container, url) {
         var $container = $(container);
         $container.dotdotdot({
             watch: 'window'
         });
+        $container.contents().wrap( "<a href='" + url +"' class='feed__item-txt-link'></a>" );
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);

@@ -61,8 +61,10 @@ namespace Compent.uIntra.Core.Bulletins
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
-            IMediaHelper mediaHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider)
+            IMediaHelper mediaHelper,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IIntranetMediaService intranetMediaService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -108,6 +110,11 @@ namespace Compent.uIntra.Core.Bulletins
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
+        }
 
         public override bool CanEdit(IIntranetActivity cached)
         {
@@ -313,6 +320,27 @@ namespace Compent.uIntra.Core.Bulletins
                         };
                     }
                     break;
+
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        bulletinsEntity = Get(comment.ActivityId);
+
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
+
+                        data.Value = new CommentNotifierDataModel
+                        {
+                            CommentId = entityId,
+                            ActivityType = ActivityType,
+                            NotifierId = currentUser.Id,
+                            Title = bulletinsEntity.Title,
+                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
+                        };
+                    }
+                    break;
+
                 default:
                     return null;
             }

@@ -4,16 +4,27 @@ import ajax from "./../../Core/Content/scripts/Ajax";
 
 require('select2');
 
+const onlyPinnedFilterSelector = 'input[name="onlyPinned"]';
+
 var infinityScroll = helpers.infiniteScrollFactory;
 var searchTimeout;
 var formController;
 var holder;
 var select;
+let scrollHeight = 0;
 
 var initTypesSelect = function () {
     select.select2({
         placeholder: select.data("placeholder")
     });
+}
+
+function initOnlyPinnedFilter() {
+    $(onlyPinnedFilterSelector).on('change', onlyPinnedFilterChangeHandler);
+}
+
+function onlyPinnedFilterChangeHandler(event) {
+    search();
 }
 
 function initSearchPage() {
@@ -50,7 +61,7 @@ function initInfinityScroll() {
         get storageName() {
             return "searchResults";
         }
-    } 
+    }
 
     function saveState() {
         localStorage.setItem(state.storageName, { page: state.page });
@@ -76,7 +87,7 @@ function initInfinityScroll() {
         promise.catch(hideLoadingStatus);
         return promise;
     }
-    
+
     function restoreState() {
         var hash = (window.location.hash || "").replace("#", "");
         if (hash) {
@@ -101,16 +112,26 @@ function initInfinityScroll() {
         }
         state.page++;
         var promise = reload();
-        promise.then(done, done);
+        if (isScrollDirectionBottom()) {
+            promise.then(done, done);
+        }
     }
 
     restoreState();
     infinityScroll(onScroll)();
 }
 
+function isScrollDirectionBottom() {
+    const tempScrollHeight = Math.max(scrollHeight, window.pageYOffset);
+    scrollHeight = window.pageYOffset;
+
+    return tempScrollHeight < scrollHeight;
+}
+
 function search() {
     holder.find('input[name="page"]').val(1);
     formController.reload();
+    initInfinityScroll();
 }
 
 export default function () {
@@ -123,6 +144,6 @@ export default function () {
     initSearchPage();
     initInfinityScroll();
     initTypesSelect();
-
+    initOnlyPinnedFilter();
     search();
 };

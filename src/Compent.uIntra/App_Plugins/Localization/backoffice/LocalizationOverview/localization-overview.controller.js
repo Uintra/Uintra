@@ -2,7 +2,7 @@
     'use strict';
 
     var controller = function ($scope, notificationsService, dialogService, assetsService,
-        localizationResourceService) {
+        userService, localizationResourceService) {
         var self = this;
 
         // Don't move it to package.manifest
@@ -14,13 +14,18 @@
         var defaultDateTime = "";
         var defaultResource = {};
 
-        self.resources = {};
-        self.languages = {};
+        self.filter = { text: "", showActive: false };
+        self.resources = [];
+        self.languages = [];
         self.listSettings = {
             isShowUpdateDate: false,
             isShowDescription: false
         };
-        self.workspaceDisalbed = true;
+        self.workspaceDisabled = true;
+
+        self.permissions = {
+            isCanDelete: false
+        };
 
         self.activate = function (resource) {
             resource.isActive = !resource.isActive;
@@ -58,16 +63,67 @@
         }
 
         self.refresh = function () {
-            self.workspaceDisalbed = true;
+            self.workspaceDisabled = true;
+            self.filter = {
+                showActive: false,
+                text: ""
+            };
+
             init();
+        }
+
+        self.filterResources = function (resource) {
+            var filterValue = self.filter.text.toLowerCase();
+
+            function isKeyContains() {
+                var result = resource.key.toLowerCase().indexOf(filterValue) >= 0;
+                return result;
+            }
+
+            function isTranslationsContains() {
+                var result = false;
+
+                for (var transaction in resource.transactions) {
+                    if (resource.transactions.hasOwnProperty(transaction) && resource.transactions[transaction].toLowerCase().indexOf(filterValue) >= 0) {
+                        result = true;
+                        break;
+                    }
+                }
+
+                return result;
+            }
+
+            function isDescriptionContains() {
+                var result = resource.description !== null && resource.description.toLowerCase().indexOf(filterValue) >= 0;
+                return result;
+            }
+
+            function isParentContains() {
+                var result = resource.parentKey !== null && resource.parentKey.toLowerCase().indexOf(filterValue) >= 0;
+                return result;
+            }
+
+            if (!self.filter.text.trim()) {
+                return true;
+            }
+
+            var result = isKeyContains() || isTranslationsContains() || isDescriptionContains() || isParentContains();
+            return result;
+        }
+
+        self.filterActive = function (resource) {
+            var result = !self.filter.showActive || resource.isActive;
+            return result;
         }
 
         function saveResource(resource) {
             localizationResourceService.saveResource(resource.oldKey, resource).then(function (response) {
-
                 var index = self.resources.findIndex(function (sResource) {
                     return sResource.key === resource.oldKey;
                 });
+
+                var oldResource = self.resources[index];
+                response.data.isActive = oldResource.isActive;
                 self.resources[index] = response.data;
 
                 notificationsService.success("Success", "Resource " + resource.key + " was saved successfully");
@@ -117,11 +173,11 @@
                     return;
                 }
 
-                var storedResource = self.resources.filter(function (sResource) {
+                var storedResource = self.resources.find(function (sResource) {
                     return sResource.key.toLowerCase() === resource.key.toLowerCase();
                 });
 
-                resource.invalid = storedResource.length > 0;
+                resource.invalid = typeof storedResource !== "undefined";
             }
 
             function getStoredKeys() {
@@ -158,12 +214,12 @@
         function init() {
             localizationResourceService.getLocalizationOverview().then(function (response) {
                 self.resources = response.data.resources;
-                defaultDateTime = response.data.defaultDateTime;
                 defaultResource = response.data.defaultResourceModel;
                 defaultResource.isDefault = true;
 
                 self.languages = response.data.languages;
 
+                defaultDateTime = response.data.defaultDateTime;
                 self.listSettings.isShowUpdateDate = self.resources.some(function (resource) {
                     return resource.updateDate !== defaultDateTime;
                 });
@@ -172,9 +228,13 @@
                     return resource.description !== null;
                 });
 
-                self.workspaceDisalbed = false;
+                self.workspaceDisabled = false;
             }, function () {
                 notificationsService.error("Error", "Resources were not loaded");
+            });
+
+            userService.getCurrentUser().then(function (currentUserData) {
+                self.permissions.isCanDelete = currentUserData.userType === "admin";
             });
         }
 
@@ -182,7 +242,7 @@
     }
 
     controller.$inject = ["$scope", "notificationsService", "dialogService", "assetsService",
-        "localizationResourceService"];
+        "userService", "localizationResourceService"];
 
     angular.module('umbraco').controller('localizationOverviewController', controller);
 })(angular);

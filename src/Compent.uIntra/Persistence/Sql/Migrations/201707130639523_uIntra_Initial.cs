@@ -117,7 +117,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => new { t.UserId, t.ActivityId }, unique: true, name: "UQ_Subscribe_UserId_ActivityId");
-            
+
         }
         
         public override void Down()

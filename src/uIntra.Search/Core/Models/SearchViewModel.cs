@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.Search.Web;
 
 namespace uIntra.Search
 {
@@ -9,5 +8,7 @@ namespace uIntra.Search
         public string Query { get; set; }
 
         public IEnumerable<SearchFilterItemViewModel> FilterItems { get; set; } = Enumerable.Empty<SearchFilterItemViewModel>();
+
+        public bool OnlyPinned { get; set; }
     }
 }

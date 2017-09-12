@@ -4,7 +4,7 @@
       "name": "Search Result",
       "alias": "custom.SearchResult",
       "view": "/App_Plugins/Search/Result/search-result.html",
-      "icon": "icon-settings-alt color-blue",
+      "icon": "icon-search color-blue",
       "config": {
         "controller": "Search",
         "action": "Index"

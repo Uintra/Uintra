@@ -77,6 +77,14 @@ if (!Array.from) {
     }());
 }
 
+if (window.Element) {
+    Element.prototype.findAncestorByClassName = function (className) {
+        var el = this;
+        while ((el = el.parentElement) && !el.classList.contains(className));
+        return el;
+    };
+}
+
 (function () {
 
     if (typeof window.CustomEvent === "function") return false;
@@ -144,3 +152,11 @@ if (!Array.prototype.includes) {
         }
     });
 }
+
+/**
+ * Difference;
+ * Returns the elements of the first array that are not in the second array
+ */
+Array.prototype.except = function (a) {
+    return this.filter(el => a.indexOf(el) === -1);
+};

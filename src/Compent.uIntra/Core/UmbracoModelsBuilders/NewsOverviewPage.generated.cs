@@ -22,7 +22,7 @@ namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>News Overview Page</summary>
 	[PublishedContentModel("newsOverviewPage")]
-	public partial class NewsOverviewPage : BasePageWithGrid
+	public partial class NewsOverviewPage : BasePageWithGrid, IHomeNavigationComposition, INavigationComposition
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "newsOverviewPage";
@@ -43,6 +43,42 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsOverviewPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Is show in Home Navigation
+		///</summary>
+		[ImplementPropertyType("isShowInHomeNavigation")]
+		public bool IsShowInHomeNavigation
+		{
+			get { return Umbraco.Web.PublishedContentModels.HomeNavigationComposition.GetIsShowInHomeNavigation(this); }
+		}
+
+		///<summary>
+		/// Hide from Left Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromLeftNavigation")]
+		public bool IsHideFromLeftNavigation
+		{
+			get { return Umbraco.Web.PublishedContentModels.NavigationComposition.GetIsHideFromLeftNavigation(this); }
+		}
+
+		///<summary>
+		/// Hide from Sub Navigation
+		///</summary>
+		[ImplementPropertyType("isHideFromSubNavigation")]
+		public bool IsHideFromSubNavigation
+		{
+			get { return Umbraco.Web.PublishedContentModels.NavigationComposition.GetIsHideFromSubNavigation(this); }
+		}
+
+		///<summary>
+		/// Navigation Name
+		///</summary>
+		[ImplementPropertyType("navigationName")]
+		public string NavigationName
+		{
+			get { return Umbraco.Web.PublishedContentModels.NavigationComposition.GetNavigationName(this); }
 		}
 	}
 }

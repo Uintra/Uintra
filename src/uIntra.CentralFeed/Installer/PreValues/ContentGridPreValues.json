@@ -23,13 +23,18 @@
         "name": "",
         "sections": [
           {
-            "grid": 8
+            "grid": 8,
+            "allowAll": false,
+            "allowed": [
+              "One column row",
+              "Two column row"
+            ]
           },
           {
             "grid": 3,
             "allowAll": false,
             "allowed": [
-              "One column row"
+              "Right side column"
             ]
           }
         ]
@@ -45,7 +50,10 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
-              "custom.ComingEvents"
+              "custom.ComingEvents",
+              "custom.DocumentLibraryPanel",
+              "custom.Comments",
+              "custom.LatestActivities"
             ]
           }
         ]
@@ -59,7 +67,10 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
-              "custom.ComingEvents"
+              "custom.ComingEvents",
+              "custom.DocumentLibraryPanel",
+              "custom.Comments",
+              "custom.LatestActivities"
             ]
           },
           {
@@ -68,7 +79,26 @@
             "allowed": [
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
-              "custom.ComingEvents"
+              "custom.ComingEvents",
+              "custom.DocumentLibraryPanel",
+              "custom.Comments",
+              "custom.LatestActivities"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Right side column",
+        "areas": [
+          {
+            "grid": 12,
+            "allowAll": false,
+            "allowed": [
+              "custom.DocumentLibraryPanel",
+              "custom.GlobalPanelPicker",
+              "custom.ContentPanel",
+              "custom.ComingEvents",
+              "custom.LatestActivities"
             ]
           }
         ]
@@ -93,7 +123,7 @@
       "umbmacro",
       "umbembeddialog"
     ],
-    "stylesheets": [ ],
+    "stylesheets": [],
     "dimensions": {
       "height": 500
     },

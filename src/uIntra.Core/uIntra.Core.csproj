@@ -298,6 +298,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -350,6 +351,11 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
+    <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
+    <Compile Include="Core\BrowserCompatibility\BrowserCompatibilityConfigurationSection.cs" />
+    <Compile Include="Core\BrowserCompatibility\IBrowserCompatibilityConfigurationSection.cs" />
+    <Compile Include="Core\BrowserCompatibility\Models\BrowserCompatibilityModel.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
@@ -360,7 +366,11 @@
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
+    <Compile Include="Core\ModelBinders\CustomModelBinder.cs" />
     <Compile Include="Core\Persistence\IntranetDbContext.cs" />
+    <Compile Include="Core\Media\IIntranetMediaService.cs" />
+    <Compile Include="Core\Media\IntranetMediaService.cs" />
+    <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
     <Compile Include="Core\TypeProviders\IIntranetRoleTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
@@ -391,14 +401,20 @@
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Role.cs" />
+    <Compile Include="Core\WebPagePreview\ILinkPreviewService.cs" />
+    <Compile Include="Core\WebPagePreview\LinkPreviewController.cs" />
+    <Compile Include="Core\WebPagePreview\LinkPreviewService.cs" />
     <Compile Include="Core\User\UserPhotoHelper.cs" />
     <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
-    <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
     <Compile Include="Installer\IntranetInstaller.cs" />
+    <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js" />
+    <Content Include="App_Plugins\Core\BrowserCompatibility\style.css" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Namespace.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
@@ -416,6 +432,7 @@
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\icon-doc.png" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
+    <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -489,7 +506,6 @@
     <Compile Include="Core\Media\MediaHelper.cs" />
     <Compile Include="Core\Media\MediaSettings.cs" />
     <Compile Include="Core\ModelBinders\DateTimeModelBinder.cs" />
-    <Compile Include="Core\ModelBinders\DefaultBinder.cs" />
     <Compile Include="Core\ModelBinders\ICustomModelBinder.cs" />
     <Compile Include="Core\ModelBinders\PropertyBinderAttribute.cs" />
     <Compile Include="Core\Persistence\Sql\ISqlRepository.cs" />
@@ -558,6 +574,7 @@
     <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -1,23 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
-    public interface IIntranetActivity
-    {
-        Guid Id { get; set; }
-        IIntranetType Type { get; set; }
-        DateTime CreatedDate { get; set; }
-        DateTime ModifyDate { get; set; }
-        bool IsPinActual { get; set; }
-        string Title { get; set; }
-        string Description { get; set; }
-        bool IsHidden { get; set; }
-        bool IsPinned { get; set; }
-        DateTime? EndPinDate { get; set; }
-    }
-
     public abstract class IntranetActivity : IIntranetActivity
     {
         [JsonIgnore]
@@ -34,6 +22,9 @@ namespace uIntra.Core.Activity
 
         [JsonIgnore]
         public bool IsPinActual { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<int> MediaIds { get; set; } = Enumerable.Empty<int>();
 
         public string Title { get; set; }
 

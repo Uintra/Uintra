@@ -28,6 +28,8 @@ using Localization.Core;
 using Localization.Core.Configuration;
 using Localization.Storage.UDictionary;
 using Localization.Umbraco;
+using Localization.Umbraco.Export;
+using Localization.Umbraco.Import;
 using Localization.Umbraco.UmbracoEvents;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
@@ -40,6 +42,7 @@ using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
+using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.Caching;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
@@ -65,7 +68,6 @@ using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
-using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
@@ -74,6 +76,8 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.LicenceService.ApiClient.Interfaces;
 using uIntra.LicenceService.ApiClient;
+using uIntra.Users;
+using uIntra.Core.WebPagePreview;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -150,6 +154,7 @@ namespace Compent.uIntra
 
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
 
@@ -177,7 +182,7 @@ namespace Compent.uIntra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind<IIntranetUserService<IIntranetUser>>().To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
             kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<IntranetUser>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
@@ -185,7 +190,10 @@ namespace Compent.uIntra
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
-            kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
+            kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();            
+            kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
+            kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
+            kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
@@ -291,6 +299,8 @@ namespace Compent.uIntra
             kernel.Bind<ILocalizationStorageService>().To<LocalizationStorageService>().InRequestScope();
             kernel.Bind<ILocalizationServiceLanguageEventHandlers>().To<LocalizationServiceLanguageEventHandlers>().InRequestScope();
             kernel.Bind<ILocalizationCoreService>().To<LocalizationCoreService>().InRequestScope();
+            kernel.Bind<ILocalizationExportService>().To<LocalizationExportService>().InRequestScope();
+            kernel.Bind<ILocalizationImportService>().To<LocalizationImportService>().InRequestScope();
 
             kernel.Bind<ICultureHelper>().To<CultureHelper>().InRequestScope();
         }

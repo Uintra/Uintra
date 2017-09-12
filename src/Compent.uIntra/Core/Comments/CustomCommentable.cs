@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 
 namespace Compent.uIntra.Core.Comments
 {

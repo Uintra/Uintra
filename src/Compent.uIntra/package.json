@@ -38,7 +38,7 @@
     "promise-polyfill": "6.0.2",
     "sortablejs": "1.5.1",
     "simple-scrollbar": "0.2.1",
-    "exif-js": "",
+    "exif-js": "2.2.1",
     "blueimp-load-image": "2.14.0"
   },
   "dependencies": {

@@ -97,6 +97,15 @@
                 margin-top:-6px;
             }
         }
+
+        &-inactive{
+            color:var(--text-color-light);
+            display:none;
+
+            ._inactive &{
+                display:inline-block;
+            }
+        }
     }
 
     &__controls {

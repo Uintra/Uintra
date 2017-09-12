@@ -9,9 +9,11 @@
         return;
     }
     var panelId = "js-content-panel-" + Guid.NewGuid();
+    bool isImportant = viewModel.isImportant != null ? viewModel.isImportant.Value : false; //Actual type of viewModel.isImportant will be JValue, not pure boolean
+    string importantCssSelector = isImportant ? "_important" : String.Empty;
 }
 
-<section class="block _content-panel clearfix" id="@panelId">
+<section class="block _content-panel clearfix @importantCssSelector" id="@panelId">
     @{
         string titleLink = viewModel.titleLink?.link;
         string title = viewModel.title;
@@ -128,7 +130,7 @@
                     var file = Umbraco.TypedMedia(id);
                     <li class="documents__item">
                         <a class="documents__item-link" target="_blank" href="@file.Url">
-                            <span class="documents__icon file-extension __@file.GetMediaExtention()"></span>
+                            <span class="documents__icon file-extension _@file.GetMediaExtention()"></span>
                             <span class="documents__item-name">@file.Name</span>
                         </a>
                     </li>

@@ -4,7 +4,7 @@
       "name": "Central feed",
       "alias": "custom.CentralFeed",
       "view": "/App_Plugins/CentralFeed/backoffice/central-feed-view.html",
-      "icon": "icon-settings-alt color-blue",
+      "icon": "icon-article color-blue",
       "config": {
         "controller": "CentralFeed",
         "action": "OverView"

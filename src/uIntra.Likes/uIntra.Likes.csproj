@@ -238,6 +238,7 @@
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -341,10 +342,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <None Include="app.config" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\Likes\package.manifest" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -11,6 +11,8 @@ namespace uIntra.Tagging
 
         IEnumerable<Tag> FindAll(string query);
 
+        IEnumerable<Tag> GetTagsById(IEnumerable<Guid> tagsIds);
+
         void SaveRelations(Guid activityId, IEnumerable<TagDTO> tags);
     }
 }

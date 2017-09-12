@@ -10,6 +10,7 @@ using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using CacheHelper = uIntra.Core.Caching.CacheHelper;
 
 namespace uIntra.Users
 {
@@ -168,11 +169,12 @@ namespace uIntra.Users
                 UmbracoId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser),
                 Email = member.Email,
                 LoginName = member.Username,
-                Role = GetMemberRole(member)
+                Role = GetMemberRole(member),
+                Inactive = member.IsLockedOut
             };
 
             string userPhoto = null;
-            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo) ?? member.GetMemberImageId(ProfileConstants.Photo);
 
             if (userPhotoId.HasValue)
             {
@@ -182,6 +184,16 @@ namespace uIntra.Users
             user.Photo = GetUserPhotoOrDefaultAvatar(userPhoto);
 
             return user;
+        }
+
+
+        protected virtual IEnumerable<T> GetUnassignedToMemberUsers()
+        {
+            var users = GetAll();
+            var assignedUsersIds = _memberService.GetAllMembers().Select(m => m.GetValue<Guid>("relatedUser"));
+            var unassignedUsers = users.Join(assignedUsersIds, user => user.Id, id => id, (user, id) => user);
+
+            return unassignedUsers;
         }
 
         protected virtual IRole GetMemberRole(IMember member)
@@ -201,10 +213,16 @@ namespace uIntra.Users
             return !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
         }
 
-        protected virtual T GetByName(string name)
+        public virtual T GetByName(string name)
         {
             var users = GetAll();
-            return users.SingleOrDefault(user => user.LoginName.Equals(name));
+            return users.SingleOrDefault(user => user.LoginName.ToLowerInvariant().Equals(name.ToLowerInvariant()));
+        }
+
+        public virtual T GetByEmail(string email)
+        {
+            var users = GetAll();
+            return users.SingleOrDefault(user => user.Email.ToLowerInvariant().Equals(email.ToLowerInvariant()));
         }
 
         public virtual void UpdateUserCache(Guid userId)

@@ -10,5 +10,6 @@ namespace uIntra.CentralFeed
         public string Teaser { get; set; }
         public IEnumerable<CentralFeedSettings> Settings { get; set; } = Enumerable.Empty<CentralFeedSettings>();
         public IEnumerable<ICentralFeedItem> Items { get; set; }
+        public CentralFeedTabViewModel Tab { get; set; }
     }
 }

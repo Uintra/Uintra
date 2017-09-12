@@ -206,7 +206,7 @@ namespace uIntra.Bulletins.Web
 
         protected virtual BulletinPreviewViewModel GetPreviewViewModel(BulletinBase bulletin)
         {
-            IIntranetUser creator = _userService.Get(bulletin);
+            var creator = _userService.Get(bulletin);
             return new BulletinPreviewViewModel()
             {
                 Id = bulletin.Id,

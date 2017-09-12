@@ -4,16 +4,21 @@
 @using uIntra.Core.Extentions
 @model uIntra.Comments.CommentViewModel
 
+@{
+    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
+}
+
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
     @Html.Action("Photo", "User", new { user = Model.Creator })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
-            <div class="comments__author-about">
+            <div class="comments__author-about @inactiveUser">
                 <span class="comments__author-name">@Model.Creator.DisplayedName</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-date">@(Model.CreatedDate.ToDateFormat())</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-time">@(Model.CreatedDate.ToTimeFormat())</span>
+                <span class="comments__author-inactive">[@Html.Localize("Comments.Author.Inactive.lbl")]</span>
             </div>
 
             @if (Model.CanDelete || Model.CanEdit)
@@ -64,7 +69,7 @@
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
                 <span class="js-comment-hideEditLink">Hide</span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel {Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId})
             </div>
         }
 
@@ -73,7 +78,7 @@
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@{  Html.RenderPartial("~/App_Plugins/Comments/View/CommentsView.cshtml", reply);}</li>
+                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", reply)</li>
                 }
             </ul>
         }
@@ -81,7 +86,7 @@
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId})
             </div>
         }
     </div>

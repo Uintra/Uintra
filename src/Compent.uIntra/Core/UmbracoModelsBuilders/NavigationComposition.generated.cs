@@ -24,10 +24,10 @@ namespace Umbraco.Web.PublishedContentModels
 	/// <summary>Navigation Composition</summary>
 	public partial interface INavigationComposition : IPublishedContent
 	{
-		/// <summary>Is hide from Left Navigation</summary>
+		/// <summary>Hide from Left Navigation</summary>
 		bool IsHideFromLeftNavigation { get; }
 
-		/// <summary>Is hide from Sub Navigation</summary>
+		/// <summary>Hide from Sub Navigation</summary>
 		bool IsHideFromSubNavigation { get; }
 
 		/// <summary>Navigation Name</summary>
@@ -60,7 +60,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Is hide from Left Navigation
+		/// Hide from Left Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromLeftNavigation")]
 		public bool IsHideFromLeftNavigation
@@ -68,11 +68,11 @@ namespace Umbraco.Web.PublishedContentModels
 			get { return GetIsHideFromLeftNavigation(this); }
 		}
 
-		/// <summary>Static getter for Is hide from Left Navigation</summary>
+		/// <summary>Static getter for Hide from Left Navigation</summary>
 		public static bool GetIsHideFromLeftNavigation(INavigationComposition that) { return that.GetPropertyValue<bool>("isHideFromLeftNavigation"); }
 
 		///<summary>
-		/// Is hide from Sub Navigation
+		/// Hide from Sub Navigation
 		///</summary>
 		[ImplementPropertyType("isHideFromSubNavigation")]
 		public bool IsHideFromSubNavigation
@@ -80,7 +80,7 @@ namespace Umbraco.Web.PublishedContentModels
 			get { return GetIsHideFromSubNavigation(this); }
 		}
 
-		/// <summary>Static getter for Is hide from Sub Navigation</summary>
+		/// <summary>Static getter for Hide from Sub Navigation</summary>
 		public static bool GetIsHideFromSubNavigation(INavigationComposition that) { return that.GetPropertyValue<bool>("isHideFromSubNavigation"); }
 
 		///<summary>

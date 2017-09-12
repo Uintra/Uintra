@@ -11,7 +11,7 @@
 <div class="create-bulletin js-create-bulletin" data-message="@Html.Localize("Common.AreYouSure")">
     @using (Html.BeginUmbracoForm("Create", "Bulletins", FormMethod.Post))
     {
-        <div class="create-bulletin__user js-create-bulletin__user hidden">
+        <div class="create-bulletin__user">
             @{ Html.RenderAction("CreationFormItemHeader", "Bulletins", Model.HeaderInfo); }
         </div>
         <div class="dropzone">
@@ -38,5 +38,5 @@
                 </span>
             </div>
             <input type="hidden" name="@nameof(Model.MediaRootId)" value="@Model.MediaRootId" />
-        }
+                }
 </div>

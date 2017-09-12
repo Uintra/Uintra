@@ -2,7 +2,7 @@
 {
     public interface IElasticIndex
     {
-        SearchResult<SearchableBase> Search(SearchTextQuery textQuery);
+        SearchResult<SearchableBase> Search(SearchTextQuery query);
 
         void RecreateIndex();
     }

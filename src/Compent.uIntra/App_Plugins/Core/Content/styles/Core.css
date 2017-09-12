@@ -672,6 +672,10 @@ h5{
         width: 30px;
         min-width:30px;
         height: 30px;
+
+        .comments &{
+            margin:0;
+        }
     }
 
     .form &{
@@ -682,7 +686,7 @@ h5{
 }
 
 .ellipsis{
-    color:var(--text-color_dark) !important;
+    color:var(--text-color-dark) !important;
 	width: 15px;
     position:absolute;
     display:none;
@@ -718,7 +722,7 @@ h5{
 	}
 
 	.icon-close {
-		right: 15px;
+		display:none;
 	}
 }
 /*end pin-info*/

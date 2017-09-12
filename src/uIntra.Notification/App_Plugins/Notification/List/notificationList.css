@@ -272,6 +272,10 @@
 			    white-space: nowrap;
 			    margin: 0;
 		    }
+
+            &-link{
+                color:var(--text-color-dark);
+            }
 	    }
 
         &-title{

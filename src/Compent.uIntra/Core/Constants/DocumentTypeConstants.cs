@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Compent.uIntra.Core.Constants
+﻿namespace Compent.uIntra.Core.Constants
 {
     public class DocumentTypeAliasConstants
     {

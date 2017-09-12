@@ -130,19 +130,15 @@
         var arraySetter = function (o) {
             ($scope.model = $scope.model || []).push(o);
         };
-        var updater = $scope.isSingleMode ? objectSetter : arraySetter;
-
-        var encode = function (str) {
-            return btoa(str);
-        }
+        var updater = $scope.isSingleMode ? objectSetter : arraySetter;        
 
         $scope.processCaptionChange = function (link) {
-            link.caption = encode(link.prettyCaption);
+            link.caption = link.prettyCaption;
         }
 
         $scope.processEmailChange = function (link) {
-            link.link = link.caption = encode(link.prettyLink);
-            link.link = "mailTo:" + link.link;
+            link.link = "mailTo:" + link.prettyLink;
+            link.caption = link.caption ? link.caption : link.prettyLink;
             link.prettyCaption = link.prettyLink;
         }
 

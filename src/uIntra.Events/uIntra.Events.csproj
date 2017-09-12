@@ -317,6 +317,7 @@
     <Compile Include="Core\Dashboard\Models\EventBackofficeSaveModel.cs" />
     <Compile Include="Core\Dashboard\Models\EventBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\EventsSection.cs" />
+    <Compile Include="Core\Models\ComingEventsPanelModel.cs" />
     <Compile Include="Core\Models\ComingEventsPanelViewModel.cs" />
     <Compile Include="Core\Models\ComingEventViewModel.cs" />
     <Compile Include="Core\Models\EventPreviewViewModel.cs" />

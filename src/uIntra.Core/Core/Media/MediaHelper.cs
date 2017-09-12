@@ -37,7 +37,7 @@ namespace uIntra.Core.Media
             _imageHelper = imageHelper;
         }
 
-        public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model)
+        public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, Guid? userId = null)
         {
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
@@ -49,13 +49,13 @@ namespace uIntra.Core.Media
 
             foreach (var file in cachedTempMedia)
             {
-                var media = CreateMedia(file, rootMediaId);
+                var media = CreateMedia(file, rootMediaId, userId);
                 umbracoMediaIds.Add(media.Id);
             }
             return umbracoMediaIds;
         }
 
-        public IMedia CreateMedia(TempFile file, int rootMediaId)
+        public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
             var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
             var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
@@ -67,7 +67,9 @@ namespace uIntra.Core.Media
                 stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
             }
 
-            media.SetValue(ImageConstants.IntranetCreatorId, _intranetUserService.GetCurrentUserId().ToString());
+            userId = userId ?? _intranetUserService.GetCurrentUserId();
+
+            media.SetValue(ImageConstants.IntranetCreatorId, userId.ToString());
             media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
             stream.Close();
 

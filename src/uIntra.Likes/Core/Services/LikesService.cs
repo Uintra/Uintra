@@ -48,15 +48,18 @@ namespace uIntra.Likes
 
         public virtual void Add(Guid userId, Guid entityId)
         {
-            var like = new Like
+            if (CanAdd(userId, entityId))
             {
-                Id = Guid.NewGuid(),
-                EntityId = entityId,
-                UserId = userId,
-                CreatedDate = DateTime.Now
-            };
+                var like = new Like
+                {
+                    Id = Guid.NewGuid(),
+                    EntityId = entityId,
+                    UserId = userId,
+                    CreatedDate = DateTime.Now
+                };
 
-            _likesRepository.Add(like);
+                _likesRepository.Add(like);
+            }
         }
 
         public virtual void Remove(Guid userId, Guid entityId)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.uIntra.Core.Events;
@@ -37,7 +38,8 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
-            IDocumentIndexer documentIndexer, INotificationTypeProvider notificationTypeProvider)
+            IDocumentIndexer documentIndexer,
+            INotificationTypeProvider notificationTypeProvider)
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
@@ -52,8 +54,9 @@ namespace Compent.uIntra.Controllers
             FillLinks();
             var activity = item as Event;
             var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
+            var  userId =_intranetUserService.GetCurrentUser();
             extendedModel.LikesInfo = activity;
-            extendedModel.SubscribeInfo = activity;
+            extendedModel.IsSubscribed = activity.Subscribers.Any(s => s.UserId == userId.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -102,10 +105,13 @@ namespace Compent.uIntra.Controllers
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
         }
 
-        protected override void OnEventHidden(Guid id)
+        protected override void OnEventHidden(Guid id, bool isNotificationNeeded)
         {
-            var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
-            ((INotifyableService)_eventsService).Notify(id, notificationType);
+            if (isNotificationNeeded)
+            {
+                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
+                ((INotifyableService)_eventsService).Notify(id, notificationType);
+            }
         }
     }
 }

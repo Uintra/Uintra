@@ -20,6 +20,10 @@
         self.deleteResource = function (key) {
             return $http.delete(baseUrl + "DeleteResource?key=" + key);
         }
+
+        self.importResources = function (data) {
+            return $http.post(baseUrl + "Import", data);
+        }
     }
 
     service.$inject = ["$http"];

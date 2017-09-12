@@ -1,4 +1,3 @@
-@using uIntra.Core.Activity
 @using uIntra.Core.Extentions
 @model Compent.uIntra.Core.Events.EventExtendedItemModel
 @{
@@ -13,13 +12,15 @@
         }
 
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+        @if (Model.IsSubscribed)
+        {
+            <span class="feed__item-subscribed js-feed__item-subscribed"><i class="icon-check"></i> @Html.Localize("CentralFeed.IsSubscribed.lbl")</span>
+        }
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
     {
-        <div class="feed__item-txt _clamp">
-            <a class="feed__item-txt-link" href="@detailsPageUrl">@Html.Raw(Model.Description)</a>
-        </div>
+        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">@Html.Raw(Model.Description)</div>
     }
     <div class="feed__item-images">
         @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
@@ -29,9 +30,5 @@
             @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
         </div>
-        @if (Model.CanSubscribe)
-        {
-            Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
-        }
     </div>
 </div> 

@@ -1,5 +1,4 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Likes;
+﻿using uIntra.Likes;
 using uIntra.News;
 
 namespace Compent.uIntra.Core.News.Models

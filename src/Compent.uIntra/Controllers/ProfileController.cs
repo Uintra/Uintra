@@ -5,7 +5,6 @@ using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;
-using uIntra.Users;
 using uIntra.Users.Web;
 using Umbraco.Web;
 

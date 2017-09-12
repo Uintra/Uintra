@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 using uIntra.Likes;
 using uIntra.News;
 using uIntra.Subscribe;

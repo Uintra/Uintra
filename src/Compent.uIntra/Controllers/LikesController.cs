@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Compent.uIntra.Core.Comments;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
@@ -7,7 +7,7 @@ using uIntra.Likes;
 using uIntra.Likes.Web;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
-using uIntra.Users;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -16,11 +16,14 @@ namespace Compent.uIntra.Controllers
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public LikesController(IActivitiesServiceFactory activitiesServiceFactory, 
-            IIntranetUserService<IIntranetUser> intranetUserService, 
-            ILikesService likesService, 
+        public LikesController(
+            IActivitiesServiceFactory activitiesServiceFactory,
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            ILikesService likesService,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper,
             INotificationTypeProvider notificationTypeProvider)
-            : base(activitiesServiceFactory, intranetUserService, likesService)
+            : base(activitiesServiceFactory, intranetUserService, likesService, documentTypeAliasProvider, umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _notificationTypeProvider = notificationTypeProvider;
@@ -30,15 +33,10 @@ namespace Compent.uIntra.Controllers
         {
             var like = base.AddLike(model);
 
-            if (model.ActivityId == CommentsTestConstants.ActivityId)
-            {
-                return like;
-            }
-
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
-                if (model.CommentId.HasValue)
+                if (IsForComment(model))
                 {
                     var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
                     notifiableService.Notify(model.CommentId.Value, notificationType);
