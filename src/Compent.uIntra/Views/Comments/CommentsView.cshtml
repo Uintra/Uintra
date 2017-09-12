@@ -4,16 +4,21 @@
 @using uIntra.Core.Extentions
 @model uIntra.Comments.CommentViewModel
 
+@{
+    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
+}
+
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
     @Html.Action("Photo", "User", new { user = Model.Creator })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
-            <div class="comments__author-about">
+            <div class="comments__author-about @inactiveUser">
                 <span class="comments__author-name">@Model.Creator.DisplayedName</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-date">@(Model.CreatedDate.ToDateFormat())</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-time">@(Model.CreatedDate.ToTimeFormat())</span>
+                <span class="comments__author-inactive">[@Html.Localize("Comments.Author.Inactive.lbl")]</span>
             </div>
 
             @if (Model.CanDelete || Model.CanEdit)

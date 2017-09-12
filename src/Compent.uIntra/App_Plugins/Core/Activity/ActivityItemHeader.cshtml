@@ -3,9 +3,10 @@
 @{
     var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type.Id, Model.ActivityId);
     var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
+    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
 }
 
-<header class="feed__item-heading clearfix">
+<header class="feed__item-heading clearfix @inactiveUser">
     @Html.Action("Photo", "User", new { user = Model.Creator })
     <div class="feed__item-title-holder">
         <h2 class="feed__item-title"><a class="feed__item-title-link" href="@detailsPageUrl">@Model.Title</a></h2>
@@ -22,6 +23,7 @@
                     <span class="feed__item-name">@Model.Creator.DisplayedName</span>
                 </a>
             }
+            <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
         </p>
     </div>
 </header>
