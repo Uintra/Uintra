@@ -13,13 +13,16 @@ namespace Compent.uIntra.Core.Licence
         private readonly IMemberService _memberService;
         private readonly ILicenceValidationServiceClient _validationServiceClient;
 
+        public Lazy<bool> IsLicenceValid { get; }
+
         public ValidateLicenceService(IMemberService memberService, ILicenceValidationServiceClient validationServiceClient)
         {
             _memberService = memberService;
             _validationServiceClient = validationServiceClient;
+            IsLicenceValid = new Lazy<bool>(GetValidationResult);
         }
 
-        public bool Validate()
+        private bool GetValidationResult()
         {
             var membersCount = _memberService.Count();
             var licenceKey = ConfigurationManager.AppSettings.Get(CompentLicenceKey);

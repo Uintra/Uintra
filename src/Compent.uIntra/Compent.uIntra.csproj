@@ -401,7 +401,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Users, Version=1.4.2.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.4.2.7\lib\net452\uIntra.Users.dll</HintPath>
+      <HintPath>..\uIntra.Users\bin\Debug\uIntra.Users.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
@@ -1208,7 +1208,9 @@
     <Compile Include="Core\IntranetUserContentHelper.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Core\Licence\ILicenceRequestHandler.cs" />
     <Compile Include="Core\Licence\IValidateLicenceService.cs" />
+    <Compile Include="Core\Licence\LicenceRequestHandler.cs" />
     <Compile Include="Core\Licence\LicenceServiceConnection.cs" />
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\LikesTestConstants.cs" />

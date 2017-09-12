@@ -1202,8 +1202,14 @@
     <Compile Include="..\Compent.uIntra\Core\IoC\NinjectDependencyResolver.cs">
       <Link>Core\IoC\NinjectDependencyResolver.cs</Link>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\ILicenceRequestHandler.cs">
+      <Link>Core\Licence\ILicenceRequestHandler.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\Licence\IValidateLicenceService.cs">
       <Link>Core\Licence\IValidateLicenceService.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\LicenceRequestHandler.cs">
+      <Link>Core\Licence\LicenceRequestHandler.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\Licence\LicenceServiceConnection.cs">
       <Link>Core\Licence\LicenceServiceConnection.cs</Link>

@@ -157,6 +157,7 @@ namespace Compent.uIntra
             kernel.Bind<ILicenceValidationServiceClient>().To<LicenceValidationServiceClient>().InRequestScope();
             kernel.Bind<IValidateLicenceService>().To<ValidateLicenceService>().InRequestScope();
             kernel.Bind<IWebApiClient>().ToMethod((ctx => new WebApiClient() { Connection = new LicenceServiceConnection() })).InSingletonScope();
+            kernel.Bind<ILicenceRequestHandler>().To<LicenceRequestHandler>().InRequestScope(); 
 
 
             // Umbraco
