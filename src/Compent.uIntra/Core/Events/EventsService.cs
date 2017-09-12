@@ -71,7 +71,7 @@ namespace Compent.uIntra.Core.Events
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
             IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
@@ -206,10 +206,9 @@ namespace Compent.uIntra.Core.Events
             }
         }
 
-        protected override string GetProfileLink(Guid activityId)
+        protected override Guid GetCreatorId(Guid activityId)
         {
-            var creatorId = Get(activityId).CreatorId;
-            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
+            return Get(activityId).CreatorId;
         }
 
         protected override void UpdateCache()

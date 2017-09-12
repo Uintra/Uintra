@@ -337,6 +337,8 @@
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
+    <Compile Include="Core\Models\Feed\CreateViewModel.cs" />
+    <Compile Include="Core\Models\Feed\EditViewModel.cs" />
     <Compile Include="Core\Models\Feed\FeedOverviewModel.cs" />
     <Compile Include="Core\Models\Feed\FeedListModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFilterStateViewModel.cs" />

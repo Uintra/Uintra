@@ -165,6 +165,11 @@ namespace Compent.uIntra.Core.News
             }
         }
 
+        protected override Guid GetCreatorId(Guid activityId)
+        {
+            return Get(activityId).CreatorId;
+        }
+
         protected override void UpdateCache()
         {
             base.UpdateCache();

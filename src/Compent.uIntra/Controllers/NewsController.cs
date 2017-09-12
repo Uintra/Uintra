@@ -21,7 +21,6 @@ namespace Compent.uIntra.Controllers
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";        
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IDocumentIndexer _documentIndexer;
 
         public NewsController(
@@ -33,7 +32,6 @@ namespace Compent.uIntra.Controllers
             IDocumentIndexer documentIndexer)
             : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
-            _intranetUserService = intranetUserService;
             _documentIndexer = documentIndexer;
         }
 
@@ -68,5 +66,4 @@ namespace Compent.uIntra.Controllers
             _documentIndexer.DeleteFromIndex(mediaIds);
         }
     }
-
 }

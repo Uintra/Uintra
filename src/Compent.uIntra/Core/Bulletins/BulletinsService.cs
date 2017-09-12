@@ -67,7 +67,7 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
             IIntranetUserContentHelper intranetUserContentHelper)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -96,18 +96,22 @@ namespace Compent.uIntra.Core.Bulletins
                 create: null,
                 details: GetDetailsPage().Url.AddIdParameter(id),
                 edit: GetEditPage().Url.AddIdParameter(id),
-                profile: GetProfileLink(id)
+                creator: GetProfileLink(id)
             );
         }
 
-        public override ActivityLinks GetGroupFeedCreateLinks()
+        protected override Guid GetCreatorId(Guid activityId)
         {
-            return new ActivityLinks(
+            return Get(activityId).CreatorId;
+        }
+
+        public override ActivityCreateLinks GetGroupFeedCreateLinks()
+        {
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            return new ActivityCreateLinks(
                 overview: GetOverviewPage().Url,
                 create: null,
-                details: null,
-                edit: null,
-                profile: null
+                creator: GetProfileLink(currentUserId)
             );
         }
 
@@ -136,11 +140,6 @@ namespace Compent.uIntra.Core.Bulletins
             return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
         }
 
-        protected override string GetProfileLink(Guid activityId)
-        {
-            var creatorId = Get(activityId).CreatorId;
-            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
-        }
 
         protected override void UpdateCache()
         {

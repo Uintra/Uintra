@@ -20,7 +20,7 @@ namespace uIntra.News
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IIntranetUserContentHelper intranetUserContentHelper)
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService)
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
         {
             _intranetUserService = intranetUserService;
             _intranetUserContentHelper = intranetUserContentHelper;
@@ -35,12 +35,6 @@ namespace uIntra.News
         public virtual bool IsExpired(INewsBase news)
         {
             return news.UnpublishDate.HasValue && news.UnpublishDate.Value.Date < DateTime.Now;
-        }
-
-        protected override string GetProfileLink(Guid activityId)
-        {
-            var creatorId = Get(activityId).CreatorId;
-            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
         }
 
         protected virtual bool IsShowIfUnpublish(NewsBase newsEntity)

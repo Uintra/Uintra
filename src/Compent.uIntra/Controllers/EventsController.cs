@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using Compent.uIntra.Core.Events;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
@@ -66,14 +65,6 @@ namespace Compent.uIntra.Controllers
             var activity = item as Event;
             EventPreviewViewModel viewModel = GetPreviewViewModel(activity, links);
             return PartialView(PreviewItemViewPath, viewModel);
-        }
-
-        protected override EventViewModel GetViewModel(EventBase @event, ActivityLinks links)
-        {
-            var eventExtended = (Event)@event;
-            var extendedModel = base.GetViewModel(@event, links).Map<EventExtendedViewModel>();
-            extendedModel = Mapper.Map(eventExtended, extendedModel); // TODO : investigate why not ev.Map<extended>();
-            return extendedModel;
         }
 
         protected override void DeleteMedia(IEnumerable<int> mediaIds)

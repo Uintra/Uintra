@@ -1,20 +1,15 @@
 namespace uIntra.Core.Links
 {
-    public class ActivityLinks
+    public class ActivityLinks : ActivityCreateLinks
     {
-        public string Overview { get; }
-        public string Create { get; }
+
         public string Details { get; }
         public string Edit { get; }
-        public string Profile { get; }
 
-        public ActivityLinks(string overview, string create, string details, string edit, string profile)
+        public ActivityLinks(string overview, string create, string details, string edit, string creator) : base(overview, create, creator)
         {
-            Overview = overview;
-            Create = create;
             Details = details;
             Edit = edit;
-            Profile = profile;
         }
     }
 }

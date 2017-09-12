@@ -14,13 +14,4 @@ namespace uIntra.Notification
         public NotifierViewModel Notifier { get; set; }
         public dynamic Value { get; set; }
     }
-
-    //TODO
-    public class NotifierViewModel
-    {
-        public Guid? Id { get; set; }
-        public string Name { get; set; }
-        public string Photo { get; set; }
-        public string ProfileLink { get; set; }
-    }
 }

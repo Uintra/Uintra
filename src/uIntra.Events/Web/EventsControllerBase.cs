@@ -107,7 +107,7 @@ namespace uIntra.Events.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
-        public virtual ActionResult Create(ActivityLinks links)
+        public virtual ActionResult Create(ActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
             return PartialView(CreateViewPath, model);
@@ -185,7 +185,7 @@ namespace uIntra.Events.Web
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
         }
 
-        protected virtual EventCreateModel GetCreateModel(ActivityLinks links)
+        protected virtual EventCreateModel GetCreateModel(ActivityCreateLinks links)
         {
             var mediaSettings = _eventsService.GetMediaSettings();
             var model = new EventCreateModel

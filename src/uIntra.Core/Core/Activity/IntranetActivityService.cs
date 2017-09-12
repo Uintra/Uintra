@@ -6,6 +6,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity
@@ -19,51 +20,65 @@ namespace uIntra.Core.Activity
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
-        protected IntranetActivityService(IIntranetActivityRepository activityRepository,
-            ICacheService cache, IActivityTypeProvider activityTypeProvider,IIntranetMediaService intranetMediaService
+        protected IntranetActivityService(
+            IIntranetActivityRepository activityRepository,
+            ICacheService cache,
+            IActivityTypeProvider activityTypeProvider,
+            IIntranetMediaService intranetMediaService,
+            IIntranetUserService<IIntranetUser>  intranetUserService,
+            IIntranetUserContentHelper intranetUserContentHelper
             )
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
+            _intranetUserService = intranetUserService;
+            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
 
         public virtual ActivityLinks GetCentralFeedLinks(Guid id)
         {
+            var creatorId = GetCreatorId(id);
             return new ActivityLinks(
                 overview: GetOverviewPage().Url,
                 create: GetCreatePage().Url,
                 details: GetDetailsPage().Url.AddIdParameter(id),
                 edit: GetEditPage().Url.AddIdParameter(id),
-                profile: GetProfileLink(id)
+                creator: GetProfileLink(creatorId)
             );
         }
 
-        public virtual ActivityLinks GetCentralFeedCreateLinks()
+        public virtual ActivityCreateLinks GetCentralFeedCreateLinks()
         {
-            return new ActivityLinks(
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            return new ActivityCreateLinks(
                 overview: GetOverviewPage().Url,
                 create: GetCreatePage().Url,
-                details: null,
-                edit: null,
-                profile: null // TOOD
+                creator: GetProfileLink(currentUserId)
             );
         }
 
         public virtual ActivityLinks GetGroupFeedLinks(Guid id)
         {
-            return GetCentralFeedLinks(id);
+            return GetCentralFeedLinks(id); // TODO
         }
 
-        public virtual ActivityLinks GetGroupFeedCreateLinks()
+        public virtual ActivityCreateLinks GetGroupFeedCreateLinks()
         {
-            return GetCentralFeedCreateLinks();
+            return GetCentralFeedCreateLinks(); // TODO
         }
 
-        protected abstract string GetProfileLink(Guid activityId);
+        protected abstract Guid GetCreatorId(Guid activityId);
+
+        protected string GetProfileLink(Guid userId)
+        {
+            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(userId);
+        }
 
         public TActivity Get(Guid id)
         {

@@ -61,7 +61,7 @@ namespace uIntra.News.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
-        public virtual ActionResult Create(ActivityLinks links)
+        public virtual ActionResult Create(ActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
             return PartialView(CreateViewPath, model);
@@ -121,7 +121,7 @@ namespace uIntra.News.Web
         }
 
 
-        protected virtual NewsCreateModel GetCreateModel(ActivityLinks links)
+        protected virtual NewsCreateModel GetCreateModel(ActivityCreateLinks links)
         {
             var mediaSettings = _newsService.GetMediaSettings();
             var model = new NewsCreateModel

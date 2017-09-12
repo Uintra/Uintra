@@ -14,6 +14,6 @@ namespace uIntra.Core.Activity
         public bool CanEditCreator { get; set; }
 
         public string CreatorIdPropertyName { get; set; }
-        public ActivityLinks Links { get; set; }
+        public ActivityCreateLinks Links { get; set; }
     }
 }

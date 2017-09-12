@@ -22,6 +22,6 @@ namespace uIntra.Core.Activity
 
         public IIntranetType ActivityType { get; set; }
 
-        public ActivityLinks Links { get; set; }
+        public ActivityCreateLinks Links { get; set; }
     }
 }

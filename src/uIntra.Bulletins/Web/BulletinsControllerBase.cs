@@ -50,7 +50,7 @@ namespace uIntra.Bulletins.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public virtual PartialViewResult Create(ActivityLinks links)
+        public virtual PartialViewResult Create(ActivityCreateLinks links)
         {
             var result = GetCreateFormModel(links);
             return PartialView(CreationFormViewPath, result);
@@ -140,7 +140,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(ItemHeaderViewPath, model);
         }
 
-        protected virtual BulletinCreateFormModel GetCreateFormModel(ActivityLinks links)
+        protected virtual BulletinCreateFormModel GetCreateFormModel(ActivityCreateLinks links)
         {
             var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
@@ -153,7 +153,7 @@ namespace uIntra.Bulletins.Web
                     Type = _activityTypeProvider.Get(ActivityTypeId),
                     Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
                     Creator = currentUser,
-                    Links = links
+                    //Links = links
                 },
                 AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
                 MediaRootId = mediaSettings.MediaRootId
