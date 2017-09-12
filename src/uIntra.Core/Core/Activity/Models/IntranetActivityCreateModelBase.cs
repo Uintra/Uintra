@@ -8,7 +8,7 @@ namespace uIntra.Core.Activity
 {
     public class IntranetActivityCreateModelBase
     {
-        [Required]
+        [RequiredVirtual]
         public virtual string Title { get; set; }
 
         public bool IsPinned { get; set; }
@@ -24,4 +24,18 @@ namespace uIntra.Core.Activity
 
         public ActivityCreateLinks Links { get; set; }
     }
+}
+
+public class RequiredVirtualAttribute : RequiredAttribute
+{
+    public bool IsRequired { get; set; } = true;
+
+    public override bool IsValid(object value)
+    {
+        if (IsRequired)
+            return base.IsValid(value);
+        return true;
+    }
+
+    public override bool RequiresValidationContext => IsRequired;
 }

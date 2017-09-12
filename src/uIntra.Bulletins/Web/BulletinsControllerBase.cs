@@ -130,31 +130,24 @@ namespace uIntra.Bulletins.Web
             return Json(new { IsSuccess = true });
         }
 
-        public virtual ActionResult CreationFormItemHeader(IntranetActivityItemHeaderViewModel model)
-        {
-            return PartialView(CreationFormItemHeaderViewPath, model);
-        }
-
         public virtual ActionResult ItemHeader(IntranetActivityItemHeaderViewModel model)
         {
             return PartialView(ItemHeaderViewPath, model);
         }
 
-        protected virtual BulletinCreateFormModel GetCreateFormModel(ActivityCreateLinks links)
+        protected virtual BulletinCreateModel GetCreateFormModel(ActivityCreateLinks links)
         {
             var currentUser = _userService.GetCurrentUser();
             var mediaSettings = _bulletinsService.GetMediaSettings();
 
-            var result = new BulletinCreateFormModel
+            var result = new BulletinCreateModel
             {
-                HeaderInfo = new IntranetActivityItemHeaderViewModel
-                {
-                    Title = currentUser.DisplayedName,
-                    Type = _activityTypeProvider.Get(ActivityTypeId),
-                    Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
-                    Creator = currentUser,
-                    //Links = links
-                },
+
+                Title = currentUser.DisplayedName,
+                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
+                Creator = currentUser,
+                Links = links,
                 AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
                 MediaRootId = mediaSettings.MediaRootId
             };
@@ -197,7 +190,7 @@ namespace uIntra.Bulletins.Web
                 MediaIds = bulletin.MediaIds,
                 DisplayedImagesCount = DisplayedImagesCount,
                 ActivityId = bulletin.Id,
-                ActivityType = bulletin.Type,                
+                ActivityType = bulletin.Type,
             };
             return model;
         }
