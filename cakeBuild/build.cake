@@ -148,7 +148,7 @@ Task("Default")
     .IsDependentOn("NuGet-Restore-Packages")
     .IsDependentOn("Build")
     .IsDependentOn("Npm-Install")
-    .IsDependentOn("Webpack");
+    .IsDependentOn("Webpack")
     .IsDependentOn("NuGet-Pack")
     .IsDependentOn("Copy-Package-To-Packages-Location")
     .IsDependentOn("Add-Git-Tag");
