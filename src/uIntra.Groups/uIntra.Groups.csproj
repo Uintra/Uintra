@@ -324,8 +324,8 @@
     <Compile Include="Core\Services\IGroupMediaService.cs" />
     <Compile Include="Core\IGroupMember.cs" />
     <Compile Include="Core\Services\GroupDocumentsService.cs" />
-    <Compile Include="Core\Services\GroupMemberService.cs" />
     <Compile Include="Core\Sql\GroupActivity.cs" />
+    <Compile Include="Core\Services\GroupMemberServiceBase.cs" />
     <Compile Include="Installer\GroupsInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\GroupMigrations.cs" />
     <Compile Include="Core\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />
@@ -407,6 +407,10 @@
     <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
       <Project>{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}</Project>
       <Name>uIntra.Subscribe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
+      <Project>{3E868F15-AC47-4962-A6A5-C9084752DDE9}</Project>
+      <Name>uIntra.Users</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

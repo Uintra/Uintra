@@ -36,7 +36,6 @@
             @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
-            @Html.HiddenFor(s => s.ParentActivityId)
             @Html.HiddenFor(s => s.CreatorId)
             @Html.HiddenFor(s => s.MediaRootId)
             <input class="form__btn _submit _submit" type="submit" value="@Html.Localize("GroupCreate.Create.btn")" />

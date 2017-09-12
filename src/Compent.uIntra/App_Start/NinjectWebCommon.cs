@@ -21,6 +21,7 @@ using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
+using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
 using Localization.Core;
@@ -76,6 +77,7 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.WebPagePreview;
 using uIntra.Groups;
+using Compent.uIntra.Core.Groups;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -173,8 +175,8 @@ namespace Compent.uIntra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<CompentIntranetUser>>().InRequestScope();
-            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<CompentIntranetUser>>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<IntranetUser>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();

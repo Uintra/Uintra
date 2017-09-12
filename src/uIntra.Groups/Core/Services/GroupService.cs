@@ -124,14 +124,14 @@ namespace uIntra.Groups
             return CanEdit(group, user);
         }
 
-        public bool CanEdit(Group @group, IIntranetUser user)
+        public bool CanEdit(Group group, IIntranetUser user)
         {
             if (_permissionsService.IsUserWebmaster(user))
             {
                 return true;
             }
 
-            return @group.CreatorId == user.Id;
+            return group.CreatorId == user.Id;
         }
 
         public void Hide(Guid id)

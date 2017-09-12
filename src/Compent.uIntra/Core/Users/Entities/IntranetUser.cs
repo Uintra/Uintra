@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using uIntra.Core.User;
+using uIntra.Groups;
 
-namespace uIntra.Users
+namespace Compent.uIntra.Core.Users
 {
-    public class IntranetUser : IIntranetUser
+    public class IntranetUser : IGroupMember
     {
         public Guid Id { get; set; } 
         public int? UmbracoId { get; set; }
@@ -15,5 +18,7 @@ namespace uIntra.Users
         public string Email { get; set; }
         public string LoginName { get; set; }
         public IRole Role { get; set; }
+
+        public IEnumerable<Guid> GroupIds { get; set; } = Enumerable.Empty<Guid>();
     }
 }
