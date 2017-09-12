@@ -1,3 +1,4 @@
+#addin "nuget:https://www.nuget.org/api/v2/?package=Cake.Npm"
 #addin "nuget:https://www.nuget.org/api/v2/?package=Cake.Git"
 #addin "nuget:https://www.nuget.org/api/v2/?package=Cake.Webpack"
 
@@ -75,11 +76,23 @@ Task("Build")
                 .SetConfiguration(configuration));
 });
 
+Task("Npm-Install")
+    .Does(() =>
+{
+    Information("Installing NPM packages...");
+
+    var installSettings = new NpmInstallSettings();
+    installSettings.LogLevel = NpmLogLevel.Info;
+    installSettings.WorkingDirectory = compentUintraProjectPath;
+
+    NpmInstall(installSettings);
+});
+
 Task("Webpack")
     .Does(() =>
 {
     Information("Running webpack...");
-     Webpack
+    Webpack
         .FromPath(compentUintraProjectPath)
         .Global(s => s.WithArguments("--optimize-minimize"));     
 });
@@ -134,7 +147,8 @@ Task("Default")
     .IsDependentOn("Clean")
     .IsDependentOn("NuGet-Restore-Packages")
     .IsDependentOn("Build")
-    .IsDependentOn("Webpack")
+    .IsDependentOn("Npm-Install")
+    .IsDependentOn("Webpack");
     .IsDependentOn("NuGet-Pack")
     .IsDependentOn("Copy-Package-To-Packages-Location")
     .IsDependentOn("Add-Git-Tag");
