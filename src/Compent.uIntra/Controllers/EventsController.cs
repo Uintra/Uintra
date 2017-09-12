@@ -12,6 +12,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
+using uIntra.Groups;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
@@ -30,6 +31,7 @@ namespace Compent.uIntra.Controllers
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+        private readonly IGroupService _groupService;
 
         public EventsController(
             IEventsService<Event> eventsService,
@@ -40,7 +42,7 @@ namespace Compent.uIntra.Controllers
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
-            INotificationTypeProvider notificationTypeProvider)
+            INotificationTypeProvider notificationTypeProvider, IGroupService groupService)
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
@@ -48,6 +50,7 @@ namespace Compent.uIntra.Controllers
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
             _notificationTypeProvider = notificationTypeProvider;
+            _groupService = groupService;
         }
 
         public ActionResult CentralFeedItem(Event item, ActivityLinks links)
@@ -75,6 +78,12 @@ namespace Compent.uIntra.Controllers
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
         {
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+
+            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            if (groupId.HasValue)
+            {
+                _groupService.AddGroupActivityRelation(groupId.Value, activityId);
+            }
         }
 
         protected override void OnEventEdited(EventBase @event, EventEditModel model)
