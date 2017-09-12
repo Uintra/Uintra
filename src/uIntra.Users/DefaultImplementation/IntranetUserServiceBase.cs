@@ -7,7 +7,6 @@ using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
-using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;

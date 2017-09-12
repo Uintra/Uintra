@@ -324,7 +324,7 @@
     <Compile Include="Core\Services\IGroupMediaService.cs" />
     <Compile Include="Core\IGroupMember.cs" />
     <Compile Include="Core\Services\GroupDocumentsService.cs" />
-    <Compile Include="Core\Services\GroupMemberService.cs" />
+    <Compile Include="Core\Services\GroupMemberServiceBase.cs" />
     <Compile Include="Installer\GroupsInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\GroupMigrations.cs" />
     <Compile Include="Core\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />

@@ -1192,6 +1192,7 @@
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
+    <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />

@@ -6,28 +6,20 @@ using uIntra.Groups.Sql;
 
 namespace uIntra.Groups
 {
-    public class GroupMemberService : IGroupMemberService
+    public abstract class GroupMemberServiceBase : IGroupMemberService
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
 
-        public GroupMemberService(ISqlRepository<GroupMember> groupMemberRepository)
+        public GroupMemberServiceBase(ISqlRepository<GroupMember> groupMemberRepository)
         {
             _groupMemberRepository = groupMemberRepository;
         }
 
-        public void Add(Guid groupId, Guid memberId)
-        {
-            var groupMember = GetNewGroupMember(groupId, memberId);
-            _groupMemberRepository.Add(groupMember);
-        }
+        public abstract void Add(Guid groupId, Guid memberId);
 
-        public void AddMany(Guid groupId, IEnumerable<Guid> memberIds)
-        {
-            var groupMembers = memberIds.Select(m => GetNewGroupMember(groupId, m));
-            _groupMemberRepository.Add(groupMembers);
-        }
+        public abstract void AddMany(Guid groupId, IEnumerable<Guid> memberIds);
 
-        private GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
+        protected GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
         {
             return new GroupMember()
             {
@@ -37,37 +29,37 @@ namespace uIntra.Groups
             };
         }
 
-        public void Remove(Guid groupId, Guid memberId)
+        public virtual void Remove(Guid groupId, Guid memberId)
         {
             _groupMemberRepository.Delete(gm => gm.GroupId == groupId && gm.MemberId == memberId);
         }
 
-        public IEnumerable<GroupMember> GetGroupMemberByMember(Guid memberId)
+        public virtual IEnumerable<GroupMember> GetGroupMemberByMember(Guid memberId)
         {
             return _groupMemberRepository.FindAll(gm => gm.MemberId == memberId);
         }
 
-        public IEnumerable<GroupMember> GetManyGroupMember(IEnumerable<Guid> memberIds)
+        public virtual IEnumerable<GroupMember> GetManyGroupMember(IEnumerable<Guid> memberIds)
         {
             return memberIds.Join(_groupMemberRepository.GetAll(), m => m, gm => gm.MemberId, (m, gm) => gm);
         }
 
-        public int GetMembersCount(Guid groupId)
+        public virtual int GetMembersCount(Guid groupId)
         {
             return (int)_groupMemberRepository.Count(gm => gm.GroupId == groupId);
         }
 
-        public IEnumerable<GroupMember> GetGroupMemberByGroup(Guid groupId)
+        public virtual IEnumerable<GroupMember> GetGroupMemberByGroup(Guid groupId)
         {
             return _groupMemberRepository.FindAll(gm => gm.GroupId == groupId);
         }
 
-        public bool IsGroupMember(Guid groupId, Guid userId)
+        public virtual bool IsGroupMember(Guid groupId, Guid userId)
         {
             return _groupMemberRepository.Exists(gm => gm.GroupId == groupId && gm.MemberId == userId);
         }
 
-        public bool IsGroupMember(Guid groupId, IGroupMember member)
+        public virtual bool IsGroupMember(Guid groupId, IGroupMember member)
         {
             return member.GroupIds.Contains(groupId);
         }

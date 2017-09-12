@@ -147,13 +147,6 @@ namespace uIntra.Groups.Web
 
             _groupMemberService.Add(group.Id, createModel.CreatorId);
 
-            // TODO
-            var creator = _userService.Get(createModel.CreatorId);
-            creator.GroupIds = creator.GroupIds.Concat(Enumerable.Repeat(group.Id, 1));
-            //_userService.
-
-            //_userService.UpdateCache(Enumerable.Repeat(creator, 1));
-
             return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 

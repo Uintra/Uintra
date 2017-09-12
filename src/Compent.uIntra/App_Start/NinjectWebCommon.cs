@@ -77,6 +77,7 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.WebPagePreview;
 using uIntra.Groups;
+using Compent.uIntra.Core.Groups;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
