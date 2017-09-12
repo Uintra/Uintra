@@ -34,7 +34,6 @@
             @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
-            @Html.HiddenFor(s => s.ParentActivityId)
             @Html.HiddenFor(s => s.CreatorId)
             @Html.HiddenFor(s => s.MediaRootId)
             <input type="hidden" name="id" value="@Model.Id" />

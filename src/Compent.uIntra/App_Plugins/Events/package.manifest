@@ -40,7 +40,7 @@
       "view": "/App_Plugins/Events/ComingEvents/coming-events-view.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "CentralFeed",
+        "controller": "Events",
         "action": "ComingEvents"
       }
     }
