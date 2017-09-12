@@ -93,7 +93,7 @@ namespace uIntra.Likes.Web
 
         protected virtual bool IsForContentPage(AddRemoveLikeModel model)
         {
-            return _umbracoHelper.TypedContent(model.ActivityId).DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
+            return _umbracoHelper.TypedContent(model.ActivityId)?.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
         protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null)

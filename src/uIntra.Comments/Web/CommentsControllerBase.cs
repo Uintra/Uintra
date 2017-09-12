@@ -214,7 +214,7 @@ namespace uIntra.Comments.Web
 
         protected virtual bool IsForContentPage(Guid id)
         {
-            return _umbracoHelper.TypedContent(id).DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
+            return _umbracoHelper.TypedContent(id)?.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)
