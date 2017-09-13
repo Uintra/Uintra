@@ -12,6 +12,7 @@ using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
+using uIntra.Groups;
 using uIntra.Likes;
 using uIntra.News;
 using uIntra.Notification;
@@ -46,6 +47,7 @@ namespace Compent.uIntra.Core.News
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGroupService _groupService;
 
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
@@ -65,7 +67,8 @@ namespace Compent.uIntra.Core.News
             ISearchableTypeProvider searchableTypeProvider, 
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IGroupService groupService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, intranetUserContentHelper)
         {
             _intranetUserService = intranetUserService;
@@ -82,6 +85,7 @@ namespace Compent.uIntra.Core.News
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _groupService = groupService;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -158,7 +162,8 @@ namespace Compent.uIntra.Core.News
         {
             foreach (var activity in cached)
             {
-                var entity = activity as Entities.News;
+                var entity = (Entities.News)activity;
+                entity.GroupIds = _groupService.GetGroupIds(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);

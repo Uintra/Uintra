@@ -165,6 +165,13 @@ namespace uIntra.Groups
             _groupActivityRepository.Delete(r => r.ActivityId.Equals(activityId) && r.GroupId.Equals(groupId));
         }
 
+        public IEnumerable<Guid> GetGroupIds(Guid activityId)
+        {
+            return _groupActivityRepository
+                .FindAll(rel => rel.ActivityId == activityId)
+                .Select(rel => rel.GroupId);
+        }
+
 
         private static DateTimeOffset GetCacheExpiration()
         {

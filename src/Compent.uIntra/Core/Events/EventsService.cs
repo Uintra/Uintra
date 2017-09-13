@@ -13,6 +13,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Events;
+using uIntra.Groups;
 using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -51,6 +52,7 @@ namespace Compent.uIntra.Core.Events
 
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGroupService _groupService;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         public EventsService(UmbracoHelper umbracoHelper,
@@ -70,7 +72,8 @@ namespace Compent.uIntra.Core.Events
             ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IGroupService groupService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
         {
             _umbracoHelper = umbracoHelper;
@@ -88,6 +91,7 @@ namespace Compent.uIntra.Core.Events
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _groupService = groupService;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -199,7 +203,8 @@ namespace Compent.uIntra.Core.Events
         {
             foreach (var activity in cached)
             {
-                var entity = activity as Event;
+                var entity = (Event)activity;
+                entity.GroupIds = _groupService.GetGroupIds(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Events;
-using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -83,6 +82,8 @@ namespace Compent.uIntra.Controllers
             if (groupId.HasValue)
             {
                 _groupService.AddGroupActivityRelation(groupId.Value, activityId);
+                var @event = _eventsService.Get(activityId);
+                @event.GroupIds = @event.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
             }
         }
 

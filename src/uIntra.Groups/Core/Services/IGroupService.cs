@@ -34,6 +34,8 @@ namespace uIntra.Groups
 
         void AddGroupActivityRelation(Guid groupId, Guid activityId);
         void RemoveGroupActivityRelation(Guid groupId, Guid activityId);
+        IEnumerable<Guid> GetGroupIds(Guid activityId);
+
         Guid? GetGroupIdFromQuery(string query);
     }
 }

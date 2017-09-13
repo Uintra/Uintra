@@ -13,6 +13,7 @@ using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
+using uIntra.Groups;
 using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -46,7 +47,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IGroupService _groupService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -66,7 +67,8 @@ namespace Compent.uIntra.Core.Bulletins
             IMediaHelper mediaHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IGroupService groupService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
         {
             _intranetUserService = intranetUserService;
@@ -83,7 +85,7 @@ namespace Compent.uIntra.Core.Bulletins
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _intranetUserContentHelper = intranetUserContentHelper;
+            _groupService = groupService;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -193,11 +195,13 @@ namespace Compent.uIntra.Core.Bulletins
             return items;
         }
 
+
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = activity as Bulletin;
+                var entity = (Bulletin)activity;
+                entity.GroupIds = _groupService.GetGroupIds(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
