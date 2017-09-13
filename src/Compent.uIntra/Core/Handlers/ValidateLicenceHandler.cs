@@ -10,9 +10,9 @@ namespace Compent.uIntra.Core.Handlers
     {
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-//#if ENABLE_LICENCE
+#if ENABLE_LICENCE
              UmbracoApplicationBase.ApplicationInit += Init;
-//#endif
+#endif
         }
 
         private void Init(object sender, EventArgs eventArgs)
