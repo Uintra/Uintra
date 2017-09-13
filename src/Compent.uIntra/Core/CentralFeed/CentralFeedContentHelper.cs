@@ -55,10 +55,10 @@ namespace Compent.uIntra.Core.CentralFeed
             return GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c.IsAncestorOrSelf(currentPage));
         }
 
-        public IEnumerable<CentralFeedTabModel> GetTabs(IPublishedContent currentPage)
+        public IEnumerable<FeedTabModel> GetTabs(IPublishedContent currentPage)
         {
             var overviewPage = GetOverviewPage();
-            yield return new CentralFeedTabModel
+            yield return new FeedTabModel
             {
                 Content = overviewPage,
                 Type = GetTabType(overviewPage),
@@ -78,7 +78,7 @@ namespace Compent.uIntra.Core.CentralFeed
                 var canCreate = _permissionsService.IsCurrentUserHasAccess(tabType, IntranetActivityActionEnum.Create);
 
                 var settings = _centralFeedService.GetSettings(tabType);
-                yield return new CentralFeedTabModel
+                yield return new FeedTabModel
                 {
                     Content = content,
                     Type = tabType,

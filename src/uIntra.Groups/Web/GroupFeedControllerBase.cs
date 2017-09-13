@@ -18,6 +18,8 @@ namespace uIntra.Groups.Web
         private readonly ICentralFeedService _centralFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IGroupContentHelper _groupContentHelper;
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
 
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
@@ -35,7 +37,8 @@ namespace uIntra.Groups.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
             ICentralFeedTypeProvider centralFeedTypeProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService) 
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IGroupContentHelper groupContentHelper) 
             : base(centralFeedContentHelper,
                   subscribeService,
                   centralFeedService,
@@ -48,6 +51,8 @@ namespace uIntra.Groups.Web
             _centralFeedService = centralFeedService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _centralFeedTypeProvider = centralFeedTypeProvider;
+            _intranetUserService = intranetUserService;
+            _groupContentHelper = groupContentHelper;
         }
 
         [NonAction]
@@ -73,10 +78,10 @@ namespace uIntra.Groups.Web
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
-            if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
-            {
-                model.FilterState = GetFilterStateModel();
-            }
+            //if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
+            //{
+            //    model.FilterState = GetFilterStateModel();
+            //}
 
             var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
@@ -90,8 +95,8 @@ namespace uIntra.Groups.Web
             }
 
             var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems, centralFeedType);
-            var filterState = MapToFilterState(centralFeedModel.FilterState);
-            _centralFeedContentHelper.SaveFiltersState(filterState);
+            //var filterState = MapToFilterState(centralFeedModel.FilterState);
+            //_centralFeedContentHelper.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
         }
@@ -105,12 +110,15 @@ namespace uIntra.Groups.Web
         // TODO : think how we can reduce duplication
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
+            var currentUser = _intranetUserService.GetCurrentUser();
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {
-                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
+                Tabs = tabs,
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened,
                 GroupId = groupId

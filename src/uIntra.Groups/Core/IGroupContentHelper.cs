@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using uIntra.CentralFeed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
@@ -13,7 +14,7 @@ namespace uIntra.Groups
         IPublishedContent GetOverviewPage();
         IPublishedContent GetEditPage();
         bool IsGroupRoomPage(IPublishedContent currentPage);
-        IEnumerable<GroupNavigationTab> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent);
+        IEnumerable<FeedTabModel> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent);
         IIntranetType GetTabType(IPublishedContent content);
         bool IsGroupPage(IPublishedContent currentPage);
         IPublishedContent GetMyGroupsOverviewPage();
