@@ -2,7 +2,7 @@
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedTabViewModel
+    public class FeedTabViewModel
     {
         public IIntranetType Type { get; set; }       
         public string CreateUrl { get; set; }

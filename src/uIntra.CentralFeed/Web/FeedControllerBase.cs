@@ -241,7 +241,7 @@ namespace uIntra.CentralFeed.Web
 
             var model = new FeedOverviewModel
             {
-                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
+                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<FeedTabViewModel>>(),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
@@ -295,9 +295,9 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        private CentralFeedTabViewModel GetTabForActivities(IIntranetType activitiesType)
+        private FeedTabViewModel GetTabForActivities(IIntranetType activitiesType)
         {
-            var result = _centralFeedContentHelper.GetTabs(CurrentPage).First(el => el.Type.Id == activitiesType.Id).Map<CentralFeedTabViewModel>();
+            var result = _centralFeedContentHelper.GetTabs(CurrentPage).First(el => el.Type.Id == activitiesType.Id).Map<FeedTabViewModel>();
             return result;
         }
 

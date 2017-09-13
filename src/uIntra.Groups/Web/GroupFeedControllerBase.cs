@@ -129,7 +129,7 @@ namespace uIntra.Groups.Web
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
 
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
-            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>();
+            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Map<IEnumerable<FeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {
