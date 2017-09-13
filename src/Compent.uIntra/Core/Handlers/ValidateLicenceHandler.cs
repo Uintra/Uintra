@@ -10,7 +10,7 @@ namespace Compent.uIntra.Core.Handlers
     {
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-#if ENABLE_LICENCE
+#if (!DISABLE_LICENCE)
              UmbracoApplicationBase.ApplicationInit += Init;
 #endif
         }
