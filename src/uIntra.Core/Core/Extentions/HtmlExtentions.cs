@@ -1,6 +1,10 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using uIntra.Core.Links;
 using uIntra.Core.Localization;
+using uIntra.Core.ModelBinders;
 
 namespace uIntra.Core.Extentions
 {
@@ -61,6 +65,18 @@ namespace uIntra.Core.Extentions
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
 
             return dateTimeFormatProvider.DateTimeValuePickerFormat;
+        }
+
+        public static MvcHtmlString PassLinks(this HtmlHelper helper, ActivityCreateLinks links)
+        {
+            string result = String.Empty;
+
+            result += helper.Hidden(LinksBinder.DetailsNoIdFormKey, links.DetailsNoId);
+            result += helper.Hidden(LinksBinder.CreateFormKey, links.Create);
+            result += helper.Hidden(LinksBinder.CreatorFormKey, links.Creator);
+            result += helper.Hidden(LinksBinder.OverviewFormKey, links.Overview);
+
+            return MvcHtmlString.Create(result);
         }
     }
 }
