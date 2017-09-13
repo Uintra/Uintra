@@ -100,12 +100,7 @@ namespace Compent.uIntra.Core.Bulletins
             );
         }
 
-        protected override Guid GetCreatorId(Guid activityId)
-        {
-            return Get(activityId).CreatorId;
-        }
-
-        public override ActivityCreateLinks GetGroupFeedCreateLinks()
+        public override ActivityCreateLinks GetCentralFeedCreateLinks()
         {
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             return new ActivityCreateLinks(
@@ -113,6 +108,11 @@ namespace Compent.uIntra.Core.Bulletins
                 create: null,
                 creator: GetProfileLink(currentUserId)
             );
+        }
+
+        protected override Guid GetCreatorId(Guid activityId)
+        {
+            return Get(activityId).CreatorId;
         }
 
         public MediaSettings GetMediaSettings()

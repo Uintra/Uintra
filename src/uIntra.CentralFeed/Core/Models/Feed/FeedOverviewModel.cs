@@ -3,7 +3,7 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
-    public abstract class FeedOverviewModel
+    public class FeedOverviewModel
     {
         public IEnumerable<CentralFeedTabViewModel> Tabs { get; set; }
         public IIntranetType CurrentType { get; set; }

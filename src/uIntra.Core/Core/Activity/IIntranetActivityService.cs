@@ -25,8 +25,8 @@ namespace uIntra.Core.Activity
         ActivityLinks GetCentralFeedLinks(Guid id);
         ActivityCreateLinks GetCentralFeedCreateLinks();
 
-        ActivityLinks GetGroupFeedLinks(Guid id);
-        ActivityCreateLinks GetGroupFeedCreateLinks();
+        ActivityLinks GetGroupFeedLinks(Guid id, Guid groupId);
+        ActivityCreateLinks GetGroupFeedCreateLinks(Guid groupId);
 
         void Delete(Guid id);
         bool CanEdit(Guid id);

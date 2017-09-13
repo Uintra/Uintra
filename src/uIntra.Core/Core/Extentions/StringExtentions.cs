@@ -8,6 +8,8 @@ namespace uIntra.Core.Extentions
 {
     public static class StringExtentions
     {
+        public const string GroupIdQueryParam = "groupId";
+
         public static bool IsNullOrEmpty(this string str)
         {
             return string.IsNullOrEmpty(str);
@@ -95,6 +97,11 @@ namespace uIntra.Core.Extentions
             if (int.TryParse(str, out result))
                 return new int?(result);
             return new int?();
+        }
+
+        public static string AddGroupId(this string url, Guid groupId)
+        {
+            return url.AddParameter(GroupIdQueryParam, groupId);
         }
     }
 }

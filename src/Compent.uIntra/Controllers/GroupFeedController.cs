@@ -1,5 +1,6 @@
 ﻿using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Web;
@@ -17,8 +18,9 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             ICentralFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IGroupContentHelper groupContentHelper) 
-            : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper)
+            IGroupContentHelper groupContentHelper,
+            IGroupService groupService) 
+            : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupService)
         {
         }
     }

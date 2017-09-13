@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -9,6 +10,7 @@ namespace uIntra.CentralFeed.Web
     public abstract class CentralFeedControllerBase : FeedControllerBase
     {
         private readonly ICentralFeedService _centralFeedService;
+        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedDetailsView.cshtml";
@@ -30,14 +32,23 @@ namespace uIntra.CentralFeed.Web
             : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService)
         {
             _centralFeedService = centralFeedService;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
             _activitiesServiceFactory = activitiesServiceFactory1;
         }
 
+        [HttpGet]
+        public override ActionResult Create(int typeId)
+        {
+            var activityType = _centralFeedTypeProvider.Get(typeId);
+            var viewModel = GetCreateViewModel(activityType);
+            return PartialView(CreateViewPath, viewModel);
+        }
+
         // TODO : duplication
-        protected override CreateViewModel GetCreateViewModel(IIntranetType activityType)
+        protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(activityType.Id);
-            var links = service.GetGroupFeedCreateLinks();
+            var links = service.GetCentralFeedCreateLinks();
 
             var settings = _centralFeedService.GetSettings(activityType);
 

@@ -62,13 +62,7 @@ namespace uIntra.CentralFeed.Web
             return PartialView(DetailsViewPath, viewModel);
         }
 
-        [HttpGet]
-        public virtual ActionResult Create(int typeId)
-        {
-            var activityType = _centralFeedTypeProvider.Get(typeId);
-            var viewModel = GetCreateViewModel(activityType);
-            return PartialView(CreateViewPath, viewModel);
-        }
+        public abstract ActionResult Create(int typeId);
 
         [HttpGet]
         public virtual ActionResult Edit(Guid id)
@@ -77,11 +71,10 @@ namespace uIntra.CentralFeed.Web
             return PartialView(CreateViewPath, viewModel);
         }
 
-        protected abstract CreateViewModel GetCreateViewModel(IIntranetType activityType);
         protected abstract EditViewModel GetEditViewModel(Guid id);
         protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
 
-        public virtual ActionResult List(CentralFeedListModel model)
+        public virtual ActionResult List(FeedListModel model)
         {
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetCentralFeedItems(centralFeedType).ToList();
@@ -241,12 +234,12 @@ namespace uIntra.CentralFeed.Web
                 || filterState.ShowSubscribed.HasValue;
         }
 
-        protected virtual CentralFeedOverviewModel GetOverviewModel()
+        protected virtual FeedOverviewModel GetOverviewModel()
         {
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
-            var model = new CentralFeedOverviewModel
+            var model = new FeedOverviewModel
             {
                 Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<CentralFeedTabViewModel>>(),
                 CurrentType = tabType,

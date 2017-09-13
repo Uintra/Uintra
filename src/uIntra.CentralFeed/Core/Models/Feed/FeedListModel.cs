@@ -1,6 +1,6 @@
 ﻿namespace uIntra.CentralFeed
 {
-    public abstract class FeedListModel
+    public class FeedListModel
     {
         public int TypeId { get; set; }
         public long? Version { get; set; }

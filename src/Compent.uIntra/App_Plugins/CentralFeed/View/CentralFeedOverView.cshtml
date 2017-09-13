@@ -3,7 +3,7 @@
 @using uIntra.CentralFeed
 @using uIntra.Core.Extentions
 @using Umbraco.Web
-@model uIntra.CentralFeed.CentralFeedOverviewModel
+@model uIntra.CentralFeed.FeedOverviewModel
 @{
     var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
 }
@@ -46,7 +46,7 @@
                 @{Html.RenderAction("List", "CentralFeed",
                         new
                         {
-                            model = new CentralFeedListModel
+                            model = new FeedListModel
                             {
                                 TypeId = Model.CurrentType.Id
                             }

@@ -63,14 +63,19 @@ namespace uIntra.Core.Activity
             );
         }
 
-        public virtual ActivityLinks GetGroupFeedLinks(Guid id)
+        public virtual ActivityLinks GetGroupFeedLinks(Guid id, Guid groupId)
         {
-            return GetCentralFeedLinks(id); // TODO
+            var centralFeedLinks = GetCentralFeedLinks(id);
+            return centralFeedLinks
+                .WithCreate(centralFeedLinks.Create.AddGroupId(groupId))
+                .WithEdit(centralFeedLinks.Edit.AddGroupId(groupId));
         }
 
-        public virtual ActivityCreateLinks GetGroupFeedCreateLinks()
+        public virtual ActivityCreateLinks GetGroupFeedCreateLinks(Guid groupId)
         {
-            return GetCentralFeedCreateLinks(); // TODO
+            var centralFeedLinks = GetCentralFeedCreateLinks();
+            return centralFeedLinks
+                .WithCreate(centralFeedLinks.Create.AddGroupId(groupId));
         }
 
         protected abstract Guid GetCreatorId(Guid activityId);

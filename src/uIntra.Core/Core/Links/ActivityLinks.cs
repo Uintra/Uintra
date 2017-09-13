@@ -11,5 +11,15 @@ namespace uIntra.Core.Links
             Details = details;
             Edit = edit;
         }
+
+        public ActivityLinks WithCreate(string value)
+        {
+            return new ActivityLinks(Overview, value, Details, Edit, Creator);
+        }
+
+        public ActivityLinks WithEdit(string value)
+        {
+            return new ActivityLinks(Overview, Edit, Details, value, Creator);
+        }
     }
 }

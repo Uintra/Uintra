@@ -20,6 +20,7 @@ namespace uIntra.Groups.Web
         private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupService _groupService;
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
 
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
@@ -38,7 +39,8 @@ namespace uIntra.Groups.Web
             IIntranetUserContentHelper intranetUserContentHelper,
             ICentralFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IGroupContentHelper groupContentHelper) 
+            IGroupContentHelper groupContentHelper,
+            IGroupService groupService) 
             : base(centralFeedContentHelper,
                   subscribeService,
                   centralFeedService,
@@ -53,6 +55,7 @@ namespace uIntra.Groups.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
             _groupContentHelper = groupContentHelper;
+            _groupService = groupService;
         }
 
         [NonAction]
@@ -68,7 +71,7 @@ namespace uIntra.Groups.Web
         }
 
         [NonAction]
-        public override ActionResult List(CentralFeedListModel model)
+        public override ActionResult List(FeedListModel model)
         {
             return base.List(model);
         }
@@ -101,6 +104,18 @@ namespace uIntra.Groups.Web
             return PartialView(ListViewPath, centralFeedModel);
         }
 
+        public override ActionResult Create(int typeId)
+        {
+            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            if (!groupId.HasValue)
+                throw new NotImplementedException();
+            var activityType = _centralFeedTypeProvider.Get(typeId);
+            var viewModel = GetCreateViewModel(activityType, groupId.Value);
+            return PartialView(CreateViewPath, viewModel);
+        }
+
+
+
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedSettings settings, Guid groupId)
         {
             return items
@@ -126,10 +141,10 @@ namespace uIntra.Groups.Web
             return model;
         }
 
-        protected override CreateViewModel GetCreateViewModel(IIntranetType activityType)
+        protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(activityType.Id);
-            var links = service.GetGroupFeedCreateLinks();
+            var links = service.GetGroupFeedCreateLinks(groupId);
 
             var settings = _centralFeedService.GetSettings(activityType);
 
