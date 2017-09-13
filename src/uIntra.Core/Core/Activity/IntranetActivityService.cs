@@ -44,22 +44,28 @@ namespace uIntra.Core.Activity
         public virtual ActivityLinks GetCentralFeedLinks(Guid id)
         {
             var creatorId = GetCreatorId(id);
+            var detailsPage = GetDetailsPage().Url;
+
             return new ActivityLinks(
                 overview: GetOverviewPage().Url,
                 create: GetCreatePage().Url,
-                details: GetDetailsPage().Url.AddIdParameter(id),
+                details: detailsPage.AddIdParameter(id),
                 edit: GetEditPage().Url.AddIdParameter(id),
-                creator: GetProfileLink(creatorId)
+                creator: GetProfileLink(creatorId),
+                detailsNoId: detailsPage
             );
         }
 
         public virtual ActivityCreateLinks GetCentralFeedCreateLinks()
         {
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var detailsPage = GetDetailsPage().Url;
+
             return new ActivityCreateLinks(
                 overview: GetOverviewPage().Url,
                 create: GetCreatePage().Url,
-                creator: GetProfileLink(currentUserId)
+                creator: GetProfileLink(currentUserId),
+                detailsNoId: detailsPage
             );
         }
 
@@ -68,14 +74,17 @@ namespace uIntra.Core.Activity
             var centralFeedLinks = GetCentralFeedLinks(id);
             return centralFeedLinks
                 .WithCreate(centralFeedLinks.Create.AddGroupId(groupId))
-                .WithEdit(centralFeedLinks.Edit.AddGroupId(groupId));
+                .WithEdit(centralFeedLinks.Edit.AddGroupId(groupId))
+                .WithDetailsNoId(centralFeedLinks.DetailsNoId.AddGroupId(groupId));
+
         }
 
         public virtual ActivityCreateLinks GetGroupFeedCreateLinks(Guid groupId)
         {
             var centralFeedLinks = GetCentralFeedCreateLinks();
             return centralFeedLinks
-                .WithCreate(centralFeedLinks.Create.AddGroupId(groupId));
+                .WithCreate(centralFeedLinks.Create.AddGroupId(groupId))
+                .WithDetailsNoId(centralFeedLinks.DetailsNoId.AddGroupId(groupId));
         }
 
         protected abstract Guid GetCreatorId(Guid activityId);

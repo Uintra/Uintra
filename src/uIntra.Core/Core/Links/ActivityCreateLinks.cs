@@ -4,16 +4,23 @@ namespace uIntra.Core.Links
     {
         public string Overview { get; }
         public string Create { get; }
+        public string DetailsNoId { get; }
 
-        public ActivityCreateLinks(string overview, string create, string creator) : base(creator)
+        public ActivityCreateLinks(string overview, string create, string creator, string detailsNoId) : base(creator)
         {
             Overview = overview;
             Create = create;
+            DetailsNoId = detailsNoId;
         }
 
         public virtual ActivityCreateLinks WithCreate(string value)
         {
-            return new ActivityCreateLinks(Overview, value, Creator);
+            return new ActivityCreateLinks(Overview, value, Creator, DetailsNoId);
+        }
+
+        public virtual ActivityCreateLinks WithDetailsNoId(string value)
+        {
+            return new ActivityCreateLinks(Overview, Create, Creator, value);
         }
     }
 }

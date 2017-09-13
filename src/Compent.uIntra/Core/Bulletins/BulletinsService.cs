@@ -91,22 +91,28 @@ namespace Compent.uIntra.Core.Bulletins
 
         public override ActivityLinks GetCentralFeedLinks(Guid id)
         {
+            var detailsPage = GetDetailsPage().Url;
+
             return new ActivityLinks(
                 overview: GetOverviewPage().Url,
                 create: null,
-                details: GetDetailsPage().Url.AddIdParameter(id),
+                details: detailsPage.AddIdParameter(id),
                 edit: GetEditPage().Url.AddIdParameter(id),
-                creator: GetProfileLink(id)
+                creator: GetProfileLink(id),
+                detailsNoId: detailsPage
             );
         }
 
         public override ActivityCreateLinks GetCentralFeedCreateLinks()
         {
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var detailsPage = GetDetailsPage().Url;
+
             return new ActivityCreateLinks(
                 overview: GetOverviewPage().Url,
                 create: null,
-                creator: GetProfileLink(currentUserId)
+                creator: GetProfileLink(currentUserId),
+                detailsNoId: detailsPage
             );
         }
 

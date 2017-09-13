@@ -117,7 +117,6 @@ namespace uIntra.Events.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
-            //FillLinks();
             if (!ModelState.IsValid)
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -127,15 +126,13 @@ namespace uIntra.Events.Web
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
 
-            return Redirect("/");
-
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activityId));
+            var redirectUrl = createModel.Links.DetailsNoId.AddIdParameter(activityId);
+            return Redirect(redirectUrl);
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id)
         {
-            //FillLinks();
 
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
@@ -167,8 +164,7 @@ namespace uIntra.Events.Web
 
             OnEventEdited(activity, editModel);
 
-            return Redirect("/");
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activity.Id));
+            return Redirect(editModel.Links.Details);
         }
 
         [HttpPost]

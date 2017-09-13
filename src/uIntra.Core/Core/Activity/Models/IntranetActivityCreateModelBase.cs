@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using uIntra.Core.Links;
+using uIntra.Core.ModelBinders;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 
@@ -22,6 +23,7 @@ namespace uIntra.Core.Activity
 
         public IIntranetType ActivityType { get; set; }
 
+        [PropertyBinder(typeof(LinksBinder))]
         public ActivityCreateLinks Links { get; set; }
     }
 }

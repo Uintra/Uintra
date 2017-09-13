@@ -371,6 +371,7 @@
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
     <Compile Include="Core\ModelBinders\CustomModelBinder.cs" />
+    <Compile Include="Core\ModelBinders\LinksBinder.cs" />
     <Compile Include="Core\Persistence\IntranetDbContext.cs" />
     <Compile Include="Core\Media\IIntranetMediaService.cs" />
     <Compile Include="Core\Media\IntranetMediaService.cs" />
@@ -511,7 +512,7 @@
     <Compile Include="Core\Media\IMediaHelper.cs" />
     <Compile Include="Core\Media\MediaHelper.cs" />
     <Compile Include="Core\Media\MediaSettings.cs" />
-    <Compile Include="Core\ModelBinders\DateTimeModelBinder.cs" />
+    <Compile Include="Core\ModelBinders\DateTimeBinder.cs" />
     <Compile Include="Core\ModelBinders\ICustomModelBinder.cs" />
     <Compile Include="Core\ModelBinders\PropertyBinderAttribute.cs" />
     <Compile Include="Core\Persistence\Sql\ISqlRepository.cs" />
