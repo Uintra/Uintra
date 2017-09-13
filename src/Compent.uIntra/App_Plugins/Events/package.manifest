@@ -15,6 +15,24 @@
       }
     },
     {
+      "name": "Groups Events create",
+      "alias": "custom.GroupsEventsCreate",
+      "view": "/App_Plugins/Events/Create/events-create.html",
+      "icon": "icon-settings-alt color-green",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Create",
+        "includeParams": true,
+        "params": {
+          "typeId": 3
+        }
+      }
+    },
+
+
+
+
+    {
       "name": "Events edit",
       "alias": "custom.EventsEdit",
       "view": "/App_Plugins/Events/Edit/events-edit.html",
@@ -25,6 +43,19 @@
       }
     },
     {
+      "name": "Groups Events edit",
+      "alias": "custom.GroupsEventsEdit",
+      "view": "/App_Plugins/Events/Edit/events-edit.html",
+      "icon": "icon-settings-alt color-green",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Edit"
+      }
+    },
+
+
+
+    {
       "name": "Events details",
       "alias": "custom.EventsDetails",
       "view": "/App_Plugins/Events/Details/events-details.html",
@@ -34,6 +65,20 @@
         "action": "Details"
       }
     },
+    {
+      "name": "Groups Events details",
+      "alias": "custom.GroupsEventsDetails",
+      "view": "/App_Plugins/Events/Details/events-details.html",
+      "icon": "icon-settings-alt color-green",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Details"
+      }
+    },
+
+
+
+
     {
       "name": "Coming Events",
       "alias": "custom.ComingEvents",

@@ -1085,6 +1085,7 @@
       <DependentUpon>201709121545185_GroupActivity.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedCreateView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
