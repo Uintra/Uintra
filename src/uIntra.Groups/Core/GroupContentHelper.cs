@@ -110,24 +110,23 @@ namespace uIntra.Groups
                         continue;
                 }
 
-                var tab = new FeedTabModel
-                {
-                    Content = content,
-                    Type = GetTabType(content),
-                    IsActive = content.IsAncestorOrSelf(currentContent)
-                };
+                var type = GetTabType(content);
 
-
-                if (tab.Type != null && memberOfGroup)
+                if (type != null && memberOfGroup)
                 {
-                    tab.CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url;
+                    yield return new FeedTabModel
+                    {
+                        Content = content,
+                        Type = type,
+                        IsActive = content.IsAncestorOrSelf(currentContent),
+                        CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url
+                    };
                 }
-
-                yield return tab;
             }
         }
 
 
+        // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
         public IIntranetType GetTabType(IPublishedContent content)
         {
             var value = _gridHelper.GetValue(content, "custom.GroupCentralFeedOverview");

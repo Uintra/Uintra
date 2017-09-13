@@ -9,12 +9,12 @@ namespace uIntra.Core.TypeProviders
         public virtual IIntranetType Get(int typeId)
         {
             // TODO: Use .Cast?
-            return GetAll().SingleOrDefault(at => at.Id == typeId);
+            return GetAll().Single(at => at.Id == typeId);
         }
         public virtual IIntranetType Get(string name)
         {
             // TODO: Use .Cast?
-            return GetAll().SingleOrDefault(at => at.Name == name);
+            return GetAll().Single(at => at.Name == name);
         }
 
         public virtual IEnumerable<IIntranetType> GetAll()
@@ -23,7 +23,7 @@ namespace uIntra.Core.TypeProviders
             {
                 yield return new IntranetType
                 {
-                    Id = enumRole.GetHashCode(),
+                    Id = (int)enumRole,
                     Name = enumRole.ToString()
                 };
             }

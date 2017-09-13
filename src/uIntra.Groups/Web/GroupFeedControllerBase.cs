@@ -78,14 +78,14 @@ namespace uIntra.Groups.Web
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
-            //if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
-            //{
-            //    model.FilterState = GetFilterStateModel();
-            //}
+            if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
+            {
+                model.FilterState = GetFilterStateModel();
+            }
 
             var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
-            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings, model.GroupId).ToList();
+            var filteredItems = ApplyFilters(items, tabSettings, model.GroupId).ToList();
 
             var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
 
@@ -95,15 +95,15 @@ namespace uIntra.Groups.Web
             }
 
             var centralFeedModel = GetCentralFeedListViewModel(model, filteredItems, centralFeedType);
-            //var filterState = MapToFilterState(centralFeedModel.FilterState);
-            //_centralFeedContentHelper.SaveFiltersState(filterState);
+            var filterState = MapToFilterState(centralFeedModel.FilterState);
+            _centralFeedContentHelper.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings, Guid groupId)
+        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedSettings settings, Guid groupId)
         {
-            return base.ApplyFilters(items, filterState, settings)
+            return items
                 .Where(i => i is IGroupable && ((IGroupable) i).GroupIds.Contains(groupId));
         }
 
