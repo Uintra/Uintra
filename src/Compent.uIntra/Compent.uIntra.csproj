@@ -98,9 +98,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EmailWorker.Data.0.4.0\lib\Net45\EmailWorker.Data.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\EmailWorker.Data.0.4.1\lib\Net45\EmailWorker.Data.dll</HintPath>
     </Reference>
     <Reference Include="EmailWorker.Ninject">
       <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4\lib\Net45\EmailWorker.Ninject.dll</HintPath>
