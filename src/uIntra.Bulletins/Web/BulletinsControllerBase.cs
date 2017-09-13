@@ -95,6 +95,7 @@ namespace uIntra.Bulletins.Web
 
             var bulletin = MapToBulletin(model);
             var createdBulletinId = _bulletinsService.Create(bulletin);
+            bulletin.Id = createdBulletinId;
             OnBulletinCreated(bulletin, model);
 
             result.Id = createdBulletinId;

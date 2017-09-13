@@ -154,7 +154,7 @@ namespace uIntra.Groups
             {
                 ActivityId = activityId,
                 GroupId = groupId,
-                Id = new Guid()
+                Id = Guid.NewGuid()
             };
 
             _groupActivityRepository.Add(relation);
