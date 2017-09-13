@@ -122,7 +122,6 @@ namespace uIntra.Groups.Web
                 .Where(i => i is IGroupable && ((IGroupable) i).GroupIds.Contains(groupId));
         }
 
-        // TODO : think how we can reduce duplication
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();

@@ -119,7 +119,7 @@ namespace uIntra.Groups
                         Content = content,
                         Type = type,
                         IsActive = content.IsAncestorOrSelf(currentContent),
-                        CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url
+                        CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url.AddGroupId(groupId)
                     };
                 }
             }
