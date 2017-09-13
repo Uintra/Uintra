@@ -13,6 +13,7 @@ using uIntra.Groups;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
+using System.Linq;
 
 namespace Compent.uIntra.Controllers
 {
@@ -21,8 +22,9 @@ namespace Compent.uIntra.Controllers
         protected override string DetailsViewPath => "~/Views/News/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
-        protected override string EditViewPath => "~/Views/News/EditView.cshtml";        
+        protected override string EditViewPath => "~/Views/News/EditView.cshtml";
 
+        private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupService _groupService;
 
@@ -32,9 +34,11 @@ namespace Compent.uIntra.Controllers
             IMediaHelper mediaHelper,
             IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
-            IDocumentIndexer documentIndexer, IGroupService groupService)
+            IDocumentIndexer documentIndexer,
+            IGroupService groupService)
             : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
+            _newsService = newsService;
             _documentIndexer = documentIndexer;
             _groupService = groupService;
         }
@@ -74,6 +78,8 @@ namespace Compent.uIntra.Controllers
             if (groupId.HasValue)
             {
                 _groupService.AddGroupActivityRelation(groupId.Value, activityId);
+                var news = _newsService.Get(activityId);
+                news.GroupIds = news.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
             }
         }
     }

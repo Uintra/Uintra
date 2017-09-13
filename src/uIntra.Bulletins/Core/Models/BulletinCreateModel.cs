@@ -21,6 +21,7 @@ namespace uIntra.Bulletins
         public string NewMedia { get; set; }
 
         public string AllowedMediaExtentions { get; set; }
+
         public IEnumerable<string> Dates { get; set; }
     }
 }

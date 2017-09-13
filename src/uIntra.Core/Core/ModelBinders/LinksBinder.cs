@@ -30,6 +30,6 @@ namespace uIntra.Core.ModelBinders
             return result;
         }
 
-        private string GetValue(IValueProvider provider, string key) => provider.GetValue(key).AttemptedValue;
+        private string GetValue(IValueProvider provider, string key) => provider.GetValue(key)?.AttemptedValue;
     }
 }

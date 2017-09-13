@@ -11,6 +11,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Navigation;
+using System.Linq;
 
 namespace Compent.uIntra.Controllers
 {
@@ -18,6 +19,7 @@ namespace Compent.uIntra.Controllers
     {
         protected override string DetailsViewPath => "~/Views/Bulletins/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/Bulletins/ItemView.cshtml";
+        private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupService _groupService;
 
@@ -31,6 +33,7 @@ namespace Compent.uIntra.Controllers
             IGroupService groupService)
             : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
         {
+            _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
             _groupService = groupService;
         }
@@ -70,6 +73,8 @@ namespace Compent.uIntra.Controllers
             if (groupId.HasValue)
             {
                 _groupService.AddGroupActivityRelation(groupId.Value, bulletin.Id);
+                var extendedBulletin = _bulletinsService.Get(bulletin.Id);
+                extendedBulletin.GroupIds = extendedBulletin.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
             }
         }
     }
