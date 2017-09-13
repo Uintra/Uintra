@@ -38,24 +38,89 @@ var helpers = {
             }
 
             dataStorage.value = quill.container.firstChild.innerHTML;
-            this.initSmiles(quill.container.firstChild, quill.container.firstChild.innerHTML);
-        });
-
-        quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
-            var plaintext = $.trim($(node).text());
-            return new Delta().insert(plaintext);
         });
 
         return quill;
     },
-    initSmiles: function(container, content){
-        var emoji = new EmojiConvertor();
-        for (var i in emoji.img_sets){
-            emoji.img_sets[i].path = '/App_Plugins/Core/Content/styles/emoji-data/img-'+i+'-64/';
-            emoji.img_sets[i].sheet = '/App_Plugins/Core/Content/styles/emoji-data/sheet_'+i+'_64.png';
+    initSmiles: function(container, toolbar){
+        var emoji = [
+            "angry",
+            "great",
+            "happy",
+            "hungry",
+            "inlove",
+            "laughing",
+            "party",
+            "relaxed",
+            "sad",
+            "sick",
+            "skeptical",
+            "sleeping",
+            "surprised",
+            "wink"
+        ],
+        path,
+        emojiContainer,
+        emojiList,
+        emojiListItem,
+        emojiListImage,
+        emojiBtn,
+        emojiBtnX,
+        emojiBtnY;
+
+        path = "/App_Plugins/Core/Content/styles/emoji-data/";
+
+        emojiBtn = toolbar.querySelector(".ql-emoji");
+        emojiBtnX = toolbar.offsetWidth - (emojiBtn.offsetLeft + emojiBtn.offsetWidth);
+
+        emojiContainer = document.createElement("div");
+        emojiContainer.classList.add("js-emoji", "emoji", "hidden");
+
+        emojiList = document.createElement("ul");
+        emojiList.classList.add("emoji__list");
+
+        for(var i = 0; i < emoji.length; i++){
+            emojiListItem = document.createElement("li");
+            emojiListItem.classList.add("emoji__list-item");
+
+            emojiListItem.addEventListener('click', function(event) {
+                CopyClipboard(getHTML(event.target));
+            });
+
+            emojiListImage = document.createElement("img");
+            emojiListImage.setAttribute("src", path + emoji[i] + ".svg");
+            emojiListImage.setAttribute("title", emoji[i]);
+            emojiListImage.setAttribute("class", "emoji-icon");
+            emojiListImage.setAttribute("width", "20");
+            emojiListImage.setAttribute("height", "20");
+
+            emojiListItem.appendChild(emojiListImage);
+            emojiList.appendChild(emojiListItem);
         }
-        emoji.use_sheet = true;
-        container.innerHTML = emoji.replace_colons(content);
+
+        emojiContainer.appendChild(emojiList);
+        emojiContainer.setAttribute("style", "right: " + emojiBtnX + "px;");
+
+        toolbar.appendChild(emojiContainer);
+
+        function CopyClipboard(target){
+            container.clipboard.dangerouslyPasteHTML(0, target);
+        }
+
+        function getHTML(el){
+            if(!el || !el.tagName) return '';
+            var txt,
+                clone = document.createElement("div");
+
+            clone.appendChild(el.cloneNode(false));
+            txt = clone.innerHTML;
+            clone = null;
+            return txt;
+        }
+
+        emojiBtn.addEventListener('click', function() {
+            emojiContainer.classList.toggle("hidden");
+        });
     },
     initActivityDescription: function (holder, dataStorageElement, descId, btnElement) {
         var dataStorage = holder.find(dataStorageElement);

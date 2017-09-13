@@ -83,6 +83,7 @@
 		border-width: 1px 0 0 !important;
         flex-wrap:wrap;
         padding:8px 15px 0;
+        position:relative;
 
 		.ql-formats {
 			display: flex;

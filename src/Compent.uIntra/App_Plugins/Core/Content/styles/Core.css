@@ -727,6 +727,39 @@ h5{
 }
 /*end pin-info*/
 
+/* emoji styles */
+.emoji{
+    position:absolute;
+    width:313px;
+    border:1px solid var(--color-light-gray);
+    overflow:hidden;
+    background:var(--color-white);
+    bottom:100%;
+    margin:0 0 -9px;
+
+    &__list{
+        margin:-20px 0 0 -20px;
+        padding:10px 9px 9px 10px;
+        list-style:none;
+        overflow:hidden;
+
+        &-item{
+            float:left;
+            width:32px;
+            height:32px;
+            margin:20px 0 0 20px;
+            cursor:pointer;
+        }
+    }
+
+    .emoji-icon{
+        width:32px !important;
+        height:32px !important;
+    }
+}
+
+/* end emoji styles */
+
 /* libs override styles */
 
 .ql-container {

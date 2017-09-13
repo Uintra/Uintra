@@ -50,6 +50,11 @@ function initEditor() {
         }
     });
 
+    var toolbar = editor.getModule('toolbar');
+    toolbar.addHandler('emoji', function() {
+        console.log('emoji');
+    });
+
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
     });
@@ -158,6 +163,7 @@ function show() {
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeBulletinBtn.classList.remove("hidden");
+    helpers.initSmiles(editor, editor.getModule('toolbar').container);
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
