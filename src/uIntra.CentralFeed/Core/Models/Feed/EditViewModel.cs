@@ -7,6 +7,6 @@ namespace uIntra.CentralFeed
     {
         public Guid Id { get; set; }
         public ActivityLinks Links { get; set; }
-        public CentralFeedSettings Settings { get; set; }
+        public FeedSettings Settings { get; set; }
     }
 }

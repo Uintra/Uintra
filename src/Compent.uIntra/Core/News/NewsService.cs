@@ -129,9 +129,9 @@ namespace Compent.uIntra.Core.News
             return isCreator && isUserHasPermissions;
         }
 
-        public CentralFeedSettings GetCentralFeedSettings()
+        public FeedSettings GetCentralFeedSettings()
         {
-            return new CentralFeedSettings
+            return new FeedSettings
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.News.ToInt()),
                 Controller = "News",

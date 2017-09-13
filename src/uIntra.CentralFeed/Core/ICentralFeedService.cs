@@ -11,8 +11,8 @@ namespace uIntra.CentralFeed
 
         long GetFeedVersion(IEnumerable<IFeedItem> centralFeedItems);
 
-        CentralFeedSettings GetSettings(IIntranetType type);
+        FeedSettings GetSettings(IIntranetType type);
 
-        IEnumerable<CentralFeedSettings> GetAllSettings();
+        IEnumerable<FeedSettings> GetAllSettings();
     }
 }

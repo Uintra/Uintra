@@ -9,10 +9,8 @@
 
         @foreach (var activity in Model.Feed)
         {
-
-            var itemSettings = Model.Settings.First(s => s.Type.Id == activity.Item.Type.Id);
             <div class="block__item">
-                @{ Html.RenderAction("PreviewItem", itemSettings.Controller, new { item = activity.Item, links = activity.Links }); }
+                @{ Html.RenderAction("PreviewItem", activity.ControllerName, new { item = activity.Item, links = activity.Links }); }
             </div>
          }
     <a href="@Model.Tab.Url" class="btn">@Html.Localize("LatestActivities.SeeAll.btn")</a>

@@ -153,9 +153,9 @@ namespace Compent.uIntra.Core.Events
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
         }
 
-        public CentralFeedSettings GetCentralFeedSettings()
+        public FeedSettings GetCentralFeedSettings()
         {
-            return new CentralFeedSettings
+            return new FeedSettings
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Events.ToInt()),
                 Controller = "Events",

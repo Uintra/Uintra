@@ -5,11 +5,11 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedListViewModel
+    public class FeedListViewModel
     {
         public IIntranetType Type { get; set; }
         public IEnumerable<FeedItemViewModel> Feed { get; set; } = Enumerable.Empty<FeedItemViewModel>();
-        public IEnumerable<CentralFeedSettings> Settings { get; set; } = Enumerable.Empty<CentralFeedSettings>();
+        public FeedTabSettings TabSettings { get; set; }
         public long Version { get; set; }
         public bool BlockScrolling { get; set; }
         public FeedFilterStateViewModel FilterState { get; set; }

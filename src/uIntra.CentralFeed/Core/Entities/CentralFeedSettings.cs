@@ -3,7 +3,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedSettings
+    public class FeedSettings
     {
         public IIntranetType Type { get; set; }
         public string Controller { get; set; }

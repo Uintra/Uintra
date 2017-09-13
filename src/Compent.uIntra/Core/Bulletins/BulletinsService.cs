@@ -159,9 +159,9 @@ namespace Compent.uIntra.Core.Bulletins
             return result;
         }
 
-        public CentralFeedSettings GetCentralFeedSettings()
+        public FeedSettings GetCentralFeedSettings()
         {
-            return new CentralFeedSettings
+            return new FeedSettings
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
                 Controller = "Bulletins",

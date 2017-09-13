@@ -8,7 +8,7 @@ namespace uIntra.CentralFeed
     {
         IIntranetType ActivityType { get; }
 
-        CentralFeedSettings GetCentralFeedSettings();
+        FeedSettings GetCentralFeedSettings();
 
         IFeedItem GetItem(Guid activityId);
 

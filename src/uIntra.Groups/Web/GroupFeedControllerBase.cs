@@ -96,7 +96,7 @@ namespace uIntra.Groups.Web
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, CentralFeedSettings settings, Guid groupId)
+        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings, Guid groupId)
         {
             return base.ApplyFilters(items, filterState, settings)
                 .Where(i => i is IGroupable && ((IGroupable) i).GroupIds.Contains(groupId));
