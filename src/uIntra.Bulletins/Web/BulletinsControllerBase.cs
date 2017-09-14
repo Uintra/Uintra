@@ -70,7 +70,7 @@ namespace uIntra.Bulletins.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
-        public virtual ActionResult Edit(Guid id)
+        public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
@@ -78,7 +78,7 @@ namespace uIntra.Bulletins.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
-            var model = GetEditViewModel(bulletin);
+            var model = GetEditViewModel(bulletin, links);
             return PartialView(EditViewPath, model);
         }
 
@@ -155,10 +155,14 @@ namespace uIntra.Bulletins.Web
             return result;
         }
 
-        protected virtual BulletinEditModel GetEditViewModel(BulletinBase bulletin)
+        protected virtual BulletinEditModel GetEditViewModel(BulletinBase bulletin, ActivityLinks links)
         {
             var model = bulletin.Map<BulletinEditModel>();
-            FillMediaEditData(model);
+            var mediaSettings = _bulletinsService.GetMediaSettings();
+
+            model.MediaRootId = mediaSettings.MediaRootId;
+            model.Links = links;
+
             return model;
         }
 
@@ -237,7 +241,7 @@ namespace uIntra.Bulletins.Web
             return bulletin;
         }
 
-        protected virtual void FillMediaEditData(IContentWithMediaCreateEditModel model)
+        protected virtual void FillMediaEditDataa(IContentWithMediaCreateEditModel model)
         {
             var mediaSettings = _bulletinsService.GetMediaSettings();
 
