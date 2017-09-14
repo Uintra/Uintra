@@ -7,9 +7,8 @@ import initOpener from "./openCloseCentralFeed";
 require("./centralFeed.css");
 
 const hideClass = "_hide";
-var infinityScroll = helpers.infiniteScrollFactory;
-var scrollTo = helpers.scrollTo;
-var localStorage = helpers.localStorage;
+let infinityScroll = helpers.infiniteScrollFactory;
+let scrollTo = helpers.scrollTo;
 
 uIntra.events.add("cfTabChanged");
 uIntra.events.add("cfReloadTab", {
@@ -17,20 +16,21 @@ uIntra.events.add("cfReloadTab", {
         isReinit: false
     }
 });
+
 uIntra.events.add("cfTabReloaded", {
     detail: {
         isReinit: false
     }
 });
 
-var holder;
-var navigationHolder;
-var state;
-var formController;
-var reloadintervalId;
+let holder;
+let navigationHolder;
+let extendedState;
+let formController;
+let reloadintervalId;
 
 function initDescription() {
-    var container = $('._clamp');
+    let container = $('._clamp');
     if (container.length > 0) {
         for (var i = 0; i < container.length; i++) {
             var target = $(container[i]).data('url');
@@ -40,12 +40,12 @@ function initDescription() {
 }
 
 function showLoadingStatus() {
-    var loadingElem = document.querySelector(".js-loading-status");
+    let loadingElem = document.querySelector(".js-loading-status");
     loadingElem && (loadingElem.style.display = "block");
 }
 
 function hideLoadingStatus() {
-    var loadingElem = document.querySelector(".js-loading-status");
+    let loadingElem = document.querySelector(".js-loading-status");
     loadingElem && (loadingElem.style.display = "none");
 }
 
@@ -64,8 +64,8 @@ function scrollPrevented() {
 }
 
 function attachEventFilter() {
-
     var clearFiltersElem = formController.form.querySelector('input[name="clearFilters"]');
+
     if (clearFiltersElem) {
         clearFiltersElem.addEventListener('click', function () {
             var showSubscribed = formController.form.querySelector('input[name="showSubscribed"]');
@@ -107,7 +107,8 @@ function reload(useVersion, skipLoadingStatus, isReinit) {
 
     !skipLoadingStatus && showLoadingStatus();
 
-    saveState();
+    helpers.state.save(extendedState.storageName);
+
     var promise = formController.reload();
     promise.then(attachEventFilter);
     promise.then(hideLoadingStatus);
@@ -117,43 +118,20 @@ function reload(useVersion, skipLoadingStatus, isReinit) {
     return promise;
 }
 
-function saveState() {
-    localStorage.setItem(state.storageName, { page: state.page });
-}
-
-function restoreState() {
-    var hash = (window.location.hash || "").replace("#", "");
-    if (hash) {
-        var savedState = localStorage.getItem(state.storageName);
-        state.page = (savedState || {}).page || 1;
-        reload(false, false, true).then(function () {
-            var elem = document.querySelector('[data-anchor="' + hash + '"]');
-
-            if (elem) {
-                scrollTo(document.body, elem.offsetTop, 300);
-                window.history.pushState("", document.title, window.location.pathname);
-            }
-        });
-    } else {
-        localStorage.removeItem(state.storageName);
-    }
-}
-
-function onScroll(done) {
-    if (scrollPrevented()) {
-        done();
-        return;
-    }
-    state.page++;
-    var promise = reload(false, false, true);
-    promise.then(done, done);
+function scrollReload() {
+    holder.querySelector('input[name="version"]').value = null;
+    let promise = formController.reload();
+    promise.then(attachEventFilter);
+    promise.then(initCustomControls);
+    promise.then(function () { emitTabReloadedEvent(true); });
+    return promise;
 }
 
 function tabClickEventHandler(e) {
     if (!$(e.target).hasClass('_active') && !$(e.target).closest('._active').length > 0) {
         e.preventDefault();
         window.history.replaceState({}, "", e.currentTarget.dataset["pageUrl"]);
-        state.tab = e.currentTarget.dataset['type'];
+        extendedState.tab = e.currentTarget.dataset['type'];
 
         $(e.target).closest('.tabset').removeClass('_expanded');
     }
@@ -223,9 +201,9 @@ function init() {
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
     formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
-    var tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
+    let tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
 
-    state = {
+    extendedState = {
         get tab() {
             var el = navigationHolder.querySelector('.js-feed-links .js-feed-type._active');
             return el && el.dataset['type'];
@@ -249,12 +227,6 @@ function init() {
 
             uIntra.events.cfTabChanged.dispatch();
         },
-        get page() {
-            return holder.querySelector('input[name="page"]').value || 1;
-        },
-        set page(val) {
-            holder.querySelector('input[name="page"]').value = val;
-        },
         get storageName() {
             return "centrallFeed_" + this.tab;
         }
@@ -266,8 +238,14 @@ function init() {
     }
 
     initDescription();
-    restoreState();
-    infinityScroll(onScroll, formController.form)();
+
+    infinityScroll({
+        storageName: extendedState.storageName,
+        loaderSelector: '.js-loading-status',
+        $container: $(formController.form),
+        reload: scrollReload
+    });
+
     attachEventFilter();
     runReloadInverval();
 
@@ -281,7 +259,7 @@ function init() {
 }
 
 export default {
-init: init,
-    reload: reload,
-goToAllTab: goToAllTab
+    init,
+    reload,
+    goToAllTab
 }

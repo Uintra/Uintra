@@ -119,31 +119,33 @@ var helpers = {
     },
     infiniteScrollFactory: function (onScroll, scrollContainer) {
         const defaultScrollKoef = 150;
+        var lock = false;
+        var win = $(window);
+        var doc = $(document);
+        var unlock = function () { lock = false; }
 
-        return function () {
-            var lock = false;
-            var win = $(window);
-            var doc = $(document);
-            var unlock = function () { lock = false; }
-            win.scroll(function () {
-                if (scrollContainer) {
-                    let params = scrollContainer.getBoundingClientRect();
+        win.on("scroll.infinite", function () {
+            if (scrollContainer) {
+                let params = scrollContainer.getBoundingClientRect();
 
-                    if (-params.top + defaultScrollKoef >= params.height - screen.height) {
-                        if (!lock) {
-                            lock = true;
-                            onScroll(unlock);
-                        }
-                    }
-                } else {
-                    if ((win.scrollTop() + defaultScrollKoef) >= doc.height() - win.height()) {
-                        if (!lock) {
-                            lock = true;
-                            onScroll(unlock);
-                        }
+                if (-params.top + defaultScrollKoef >= params.height - screen.height) {
+                    if (!lock) {
+                        lock = true;
+                        onScroll(unlock);
                     }
                 }
-            });
+            } else {
+                if ((win.scrollTop() + defaultScrollKoef) >= doc.height() - win.height()) {
+                    if (!lock) {
+                        lock = true;
+                        onScroll(unlock);
+                    }
+                }
+            }
+        });
+
+        if (document.body.scrollHeight == document.body.clientHeight) {
+            onScroll();
         }
     },
     scrollTo: function (element, to, duration) {
