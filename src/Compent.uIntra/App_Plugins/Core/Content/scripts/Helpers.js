@@ -42,7 +42,7 @@ var helpers = {
 
         return quill;
     },
-    initSmiles: function(container, toolbar){
+    initSmiles: function(container, toolbar, index){
         var emoji = [
             "angry",
             "great",
@@ -59,6 +59,7 @@ var helpers = {
             "surprised",
             "wink"
         ],
+        body,
         path,
         emojiContainer,
         emojiList,
@@ -68,6 +69,7 @@ var helpers = {
         emojiBtnX,
         emojiBtnY;
 
+        body = document.querySelector("body");
         path = "/App_Plugins/Core/Content/styles/emoji-data/";
 
         emojiBtn = toolbar.querySelector(".ql-emoji");
@@ -85,6 +87,7 @@ var helpers = {
 
             emojiListItem.addEventListener('click', function(event) {
                 CopyClipboard(getHTML(event.target));
+                emojiContainer.classList.add("hidden");
             });
 
             emojiListImage = document.createElement("img");
@@ -103,8 +106,24 @@ var helpers = {
 
         toolbar.appendChild(emojiContainer);
 
+        emojiBtn.addEventListener('click', function() {
+            emojiContainer.classList.toggle("hidden");
+        });
+
+        container.on('editor-change', function () {
+            index = getIndex();
+        });
+
+        body.addEventListener("click", function(ev) {
+            isOutsideClick(emojiContainer, ev.target, function() {
+                emojiContainer.classList.add("hidden");
+            });
+        });
+
         function CopyClipboard(target){
-            container.clipboard.dangerouslyPasteHTML(0, target);
+            var index = getIndex();
+            if(!index) index = 0;
+            container.clipboard.dangerouslyPasteHTML(index, target);
         }
 
         function getHTML(el){
@@ -118,9 +137,28 @@ var helpers = {
             return txt;
         }
 
-        emojiBtn.addEventListener('click', function() {
-            emojiContainer.classList.toggle("hidden");
-        });
+        function getIndex(){
+            let range = container.getSelection();
+            let index;
+            if (range) {
+                if (range.length == 0) {
+                    index = range.index;
+                } else {
+                    index = range.index + range.length;
+                }
+            } else {
+                console.log('User cursor is not in editor');
+            }
+            return index;
+        }
+
+        function isOutsideClick (el, target, callback) {
+            if (el && !el.contains(target) && target != emojiBtn) {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
+        };
     },
     initActivityDescription: function (holder, dataStorageElement, descId, btnElement) {
         var dataStorage = holder.find(dataStorageElement);
