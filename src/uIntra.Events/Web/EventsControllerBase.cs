@@ -148,8 +148,6 @@ namespace uIntra.Events.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel editModel)
         {
-            //FillLinks();
-
             if (!ModelState.IsValid)
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);

@@ -68,7 +68,7 @@ namespace uIntra.CentralFeed.Web
         public virtual ActionResult Edit(Guid id)
         {
             var viewModel = GetEditViewModel(id);
-            return PartialView(CreateViewPath, viewModel);
+            return PartialView(EditViewPath, viewModel);
         }
 
         protected abstract EditViewModel GetEditViewModel(Guid id);
