@@ -42,7 +42,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
@@ -61,7 +61,7 @@ namespace Compent.uIntra.Core.Bulletins
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
@@ -187,14 +187,39 @@ namespace Compent.uIntra.Core.Bulletins
         public IFeedItem GetItem(Guid activityId)
         {
             var bulletin = Get(activityId);
+
+            // TODO : checking if activity is assigned to any group. Ask about expected behavior
+            if (!bulletin.GroupIds.Any())
+                throw new UnauthorizedAccessException("It is a group activity.");
+
+            return bulletin;
+        }
+
+        public IFeedItem GetItem(Guid activityId, Guid groupId)
+        {
+            var bulletin = Get(activityId);
+
+            // TODO : ask about implementation decision 
+            if (!bulletin.GroupIds.Contains(groupId))
+                throw new UnauthorizedAccessException("This activity has no relations with the given group.");
+
             return bulletin;
         }
 
         public IEnumerable<IFeedItem> GetItems()
         {
-            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+            var items = GetOrderedActualItems().Where(i => !i.GroupIds.Any());
             return items;
         }
+
+        public IEnumerable<IFeedItem> GetItems(Guid groupId)
+        {
+            var items = GetOrderedActualItems().Where(i => i.GroupIds.Contains(groupId));
+            return items;
+        }
+
+        private IOrderedEnumerable<Bulletin> GetOrderedActualItems() =>
+            GetManyActual().OrderByDescending(i => i.PublishDate);
 
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {

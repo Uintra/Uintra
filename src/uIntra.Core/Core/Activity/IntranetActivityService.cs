@@ -73,9 +73,9 @@ namespace uIntra.Core.Activity
         {
             var centralFeedLinks = GetCentralFeedLinks(id);
             return centralFeedLinks
-                .WithCreate(centralFeedLinks.Create.AddGroupId(groupId))
-                .WithEdit(centralFeedLinks.Edit.AddGroupId(groupId))
-                .WithDetailsNoId(centralFeedLinks.DetailsNoId.AddGroupId(groupId));
+                .WithCreate(centralFeedLinks.Create?.AddGroupId(groupId))
+                .WithEdit(centralFeedLinks.Edit?.AddGroupId(groupId))
+                .WithDetailsNoId(centralFeedLinks.DetailsNoId?.AddGroupId(groupId));
 
         }
 
@@ -83,8 +83,8 @@ namespace uIntra.Core.Activity
         {
             var centralFeedLinks = GetCentralFeedCreateLinks();
             return centralFeedLinks
-                .WithCreate(centralFeedLinks.Create.AddGroupId(groupId))
-                .WithDetailsNoId(centralFeedLinks.DetailsNoId.AddGroupId(groupId));
+                .WithCreate(centralFeedLinks.Create?.AddGroupId(groupId))
+                .WithDetailsNoId(centralFeedLinks.DetailsNoId?.AddGroupId(groupId));
         }
 
         protected abstract Guid GetCreatorId(Guid activityId);

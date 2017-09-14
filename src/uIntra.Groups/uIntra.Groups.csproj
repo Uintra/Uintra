@@ -321,6 +321,7 @@
     <Compile Include="Core\Models\GroupViewModel.cs" />
     <Compile Include="Core\IGroupActivity.cs" />
     <Compile Include="Core\IGroupContentHelper.cs" />
+    <Compile Include="Core\Services\IGroupFeedService.cs" />
     <Compile Include="Core\Services\IGroupMediaService.cs" />
     <Compile Include="Core\IGroupMember.cs" />
     <Compile Include="Core\Services\GroupDocumentsService.cs" />

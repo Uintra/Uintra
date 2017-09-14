@@ -18,7 +18,7 @@ namespace uIntra.Groups
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGridHelper _gridHelper;
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
@@ -27,7 +27,7 @@ namespace uIntra.Groups
             IGroupService groupService,
             IGroupMemberService groupMemberService,
             IGridHelper gridHelper,
-            ICentralFeedTypeProvider centralFeedTypeProvider, 
+            IFeedTypeProvider centralFeedTypeProvider, 
             IDocumentTypeAliasProvider documentTypeAliasProvider, IActivityTypeProvider activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;

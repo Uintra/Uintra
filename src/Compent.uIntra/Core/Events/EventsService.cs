@@ -28,6 +28,7 @@ namespace Compent.uIntra.Core.Events
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,
         ICentralFeedItemService,
+        IGroupFeedItemService,
         ISubscribableService,
         ILikeableService,
         ICommentableService,
@@ -47,7 +48,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
 
 
@@ -69,7 +70,7 @@ namespace Compent.uIntra.Core.Events
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
@@ -189,15 +190,40 @@ namespace Compent.uIntra.Core.Events
 
         public IFeedItem GetItem(Guid activityId)
         {
-            var item = Get(activityId);
-            return item;
+            var @event = Get(activityId);
+
+            // TODO : checking if activity is assigned to any group. Ask about expected behavior
+            if (!@event.GroupIds.Any())
+                throw new UnauthorizedAccessException("It is a group activity.");
+
+            return @event;
+        }
+
+        public IFeedItem GetItem(Guid activityId, Guid groupId)
+        {
+            var @event = Get(activityId);
+
+            // TODO : ask about implementation decision 
+            if (!@event.GroupIds.Contains(groupId))
+                throw new UnauthorizedAccessException("This activity has no relations with the given group.");
+
+            return @event;
         }
 
         public IEnumerable<IFeedItem> GetItems()
         {
-            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+            var items = GetOrderedActualItems().Where(i => !i.GroupIds.Any());
             return items;
         }
+
+        public IEnumerable<IFeedItem> GetItems(Guid groupId)
+        {
+            var items = GetOrderedActualItems().Where(i => i.GroupIds.Contains(groupId));
+            return items;
+        }
+
+        private IOrderedEnumerable<Event> GetOrderedActualItems() =>
+            GetManyActual().OrderByDescending(i => i.PublishDate);
 
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {

@@ -336,6 +336,8 @@
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
+    <Compile Include="Core\IFeedItemService.cs" />
+    <Compile Include="Core\IFeedService.cs" />
     <Compile Include="Core\Models\CentralFeed\FeedTabSettings.cs" />
     <Compile Include="Core\Models\Feed\CreateViewModel.cs" />
     <Compile Include="Core\Models\Feed\EditViewModel.cs" />
@@ -348,12 +350,12 @@
     <Compile Include="Core\Models\CentralFeed\CentralFeedTabViewModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesPanelModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
+    <Compile Include="DefaultImplementation\FeedService.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
     <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
     <Compile Include="Core\Models\Feed\IFeedItem.cs" />
-    <Compile Include="Core\ICentralFeedItemService.cs" />
     <Compile Include="Core\ICentralFeedService.cs" />
     <Compile Include="Core\Models\CentralFeed\FeedListViewModel.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedTypeModel.cs" />

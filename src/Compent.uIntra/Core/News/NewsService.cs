@@ -28,6 +28,7 @@ namespace Compent.uIntra.Core.News
     public class NewsService : NewsServiceBase<Entities.News>,
         INewsService<Entities.News>,
         ICentralFeedItemService,
+        IGroupFeedItemService,
         ICommentableService,
         ILikeableService,
         INotifyableService,
@@ -44,7 +45,7 @@ namespace Compent.uIntra.Core.News
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
@@ -63,8 +64,8 @@ namespace Compent.uIntra.Core.News
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,            
-            ISearchableTypeProvider searchableTypeProvider, 
+            IFeedTypeProvider centralFeedTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
             IIntranetUserContentHelper intranetUserContentHelper,
@@ -149,14 +150,38 @@ namespace Compent.uIntra.Core.News
         public IFeedItem GetItem(Guid activityId)
         {
             var news = Get(activityId);
+
+            // TODO : checking if activity is assigned to any group. Ask about expected behavior
+            if (!news.GroupIds.Any())
+                throw new UnauthorizedAccessException("It is a group activity.");
+
+            return news;
+        }
+
+        public IFeedItem GetItem(Guid activityId, Guid groupId)
+        {
+            var news = Get(activityId);
+
+            if (!news.GroupIds.Contains(groupId))
+                throw new UnauthorizedAccessException("This activity has no relations with the given group.");
+
             return news;
         }
 
         public IEnumerable<IFeedItem> GetItems()
         {
-            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+            var items = GetOrderedActualItems().Where(i => !i.GroupIds.Any());
             return items;
         }
+
+        public IEnumerable<IFeedItem> GetItems(Guid groupId)
+        {
+            var items = GetOrderedActualItems().Where(i => i.GroupIds.Contains(groupId));
+            return items;
+        }
+
+        private IOrderedEnumerable<Entities.News> GetOrderedActualItems() => 
+            GetManyActual().OrderByDescending(i => i.PublishDate);
 
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
@@ -387,6 +412,5 @@ namespace Compent.uIntra.Core.News
             searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(news.Id);
             return searchableActivity;
         }
-
     }
 }

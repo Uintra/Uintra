@@ -23,7 +23,7 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly ICookieProvider _cookieProvider;
         private readonly IPermissionsService _permissionsService;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public CentralFeedContentHelper(
@@ -32,7 +32,7 @@ namespace Compent.uIntra.Core.CentralFeed
             IGridHelper gridHelper,
             ICookieProvider cookieProvider,
             IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;

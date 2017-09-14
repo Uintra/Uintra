@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -10,8 +13,10 @@ namespace uIntra.CentralFeed.Web
     public abstract class CentralFeedControllerBase : FeedControllerBase
     {
         private readonly ICentralFeedService _centralFeedService;
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
+        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedDetailsView.cshtml";
         protected override string CreateViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedCreateView.cshtml";
@@ -27,11 +32,12 @@ namespace uIntra.CentralFeed.Web
             ISubscribeService subscribeService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
             IActivitiesServiceFactory activitiesServiceFactory1)
             : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService)
         {
             _centralFeedService = centralFeedService;
+            _centralFeedContentHelper = centralFeedContentHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _activitiesServiceFactory = activitiesServiceFactory1;
         }
@@ -42,6 +48,75 @@ namespace uIntra.CentralFeed.Web
             var activityType = _centralFeedTypeProvider.Get(typeId);
             var viewModel = GetCreateViewModel(activityType);
             return PartialView(CreateViewPath, viewModel);
+        }
+
+        public virtual ActionResult List(FeedListModel model)
+        {
+            var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
+            var items = GetCentralFeedItems(centralFeedType).ToList();
+
+            if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
+            {
+                model.FilterState = GetFilterStateModel();
+            }
+
+            var tabSettings = _centralFeedService.GetSettings(centralFeedType);
+
+            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
+
+            var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
+
+            if (model.Version.HasValue && currentVersion == model.Version.Value)
+            {
+                return null;
+            }
+
+            var centralFeedModel = GetFeedListViewModel(model, filteredItems, centralFeedType);
+            var filterState = MapToFilterState(centralFeedModel.FilterState);
+            _centralFeedContentHelper.SaveFiltersState(filterState);
+
+            return PartialView(ListViewPath, centralFeedModel);
+        }
+
+
+        public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
+        {
+            var viewModel = GetLatestActivities(panelModel);
+            return PartialView(LatestActivitiesViewPath, viewModel);
+        }
+        protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
+        {
+            var settings = _centralFeedService.GetAllSettings();
+            var activitiesType = _centralFeedTypeProvider.Get(panelModel.ActivityTypeId);
+
+            var latestActivities = GetCentralFeedItems(activitiesType).Take(panelModel.ActivityAmount);
+            var feedItems = GetFeedItems(latestActivities, settings);
+            var tab = GetTabForActivityType(activitiesType);
+
+            return new LatestActivitiesViewModel()
+            {
+                Title = panelModel.Title,
+                Teaser = panelModel.Teaser,
+                Feed = feedItems,
+                Tab = tab
+            };
+        }
+
+        protected virtual IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
+        {
+            if (type.Id == CentralFeedTypeEnum.All.ToInt())
+            {
+                var items = _centralFeedService.GetFeed().OrderByDescending(item => item.PublishDate);
+                return items;
+            }
+
+            return _centralFeedService.GetFeed(type);
+        }
+
+        private FeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
+        {
+            var result = _centralFeedContentHelper.GetTabs(CurrentPage).First(el => el.Type.Id == activitiesType.Id).Map<FeedTabViewModel>();
+            return result;
         }
 
         // TODO : duplication

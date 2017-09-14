@@ -13,14 +13,14 @@ namespace Compent.uIntra.Controllers
         public GroupFeedController(
             ICentralFeedContentHelper centralFeedContentHelper,
             ISubscribeService subscribeService,
-            ICentralFeedService centralFeedService,
+            IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupContentHelper groupContentHelper,
             IGroupService groupService) 
-            : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupService)
+            : base(centralFeedContentHelper, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupService)
         {
         }
     }

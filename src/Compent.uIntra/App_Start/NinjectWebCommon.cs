@@ -195,11 +195,19 @@ namespace Compent.uIntra
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
+
+            kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
+
+            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope();
+
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
+
+            kernel.Bind<IGroupFeedItemService>().To<NewsService>().InRequestScope();
+            kernel.Bind<IGroupFeedItemService>().To<EventsService>().InRequestScope();
+            kernel.Bind<IGroupFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
@@ -257,7 +265,7 @@ namespace Compent.uIntra
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
-            kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
+            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope(); 
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
