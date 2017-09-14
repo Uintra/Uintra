@@ -16,6 +16,27 @@
 
     },
     {
+      "name": "Groups Create bulletins",
+      "alias": "custom.GroupsBulletinsCreate",
+      "view": "/App_Plugins/Bulletins/Create/bulletins-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Create",
+        "includeParams": true,
+        "params": {
+          "typeId": 4
+        }
+      }
+
+    },
+
+
+
+
+
+
+    {
       "name": "Bulletins edit",
       "alias": "custom.BulletinsEdit",
       "view": "/App_Plugins/Bulletins/Edit/bulletins-edit.html",
@@ -26,12 +47,38 @@
       }
     },
     {
+      "name": "Groups Bulletins edit",
+      "alias": "custom.GroupsBulletinsEdit",
+      "view": "/App_Plugins/Bulletins/Edit/bulletins-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Edit"
+      }
+    },
+
+
+
+
+
+
+    {
       "name": "Bulletins Details",
       "alias": "custom.BulletinsDetails",
       "view": "/App_Plugins/Bulletins/Details/bulletins-details.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
         "controller": "CentralFeed",
+        "action": "Details"
+      }
+    },
+    {
+      "name": "Groups Bulletins Details",
+      "alias": "custom.GroupsBulletinsDetails",
+      "view": "/App_Plugins/Bulletins/Details/bulletins-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
         "action": "Details"
       }
     }

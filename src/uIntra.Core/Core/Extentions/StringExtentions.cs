@@ -94,9 +94,7 @@ namespace uIntra.Core.Extentions
         public static int? ToNullableInt(this string str)
         {
             int result;
-            if (int.TryParse(str, out result))
-                return new int?(result);
-            return new int?();
+            return int.TryParse(str, out result) ? result : new int?();
         }
 
         public static string AddGroupId(this string url, Guid groupId)

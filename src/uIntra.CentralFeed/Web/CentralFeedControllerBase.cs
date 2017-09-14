@@ -51,6 +51,28 @@ namespace uIntra.CentralFeed.Web
             return PartialView(CreateViewPath, viewModel);
         }
 
+        [HttpGet]
+        public virtual ActionResult Details(Guid id)
+        {
+            var viewModel = GetDetailsViewModel(id);
+            return PartialView(DetailsViewPath, viewModel);
+        }
+
+
+        [HttpGet]
+        public virtual ActionResult Edit(Guid id)
+        {
+            var viewModel = GetEditViewModel(id);
+            return PartialView(EditViewPath, viewModel);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Overview()
+        {
+            var model = GetOverviewModel();
+            return PartialView(OverviewViewPath, model);
+        }
+
         public virtual ActionResult OpenFilters()
         {
             var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
@@ -93,11 +115,7 @@ namespace uIntra.CentralFeed.Web
             return PartialView(LatestActivitiesViewPath, viewModel);
         }
 
-        public virtual ActionResult Overview()
-        {
-            var model = GetOverviewModel();
-            return PartialView(OverviewViewPath, model);
-        } 
+
         #endregion
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
@@ -179,7 +197,7 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected override EditViewModel GetEditViewModel(Guid id)
+        protected virtual EditViewModel GetEditViewModel(Guid id)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
             var links = service.GetCentralFeedLinks(id);
@@ -196,7 +214,7 @@ namespace uIntra.CentralFeed.Web
             return viewModel;
         }
 
-        protected override DetailsViewModel GetDetailsViewModel(Guid id)
+        protected virtual DetailsViewModel GetDetailsViewModel(Guid id)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
             var links = service.GetCentralFeedLinks(id);

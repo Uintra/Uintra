@@ -13,14 +13,8 @@ namespace uIntra.Core.Links
             DetailsNoId = detailsNoId;
         }
 
-        public virtual ActivityCreateLinks WithCreate(string value)
-        {
-            return new ActivityCreateLinks(Overview, value, Creator, DetailsNoId);
-        }
+        public virtual ActivityCreateLinks WithCreate(string value) => new ActivityCreateLinks(Overview, value, Creator, DetailsNoId);
 
-        public virtual ActivityCreateLinks WithDetailsNoId(string value)
-        {
-            return new ActivityCreateLinks(Overview, Create, Creator, value);
-        }
+        public virtual ActivityCreateLinks WithDetailsNoId(string value) => new ActivityCreateLinks(Overview, Create, Creator, value);
     }
 }

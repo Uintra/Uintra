@@ -60,10 +60,26 @@ namespace uIntra.Groups.Web
         }
 
         #region Actions
+
+        [HttpGet]
         public ActionResult Overview(Guid groupId)
         {
             var model = GetOverviewModel(groupId);
             return PartialView(OverviewViewPath, model);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Details(Guid id, Guid groupId)
+        {
+            var viewModel = GetDetailsViewModel(id, groupId);
+            return PartialView(DetailsViewPath, viewModel);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Edit(Guid id, Guid groupId)
+        {
+            var viewModel = GetEditViewModel(id, groupId);
+            return PartialView(EditViewPath, viewModel);
         }
 
         public ActionResult List(GroupFeedListModel model)
@@ -200,10 +216,10 @@ namespace uIntra.Groups.Web
             };
         }
 
-        protected override EditViewModel GetEditViewModel(Guid id)
+        protected virtual EditViewModel GetEditViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = service.GetCentralFeedLinks(id);
+            var links = service.GetGroupFeedLinks(id, groupId);
 
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);
@@ -217,10 +233,10 @@ namespace uIntra.Groups.Web
             return viewModel;
         }
 
-        protected override DetailsViewModel GetDetailsViewModel(Guid id)
+        protected virtual DetailsViewModel GetDetailsViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = service.GetCentralFeedLinks(id);
+            var links = service.GetGroupFeedLinks(id, groupId);
 
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);

@@ -50,26 +50,12 @@ namespace uIntra.CentralFeed.Web
         }
 
         #region Actions
-        [HttpGet]
-        public virtual ActionResult Details(Guid id)
-        {
-            var viewModel = GetDetailsViewModel(id);
-            return PartialView(DetailsViewPath, viewModel);
-        }
-
         public virtual ActionResult Tabs()
         {
             return PartialView(NavigationViewPath, GetTypes().ToList());
         }
 
         public abstract ActionResult Create(int typeId);
-
-        [HttpGet]
-        public virtual ActionResult Edit(Guid id)
-        {
-            var viewModel = GetEditViewModel(id);
-            return PartialView(EditViewPath, viewModel);
-        }
 
         public virtual JsonResult AvailableActivityTypes()
         {
@@ -88,10 +74,6 @@ namespace uIntra.CentralFeed.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
-        protected abstract EditViewModel GetEditViewModel(Guid id);
-
-        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
 
         protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {

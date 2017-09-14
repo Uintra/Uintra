@@ -75,7 +75,8 @@ namespace uIntra.Core.Activity
             return centralFeedLinks
                 .WithCreate(centralFeedLinks.Create?.AddGroupId(groupId))
                 .WithEdit(centralFeedLinks.Edit?.AddGroupId(groupId))
-                .WithDetailsNoId(centralFeedLinks.DetailsNoId?.AddGroupId(groupId));
+                .WithDetailsNoId(centralFeedLinks.DetailsNoId?.AddGroupId(groupId))
+                .WithDetails(centralFeedLinks.Details?.AddGroupId(groupId));
 
         }
 
