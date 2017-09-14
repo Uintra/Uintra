@@ -162,7 +162,7 @@ namespace uIntra.Groups.Web
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var tabType = _groupContentHelper.GetTabType(CurrentPage);
 
             var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Select(t => MapFeedTabToViewModel(t, groupId));
 
