@@ -131,7 +131,7 @@ namespace uIntra.Events.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
-        public virtual ActionResult Edit(Guid id)
+        public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
 
             var @event = _eventsService.Get(id);
@@ -140,7 +140,7 @@ namespace uIntra.Events.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
-            var model = GetEditViewModel(@event);
+            var model = GetEditViewModel(@event, links);
             return PartialView(EditViewPath, model);
         }
 
@@ -222,13 +222,23 @@ namespace uIntra.Events.Web
             return @event;
         }
 
-        protected virtual EventEditModel GetEditViewModel(EventBase @event)
+        protected virtual EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
         {
             var model = @event.Map<EventEditModel>();
+            var mediaSettings = _eventsService.GetMediaSettings();
+            model.MediaRootId = mediaSettings.MediaRootId;
+            FillMediaSettingsData(mediaSettings);
+
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
             model.Creator = _intranetUserService.Get(@event);
-            //FillCreateEditData(model);
+
+            model.Links = links;
             return model;
+        }
+
+        protected virtual void FillMediaSettingsData(MediaSettings settings)
+        {
+            ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
         }
 
         protected virtual EventViewModel GetViewModel(EventBase @event, ActivityLinks links)

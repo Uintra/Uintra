@@ -84,7 +84,7 @@ namespace uIntra.News.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
-        public virtual ActionResult Edit(Guid id)
+        public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             FillLinks();
 
@@ -94,7 +94,7 @@ namespace uIntra.News.Web
                 HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
             }
 
-            var model = GetEditViewModel(news);
+            var model = GetEditViewModel(news, links);
             return PartialView(EditViewPath, model);
         }
 
@@ -135,12 +135,23 @@ namespace uIntra.News.Web
             return model;
         }
 
-        protected virtual NewsEditModel GetEditViewModel(NewsBase news)
+        protected virtual NewsEditModel GetEditViewModel(NewsBase news, ActivityLinks links)
         {
             var model = news.Map<NewsEditModel>();
+            var mediaSettings = _newsService.GetMediaSettings();
+            model.MediaRootId = mediaSettings.MediaRootId;
+            FillMediaSettingsData(mediaSettings);
+
             model.Creator = _intranetUserService.Get(news);
-            //FillCreateEditData(model);
+
+            model.Links = links;
+
             return model;
+        }
+
+        protected virtual void FillMediaSettingsData(MediaSettings settings)
+        {
+            ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
         }
 
         protected virtual NewsViewModel GetViewModel(NewsBase news)

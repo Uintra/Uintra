@@ -28,6 +28,7 @@ namespace Compent.uIntra.Core.Bulletins
     public class BulletinsService : IntranetActivityService<Bulletin>,
         IBulletinsService<Bulletin>,
         ICentralFeedItemService,
+        IGroupFeedItemService,
         ICommentableService,
         ILikeableService,
         INotifyableService,
@@ -194,7 +195,6 @@ namespace Compent.uIntra.Core.Bulletins
             var items = GetManyActual().OrderByDescending(i => i.PublishDate);
             return items;
         }
-
 
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {

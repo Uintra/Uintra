@@ -115,8 +115,6 @@ namespace uIntra.Groups.Web
             return PartialView(CreateViewPath, viewModel);
         }
 
-
-
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedSettings settings, Guid groupId)
         {
             return items

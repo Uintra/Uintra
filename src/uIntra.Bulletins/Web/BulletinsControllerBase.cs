@@ -159,7 +159,7 @@ namespace uIntra.Bulletins.Web
         {
             var model = bulletin.Map<BulletinEditModel>();
             var mediaSettings = _bulletinsService.GetMediaSettings();
-            FillMediaEditData(mediaSettings);
+            FillMediaSettingsData(mediaSettings);
 
             model.MediaRootId = mediaSettings.MediaRootId;
             model.Links = links;
@@ -242,7 +242,7 @@ namespace uIntra.Bulletins.Web
             return bulletin;
         }
 
-        protected virtual void FillMediaEditData(MediaSettings settings)
+        protected virtual void FillMediaSettingsData(MediaSettings settings)
         {
             ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
         }

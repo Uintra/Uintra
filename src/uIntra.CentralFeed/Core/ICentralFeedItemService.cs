@@ -14,4 +14,15 @@ namespace uIntra.CentralFeed
 
         IEnumerable<IFeedItem> GetItems();
     }
+
+    public interface IGroupFeedItemService
+    {
+        IIntranetType ActivityType { get; }
+
+        FeedSettings GetCentralFeedSettings();
+
+        IFeedItem GetItem(Guid activityId);
+
+        IEnumerable<IFeedItem> GetItems();
+    }
 }

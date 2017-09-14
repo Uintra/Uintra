@@ -24,7 +24,7 @@ namespace uIntra.CentralFeed
             IEnumerable<ICentralFeedItemService> feedItemServices, 
             ICentralFeedTypeProvider centralFeedTypeProvider)
         {
-            this._cacheService = cacheService;
+            _cacheService = cacheService;
             _feedItemServices = feedItemServices;
             _centralFeedTypeProvider = centralFeedTypeProvider;
         }
