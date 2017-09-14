@@ -104,7 +104,7 @@ namespace uIntra.Groups
 
             foreach (var content in GetContents())
             {
-                if (!canEdit && editGroupPage.Id == content.Id )
+                if (!canEdit && editGroupPage.Id == content.Id)
                 //if (!canEdit && editGroupPage.Id == content.Id || content.IsHideFromSubNavigation())
                 {
                         continue;
@@ -124,7 +124,6 @@ namespace uIntra.Groups
                 }
             }
         }
-
 
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
         public IIntranetType GetTabType(IPublishedContent content)

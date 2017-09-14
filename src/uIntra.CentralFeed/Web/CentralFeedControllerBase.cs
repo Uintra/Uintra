@@ -107,11 +107,22 @@ namespace uIntra.CentralFeed.Web
 
             var model = new CentralFeedOverviewModel
             {
-                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<FeedTabViewModel>>(),
+                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Select(MapFeedTabToViewModel),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
             return model;
+        }
+
+        private FeedTabViewModel MapFeedTabToViewModel(FeedTabModel tab)
+        {
+            return new FeedTabViewModel()
+            {
+                Type = tab.Type,
+                CreateUrl = tab.CreateUrl,
+                Url = tab.Content.Url,
+                IsActive = tab.IsActive
+            };
         }
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
@@ -145,7 +156,11 @@ namespace uIntra.CentralFeed.Web
 
         private FeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
         {
-            var result = _centralFeedContentHelper.GetTabs(CurrentPage).First(el => el.Type.Id == activitiesType.Id).Map<FeedTabViewModel>();
+            var result = _centralFeedContentHelper
+                .GetTabs(CurrentPage)
+                .Where(el => el.Type.Id == activitiesType.Id)
+                .Select(MapFeedTabToViewModel)
+                .Single();
             return result;
         }
 
