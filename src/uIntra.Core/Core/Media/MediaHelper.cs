@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using uIntra.Core.Caching;
@@ -155,7 +154,7 @@ namespace uIntra.Core.Media
 
             return new MediaSettings
             {
-                AllowedMediaExtentions = mediaFolder.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty),
+                AllowedMediaExtentions = GetAllowedMediaExtentions(mediaFolder),
                 MediaRootId = mediaFolder.Id
             };
         }
@@ -168,6 +167,21 @@ namespace uIntra.Core.Media
         private string GetMediaTypeAlias(byte[] fileBytes)
         {
             return _imageHelper.IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
+        }
+
+        private string GetAllowedMediaExtentions(IPublishedContent mediaFolderContent)
+        {
+            var allowedMediaExtensions = mediaFolderContent.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty);
+
+            var result = allowedMediaExtensions
+                .Split(',')
+                .Select(ext =>
+                {
+                    var trimmedExt = ext.Trim();
+                    return trimmedExt.StartsWith(".") ? trimmedExt : $".{trimmedExt}";
+                });
+
+            return result.JoinWithComma();
         }
     }
 }
