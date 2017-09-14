@@ -338,7 +338,8 @@
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
     <Compile Include="Core\IFeedItemService.cs" />
     <Compile Include="Core\IFeedService.cs" />
-    <Compile Include="Core\Models\CentralFeed\FeedTabSettings.cs" />
+    <Compile Include="Core\Models\Feed\FeedTabSettings.cs" />
+    <Compile Include="Core\Models\CentralFeed\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\Feed\CreateViewModel.cs" />
     <Compile Include="Core\Models\Feed\EditViewModel.cs" />
     <Compile Include="Core\Models\Feed\FeedOverviewModel.cs" />
@@ -346,7 +347,7 @@
     <Compile Include="Core\Models\FilterState\FeedFilterStateViewModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFilterStateModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFiltersState.cs" />
-    <Compile Include="Core\Models\CentralFeed\FeedTabModel.cs" />
+    <Compile Include="Core\Models\Feed\FeedTabModel.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedTabViewModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesPanelModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
@@ -357,7 +358,7 @@
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
     <Compile Include="Core\Models\Feed\IFeedItem.cs" />
     <Compile Include="Core\ICentralFeedService.cs" />
-    <Compile Include="Core\Models\CentralFeed\FeedListViewModel.cs" />
+    <Compile Include="Core\Models\Feed\FeedListViewModel.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Models\Feed\DetailsViewModel.cs" />

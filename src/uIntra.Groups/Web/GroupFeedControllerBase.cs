@@ -32,7 +32,7 @@ namespace uIntra.Groups.Web
         protected override string NavigationViewPath => "-";
         protected override string LatestActivitiesViewPath => "-";
 
-        public GroupFeedControllerBase(
+        protected GroupFeedControllerBase(
             ICentralFeedContentHelper centralFeedContentHelper,
             ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
@@ -41,7 +41,7 @@ namespace uIntra.Groups.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupContentHelper groupContentHelper,
-            IGroupService groupService) 
+            IGroupService groupService)
             : base(centralFeedContentHelper,
                   subscribeService,
                   groupFeedService,
@@ -59,33 +59,25 @@ namespace uIntra.Groups.Web
             _groupService = groupService;
         }
 
-        [NonAction]
-        public override ActionResult Overview()
-        {
-            return base.Overview();
-        }
-
+        #region Actions
         public ActionResult Overview(Guid groupId)
         {
             var model = GetOverviewModel(groupId);
             return PartialView(OverviewViewPath, model);
         }
 
-
         public ActionResult List(GroupFeedListModel model)
         {
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetGroupFeedItems(centralFeedType, model.GroupId).ToList();
+            var tabSettings = _groupFeedService.GetSettings(centralFeedType);
 
             if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
             {
                 model.FilterState = GetFilterStateModel();
             }
 
-            var tabSettings = _groupFeedService.GetSettings(centralFeedType);
-
             var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
-
             var currentVersion = _groupFeedService.GetFeedVersion(filteredItems);
 
             if (model.Version.HasValue && currentVersion == model.Version.Value)
@@ -99,6 +91,19 @@ namespace uIntra.Groups.Web
 
             return PartialView(ListViewPath, centralFeedModel);
         }
+
+        public override ActionResult Create(int typeId)
+        {
+            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+
+            if (!groupId.HasValue)
+                throw new NotImplementedException();
+
+            var activityType = _centralFeedTypeProvider.Get(typeId);
+            var viewModel = GetCreateViewModel(activityType, groupId.Value);
+            return PartialView(CreateViewPath, viewModel);
+        }
+        #endregion
 
         protected virtual IEnumerable<IFeedItem> GetGroupFeedItems(IIntranetType type, Guid groupId)
         {
@@ -154,30 +159,17 @@ namespace uIntra.Groups.Web
             return result;
         }
 
-        public override ActionResult Create(int typeId)
-        {
-            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
-            if (!groupId.HasValue)
-                throw new NotImplementedException();
-            var activityType = _centralFeedTypeProvider.Get(typeId);
-            var viewModel = GetCreateViewModel(activityType, groupId.Value);
-            return PartialView(CreateViewPath, viewModel);
-        }
-
-
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
 
-            var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
             var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Map<IEnumerable<FeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {
                 Tabs = tabs,
                 CurrentType = tabType,
-                IsFiltersOpened = centralFeedState.IsFiltersOpened,
                 GroupId = groupId
             };
             return model;

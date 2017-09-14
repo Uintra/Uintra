@@ -42,12 +42,21 @@ namespace uIntra.CentralFeed.Web
             _activitiesServiceFactory = activitiesServiceFactory1;
         }
 
+        #region Actions
         [HttpGet]
         public override ActionResult Create(int typeId)
         {
             var activityType = _centralFeedTypeProvider.Get(typeId);
             var viewModel = GetCreateViewModel(activityType);
             return PartialView(CreateViewPath, viewModel);
+        }
+
+        public virtual ActionResult OpenFilters()
+        {
+            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
+            _centralFeedContentHelper.SaveFiltersState(feedState);
+            return new EmptyResult();
         }
 
         public virtual ActionResult List(FeedListModel model)
@@ -62,7 +71,7 @@ namespace uIntra.CentralFeed.Web
 
             var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
-            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
+            var filteredItems = ApplyFilters(items,model.FilterState, tabSettings).ToList();
 
             var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
 
@@ -78,12 +87,33 @@ namespace uIntra.CentralFeed.Web
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
         {
             var viewModel = GetLatestActivities(panelModel);
             return PartialView(LatestActivitiesViewPath, viewModel);
         }
+
+        public virtual ActionResult Overview()
+        {
+            var model = GetOverviewModel();
+            return PartialView(OverviewViewPath, model);
+        } 
+        #endregion
+
+        protected virtual CentralFeedOverviewModel GetOverviewModel()
+        {
+            var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+
+            var model = new CentralFeedOverviewModel
+            {
+                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<FeedTabViewModel>>(),
+                CurrentType = tabType,
+                IsFiltersOpened = centralFeedState.IsFiltersOpened
+            };
+            return model;
+        }
+
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
         {
             var settings = _centralFeedService.GetAllSettings();

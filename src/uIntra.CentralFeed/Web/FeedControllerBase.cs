@@ -49,17 +49,17 @@ namespace uIntra.CentralFeed.Web
             _intranetUserService = intranetUserService;
         }
 
-        public virtual ActionResult Overview()
-        {
-            var model = GetOverviewModel();
-            return PartialView(OverviewViewPath, model);
-        }
-
+        #region Actions
         [HttpGet]
         public virtual ActionResult Details(Guid id)
         {
             var viewModel = GetDetailsViewModel(id);
             return PartialView(DetailsViewPath, viewModel);
+        }
+
+        public virtual ActionResult Tabs()
+        {
+            return PartialView(NavigationViewPath, GetTypes().ToList());
         }
 
         public abstract ActionResult Create(int typeId);
@@ -69,22 +69,6 @@ namespace uIntra.CentralFeed.Web
         {
             var viewModel = GetEditViewModel(id);
             return PartialView(EditViewPath, viewModel);
-        }
-
-        protected abstract EditViewModel GetEditViewModel(Guid id);
-        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
-
-
-
-        public virtual ActionResult Tabs()
-        {
-            return PartialView(NavigationViewPath, GetTypes().ToList());
-        }
-
-        public virtual JsonResult CacheVersion()
-        {
-            var version = _feedService.GetFeedVersion(Enumerable.Empty<IFeedItem>());
-            return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
         public virtual JsonResult AvailableActivityTypes()
@@ -98,13 +82,16 @@ namespace uIntra.CentralFeed.Web
             return Json(activityTypes, JsonRequestBehavior.AllowGet);
         }
 
-        public virtual ActionResult OpenFilters()
+        public virtual JsonResult CacheVersion()
         {
-            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _centralFeedContentHelper.SaveFiltersState(feedState);
-            return new EmptyResult();
+            var version = _feedService.GetFeedVersion(Enumerable.Empty<IFeedItem>());
+            return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        protected abstract EditViewModel GetEditViewModel(Guid id);
+
+        protected abstract DetailsViewModel GetDetailsViewModel(Guid id);
 
         protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
@@ -202,20 +189,6 @@ namespace uIntra.CentralFeed.Web
                 || filterState.ShowSubscribed.HasValue;
         }
 
-        protected virtual FeedOverviewModel GetOverviewModel()
-        {
-            var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
-            var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
-
-            var model = new FeedOverviewModel
-            {
-                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<IEnumerable<FeedTabViewModel>>(),
-                CurrentType = tabType,
-                IsFiltersOpened = centralFeedState.IsFiltersOpened
-            };
-            return model;
-        }
-
         protected virtual FeedFilterStateModel GetFilterStateModel()
         {
             var stateModel = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
@@ -244,7 +217,6 @@ namespace uIntra.CentralFeed.Web
                 };
             }
         }
-
 
         protected virtual FeedFilterStateViewModel MapToFilterStateViewModel(FeedFilterStateModel model)
         {

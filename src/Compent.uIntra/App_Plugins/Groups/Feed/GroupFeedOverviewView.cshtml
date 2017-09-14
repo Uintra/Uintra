@@ -22,7 +22,6 @@
         </li>
     </ul>
     @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "GroupFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
-    @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter filter__body js-feed-navigation">
         <div class="tabset__holder">
             <ul class="feed-links js-feed-links">
