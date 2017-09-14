@@ -10,6 +10,9 @@ namespace uIntra.Bulletins
 {
     public class BulletinEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {
+        [RequiredVirtual(IsRequired = false)]
+        public override string Title { get; set; }
+
         [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(NewMedia), nameof(Media) }), AllowHtml, StringLength(2000)]
         public string Description { get; set; }
 

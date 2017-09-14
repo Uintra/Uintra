@@ -108,8 +108,6 @@ namespace uIntra.Bulletins.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
-            FillLinks();
-
             if (!ModelState.IsValid)
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -118,7 +116,7 @@ namespace uIntra.Bulletins.Web
             var bulletin = MapToBulletin(editModel);
             _bulletinsService.Save(bulletin);
             OnBulletinEdited(bulletin, editModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
+            return Redirect(editModel.Links.Details);
         }
 
         [HttpPost]
