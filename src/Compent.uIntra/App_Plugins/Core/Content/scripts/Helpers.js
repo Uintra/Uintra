@@ -43,22 +43,22 @@ var helpers = {
         return quill;
     },
     initSmiles: function(container, toolbar, index){
-        var emoji = [
-            "angry",
-            "great",
-            "happy",
-            "hungry",
-            "inlove",
-            "laughing",
-            "party",
-            "relaxed",
-            "sad",
-            "sick",
-            "skeptical",
-            "sleeping",
-            "surprised",
-            "wink"
-        ],
+        var emoji = {
+            "angry": ":angry",
+            "great": ":great",
+            "happy": ":)",
+            "hungry": ":hungry",
+            "inlove": ";inlove",
+            "laughing": ":D",
+            "party": ":party",
+            "relaxed": ":relaxed",
+            "sad": ":(",
+            "sick": ":sick",
+            "skeptical": ":skeptical",
+            "sleeping": ":sleeping",
+            "surprised": ":surprised",
+            "wink": ";)"
+        },
         body,
         path,
         emojiContainer,
@@ -76,12 +76,14 @@ var helpers = {
         emojiBtnX = toolbar.offsetWidth - (emojiBtn.offsetLeft + emojiBtn.offsetWidth);
 
         emojiContainer = document.createElement("div");
-        emojiContainer.classList.add("js-emoji", "emoji", "hidden");
+        emojiContainer.classList.add("js-emoji");
+        emojiContainer.classList.add("emoji");
+        emojiContainer.classList.add("hidden");
 
         emojiList = document.createElement("ul");
         emojiList.classList.add("emoji__list");
 
-        for(var i = 0; i < emoji.length; i++){
+        for(var i in emoji){
             emojiListItem = document.createElement("li");
             emojiListItem.classList.add("emoji__list-item");
 
@@ -91,11 +93,12 @@ var helpers = {
             });
 
             emojiListImage = document.createElement("img");
-            emojiListImage.setAttribute("src", path + emoji[i] + ".svg");
-            emojiListImage.setAttribute("title", emoji[i]);
-            emojiListImage.setAttribute("class", "emoji-icon");
+            emojiListImage.setAttribute("src", path + i + ".svg");
+            emojiListImage.setAttribute("title", i);
             emojiListImage.setAttribute("width", "20");
             emojiListImage.setAttribute("height", "20");
+            emojiListImage.classList.add("emoji-icon");
+            emojiListImage.classList.add(i);
 
             emojiListItem.appendChild(emojiListImage);
             emojiList.appendChild(emojiListItem);
@@ -110,8 +113,22 @@ var helpers = {
             emojiContainer.classList.toggle("hidden");
         });
 
-        container.on('editor-change', function () {
+        container.on('editor-change', function (eventName, ...args) {
             index = getIndex();
+            /*var contents = container.getContents();
+            var text = contents.ops[0].insert;
+            for(var i in emoji){
+                if(text.indexOf(emoji[i]) >= 0){
+                    var index = text.indexOf(emoji[i]);
+                    var el = emojiContainer.querySelector("." + i);
+                    container.updateContents(new Delta()
+                      .retain(index)
+                      .delete(i.length)
+                    );
+                    CopyClipboard(getHTML(el));
+                    break;
+                }
+            }*/
         });
 
         body.addEventListener("click", function(ev) {
@@ -123,7 +140,7 @@ var helpers = {
         function CopyClipboard(target){
             var index = getIndex();
             if(!index) index = 0;
-            container.clipboard.dangerouslyPasteHTML(index, target);
+            container.clipboard.dangerouslyPasteHTML(index, "&nbsp;" + target + "&nbsp;");
         }
 
         function getHTML(el){

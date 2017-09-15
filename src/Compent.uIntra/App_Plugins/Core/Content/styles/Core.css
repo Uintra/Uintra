@@ -728,6 +728,28 @@ h5{
 /*end pin-info*/
 
 /* emoji styles */
+.ql-toolbar.ql-snow{
+    position:relative;
+}
+.ql-emoji{
+    position:relative;
+
+    .create-bulletin &{
+        min-width:30px !important;
+
+        &:after{
+            top:6px;
+            left:6px;
+        }
+    }
+
+    &:after{
+        position:absolute;
+        top:4px;
+        left:6px;
+        content:url(/App_Plugins/Core/Content/styles/emoji-data/smile.png);
+    }
+}
 .emoji{
     position:absolute;
     width:313px;
@@ -736,6 +758,14 @@ h5{
     background:var(--color-white);
     bottom:100%;
     margin:0 0 -9px;
+    z-index:9999;
+
+    .comments &{
+        bottom:auto;
+        top:100%;
+        margin:0;
+        transform:translate(calc(100% - 28px));
+    }
 
     &__list{
         margin:-20px 0 0 -20px;
