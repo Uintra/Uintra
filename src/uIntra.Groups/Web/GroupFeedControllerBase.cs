@@ -22,7 +22,7 @@ namespace uIntra.Groups.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IGroupContentHelper _groupContentHelper;
         private readonly IGroupService _groupService;
-        private IGroupFeedLinkService _groupFeedLinkService;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         // TODO : remove redundancies in pathes
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
@@ -43,7 +43,7 @@ namespace uIntra.Groups.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupContentHelper groupContentHelper,
-            IGroupService groupService)
+            IGroupService groupService, IGroupFeedLinkService groupFeedLinkService)
             : base(centralFeedContentHelper,
                   subscribeService,
                   groupFeedService,                 
@@ -56,12 +56,7 @@ namespace uIntra.Groups.Web
             _intranetUserService = intranetUserService;
             _groupContentHelper = groupContentHelper;
             _groupService = groupService;
-        }
-
-        internal interface IGroupFeedLinkService
-        {
-            ActivityLinks GetLinks(IFeedItem item, Guid groupId);
-            ActivityLinks GetCreateLinks(Guid groupId);
+            _groupFeedLinkService = groupFeedLinkService;
         }
 
         #region Actions
@@ -160,15 +155,12 @@ namespace uIntra.Groups.Web
 
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings, Guid groupId)
         {
-            var activitySettings = settings
-                .ToDictionary(s => s.Type);
-
             var result = items
                 .Select(i => new FeedItemViewModel()
                 {
                     Item = i,
                     Links = _groupFeedLinkService.GetLinks(i, groupId),
-                    ControllerName = activitySettings[i.Type].Controller
+                    ControllerName = settings.Single(s => s.Type.Id == i.Type.Id).Controller
                 });
 
             return result;

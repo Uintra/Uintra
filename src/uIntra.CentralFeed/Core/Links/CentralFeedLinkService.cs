@@ -50,6 +50,7 @@ namespace uIntra.CentralFeed
         {
             IActivityPageHelper helper = GetPageHelper(type);
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
+
             return new ActivityCreateLinks(
                     overview: helper.GetOverviewPageUrl(),
                     create: helper.GetCreatePageUrl(),

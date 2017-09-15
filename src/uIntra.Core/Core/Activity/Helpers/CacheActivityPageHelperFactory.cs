@@ -6,7 +6,7 @@ namespace uIntra.Core.Activity
 {
     public class CacheActivityPageHelperFactory : IActivityPageHelperFactory
     {
-        private readonly Dictionary<IIntranetType, IActivityPageHelper> _cache = new Dictionary<IIntranetType, IActivityPageHelper>();
+        private readonly Dictionary<int, IActivityPageHelper> _cache = new Dictionary<int, IActivityPageHelper>();
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
@@ -19,10 +19,9 @@ namespace uIntra.Core.Activity
 
         public IActivityPageHelper GetHelper(IIntranetType type, IEnumerable<string> baseXPath)
         {
-            if (!_cache.ContainsKey(type))
-                return _cache[type] = CreateNewHelper(type, baseXPath);
-            return _cache[type];
-
+            if (!_cache.ContainsKey(type.Id))
+                return _cache[type.Id] = CreateNewHelper(type, baseXPath);
+            return _cache[type.Id];
         }
 
         private IActivityPageHelper CreateNewHelper(IIntranetType type, IEnumerable<string> baseXPath)
