@@ -112,16 +112,18 @@ namespace uIntra.Groups
 
                 var type = GetTabType(content);
 
+                var tab = new FeedTabModel
+                {
+                    Content = content,
+                    Type = type,
+                    IsActive = content.IsAncestorOrSelf(currentContent)
+                };
                 if (type != null && memberOfGroup)
                 {
-                    yield return new FeedTabModel
-                    {
-                        Content = content,
-                        Type = type,
-                        IsActive = content.IsAncestorOrSelf(currentContent),
-                        CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url.AddGroupId(groupId)
-                    };
+                    tab.CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url.AddGroupId(groupId);
                 }
+
+                yield return tab;
             }
         }
 

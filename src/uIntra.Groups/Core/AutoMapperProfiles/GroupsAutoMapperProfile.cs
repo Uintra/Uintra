@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using uIntra.CentralFeed;
 using uIntra.Core.User;
 using uIntra.Groups.Dashboard;
 using uIntra.Groups.Sql;
@@ -71,15 +72,12 @@ namespace uIntra.Groups
                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
-            Mapper.CreateMap<GroupNavigationTab, GroupNavigationTabViewModel>()
+            Mapper.CreateMap<FeedTabModel, GroupNavigationTabViewModel>()
                 .ForMember(d => d.Url, o => o.MapFrom(el => el.Content.Url))
                 //.ForMember(d => d.Title, o => o.MapFrom(el => el.Content.GetNavigationName()))
                 .ForMember(d => d.Title, o => o.Ignore())
                 .ForMember(d => d.AlignRight, o => o.Ignore());
-
-            Mapper.CreateMap<GroupNavigationTab, GroupNavigationCreateTabViewModel>()
-                .ForMember(d => d.Url, o => o.MapFrom(el => el.CreateUrl));
-
+            
             Mapper.CreateMap<IIntranetUser, GroupMemberViewModel>()
                 .ForMember(d => d.IsGroupAdmin, o => o.Ignore())
                 .ForMember(d => d.CanUnsubscribe, o => o.Ignore())

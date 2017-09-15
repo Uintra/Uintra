@@ -310,7 +310,6 @@
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
     <Compile Include="Core\Models\GroupMemberViewModel.cs" />
-    <Compile Include="Core\Models\GroupNavigationCreateTabViewModel.cs" />
     <Compile Include="Core\Models\GroupNavigationTab.cs" />
     <Compile Include="Core\Models\GroupNavigationTabViewModel.cs" />
     <Compile Include="Core\Models\GroupNavigationViewModel.cs" />

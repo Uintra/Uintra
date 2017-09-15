@@ -7,8 +7,6 @@ namespace uIntra.Groups
     {
         public IEnumerable<GroupNavigationTabViewModel> Tabs { get; set; }
 
-        public IEnumerable<GroupNavigationCreateTabViewModel> CreateTabs { get; set; }
-
         public string GroupTitle { get; set; }
 
         public string GroupUrl { get; set; }
@@ -16,7 +14,6 @@ namespace uIntra.Groups
         public GroupNavigationViewModel()
         {
             Tabs = Enumerable.Empty<GroupNavigationTabViewModel>();
-            CreateTabs = Enumerable.Empty<GroupNavigationCreateTabViewModel>();
         }
     }
 }
