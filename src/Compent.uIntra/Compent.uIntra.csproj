@@ -380,8 +380,9 @@
     <Reference Include="uIntra.Panels, Version=2.1.7.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.7.1\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.1.0\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.1.1\lib\net452\uIntra.Search.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.5\lib\net452\uIntra.Subscribe.dll</HintPath>
@@ -953,12 +954,10 @@
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
     <Content Include="App_Plugins\Search\Result\search-result.js" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\search.js" />
     <Content Include="App_Plugins\Search\styles.css" />
     <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
@@ -1102,6 +1101,8 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

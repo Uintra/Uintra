@@ -15,7 +15,7 @@ let scrollHeight = 0;
 
 var initTypesSelect = function () {
     select.select2({
-        placeholder: select.data("placeholder")
+        placeholder: select.data("placeholder-text")
     });
 }
 
@@ -130,7 +130,21 @@ function isScrollDirectionBottom() {
 
 function search() {
     holder.find('input[name="page"]').val(1);
-    formController.reload();
+
+    formController.reload().then(function() {
+        var typeSearchCounts = holder.find(".js-type-search-counts");
+        var allTypesPlaceholder = typeSearchCounts.data("all-types-placeholder");
+        var types = typeSearchCounts.data("types");
+
+        for (var i = 0; i < types.length; i++) {
+            select.find("option[value=" + types[i].id + "]").html(types[i].name);
+        }
+
+        select.select2({
+            placeholder: allTypesPlaceholder
+        });
+    });
+
     initInfinityScroll();
 }
 
