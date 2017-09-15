@@ -9,14 +9,13 @@ using uIntra.Core.User;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedLinkService : ICentralFeedLinkService
+    public class CentralFeedLinkService : FeedLinkService, ICentralFeedLinkService
     {
-        private IEnumerable<string> CentralFeedActivityXPath  => new []
+        protected override IEnumerable<string> FeedActivitiesXPath => new[]
         {
             _aliasProvider.GetHomePage()
         };
 
-        private readonly IActivityPageHelperFactory _pageHelperFactory;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -26,8 +25,8 @@ namespace uIntra.CentralFeed
             IIntranetUserContentHelper intranetUserContentHelper,
             IDocumentTypeAliasProvider aliasProvider,
             IIntranetUserService<IIntranetUser> intranetUserService)
+            : base(pageHelperFactory)
         {
-            _pageHelperFactory = pageHelperFactory;
             _intranetUserContentHelper = intranetUserContentHelper;
             _aliasProvider = aliasProvider;
             _intranetUserService = intranetUserService;
@@ -38,12 +37,12 @@ namespace uIntra.CentralFeed
             IActivityPageHelper helper = GetPageHelper(item.Type);
 
             return new ActivityLinks(
-                overview: helper.GetOverviewPageUrl(),
-                create: helper.GetCreatePageUrl(),
-                details: helper.GetDetailsPageUrl().AddIdParameter(item.Id),
-                edit: helper.GetEditPageUrl().AddIdParameter(item.Id),
-                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(item.CreatorId),
-                detailsNoId: helper.GetDetailsPageUrl()
+                    overview: helper.GetOverviewPageUrl(),
+                    create: helper.GetCreatePageUrl(),
+                    details: helper.GetDetailsPageUrl().AddIdParameter(item.Id),
+                    edit: helper.GetEditPageUrl().AddIdParameter(item.Id),
+                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(item.CreatorId),
+                    detailsNoId: helper.GetDetailsPageUrl()
                 );
         }
 
@@ -58,8 +57,5 @@ namespace uIntra.CentralFeed
                     detailsNoId: helper.GetDetailsPageUrl()
                 );
         }
-
-        private IActivityPageHelper GetPageHelper(IIntranetType type) => _pageHelperFactory.GetHelper(type, CentralFeedActivityXPath);
-
     }
 }
