@@ -472,6 +472,9 @@
     <Content Include="..\Compent.uIntra\build\head_css.js">
       <Link>build\head_css.js</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\licence.html">
+      <Link>licence.html</Link>
+    </Content>
     <Content Include="App_Plugins\Archetype\css\archetype.css" />
     <Content Include="App_Plugins\Archetype\js\archetype.js" />
     <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
