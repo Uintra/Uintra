@@ -836,6 +836,28 @@
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
+    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
+    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
+    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
+    <Content Include="App_Plugins\Groups\Create\create-group.js" />
+    <Content Include="App_Plugins\Groups\Create\group-create.html" />
+    <Content Include="App_Plugins\Groups\DisablerGroupView\disabled-group.html" />
+    <Content Include="App_Plugins\Groups\Documents\group-documents.html" />
+    <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
+    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
+    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\groups.js" />
+    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
+    <Content Include="App_Plugins\Groups\Info\group-info.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.js" />
+    <Content Include="App_Plugins\Groups\Members\group-members.html" />
+    <Content Include="App_Plugins\Groups\Members\group-members.js" />
+    <Content Include="App_Plugins\Groups\_groups.css" />
     <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
@@ -1075,6 +1097,22 @@
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Groups\Create\CreateGroupView.cshtml" />
+    <Content Include="App_Plugins\Groups\DisablerGroupView\DisabledGroup.cshtml" />
+    <Content Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
+    <Content Include="App_Plugins\Groups\Documents\GroupDocumentsTable.cshtml" />
+    <Content Include="App_Plugins\Groups\Edit\EditGroupView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedCreateView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedDetailsView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedList.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedOverviewView.cshtml" />
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\Info\GroupInfoView.cshtml" />
+    <Content Include="App_Plugins\Groups\Info\GroupSubscribeView.cshtml" />
+    <Content Include="App_Plugins\Groups\List\GroupsList.cshtml" />
+    <Content Include="App_Plugins\Groups\List\GroupsOverview.cshtml" />
+    <Content Include="App_Plugins\Groups\Members\GroupMembers.cshtml" />
+    <Content Include="App_Plugins\Groups\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1366,6 +1404,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\Groups\CentralFeed\" />
     <Folder Include="App_Plugins\Members\NewFolder1\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>

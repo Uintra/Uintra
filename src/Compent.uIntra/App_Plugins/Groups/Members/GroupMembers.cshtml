@@ -9,7 +9,6 @@
         <tr class="members-table__row">
             <th colspan="2" class="members-table__head">@Html.Localize("GroupMembers.Table.Name.lbl")</th>
             <th class="members-table__head">@Html.Localize("GroupMembers.Table.Email.lbl")</th>
-            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Phone.lbl")</th>
             <th class="members-table__head">@Html.Localize("GroupMembers.Table.Role.lbl")</th>
             <th class="members-table__head"></th>
         </tr>
@@ -24,14 +23,6 @@
                 </td>
                 <td class="members-table__cell">
                     <a class="members-table__link" href="mailto:@member.Email">@member.Email</a>
-                </td>
-                <td class="members-table__cell _phone">
-                    @if (!member.PhoneCountryCode.IsNullOrEmpty() || !member.Phone.IsNullOrEmpty())
-                    {
-                        var dialablePhone = $"+{member.PhoneCountryCode + member.Phone}";
-                        var phone = $"{ulong.Parse(member.PhoneCountryCode + member.Phone): +(##) ##-##-##-##}";
-                        <a class="members-table__link" href="tel:@dialablePhone">@phone</a>
-                    }
                 </td>
                 <td class="members-table__cell _role">
                     @{var role = member.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
