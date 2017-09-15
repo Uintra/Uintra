@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Nest;
 
 namespace uIntra.Search
 {
@@ -8,7 +7,7 @@ namespace uIntra.Search
     {
         public IEnumerable<T> Documents { get; set; } = Enumerable.Empty<T>();
 
-        public IReadOnlyDictionary<string, IAggregate> Facets { get; set; } = new Dictionary<string, IAggregate>();
+        public IEnumerable<BaseFacet> TypeFacets { get; set; } = Enumerable.Empty<BaseFacet>();
 
         public long TotalHits { get; set; }
     }
