@@ -6,6 +6,7 @@ using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -21,6 +22,7 @@ namespace uIntra.Groups.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IGroupContentHelper _groupContentHelper;
         private readonly IGroupService _groupService;
+        private IGroupFeedLinkService _groupFeedLinkService;
 
         // TODO : remove redundancies in pathes
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
@@ -44,10 +46,7 @@ namespace uIntra.Groups.Web
             IGroupService groupService)
             : base(centralFeedContentHelper,
                   subscribeService,
-                  groupFeedService,
-                  activitiesServiceFactory,
-                  intranetUserContentHelper,
-                  centralFeedTypeProvider,
+                  groupFeedService,                 
                   intranetUserService)
         {
             _centralFeedContentHelper = centralFeedContentHelper;
@@ -57,6 +56,12 @@ namespace uIntra.Groups.Web
             _intranetUserService = intranetUserService;
             _groupContentHelper = groupContentHelper;
             _groupService = groupService;
+        }
+
+        internal interface IGroupFeedLinkService
+        {
+            ActivityLinks GetLinks(IFeedItem item, Guid groupId);
+            ActivityLinks GetCreateLinks(Guid groupId);
         }
 
         #region Actions
@@ -155,21 +160,15 @@ namespace uIntra.Groups.Web
 
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings, Guid groupId)
         {
-            var activityTypes = GetInvolvedTypes(items);
-
-            var activityServices = activityTypes
-                .Select(t => _activitiesServiceFactory.GetService<IIntranetActivityService>(t.Id))
-                .ToDictionary(s => s.ActivityType.Id);
-
             var activitySettings = settings
-                .ToDictionary(s => s.Type.Id);
+                .ToDictionary(s => s.Type);
 
             var result = items
                 .Select(i => new FeedItemViewModel()
                 {
                     Item = i,
-                    Links = activityServices[i.Type.Id].GetGroupFeedLinks(i.Id, groupId),
-                    ControllerName = activitySettings[i.Type.Id].Controller
+                    Links = _groupFeedLinkService.GetLinks(i, groupId),
+                    ControllerName = activitySettings[i.Type].Controller
                 });
 
             return result;
@@ -250,4 +249,6 @@ namespace uIntra.Groups.Web
             return viewModel;
         }
     }
+
+
 }

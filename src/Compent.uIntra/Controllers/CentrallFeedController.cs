@@ -11,21 +11,7 @@ namespace Compent.uIntra.Controllers
 
     public class CentralFeedController : CentralFeedControllerBase
     {
-        public CentralFeedController(ICentralFeedService centralFeedService,
-            ICentralFeedContentHelper centralFeedContentHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            ISubscribeService subscribeService,
-            IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,   
-            IFeedTypeProvider centralFeedTypeProvider)
-            : base(centralFeedService,
-                  centralFeedContentHelper,
-                  activitiesServiceFactory,
-                  subscribeService,
-                  intranetUserService,
-                  intranetUserContentHelper,
-                  centralFeedTypeProvider,
-                  activitiesServiceFactory)
+        public CentralFeedController(ICentralFeedService centralFeedService, ICentralFeedContentHelper centralFeedContentHelper, IActivitiesServiceFactory activitiesServiceFactory, ISubscribeService subscribeService, IIntranetUserService<IIntranetUser> intranetUserService, IIntranetUserContentHelper intranetUserContentHelper, IFeedTypeProvider centralFeedTypeProvider, ICentralFeedLinkService centralFeedLinkService) : base(centralFeedService, centralFeedContentHelper, activitiesServiceFactory, subscribeService, intranetUserService, intranetUserContentHelper, centralFeedTypeProvider, centralFeedLinkService)
         {
         }
     } 

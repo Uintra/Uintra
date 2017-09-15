@@ -16,6 +16,7 @@ namespace uIntra.CentralFeed.Web
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedDetailsView.cshtml";
@@ -33,13 +34,14 @@ namespace uIntra.CentralFeed.Web
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
-            IActivitiesServiceFactory activitiesServiceFactory1)
-            : base(centralFeedContentHelper, subscribeService, centralFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService)
+            ICentralFeedLinkService centralFeedLinkService)
+            : base(centralFeedContentHelper, subscribeService, centralFeedService, intranetUserService)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentHelper = centralFeedContentHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
-            _activitiesServiceFactory = activitiesServiceFactory1;
+            _centralFeedLinkService = centralFeedLinkService;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         #region Actions
@@ -117,6 +119,43 @@ namespace uIntra.CentralFeed.Web
 
 
         #endregion
+
+        protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
+        {
+            var take = model.Page * ItemsPerPage;
+            var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
+
+            var settings = _centralFeedService.GetAllSettings();
+            var tabSettings = settings
+                .Single(s => s.Type.Id == model.TypeId)
+                .Map<FeedTabSettings>();
+
+            return new FeedListViewModel
+            {
+                Version = _centralFeedService.GetFeedVersion(filteredItems),
+                Feed = GetFeedItems(pagedItemsList, settings),
+                TabSettings = tabSettings,
+                Type = centralFeedType,
+                BlockScrolling = filteredItems.Count < take,
+                FilterState = MapToFilterStateViewModel(model.FilterState)
+            };
+        }
+
+        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
+        {
+            var activitySettings = settings
+                .ToDictionary(s => s.Type.Id);
+
+            var result = items
+                .Select(i => new FeedItemViewModel()
+                {
+                    Item = i,
+                    Links = _centralFeedLinkService.GetLinks(i),
+                    ControllerName = activitySettings[i.Type.Id].Controller
+                });
+
+            return result;
+        }
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
