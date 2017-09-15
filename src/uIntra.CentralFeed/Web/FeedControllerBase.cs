@@ -28,26 +28,20 @@ namespace uIntra.CentralFeed.Web
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly ISubscribeService _subscribeService;
         private readonly IFeedService _feedService;
-        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected FeedControllerBase(
             ICentralFeedContentHelper centralFeedContentHelper,
             ISubscribeService subscribeService,
-            IFeedService centralFeedService,
-            IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
-            IFeedTypeProvider centralFeedTypeProvider,
+            IFeedService feedService,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _centralFeedContentHelper = centralFeedContentHelper;
             _subscribeService = subscribeService;
-            _feedService = centralFeedService;
-            _activitiesServiceFactory = activitiesServiceFactory;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
+            _feedService = feedService;
             _intranetUserService = intranetUserService;
         }
+
 
         #region Actions
         public virtual ActionResult Tabs()
@@ -74,49 +68,6 @@ namespace uIntra.CentralFeed.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
-        protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
-        {
-            var take = model.Page * ItemsPerPage;
-            var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
-
-            var settings = _feedService.GetAllSettings();
-            var tabSettings = settings
-                .Single(s => s.Type.Id == model.TypeId)
-                .Map<FeedTabSettings>();
-
-            return new FeedListViewModel
-            {
-                Version = _feedService.GetFeedVersion(filteredItems),
-                Feed = GetFeedItems(pagedItemsList, settings),
-                TabSettings = tabSettings,
-                Type = centralFeedType,
-                BlockScrolling = filteredItems.Count < take,
-                FilterState = MapToFilterStateViewModel(model.FilterState)
-            };
-        }
-
-        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
-        {
-            var activityTypes = GetInvolvedTypes(items);
-
-            var activityServices = activityTypes
-                .Select(t => _activitiesServiceFactory.GetService<IIntranetActivityService>(t.Id))
-                .ToDictionary(s => s.ActivityType.Id);
-
-            var activitySettings = settings
-                .ToDictionary(s => s.Type.Id);
-
-            var result = items
-                .Select(i => new FeedItemViewModel()
-                {
-                    Item = i,
-                    Links = activityServices[i.Type.Id].GetCentralFeedLinks(i.Id),
-                    ControllerName = activitySettings[i.Type.Id].Controller
-                });
-
-            return result;
-        }
 
         protected static IEnumerable<IIntranetType> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {

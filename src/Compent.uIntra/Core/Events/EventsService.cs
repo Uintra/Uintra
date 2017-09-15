@@ -96,6 +96,7 @@ namespace Compent.uIntra.Core.Events
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
 
         public override IPublishedContent GetOverviewPage()

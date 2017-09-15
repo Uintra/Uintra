@@ -22,14 +22,14 @@ namespace uIntra.Core.Activity
     public interface IIntranetActivityService
     {
         IIntranetType ActivityType { get; }
+        void Delete(Guid id);
+        bool CanEdit(Guid id);
+
         ActivityLinks GetCentralFeedLinks(Guid id);
         ActivityCreateLinks GetCentralFeedCreateLinks();
-
         ActivityLinks GetGroupFeedLinks(Guid id, Guid groupId);
         ActivityCreateLinks GetGroupFeedCreateLinks(Guid groupId);
 
-        void Delete(Guid id);
-        bool CanEdit(Guid id);
 
         [Obsolete("Use overloading method instead")]
         IPublishedContent GetOverviewPage();

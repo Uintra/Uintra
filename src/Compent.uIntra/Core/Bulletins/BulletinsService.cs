@@ -90,6 +90,7 @@ namespace Compent.uIntra.Core.Bulletins
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
         public override ActivityLinks GetCentralFeedLinks(Guid id)

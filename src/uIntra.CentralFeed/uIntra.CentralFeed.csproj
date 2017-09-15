@@ -344,6 +344,9 @@
     <Compile Include="Core\CentralFeedTypeProvider.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
+    <Compile Include="Core\Links\CentralFeedLinkService.cs" />
+    <Compile Include="Core\Links\FeedLinkService.cs" />
+    <Compile Include="Core\Links\ICentralFeedLinkService.cs" />
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
     <Compile Include="Core\IFeedItemService.cs" />
     <Compile Include="Core\IFeedService.cs" />
