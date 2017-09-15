@@ -1,8 +1,6 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type.Id, Model.ActivityId);
-    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
     var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
 }
 
