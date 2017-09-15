@@ -17,6 +17,7 @@ namespace Compent.uIntra.Core.Users
         public string LastName { get; set; }
         public string Email { get; set; }
         public string LoginName { get; set; }
+        public bool Inactive { get; set; }
         public IRole Role { get; set; }
 
         public IEnumerable<Guid> GroupIds { get; set; } = Enumerable.Empty<Guid>();

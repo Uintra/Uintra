@@ -1,9 +1,9 @@
 ﻿import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
+var alertify = require('alertifyjs/build/alertify.min');
 
 require("./profile.css");
-require("bootstrap-notify");
 
 var initDeleteButton = function (holder) {
     var btn = holder.find('.js-delete-btn');
@@ -45,7 +45,7 @@ function SetNotifierSetting(notifierType, value) {
     $.ajax({
         type: "POST",
         url: "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value,
-        complete: () => $.notify("Settings has been saved.")
+        complete: () => alertify.success('Settings has been saved.')
     });
 
 }

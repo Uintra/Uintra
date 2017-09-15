@@ -11,5 +11,6 @@ namespace uIntra.Core.User
         IRole Role { get; set; }
         string Email { get; set; }
         string LoginName { get; set; }
+        bool Inactive { get; set; }
     }
 }

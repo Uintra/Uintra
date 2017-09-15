@@ -83,10 +83,11 @@
       "name": "Coming Events",
       "alias": "custom.ComingEvents",
       "view": "/App_Plugins/Events/ComingEvents/coming-events-view.html",
-      "icon": "icon-settings-alt color-blue",
+      "icon": "icon-time color-blue",
       "config": {
         "controller": "Events",
-        "action": "ComingEvents"
+        "action": "ComingEvents",
+        "sendModelToController": true
       }
     }
 

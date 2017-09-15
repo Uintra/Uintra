@@ -75,3 +75,11 @@
 .btn-holder {
     padding: 10px;
 }
+
+.filter-input {
+    width: 250px;
+}
+
+.filter-field {
+    margin: 0 0 0 5px!important;
+}

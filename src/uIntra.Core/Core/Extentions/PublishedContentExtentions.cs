@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace uIntra.Core.Extentions
@@ -19,6 +21,28 @@ namespace uIntra.Core.Extentions
         public static string GetMediaExtention(this IPublishedContent content)
         {
             return content.GetPropertyValue<string>(UmbracoExtensionPropertyAlias, default(string));
+        }
+
+        public static string GetFileName(this IPublishedContent content)
+        {
+            var fullName = content.GetPropertyValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias, content.Name);
+            var result = ParseFullFileName(fullName);
+            return result;
+        }
+
+        private static string ParseFullFileName(string fullName)
+        {
+            string regex = @"^/media/[0-9]*/(.*)$";
+            var match = Regex.Match(fullName, regex);
+            try
+            {
+                var result = match.Groups[1].Value;
+                return result;
+            }
+            catch (Exception) // if somebody [upload file with potentially invalid name]/[break umbraco structure], we will have global crash
+            {
+                return fullName;
+            }
         }
 
         public static Guid? GetIntranetUserId(this IPublishedContent content)
@@ -81,6 +105,27 @@ namespace uIntra.Core.Extentions
             }
 
             return result;
+        }
+
+        public static Guid GetGuidKey(this IPublishedContent content)
+        {
+            var contentWithKey = content as IPublishedContentWithKey;
+            if (contentWithKey != null)
+            {
+                return contentWithKey.Key;
+            }
+
+            var wrapped = content as PublishedContentWrapped;
+            if (wrapped != null)
+            {
+                contentWithKey = wrapped.Unwrap() as IPublishedContentWithKey;
+                if (contentWithKey != null)
+                {
+                    return contentWithKey.Key;
+                }
+            }
+
+            return Guid.Empty;
         }
     }
 }

@@ -25,7 +25,9 @@
                     @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
                 </div>
             </div>
-            @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+            <div class="comments">
+                @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+            </div>
         </div>
     </div>
 </section>

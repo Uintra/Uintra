@@ -16,6 +16,7 @@ using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
+using Compent.uIntra.Core.Licence;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
@@ -68,13 +69,15 @@ using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
-using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+using uIntra.LicenceService.ApiClient.Interfaces;
+using uIntra.LicenceService.ApiClient;
+using uIntra.Users;
 using uIntra.Core.WebPagePreview;
 using uIntra.Groups;
 using Compent.uIntra.Core.Groups;
@@ -157,6 +160,13 @@ namespace Compent.uIntra
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
+
+            //licence
+            kernel.Bind<ILicenceValidationServiceClient>().To<LicenceValidationServiceClient>().InRequestScope();
+            kernel.Bind<IValidateLicenceService>().To<ValidateLicenceService>().InRequestScope();
+            kernel.Bind<IWebApiClient>().ToMethod((ctx => new WebApiClient() { Connection = new LicenceServiceConnection() })).InSingletonScope();
+            kernel.Bind<ILicenceRequestHandler>().To<LicenceRequestHandler>().InRequestScope(); 
+
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();

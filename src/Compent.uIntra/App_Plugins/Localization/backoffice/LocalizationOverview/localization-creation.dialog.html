@@ -29,7 +29,7 @@
 
             <!--TODO: tree -->
 
-            <input type="search" placeholder="Choose relation ..." class="search-box"
+            <input type="search" placeholder="Choose parent..." class="search-box"
                    ng-model="searchText" />
             <ul class="unstyled search-result">
                 <li ng-click="dialogData.chooseParent('', dialogData.resource)"
@@ -40,7 +40,7 @@
                     {{storedKey}}
                 </li>
             </ul>
-            Relation: {{dialogData.resource.parentKey}}
+            Parent: {{dialogData.resource.parentKey}}
         </div>
     </div>
 
