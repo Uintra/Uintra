@@ -1,110 +1,65 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using uIntra.Core;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace uIntra.CentralFeed
 {
     public class CentralFeedLinkService : ICentralFeedLinkService
     {
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly UmbracoHelper _umbracoHelper;
-
-        public CentralFeedLinkService(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper, IIntranetUserContentHelper intranetUserContentHelper)
+        private IEnumerable<string> CentralFeedActivityXPath  => new []
         {
-            _documentTypeAliasProvider = documentTypeAliasProvider;
-            _umbracoHelper = umbracoHelper;
-            _intranetUserContentHelper = intranetUserContentHelper;
-        }
+            _aliasProvider.GetHomePage()
+        };
 
-        private string GetPageUrl(string xPath) =>
-            _umbracoHelper.TypedContentSingleAtXPath(xPath).Url;
+        private readonly IActivityPageHelperFactory _pageHelperFactory;
+        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IDocumentTypeAliasProvider _aliasProvider;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+
+        public CentralFeedLinkService(
+            IActivityPageHelperFactory pageHelperFactory,
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IDocumentTypeAliasProvider aliasProvider,
+            IIntranetUserService<IIntranetUser> intranetUserService)
+        {
+            _pageHelperFactory = pageHelperFactory;
+            _intranetUserContentHelper = intranetUserContentHelper;
+            _aliasProvider = aliasProvider;
+            _intranetUserService = intranetUserService;
+        }
 
         public ActivityLinks GetLinks(IFeedItem item)
         {
+            IActivityPageHelper helper = GetPageHelper(item.Type);
+
             return new ActivityLinks(
-                overview: GetOverviewPage(item),
-                create: GetCreatePage(item.Type),
-                details: GetDetailsPage(item),
-                edit: GetEditPage(item),
-                creator: GetCreatorPage(item.CreatorId),
-                detailsNoId: GetDetailsNoId(item.Type)
+                overview: helper.GetOverviewPageUrl(),
+                create: helper.GetCreatePageUrl(),
+                details: helper.GetDetailsPageUrl().AddIdParameter(item.Id),
+                edit: helper.GetEditPageUrl().AddIdParameter(item.Id),
+                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(item.CreatorId),
+                detailsNoId: helper.GetDetailsPageUrl()
                 );
         }
 
-        private string GetEditPage(IFeedItem item)
+        public ActivityCreateLinks GetCreateLinks(IIntranetType type)
         {
-            var xPath = new[]
-            {
-                _documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetOverviewPage(item.Type),
-                _documentTypeAliasProvider.GetEditPage(item.Type)
-            };
-            return GetPageUrl(XPathHelper.GetXpath(xPath)).AddIdParameter(item.Id);
+            IActivityPageHelper helper = GetPageHelper(type);
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            return new ActivityCreateLinks(
+                    overview: helper.GetOverviewPageUrl(),
+                    create: helper.GetCreatePageUrl(),
+                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(currentUserId),
+                    detailsNoId: helper.GetDetailsPageUrl()
+                );
         }
 
-        private string GetDetailsPage(IFeedItem item)
-        {
-            var xPath = new[]
-            {
-                _documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetOverviewPage(item.Type),
-                _documentTypeAliasProvider.GetDetailsPage(item.Type)
-            };
-            return GetPageUrl(XPathHelper.GetXpath(xPath)).AddIdParameter(item.Id);
-        }
+        private IActivityPageHelper GetPageHelper(IIntranetType type) => _pageHelperFactory.GetHelper(type, CentralFeedActivityXPath);
 
-        private string GetCreatorPage(Guid creatorId)
-        {
-            var profile = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creatorId);
-            return profile;
-        }
-
-        private string GetDetailsNoId(IIntranetType type)
-        {
-            var xPath = new[]
-            {
-                _documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetOverviewPage(type),
-                _documentTypeAliasProvider.GetDetailsPage(type)
-            };
-            return GetPageUrl(XPathHelper.GetXpath(xPath));
-        }
-
-        private string GetCreatePage(IIntranetType type)
-        {
-            var xPath = new[]
-            {
-                _documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetOverviewPage(type),
-                _documentTypeAliasProvider.GetCreatePage(type)
-            };
-            return GetPageUrl(XPathHelper.GetXpath(xPath));
-        }
-
-        private string GetOverviewPage(IFeedItem item)
-        {
-            var xPath = new[]
-            {
-                _documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetOverviewPage(item.Type),
-            };
-            return GetPageUrl(XPathHelper.GetXpath(xPath));
-        }
-
-        public ActivityLinks GetCreateLinks()
-        {
-            throw new NotImplementedException();
-        }
     }
-
-
-
 }

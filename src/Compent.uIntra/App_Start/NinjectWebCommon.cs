@@ -210,8 +210,9 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedLinkService>().To<CentralFeedLinkService>();
 
             kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
+            kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>().InRequestScope();
 
-            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope(); // TODO ??
+            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope(); // TODO WHY??
 
             kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
