@@ -46,7 +46,7 @@ namespace uIntra.CentralFeed.Web
 
         #region Actions
         [HttpGet]
-        public override ActionResult Create(int typeId)
+        public ActionResult Create(int typeId)
         {
             var activityType = _centralFeedTypeProvider.Get(typeId);
             var viewModel = GetCreateViewModel(activityType);

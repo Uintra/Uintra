@@ -108,15 +108,11 @@ namespace uIntra.Groups.Web
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-        public override ActionResult Create(int typeId)
+        public ActionResult Create(Guid groupId, int typeId)
         {
-            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
-
-            if (!groupId.HasValue)
-                throw new NotImplementedException();
 
             var activityType = _centralFeedTypeProvider.Get(typeId);
-            var viewModel = GetCreateViewModel(activityType, groupId.Value);
+            var viewModel = GetCreateViewModel(activityType, groupId);
             return PartialView(CreateViewPath, viewModel);
         }
         #endregion
