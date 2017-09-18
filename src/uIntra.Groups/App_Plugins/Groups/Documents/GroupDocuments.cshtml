@@ -6,7 +6,7 @@
 @model GroupDocumentsViewModel
 
 @{
-    Guid groupId;
+    Guid groupId; // TODO : clean this trash
     if (!Guid.TryParse(Request.QueryString.Get(GroupConstants.GroupIdQueryParam), out groupId))
     {
         <h3>Group id is not defined!!</h3>

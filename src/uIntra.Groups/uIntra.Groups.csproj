@@ -294,6 +294,7 @@
     <Compile Include="Core\Dashboard\GroupsSection.cs" />
     <Compile Include="Core\Dashboard\Controllers\GroupsSectionControllerBase.cs" />
     <Compile Include="Core\Extentions\GroupsPublishedContentExtensions.cs" />
+    <Compile Include="Core\Extentions\NameValueCollectionExtensions.cs" />
     <Compile Include="Core\GroupContentHelper.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedListModel.cs" />
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
+    <Compile Include="Core\Services\GroupActivityService.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
     <Compile Include="Core\Models\GroupMemberViewModel.cs" />
     <Compile Include="Core\Models\GroupNavigationTab.cs" />
@@ -323,6 +325,7 @@
     <Compile Include="Core\Models\GroupViewModel.cs" />
     <Compile Include="Core\IGroupActivity.cs" />
     <Compile Include="Core\IGroupContentHelper.cs" />
+    <Compile Include="Core\Services\IGroupActivityService.cs" />
     <Compile Include="Core\Services\IGroupFeedService.cs" />
     <Compile Include="Core\Services\IGroupMediaService.cs" />
     <Compile Include="Core\IGroupMember.cs" />

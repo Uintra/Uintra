@@ -14,6 +14,8 @@ using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
 using System.Linq;
+using Compent.uIntra.Core.Extentions;
+using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {
@@ -26,7 +28,8 @@ namespace Compent.uIntra.Controllers
 
         private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly IGroupService _groupService;
+        private readonly IGroupActivityService _groupActivityService;
+
 
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -35,12 +38,12 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
-            IGroupService groupService)
+            IGroupActivityService groupActivityService)
             : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;
-            _groupService = groupService;
+            _groupActivityService = groupActivityService;
         }
 
         public ActionResult CentralFeedItem(News item, ActivityLinks links)
@@ -74,10 +77,10 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnNewsCreated(Guid activityId, NewsCreateModel model)
         {
-            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            var groupId = Request.QueryString.GetGroupId();
             if (groupId.HasValue)
             {
-                _groupService.AddGroupActivityRelation(groupId.Value, activityId);
+                _groupActivityService.AddRelation(groupId.Value, activityId);
                 var news = _newsService.Get(activityId);
                 news.GroupIds = news.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
             }

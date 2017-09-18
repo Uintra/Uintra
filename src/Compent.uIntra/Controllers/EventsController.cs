@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Events;
+using Compent.uIntra.Core.Extentions;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -12,6 +13,7 @@ using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
 using uIntra.Groups;
+using uIntra.Groups.Extentions;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
@@ -30,7 +32,7 @@ namespace Compent.uIntra.Controllers
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
-        private readonly IGroupService _groupService;
+        private readonly IGroupActivityService _groupActivityService;
 
         public EventsController(
             IEventsService<Event> eventsService,
@@ -41,7 +43,8 @@ namespace Compent.uIntra.Controllers
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
-            INotificationTypeProvider notificationTypeProvider, IGroupService groupService)
+            INotificationTypeProvider notificationTypeProvider,
+            IGroupActivityService groupActivityService)
             : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
         {
             _eventsService = eventsService;
@@ -49,7 +52,7 @@ namespace Compent.uIntra.Controllers
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
             _notificationTypeProvider = notificationTypeProvider;
-            _groupService = groupService;
+            _groupActivityService = groupActivityService;
         }
 
         public ActionResult CentralFeedItem(Event item, ActivityLinks links)
@@ -78,10 +81,10 @@ namespace Compent.uIntra.Controllers
         {
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
 
-            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            var groupId = Request.QueryString.GetGroupId();
             if (groupId.HasValue)
             {
-                _groupService.AddGroupActivityRelation(groupId.Value, activityId);
+                _groupActivityService.AddRelation(groupId.Value, activityId);
                 var @event = _eventsService.Get(activityId);               
                 @event.GroupIds = @event.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
             }

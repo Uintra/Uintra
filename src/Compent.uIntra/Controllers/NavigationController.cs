@@ -62,7 +62,7 @@ namespace Compent.uIntra.Controllers
 
             if (_groupContentHelper.IsGroupRoomPage(CurrentPage))
             {
-                var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+                var groupId = Request.QueryString.GetGroupId();
                 var group = _groupService.Get(groupId.Value);
                 var groupNavigationModel = new GroupNavigationViewModel { GroupTitle = @group.Title };
 

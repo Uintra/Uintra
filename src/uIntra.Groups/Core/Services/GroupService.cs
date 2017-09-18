@@ -16,7 +16,6 @@ namespace uIntra.Groups
     public class GroupService : IGroupService
     {
         private readonly ISqlRepository<Group> _groupRepository;
-        private readonly ISqlRepository<GroupActivityRelation> _groupActivityRepository;
         private readonly ICacheService _memoryCacheService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -36,7 +35,6 @@ namespace uIntra.Groups
             _groupMemberService = groupMemberService;
             _intranetUserService = intranetUserService;
             _permissionsService = permissionsService;
-            _groupActivityRepository = groupActivityRepository;
         }
 
         public void Create(Group group)
@@ -83,29 +81,29 @@ namespace uIntra.Groups
             return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, ((g, id) => g));
         }
 
-        public void FillGroupActivityData(IGroupActivity activity, bool isGroupPage)
-        {
-            if (activity.GroupId.HasValue)
-            {
-                var group = Get(activity.GroupId.Value);
-                if (!isGroupPage)
-                {
-                    if (!group.IsHidden)
-                    {
-                        activity.HeaderInfo.GroupId = group.Id;
-                        activity.HeaderInfo.GroupTitle = group.Title;
-                    }
-                }
+        //public void FillGroupActivityData(IGroupActivity activity, bool isGroupPage)
+        //{
+        //    if (activity.GroupId.HasValue)
+        //    {
+        //        var group = Get(activity.GroupId.Value);
+        //        if (!isGroupPage)
+        //        {
+        //            if (!group.IsHidden)
+        //            {
+        //                activity.HeaderInfo.GroupId = group.Id;
+        //                activity.HeaderInfo.GroupTitle = group.Title;
+        //            }
+        //        }
 
-                var currentUserId = _intranetUserService.GetCurrentUserId();
-                var isGroupMember = _groupMemberService.IsGroupMember(group.Id, currentUserId);
-                activity.IsReadonly = !isGroupMember;
-            }
-            else
-            {
-                activity.IsReadonly = false;
-            }
-        }
+        //        var currentUserId = _intranetUserService.GetCurrentUserId();
+        //        var isGroupMember = _groupMemberService.IsGroupMember(group.Id, currentUserId);
+        //        activity.IsReadonly = !isGroupMember;
+        //    }
+        //    else
+        //    {
+        //        activity.IsReadonly = false;
+        //    }
+        //}
 
         public bool CanCreate(IHaveCreator activity, IIntranetUser user)
         {
@@ -148,30 +146,15 @@ namespace uIntra.Groups
             Edit(group);
         }
 
-        public void AddGroupActivityRelation(Guid groupId, Guid activityId)
+        public void FillGroupActivityData(IGroupActivity activity, bool isGroupPage)
         {
-            var relation = new GroupActivityRelation()
-            {
-                ActivityId = activityId,
-                GroupId = groupId,
-                Id = Guid.NewGuid()
-            };
-
-            _groupActivityRepository.Add(relation);
-        }
-
-        public void RemoveGroupActivityRelation(Guid groupId, Guid activityId)
-        {
-            _groupActivityRepository.Delete(r => r.ActivityId.Equals(activityId) && r.GroupId.Equals(groupId));
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Guid> GetGroupIds(Guid activityId)
         {
-            return _groupActivityRepository
-                .FindAll(rel => rel.ActivityId == activityId)
-                .Select(rel => rel.GroupId);
+            throw new NotImplementedException();
         }
-
 
         private static DateTimeOffset GetCacheExpiration()
         {
@@ -184,18 +167,6 @@ namespace uIntra.Groups
             groups = groups.FindAll(a => a.Id != group.Id);
             groups.Add(group);
             _memoryCacheService.Set(GroupCacheKey, groups, GetCacheExpiration());
-        }
-
-        public Guid? GetGroupIdFromQuery(string query)
-        {
-            var regEx = GroupConstants.GroupIdQueryParam + @"=([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})";
-            var activityIdMatch = Regex.Match(query, regEx, RegexOptions.IgnoreCase);
-
-            if (activityIdMatch.Success)
-            {
-                return new Guid(activityIdMatch.Groups[1].Value);
-            }
-            return null;
         }
     }
 }

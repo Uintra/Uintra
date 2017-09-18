@@ -12,6 +12,8 @@ using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Navigation;
 using System.Linq;
+using Compent.uIntra.Core.Extentions;
+using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {
@@ -21,7 +23,7 @@ namespace Compent.uIntra.Controllers
         protected override string ItemViewPath => "~/Views/Bulletins/ItemView.cshtml";
         private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IMyLinksService _myLinksService;
-        private readonly IGroupService _groupService;
+        private readonly IGroupActivityService _groupActivityService;
 
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
@@ -30,12 +32,12 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
             IMyLinksService myLinksService,
-            IGroupService groupService)
+            IGroupActivityService groupActivityService)
             : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
-            _groupService = groupService;
+            _groupActivityService = groupActivityService;
         }
 
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityLinks links)
@@ -69,10 +71,10 @@ namespace Compent.uIntra.Controllers
         {
             base.OnBulletinCreated(bulletin, model);
 
-            var groupId = _groupService.GetGroupIdFromQuery(Request.QueryString.ToString());
+            var groupId = Request.QueryString.GetGroupId();
             if (groupId.HasValue)
             {
-                _groupService.AddGroupActivityRelation(groupId.Value, bulletin.Id);
+                _groupActivityService.AddRelation(groupId.Value, bulletin.Id);
                 var extendedBulletin = _bulletinsService.Get(bulletin.Id);
                 extendedBulletin.GroupIds = extendedBulletin.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
             }

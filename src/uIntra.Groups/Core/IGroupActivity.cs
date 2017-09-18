@@ -2,12 +2,11 @@
 
 namespace uIntra.Groups
 {
-    // TODO : looks like garbage to be collected
     public interface IGroupActivity 
     {
         Guid Id { get; set; }
         Guid? GroupId { get; set; }
-        IGroupActivityHeader HeaderInfo { get; set; }
+        // IGroupActivityHeader HeaderInfo { get; set; } TODO: Check its relevance
         bool IsReadonly { get; set; }
     }
 }

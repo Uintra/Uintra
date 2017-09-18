@@ -216,6 +216,8 @@ namespace Compent.uIntra
             kernel.Bind<IGroupFeedLinkService>().To<ActivityLinkService>();
             kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
 
+            kernel.Bind<IGroupActivityService>().To<GroupActivityService>();
+            
             kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
             kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>().InRequestScope();
 
