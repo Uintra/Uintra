@@ -5,6 +5,7 @@ import listGroup from './List/group-list';
 import groupMembers from './Members/group-members';
 import groupSubscribe from './GroupSubscribe';
 
+require("./groups.css");
 
 export default function () {
     createGroup.init();
