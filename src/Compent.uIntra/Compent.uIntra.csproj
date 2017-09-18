@@ -373,8 +373,9 @@
       <HintPath>..\..\packages\uIntra.News.1.2.2\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.2.0.2\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.Notification.1.2.0.3\lib\net452\uIntra.Notification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.7.1, Culture=neutral, processorArchitecture=MSIL">
@@ -1087,12 +1088,6 @@
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
@@ -1103,6 +1098,12 @@
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Likes\package.manifest" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
