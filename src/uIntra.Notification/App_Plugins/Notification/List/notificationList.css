@@ -209,7 +209,7 @@
                 left:0;
                 right:0;
                 bottom:-1px;
-                background:var(--color-light-gray-2);
+                background:#eef2fb;
                 display:none;
                 z-index:-1;
                 content:'';
@@ -217,7 +217,7 @@
 
             &[data-viewed='false']{
                 .notification &{
-                    background:var(--color-light-gray-2);
+                    background:#eef2fb;
                 }
 
                 &:after{
