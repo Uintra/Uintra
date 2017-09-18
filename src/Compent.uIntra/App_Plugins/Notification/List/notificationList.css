@@ -44,8 +44,9 @@
             position:absolute;
             top:100%;
             left:0;
-            width:400px;
+            width:568px;
             display:none;
+            transform:translate(-50%);
 
             ._notifications-expanded &{
                 display:block;
@@ -186,7 +187,6 @@
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
             padding:13px 20px;
-            align-items:flex-end;
 
             &:last-child{
                 border:none;
@@ -240,7 +240,7 @@
             overflow:hidden;
 
 	        .notification & {
-		        margin: 0 20px 0 0;
+		        margin: 3px 20px 0 0;
 	        }
 
             &-img{
