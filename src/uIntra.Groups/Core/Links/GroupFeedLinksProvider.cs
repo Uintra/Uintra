@@ -34,7 +34,7 @@ namespace uIntra.Groups
 
             return new ActivityLinks(
                 overview: helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
-                create: helper.GetCreatePageUrl().AddGroupId(activity.GroupId),
+                create: helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
                 details: helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
                 edit: helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
                 creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
@@ -48,7 +48,7 @@ namespace uIntra.Groups
 
             return new ActivityCreateLinks(
                 overview: helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
-                create: helper.GetCreatePageUrl().AddGroupId(model.GroupId),
+                create: helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
                 creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
                 detailsNoId: helper.GetDetailsPageUrl().AddGroupId(model.GroupId)
             );
