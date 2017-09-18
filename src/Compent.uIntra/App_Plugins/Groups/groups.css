@@ -1,4 +1,4 @@
-﻿/*.block{
+﻿.block{
     &._groups-info{
         border: 1px solid #ccc;
         margin: -10px -10px 20px;
@@ -319,7 +319,7 @@
             position:absolute;
             top:50%;
             left:50%;
-            content:url(../../Content/images/icon-scroll.png);
+            /*content:url(../../Content/images/icon-scroll.png);*/
             width:100px;
             margin:-30px 0 0 -50px;
         }
@@ -499,4 +499,4 @@
             text-decoration:none;
         }
     }
-}*/
+}
