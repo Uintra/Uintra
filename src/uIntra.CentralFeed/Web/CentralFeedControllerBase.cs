@@ -150,7 +150,7 @@ namespace uIntra.CentralFeed.Web
                 .Select(i => new FeedItemViewModel()
                 {
                     Item = i,
-                    Links = _centralFeedLinkService.GetLinks(i),
+                    Links = _centralFeedLinkService.GetLinks(i.Id),
                     ControllerName = activitySettings[i.Type.Id].Controller
                 });
 
@@ -224,8 +224,7 @@ namespace uIntra.CentralFeed.Web
         // TODO : duplication
         protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType)
         {
-            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(activityType.Id);
-            var links = service.GetCentralFeedCreateLinks();
+            var links = _centralFeedLinkService.GetCreateLinks(activityType);
 
             var settings = _centralFeedService.GetSettings(activityType);
 
@@ -239,7 +238,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual EditViewModel GetEditViewModel(Guid id)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = service.GetCentralFeedLinks(id);
+            var links = _centralFeedLinkService.GetLinks(id);
 
             var type = service.ActivityType;
             var settings = _centralFeedService.GetSettings(type);
@@ -256,7 +255,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = service.GetCentralFeedLinks(id);
+            var links = _centralFeedLinkService.GetLinks(id);
 
             var type = service.ActivityType;
             var settings = _centralFeedService.GetSettings(type);

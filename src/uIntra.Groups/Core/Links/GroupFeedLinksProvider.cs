@@ -10,7 +10,7 @@ using uIntra.Core.User;
 
 namespace uIntra.Groups 
 {
-    public class GroupFeedLinkService : FeedLinkService, IGroupFeedLinkService
+    public class GroupFeedLinksProvider : FeedLinkService, IGroupFeedLinksProvider
     {
 
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
@@ -22,7 +22,7 @@ namespace uIntra.Groups
         private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public GroupFeedLinkService(
+        public GroupFeedLinksProvider(
             IActivityPageHelperFactory pageHelperFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,

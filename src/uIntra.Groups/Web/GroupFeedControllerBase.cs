@@ -6,7 +6,6 @@ using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
-using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -43,7 +42,7 @@ namespace uIntra.Groups.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupContentHelper groupContentHelper,
-            IGroupService groupService, IGroupFeedLinkService groupFeedLinkService)
+            IGroupService groupService, IGroupFeedLinksProvider groupFeedLinksProvider, IGroupFeedLinkService groupFeedLinkService)
             : base(centralFeedContentHelper,
                   subscribeService,
                   groupFeedService,                 
@@ -155,7 +154,7 @@ namespace uIntra.Groups.Web
                 .Select(i => new FeedItemViewModel()
                 {
                     Item = i,
-                    Links = _groupFeedLinkService.GetLinks(i, groupId),
+                    Links = _groupFeedLinkService.GetLinks(i.Id),
                     ControllerName = settings.Single(s => s.Type.Id == i.Type.Id).Controller
                 });
 
@@ -192,8 +191,7 @@ namespace uIntra.Groups.Web
 
         protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType, Guid groupId)
         {
-            var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(activityType.Id);
-            var links = service.GetGroupFeedCreateLinks(groupId);
+            var links = _groupFeedLinkService.GetCreateLinks(activityType, groupId);
 
             var settings = _groupFeedService.GetSettings(activityType);
 
@@ -207,7 +205,7 @@ namespace uIntra.Groups.Web
         protected virtual EditViewModel GetEditViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = service.GetGroupFeedLinks(id, groupId);
+            var links = _groupFeedLinkService.GetLinks(id);
 
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);
@@ -224,7 +222,7 @@ namespace uIntra.Groups.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = service.GetGroupFeedLinks(id, groupId);
+            var links = _groupFeedLinkService.GetLinks(id);
 
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);

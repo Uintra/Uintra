@@ -20,79 +20,18 @@ namespace uIntra.Core.Activity
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService,
-            IIntranetUserService<IIntranetUser>  intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper
+            IIntranetMediaService intranetMediaService
             )
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
-            _intranetUserService = intranetUserService;
-            _intranetUserContentHelper = intranetUserContentHelper;
-        }
-
-
-        public virtual ActivityLinks GetCentralFeedLinks(Guid id)
-        {
-            var creatorId = GetCreatorId(id);
-            var detailsPage = GetDetailsPage().Url;
-
-            return new ActivityLinks(
-                overview: GetOverviewPage().Url,
-                create: GetCreatePage().Url,
-                details: detailsPage.AddIdParameter(id),
-                edit: GetEditPage().Url.AddIdParameter(id),
-                creator: GetProfileLink(creatorId),
-                detailsNoId: detailsPage
-            );
-        }
-
-        public virtual ActivityCreateLinks GetCentralFeedCreateLinks()
-        {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var detailsPage = GetDetailsPage().Url;
-
-            return new ActivityCreateLinks(
-                overview: GetOverviewPage().Url,
-                create: GetCreatePage().Url,
-                creator: GetProfileLink(currentUserId),
-                detailsNoId: detailsPage
-            );
-        }
-
-        public virtual ActivityLinks GetGroupFeedLinks(Guid id, Guid groupId)
-        {
-            var centralFeedLinks = GetCentralFeedLinks(id);
-            return centralFeedLinks
-                .WithCreate(centralFeedLinks.Create?.AddGroupId(groupId))
-                .WithEdit(centralFeedLinks.Edit?.AddGroupId(groupId))
-                .WithDetailsNoId(centralFeedLinks.DetailsNoId?.AddGroupId(groupId))
-                .WithDetails(centralFeedLinks.Details?.AddGroupId(groupId));
-
-        }
-
-        public virtual ActivityCreateLinks GetGroupFeedCreateLinks(Guid groupId)
-        {
-            var centralFeedLinks = GetCentralFeedCreateLinks();
-            return centralFeedLinks
-                .WithCreate(centralFeedLinks.Create?.AddGroupId(groupId))
-                .WithDetailsNoId(centralFeedLinks.DetailsNoId?.AddGroupId(groupId));
-        }
-
-        protected abstract Guid GetCreatorId(Guid activityId);
-
-        protected string GetProfileLink(Guid userId)
-        {
-            return _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(userId);
         }
 
         public TActivity Get(Guid id)
@@ -172,14 +111,6 @@ namespace uIntra.Core.Activity
         }
 
         public abstract bool CanEdit(IIntranetActivity cached);
-        public abstract IPublishedContent GetOverviewPage();
-        public abstract IPublishedContent GetDetailsPage();
-        public abstract IPublishedContent GetCreatePage();
-        public abstract IPublishedContent GetEditPage();
-        public abstract IPublishedContent GetOverviewPage(IPublishedContent currentPage);
-        public abstract IPublishedContent GetDetailsPage(IPublishedContent currentPage);
-        public abstract IPublishedContent GetCreatePage(IPublishedContent currentPage);
-        public abstract IPublishedContent GetEditPage(IPublishedContent currentPage);
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {

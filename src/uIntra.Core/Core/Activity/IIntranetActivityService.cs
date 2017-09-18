@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
-using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity
 {
@@ -15,7 +13,6 @@ namespace uIntra.Core.Activity
         Guid Create(IIntranetActivity activity);
         void Save(IIntranetActivity activity);
         bool CanEdit(IIntranetActivity cached);
-
     }
 
 
@@ -24,26 +21,6 @@ namespace uIntra.Core.Activity
         IIntranetType ActivityType { get; }
         void Delete(Guid id);
         bool CanEdit(Guid id);
-
-        ActivityLinks GetCentralFeedLinks(Guid id);
-        ActivityCreateLinks GetCentralFeedCreateLinks();
-        ActivityLinks GetGroupFeedLinks(Guid id, Guid groupId);
-        ActivityCreateLinks GetGroupFeedCreateLinks(Guid groupId);
-
-
-        [Obsolete("Use overloading method instead")]
-        IPublishedContent GetOverviewPage();
-        [Obsolete("Use overloading method instead")]
-        IPublishedContent GetDetailsPage();
-        [Obsolete("Use overloading method instead")]
-        IPublishedContent GetCreatePage();
-        [Obsolete("Use overloading method instead")]
-        IPublishedContent GetEditPage();
-
-        IPublishedContent GetOverviewPage(IPublishedContent currentPage);
-        IPublishedContent GetDetailsPage(IPublishedContent currentPage);
-        IPublishedContent GetCreatePage(IPublishedContent currentPage);
-        IPublishedContent GetEditPage(IPublishedContent currentPage);
     }
 
 }

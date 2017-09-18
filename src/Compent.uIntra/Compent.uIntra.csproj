@@ -1261,6 +1261,7 @@
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
+    <Compile Include="Core\Links\ActivityLinkService.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />

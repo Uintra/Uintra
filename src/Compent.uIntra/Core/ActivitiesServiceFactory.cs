@@ -24,8 +24,8 @@ namespace Compent.uIntra.Core
 
         public TService GetService<TService>(Guid id) where TService : class
         {
-            var repository = _activityRepository.Get(id);
-            return repository != null ? GetService<TService>(repository.Type) : null;
+            var activity = _activityRepository.Get(id);
+            return activity != null ? GetService<TService>(activity.Type) : null;
         }
        
         public TService GetService<TService>(int activityTypeId) where TService : class

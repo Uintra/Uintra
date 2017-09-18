@@ -75,10 +75,10 @@ namespace uIntra.Events.Web
 
         protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
         {
-            string overviewUrl = _eventsService.GetOverviewPage().Url;
+            //string overviewUrl = _eventsService.GetOverviewPage().Url; // TODO
             var viewModel = new ComingEventsPanelViewModel()
             {
-                OverviewUrl = overviewUrl,
+                //OverviewUrl = overviewUrl,
                 Title = panelModel.DisplayTitle,
                 Events = GetComingEvents(panelModel.EventsAmount)
             };
@@ -92,13 +92,13 @@ namespace uIntra.Events.Web
 
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
 
-            var detailsPage = _eventsService.GetDetailsPage(CurrentPage);
+            //var detailsPage = _eventsService.GetDetailsPage(CurrentPage);// TODO
             var comingEvents = new List<ComingEventViewModel>();
 
             foreach (var e in eventsList)
             {
                 var viewModel = e.Map<ComingEventViewModel>();
-                viewModel.DetailsPageUrl = detailsPage.Url.AddIdParameter(e.Id);
+                //viewModel.DetailsPageUrl = detailsPage.Url.AddIdParameter(e.Id);// TODO
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
                 comingEvents.Add(viewModel);
             }
@@ -312,21 +312,6 @@ namespace uIntra.Events.Web
             }
 
             return @event;
-        }
-
-        protected virtual void FillLinkss()
-        {
-            var overviewPageUrl = _eventsService.GetOverviewPage(CurrentPage).Url;
-            var createPageUrl = _eventsService.GetCreatePage(CurrentPage).Url;
-            var detailsPageUrl = _eventsService.GetDetailsPage(CurrentPage).Url;
-            var editPageUrl = _eventsService.GetEditPage(CurrentPage).Url;
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-
-            ViewData.SetActivityOverviewPageUrl(ActivityTypeId, overviewPageUrl);
-            ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
-            ViewData.SetActivityCreatePageUrl(ActivityTypeId, createPageUrl);
-            ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
-            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual void DeleteMedia(IEnumerable<int> mediaIds)

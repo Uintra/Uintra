@@ -344,12 +344,13 @@
     <Compile Include="Core\CentralFeedTypeProvider.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
-    <Compile Include="Core\Links\CentralFeedLinkService.cs" />
+    <Compile Include="Core\Links\CentralFeedLinksProvider.cs" />
     <Compile Include="Core\Links\FeedLinkService.cs" />
-    <Compile Include="Core\Links\ICentralFeedLinkService.cs" />
+    <Compile Include="Core\Links\ICentralFeedLinksProvider.cs" />
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
     <Compile Include="Core\IFeedItemService.cs" />
     <Compile Include="Core\IFeedService.cs" />
+    <Compile Include="Core\Links\ICentralFeedLinkService.cs" />
     <Compile Include="Core\Models\Feed\FeedTabSettings.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\Feed\CreateViewModel.cs" />
