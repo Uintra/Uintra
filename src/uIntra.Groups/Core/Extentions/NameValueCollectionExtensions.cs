@@ -10,7 +10,7 @@ namespace uIntra.Groups.Extentions
         public static Guid? GetGroupId(this NameValueCollection query)
         {
             var id = query
-                .Get(GroupConstants.GroupIdQueryParam)
+                .Get(GroupConstants.GroupIdQueryParam)?
                 .Split(',') // For case query String contains few groupIds
                 .First();
 

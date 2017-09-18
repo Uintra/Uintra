@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using uIntra.Core;
 using uIntra.Core.Caching;
 using uIntra.Core.Persistence;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
-using uIntra.Groups.Constants;
 using uIntra.Groups.Sql;
 using Group = uIntra.Groups.Sql.Group;
 

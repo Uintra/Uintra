@@ -125,7 +125,7 @@ namespace Compent.uIntra.Core.Bulletins
 
         public IEnumerable<IFeedItem> GetItems()
         {
-            var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
+            var items = GetOrderedActualItems();
             return items;
         }
 
