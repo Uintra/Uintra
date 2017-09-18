@@ -35,8 +35,11 @@ namespace uIntra.Core.Activity
 
         public string GetCreatePageUrl()
         {
-            var xPath = _activityXPath.Append(_aliasProvider.GetCreatePage(ActivityType));
-            return GetPageUrl(xPath);
+            var createPage = _aliasProvider.GetCreatePage(ActivityType);
+
+            return createPage == null
+                ? null
+                : GetPageUrl(_activityXPath.Append(createPage));
         }
 
         public string GetEditPageUrl()
