@@ -5,20 +5,20 @@ import ajax from "./../Core/Content/scripts/Ajax";
 require("./List/notificationList.css");
 
 var infinityScroll = helpers.infiniteScrollFactory;
-var scrollTo = helpers.scrollTo;
-var localStorage = helpers.localStorage;
 var body = document.querySelector('body');
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
     var notificationList = document.querySelector(".js-notification-list");
     var notificationBlock = document.querySelector(".notification");
+
     notification.addEventListener('click', function() {
         if (!body.classList.contains("_notifications-expanded")) { 
             ajax.Get("/umbraco/surface/Notification/List")
             .then(function (response) {
                 notificationList.innerHTML = response;
                 notificationList.classList.remove('_loading');
+                initDescription();
                 initCustomControls();
             });
             body.classList.add("_notifications-expanded");
@@ -76,79 +76,34 @@ function initCustomControls() {
     });
 }
 
+function initDescription(){
+    var item = $(".js-notification__list-item");
+    item.each(function(i){
+        var title = $(item[i]).find(".js-notification__list-heading");
+        var url = title.data("url");
+        title.contents().wrap("<a href='" + url + "' class='notification__list-heading-link'></a>");
+    });
+}
+
 function initInfinityScroll() {
     var holder = $('.js-notification-overview');
     if (!holder.length) return;
     
     var formController = umbracoAjaxForm(holder.find("form.js-ajax-form")[0]);
 
-    var state = {
-        get page() {
-            return holder.find('input[name="page"]').val() || 1;
-        },
-        set page(val) {
-            holder.find('input[name="page"]').val(val);
-        },
-        get storageName() {
-            return "notifications";
-        }
-    } 
-
-    function saveState() {
-        localStorage.setItem(state.storageName, { page: state.page });
-    }
-
-    function scrollPrevented() {
-        return !!parseInt(holder.find('input[name="preventScrolling"]').val()) | false;
-    }
-
-    function showLoadingStatus() {
-        $(".js-loading-status").show();
-    }
-
-    function hideLoadingStatus() {
-        $(".js-loading-status").hide();
-    }
-
-    function reload(skipLoadingStatus) {
-        !skipLoadingStatus && showLoadingStatus();
-        saveState();
+    function reload() {
         var promise = formController.reload();
-        promise.then(hideLoadingStatus);
         promise.then(initCustomControls);
-        promise.catch(hideLoadingStatus);
+        promise.then(initDescription);
         return promise;
     }
-    
-    function restoreState() {
-        var hash = (window.location.hash || "").replace("#", "");
-        if (hash) {
-            var savedState = localStorage.getItem(state.storageName);
 
-            state.page = (savedState || {}).page || 1;
-            reload().then(function () {
-                var elem = $('[data-anchor="' + hash + '"]');
-                if (!elem) return;
-                scrollTo(document.body, elem.offsetTop, 300);
-                window.history.pushState("", document.title, window.location.pathname);
-            });
-        } else {
-            localStorage.removeItem(state.storageName);
-        }
-    }
-
-    function onScroll(done) {
-        if (scrollPrevented()) {
-            done();
-            return;
-        }
-        state.page++;
-        var promise = reload();
-        promise.then(done, done);
-    }
-
-    restoreState();
-    infinityScroll(onScroll)();
+    infinityScroll({
+        storageName: "notifications",
+        loaderSelector: '.js-loading-status',
+        $container: $(formController.form),
+        reload: reload
+    });
 }
 
 export default function() {
@@ -156,5 +111,6 @@ export default function() {
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
+    initDescription();
     initInfinityScroll();
 }
