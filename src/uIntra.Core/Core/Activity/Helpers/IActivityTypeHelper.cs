@@ -5,6 +5,6 @@ namespace uIntra.Core.Activity
 {
     public interface IActivityTypeHelper
     {
-        IIntranetType GetType(Guid activityId);
+        IIntranetType GetActivityType(Guid activityId);
     }
 }

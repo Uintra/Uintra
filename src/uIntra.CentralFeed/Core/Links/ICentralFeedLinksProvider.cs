@@ -1,11 +1,10 @@
 ﻿using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
-        public interface ICentralFeedLinksProvider
-        {
-            ActivityLinks GetLinks(IFeedItem item);
-            ActivityCreateLinks GetCreateLinks(IIntranetType activityType);
-        }
+    public interface ICentralFeedLinksProvider
+    {
+        ActivityLinks GetLinks(ActivityTransferModel activity);
+        ActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model);
+    }
 }

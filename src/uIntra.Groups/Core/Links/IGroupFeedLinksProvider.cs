@@ -1,13 +1,10 @@
-﻿using System;
-using uIntra.CentralFeed;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
+﻿using uIntra.Core.Links;
 
 namespace uIntra.Groups
 {
     public interface IGroupFeedLinksProvider
     {
-        ActivityLinks GetLinks(IFeedItem item, Guid groupId);
-        ActivityCreateLinks GetCreateLinks(IIntranetType type, Guid groupId);
+        ActivityLinks GetLinks(GroupActivityTransferModel activity);
+        ActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model);
     }
 }

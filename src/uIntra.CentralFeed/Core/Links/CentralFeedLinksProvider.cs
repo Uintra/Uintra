@@ -5,6 +5,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using umbraco;
 
 namespace uIntra.CentralFeed
 {
@@ -17,43 +18,39 @@ namespace uIntra.CentralFeed
 
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public CentralFeedLinksProvider(
             IActivityPageHelperFactory pageHelperFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IDocumentTypeAliasProvider aliasProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IDocumentTypeAliasProvider aliasProvider)
             : base(pageHelperFactory)
         {
             _intranetUserContentHelper = intranetUserContentHelper;
             _aliasProvider = aliasProvider;
-            _intranetUserService = intranetUserService;
         }
 
-        public ActivityLinks GetLinks(IFeedItem item)
+        public ActivityLinks GetLinks(ActivityTransferModel activity)
         {
-            IActivityPageHelper helper = GetPageHelper(item.Type);
+            IActivityPageHelper helper = GetPageHelper(activity.Type);
 
             return new ActivityLinks(
                     overview: helper.GetOverviewPageUrl(),
                     create: helper.GetCreatePageUrl(),
-                    details: helper.GetDetailsPageUrl().AddIdParameter(item.Id),
-                    edit: helper.GetEditPageUrl().AddIdParameter(item.Id),
-                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(item.CreatorId),
+                    details: helper.GetDetailsPageUrl().AddIdParameter(activity.Id),
+                    edit: helper.GetEditPageUrl().AddIdParameter(activity.Id),
+                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
                     detailsNoId: helper.GetDetailsPageUrl()
                 );
         }
 
-        public ActivityCreateLinks GetCreateLinks(IIntranetType type)
+        public ActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model)
         {
-            IActivityPageHelper helper = GetPageHelper(type);
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            IActivityPageHelper helper = GetPageHelper(model.Type);
 
             return new ActivityCreateLinks(
                     overview: helper.GetOverviewPageUrl(),
                     create: helper.GetCreatePageUrl(),
-                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(currentUserId),
+                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
                     detailsNoId: helper.GetDetailsPageUrl()
                 );
         }

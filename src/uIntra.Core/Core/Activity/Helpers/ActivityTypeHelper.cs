@@ -15,7 +15,7 @@ namespace uIntra.Core.Activity
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public IIntranetType GetType(Guid activityId)
+        public IIntranetType GetActivityType(Guid activityId)
         {
             int typeId = _activityRepository.Get(activityId).Type;
             return _activityTypeProvider.Get(typeId);

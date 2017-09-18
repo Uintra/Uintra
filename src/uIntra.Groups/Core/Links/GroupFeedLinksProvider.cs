@@ -10,6 +10,7 @@ using uIntra.Core.User;
 
 namespace uIntra.Groups 
 {
+
     public class GroupFeedLinksProvider : FeedLinkService, IGroupFeedLinksProvider
     {
 
@@ -20,43 +21,39 @@ namespace uIntra.Groups
 
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public GroupFeedLinksProvider(
             IActivityPageHelperFactory pageHelperFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService,
             IDocumentTypeAliasProvider aliasProvider) : base(pageHelperFactory)
         {
             _intranetUserContentHelper = intranetUserContentHelper;
-            _intranetUserService = intranetUserService;
             _aliasProvider = aliasProvider;
         }
 
-        public ActivityLinks GetLinks(IFeedItem item, Guid groupId)
+        public ActivityLinks GetLinks(GroupActivityTransferModel activity)
         {
-            var helper = GetPageHelper(item.Type);
+            var helper = GetPageHelper(activity.Type);
 
             return new ActivityLinks(
-                overview: helper.GetOverviewPageUrl().AddGroupId(groupId),
-                create: helper.GetCreatePageUrl().AddGroupId(groupId),
-                details: helper.GetDetailsPageUrl().AddIdParameter(item.Id).AddGroupId(groupId),
-                edit: helper.GetEditPageUrl().AddIdParameter(item.Id).AddGroupId(groupId),
-                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(item.CreatorId),
-                detailsNoId: helper.GetDetailsPageUrl().AddGroupId(groupId)
+                overview: helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
+                create: helper.GetCreatePageUrl().AddGroupId(activity.GroupId),
+                details: helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
+                edit: helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
+                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
+                detailsNoId: helper.GetDetailsPageUrl().AddGroupId(activity.GroupId)
             );
         }
 
-        public ActivityCreateLinks GetCreateLinks(IIntranetType type, Guid groupId)
+        public ActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model)
         {
-            IActivityPageHelper helper = GetPageHelper(type);
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            IActivityPageHelper helper = GetPageHelper(model.Type);
 
             return new ActivityCreateLinks(
-                overview: helper.GetOverviewPageUrl().AddGroupId(groupId),
-                create: helper.GetCreatePageUrl().AddGroupId(groupId),
-                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(currentUserId),
-                detailsNoId: helper.GetDetailsPageUrl().AddGroupId(groupId)
+                overview: helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
+                create: helper.GetCreatePageUrl().AddGroupId(model.GroupId),
+                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
+                detailsNoId: helper.GetDetailsPageUrl().AddGroupId(model.GroupId)
             );
         }
     }

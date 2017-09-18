@@ -24,7 +24,7 @@ namespace Compent.uIntra.Core
 
         public TService GetService<TService>(Guid id) where TService : class
         {
-            var activityType = _activityTypeHelper.GetType(id);
+            var activityType = _activityTypeHelper.GetActivityType(id);
             return GetService<TService>(activityType.Id);
         }
        
