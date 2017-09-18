@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using uIntra.Core;
 using uIntra.Core.Activity;
@@ -9,7 +8,7 @@ using uIntra.Core.User;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedLinkService : FeedLinkService, ICentralFeedLinkService
+    public class CentralFeedLinksProvider : FeedLinkService, ICentralFeedLinksProvider
     {
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
         {
@@ -20,7 +19,7 @@ namespace uIntra.CentralFeed
         private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public CentralFeedLinkService(
+        public CentralFeedLinksProvider(
             IActivityPageHelperFactory pageHelperFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
             IDocumentTypeAliasProvider aliasProvider,

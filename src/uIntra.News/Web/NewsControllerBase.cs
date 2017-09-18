@@ -71,7 +71,6 @@ namespace uIntra.News.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
-            FillLinks();
             if (!ModelState.IsValid)
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -86,8 +85,6 @@ namespace uIntra.News.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
-            FillLinks();
-
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
@@ -102,7 +99,6 @@ namespace uIntra.News.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
-            FillLinks();
 
             if (!ModelState.IsValid)
             {
@@ -238,21 +234,6 @@ namespace uIntra.News.Web
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 
             return activity;
-        }
-
-        protected virtual void FillLinks()
-        {
-            var overviewPageUrl = _newsService.GetOverviewPage(CurrentPage).Url;
-            var createPageUrl = _newsService.GetCreatePage(CurrentPage).Url;
-            var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
-            var editPageUrl = _newsService.GetEditPage(CurrentPage).Url;
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-
-            ViewData.SetActivityOverviewPageUrl(ActivityTypeId, overviewPageUrl);
-            ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
-            ViewData.SetActivityCreatePageUrl(ActivityTypeId, createPageUrl);
-            ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
-            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual void DeleteMedia(IEnumerable<int> mediaIds)

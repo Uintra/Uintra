@@ -49,8 +49,6 @@ namespace uIntra.CentralFeed.Web
             return PartialView(NavigationViewPath, GetTypes().ToList());
         }
 
-        public abstract ActionResult Create(int typeId);
-
         public virtual JsonResult AvailableActivityTypes()
         {
             var activityTypes = _feedService

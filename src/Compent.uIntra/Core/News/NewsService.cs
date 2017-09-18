@@ -97,26 +97,6 @@ namespace Compent.uIntra.Core.News
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent.ToInt());
         }
 
-        public override IPublishedContent GetOverviewPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath()));
-        }
-
-        public override IPublishedContent GetDetailsPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetDetailsPage(ActivityType))));
-        }
-
-        public override IPublishedContent GetCreatePage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetCreatePage(ActivityType))));
-        }
-
-        public override IPublishedContent GetEditPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
-        }
-
         public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -140,8 +120,8 @@ namespace Compent.uIntra.Core.News
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.News.ToInt()),
                 Controller = "News",
-                OverviewPage = GetOverviewPage(),
-                CreatePage = GetCreatePage(),
+                //OverviewPage = GetOverviewPage(), // TODO
+                //CreatePage = GetCreatePage(),
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true
             };
@@ -193,11 +173,6 @@ namespace Compent.uIntra.Core.News
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
-        }
-
-        protected override Guid GetCreatorId(Guid activityId)
-        {
-            return Get(activityId).CreatorId;
         }
 
         protected override void UpdateCache()
@@ -274,26 +249,6 @@ namespace Compent.uIntra.Core.News
             }
         }
 
-        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
-        {
-            return GetOverviewPage();
-        }
-
-        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
-        {
-            return GetDetailsPage();
-        }
-
-        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
-        {
-            return GetCreatePage();
-        }
-
-        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
-        {
-            return GetEditPage();
-        }
-
         public void FillIndex()
         {
             var activities = GetAll().Where(s => !IsNewsHidden(s));
@@ -321,7 +276,7 @@ namespace Compent.uIntra.Core.News
                         data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel()
                         {
-                            Url = GetDetailsPage().Url.UrlWithQueryString("id", news.Id),
+                            //Url = GetDetailsPage().Url.UrlWithQueryString("id", news.Id),
                             Title = news.Title,
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
@@ -344,7 +299,7 @@ namespace Compent.uIntra.Core.News
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = news.Title,
-                            Url = GetUrlWithComment(news.Id, comment.Id)
+                            //Url = GetUrlWithComment(news.Id, comment.Id)
                         };
                     }
                     break;
@@ -360,7 +315,7 @@ namespace Compent.uIntra.Core.News
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = news.Title,
-                            Url = GetUrlWithComment(news.Id, comment.Id)
+                            //Url = GetUrlWithComment(news.Id, comment.Id)
                         };
                     }
                     break;
@@ -374,7 +329,7 @@ namespace Compent.uIntra.Core.News
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = news.Title,
-                            Url = GetUrlWithComment(news.Id, comment.Id),
+                            //Url = GetUrlWithComment(news.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }
@@ -385,10 +340,10 @@ namespace Compent.uIntra.Core.News
             return data;
         }
 
-        private string GetUrlWithComment(Guid newsId, Guid commentId)
-        {
-            return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
-        }
+        //private string GetUrlWithComment(Guid newsId, Guid commentId)
+        //{
+        //    return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
+        //}
 
         private string[] GetPath(params string[] aliases)
         {
@@ -409,7 +364,7 @@ namespace Compent.uIntra.Core.News
         private SearchableActivity Map(Entities.News news)
         {
             var searchableActivity = news.Map<SearchableActivity>();
-            searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(news.Id);
+            //searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(news.Id); TODO
             return searchableActivity;
         }
     }

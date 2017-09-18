@@ -4,11 +4,9 @@ using System.Linq;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
-using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -20,8 +18,6 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -37,7 +33,6 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
@@ -47,7 +42,6 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IDocumentIndexer _documentIndexer;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
 
         public BulletinsService(
@@ -57,7 +51,6 @@ namespace Compent.uIntra.Core.Bulletins
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
@@ -66,16 +59,13 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _umbracoHelper = umbracoHelper;
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
@@ -85,71 +75,17 @@ namespace Compent.uIntra.Core.Bulletins
             _documentIndexer = documentIndexer;
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
         }
 
-        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
-        public override ActivityLinks GetCentralFeedLinks(Guid id)
-        {
-            var detailsPage = GetDetailsPage().Url;
-
-            return new ActivityLinks(
-                overview: GetOverviewPage().Url,
-                create: null,
-                details: detailsPage.AddIdParameter(id),
-                edit: GetEditPage().Url.AddIdParameter(id),
-                creator: GetProfileLink(id),
-                detailsNoId: detailsPage
-            );
-        }
-
-        public override ActivityCreateLinks GetCentralFeedCreateLinks()
-        {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var detailsPage = GetDetailsPage().Url;
-
-            return new ActivityCreateLinks(
-                overview: GetOverviewPage().Url,
-                create: null,
-                creator: GetProfileLink(currentUserId),
-                detailsNoId: detailsPage
-            );
-        }
-
-        protected override Guid GetCreatorId(Guid activityId)
-        {
-            return Get(activityId).CreatorId;
-        }
 
         public MediaSettings GetMediaSettings()
         {
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
         }
-
-        public override IPublishedContent GetOverviewPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath()));
-        }
-
-        public override IPublishedContent GetDetailsPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetDetailsPage(ActivityType))));
-        }
-
-        public override IPublishedContent GetCreatePage()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IPublishedContent GetEditPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
-        }
-
 
         protected override void UpdateCache()
         {
@@ -302,26 +238,6 @@ namespace Compent.uIntra.Core.Bulletins
             }
         }
 
-        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
-        {
-            return GetOverviewPage();
-        }
-
-        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
-        {
-            return GetDetailsPage();
-        }
-
-        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
-        {
-            return GetCreatePage();
-        }
-
-        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
-        {
-            return GetEditPage();
-        }
-
         public void FillIndex()
         {
             var activities = GetAll().Where(s => !IsBulletinHidden(s));
@@ -353,7 +269,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             CreatedDate = DateTime.Now,
-                            Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
+                            //Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
                         };
                     }
                     break;
@@ -368,7 +284,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = bulletinsEntity.Description,
-                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
+                            //Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id) TODO
                         };
                     }
                     break;
@@ -382,7 +298,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = bulletinsEntity.Description,
-                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
+                            //Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }
@@ -403,7 +319,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = bulletinsEntity.Title,
-                            Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id)
+                            // Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id) TODO
                         };
                     }
                     break;
@@ -414,10 +330,10 @@ namespace Compent.uIntra.Core.Bulletins
             return data;
         }
 
-        private string GetUrlWithComment(Guid bulletinId, Guid commentId)
-        {
-            return $"{GetDetailsPage().Url.UrlWithQueryString("id", bulletinId)}#{_commentsService.GetCommentViewId(commentId)}";
-        }
+        //private string GetUrlWithComment(Guid bulletinId, Guid commentId)
+        //{
+        //    return $"{GetDetailsPage().Url.UrlWithQueryString("id", bulletinId)}#{_commentsService.GetCommentViewId(commentId)}";
+        //}
 
         public ILikeable AddLike(Guid userId, Guid activityId)
         {
@@ -448,16 +364,6 @@ namespace Compent.uIntra.Core.Bulletins
             return isCreator && isUserHasPermissions;
         }
 
-        private string[] GetPath(params string[] aliases)
-        {
-            var basePath = new List<string>(OverviewXPath);
-            if (aliases.Any())
-            {
-                basePath.AddRange(aliases.ToList());
-            }
-            return basePath.ToArray();
-        }
-
         private bool IsBulletinHidden(Bulletin bulletin)
         {
             return bulletin == null || bulletin.IsHidden;
@@ -466,7 +372,7 @@ namespace Compent.uIntra.Core.Bulletins
         private SearchableActivity Map(Bulletin bulletin)
         {
             var searchableActivity = bulletin.Map<SearchableActivity>();
-            searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(bulletin.Id);
+            // searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(bulletin.Id); // TODO : think about what url will be used for searching, centralFeed or another
             return searchableActivity;
         }
     }
