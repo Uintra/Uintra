@@ -7,6 +7,5 @@ namespace uIntra.Groups
         Guid Id { get; set; }
         Guid? GroupId { get; set; }
         // IGroupActivityHeader HeaderInfo { get; set; } TODO: Check its relevance
-        bool IsReadonly { get; set; }
     }
 }

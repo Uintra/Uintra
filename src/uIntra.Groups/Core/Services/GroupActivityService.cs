@@ -30,10 +30,10 @@ namespace uIntra.Groups
             _groupActivityRepository.Delete(r => r.ActivityId.Equals(activityId) && r.GroupId.Equals(groupId));
         }
 
-        public Guid GetGroupId(Guid activityId)
+        public Guid? GetGroupId(Guid activityId)
         {
             return _groupActivityRepository
-                .Find(rel => rel.ActivityId == activityId)
+                .Find(rel => rel.ActivityId == activityId)?
                 .GroupId;
         }
     }

@@ -86,7 +86,7 @@ namespace Compent.uIntra.Controllers
             {
                 _groupActivityService.AddRelation(groupId.Value, activityId);
                 var @event = _eventsService.Get(activityId);               
-                @event.GroupIds = @event.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
+                @event.GroupId = groupId;
             }
         }
 

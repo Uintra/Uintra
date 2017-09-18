@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
@@ -11,7 +10,7 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Bulletins
 {
-    public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IGroupable
+    public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IGroupActivity
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
@@ -22,6 +21,6 @@ namespace Compent.uIntra.Core.Bulletins
 
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
-        public IEnumerable<Guid> GroupIds { get; set; } = Enumerable.Empty<Guid>();
+        public Guid? GroupId { get; set; }
     }
 }

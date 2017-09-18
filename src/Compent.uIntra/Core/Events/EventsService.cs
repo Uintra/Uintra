@@ -36,7 +36,6 @@ namespace Compent.uIntra.Core.Events
         IReminderableService<Event>,
         IIndexer
     {
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -52,15 +51,12 @@ namespace Compent.uIntra.Core.Events
         private readonly ISearchableTypeProvider _searchableTypeProvider;
 
 
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IGroupService _groupService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IGroupActivityService _groupActivityService;
 
-        public EventsService(UmbracoHelper umbracoHelper,
+        public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
@@ -73,13 +69,10 @@ namespace Compent.uIntra.Core.Events
             IFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IGroupService groupService)
+            IGroupActivityService groupActivityService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
-            _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
-            _intranetUserContentHelper = intranetUserContentHelper;
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
@@ -91,8 +84,7 @@ namespace Compent.uIntra.Core.Events
             _activityTypeProvider = activityTypeProvider;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
-            _groupService = groupService;
+            _groupActivityService = groupActivityService;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -167,37 +159,15 @@ namespace Compent.uIntra.Core.Events
             return isCreator && isUserHasPermissions;
         }
 
-        public IFeedItem GetItem(Guid activityId)
-        {
-            var @event = Get(activityId);
-
-            // TODO : checking if activity is assigned to any group. Ask about expected behavior
-            if (!@event.GroupIds.Any())
-                throw new UnauthorizedAccessException("It is a group activity.");
-
-            return @event;
-        }
-
-        public IFeedItem GetItem(Guid activityId, Guid groupId)
-        {
-            var @event = Get(activityId);
-
-            // TODO : ask about implementation decision 
-            if (!@event.GroupIds.Contains(groupId))
-                throw new UnauthorizedAccessException("This activity has no relations with the given group.");
-
-            return @event;
-        }
-
         public IEnumerable<IFeedItem> GetItems()
         {
-            var items = GetOrderedActualItems().Where(i => !i.GroupIds.Any());
+            var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
             return items;
         }
 
         public IEnumerable<IFeedItem> GetItems(Guid groupId)
         {
-            var items = GetOrderedActualItems().Where(i => i.GroupIds.Contains(groupId));
+            var items = GetOrderedActualItems().Where(i => i.GroupId == groupId);
             return items;
         }
 
@@ -209,7 +179,7 @@ namespace Compent.uIntra.Core.Events
             foreach (var activity in cached)
             {
                 var entity = (Event)activity;
-                entity.GroupIds = _groupService.GetGroupIds(activity.Id);
+                entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);

@@ -42,7 +42,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IDocumentIndexer _documentIndexer;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IGroupService _groupService;
+        private readonly IGroupActivityService _groupActivityService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -59,8 +59,7 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
-            IIntranetMediaService intranetMediaService,
-            IGroupService groupService)
+            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -75,7 +74,7 @@ namespace Compent.uIntra.Core.Bulletins
             _documentIndexer = documentIndexer;
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
-            _groupService = groupService;
+            _groupActivityService = groupActivityService;
         }
 
 
@@ -126,32 +125,21 @@ namespace Compent.uIntra.Core.Bulletins
             var bulletin = Get(activityId);
 
             // TODO : checking if activity is assigned to any group. Ask about expected behavior
-            if (!bulletin.GroupIds.Any())
+            if (bulletin.GroupId.HasValue)
                 throw new UnauthorizedAccessException("It is a group activity.");
 
             return bulletin;
         }
 
-        public IFeedItem GetItem(Guid activityId, Guid groupId)
+        IEnumerable<IFeedItem> ICentralFeedItemService.GetItems()
         {
-            var bulletin = Get(activityId);
-
-            // TODO : ask about implementation decision 
-            if (!bulletin.GroupIds.Contains(groupId))
-                throw new UnauthorizedAccessException("This activity has no relations with the given group.");
-
-            return bulletin;
-        }
-
-        public IEnumerable<IFeedItem> GetItems()
-        {
-            var items = GetOrderedActualItems().Where(i => !i.GroupIds.Any());
+            var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
             return items;
         }
 
         public IEnumerable<IFeedItem> GetItems(Guid groupId)
         {
-            var items = GetOrderedActualItems().Where(i => i.GroupIds.Contains(groupId));
+            var items = GetOrderedActualItems().Where(i => i.GroupId == groupId);
             return items;
         }
 
@@ -163,7 +151,7 @@ namespace Compent.uIntra.Core.Bulletins
             foreach (var activity in cached)
             {
                 var entity = (Bulletin)activity;
-                entity.GroupIds = _groupService.GetGroupIds(activity.Id);
+                entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);

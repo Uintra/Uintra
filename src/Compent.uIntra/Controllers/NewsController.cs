@@ -82,7 +82,7 @@ namespace Compent.uIntra.Controllers
             {
                 _groupActivityService.AddRelation(groupId.Value, activityId);
                 var news = _newsService.Get(activityId);
-                news.GroupIds = news.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
+                news.GroupId = groupId;
             }
         }
     }

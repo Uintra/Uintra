@@ -76,7 +76,7 @@ namespace Compent.uIntra.Controllers
             {
                 _groupActivityService.AddRelation(groupId.Value, bulletin.Id);
                 var extendedBulletin = _bulletinsService.Get(bulletin.Id);
-                extendedBulletin.GroupIds = extendedBulletin.GroupIds.Concat(groupId.Value.ToEnumerableOfOne());
+                extendedBulletin.GroupId = groupId;
             }
         }
     }
