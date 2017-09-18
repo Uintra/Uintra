@@ -13,7 +13,9 @@ namespace uIntra.Groups
 
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
         {
-            _aliasProvider.GetHomePage()
+            _aliasProvider.GetHomePage(),
+            _aliasProvider.GetGroupOverviewPage(),
+            _aliasProvider.GetGroupRoomPage()
         };
 
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;

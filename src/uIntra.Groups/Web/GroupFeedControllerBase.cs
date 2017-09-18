@@ -75,6 +75,15 @@ namespace uIntra.Groups.Web
         }
 
         [HttpGet]
+        public ActionResult Create(Guid groupId, int typeId)
+        {
+
+            var activityType = _centralFeedTypeProvider.Get(typeId);
+            var viewModel = GetCreateViewModel(activityType, groupId);
+            return PartialView(CreateViewPath, viewModel);
+        }
+
+        [HttpGet]
         public virtual ActionResult Edit(Guid id, Guid groupId)
         {
             var viewModel = GetEditViewModel(id, groupId);
@@ -105,14 +114,6 @@ namespace uIntra.Groups.Web
             _centralFeedContentHelper.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
-        }
-
-        public ActionResult Create(Guid groupId, int typeId)
-        {
-
-            var activityType = _centralFeedTypeProvider.Get(typeId);
-            var viewModel = GetCreateViewModel(activityType, groupId);
-            return PartialView(CreateViewPath, viewModel);
         }
         #endregion
 
