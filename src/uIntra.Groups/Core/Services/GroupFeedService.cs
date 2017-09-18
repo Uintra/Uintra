@@ -13,18 +13,22 @@ namespace uIntra.Groups
 
         public GroupFeedService(
             ICacheService cacheService,
-            IFeedTypeProvider centralFeedTypeProvider, IEnumerable<IFeedItemService> feedItemServices) 
+            IFeedTypeProvider centralFeedTypeProvider, IEnumerable<IFeedItemService> feedItemServices)
             : base(feedItemServices, cacheService, centralFeedTypeProvider)
         {
             _feedItemServices = feedItemServices;
         }
 
         public IEnumerable<IFeedItem> GetFeed(IIntranetType type, Guid groupId) =>
-            _feedItemServices
-                .Single(s => s.ActivityType.Id == type.Id)
-                .GetItems();
+            GetFeed(groupId)
+                .Where(i => i.Type.Id == type.Id);
 
         public IEnumerable<IFeedItem> GetFeed(Guid groupId) =>
-            _feedItemServices.SelectMany(service => service.GetItems());
+            _feedItemServices
+                .SelectMany(service => service.GetItems())
+                .Where(i => IsGroupActivity(groupId, i));
+
+        private bool IsGroupActivity(Guid groupId, IFeedItem item) =>
+            item is IGroupActivity activity && activity.GroupId.GetValueOrDefault() == groupId;        
     }
 }
