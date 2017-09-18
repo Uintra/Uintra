@@ -21,6 +21,7 @@ namespace uIntra.Groups
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         public GroupContentHelper(
             UmbracoHelper umbracoHelper,
@@ -28,7 +29,9 @@ namespace uIntra.Groups
             IGroupMemberService groupMemberService,
             IGridHelper gridHelper,
             IFeedTypeProvider centralFeedTypeProvider, 
-            IDocumentTypeAliasProvider documentTypeAliasProvider, IActivityTypeProvider activityTypeProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IActivityTypeProvider activityTypeProvider,
+            IGroupFeedLinkService groupFeedLinkService)
         {
             _umbracoHelper = umbracoHelper;
             _groupService = groupService;
@@ -37,6 +40,7 @@ namespace uIntra.Groups
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activityTypeProvider = activityTypeProvider;
+            _groupFeedLinkService = groupFeedLinkService;
         }
 
         public IPublishedContent GetGroupRoomPage()
@@ -99,9 +103,6 @@ namespace uIntra.Groups
             var memberOfGroup = _groupMemberService.IsGroupMember(groupId, user.Id);
             var editGroupPage = GetEditPage();
 
-            var activityTypes = _activityTypeProvider.GetAll();
-            var activitiesList = activityTypes.Select(_documentTypeAliasProvider.GetCreatePage).ToArray();
-
             foreach (var content in GetContents())
             {
                 if (!canEdit && editGroupPage.Id == content.Id)
@@ -120,7 +121,7 @@ namespace uIntra.Groups
                 };
                 if (type != null && memberOfGroup)
                 {
-                    tab.CreateUrl = content.Children.SingleOrDefault(n => n.DocumentTypeAlias.In(activitiesList))?.Url.AddGroupId(groupId);
+                    tab.CreateUrl = _groupFeedLinkService.GetCreateLinks(type, groupId).Create;
                 }
 
                 yield return tab;

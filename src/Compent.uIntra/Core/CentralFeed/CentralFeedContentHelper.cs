@@ -25,6 +25,7 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
 
         public CentralFeedContentHelper(
             UmbracoHelper umbracoHelper,
@@ -33,7 +34,8 @@ namespace Compent.uIntra.Core.CentralFeed
             ICookieProvider cookieProvider,
             IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            ICentralFeedLinkService centralFeedLinkService)
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
@@ -43,6 +45,7 @@ namespace Compent.uIntra.Core.CentralFeed
             _activityTypeProvider = activityTypeProvider;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _centralFeedLinkService = centralFeedLinkService;
         }
 
         public IPublishedContent GetOverviewPage()
@@ -84,7 +87,7 @@ namespace Compent.uIntra.Core.CentralFeed
                     Type = tabType,
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
-                    CreateUrl = canCreate ? content.Children.SingleOrDefault(n => n.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetCreatePage(tabType)))?.Url : null,
+                    CreateUrl = canCreate ? _centralFeedLinkService.GetCreateLinks(tabType).Create : null,
                     IsActive = content.IsAncestorOrSelf(currentPage)
                 };
             }

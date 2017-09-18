@@ -166,7 +166,7 @@ namespace uIntra.Groups.Web
             var currentUser = _intranetUserService.GetCurrentUser();
             var tabType = _groupContentHelper.GetTabType(CurrentPage);
 
-            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Select(t => MapFeedTabToViewModel(t, groupId));
+            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Select(MapFeedTabToViewModel);
             var activityTabs = tabs.Where(t => t.Type != null);
 
             var model = new GroupFeedOverviewModel
@@ -178,13 +178,13 @@ namespace uIntra.Groups.Web
             return model;
         }
 
-        private FeedTabViewModel MapFeedTabToViewModel(FeedTabModel tab, Guid groupId)
+        private FeedTabViewModel MapFeedTabToViewModel(FeedTabModel tab)
         {
             return new FeedTabViewModel()
             {
                 Type = tab.Type,
-                CreateUrl = tab.CreateUrl?.AddGroupId(groupId),
-                Url = tab.Content.Url.AddGroupId(groupId),
+                CreateUrl = tab.CreateUrl,
+                Url = tab.Content.Url,
                 IsActive = tab.IsActive
             };
         }

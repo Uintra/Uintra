@@ -79,7 +79,7 @@ namespace Compent.uIntra.Core.Links
 
         private ActivityTransferCreateModel GetActivityCreateModel(IIntranetType activityType)
         {
-            return new GroupActivityTransferCreateModel()
+            return new ActivityTransferCreateModel()
             {
                 Type = activityType,
                 CreatorId = CurrentUserId
