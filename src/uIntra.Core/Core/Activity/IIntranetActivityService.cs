@@ -22,5 +22,4 @@ namespace uIntra.Core.Activity
         void Delete(Guid id);
         bool CanEdit(Guid id);
     }
-
 }

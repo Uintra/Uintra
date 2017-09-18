@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 
 namespace uIntra.Groups 
 {
-
     public class GroupFeedLinksProvider : FeedLinkService, IGroupFeedLinksProvider
     {
 

@@ -6,6 +6,6 @@ namespace uIntra.Groups
     {
         Guid Id { get; set; }
         Guid? GroupId { get; set; }
-        // IGroupActivityHeader HeaderInfo { get; set; } TODO: Check its relevance
+        Guid CreatorId { get; set; }
     }
 }

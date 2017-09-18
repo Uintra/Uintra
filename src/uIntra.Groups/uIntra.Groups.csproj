@@ -299,6 +299,8 @@
     <Compile Include="Core\IGroupActivityHeader.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
     <Compile Include="Core\DisabledGroupActionFilter.cs" />
+    <Compile Include="Core\Links\GroupActivityTransferCreateModel.cs" />
+    <Compile Include="Core\Links\GroupActivityTransferModel.cs" />
     <Compile Include="Core\Links\GroupFeedLinksProvider.cs" />
     <Compile Include="Core\Links\IGroupFeedLinkService.cs" />
     <Compile Include="Core\Links\IGroupFeedLinksProvider.cs" />

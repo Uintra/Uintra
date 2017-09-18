@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using uIntra.Bulletins;
+using uIntra.CentralFeed;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Groups;
 using uIntra.Search;
 
 namespace Compent.uIntra.Core.Bulletins
@@ -35,6 +37,17 @@ namespace Compent.uIntra.Core.Bulletins
                     var description = src.Description?.StripHtml();
                     dst.Title = description?.Substring(0, description.Length > 50 ? 50 : description.Length);
                 });
+
+            Mapper.CreateMap<Bulletin, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Bulletin, ActivityTransferModel>()
+                .IncludeBase<Bulletin, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Bulletin, GroupActivityTransferCreateModel>()
+                .IncludeBase<Bulletin, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Bulletin, GroupActivityTransferModel>()
+                .IncludeBase<Bulletin, GroupActivityTransferCreateModel>();
         }
     }
 }

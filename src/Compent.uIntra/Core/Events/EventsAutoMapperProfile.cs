@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using uIntra.CentralFeed;
 using uIntra.Core.Activity;
 using uIntra.Events;
+using uIntra.Groups;
 using uIntra.Search;
 
 namespace Compent.uIntra.Core.Events
@@ -55,6 +57,17 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .IncludeBase<IntranetActivity, SearchableActivity>();
+
+            Mapper.CreateMap<Event, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Event, ActivityTransferModel>()
+                .IncludeBase<Event, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Event, GroupActivityTransferCreateModel>()
+                .IncludeBase<Event, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Event, GroupActivityTransferModel>()
+                .IncludeBase<Event, GroupActivityTransferCreateModel>();
         }
     }
 }

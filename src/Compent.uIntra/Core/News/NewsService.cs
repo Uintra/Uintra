@@ -131,19 +131,18 @@ namespace Compent.uIntra.Core.News
         public IFeedItem GetItem(Guid activityId, Guid groupId)
         {
             var news = Get(activityId);
-
             return news;
         }
 
         public IEnumerable<IFeedItem> GetItems()
         {
-            var items = GetOrderedActualItems();
+            var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
             return items;
         }
 
         public IEnumerable<IFeedItem> GetItems(Guid groupId)
         {
-            var items = GetOrderedActualItems();
+            var items = GetOrderedActualItems().Where(i => i.GroupId == groupId);
             return items;
         }
 

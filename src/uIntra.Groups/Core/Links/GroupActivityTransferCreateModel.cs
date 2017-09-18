@@ -7,9 +7,4 @@ namespace uIntra.Groups
     {
         public Guid GroupId { get; set; }
     }
-
-    class GroupActivityTransferModel : GroupActivityTransferCreateModel
-    {
-        public Guid Id { get; set; }
-    }
 }
