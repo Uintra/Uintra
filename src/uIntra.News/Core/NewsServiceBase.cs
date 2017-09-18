@@ -12,18 +12,15 @@ namespace uIntra.News
     public abstract class NewsServiceBase<TNews> : IntranetActivityService<TNews> where TNews : NewsBase
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
 
         protected NewsServiceBase(IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService,
-            IIntranetUserContentHelper intranetUserContentHelper)
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, intranetUserService, intranetUserContentHelper)
+            IIntranetMediaService intranetMediaService)
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
-            _intranetUserContentHelper = intranetUserContentHelper;
         }
 
         public override bool IsActual(IIntranetActivity cachedActivity)

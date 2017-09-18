@@ -37,7 +37,6 @@ namespace Compent.uIntra.Core.News
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
@@ -57,7 +56,6 @@ namespace Compent.uIntra.Core.News
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            UmbracoHelper umbracoHelper,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
@@ -68,14 +66,12 @@ namespace Compent.uIntra.Core.News
             ISearchableTypeProvider searchableTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, intranetUserContentHelper)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _umbracoHelper = umbracoHelper;
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;

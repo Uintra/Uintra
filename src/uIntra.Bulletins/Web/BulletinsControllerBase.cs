@@ -245,19 +245,6 @@ namespace uIntra.Bulletins.Web
             ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
         }
 
-        protected virtual void FillLinks()
-        {
-            var overviewPageUrl = _bulletinsService.GetOverviewPage().Url;
-            var detailsPageUrl = _bulletinsService.GetDetailsPage().Url;
-            var editPageUrl = _bulletinsService.GetEditPage().Url;
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-
-            ViewData.SetActivityOverviewPageUrl(ActivityTypeId, overviewPageUrl);
-            ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
-            ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
-            ViewData.SetProfilePageUrl(profilePageUrl);
-        }
-
         protected virtual void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
         {
 
