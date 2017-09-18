@@ -12,20 +12,20 @@ namespace Compent.uIntra.Core
     public class ActivitiesServiceFactory : IActivitiesServiceFactory
     {
         private readonly IDependencyResolver _kernel;
-        private readonly IIntranetActivityRepository _activityRepository;
+        private readonly IActivityTypeHelper _activityTypeHelper;
 
         public ActivitiesServiceFactory(
             IDependencyResolver kernel,
-            IIntranetActivityRepository activityRepository)
+            IActivityTypeHelper activityTypeHelper)
         {
             _kernel = kernel;
-            _activityRepository = activityRepository;
+            _activityTypeHelper = activityTypeHelper;
         }
 
         public TService GetService<TService>(Guid id) where TService : class
         {
-            var activity = _activityRepository.Get(id);
-            return activity != null ? GetService<TService>(activity.Type) : null;
+            var activityType = _activityTypeHelper.GetType(id);
+            return GetService<TService>(activityType.Id);
         }
        
         public TService GetService<TService>(int activityTypeId) where TService : class

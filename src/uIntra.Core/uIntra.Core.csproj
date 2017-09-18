@@ -361,9 +361,11 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
-    <Compile Include="Core\Activity\Helpers\CacheActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
-    <Compile Include="Core\Activity\Helpers\IActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
     <Compile Include="Core\Links\ActivityCreateLinks.cs" />
     <Compile Include="Core\Links\ActivityCreatorLink.cs" />
     <Compile Include="Core\Links\ActivityLinks.cs" />
