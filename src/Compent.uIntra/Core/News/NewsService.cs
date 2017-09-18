@@ -27,8 +27,7 @@ namespace Compent.uIntra.Core.News
 {
     public class NewsService : NewsServiceBase<Entities.News>,
         INewsService<Entities.News>,
-        ICentralFeedItemService,
-        IGroupFeedItemService,
+        IFeedItemService,
         ICommentableService,
         ILikeableService,
         INotifyableService,
@@ -48,6 +47,8 @@ namespace Compent.uIntra.Core.News
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
 
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
@@ -65,7 +66,7 @@ namespace Compent.uIntra.Core.News
             IFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService)
+            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService, IGroupFeedLinkService groupFeedLinkService, ICentralFeedLinkService centralFeedLinkService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -82,6 +83,8 @@ namespace Compent.uIntra.Core.News
             _searchableTypeProvider = searchableTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupActivityService = groupActivityService;
+            _groupFeedLinkService = groupFeedLinkService;
+            _centralFeedLinkService = centralFeedLinkService;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -109,40 +112,20 @@ namespace Compent.uIntra.Core.News
             return isCreator && isUserHasPermissions;
         }
 
-        public FeedSettings GetCentralFeedSettings()
+        public FeedSettings GetFeedSettings()
         {
             return new FeedSettings
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.News.ToInt()),
                 Controller = "News",
-                //OverviewPage = GetOverviewPage(), // TODO
-                //CreatePage = GetCreatePage(),
                 HasSubscribersFilter = false,
-                HasPinnedFilter = true
+                HasPinnedFilter = true,
             };
-        }
-
-        public IFeedItem GetItem(Guid activityId)
-        {
-            var news = Get(activityId);
-            return news;
-        }
-
-        public IFeedItem GetItem(Guid activityId, Guid groupId)
-        {
-            var news = Get(activityId);
-            return news;
         }
 
         public IEnumerable<IFeedItem> GetItems()
         {
             var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
-            return items;
-        }
-
-        public IEnumerable<IFeedItem> GetItems(Guid groupId)
-        {
-            var items = GetOrderedActualItems().Where(i => i.GroupId == groupId);
             return items;
         }
 

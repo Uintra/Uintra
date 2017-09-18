@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using uIntra.Groups.Constants;
 
 namespace uIntra.Groups.Extentions
@@ -8,7 +9,11 @@ namespace uIntra.Groups.Extentions
     {
         public static Guid? GetGroupId(this NameValueCollection query)
         {
-            var id = query.Get(GroupConstants.GroupIdQueryParam);
+            var id = query
+                .Get(GroupConstants.GroupIdQueryParam)
+                .Split(',') // For case query String contains few groupIds
+                .First();
+
             Guid result;
             return Guid.TryParse(id, out result)
                 ? (Guid?)result

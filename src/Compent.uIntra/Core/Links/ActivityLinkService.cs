@@ -39,6 +39,7 @@ namespace Compent.uIntra.Core.Links
         public ActivityLinks GetLinks(Guid activityId)
         {
             var groupId = _groupActivityService.GetGroupId(activityId);
+
             var activity = GetActivity(activityId);
             ActivityLinks result;
             if (groupId.HasValue)

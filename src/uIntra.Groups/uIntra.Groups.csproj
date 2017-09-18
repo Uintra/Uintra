@@ -315,6 +315,7 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Services\GroupActivityService.cs" />
+    <Compile Include="Core\Services\GroupFeedService.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
     <Compile Include="Core\Models\GroupMemberViewModel.cs" />
     <Compile Include="Core\Models\GroupNavigationTab.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="Core\IGroupContentHelper.cs" />
     <Compile Include="Core\Services\IGroupActivityService.cs" />
     <Compile Include="Core\Services\IGroupFeedService.cs" />
+    <Compile Include="Core\Services\IGroupFeedService1.cs" />
     <Compile Include="Core\Services\IGroupMediaService.cs" />
     <Compile Include="Core\IGroupMember.cs" />
     <Compile Include="Core\Services\GroupDocumentsService.cs" />

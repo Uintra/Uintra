@@ -13,23 +13,27 @@ namespace uIntra.CentralFeed
 
     public class CentralFeedService : FeedService, ICentralFeedService
     {
-        private readonly IEnumerable<ICentralFeedItemService> _centralFeedItemServices;
+        private readonly IEnumerable<IFeedItemService> _feedItemServices;
 
-        public CentralFeedService(IEnumerable<ICentralFeedItemService> centralFeedItemServices, ICacheService cacheService, IFeedTypeProvider centralFeedTypeProvider) 
-            : base(centralFeedItemServices, cacheService, centralFeedTypeProvider)
+        public CentralFeedService(
+            IEnumerable<IFeedItemService> feedItemServices,
+            ICacheService cacheService,
+            IFeedTypeProvider centralFeedTypeProvider,
+            IEnumerable<IFeedItemService> feedItemServices2) 
+            : base(feedItemServices, cacheService, centralFeedTypeProvider)
         {
-            _centralFeedItemServices = centralFeedItemServices;
+            _feedItemServices = feedItemServices2;
         }
 
         public IEnumerable<IFeedItem> GetFeed(IIntranetType type)
         {
-            var service = _centralFeedItemServices.Single(s => s.ActivityType.Id == type.Id);
+            var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
             return service.GetItems();
         }
 
         public IEnumerable<IFeedItem> GetFeed()
         {
-            var items = _centralFeedItemServices.SelectMany(service => service.GetItems());
+            var items = _feedItemServices.SelectMany(service => service.GetItems());
             return items;
         }
     }

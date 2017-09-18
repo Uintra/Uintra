@@ -5,9 +5,9 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Groups
 {
-    public interface IGroupFeedService : IFeedService
+    public interface IGroupFeedService1
     {
-        IEnumerable<IFeedItem> GetFeed(IIntranetType type, Guid groupId);
         IEnumerable<IFeedItem> GetFeed(Guid groupId);
+        IEnumerable<IFeedItem> GetFeed(IIntranetType type, Guid groupId);
     }
 }

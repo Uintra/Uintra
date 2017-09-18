@@ -44,11 +44,6 @@ namespace uIntra.CentralFeed.Web
 
 
         #region Actions
-        public virtual ActionResult Tabs()
-        {
-            return PartialView(NavigationViewPath, GetTypes().ToList());
-        }
-
         public virtual JsonResult AvailableActivityTypes()
         {
             var activityTypes = _feedService
@@ -132,21 +127,6 @@ namespace uIntra.CentralFeed.Web
             };
 
             return result;
-        }
-
-        protected virtual IEnumerable<CentralFeedTypeModel> GetTypes()
-        {
-            var allSettings = _feedService.GetAllSettings();
-            foreach (var singleSetting in allSettings)
-            {
-                yield return new CentralFeedTypeModel
-                {
-                    Type = singleSetting.Type,
-                    CreateUrl = singleSetting.CreatePage.Url,
-                    TabUrl = singleSetting.OverviewPage.Url,
-                    HasSubscribersFilter = singleSetting.HasSubscribersFilter
-                };
-            }
         }
 
         protected virtual FeedFilterStateViewModel MapToFilterStateViewModel(FeedFilterStateModel model)

@@ -22,7 +22,7 @@ namespace uIntra.CentralFeed
 
         private IEnumerable<FeedSettings> GetFeedItemServicesSettings()
         {
-            var settings = _feedItemServices.Select(service => service.GetCentralFeedSettings()).ToList();
+            var settings = _feedItemServices.Select(service => service.GetFeedSettings()).ToList();
             settings.Add(GetDefaultTabSetting());            
             return settings;
         }

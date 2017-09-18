@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
-using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -20,15 +18,12 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Events
 {
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,
-        ICentralFeedItemService,
-        IGroupFeedItemService,
+        IFeedItemService,
         ISubscribableService,
         ILikeableService,
         ICommentableService,
@@ -46,9 +41,10 @@ namespace Compent.uIntra.Core.Events
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
-
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
 
 
         private readonly IGroupActivityService _groupActivityService;
@@ -69,7 +65,9 @@ namespace Compent.uIntra.Core.Events
             IFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IGroupActivityService groupActivityService)
+            IGroupActivityService groupActivityService,
+            ICentralFeedLinkService centralFeedLinkService,
+            IGroupFeedLinkService groupFeedLinkService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -85,6 +83,8 @@ namespace Compent.uIntra.Core.Events
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
             _groupActivityService = groupActivityService;
+            _centralFeedLinkService = centralFeedLinkService;
+            _groupFeedLinkService = groupFeedLinkService;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -129,16 +129,14 @@ namespace Compent.uIntra.Core.Events
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
         }
 
-        public FeedSettings GetCentralFeedSettings()
+        public FeedSettings GetFeedSettings()
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Events.ToInt()),
+                Type = ActivityType,
                 Controller = "Events",
-                //OverviewPage = GetOverviewPage(), TODO 
-                //CreatePage = GetCreatePage(), TODO
                 HasSubscribersFilter = true,
-                HasPinnedFilter = true
+                HasPinnedFilter = true,
             };
         }
 
@@ -162,12 +160,6 @@ namespace Compent.uIntra.Core.Events
         public IEnumerable<IFeedItem> GetItems()
         {
             var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
-            return items;
-        }
-
-        public IEnumerable<IFeedItem> GetItems(Guid groupId)
-        {
-            var items = GetOrderedActualItems().Where(i => i.GroupId == groupId);
             return items;
         }
 

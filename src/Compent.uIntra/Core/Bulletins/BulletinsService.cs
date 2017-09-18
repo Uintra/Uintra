@@ -23,8 +23,7 @@ namespace Compent.uIntra.Core.Bulletins
 {
     public class BulletinsService : IntranetActivityService<Bulletin>,
         IBulletinsService<Bulletin>,
-        ICentralFeedItemService,
-        IGroupFeedItemService,
+        IFeedItemService,
         ICommentableService,
         ILikeableService,
         INotifyableService,
@@ -43,6 +42,8 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -59,7 +60,7 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
-            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService)
+            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService, IGroupFeedLinkService groupFeedLinkService, ICentralFeedLinkService centralFeedLinkService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -75,6 +76,8 @@ namespace Compent.uIntra.Core.Bulletins
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _groupActivityService = groupActivityService;
+            _groupFeedLinkService = groupFeedLinkService;
+            _centralFeedLinkService = centralFeedLinkService;
         }
 
 
@@ -104,42 +107,25 @@ namespace Compent.uIntra.Core.Bulletins
             return result;
         }
 
-        public FeedSettings GetCentralFeedSettings()
+        public bool IsActual(Bulletin activity)
+        {
+            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
+        }
+
+        public FeedSettings GetFeedSettings()
         {
             return new FeedSettings
             {
                 Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
-                HasSubscribersFilter = false
+                HasSubscribersFilter = false,
             };
         }
 
-        public bool IsActual(Bulletin activity)
-        {
-            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
-        }
-
-        public IFeedItem GetItem(Guid activityId)
-        {
-            var bulletin = Get(activityId);
-
-            // TODO : checking if activity is assigned to any group. Ask about expected behavior
-            if (bulletin.GroupId.HasValue)
-                throw new UnauthorizedAccessException("It is a group activity.");
-
-            return bulletin;
-        }
-
-        IEnumerable<IFeedItem> ICentralFeedItemService.GetItems()
+        public IEnumerable<IFeedItem> GetItems()
         {
             var items = GetOrderedActualItems().Where(i => !i.GroupId.HasValue);
-            return items;
-        }
-
-        public IEnumerable<IFeedItem> GetItems(Guid groupId)
-        {
-            var items = GetOrderedActualItems().Where(i => i.GroupId == groupId);
             return items;
         }
 

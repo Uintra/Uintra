@@ -6,7 +6,6 @@ namespace uIntra.CentralFeed
     public interface ICentralFeedService : IFeedService
     {
         IEnumerable<IFeedItem> GetFeed(IIntranetType type);
-
-        IEnumerable<IFeedItem> GetFeed();        
+        IEnumerable<IFeedItem> GetFeed();
     }
 }

@@ -223,13 +223,9 @@ namespace Compent.uIntra
 
             kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope(); // TODO WHY??
 
-            kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
-            kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
-            kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
-
-            kernel.Bind<IGroupFeedItemService>().To<NewsService>().InRequestScope();
-            kernel.Bind<IGroupFeedItemService>().To<EventsService>().InRequestScope();
-            kernel.Bind<IGroupFeedItemService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<NewsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<EventsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();

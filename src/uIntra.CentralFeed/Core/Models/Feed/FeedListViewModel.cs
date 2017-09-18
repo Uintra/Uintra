@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed.Web;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
