@@ -12,27 +12,27 @@ function initPreviewControls() {
     var notificationList = document.querySelector(".js-notification-list");
     var notificationBlock = document.querySelector(".notification");
 
-    notification.addEventListener('click', function() {
-        if (!body.classList.contains("_notifications-expanded")) { 
+    notification.addEventListener('click', function () {
+        if (!body.classList.contains("_notifications-expanded")) {
             ajax.Get("/umbraco/surface/Notification/List")
-            .then(function (response) {
-                notificationList.innerHTML = response;
-                notificationList.classList.remove('_loading');
-                initDescription();
-                initCustomControls();
-            });
+                .then(function (response) {
+                    notificationList.innerHTML = response;
+                    notificationList.classList.remove('_loading');
+                    initDescription();
+                    initCustomControls();
+                });
             body.classList.add("_notifications-expanded");
         } else {
             body.classList.remove("_notifications-expanded");
         }
     });
 
-    body.addEventListener("click", function(ev) {
+    body.addEventListener("click", function (ev) {
         isOutsideClick(notificationBlock, notification, ev.target, "_notifications-expanded");
     });
 }
 
-function isOutsideClick(el, trigger, target, classname){
+function isOutsideClick(el, trigger, target, classname) {
     if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(classname)) {
         body.classList.remove(classname);
         body.removeEventListener("click", isOutsideClick);
@@ -53,7 +53,7 @@ function updateNotificationsCount() {
         }
     });
 
-    $.ajaxSetup ({
+    $.ajaxSetup({
         cache: false
     });
 }
@@ -66,7 +66,7 @@ function initCustomControls() {
         if (!delivered) {
             $.ajax({
                 type: "POST",
-                data: {id: $this.data("id")},
+                data: { id: $this.data("id") },
                 url: "/umbraco/surface/Notification/View/",
                 success: function () {
                     $this.attr("data-viewed", true);
@@ -76,9 +76,9 @@ function initCustomControls() {
     });
 }
 
-function initDescription(){
+function initDescription() {
     var item = $(".js-notification__list-item");
-    item.each(function(i){
+    item.each(function (i) {
         var title = $(item[i]).find(".js-notification__list-heading");
         var url = title.data("url");
         title.contents().wrap("<a href='" + url + "' class='notification__list-heading-link'></a>");
@@ -88,7 +88,7 @@ function initDescription(){
 function initInfinityScroll() {
     var holder = $('.js-notification-overview');
     if (!holder.length) return;
-    
+
     var formController = umbracoAjaxForm(holder.find("form.js-ajax-form")[0]);
 
     function reload() {
@@ -106,7 +106,7 @@ function initInfinityScroll() {
     });
 }
 
-export default function() {
+export default function () {
     initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);

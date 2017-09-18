@@ -32,17 +32,17 @@ function initSearchPage() {
         return;
     }
     searchBox.addEventListener('input',
-        function() {
+        function () {
             clearTimeout(searchTimeout);
             var text = searchBox.value;
             if (text.length > 1) {
-                searchTimeout = setTimeout(function() {search()}, 250);
+                searchTimeout = setTimeout(function () { search() }, 250);
             } else {
                 document.querySelector(".js-searchResults-listContainer").innerHTML = "";
             }
         });
 
-    select.change(function() {
+    select.change(function () {
         search()
     });
 }

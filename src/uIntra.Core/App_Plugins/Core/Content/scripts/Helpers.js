@@ -117,7 +117,7 @@ var helpers = {
 
         return datePicker;
     },
-    infiniteScrollFactory: function (onScroll, scrollContainer) {
+    infiniteScrollFactory: function (options) {
         let settings = {
             defaultScrollKoef: 150,
             storageName: 'infiniteScroll',
