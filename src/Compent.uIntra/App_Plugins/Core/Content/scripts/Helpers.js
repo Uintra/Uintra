@@ -117,34 +117,79 @@ var helpers = {
 
         return datePicker;
     },
-    infiniteScrollFactory: function (onScroll, scrollContainer) {
-        const defaultScrollKoef = 150;
-
-        return function () {
-            var lock = false;
-            var win = $(window);
-            var doc = $(document);
-            var unlock = function () { lock = false; }
-            win.scroll(function () {
-                if (scrollContainer) {
-                    let params = scrollContainer.getBoundingClientRect();
-
-                    if (-params.top + defaultScrollKoef >= params.height - screen.height) {
-                        if (!lock) {
-                            lock = true;
-                            onScroll(unlock);
-                        }
-                    }
-                } else {
-                    if ((win.scrollTop() + defaultScrollKoef) >= doc.height() - win.height()) {
-                        if (!lock) {
-                            lock = true;
-                            onScroll(unlock);
-                        }
-                    }
-                }
-            });
+    infiniteScrollFactory: function (options) {
+        let settings = {
+            defaultScrollKoef: 150,
+            storageName: 'infiniteScroll',
+            loaderSelector: '.js-loader',
+            $container: null,
+            reload: null
         }
+
+        let lock = false;
+        let win = $(window);
+        let doc = $(document);
+
+        $.extend(settings, options);
+
+        const showLoadingStatus = function () {
+            $(settings.loaderSelector).show();
+        }
+
+        const hideLoadingStatus = function () {
+            $(settings.loaderSelector).hide();
+        }
+
+        const reloadData = function () {
+            showLoadingStatus();
+            helpers.state.save(settings.storageName);
+            var promise = settings.reload();
+            promise.then(unlock, unlock)
+            return promise;
+        }
+
+        const scrollPrevented = function () {
+            return !!parseInt(settings.$container.find('input[name="preventScrolling"]').val()) | false;
+        }
+
+        const unlock = function () {
+            lock = false;
+            hideLoadingStatus();
+        }
+
+        const loadNextPage = function () {
+            if (!lock) {
+                lock = true;
+
+                if (scrollPrevented()) {
+                    unlock();
+                } else {
+                    helpers.state.page++;
+                    reloadData()
+                }
+            }
+        }
+
+        win.on('scroll.infinite', function () {
+            if (settings.$container && settings.$container.length > 0) {
+                let containerRect = settings.$container.get(0).getBoundingClientRect();
+
+                if (-containerRect.top + settings.defaultScrollKoef >= containerRect.height - screen.height) {
+                    loadNextPage();
+                }
+            } else {
+                if ((win.scrollTop() + settings.defaultScrollKoef) >= doc.height() - win.height()) {
+                    loadNextPage();
+                }
+            }
+        });
+
+        //if we don't have scroll load more items
+        if (document.body.scrollHeight == document.body.clientHeight) {
+            loadNextPage();
+        }
+
+        helpers.state.restoreState(reloadData, settings.storageName);
     },
     scrollTo: function (element, to, duration) {
         var start = element.scrollTop,
@@ -214,6 +259,37 @@ var helpers = {
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);
+    },
+    state: {
+        get page() {
+            return document.querySelector('input[name="page"]').value || 1;
+        },
+        set page(val) {
+            document.querySelector('input[name="page"]').value = val;
+        },
+        save(storageName) {
+            helpers.localStorage.setItem(storageName, { page: this.page });
+        },
+        restoreState(reloadPromise, storageName) {
+            const hash = (window.location.hash || '').replace('#', '');
+
+            if (hash) {
+                let savedState = helpers.localStorage.getItem(storageName);
+
+                helpers.state.page = (savedState || {}).page || 1;
+
+                reloadPromise().then(function () {
+                    let elem = document.querySelector('[data-anchor="' + hash + '"]');
+
+                    if (elem) {
+                        helpers.scrollTo(document.body, elem.offsetTop, 300);
+                        window.history.pushState('', document.title, window.location.pathname);
+                    }
+                });
+            } else {
+                helpers.localStorage.removeItem(storageName);
+            }
+        }
     }
 }
 
