@@ -16,7 +16,7 @@ namespace uIntra.Groups
     public class GroupService : IGroupService
     {
         private readonly ISqlRepository<Group> _groupRepository;
-        private readonly ISqlRepository<GroupActivity> _groupActivityRepository;
+        private readonly ISqlRepository<GroupActivityRelation> _groupActivityRepository;
         private readonly ICacheService _memoryCacheService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -29,7 +29,7 @@ namespace uIntra.Groups
             IGroupMemberService groupMemberService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IPermissionsService permissionsService,
-            ISqlRepository<GroupActivity> groupActivityRepository)
+            ISqlRepository<GroupActivityRelation> groupActivityRepository)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
@@ -150,7 +150,7 @@ namespace uIntra.Groups
 
         public void AddGroupActivityRelation(Guid groupId, Guid activityId)
         {
-            var relation = new GroupActivity()
+            var relation = new GroupActivityRelation()
             {
                 ActivityId = activityId,
                 GroupId = groupId,

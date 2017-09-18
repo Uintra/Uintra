@@ -3,7 +3,7 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
-    class ActivityTypeHelper : IActivityTypeHelper
+    public class ActivityTypeHelper : IActivityTypeHelper
     {
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly IActivityTypeProvider _activityTypeProvider;

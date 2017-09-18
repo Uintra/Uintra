@@ -17,6 +17,7 @@ using Compent.uIntra.Core.Exceptions;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
+using Compent.uIntra.Core.Links;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
@@ -196,6 +197,7 @@ namespace Compent.uIntra
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();            
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
+
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
@@ -209,6 +211,10 @@ namespace Compent.uIntra
 
             kernel.Bind<ICentralFeedLinksProvider>().To<CentralFeedLinksProvider>();
             kernel.Bind<IGroupFeedLinksProvider>().To<GroupFeedLinksProvider>();
+
+            kernel.Bind<ICentralFeedLinkService>().To<ActivityLinkService>();
+            kernel.Bind<IGroupFeedLinkService>().To<ActivityLinkService>();
+            kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
 
             kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
             kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>().InRequestScope();

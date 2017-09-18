@@ -8,6 +8,7 @@ namespace Compent.uIntra.Core.Links
 {
     class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {
+
         public ActivityLinks GetLinks(Guid activityId)
         {
             throw new NotImplementedException();

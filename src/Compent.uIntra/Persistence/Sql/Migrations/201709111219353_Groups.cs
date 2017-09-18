@@ -25,7 +25,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                         GroupId = c.Guid(nullable: false),
                         MemberId = c.Guid(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.Id, name: "PK_uIntra_GroupMember_Id")
                 .Index(t => new { t.GroupId, t.MemberId }, unique: true, name: "UQ_GroupMember_GroupId_MemberId");
             
             CreateTable(
