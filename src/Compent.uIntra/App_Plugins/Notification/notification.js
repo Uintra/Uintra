@@ -19,7 +19,6 @@ function initPreviewControls() {
             .then(function (response) {
                 notificationList.innerHTML = response;
                 notificationList.classList.remove('_loading');
-                initDescription();
                 initCustomControls();
             });
             body.classList.add("_notifications-expanded");
@@ -77,15 +76,6 @@ function initCustomControls() {
     });
 }
 
-function initDescription(){
-    var item = $(".js-notification__list-item");
-    item.each(function(i){
-        var title = $(item[i]).find(".js-notification__list-heading");
-        var url = title.data("url");
-        title.contents().wrap("<a href='" + url + "' class='notification__list-heading-link'></a>");
-    });
-}
-
 function initInfinityScroll() {
     var holder = $('.js-notification-overview');
     if (!holder.length) return;
@@ -126,7 +116,6 @@ function initInfinityScroll() {
         var promise = formController.reload();
         promise.then(hideLoadingStatus);
         promise.then(initCustomControls);
-        promise.then(initDescription);
         promise.catch(hideLoadingStatus);
         return promise;
     }
@@ -167,6 +156,5 @@ export default function() {
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
-    initDescription();
     initInfinityScroll();
 }
