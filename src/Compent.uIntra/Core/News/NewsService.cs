@@ -47,9 +47,7 @@ namespace Compent.uIntra.Core.News
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly IGroupFeedLinkService _groupFeedLinkService;
-        private readonly ICentralFeedLinkService _centralFeedLinkService;
-
+        private readonly IActivityLinkService _linkService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -66,7 +64,9 @@ namespace Compent.uIntra.Core.News
             IFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService, IGroupFeedLinkService groupFeedLinkService, ICentralFeedLinkService centralFeedLinkService)
+            IIntranetMediaService intranetMediaService,
+            IGroupActivityService groupActivityService,
+            IActivityLinkService linkService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -83,8 +83,7 @@ namespace Compent.uIntra.Core.News
             _searchableTypeProvider = searchableTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupActivityService = groupActivityService;
-            _groupFeedLinkService = groupFeedLinkService;
-            _centralFeedLinkService = centralFeedLinkService;
+            _linkService = linkService;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -333,7 +332,7 @@ namespace Compent.uIntra.Core.News
         private SearchableActivity Map(Entities.News news)
         {
             var searchableActivity = news.Map<SearchableActivity>();
-            //searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(news.Id); TODO
+            searchableActivity.Url = _linkService.GetLinks(news.Id).Details;
             return searchableActivity;
         }
     }

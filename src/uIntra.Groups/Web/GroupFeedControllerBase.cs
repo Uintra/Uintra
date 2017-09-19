@@ -18,9 +18,9 @@ namespace uIntra.Groups.Web
         private readonly IGroupFeedService _groupFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupContentHelper _groupContentHelper;
-        private readonly IGroupService _groupService;
+        private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         // TODO : remove redundancies in pathes
@@ -40,9 +40,11 @@ namespace uIntra.Groups.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetUserService<IGroupMember> intranetUserService,
             IGroupContentHelper groupContentHelper,
-            IGroupService groupService, IGroupFeedLinksProvider groupFeedLinksProvider, IGroupFeedLinkService groupFeedLinkService)
+            IGroupFeedLinksProvider groupFeedLinksProvider,
+            IGroupFeedLinkService groupFeedLinkService,
+            IGroupMemberService groupMemberService)
             : base(centralFeedContentHelper,
                   subscribeService,
                   groupFeedService,                 
@@ -54,8 +56,8 @@ namespace uIntra.Groups.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
             _groupContentHelper = groupContentHelper;
-            _groupService = groupService;
             _groupFeedLinkService = groupFeedLinkService;
+            _groupMemberService = groupMemberService;
         }
 
         #region Actions
@@ -175,7 +177,8 @@ namespace uIntra.Groups.Web
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
-                GroupId = groupId
+                GroupId = groupId,
+                CanCreate = _groupMemberService.IsGroupMember(groupId, currentUser)
             };
             return model;
         }

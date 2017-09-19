@@ -4,24 +4,25 @@
 @using uIntra.Core.Extentions
 @using Umbraco.Web
 @model uIntra.Groups.GroupFeedOverviewModel
-@{
-    var tabsWithCreateUrls = Model.Tabs.Where(t => t.Links.Create.IsNotNullOrEmpty());
-}
 
 <section class="content _central-feed">
-    <ul class="feed-create js-feed-create">
-        @foreach (var typeModel in tabsWithCreateUrls)
-        {
-            <li class="feed-create__frame">
-                <a class="feed-create__item" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
-            </li>
-        }
+    @if (Model.CanCreate)
+    {
+        <ul class="feed-create js-feed-create">
+            @foreach (var typeModel in Model.TabsWithCreateUrl)
+            {
+                <li class="feed-create__frame">
+                    <a class="feed-create__item" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
+                </li>
+            }
 
-        <li class="feed-create__frame">
-            <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
-        </li>
-    </ul>
-    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "GroupFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+            <li class="feed-create__frame">
+                <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+            </li>
+        </ul>
+    }
+
+    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "GroupFeed", new AjaxOptions(), new {@class = "filter__toggle js-filter__toggle"})
     <div class="feed__filter filter__body js-feed-navigation">
         <div class="tabset__holder">
             <ul class="feed-links js-feed-links">
@@ -36,22 +37,23 @@
     </div>
     <div class="feed__overview">
         @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
-                                    new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
+            new Dictionary<string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-feed-listContainer"}}))
         {
-            <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50" /></div>
-            <input type="hidden" name="type" value="@Model.CurrentType.Id" />
-            <input type="hidden" name="page" />
+            <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50"/>
+            </div>
+            <input type="hidden" name="type" value="@Model.CurrentType.Id"/>
+            <input type="hidden" name="page"/>
             <div class="tab-content js-feed-listContainer">
                 @{Html.RenderAction("List", "GroupFeed",
-                        new
-                        {
-                            model = new GroupFeedListModel
-                            {
-                                TypeId = Model.CurrentType.Id,
-                                GroupId = Model.GroupId
-                            }
-                        }); }
+                      new
+                      {
+                          model = new GroupFeedListModel
+                          {
+                              TypeId = Model.CurrentType.Id,
+                              GroupId = Model.GroupId
+                          }
+                      }); }
             </div>
-                    }
+        }
     </div>
 </section>

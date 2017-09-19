@@ -6,5 +6,6 @@ namespace uIntra.Groups
     public class GroupFeedOverviewModel : FeedOverviewModel
     {
         public Guid GroupId { get; set; }
+        public bool CanCreate { get; set; }
     }
 }

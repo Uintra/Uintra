@@ -49,6 +49,7 @@ using uIntra.Core.Caching;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
+using uIntra.Core.Links;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories;
@@ -212,8 +213,10 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedLinksProvider>().To<CentralFeedLinksProvider>();
             kernel.Bind<IGroupFeedLinksProvider>().To<GroupFeedLinksProvider>();
 
+            kernel.Bind<IActivityLinkService>().To<ActivityLinkService>();
             kernel.Bind<ICentralFeedLinkService>().To<ActivityLinkService>();
             kernel.Bind<IGroupFeedLinkService>().To<ActivityLinkService>();
+
             kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
 
             kernel.Bind<IGroupActivityService>().To<GroupActivityService>();
