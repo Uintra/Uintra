@@ -1116,6 +1116,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201709181059062_GroupActivityRenaming.resx">
       <DependentUpon>201709181059062_GroupActivityRenaming.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedCreateView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\GroupFeedEditView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

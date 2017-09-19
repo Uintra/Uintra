@@ -52,7 +52,7 @@ namespace uIntra.News.Web
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
             var model = GetViewModel(news, links);
@@ -79,7 +79,9 @@ namespace uIntra.News.Web
             var activityId = _newsService.Create(newsBaseCreateModel);
              
             OnNewsCreated(activityId, createModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activityId));
+
+            string redirectUri = createModel.Links.DetailsNoId.AddIdParameter(activityId);
+            return Redirect(redirectUri);
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
@@ -88,7 +90,7 @@ namespace uIntra.News.Web
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
             var model = GetEditViewModel(news, links);
@@ -113,7 +115,9 @@ namespace uIntra.News.Web
             DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
             OnNewsEdited(activity, editModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
+
+            string redirectUri = editModel.Links.Details;
+            return Redirect(redirectUri);
         }
 
 
