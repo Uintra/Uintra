@@ -34,6 +34,7 @@
         var videoUrl = GetUrl(Model.value.videoLink);
         var showAsLightbox = Model.value.videoType == "lightbox";
         var lightboxClass = showAsLightbox ? "js-show-lightbox" : string.Empty;
+        var sizeClass = Model.value.imageVideoSize == "small" ? "_small" : "_large";
 
         if (!string.IsNullOrEmpty(videoUrl))
         {
@@ -41,7 +42,6 @@
             var autoplayVideo = "autoplay";
             var autoplayIframe = "?autoplay=1";
             var videoSourceType = (VideoSourceTypes)Model.value.videoLink.sourceType;
-            var sizeClass = Model.value.imageVideoSize == "small" ? "_small" : "_large";
             var videoTooltip = Model.value.videoLink.altText.ToString();
 
             <div class="block__video @sizeClass">
@@ -87,13 +87,13 @@
             {
                 if (string.IsNullOrEmpty(titleLink))
                 {
-                    <div class="block__image">
+                    <div class="block__image @sizeClass">
                         <img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@posterImageUrl" alt="" />
                     </div>
                 }
                 else
                 {
-                    <div class="block__image">
+                    <div class="block__image @sizeClass">
                         <a href="@titleLink"><img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@posterImageUrl" alt="" /></a>
                     </div>
                 }
