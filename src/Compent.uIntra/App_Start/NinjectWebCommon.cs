@@ -242,6 +242,7 @@ namespace Compent.uIntra
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
+            //kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();

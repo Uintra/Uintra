@@ -1034,6 +1034,9 @@
     <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
       <Link>Controllers\Api\MemberApiController.cs</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
+      <Link>Controllers\Api\MemberApiController.cs</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Controllers\Api\UserApiController.cs">
       <Link>Controllers\Api\UserApiController.cs</Link>
     </Content>
@@ -1288,6 +1291,9 @@
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\Notification\Mails\NewsMail.cs">
       <Link>Core\Notification\Mails\NewsMail.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MonthlyEmailService.cs">
+      <Link>Core\Notification\MonthlyEmailService .cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Core\Notification\NotificationAutoMapperProfile .cs">
       <Link>Core\Notification\NotificationAutoMapperProfile .cs</Link>

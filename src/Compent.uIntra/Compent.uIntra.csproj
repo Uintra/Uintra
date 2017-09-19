@@ -1180,6 +1180,7 @@
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
+    <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\UserApiController.cs" />
     <Compile Include="Controllers\BrowserCompatibilityController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
@@ -1270,6 +1271,7 @@
     <Compile Include="Core\Notification\Mails\EventUpdatedMail.cs" />
     <Compile Include="Core\Notification\Mails\IdeaMail.cs" />
     <Compile Include="Core\Notification\Mails\NewsMail.cs" />
+    <Compile Include="Core\Notification\MonthlyEmailService.cs" />
     <Compile Include="Core\Notification\NotificationAutoMapperProfile .cs" />
     <Compile Include="Core\Notification\NotificationHelper.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />

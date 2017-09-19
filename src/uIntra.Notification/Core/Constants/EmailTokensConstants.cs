@@ -11,5 +11,6 @@
         public const string NotifierFullName = "##NotifierFullName##";
         public const string Type = "##Type##";
         public const string CreatedDate = "##CreatedDate##";
+        public const string ActivityList = "##ActivityList##";
     }
 }
