@@ -1222,6 +1222,7 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
+    <Compile Include="Core\CentralFeed\CentralFeedService.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />

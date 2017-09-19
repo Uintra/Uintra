@@ -342,6 +342,7 @@
     <Compile Include="Core\CentralFeedItemComparer.cs" />
     <Compile Include="Core\CentralFeedEventComparer.cs" />
     <Compile Include="Core\CentralFeedTypeProvider.cs" />
+    <Compile Include="Core\Constants\CentralFeedConstants.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\ICentralFeedContentHelper.cs" />
     <Compile Include="Core\Links\ActivityTransferCreateModel.cs" />
@@ -368,7 +369,6 @@
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
     <Compile Include="DefaultImplementation\FeedService.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
-    <Compile Include="DefaultImplementation\CentralFeedService.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
     <Compile Include="Core\Exceptions\WrongTypeCentralFeedItemException.cs" />
     <Compile Include="Core\Models\Feed\IFeedItem.cs" />

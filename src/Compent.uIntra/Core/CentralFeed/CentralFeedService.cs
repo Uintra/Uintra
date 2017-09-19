@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using uIntra.CentralFeed;
 using uIntra.Core.Caching;
 using uIntra.Core.TypeProviders;
+using uIntra.Groups;
 
-namespace uIntra.CentralFeed
+namespace Compent.uIntra.Core.CentralFeed
 {
-    public static class CentralFeedConstants
-    {
-        public const string CentralFeedCacheKey = "CentralFeed";
-        public const string CentralFeedSettingsCacheKey = "CentralFeedSettings";
-    }
-
     public class CentralFeedService : FeedService, ICentralFeedService
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
@@ -28,13 +24,18 @@ namespace uIntra.CentralFeed
         public IEnumerable<IFeedItem> GetFeed(IIntranetType type)
         {
             var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
-            return service.GetItems();
+            return service.GetItems().Where(IsCentralFeedActivity);
         }
 
         public IEnumerable<IFeedItem> GetFeed()
         {
             var items = _feedItemServices.SelectMany(service => service.GetItems());
-            return items;
+            return items.Where(IsCentralFeedActivity);
+        }
+
+        private bool IsCentralFeedActivity(IFeedItem item)
+        {
+            return (item as IGroupActivity)?.GroupId == null;
         }
     }
 }
