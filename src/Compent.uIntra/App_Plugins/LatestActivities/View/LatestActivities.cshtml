@@ -13,5 +13,5 @@
                 @{ Html.RenderAction("PreviewItem", activity.ControllerName, new { item = activity.Item, links = activity.Links }); }
             </div>
          }
-    <a href="@Model.Tab.Url" class="btn">@Html.Localize("LatestActivities.SeeAll.btn")</a>
+    <a href="@Model.Tab.Links.Overview" class="btn">@Html.Localize("LatestActivities.SeeAll.btn")</a>
 </section>

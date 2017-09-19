@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Core;
+using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
@@ -16,31 +17,28 @@ namespace uIntra.Groups
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IGroupService _groupService;
-        private readonly IGroupMemberService _groupMemberService;
         private readonly IGridHelper _gridHelper;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
+        private readonly IFeedTypeProvider _feedTypeProvider;
 
         public GroupContentHelper(
             UmbracoHelper umbracoHelper,
             IGroupService groupService,
-            IGroupMemberService groupMemberService,
             IGridHelper gridHelper,
-            IFeedTypeProvider centralFeedTypeProvider, 
+            IFeedTypeProvider centralFeedTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IActivityTypeProvider activityTypeProvider,
-            IGroupFeedLinkService groupFeedLinkService)
+            IGroupFeedLinkService groupFeedLinkService,
+            IFeedTypeProvider feedTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _groupService = groupService;
-            _groupMemberService = groupMemberService;
             _gridHelper = gridHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _activityTypeProvider = activityTypeProvider;
             _groupFeedLinkService = groupFeedLinkService;
+            _feedTypeProvider = feedTypeProvider;
         }
 
         public IPublishedContent GetGroupRoomPage()
@@ -92,37 +90,37 @@ namespace uIntra.Groups
         public IEnumerable<FeedTabModel> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent)
         {
             var groupRoom = GetGroupRoomPage();
+            var type = GetTabType(groupRoom);
             yield return new FeedTabModel
             {
                 Content = groupRoom,
-                Type = GetTabType(groupRoom),
-                IsActive = groupRoom.Id == currentContent.Id
+                Type = type,
+                IsActive = groupRoom.Id == currentContent.Id,
+                Links = _groupFeedLinkService.GetCreateLinks(type, groupId)
             };
 
             var canEdit = _groupService.CanEdit(groupId, user);
-            var memberOfGroup = _groupMemberService.IsGroupMember(groupId, user.Id);
             var editGroupPage = GetEditPage();
 
             foreach (var content in GetContents())
             {
-                if (!canEdit && editGroupPage.Id == content.Id)
                 //if (!canEdit && editGroupPage.Id == content.Id || content.IsHideFromSubNavigation())
-                {
-                        continue;
-                }
+                if (!canEdit && editGroupPage.Id == content.Id)
+                    continue;
 
-                var type = GetTabType(content);
+                var tabType = GetTabType(content);
+                var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
+
+                if (activityType == null)
+                    continue;
 
                 var tab = new FeedTabModel
                 {
                     Content = content,
-                    Type = type,
-                    IsActive = content.IsAncestorOrSelf(currentContent)
+                    Type = tabType,
+                    IsActive = content.IsAncestorOrSelf(currentContent),
+                    Links = _groupFeedLinkService.GetCreateLinks(tabType, groupId)
                 };
-                if (type != null && memberOfGroup)
-                {
-                    tab.CreateUrl = _groupFeedLinkService.GetCreateLinks(type, groupId).Create;
-                }
 
                 yield return tab;
             }
@@ -135,7 +133,7 @@ namespace uIntra.Groups
 
             if (value == null || value.tabType == null)
             {
-                return default(IIntranetType);
+                return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
             }
 
             int tabType;
@@ -143,7 +141,7 @@ namespace uIntra.Groups
             {
                 return _centralFeedTypeProvider.Get(tabType);
             }
-            return default(IIntranetType);
+            return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
         }
 
         private IEnumerable<IPublishedContent> GetContents()

@@ -23,7 +23,7 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly ICookieProvider _cookieProvider;
         private readonly IPermissionsService _permissionsService;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
 
@@ -33,7 +33,7 @@ namespace Compent.uIntra.Core.CentralFeed
             IGridHelper gridHelper,
             ICookieProvider cookieProvider,
             IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider,
-            IFeedTypeProvider centralFeedTypeProvider,
+            IFeedTypeProvider feedTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             ICentralFeedLinkService centralFeedLinkService)
         {
@@ -43,7 +43,7 @@ namespace Compent.uIntra.Core.CentralFeed
             _cookieProvider = cookieProvider;
             _permissionsService = permissionsService;
             _activityTypeProvider = activityTypeProvider;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
+            _feedTypeProvider = feedTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _centralFeedLinkService = centralFeedLinkService;
         }
@@ -61,11 +61,13 @@ namespace Compent.uIntra.Core.CentralFeed
         public IEnumerable<FeedTabModel> GetTabs(IPublishedContent currentPage)
         {
             var overviewPage = GetOverviewPage();
+            var type = GetTabType(overviewPage);
             yield return new FeedTabModel
             {
                 Content = overviewPage,
-                Type = GetTabType(overviewPage),
-                IsActive = overviewPage.Id == currentPage.Id
+                Type = type,
+                IsActive = overviewPage.Id == currentPage.Id,
+                Links = _centralFeedLinkService.GetCreateLinks(type)
             };
 
             foreach (var content in GetContents())
@@ -77,9 +79,6 @@ namespace Compent.uIntra.Core.CentralFeed
                 {
                     continue;
                 }
-
-                var canCreate = _permissionsService.IsCurrentUserHasAccess(tabType, IntranetActivityActionEnum.Create);
-
                 var settings = _centralFeedService.GetSettings(tabType);
                 yield return new FeedTabModel
                 {
@@ -87,8 +86,8 @@ namespace Compent.uIntra.Core.CentralFeed
                     Type = tabType,
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
-                    CreateUrl = canCreate ? _centralFeedLinkService.GetCreateLinks(tabType).Create : null,
-                    IsActive = content.IsAncestorOrSelf(currentPage)
+                    IsActive = content.IsAncestorOrSelf(currentPage),
+                    Links = _centralFeedLinkService.GetCreateLinks(tabType),
                 };
             }
         }
@@ -126,15 +125,15 @@ namespace Compent.uIntra.Core.CentralFeed
 
             if (value == null || value.tabType == null)
             {
-                return _centralFeedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
+                return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
             }
 
             int tabType;
             if (int.TryParse(value.tabType.ToString(), out tabType))
             {
-                return _centralFeedTypeProvider.Get(tabType);
+                return _feedTypeProvider.Get(tabType);
             }
-            return _centralFeedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
+            return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
         }
 
         private IEnumerable<IPublishedContent> GetContents()

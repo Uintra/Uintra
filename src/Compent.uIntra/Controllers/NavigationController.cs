@@ -80,7 +80,6 @@ namespace Compent.uIntra.Controllers
                     groupNavigationModel.Tabs = tabs.Select(tab =>
                     {
                         var tabModel = tab.Map<GroupNavigationTabViewModel>();
-                        tabModel.Url = tabModel.Url.UrlWithGroupId(groupId);
                         tabModel.AlignRight = tab.Content.Id == groupEditPage.Id;
                         tabModel.Title = tab.Content.GetNavigationName();
                         return tabModel;

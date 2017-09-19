@@ -22,8 +22,8 @@
             {
                 if (tab.Type != null)
                 {
-                    <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.GetHashCode()" data-page-url="@tab.Url">
-                        <a class="tabset__navigation-link " href="@tab.Url">
+                    <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
+                        <a class="tabset__navigation-link " href="@tab.Links.Overview">
                             <span>@Html.Localize(tab.Type.Name)</span>
                         </a>
                     </li>
@@ -31,7 +31,7 @@
                 else
                 {
                     <li class="tabset__navigation-item @(tab.IsActive ? "_active" : "") @(tab.AlignRight ? "_right _for-desktop" : "")">
-                        <a class="tabset__navigation-link " href="@tab.Url">
+                        <a class="tabset__navigation-link " href="@tab.Links.Overview">
                             <span>@tab.Title</span>
                         </a>
                     </li>
