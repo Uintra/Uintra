@@ -5,7 +5,6 @@ using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
 using uIntra.Core.Persistence;
 using uIntra.Core.TypeProviders;
-using uIntra.Groups;
 using uIntra.Groups.Sql;
 using uIntra.Users;
 using Umbraco.Core.Models;

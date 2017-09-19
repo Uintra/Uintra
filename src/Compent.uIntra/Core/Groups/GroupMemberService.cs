@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Persistence;
-using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Sql;
 using uIntra.Users;
@@ -13,16 +12,13 @@ namespace Compent.uIntra.Core.Groups
     public class GroupMemberService : GroupMemberServiceBase
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly ICacheableIntranetUserService _userCacheService;
 
         public GroupMemberService(
             ISqlRepository<GroupMember> groupMemberRepository,
-            IIntranetUserService<IGroupMember> intranetUserService, 
             ICacheableIntranetUserService userCacheService) : base(groupMemberRepository)
         {
             _groupMemberRepository = groupMemberRepository;
-            _intranetUserService = intranetUserService;
             _userCacheService = userCacheService;
         }
 
@@ -35,14 +31,14 @@ namespace Compent.uIntra.Core.Groups
         {
             var groupMembers = new List<GroupMember>();
 
-            foreach (var memberId in memberIds)
-            {
+            var enumeratedMemberIds = memberIds as Guid[] ?? memberIds.ToArray();
+            foreach (var memberId in enumeratedMemberIds)
                 groupMembers.Add(GetNewGroupMember(groupId, memberId));
-                var member = _intranetUserService.Get(memberId);
-                member.GroupIds = member.GroupIds.Union(groupId.ToEnumerableOfOne());
-                _userCacheService.UpdateUserCache(memberId);
-            }
+
             _groupMemberRepository.Add(groupMembers);
+
+            foreach (var memberId in enumeratedMemberIds)
+                _userCacheService.UpdateUserCache(memberId); // TODO: ask about extending ICacheableIntranetUserService to re-cache bunch of users
         }
 
         public override void Remove(Guid groupId, Guid memberId)
