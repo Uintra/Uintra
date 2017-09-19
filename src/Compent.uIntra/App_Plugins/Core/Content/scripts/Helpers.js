@@ -48,7 +48,7 @@ var helpers = {
             "great": ":great",
             "happy": ":)",
             "hungry": ":hungry",
-            "inlove": ";inlove",
+            "inlove": ":inlove",
             "laughing": ":D",
             "party": ":party",
             "relaxed": ":relaxed",
@@ -113,22 +113,24 @@ var helpers = {
             emojiContainer.classList.toggle("hidden");
         });
 
-        container.on('editor-change', function (eventName, ...args) {
+        container.on('text-change', function (eventName, ...args) {
             index = getIndex();
-            /*var contents = container.getContents();
-            var text = contents.ops[0].insert;
+            var text = container.getText();
+            console.log(text);
             for(var i in emoji){
                 if(text.indexOf(emoji[i]) >= 0){
                     var index = text.indexOf(emoji[i]);
+                    console.log(index);
+                    console.log(emoji[i].length);
                     var el = emojiContainer.querySelector("." + i);
-                    container.updateContents(new Delta()
+                    container.setContents(new Delta()
                       .retain(index)
-                      .delete(i.length)
+                      .delete(emoji[i].length)
                     );
-                    CopyClipboard(getHTML(el));
+                    CopyClipboard(getHTML(el), index);
                     break;
                 }
-            }*/
+            }
         });
 
         body.addEventListener("click", function(ev) {
@@ -137,10 +139,11 @@ var helpers = {
             });
         });
 
-        function CopyClipboard(target){
-            var index = getIndex();
-            if(!index) index = 0;
-            container.clipboard.dangerouslyPasteHTML(index, "&nbsp;" + target + "&nbsp;");
+        function CopyClipboard(target, index){
+            if(!index){
+                index = getIndex();
+            }
+            container.clipboard.dangerouslyPasteHTML(index, target);
         }
 
         function getHTML(el){
@@ -164,7 +167,7 @@ var helpers = {
                     index = range.index + range.length;
                 }
             } else {
-                console.log('User cursor is not in editor');
+                index = 0;
             }
             return index;
         }
