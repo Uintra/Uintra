@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
@@ -91,7 +90,6 @@ namespace uIntra.Groups.Web
             model.MediaRootId = mediaSettings.MediaRootId;
             model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
 
-            FillLinks();
             return PartialView(EditView, model);
         }
 
@@ -125,7 +123,6 @@ namespace uIntra.Groups.Web
             createGroupModel.CreatorId = _userService.GetCurrentUserId();
             createGroupModel.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
 
-            FillLinks();
             return PartialView(GroupCreateView, createGroupModel);
         }
 
@@ -226,13 +223,11 @@ namespace uIntra.Groups.Web
             if (_groupMemberService.IsGroupMember(groupId, currentUser.Id))
             {
                 _groupMemberService.Remove(groupId, currentUser.Id);
-
             }
             else
             {
                 _groupMemberService.Add(groupId, currentUser.Id);
             }
-            UpdateUserCache(currentUser.Id);
 
             return RedirectToCurrentUmbracoPage(Request.QueryString);
         }
@@ -242,17 +237,7 @@ namespace uIntra.Groups.Web
         public virtual ActionResult Unsubscribe(Guid groupId, Guid memberId)
         {
             _groupMemberService.Remove(groupId, memberId);
-
-            UpdateUserCache(memberId);
-
             return Redirect(Request.UrlReferrer.AbsoluteUri);
-        }
-
-        protected virtual void UpdateUserCache(Guid memberId)
-        {
-            //var user = _userService.Get(memberId);
-            //user.GroupIds = _groupMemberService.GetGroupMemberByMember(user.Id).Select(u => u.GroupId);
-            //_userService.UpdateCache(user.ToEnumerableOfOne());
         }
 
         [DisabledGroupActionFilter]
@@ -276,12 +261,6 @@ namespace uIntra.Groups.Web
             .ToList();
 
             return PartialView(GroupMembersView, model);
-        }
-
-
-        protected virtual void FillLinks()
-        {
-
         }
 
         private GroupViewModel MapGroupViewModel(Group group, Func<bool> fillIsMember)

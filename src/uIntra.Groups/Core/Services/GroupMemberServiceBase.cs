@@ -10,7 +10,7 @@ namespace uIntra.Groups
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
 
-        public GroupMemberServiceBase(ISqlRepository<GroupMember> groupMemberRepository)
+        protected GroupMemberServiceBase(ISqlRepository<GroupMember> groupMemberRepository)
         {
             _groupMemberRepository = groupMemberRepository;
         }
@@ -29,10 +29,7 @@ namespace uIntra.Groups
             };
         }
 
-        public virtual void Remove(Guid groupId, Guid memberId)
-        {
-            _groupMemberRepository.Delete(gm => gm.GroupId == groupId && gm.MemberId == memberId);
-        }
+        public abstract void Remove(Guid groupId, Guid memberId);
 
         public virtual IEnumerable<GroupMember> GetGroupMemberByMember(Guid memberId)
         {
