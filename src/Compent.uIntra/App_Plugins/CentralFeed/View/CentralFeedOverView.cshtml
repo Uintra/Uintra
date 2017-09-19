@@ -4,16 +4,13 @@
 @using uIntra.Core.Extentions
 @using Umbraco.Web
 @model uIntra.CentralFeed.CentralFeedOverviewModel
-@{
-    var tabsWithCreateUrls = Model.Tabs.Where(t => t.CreateUrl.IsNotNullOrEmpty());
-}
 
 <section class="content _central-feed">
     <ul class="feed-create js-feed-create">
-        @foreach (var typeModel in tabsWithCreateUrls)
+        @foreach (var typeModel in Model.TabsWithCreateUrl)
         {
             <li class="feed-create__frame">
-                <a class="feed-create__item" href="@typeModel.CreateUrl">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
+                <a class="feed-create__item" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
             </li>
         }
 
@@ -28,8 +25,8 @@
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
-                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Url">
-                        <a class="feed-links__item" href="@tabModel.Url">@Html.Localize(tabModel.Type.Name)</a>
+                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Links.Overview">
+                        <a class="feed-links__item" href="@tabModel.Links.Overview">@Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
             </ul>

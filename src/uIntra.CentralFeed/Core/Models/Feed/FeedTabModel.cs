@@ -1,4 +1,5 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using uIntra.Core.Links;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
@@ -9,7 +10,7 @@ namespace uIntra.CentralFeed
         public IIntranetType Type { get; set; }
         public bool HasSubscribersFilter { get; set; }
         public bool HasPinnedFilter { get; set; }        
-        public string CreateUrl { get; set; }
         public bool IsActive { get; set; }
+        public ActivityCreateLinks Links { get; set; }
     }
 }

@@ -46,6 +46,13 @@ namespace uIntra.CentralFeed.Web
 
         #region Actions
         [HttpGet]
+        public virtual ActionResult Overview()
+        {
+            var model = GetOverviewModel();
+            return PartialView(OverviewViewPath, model);
+        }
+
+        [HttpGet]
         public ActionResult Create(int typeId)
         {
             var activityType = _centralFeedTypeProvider.Get(typeId);
@@ -66,13 +73,6 @@ namespace uIntra.CentralFeed.Web
         {
             var viewModel = GetEditViewModel(id);
             return PartialView(EditViewPath, viewModel);
-        }
-
-        [HttpGet]
-        public virtual ActionResult Overview()
-        {
-            var model = GetOverviewModel();
-            return PartialView(OverviewViewPath, model);
         }
 
         public virtual ActionResult OpenFilters()
@@ -162,24 +162,16 @@ namespace uIntra.CentralFeed.Web
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
+            var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<FeedTabViewModel>>();
+
             var model = new CentralFeedOverviewModel
             {
-                Tabs = _centralFeedContentHelper.GetTabs(CurrentPage).Select(MapFeedTabToViewModel),
+                Tabs = activityTabs,
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
             return model;
-        }
-
-        private FeedTabViewModel MapFeedTabToViewModel(FeedTabModel tab)
-        {
-            return new FeedTabViewModel()
-            {
-                Type = tab.Type,
-                CreateUrl = tab.CreateUrl,
-                Url = tab.Content.Url,
-                IsActive = tab.IsActive
-            };
         }
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
@@ -211,16 +203,13 @@ namespace uIntra.CentralFeed.Web
             return _centralFeedService.GetFeed(type);
         }
 
-        protected static bool IsTypeForAllActivities(IIntranetType type) => 
-            type.Id == CentralFeedTypeEnum.All.ToInt();
 
         private FeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
         {
             var result = _centralFeedContentHelper
                 .GetTabs(CurrentPage)
-                .Where(el => el.Type.Id == activitiesType.Id)
-                .Select(MapFeedTabToViewModel)
-                .Single();
+                .Single(el => el.Type.Id == activitiesType.Id)
+                .Map<FeedTabViewModel>();
             return result;
         }
 

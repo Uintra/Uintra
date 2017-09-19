@@ -129,6 +129,12 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
+        protected static IEnumerable<FeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<FeedTabViewModel> tabs) => 
+            tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.IsNotNullOrEmpty());
+
+        protected static bool IsTypeForAllActivities(IIntranetType type) =>
+            type.Id == CentralFeedTypeEnum.All.ToInt();
+
         protected virtual FeedFilterStateViewModel MapToFilterStateViewModel(FeedFilterStateModel model)
         {
             return new FeedFilterStateViewModel()

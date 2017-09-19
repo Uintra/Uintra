@@ -850,6 +850,7 @@
     <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
     <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
     <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\groups.css" />
     <Content Include="App_Plugins\Groups\groups.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\Info\group-info.html" />
@@ -858,6 +859,10 @@
     <Content Include="App_Plugins\Groups\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Members\group-members.js" />
     <Content Include="App_Plugins\Groups\_groups.css" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitiesService.js" />
     <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
@@ -1120,6 +1125,8 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
     <Content Include="App_Plugins\Groups\Feed\GroupFeedEditView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedEditView.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

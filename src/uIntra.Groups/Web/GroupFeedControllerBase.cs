@@ -167,27 +167,17 @@ namespace uIntra.Groups.Web
             var currentUser = _intranetUserService.GetCurrentUser();
             var tabType = _groupContentHelper.GetTabType(CurrentPage);
 
-            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage).Select(MapFeedTabToViewModel);
-            var activityTabs = tabs.Where(t => t.Type != null);
+            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage);
+            var activityTabs = tabs.Where(t => t.Type != null).Map<List<FeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
                 GroupId = groupId
             };
             return model;
-        }
-
-        private FeedTabViewModel MapFeedTabToViewModel(FeedTabModel tab)
-        {
-            return new FeedTabViewModel()
-            {
-                Type = tab.Type,
-                CreateUrl = tab.CreateUrl,
-                Url = tab.Content.Url,
-                IsActive = tab.IsActive
-            };
         }
 
         protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType, Guid groupId)
