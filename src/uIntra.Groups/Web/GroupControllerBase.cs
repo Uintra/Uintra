@@ -38,7 +38,7 @@ namespace uIntra.Groups.Web
 
         protected int ItemsPerPage = 10;
 
-        public GroupControllerBase(IGroupService groupService,
+        protected GroupControllerBase(IGroupService groupService,
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
             IGroupContentHelper groupContentHelper,

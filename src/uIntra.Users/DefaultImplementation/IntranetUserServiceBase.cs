@@ -186,7 +186,6 @@ namespace uIntra.Users
             return user;
         }
 
-
         protected virtual IEnumerable<T> GetUnassignedToMemberUsers()
         {
             var users = GetAll();

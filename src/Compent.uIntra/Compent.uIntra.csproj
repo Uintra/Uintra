@@ -1119,6 +1119,7 @@
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedCreateView.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
     <Content Include="App_Plugins\Groups\Feed\GroupFeedEditView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\CentralFeedEditView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
