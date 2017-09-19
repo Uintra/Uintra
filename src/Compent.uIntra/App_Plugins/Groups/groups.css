@@ -251,7 +251,7 @@
 
     .btn{
         float: right;
-        font: bold 13px/15px TeamDanmark4, "Trebuchet MS", Helvetica, sans-serif;
+        font: bold 13px/15px var(--font-general);
         background: var(--color-light-gray);
         color: var(--text-color-dark);
         text-transform: uppercase;
@@ -319,7 +319,7 @@
             position:absolute;
             top:50%;
             left:50%;
-            /*content:url(../../Content/images/icon-scroll.png);*/
+            /*content:url(./icon-scroll.png);*/
             width:100px;
             margin:-30px 0 0 -50px;
         }

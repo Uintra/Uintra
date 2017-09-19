@@ -1,6 +1,4 @@
-﻿require("./_groups.css");
-
-var controller = {
+﻿var controller = {
     initOnLoad: function () {
         this.init('.js-group-subscribe');
     },
