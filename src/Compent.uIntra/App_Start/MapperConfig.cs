@@ -21,9 +21,9 @@ namespace Compent.uIntra
             Mapper.AddProfile<CommentAutoMapperProfile>();
             Mapper.AddProfile<NewsAutoMapperProfile>();
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
-            Mapper.AddProfile<LightboxAutoMapperProfile>();
-            Mapper.AddProfile<NavigationAutoMapperProfile>();
+            Mapper.AddProfile<LightboxAutoMapperProfile>();            
             Mapper.AddProfile<Core.Navigation.NavigationAutoMapperProfile>();
+            Mapper.AddProfile<NavigationAutoMapperProfile>();
             Mapper.AddProfile<EventsAutoMapperProfile>();
             Mapper.AddProfile<Core.Events.EventsAutoMapperProfile>();
             Mapper.AddProfile<BulletinsAutoMapperProfile>();
