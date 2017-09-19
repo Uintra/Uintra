@@ -79,6 +79,9 @@ namespace uIntra.Groups.Web
         [HttpGet]
         public ActionResult Create(Guid groupId, int typeId)
         {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            if (!_groupMemberService.IsGroupMember(groupId, currentUser))
+                return new EmptyResult();
 
             var activityType = _centralFeedTypeProvider.Get(typeId);
             var viewModel = GetCreateViewModel(activityType, groupId);
@@ -178,7 +181,7 @@ namespace uIntra.Groups.Web
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
                 GroupId = groupId,
-                CanCreate = _groupMemberService.IsGroupMember(groupId, currentUser)
+                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser)
             };
             return model;
         }

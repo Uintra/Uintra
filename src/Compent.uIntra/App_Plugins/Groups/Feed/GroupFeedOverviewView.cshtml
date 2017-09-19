@@ -6,7 +6,7 @@
 @model uIntra.Groups.GroupFeedOverviewModel
 
 <section class="content _central-feed">
-    @if (Model.CanCreate)
+    @if (Model.IsGroupMember)
     {
         <ul class="feed-create js-feed-create">
             @foreach (var typeModel in Model.TabsWithCreateUrl)

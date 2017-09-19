@@ -29,11 +29,10 @@ namespace Compent.uIntra.Controllers
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService)
-            : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
+            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
