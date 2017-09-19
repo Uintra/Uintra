@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Groups
@@ -32,10 +33,22 @@ namespace uIntra.Groups
                 .SelectMany(service => service.GetItems())
                 .Where(i => IsGroupActivity(groupId, i));
 
-        private bool IsGroupActivity(Guid groupId, IFeedItem item)
+        public IEnumerable<IFeedItem> GetFeed(IIntranetType type, IEnumerable<Guid> groupIds) =>
+            GetFeed(groupIds)
+                .Where(i => i.Type.Id == type.Id);
+
+        public IEnumerable<IFeedItem> GetFeed(IEnumerable<Guid> groupIds) =>
+            _feedItemServices
+                .SelectMany(service => service.GetItems())
+                .Where(i => IsGroupActivity(groupIds, i));
+
+        private bool IsGroupActivity(IEnumerable<Guid> groupIds, IFeedItem item)
         {
             var assignedGroupId = _groupActivityService.GetGroupId(item.Id);
-            return assignedGroupId.HasValue && assignedGroupId.Value == groupId;
+            return assignedGroupId.HasValue && groupIds.Contains(assignedGroupId.Value);
         }
+
+        private bool IsGroupActivity(Guid groupId, IFeedItem item) =>
+            IsGroupActivity(groupId.ToEnumerableOfOne(), item);
     }
 }

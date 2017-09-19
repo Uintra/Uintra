@@ -202,7 +202,7 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
         {
-            if (type.Id == CentralFeedTypeEnum.All.ToInt())
+            if (IsTypeForAllActivities(type))
             {
                 var items = _centralFeedService.GetFeed().OrderByDescending(item => item.PublishDate);
                 return items;
@@ -210,6 +210,9 @@ namespace uIntra.CentralFeed.Web
 
             return _centralFeedService.GetFeed(type);
         }
+
+        protected static bool IsTypeForAllActivities(IIntranetType type) => 
+            type.Id == CentralFeedTypeEnum.All.ToInt();
 
         private FeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
         {

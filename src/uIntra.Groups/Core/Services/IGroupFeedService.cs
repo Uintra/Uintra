@@ -9,5 +9,8 @@ namespace uIntra.Groups
     {
         IEnumerable<IFeedItem> GetFeed(IIntranetType type, Guid groupId);
         IEnumerable<IFeedItem> GetFeed(Guid groupId);
+
+        IEnumerable<IFeedItem> GetFeed(IIntranetType type, IEnumerable<Guid> groupId);
+        IEnumerable<IFeedItem> GetFeed(IEnumerable<Guid> groupId);
     }
 }
