@@ -368,6 +368,7 @@
     <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
     <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
     <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\group.svg" />
     <Content Include="App_Plugins\Groups\groups.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\Info\group-info.html" />
@@ -375,7 +376,7 @@
     <Content Include="App_Plugins\Groups\List\Groups.js" />
     <Content Include="App_Plugins\Groups\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Members\group-members.js" />
-    <Content Include="App_Plugins\Groups\_groups.css" />
+    <Content Include="App_Plugins\Groups\groups.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
