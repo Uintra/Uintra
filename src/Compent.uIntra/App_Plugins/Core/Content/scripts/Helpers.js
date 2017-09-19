@@ -116,18 +116,17 @@ var helpers = {
         container.on('text-change', function (eventName, ...args) {
             index = getIndex();
             var text = container.getText();
-            console.log(text);
             for(var i in emoji){
                 if(text.indexOf(emoji[i]) >= 0){
+                    var n = emojiContainer.contains("<img>");
+                    console.log(n);
                     var index = text.indexOf(emoji[i]);
-                    console.log(index);
-                    console.log(emoji[i].length);
-                    var el = emojiContainer.querySelector("." + i);
-                    container.setContents(new Delta()
-                      .retain(index)
-                      .delete(emoji[i].length)
+                    container.updateContents(new Delta()
+                        .retain(index)
+                        .delete(emoji[i].length)
                     );
-                    CopyClipboard(getHTML(el), index);
+                    container.insertEmbed(index, 'image', path + i + ".svg");
+                    container.formatText(index, 1, 'width', '20px');
                     break;
                 }
             }
