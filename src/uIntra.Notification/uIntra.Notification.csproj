@@ -396,7 +396,6 @@
     <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\MemberNotifierSettingsControllerBase.cs" />
-    <Compile Include="Web\MonthlyEmailApiControllerBase.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />
     <Compile Include="Web\NotificationJobControllerBase.cs" />
   </ItemGroup>

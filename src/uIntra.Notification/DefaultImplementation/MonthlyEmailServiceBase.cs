@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using uIntra.Core.Activity;
+using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
@@ -14,39 +15,44 @@ namespace uIntra.Notification
     {
         private readonly IMailService _mailService;
         private readonly IExceptionLogger _logger;       
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;        
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IApplicationSettings _applicationSettings;
 
         protected MonthlyEmailServiceBase(IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IExceptionLogger logger)
+            IExceptionLogger logger,
+            IApplicationSettings applicationSettings)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _logger = logger;
+            _applicationSettings = applicationSettings;
         }
 
         public void SendEmail()
         {
-            IEnumerable<IIntranetUser> users = _intranetUserService.GetAll();
-            foreach (var user in users)
+            if (DateTime.Now.Day == _applicationSettings.MonthlyEmailJobDay)
             {
-                try
+                IEnumerable<IIntranetUser> users = _intranetUserService.GetAll();
+                foreach (var user in users)
                 {
-                    var activities = GetUserActivitiesFilteredByUserTags(user.Id);
-                    if (activities.Any())
+                    try
                     {
-                        string activityListString = GetActivityListString(activities);
-                        var monthlyMail = GetMonthlyMailModel(activityListString, user);
-                        _mailService.Send(monthlyMail);
+                        var activities = GetUserActivitiesFilteredByUserTags(user.Id);
+                        if (activities.Any())
+                        {
+                            string activityListString = GetActivityListString(activities);
+                            var monthlyMail = GetMonthlyMailModel(activityListString, user);
+                            _mailService.Send(monthlyMail);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Log(ex);
-                }
+                    catch (Exception ex)
+                    {
+                        _logger.Log(ex);
+                    }
 
+                }
             }
-            
         }
 
         protected abstract List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId);        
