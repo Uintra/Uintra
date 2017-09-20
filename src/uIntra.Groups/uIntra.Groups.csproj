@@ -314,13 +314,15 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedListModel.cs" />
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\GroupNavigationPageTabViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\GroupNavigationTabViewModelBase.cs" />
     <Compile Include="Core\Services\GroupActivityService.cs" />
     <Compile Include="Core\Services\GroupFeedService.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
     <Compile Include="Core\Models\GroupMemberViewModel.cs" />
-    <Compile Include="Core\Models\GroupNavigationTab.cs" />
-    <Compile Include="Core\Models\GroupNavigationTabViewModel.cs" />
-    <Compile Include="Core\Models\GroupNavigationViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\GroupNavigationTab.cs" />
+    <Compile Include="Core\Navigation\Models\GroupNavigationActivityTabViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\GroupNavigationViewModel.cs" />
     <Compile Include="Core\Models\GroupsListModel.cs" />
     <Compile Include="Core\Models\GroupsOverviewModel.cs" />
     <Compile Include="Core\Models\GroupSubscribeViewModel.cs" />
@@ -405,7 +407,9 @@
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Models\NewFolder1\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>

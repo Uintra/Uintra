@@ -87,27 +87,29 @@ namespace uIntra.Groups
             return GetGroupRoomPage().IsAncestorOrSelf(currentPage);
         }
 
-        public IEnumerable<ActivityFeedTabModel> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent)
+        public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
         {
             var groupRoom = GetGroupRoomPage();
             var type = GetTabType(groupRoom);
-            yield return new ActivityFeedTabModel
+            var result = new ActivityFeedTabModel
             {
                 Content = groupRoom,
                 Type = type,
                 IsActive = groupRoom.Id == currentContent.Id,
                 Links = _groupFeedLinkService.GetCreateLinks(type, groupId)
             };
+            return result;
+        }
 
-            var canEdit = _groupService.CanEdit(groupId, user);
-            var editGroupPage = GetEditPage();
+        // ULTRA TODO : use tuples to return all tabs at once!
+        public IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId)
+        {
+            yield return GetMainFeedTab(currentContent, groupId);
 
-            foreach (var content in GetContents())
+
+
+            foreach (var content in GetContent())
             {
-                //if (!canEdit && editGroupPage.Id == content.Id || content.IsHideFromSubNavigation())
-                if (!canEdit && editGroupPage.Id == content.Id)
-                    continue;
-
                 var tabType = GetTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
@@ -124,6 +126,37 @@ namespace uIntra.Groups
 
                 yield return tab;
             }
+        }
+
+        public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId)
+        {
+            var canEdit = _groupService.CanEdit(groupId, user);
+            var editGroupPage = GetEditPage();
+            foreach (var content in GetContent())
+            {
+                if (!canEdit && IsGroupEditPage(editGroupPage, content))
+                    continue;
+                var tabType = GetTabType(content);
+                var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
+                if (activityType == null)
+                    yield return GetPageTab(currentContent, content, groupId);
+            }
+        }
+
+        private PageTabModel GetPageTab(IPublishedContent currentContent, IPublishedContent content, Guid groupId)
+        {
+            return new PageTabModel()
+            {
+                Content = content,
+                IsActive = content.IsAncestorOrSelf(currentContent),
+                Title = content.Name,
+                Link = content.Url.AddGroupId(groupId)
+            };
+        }
+
+        private static bool IsGroupEditPage(IPublishedContent editGroupPage, IPublishedContent content)
+        {
+            return editGroupPage.Id == content.Id;
         }
 
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
@@ -144,7 +177,7 @@ namespace uIntra.Groups
             return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
         }
 
-        private IEnumerable<IPublishedContent> GetContents()
+        private IEnumerable<IPublishedContent> GetContent()
         {
             return GetGroupRoomPage().Children;
         }

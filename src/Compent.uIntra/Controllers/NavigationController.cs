@@ -85,21 +85,16 @@ namespace Compent.uIntra.Controllers
             if (!group.IsHidden)
             {
                 groupNavigationModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().UrlWithGroupId(groupId);
-                var allFeedTabType = _feedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt());
 
-                var allTabs = _groupContentHelper.GetTabs(groupId.Value, _intranetUserService.GetCurrentUser(), CurrentPage).ToList();
-                var tabs = allTabs.FindAll(t => t.Type == null && t.Content.IsShowPageInSubNavigation() || t.Type?.Id == allFeedTabType.Id);
-                var allTab = tabs.Single(t => t.Type?.Id == allFeedTabType.Id);
-                allTab.IsActive = allTabs.Exists(t => t.Type != null && t.IsActive);
+                groupNavigationModel.ActivityTabs = _groupContentHelper
+                    .GetMainFeedTab(CurrentPage, groupId.Value)
+                    .ToEnumerableOfOne()
+                    .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
-                var groupEditPage = _groupContentHelper.GetEditPage();
-                groupNavigationModel.Tabs = tabs.Select(tab =>
-                {
-                    var tabModel = tab.Map<GroupNavigationTabViewModel>();
-                    tabModel.AlignRight = tab.Content.Id == groupEditPage.Id;
-                    tabModel.Title = tab.Content.GetNavigationName();
-                    return tabModel;
-                });
+                var currentUser = _intranetUserService.GetCurrentUser();
+                groupNavigationModel.PageTabs = _groupContentHelper
+                    .GetPageTabs(CurrentPage, currentUser, groupId.Value)
+                    .Map<IEnumerable<GroupNavigationPageTabViewModel>>();
             }
 
 
