@@ -1033,8 +1033,8 @@
     <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
       <Link>Controllers\Api\MemberApiController.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
-      <Link>Controllers\Api\MemberApiController.cs</Link>
+    <Content Include="..\Compent.uIntra\Controllers\Api\MonthlyEmailApiController.cs">
+      <Link>Controllers\Api\MonthlyEmailApiController.cs</Link>
     </Content>
     <Content Include="..\Compent.uIntra\Controllers\Api\UserApiController.cs">
       <Link>Controllers\Api\UserApiController.cs</Link>

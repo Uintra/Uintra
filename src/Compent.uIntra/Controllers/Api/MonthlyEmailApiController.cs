@@ -1,7 +1,6 @@
-﻿using System;
-using uIntra.Core.ApplicationSettings;
-using uIntra.Notification;
+﻿using uIntra.Notification;
 using Umbraco.Web.WebApi;
+using System.Web.Http;
 
 namespace Compent.uIntra.Controllers.Api
 {
@@ -14,7 +13,7 @@ namespace Compent.uIntra.Controllers.Api
             _monthlyEmailService = monthlyEmailService;            
         }
 
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         public void SendMonthlyEmail()
         {
             _monthlyEmailService.SendEmail();
