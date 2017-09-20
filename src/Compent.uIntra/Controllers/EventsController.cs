@@ -44,8 +44,9 @@ namespace Compent.uIntra.Controllers
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
             INotificationTypeProvider notificationTypeProvider,
-            IGroupActivityService groupActivityService)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
+            IGroupActivityService groupActivityService,
+            IActivityLinkService activityLinkService)
+            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;

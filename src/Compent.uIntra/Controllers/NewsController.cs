@@ -39,7 +39,7 @@ namespace Compent.uIntra.Controllers
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
+            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;

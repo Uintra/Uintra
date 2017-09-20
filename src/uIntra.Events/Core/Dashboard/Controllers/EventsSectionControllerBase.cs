@@ -13,9 +13,9 @@ namespace uIntra.Events.Dashboard
     {
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IMediaHelper _mediaHelper; 
+        private readonly IMediaHelper _mediaHelper;
 
-        public EventsSectionControllerBase(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
+        protected EventsSectionControllerBase(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;

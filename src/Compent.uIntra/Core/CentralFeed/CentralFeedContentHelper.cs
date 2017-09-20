@@ -21,7 +21,6 @@ namespace Compent.uIntra.Core.CentralFeed
         private readonly ICentralFeedService _centralFeedService;
         private readonly IGridHelper _gridHelper;
         private readonly ICookieProvider _cookieProvider;
-        private readonly IPermissionsService _permissionsService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
@@ -32,7 +31,7 @@ namespace Compent.uIntra.Core.CentralFeed
             ICentralFeedService centralFeedService,
             IGridHelper gridHelper,
             ICookieProvider cookieProvider,
-            IPermissionsService permissionsService, IActivityTypeProvider activityTypeProvider,
+            IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider feedTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             ICentralFeedLinkService centralFeedLinkService)
@@ -41,7 +40,6 @@ namespace Compent.uIntra.Core.CentralFeed
             _centralFeedService = centralFeedService;
             _gridHelper = gridHelper;
             _cookieProvider = cookieProvider;
-            _permissionsService = permissionsService;
             _activityTypeProvider = activityTypeProvider;
             _feedTypeProvider = feedTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;

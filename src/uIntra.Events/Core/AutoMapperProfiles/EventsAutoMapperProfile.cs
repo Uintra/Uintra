@@ -11,8 +11,8 @@ namespace uIntra.Events
         protected override void Configure()
         {
             Mapper.CreateMap<EventBase, ComingEventViewModel>()
-                .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.DetailsPageUrl, o => o.Ignore());
+                .ForMember(dst => dst.Links, o => o.Ignore())
+                .ForMember(dst => dst.Creator, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())

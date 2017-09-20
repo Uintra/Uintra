@@ -12,9 +12,5 @@ namespace uIntra.Core.Links
             Create = create;
             DetailsNoId = detailsNoId;
         }
-
-        public virtual ActivityCreateLinks WithCreate(string value) => new ActivityCreateLinks(Overview, value, Creator, DetailsNoId);
-
-        public virtual ActivityCreateLinks WithDetailsNoId(string value) => new ActivityCreateLinks(Overview, Create, Creator, value);
     }
 }
