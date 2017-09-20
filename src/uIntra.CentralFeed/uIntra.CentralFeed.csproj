@@ -403,9 +403,6 @@
     <None Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-    <None Include="Config\imageprocessor\cache.config" />
-    <None Include="Config\imageprocessor\processing.config" />
-    <None Include="Config\imageprocessor\security.config" />
     <None Include="Installer\PreValues\ContentGridPreValues.json" />
     <None Include="Installer\PreValues\DefaultGridPreValues.json" />
     <None Include="Installer\PreValues\GridPageLayout.cshtml" />

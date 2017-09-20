@@ -857,7 +857,6 @@
     <Content Include="App_Plugins\Groups\List\group-list.js" />
     <Content Include="App_Plugins\Groups\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Members\group-members.js" />
-    <Content Include="App_Plugins\Groups\_groups.css" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
@@ -908,8 +907,6 @@
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
@@ -924,8 +921,6 @@
     <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-    <Content Include="App_Plugins\News\style.css" />
-    <Content Include="App_Plugins\News\style.css" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
@@ -1022,7 +1017,6 @@
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
     <Content Include="App_Plugins\Users\users.js" />
-    <Content Include="App_Plugins\Web.config" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -1190,7 +1184,9 @@
     <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <None Include="Properties\PublishProfiles\groups_qa.pubxml" />
+    <None Include="Properties\PublishProfiles\groups_qa.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
