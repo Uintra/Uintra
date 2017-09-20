@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Extentions;
@@ -92,13 +93,26 @@ namespace Compent.uIntra.Controllers
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();
+                var groupEditPage = _groupContentHelper.GetEditPage();
                 groupNavigationModel.PageTabs = _groupContentHelper
                     .GetPageTabs(CurrentPage, currentUser, groupId.Value)
-                    .Map<IEnumerable<GroupNavigationPageTabViewModel>>();
+                    .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }
 
 
             return PartialView(GroupNavigationViewPath, groupNavigationModel);
+        }
+
+        private GroupNavigationPageTabViewModel MapToGroupPageTabViewModel(PageTabModel tab, IPublishedContent editPage)
+        {
+            var result = tab.Map<GroupNavigationPageTabViewModel>();
+            result.AlignRight = IsGroupEditPage(tab.Content, editPage);
+            return result;
+        }
+
+        private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
+        {
+            return tab.Id == editPage.Id;
         }
 
         public ContentResult GetTitle()

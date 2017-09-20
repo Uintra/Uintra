@@ -130,17 +130,30 @@ namespace uIntra.Groups
 
         public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId)
         {
-            var canEdit = _groupService.CanEdit(groupId, user);
-            var editGroupPage = GetEditPage();
+            Func<IPublishedContent, bool> skipPage = GetPageSkipResolver(user, groupId);
+
             foreach (var content in GetContent())
             {
-                if (!canEdit && IsGroupEditPage(editGroupPage, content))
+                if (skipPage(content))
                     continue;
                 var tabType = GetTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
                 if (activityType == null)
                     yield return GetPageTab(currentContent, content, groupId);
             }
+        }
+
+        private Func<IPublishedContent, bool> GetPageSkipResolver(IIntranetUser user, Guid groupId)
+        {
+            var canEdit = _groupService.CanEdit(groupId, user);
+            var editGroupPage = GetEditPage();
+
+            var deactivatedPage = GetDeactivatedGroupPage();
+
+            Func<IPublishedContent, bool> skipPage = (content) =>
+                    (!canEdit && AreSamePages(editGroupPage, content)
+                     || AreSamePages(deactivatedPage, content));
+            return skipPage;
         }
 
         private PageTabModel GetPageTab(IPublishedContent currentContent, IPublishedContent content, Guid groupId)
@@ -154,9 +167,9 @@ namespace uIntra.Groups
             };
         }
 
-        private static bool IsGroupEditPage(IPublishedContent editGroupPage, IPublishedContent content)
+        private static bool AreSamePages(IPublishedContent first, IPublishedContent second)
         {
-            return editGroupPage.Id == content.Id;
+            return first.Id == second.Id;
         }
 
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
