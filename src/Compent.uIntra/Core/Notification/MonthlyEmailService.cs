@@ -5,6 +5,7 @@ using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.Events;
 using uIntra.Bulletins;
 using uIntra.Core.Activity;
+using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
@@ -26,10 +27,11 @@ namespace Compent.uIntra.Core.Notification
         public MonthlyEmailService(IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IExceptionLogger logger,
+            IApplicationSettings applicationSettings,
             IBulletinsService<Bulletin> bulletinsService,
             IEventsService<Event> eventsService,
             INewsService<News.Entities.News> newsService,
-            TagsService tagsService) : base(mailService, intranetUserService, logger)
+            TagsService tagsService) : base(mailService, intranetUserService, logger, applicationSettings)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
