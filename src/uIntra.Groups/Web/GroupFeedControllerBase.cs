@@ -173,7 +173,7 @@ namespace uIntra.Groups.Web
             var tabType = _groupContentHelper.GetTabType(CurrentPage);
 
             var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage);
-            var activityTabs = tabs.Where(t => t.Type != null).Map<List<FeedTabViewModel>>();
+            var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {

@@ -4,7 +4,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
 {
-    public class FeedTabModel
+    public class ActivityFeedTabModel
     {
         public IPublishedContent Content { get; set; }
         public IIntranetType Type { get; set; }

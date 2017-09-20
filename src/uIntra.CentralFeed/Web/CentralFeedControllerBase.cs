@@ -162,7 +162,7 @@ namespace uIntra.CentralFeed.Web
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
-            var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<FeedTabViewModel>>();
+            var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new CentralFeedOverviewModel
             {
@@ -204,12 +204,12 @@ namespace uIntra.CentralFeed.Web
         }
 
 
-        private FeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
+        private ActivityFeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
         {
             var result = _centralFeedContentHelper
                 .GetTabs(CurrentPage)
                 .Single(el => el.Type.Id == activitiesType.Id)
-                .Map<FeedTabViewModel>();
+                .Map<ActivityFeedTabViewModel>();
             return result;
         }
 

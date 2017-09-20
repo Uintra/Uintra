@@ -58,11 +58,11 @@ namespace Compent.uIntra.Core.CentralFeed
             return GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c.IsAncestorOrSelf(currentPage));
         }
 
-        public IEnumerable<FeedTabModel> GetTabs(IPublishedContent currentPage)
+        public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
         {
             var overviewPage = GetOverviewPage();
             var type = GetTabType(overviewPage);
-            yield return new FeedTabModel
+            yield return new ActivityFeedTabModel
             {
                 Content = overviewPage,
                 Type = type,
@@ -80,7 +80,7 @@ namespace Compent.uIntra.Core.CentralFeed
                     continue;
                 }
                 var settings = _centralFeedService.GetSettings(tabType);
-                yield return new FeedTabModel
+                yield return new ActivityFeedTabModel
                 {
                     Content = content,
                     Type = tabType,

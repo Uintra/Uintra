@@ -363,7 +363,7 @@
     <Compile Include="Core\Models\FilterState\FeedFilterStateViewModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFilterStateModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFiltersState.cs" />
-    <Compile Include="Core\Models\Feed\FeedTabModel.cs" />
+    <Compile Include="Core\Models\Feed\ActivityFeedTabModel.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedTabViewModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesPanelModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />

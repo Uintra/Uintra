@@ -129,7 +129,7 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected static IEnumerable<FeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<FeedTabViewModel> tabs) => 
+        protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) => 
             tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.IsNotNullOrEmpty());
 
         protected static bool IsTypeForAllActivities(IIntranetType type) =>

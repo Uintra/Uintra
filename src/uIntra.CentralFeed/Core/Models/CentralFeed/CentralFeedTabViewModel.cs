@@ -3,7 +3,7 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
-    public class FeedTabViewModel
+    public class ActivityFeedTabViewModel
     {
         public IIntranetType Type { get; set; }       
         public bool IsActive { get; set; }

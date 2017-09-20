@@ -87,11 +87,11 @@ namespace uIntra.Groups
             return GetGroupRoomPage().IsAncestorOrSelf(currentPage);
         }
 
-        public IEnumerable<FeedTabModel> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent)
+        public IEnumerable<ActivityFeedTabModel> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent)
         {
             var groupRoom = GetGroupRoomPage();
             var type = GetTabType(groupRoom);
-            yield return new FeedTabModel
+            yield return new ActivityFeedTabModel
             {
                 Content = groupRoom,
                 Type = type,
@@ -114,7 +114,7 @@ namespace uIntra.Groups
                 if (activityType == null)
                     continue;
 
-                var tab = new FeedTabModel
+                var tab = new ActivityFeedTabModel
                 {
                     Content = content,
                     Type = tabType,

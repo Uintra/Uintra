@@ -72,7 +72,7 @@ namespace uIntra.Groups
                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
-            Mapper.CreateMap<FeedTabModel, GroupNavigationTabViewModel>()
+            Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationTabViewModel>()
                 .ForMember(d => d.Title, o => o.Ignore())
                 .ForMember(d => d.AlignRight, o => o.Ignore());
 
