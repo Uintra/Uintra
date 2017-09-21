@@ -760,6 +760,7 @@ h5{
     margin:0 0 -9px;
     z-index:9999;
 
+    .form &,
     .comments &{
         bottom:auto;
         top:100%;
