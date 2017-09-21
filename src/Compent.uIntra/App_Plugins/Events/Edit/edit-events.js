@@ -77,8 +77,26 @@ let initDescriptionControl = function () {
         throw new Error("EditNews: Hiden input field missing");
     }
     let descriptionElem = holder.find('#description');
+    var toolbarOptions = [
+        [{ 'header': [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'link'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['emoji'],
+        ['clean']
+    ];
 
-    editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
+    editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { 
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+
+    let emojiContainer = editor.container.querySelector(".js-emoji");
+    if(!emojiContainer){
+        helpers.initSmiles(editor, editor.getModule('toolbar').container);
+        emojiContainer = true;
+    }
 
     editor.on('text-change', function () {
         if (!editor.getText().trim()) {
