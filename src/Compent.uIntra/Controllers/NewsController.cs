@@ -15,6 +15,7 @@ using uIntra.News.Web;
 using uIntra.Search;
 using System.Linq;
 using Compent.uIntra.Core.Extentions;
+using uIntra.CentralFeed;
 using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
@@ -46,12 +47,14 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult CentralFeedItem(News item, ActivityLinks links)
+        public ActionResult CentralFeedItem(News item, FeedOptionsModel options)
         {
             var activity = item;
 
-            var extendedModel = GetItemViewModel(activity, links).Map<NewsExtendedItemViewModel>();
+            var extendedModel = GetItemViewModel(activity, options.Links).Map<NewsExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -66,6 +69,7 @@ namespace Compent.uIntra.Controllers
             var extendedNews = (News)news;
             var extendedModel = base.GetViewModel(news).Map<NewsExtendedViewModel>();
             extendedModel = Mapper.Map(extendedNews, extendedModel);
+            
             return extendedModel;
         }
 

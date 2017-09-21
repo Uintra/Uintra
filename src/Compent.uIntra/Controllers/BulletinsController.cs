@@ -13,6 +13,7 @@ using uIntra.Groups;
 using uIntra.Navigation;
 using System.Linq;
 using Compent.uIntra.Core.Extentions;
+using uIntra.CentralFeed;
 using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
@@ -47,11 +48,13 @@ namespace Compent.uIntra.Controllers
             return extendedModel;
         }
 
-        public ActionResult CentralFeedItem(Bulletin item, ActivityLinks links)
+        public ActionResult CentralFeedItem(Bulletin item, FeedOptionsModel options)
         {
             var activity = item;
-            var extendedModel = GetItemViewModel(activity, links).Map<BulletinExtendedItemViewModel>();
+            var extendedModel = GetItemViewModel(activity, options.Links).Map<BulletinExtendedItemViewModel>();
             extendedModel.LikesInfo = activity;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
             return PartialView(ItemViewPath, extendedModel);
         }
 

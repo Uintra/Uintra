@@ -39,7 +39,7 @@
     @foreach (var activity in Model.Feed)
     {
         <div data-anchor="@activity.Item.Id">
-            @{ Html.RenderAction("CentralFeedItem", activity.ControllerName, new { item = activity.Item, links = activity.Links }); }
+            @{ Html.RenderAction("CentralFeedItem", activity.ControllerName, new { item = activity.Item, options = new FeedOptionsModel { Links = activity.Links } }); }
         </div>
     }
 </div>

@@ -1,5 +1,8 @@
-﻿using uIntra.CentralFeed;
+﻿using System.Collections.Generic;
+using System.Linq;
+using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Web;
@@ -9,6 +12,8 @@ namespace Compent.uIntra.Controllers
 {
     public class GroupFeedController : GroupFeedControllerBase
     {
+        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+
         public GroupFeedController(ICentralFeedContentHelper centralFeedContentHelper,
             ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
@@ -22,6 +27,18 @@ namespace Compent.uIntra.Controllers
             IGroupMemberService groupMemberService) 
             : base(centralFeedContentHelper, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupFeedLinksProvider, groupFeedLinkService, groupMemberService)
         {
+            this._intranetUserService = intranetUserService;
+        }
+
+        protected override FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems,
+            IIntranetType centralFeedType)
+        {
+            var result = base.GetFeedListViewModel(model, filteredItems, centralFeedType);
+            var currentUser = _intranetUserService.GetCurrentUser();
+
+            result.IsReadOnly = !currentUser.GroupIds.Contains(model.GroupId);
+
+            return result;
         }
     }
 }

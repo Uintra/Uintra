@@ -8,5 +8,6 @@ namespace Compent.uIntra.Core.Comments
     {
         public Guid Id { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
+        public bool IsReadOnly { get; set; }
     }
 }

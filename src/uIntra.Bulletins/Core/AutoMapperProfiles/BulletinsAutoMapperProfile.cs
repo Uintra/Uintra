@@ -13,7 +13,8 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
-                .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
+                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<BulletinBase, BulletinEditModel>()
               .ForMember(dst => dst.Links, o => o.Ignore())
