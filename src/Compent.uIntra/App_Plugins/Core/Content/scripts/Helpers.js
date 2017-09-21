@@ -118,15 +118,15 @@ var helpers = {
             var text = container.getText();
             for(var i in emoji){
                 if(text.indexOf(emoji[i]) >= 0){
-                    var n = emojiContainer.contains("<img>");
-                    console.log(n);
-                    var index = text.indexOf(emoji[i]);
+                    var n = container.container.querySelectorAll("img").length;
+                    var index = text.indexOf(emoji[i]) + n;
                     container.updateContents(new Delta()
                         .retain(index)
                         .delete(emoji[i].length)
                     );
                     container.insertEmbed(index, 'image', path + i + ".svg");
                     container.formatText(index, 1, 'width', '20px');
+                    container.setSelection(++index);
                     break;
                 }
             }
@@ -143,6 +143,7 @@ var helpers = {
                 index = getIndex();
             }
             container.clipboard.dangerouslyPasteHTML(index, target);
+            container.setSelection(++index);
         }
 
         function getHTML(el){

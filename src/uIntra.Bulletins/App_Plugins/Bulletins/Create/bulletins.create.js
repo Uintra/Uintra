@@ -21,6 +21,7 @@ let confirmMessage;
 let expandBulletinBtn;
 let closeBulletinBtn;
 let wrapper;
+let emojiContainer;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -37,6 +38,7 @@ function initElements() {
     wrapper = document.getElementById("wrapper");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
+    emojiContainer = document.querySelector(".js-emoji");
 }
 
 function initEditor() {
@@ -158,6 +160,10 @@ function show() {
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeBulletinBtn.classList.remove("hidden");
+    if(!emojiContainer){
+        helpers.initSmiles(editor, editor.getModule('toolbar').container);
+        emojiContainer = true;
+    }
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
