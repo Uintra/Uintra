@@ -8,16 +8,17 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uIntra;
 using Compent.uIntra.Core;
+using Compent.uIntra.Core.Activity;
 using Compent.uIntra.Core.ApplicationSettings;
 using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.CentralFeed;
 using Compent.uIntra.Core.Comments;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
+using Compent.uIntra.Core.Feed.Links;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
-using Compent.uIntra.Core.Links;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
@@ -212,6 +213,8 @@ namespace Compent.uIntra
 
             kernel.Bind<ICentralFeedLinksProvider>().To<CentralFeedLinksProvider>();
             kernel.Bind<IGroupFeedLinksProvider>().To<GroupFeedLinksProvider>();
+
+            kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
 
             kernel.Bind<IActivityLinkService>().To<ActivityLinkService>();
             kernel.Bind<ICentralFeedLinkService>().To<ActivityLinkService>();

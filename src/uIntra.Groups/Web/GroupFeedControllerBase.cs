@@ -143,7 +143,7 @@ namespace uIntra.Groups.Web
             return new FeedListViewModel
             {
                 Version = _groupFeedService.GetFeedVersion(filteredItems),
-                Feed = GetFeedItems(pagedItemsList, settings, model.GroupId),
+                Feed = GetFeedItems(pagedItemsList, settings),
                 TabSettings = tabSettings,
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
@@ -151,17 +151,12 @@ namespace uIntra.Groups.Web
             };
         }
 
-        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings, Guid groupId)
+        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
         {
-            var result = items
-                .Select(i => new FeedItemViewModel()
-                {
-                    Item = i,
-                    Links = _groupFeedLinkService.GetLinks(i.Id),
-                    ControllerName = settings.Single(s => s.Type.Id == i.Type.Id).Controller
-                });
-
-            return result;
+            return new ActivityFeedOptions()
+            {
+                Links = _groupFeedLinkService.GetLinks(i.Id)
+            };
         }
 
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)

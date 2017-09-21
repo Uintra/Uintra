@@ -7,7 +7,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
 
-namespace Compent.uIntra.Core.Links
+namespace Compent.uIntra.Core.Feed.Links
 {
     public class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {

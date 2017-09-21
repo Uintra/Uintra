@@ -60,6 +60,31 @@ namespace uIntra.CentralFeed.Web
         }
         #endregion
 
+
+        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
+        {
+            var activitySettings = settings
+                .ToDictionary(s => s.Type.Id);
+
+            var result = items
+                .Select(i => MapFeedItemToViewModel(i, activitySettings));
+
+            return result;
+        }
+
+        protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
+        {
+            ActivityFeedOptions options = GetActivityFeedOptions(i);
+            return new FeedItemViewModel()
+            {
+                Activity = i,
+                Options = options,
+                ControllerName = settings[i.Type.Id].Controller
+            };
+        }
+
+        protected abstract ActivityFeedOptions GetActivityFeedOptions(IFeedItem feedItem);
+
         protected static IEnumerable<IIntranetType> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {
             return items

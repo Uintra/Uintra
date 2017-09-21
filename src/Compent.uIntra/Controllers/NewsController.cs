@@ -14,7 +14,9 @@ using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
 using System.Linq;
+using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.Groups.Extentions;
 
@@ -26,6 +28,7 @@ namespace Compent.uIntra.Controllers
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
+        protected string ItemHeaderViewPath { get; } = "~/Views/News/ItemHeader.cshtml";
 
         private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
@@ -47,15 +50,30 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult FeedItem(News item, FeedOptions options)
+        public ActionResult ItemHeader(ExtendedItemHeaderViewModel model)
         {
-            var activity = item;
+            return PartialView(ItemHeaderViewPath, model);
+        }
 
-            var extendedModel = GetItemViewModel(activity, options.Links).Map<NewsExtendedItemViewModel>();
-            extendedModel.LikesInfo = activity;
+
+        public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
+        {
+            var extendedModel = GetItemViewModel(item, options);
+            return PartialView(ItemViewPath, extendedModel);
+        }
+
+        private NewsExtendedItemViewModel GetItemViewModel(News item, ActivityFeedOptionsWithGroups options)
+        {
+            var model = GetItemViewModel(item, options.Links);
+            var extendedModel = model.Map<NewsExtendedItemViewModel>();
+
+            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+
+            extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
             extendedModel.IsReadOnly = options.IsReadOnly;
-            return PartialView(ItemViewPath, extendedModel);
+            return extendedModel;
         }
 
         public ActionResult PreviewItem(News item, ActivityLinks links)

@@ -142,20 +142,12 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
+        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
         {
-            var activitySettings = settings
-                .ToDictionary(s => s.Type.Id);
-
-            var result = items
-                .Select(i => new FeedItemViewModel()
-                {
-                    Item = i,
-                    Links = _centralFeedLinkService.GetLinks(i.Id),
-                    ControllerName = activitySettings[i.Type.Id].Controller
-                });
-
-            return result;
+            return new ActivityFeedOptions()
+            {
+                Links = _centralFeedLinkService.GetLinks(i.Id)
+            };
         }
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()

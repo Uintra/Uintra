@@ -1179,6 +1179,7 @@
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\News\ItemHeader.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1209,6 +1210,10 @@
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
+    <Compile Include="Core\Activity\FeedActivityHelper.cs" />
+    <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\ApplicationSettings\IuIntraApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UintraApplicationSettings.cs" />
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
@@ -1224,6 +1229,7 @@
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
+    <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
@@ -1264,7 +1270,7 @@
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
-    <Compile Include="Core\Links\ActivityLinkService.cs" />
+    <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />

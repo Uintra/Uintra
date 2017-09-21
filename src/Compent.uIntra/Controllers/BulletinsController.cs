@@ -48,7 +48,7 @@ namespace Compent.uIntra.Controllers
             return extendedModel;
         }
 
-        public ActionResult FeedItem(Bulletin item, FeedOptions options)
+        public ActionResult FeedItem(Bulletin item, ActivityFeedOptions options)
         {
             var activity = item;
             var extendedModel = GetItemViewModel(activity, options.Links).Map<BulletinExtendedItemViewModel>();

@@ -1,11 +1,9 @@
-using uIntra.Core.Links;
-
 namespace uIntra.CentralFeed
 {
     public class FeedItemViewModel
     {
-        public IFeedItem Item { get; set; }
+        public IFeedItem Activity { get; set; }
         public string ControllerName { get; set; }
-        public ActivityLinks Links { get; set; }
+        public ActivityFeedOptions Options { get; set; }
     }
 }

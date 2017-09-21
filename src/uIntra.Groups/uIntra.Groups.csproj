@@ -311,6 +311,7 @@
     <Compile Include="Core\Models\GroupDocumentsViewModel.cs" />
     <Compile Include="Core\Models\GroupDocumentTableRowViewModel.cs" />
     <Compile Include="Core\Models\GroupEditModel.cs" />
+    <Compile Include="Core\Models\GroupFeed\GroupInfo.cs" />
     <Compile Include="Core\Models\GroupFeed\GroupFeedListModel.cs" />
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
@@ -407,9 +408,7 @@
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Models\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
