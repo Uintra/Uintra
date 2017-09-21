@@ -9,5 +9,7 @@ namespace uIntra.Likes
         Guid Id { get; }
 
         IEnumerable<LikeModel> Likes { get; set; }
+
+        bool IsReadOnly { get; set; }
     }
 }

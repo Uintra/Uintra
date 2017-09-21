@@ -40,7 +40,9 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore());
+                .ForMember(dst => dst.Subscribers, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
+
 
             Mapper.CreateMap<EventCreateModel, Event>()
                 .IncludeBase<EventCreateModel, EventBase>()
@@ -48,7 +50,8 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore());
+                .ForMember(dst => dst.Subscribers, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<Event, SearchableActivity>()
                 .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))

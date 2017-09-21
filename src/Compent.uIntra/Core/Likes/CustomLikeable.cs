@@ -9,5 +9,6 @@ namespace Compent.uIntra.Core.Likes
         public Guid Id { get; set; }
         
         public IEnumerable<LikeModel> Likes { get; set; }
+        public bool IsReadOnly { get; set; }
     }
 }

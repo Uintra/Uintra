@@ -335,16 +335,8 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.0.1\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.7.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.7.2\lib\net452\uIntra.Comments.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.5.1\lib\net452\uIntra.Likes.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.1.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1441,6 +1433,10 @@
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
       <Name>uIntra.CentralFeed</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.Comments\uIntra.Comments.csproj">
+      <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
+      <Name>uIntra.Comments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
@@ -1460,6 +1456,10 @@
     <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
       <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
       <Name>uIntra.Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Likes\uIntra.Likes.csproj">
+      <Project>{b99f0f05-598c-4f4a-a972-7282dcf9fed8}</Project>
+      <Name>uIntra.Likes</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
       <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>

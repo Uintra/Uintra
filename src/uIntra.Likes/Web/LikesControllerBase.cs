@@ -42,7 +42,7 @@ namespace uIntra.Likes.Web
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
         {
-            return Likes(likesInfo.Likes, likesInfo.Id);
+            return Likes(likesInfo.Likes, likesInfo.Id, isReadOnly: likesInfo.IsReadOnly);
         }
 
         public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
@@ -96,7 +96,7 @@ namespace uIntra.Likes.Web
             return _umbracoHelper.TypedContent(model.ActivityId)?.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
-        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null)
+        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null, bool isReadOnly = false)
         {
             var currentUserId = GetCurrentUserId();
 
@@ -108,7 +108,8 @@ namespace uIntra.Likes.Web
                 UserId = currentUserId,
                 Count = likes.Count(),
                 CanAddLike = canAddLike,
-                Users = likes.Select(el => el.User)
+                Users = likes.Select(el => el.User),
+                IsReadOnly = isReadOnly
             };
 
             return PartialView(LikesViewPath, model);

@@ -142,15 +142,16 @@ namespace uIntra.Comments.Web
 
         public virtual PartialViewResult OverView(ICommentable commentsInfo)
         {
-            return OverView(commentsInfo.Id, commentsInfo.Comments);
+            return OverView(commentsInfo.Id, commentsInfo.Comments, commentsInfo.IsReadOnly);
         }
 
-        public virtual PartialViewResult PreView(Guid activityId, string link)
+        public virtual PartialViewResult PreView(Guid activityId, string link, bool isReadOnly)
         {
             var model = new CommentPreviewModel
             {
                 Count = _commentsService.GetCount(activityId),
-                Link = $"{link}#{GetOverviewElementId(activityId)}"
+                Link = $"{link}#{GetOverviewElementId(activityId)}",
+                IsReadOnly =  isReadOnly
             };
             return PartialView(PreviewViewPath, model);
         }
@@ -171,13 +172,14 @@ namespace uIntra.Comments.Web
             return OverView(activityId, _commentsService.GetMany(activityId));
         }
 
-        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments)
+        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments, bool isReadOnly = false)
         {
             var model = new CommentsOverviewModel
             {
                 ActivityId = activityId,
                 Comments = GetCommentViews(comments),
-                ElementId = GetOverviewElementId(activityId)
+                ElementId = GetOverviewElementId(activityId),
+                IsReadOnly = isReadOnly
             };
 
             return PartialView(OverviewViewPath, model);

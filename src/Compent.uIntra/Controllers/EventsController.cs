@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Extentions;
+using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -56,12 +57,14 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult CentralFeedItem(Event item, ActivityLinks links)
+        public ActionResult CentralFeedItem(Event item, FeedOptionsModel options)
         {
             var activity = item;
-            var extendedModel = GetItemViewModel(activity, links).Map<EventExtendedItemModel>();
+            var extendedModel = GetItemViewModel(activity, options.Links).Map<EventExtendedItemModel>();
             var  userId =_intranetUserService.GetCurrentUser();
             extendedModel.LikesInfo = activity;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
             extendedModel.IsSubscribed = activity.Subscribers.Any(s => s.UserId == userId.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
