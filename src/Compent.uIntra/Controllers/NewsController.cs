@@ -50,9 +50,9 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult ItemHeader(ExtendedItemHeaderViewModel model)
+        public ActionResult ItemHeader(ExtendedItemHeaderViewModel header)
         {
-            return PartialView(ItemHeaderViewPath, model);
+            return PartialView(ItemHeaderViewPath, header);
         }
 
 
