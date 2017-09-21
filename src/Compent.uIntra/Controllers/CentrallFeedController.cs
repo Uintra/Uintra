@@ -66,7 +66,6 @@ namespace Compent.uIntra.Controllers
                 IsReadOnly = options.IsReadOnly,
                 GroupInfo = _feedActivityHelper.GetGroupInfo(i)
             };
-
         }
     } 
 }

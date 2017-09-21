@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
@@ -39,6 +40,17 @@ namespace Compent.uIntra.Controllers
             result.IsReadOnly = !currentUser.GroupIds.Contains(model.GroupId);
 
             return result;
+        }
+
+        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
+        {
+            var options = base.GetActivityFeedOptions(i);
+            return new ActivityFeedOptionsWithGroups()
+            {
+                Links = options.Links,
+                IsReadOnly = options.IsReadOnly,
+                GroupInfo = null
+            };
         }
     }
 }
