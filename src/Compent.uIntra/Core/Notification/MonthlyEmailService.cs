@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Bulletins;
-using Compent.uIntra.Core.Events;
 using uIntra.Bulletins;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
@@ -18,9 +16,9 @@ namespace Compent.uIntra.Core.Notification
 {
     public class MonthlyEmailService: MonthlyEmailServiceBase
     {
-        private readonly IBulletinsService<Bulletin> _bulletinsService;
-        private readonly IEventsService<Event> _eventsService;
-        private readonly INewsService<News.Entities.News> _newsService;
+        private readonly IBulletinsService<BulletinBase> _bulletinsService;
+        private readonly IEventsService<EventBase> _eventsService;
+        private readonly INewsService<NewsBase> _newsService;
         private readonly TagsService _tagsService;
         private readonly IExceptionLogger _logger;
 
@@ -28,9 +26,9 @@ namespace Compent.uIntra.Core.Notification
             IIntranetUserService<IIntranetUser> intranetUserService,
             IExceptionLogger logger,
             IApplicationSettings applicationSettings,
-            IBulletinsService<Bulletin> bulletinsService,
-            IEventsService<Event> eventsService,
-            INewsService<News.Entities.News> newsService,
+            IBulletinsService<BulletinBase> bulletinsService,
+            IEventsService<EventBase> eventsService,
+            INewsService<NewsBase> newsService,
             TagsService tagsService) : base(mailService, intranetUserService, logger, applicationSettings)
         {
             _bulletinsService = bulletinsService;
