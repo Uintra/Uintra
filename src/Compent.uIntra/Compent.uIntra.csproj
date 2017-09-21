@@ -380,9 +380,9 @@
     <Reference Include="uIntra.Notification, Version=1.2.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Notification.1.2.3.2\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.7.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Panels, Version=2.1.7.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Panels.2.1.7.2\lib\net452\uIntra.Panels.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Panels.2.1.7.3\lib\net452\uIntra.Panels.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Search, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -887,7 +887,6 @@
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
@@ -1046,9 +1045,6 @@
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -1103,6 +1099,10 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationFormItemHeader.cshtml" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
