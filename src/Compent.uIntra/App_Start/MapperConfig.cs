@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Compent.uIntra.Core.Activity;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -37,6 +38,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
             Mapper.AddProfile<GroupsAutoMapperProfile>();
+            Mapper.AddProfile<ActivityAutoMapperProfile>();
 
             var typemaps = Mapper.GetAllTypeMaps();
 
