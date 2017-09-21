@@ -18,13 +18,13 @@ namespace uIntra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
 
-        protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
-        protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedDetailsView.cshtml";
-        protected override string CreateViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedCreateView.cshtml";
-        protected override string EditViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedEditView.cshtml";
-        protected override string ListViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
-        protected override string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
-        protected override string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
+        protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
+        protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/Details.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/CentralFeed/View/Create.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/CentralFeed/View/Edit.cshtml";
+        protected override string ListViewPath => "~/App_Plugins/CentralFeed/View/List.cshtml";
+        protected virtual string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
+        protected virtual string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
         protected CentralFeedControllerBase(
             ICentralFeedService centralFeedService,
@@ -75,14 +75,6 @@ namespace uIntra.CentralFeed.Web
             return PartialView(EditViewPath, viewModel);
         }
 
-        public virtual ActionResult OpenFilters()
-        {
-            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _centralFeedContentHelper.SaveFiltersState(feedState);
-            return new EmptyResult();
-        }
-
         public virtual ActionResult List(FeedListModel model)
         {
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
@@ -109,6 +101,15 @@ namespace uIntra.CentralFeed.Web
             _centralFeedContentHelper.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
+        }
+
+        [HttpGet]
+        public virtual ActionResult OpenFilters()
+        {
+            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
+            _centralFeedContentHelper.SaveFiltersState(feedState);
+            return new EmptyResult();
         }
 
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)

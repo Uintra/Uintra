@@ -23,15 +23,12 @@ namespace uIntra.Groups.Web
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
-        // TODO : remove redundancies in pathes
-        protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
-        protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
-        protected override string CreateViewPath => "~/App_Plugins/Groups/Feed/GroupFeedCreateView.cshtml";
-        protected override string EditViewPath => "~/App_Plugins/Groups/Feed/GroupFeedEditView.cshtml";
-
-        protected override string ListViewPath => "~/App_Plugins/Groups/Feed/GroupFeedList.cshtml";
-        protected override string NavigationViewPath => "-";// todo
-        protected override string LatestActivitiesViewPath => "-";
+        protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/Overview.cshtml";
+        protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/Details.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/Groups/Feed/Create.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/Groups/Feed/Edit.cshtml";
+        
+        protected override string ListViewPath => "~/App_Plugins/Groups/Feed/List.cshtml";
 
         protected GroupFeedControllerBase(
             ICentralFeedContentHelper centralFeedContentHelper,

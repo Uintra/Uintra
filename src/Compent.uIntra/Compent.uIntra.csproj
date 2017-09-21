@@ -1081,8 +1081,8 @@
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -1100,10 +1100,10 @@
     <Content Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
     <Content Include="App_Plugins\Groups\Documents\GroupDocumentsTable.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\EditGroupView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedCreateView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedDetailsView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedList.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedOverviewView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Create.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Details.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\List.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Overview.cshtml" />
     <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
     <Content Include="App_Plugins\Groups\Info\GroupInfoView.cshtml" />
     <Content Include="App_Plugins\Groups\Info\GroupSubscribeView.cshtml" />
@@ -1114,10 +1114,10 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201709181059062_GroupActivityRenaming.resx">
       <DependentUpon>201709181059062_GroupActivityRenaming.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedCreateView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedEditView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedEditView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Edit.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
     <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
@@ -1421,7 +1421,6 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Plugins\Groups\CentralFeed\" />
     <Folder Include="App_Plugins\Members\NewFolder1\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>

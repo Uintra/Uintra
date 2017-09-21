@@ -16,8 +16,6 @@ namespace uIntra.CentralFeed.Web
     {
         protected abstract string OverviewViewPath { get; }
         protected abstract string ListViewPath { get; }
-        protected abstract string NavigationViewPath { get; }
-        protected abstract string LatestActivitiesViewPath { get; }
 
         protected abstract string DetailsViewPath { get; }
         protected abstract string CreateViewPath { get; }
