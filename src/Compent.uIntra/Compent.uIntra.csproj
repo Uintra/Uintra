@@ -1179,7 +1179,8 @@
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\News\ItemHeader.cshtml" />
+    <Content Include="Views\Activity\ItemHeader.cshtml" />
+    <Content Include="Views\Bulletins\ItemHeader.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

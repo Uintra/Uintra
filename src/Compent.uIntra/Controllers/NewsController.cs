@@ -28,12 +28,10 @@ namespace Compent.uIntra.Controllers
         protected override string ItemViewPath => "~/Views/News/ItemView.cshtml";
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
-        protected string ItemHeaderViewPath { get; } = "~/Views/News/ItemHeader.cshtml";
 
         private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
-
 
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -49,12 +47,6 @@ namespace Compent.uIntra.Controllers
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
         }
-
-        public ActionResult ItemHeader(ExtendedItemHeaderViewModel header)
-        {
-            return PartialView(ItemHeaderViewPath, header);
-        }
-
 
         public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
         {

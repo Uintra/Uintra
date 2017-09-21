@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
@@ -57,16 +59,27 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult FeedItem(Event item, ActivityFeedOptions options)
+        public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
-            var activity = item;
-            var extendedModel = GetItemViewModel(activity, options.Links).Map<EventExtendedItemModel>();
-            var  userId =_intranetUserService.GetCurrentUser();
-            extendedModel.LikesInfo = activity;
+            EventExtendedItemModel extendedModel = GetItemViewModel(item, options);
+            return PartialView(ItemViewPath, extendedModel);
+        }
+
+        private EventExtendedItemModel GetItemViewModel(Event item, ActivityFeedOptionsWithGroups options)
+        {
+            var model = GetItemViewModel(item, options.Links);
+            var extendedModel = model.Map<EventExtendedItemModel>();
+
+            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+
+            var userId = _intranetUserService.GetCurrentUser();
+            extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
             extendedModel.IsReadOnly = options.IsReadOnly;
-            extendedModel.IsSubscribed = activity.Subscribers.Any(s => s.UserId == userId.Id);
-            return PartialView(ItemViewPath, extendedModel);
+            extendedModel.IsSubscribed = item.Subscribers.Any(s => s.UserId == userId.Id);
+
+            return extendedModel;
         }
 
         public ActionResult PreviewItem(Event item, ActivityLinks links)

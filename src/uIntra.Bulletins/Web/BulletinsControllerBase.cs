@@ -126,7 +126,7 @@ namespace uIntra.Bulletins.Web
             return Json(new { IsSuccess = true });
         }
 
-        public virtual ActionResult ItemHeader(IntranetActivityItemHeaderViewModel model)
+        public virtual ActionResult ItemHeader(object model)
         {
             return PartialView(ItemHeaderViewPath, model);
         }
