@@ -57,7 +57,7 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult CentralFeedItem(Event item, FeedOptionsModel options)
+        public ActionResult CentralFeedItem(Event item, FeedOptions options)
         {
             var activity = item;
             var extendedModel = GetItemViewModel(activity, options.Links).Map<EventExtendedItemModel>();

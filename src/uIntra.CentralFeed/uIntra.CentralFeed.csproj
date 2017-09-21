@@ -354,7 +354,7 @@
     <Compile Include="Core\IFeedItemService.cs" />
     <Compile Include="Core\IFeedService.cs" />
     <Compile Include="Core\Links\ICentralFeedLinkService.cs" />
-    <Compile Include="Core\Models\Feed\FeedOptionsModel.cs" />
+    <Compile Include="Core\Models\Feed\FeedOptions.cs" />
     <Compile Include="Core\Models\Feed\FeedTabSettings.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Models\Feed\CreateViewModel.cs" />
