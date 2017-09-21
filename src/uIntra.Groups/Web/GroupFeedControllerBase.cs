@@ -178,7 +178,8 @@ namespace uIntra.Groups.Web
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
                 GroupId = groupId,
-                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser)
+                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser),
+                IsFiltersOpened = true
             };
             return model;
         }
