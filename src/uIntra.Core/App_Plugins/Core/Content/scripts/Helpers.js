@@ -4,6 +4,8 @@ var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 require('simple-scrollbar');
 
+var EmojiConvertor = require('emoji-js');
+
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
@@ -36,11 +38,6 @@ var helpers = {
             }
 
             dataStorage.value = quill.container.firstChild.innerHTML;
-        });
-
-        quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
-            var plaintext = $.trim($(node).text());
-            return new Delta().insert(plaintext);
         });
 
         return quill;

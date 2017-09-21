@@ -52,6 +52,11 @@ function initEditor() {
         }
     });
 
+    var toolbar = editor.getModule('toolbar');
+    toolbar.addHandler('emoji', function() {
+        console.log('emoji');
+    });
+
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
     });
