@@ -364,10 +364,12 @@
     <Compile Include="Core\Models\FilterState\FeedFilterStateViewModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFilterStateModel.cs" />
     <Compile Include="Core\Models\FilterState\FeedFiltersState.cs" />
-    <Compile Include="Core\Models\Feed\ActivityFeedTabModel.cs" />
+    <Compile Include="Core\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Core\Models\CentralFeed\CentralFeedTabViewModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesPanelModel.cs" />
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\PageTabModel.cs" />
+    <Compile Include="Core\Navigation\Models\TabModelBase.cs" />
     <Compile Include="DefaultImplementation\FeedService.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Extentions;
@@ -85,25 +86,33 @@ namespace Compent.uIntra.Controllers
             if (!group.IsHidden)
             {
                 groupNavigationModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().UrlWithGroupId(groupId);
-                var allFeedTabType = _feedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt());
 
-                var allTabs = _groupContentHelper.GetTabs(groupId.Value, _intranetUserService.GetCurrentUser(), CurrentPage).ToList();
-                var tabs = allTabs.FindAll(t => t.Type == null && t.Content.IsShowPageInSubNavigation() || t.Type?.Id == allFeedTabType.Id);
-                var allTab = tabs.Single(t => t.Type?.Id == allFeedTabType.Id);
-                allTab.IsActive = allTabs.Exists(t => t.Type != null && t.IsActive);
+                groupNavigationModel.ActivityTabs = _groupContentHelper
+                    .GetMainFeedTab(CurrentPage, groupId.Value)
+                    .ToEnumerableOfOne()
+                    .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
+                var currentUser = _intranetUserService.GetCurrentUser();
                 var groupEditPage = _groupContentHelper.GetEditPage();
-                groupNavigationModel.Tabs = tabs.Select(tab =>
-                {
-                    var tabModel = tab.Map<GroupNavigationTabViewModel>();
-                    tabModel.AlignRight = tab.Content.Id == groupEditPage.Id;
-                    tabModel.Title = tab.Content.GetNavigationName();
-                    return tabModel;
-                });
+                groupNavigationModel.PageTabs = _groupContentHelper
+                    .GetPageTabs(CurrentPage, currentUser, groupId.Value)
+                    .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }
 
 
             return PartialView(GroupNavigationViewPath, groupNavigationModel);
+        }
+
+        private GroupNavigationPageTabViewModel MapToGroupPageTabViewModel(PageTabModel tab, IPublishedContent editPage)
+        {
+            var result = tab.Map<GroupNavigationPageTabViewModel>();
+            result.AlignRight = IsGroupEditPage(tab.Content, editPage);
+            return result;
+        }
+
+        private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
+        {
+            return tab.Id == editPage.Id;
         }
 
         public ContentResult GetTitle()
