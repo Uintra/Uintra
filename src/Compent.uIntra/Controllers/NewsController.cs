@@ -47,7 +47,7 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult CentralFeedItem(News item, FeedOptions options)
+        public ActionResult FeedItem(News item, FeedOptions options)
         {
             var activity = item;
 
