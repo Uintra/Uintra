@@ -72,8 +72,8 @@ namespace uIntra.Core.Extentions
             string result = String.Empty;
 
             result += helper.PassLinks((IActivityCreateLinks)links);
-            result += helper.Hidden(EditFormKey, links.Edit);
-            result += helper.Hidden(DetailsFormKey, links.Details);
+            result += helper.Hidden(LinksBinder.EditFormKey, links.Edit);
+            result += helper.Hidden(LinksBinder.DetailsFormKey, links.Details);
 
             return MvcHtmlString.Create(result);
             
@@ -83,19 +83,12 @@ namespace uIntra.Core.Extentions
         {
             string result = String.Empty;
 
-            result += helper.Hidden(DetailsNoIdFormKey, links.DetailsNoId);
-            result += helper.Hidden(CreateFormKey, links.Create);
-            result += helper.Hidden(CreatorFormKey, links.Creator);
-            result += helper.Hidden(OverviewFormKey, links.Overview);
+            result += helper.Hidden(LinksBinder.DetailsNoIdFormKey, links.DetailsNoId);
+            result += helper.Hidden(LinksBinder.CreateFormKey, links.Create);
+            result += helper.Hidden(LinksBinder.CreatorFormKey, links.Creator);
+            result += helper.Hidden(LinksBinder.OverviewFormKey, links.Overview);
 
             return MvcHtmlString.Create(result);
         }
-
-        public const string OverviewFormKey = "links.Overview";
-        public const string DetailsFormKey = "links.Details";
-        public const string EditFormKey = "links.Edit";
-        public const string DetailsNoIdFormKey = "links.DetailsNoId";
-        public const string CreatorFormKey = "links.Creator";
-        public const string CreateFormKey = "links.Create";
     }
 }

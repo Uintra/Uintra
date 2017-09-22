@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using uIntra.Core.Attributes;
 using uIntra.Core.Links;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.TypeProviders;

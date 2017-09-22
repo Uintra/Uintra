@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using uIntra.Core.Attributes;
 using uIntra.Core.Links;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.TypeProviders;
@@ -26,18 +27,4 @@ namespace uIntra.Core.Activity
         [PropertyBinder(typeof(LinksBinder))]
         public IActivityCreateLinks Links { get; set; }
     }
-}
-
-public class RequiredVirtualAttribute : RequiredAttribute
-{
-    public bool IsRequired { get; set; } = true;
-
-    public override bool IsValid(object value)
-    {
-        if (IsRequired)
-            return base.IsValid(value);
-        return true;
-    }
-
-    public override bool RequiresValidationContext => IsRequired;
 }
