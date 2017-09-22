@@ -4,7 +4,6 @@ var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 require('simple-scrollbar');
 
-var EmojiConvertor = require('emoji-js');
 
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
