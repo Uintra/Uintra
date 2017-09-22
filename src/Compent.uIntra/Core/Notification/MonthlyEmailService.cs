@@ -37,9 +37,14 @@ namespace Compent.uIntra.Core.Notification
             _tagsService = tagsService;
         }
 
-        protected virtual List<Tag> GetUserTags(Guid userId)
+        protected virtual IEnumerable<Tag> GetUserTags(Guid userId)
         {
             return new List<Tag>();
+        }
+
+        protected virtual IEnumerable<Tag> GetActivityTags(Guid activityId)
+        {
+            return _tagsService.GetAllForActivity(activityId);
         }
 
         protected override List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId)
@@ -53,7 +58,7 @@ namespace Compent.uIntra.Core.Notification
             {
                 foreach (var activity in allUserActivities)
                 {
-                    var activityTags = _tagsService.GetAllForActivity(activity.Id);
+                    var activityTags = GetActivityTags(activity.Id);
                     if (activityTags != null && activityTags.Any(a => userTags.FirstOrDefault(tag => tag.Id == a.Id) != null))
                     {
                         string activityDetailsPageUrl = GetActivityDetailsUrl(activity);
