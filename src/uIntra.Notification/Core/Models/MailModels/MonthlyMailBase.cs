@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Constants;
 
 namespace uIntra.Notification
 {
-    public class MonthlyMail: MailBase
+    public class MonthlyMailBase: MailBase
     {
         public string FullName { get; set; }
 

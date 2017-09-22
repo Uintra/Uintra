@@ -57,10 +57,10 @@ namespace uIntra.Notification
 
         protected abstract List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId);        
 
-        private MonthlyMail GetMonthlyMailModel(string userActivities, IIntranetUser user)
+        private MonthlyMailBase GetMonthlyMailModel(string userActivities, IIntranetUser user)
         {
             var recipient = new MailRecipient { Email = user.Email, Name = user.DisplayedName };
-            return new MonthlyMail
+            return new MonthlyMailBase
             {
                 FullName = user.DisplayedName,
                 ActivityList = userActivities,

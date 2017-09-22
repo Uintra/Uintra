@@ -353,7 +353,7 @@
     <Compile Include="Core\Entities\Base\Mails\MailAttachmentFile.cs" />
     <Compile Include="Core\Entities\Base\Mails\MailBase.cs" />
     <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
-    <Compile Include="Core\Models\MailModels\MonthlyMail.cs" />
+    <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
     <Compile Include="Core\Models\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
