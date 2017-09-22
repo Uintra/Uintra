@@ -29,7 +29,6 @@
             <span class="form__required" style="display:none">@Html.Localize("BulletinsEdit.AtLeastOneFieldMustBeFilled.lbl")</span>
         </div>
         <div class="form__row clearfix">
-            @Html.PassLinks(Model.Links)
             @Html.HiddenFor(bulletin => bulletin.MediaRootId)
             <input class="form__btn _submit js-disable-submit" type="submit" value="@Html.Localize("BulletinsEdit.Edit.btn")"/>
             <input class="form__btn _cancel js-edit-bulletin__delete" type="button" value="@Html.Localize("BulletinsEdit.Delete.btn")" data-return-url="@Model.Links.Overview"

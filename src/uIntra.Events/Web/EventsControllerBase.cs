@@ -175,7 +175,7 @@ namespace uIntra.Events.Web
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
         }
 
-        protected virtual EventCreateModel GetCreateModel(ActivityCreateLinks links)
+        protected virtual EventCreateModel GetCreateModel(IActivityCreateLinks links)
         {
             var mediaSettings = _eventsService.GetMediaSettings();
             var model = new EventCreateModel
@@ -253,7 +253,7 @@ namespace uIntra.Events.Web
             return model;
         }
 
-        protected virtual EventItemViewModel GetItemViewModel(EventBase @event, ActivityLinks links)
+        protected virtual EventItemViewModel GetItemViewModel(EventBase @event, IActivityLinks links)
         {
             var model = @event.Map<EventItemViewModel>();
 

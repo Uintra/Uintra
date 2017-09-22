@@ -36,12 +36,12 @@ namespace Compent.uIntra.Core.Feed.Links
             _intranetUserService = intranetUserService;
         }
 
-        public ActivityLinks GetLinks(Guid activityId)
+        public IActivityLinks GetLinks(Guid activityId)
         {
             var groupId = _groupActivityService.GetGroupId(activityId);
 
             var activity = GetActivity(activityId);
-            ActivityLinks result;
+            IActivityLinks result;
             if (groupId.HasValue)
             {
                 var activityModel = activity.Map<GroupActivityTransferModel>();
@@ -55,13 +55,13 @@ namespace Compent.uIntra.Core.Feed.Links
             return result;
         }
 
-        public ActivityCreateLinks GetCreateLinks(IIntranetType activityType, Guid groupId)
+        public IActivityCreateLinks GetCreateLinks(IIntranetType activityType, Guid groupId)
         {
             var activityModel = GetActivityGroupCreateModel(activityType, groupId);
             return _groupFeedLinksProvider.GetCreateLinks(activityModel);
         }
 
-        public ActivityCreateLinks GetCreateLinks(IIntranetType activityType)
+        public IActivityCreateLinks GetCreateLinks(IIntranetType activityType)
         {
             var activityModel = GetActivityCreateModel(activityType);
             return _centralFeedLinksProvider.GetCreateLinks(activityModel);

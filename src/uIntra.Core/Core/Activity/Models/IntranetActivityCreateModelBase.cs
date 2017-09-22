@@ -24,7 +24,7 @@ namespace uIntra.Core.Activity
         public IIntranetType ActivityType { get; set; }
 
         [PropertyBinder(typeof(LinksBinder))]
-        public ActivityCreateLinks Links { get; set; }
+        public IActivityCreateLinks Links { get; set; }
     }
 }
 

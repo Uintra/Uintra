@@ -41,7 +41,7 @@ namespace uIntra.Core.Web
             return PartialView(ItemHeaderViewPath, header);
         }
 
-        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName, IntranetActivityTypeEnum activityType, ActivityCreateLinks links)
+        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName, IntranetActivityTypeEnum activityType, IActivityCreateLinks links)
         {
             var model = new IntranetActivityCreatorEditModel
             {
