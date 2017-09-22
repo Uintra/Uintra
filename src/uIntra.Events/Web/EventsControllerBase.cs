@@ -31,9 +31,8 @@ namespace uIntra.Events.Web
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
-        private readonly IGridHelper _gridHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IActivityLinkService _activityLinkService;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
 
@@ -41,16 +40,14 @@ namespace uIntra.Events.Web
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
-            IGridHelper gridHelper,
-            IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider,
+            IActivityLinkService activityLinkService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
-            _intranetUserContentHelper = intranetUserContentHelper;
-            _gridHelper = gridHelper;
             _activityTypeProvider = activityTypeProvider;
+            _activityLinkService = activityLinkService;
         }
 
         public virtual ActionResult Details(Guid id, ActivityLinks links)
@@ -75,12 +72,12 @@ namespace uIntra.Events.Web
 
         protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
         {
-            //string overviewUrl = _eventsService.GetOverviewPage().Url; // TODO
+            var comingEvents = GetComingEvents(panelModel.EventsAmount);
             var viewModel = new ComingEventsPanelViewModel()
             {
-                //OverviewUrl = overviewUrl,
+                OverviewUrl = comingEvents.FirstOrDefault()?.Links.Overview,
                 Title = panelModel.DisplayTitle,
-                Events = GetComingEvents(panelModel.EventsAmount)
+                Events = comingEvents
             };
             return viewModel;
         }
@@ -92,14 +89,13 @@ namespace uIntra.Events.Web
 
             var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
 
-            //var detailsPage = _eventsService.GetDetailsPage(CurrentPage);// TODO
             var comingEvents = new List<ComingEventViewModel>();
 
             foreach (var e in eventsList)
             {
                 var viewModel = e.Map<ComingEventViewModel>();
-                //viewModel.DetailsPageUrl = detailsPage.Url.AddIdParameter(e.Id);// TODO
                 viewModel.Creator = creatorsDictionary[e.CreatorId];
+                viewModel.Links = _activityLinkService.GetLinks(e.Id);
                 comingEvents.Add(viewModel);
             }
 

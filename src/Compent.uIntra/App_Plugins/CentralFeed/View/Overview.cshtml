@@ -3,14 +3,11 @@
 @using uIntra.CentralFeed
 @using uIntra.Core.Extentions
 @using Umbraco.Web
-@model uIntra.Groups.GroupFeedOverviewModel
-@{
-    var tabsWithCreateUrls = Model.Tabs.Where(t => t.Links.Create.IsNotNullOrEmpty());
-}
+@model uIntra.CentralFeed.CentralFeedOverviewModel
 
 <section class="content _central-feed">
     <ul class="feed-create js-feed-create">
-        @foreach (var typeModel in tabsWithCreateUrls)
+        @foreach (var typeModel in Model.TabsWithCreateUrl)
         {
             <li class="feed-create__frame">
                 <a class="feed-create__item" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
@@ -21,7 +18,8 @@
             <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
         </li>
     </ul>
-    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "GroupFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+    @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
+    @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter filter__body js-feed-navigation">
         <div class="tabset__holder">
             <ul class="feed-links js-feed-links">
@@ -34,21 +32,20 @@
             </ul>
         </div>
     </div>
-    <div class="feed__overview">
+    <div class="feed__overview js-feed-overview">
         @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
                                     new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
         {
             <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50" /></div>
-            <input type="hidden" name="type" value="@Model.CurrentType.Id" />
+            <input type="hidden" name="typeId" value="@Model.CurrentType.Id" />
             <input type="hidden" name="page" />
             <div class="tab-content js-feed-listContainer">
-                @{Html.RenderAction("List", "GroupFeed",
+                @{Html.RenderAction("List", "CentralFeed",
                         new
                         {
-                            model = new GroupFeedListModel
+                            model = new FeedListModel
                             {
-                                TypeId = Model.CurrentType.Id,
-                                GroupId = Model.GroupId
+                                TypeId = Model.CurrentType.Id
                             }
                         }); }
             </div>

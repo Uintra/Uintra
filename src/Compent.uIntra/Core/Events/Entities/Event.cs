@@ -23,5 +23,8 @@ namespace Compent.uIntra.Core.Events
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
         public Guid? GroupId { get; set; }
+
+        [JsonIgnore]
+        public bool IsReadOnly { get; set; }
     }
 }

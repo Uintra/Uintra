@@ -236,7 +236,7 @@ function init() {
                 var tab = tabs[i];
                 if (tab.dataset['type'] == val) {
                     tab.classList.add(active);
-                    holder.querySelector('form input[name="type"]').value = val;
+                    holder.querySelector('form input[name="typeId"]').value = val;
                 } else {
                     tab.classList.remove(active);
                 }

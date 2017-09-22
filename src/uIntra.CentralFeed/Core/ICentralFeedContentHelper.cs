@@ -12,7 +12,7 @@ namespace uIntra.CentralFeed
 
         IIntranetType GetTabType(IPublishedContent content);
 
-        IEnumerable<FeedTabModel> GetTabs(IPublishedContent currentPage);
+        IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage);
 
         void SaveFiltersState(FeedFiltersState stateModel);
 

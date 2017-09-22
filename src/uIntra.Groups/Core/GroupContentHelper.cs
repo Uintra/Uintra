@@ -87,34 +87,36 @@ namespace uIntra.Groups
             return GetGroupRoomPage().IsAncestorOrSelf(currentPage);
         }
 
-        public IEnumerable<FeedTabModel> GetTabs(Guid groupId, IIntranetUser user, IPublishedContent currentContent)
+        public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
         {
             var groupRoom = GetGroupRoomPage();
             var type = GetTabType(groupRoom);
-            yield return new FeedTabModel
+            var result = new ActivityFeedTabModel
             {
                 Content = groupRoom,
                 Type = type,
                 IsActive = groupRoom.Id == currentContent.Id,
                 Links = _groupFeedLinkService.GetCreateLinks(type, groupId)
             };
+            return result;
+        }
 
-            var canEdit = _groupService.CanEdit(groupId, user);
-            var editGroupPage = GetEditPage();
+        // ULTRA TODO : use tuples to return all tabs at once!
+        public IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId)
+        {
+            yield return GetMainFeedTab(currentContent, groupId);
 
-            foreach (var content in GetContents())
+
+
+            foreach (var content in GetContent())
             {
-                //if (!canEdit && editGroupPage.Id == content.Id || content.IsHideFromSubNavigation())
-                if (!canEdit && editGroupPage.Id == content.Id)
-                    continue;
-
                 var tabType = GetTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
                 if (activityType == null)
                     continue;
 
-                var tab = new FeedTabModel
+                var tab = new ActivityFeedTabModel
                 {
                     Content = content,
                     Type = tabType,
@@ -124,6 +126,50 @@ namespace uIntra.Groups
 
                 yield return tab;
             }
+        }
+
+        public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId)
+        {
+            Func<IPublishedContent, bool> skipPage = GetPageSkipResolver(user, groupId);
+
+            foreach (var content in GetContent())
+            {
+                if (skipPage(content))
+                    continue;
+                var tabType = GetTabType(content);
+                var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
+                if (activityType == null)
+                    yield return GetPageTab(currentContent, content, groupId);
+            }
+        }
+
+        private Func<IPublishedContent, bool> GetPageSkipResolver(IIntranetUser user, Guid groupId)
+        {
+            var canEdit = _groupService.CanEdit(groupId, user);
+            var editGroupPage = GetEditPage();
+
+            var deactivatedPage = GetDeactivatedGroupPage();
+
+            Func<IPublishedContent, bool> skipPage = (content) =>
+                    (!canEdit && AreSamePages(editGroupPage, content)
+                     || AreSamePages(deactivatedPage, content));
+            return skipPage;
+        }
+
+        private PageTabModel GetPageTab(IPublishedContent currentContent, IPublishedContent content, Guid groupId)
+        {
+            return new PageTabModel()
+            {
+                Content = content,
+                IsActive = content.IsAncestorOrSelf(currentContent),
+                Title = content.Name,
+                Link = content.Url.AddGroupId(groupId)
+            };
+        }
+
+        private static bool AreSamePages(IPublishedContent first, IPublishedContent second)
+        {
+            return first.Id == second.Id;
         }
 
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
@@ -144,7 +190,7 @@ namespace uIntra.Groups
             return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
         }
 
-        private IEnumerable<IPublishedContent> GetContents()
+        private IEnumerable<IPublishedContent> GetContent()
         {
             return GetGroupRoomPage().Children;
         }

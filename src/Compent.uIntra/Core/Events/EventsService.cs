@@ -6,6 +6,7 @@ using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -41,10 +42,8 @@ namespace Compent.uIntra.Core.Events
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
-        private readonly IGroupFeedLinkService _groupFeedLinkService;
-        private readonly ICentralFeedLinkService _centralFeedLinkService;
+        private readonly IActivityLinkService _linkService;
 
 
         private readonly IGroupActivityService _groupActivityService;
@@ -62,12 +61,10 @@ namespace Compent.uIntra.Core.Events
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            IFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
-            ICentralFeedLinkService centralFeedLinkService,
-            IGroupFeedLinkService groupFeedLinkService)
+            IActivityLinkService linkService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -80,11 +77,9 @@ namespace Compent.uIntra.Core.Events
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _activityTypeProvider = activityTypeProvider;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
             _groupActivityService = groupActivityService;
-            _centralFeedLinkService = centralFeedLinkService;
-            _groupFeedLinkService = groupFeedLinkService;
+            _linkService = linkService;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -433,8 +428,9 @@ namespace Compent.uIntra.Core.Events
 
         private SearchableActivity Map(Event @event)
         {
+
             var searchableActivity = @event.Map<SearchableActivity>();
-            //searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(@event.Id);
+            searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
             return searchableActivity;
         }
     }

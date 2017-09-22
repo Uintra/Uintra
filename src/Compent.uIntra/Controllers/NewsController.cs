@@ -14,7 +14,10 @@ using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
 using System.Linq;
+using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Feed;
+using uIntra.CentralFeed;
 using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
@@ -30,7 +33,6 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
 
-
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<News> newsService,
@@ -39,20 +41,31 @@ namespace Compent.uIntra.Controllers
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService)
-            : base(intranetUserService, newsService, mediaHelper, intranetUserContentHelper, activityTypeProvider)
+            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
         }
 
-        public ActionResult CentralFeedItem(News item, ActivityLinks links)
+        public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
         {
-            var activity = item;
-
-            var extendedModel = GetItemViewModel(activity, links).Map<NewsExtendedItemViewModel>();
-            extendedModel.LikesInfo = activity;
+            var extendedModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        private NewsExtendedItemViewModel GetItemViewModel(News item, ActivityFeedOptionsWithGroups options)
+        {
+            var model = GetItemViewModel(item, options.Links);
+            var extendedModel = model.Map<NewsExtendedItemViewModel>();
+
+            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+
+            extendedModel.LikesInfo = item;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
+            return extendedModel;
         }
 
         public ActionResult PreviewItem(News item, ActivityLinks links)
@@ -66,6 +79,7 @@ namespace Compent.uIntra.Controllers
             var extendedNews = (News)news;
             var extendedModel = base.GetViewModel(news).Map<NewsExtendedViewModel>();
             extendedModel = Mapper.Map(extendedNews, extendedModel);
+            
             return extendedModel;
         }
 

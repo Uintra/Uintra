@@ -36,10 +36,10 @@
 }
 
 <div class="feed__list">
-    @foreach (var activity in Model.Feed)
+    @foreach (var item in Model.Feed)
     {
-        <div data-anchor="@activity.Item.Id">
-            @{ Html.RenderAction("CentralFeedItem", activity.ControllerName, new { item = activity.Item, links = activity.Links }); }
+        <div data-anchor="@item.Activity.Id">
+            @{ Html.RenderAction("FeedItem", item.ControllerName, new { item = item.Activity, options = item.Options }); }
         </div>
     }
 </div>

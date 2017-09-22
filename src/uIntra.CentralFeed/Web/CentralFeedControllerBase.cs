@@ -18,13 +18,13 @@ namespace uIntra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
 
-        protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedOverView.cshtml";
-        protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedDetailsView.cshtml";
-        protected override string CreateViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedCreateView.cshtml";
-        protected override string EditViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedEditView.cshtml";
-        protected override string ListViewPath => "~/App_Plugins/CentralFeed/View/CentralFeedList.cshtml";
-        protected override string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
-        protected override string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
+        protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
+        protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/Details.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/CentralFeed/View/Create.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/CentralFeed/View/Edit.cshtml";
+        protected override string ListViewPath => "~/App_Plugins/CentralFeed/View/List.cshtml";
+        protected virtual string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
+        protected virtual string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
         protected CentralFeedControllerBase(
             ICentralFeedService centralFeedService,
@@ -75,14 +75,6 @@ namespace uIntra.CentralFeed.Web
             return PartialView(EditViewPath, viewModel);
         }
 
-        public virtual ActionResult OpenFilters()
-        {
-            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _centralFeedContentHelper.SaveFiltersState(feedState);
-            return new EmptyResult();
-        }
-
         public virtual ActionResult List(FeedListModel model)
         {
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
@@ -109,6 +101,15 @@ namespace uIntra.CentralFeed.Web
             _centralFeedContentHelper.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
+        }
+
+        [HttpGet]
+        public virtual ActionResult OpenFilters()
+        {
+            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
+            _centralFeedContentHelper.SaveFiltersState(feedState);
+            return new EmptyResult();
         }
 
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
@@ -141,20 +142,12 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
+        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
         {
-            var activitySettings = settings
-                .ToDictionary(s => s.Type.Id);
-
-            var result = items
-                .Select(i => new FeedItemViewModel()
-                {
-                    Item = i,
-                    Links = _centralFeedLinkService.GetLinks(i.Id),
-                    ControllerName = activitySettings[i.Type.Id].Controller
-                });
-
-            return result;
+            return new ActivityFeedOptions()
+            {
+                Links = _centralFeedLinkService.GetLinks(i.Id)
+            };
         }
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
@@ -162,7 +155,7 @@ namespace uIntra.CentralFeed.Web
             var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
-            var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<FeedTabViewModel>>();
+            var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new CentralFeedOverviewModel
             {
@@ -204,12 +197,12 @@ namespace uIntra.CentralFeed.Web
         }
 
 
-        private FeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
+        private ActivityFeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
         {
             var result = _centralFeedContentHelper
                 .GetTabs(CurrentPage)
                 .Single(el => el.Type.Id == activitiesType.Id)
-                .Map<FeedTabViewModel>();
+                .Map<ActivityFeedTabViewModel>();
             return result;
         }
 

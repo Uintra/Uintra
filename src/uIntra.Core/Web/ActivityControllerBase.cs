@@ -36,7 +36,7 @@ namespace uIntra.Core.Web
             return PartialView(DetailsHeaderViewPath, header);
         }
 
-        public virtual ActionResult ItemHeader(IntranetActivityItemHeaderViewModel header)
+        public virtual ActionResult ItemHeader(object header)
         {
             return PartialView(ItemHeaderViewPath, header);
         }

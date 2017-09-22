@@ -28,7 +28,6 @@ namespace uIntra.News.Web
         private readonly INewsService<NewsBase> _newsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
          
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
@@ -37,13 +36,11 @@ namespace uIntra.News.Web
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
-            _intranetUserContentHelper = intranetUserContentHelper;
             _activityTypeProvider = activityTypeProvider;
         }
 

@@ -12,7 +12,11 @@ using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Navigation;
 using System.Linq;
+using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Feed;
+using uIntra.CentralFeed;
+using uIntra.Core.Activity;
 using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
@@ -21,6 +25,8 @@ namespace Compent.uIntra.Controllers
     {
         protected override string DetailsViewPath => "~/Views/Bulletins/DetailsView.cshtml";
         protected override string ItemViewPath => "~/Views/Bulletins/ItemView.cshtml";
+        protected override string ItemHeaderViewPath { get; } = "~/Views/Bulletins/ItemHeader.cshtml";
+
         private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupActivityService _groupActivityService;
@@ -29,17 +35,16 @@ namespace Compent.uIntra.Controllers
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider, 
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService)
-            : base(bulletinsService, mediaHelper, intranetUserService, intranetUserContentHelper, activityTypeProvider)
+            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
             _groupActivityService = groupActivityService;
         }
-
+    
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityLinks links)
         {
             var extendedBullet = (Bulletin)bulletin;
@@ -48,12 +53,24 @@ namespace Compent.uIntra.Controllers
             return extendedModel;
         }
 
-        public ActionResult CentralFeedItem(Bulletin item, ActivityLinks links)
+        public ActionResult FeedItem(Bulletin item, ActivityFeedOptionsWithGroups options)
         {
-            var activity = item;
-            var extendedModel = GetItemViewModel(activity, links).Map<BulletinExtendedItemViewModel>();
-            extendedModel.LikesInfo = activity;
+            BulletinExtendedItemViewModel extendedModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        private BulletinExtendedItemViewModel GetItemViewModel(Bulletin item, ActivityFeedOptionsWithGroups options)
+        {
+            var model = GetItemViewModel(item, options.Links);
+            var extendedModel = model.Map<BulletinExtendedItemViewModel>();
+
+            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+
+            extendedModel.LikesInfo = item;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
+            return extendedModel;
         }
 
         public ActionResult PreviewItem(Bulletin item, ActivityLinks links)

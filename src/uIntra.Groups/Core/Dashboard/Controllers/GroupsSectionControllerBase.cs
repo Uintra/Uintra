@@ -15,7 +15,7 @@ namespace uIntra.Groups.Dashboard
         private readonly IGroupContentHelper _groupContentHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public GroupsSectionControllerBase(IGroupService groupsService,
+        protected GroupsSectionControllerBase(IGroupService groupsService,
             IGroupContentHelper groupContentHelper,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {

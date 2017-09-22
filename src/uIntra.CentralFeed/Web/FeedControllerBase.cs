@@ -16,8 +16,6 @@ namespace uIntra.CentralFeed.Web
     {
         protected abstract string OverviewViewPath { get; }
         protected abstract string ListViewPath { get; }
-        protected abstract string NavigationViewPath { get; }
-        protected abstract string LatestActivitiesViewPath { get; }
 
         protected abstract string DetailsViewPath { get; }
         protected abstract string CreateViewPath { get; }
@@ -61,6 +59,31 @@ namespace uIntra.CentralFeed.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+
+        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
+        {
+            var activitySettings = settings
+                .ToDictionary(s => s.Type.Id);
+
+            var result = items
+                .Select(i => MapFeedItemToViewModel(i, activitySettings));
+
+            return result;
+        }
+
+        protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
+        {
+            ActivityFeedOptions options = GetActivityFeedOptions(i);
+            return new FeedItemViewModel()
+            {
+                Activity = i,
+                Options = options,
+                ControllerName = settings[i.Type.Id].Controller
+            };
+        }
+
+        protected abstract ActivityFeedOptions GetActivityFeedOptions(IFeedItem feedItem);
 
         protected static IEnumerable<IIntranetType> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {
@@ -129,7 +152,7 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected static IEnumerable<FeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<FeedTabViewModel> tabs) => 
+        protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) => 
             tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.IsNotNullOrEmpty());
 
         protected static bool IsTypeForAllActivities(IIntranetType type) =>

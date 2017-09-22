@@ -7,6 +7,7 @@ using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -42,8 +43,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly IGroupFeedLinkService _groupFeedLinkService;
-        private readonly ICentralFeedLinkService _centralFeedLinkService;
+        private readonly IActivityLinkService _linkService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -60,7 +60,9 @@ namespace Compent.uIntra.Core.Bulletins
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
-            IIntranetMediaService intranetMediaService, IGroupActivityService groupActivityService, IGroupFeedLinkService groupFeedLinkService, ICentralFeedLinkService centralFeedLinkService)
+            IIntranetMediaService intranetMediaService,
+            IGroupActivityService groupActivityService,
+            IActivityLinkService linkService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -76,8 +78,7 @@ namespace Compent.uIntra.Core.Bulletins
             _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _groupActivityService = groupActivityService;
-            _groupFeedLinkService = groupFeedLinkService;
-            _centralFeedLinkService = centralFeedLinkService;
+            _linkService = linkService;
         }
 
 
@@ -346,7 +347,7 @@ namespace Compent.uIntra.Core.Bulletins
         private SearchableActivity Map(Bulletin bulletin)
         {
             var searchableActivity = bulletin.Map<SearchableActivity>();
-            // searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(bulletin.Id); // TODO : think about what url will be used for searching, centralFeed or another
+            searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
             return searchableActivity;
         }
     }

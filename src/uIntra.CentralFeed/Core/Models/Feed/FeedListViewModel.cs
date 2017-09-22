@@ -12,5 +12,6 @@ namespace uIntra.CentralFeed
         public long Version { get; set; }
         public bool BlockScrolling { get; set; }
         public FeedFilterStateViewModel FilterState { get; set; }
+        public bool IsReadOnly { get; set; }
     }
 }

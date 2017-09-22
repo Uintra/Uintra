@@ -335,16 +335,8 @@
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.0.1\lib\net452\uIntra.BaseControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.7.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.7.2\lib\net452\uIntra.Comments.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.5.1\lib\net452\uIntra.Likes.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.1.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1081,8 +1073,8 @@
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedOverView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -1100,10 +1092,10 @@
     <Content Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
     <Content Include="App_Plugins\Groups\Documents\GroupDocumentsTable.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\EditGroupView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedCreateView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedDetailsView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedList.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedOverviewView.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Create.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Details.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\List.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Overview.cshtml" />
     <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
     <Content Include="App_Plugins\Groups\Info\GroupInfoView.cshtml" />
     <Content Include="App_Plugins\Groups\Info\GroupSubscribeView.cshtml" />
@@ -1114,10 +1106,10 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201709181059062_GroupActivityRenaming.resx">
       <DependentUpon>201709181059062_GroupActivityRenaming.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedCreateView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedDetailsView.cshtml" />
-    <Content Include="App_Plugins\Groups\Feed\GroupFeedEditView.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\CentralFeedEditView.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+    <Content Include="App_Plugins\Groups\Feed\Edit.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
     <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
@@ -1187,6 +1179,8 @@
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Activity\ItemHeader.cshtml" />
+    <Content Include="Views\Bulletins\ItemHeader.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1217,6 +1211,10 @@
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
+    <Compile Include="Core\Activity\FeedActivityHelper.cs" />
+    <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\ApplicationSettings\IuIntraApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\UintraApplicationSettings.cs" />
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
@@ -1232,6 +1230,7 @@
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
     <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
+    <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
@@ -1272,7 +1271,7 @@
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
-    <Compile Include="Core\Links\ActivityLinkService.cs" />
+    <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />
@@ -1413,6 +1412,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1420,7 +1420,6 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Plugins\Groups\CentralFeed\" />
     <Folder Include="App_Plugins\Members\NewFolder1\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>
@@ -1441,6 +1440,10 @@
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
       <Name>uIntra.CentralFeed</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.Comments\uIntra.Comments.csproj">
+      <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
+      <Name>uIntra.Comments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
@@ -1460,6 +1463,10 @@
     <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
       <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
       <Name>uIntra.Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Likes\uIntra.Likes.csproj">
+      <Project>{b99f0f05-598c-4f4a-a972-7282dcf9fed8}</Project>
+      <Name>uIntra.Likes</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
       <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Compent.uIntra.Core.Activity;
+using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
@@ -15,6 +17,7 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupFeedService _groupFeedService;
+        private readonly IFeedActivityHelper _feedActivityHelper;
 
         public CentralFeedController(
             ICentralFeedService centralFeedService,
@@ -25,7 +28,8 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
-            IGroupFeedService groupFeedService) 
+            IGroupFeedService groupFeedService, 
+            IFeedActivityHelper feedActivityHelper) 
             : base(centralFeedService,
                   centralFeedContentHelper,
                   activitiesServiceFactory,
@@ -37,6 +41,7 @@ namespace Compent.uIntra.Controllers
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
+            _feedActivityHelper = feedActivityHelper;
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
@@ -50,6 +55,17 @@ namespace Compent.uIntra.Controllers
             return base.GetCentralFeedItems(type)
                 .Concat(groupFeed)
                 .OrderByDescending(item => item.PublishDate);
+        }
+
+        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
+        {
+            var options = base.GetActivityFeedOptions(i);
+            return new ActivityFeedOptionsWithGroups()
+            {
+                Links = options.Links,
+                IsReadOnly = options.IsReadOnly,
+                GroupInfo = _feedActivityHelper.GetGroupInfo(i)
+            };
         }
     } 
 }

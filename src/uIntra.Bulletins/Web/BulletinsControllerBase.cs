@@ -31,7 +31,6 @@ namespace uIntra.Bulletins.Web
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _userService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
@@ -40,13 +39,11 @@ namespace uIntra.Bulletins.Web
             IBulletinsService<BulletinBase> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> userService,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _mediaHelper = mediaHelper;
             _userService = userService;
-            _intranetUserContentHelper = intranetUserContentHelper;
             _activityTypeProvider = activityTypeProvider;
         }
 
@@ -129,7 +126,7 @@ namespace uIntra.Bulletins.Web
             return Json(new { IsSuccess = true });
         }
 
-        public virtual ActionResult ItemHeader(IntranetActivityItemHeaderViewModel model)
+        public virtual ActionResult ItemHeader(object model)
         {
             return PartialView(ItemHeaderViewPath, model);
         }

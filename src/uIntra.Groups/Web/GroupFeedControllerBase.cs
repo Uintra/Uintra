@@ -18,20 +18,17 @@ namespace uIntra.Groups.Web
         private readonly IGroupFeedService _groupFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupContentHelper _groupContentHelper;
-        private readonly IGroupService _groupService;
+        private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
-        // TODO : remove redundancies in pathes
-        protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/GroupFeedOverviewView.cshtml";
-        protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/GroupFeedDetailsView.cshtml";
-        protected override string CreateViewPath => "~/App_Plugins/Groups/Feed/GroupFeedCreateView.cshtml";
-        protected override string EditViewPath => "~/App_Plugins/Groups/Feed/GroupFeedEditView.cshtml";
-
-        protected override string ListViewPath => "~/App_Plugins/Groups/Feed/GroupFeedList.cshtml";
-        protected override string NavigationViewPath => "-";// todo
-        protected override string LatestActivitiesViewPath => "-";
+        protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/Overview.cshtml";
+        protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/Details.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/Groups/Feed/Create.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/Groups/Feed/Edit.cshtml";
+        
+        protected override string ListViewPath => "~/App_Plugins/Groups/Feed/List.cshtml";
 
         protected GroupFeedControllerBase(
             ICentralFeedContentHelper centralFeedContentHelper,
@@ -40,9 +37,11 @@ namespace uIntra.Groups.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetUserService<IGroupMember> intranetUserService,
             IGroupContentHelper groupContentHelper,
-            IGroupService groupService, IGroupFeedLinksProvider groupFeedLinksProvider, IGroupFeedLinkService groupFeedLinkService)
+            IGroupFeedLinksProvider groupFeedLinksProvider,
+            IGroupFeedLinkService groupFeedLinkService,
+            IGroupMemberService groupMemberService)
             : base(centralFeedContentHelper,
                   subscribeService,
                   groupFeedService,                 
@@ -54,8 +53,8 @@ namespace uIntra.Groups.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
             _groupContentHelper = groupContentHelper;
-            _groupService = groupService;
             _groupFeedLinkService = groupFeedLinkService;
+            _groupMemberService = groupMemberService;
         }
 
         #region Actions
@@ -77,6 +76,9 @@ namespace uIntra.Groups.Web
         [HttpGet]
         public ActionResult Create(Guid groupId, int typeId)
         {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            if (!_groupMemberService.IsGroupMember(groupId, currentUser))
+                return new EmptyResult();
 
             var activityType = _centralFeedTypeProvider.Get(typeId);
             var viewModel = GetCreateViewModel(activityType, groupId);
@@ -141,7 +143,7 @@ namespace uIntra.Groups.Web
             return new FeedListViewModel
             {
                 Version = _groupFeedService.GetFeedVersion(filteredItems),
-                Feed = GetFeedItems(pagedItemsList, settings, model.GroupId),
+                Feed = GetFeedItems(pagedItemsList, settings),
                 TabSettings = tabSettings,
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count < take,
@@ -149,17 +151,12 @@ namespace uIntra.Groups.Web
             };
         }
 
-        protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings, Guid groupId)
+        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
         {
-            var result = items
-                .Select(i => new FeedItemViewModel()
-                {
-                    Item = i,
-                    Links = _groupFeedLinkService.GetLinks(i.Id),
-                    ControllerName = settings.Single(s => s.Type.Id == i.Type.Id).Controller
-                });
-
-            return result;
+            return new ActivityFeedOptions()
+            {
+                Links = _groupFeedLinkService.GetLinks(i.Id)
+            };
         }
 
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
@@ -167,15 +164,17 @@ namespace uIntra.Groups.Web
             var currentUser = _intranetUserService.GetCurrentUser();
             var tabType = _groupContentHelper.GetTabType(CurrentPage);
 
-            var tabs = _groupContentHelper.GetTabs(groupId, currentUser, CurrentPage);
-            var activityTabs = tabs.Where(t => t.Type != null).Map<List<FeedTabViewModel>>();
+            var tabs = _groupContentHelper.GetActivityTabs(CurrentPage, currentUser, groupId);
+            var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
-                GroupId = groupId
+                GroupId = groupId,
+                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser),
+                IsFiltersOpened = true
             };
             return model;
         }

@@ -27,7 +27,7 @@ namespace uIntra.Groups.Web
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IGroupMediaService _groupMediaService;
 
-        public GroupDocumentsControllerBase(IGroupDocumentsService groupDocumentsService,
+        protected GroupDocumentsControllerBase(IGroupDocumentsService groupDocumentsService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupMemberService groupMemberService,
