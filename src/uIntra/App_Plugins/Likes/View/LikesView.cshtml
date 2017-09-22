@@ -7,7 +7,8 @@
 }
 
 <div class="like" id="likes_@entityId">
-    <span class="like__set @isLiked"><i class="icon-like"></i>
+    <span class="like__set @isLiked">
+        <i class="icon-like"></i>
         @if (Model.Users.Any())
         {
             <span>@Model.Users.Count()</span>
@@ -15,8 +16,8 @@
     </span>
 
     @(Model.CanAddLike
-        ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
-        : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
+          ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId), InsertionMode = InsertionMode.ReplaceWith }, new { @class = "like__link" })
+          : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId), InsertionMode = InsertionMode.ReplaceWith }, new { @class = "like__link" }))
 
     @if (Model.Users.Any())
     {

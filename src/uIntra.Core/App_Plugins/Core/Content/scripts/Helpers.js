@@ -4,6 +4,8 @@ var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
 require('simple-scrollbar');
 
+var EmojiConvertor = require('emoji-js');
+
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
@@ -38,12 +40,145 @@ var helpers = {
             dataStorage.value = quill.container.firstChild.innerHTML;
         });
 
-        quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
-            var plaintext = $.trim($(node).text());
-            return new Delta().insert(plaintext);
+        return quill;
+    },
+    initSmiles: function(container, toolbar, index){
+        var emoji = {
+            "angry": ":angry",
+            "great": ":great",
+            "happy": ":)",
+            "hungry": ":hungry",
+            "inlove": ":inlove",
+            "laughing": ":D",
+            "party": ":party",
+            "relaxed": ":relaxed",
+            "sad": ":(",
+            "sick": ":sick",
+            "skeptical": ":skeptical",
+            "sleeping": ":sleeping",
+            "surprised": ":surprised",
+            "wink": ";)"
+        },
+        body,
+        path,
+        emojiContainer,
+        emojiList,
+        emojiListItem,
+        emojiListImage,
+        emojiBtn,
+        emojiBtnX,
+        emojiBtnY;
+
+        body = document.querySelector("body");
+        path = "/App_Plugins/Core/Content/styles/emoji-data/";
+
+        emojiBtn = toolbar.querySelector(".ql-emoji");
+        emojiBtnX = toolbar.offsetWidth - (emojiBtn.offsetLeft + emojiBtn.offsetWidth);
+
+        emojiContainer = document.createElement("div");
+        emojiContainer.classList.add("js-emoji");
+        emojiContainer.classList.add("emoji");
+        emojiContainer.classList.add("hidden");
+
+        emojiList = document.createElement("ul");
+        emojiList.classList.add("emoji__list");
+
+        for(var i in emoji){
+            emojiListItem = document.createElement("li");
+            emojiListItem.classList.add("emoji__list-item");
+
+            emojiListItem.addEventListener('click', function(event) {
+                CopyClipboard(getHTML(event.target));
+                emojiContainer.classList.add("hidden");
+            });
+
+            emojiListImage = document.createElement("img");
+            emojiListImage.setAttribute("src", path + i + ".svg");
+            emojiListImage.setAttribute("title", i);
+            emojiListImage.setAttribute("width", "20");
+            emojiListImage.setAttribute("height", "20");
+            emojiListImage.classList.add("emoji-icon");
+            emojiListImage.classList.add(i);
+
+            emojiListItem.appendChild(emojiListImage);
+            emojiList.appendChild(emojiListItem);
+        }
+
+        emojiContainer.appendChild(emojiList);
+        emojiContainer.setAttribute("style", "right: " + emojiBtnX + "px;");
+
+        toolbar.appendChild(emojiContainer);
+
+        emojiBtn.addEventListener('click', function() {
+            emojiContainer.classList.toggle("hidden");
         });
 
-        return quill;
+        container.on('text-change', function (eventName, ...args) {
+            index = getIndex();
+            var text = container.getText();
+            for(var i in emoji){
+                if(text.indexOf(emoji[i]) >= 0){
+                    var n = container.container.querySelectorAll("img").length;
+                    var index = text.indexOf(emoji[i]) + n;
+                    container.updateContents(new Delta()
+                        .retain(index)
+                        .delete(emoji[i].length)
+                    );
+                    container.insertEmbed(index, 'image', path + i + ".svg");
+                    container.formatText(index, 1, 'width', '20px');
+                    container.setSelection(++index);
+                    break;
+                }
+            }
+        });
+
+        body.addEventListener("click", function(ev) {
+            isOutsideClick(emojiContainer, ev.target, function() {
+                emojiContainer.classList.add("hidden");
+            });
+        });
+
+        function CopyClipboard(target, index){
+            if(!index){
+                index = getIndex();
+            }
+            container.clipboard.dangerouslyPasteHTML(index, target);
+            container.setSelection(++index);
+        }
+
+        function getHTML(el){
+            if(!el || !el.tagName) return '';
+            var txt,
+                clone = document.createElement("div");
+
+            clone.appendChild(el.cloneNode(false));
+            txt = clone.innerHTML;
+            clone = null;
+            return txt;
+        }
+
+        function getIndex(){
+            let range = container.getSelection();
+            let index;
+            if (range) {
+                if (range.length == 0) {
+                    index = range.index;
+                } else {
+                    index = range.index + range.length;
+                }
+            } else {
+                index = 0;
+            }
+            return index;
+        }
+
+        function isOutsideClick (el, target, callback) {
+            if (el && !el.contains(target) && target != emojiBtn) {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
+        };
     },
     initActivityDescription: function (holder, dataStorageElement, descId, btnElement) {
         var dataStorage = holder.find(dataStorageElement);
@@ -117,34 +252,79 @@ var helpers = {
 
         return datePicker;
     },
-    infiniteScrollFactory: function (onScroll, scrollContainer) {
-        const defaultScrollKoef = 150;
-
-        return function () {
-            var lock = false;
-            var win = $(window);
-            var doc = $(document);
-            var unlock = function () { lock = false; }
-            win.scroll(function () {
-                if (scrollContainer) {
-                    let params = scrollContainer.getBoundingClientRect();
-
-                    if (-params.top + defaultScrollKoef >= params.height - screen.height) {
-                        if (!lock) {
-                            lock = true;
-                            onScroll(unlock);
-                        }
-                    }
-                } else {
-                    if ((win.scrollTop() + defaultScrollKoef) >= doc.height() - win.height()) {
-                        if (!lock) {
-                            lock = true;
-                            onScroll(unlock);
-                        }
-                    }
-                }
-            });
+    infiniteScrollFactory: function (options) {
+        let settings = {
+            defaultScrollKoef: 150,
+            storageName: 'infiniteScroll',
+            loaderSelector: '.js-loader',
+            $container: null,
+            reload: null
         }
+
+        let lock = false;
+        let win = $(window);
+        let doc = $(document);
+
+        $.extend(settings, options);
+
+        const showLoadingStatus = function () {
+            $(settings.loaderSelector).show();
+        }
+
+        const hideLoadingStatus = function () {
+            $(settings.loaderSelector).hide();
+        }
+
+        const reloadData = function () {
+            showLoadingStatus();
+            helpers.state.save(settings.storageName);
+            var promise = settings.reload();
+            promise.then(unlock, unlock)
+            return promise;
+        }
+
+        const scrollPrevented = function () {
+            return !!parseInt(settings.$container.find('input[name="preventScrolling"]').val()) | false;
+        }
+
+        const unlock = function () {
+            lock = false;
+            hideLoadingStatus();
+        }
+
+        const loadNextPage = function () {
+            if (!lock) {
+                lock = true;
+
+                if (scrollPrevented()) {
+                    unlock();
+                } else {
+                    helpers.state.page++;
+                    reloadData()
+                }
+            }
+        }
+
+        win.on('scroll.infinite', function () {
+            if (settings.$container && settings.$container.length > 0) {
+                let containerRect = settings.$container.get(0).getBoundingClientRect();
+
+                if (-containerRect.top + settings.defaultScrollKoef >= containerRect.height - screen.height) {
+                    loadNextPage();
+                }
+            } else {
+                if ((win.scrollTop() + settings.defaultScrollKoef) >= doc.height() - win.height()) {
+                    loadNextPage();
+                }
+            }
+        });
+
+        //if we don't have scroll load more items
+        if (document.body.scrollHeight == document.body.clientHeight) {
+            loadNextPage();
+        }
+
+        helpers.state.restoreState(reloadData, settings.storageName);
     },
     scrollTo: function (element, to, duration) {
         var start = element.scrollTop,
@@ -214,6 +394,37 @@ var helpers = {
     },
     initScrollbar: function(el){
         SimpleScrollbar.initEl(el);
+    },
+    state: {
+        get page() {
+            return document.querySelector('input[name="page"]').value || 1;
+        },
+        set page(val) {
+            document.querySelector('input[name="page"]').value = val;
+        },
+        save(storageName) {
+            helpers.localStorage.setItem(storageName, { page: this.page });
+        },
+        restoreState(reloadPromise, storageName) {
+            const hash = (window.location.hash || '').replace('#', '');
+
+            if (hash) {
+                let savedState = helpers.localStorage.getItem(storageName);
+
+                helpers.state.page = (savedState || {}).page || 1;
+
+                reloadPromise().then(function () {
+                    let elem = document.querySelector('[data-anchor="' + hash + '"]');
+
+                    if (elem) {
+                        helpers.scrollTo(document.body, elem.offsetTop, 300);
+                        window.history.pushState('', document.title, window.location.pathname);
+                    }
+                });
+            } else {
+                helpers.localStorage.removeItem(storageName);
+            }
+        }
     }
 }
 

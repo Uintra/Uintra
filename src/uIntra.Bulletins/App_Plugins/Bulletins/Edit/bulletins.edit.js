@@ -13,10 +13,16 @@ function initEditor() {
         theme: 'snow',
         modules: {
             toolbar: [
-                ['bold', 'italic', 'link']
+                ['bold', 'italic', 'link'],
+                ['emoji']
             ]
         }
     });
+    let emojiContainer = editor.container.querySelector(".js-emoji");
+    if(!emojiContainer){
+        helpers.initSmiles(editor, editor.getModule('toolbar').container);
+        emojiContainer = true;
+    }
 
     editor.on('text-change', function () {
         if (editor.getLength() > 1 && description.classList.contains('input-validation-error')) {

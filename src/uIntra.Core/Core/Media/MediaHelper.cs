@@ -174,10 +174,10 @@ namespace uIntra.Core.Media
             var allowedMediaExtensions = mediaFolderContent.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty);
 
             var result = allowedMediaExtensions
-                .Split(',')
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(ext =>
                 {
-                    var trimmedExt = ext.Trim();
+                    var trimmedExt = ext.Trim().ToLower();
                     return trimmedExt.StartsWith(".") ? trimmedExt : $".{trimmedExt}";
                 });
 

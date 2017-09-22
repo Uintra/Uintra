@@ -727,6 +727,74 @@ h5{
 }
 /*end pin-info*/
 
+/* emoji styles */
+.ql-toolbar.ql-snow{
+    position:relative;
+}
+.ql-emoji{
+    position:relative;
+
+    .create-bulletin &{
+        min-width:30px !important;
+
+        &:after{
+            top:6px;
+            left:6px;
+        }
+    }
+
+    &:after{
+        position:absolute;
+        top:4px;
+        left:6px;
+        content:url(/App_Plugins/Core/Content/styles/emoji-data/smile.png);
+    }
+}
+.emoji{
+    position:absolute;
+    width:313px;
+    border:1px solid var(--color-light-gray);
+    overflow:hidden;
+    background:var(--color-white);
+    bottom:100%;
+    margin:0 0 -9px;
+    z-index:9999;
+
+    .form &,
+    .comments &{
+        bottom:auto;
+        top:100%;
+        margin:0;
+        transform:translate(calc(100% - 28px));
+    }
+
+    &__list{
+        margin:-20px 0 0 -20px;
+        padding:10px 9px 9px 10px;
+        list-style:none;
+        overflow:hidden;
+
+        &-item{
+            float:left;
+            width:32px;
+            height:32px;
+            margin:20px 0 0 20px;
+            cursor:pointer;
+        }
+    }
+
+    .emoji-icon{
+        width:32px !important;
+        height:32px !important;
+    }
+}
+
+.ql-container .ql-editor img{
+    margin:0 4px;
+}
+
+/* end emoji styles */
+
 /* libs override styles */
 
 .ql-container {

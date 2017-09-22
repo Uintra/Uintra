@@ -12,6 +12,7 @@
         CommentAdded,
         CommentEdited,
         CommentReplied,
-        CommentLikeAdded
+        CommentLikeAdded,
+        MonthlyMail
     }
 }
