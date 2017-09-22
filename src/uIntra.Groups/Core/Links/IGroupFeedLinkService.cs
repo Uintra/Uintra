@@ -6,6 +6,6 @@ namespace uIntra.Groups
 {
     public interface IGroupFeedLinkService : IActivityLinkService
     {
-        ActivityCreateLinks GetCreateLinks(IIntranetType activityType, Guid groupId);
+        IActivityCreateLinks GetCreateLinks(IIntranetType activityType, Guid groupId);
     }
 }

@@ -4,7 +4,7 @@ namespace uIntra.Groups
 {
     public interface IGroupFeedLinksProvider
     {
-        ActivityLinks GetLinks(GroupActivityTransferModel activity);
-        ActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model);
+        IActivityLinks GetLinks(GroupActivityTransferModel activity);
+        IActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model);
     }
 }

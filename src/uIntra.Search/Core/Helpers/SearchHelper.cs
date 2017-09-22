@@ -4,7 +4,7 @@
     {
         public static string CropText(this string text, int sizeToCrop)
         {
-            if (!string.IsNullOrEmpty(text) && text.Length > sizeToCrop * 2 && !text.Contains(SearchConstants.HighlightPreTag))
+            if (!string.IsNullOrEmpty(text) && text.Length > sizeToCrop * 2 && !text.Contains(SearchConstants.Global.HighlightPreTag))
             {
                 return text.Substring(text.Length - sizeToCrop) + "...";
             }

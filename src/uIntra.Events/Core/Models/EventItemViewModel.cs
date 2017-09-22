@@ -34,7 +34,7 @@ namespace uIntra.Events
 
         public IIntranetType ActivityType { get; set; }
 
-        public ActivityLinks Links { get; set; }
+        public IActivityLinks Links { get; set; }
 
         public bool IsReadOnly { get; set; }
     }

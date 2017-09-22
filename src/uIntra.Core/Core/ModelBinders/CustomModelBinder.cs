@@ -4,9 +4,10 @@ using System.Web.Mvc;
 
 namespace uIntra.Core.ModelBinders
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Allows you to use your custom model binder for specific property through <see cref="PropertyBinderAttribute"/>
-    /// For examples look at <see cref="DateTimeBinder"/> usage.
+    /// Allows you to use your custom model binder for specific property through <see cref="T:uIntra.Core.ModelBinders.PropertyBinderAttribute" />
+    /// For examples look at <see cref="T:uIntra.Core.ModelBinders.DateTimeBinder" /> usage.
     /// </summary>
     public class CustomModelBinder : DefaultModelBinder
     {

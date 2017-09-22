@@ -28,16 +28,16 @@ namespace Compent.uIntra.Core.Licence
         {
             HttpRequest currentRequest = HttpContext.Current.Request;
 
-            bool isValidationSucceeded = IsValidationSucceeded(IsAllowedRequest, currentRequest, _validateLicenceService.IsLicenceValid);
+            bool isValidationSucceeded = IsValidationSucceeded(IsAllowedRequest, currentRequest, _validateLicenceService.GetValidationResult());
             if (!isValidationSucceeded)
             {
                 HttpContext.Current.Response.Redirect(LicenceViewPath);
             }
         }
 
-        private bool IsValidationSucceeded(Func<HttpRequest, bool> isAllowedRequest, HttpRequest request, Lazy<bool> isLisenceValid)
+        private bool IsValidationSucceeded(Func<HttpRequest, bool> isAllowedRequest, HttpRequest request, bool isLisenceValid)
         {
-            return isAllowedRequest(request) || isLisenceValid.Value || IsLicencePage(request.Url, LicenceViewName);
+            return isAllowedRequest(request) || isLisenceValid || IsLicencePage(request.Url, LicenceViewName);
         }
 
         private bool IsAllowedRequest(HttpRequest request)

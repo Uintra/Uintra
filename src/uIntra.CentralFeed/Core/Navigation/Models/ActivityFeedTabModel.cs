@@ -8,6 +8,6 @@ namespace uIntra.CentralFeed
         public IIntranetType Type { get; set; }
         public bool HasSubscribersFilter { get; set; }
         public bool HasPinnedFilter { get; set; }        
-        public ActivityCreateLinks Links { get; set; }
+        public IActivityCreateLinks Links { get; set; }
     }
 }

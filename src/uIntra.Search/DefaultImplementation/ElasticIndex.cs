@@ -24,10 +24,11 @@ namespace uIntra.Search
                     q.Bool(b => b
                        .Should(GetQueryContainers(query.Text))
                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                       .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))))
-                       .Take(query.Take);
+                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))))
+                .Take(query.Take);
 
             ApplySort(searchRequest);
+            ApplyAggregations(searchRequest);
 
             if (query.ApplyHighlights)
             {
@@ -106,12 +107,12 @@ namespace uIntra.Search
             return containers.ToArray();
         }
 
-        private static QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)
+        protected virtual QueryContainer GetSearchableTypeQueryContainers(IEnumerable<int> searchableTypeIds)
         {
             return new QueryContainerDescriptor<SearchableBase>().Terms(t => t.Field(f => f.Type).Terms(searchableTypeIds));
         }
 
-        private QueryContainer GetOnlyPinnedQueryContainer(bool onlyPinned)
+        protected virtual QueryContainer GetOnlyPinnedQueryContainer(bool onlyPinned)
         {
             var result = onlyPinned
                 ? new QueryContainerDescriptor<SearchableActivity>().Terms(t => t.Field(f => f.IsPinActual).Terms(true))
@@ -119,36 +120,39 @@ namespace uIntra.Search
             return result;
         }
 
-        protected SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
+        protected virtual SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
         {
-            var searchResult = new SearchResult<SearchableBase>
+            var documents = ParseDocuments<SearchableBase>(response, true);
+
+            var result = new SearchResult<SearchableBase>
             {
                 TotalHits = response.Total,
-                Facets = response.Aggs.Aggregations,
+                Documents = documents,
+                TypeFacets = GetFacetItems(response.Aggs.Aggregations, SearchConstants.SearchFacetNames.Types)
             };
 
-            var results = ParseDocuments<SearchableBase>(response, true);
-            searchResult.Documents = results;
-
-            return searchResult;
+            return result;
         }
 
-        private static void ApplyHighlight<T>(SearchDescriptor<T> searchRequest)
-            where T : class
+        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor) where T : class
+        {
+            searchDescriptor.Sort(s => s.Descending("_score"));
+        }
+
+        protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor) where T : class
+        {
+            searchDescriptor.Aggregations(a => a.Terms(SearchConstants.SearchFacetNames.Types, t => t.Field("type").Size(ElasticHelpers.MaxAggregationSize)));
+        }
+
+        protected virtual void ApplyHighlight<T>(SearchDescriptor<T> searchRequest) where T : class
         {
             searchRequest
                 .Highlight(hd => hd
                     .Fields(ff => ff
                         .Field("*")
-                        .PreTags(SearchConstants.HighlightPreTag)
-                        .PostTags(SearchConstants.HighlightPostTag))
+                        .PreTags(SearchConstants.Global.HighlightPreTag)
+                        .PostTags(SearchConstants.Global.HighlightPostTag))
                 );
-        }
-
-        private void ApplySort<T>(SearchDescriptor<T> searchDescriptor)
-            where T : class
-        {
-            searchDescriptor.Sort(s => s.Descending("_score"));
         }
 
         protected virtual void HighlightResponse(ISearchResponse<dynamic> response)
@@ -204,9 +208,11 @@ namespace uIntra.Search
             return CollectDocuments<T>(response);
         }
 
-        protected virtual void HighlightAdditional(dynamic document, Dictionary<string, HighlightHit> fieldsm,
-            List<string> panelContent)
+        protected virtual IEnumerable<BaseFacet> GetFacetItems(IReadOnlyDictionary<string, IAggregate> facets, string facetName)
         {
+            var aggregations = new AggregationsHelper(facets);
+            var items = aggregations.Terms(facetName).Buckets.Select(busket => new BaseFacet { Name = busket.Key, Count = busket.DocCount ?? default(long) });
+            return items;
         }
 
         protected virtual void Highlight(dynamic document, Dictionary<string, HighlightHit> fields)
@@ -245,6 +251,10 @@ namespace uIntra.Search
             {
                 document.panelContent = panelContent.ToDynamic();
             }
+        }
+
+        protected virtual void HighlightAdditional(dynamic document, Dictionary<string, HighlightHit> fields, List<string> panelContent)
+        {
         }
     }
 }

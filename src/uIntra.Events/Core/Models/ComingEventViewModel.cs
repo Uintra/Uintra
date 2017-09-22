@@ -10,6 +10,6 @@ namespace uIntra.Events
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IIntranetUser Creator { get; set; }
-        public ActivityLinks Links { get; set; }
+        public IActivityLinks Links { get; set; }
     }
 }

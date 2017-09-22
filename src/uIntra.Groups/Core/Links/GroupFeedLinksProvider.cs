@@ -30,30 +30,32 @@ namespace uIntra.Groups
             _aliasProvider = aliasProvider;
         }
 
-        public ActivityLinks GetLinks(GroupActivityTransferModel activity)
+        public IActivityLinks GetLinks(GroupActivityTransferModel activity)
         {
             var helper = GetPageHelper(activity.Type);
 
-            return new ActivityLinks(
-                overview: helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
-                create: helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
-                details: helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
-                edit: helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
-                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
-                detailsNoId: helper.GetDetailsPageUrl().AddGroupId(activity.GroupId)
-            );
+            return new ActivityLinks()
+            {
+                Overview = helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
+                Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
+                Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
+                Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
+                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
+                DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(activity.GroupId)
+            };
         }
 
-        public ActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model)
+        public IActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model)
         {
             IActivityPageHelper helper = GetPageHelper(model.Type);
 
-            return new ActivityCreateLinks(
-                overview: helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
-                create: helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
-                creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
-                detailsNoId: helper.GetDetailsPageUrl().AddGroupId(model.GroupId)
-            );
+            return new ActivityCreateLinks()
+            {
+                Overview = helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
+                Create = helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
+                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
+                DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(model.GroupId)
+            };
         }
     }
 }

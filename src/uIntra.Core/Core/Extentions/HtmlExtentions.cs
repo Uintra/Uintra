@@ -67,18 +67,19 @@ namespace uIntra.Core.Extentions
             return dateTimeFormatProvider.DateTimeValuePickerFormat;
         }
 
-        public static MvcHtmlString PassLinks(this HtmlHelper helper, ActivityLinks links)
+        public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityLinks links)
         {
             string result = String.Empty;
 
-            result += helper.PassLinks((ActivityCreateLinks)links);
+            result += helper.PassLinks((IActivityCreateLinks)links);
             result += helper.Hidden(LinksBinder.EditFormKey, links.Edit);
             result += helper.Hidden(LinksBinder.DetailsFormKey, links.Details);
 
             return MvcHtmlString.Create(result);
+            
         }
 
-        public static MvcHtmlString PassLinks(this HtmlHelper helper, ActivityCreateLinks links)
+        public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityCreateLinks links)
         {
             string result = String.Empty;
 

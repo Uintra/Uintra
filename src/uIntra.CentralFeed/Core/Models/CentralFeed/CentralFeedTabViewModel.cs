@@ -7,6 +7,6 @@ namespace uIntra.CentralFeed
     {
         public IIntranetType Type { get; set; }       
         public bool IsActive { get; set; }
-        public ActivityCreateLinks Links { get; set; }
+        public IActivityCreateLinks Links { get; set; }
     }
 }

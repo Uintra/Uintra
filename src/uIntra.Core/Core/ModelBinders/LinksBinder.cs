@@ -11,9 +11,8 @@ namespace uIntra.Core.ModelBinders
         public const string EditFormKey = "links.Edit";
         public const string DetailsNoIdFormKey = "links.DetailsNoId";
         public const string CreatorFormKey = "links.Creator";
-        public const string CreateFormKey = "links.Create";
-
-
+        public const string CreateFormKey = "links.Create"; 
+         
         public object BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext,
             PropertyDescriptor propertyDescriptor)
         {
@@ -24,18 +23,20 @@ namespace uIntra.Core.ModelBinders
             var creatorLink = GetValue(bindingContext.ValueProvider, CreatorFormKey);
             var detailsNoIdLink = GetValue(bindingContext.ValueProvider, DetailsNoIdFormKey);
 
-            var result = new ActivityLinks(
-                overview: overviewLink,
-                create: createLink,
-                details: detailsLink,
-                edit: editLink,
-                creator: creatorLink,
-                detailsNoId: detailsNoIdLink
-                );
+            var result = new ActivityLinks()
+            {
+                Overview = overviewLink,
+                Create = createLink,
+                Details = detailsLink,
+                Edit = editLink,
+                Creator = creatorLink,
+                DetailsNoId = detailsNoIdLink
+            };
 
             return result;
         }
 
         private string GetValue(IValueProvider provider, string key) => provider.GetValue(key)?.AttemptedValue;
+
     }
 }

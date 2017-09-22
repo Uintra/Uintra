@@ -5,6 +5,6 @@ namespace uIntra.CentralFeed
 {
     public interface ICentralFeedLinkService : IActivityLinkService
     {
-        ActivityCreateLinks GetCreateLinks(IIntranetType activityType);
+        IActivityCreateLinks GetCreateLinks(IIntranetType activityType);
     }
 }

@@ -29,30 +29,34 @@ namespace uIntra.CentralFeed
             _aliasProvider = aliasProvider;
         }
 
-        public ActivityLinks GetLinks(ActivityTransferModel activity)
+        public IActivityLinks GetLinks(ActivityTransferModel activity)
         {
             IActivityPageHelper helper = GetPageHelper(activity.Type);
 
-            return new ActivityLinks(
-                    overview: helper.GetOverviewPageUrl(),
-                    create: helper.GetCreatePageUrl(),
-                    details: helper.GetDetailsPageUrl().AddIdParameter(activity.Id),
-                    edit: helper.GetEditPageUrl().AddIdParameter(activity.Id),
-                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
-                    detailsNoId: helper.GetDetailsPageUrl()
-                );
+            return new ActivityLinks()
+            {
+                Overview =  helper.GetOverviewPageUrl(),
+                Create = helper.GetCreatePageUrl(),
+                Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id),
+                Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id),
+                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
+                DetailsNoId = helper.GetDetailsPageUrl()
+            }
+
+                ;
         }
 
-        public ActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model)
+        public IActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model)
         {
             IActivityPageHelper helper = GetPageHelper(model.Type);
 
-            return new ActivityCreateLinks(
-                    overview: helper.GetOverviewPageUrl(),
-                    create: helper.GetCreatePageUrl(),
-                    creator: _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
-                    detailsNoId: helper.GetDetailsPageUrl()
-                );
+            return new ActivityCreateLinks()
+            {
+                Overview = helper.GetOverviewPageUrl(),
+                Create = helper.GetCreatePageUrl(),
+                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
+                DetailsNoId = helper.GetDetailsPageUrl()
+            };
         }
     }
 }
