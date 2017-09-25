@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -142,11 +143,11 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
+        protected override ActivityFeedOptions GetActivityFeedOptions(Guid activityId)
         {
             return new ActivityFeedOptions()
             {
-                Links = _centralFeedLinkService.GetLinks(i.Id)
+                Links = _centralFeedLinkService.GetLinks(activityId)
             };
         }
 
@@ -240,7 +241,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = _centralFeedLinkService.GetLinks(id);
+            var options = GetActivityFeedOptions(id);
 
             var type = service.ActivityType;
             var settings = _centralFeedService.GetSettings(type);
@@ -248,7 +249,7 @@ namespace uIntra.CentralFeed.Web
             var viewModel = new DetailsViewModel()
             {
                 Id = id,
-                Links = links,
+                Options = options,
                 Settings = settings
             };
             return viewModel;

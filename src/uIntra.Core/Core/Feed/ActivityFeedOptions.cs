@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.Links;
 
-namespace uIntra.CentralFeed
+namespace uIntra.Core.Feed
 {
     public class ActivityFeedOptions
     {

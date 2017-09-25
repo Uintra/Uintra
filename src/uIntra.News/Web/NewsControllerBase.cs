@@ -6,6 +6,7 @@ using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
@@ -44,15 +45,15 @@ namespace uIntra.News.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public virtual ActionResult Details(Guid id, ActivityLinks links)
+        public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(links.Overview);
+                HttpContext.Response.Redirect(options.Links.Overview);
             }
 
-            var model = GetViewModel(news, links);
+            var model = GetViewModel(news, options);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -161,18 +162,19 @@ namespace uIntra.News.Web
             return model;
         }
 
-        protected virtual NewsViewModel GetViewModel(NewsBase news, ActivityLinks links)
+        protected virtual NewsViewModel GetViewModel(NewsBase news, ActivityFeedOptions options)
         {
             var model = news.Map<NewsViewModel>();
 
             model.CanEdit = _newsService.CanEdit(news);
-            model.Links = links;
+            model.Links = options.Links;
+            model.IsReadOnly = options.IsReadOnly;
 
             // TODO : try to move this logic smwhere to avoid duplication
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
             model.HeaderInfo.Creator = _intranetUserService.Get(news);
-            model.HeaderInfo.Links = links;
+            model.HeaderInfo.Links = options.Links;
 
             return model;
         }

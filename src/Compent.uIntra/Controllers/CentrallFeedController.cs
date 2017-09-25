@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Activity;
 using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
+using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
@@ -57,14 +59,14 @@ namespace Compent.uIntra.Controllers
                 .OrderByDescending(item => item.PublishDate);
         }
 
-        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
+        protected override ActivityFeedOptions GetActivityFeedOptions(Guid id)
         {
-            var options = base.GetActivityFeedOptions(i);
+            var options = base.GetActivityFeedOptions(id);
             return new ActivityFeedOptionsWithGroups()
             {
                 Links = options.Links,
                 IsReadOnly = options.IsReadOnly,
-                GroupInfo = _feedActivityHelper.GetGroupInfo(i)
+                GroupInfo = _feedActivityHelper.GetGroupInfo(id)
             };
         }
     } 

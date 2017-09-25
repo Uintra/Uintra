@@ -1,3 +1,5 @@
+using uIntra.Core.Feed;
+
 namespace uIntra.CentralFeed
 {
     public class FeedItemViewModel

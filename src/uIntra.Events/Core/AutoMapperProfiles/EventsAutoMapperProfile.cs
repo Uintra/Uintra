@@ -73,6 +73,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
