@@ -1014,9 +1014,6 @@
     <Content Include="config\ExamineIndex.config" />
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
-      <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
@@ -1095,9 +1092,6 @@
     <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
     <Content Include="App_Plugins\Groups\package.manifest" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201709181059062_GroupActivityRenaming.resx">
-      <DependentUpon>201709181059062_GroupActivityRenaming.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
@@ -1108,6 +1102,9 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
+      <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1361,18 +1358,6 @@
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201709111219353_Groups.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201709111219353_Groups.Designer.cs">
-      <DependentUpon>201709111219353_Groups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201709121545185_GroupActivity.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201709121545185_GroupActivity.Designer.cs">
-      <DependentUpon>201709121545185_GroupActivity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201709181059062_GroupActivityRenaming.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201709181059062_GroupActivityRenaming.Designer.cs">
-      <DependentUpon>201709181059062_GroupActivityRenaming.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
