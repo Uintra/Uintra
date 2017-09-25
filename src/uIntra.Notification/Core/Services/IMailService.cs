@@ -1,4 +1,6 @@
+using System;
 using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
@@ -7,5 +9,7 @@ namespace uIntra.Notification
         void Send(MailBase mail);
 
         void ProcessMails(int? count = null, int? mailId = null);
+
+        void SendOneTimePerDayMailForSpecialTypeAndDay(MailBase mail, DateTime day, NotificationTypeEnum mailTemplateTypeEnum);
     }
 }

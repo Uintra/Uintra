@@ -39,4 +39,9 @@
         public const string IsHideFromSubNavigationPropName = "isHideFromSubNavigation";
         public const string IsShowInHomeNavigationPropName = "isShowInHomeNavigation";
     }
+
+    public static class MailTemplatePropertiesConstants
+    {
+        public const string EmailType = "emailType";
+    }
 }

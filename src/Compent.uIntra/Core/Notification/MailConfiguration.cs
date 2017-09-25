@@ -8,7 +8,7 @@ namespace Compent.uIntra.Core.Notification
     {
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        public MailConfiguration()
+        static MailConfiguration()
         {
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
 

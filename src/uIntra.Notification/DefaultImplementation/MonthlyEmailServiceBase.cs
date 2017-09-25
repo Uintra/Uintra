@@ -8,6 +8,7 @@ using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 using uIntra.Notification.MailModels;
 
 namespace uIntra.Notification
@@ -44,7 +45,7 @@ namespace uIntra.Notification
                         {
                             string activityListString = GetActivityListString(activities);
                             MailBase monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
-                            _mailService.Send(monthlyMail);
+                            _mailService.SendOneTimePerDayMailForSpecialTypeAndDay(monthlyMail, DateTime.Now, NotificationTypeEnum.MonthlyMail);
                         }
                     }
                     catch (Exception ex)
@@ -74,7 +75,7 @@ namespace uIntra.Notification
             var builder = new StringBuilder();
             foreach (var activity in activities)
             {
-                builder.AppendLine($"<a href='{activity.Item2}'>{activity.Item1.Title}</a>");
+                builder.AppendLine($"<a href='{activity.Item2}'>{activity.Item1.Title}</a></br>");
             }
             return builder.ToString();
         }
