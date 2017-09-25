@@ -55,12 +55,12 @@ namespace Compent.uIntra.Core.Notification
         {
             var allActivitiesRelatedToUserTags = new List<Tuple<IIntranetActivity, string>>();
 
-            var allUserActivities = GetAllUserActivities(userId);
+            var allActivities = GetAllActivities();
             var userTags = GetUserTags(userId);
 
             if (userTags != null && userTags.Any())
             {
-                foreach (var activity in allUserActivities)
+                foreach (var activity in allActivities)
                 {
                     var activityTags = GetActivityTags(activity.Id);
                     if (activityTags != null && activityTags.Any(a => userTags.FirstOrDefault(tag => tag.Id == a.Id) != null))
@@ -81,11 +81,11 @@ namespace Compent.uIntra.Core.Notification
             return (T)(object)result;
         }
 
-        protected virtual IEnumerable<IIntranetActivity> GetAllUserActivities(Guid userId)
+        protected virtual IEnumerable<IIntranetActivity> GetAllActivities()
         {
-            var allBulletins = _bulletinsService.GetAll().Where(b => b.CreatorId == userId).Cast<IIntranetActivity>();
-            var allNews = _newsService.GetAll().Where(n => n.CreatorId == userId).Cast<IIntranetActivity>();
-            var allEvents = _eventsService.GetAll().Where(e => e.CreatorId == userId).Cast<IIntranetActivity>();
+            var allBulletins = _bulletinsService.GetAll().Cast<IIntranetActivity>();
+            var allNews = _newsService.GetAll().Cast<IIntranetActivity>();
+            var allEvents = _eventsService.GetAll().Cast<IIntranetActivity>();
 
             return allBulletins.Concat(allNews).Concat(allEvents);
         }

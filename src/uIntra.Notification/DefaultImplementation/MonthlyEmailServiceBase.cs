@@ -35,7 +35,7 @@ namespace uIntra.Notification
         {
             if (DateTime.Now.Day == _applicationSettings.MonthlyEmailJobDay)
             {
-                IEnumerable<IIntranetUser> users = _intranetUserService.GetAll();
+                var users = _intranetUserService.GetAll();
                 foreach (var user in users)
                 {
                     try
@@ -44,7 +44,7 @@ namespace uIntra.Notification
                         if (activities.Any())
                         {
                             string activityListString = GetActivityListString(activities);
-                            MailBase monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
+                            var monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
                             _mailService.SendOneTimePerDayMailForSpecialTypeAndDay(monthlyMail, DateTime.Now, NotificationTypeEnum.MonthlyMail);
                         }
                     }
