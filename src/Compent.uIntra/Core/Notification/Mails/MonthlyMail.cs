@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using EmailWorker.Data.Model;
 using uIntra.Core.Extentions;
-using uIntra.Notification;
+using uIntra.Notification.MailModels;
 
 namespace Compent.uIntra.Core.Notification.Mails
 {
