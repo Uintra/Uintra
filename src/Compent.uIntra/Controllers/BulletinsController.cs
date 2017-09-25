@@ -17,6 +17,7 @@ using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.Feed;
 using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
@@ -45,10 +46,10 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
     
-        protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityLinks links)
+        protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityFeedOptions options)
         {
             var extendedBullet = (Bulletin)bulletin;
-            var extendedModel = base.GetViewModel(bulletin, links).Map<BulletinExtendedViewModel>();
+            var extendedModel = base.GetViewModel(bulletin, options).Map<BulletinExtendedViewModel>();
             extendedModel = Mapper.Map(extendedBullet, extendedModel);
             return extendedModel;
         }

@@ -6,6 +6,7 @@ using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
@@ -50,15 +51,15 @@ namespace uIntra.Events.Web
             _activityLinkService = activityLinkService;
         }
 
-        public virtual ActionResult Details(Guid id, ActivityLinks links)
+        public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
-                HttpContext.Response.Redirect(links.Overview);
+                HttpContext.Response.Redirect(options.Links.Overview);
             }
 
-            var model = GetViewModel(@event, links);
+            var model = GetViewModel(@event, options);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -237,18 +238,19 @@ namespace uIntra.Events.Web
             ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
         }
 
-        protected virtual EventViewModel GetViewModel(EventBase @event, ActivityLinks links)
+        protected virtual EventViewModel GetViewModel(EventBase @event, ActivityFeedOptions options)
         {
             var model = @event.Map<EventViewModel>();
 
             model.CanEdit = _eventsService.CanEdit(@event);
             model.CanSubscribe = _eventsService.CanSubscribe(@event);
-            model.Links = links;
+            model.Links = options.Links;
+            model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.HeaderInfo.Creator = _intranetUserService.Get(@event);
-            model.HeaderInfo.Links = links;
+            model.HeaderInfo.Links = options.Links;
 
             return model;
         }

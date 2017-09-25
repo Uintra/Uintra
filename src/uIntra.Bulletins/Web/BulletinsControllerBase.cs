@@ -6,6 +6,7 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
@@ -53,15 +54,15 @@ namespace uIntra.Bulletins.Web
             return PartialView(CreationFormViewPath, result);
         }
 
-        public virtual ActionResult Details(Guid id, ActivityLinks links)
+        public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
-                HttpContext.Response.Redirect(links.Overview);
+                HttpContext.Response.Redirect(options.Links.Overview);
             }
 
-            var model = GetViewModel(bulletin, links);
+            var model = GetViewModel(bulletin, options);
 
             return PartialView(DetailsViewPath, model);
         }
@@ -162,17 +163,18 @@ namespace uIntra.Bulletins.Web
             return model;
         }
 
-        protected virtual BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityLinks links)
+        protected virtual BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityFeedOptions options)
         {
             var model = bulletin.Map<BulletinViewModel>();
 
             model.CanEdit = _bulletinsService.CanEdit(bulletin);
-            model.Links = links;
+            model.Links = options.Links;
+            model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
             model.HeaderInfo.Creator = _userService.Get(bulletin);
-            model.HeaderInfo.Links = links;
+            model.HeaderInfo.Links = options.Links;
 
             return model;
         }
