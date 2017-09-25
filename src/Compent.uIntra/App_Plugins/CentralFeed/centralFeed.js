@@ -3,6 +3,7 @@ import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import lightbox from "./../Core/Controls/LightboxGallery/LightboxGallery";
 import subscribe from "./../Subscribe/subscribe";
 import initOpener from "./openCloseCentralFeed";
+import readonlyClickWarning from './../Core/Content/scripts/readonlyClickWarning';
 
 require("./centralFeed.css");
 
@@ -122,11 +123,15 @@ function scrollReload() {
     holder.querySelector('input[name="version"]').value = null;
     let promise = formController.reload();
     promise.then(attachEventFilter);
+    promise.then(attachReadonlyClickWarning);
     promise.then(initCustomControls);
     promise.then(function () { emitTabReloadedEvent(true); });
     return promise;
 }
 
+function attachReadonlyClickWarning() {
+    readonlyClickWarning.init();
+}
 function tabClickEventHandler(e) {
     if (!$(e.target).hasClass('_active') && !$(e.target).closest('._active').length > 0) {
         e.preventDefault();

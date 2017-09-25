@@ -1,7 +1,6 @@
 ﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
-var infinityScroll = helpers.infiniteScrollFactory;
 var scrollTo = helpers.scrollTo;
 var localStorage = helpers.localStorage;
 
@@ -47,15 +46,16 @@ function hideLoadingStatus() {
     loadingElem && (loadingElem.style.display = "none");
 }
 
-function onScroll(done) {
-    if (scrollPrevented()) {
-        done();
-        return;
-    }
-    state.page++;
-    var promise = reload();
-    promise.then(done, done);
-}
+// TODO: reimplement this according to our libs
+//function onScroll(done) {
+//    if (scrollPrevented()) {
+//        done();
+//        return;
+//    }
+//    state.page++;
+//    var promise = reload();
+//    promise.then(done, done);
+//}
 
 function restoreState() {
     var hash = (window.location.hash || "").replace("#", "");
@@ -79,7 +79,6 @@ var controller = {
         if (!holder) return;
         formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
         restoreState();
-        infinityScroll(onScroll)();
     }
 }
 
