@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Groups;
@@ -21,19 +18,19 @@ namespace Compent.uIntra.Core.Activity
             _groupContentHelper = groupContentHelper;
         }
 
-        public GroupInfo? GetGroupInfo(IFeedItem item)
+        public GroupInfo? GetGroupInfo(Guid itemId)
         {
-            Guid? groupId = _groupActivityService.GetGroupId(item.Id);
+            Guid? groupId = _groupActivityService.GetGroupId(itemId);
             GroupInfo? result;
 
             if (groupId.HasValue)
-                result = GetGroupInfo(groupId.Value);
+                result = GetInfoForGroup(groupId.Value);
             else result = null;
 
             return result;
         }
 
-        private GroupInfo GetGroupInfo(Guid groupId)
+        private GroupInfo GetInfoForGroup(Guid groupId)
         {
             var group = _groupService.Get(groupId);
             var groupOverviewUrl = _groupContentHelper

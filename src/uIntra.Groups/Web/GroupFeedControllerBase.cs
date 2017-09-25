@@ -6,6 +6,7 @@ using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -22,6 +23,7 @@ namespace uIntra.Groups.Web
         private readonly IGroupContentHelper _groupContentHelper;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
+        private bool IsCurrentUserGroupMember { get; set; }
 
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Room/Feed/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Room/Feed/Details.cshtml";
@@ -139,6 +141,9 @@ namespace uIntra.Groups.Web
                 .Single(s => s.Type.Id == model.TypeId)
                 .Map<FeedTabSettings>();
 
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(model.GroupId, currentUserId); // I know that state is not the nice idea, but I cant find another way to remove logic duplication
+
             return new FeedListViewModel
             {
                 Version = _groupFeedService.GetFeedVersion(filteredItems),
@@ -150,11 +155,12 @@ namespace uIntra.Groups.Web
             };
         }
 
-        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
+        protected override ActivityFeedOptions GetActivityFeedOptions(Guid id)
         {
             return new ActivityFeedOptions()
             {
-                Links = _groupFeedLinkService.GetLinks(i.Id)
+                Links = _groupFeedLinkService.GetLinks(id),
+                IsReadOnly = !IsCurrentUserGroupMember
             };
         }
 
@@ -211,7 +217,10 @@ namespace uIntra.Groups.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = _groupFeedLinkService.GetLinks(id);
+
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(groupId, currentUserId);
+            var options = GetActivityFeedOptions(id);
 
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);
@@ -219,7 +228,7 @@ namespace uIntra.Groups.Web
             var viewModel = new DetailsViewModel()
             {
                 Id = id,
-                Links = links,
+                Options = options,
                 Settings = settings
             };
             return viewModel;

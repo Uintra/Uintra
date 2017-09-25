@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
@@ -74,7 +75,7 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
         {
-            ActivityFeedOptions options = GetActivityFeedOptions(i);
+            ActivityFeedOptions options = GetActivityFeedOptions(i.Id);
             return new FeedItemViewModel()
             {
                 Activity = i,
@@ -83,7 +84,7 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected abstract ActivityFeedOptions GetActivityFeedOptions(IFeedItem feedItem);
+        protected abstract ActivityFeedOptions GetActivityFeedOptions(Guid activityId);
 
         protected static IEnumerable<IIntranetType> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {

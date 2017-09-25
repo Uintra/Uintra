@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
@@ -42,7 +44,7 @@ namespace Compent.uIntra.Controllers
             return result;
         }
 
-        protected override ActivityFeedOptions GetActivityFeedOptions(IFeedItem i)
+        protected override ActivityFeedOptions GetActivityFeedOptions(Guid i)
         {
             var options = base.GetActivityFeedOptions(i);
             return new ActivityFeedOptionsWithGroups()

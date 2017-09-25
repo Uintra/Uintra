@@ -1,12 +1,16 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
+@using uIntra.Core.Extentions
 @model uIntra.Likes.LikesViewModel
 @{
     var isLiked = Model.CanAddLike || Model.IsReadOnly ? "" : "_isLiked";
     var entityId = Model.CommentId.HasValue ? Model.CommentId.Value : Model.ActivityId;
 }
 
-<div class="like" id="likes_@entityId">
+<div class="like js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly" id="likes_@entityId">
+    <input type="hidden" name="readonlyClickTitle" value="@Html.Localize("Likes.ReadonlyClick.Title.lbl")" />
+    <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Likes.ReadonlyClick.Message.lbl")" />
+
     <span class="like__set @isLiked">
         <i class="icon-like"></i>
         @if (Model.Users.Any() && !Model.IsReadOnly)
@@ -19,8 +23,8 @@
     {
 
         @(Model.CanAddLike
-              ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
-              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
+              ? Ajax.ActionLink("Add", "AddLike", "Likes", new {activityId = Model.ActivityId, commentId = Model.CommentId}, new AjaxOptions {HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId)}, new {@class = "like__link"})
+              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new {activityId = Model.ActivityId, commentId = Model.CommentId}, new AjaxOptions {HttpMethod = "Post", UpdateTargetId = string.Concat("likes_", entityId)}, new {@class = "like__link"}))
 
         if (Model.Users.Any())
         {

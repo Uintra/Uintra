@@ -1,12 +1,12 @@
 ﻿using System;
-using uIntra.Core.Links;
+using uIntra.Core.Feed;
 
 namespace uIntra.CentralFeed
 {
     public class DetailsViewModel
     {
         public Guid Id { get; set; }
-        public IActivityLinks Links { get; set; }
+        public ActivityFeedOptions Options { get; set; }
         public FeedSettings Settings { get; set; }
     }
 }
