@@ -71,11 +71,6 @@ namespace uIntra.Groups
             return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, ((g, id) => g));
         }
 
-        public bool CanCreate(IHaveCreator activity, IIntranetUser user)
-        {
-            return _permissionsService.IsUserWebmaster(user) || activity?.CreatorId == user.Id;
-        }
-
         public void UpdateGroupUpdateDate(Guid id)
         {
             var group = Get(id);
