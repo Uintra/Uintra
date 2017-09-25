@@ -46,13 +46,14 @@ namespace Compent.uIntra.Core.Notification
             _emailService.AddInMailQueue(email);
         }
 
-        public void SendOneTimePerDayMailForSpecialTypeAndDay(MailBase mail, DateTime day, NotificationTypeEnum mailTemplateTypeEnum)
+        public void SendOneTimePerDayMailForSpecialTypeAndDay(MailBase mail,string email , DateTime day, NotificationTypeEnum mailTemplateTypeEnum)        
         {
             int totalCount;
             var query = new EmailLogQuery
             {
                 StartCreateDate = new DateTime(day.Year, day.Month, day.Day),
-                TypeId = GetEmailTemplatePublishedContentId(mailTemplateTypeEnum)
+                TypeId = GetEmailTemplatePublishedContentId(mailTemplateTypeEnum),
+                ToEmail = email
             };
 
             _sentMailsService.GetAllByFilter(query, out totalCount);

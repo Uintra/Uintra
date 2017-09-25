@@ -97,7 +97,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Data.0.4.1\lib\Net45\EmailWorker.Data.dll</HintPath>
+      <HintPath>..\..\packages\EmailWorker.Data.0.4.2\lib\Net45\EmailWorker.Data.dll</HintPath>
     </Reference>
     <Reference Include="EmailWorker.Ninject">
       <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4\lib\Net45\EmailWorker.Ninject.dll</HintPath>
@@ -364,8 +364,8 @@
       <HintPath>..\..\packages\uIntra.News.1.2.2\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.2.3.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.2.3.8\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.2.3.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.2.3.9\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.7.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.7.1\lib\net452\uIntra.Panels.dll</HintPath>
