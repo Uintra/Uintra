@@ -357,6 +357,9 @@
     <Compile Include="Web\GroupFeedControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
+    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
+    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
     <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
     <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
     <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />

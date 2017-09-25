@@ -6,8 +6,39 @@
       "view": "/App_Plugins/Groups/backoffice/group-central-feed-view.html",
       "icon": "icon-chat color-green",
       "config": {
-        "controller": "Group",
-        "action": "CentralFeedOverview"
+        "controller": "GroupFeed",
+        "action": "Overview"
+      }
+    },
+    
+    {
+      "name": "Group activity create",
+      "alias": "custom.GroupActivityCreate",
+      "view": "/App_Plugins/Groups/ActivityCreate/activity-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Create"
+      }
+    },
+    {
+      "name": "Group activity details",
+      "alias": "custom.GroupActivityDetails",
+      "view": "/App_Plugins/Groups/ActivityDetails/activity-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Details"
+      }
+    },
+    {
+      "name": "Group activity edit",
+      "alias": "custom.GroupActivityEdit",
+      "view": "/App_Plugins/Groups/ActivityEdit/activity-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Edit"
       }
     },
     {

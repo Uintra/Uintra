@@ -90,7 +90,7 @@ namespace uIntra.Groups
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
         {
             var groupRoom = GetGroupRoomPage();
-            var type = GetTabType(groupRoom);
+            var type = GetGroupFeedTabType(groupRoom);
             var result = new ActivityFeedTabModel
             {
                 Content = groupRoom,
@@ -110,7 +110,7 @@ namespace uIntra.Groups
 
             foreach (var content in GetContent())
             {
-                var tabType = GetTabType(content);
+                var tabType = GetGroupFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
                 if (activityType == null)
@@ -136,7 +136,7 @@ namespace uIntra.Groups
             {
                 if (skipPage(content))
                     continue;
-                var tabType = GetTabType(content);
+                var tabType = GetGroupFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
                 if (activityType == null)
                     yield return GetPageTab(currentContent, content, groupId);
@@ -173,9 +173,9 @@ namespace uIntra.Groups
         }
 
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
-        public IIntranetType GetTabType(IPublishedContent content)
+        public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
-            var value = _gridHelper.GetValue(content, "custom.GroupCentralFeedOverview");
+            var value = _gridHelper.GetValue(content, gridPluginAlias);
 
             if (value == null || value.tabType == null)
             {
@@ -193,6 +193,16 @@ namespace uIntra.Groups
         private IEnumerable<IPublishedContent> GetContent()
         {
             return GetGroupRoomPage().Children;
+        }
+
+        public IIntranetType GetGroupFeedTabType(IPublishedContent content)
+        {
+            return GetActivityTypeFromPlugin(content, "custom.GroupCentralFeedOverview");
+        }
+
+        public IIntranetType GetCreateActivityType(IPublishedContent content)
+        {
+            return GetActivityTypeFromPlugin(content, "custom.GroupActivityCreate");
         }
     }
 }
