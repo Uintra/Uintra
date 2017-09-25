@@ -96,25 +96,25 @@ namespace uIntra.Navigation
             return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
         }
 
-        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent publishedContent, List<int> excludeContentIds)
+        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, List<int> excludeContentIds)
         {
-            if (!publishedContent.Children.Any())
+            if (!parent.Children.Any())
             {
                 yield break;
             }
 
-            var publishedContentChildrenItems = GetAvailableContent(publishedContent.Children)
+            var children = GetAvailableContent(parent.Children)
                 .Where(pContent => !excludeContentIds.Contains(pContent.Id));
 
-            foreach (var publishedContentChildrenItem in publishedContentChildrenItems)
+            foreach (var child in children)
             {
                 var newmenuItem = new MenuItemModel
                 {
-                    Id = publishedContentChildrenItem.Id,
-                    Name = GetNavigationName(publishedContentChildrenItem),
-                    Url = publishedContentChildrenItem.Url,
-                    Children = BuildLeftMenuTree(publishedContentChildrenItem, excludeContentIds).ToList(),
-                    IsActive = CurrentPage.Id == publishedContentChildrenItem.Id
+                    Id = child.Id,
+                    Name = base.GetNavigationName(child),
+                    Url = child.Url,
+                    Children = BuildLeftMenuTree(child, excludeContentIds).ToList(),
+                    IsActive = child.IsAncestorOrSelf(CurrentPage)
                 };
 
                 yield return newmenuItem;

@@ -11,9 +11,11 @@ function initMobileNav() {
     var container = document.querySelector('#sidebar');
     var overlay = document.querySelector(".js-side-nav__overlay");
 
-    opener.addEventListener('click', () => {
-        toggleMobileMenu(opener, container);
-    });
+    if(opener){
+        opener.addEventListener('click', () => {
+            toggleMobileMenu(opener, container);
+        });
+    }
 };
 
 function toggleMobileMenu(element, container){
