@@ -145,8 +145,7 @@ function getCookie(name) {
 
 function reloadTabEventHandler(e) {
     clearInterval(reloadintervalId);
-
-    let hash = (window.location.hash || "").replace("#", "");
+    let hash = (window.location.hash || "").replace("#", ""); 
 
     reload(true, false, e.detail.isReinit).then(function () {
         if (hash) {
@@ -154,7 +153,7 @@ function reloadTabEventHandler(e) {
 
             if (elem) {
                 scrollTo(document.body, elem.offsetTop, 300);
-                window.history.pushState("", document.title, window.location.pathname);
+                window.history.pushState("", document.title, window.location.pathname + window.location.search);
             }
         }
     });
