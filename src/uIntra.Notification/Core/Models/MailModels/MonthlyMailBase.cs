@@ -4,7 +4,7 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Constants;
 
-namespace uIntra.Notification
+namespace uIntra.Notification.MailModels
 {
     public class MonthlyMailBase: MailBase
     {

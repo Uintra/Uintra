@@ -8,6 +8,7 @@ using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Notification.Base;
+using uIntra.Notification.MailModels;
 
 namespace uIntra.Notification
 {
@@ -42,7 +43,7 @@ namespace uIntra.Notification
                         if (activities.Any())
                         {
                             string activityListString = GetActivityListString(activities);
-                            var monthlyMail = GetMonthlyMailModel(activityListString, user);
+                            MailBase monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
                             _mailService.Send(monthlyMail);
                         }
                     }
@@ -57,10 +58,10 @@ namespace uIntra.Notification
 
         protected abstract List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId);        
 
-        private MailBase GetMonthlyMailModel(string userActivities, IIntranetUser user)
+        private T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user) where T: MonthlyMailBase, new()
         {
             var recipient = new MailRecipient { Email = user.Email, Name = user.DisplayedName };
-            return new MonthlyMailBase
+            return new T
             {
                 FullName = user.DisplayedName,
                 ActivityList = userActivities,
