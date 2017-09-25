@@ -5,7 +5,6 @@ using uIntra.Core.Caching;
 using uIntra.Core.Persistence;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
-using uIntra.Groups.Sql;
 using Group = uIntra.Groups.Sql.Group;
 
 namespace uIntra.Groups
@@ -35,14 +34,14 @@ namespace uIntra.Groups
             group.Id = Guid.NewGuid();
 
             _groupRepository.Add(group);
-            FillCache(group);
+            UpdateCache();
         }
 
         public void Edit(Group group)
         {
             group.UpdatedDate = DateTime.Now;
             _groupRepository.Update(group);
-            FillCache(group);
+            UpdateCache();
         }
 
         public Group Get(Guid id)
@@ -107,26 +106,14 @@ namespace uIntra.Groups
             Edit(group);
         }
 
-        public void FillGroupActivityData(IGroupActivity activity, bool isGroupPage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Guid> GetGroupIds(Guid activityId)
-        {
-            throw new NotImplementedException();
-        }
-
         private static DateTimeOffset GetCacheExpiration()
         {
             return DateTimeOffset.Now.AddDays(1);
         }
 
-        private void FillCache(Group group)
+        private void UpdateCache()
         {
-            var groups = GetAll().ToList();
-            groups = groups.FindAll(a => a.Id != group.Id);
-            groups.Add(group);
+            var groups = _groupRepository.GetAll().ToList();
             _memoryCacheService.Set(GroupCacheKey, groups, GetCacheExpiration());
         }
     }
