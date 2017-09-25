@@ -8,6 +8,8 @@ namespace uIntra.Core.Extentions
 {
     public static class StringExtentions
     {
+        public const string GroupIdQueryParam = "groupId";
+
         public static bool IsNullOrEmpty(this string str)
         {
             return string.IsNullOrEmpty(str);
@@ -54,7 +56,7 @@ namespace uIntra.Core.Extentions
         {
             return list == null ? "" : string.Join(separator, list);
         }
-     
+
         public static string StripHtml(this string input)
         {
             if (input.IsNullOrEmpty())
@@ -87,6 +89,17 @@ namespace uIntra.Core.Extentions
         public static string RemoveHtmlTags(this string input)
         {
             return Regex.Replace(input, "<.*?>", String.Empty);
+        }
+
+        public static int? ToNullableInt(this string str)
+        {
+            int result;
+            return int.TryParse(str, out result) ? result : new int?();
+        }
+
+        public static string AddGroupId(this string url, Guid groupId)
+        {
+            return url.AddParameter(GroupIdQueryParam, groupId);
         }
     }
 }

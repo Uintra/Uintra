@@ -1,16 +1,12 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
-@{
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.Type.Id, Model.ActivityId);
-    //TODO Add link to the user profile page to the feed__item-title-link
-}
 
 <header class="feed__item-heading clearfix">
-    @Html.Action("Photo", "User", new { user = Model.Creator })
+    @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.Links.Creator })
     <div class="feed__item-title-holder">
         <h2 class="feed__item-title"><a class="feed__item-title-link" href="">@Model.Title</a></h2>
         <p class="feed__item-meta">
-            <a class="feed__item-meta-link" href="@detailsPageUrl">
+            <a class="feed__item-meta-link" href="@Model.Links.Details">
                 @foreach (var date in Model.Dates)
                 {
                     <span class="feed__item-date">@date</span>

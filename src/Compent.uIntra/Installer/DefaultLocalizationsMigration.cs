@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -46,7 +47,7 @@ namespace Compent.uIntra.Installer
         {
             foreach (var loc in newLocalizations)
             {
-                if (existedLocalizations.Exists(el => el.Key.Equals(loc.Key)))
+                if (existedLocalizations.Exists(el => el.Key.Equals(loc.Key, StringComparison.OrdinalIgnoreCase)))
                 {
                     continue;
                 }

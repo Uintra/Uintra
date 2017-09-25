@@ -4,12 +4,15 @@ using System.Web.Mvc;
 
 namespace uIntra.Core.ModelBinders
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Allows you to use your custom model binder for specific property through <see cref="T:uIntra.Core.ModelBinders.PropertyBinderAttribute" />
+    /// For examples look at <see cref="T:uIntra.Core.ModelBinders.DateTimeBinder" /> usage.
+    /// </summary>
     public class CustomModelBinder : DefaultModelBinder
     {
         protected override void BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor)
         {
-            // Check if the property has the PropertyBinderAttribute, meaning
-            // it's specifying a different binder to use.
             var propertyBinderAttribute = TryFindPropertyBinderAttribute(propertyDescriptor);
             if (propertyBinderAttribute == null)
             {
@@ -27,6 +30,9 @@ namespace uIntra.Core.ModelBinders
             return (ICustomModelBinder)DependencyResolver.Current.GetService(propertyBinderAttribute.BinderType);
         }
 
+        /// <summary>
+        /// Checks property for <see cref="PropertyBinderAttribute"/>
+        /// </summary>
         private static PropertyBinderAttribute TryFindPropertyBinderAttribute(PropertyDescriptor propertyDescriptor)
         {
             return propertyDescriptor.Attributes.OfType<PropertyBinderAttribute>().FirstOrDefault();

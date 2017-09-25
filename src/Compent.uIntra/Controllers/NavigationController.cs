@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Users;
 using uIntra.CentralFeed;
 using uIntra.Core;
+using uIntra.Core.Extentions;
+using uIntra.Core.User;
+using uIntra.Groups;
+using uIntra.Groups.Extentions;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
@@ -20,9 +26,14 @@ namespace Compent.uIntra.Controllers
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override string SystemLinksContentXPath { get; }
+        private string GroupNavigationViewPath { get; } = "~/App_Plugins/Groups/GroupNavigation.cshtml";
 
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGroupService _groupService;
+        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IFeedTypeProvider _feedTypeProvider;
+        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
 
 
         public NavigationController(
@@ -30,12 +41,16 @@ namespace Compent.uIntra.Controllers
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ICentralFeedContentHelper centralFeedContentHelper,
-            ISystemLinksModelBuilder systemLinksModelBuilder, IDocumentTypeAliasProvider documentTypeAliasProvider) :
+            ISystemLinksModelBuilder systemLinksModelBuilder, IDocumentTypeAliasProvider documentTypeAliasProvider, IGroupService groupService, IGroupContentHelper groupContentHelper, IFeedTypeProvider feedTypeProvider, IIntranetUserService<IntranetUser> intranetUserService) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
             _centralFeedContentHelper = centralFeedContentHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _groupService = groupService;
+            _groupContentHelper = groupContentHelper;
+            _feedTypeProvider = feedTypeProvider;
+            _intranetUserService = intranetUserService;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
@@ -47,6 +62,11 @@ namespace Compent.uIntra.Controllers
                 return new EmptyResult();
             }
 
+            if (_groupContentHelper.IsGroupRoomPage(CurrentPage))
+            {
+                return RenderGroupNavigation();
+            }
+
             var model = new SubNavigationMenuViewModel
             {
                 Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
@@ -55,6 +75,44 @@ namespace Compent.uIntra.Controllers
             };
 
             return PartialView(SubNavigationViewPath, model);
+        }
+
+        private ActionResult RenderGroupNavigation()
+        {
+            var groupId = Request.QueryString.GetGroupId();
+            var group = _groupService.Get(groupId.Value);
+            var groupNavigationModel = new GroupNavigationViewModel { GroupTitle = @group.Title };
+
+            if (!group.IsHidden)
+            {
+                groupNavigationModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().UrlWithGroupId(groupId);
+
+                groupNavigationModel.ActivityTabs = _groupContentHelper
+                    .GetMainFeedTab(CurrentPage, groupId.Value)
+                    .ToEnumerableOfOne()
+                    .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
+
+                var currentUser = _intranetUserService.GetCurrentUser();
+                var groupEditPage = _groupContentHelper.GetEditPage();
+                groupNavigationModel.PageTabs = _groupContentHelper
+                    .GetPageTabs(CurrentPage, currentUser, groupId.Value)
+                    .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
+            }
+
+
+            return PartialView(GroupNavigationViewPath, groupNavigationModel);
+        }
+
+        private GroupNavigationPageTabViewModel MapToGroupPageTabViewModel(PageTabModel tab, IPublishedContent editPage)
+        {
+            var result = tab.Map<GroupNavigationPageTabViewModel>();
+            result.AlignRight = IsGroupEditPage(tab.Content, editPage);
+            return result;
+        }
+
+        private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
+        {
+            return tab.Id == editPage.Id;
         }
 
         public ContentResult GetTitle()

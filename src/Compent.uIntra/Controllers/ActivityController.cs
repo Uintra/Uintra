@@ -7,7 +7,12 @@ namespace Compent.uIntra.Controllers
 {
     public class ActivityController: ActivityControllerBase
     {
-        public ActivityController(IIntranetUserService<IIntranetUser> intranetUserService, IPermissionsService permissionsService, ActivityTypeProvider activityTypeProvider) : base(intranetUserService, permissionsService, activityTypeProvider)
+        protected override string ItemHeaderViewPath { get; } = "~/Views/Activity/ItemHeader.cshtml";
+
+        public ActivityController(IIntranetUserService<IIntranetUser> intranetUserService,
+            IPermissionsService permissionsService,
+            ActivityTypeProvider activityTypeProvider) 
+            : base(intranetUserService, permissionsService, activityTypeProvider)
         {
         }
     }

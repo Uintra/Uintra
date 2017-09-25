@@ -6,8 +6,8 @@ namespace uIntra.CentralFeed
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<CentralFeedTabModel, CentralFeedTabViewModel>()
-                .ForMember(d => d.Url, o => o.MapFrom(el => el.Content.Url));        
+            Mapper.CreateMap<FeedSettings, FeedTabSettings>();
+            Mapper.CreateMap<ActivityFeedTabModel, ActivityFeedTabViewModel>();
         }
     }
 }

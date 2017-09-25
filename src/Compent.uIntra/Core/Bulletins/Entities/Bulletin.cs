@@ -4,12 +4,13 @@ using Newtonsoft.Json;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Groups;
 using uIntra.Likes;
 using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Bulletins
 {
-    public class Bulletin : BulletinBase, ICentralFeedItem, ICommentable, ILikeable, ISubscribable
+    public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IGroupActivity
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
@@ -18,6 +19,11 @@ namespace Compent.uIntra.Core.Bulletins
         [JsonIgnore]
         public IEnumerable<Comment> Comments { get; set; }
 
-        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }        
+        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
+
+        public Guid? GroupId { get; set; }
+
+        [JsonIgnore]
+        public bool IsReadOnly { get; set; }
     }
 }

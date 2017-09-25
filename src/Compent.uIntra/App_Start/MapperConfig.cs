@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Compent.uIntra.Core.Activity;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Events;
+using uIntra.Groups;
 using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
@@ -21,7 +23,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<CommentAutoMapperProfile>();
             Mapper.AddProfile<NewsAutoMapperProfile>();
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
-            Mapper.AddProfile<LightboxAutoMapperProfile>();            
+            Mapper.AddProfile<LightboxAutoMapperProfile>();
             Mapper.AddProfile<Core.Navigation.NavigationAutoMapperProfile>();
             Mapper.AddProfile<NavigationAutoMapperProfile>();
             Mapper.AddProfile<EventsAutoMapperProfile>();
@@ -32,8 +34,11 @@ namespace Compent.uIntra
             Mapper.AddProfile<Core.Notification.NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<IntranetUserAutoMapperProfile>();
+            Mapper.AddProfile<Core.Users.IntranetUserAutoMapperProfile>();
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
+            Mapper.AddProfile<GroupsAutoMapperProfile>();
+            Mapper.AddProfile<ActivityAutoMapperProfile>();
 
             var typemaps = Mapper.GetAllTypeMaps();
 

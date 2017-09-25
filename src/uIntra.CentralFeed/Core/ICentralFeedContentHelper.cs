@@ -10,11 +10,15 @@ namespace uIntra.CentralFeed
 
         bool IsCentralFeedPage(IPublishedContent currentPage);
 
-        IIntranetType GetTabType(IPublishedContent content);
+        IIntranetType GetCentralFeedTabType(IPublishedContent content);
 
-        IEnumerable<CentralFeedTabModel> GetTabs(IPublishedContent currentPage);
+        IIntranetType GetCreateActivityType(IPublishedContent content);
 
-        void SaveFiltersState(CentralFeedFiltersStateModel stateModel);
+        IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias);
+
+        IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage);
+
+        void SaveFiltersState(FeedFiltersState stateModel);
 
         T GetFiltersState<T>();
 

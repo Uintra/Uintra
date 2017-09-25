@@ -12,6 +12,8 @@ namespace uIntra.Comments
 
         public string ElementId { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public CommentsOverviewModel()
         {
             Comments = Enumerable.Empty<CommentViewModel>();

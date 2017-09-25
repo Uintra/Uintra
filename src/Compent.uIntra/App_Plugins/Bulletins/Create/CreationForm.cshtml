@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @using Umbraco.Web
 @using uIntra.Core.Extentions
-@model uIntra.Bulletins.BulletinCreateFormModel
+@model uIntra.Bulletins.BulletinCreateModel
 
 <div class="bulletin__btn-holder _for-mobile">
     <a class="form__btn _submit js-expand-bulletin">@Html.Localize("BulletinsCreate.MobileBtn.lbl")</a>
@@ -12,7 +12,22 @@
     @using (Html.BeginUmbracoForm("Create", "Bulletins", FormMethod.Post))
     {
         <div class="create-bulletin__user">
-            @{ Html.RenderAction("CreationFormItemHeader", "Bulletins", Model.HeaderInfo); }
+            <header class="feed__item-heading clearfix"> 
+                @Html.Action("Photo", "User", new { user = Model.Creator }) 
+                <div class="feed__item-title-holder js-create-bulletin__user hidden"> 
+                    <h2 class="feed__item-title"> 
+                        @Model.Creator.DisplayedName 
+                    </h2> 
+                    <p class="feed__item-meta"> 
+                        @foreach (var date in Model.Dates) 
+                        { 
+                            <span class="feed__item-date">@date</span> 
+                            <span class="feed__item-divider"> - </span> 
+                        } 
+                        <span class="feed__item-category">@Html.Localize(Model.ActivityType.Name)</span> 
+                    </p> 
+                </div> 
+            </header> 
         </div>
         <div class="dropzone">
             <div class="dropzone-previews js-dropzone-previews hidden"></div>

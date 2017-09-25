@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity
@@ -19,8 +21,11 @@ namespace uIntra.Core.Activity
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
 
-        protected IntranetActivityService(IIntranetActivityRepository activityRepository,
-            ICacheService cache, IActivityTypeProvider activityTypeProvider,IIntranetMediaService intranetMediaService
+        protected IntranetActivityService(
+            IIntranetActivityRepository activityRepository,
+            ICacheService cache,
+            IActivityTypeProvider activityTypeProvider,
+            IIntranetMediaService intranetMediaService
             )
         {
             _activityRepository = activityRepository;
@@ -106,14 +111,6 @@ namespace uIntra.Core.Activity
         }
 
         public abstract bool CanEdit(IIntranetActivity cached);
-        public abstract IPublishedContent GetOverviewPage();
-        public abstract IPublishedContent GetDetailsPage();
-        public abstract IPublishedContent GetCreatePage();
-        public abstract IPublishedContent GetEditPage();
-        public abstract IPublishedContent GetOverviewPage(IPublishedContent currentPage);
-        public abstract IPublishedContent GetDetailsPage(IPublishedContent currentPage);
-        public abstract IPublishedContent GetCreatePage(IPublishedContent currentPage);
-        public abstract IPublishedContent GetEditPage(IPublishedContent currentPage);
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {

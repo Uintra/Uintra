@@ -22,5 +22,13 @@ namespace uIntra.Core
         string GetDataFolder();
         string GetSystemLink();
         string GetSystemLinkFolder();
+
+        string GetGroupOverviewPage();
+        string GetGroupCreatePage();
+        string GetGroupRoomPage();
+        string GetGroupEditPage();
+        string GetGroupMyGroupsOverviewPage();
+        string GetGroupDeactivatedPage();
+
     }
 }

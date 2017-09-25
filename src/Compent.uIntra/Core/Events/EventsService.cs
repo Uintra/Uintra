@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Events;
+using uIntra.Groups;
 using uIntra.Likes;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Events
 {
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,
-        ICentralFeedItemService,
+        IFeedItemService,
         ISubscribableService,
         ILikeableService,
         ICommentableService,
@@ -33,7 +32,6 @@ namespace Compent.uIntra.Core.Events
         IReminderableService<Event>,
         IIndexer
     {
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -44,13 +42,13 @@ namespace Compent.uIntra.Core.Events
         private readonly IElasticActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
-
-        private readonly ICentralFeedTypeProvider _centralFeedTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
+        private readonly IActivityLinkService _linkService;
 
 
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        public EventsService(UmbracoHelper umbracoHelper,
+        private readonly IGroupActivityService _groupActivityService;
+
+        public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -63,13 +61,12 @@ namespace Compent.uIntra.Core.Events
             IElasticActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            ICentralFeedTypeProvider centralFeedTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IGroupActivityService groupActivityService,
+            IActivityLinkService linkService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
-            _umbracoHelper = umbracoHelper;
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
@@ -80,33 +77,12 @@ namespace Compent.uIntra.Core.Events
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _activityTypeProvider = activityTypeProvider;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
             _searchableTypeProvider = searchableTypeProvider;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _groupActivityService = groupActivityService;
+            _linkService = linkService;
         }
 
-        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
-
-        public override IPublishedContent GetOverviewPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath()));
-        }
-
-        public override IPublishedContent GetDetailsPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetDetailsPage(ActivityType))));
-        }
-
-        public override IPublishedContent GetCreatePage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetCreatePage(ActivityType))));
-        }
-
-        public override IPublishedContent GetEditPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(GetPath(_documentTypeAliasProvider.GetEditPage(ActivityType))));
-        }
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -148,16 +124,14 @@ namespace Compent.uIntra.Core.Events
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
         }
 
-        public CentralFeedSettings GetCentralFeedSettings()
+        public FeedSettings GetFeedSettings()
         {
-            return new CentralFeedSettings
+            return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Events.ToInt()),
+                Type = ActivityType,
                 Controller = "Events",
-                OverviewPage = GetOverviewPage(),
-                CreatePage = GetCreatePage(),
                 HasSubscribersFilter = true,
-                HasPinnedFilter = true
+                HasPinnedFilter = true,
             };
         }
 
@@ -178,23 +152,21 @@ namespace Compent.uIntra.Core.Events
             return isCreator && isUserHasPermissions;
         }
 
-        public ICentralFeedItem GetItem(Guid activityId)
+        public IEnumerable<IFeedItem> GetItems()
         {
-            var item = Get(activityId);
-            return item;
-        }
-
-        public IEnumerable<ICentralFeedItem> GetItems()
-        {
-            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+            var items = GetOrderedActualItems();
             return items;
         }
+
+        private IOrderedEnumerable<Event> GetOrderedActualItems() =>
+            GetManyActual().OrderByDescending(i => i.PublishDate);
 
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = activity as Event;
+                var entity = (Event)activity;
+                entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
@@ -315,7 +287,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
-                            Url = GetUrlWithComment(currentEvent.Id, comment.Id),
+                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }
@@ -330,7 +302,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = currentEvent.Title,
-                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                         break;
                     }
@@ -344,7 +316,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = currentEvent.Title,
-                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                     }
                     break;
@@ -354,7 +326,7 @@ namespace Compent.uIntra.Core.Events
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel
                         {
-                            Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            //Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             Title = currentEvent.Title,
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
@@ -377,7 +349,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
-                            Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id)
                         };
                     }
                     break;
@@ -388,7 +360,7 @@ namespace Compent.uIntra.Core.Events
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
                         data.Value = new ActivityReminderDataModel
                         {
-                            Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                          //  Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             Title = currentEvent.Title,
                             ActivityType = ActivityType,
                             StartDate = currentEvent.StartDate
@@ -405,7 +377,7 @@ namespace Compent.uIntra.Core.Events
                         {
                             ActivityType = ActivityType,
                             Title = currentEvent.Title,
-                            Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                           // Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
                             NotifierId = currentUser.Id
                         };
 
@@ -417,10 +389,10 @@ namespace Compent.uIntra.Core.Events
             return data;
         }
 
-        private string GetUrlWithComment(Guid eventId, Guid commentId)
-        {
-            return $"{GetDetailsPage().Url.UrlWithQueryString("id", eventId)}#{_commentsService.GetCommentViewId(commentId)}";
-        }
+        //private string GetUrlWithComment(Guid eventId, Guid commentId)
+        //{
+        //    return $"{GetDetailsPage().Url.UrlWithQueryString("id", eventId)}#{_commentsService.GetCommentViewId(commentId)}";
+        //}
 
         private static IEnumerable<Guid> GetNotifiedSubscribers(Event currentEvent)
         {
@@ -431,26 +403,6 @@ namespace Compent.uIntra.Core.Events
         {
             _subscribeService.Subscribe(userId, activityId);
             return UpdateCachedEntity(activityId);
-        }
-
-        public override IPublishedContent GetOverviewPage(IPublishedContent currentPage)
-        {
-            return GetOverviewPage();
-        }
-
-        public override IPublishedContent GetDetailsPage(IPublishedContent currentPage)
-        {
-            return GetDetailsPage();
-        }
-
-        public override IPublishedContent GetCreatePage(IPublishedContent currentPage)
-        {
-            return GetCreatePage();
-        }
-
-        public override IPublishedContent GetEditPage(IPublishedContent currentPage)
-        {
-            return GetEditPage();
         }
 
         public Event GetActual(Guid id)
@@ -469,17 +421,6 @@ namespace Compent.uIntra.Core.Events
             _activityIndex.Index(searchableActivities);
         }
 
-        private string[] GetPath(params string[] aliases)
-        {
-            var basePath = new List<string>(OverviewXPath);
-
-            if (aliases.Any())
-            {
-                basePath.AddRange(aliases.ToList());
-            }
-            return basePath.ToArray();
-        }
-
         private bool IsEventHidden(Event @event)
         {
             return @event == null || @event.IsHidden;
@@ -487,8 +428,9 @@ namespace Compent.uIntra.Core.Events
 
         private SearchableActivity Map(Event @event)
         {
+
             var searchableActivity = @event.Map<SearchableActivity>();
-            searchableActivity.Url = GetDetailsPage().Url.AddIdParameter(@event.Id);
+            searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
             return searchableActivity;
         }
     }

@@ -10,13 +10,16 @@ namespace uIntra.News
         protected override void Configure()
         {
             Mapper.CreateMap<NewsBase, NewsItemViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Expired, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
-                .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
+                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<NewsBase, NewsCreateModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
@@ -24,6 +27,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsEditModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
@@ -55,9 +59,11 @@ namespace uIntra.News
                 });
 
             Mapper.CreateMap<NewsBase, NewsViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsBackofficeViewModel>()
@@ -68,6 +74,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
 

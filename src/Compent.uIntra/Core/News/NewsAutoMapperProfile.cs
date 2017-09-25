@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Compent.uIntra.Core.News.Models;
+using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Groups;
 using uIntra.News;
 using uIntra.News.Dashboard;
 using uIntra.Search;
@@ -34,6 +36,17 @@ namespace Compent.uIntra.Core.News
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
                 .IncludeBase<IntranetActivity, SearchableActivity>();
+
+            Mapper.CreateMap<Entities.News, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Entities.News, ActivityTransferModel>()
+                .IncludeBase<Entities.News, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Entities.News, GroupActivityTransferCreateModel>()
+                .IncludeBase<Entities.News, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Entities.News, GroupActivityTransferModel>()
+                .IncludeBase<Entities.News, GroupActivityTransferCreateModel>();
         }
     }
 }

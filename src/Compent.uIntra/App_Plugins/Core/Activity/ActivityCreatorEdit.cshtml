@@ -12,6 +12,10 @@
 else
 {
     <input type="hidden" name="@Model.CreatorIdPropertyName" value="@Model.Creator.Id" />
-    @Html.Action("Photo", "User", new { user = Model.Creator })
+    @Html.Action("Photo", "User", new
+    {
+        user = Model.Creator, profilePageUrl = Model.Links.Creator
+    
+    })
     <span>@Model.Creator.DisplayedName</span>
 }

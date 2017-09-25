@@ -31,6 +31,17 @@
         public const string NavigationComposition = "navigationComposition";
         public const string ContentPage = "contentPage";
         public const string SystemLink = "systemLink";
+
+        public const string GroupsCreatePage = "groupsCreatePage";
+        public const string GroupsDetailsPage = "groupsDetailsPage";
+        public const string GroupsEditPage = "groupsEditPage";
+
+        public const string GroupsOverviewPage = "groupsOverviewPage";
+        public const string GroupsRoomPage = "groupsRoomPage";
+        public const string GroupsMyGroupsOverviewPage = "groupsMyGroupsOverviewPage";
+        public const string GroupsDocumentsPage = "groupsDocumentsPage";
+        public const string GroupsMembersPage = "groupsMembersPage";
+        public const string GroupsDeactivatedGroupPage = "groupsDeactivatedGroupPage";
     }
     public static class NavigationPropertiesConstants
     {

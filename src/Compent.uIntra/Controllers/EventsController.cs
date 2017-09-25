@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
+using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
+using Compent.uIntra.Core.Extentions;
+using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
+using uIntra.Groups;
+using uIntra.Groups.Extentions;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
@@ -30,8 +35,10 @@ namespace Compent.uIntra.Controllers
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+        private readonly IGroupActivityService _groupActivityService;
 
-        public EventsController(IEventsService<Event> eventsService,
+        public EventsController(
+            IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IReminderService reminderService,
@@ -39,43 +46,46 @@ namespace Compent.uIntra.Controllers
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
-            INotificationTypeProvider notificationTypeProvider)
-            : base(eventsService, mediaHelper, intranetUserService, intranetUserContentHelper, gridHelper, activityTypeProvider)
+            INotificationTypeProvider notificationTypeProvider,
+            IGroupActivityService groupActivityService,
+            IActivityLinkService activityLinkService)
+            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
             _notificationTypeProvider = notificationTypeProvider;
+            _groupActivityService = groupActivityService;
         }
 
-        public ActionResult CentralFeedItem(ICentralFeedItem item)
+        public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
-            FillLinks();
-            var activity = item as Event;
-            var extendedModel = GetItemViewModel(activity).Map<EventExtendedItemModel>();
-            var  userId =_intranetUserService.GetCurrentUser();
-            extendedModel.LikesInfo = activity;
-            extendedModel.IsSubscribed = activity.Subscribers.Any(s => s.UserId == userId.Id);
+            EventExtendedItemModel extendedModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, extendedModel);
         }
 
-        public ActionResult PreviewItem(ICentralFeedItem item)
+        private EventExtendedItemModel GetItemViewModel(Event item, ActivityFeedOptionsWithGroups options)
         {
-            FillLinks();
+            var model = GetItemViewModel(item, options.Links);
+            var extendedModel = model.Map<EventExtendedItemModel>();
 
-            var activity = item as Event;
-            EventPreviewViewModel viewModel = GetPreviewViewModel(activity);
-            return PartialView(PreviewItemViewPath, viewModel);
+            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+
+            var userId = _intranetUserService.GetCurrentUser();
+            extendedModel.LikesInfo = item;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsSubscribed = item.Subscribers.Any(s => s.UserId == userId.Id);
+
+            return extendedModel;
         }
 
-
-        protected override EventViewModel GetViewModel(EventBase @event)
+        public ActionResult PreviewItem(Event item, ActivityLinks links)
         {
-            var eventExtended = (Event)@event;
-            var extendedModel = base.GetViewModel(@event).Map<EventExtendedViewModel>();
-            extendedModel = Mapper.Map(eventExtended, extendedModel);
-            return extendedModel;
+            EventPreviewViewModel viewModel = GetPreviewViewModel(item, links);
+            return PartialView(PreviewItemViewPath, viewModel);
         }
 
         protected override void DeleteMedia(IEnumerable<int> mediaIds)
@@ -87,6 +97,14 @@ namespace Compent.uIntra.Controllers
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
         {
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+
+            var groupId = Request.QueryString.GetGroupId();
+            if (groupId.HasValue)
+            {
+                _groupActivityService.AddRelation(groupId.Value, activityId);
+                var @event = _eventsService.Get(activityId);               
+                @event.GroupId = groupId;
+            }
         }
 
         protected override void OnEventEdited(EventBase @event, EventEditModel model)

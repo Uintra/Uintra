@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using uIntra.Bulletins;
 using uIntra.Events.Dashboard;
+using uIntra.Groups.Dashboard;
 using uIntra.News.Dashboard;
 using Umbraco.Core;
 
@@ -20,6 +21,7 @@ namespace Compent.uIntra
             NewsSection.AddSectionToAllUsers(applicationContext);
             EventsSection.AddSectionToAllUsers(applicationContext);
             BulletinsSection.AddSectionToAllUsers(applicationContext);
+            GroupsSection.AddSectionToAllUsers(applicationContext);
 
             RegisterRoutes();
 

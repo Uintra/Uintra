@@ -1,0 +1,32 @@
+﻿@using uIntra.Groups.Controllers.Plugin.Group
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extentions
+@using uIntra.Groups
+@model GroupDocumentsViewModel
+
+@{
+    Guid groupId;
+    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out groupId))
+    {
+        <h3>Group id is not defined!!</h3>
+        return;
+    }
+}
+
+<div id="js-group-documents">
+    @if (Model.CanUploadFiles)
+    {
+        <div>
+            <div class="form__row clearfix">
+                <label class="form__label" for="file-upload">@Html.Localize("GroupDocument.Upload.lbl")</label>
+                <div class="dropzone documents js-dropzone" data-group-id="@groupId"
+                     data-default-text="@Html.Localize("FileUploadView.UploadFiles.lbl")" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @{Html.RenderAction("DocumentsTable", "GroupDocuments", new {groupId, column = GroupDocumentDocumentField.Name, direction = Direction.Asc});}
+    </div>
+</div>
+

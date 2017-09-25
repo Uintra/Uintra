@@ -10,7 +10,7 @@
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
-            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), activityType = IntranetActivityTypeEnum.News })
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), activityType = IntranetActivityTypeEnum.News, links = Model.Links })
         </div>
 
         <div class="form__row clearfix">
@@ -61,10 +61,11 @@
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
-            <div class="form__row clearfix">
-                <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-                <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
-                <a class="form__btn _default" href="@Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id))">@Html.Localize("Common.Cancel.lnk")</a>
-            </div>
+        <div class="form__row clearfix">
+            @Html.PassLinks(Model.Links)
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")"/>
+            <a class="form__btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
+        </div>
                 }
 </div>

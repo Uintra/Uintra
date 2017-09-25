@@ -115,9 +115,34 @@ namespace Compent.uIntra.Core
             return DocumentTypeAliasConstants.SystemLinkFolder;
         }
 
-        public string Get(string alias)
+        public string GetGroupOverviewPage()
         {
-            throw new NotImplementedException();
+            return DocumentTypeAliasConstants.GroupsOverviewPage;
+        }
+
+        public string GetGroupCreatePage()
+        {
+            return DocumentTypeAliasConstants.GroupsCreatePage;
+        }
+
+        public string GetGroupRoomPage()
+        {
+            return DocumentTypeAliasConstants.GroupsRoomPage;
+        }
+
+        public string GetGroupEditPage()
+        {
+            return DocumentTypeAliasConstants.GroupsEditPage;
+        }
+
+        public string GetGroupMyGroupsOverviewPage()
+        {
+            return DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage;
+        }
+
+        public string GetGroupDeactivatedPage()
+        {
+            return DocumentTypeAliasConstants.GroupsDeactivatedGroupPage;
         }
     }
 }

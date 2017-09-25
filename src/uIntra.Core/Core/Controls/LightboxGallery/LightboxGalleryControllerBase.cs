@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -14,10 +15,12 @@ namespace uIntra.Core.Controls.LightboxGallery
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Core/Controls/LightBoxGallery/LightboxGalleryPreview.cshtml";
 
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly IActivityLinkService _linkService;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService)
         {
             _umbracoHelper = umbracoHelper;
+            _linkService = linkService;
         }
 
         public virtual ActionResult RenderGallery(string mediaIds)
@@ -83,6 +86,7 @@ namespace uIntra.Core.Controls.LightboxGallery
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
             var galleryViewModelList = medias.Select(MapToMedia).ToList();
 
+            galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
             galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);

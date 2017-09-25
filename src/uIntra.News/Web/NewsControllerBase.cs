@@ -6,6 +6,8 @@ using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extentions;
+using uIntra.Core.Feed;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -27,7 +29,6 @@ namespace uIntra.News.Web
         private readonly INewsService<NewsBase> _newsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IActivityTypeProvider _activityTypeProvider;
          
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
@@ -36,35 +37,31 @@ namespace uIntra.News.Web
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
-            IIntranetUserContentHelper intranetUserContentHelper,
             IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
-            _intranetUserContentHelper = intranetUserContentHelper;
             _activityTypeProvider = activityTypeProvider;
         }
 
-        public virtual ActionResult Details(Guid id)
+        public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
-            FillLinks();
-
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(options.Links.Overview);
             }
 
-            var model = GetViewModel(news);
+            var model = GetViewModel(news, options);
 
             return PartialView(DetailsViewPath, model);
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
-        public virtual ActionResult Create()
+        public virtual ActionResult Create(IActivityCreateLinks links)
         {
-            var model = GetCreateModel();
+            var model = GetCreateModel(links);
             return PartialView(CreateViewPath, model);
         }
 
@@ -72,7 +69,6 @@ namespace uIntra.News.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
-            FillLinks();
             if (!ModelState.IsValid)
             {
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -81,21 +77,21 @@ namespace uIntra.News.Web
             var activityId = _newsService.Create(newsBaseCreateModel);
              
             OnNewsCreated(activityId, createModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, activityId));
+
+            string redirectUri = createModel.Links.DetailsNoId.AddIdParameter(activityId);
+            return Redirect(redirectUri);
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
-        public virtual ActionResult Edit(Guid id)
+        public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
-            FillLinks();
-
             var news = _newsService.Get(id);
             if (news.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
-            var model = GetEditViewModel(news);
+            var model = GetEditViewModel(news, links);
             return PartialView(EditViewPath, model);
         }
 
@@ -103,7 +99,6 @@ namespace uIntra.News.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
-            FillLinks();
 
             if (!ModelState.IsValid)
             {
@@ -118,36 +113,43 @@ namespace uIntra.News.Web
             DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
             OnNewsEdited(activity, editModel);
-            return Redirect(ViewData.GetActivityDetailsPageUrl(ActivityTypeId, editModel.Id));
+
+            string redirectUri = editModel.Links.Details;
+            return Redirect(redirectUri);
         }
 
-        protected virtual void FillCreateEditData(IContentWithMediaCreateEditModel model)
+
+        protected virtual NewsCreateModel GetCreateModel(IActivityCreateLinks links)
         {
             var mediaSettings = _newsService.GetMediaSettings();
-            ViewData["AllowedMediaExtentions"] = mediaSettings.AllowedMediaExtentions;
-            model.MediaRootId = mediaSettings.MediaRootId;
-        }
-
-        protected virtual NewsCreateModel GetCreateModel()
-        {
-            FillLinks();
             var model = new NewsCreateModel
             {
                 PublishDate = DateTime.UtcNow,
                 Creator = _intranetUserService.GetCurrentUser(),
-                ActivityType = _activityTypeProvider.Get(ActivityTypeId)
+                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                Links = links,
+                MediaRootId = mediaSettings.MediaRootId
             };
-
-            FillCreateEditData(model);
             return model;
         }
 
-        protected virtual NewsEditModel GetEditViewModel(NewsBase news)
+        protected virtual NewsEditModel GetEditViewModel(NewsBase news, ActivityLinks links)
         {
             var model = news.Map<NewsEditModel>();
+            var mediaSettings = _newsService.GetMediaSettings();
+            model.MediaRootId = mediaSettings.MediaRootId;
+            FillMediaSettingsData(mediaSettings);
+
             model.Creator = _intranetUserService.Get(news);
-            FillCreateEditData(model);
+
+            model.Links = links;
+
             return model;
+        }
+
+        protected virtual void FillMediaSettingsData(MediaSettings settings)
+        {
+            ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
         }
 
         protected virtual NewsViewModel GetViewModel(NewsBase news)
@@ -160,14 +162,33 @@ namespace uIntra.News.Web
             return model;
         }
 
-        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news)
+        protected virtual NewsViewModel GetViewModel(NewsBase news, ActivityFeedOptions options)
+        {
+            var model = news.Map<NewsViewModel>();
+
+            model.CanEdit = _newsService.CanEdit(news);
+            model.Links = options.Links;
+            model.IsReadOnly = options.IsReadOnly;
+
+            // TODO : try to move this logic smwhere to avoid duplication
+            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
+            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Links = options.Links;
+
+            return model;
+        }
+
+        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news, IActivityLinks links)
         {
             var model = news.Map<NewsItemViewModel>();
             model.MediaIds = news.MediaIds;
             model.Expired = _newsService.IsExpired(news);
+            model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
@@ -180,7 +201,7 @@ namespace uIntra.News.Web
         }
 
 
-        protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news)
+        protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news, ActivityLinks links)
         {
             IIntranetUser creator = _intranetUserService.Get(news);
             return new NewsPreviewViewModel()
@@ -189,7 +210,8 @@ namespace uIntra.News.Web
                 Title = news.Title,
                 PublishDate = news.PublishDate,
                 Creator = creator,
-                ActivityType = news.Type
+                ActivityType = news.Type,
+                Links = links
             };
         }
 
@@ -215,21 +237,6 @@ namespace uIntra.News.Web
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 
             return activity;
-        }
-
-        protected virtual void FillLinks()
-        {
-            var overviewPageUrl = _newsService.GetOverviewPage(CurrentPage).Url;
-            var createPageUrl = _newsService.GetCreatePage(CurrentPage).Url;
-            var detailsPageUrl = _newsService.GetDetailsPage(CurrentPage).Url;
-            var editPageUrl = _newsService.GetEditPage(CurrentPage).Url;
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-
-            ViewData.SetActivityOverviewPageUrl(ActivityTypeId, overviewPageUrl);
-            ViewData.SetActivityDetailsPageUrl(ActivityTypeId, detailsPageUrl);
-            ViewData.SetActivityCreatePageUrl(ActivityTypeId, createPageUrl);
-            ViewData.SetActivityEditPageUrl(ActivityTypeId, editPageUrl);
-            ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
         protected virtual void DeleteMedia(IEnumerable<int> mediaIds)

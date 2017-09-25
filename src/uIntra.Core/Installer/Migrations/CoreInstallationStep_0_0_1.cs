@@ -462,7 +462,7 @@ namespace uIntra.Core.Installer.Migrations
             return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
             {
                 Name = "Intranet user id",
-                Alias = ImageConstants.IntranetCreatorId
+                Alias = IntranetConstants.IntranetCreatorId
             };
         }
 
@@ -514,6 +514,40 @@ namespace uIntra.Core.Installer.Migrations
             }
 
             return json;
+        }
+
+        public static IContentType CreatePageDocTypeWithBaseGrid(BasePageWithDefaultGridCreateModel model)
+        {
+            if (!ValidateCreationModel(model))
+            {
+                return null;
+            }
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var page = contentService.GetContentType(model.Alias);
+            if (page != null) return null;
+
+            page = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+
+            page.Name = model.Name;
+            page.Alias = model.Alias;
+            page.Icon = model.Icon;
+
+            contentService.Save(page);
+            if (model.ParentAlias.IsNotNullOrEmpty())
+            {
+                AddAllowedChildNode(model.ParentAlias, model.Alias);
+            }
+
+            return page;
+        }
+
+        private static bool ValidateCreationModel(BasePageWithDefaultGridCreateModel model)
+        {
+            var context = new ValidationContext(model);
+            var validationResults = new List<ValidationResult>();
+
+            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

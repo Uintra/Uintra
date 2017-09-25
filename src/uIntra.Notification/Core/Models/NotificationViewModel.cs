@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification
@@ -10,9 +11,7 @@ namespace uIntra.Notification
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
         public IIntranetType Type { get; set; }
-        public Guid? NotifierId { get; set; }
-        public string NotifierName { get; set; }
-        public string NotifierPhoto { get; set; }
+        public NotifierViewModel Notifier { get; set; }
         public dynamic Value { get; set; }
     }
 }

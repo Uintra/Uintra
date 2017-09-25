@@ -2,7 +2,7 @@
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedTypeProvider : IntranetTypeProviderBase<CentralFeedTypeEnum>, ICentralFeedTypeProvider
+    public class CentralFeedTypeProvider : IntranetTypeProviderBase<CentralFeedTypeEnum>, IFeedTypeProvider
     {
     }
 }

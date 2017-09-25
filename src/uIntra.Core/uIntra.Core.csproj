@@ -360,6 +360,16 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
+    <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
+    <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
+    <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />
+    <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
+    <Compile Include="Core\Links\ActivityCreateLinks.cs" />
+    <Compile Include="Core\Links\ActivityLinks.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
     <Compile Include="Core\BrowserCompatibility\BrowserCompatibilityConfigurationSection.cs" />
@@ -368,14 +378,19 @@
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
+    <Compile Include="Core\Extentions\StreamExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
+    <Compile Include="Core\Links\IActivityCreateLinks.cs" />
+    <Compile Include="Core\Links\IActivityLinks.cs" />
+    <Compile Include="Core\Links\IActivityLinkService.cs" />
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
     <Compile Include="Core\ModelBinders\CustomModelBinder.cs" />
+    <Compile Include="Core\ModelBinders\LinksBinder.cs" />
     <Compile Include="Core\Persistence\IntranetDbContext.cs" />
     <Compile Include="Core\Media\IIntranetMediaService.cs" />
     <Compile Include="Core\Media\IntranetMediaService.cs" />
@@ -384,6 +399,7 @@
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IntranetRoleTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IntranetTypeComparer.cs" />
     <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
     <Compile Include="Core\TypeProviders\IntranetType.cs" />
     <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
@@ -414,6 +430,7 @@
     <Compile Include="Core\WebPagePreview\LinkPreviewController.cs" />
     <Compile Include="Core\WebPagePreview\LinkPreviewService.cs" />
     <Compile Include="Core\User\UserPhotoHelper.cs" />
+    <Compile Include="Installer\BasePageWithDefaultGridCreateModel.cs" />
     <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
@@ -530,7 +547,7 @@
     <Compile Include="Core\Media\IMediaHelper.cs" />
     <Compile Include="Core\Media\MediaHelper.cs" />
     <Compile Include="Core\Media\MediaSettings.cs" />
-    <Compile Include="Core\ModelBinders\DateTimeModelBinder.cs" />
+    <Compile Include="Core\ModelBinders\DateTimeBinder.cs" />
     <Compile Include="Core\ModelBinders\ICustomModelBinder.cs" />
     <Compile Include="Core\ModelBinders\PropertyBinderAttribute.cs" />
     <Compile Include="Core\Persistence\Sql\ISqlRepository.cs" />

@@ -68,9 +68,9 @@ function attachEventFilter() {
 
     if (clearFiltersElem) {
         clearFiltersElem.addEventListener('click', function () {
-            var showSubscribed = formController.form.querySelector('input[name="showSubscribed"]');
-            var showPinned = formController.form.querySelector('input[name="showPinned"]');
-            var inlcudeBulletin = formController.form.querySelector('input[name="includeBulletin"]');
+            var showSubscribed = formController.form.querySelector('input[name="filterState.showSubscribed"]');
+            var showPinned = formController.form.querySelector('input[name="filterState.showPinned"]');
+            var inlcudeBulletin = formController.form.querySelector('input[name="filterState.includeBulletin"]');
             $(showSubscribed).val(false);
             $(showPinned).val(false);
             $(inlcudeBulletin).val(false);
@@ -78,21 +78,21 @@ function attachEventFilter() {
         });
     }
 
-    var showSubscribedElem = formController.form.querySelector('input[name="showSubscribed"]');
+    var showSubscribedElem = formController.form.querySelector('input[name="filterState.showSubscribed"]');
     if (showSubscribedElem) {
         showSubscribedElem.addEventListener('change', function () {
             reload(false, false, false);
         });
     }
 
-    var showPinnedElem = formController.form.querySelector('input[name="showPinned"]');
+    var showPinnedElem = formController.form.querySelector('input[name="filterState.showPinned"]');
     if (showPinnedElem) {
         showPinnedElem.addEventListener('change', function () {
             reload(false, false, false);
         });
     }
 
-    var inlcudeBulletinElem = formController.form.querySelector('input[name="includeBulletin"]');
+    var inlcudeBulletinElem = formController.form.querySelector('input[name="filterState.includeBulletin"]');
     if (inlcudeBulletinElem) {
         inlcudeBulletinElem.addEventListener('change', function () {
             reload(false, false, false);
@@ -145,8 +145,7 @@ function getCookie(name) {
 
 function reloadTabEventHandler(e) {
     clearInterval(reloadintervalId);
-
-    let hash = (window.location.hash || "").replace("#", "");
+    let hash = (window.location.hash || "").replace("#", ""); 
 
     reload(true, false, e.detail.isReinit).then(function () {
         if (hash) {
@@ -154,7 +153,7 @@ function reloadTabEventHandler(e) {
 
             if (elem) {
                 scrollTo(document.body, elem.offsetTop, 300);
-                window.history.pushState("", document.title, window.location.pathname);
+                window.history.pushState("", document.title, window.location.pathname + window.location.search);
             }
         }
     });
@@ -214,7 +213,7 @@ function init() {
                 var tab = tabs[i];
                 if (tab.dataset['type'] == val) {
                     tab.classList.add(active);
-                    holder.querySelector('form input[name="type"]').value = val;
+                    holder.querySelector('form input[name="typeId"]').value = val;
                 } else {
                     tab.classList.remove(active);
                 }

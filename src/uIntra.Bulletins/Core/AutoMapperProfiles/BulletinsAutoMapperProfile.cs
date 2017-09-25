@@ -9,12 +9,17 @@ namespace uIntra.Bulletins
         protected override void Configure()
         {
             Mapper.CreateMap<BulletinBase, BulletinItemViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
-                .ForMember(dst => dst.HeaderInfo, o => o.Ignore());
+                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<BulletinBase, BulletinEditModel>()
+              .ForMember(dst => dst.Links, o => o.Ignore())
+              .ForMember(dst => dst.Creator, o => o.Ignore())
+              .ForMember(dst => dst.ActivityType, o => o.Ignore())
               .ForMember(dst => dst.MediaRootId, o => o.Ignore())
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
               .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
@@ -53,9 +58,11 @@ namespace uIntra.Bulletins
                 });
 
             Mapper.CreateMap<BulletinBase, BulletinViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, BulletinsBackofficeViewModel>()
@@ -65,6 +72,7 @@ namespace uIntra.Bulletins
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, IntranetActivityDetailsHeaderViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
 

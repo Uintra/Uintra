@@ -22,6 +22,54 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.uIntra_GroupActivityRelation",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        GroupId = c.Guid(nullable: false),
+                        ActivityId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => new { t.GroupId, t.ActivityId }, unique: true, name: "UQ_GroupActivity_GroupId_ActivityId");
+            
+            CreateTable(
+                "dbo.uIntra_GroupDocument",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        GroupId = c.Guid(nullable: false),
+                        MediaId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.uIntra_GroupMember",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        GroupId = c.Guid(nullable: false),
+                        MemberId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => new { t.GroupId, t.MemberId }, unique: true, name: "UQ_GroupMember_GroupId_MemberId");
+            
+            CreateTable(
+                "dbo.uIntra_Group",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Title = c.String(),
+                        Description = c.String(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        UpdatedDate = c.DateTime(nullable: false),
+                        CreatorId = c.Guid(nullable: false),
+                        ImageId = c.Int(),
+                        IsHidden = c.Boolean(nullable: false),
+                        GroupTypeId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.uIntra_Activity",
                 c => new
                     {
@@ -134,6 +182,8 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
         {
             DropIndex("dbo.uIntra_Subscribe", "UQ_Subscribe_UserId_ActivityId");
             DropIndex("dbo.uIntra_Like", "UQ_Like_UserId_EntityId");
+            DropIndex("dbo.uIntra_GroupMember", "UQ_GroupMember_GroupId_MemberId");
+            DropIndex("dbo.uIntra_GroupActivityRelation", "UQ_GroupActivity_GroupId_ActivityId");
             DropTable("dbo.uIntra_Subscribe");
             DropTable("dbo.uIntra_Reminder");
             DropTable("dbo.uIntra_Notification");
@@ -143,6 +193,10 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
             DropTable("dbo.uIntra_Like");
             DropTable("dbo.uIntra_Media");
             DropTable("dbo.uIntra_Activity");
+            DropTable("dbo.uIntra_Group");
+            DropTable("dbo.uIntra_GroupMember");
+            DropTable("dbo.uIntra_GroupDocument");
+            DropTable("dbo.uIntra_GroupActivityRelation");
             DropTable("dbo.uIntra_Comment");
         }
     }

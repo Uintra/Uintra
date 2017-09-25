@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using uIntra.CentralFeed;
 using uIntra.Core.Activity;
 using uIntra.Events;
+using uIntra.Groups;
 using uIntra.Search;
 
 namespace Compent.uIntra.Core.Events
@@ -26,6 +28,7 @@ namespace Compent.uIntra.Core.Events
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()
+                .ForMember(dst => dst.GroupId, o => o.Ignore())
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
@@ -37,14 +40,18 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore());
+                .ForMember(dst => dst.Subscribers, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
+
 
             Mapper.CreateMap<EventCreateModel, Event>()
                 .IncludeBase<EventCreateModel, EventBase>()
+                .ForMember(dst => dst.GroupId, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore());
+                .ForMember(dst => dst.Subscribers, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<Event, SearchableActivity>()
                 .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
@@ -53,6 +60,17 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .IncludeBase<IntranetActivity, SearchableActivity>();
+
+            Mapper.CreateMap<Event, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Event, ActivityTransferModel>()
+                .IncludeBase<Event, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Event, GroupActivityTransferCreateModel>()
+                .IncludeBase<Event, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Event, GroupActivityTransferModel>()
+                .IncludeBase<Event, GroupActivityTransferCreateModel>();
         }
     }
 }

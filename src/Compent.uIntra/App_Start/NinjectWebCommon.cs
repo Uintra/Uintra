@@ -8,12 +8,14 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.uIntra;
 using Compent.uIntra.Core;
+using Compent.uIntra.Core.Activity;
 using Compent.uIntra.Core.ApplicationSettings;
 using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.CentralFeed;
 using Compent.uIntra.Core.Comments;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
+using Compent.uIntra.Core.Feed.Links;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
@@ -22,6 +24,7 @@ using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
+using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
 using Localization.Core;
@@ -47,6 +50,7 @@ using uIntra.Core.Caching;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
+using uIntra.Core.Links;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories;
@@ -78,6 +82,8 @@ using uIntra.LicenceService.ApiClient.Interfaces;
 using uIntra.LicenceService.ApiClient;
 using uIntra.Users;
 using uIntra.Core.WebPagePreview;
+using uIntra.Groups;
+using Compent.uIntra.Core.Groups;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -193,6 +199,7 @@ namespace Compent.uIntra
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();            
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
+
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
@@ -202,11 +209,29 @@ namespace Compent.uIntra
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedItem>().To<Core.News.Entities.News>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
-            kernel.Bind<ICentralFeedItemService>().To<NewsService>().InRequestScope();
-            kernel.Bind<ICentralFeedItemService>().To<EventsService>().InRequestScope();
-            kernel.Bind<ICentralFeedItemService>().To<BulletinsService>().InRequestScope();
+
+            kernel.Bind<ICentralFeedLinksProvider>().To<CentralFeedLinksProvider>();
+            kernel.Bind<IGroupFeedLinksProvider>().To<GroupFeedLinksProvider>();
+
+            kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
+
+            kernel.Bind<IActivityLinkService>().To<ActivityLinkService>();
+            kernel.Bind<ICentralFeedLinkService>().To<ActivityLinkService>();
+            kernel.Bind<IGroupFeedLinkService>().To<ActivityLinkService>();
+
+            kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
+
+            kernel.Bind<IGroupActivityService>().To<GroupActivityService>();
+            
+            kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
+            kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>().InRequestScope();
+
+            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope(); // TODO WHY??
+
+            kernel.Bind<IFeedItemService>().To<NewsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<EventsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
@@ -243,7 +268,7 @@ namespace Compent.uIntra
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
-            kernel.Bind<EmailWorker.Data.Services.Interfaces.ISentMailsService>().To<EmailWorker.Data.Services.SentMailsService>().InRequestScope();
+            //kernel.Bind<EmailWorker.Data.Services.Interfaces.ISentMailsService>().To<EmailWorker.Data.Services.SentMailsService>().InRequestScope();
             
 
             // Factories
@@ -267,7 +292,15 @@ namespace Compent.uIntra
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
-            kernel.Bind<ICentralFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
+            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
+
+            kernel.Bind<IGroupService>().To<GroupService>().InRequestScope(); 
+            kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
+            kernel.Bind<IGroupContentHelper>().To<GroupContentHelper>().InRequestScope();
+            kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
+
+            
+
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();

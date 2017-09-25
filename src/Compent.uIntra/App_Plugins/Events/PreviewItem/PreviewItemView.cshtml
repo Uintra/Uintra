@@ -1,18 +1,14 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Events.EventPreviewViewModel
 
-@{
-    var profilePageUrl = ViewData.GetProfilePageUrl(Model.Creator.Id);
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
-}
 
 <h3 class="block__subtitle _clamp">
-    <a href="@detailsPageUrl">@Html.Raw(Model.Title)</a>
+    <a href="@Model.Links.Details">@Html.Raw(Model.Title)</a>
 </h3>
 <div class="clearfix">
     <span class="feed__item-category">@Html.Localize(Model.ActivityType.Name)</span>
 </div>
 <div class="block__about">
-    <p class="block__about-item"><a href="@profilePageUrl">@Model.Creator.DisplayedName</a></p>
+    <p class="block__about-item"><a href="@Model.Links.Creator">@Model.Creator.DisplayedName</a></p>
     <p class="block__about-item">@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</p>
 </div>

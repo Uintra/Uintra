@@ -5,6 +5,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using uIntra.Core.MigrationHistories;
+using uIntra.Groups.Installer;
 using uIntra.Navigation.Installer;
 using uIntra.Notification.Installer;
 using uIntra.Search.Installer;
@@ -63,6 +64,16 @@ namespace Compent.uIntra.Installer
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfilePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage, nav);
+
+
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDocumentsPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage, nav);
         }
 
         private void AddDefaultBackofficeSectionsToAdmin()

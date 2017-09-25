@@ -18,6 +18,8 @@ namespace uIntra.Likes
 
         public IEnumerable<string> Users { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public LikesViewModel()
         {
             Users = Enumerable.Empty<string>();

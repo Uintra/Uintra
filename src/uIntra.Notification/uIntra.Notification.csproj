@@ -362,6 +362,7 @@
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\Models\NotifierViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />

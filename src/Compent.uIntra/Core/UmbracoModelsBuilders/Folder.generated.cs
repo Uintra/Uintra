@@ -71,5 +71,14 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			get { return this.GetPropertyValue("folderType"); }
 		}
+
+		///<summary>
+		/// Group Id
+		///</summary>
+		[ImplementPropertyType("GroupId")]
+		public string GroupId
+		{
+			get { return this.GetPropertyValue<string>("GroupId"); }
+		}
 	}
 }

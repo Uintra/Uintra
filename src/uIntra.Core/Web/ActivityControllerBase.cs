@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
@@ -35,17 +36,18 @@ namespace uIntra.Core.Web
             return PartialView(DetailsHeaderViewPath, header);
         }
 
-        public virtual ActionResult ItemHeader(IntranetActivityItemHeaderViewModel header)
+        public virtual ActionResult ItemHeader(object header)
         {
             return PartialView(ItemHeaderViewPath, header);
         }
 
-        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName, IntranetActivityTypeEnum activityType)
+        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName, IntranetActivityTypeEnum activityType, IActivityCreateLinks links)
         {
             var model = new IntranetActivityCreatorEditModel
             {
                 Creator = creator,
-                CreatorIdPropertyName = creatorIdPropertyName
+                CreatorIdPropertyName = creatorIdPropertyName,
+                Links = links
             };
 
             var currentUser = _intranetUserService.GetCurrentUser();

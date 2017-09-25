@@ -7,6 +7,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.News;
@@ -21,7 +22,7 @@ namespace Compent.uIntra.Core.Notification
         private readonly IEventsService<EventBase> _eventsService;
         private readonly INewsService<NewsBase> _newsService;
         private readonly TagsService _tagsService;
-        private readonly IExceptionLogger _logger;
+        private readonly IActivityLinkService _activityLinkService;
 
         public MonthlyEmailService(IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -30,12 +31,14 @@ namespace Compent.uIntra.Core.Notification
             IBulletinsService<BulletinBase> bulletinsService,
             IEventsService<EventBase> eventsService,
             INewsService<NewsBase> newsService,
-            TagsService tagsService) : base(mailService, intranetUserService, logger, applicationSettings)
+            TagsService tagsService, IActivityLinkService activityLinkService) 
+            : base(mailService, intranetUserService, logger, applicationSettings)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
             _newsService = newsService;
             _tagsService = tagsService;
+            _activityLinkService = activityLinkService;
         }
 
         protected virtual IEnumerable<Tag> GetUserTags(Guid userId)
@@ -62,7 +65,7 @@ namespace Compent.uIntra.Core.Notification
                     var activityTags = GetActivityTags(activity.Id);
                     if (activityTags != null && activityTags.Any(a => userTags.FirstOrDefault(tag => tag.Id == a.Id) != null))
                     {
-                        string activityDetailsPageUrl = GetActivityDetailsUrl(activity);
+                        string activityDetailsPageUrl = _activityLinkService.GetLinks(activity.Id).Details;
                         var activityData = Tuple.Create(activity, activityDetailsPageUrl);
                         allActivitiesRelatedToUserTags.Add(activityData);
                     }
@@ -85,34 +88,6 @@ namespace Compent.uIntra.Core.Notification
             var allEvents = _eventsService.GetAll().Where(e => e.CreatorId == userId).Cast<IIntranetActivity>();
 
             return allBulletins.Concat(allNews).Concat(allEvents);
-        }
-
-        protected virtual string GetActivityDetailsUrl(IIntranetActivity activity)
-        {
-            switch (activity.Type.Id)
-            {
-                case (int)IntranetActivityTypeEnum.Bulletins:
-                    {
-
-                        return _bulletinsService.GetDetailsPage().Url.AddIdParameter(activity.Id);
-                    }
-
-                case (int)IntranetActivityTypeEnum.News:
-                    {
-
-                        return _newsService.GetDetailsPage().Url.AddIdParameter(activity.Id);
-                    }
-
-                case (int)IntranetActivityTypeEnum.Events:
-                    {
-
-                        return _eventsService.GetDetailsPage().Url.AddIdParameter(activity.Id);
-                    }
-                default:
-                    {
-                        throw new NotSupportedException();
-                    }
-            }
         }
     }
 }
