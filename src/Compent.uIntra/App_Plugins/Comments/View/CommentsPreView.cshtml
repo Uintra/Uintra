@@ -2,8 +2,9 @@
     
 @{
     var showCount = Model.Count > 0 && !Model.IsReadOnly;
+    var link = Model.IsReadOnly ? "" : Model.Link;
 }
 
-<span class="comments-preview @(showCount ? "_hasComments" : string.Empty)">
-    <a class="comments-preview__link" href="@Model.Link"><i class="icon-comment"></i> @(showCount ? Model.Count.ToString() : string.Empty)</a>
+<span class="comments-preview @(showCount ? "_hasComments" : string.Empty) js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
+    <a class="comments-preview__link" href="@link"><i class="icon-comment"></i> @(showCount ? Model.Count.ToString() : string.Empty)</a>
 </span>

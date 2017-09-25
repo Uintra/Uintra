@@ -6,9 +6,9 @@
     var entityId = Model.CommentId.HasValue ? Model.CommentId.Value : Model.ActivityId;
 }
 
-<div class="like" id="likes_@entityId">
+<div class="like js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly" id="likes_@entityId">
     <span class="like__set @isLiked">
-        <i class="icon-like"></i>
+        <i class="icon-like" ></i>
         @if (Model.Users.Any() && !Model.IsReadOnly)
         {
             <span>@Model.Users.Count()</span>
