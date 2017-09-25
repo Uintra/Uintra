@@ -375,8 +375,8 @@
       <HintPath>..\..\packages\uIntra.News.1.2.2.1\lib\net452\uIntra.News.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.2.3.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.2.3.6\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.2.3.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.2.3.7\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.7.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
