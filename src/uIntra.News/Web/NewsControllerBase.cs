@@ -58,7 +58,7 @@ namespace uIntra.News.Web
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
-        public virtual ActionResult Create(ActivityCreateLinks links)
+        public virtual ActionResult Create(IActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
             return PartialView(CreateViewPath, model);
@@ -118,7 +118,7 @@ namespace uIntra.News.Web
         }
 
 
-        protected virtual NewsCreateModel GetCreateModel(ActivityCreateLinks links)
+        protected virtual NewsCreateModel GetCreateModel(IActivityCreateLinks links)
         {
             var mediaSettings = _newsService.GetMediaSettings();
             var model = new NewsCreateModel
@@ -177,7 +177,7 @@ namespace uIntra.News.Web
             return model;
         }
 
-        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news, ActivityLinks links)
+        protected virtual NewsItemViewModel GetItemViewModel(NewsBase news, IActivityLinks links)
         {
             var model = news.Map<NewsItemViewModel>();
             model.MediaIds = news.MediaIds;

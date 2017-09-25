@@ -39,12 +39,15 @@ function toggleLinks(el){
 var controller = {
     init: function () {
         getNavState();
-        opener.on('click', function(e){
-            toggleLinks(this);
-        });
 
         if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
             helpers.initScrollbar(document.querySelector('.js-sidebar'));
+        }
+
+        if(opener.length > 0){
+            opener.on('click', function(e){
+                toggleLinks(this);
+            });
         }
     }
 }

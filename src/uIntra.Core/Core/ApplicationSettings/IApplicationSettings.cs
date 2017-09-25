@@ -3,5 +3,6 @@
     public interface IApplicationSettings
     {
         string DefaultAvatarPath { get; }
+        int MonthlyEmailJobDay { get; }
     }
 }

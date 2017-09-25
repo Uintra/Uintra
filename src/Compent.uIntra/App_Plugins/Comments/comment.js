@@ -10,7 +10,7 @@ require("./comments.css");
 const quillOptions = {
     theme: 'snow',
     modules: {
-        toolbar: [['bold', 'italic', 'underline'], ['link']]
+        toolbar: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
     }
 };
 
@@ -49,6 +49,7 @@ var initCreateControl = function (holder) {
         var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
+        let emojiContainer = $this.find(".js-emoji");
 
         toolbarBtns.each(function(){
             var className = $(this).attr('class').split("-");
@@ -66,6 +67,11 @@ var initCreateControl = function (holder) {
 
         quill.setText('');
         dataStorage.value = '';
+
+        if(emojiContainer.length <= 0){
+            helpers.initSmiles(quill, quill.getModule('toolbar').container);
+            emojiContainer = true;
+        }
     });
 };
 
@@ -79,12 +85,17 @@ var initEdit = function (holder) {
 
     var editControlContainer = findControl(holder, '.js-comment-editContainer');
     var descriptionControl = findControl(holder, '.js-comment-description');
+    let emojiContainer = findControl(editControlContainer, '.js-emoji')[0];
 
     editlink.on('click', function () {
         editlink.hide();
         hideEditlink.show();
         descriptionControl.hide();
         editControlContainer.show();
+        if(!emojiContainer || emojiContainer.length <= 0){
+            helpers.initSmiles(quill, quill.getModule('toolbar').container);
+            emojiContainer = true;
+        }
     });
 
     hideEditlink.on('click', function () {
@@ -99,6 +110,8 @@ var initEdit = function (holder) {
     var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
     var button = holder.find('.js-comment-edit-btn');
     var form = holder.find('.js-comment-edit');
+    
+
     button.click(function (event) {
         if (!form.valid()) {
             return;
@@ -134,12 +147,17 @@ var initReply = function (holder) {
     }
 
     var commentReply = findControl(holder, '.js-comment-reply');
+    let emojiContainer = findControl(commentReply, ".js-emoji")[0];
 
     showReplyLink.on('click', function () {
         showReplyLink.hide();
         hideReplyLink.show();
         commentReply.show();
         scrollToComment($(this));
+        if(!emojiContainer || emojiContainer.length <= 0){
+            helpers.initSmiles(quill, quill.getModule('toolbar').container);
+            emojiContainer = true;
+        }
     });
 
     hideReplyLink.on('click', function () {

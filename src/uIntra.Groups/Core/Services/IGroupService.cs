@@ -21,12 +21,9 @@ namespace uIntra.Groups
 
         IEnumerable<Group> GetAll();
 
-        bool CanCreate(IHaveCreator activity, IIntranetUser user);
-
         bool CanEdit(Guid groupId, IIntranetUser user);
 
         bool CanEdit(Group group, IIntranetUser user);
-
         void Hide(Guid id);
         void UpdateGroupUpdateDate(Guid id);
         void Unhide(Guid id);

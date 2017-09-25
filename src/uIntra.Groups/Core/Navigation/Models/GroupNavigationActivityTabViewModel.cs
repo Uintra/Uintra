@@ -6,6 +6,6 @@ namespace uIntra.Groups
     public class GroupNavigationActivityTabViewModel : GroupNavigationTabViewModelBase
     {
         public IIntranetType Type { get; set; }        
-        public ActivityCreateLinks Links { get; set; }
+        public IActivityCreateLinks Links { get; set; }
     }
 }

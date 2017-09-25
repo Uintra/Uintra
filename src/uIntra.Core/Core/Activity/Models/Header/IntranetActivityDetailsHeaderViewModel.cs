@@ -12,6 +12,6 @@ namespace uIntra.Core.Activity
         public IIntranetType Type { get; set; }
         public IIntranetUser Creator { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
-        public ActivityLinks Links { get; set; }
+        public IActivityLinks Links { get; set; }
     }
 }

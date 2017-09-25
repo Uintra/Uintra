@@ -353,6 +353,7 @@
     <Compile Include="Core\Entities\Base\Mails\MailAttachmentFile.cs" />
     <Compile Include="Core\Entities\Base\Mails\MailBase.cs" />
     <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
+    <Compile Include="Core\Models\MailModels\MonthlyMail.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
     <Compile Include="Core\Models\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
@@ -364,6 +365,7 @@
     <Compile Include="Core\Models\NotifierViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
+    <Compile Include="Core\Services\IMonthlyEmailService.cs" />
     <Compile Include="Core\Services\INotificationHelper.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
@@ -382,6 +384,7 @@
     <Compile Include="Core\Services\IMailService.cs" />
     <Compile Include="DefaultImplementation\MailNotifierServiceBase.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
+    <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />

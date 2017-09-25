@@ -52,19 +52,19 @@
                                     {
                                         <span class="notification__list-name">@(hasNotifier ? notification.Notifier.Name : string.Empty) </span>
                                     }
-                                </a>
-                                @if (notification.Type.Name.IsNotNullOrEmpty())
-                                {
-                                    <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
-                                }
+                                    @if (notification.Type.Name.IsNotNullOrEmpty())
+                                    {
+                                        <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
+                                    }
 
-                            </h2>
-                            <div class="notification__list-heading js-notification__list-heading" data-url="@notification.Value.url">
-                                @Html.Raw(notification.Value.title)
+                                </h2>
+                                <div class="notification__list-heading js-notification__list-heading">
+                                    @Html.Raw(notification.Value.title)
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </li>
         }
     }

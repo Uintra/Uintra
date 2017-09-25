@@ -60,9 +60,8 @@ namespace uIntra.Search.Web
                 ApplyHighlights = true
             });
 
-            var resultModel = GetSearchResultsOverviewModel(searchResult.Documents);
+            var resultModel = GetSearchResultsOverviewModel(searchResult);
             resultModel.Query = model.Query;
-            resultModel.ResultsCount = (int)searchResult.TotalHits;
 
             return PartialView(SearchResultViewPath, resultModel);
         }
@@ -121,18 +120,36 @@ namespace uIntra.Search.Web
             return _searchableTypeProvider.GetAll();
         }
 
-        protected virtual SearchResultsOverviewViewModel GetSearchResultsOverviewModel(IEnumerable<SearchableBase> searchResults)
+        protected virtual SearchResultsOverviewViewModel GetSearchResultsOverviewModel(SearchResult<SearchableBase> searchResult)
         {
-            var searchResultViewModels = searchResults.Select(d =>
+            var searchResultViewModels = searchResult.Documents.Select(d =>
             {
                 var resultItem = d.Map<SearchResultViewModel>();
                 resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
                 return resultItem;
             }).ToList();
 
+            var filterItems = GetSearchableTypes().GroupJoin(
+                searchResult.TypeFacets,
+                type => type.Id,
+                facet => int.Parse(facet.Name),
+                (type, facets) =>
+                {
+                    var facet = facets.FirstOrDefault();
+                    return new SearchFilterItemViewModel
+                    {
+                        Id = type.Id,
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int)facet.Count : default(int))
+                    };
+                }
+               );
+
             var result = new SearchResultsOverviewViewModel
             {
                 Results = searchResultViewModels,
+                ResultsCount = (int)searchResult.TotalHits,
+                FilterItems = filterItems,
+                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalHits)
             };
 
             return result;
@@ -148,6 +165,11 @@ namespace uIntra.Search.Web
             });
 
             return result;
+        }
+
+        protected virtual string GetLabelWithCount(string label, int count)
+        {
+            return $"{_localizationService.Translate(label)} ({count})";
         }
 
         [HttpPost]

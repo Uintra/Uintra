@@ -1,16 +1,10 @@
 namespace uIntra.Core.Links
 {
-    public class ActivityCreateLinks : ActivityCreatorLink
+    public class ActivityCreateLinks : IActivityCreateLinks
     {
-        public string Overview { get; }
-        public string Create { get; }
-        public string DetailsNoId { get; }
-
-        public ActivityCreateLinks(string overview, string create, string creator, string detailsNoId) : base(creator)
-        {
-            Overview = overview;
-            Create = create;
-            DetailsNoId = detailsNoId;
-        }
+        public string Overview { get; set; }
+        public string Create { get; set; }
+        public string Creator { get; set; }
+        public string DetailsNoId { get; set; }
     }
 }

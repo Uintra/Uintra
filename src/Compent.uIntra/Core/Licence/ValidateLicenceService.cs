@@ -13,28 +13,27 @@ namespace Compent.uIntra.Core.Licence
         private readonly IMemberService _memberService;
         private readonly ILicenceValidationServiceClient _validationServiceClient;
 
-        public Lazy<bool> IsLicenceValid { get; }
+        private Lazy<bool> IsLicenceValid { get; }
+
 
         public ValidateLicenceService(IMemberService memberService, ILicenceValidationServiceClient validationServiceClient)
         {
             _memberService = memberService;
             _validationServiceClient = validationServiceClient;
-            IsLicenceValid = new Lazy<bool>(GetValidationResult);
+            IsLicenceValid = new Lazy<bool>(ValidateLicence);
         }
 
-        private bool GetValidationResult()
+        public bool GetValidationResult()
         {
-            var membersCount = _memberService.Count();
+            return IsMemberCountAllowed || IsLicenceValid.Value;
+        }
+
+        private bool IsMemberCountAllowed => _memberService.Count() <= MaxAllowedTrialUsers;
+
+        private bool ValidateLicence()
+        {
             var licenceKey = ConfigurationManager.AppSettings.Get(CompentLicenceKey);
-
-            bool isUserCountGraterThanAllowed = membersCount > MaxAllowedTrialUsers;
-            bool result = Validate(isUserCountGraterThanAllowed, licenceKey);
-            return result;
-        }
-
-        private bool Validate(bool isUserCountGraterThanAllowed, string licenceKey)
-        {
-            return !isUserCountGraterThanAllowed || !String.IsNullOrEmpty(licenceKey) && _validationServiceClient.Validate(licenceKey);
+            return !String.IsNullOrEmpty(licenceKey) && _validationServiceClient.Validate(licenceKey);
         }
     }
 }

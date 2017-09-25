@@ -6,9 +6,7 @@ namespace uIntra.CentralFeed
     public class DetailsViewModel
     {
         public Guid Id { get; set; }
-        public ActivityLinks Links { get; set; }
+        public IActivityLinks Links { get; set; }
         public FeedSettings Settings { get; set; }
     }
-
-    // TODO : how can I remove duplication?
 }

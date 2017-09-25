@@ -23,12 +23,11 @@ namespace uIntra.Groups.Web
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
-        protected override string OverviewViewPath => "~/App_Plugins/Groups/Feed/Overview.cshtml";
-        protected override string DetailsViewPath => "~/App_Plugins/Groups/Feed/Details.cshtml";
-        protected override string CreateViewPath => "~/App_Plugins/Groups/Feed/Create.cshtml";
-        protected override string EditViewPath => "~/App_Plugins/Groups/Feed/Edit.cshtml";
-        
-        protected override string ListViewPath => "~/App_Plugins/Groups/Feed/List.cshtml";
+        protected override string OverviewViewPath => "~/App_Plugins/Groups/Room/Feed/Overview.cshtml";
+        protected override string DetailsViewPath => "~/App_Plugins/Groups/Room/Feed/Details.cshtml";
+        protected override string CreateViewPath => "~/App_Plugins/Groups/Room/Feed/Create.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/Groups/Room/Feed/Edit.cshtml";       
+        protected override string ListViewPath => "~/App_Plugins/Groups/Room/Feed/List.cshtml";
 
         protected GroupFeedControllerBase(
             ICentralFeedContentHelper centralFeedContentHelper,
