@@ -22,6 +22,7 @@ namespace uIntra.Groups.Web
         private readonly IGroupContentHelper _groupContentHelper;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
+        private bool IsCurrentUserGroupMember { get; set; }
 
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Room/Feed/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Room/Feed/Details.cshtml";
@@ -139,6 +140,9 @@ namespace uIntra.Groups.Web
                 .Single(s => s.Type.Id == model.TypeId)
                 .Map<FeedTabSettings>();
 
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(model.GroupId, currentUserId); // I know that state is not the nice idea, but I cant find another way to remove logic duplication
+
             return new FeedListViewModel
             {
                 Version = _groupFeedService.GetFeedVersion(filteredItems),
@@ -154,7 +158,8 @@ namespace uIntra.Groups.Web
         {
             return new ActivityFeedOptions()
             {
-                Links = _groupFeedLinkService.GetLinks(i.Id)
+                Links = _groupFeedLinkService.GetLinks(i.Id),
+                IsReadOnly = !IsCurrentUserGroupMember
             };
         }
 
