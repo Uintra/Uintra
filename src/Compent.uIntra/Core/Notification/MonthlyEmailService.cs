@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.uIntra.Core.Notification.Mails;
 using uIntra.Bulletins;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
@@ -70,6 +71,12 @@ namespace Compent.uIntra.Core.Notification
 
             return allActivitiesRelatedToUserTags;
         }
+
+        //protected override T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user)
+        //{
+        //    var result = base.GetMonthlyMailModel<MonthlyMail>(userActivities, user);
+        //    return (T)(object)result;
+        //}
 
         protected virtual IEnumerable<IIntranetActivity> GetAllUserActivities(Guid userId)
         {

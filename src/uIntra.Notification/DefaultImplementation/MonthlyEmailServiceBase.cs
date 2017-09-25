@@ -58,7 +58,7 @@ namespace uIntra.Notification
 
         protected abstract List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId);        
 
-        private T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user) where T: MonthlyMailBase, new()
+        protected virtual T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user) where T: MonthlyMailBase, new()
         {
             var recipient = new MailRecipient { Email = user.Email, Name = user.DisplayedName };
             return new T
