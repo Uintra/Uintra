@@ -1,5 +1,11 @@
-﻿function readonlyClickEventHandler() {
-    alert()
+﻿import confirm from './../../Controls/Confirm/Confirm';
+
+function readonlyClickEventHandler(e) {
+    e.preventDefault();
+    var element = $(this);
+    var title = element.find("[name='readonlyClickTitle']").val()
+    var message = element.find("[name='readonlyClickMessage']").val();
+    confirm.alert(title, message);
 }
 
 function isReadonlyItem(el) {
@@ -9,10 +15,8 @@ function isReadonlyItem(el) {
 var controller = {
     init: function() {
         let selector = ".js-readonly-click-warning";
-        var c = 0;
-        var items = $(selector);
-        console.log(items)
-        items.each(function(i, el) { debugger
+        let items = $(selector);      
+        items.each(function(i, el) {
             if (isReadonlyItem(el)) {
                 el.addEventListener('click', readonlyClickEventHandler);
             }

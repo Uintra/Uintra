@@ -1,4 +1,5 @@
-﻿@model uIntra.Comments.CommentPreviewModel
+﻿@using uIntra.Core.Extentions
+@model uIntra.Comments.CommentPreviewModel
     
 @{
     var showCount = Model.Count > 0 && !Model.IsReadOnly;
@@ -6,5 +7,8 @@
 }
 
 <span class="comments-preview @(showCount ? "_hasComments" : string.Empty) js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
+    <input type="hidden" name="readonlyClickTitle" value="@Html.Localize("Comments.ReadonlyClick.Title.lbl")" />
+    <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Comments.ReadonlyClick.Message.lbl")" />
+
     <a class="comments-preview__link" href="@link"><i class="icon-comment"></i> @(showCount ? Model.Count.ToString() : string.Empty)</a>
 </span>

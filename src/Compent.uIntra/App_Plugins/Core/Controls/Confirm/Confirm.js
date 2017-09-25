@@ -49,7 +49,7 @@ var Confirm = {
             .set(settings);
     },
 
-    showDialog: function (title, text, callbacks,settings) {
+    showDialog: function (title, text, callbacks, settings) {
         var callbackWrapper = function (closeEvent) {
             var callback = callbacks[closeEvent.index];
             if (callback) {
@@ -60,6 +60,9 @@ var Confirm = {
             return false;
         }
         Alertify.customDialog(title, text, callbackWrapper).set(settings);
+    },
+    alert: function (title, text, callback, settings = this.defaultSettings) {
+        Alertify.alert(title, text, callback).set(settings);
     }
 }
 
