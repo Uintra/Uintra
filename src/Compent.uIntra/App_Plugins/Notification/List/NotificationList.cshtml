@@ -35,7 +35,7 @@
                     break;
             }
             <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                <a class="notification__list-avatar" href="@(hasNotifier ? notification.Notifier.ProfileLink.Value : string.Empty)">
+                <a class="notification__list-avatar" href="@(hasNotifier ? notification.Notifier.ProfileLink : string.Empty)">
                     <img class="notification__list-avatar-img" src="@UserPhotoHelper.GetUserPhotoOrDefaultAvatar(notification.Notifier?.Photo)">
                 </a>
 
@@ -44,7 +44,7 @@
                         <div class="notification__list-row">
                             <span class="notification__list-date">@notification.Date</span>
                             <h2 class="notification__list-title">
-                                <a class="notification__list-title-link" href="@(hasNotifier ? notification.Notifier.ProfileLink.Value : string.Empty)">
+                                <a class="notification__list-title-link" href="@(hasNotifier ? notification.Notifier.ProfileLink : string.Empty)">
                                     <span class="notification__list-icon">
                                         <i class="icon @icon"></i>
                                     </span>
@@ -57,15 +57,15 @@
                                         <span class="notification__list-type">@Html.Localize(notification.Type.Name)</span>
                                     }
 
-                                </h2>
-                                <div class="notification__list-heading js-notification__list-heading">
-                                    @Html.Raw(notification.Value.title)
-                                </div>
+                            </h2>
+                            <div class="notification__list-heading js-notification__list-heading">
+                                @Html.Raw(notification.Value.title)
                             </div>
                         </div>
                     </div>
-                </a>
-            </li>
+                </div>
+                </li>
+
         }
     }
     else
