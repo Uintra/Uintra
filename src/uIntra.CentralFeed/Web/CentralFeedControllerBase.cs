@@ -53,9 +53,9 @@ namespace uIntra.CentralFeed.Web
         }
 
         [HttpGet]
-        public ActionResult Create(int typeId)
+        public ActionResult Create()//(int typeId)
         {
-            var activityType = _centralFeedTypeProvider.Get(typeId);
+            var activityType = _centralFeedContentHelper.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType);
             return PartialView(CreateViewPath, viewModel);
         }
@@ -152,7 +152,7 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
-            var tabType = _centralFeedContentHelper.GetTabType(CurrentPage);
+            var tabType = _centralFeedContentHelper.GetCentralFeedTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
             var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<ActivityFeedTabViewModel>>();

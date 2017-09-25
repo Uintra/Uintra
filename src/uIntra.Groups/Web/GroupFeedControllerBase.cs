@@ -74,13 +74,13 @@ namespace uIntra.Groups.Web
         }
 
         [HttpGet]
-        public ActionResult Create(Guid groupId, int typeId)
+        public ActionResult Create(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
             if (!_groupMemberService.IsGroupMember(groupId, currentUser))
                 return new EmptyResult();
-
-            var activityType = _centralFeedTypeProvider.Get(typeId);
+            
+            var activityType = _groupContentHelper.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType, groupId);
             return PartialView(CreateViewPath, viewModel);
         }
@@ -166,7 +166,7 @@ namespace uIntra.Groups.Web
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var tabType = _groupContentHelper.GetTabType(CurrentPage);
+            var tabType = _groupContentHelper.GetGroupFeedTabType(CurrentPage);
 
             var tabs = _groupContentHelper.GetActivityTabs(CurrentPage, currentUser, groupId);
             var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();

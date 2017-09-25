@@ -384,6 +384,9 @@
     <Compile Include="Core\Models\Feed\FeedItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\ActivityCreate\activity-create.html" />
+    <Content Include="App_Plugins\CentralFeed\ActivityDetails\activity-details.html" />
+    <Content Include="App_Plugins\CentralFeed\ActivityEdit\activity-edit.html" />
     <Content Include="App_Plugins\CentralFeed\loader.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />

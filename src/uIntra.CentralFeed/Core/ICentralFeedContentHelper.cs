@@ -10,7 +10,11 @@ namespace uIntra.CentralFeed
 
         bool IsCentralFeedPage(IPublishedContent currentPage);
 
-        IIntranetType GetTabType(IPublishedContent content);
+        IIntranetType GetCentralFeedTabType(IPublishedContent content);
+
+        IIntranetType GetCreateActivityType(IPublishedContent content);
+
+        IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias);
 
         IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage);
 

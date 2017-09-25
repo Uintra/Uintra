@@ -513,6 +513,9 @@
     <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
     <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Bulletins\style.css" />
+    <Content Include="App_Plugins\CentralFeed\ActivityCreate\activity-create.html" />
+    <Content Include="App_Plugins\CentralFeed\ActivityDetails\activity-details.html" />
+    <Content Include="App_Plugins\CentralFeed\ActivityEdit\activity-edit.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
@@ -781,6 +784,9 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
+    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
+    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
     <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
     <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
     <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />

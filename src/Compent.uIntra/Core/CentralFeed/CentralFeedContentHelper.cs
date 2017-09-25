@@ -59,7 +59,7 @@ namespace Compent.uIntra.Core.CentralFeed
         public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
         {
             var overviewPage = GetOverviewPage();
-            var type = GetTabType(overviewPage);
+            var type = GetCentralFeedTabType(overviewPage);
             yield return new ActivityFeedTabModel
             {
                 Content = overviewPage,
@@ -70,7 +70,7 @@ namespace Compent.uIntra.Core.CentralFeed
 
             foreach (var content in GetContents())
             {
-                var tabType = GetTabType(content);
+                var tabType = GetCentralFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
                 if (activityType == null)
@@ -117,9 +117,19 @@ namespace Compent.uIntra.Core.CentralFeed
             return _cookieProvider.Exists(CentralFeedFiltersStateCookieName);
         }
 
-        public IIntranetType GetTabType(IPublishedContent content)
+        public IIntranetType GetCentralFeedTabType(IPublishedContent content)
         {
-            var value = _gridHelper.GetValue(content, "custom.CentralFeed");
+            return GetActivityTypeFromPlugin(content, "custom.CentralFeed");
+        }
+
+        public IIntranetType GetCreateActivityType(IPublishedContent content)
+        {
+            return GetActivityTypeFromPlugin(content, "custom.ActivityCreate");
+        }
+
+        public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
+        {
+            var value = _gridHelper.GetValue(content, gridPluginAlias);
 
             if (value == null || value.tabType == null)
             {
