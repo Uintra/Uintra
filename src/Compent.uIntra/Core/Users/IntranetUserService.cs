@@ -16,7 +16,7 @@ namespace Compent.uIntra.Core.Users
     public class IntranetUserService<T> : IntranetUserServiceBase<T>
          where T : IntranetUser, new()
     {
-        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
+        private readonly ISqlRepository<GroupMember> _groupMemberRepository; //TODO use service instead
 
         public IntranetUserService(
             IMemberService memberService,

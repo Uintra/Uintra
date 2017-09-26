@@ -1060,7 +1060,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Compent.uIntra\Core\**\*.cs">
+    <Compile Include="..\Compent.uIntra\Core\**\*.cs"
+             Exclude="..\Compent.uIntra\Core\**\*generated.cs">
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
     <Content Include="..\Compent.uIntra\Controllers\**\*.*">
