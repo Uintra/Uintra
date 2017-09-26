@@ -1,7 +1,11 @@
 ﻿@using uIntra.Core.Extentions
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
-<ul class="gallery js-lightbox-gallery clearfix">
+@{ 
+    var fullSizeClass = Model.Images.Count() > 1 && Model.OtherFiles.Any() ? String.Empty : "_full-size";
+}
+
+<ul class="gallery js-lightbox-gallery clearfix @fullSizeClass">
     @foreach (var image in Model.Images)
     {
         var originalSize = $"{image.Width}x{image.Height}";
