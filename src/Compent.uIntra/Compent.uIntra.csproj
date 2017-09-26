@@ -331,6 +331,12 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uIntra.CentralFeed, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.5\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.Groups, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.0.1\lib\net452\uIntra.Groups.dll</HintPath>
+    </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
@@ -778,15 +784,23 @@
     <Content Include="App_Plugins\Groups\Create\create-group.js" />
     <Content Include="App_Plugins\Groups\Create\group-create.html" />
     <Content Include="App_Plugins\Groups\DisabledGroupView\disabled-group.html" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
+    <Content Include="App_Plugins\Groups\DisablerGroupView\disabled-group.html" />
+    <Content Include="App_Plugins\Groups\Documents\group-documents.html" />
+    <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
     <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
     <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\group.svg" />
     <Content Include="App_Plugins\Groups\groups.css" />
     <Content Include="App_Plugins\Groups\groups.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
-    <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
+    <Content Include="App_Plugins\Groups\Info\group-info.html" />
     <Content Include="App_Plugins\Groups\List\group-list.html" />
+    <Content Include="App_Plugins\Groups\List\Groups.js" />
+    <Content Include="App_Plugins\Groups\Members\group-members.html" />
+    <Content Include="App_Plugins\Groups\Members\group-members.js" />
+    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
+    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
+    <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
     <Content Include="App_Plugins\Groups\List\group-list.js" />
     <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
@@ -998,7 +1012,6 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
@@ -1086,13 +1099,13 @@
     <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1412,10 +1425,6 @@
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
       <Name>uIntra.CentralFeed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
-      <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
-      <Name>uIntra.CentralFeed</Name>
-    </ProjectReference>
     <ProjectReference Include="..\uIntra.Comments\uIntra.Comments.csproj">
       <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
       <Name>uIntra.Comments</Name>
@@ -1435,10 +1444,6 @@
     <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
       <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
       <Name>uIntra.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
-      <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
-      <Name>uIntra.Groups</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.Likes\uIntra.Likes.csproj">
       <Project>{b99f0f05-598c-4f4a-a972-7282dcf9fed8}</Project>
