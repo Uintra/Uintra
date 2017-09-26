@@ -1,22 +1,17 @@
-﻿var controller = {
-    initOnLoad: function () {
-        this.init('.js-group-subscribe');
-    },
-    init: function (selector) {
-        var holders = $(selector);
+﻿import confirm from './../Core/Controls/Confirm/Confirm';
 
-        if (!holders.length) {
-            return;
-        }
+function unsubscribeEventHanlder(e) {
+    e.preventDefault();
+    var title = e.target.dataset.title;
+    var message = e.target.dataset.message;
+    confirm.showConfirm(title, message, () => e.target.form.submit(), () => {}, confirm.defaultSettings);
+}
 
-        holders.each(function () {
-            init($(this));
-        });
-    },
-
-    changeCount: function (count) {
-        var countHolder = $('#membersCount');
-        $(countHolder).text(count);
+var controller = {
+    init: function () {
+        var selector = ".js-group-subscribe ._unsubscribe";
+        var unsubscribeForm = $(selector);
+        unsubscribeForm.on('click', e => unsubscribeEventHanlder(e));
     }
 }
 

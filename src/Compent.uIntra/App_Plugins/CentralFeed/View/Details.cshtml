@@ -1,8 +1,9 @@
-﻿@model uIntra.CentralFeed.DetailsViewModel
+﻿@using System.Web.Mvc.Html
+@model uIntra.CentralFeed.DetailsViewModel
 @{ Html.RenderAction("Details", Model.Settings.Controller, new
    {
        id = Model.Id,
-       links = Model.Options.Links
+       options = Model.Options
    }); 
 
 }

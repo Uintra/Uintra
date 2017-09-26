@@ -13,7 +13,7 @@ import anchorScroll from './AnchorScroll';
 import validationExtensions from './ValidationExtensions';
 import scrollToTop from './ScrollToTop';
 import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
-import readonlyClickWarning from './readonlyClickWarning';
+
 
 export default function() {
     anchorScroll();
@@ -22,5 +22,4 @@ export default function() {
     scrollToTop();
     lightboxGallery.init();
     showContent();
-    readonlyClickWarning.init();
 }

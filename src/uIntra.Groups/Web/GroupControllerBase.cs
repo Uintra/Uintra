@@ -233,14 +233,6 @@ namespace uIntra.Groups.Web
             return RedirectToCurrentUmbracoPage(Request.QueryString);
         }
 
-
-        [DisabledGroupActionFilter]
-        public virtual ActionResult Unsubscribe(Guid groupId, Guid memberId)
-        {
-            _groupMemberService.Remove(groupId, memberId);
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
-        }
-
         [DisabledGroupActionFilter]
         public virtual ActionResult GroupMembers(Guid groupId)
         {
