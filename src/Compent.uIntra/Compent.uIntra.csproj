@@ -334,10 +334,6 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.6\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.5.1\lib\net452\uIntra.CentralFeed.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="uIntra.Core, Version=1.3.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Core.1.3.10\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
@@ -803,10 +799,10 @@
     <Content Include="App_Plugins\Groups\groups.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\List\group-list.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.js" />
     <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
     <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
     <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
-    <Content Include="App_Plugins\Groups\List\group-list.js" />
     <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
