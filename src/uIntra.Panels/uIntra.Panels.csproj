@@ -309,33 +309,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.css" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="uIntra.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <EmbeddedResource Include="Installer\PreValues\PanelPickerPreValues.json" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -348,6 +327,9 @@
       <Project>{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}</Project>
       <Name>uIntra.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Plugins\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
