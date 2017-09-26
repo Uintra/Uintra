@@ -3,7 +3,7 @@
 
     var groupCentralFeedService = function ($http) {
         var self = this;
-        var baseUrl = "/umbraco/surface/centralFeed/";
+        var baseUrl = "/umbraco/surface/groupFeed/";
 
         self.getActivityTypes = function () {
             return $http.get(baseUrl + 'AvailableActvityTypes');

@@ -1,5 +1,5 @@
 ﻿@using uIntra.Core.Extentions
-@inherits UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
 <nav class="tabset">
     <strong class="tabset__logo"><a href="/"><img class="img-responsive" src="/Content/images/logo.png" alt="Team Denmark"></a></strong>
     <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
@@ -18,24 +18,21 @@
         </h1>
 
         <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
-            @foreach (var tab in Model.Tabs)
+            @foreach (var tab in Model.ActivityTabs)
             {
-                if (tab.Type != null)
-                {
-                    <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.GetHashCode()" data-page-url="@tab.Url">
-                        <a class="tabset__navigation-link " href="@tab.Url">
-                            <span>@Html.Localize(tab.Type.Name)</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
+                <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
+                    <a class="tabset__navigation-link " href="@tab.Links.Overview">
+                        <span>@Html.Localize(tab.Type.Name)</span>
+                    </a>
+                </li>
+            }
+            @foreach (var tab in Model.PageTabs)
+            {
                     <li class="tabset__navigation-item @(tab.IsActive ? "_active" : "") @(tab.AlignRight ? "_right _for-desktop" : "")">
-                        <a class="tabset__navigation-link " href="@tab.Url">
+                        <a class="tabset__navigation-link " href="@tab.Link">
                             <span>@tab.Title</span>
                         </a>
-                    </li>
-                }
+                    </li>                
             }
         </ul>
     </div>
