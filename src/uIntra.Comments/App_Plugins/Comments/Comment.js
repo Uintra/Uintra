@@ -4,6 +4,7 @@ import helpers from "./../Core/Content/scripts/Helpers";
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
+
 require("./comments.css");
 
 const quillOptions = {

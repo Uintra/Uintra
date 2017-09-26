@@ -351,12 +351,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <None Include="app.config" />
-    <Content Include="App_Plugins\Likes\likes.css" />
-    <Content Include="App_Plugins\Likes\Likes.js" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Likes\package.manifest" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -375,6 +370,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
+    <Content Include="App_Plugins\Likes\likes.css" />
+    <Content Include="App_Plugins\Likes\Likes.js" />
+    <Content Include="App_Plugins\Likes\package.manifest" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

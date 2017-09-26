@@ -401,19 +401,8 @@
     <Compile Include="Web\NotificationJobControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\notification-list.html" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\notificationList.css" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\notification.js" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <None Include="packages.config" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
     <None Include="uIntra.Notification.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +416,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\List\notification-list.html" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\List\notificationList.css" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\notification.js" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

@@ -394,21 +394,9 @@
     <Compile Include="DefaultImplementation\MyLinkItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />
-    <Content Include="App_Plugins\Navigation\MyLinks\sort.svg" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\navigation.js" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <None Include="App_Plugins\Navigation\Web.config" />
     <Compile Include="DefaultImplementation\SystemLinksViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+    <None Include="App_Plugins\Navigation\Web.config" />
     <None Include="config\Dashboard.config.install.xdt" />
     <None Include="config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopMenuViewModel.cs" />
@@ -430,10 +418,32 @@
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
     <None Include="uIntra.Navigation.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
+    <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />
+    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
+    <Content Include="App_Plugins\Navigation\MyLinks\sort.svg" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+    <Content Include="App_Plugins\Navigation\navigation.js" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -451,18 +461,6 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
