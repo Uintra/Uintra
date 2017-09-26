@@ -61,10 +61,14 @@
 
         if (config.includeUmbracoValues != null && (bool)config.includeUmbracoValues)
         {
-            RouteValueDictionary controllerParams =  new RouteValueDictionary(ParseControllerModel(control));
+            var controllerParams =  new RouteValueDictionary(ParseUmbracoValues(control));
+            @Html.Action(action, controller, controllerParams);
+        }
+        else if (config.includeParams != null && (bool)config.includeParams)
+        {
+            var controllerParams =  new RouteValueDictionary(ParseParams(config));
             @Html.Action(action, controller, controllerParams);        
         }
-
         else
         {
             @Html.Action(action, controller)
@@ -110,9 +114,22 @@
         var path = chosen.ToString().ToLower().Replace(".html", ".cshtml");
         return path.Contains("/") ? path : "grid/editors/" + path;
     }
-        
-    public static IDictionary<string, object> ParseControllerModel(dynamic control)
+
+    public static IDictionary<string, object> ParseUmbracoValues(dynamic control)
     {
-        return ((Newtonsoft.Json.Linq.JToken)control)["value"].ToObject<Dictionary<string, object>>();
-    }   
+        return ParseControl(control, "value");
+    }
+
+    public static IDictionary<string, object> ParseParams(dynamic control)
+    {
+        return ParseControl(control, "params");
+    }
+
+    private static IDictionary<string, object> ParseControl(dynamic control, string key)
+    {
+        var result = ((Newtonsoft.Json.Linq.JToken) control)[key].ToObject<Dictionary<string, object>>();
+        return result == null
+            ? new Dictionary<string, object>()
+            : result;
+    }
 }

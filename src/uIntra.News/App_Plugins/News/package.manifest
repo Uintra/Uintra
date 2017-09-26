@@ -6,30 +6,81 @@
       "view": "/App_Plugins/News/Create/news-create.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "News",
-        "action": "Create"
+        "controller": "CentralFeed",
+        "action": "Create",
+        "includeParams": true,
+        "params": {
+          "typeId": 1
+        }
       }
     },
+    {
+      "name": "Groups News create",
+      "alias": "custom.GroupsNewsCreate",
+      "view": "/App_Plugins/News/Create/news-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Create",
+        "includeParams": true,
+        "params": {
+          "typeId": 1
+        }
+      }
+    },
+
+
+
+
+
+
     {
       "name": "News edit",
       "alias": "custom.NewsEdit",
       "view": "/App_Plugins/News/Edit/news-edit.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "News",
+        "controller": "CentralFeed",
         "action": "Edit"
       }
     },
+    {
+      "name": "Groups News edit",
+      "alias": "custom.GroupsNewsEdit",
+      "view": "/App_Plugins/News/Edit/news-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Edit"
+      }
+    },
+
+
+
+
+
+
     {
       "name": "News Details",
       "alias": "custom.NewsDetails",
       "view": "/App_Plugins/News/Details/news-details.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "News",
+        "controller": "CentralFeed",
+        "action": "Details"
+      }
+    },
+    {
+      "name": "Groups News Details",
+      "alias": "custom.GroupsNewsDetails",
+      "view": "/App_Plugins/News/Details/news-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
         "action": "Details"
       }
     }
+
   ],
   "javascript": [
     "~/App_Plugins/News/backoffice/news-management.js",

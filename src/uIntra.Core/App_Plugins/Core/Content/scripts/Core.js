@@ -14,6 +14,7 @@ import validationExtensions from './ValidationExtensions';
 import scrollToTop from './ScrollToTop';
 import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
 
+
 export default function() {
     anchorScroll();
     blockOnSubmit();

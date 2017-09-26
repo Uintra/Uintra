@@ -17,7 +17,7 @@
             <span class="feed__item-category">@Html.Localize(Model.Type.Name)@(Model.Creator != null ? "," : string.Empty)</span>
             @if (Model.Creator != null)
             {
-                <a href="@profilePageUrl">
+                <a href="@Model.Links.Creator">
                     <span class="feed__item-name">@Model.Creator.DisplayedName</span>
                 </a>
             }
