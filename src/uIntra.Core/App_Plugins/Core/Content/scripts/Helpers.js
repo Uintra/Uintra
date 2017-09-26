@@ -31,7 +31,8 @@ var helpers = {
         var quill = new Quill(source, options);
 
         quill.on('text-change', (delta, oldDelta, source) => {
-            if (!quill.getText().trim()) {
+            var n = quill.container.querySelectorAll("img").length;
+            if (!quill.getText().trim() && n < 1) {
                 dataStorage.value = '';
                 return;
             }
