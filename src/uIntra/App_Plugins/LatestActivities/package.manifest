@@ -8,7 +8,7 @@
       "config": {
         "controller": "CentralFeed",
         "action": "LatestActivities",
-        "sendModelToController": true,
+        "includeUmbracoValues": true,
         "teaser": {
           "height": 350,
           "toolbar": "styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat",

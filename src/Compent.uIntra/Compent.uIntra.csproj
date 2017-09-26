@@ -331,6 +331,9 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\TidyNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uIntra.BaseControls, Version=2.4.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.4.0.2\lib\net452\uIntra.BaseControls.dll</HintPath>
+    </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.6\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
@@ -362,6 +365,21 @@
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Notification.1.2.4\lib\net452\uIntra.Notification.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.Panels, Version=2.1.8.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.8.1\lib\net452\uIntra.Panels.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.Search, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.1.5\lib\net452\uIntra.Search.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.Subscribe, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.6\lib\net452\uIntra.Subscribe.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.Tagging, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Tagging.1.1.6\lib\net452\uIntra.Tagging.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.Users, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.5.3\lib\net452\uIntra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.dll</HintPath>
@@ -496,7 +514,6 @@
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.css" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.html" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.js" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\BaseControls\TinyMce\link-picker-overlay.html" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
@@ -839,7 +856,6 @@
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />
-    <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
@@ -935,28 +951,18 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Tagging\dummy.txt" />
     <Content Include="App_Plugins\Tagging\taggle.css" />
     <Content Include="App_Plugins\Tagging\tags.css" />
     <Content Include="App_Plugins\Tagging\tags.js" />
     <Content Include="App_Plugins\Tagging\tagsEdit.js" />
     <Content Include="App_Plugins\Tagging\tagsView.js" />
-    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
@@ -1081,10 +1087,6 @@
     <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
     <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
@@ -1113,6 +1115,22 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Comments\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1416,10 +1434,6 @@
     <Folder Include="Content\scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
-      <Project>{2e4a8b55-37f6-46a8-b108-30e346870720}</Project>
-      <Name>uIntra.BaseControls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
       <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
       <Name>uIntra.Bulletins</Name>
@@ -1455,26 +1469,6 @@
     <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
       <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
       <Name>uIntra.Notification</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Panels\uIntra.Panels.csproj">
-      <Project>{d5590777-b149-467f-829a-e901a9462e72}</Project>
-      <Name>uIntra.Panels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Search\uIntra.Search.csproj">
-      <Project>{4d9f910e-24e0-43b3-bccb-fef527d5ff2f}</Project>
-      <Name>uIntra.Search</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
-      <Project>{dd7c6b81-0f9f-4196-89fe-4db666cd0367}</Project>
-      <Name>uIntra.Subscribe</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Tagging\uIntra.Tagging.csproj">
-      <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
-      <Name>uIntra.Tagging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
-      <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
-      <Name>uIntra.Users</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
       <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>

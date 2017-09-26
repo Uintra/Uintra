@@ -24,7 +24,6 @@ function initListeners() {
     $('#js-member-notifier-setting').on('change',
         function (event) {
 
-            let $this = $(this);
             let element = event.currentTarget;
             let confirmMessage = $(element).attr('dataConfirmMessage');
             confirm.showConfirm('',
