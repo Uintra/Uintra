@@ -357,48 +357,24 @@
     <Compile Include="Web\GroupFeedControllerBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
-    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
-    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
-    <Content Include="App_Plugins\Groups\Create\create-group.js" />
-    <Content Include="App_Plugins\Groups\Create\group-create.html" />
-    <Content Include="App_Plugins\Groups\DisablerGroupView\disabled-group.html" />
-    <Content Include="App_Plugins\Groups\Documents\group-documents.html" />
-    <Content Include="App_Plugins\Groups\Documents\group-documents.js" />
-    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
-    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
-    <Content Include="App_Plugins\Groups\group.svg" />
-    <Content Include="App_Plugins\Groups\groups.js" />
-    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
-    <Content Include="App_Plugins\Groups\Info\group-info.html" />
-    <Content Include="App_Plugins\Groups\List\group-list.html" />
-    <Content Include="App_Plugins\Groups\List\Groups.js" />
-    <Content Include="App_Plugins\Groups\Members\group-members.html" />
-    <Content Include="App_Plugins\Groups\Members\group-members.js" />
-    <Content Include="App_Plugins\Groups\groups.css" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Plugins\Groups\Feed\GroupFeedOverview.cshtml" />
-    <None Include="App_Plugins\Groups\Create\CreateGroupView.cshtml" />
-    <None Include="App_Plugins\Groups\DisablerGroupView\DisabledGroup.cshtml" />
-    <None Include="App_Plugins\Groups\Documents\GroupDocuments.cshtml" />
-    <None Include="App_Plugins\Groups\Documents\GroupDocumentsTable.cshtml" />
-    <None Include="App_Plugins\Groups\Edit\EditGroupView.cshtml" />
+    <None Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
+    <None Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
+    <None Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
     <None Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-    <None Include="App_Plugins\Groups\Info\GroupInfoView.cshtml" />
-    <None Include="App_Plugins\Groups\Info\GroupSubscribeView.cshtml" />
-    <None Include="App_Plugins\Groups\List\GroupsList.cshtml" />
-    <None Include="App_Plugins\Groups\List\GroupsOverview.cshtml" />
-    <None Include="App_Plugins\Groups\Members\GroupMembers.cshtml" />
+    <None Include="App_Plugins\Groups\List\List.cshtml" />
+    <None Include="App_Plugins\Groups\List\Overview.cshtml" />
     <None Include="App_Plugins\Groups\package.manifest" />
+    <None Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
+    <None Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
     <None Include="Config\applications.config.install.xdt" />
     <None Include="Config\applications.config.uninstall.xdt" />
     <None Include="Config\Dashboard.config.install.xdt" />
@@ -411,7 +387,33 @@
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
+    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
+    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
+    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
+    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
+    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
+    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
+    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
+    <Content Include="App_Plugins\Groups\Create\create-group.js" />
+    <Content Include="App_Plugins\Groups\Create\group-create.html" />
+    <Content Include="App_Plugins\Groups\DisabledGroupView\disabled-group.html" />
+    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
+    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\groups.css" />
+    <Content Include="App_Plugins\Groups\groups.js" />
+    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
+    <Content Include="App_Plugins\Groups\List\group-list.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.js" />
+    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
+    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
+    <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
+    <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
+    <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>

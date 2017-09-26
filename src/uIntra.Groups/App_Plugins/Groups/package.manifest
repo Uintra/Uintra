@@ -75,7 +75,7 @@
     {
       "name": "Group Info",
       "alias": "custom.groupInfo",
-      "view": "/App_Plugins/Groups/Info/group-info.html",
+      "view": "/App_Plugins/Groups/Room/Info/group-info.html",
       "icon": "icon-settings-alt color-green",
       "config": {
         "controller": "Group",
@@ -95,7 +95,7 @@
     {
       "name": "Group Members",
       "alias": "custom.groupMembers",
-      "view": "/App_Plugins/Groups/Members/group-members.html",
+      "view": "/App_Plugins/Groups/Room/Members/group-members.html",
       "icon": "icon-umb-members color-green",
       "config": {
         "controller": "Group",
@@ -105,7 +105,7 @@
     {
       "name": "Group Documents",
       "alias": "custom.groupDocuments",
-      "view": "/App_Plugins/Groups/Documents/group-documents.html",
+      "view": "/App_Plugins/Groups/Room/Documents/group-documents.html",
       "icon": "icon-inbox-full color-green",
       "config": {
         "controller": "GroupDocuments",
