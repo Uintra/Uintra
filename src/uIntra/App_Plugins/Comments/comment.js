@@ -4,7 +4,6 @@ import helpers from "./../Core/Content/scripts/Helpers";
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
-
 require("./comments.css");
 
 const quillOptions = {
@@ -58,7 +57,8 @@ var initCreateControl = function (holder) {
         });
 
         quill.on('text-change', function () {
-            if (quill.getText().trim().length > 0) {
+            var n = quill.container.querySelectorAll("img").length;
+            if (quill.getText().trim().length > 0 || n > 0) {
                 button.removeAttr("disabled");
             } else {
                 button.attr("disabled", "disabled");
@@ -130,7 +130,8 @@ var initEdit = function (holder) {
     });
 
     quill.on('text-change', function () {
-        if (quill.getLength() > 1) {
+        var n = quill.container.querySelectorAll("img").length;
+        if (quill.getText().trim().length > 0 ||n > 0) {
             button.removeAttr("disabled");
         } else {
             button.attr("disabled", "disabled");
@@ -180,7 +181,8 @@ var initReply = function (holder) {
     });
 
     quill.on('text-change', function () {
-        if (quill.getLength() > 1) {
+        var n = quill.container.querySelectorAll("img").length;
+        if (quill.getText().trim().length > 0 || n > 0) {
             button.removeAttr("disabled");
         } else {
             button.attr("disabled", "disabled");
