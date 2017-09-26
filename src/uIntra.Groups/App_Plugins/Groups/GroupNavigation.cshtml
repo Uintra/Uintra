@@ -22,7 +22,7 @@
             {
                 <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
                     <a class="tabset__navigation-link " href="@tab.Links.Overview">
-                        <span>@Html.Localize(tab.Type.Name)</span>
+                        <span>@Html.Localize($"GroupRoom.Navigation.{tab.Type.Name}.lbl")</span>
                     </a>
                 </li>
             }
