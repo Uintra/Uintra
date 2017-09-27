@@ -205,11 +205,11 @@ function init() {
     navigationHolder = document.querySelector('.js-feed-navigation');
     if (!holder || !navigationHolder) return;
     formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
-    let tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
+    let tabs = navigationHolder?navigationHolder.querySelectorAll('.js-feed-links .js-feed-type'):{};
 
     extendedState = {
         get tab() {
-            var el = navigationHolder.querySelector('.js-feed-links .js-feed-type._active');
+            var el = navigationHolder?navigationHolder.querySelector('.js-feed-links .js-feed-type._active'):null;
             return el && el.dataset['type'];
         },
         set tab(val) {
