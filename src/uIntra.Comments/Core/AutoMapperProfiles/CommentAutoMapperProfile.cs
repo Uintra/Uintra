@@ -8,6 +8,7 @@ namespace uIntra.Comments
         {
             Mapper.CreateMap<Comment, CommentViewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.CreatorProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanDelete, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())

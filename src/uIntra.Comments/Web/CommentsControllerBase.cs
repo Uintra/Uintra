@@ -211,6 +211,7 @@ namespace uIntra.Comments.Web
             model.Creator = creator;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
+            model.CreatorProfileUrl = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creator.Id);
             return model;
         }
 

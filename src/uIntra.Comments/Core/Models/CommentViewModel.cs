@@ -31,6 +31,8 @@ namespace uIntra.Comments
 
         public IEnumerable<CommentViewModel> Replies { get; set; }
 
+        public string CreatorProfileUrl { get; set; }
+
         public CommentViewModel()
         {
             Replies = Enumerable.Empty<CommentViewModel>();
