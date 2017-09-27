@@ -339,8 +339,8 @@
     <Reference Include="uIntra.Comments, Version=1.1.8.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.8.1\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.3.10.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.3.10.2\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.3.10.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.3.10.3\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.3.3\lib\net452\uIntra.Events.dll</HintPath>
@@ -589,6 +589,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\QuillExtender.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\readonlyClickWarning.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ScrollToTop.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
@@ -1060,8 +1061,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Compent.uIntra\Core\**\*.cs"
-             Exclude="..\Compent.uIntra\Core\**\*generated.cs">
+    <Compile Include="..\Compent.uIntra\Core\**\*.cs" Exclude="..\Compent.uIntra\Core\**\*generated.cs">
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
     <Content Include="..\Compent.uIntra\Controllers\**\*.*">
@@ -1373,6 +1373,15 @@
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1425,15 +1434,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
