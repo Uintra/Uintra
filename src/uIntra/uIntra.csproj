@@ -466,6 +466,9 @@
     <Content Include="..\Compent.uIntra\build\head_css.js">
       <Link>build\head_css.js</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\images\group.svg">
+      <Link>Content\images\group.svg</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\licence.html">
       <Link>licence.html</Link>
     </Content>
