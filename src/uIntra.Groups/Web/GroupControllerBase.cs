@@ -56,7 +56,7 @@ namespace uIntra.Groups.Web
 
         public virtual ActionResult Overview()
         {
-            return PartialView(OverviewPath, new GroupsOverviewModel { IsMyGroupsPage = false });
+            return PartialView(OverviewPath, GetOverViewModel(false));
         }
 
         public virtual ActionResult DisabledView(Guid groupId)
@@ -73,7 +73,7 @@ namespace uIntra.Groups.Web
 
         public ActionResult MyGroupsOverview()
         {
-            return PartialView(OverviewPath, new GroupsOverviewModel() { IsMyGroupsPage = true });
+            return PartialView(OverviewPath, GetOverViewModel(true));
         }
 
         [DisabledGroupActionFilter]
@@ -112,7 +112,8 @@ namespace uIntra.Groups.Web
             }
             _groupService.Edit(group);
             _groupMediaService.GroupTitleChanged(group.Id, group.Title);
-            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
+            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(),
+                new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 
         public ActionResult Create()
@@ -145,7 +146,8 @@ namespace uIntra.Groups.Web
 
             _groupMemberService.Add(group.Id, createModel.CreatorId);
 
-            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(), new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
+            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(),
+                new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 
         public virtual ActionResult Index(bool isMyGroupsPage = false, int page = 1)
@@ -165,9 +167,13 @@ namespace uIntra.Groups.Web
 
             var groups = allGroups.Select(g =>
             {
-                return MapGroupViewModel(g, () => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id));
+                return MapGroupViewModel(g,
+                    () => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id));
 
-            }).OrderByDescending(g => g.Creator.Id == currentUser.Id).ThenByDescending(s => s.IsMember).ThenBy(g => g.Title);
+            })
+                .OrderByDescending(g => g.Creator.Id == currentUser.Id)
+                .ThenByDescending(s => s.IsMember)
+                .ThenBy(g => g.Title);
 
             return PartialView(ListViewPath, new GroupsListModel()
             {
@@ -249,9 +255,9 @@ namespace uIntra.Groups.Web
                 viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != group.CreatorId;
                 return viewModel;
             })
-            .OrderByDescending(s => s.IsGroupAdmin)
-            .ThenBy(s => s.Name)
-            .ToList();
+                .OrderByDescending(s => s.IsGroupAdmin)
+                .ThenBy(s => s.Name)
+                .ToList();
 
             return PartialView(MembersViewPath, model);
         }
@@ -262,7 +268,9 @@ namespace uIntra.Groups.Web
             groupModel.IsMember = fillIsMember();
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupModel.Creator = _userService.Get(group.CreatorId);
-            groupModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().Url.UrlWithQueryString(GroupConstants.GroupIdQueryParam, group.Id);
+            groupModel.GroupUrl =
+                _groupContentHelper.GetGroupRoomPage()
+                    .Url.UrlWithQueryString(GroupConstants.GroupIdQueryParam, group.Id);
             if (groupModel.HasImage)
             {
                 groupModel.GroupImageUrl = Umbraco.TypedMedia(group.ImageId).Url;
@@ -270,5 +278,13 @@ namespace uIntra.Groups.Web
 
             return groupModel;
         }
+
+        private GroupsOverviewModel GetOverViewModel(bool isMyGroupsPage)
+        {
+            var createGroupUrl = _groupContentHelper.GetCreateGroupPage().Url;
+            var groupsOverviewModel = new GroupsOverviewModel { IsMyGroupsPage = isMyGroupsPage, CreatePageUrl = createGroupUrl };
+            return groupsOverviewModel;
+        }
     }
+
 }
