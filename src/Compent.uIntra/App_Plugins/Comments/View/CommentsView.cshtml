@@ -9,7 +9,7 @@
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
-    @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.CreatorProfileUrl })
+   @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.CreatorProfileUrl })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about @inactiveUser">
@@ -68,23 +68,23 @@
                 <span class="js-comment-hideEditLink">Hide</span>
                 @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
             </div>
-        }
+                    }
 
         @if (Model.Replies.Any())
         {
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", comment)</li>
-                }
+                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", reply)</li>
+                        }
             </ul>
-        }
+                        }
         @if (!Model.IsReply)
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
                 @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
             </div>
-        }
+                    }
     </div>
 </div>

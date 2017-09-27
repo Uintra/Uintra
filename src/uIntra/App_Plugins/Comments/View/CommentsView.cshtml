@@ -9,7 +9,7 @@
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
-   @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.Links.Creator })
+   @Html.Action("Photo", "User", new { user = Model.Creator, profilePageUrl = Model.CreatorProfileUrl })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about @inactiveUser">
@@ -75,7 +75,7 @@
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", comment)</li>
+                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", reply)</li>
                         }
             </ul>
                         }
