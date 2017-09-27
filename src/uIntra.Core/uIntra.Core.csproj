@@ -473,6 +473,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
     <Content Include="App_Plugins\Core\Content\scripts\QuillExtender.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\readonlyClickWarning.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ScrollToTop.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
     <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
