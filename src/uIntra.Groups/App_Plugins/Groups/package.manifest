@@ -115,7 +115,7 @@
     {
       "name": "Disabled group",
       "alias": "custom.disabledGroup",
-      "view": "/App_Plugins/Groups/DisablerGroupView/disabled-group.html",
+      "view": "/App_Plugins/Groups/DisabledGroupView/disabled-group.html",
       "icon": "icon-application-error color-green",
       "config": {
         "controller": "Group",
