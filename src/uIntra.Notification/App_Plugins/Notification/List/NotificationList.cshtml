@@ -58,8 +58,8 @@
                                     }
 
                             </h2>
-                            <div class="notification__list-heading js-notification__list-heading">
-                                @Html.Raw(notification.Value.title)
+                            <div class="notification__list-heading js-notification__list-heading" data-url="@notification.Value.url">
+                                @Html.Raw(notification.Value.title) 
                             </div>
                         </div>
                     </div>
