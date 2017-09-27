@@ -258,6 +258,11 @@ namespace uIntra.Core.Installer.Migrations
             var parentNodeDataType = contentService.GetContentType(parentDocumentTypeAlias);
             var childNodeDataType = contentService.GetContentType(childDocumentTypeAlias);
             var allowedChildren = parentNodeDataType.AllowedContentTypes.ToList();
+            var isChildAlready = allowedChildren.Any(c => c.Id.Value == childNodeDataType.Id);
+            if (isChildAlready)
+            {
+                return;
+            }
 
             allowedChildren.Add(new ContentTypeSort(childNodeDataType.Id, 1));
             parentNodeDataType.AllowedContentTypes = allowedChildren;

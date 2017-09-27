@@ -1151,6 +1151,14 @@
     </None>
     <EmbeddedResource Include="Installer\PreValues\DefaultLocalizations.json" />
     <Content Include="Media\Web.config" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsCreatePageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsMembersPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsRoomPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsEditPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsDeactivatedGroupPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\groupsDocumentsPageGrid.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1164,29 +1172,29 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
-    <Content Include="Installer\ContentPageJsons\homePageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\notificationPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\profilePageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\profileEditPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\searchResultPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\newsOverviewPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\newsCreatePageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\newsEditPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\newsDetailsPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\eventsCreatePageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\eventsDetailsPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\eventsEditPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\eventsOverviewPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\errorPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\homePageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\notificationPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\profilePageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\profileEditPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\searchResultPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\newsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\newsCreatePageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\newsEditPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\newsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\eventsCreatePageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\eventsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\eventsEditPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\eventsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\errorPageGrid.json" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\umbracoSettings.config">
       <TransformOnBuild>true</TransformOnBuild>
     </Content>
-    <Content Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />
-    <Content Include="Installer\ContentPageJsons\bulletinsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />
+    <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsOverviewPageGrid.json" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />

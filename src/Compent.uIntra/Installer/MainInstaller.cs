@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Reflection;
 using System.Web.Mvc;
+using uIntra.Bulletins.Installer;
 using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using uIntra.Core.MigrationHistories;
+using uIntra.Events.Installer;
 using uIntra.Groups.Installer;
+using uIntra.Groups.Installer.Migrations;
 using uIntra.Navigation.Installer;
+using uIntra.News.Installer;
 using uIntra.Notification.Installer;
 using uIntra.Search.Installer;
 using uIntra.Users.Installers;
@@ -37,6 +41,8 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
+
+            InitMigration();
         }
 
         private void InitMigration()
@@ -45,19 +51,38 @@ namespace Compent.uIntra.Installer
             var defaultLocalizationsMigration = new DefaultLocalizationsMigration();
 
             InheritNavigationCompositions();
+            //AllowActivitiesForGroups();
             umbracoContentMigration.Init();
             defaultLocalizationsMigration.Init();
 
             AddDefaultBackofficeSectionsToAdmin();
         }
 
+        private void AllowActivitiesForGroups()
+        {
+            var groupRoomPageAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage;
+
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(groupRoomPageAlias, NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(groupRoomPageAlias, EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(groupRoomPageAlias, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
+        }
+
         private void InheritNavigationCompositions()
         {
             var nav = NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition;
+            var homeNav = NavigationInstallationConstants.DocumentTypeAliases.HomeNavigationComposition;
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.HomePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ContentPage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ErrorPage, nav);
+
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, nav);
+
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, homeNav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, homeNav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, homeNav);
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(SearchInstallationConstants.DocumentTypeAliases.SearchResultPage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(NotificationInstallationConstants.DocumentTypeAliases.NotificationPage, nav);
