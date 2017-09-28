@@ -18,7 +18,6 @@ function initPreviewControls() {
                 .then(function (response) {
                     notificationList.innerHTML = response;
                     notificationList.classList.remove('_loading');
-                    initDescription();
                     initCustomControls();
                 });
             body.classList.add("_notifications-expanded");

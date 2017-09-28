@@ -2,7 +2,7 @@
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
 @{ 
-    var fullSizeClass = Model.Images.Count() > 1 && Model.OtherFiles.Any() ? String.Empty : "_full-size";
+    var fullSizeClass = Model.Images.Count() > 1 ? String.Empty : "_full-size";
 }
 
 <ul class="gallery js-lightbox-gallery clearfix @fullSizeClass">
