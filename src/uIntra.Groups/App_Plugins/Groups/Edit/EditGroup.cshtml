@@ -5,7 +5,7 @@
 <div class="form" id="js-group-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "Group", FormMethod.Post, new { id = "editForm" }))
     {
-        <h1 class="form__title">@Html.Localize("GroupEdit.Title.lbl")</h1>
+        <h1 class="form__title">@Html.Localize("GroupEdit.PageTitle.lbl")</h1>
 
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("GroupEdit.Title.lbl") <span class="form__required">*</span></label>
@@ -41,4 +41,5 @@
             <input class="form__btn _cancel js-group-hide" type="button" value="@Html.Localize("GroupEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
         </div>
                 }
+</div>
 </div>
