@@ -240,6 +240,13 @@ namespace uIntra.Groups.Web
         }
 
         [DisabledGroupActionFilter]
+        public virtual ActionResult ExcludeMember(Guid groupId, Guid memberId)
+        {
+            _groupMemberService.Remove(groupId, memberId);
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        [DisabledGroupActionFilter]
         public virtual ActionResult GroupMembers(Guid groupId)
         {
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
