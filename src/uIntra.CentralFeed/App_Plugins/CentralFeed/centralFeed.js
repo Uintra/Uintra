@@ -150,7 +150,7 @@ function getCookie(name) {
 
 function reloadTabEventHandler(e) {
     clearInterval(reloadintervalId);
-    let hash = (window.location.hash || "").replace("#", ""); 
+    let hash = (window.location.hash || "").replace("#", "");
 
     reload(true, false, e.detail.isReinit).then(function () {
         if (hash) {
@@ -203,13 +203,13 @@ function init() {
     initOpener();
     holder = document.querySelector('.js-feed-overview');
     navigationHolder = document.querySelector('.js-feed-navigation');
-    if (!holder) return;
+    if (!holder || !navigationHolder) return;
     formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
-    let tabs = navigationHolder?navigationHolder.querySelectorAll('.js-feed-links .js-feed-type'):{};
-
+    let tabs = navigationHolder.querySelectorAll('.js-feed-links .js-feed-type');
+    readonlyClickWarning.init();
     extendedState = {
         get tab() {
-            var el = navigationHolder?navigationHolder.querySelector('.js-feed-links .js-feed-type._active'):null;
+            var el = navigationHolder.querySelector('.js-feed-links .js-feed-type._active');
             return el && el.dataset['type'];
         },
         set tab(val) {
