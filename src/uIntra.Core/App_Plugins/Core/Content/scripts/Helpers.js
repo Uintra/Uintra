@@ -44,20 +44,62 @@ var helpers = {
     },
     initSmiles: function(container, toolbar, index){
         var emoji = {
-            "angry": ":angry",
-            "great": ":great",
-            "happy": ":)",
-            "hungry": ":hungry",
-            "inlove": ":inlove",
-            "laughing": ":D",
-            "party": ":party",
-            "relaxed": ":relaxed",
-            "sad": ":(",
-            "sick": ":sick",
-            "skeptical": ":skeptical",
-            "sleeping": ":sleeping",
-            "surprised": ":surprised",
-            "wink": ";)"
+            "happy": {
+                "shortcode": ":)",
+                "translation": "lykkelig"
+            },
+            "great": {
+                "shortcode": ":great",
+                "translation": "store"
+            },
+            "laughing": {
+                "shortcode": ":D",
+                "translation": "griner"
+            },
+            "surprised": {
+                "shortcode": ":surprised",
+                "translation": "overrasket"
+            },
+            "wink": {
+                "shortcode": ";)",
+                "translation": "blinke"
+            },
+            "hungry": {
+                "shortcode": ":hungry",
+                "translation": "sulten"
+            },
+            "inlove": {
+                "shortcode": ":inlove",
+                "translation": "forelsket"
+            },
+            "party": {
+                "shortcode": ":party",
+                "translation": "parti"
+            },
+            "relaxed": {
+                "shortcode": ":relaxed",
+                "translation": "afslappet"
+            },
+            "sad": {
+                "shortcode": ":(",
+                "translation": "trist"
+            },
+            "angry": {
+                "shortcode": ":angry",
+                "translation": "vred"
+            },
+            "sick": {
+                "shortcode": ":sick",
+                "translation": "syg"
+            },
+            "skeptical": {
+                "shortcode": ":skeptical",
+                "translation": "skeptisk"
+            },
+            "sleeping": {
+                "shortcode": ":sleeping",
+                "translation": "sovende"
+            }
         },
         body,
         path,
@@ -94,7 +136,7 @@ var helpers = {
 
             emojiListImage = document.createElement("img");
             emojiListImage.setAttribute("src", path + i + ".svg");
-            emojiListImage.setAttribute("title", i);
+            emojiListImage.setAttribute("title", emoji[i].translation + " (" + emoji[i].shortcode + ")");
             emojiListImage.setAttribute("width", "20");
             emojiListImage.setAttribute("height", "20");
             emojiListImage.classList.add("emoji-icon");
@@ -117,12 +159,12 @@ var helpers = {
             index = getIndex();
             var text = container.getText();
             for(var i in emoji){
-                if(text.indexOf(emoji[i]) >= 0){
+                if(text.indexOf(emoji[i].shortcode) >= 0){
                     var n = container.container.querySelectorAll("img").length;
-                    var index = text.indexOf(emoji[i]) + n;
+                    var index = text.indexOf(emoji[i].shortcode) + n;
                     container.updateContents(new Delta()
                         .retain(index)
-                        .delete(emoji[i].length)
+                        .delete(emoji[i].shortcode.length)
                     );
                     container.insertEmbed(index, 'image', path + i + ".svg");
                     container.formatText(index, 1, 'width', '20px');
