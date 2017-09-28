@@ -156,7 +156,7 @@ namespace uIntra.CentralFeed.Web
             var tabType = _centralFeedContentHelper.GetCentralFeedTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
-            var activityTabs = _centralFeedContentHelper.GetTabs(CurrentPage).Map<List<ActivityFeedTabViewModel>>();
+            var activityTabs = GetActivityTabs().Map<List<ActivityFeedTabViewModel>>();
 
             var model = new CentralFeedOverviewModel
             {
@@ -166,6 +166,11 @@ namespace uIntra.CentralFeed.Web
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
             return model;
+        }
+
+        protected virtual IEnumerable<ActivityFeedTabModel> GetActivityTabs()
+        {
+            return _centralFeedContentHelper.GetTabs(CurrentPage);
         }
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
