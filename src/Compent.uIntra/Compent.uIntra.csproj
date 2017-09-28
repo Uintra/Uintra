@@ -1440,40 +1440,6 @@
     <Folder Include="App_Plugins\Members\NewFolder1\" />
     <Folder Include="Content\scripts\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
-      <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
-      <Name>uIntra.Bulletins</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
-      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
-      <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
-      <Name>uIntra.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
-      <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>
-      <Name>uIntra.News</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
-      <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>
-      <Name>uIntra.News</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
-      <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
-      <Name>uIntra.Notification</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
-      <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
-      <Name>uIntra.Notification</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
-      <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
-      <Name>uIntra.Users</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
