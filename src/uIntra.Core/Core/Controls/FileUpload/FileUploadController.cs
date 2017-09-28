@@ -29,7 +29,8 @@ namespace uIntra.Core.Controls.FileUpload
                 Id = s.Id,
                 Url = s.GetCropUrl(UmbracoAliases.GalleryPreviewImageCrop),
                 Extention = s.GetMediaExtention(),
-                Type = s.GetMediaType()
+                Type = s.GetMediaType(),
+                FileName = s.Name
             });
 
             var viewModel = new FileUploadEditViewModel
