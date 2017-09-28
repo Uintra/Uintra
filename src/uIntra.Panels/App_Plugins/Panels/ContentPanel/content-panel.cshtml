@@ -100,8 +100,10 @@
             }
         }
     }
-    <div class="block__description">@Html.Raw(viewModel.description)</div>
 
+    @if (!string.IsNullOrEmpty((string)viewModel.description)) {
+        <div class="block__description">@Html.Raw(viewModel.description)</div>
+    }
     @if (viewModel.links != null && viewModel.links.Count > 0)
     {
         if (viewModel.linksListTitle != null)
