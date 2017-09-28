@@ -3,11 +3,7 @@
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('./icomoon.eot?5dp6tu');
-  src:  url('./icomoon.eot?5dp6tu#iefix') format('embedded-opentype'),
-    url('./icomoon.ttf?5dp6tu') format('truetype'),
-    url('./icomoon.woff?5dp6tu') format('woff'),
-    url('./icomoon.svg?5dp6tu#icomoon') format('svg');
+  src: url('./icomoon.woff?5dp6tu') format('woff');
   font-weight: normal;
   font-style: normal;
 }
