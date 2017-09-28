@@ -76,14 +76,6 @@ function initCustomControls() {
     });
 }
 
-function initDescription() {
-    var item = $(".js-notification__list-item");
-    item.each(function (i) {
-        var title = $(item[i]).find(".js-notification__list-heading");
-        var url = title.data("url");
-        title.contents().wrap("<a href='" + url + "' class='notification__list-heading-link'></a>");
-    });
-}
 
 function initInfinityScroll() {
     var holder = $('.js-notification-overview');
@@ -94,7 +86,6 @@ function initInfinityScroll() {
     function reload() {
         var promise = formController.reload();
         promise.then(initCustomControls);
-        promise.then(initDescription);
         return promise;
     }
 
@@ -111,6 +102,5 @@ export default function () {
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
-    initDescription();
     initInfinityScroll();
 }
