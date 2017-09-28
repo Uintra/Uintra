@@ -497,9 +497,6 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\surprised.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\wink.svg" />
     <Content Include="App_Plugins\Core\Content\styles\forms.css" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.eot" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.ttf" />
     <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
     <Content Include="App_Plugins\Core\Content\styles\libs.css" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
