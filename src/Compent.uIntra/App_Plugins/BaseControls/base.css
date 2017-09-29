@@ -218,6 +218,11 @@ textarea {
     clear: both;
 }
 
+.link-bottom .links-picker .dropdown-menu{
+    top:auto;
+    bottom:100%;
+}
+
 /* image cropper custom styles start */
 .fileinput-button {
     max-width: 200px;
