@@ -22,18 +22,19 @@ namespace uIntra.Notification.Web
         private readonly IUiNotifierService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationHelper _notificationHelper;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected NotificationControllerBase(
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationHelper notificationHelper,
-            IIntranetUserContentHelper intranetUserContentHelper)
+            IProfileLinkProvider profileLinkProvider)
+
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
             _notificationHelper = notificationHelper;
-            _intranetUserContentHelper = intranetUserContentHelper;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         public virtual ActionResult Overview()
@@ -123,20 +124,13 @@ namespace uIntra.Notification.Web
             return PartialView(PreviewViewPath, result);
         }
 
-        //TODO : move into helper
-        protected virtual string GetProfileLink(Guid memberId)
-        {
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
-            return profilePageUrl.AddIdParameter(memberId);
-        }
-
         protected NotifierViewModel GetNotifierViewModel(Guid notifierId)
         {
             var notifier = _intranetUserService.Get(notifierId);
             var result = new NotifierViewModel()
             {
                 Id = notifierId,
-                ProfileLink = GetProfileLink(notifierId),
+                ProfileLink = _profileLinkProvider.GetProfileLink(notifierId),
                 Name = notifier.DisplayedName,
                 Photo = notifier.Photo
             };
