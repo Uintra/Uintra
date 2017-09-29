@@ -42,13 +42,13 @@ namespace uIntra.Search
             var mediaFolderTypes = _mediaFolderTypeProvider.GetAll();
             foreach (var folderType in mediaFolderTypes)
             {
-                var mediaRootId = _mediaHelper.GetMediaFolderSettings(folderType.Id).MediaRootId;
-                if (!mediaRootId.HasValue)
+                var mediaFolderSettings = _mediaHelper.GetMediaFolderSettings(folderType.Id);
+                if (mediaFolderSettings == null)
                 {
                     continue;
                 }
 
-                var mediaFolder = _umbracoHelper.TypedMedia(mediaRootId.Value);
+                var mediaFolder = _umbracoHelper.TypedMedia(mediaFolderSettings.MediaRootId);
                 var documents = mediaFolder.Children.Select(GetSearchableDocument).Where(el => el != null).ToList();
                 if (!documents.Any())
                 {
