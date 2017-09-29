@@ -25,23 +25,10 @@ let initSubmitButton = function () {
     let descriptionElem = holder.find('#description');
 
     btn.click(function (event) {
-        if (!form.valid()) {
-            event.preventDefault();
-            return;
-        }
-
-        if (!pinActivity.isPinAccepted(holder)) {
-            event.preventDefault();
-            return;
-        }
-
-        if (editor.getLength() <= 1) {
-            event.preventDefault();
-            descriptionElem.addClass('input-validation-error');
-        }
-
-        descriptionElem.removeClass('input-validation-error');
         event.preventDefault();
+        if (!form.valid() || !pinActivity.isPinAccepted(holder)) {
+            return;
+        }
 
         let data = helpers.serialize(form[0]);
 
