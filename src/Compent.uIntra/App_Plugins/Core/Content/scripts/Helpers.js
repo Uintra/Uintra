@@ -152,7 +152,17 @@ var helpers = {
         toolbar.appendChild(emojiContainer);
 
         emojiBtn.addEventListener('click', function() {
-            emojiContainer.classList.toggle("hidden");
+            if (emojiContainer.classList.contains("hidden")) {
+                emojiContainer.classList.remove("hidden");
+
+                const eRect = emojiContainer.getBoundingClientRect();
+                if (eRect.bottom >= document.body.clientHeight) {
+                    emojiContainer.classList.add('_in-top');
+                }
+            }
+            else {
+                emojiContainer.classList.add("hidden");
+            }
         });
 
         container.on('text-change', function (eventName, ...args) {
