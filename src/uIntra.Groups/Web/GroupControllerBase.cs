@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
 using uIntra.Core.Extentions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Groups.Constants;
@@ -36,6 +37,7 @@ namespace uIntra.Groups.Web
         private readonly IGroupContentHelper _groupContentHelper;
         private readonly IIntranetUserService<IGroupMember> _userService;
         private readonly IGroupMediaService _groupMediaService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected int ItemsPerPage = 10;
 
@@ -44,7 +46,8 @@ namespace uIntra.Groups.Web
             IMediaHelper mediaHelper,
             IGroupContentHelper groupContentHelper,
             IGroupMediaService groupMediaService,
-            IIntranetUserService<IGroupMember> userService)
+            IIntranetUserService<IGroupMember> userService,
+            IProfileLinkProvider profileLinkProvider)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
@@ -52,6 +55,7 @@ namespace uIntra.Groups.Web
             _groupContentHelper = groupContentHelper;
             _groupMediaService = groupMediaService;
             _userService = userService;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         public virtual ActionResult Overview()
@@ -186,12 +190,16 @@ namespace uIntra.Groups.Web
         public ActionResult Info(Guid groupId)
         {
             var group = _groupService.Get(groupId);
+
             var groupInfo = group.Map<GroupInfoViewModel>();
-            groupInfo.Creator = _userService.Get(group.CreatorId);
             var currentUser = _userService.GetCurrentUser();
             groupInfo.IsMember = _groupMemberService.IsGroupMember(group.Id, currentUser.Id);
-            groupInfo.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupInfo.CanUnsubscribe = group.CreatorId != currentUser.Id;
+
+            groupInfo.Creator = _userService.Get(group.CreatorId);
+            groupInfo.MembersCount = _groupMemberService.GetMembersCount(group.Id);
+            groupInfo.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(group.CreatorId);
+
             if (group.ImageId.HasValue)
             {
                 groupInfo.GroupImageUrl = Umbraco.TypedMedia(group.ImageId.Value).Url;
