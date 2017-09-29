@@ -120,6 +120,12 @@ namespace uIntra.Search
                 return null;
             }
 
+
+            if (content.Url.IsNullOrEmpty())
+            {
+                return null;
+            }
+
             var physicalPath = HostingEnvironment.MapPath(content.Url);
 
             if (!File.Exists(physicalPath))
