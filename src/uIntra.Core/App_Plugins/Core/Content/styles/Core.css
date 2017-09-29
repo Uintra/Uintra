@@ -762,6 +762,11 @@ h5{
         top:100%;
         margin:0;
         transform:translate(calc(100% - 28px));
+
+        &._in-top{
+            bottom: 100%;
+            top: auto;
+        }
     }
 
     &__list{
