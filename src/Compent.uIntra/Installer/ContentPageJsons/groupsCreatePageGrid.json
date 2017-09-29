@@ -57,19 +57,15 @@
                 {
                   "value": null,
                   "editor": {
-                    "alias": "custom.GroupsOverview"
+                    "alias": "custom.CreateGroup"
                   },
                   "active": true
                 }
-              ],
-              "active": true,
-              "hasActiveChild": true
+              ]
             }
           ],
           "hasConfig": false,
-          "id": "4e136ebd-8d8e-c501-1c67-20a7f3948bcc",
-          "hasActiveChild": true,
-          "active": true
+          "id": "1a449589-3b2e-fb14-6920-a894c12c4ca1"
         }
       ]
     },
@@ -99,7 +95,7 @@
             }
           ],
           "hasConfig": false,
-          "id": "49614415-0841-d3e9-656c-a399ce6715fd"
+          "id": "0a71163f-11d2-45a6-ffa5-617e8016579a"
         }
       ]
     }

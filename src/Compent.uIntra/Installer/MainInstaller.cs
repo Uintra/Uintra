@@ -21,6 +21,7 @@ namespace Compent.uIntra.Installer
     public class MainInstaller : ApplicationEventHandler
     {
         private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.1");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -54,6 +55,18 @@ namespace Compent.uIntra.Installer
             //AllowActivitiesForGroups();
             umbracoContentMigration.Init();
             defaultLocalizationsMigration.Init();
+
+            umbracoContentMigration.UpdateActivitiesGrids();
+            var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
+            var lastMigrationHistory = migrationHistoryService.GetLast();
+            if (lastMigrationHistory != null)
+            {
+                var lastMigrationVersion = new Version(lastMigrationHistory.Version);
+                if (lastMigrationVersion < NewPluginsUIntraVersion)
+                {
+                    umbracoContentMigration.UpdateActivitiesGrids();
+                }
+            }
 
             AddDefaultBackofficeSectionsToAdmin();
         }

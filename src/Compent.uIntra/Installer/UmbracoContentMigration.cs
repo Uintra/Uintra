@@ -82,12 +82,17 @@ namespace Compent.uIntra.Installer
             UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
             UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage), "newsOverviewPageGrid.json");
             UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsCreatePage), "newsCreatePageGrid.json");
-            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsEditPage), "newsCreatePageGrid.json");
-            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
-            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
-            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
-            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
-            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsEditPage), "newsEditPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsDetailsPage), "newsDetailsPageGrid.json");
+
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage), "eventsOverviewPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage, DocumentTypeAliasConstants.EventsCreatePage), "eventsCreatePageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage, DocumentTypeAliasConstants.EventsEditPage), "eventsEditPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage, DocumentTypeAliasConstants.EventsDetailsPage), "eventsDetailsPageGrid.json");
+
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage), "bulletinsOverviewPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage, DocumentTypeAliasConstants.BulletinsEditPage), "bulletinsEditPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage, DocumentTypeAliasConstants.BulletinsDetailsPage), "bulletinsDetailsPageGrid.json");
         }
 
         private void UpdateGrid(string pageXPath, string gridResourceFileName)
