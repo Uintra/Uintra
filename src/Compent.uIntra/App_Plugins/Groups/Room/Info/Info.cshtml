@@ -15,7 +15,11 @@
             {
                 <dt class="block__meta-count"><span id='membersCount'>@Model.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
             }
-            <dd class="block__meta-name">@Html.Localize("GroupInfo.CreatorName"): <span class="block__meta-name-title">@Model.Creator.DisplayedName</span></dd>
+            <dd class="block__meta-name">@Html.Localize("GroupInfo.CreatorName"):
+                <a href="@Model.CreatorProfileUrl">
+                    <span class="block__meta-name-title">@Model.Creator.DisplayedName</span>                    
+                </a>
+            </dd>
         </dl>
     </div>
     @if (Model.CanUnsubscribe)
@@ -23,5 +27,5 @@
         <div>
             @{ Html.RenderAction("GroupSubscribe", "Group", new { groupId = Model.Id }); }
         </div>
-                }
+    }
 </section>

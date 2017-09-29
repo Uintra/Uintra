@@ -1,3 +1,4 @@
+using uIntra.Core.Links;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Web;
@@ -12,8 +13,9 @@ namespace Compent.uIntra.Controllers
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationHelper notificationHelper,
-            IIntranetUserContentHelper intranetUserContentHelper)
-            : base(uiNotifierService, intranetUserService, notificationHelper, intranetUserContentHelper)
+            IIntranetUserContentHelper intranetUserContentHelper,
+            IProfileLinkProvider profileLinkProvider)
+            : base(uiNotifierService, intranetUserService, notificationHelper, profileLinkProvider)
         {
         }
     }

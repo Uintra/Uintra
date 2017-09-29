@@ -56,14 +56,24 @@
 }
 
 .umb-control .dummy-plugin-view-holder {
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     margin: 10px auto;
 }
 
     .umb-control .dummy-plugin-view-holder .title-holder {
-        margin: 110px 0;
+        margin: 50px 0;
     }
+
+        .umb-control .dummy-plugin-view-holder .title-holder .icon {
+            font-size:50px;
+        }
+
+        .umb-control .dummy-plugin-view-holder .title-holder .text{
+            font-size:14px;
+            margin:10px 20px;
+        }
+
 /* datepcker */
 .umbraco-panel .input-append .add-on,
 .umbraco-panel .input-prepend .add-on {

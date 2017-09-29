@@ -38,7 +38,7 @@
                             data_ok = Html.Localize("GroupMembers.Delete.Confirm.btn"),
                             data_cancel = Html.Localize("GroupMembers.Delete.ConfirmCancel.btn")
                         };
-                        @Html.ActionLink("x", "Unsubscribe", "Group", new { memberId = member.Id, groupId }, htmlAttributes)
+                        @Html.ActionLink("x", "ExcludeMember", "Group", new { memberId = member.Id, groupId }, htmlAttributes)
                         ;
                     }
                 </td>

@@ -1,4 +1,5 @@
-﻿using uIntra.Core.Media;
+﻿using uIntra.Core.Links;
+using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Web;
@@ -14,8 +15,8 @@ namespace Compent.uIntra.Controllers
             IGroupContentHelper groupContentHelper, 
             IUserService userService, 
             IGroupMediaService groupMediaService, 
-            IIntranetUserService<IGroupMember> intranetUserService) 
-            : base(groupService, groupMemberService, mediaHelper, groupContentHelper, groupMediaService, intranetUserService)
+            IIntranetUserService<IGroupMember> intranetUserService, IProfileLinkProvider profileLinkProvider) 
+            : base(groupService, groupMemberService, mediaHelper, groupContentHelper, groupMediaService, intranetUserService, profileLinkProvider)
         {
         }
         
