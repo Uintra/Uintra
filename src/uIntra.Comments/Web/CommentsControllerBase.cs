@@ -163,7 +163,7 @@ namespace uIntra.Comments.Web
 
         protected virtual void FillProfileLink()
         {
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url;
+            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url; // TODO: use ProfileLinkProvider instead
             ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
