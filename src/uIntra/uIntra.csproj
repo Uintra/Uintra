@@ -1068,10 +1068,10 @@
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
     <Content Include="..\Compent.uIntra\Controllers\**\*.*">
-      <Link>Controllers\%(RecursiveDir)%(FileName)</Link>
+      <Link>Controllers\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
     <Content Include="..\Compent.uIntra\Views\**\*.*">
-      <Link>Views\%(RecursiveDir)%(FileName)</Link>
+      <Link>Views\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
