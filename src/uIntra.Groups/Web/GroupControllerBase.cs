@@ -123,7 +123,7 @@ namespace uIntra.Groups.Web
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();
-            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
+            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt(), true);
 
             createGroupModel.MediaRootId = mediaSettings.MediaRootId;
             createGroupModel.CreatorId = _userService.GetCurrentUserId();

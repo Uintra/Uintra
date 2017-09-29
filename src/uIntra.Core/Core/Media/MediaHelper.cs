@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using uIntra.Core.Caching;
@@ -136,21 +137,27 @@ namespace uIntra.Core.Media
             _mediaService.Save(medias);
         }
 
-        public MediaSettings GetMediaFolderSettings(int mediaFolderType)
+        public MediaSettings GetMediaFolderSettings(int mediaFolderType, bool createFolderIfNotExists = false)
         {
             var folderType = _mediaFolderTypeProvider.Get(mediaFolderType);
-            var result = GetMediaFolderSettings(folderType);
+            var result = GetMediaFolderSettings(folderType, createFolderIfNotExists);
             return result;
         }
 
-        public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType)
+        public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType, bool createFolderIfNotExists = false)
         {
-            var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
-            var mediaFolder = folders.Single(m =>
+            var mediaFolder = GetMediaFolder(mediaFolderType);
+            if (mediaFolder == null)
             {
-                var folderType = m.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
-                return !string.IsNullOrEmpty(folderType) && folderType.Equals(mediaFolderType.Name);
-            });
+                if (createFolderIfNotExists)
+                {
+                    mediaFolder = CreateMediaFolder(mediaFolderType);
+                }
+                else
+                {
+                    return null;
+                }
+            }
 
             return new MediaSettings
             {
@@ -182,6 +189,31 @@ namespace uIntra.Core.Media
                 });
 
             return result.JoinWithComma();
+        }
+
+        private IPublishedContent GetMediaFolder(IIntranetType mediaFolderType)
+        {
+            var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
+
+            var mediaFolder = folders.SingleOrDefault(f =>
+            {
+                var folderType = f.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
+                return !folderType.IsNullOrEmpty() && folderType.Equals(mediaFolderType.Name);
+            });
+            
+            return mediaFolder;
+        }
+
+        private IPublishedContent CreateMediaFolder(IIntranetType mediaFolderType)
+        {
+            // TODO: Extend provider, so we can get folder names not only from MediaFolderTypeEnum
+            var mediaFolderTypeEnum = (MediaFolderTypeEnum) mediaFolderType.Id;
+            var folderName = mediaFolderTypeEnum.GetAttribute<DisplayAttribute>().Name;
+            var mediaFolder = _mediaService.CreateMedia(folderName, -1, UmbracoAliases.Media.FolderTypeAlias);
+            mediaFolder.SetValue(FolderConstants.FolderTypePropertyTypeAlias, mediaFolderType.ToString());
+            _mediaService.Save(mediaFolder);
+
+            return _umbracoHelper.TypedMedia(mediaFolder.Id);
         }
     }
 }

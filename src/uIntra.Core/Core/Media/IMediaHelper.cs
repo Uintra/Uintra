@@ -17,7 +17,7 @@ namespace uIntra.Core.Media
         IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null);
         bool IsMediaDeleted(IPublishedContent media);
 
-        MediaSettings GetMediaFolderSettings(int mediaFolderType);
-        MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType);
+        MediaSettings GetMediaFolderSettings(int mediaFolderType, bool createFolderIfNotExists = false);
+        MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType, bool createFolderIfNotExists = false);
     }
 }
