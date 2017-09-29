@@ -191,9 +191,10 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual IEnumerable<IFeedItem> GetLatestActivities(IIntranetType activitiesType, int activityAmount )
+        protected virtual IEnumerable<IFeedItem> GetLatestActivities(IIntranetType activityType, int activityAmount )
         {
-            return GetCentralFeedItems(activitiesType).Take(activityAmount);
+            var items =  GetCentralFeedItems(activityType).Take(activityAmount);
+            return Sort(items, activityType);
         }
 
         protected virtual IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
