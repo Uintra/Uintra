@@ -8,8 +8,4 @@ namespace uIntra.Core.Links
         string GetProfileLink(IIntranetUser user);
         string GetProfileLink(Guid userId);
     }
-
-    public class ProfileLinkProvider : IProfileLinkProvider
-    {
-    }
 }

@@ -4,11 +4,10 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Links;
-using uIntra.Core.User;
 
 namespace uIntra.Groups 
 {
-    public class GroupFeedLinksProvider : FeedLinkService, IGroupFeedLinksProvider
+    public class GroupFeedLinksProvider : FeedLinkProvider, IGroupFeedLinksProvider
     {
 
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
@@ -18,15 +17,13 @@ namespace uIntra.Groups
             _aliasProvider.GetGroupRoomPage()
         };
 
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
         public GroupFeedLinksProvider(
             IActivityPageHelperFactory pageHelperFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
-            IDocumentTypeAliasProvider aliasProvider) : base(pageHelperFactory)
+            IProfileLinkProvider profileLinkProvider,
+            IDocumentTypeAliasProvider aliasProvider) : base(pageHelperFactory, profileLinkProvider)
         {
-            _intranetUserContentHelper = intranetUserContentHelper;
             _aliasProvider = aliasProvider;
         }
 
@@ -40,7 +37,7 @@ namespace uIntra.Groups
                 Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
                 Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
                 Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
-                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
+                Creator = GetProfileLink(activity.CreatorId),
                 DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(activity.GroupId)
             };
         }
@@ -53,7 +50,7 @@ namespace uIntra.Groups
             {
                 Overview = helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
-                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
+                Creator = GetProfileLink(model.CreatorId),
                 DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(model.GroupId)
             };
         }

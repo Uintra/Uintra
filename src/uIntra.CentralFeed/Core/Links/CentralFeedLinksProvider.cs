@@ -3,29 +3,24 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using umbraco;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedLinksProvider : FeedLinkService, ICentralFeedLinksProvider
+    public class CentralFeedLinksProvider : FeedLinkProvider, ICentralFeedLinksProvider
     {
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
         {
             _aliasProvider.GetHomePage()
         };
 
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
         public CentralFeedLinksProvider(
             IActivityPageHelperFactory pageHelperFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IProfileLinkProvider profileLinkProvider,
             IDocumentTypeAliasProvider aliasProvider)
-            : base(pageHelperFactory)
+            : base(pageHelperFactory, profileLinkProvider)
         {
-            _intranetUserContentHelper = intranetUserContentHelper;
             _aliasProvider = aliasProvider;
         }
 
@@ -39,11 +34,9 @@ namespace uIntra.CentralFeed
                 Create = helper.GetCreatePageUrl(),
                 Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id),
                 Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id),
-                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(activity.CreatorId),
+                Creator = GetProfileLink(activity.CreatorId),
                 DetailsNoId = helper.GetDetailsPageUrl()
-            }
-
-                ;
+            };
         }
 
         public IActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model)
@@ -54,7 +47,7 @@ namespace uIntra.CentralFeed
             {
                 Overview = helper.GetOverviewPageUrl(),
                 Create = helper.GetCreatePageUrl(),
-                Creator = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(model.CreatorId),
+                Creator = GetProfileLink(model.CreatorId),
                 DetailsNoId = helper.GetDetailsPageUrl()
             };
         }

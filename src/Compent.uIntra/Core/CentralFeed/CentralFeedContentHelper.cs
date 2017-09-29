@@ -8,7 +8,6 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
-using uIntra.Core.User.Permissions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

@@ -368,8 +368,6 @@
     <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
     <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
-    <Compile Include="Core\Links\ActivityCreateLinks.cs" />
-    <Compile Include="Core\Links\ActivityLinks.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
     <Compile Include="Core\BrowserCompatibility\BrowserCompatibilityConfigurationSection.cs" />
@@ -381,9 +379,13 @@
     <Compile Include="Core\Extentions\StreamExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
-    <Compile Include="Core\Links\IActivityCreateLinks.cs" />
-    <Compile Include="Core\Links\IActivityLinks.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
+    <Compile Include="Core\Links\IProfileLinkProvider.cs" />
+    <Compile Include="Core\Links\Models\ActivityCreateLinks.cs" />
+    <Compile Include="Core\Links\Models\ActivityLinks.cs" />
+    <Compile Include="Core\Links\Models\IActivityCreateLinks.cs" />
+    <Compile Include="Core\Links\Models\IActivityLinks.cs" />
+    <Compile Include="Core\Links\ProfileLinkProvider.cs" />
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
