@@ -13,5 +13,6 @@ namespace uIntra.Groups
         public bool IsMember { get; set; }
         public int MembersCount { get; set; }
         public bool CanUnsubscribe { get; set; }
+        public string CreatorProfileUrl { get; set; }
     }
 }

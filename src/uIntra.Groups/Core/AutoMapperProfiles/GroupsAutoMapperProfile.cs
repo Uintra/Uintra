@@ -57,6 +57,7 @@ namespace uIntra.Groups
                 .ForMember(d => d.IsMember, o => o.Ignore())
                 .ForMember(d => d.GroupImageUrl, o => o.Ignore())
                 .ForMember(d => d.CanUnsubscribe, o => o.Ignore())
+                .ForMember(d => d.CreatorProfileUrl, o => o.Ignore())
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
