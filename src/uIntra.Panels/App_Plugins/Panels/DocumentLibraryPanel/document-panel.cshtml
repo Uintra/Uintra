@@ -21,7 +21,7 @@
             mediaId = viewModel.media;
         }
 
-        var mediaCollection = (mediaId.HasValue ? Umbraco.TypedMedia(mediaId.Value).Children : Umbraco.TypedMediaAtRoot())
+        var mediaCollection = (mediaId.HasValue ? Umbraco.TypedMedia(mediaId.Value).Children : Enumerable.Empty<IPublishedContent>())
             .Where(s => s.ContentType.Alias != UmbracoAliases.Media.FolderTypeAlias)
             .Take((int)viewModel.count)
             .Select(DocumentPanelMediaViewModel.FromPublishedContent);
