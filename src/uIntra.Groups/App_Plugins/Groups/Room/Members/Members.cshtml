@@ -1,5 +1,5 @@
 ﻿@using uIntra.Core.Extentions
-@model IList<uIntra.Groups.GroupMemberViewModel>
+@model uIntra.Groups.GroupMemberOverviewViewModel
 @{
     Layout = null;
     var groupId = Request.QueryString.Get("groupId");
@@ -12,7 +12,7 @@
             <th class="members-table__head">@Html.Localize("GroupMembers.Table.Role.lbl")</th>
             <th class="members-table__head"></th>
         </tr>
-        @foreach (var member in Model)
+        @foreach (var member in Model.Members)
             {
             <tr class="members-table__row">
                 <td class="members-table__cell">
@@ -29,7 +29,7 @@
                     <span>@Html.Localize(role)</span>
                 </td>
                 <td class="members-table__cell _delete">
-                    @if (member.CanUnsubscribe)
+                    @if ((Model.CanExcludeFromGroup || member.CanUnsubscribe) && !member.IsGroupAdmin)
                     {
                         var htmlAttributes = new
                         {
@@ -38,11 +38,10 @@
                             data_ok = Html.Localize("GroupMembers.Delete.Confirm.btn"),
                             data_cancel = Html.Localize("GroupMembers.Delete.ConfirmCancel.btn")
                         };
-                        @Html.ActionLink("x", "ExcludeMember", "Group", new { memberId = member.Id, groupId }, htmlAttributes)
-                        ;
+                        @Html.ActionLink("x", "ExcludeMember", "Group", new { memberId = member.Id, groupId }, htmlAttributes);
                     }
                 </td>
             </tr>
-            }
+                        }
     </table>
 </div>
