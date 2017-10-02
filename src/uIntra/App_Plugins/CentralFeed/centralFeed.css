@@ -213,6 +213,11 @@
                 }
             }
 
+            &-name{
+                display:block;
+                text-align:center;
+            }
+
             &-remove{
                 position:absolute;
                 top:-10px;
