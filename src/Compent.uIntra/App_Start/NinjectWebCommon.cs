@@ -207,7 +207,6 @@ namespace Compent.uIntra
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
             kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();
 
-
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
