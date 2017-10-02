@@ -8,8 +8,8 @@
 
 <div class="feed__filter-form">
     <div class="filter__body">
-        <div class="row clearfix">
-            <div class="feed__filter-item col-md-3" style="display: @(Model.TabSettings.HasSubscribersFilter ? "block" : "none") ">
+        <div class="clearfix">
+            <div class="feed__filter-item" style="display: @(Model.TabSettings.HasSubscribersFilter ? "block" : "none") ">
                 <div class="check">
                     <label class="check__label">
                         <input type="checkbox" class="check__box" name="filterState.showSubscribed" @(Model.FilterState.ShowSubscribed ? "checked" : "") value="true">
@@ -18,7 +18,7 @@
                     </label>
                 </div>
             </div>
-            <div class="feed__filter-item col-md-3" style="display: @(Model.TabSettings.HasPinnedFilter ? "block" : "none")">
+            <div class="feed__filter-item" style="display: @(Model.TabSettings.HasPinnedFilter ? "block" : "none")">
                 <div class="check">
                     <label class="check__label">
                         <input type="checkbox" class="check__box" name="filterState.showPinned" @(Model.FilterState.ShowPinned ? "checked" : "") value="true">
@@ -27,7 +27,7 @@
                     </label>
                 </div>
             </div>
-            <div class="feed__filter-item col-md-3 pull-right" style="display: @(Model.TabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
+            <div class="feed__filter-item pull-right" style="display: @(Model.TabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
                 <input class="btn" type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
             </div>
         </div>
