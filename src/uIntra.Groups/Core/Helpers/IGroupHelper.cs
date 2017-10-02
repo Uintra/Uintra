@@ -22,23 +22,4 @@ namespace uIntra.Groups
 
         bool IsGroupPage(IPublishedContent currentPage);
     }
-
-    public interface IGroupContentHelper
-    {
-        IPublishedContent GetMyGroupsOverviewPage();
-        IPublishedContent GetDeactivatedGroupPage();
-        IPublishedContent GetGroupRoomPage();
-        IPublishedContent GetCreateGroupPage();
-        IPublishedContent GetOverviewPage();
-        IPublishedContent GetEditPage();
-    }
-
-    public interface IGroupLinkProvider
-    {
-        string GetGroupLink(Guid groupId);
-        string GetDeactivatedGroupLink(Guid groupId);
-
-        string GetGroupsOverviewLink();
-        string GetCreateGroupLink();
-    }
 }
