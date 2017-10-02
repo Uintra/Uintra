@@ -44,6 +44,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
+        private readonly ICommentLinkHelper _commentLinkHelper;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -62,7 +63,8 @@ namespace Compent.uIntra.Core.Bulletins
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
-            IActivityLinkService linkService)
+            IActivityLinkService linkService,
+            ICommentLinkHelper commentLinkHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -79,6 +81,7 @@ namespace Compent.uIntra.Core.Bulletins
             _mediaHelper = mediaHelper;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
+            _commentLinkHelper = commentLinkHelper;
         }
 
 
@@ -244,7 +247,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             CreatedDate = DateTime.Now,
-                            //Url = GetDetailsPage().Url.AddIdParameter(bulletinsEntity.Id),
+                            Url = _linkService.GetLinks(bulletinsEntity.Id).Details
                         };
                     }
                     break;
@@ -259,7 +262,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = bulletinsEntity.Description,
-                            //Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id) TODO
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(bulletinsEntity.Id, comment.Id)
                         };
                     }
                     break;
@@ -273,7 +276,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = bulletinsEntity.Description,
-                            //Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id),
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(bulletinsEntity.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }
@@ -294,7 +297,7 @@ namespace Compent.uIntra.Core.Bulletins
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = bulletinsEntity.Title,
-                            // Url = GetUrlWithComment(bulletinsEntity.Id, comment.Id) TODO
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(bulletinsEntity.Id, comment.Id)
                         };
                     }
                     break;
@@ -305,10 +308,6 @@ namespace Compent.uIntra.Core.Bulletins
             return data;
         }
 
-        //private string GetUrlWithComment(Guid bulletinId, Guid commentId)
-        //{
-        //    return $"{GetDetailsPage().Url.UrlWithQueryString("id", bulletinId)}#{_commentsService.GetCommentViewId(commentId)}";
-        //}
 
         public ILikeable AddLike(Guid userId, Guid activityId)
         {

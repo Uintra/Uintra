@@ -20,8 +20,6 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace Compent.uIntra.Core.News
 {
@@ -48,6 +46,7 @@ namespace Compent.uIntra.Core.News
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
+        private readonly ICommentLinkHelper _commentLinkHelper;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -66,7 +65,8 @@ namespace Compent.uIntra.Core.News
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
-            IActivityLinkService linkService)
+            IActivityLinkService linkService,
+            ICommentLinkHelper commentLinkHelper)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -84,6 +84,7 @@ namespace Compent.uIntra.Core.News
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
+            _commentLinkHelper = commentLinkHelper;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -244,7 +245,7 @@ namespace Compent.uIntra.Core.News
                         data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel()
                         {
-                            //Url = GetDetailsPage().Url.UrlWithQueryString("id", news.Id),
+                            Url = _linkService.GetLinks(news.Id).Details,
                             Title = news.Title,
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
@@ -267,7 +268,7 @@ namespace Compent.uIntra.Core.News
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = news.Title,
-                            //Url = GetUrlWithComment(news.Id, comment.Id)
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(news.Id, comment.Id)
                         };
                     }
                     break;
@@ -283,7 +284,7 @@ namespace Compent.uIntra.Core.News
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = news.Title,
-                            //Url = GetUrlWithComment(news.Id, comment.Id)
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(news.Id, comment.Id)
                         };
                     }
                     break;
@@ -297,7 +298,7 @@ namespace Compent.uIntra.Core.News
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = news.Title,
-                            //Url = GetUrlWithComment(news.Id, comment.Id),
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(news.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }
@@ -306,22 +307,6 @@ namespace Compent.uIntra.Core.News
                     return null;
             }
             return data;
-        }
-
-        //private string GetUrlWithComment(Guid newsId, Guid commentId)
-        //{
-        //    return $"{GetDetailsPage().Url.UrlWithQueryString("id", newsId)}#{_commentsService.GetCommentViewId(commentId)}";
-        //}
-
-        private string[] GetPath(params string[] aliases)
-        {
-            var basePath = new List<string>(OverviewXPath);
-
-            if (aliases.Any())
-            {
-                basePath.AddRange(aliases.ToList());
-            }
-            return basePath.ToArray();
         }
 
         private bool IsNewsHidden(Entities.News news)

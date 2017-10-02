@@ -44,6 +44,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IActivityLinkService _linkService;
+        private readonly ICommentLinkHelper _commentLinkHelper;
 
 
         private readonly IGroupActivityService _groupActivityService;
@@ -64,7 +65,8 @@ namespace Compent.uIntra.Core.Events
             ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
-            IActivityLinkService linkService)
+            IActivityLinkService linkService,
+            ICommentLinkHelper commentLinkHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -80,6 +82,7 @@ namespace Compent.uIntra.Core.Events
             _searchableTypeProvider = searchableTypeProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
+            _commentLinkHelper = commentLinkHelper;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -287,7 +290,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
-                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id),
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id),
                             CommentId = comment.Id
                         };
                     }
@@ -302,7 +305,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = currentEvent.Title,
-                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id)
                         };
                         break;
                     }
@@ -316,7 +319,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = comment.UserId,
                             Title = currentEvent.Title,
-                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id)
                         };
                     }
                     break;
@@ -326,7 +329,7 @@ namespace Compent.uIntra.Core.Events
                         data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
                         data.Value = new LikesNotifierDataModel
                         {
-                            //Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            Url = _linkService.GetLinks(currentEvent.Id).Details,
                             Title = currentEvent.Title,
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
@@ -349,7 +352,7 @@ namespace Compent.uIntra.Core.Events
                             ActivityType = ActivityType,
                             NotifierId = currentUser.Id,
                             Title = currentEvent.Title,
-                            //Url = GetUrlWithComment(currentEvent.Id, comment.Id)
+                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id)                            
                         };
                     }
                     break;
@@ -360,7 +363,7 @@ namespace Compent.uIntra.Core.Events
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
                         data.Value = new ActivityReminderDataModel
                         {
-                          //  Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            Url = _linkService.GetLinks(currentEvent.Id).Details,
                             Title = currentEvent.Title,
                             ActivityType = ActivityType,
                             StartDate = currentEvent.StartDate
@@ -377,7 +380,7 @@ namespace Compent.uIntra.Core.Events
                         {
                             ActivityType = ActivityType,
                             Title = currentEvent.Title,
-                           // Url = GetDetailsPage().Url.UrlWithQueryString("id", currentEvent.Id),
+                            Url = _linkService.GetLinks(currentEvent.Id).Details,
                             NotifierId = currentUser.Id
                         };
 
@@ -388,11 +391,6 @@ namespace Compent.uIntra.Core.Events
             }
             return data;
         }
-
-        //private string GetUrlWithComment(Guid eventId, Guid commentId)
-        //{
-        //    return $"{GetDetailsPage().Url.UrlWithQueryString("id", eventId)}#{_commentsService.GetCommentViewId(commentId)}";
-        //}
 
         private static IEnumerable<Guid> GetNotifiedSubscribers(Event currentEvent)
         {
