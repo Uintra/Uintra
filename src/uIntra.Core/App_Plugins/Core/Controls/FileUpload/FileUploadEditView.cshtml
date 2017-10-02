@@ -12,8 +12,8 @@
         @foreach (var file in Model.Files)
         {
             <li class="feed__item-images-list-item" data-id="@file.Id">
-                @file.FileName
                 @RenderFileView(file)
+                <span class="feed__item-images-name">@file.FileName</span>
                 <span class="feed__item-images-remove js-remove-file-btn" data-target-id="@file.Id"><i class="icon-close"></i></span>
             </li>
         }
