@@ -252,16 +252,22 @@ namespace uIntra.Groups.Web
         [DisabledGroupActionFilter]
         public virtual ActionResult GroupMembers(Guid groupId)
         {
+            var model = GetGroupMembersViewModel(groupId);
+            return PartialView(MembersViewPath, model);
+        }
+
+        private GroupMemberOverviewViewModel GetGroupMembersViewModel(Guid groupId)
+        {
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
             var membersIdsList = groupMembers.Select(s => s.MemberId).ToList();
             var groupUsers = _userService.GetMany(membersIdsList);
             var group = _groupService.Get(groupId);
             var currentUserId = _userService.GetCurrentUserId();
 
-            var model = groupUsers.Select(s =>
+            var groupMembersViewModel = groupUsers.Select(s =>
             {
                 var viewModel = s.Map<GroupMemberViewModel>();
-                viewModel.IsGroupAdmin = s.Id == group.CreatorId;
+                viewModel.IsGroupAdmin = IsGroupCreator(s.Id, group);
                 viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != group.CreatorId;
                 return viewModel;
             })
@@ -269,7 +275,18 @@ namespace uIntra.Groups.Web
                 .ThenBy(s => s.Name)
                 .ToList();
 
-            return PartialView(MembersViewPath, model);
+            var model = new GroupMemberOverviewViewModel()
+            {
+                Members = groupMembersViewModel,
+                CanExcludeFromGroup = IsGroupCreator(currentUserId, group)
+
+            };
+            return model;
+        }
+
+        private static bool IsGroupCreator(Guid userId, Group group)
+        {
+            return userId == group.CreatorId;
         }
 
         private GroupViewModel MapGroupViewModel(Group group, Func<bool> fillIsMember)

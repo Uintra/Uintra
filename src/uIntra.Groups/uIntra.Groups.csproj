@@ -319,12 +319,13 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedListModel.cs" />
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
+    <Compile Include="Core\Models\Members\GroupMemberOverviewViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationPageTabViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationTabViewModelBase.cs" />
     <Compile Include="Core\Services\GroupActivityService.cs" />
     <Compile Include="Core\Services\GroupFeedService.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />
-    <Compile Include="Core\Models\GroupMemberViewModel.cs" />
+    <Compile Include="Core\Models\Members\GroupMemberViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationTab.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationActivityTabViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationViewModel.cs" />
