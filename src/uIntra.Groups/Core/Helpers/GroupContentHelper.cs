@@ -30,7 +30,8 @@ namespace uIntra.Groups
                 .Map(_overviewXPath.Append)
                 .Map(GetPage);
 
-        public IPublishedContent GetOverviewPage() => GetPage(_overviewXPath);
+        public IPublishedContent GetOverviewPage() => 
+            GetPage(_overviewXPath);
 
         public IPublishedContent GetEditPage() =>
             _documentTypeAliasProvider.GetGroupEditPage()

@@ -297,6 +297,9 @@ namespace Compent.uIntra
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope(); 
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
             kernel.Bind<IGroupHelper>().To<GroupHelper>().InRequestScope();
+            kernel.Bind<IGroupContentHelper>().To<GroupContentHelper>().InRequestScope();
+            kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
+
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope(); 
 

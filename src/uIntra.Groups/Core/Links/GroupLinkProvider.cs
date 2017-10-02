@@ -1,27 +1,35 @@
 using System;
+using uIntra.Core.Extentions;
 
 namespace uIntra.Groups
 {
     public class GroupLinkProvider : IGroupLinkProvider
     {
+        private readonly IGroupContentHelper _contentHelper;
+
+        public GroupLinkProvider(IGroupContentHelper contentHelper)
+        {
+            _contentHelper = contentHelper;
+        }
+
         public string GetGroupLink(Guid groupId)
         {
-            throw new NotImplementedException();
+           return _contentHelper.GetGroupRoomPage().Url.AddGroupId(groupId);
         }
 
         public string GetDeactivatedGroupLink(Guid groupId)
         {
-            throw new NotImplementedException();
+            return _contentHelper.GetDeactivatedGroupPage().Url.AddGroupId(groupId);
         }
 
         public string GetGroupsOverviewLink()
         {
-            throw new NotImplementedException();
+            return _contentHelper.GetOverviewPage().Url;
         }
 
         public string GetCreateGroupLink()
         {
-            throw new NotImplementedException();
+            return _contentHelper.GetCreateGroupPage().Url;
         }
     }
 }
