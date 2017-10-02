@@ -7,7 +7,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Groups
 {
-    public interface IGroupContentHelper
+    public interface IGroupHelper
     {
         IPublishedContent GetGroupRoomPage();
         IPublishedContent GetCreateGroupPage();

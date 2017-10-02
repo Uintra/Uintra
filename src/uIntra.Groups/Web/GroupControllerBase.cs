@@ -34,7 +34,7 @@ namespace uIntra.Groups.Web
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupHelper _groupHelper;
         private readonly IIntranetUserService<IGroupMember> _userService;
         private readonly IGroupMediaService _groupMediaService;
         private readonly IProfileLinkProvider _profileLinkProvider;
@@ -44,7 +44,7 @@ namespace uIntra.Groups.Web
         protected GroupControllerBase(IGroupService groupService,
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
-            IGroupContentHelper groupContentHelper,
+            IGroupHelper groupHelper,
             IGroupMediaService groupMediaService,
             IIntranetUserService<IGroupMember> userService,
             IProfileLinkProvider profileLinkProvider)
@@ -52,7 +52,7 @@ namespace uIntra.Groups.Web
             _groupService = groupService;
             _groupMemberService = groupMemberService;
             _mediaHelper = mediaHelper;
-            _groupContentHelper = groupContentHelper;
+            _groupHelper = groupHelper;
             _groupMediaService = groupMediaService;
             _userService = userService;
             _profileLinkProvider = profileLinkProvider;
@@ -68,7 +68,7 @@ namespace uIntra.Groups.Web
             var group = _groupService.Get(groupId);
             if (!group.IsHidden)
             {
-                var deactivatedGroupPage = _groupContentHelper.GetGroupRoomPage();
+                var deactivatedGroupPage = _groupHelper.GetGroupRoomPage();
                 Response.Redirect(deactivatedGroupPage.UrlWithGroupId(groupId), true);
             }
 
@@ -87,7 +87,7 @@ namespace uIntra.Groups.Web
 
             if (!_groupService.CanEdit(group, _userService.GetCurrentUser()))
             {
-                HttpContext.Response.Redirect(_groupContentHelper.GetGroupRoomPage().UrlWithGroupId(groupId));
+                HttpContext.Response.Redirect(_groupHelper.GetGroupRoomPage().UrlWithGroupId(groupId));
             }
 
             var model = group.Map<GroupEditModel>();
@@ -116,7 +116,7 @@ namespace uIntra.Groups.Web
             }
             _groupService.Edit(group);
             _groupMediaService.GroupTitleChanged(group.Id, group.Title);
-            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(),
+            return RedirectToUmbracoPage(_groupHelper.GetGroupRoomPage(),
                 new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 
@@ -150,7 +150,7 @@ namespace uIntra.Groups.Web
 
             _groupMemberService.Add(group.Id, createModel.CreatorId);
 
-            return RedirectToUmbracoPage(_groupContentHelper.GetGroupRoomPage(),
+            return RedirectToUmbracoPage(_groupHelper.GetGroupRoomPage(),
                 new NameValueCollection { { GroupConstants.GroupIdQueryParam, group.Id.ToString() } });
         }
 
@@ -211,7 +211,7 @@ namespace uIntra.Groups.Web
         public virtual ActionResult Hide(Guid id)
         {
             _groupService.Hide(id);
-            return Json(new { _groupContentHelper.GetOverviewPage().Url });
+            return Json(new { _groupHelper.GetOverviewPage().Url });
         }
 
         [DisabledGroupActionFilter]
@@ -284,7 +284,7 @@ namespace uIntra.Groups.Web
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupModel.Creator = _userService.Get(group.CreatorId);
             groupModel.GroupUrl =
-                _groupContentHelper.GetGroupRoomPage()
+                _groupHelper.GetGroupRoomPage()
                     .Url.UrlWithQueryString(GroupConstants.GroupIdQueryParam, group.Id);
             if (groupModel.HasImage)
             {
@@ -296,10 +296,9 @@ namespace uIntra.Groups.Web
 
         private GroupsOverviewModel GetOverViewModel(bool isMyGroupsPage)
         {
-            var createGroupUrl = _groupContentHelper.GetCreateGroupPage().Url;
+            var createGroupUrl = _groupHelper.GetCreateGroupPage().Url;
             var groupsOverviewModel = new GroupsOverviewModel { IsMyGroupsPage = isMyGroupsPage, CreatePageUrl = createGroupUrl };
             return groupsOverviewModel;
         }
     }
-
 }

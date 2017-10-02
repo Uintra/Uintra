@@ -13,7 +13,7 @@ using Umbraco.Web;
 
 namespace uIntra.Groups
 {
-    public class GroupContentHelper : IGroupContentHelper
+    public class GroupHelper : IGroupHelper
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IGroupService _groupService;
@@ -23,7 +23,7 @@ namespace uIntra.Groups
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IFeedTypeProvider _feedTypeProvider;
 
-        public GroupContentHelper(
+        public GroupHelper(
             UmbracoHelper umbracoHelper,
             IGroupService groupService,
             IGridHelper gridHelper,

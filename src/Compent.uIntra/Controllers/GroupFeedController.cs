@@ -24,7 +24,7 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupContentHelper groupContentHelper,
+            IGroupHelper groupContentHelper,
             IGroupFeedLinksProvider groupFeedLinksProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService) 

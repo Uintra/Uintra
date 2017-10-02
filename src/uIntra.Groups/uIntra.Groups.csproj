@@ -295,7 +295,7 @@
     <Compile Include="Core\Dashboard\Controllers\GroupsSectionControllerBase.cs" />
     <Compile Include="Core\Extentions\GroupsPublishedContentExtensions.cs" />
     <Compile Include="Core\Extentions\NameValueCollectionExtensions.cs" />
-    <Compile Include="Core\GroupContentHelper.cs" />
+    <Compile Include="Core\GroupHelper.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
     <Compile Include="Core\Enums\Direction.cs" />
     <Compile Include="Core\DisabledGroupActionFilter.cs" />
@@ -304,6 +304,7 @@
     <Compile Include="Core\Links\GroupFeedLinksProvider.cs" />
     <Compile Include="Core\Links\IGroupFeedLinkService.cs" />
     <Compile Include="Core\Links\IGroupFeedLinksProvider.cs" />
+    <Compile Include="Core\Links\IGroupLinkHelper.cs" />
     <Compile Include="Core\Models\DisabledGroupViewModel.cs" />
     <Compile Include="Core\Models\GroupCreateModel.cs" />
     <Compile Include="Core\Enums\GroupDocumentDocumentField.cs" />
@@ -330,10 +331,9 @@
     <Compile Include="Core\Enums\GroupTypeEnum.cs" />
     <Compile Include="Core\Models\GroupViewModel.cs" />
     <Compile Include="Core\IGroupActivity.cs" />
-    <Compile Include="Core\IGroupContentHelper.cs" />
+    <Compile Include="Core\IGroupHelper.cs" />
     <Compile Include="Core\Services\IGroupActivityService.cs" />
     <Compile Include="Core\Services\IGroupFeedService.cs" />
-    <Compile Include="Core\Services\IGroupFeedService1.cs" />
     <Compile Include="Core\Services\IGroupMediaService.cs" />
     <Compile Include="Core\IGroupMember.cs" />
     <Compile Include="Core\Services\GroupDocumentsService.cs" />

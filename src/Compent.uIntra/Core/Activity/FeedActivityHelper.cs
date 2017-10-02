@@ -9,13 +9,13 @@ namespace Compent.uIntra.Core.Activity
     {
         private readonly IGroupActivityService _groupActivityService;
         private readonly IGroupService _groupService;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupHelper _groupHelper;
 
-        public FeedActivityHelper(IGroupActivityService groupActivityService, IGroupService groupService, IGroupContentHelper groupContentHelper)
+        public FeedActivityHelper(IGroupActivityService groupActivityService, IGroupService groupService, IGroupHelper groupHelper)
         {
             _groupActivityService = groupActivityService;
             _groupService = groupService;
-            _groupContentHelper = groupContentHelper;
+            _groupHelper = groupHelper;
         }
 
         public GroupInfo? GetGroupInfo(Guid itemId)
@@ -33,7 +33,7 @@ namespace Compent.uIntra.Core.Activity
         private GroupInfo GetInfoForGroup(Guid groupId)
         {
             var group = _groupService.Get(groupId);
-            var groupOverviewUrl = _groupContentHelper
+            var groupOverviewUrl = _groupHelper
                 .GetGroupRoomPage()
                 .Url
                 .AddGroupId(groupId);

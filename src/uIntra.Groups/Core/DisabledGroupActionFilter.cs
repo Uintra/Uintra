@@ -9,13 +9,13 @@ namespace uIntra.Groups
 {
     public class DisabledGroupActionFilter : ActionFilterAttribute
     {
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupHelper _groupContentHelper;
         private readonly IGroupService _groupService;
 
         public DisabledGroupActionFilter()
         {
             _groupService = HttpContext.Current.GetService<IGroupService>();
-            _groupContentHelper = HttpContext.Current.GetService<IGroupContentHelper>();
+            _groupContentHelper = HttpContext.Current.GetService<IGroupHelper>();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

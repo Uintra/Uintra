@@ -12,7 +12,7 @@ namespace Compent.uIntra.Controllers
         public GroupController(IGroupService groupService, 
             IGroupMemberService groupMemberService, 
             IMediaHelper mediaHelper,
-            IGroupContentHelper groupContentHelper, 
+            IGroupHelper groupContentHelper, 
             IUserService userService, 
             IGroupMediaService groupMediaService, 
             IIntranetUserService<IGroupMember> intranetUserService, IProfileLinkProvider profileLinkProvider) 

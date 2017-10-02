@@ -12,11 +12,11 @@ namespace uIntra.Groups.Dashboard
     public abstract class GroupsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IGroupService _groupsService;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupHelper _groupContentHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected GroupsSectionControllerBase(IGroupService groupsService,
-            IGroupContentHelper groupContentHelper,
+            IGroupHelper groupContentHelper,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _groupsService = groupsService;

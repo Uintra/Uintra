@@ -11,7 +11,7 @@ namespace Compent.uIntra.Controllers
     public class GroupsSectionController : GroupsSectionControllerBase
     {
         public GroupsSectionController(IGroupService groupsService,
-            IGroupContentHelper groupContentHelper,
+            IGroupHelper groupContentHelper,
             IIntranetUserService<IIntranetUser> intranetUserService) :
             base(groupsService, groupContentHelper, intranetUserService)
         {

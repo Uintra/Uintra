@@ -31,7 +31,7 @@ namespace Compent.uIntra.Controllers
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupHelper _groupContentHelper;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
 
@@ -41,7 +41,7 @@ namespace Compent.uIntra.Controllers
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ICentralFeedContentHelper centralFeedContentHelper,
-            ISystemLinksModelBuilder systemLinksModelBuilder, IDocumentTypeAliasProvider documentTypeAliasProvider, IGroupService groupService, IGroupContentHelper groupContentHelper, IFeedTypeProvider feedTypeProvider, IIntranetUserService<IntranetUser> intranetUserService) :
+            ISystemLinksModelBuilder systemLinksModelBuilder, IDocumentTypeAliasProvider documentTypeAliasProvider, IGroupService groupService, IGroupHelper groupContentHelper, IFeedTypeProvider feedTypeProvider, IIntranetUserService<IntranetUser> intranetUserService) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
