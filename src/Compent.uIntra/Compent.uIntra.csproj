@@ -546,31 +546,6 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\style.css" />
-    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
-    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
-    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
-    <Content Include="App_Plugins\Groups\Create\create-group.js" />
-    <Content Include="App_Plugins\Groups\Create\group-create.html" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\disabled-group.html" />
-    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
-    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
-    <Content Include="App_Plugins\Groups\groups.css" />
-    <Content Include="App_Plugins\Groups\groups.js" />
-    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
-    <Content Include="App_Plugins\Groups\List\group-list.html" />
-    <Content Include="App_Plugins\Groups\List\group-list.js" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
-    <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
-    <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
-    <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
@@ -1142,6 +1117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\Core\Content\styles\emoji-data\" />
+    <Folder Include="App_Plugins\Groups\" />
     <Folder Include="App_Plugins\Members\NewFolder1\" />
     <Folder Include="App_Plugins\Search\Controls\" />
     <Folder Include="App_Plugins\Search\Result\" />
