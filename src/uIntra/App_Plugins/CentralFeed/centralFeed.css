@@ -414,7 +414,8 @@
 		}
 
 		&__item {
-			display: block;
+			float:left;
+            margin:0 20px 0 0;
 			padding: 8px 19px 9px;
             font-size:16px;
             text-transform:uppercase;
@@ -431,6 +432,10 @@
                 color: var(--color-white);
                 border-color:var(--text-color-dark);
 			}
+
+            &:last-child{
+                margin-right:0;
+            }
 
 			.feed-links__frame._active & {
 				background: #333;
