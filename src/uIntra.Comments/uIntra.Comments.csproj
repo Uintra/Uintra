@@ -333,6 +333,8 @@
     <Compile Include="Core\ICommentable.cs" />
     <Compile Include="Core\ICommentableService.cs" />
     <Compile Include="Core\ICommentsService.cs" />
+    <Compile Include="Core\Links\CommentLinkHelper.cs" />
+    <Compile Include="Core\Links\ICommentLinkHelper.cs" />
     <Compile Include="Core\Models\CommentCreateModel.cs" />
     <Compile Include="Core\Models\CommentEditModel.cs" />
     <Compile Include="Core\Models\CommentPreviewModel.cs" />
