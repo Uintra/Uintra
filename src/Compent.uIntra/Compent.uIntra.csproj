@@ -356,9 +356,9 @@
     <Reference Include="uIntra.Events, Version=1.3.3.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.3.3.1\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.0.1.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="uIntra.Groups, Version=0.0.1.10, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Groups.0.0.1.9\lib\net452\uIntra.Groups.dll</HintPath>
+      <HintPath>..\..\packages\uIntra.Groups.0.0.1.10\lib\net452\uIntra.Groups.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -550,31 +550,6 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\style.css" />
-    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
-    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
-    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
-    <Content Include="App_Plugins\Groups\Create\create-group.js" />
-    <Content Include="App_Plugins\Groups\Create\group-create.html" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\disabled-group.html" />
-    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
-    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
-    <Content Include="App_Plugins\Groups\groups.css" />
-    <Content Include="App_Plugins\Groups\groups.js" />
-    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
-    <Content Include="App_Plugins\Groups\List\group-list.html" />
-    <Content Include="App_Plugins\Groups\List\group-list.js" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
-    <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
-    <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
-    <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
@@ -816,23 +791,6 @@
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-    <Content Include="App_Plugins\Groups\package.manifest" />
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -1146,6 +1104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\Core\Content\styles\emoji-data\" />
+    <Folder Include="App_Plugins\Groups\" />
     <Folder Include="App_Plugins\Members\NewFolder1\" />
     <Folder Include="App_Plugins\Search\Controls\" />
     <Folder Include="App_Plugins\Search\Result\" />
