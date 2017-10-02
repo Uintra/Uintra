@@ -20,7 +20,7 @@ namespace uIntra.Groups.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupHelper _groupContentHelper;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private bool IsCurrentUserGroupMember { get; set; }
@@ -39,8 +39,8 @@ namespace uIntra.Groups.Web
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupContentHelper groupContentHelper,
-            IGroupFeedLinksProvider groupFeedLinksProvider,
+            IGroupHelper groupContentHelper,
+            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService)
             : base(centralFeedContentHelper,

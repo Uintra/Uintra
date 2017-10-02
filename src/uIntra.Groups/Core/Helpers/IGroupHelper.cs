@@ -7,12 +7,8 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Groups
 {
-    public interface IGroupContentHelper
+    public interface IGroupHelper
     {
-        IPublishedContent GetGroupRoomPage();
-        IPublishedContent GetCreateGroupPage();
-        IPublishedContent GetOverviewPage();
-        IPublishedContent GetEditPage();
         bool IsGroupRoomPage(IPublishedContent currentPage);
 
         IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId);
@@ -25,7 +21,5 @@ namespace uIntra.Groups
         IIntranetType GetCreateActivityType(IPublishedContent content);
 
         bool IsGroupPage(IPublishedContent currentPage);
-        IPublishedContent GetMyGroupsOverviewPage();
-        IPublishedContent GetDeactivatedGroupPage();
     }
 }

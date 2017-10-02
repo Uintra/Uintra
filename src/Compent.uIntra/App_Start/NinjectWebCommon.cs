@@ -212,8 +212,8 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
 
-            kernel.Bind<ICentralFeedLinksProvider>().To<CentralFeedLinksProvider>();
-            kernel.Bind<IGroupFeedLinksProvider>().To<GroupFeedLinksProvider>();
+            kernel.Bind<ICentralFeedLinkProvider>().To<CentralFeedLinkProvider>();
+            kernel.Bind<IGroupFeedLinkProvider>().To<GroupFeedLinkProvider>();
 
             kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
 
@@ -296,7 +296,10 @@ namespace Compent.uIntra
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope(); 
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
+            kernel.Bind<IGroupHelper>().To<GroupHelper>().InRequestScope();
             kernel.Bind<IGroupContentHelper>().To<GroupContentHelper>().InRequestScope();
+            kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
+
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope(); 
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using uIntra.CentralFeed;
-using uIntra.Core.Extentions;
 using uIntra.Groups;
 
 namespace Compent.uIntra.Core.Activity
@@ -9,13 +7,13 @@ namespace Compent.uIntra.Core.Activity
     {
         private readonly IGroupActivityService _groupActivityService;
         private readonly IGroupService _groupService;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupLinkProvider _groupLinkProvider;
 
-        public FeedActivityHelper(IGroupActivityService groupActivityService, IGroupService groupService, IGroupContentHelper groupContentHelper)
+        public FeedActivityHelper(IGroupActivityService groupActivityService, IGroupService groupService, IGroupLinkProvider groupLinkProvider)
         {
             _groupActivityService = groupActivityService;
             _groupService = groupService;
-            _groupContentHelper = groupContentHelper;
+            _groupLinkProvider = groupLinkProvider;
         }
 
         public GroupInfo? GetGroupInfo(Guid itemId)
@@ -33,10 +31,7 @@ namespace Compent.uIntra.Core.Activity
         private GroupInfo GetInfoForGroup(Guid groupId)
         {
             var group = _groupService.Get(groupId);
-            var groupOverviewUrl = _groupContentHelper
-                .GetGroupRoomPage()
-                .Url
-                .AddGroupId(groupId);
+            var groupOverviewUrl = _groupLinkProvider.GetGroupLink(groupId);
 
             return new GroupInfo(
                 title: group.Title,

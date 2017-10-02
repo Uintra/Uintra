@@ -3,19 +3,18 @@ using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Extentions;
 using uIntra.Groups.Constants;
-using uIntra.Groups.Extentions;
 
 namespace uIntra.Groups
 {
     public class DisabledGroupActionFilter : ActionFilterAttribute
     {
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupService _groupService;
 
         public DisabledGroupActionFilter()
         {
             _groupService = HttpContext.Current.GetService<IGroupService>();
-            _groupContentHelper = HttpContext.Current.GetService<IGroupContentHelper>();
+            _groupLinkProvider = HttpContext.Current.GetService<IGroupLinkProvider>();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -25,9 +24,8 @@ namespace uIntra.Groups
             {
                 if (IsGroupHidden(filterContext, groupId))
                 {
-                    var disabledGroupPage = _groupContentHelper.GetDeactivatedGroupPage();
-
-                    filterContext.HttpContext.Response.Redirect(disabledGroupPage.UrlWithGroupId(groupId));
+                    var deactivatedGroupLink = _groupLinkProvider.GetDeactivatedGroupLink(groupId);
+                    filterContext.HttpContext.Response.Redirect(deactivatedGroupLink);
                 }
             }
         }

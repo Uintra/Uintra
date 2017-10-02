@@ -2,7 +2,7 @@
 
 namespace uIntra.Groups
 {
-    public interface IGroupFeedLinksProvider
+    public interface IGroupFeedLinkProvider
     {
         IActivityLinks GetLinks(GroupActivityTransferModel activity);
         IActivityCreateLinks GetCreateLinks(GroupActivityTransferCreateModel model);

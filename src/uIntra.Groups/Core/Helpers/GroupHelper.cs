@@ -13,83 +13,44 @@ using Umbraco.Web;
 
 namespace uIntra.Groups
 {
-    public class GroupContentHelper : IGroupContentHelper
+    public class GroupHelper : IGroupHelper
     {
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IGroupService _groupService;
         private readonly IGridHelper _gridHelper;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IFeedTypeProvider _feedTypeProvider;
+        private readonly IGroupContentHelper _contentHelper;
 
-        public GroupContentHelper(
-            UmbracoHelper umbracoHelper,
+        public GroupHelper(
             IGroupService groupService,
             IGridHelper gridHelper,
             IFeedTypeProvider centralFeedTypeProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupFeedLinkService groupFeedLinkService,
-            IFeedTypeProvider feedTypeProvider)
+            IFeedTypeProvider feedTypeProvider,
+            IGroupContentHelper contentHelper)
         {
-            _umbracoHelper = umbracoHelper;
             _groupService = groupService;
             _gridHelper = gridHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupFeedLinkService = groupFeedLinkService;
             _feedTypeProvider = feedTypeProvider;
-        }
-
-        public IPublishedContent GetGroupRoomPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupRoomPage()));
-        }
-
-        public IPublishedContent GetCreateGroupPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupCreatePage()));
-        }
-
-        public IPublishedContent GetOverviewPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetGroupOverviewPage()));
-        }
-
-        public IPublishedContent GetEditPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupRoomPage(), _documentTypeAliasProvider.GetGroupEditPage()));
-        }
-
-        public IPublishedContent GetMyGroupsOverviewPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupMyGroupsOverviewPage()));
-        }
-
-        public IPublishedContent GetDeactivatedGroupPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(),
-                _documentTypeAliasProvider.GetGroupOverviewPage(), _documentTypeAliasProvider.GetGroupRoomPage(), _documentTypeAliasProvider.GetGroupDeactivatedPage()));
+            _contentHelper = contentHelper;
         }
 
         public bool IsGroupPage(IPublishedContent currentPage)
         {
-            return GetOverviewPage().IsAncestorOrSelf(currentPage);
+            return _contentHelper.GetOverviewPage().IsAncestorOrSelf(currentPage);
         }
 
         public bool IsGroupRoomPage(IPublishedContent currentPage)
         {
-            return GetGroupRoomPage().IsAncestorOrSelf(currentPage);
+            return _contentHelper.GetGroupRoomPage().IsAncestorOrSelf(currentPage);
         }
 
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
         {
-            var groupRoom = GetGroupRoomPage();
+            var groupRoom = _contentHelper.GetGroupRoomPage();
             var type = GetGroupFeedTabType(groupRoom);
             var result = new ActivityFeedTabModel
             {
@@ -146,9 +107,9 @@ namespace uIntra.Groups
         private Func<IPublishedContent, bool> GetPageSkipResolver(IIntranetUser user, Guid groupId)
         {
             var canEdit = _groupService.CanEdit(groupId, user);
-            var editGroupPage = GetEditPage();
+            var editGroupPage = _contentHelper.GetEditPage();
 
-            var deactivatedPage = GetDeactivatedGroupPage();
+            var deactivatedPage = _contentHelper.GetDeactivatedGroupPage();
 
             Func<IPublishedContent, bool> skipPage = (content) =>
                     (!canEdit && AreSamePages(editGroupPage, content)
@@ -192,7 +153,7 @@ namespace uIntra.Groups
 
         private IEnumerable<IPublishedContent> GetContent()
         {
-            return GetGroupRoomPage().Children;
+            return _contentHelper.GetGroupRoomPage().Children;
         }
 
         public IIntranetType GetGroupFeedTabType(IPublishedContent content)

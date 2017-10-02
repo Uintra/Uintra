@@ -12,11 +12,11 @@ namespace Compent.uIntra.Controllers
         public GroupController(IGroupService groupService, 
             IGroupMemberService groupMemberService, 
             IMediaHelper mediaHelper,
-            IGroupContentHelper groupContentHelper, 
+            IGroupLinkProvider groupLinkProvider, 
             IUserService userService, 
             IGroupMediaService groupMediaService, 
             IIntranetUserService<IGroupMember> intranetUserService, IProfileLinkProvider profileLinkProvider) 
-            : base(groupService, groupMemberService, mediaHelper, groupContentHelper, groupMediaService, intranetUserService, profileLinkProvider)
+            : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider)
         {
         }
         

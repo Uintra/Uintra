@@ -12,15 +12,15 @@ namespace uIntra.Groups.Dashboard
     public abstract class GroupsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IGroupService _groupsService;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected GroupsSectionControllerBase(IGroupService groupsService,
-            IGroupContentHelper groupContentHelper,
+            IGroupLinkProvider groupLinkProvider,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _groupsService = groupsService;
-            _groupContentHelper = groupContentHelper;
+            _groupLinkProvider = groupLinkProvider;
             _intranetUserService = intranetUserService;
         }
 
@@ -31,7 +31,7 @@ namespace uIntra.Groups.Dashboard
             {
                 var viewModel = s.Map<BackofficeGroupViewModel>();
                 viewModel.CreatorName = _intranetUserService.Get(s.CreatorId).DisplayedName;
-                viewModel.Link = _groupContentHelper.GetGroupRoomPage().Url.UrlWithQueryString(GroupConstants.GroupIdQueryParam, s.Id);
+                viewModel.Link = _groupLinkProvider.GetGroupLink(s.Id);
                 return viewModel;
             });
 

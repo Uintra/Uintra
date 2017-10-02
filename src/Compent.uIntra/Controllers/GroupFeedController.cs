@@ -24,11 +24,11 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupContentHelper groupContentHelper,
-            IGroupFeedLinksProvider groupFeedLinksProvider,
+            IGroupHelper groupContentHelper,
+            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService) 
-            : base(centralFeedContentHelper, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupFeedLinksProvider, groupFeedLinkService, groupMemberService)
+            : base(centralFeedContentHelper, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupFeedLinkProvider, groupFeedLinkService, groupMemberService)
         {
             this._intranetUserService = intranetUserService;
         }
