@@ -6,7 +6,7 @@ using uIntra.Core.Links;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedLinksProvider : FeedLinkProvider, ICentralFeedLinksProvider
+    public class CentralFeedLinkProvider : FeedLinkProvider, ICentralFeedLinkProvider
     {
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
         {
@@ -15,7 +15,7 @@ namespace uIntra.CentralFeed
 
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
-        public CentralFeedLinksProvider(
+        public CentralFeedLinkProvider(
             IActivityPageHelperFactory pageHelperFactory,
             IProfileLinkProvider profileLinkProvider,
             IDocumentTypeAliasProvider aliasProvider)

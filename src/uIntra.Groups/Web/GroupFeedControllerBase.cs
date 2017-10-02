@@ -40,7 +40,7 @@ namespace uIntra.Groups.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
             IGroupHelper groupContentHelper,
-            IGroupFeedLinksProvider groupFeedLinksProvider,
+            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService)
             : base(centralFeedContentHelper,

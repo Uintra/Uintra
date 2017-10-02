@@ -12,8 +12,8 @@ namespace Compent.uIntra.Core.Feed.Links
     public class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {
         private readonly IActivityTypeHelper _activityTypeHelper;
-        private readonly ICentralFeedLinksProvider _centralFeedLinksProvider;
-        private readonly IGroupFeedLinksProvider _groupFeedLinksProvider;
+        private readonly ICentralFeedLinkProvider _centralFeedLinkProvider;
+        private readonly IGroupFeedLinkProvider _groupFeedLinkProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -21,15 +21,15 @@ namespace Compent.uIntra.Core.Feed.Links
         private Guid CurrentUserId => _intranetUserService.GetCurrentUser().Id;
 
         public ActivityLinkService(
-            ICentralFeedLinksProvider centralFeedLinksProvider,
-            IGroupFeedLinksProvider groupFeedLinksProvider,
+            ICentralFeedLinkProvider centralFeedLinkProvider,
+            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupActivityService groupActivityService, 
             IActivityTypeHelper activityTypeHelper, 
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
-            _centralFeedLinksProvider = centralFeedLinksProvider;
-            _groupFeedLinksProvider = groupFeedLinksProvider;
+            _centralFeedLinkProvider = centralFeedLinkProvider;
+            _groupFeedLinkProvider = groupFeedLinkProvider;
             _groupActivityService = groupActivityService;
             _activityTypeHelper = activityTypeHelper;
             _activitiesServiceFactory = activitiesServiceFactory;
@@ -45,12 +45,12 @@ namespace Compent.uIntra.Core.Feed.Links
             if (groupId.HasValue)
             {
                 var activityModel = activity.Map<GroupActivityTransferModel>();
-                result = _groupFeedLinksProvider.GetLinks(activityModel);
+                result = _groupFeedLinkProvider.GetLinks(activityModel);
             }
             else
             {
                 var activityModel = activity.Map<ActivityTransferModel>();
-                result = _centralFeedLinksProvider.GetLinks(activityModel);
+                result = _centralFeedLinkProvider.GetLinks(activityModel);
             }
             return result;
         }
@@ -58,13 +58,13 @@ namespace Compent.uIntra.Core.Feed.Links
         public IActivityCreateLinks GetCreateLinks(IIntranetType activityType, Guid groupId)
         {
             var activityModel = GetActivityGroupCreateModel(activityType, groupId);
-            return _groupFeedLinksProvider.GetCreateLinks(activityModel);
+            return _groupFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
         public IActivityCreateLinks GetCreateLinks(IIntranetType activityType)
         {
             var activityModel = GetActivityCreateModel(activityType);
-            return _centralFeedLinksProvider.GetCreateLinks(activityModel);
+            return _centralFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
         private GroupActivityTransferCreateModel GetActivityGroupCreateModel(IIntranetType activityType, Guid groupId)

@@ -7,7 +7,7 @@ using uIntra.Core.Links;
 
 namespace uIntra.Groups 
 {
-    public class GroupFeedLinksProvider : FeedLinkProvider, IGroupFeedLinksProvider
+    public class GroupFeedLinkProvider : FeedLinkProvider, IGroupFeedLinkProvider
     {
 
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
@@ -19,7 +19,7 @@ namespace uIntra.Groups
 
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
-        public GroupFeedLinksProvider(
+        public GroupFeedLinkProvider(
             IActivityPageHelperFactory pageHelperFactory,
             IProfileLinkProvider profileLinkProvider,
             IDocumentTypeAliasProvider aliasProvider) : base(pageHelperFactory, profileLinkProvider)

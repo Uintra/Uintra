@@ -31,26 +31,33 @@ namespace Compent.uIntra.Controllers
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
-        private readonly IGroupHelper _groupContentHelper;
-        private readonly IFeedTypeProvider _feedTypeProvider;
+        private readonly IGroupHelper _groupHelper;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
-
+        private readonly IGroupLinkProvider _groupLinkProvider;
+        private readonly IGroupContentHelper _groupContentHelper;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ICentralFeedContentHelper centralFeedContentHelper,
-            ISystemLinksModelBuilder systemLinksModelBuilder, IDocumentTypeAliasProvider documentTypeAliasProvider, IGroupService groupService, IGroupHelper groupContentHelper, IFeedTypeProvider feedTypeProvider, IIntranetUserService<IntranetUser> intranetUserService) :
+            ISystemLinksModelBuilder systemLinksModelBuilder,
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IGroupService groupService,
+            IGroupHelper groupHelper,
+            IIntranetUserService<IntranetUser> intranetUserService,
+            IGroupLinkProvider groupLinkProvider,
+            IGroupContentHelper groupContentHelper) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
             _centralFeedContentHelper = centralFeedContentHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
-            _groupContentHelper = groupContentHelper;
-            _feedTypeProvider = feedTypeProvider;
+            _groupHelper = groupHelper;
             _intranetUserService = intranetUserService;
+            _groupLinkProvider = groupLinkProvider;
+            _groupContentHelper = groupContentHelper;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
@@ -62,7 +69,7 @@ namespace Compent.uIntra.Controllers
                 return new EmptyResult();
             }
 
-            if (_groupContentHelper.IsGroupRoomPage(CurrentPage))
+            if (_groupHelper.IsGroupRoomPage(CurrentPage))
             {
                 return RenderGroupNavigation();
             }
@@ -85,16 +92,16 @@ namespace Compent.uIntra.Controllers
 
             if (!group.IsHidden)
             {
-                groupNavigationModel.GroupUrl = _groupContentHelper.GetGroupRoomPage().UrlWithGroupId(groupId);
+                groupNavigationModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
 
-                groupNavigationModel.ActivityTabs = _groupContentHelper
+                groupNavigationModel.ActivityTabs = _groupHelper
                     .GetMainFeedTab(CurrentPage, groupId.Value)
                     .ToEnumerableOfOne()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();
                 var groupEditPage = _groupContentHelper.GetEditPage();
-                groupNavigationModel.PageTabs = _groupContentHelper
+                groupNavigationModel.PageTabs = _groupHelper
                     .GetPageTabs(CurrentPage, currentUser, groupId.Value)
                     .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }

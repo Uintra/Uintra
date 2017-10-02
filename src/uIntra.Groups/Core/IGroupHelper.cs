@@ -9,10 +9,6 @@ namespace uIntra.Groups
 {
     public interface IGroupHelper
     {
-        IPublishedContent GetGroupRoomPage();
-        IPublishedContent GetCreateGroupPage();
-        IPublishedContent GetOverviewPage();
-        IPublishedContent GetEditPage();
         bool IsGroupRoomPage(IPublishedContent currentPage);
 
         IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId);
@@ -25,7 +21,24 @@ namespace uIntra.Groups
         IIntranetType GetCreateActivityType(IPublishedContent content);
 
         bool IsGroupPage(IPublishedContent currentPage);
+    }
+
+    public interface IGroupContentHelper
+    {
         IPublishedContent GetMyGroupsOverviewPage();
         IPublishedContent GetDeactivatedGroupPage();
+        IPublishedContent GetGroupRoomPage();
+        IPublishedContent GetCreateGroupPage();
+        IPublishedContent GetOverviewPage();
+        IPublishedContent GetEditPage();
+    }
+
+    public interface IGroupLinkProvider
+    {
+        string GetGroupLink(Guid groupId);
+        string GetDeactivatedGroupLink(Guid groupId);
+
+        string GetGroupsOverviewLink();
+        string GetCreateGroupLink();
     }
 }

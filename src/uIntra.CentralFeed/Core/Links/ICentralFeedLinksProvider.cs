@@ -2,7 +2,7 @@
 
 namespace uIntra.CentralFeed
 {
-    public interface ICentralFeedLinksProvider
+    public interface ICentralFeedLinkProvider
     {
         IActivityLinks GetLinks(ActivityTransferModel activity);
         IActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model);
