@@ -125,7 +125,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
+            var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
 
             var settings = _centralFeedService.GetAllSettings();
             var tabSettings = settings
