@@ -134,7 +134,7 @@ namespace uIntra.Groups.Web
         protected virtual FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
-            var pagedItemsList = Sort(filteredItems, centralFeedType).Take(take).ToList();
+            var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
 
             var settings = _groupFeedService.GetAllSettings();
             var tabSettings = settings

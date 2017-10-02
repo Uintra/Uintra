@@ -108,23 +108,32 @@ namespace uIntra.CentralFeed.Web
             return items;
         }
 
-        protected virtual IList<IFeedItem> Sort(IEnumerable<IFeedItem> items, IIntranetType type)
+        protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, IIntranetType type)
+        {            
+            var sortedItems = Sort(items, type);
+            return SortByPin(sortedItems).ToList();
+        }
+
+        protected virtual IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, IIntranetType type)
         {
-            var sortedItems = items.OrderByDescending(el => el.IsPinActual);
+            IEnumerable<IFeedItem> result;
             switch (type.Id)
             {
                 case (int)CentralFeedTypeEnum.Events:
-                    sortedItems = sortedItems.ThenBy(i => i, new CentralFeedEventComparer());
+                    result = sortedItems.OrderBy(i => i, new CentralFeedEventComparer());
                     break;
                 case (int)CentralFeedTypeEnum.All:
-                    sortedItems = sortedItems.ThenBy(i => i, new CentralFeedItemComparer());
+                    result = sortedItems.OrderBy(i => i, new CentralFeedItemComparer());
                     break;
                 default:
-                    sortedItems = sortedItems.ThenByDescending(el => el.PublishDate);
+                    result = sortedItems.OrderByDescending(el => el.PublishDate);
                     break;
             }
-            return sortedItems.ToList();
+            return result;
         }
+
+        protected virtual IEnumerable<IFeedItem> SortByPin(IEnumerable<IFeedItem> items) => 
+            items.OrderByDescending(el => el.IsPinActual);
 
         [Pure]
         protected virtual bool IsEmptyFilters(FeedFilterStateModel filterState, bool isCookiesExist)

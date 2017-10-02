@@ -205,6 +205,8 @@ namespace Compent.uIntra
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
+            kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();
+
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
