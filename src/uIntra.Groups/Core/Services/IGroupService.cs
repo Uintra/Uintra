@@ -7,7 +7,7 @@ namespace uIntra.Groups
 {
     public interface IGroupService
     {
-        void Create(GroupModel groupModel);
+        Guid Create(GroupModel groupModel);
         void Edit(GroupModel groupModel);
         GroupModel Get(Guid id);        
         IEnumerable<GroupModel> GetAllNotHidden();              

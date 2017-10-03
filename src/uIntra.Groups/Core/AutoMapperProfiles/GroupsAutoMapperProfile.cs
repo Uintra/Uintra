@@ -11,6 +11,9 @@ namespace uIntra.Groups
     {
         protected override void Configure()
         {
+            Mapper.CreateMap<Group, GroupModel>();
+            Mapper.CreateMap<GroupModel, Group>();
+
             Mapper.CreateMap<GroupModel, BackofficeGroupViewModel>()
                 .ForMember(d => d.CreateDate, o => o.MapFrom(s => s.CreatedDate))
                 .ForMember(d => d.UpdateDate, o => o.MapFrom(s => s.UpdatedDate))

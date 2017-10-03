@@ -27,7 +27,7 @@ namespace uIntra.Groups
             _permissionsService = permissionsService;
         }
 
-        public void Create(GroupModel model)
+        public Guid Create(GroupModel model)
         {
             var date = DateTime.Now;
             var group = model.Map<Group>();
@@ -37,6 +37,8 @@ namespace uIntra.Groups
 
             _groupRepository.Add(group);
             UpdateCache();
+
+            return group.Id;
         }
 
         public void Edit(GroupModel model)

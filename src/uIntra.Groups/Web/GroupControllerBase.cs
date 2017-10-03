@@ -129,12 +129,12 @@ namespace uIntra.Groups.Web
             var createdMedias = _mediaHelper.CreateMedia(createModel).ToList();
             group.ImageId = createdMedias.Any() ? (int?)createdMedias.First() : null;
 
-            _groupService.Create(group);
-            _groupMediaService.GroupTitleChanged(group.Id, group.Title);
+            Guid groupId = _groupService.Create(group);
+            _groupMediaService.GroupTitleChanged(groupId, group.Title);
 
-            _groupMemberService.Add(group.Id, createModel.CreatorId);
+            _groupMemberService.Add(groupId, createModel.CreatorId);
 
-            return Redirect(_groupLinkProvider.GetGroupLink(group.Id));
+            return Redirect(_groupLinkProvider.GetGroupLink(groupId));
         }
 
         public virtual ActionResult Index(bool isMyGroupsPage = false, int page = 1)
