@@ -6,6 +6,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using uIntra.Groups.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -156,12 +157,12 @@ namespace uIntra.Groups
 
         public IIntranetType GetGroupFeedTabType(IPublishedContent content)
         {
-            return GetActivityTypeFromPlugin(content, "custom.GroupCentralFeedOverview");
+            return GetActivityTypeFromPlugin(content, GroupConstants.GroupFeedPluginAlias);
         }
 
         public IIntranetType GetCreateActivityType(IPublishedContent content)
         {
-            return GetActivityTypeFromPlugin(content, "custom.GroupActivityCreate");
+            return GetActivityTypeFromPlugin(content, GroupConstants.GroupActivityCreatePluginAlias);
         }
     }
 }
