@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {

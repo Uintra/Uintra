@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Extentions;
@@ -9,13 +8,13 @@ using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Groups;
-using uIntra.Groups.Extentions;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {

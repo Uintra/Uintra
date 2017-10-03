@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed.Exceptions

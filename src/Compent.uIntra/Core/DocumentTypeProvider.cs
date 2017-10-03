@@ -1,5 +1,4 @@
-﻿using System;
-using Compent.uIntra.Core.Constants;
+﻿using Compent.uIntra.Core.Constants;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;

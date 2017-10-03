@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {

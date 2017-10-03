@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Http;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
-using uIntra.Groups.Constants;
 using Umbraco.Web.WebApi;
 
 namespace uIntra.Groups.Dashboard

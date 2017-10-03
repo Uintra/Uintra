@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -8,7 +7,6 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
-using uIntra.Groups.Sql;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Groups.Web

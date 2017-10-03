@@ -68,7 +68,6 @@ namespace uIntra.CentralFeed.Web
             return PartialView(DetailsViewPath, viewModel);
         }
 
-
         [HttpGet]
         public virtual ActionResult Edit(Guid id)
         {

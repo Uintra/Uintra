@@ -4,9 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
-using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Feed;
-using uIntra.CentralFeed;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -16,10 +14,10 @@ using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
 using uIntra.Groups;
-using uIntra.Groups.Extentions;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
+using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.CentralFeed;
 using uIntra.Groups;
 
 namespace Compent.uIntra.Core.Activity
