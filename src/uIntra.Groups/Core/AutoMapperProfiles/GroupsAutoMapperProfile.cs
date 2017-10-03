@@ -2,6 +2,7 @@
 using uIntra.CentralFeed;
 using uIntra.Core.User;
 using uIntra.Groups.Dashboard;
+using uIntra.Groups.Navigation.Models;
 using uIntra.Groups.Sql;
 
 namespace uIntra.Groups
@@ -10,13 +11,13 @@ namespace uIntra.Groups
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Group, BackofficeGroupViewModel>()
+            Mapper.CreateMap<GroupModel, BackofficeGroupViewModel>()
                 .ForMember(d => d.CreateDate, o => o.MapFrom(s => s.CreatedDate))
                 .ForMember(d => d.UpdateDate, o => o.MapFrom(s => s.UpdatedDate))
                 .ForMember(d => d.CreatorName, o => o.Ignore())
                 .ForMember(d => d.Link, o => o.Ignore());
 
-            Mapper.CreateMap<GroupCreateModel, Group>()
+            Mapper.CreateMap<GroupCreateModel, GroupModel>()
                 .ForMember(d => d.Id, o => o.Ignore())
                 .ForMember(d => d.CreatedDate, o => o.Ignore())
                 .ForMember(d => d.UpdatedDate, o => o.Ignore())
@@ -27,7 +28,7 @@ namespace uIntra.Groups
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId));
 
-            Mapper.CreateMap<Group, GroupCreateModel>()
+            Mapper.CreateMap<GroupModel, GroupCreateModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId))
@@ -36,11 +37,11 @@ namespace uIntra.Groups
                 .ForMember(d => d.MediaRootId, o => o.Ignore())
                 .ForMember(d => d.NewMedia, o => o.Ignore());
 
-            Mapper.CreateMap<Group, GroupEditModel>()
-                .IncludeBase<Group, GroupCreateModel>()
+            Mapper.CreateMap<GroupModel, GroupEditModel>()
+                .IncludeBase<GroupModel, GroupCreateModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
 
-            Mapper.CreateMap<GroupEditModel, Group>()
+            Mapper.CreateMap<GroupEditModel, GroupModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.ImageId, o => o.Ignore())
                 .ForMember(d => d.CreatedDate, o => o.Ignore())
@@ -51,7 +52,7 @@ namespace uIntra.Groups
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description));
 
-            Mapper.CreateMap<Group, GroupInfoViewModel>()
+            Mapper.CreateMap<GroupModel, GroupInfoViewModel>()
                 .ForMember(d => d.MembersCount, o => o.Ignore())
                 .ForMember(d => d.Creator, o => o.Ignore())
                 .ForMember(d => d.IsMember, o => o.Ignore())
@@ -62,7 +63,7 @@ namespace uIntra.Groups
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
-            Mapper.CreateMap<Group, GroupViewModel>()
+            Mapper.CreateMap<GroupModel, GroupViewModel>()
                .ForMember(d => d.MembersCount, o => o.Ignore())
                .ForMember(d => d.Creator, o => o.Ignore())
                .ForMember(d => d.IsMember, o => o.Ignore())

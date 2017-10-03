@@ -1,4 +1,4 @@
-﻿namespace uIntra.Groups
+﻿namespace uIntra.Groups.Navigation.Models
 {
     public class GroupNavigationPageTabViewModel : GroupNavigationTabViewModelBase
     {

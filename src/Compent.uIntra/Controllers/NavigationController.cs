@@ -10,6 +10,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Extentions;
+using uIntra.Groups.Navigation.Models;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;

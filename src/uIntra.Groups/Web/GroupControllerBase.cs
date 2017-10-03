@@ -124,7 +124,7 @@ namespace uIntra.Groups.Web
                 return RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var group = createModel.Map<Group>();
+            var group = createModel.Map<GroupModel>();
             group.GroupTypeId = GroupTypeEnum.Open.ToInt();
             var createdMedias = _mediaHelper.CreateMedia(createModel).ToList();
             group.ImageId = createdMedias.Any() ? (int?)createdMedias.First() : null;
@@ -235,12 +235,12 @@ namespace uIntra.Groups.Web
             var take = page * ItemsPerPage;
             var currentUser = _userService.GetCurrentUser();
 
-            Func<Group, bool> isCurrentUserMember =
-                g => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id);
-
             var allGroups = isMyGroupsPage 
                 ? _groupService.GetMany(currentUser.GroupIds).ToList() 
                 : _groupService.GetAllNotHidden().ToList();
+
+            Func<GroupModel, bool> isCurrentUserMember =
+                g => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id);
 
             var groups = allGroups
                 .Select(g => MapGroupViewModel(g, isCurrentUserMember(g)))
@@ -302,20 +302,20 @@ namespace uIntra.Groups.Web
             return groupsOverviewModel;
         }
 
-        private static GroupMemberViewModel MapToMemberViewModel(IGroupMember m, Group group, Guid currentUserId)
+        private static GroupMemberViewModel MapToMemberViewModel(IGroupMember m, GroupModel groupModel, Guid currentUserId)
         {
             var viewModel = m.Map<GroupMemberViewModel>();
-            viewModel.IsGroupAdmin = IsGroupCreator(m.Id, group);
-            viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != group.CreatorId;
+            viewModel.IsGroupAdmin = IsGroupCreator(m.Id, groupModel);
+            viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != groupModel.CreatorId;
             return viewModel;
         }
 
-        private static bool IsGroupCreator(Guid userId, Group group)
+        private static bool IsGroupCreator(Guid userId, GroupModel groupModel)
         {
-            return userId == group.CreatorId;
+            return userId == groupModel.CreatorId;
         }
 
-        private GroupViewModel MapGroupViewModel(Group group, bool isCurrentUserMember)
+        private GroupViewModel MapGroupViewModel(GroupModel group, bool isCurrentUserMember)
         {
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = isCurrentUserMember;

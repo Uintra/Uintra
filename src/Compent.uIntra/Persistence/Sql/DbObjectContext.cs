@@ -8,6 +8,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories.Sql;
 using uIntra.Core.Persistence;
+using uIntra.Groups;
 using uIntra.Groups.Sql;
 using uIntra.Likes;
 using uIntra.Navigation;
@@ -42,7 +43,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
         public DbSet<MigrationHistory> MigrationHistories { get; set; }
         public DbSet<IntranetMediaEntity> IntranetMediaEntities { get; set; }
-        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupModel> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<GroupDocument> GroupDocuments { get; set; }
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
