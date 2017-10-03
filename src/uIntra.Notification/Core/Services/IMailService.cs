@@ -10,6 +10,6 @@ namespace uIntra.Notification
 
         void ProcessMails(int? count = null, int? mailId = null);
 
-        void SendOneTimePerDayMailForSpecialTypeAndDay(MailBase mail, string email , DateTime day, NotificationTypeEnum mailTemplateTypeEnum);
+        void SendMailByTypeAndDay(MailBase mail, string email , DateTime date, NotificationTypeEnum mailTemplateTypeEnum);
     }
 }

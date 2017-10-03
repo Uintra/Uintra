@@ -45,7 +45,7 @@ namespace uIntra.Notification
                         {
                             string activityListString = GetActivityListString(activities);
                             var monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
-                            _mailService.SendOneTimePerDayMailForSpecialTypeAndDay(monthlyMail, user.Email , DateTime.Now, NotificationTypeEnum.MonthlyMail);
+                            _mailService.SendMailByTypeAndDay(monthlyMail, user.Email , DateTime.Now, NotificationTypeEnum.MonthlyMail);
                         }
                     }
                     catch (Exception ex)
