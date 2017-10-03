@@ -212,7 +212,7 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
             kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
 
-            kernel.Bind<ICentralFeedLinkProvider>().To<CentralFeedLinkProvider>();
+            kernel.Bind<ICentralFeedLinksProvider>().To<CentralFeedLinksProvider>();
             kernel.Bind<IGroupFeedLinkProvider>().To<GroupFeedLinkProvider>();
 
             kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
