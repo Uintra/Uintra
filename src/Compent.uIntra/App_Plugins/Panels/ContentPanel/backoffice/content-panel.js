@@ -1,5 +1,4 @@
 ﻿(function () {
-    alert()
     var controller = function ($scope, editorConfigService) {
         $scope.overlay = {
             show: false,
@@ -20,11 +19,12 @@
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
-        $scope.init = function (control) { debugger
+        $scope.init = function (control) { 
             $scope.control = control;
             editorConfigService
                 .getConfig(control.editor.alias, control.editor.config)
                 .then(function (config) {
+                    debugger
                     $scope.linksPickerConfig = config
                 });
         };

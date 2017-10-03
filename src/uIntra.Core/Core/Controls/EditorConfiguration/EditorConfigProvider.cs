@@ -7,12 +7,8 @@
             return new GridEditorConfig()
             {
                 Config = new System.Collections.Generic.Dictionary<string, object>()
-                {
-                    {"allowedAliases", new []
-                    {
-                        "homePage",
-                        "contentPage"
-                    } }
+                { 
+                    { "internalPicker", new { allowedAliases = new []{ "contentPage" } } }                   
                 }
             };
         }
