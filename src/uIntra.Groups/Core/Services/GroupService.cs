@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
 using uIntra.Core.Persistence;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
@@ -26,21 +27,24 @@ namespace uIntra.Groups
             _permissionsService = permissionsService;
         }
 
-        public void Create(GroupModel groupModel)
+        public void Create(GroupModel model)
         {
             var date = DateTime.Now;
-            groupModel.CreatedDate = date;
-            groupModel.UpdatedDate = date;
-            groupModel.Id = Guid.NewGuid();
+            var group = model.Map<Group>();
+            group.CreatedDate = date;
+            group.UpdatedDate = date;
+            group.Id = Guid.NewGuid();
 
-            _groupRepository.Add(groupModel);
+            _groupRepository.Add(group);
             UpdateCache();
         }
 
-        public void Edit(GroupModel groupModel)
+        public void Edit(GroupModel model)
         {
-            groupModel.UpdatedDate = DateTime.Now;
-            _groupRepository.Update(groupModel);
+            var date = DateTime.Now;
+            var group = model.Map<Group>();
+            group.UpdatedDate = date;
+            _groupRepository.Update(group);
             UpdateCache();
         }
 
@@ -57,7 +61,7 @@ namespace uIntra.Groups
         public IEnumerable<GroupModel> GetAll()
         {
             var groups = _memoryCacheService.GetOrSet(GroupCacheKey, () => _groupRepository.GetAll().ToList(), GetCacheExpiration());
-            return groups;
+            return groups.Map<IEnumerable<GroupModel>>();
         }
 
         public IEnumerable<GroupModel> GetAllNotHidden()
