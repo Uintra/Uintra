@@ -12,7 +12,7 @@ namespace Compent.uIntra.Core.Feed.Links
     public class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {
         private readonly IActivityTypeHelper _activityTypeHelper;
-        private readonly ICentralFeedLinksProvider _centralFeedLinkProvider;
+        private readonly ICentralFeedLinkProvider _centralFeedLinkProvider;
         private readonly IGroupFeedLinkProvider _groupFeedLinkProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -21,7 +21,7 @@ namespace Compent.uIntra.Core.Feed.Links
         private Guid CurrentUserId => _intranetUserService.GetCurrentUser().Id;
 
         public ActivityLinkService(
-            ICentralFeedLinksProvider centralFeedLinkProvider,
+            ICentralFeedLinkProvider centralFeedLinkProvider,
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupActivityService groupActivityService, 
             IActivityTypeHelper activityTypeHelper, 
