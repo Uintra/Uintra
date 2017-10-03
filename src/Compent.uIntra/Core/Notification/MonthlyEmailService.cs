@@ -42,7 +42,7 @@ namespace Compent.uIntra.Core.Notification
 
         protected virtual IEnumerable<Tag> GetUserTags(Guid userId)
         {
-            return new List<Tag>();
+            return _tagsService.GetAllForActivity(userId);
         }
 
         protected virtual IEnumerable<Tag> GetActivityTags(Guid activityId)

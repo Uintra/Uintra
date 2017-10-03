@@ -21,12 +21,12 @@ namespace Compent.uIntra.Core.Notification
         private readonly IEmailJobSenderService _emailJobSenderService;
         private readonly ISentMailsService _sentMailsService;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IDocumentTypeAliasProvider documentTypeAliasProvider;       
+        private readonly IDocumentTypeAliasProvider documentTypeAliasProvider;
 
         public MailService(
-            IEmailService emailService, 
-            IEmailJobSenderService emailJobSenderService, 
-            ISentMailsService sentMailsService, 
+            IEmailService emailService,
+            IEmailJobSenderService emailJobSenderService,
+            ISentMailsService sentMailsService,
             UmbracoHelper umbracoHelper)
         {
             _emailService = emailService;
@@ -42,16 +42,21 @@ namespace Compent.uIntra.Core.Notification
             {
                 throw new NotImplementedException();
             }
-            
+
             _emailService.AddInMailQueue(email);
+        }       
+
+        public void ProcessMails(int? count = null, int? mailId = null)
+        {
+            _emailJobSenderService.SendMails(string.Empty, count, mailId);
         }
 
-        public void SendOneTimePerDayMailForSpecialTypeAndDay(MailBase mail,string email , DateTime day, NotificationTypeEnum mailTemplateTypeEnum)        
+        public void SendMailByTypeAndDay(MailBase mail, string email, DateTime date, NotificationTypeEnum mailTemplateTypeEnum)
         {
             int totalCount;
             var query = new EmailLogQuery
             {
-                StartCreateDate = new DateTime(day.Year, day.Month, day.Day),
+                StartCreateDate = new DateTime(date.Year, date.Month, date.Day),
                 TypeId = GetEmailTemplatePublishedContentId(mailTemplateTypeEnum),
                 ToEmail = email
             };
@@ -60,7 +65,7 @@ namespace Compent.uIntra.Core.Notification
             if (totalCount == 0)
             {
                 Send(mail);
-            }            
+            }
         }
 
         private int? GetEmailTemplatePublishedContentId(NotificationTypeEnum mailTemplateTypeEnum)
@@ -70,11 +75,6 @@ namespace Compent.uIntra.Core.Notification
             var mailTemplates = _umbracoHelper.TypedContentAtXPath(mailTemplateXpath);
             var mailTemplateContent = mailTemplates?.FirstOrDefault(template => template.GetPropertyValue<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
             return mailTemplateContent?.Id;
-        }
-
-        public void ProcessMails(int? count = null, int? mailId = null)
-        {
-            _emailJobSenderService.SendMails(string.Empty, count, mailId);
         }
     }
 }

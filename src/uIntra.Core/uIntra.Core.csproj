@@ -467,6 +467,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
     <Content Include="App_Plugins\Core\Content\scripts\BlockOnSubmit.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
