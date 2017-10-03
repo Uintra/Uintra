@@ -4,6 +4,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("uIntra.Groups")]
 [assembly: AssemblyDescription("Some kind of group description.")]
 
-[assembly: AssemblyVersion("0.0.1.13")]
+[assembly: AssemblyVersion("0.0.1.14")]
 [assembly: ComVisible(false)]
 [assembly: Guid("85aa3a0a-738e-4e0d-9448-ea34aa3a537c")]
