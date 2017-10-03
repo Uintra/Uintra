@@ -118,12 +118,12 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public IIntranetType GetCentralFeedTabType(IPublishedContent content)
         {
-            return GetActivityTypeFromPlugin(content, "custom.CentralFeed");
+            return GetActivityTypeFromPlugin(content, CentralFeedConstants.CentralFeedPluginAlias);
         }
 
         public IIntranetType GetCreateActivityType(IPublishedContent content)
         {
-            return GetActivityTypeFromPlugin(content, "custom.ActivityCreate");
+            return GetActivityTypeFromPlugin(content, CentralFeedConstants.ActivityCreatePluginAlias);
         }
 
         public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
