@@ -13,11 +13,8 @@ using uIntra.Groups;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
-using System.Linq;
 using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Feed;
-using uIntra.CentralFeed;
 using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers

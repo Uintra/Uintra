@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;

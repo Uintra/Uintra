@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extentions;
-using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using Umbraco.Core.Models;
 
 namespace uIntra.Core.Activity
 {

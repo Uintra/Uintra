@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -76,8 +75,6 @@ namespace uIntra.Navigation.Web
 
             return Json(new { Id = id });
         }
-
-
 
         [System.Web.Mvc.HttpDelete]
         public virtual void Remove(Guid id)

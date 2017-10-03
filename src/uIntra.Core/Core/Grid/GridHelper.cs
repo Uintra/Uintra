@@ -1,5 +1,4 @@
 ﻿using ClientDependency.Core;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;

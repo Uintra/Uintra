@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification

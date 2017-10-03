@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using uIntra.Core.User;
-using uIntra.Groups.Sql;
 
 namespace uIntra.Groups
 {

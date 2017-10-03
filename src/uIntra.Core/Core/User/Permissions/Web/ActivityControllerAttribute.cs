@@ -1,11 +1,10 @@
 ﻿using System.Web.Mvc;
-using uIntra.Core.Activity;
 
 namespace uIntra.Core.User.Permissions.Web
 {
     public class ActivityControllerAttribute:ActionFilterAttribute
     {
-        public int ActivityType { get; private set; }
+        public int ActivityType { get; }
 
         public ActivityControllerAttribute(int type)
         {
