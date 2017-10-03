@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Compent.uIntra.Controllers.Api
+﻿namespace Compent.uIntra.Controllers.Api
 {
     public class UserPickerModel
     {

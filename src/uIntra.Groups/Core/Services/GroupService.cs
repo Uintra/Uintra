@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
+using uIntra.Core.Extentions;
 using uIntra.Core.Persistence;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
-using Group = uIntra.Groups.Sql.Group;
+using uIntra.Groups.Sql;
 
 namespace uIntra.Groups
 {
@@ -26,46 +27,51 @@ namespace uIntra.Groups
             _permissionsService = permissionsService;
         }
 
-        public void Create(Group group)
+        public Guid Create(GroupModel model)
         {
             var date = DateTime.Now;
+            var group = model.Map<Group>();
             group.CreatedDate = date;
             group.UpdatedDate = date;
             group.Id = Guid.NewGuid();
 
             _groupRepository.Add(group);
             UpdateCache();
+
+            return group.Id;
         }
 
-        public void Edit(Group group)
+        public void Edit(GroupModel model)
         {
-            group.UpdatedDate = DateTime.Now;
+            var date = DateTime.Now;
+            var group = model.Map<Group>();
+            group.UpdatedDate = date;
             _groupRepository.Update(group);
             UpdateCache();
         }
 
-        public Group Get(Guid id)
+        public GroupModel Get(Guid id)
         {
             return GetAll().SingleOrDefault(g => g.Id == id);
         }
         
-        public IEnumerable<Group> GetAllHided()
+        public IEnumerable<GroupModel> GetAllHided()
         {
             return GetAll().Where(g => g.IsHidden);
         }
 
-        public IEnumerable<Group> GetAll()
+        public IEnumerable<GroupModel> GetAll()
         {
             var groups = _memoryCacheService.GetOrSet(GroupCacheKey, () => _groupRepository.GetAll().ToList(), GetCacheExpiration());
-            return groups;
+            return groups.Map<IEnumerable<GroupModel>>();
         }
 
-        public IEnumerable<Group> GetAllNotHidden()
+        public IEnumerable<GroupModel> GetAllNotHidden()
         {
             return GetAll().Where(g => !g.IsHidden);
         }
 
-        public IEnumerable<Group> GetMany(IEnumerable<Guid> groupIds)
+        public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds)
         {
             return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, ((g, id) => g));
         }
@@ -82,14 +88,14 @@ namespace uIntra.Groups
             return CanEdit(group, user);
         }
 
-        public bool CanEdit(Group group, IIntranetUser user)
+        public bool CanEdit(GroupModel groupModel, IIntranetUser user)
         {
             if (_permissionsService.IsUserWebmaster(user))
             {
                 return true;
             }
 
-            return group.CreatorId == user.Id;
+            return groupModel.CreatorId == user.Id;
         }
 
         public void Hide(Guid id)

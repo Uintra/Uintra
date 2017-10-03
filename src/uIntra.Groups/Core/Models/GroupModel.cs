@@ -1,16 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
 
-namespace uIntra.Groups.Sql
+namespace uIntra.Groups
 {
-    [uIntraTable(nameof(Group))]
-    public class Group : SqlEntity<Guid>
+    public class GroupModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public override Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Title { get; set; }
 
@@ -21,7 +15,7 @@ namespace uIntra.Groups.Sql
         public DateTime UpdatedDate { get; set; }
 
         public Guid CreatorId { get; set; }
-
+        
         public int? ImageId { get; set; }
 
         public bool IsHidden { get; set; }

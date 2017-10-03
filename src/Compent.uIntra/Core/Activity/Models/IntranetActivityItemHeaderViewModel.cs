@@ -1,5 +1,4 @@
-﻿using System;
-using uIntra.Core.Activity;
+﻿using uIntra.Core.Activity;
 using uIntra.Groups;
 
 namespace Compent.uIntra.Core.Activity.Models

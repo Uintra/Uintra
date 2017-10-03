@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Web.Mvc;
-using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using uIntra.Core.MigrationHistories;

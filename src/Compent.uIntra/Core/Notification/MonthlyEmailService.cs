@@ -6,7 +6,6 @@ using uIntra.Bulletins;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Exceptions;
-using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using uIntra.Core.User;
 using uIntra.Events;

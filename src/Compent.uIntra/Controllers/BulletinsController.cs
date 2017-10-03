@@ -11,12 +11,8 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Navigation;
-using System.Linq;
 using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Feed;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
 using uIntra.Core.Feed;
 using uIntra.Groups.Extentions;
 

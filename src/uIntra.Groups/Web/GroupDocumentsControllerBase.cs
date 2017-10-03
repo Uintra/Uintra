@@ -135,10 +135,10 @@ namespace uIntra.Groups.Web
             return DocumentsTable(groupId, column, direction);
         }
 
-        protected virtual bool CanDelete(IIntranetUser currentUser, Group group, IEnumerable<GroupMember> groupMembers, IMedia media)
+        protected virtual bool CanDelete(IIntranetUser currentUser, GroupModel groupModel, IEnumerable<GroupMember> groupMembers, IMedia media)
         {
             var mediaCreator = media.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
-            return currentUser.Id == group.CreatorId
+            return currentUser.Id == groupModel.CreatorId
                 || mediaCreator.HasValue && mediaCreator.Value == currentUser.Id && groupMembers.Any(s => s.MemberId == currentUser.Id);
         }
 

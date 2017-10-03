@@ -30,8 +30,8 @@
     &._swf{
         background-image: url(./images/file-type-icons/swf.svg);
     }
-    &._mpeg{
-        background-image: url(./images/file-type-icons/mpeg.svg);
+    &._mpg{
+        background-image: url(./images/file-type-icons/mpg.svg);
     }
     &._wmv{
         background-image: url(./images/file-type-icons/wmv.svg);

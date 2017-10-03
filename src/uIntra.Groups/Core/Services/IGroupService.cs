@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using uIntra.Core.User;
-using uIntra.Groups.Sql;
 
 namespace uIntra.Groups
 {
     public interface IGroupService
     {
-        void Create(Group group);
-        void Edit(Group group);
-        Group Get(Guid id);        
-        IEnumerable<Group> GetAllNotHidden();              
-        IEnumerable<Group> GetMany(IEnumerable<Guid> groupIds);
-        IEnumerable<Group> GetAllHided();
-        IEnumerable<Group> GetAll();
+        Guid Create(GroupModel groupModel);
+        void Edit(GroupModel groupModel);
+        GroupModel Get(Guid id);        
+        IEnumerable<GroupModel> GetAllNotHidden();              
+        IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds);
+        IEnumerable<GroupModel> GetAllHided();
+        IEnumerable<GroupModel> GetAll();
 
         bool CanEdit(Guid groupId, IIntranetUser user);
-        bool CanEdit(Group group, IIntranetUser user);
+        bool CanEdit(GroupModel groupModel, IIntranetUser user);
 
         void Hide(Guid id);
         void UpdateGroupUpdateDate(Guid id);
