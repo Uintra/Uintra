@@ -509,6 +509,7 @@
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Comments\View\comments-view.html" />
+    <Content Include="App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AutoScroll.js" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
@@ -1073,6 +1074,7 @@
   <ItemGroup>
     <Folder Include="App_Plugins\CentralFeed\" />
     <Folder Include="App_Plugins\Core\Content\styles\emoji-data\" />
+    <Folder Include="App_Plugins\Core\Controls\" />
     <Folder Include="App_Plugins\Groups\Create\" />
     <Folder Include="App_Plugins\Groups\DisabledGroupView\" />
     <Folder Include="App_Plugins\Groups\Edit\" />

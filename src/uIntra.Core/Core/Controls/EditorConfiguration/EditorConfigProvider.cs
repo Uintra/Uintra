@@ -4,7 +4,17 @@
     {
         public GridEditorConfig GetConfig(string editorAlias)
         {
-            throw new System.NotImplementedException();
+            return new GridEditorConfig()
+            {
+                Config = new System.Collections.Generic.Dictionary<string, object>()
+                {
+                    {"allowedAliases", new []
+                    {
+                        "homePage",
+                        "contentPage"
+                    } }
+                }
+            };
         }
     }
 }

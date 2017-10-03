@@ -48,6 +48,7 @@ using uIntra.Core.ApplicationSettings;
 using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.Caching;
 using uIntra.Core.Configuration;
+using uIntra.Core.Controls;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -199,6 +200,8 @@ namespace Compent.uIntra
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();            
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
+            kernel.Bind<IEditorConfigProvider>().To<EditorConfigProvider>().InRequestScope();
+            
 
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
 

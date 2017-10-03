@@ -367,6 +367,8 @@
     <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
     <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />
+    <Compile Include="Core\Controls\EditorConfiguration\EditorConfigProvider.cs" />
+    <Compile Include="Core\Controls\EditorConfiguration\IEditorConfigProvider.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
@@ -441,6 +443,7 @@
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
+    <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
@@ -504,6 +507,7 @@
     <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
     <Content Include="App_Plugins\Core\Content\styles\libs.css" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
+    <Content Include="App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
