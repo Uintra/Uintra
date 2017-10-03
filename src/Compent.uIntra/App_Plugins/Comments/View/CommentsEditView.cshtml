@@ -3,7 +3,7 @@
 @using uIntra.Core.Extentions
 @model uIntra.Comments.CommentEditModel
 
-@using (Ajax.BeginForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.Replace, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
+@using (Ajax.BeginForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
 {
     <div class="comments__form-field">
         <div class="js-comment-edit-description">
