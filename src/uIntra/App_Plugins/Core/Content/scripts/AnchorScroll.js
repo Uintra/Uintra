@@ -11,6 +11,11 @@
             // Anchor element
             var term = $(hash);
 
+            // Hash in IE could contain only hash symbol
+            if (hash.substr(1).length === 0) {
+                return;
+            }
+
             // If element with hash id is defined
             if (term.length) {
 
