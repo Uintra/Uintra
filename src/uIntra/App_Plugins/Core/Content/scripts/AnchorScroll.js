@@ -8,14 +8,14 @@
         if (hash) {
             // Scroll to the top (prevention for Chrome)
             window.scrollTo(0, 0);
-            // Anchor element
-            var term = $(hash);
 
             // Hash in IE could contain only hash symbol
             if (hash.substr(1).length === 0) {
                 return;
             }
 
+            // Anchor element
+            var term = $(hash);
             // If element with hash id is defined
             if (term.length) {
 

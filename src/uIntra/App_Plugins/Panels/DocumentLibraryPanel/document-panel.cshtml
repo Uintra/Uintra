@@ -1,5 +1,4 @@
 ﻿@using uIntra.Core
-@using uIntra.Panels
 @using uIntra.Panels.Core
 @using uIntra.Panels.Core.Models
 @inherits UmbracoViewPage<dynamic>
@@ -21,7 +20,7 @@
             mediaId = viewModel.media;
         }
 
-        var mediaCollection = (mediaId.HasValue ? Umbraco.TypedMedia(mediaId.Value).Children : Umbraco.TypedMediaAtRoot())
+        var mediaCollection = (mediaId.HasValue ? Umbraco.TypedMedia(mediaId.Value).Children : Enumerable.Empty<IPublishedContent>())
             .Where(s => s.ContentType.Alias != UmbracoAliases.Media.FolderTypeAlias)
             .Take((int)viewModel.count)
             .Select(DocumentPanelMediaViewModel.FromPublishedContent);
@@ -40,8 +39,9 @@
             <a class="block__title-link" href="@titleLink" target="@viewModel.titleLink.target">@title</a>
         </h2>
     }
-
-    <div class="block__description">@Html.Raw((string)viewModel.description)</div>
+    @if (!string.IsNullOrEmpty((string)viewModel.description)) { 
+        <div class="block__description">@Html.Raw((string)viewModel.description)</div>
+    }
     <ul class="documents">
         @foreach (var media in mediaCollection)
         {

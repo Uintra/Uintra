@@ -19,13 +19,12 @@
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
-        $scope.init = function (control) { 
+        $scope.init = function (control) {
             $scope.control = control;
             editorConfigService
                 .getConfig(control.editor.alias, control.editor.config)
                 .then(function (config) {
-                    debugger
-                    $scope.linksPickerConfig = config
+                    $scope.linksPickerConfig = config;
                 });
         };
     }

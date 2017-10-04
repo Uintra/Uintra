@@ -1,6 +1,5 @@
 ﻿(function () {
-
-    var controller = function ($scope) {
+    var controller = function ($scope, editorConfigService) {
         $scope.overlay = {
             show: false,
             view: "/App_Plugins/Panels/ContentPanel/backoffice/overlay.html",
@@ -22,14 +21,20 @@
 
         $scope.init = function (control) {
             $scope.control = control;
-        }
-
-        function getDefaultModel() {
-            return {
-                type: "vertical"
-            };
-        }
+            editorConfigService
+                .getConfig(control.editor.alias, control.editor.config)
+                .then(function (config) {
+                    $scope.linksPickerConfig = config;
+                });
+        };
     }
-    controller.$inject = ["$scope"];
+
+    function getDefaultModel() {
+        return {
+            type: "vertical",
+        };
+    }
+
+    controller.$inject = ["$scope", "editorConfigService"];
     angular.module('umbraco').controller('contentPanelController', controller);
 })();
