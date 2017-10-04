@@ -77,7 +77,7 @@ namespace uIntra.Search
                 var document = GetSearchableDocument(media.Id);
                 if (document == null) continue;
                 media.SetValue(UseInSearchPropertyAlias, true);
-                _mediaService.Save(media);
+                _mediaService.Save(media, raiseEvents: false);
                 documents.AddRange(document);
             }
             _documentIndex.Index(documents);
@@ -94,7 +94,7 @@ namespace uIntra.Search
             foreach (var media in medias)
             {
                 media.SetValue(UseInSearchPropertyAlias, false);
-                _mediaService.Save(media);
+                _mediaService.Save(media, raiseEvents: false);
                 _documentIndex.Delete(media.Id);
             }
         }
