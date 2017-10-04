@@ -761,8 +761,8 @@
     <Compile Include="Core\Extentions\UmbracoMemberExtentions.cs" />
     <Compile Include="Core\Grid\GridHelper.cs" />
     <Compile Include="Core\Grid\IGridHelper.cs" />
-    <Compile Include="Core\ImageConstants.cs" />
-    <Compile Include="Core\IntranetConstants.cs" />
+    <Compile Include="Core\Constants\ImageConstants.cs" />
+    <Compile Include="Core\Constants\IntranetConstants.cs" />
     <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
     <Compile Include="Core\MediaTypeEnum.cs" />
     <Compile Include="Core\Media\IContentWithMedia.cs" />
@@ -775,7 +775,7 @@
     <Compile Include="Core\Persistence\Sql\ISqlRepository.cs" />
     <Compile Include="Core\Persistence\Sql\SqlEntity.cs" />
     <Compile Include="Core\Persistence\Sql\SqlRepository.cs" />
-    <Compile Include="Core\UmbracoAliases.cs" />
+    <Compile Include="Core\Constants\UmbracoAliases.cs" />
     <Compile Include="Core\User\IHaveCreator.cs" />
     <Compile Include="Core\User\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserService.cs" />
