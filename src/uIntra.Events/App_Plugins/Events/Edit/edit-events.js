@@ -25,15 +25,26 @@ let initSubmitButton = function () {
     let descriptionElem = holder.find('#description');
 
     btn.click(function (event) {
-        event.preventDefault();
-        if (!form.valid() || !pinActivity.isPinAccepted(holder)) {
+        if (!form.valid()) {
+            event.preventDefault();
             return;
         }
 
-        let data = helpers.serialize(form[0]);
+        if (!pinActivity.isPinAccepted(holder)) {
+            event.preventDefault();
+            return;
+        }
 
-        $.post('/umbraco/surface/Events/HasConfirmation', data, function (result) {
-            if (result && !result.HasConfirmation) {
+        if (editor.getLength() <= 1) {
+            event.preventDefault();
+            descriptionElem.addClass('input-validation-error');
+        }
+
+        descriptionElem.removeClass('input-validation-error');
+        event.preventDefault();
+
+        hasEventConfirmation().then(function (result) {
+            if (!result.HasConfirmation) {
                 continueSubmit(false);
                 return;
             }
@@ -49,11 +60,7 @@ let initSubmitButton = function () {
                 }
             ];
 
-            alertify.defaults.glossary.cancel = btn.data('cancel');
-            alertify.defaults.glossary.yes = btn.data('yes');
-            alertify.defaults.glossary.no = btn.data('no');
-
-            confirm.showDialog(btn.data('title'), btn.data('text'), callbacks, confirm.defaultSettings);
+            showNotifyAllSubscribersDialog(callbacks);
         });
     });
 }
@@ -67,12 +74,12 @@ let initDescriptionControl = function () {
     var toolbarOptions = [
         [{ 'header': [1, 2, 3, false] }],
         ['bold', 'italic', 'underline', 'link'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['emoji'],
         ['clean']
     ];
 
-    editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { 
+    editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
         modules: {
             toolbar: toolbarOptions
         },
@@ -80,7 +87,7 @@ let initDescriptionControl = function () {
     });
 
     let emojiContainer = editor.container.querySelector(".js-emoji");
-    if(!emojiContainer){
+    if (!emojiContainer) {
         helpers.initSmiles(editor, editor.getModule('toolbar').container);
         emojiContainer = true;
     }
@@ -99,44 +106,64 @@ let initDescriptionControl = function () {
 }
 
 let initHideControl = function () {
-    let hideControl = holder.find('.js-event-hide');
-    let text = hideControl.data('text');
-    let title = hideControl.data('title');
-    let textOk = hideControl.data('ok');
-    let textCancel = hideControl.data('cancel');
+    var hideControl = holder.find('.js-event-hide');
+    var text = hideControl.data('text');
+    var title = hideControl.data('title');
+    var returnUrl = hideControl.data('return-url');
 
-    alertify.defaults.glossary.cancel = textCancel;
-    alertify.defaults.glossary.ok = textOk;
+    alertify.defaults.glossary.cancel = hideControl.data('cancel');
+    alertify.defaults.glossary.ok = hideControl.data('ok');
 
     hideControl.on('click', function () {
         confirm.showConfirm(title, text, function () {
-            let eventId = hideControl.data('id');
-            let redirectUrl = hideControl.data('return-url');
-            let callbacks = [
-                () => hideEvent(eventId, true, () => redirectToUrl(redirectUrl)),
-                () => hideEvent(eventId, false, () => redirectToUrl(redirectUrl)),
-                () => true
-            ];
 
-            let popupStringsHolder = holder.find(".js-notification-popup-strings-holder")
+            hasEventConfirmation().then(function (result) {
+                if (!result.HasConfirmation) {
+                    hideEvent(false, returnUrl);
+                    return;
+                }
 
-            alertify.defaults.glossary.cancel = popupStringsHolder.data('cancel');
-            alertify.defaults.glossary.yes = popupStringsHolder.data('yes');
-            alertify.defaults.glossary.no = popupStringsHolder.data('no');
+                let callbacks = [
+                    function () {
+                        hideEvent(true, returnUrl);
+                    }, function () {
+                        hideEvent(false, returnUrl);
+                    },
+                    function () {
+                        return true;
+                    }
+                ];
 
-            confirm.showDialog(popupStringsHolder.data('title'), popupStringsHolder.data('text'), callbacks, confirm.defaultSettings);
-        }, () => { }, confirm.defaultSettings);
+                showNotifyAllSubscribersDialog(callbacks);
+            });
+        }, function () { }, confirm.defaultSettings);
 
         return false;
     });
 }
 
-function redirectToUrl(url) {
-    window.location.href = url;
+function hideEvent(notifyAllSubscribers, returnUrl) {
+    let eventId = holder.find('[name="id"]').val();
+
+    $.post('/umbraco/surface/Events/Hide?id=' + eventId + '&isNotificationNeeded=' + notifyAllSubscribers, function () {
+        window.location.href = returnUrl;
+    });
 }
 
-function hideEvent(eventId, isNotificationNeeded, callback) {
-    $.post('/umbraco/surface/Events/Hide?id=' + eventId + '&isNotificationNeeded=' + isNotificationNeeded, callback);
+function hasEventConfirmation() {
+    let eventId = holder.find('[name="id"]').val();
+
+    return $.get('/umbraco/surface/Events/HasConfirmation?id=' + eventId);
+}
+
+function showNotifyAllSubscribersDialog(callbacks) {
+    let popupTranslations = holder.find('.js-notification-popup-translations');
+
+    alertify.defaults.glossary.cancel = popupTranslations.data('cancel');
+    alertify.defaults.glossary.yes = popupTranslations.data('yes');
+    alertify.defaults.glossary.no = popupTranslations.data('no');
+
+    confirm.showDialog(popupTranslations.data('title'), popupTranslations.data('text'), callbacks, confirm.defaultSettings);
 }
 
 let initDatePickers = function () {
