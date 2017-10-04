@@ -39,45 +39,36 @@ namespace uIntra.Search
 
         public void FillIndex()
         {
-            var mediaFolderTypes = _mediaFolderTypeProvider.GetAll();
-            foreach (var folderType in mediaFolderTypes)
-            {
-                var mediaFolderSettings = _mediaHelper.GetMediaFolderSettings(folderType.Id);
-                if (mediaFolderSettings == null)
-                {
-                    continue;
-                }
+            var documentsToIndex = GetDocumentsForIndexing();
+            _documentIndex.Index(documentsToIndex);
+        }
 
-                var mediaFolder = _umbracoHelper.TypedMedia(mediaFolderSettings.MediaRootId);
-                var documents = mediaFolder.Children.Select(GetSearchableDocument).Where(el => el != null).ToList();
-                if (!documents.Any())
-                {
-                    continue;
-                }
+        private IEnumerable<SearchableDocument> GetDocumentsForIndexing()
+        {
+            var medias = _umbracoHelper
+                .TypedMediaAtRoot()
+                .SelectMany(m => m.DescendantsOrSelf());
 
-                _documentIndex.Index(documents);
-            }
+            var result = medias
+                .Where(IsAllowedForIndexing)
+                .Select(GetSearchableDocument);
+
+            return result.ToList();
+        }
+
+        private bool IsAllowedForIndexing(IPublishedContent media)
+        {
+            return media.GetPropertyValue<bool>("useInSearch");
         }
 
         public void Index(int id)
         {
-            var document = GetSearchableDocument(id);
-            if (document == null)
-            {
-                return;
-            }
-
-            _documentIndex.Index(document);
+            Index(id.ToEnumerableOfOne());
         }
 
         public void Index(IEnumerable<int> ids)
         {
             var documents = ids.Select(GetSearchableDocument).Where(el => el != null).ToList();
-            if (!documents.Any())
-            {
-                return;
-            }
-
             _documentIndex.Index(documents);
         }
 
@@ -89,9 +80,8 @@ namespace uIntra.Search
         public void DeleteFromIndex(IEnumerable<int> ids)
         {
             foreach (var id in ids)
-            {
                 _documentIndex.Delete(id);
-            }
+
         }
 
         private SearchableDocument GetSearchableDocument(int id)
