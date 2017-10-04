@@ -2,55 +2,17 @@
   "name": "1 column layout",
   "sections": [
     {
-      "grid": 8,
+      "grid": 12,
       "allowAll": false,
-      "allowed": [
-        "Main"
-      ],
       "rows": [
         {
-          "label": "",
           "name": "Main",
           "areas": [
             {
               "grid": 12,
               "allowAll": false,
               "allowed": [
-                "custom.NewsEdit",
-                "custom.NewsCreate",
-                "custom.NewsOverview",
-                "custom.NewsDetails",
-                "custom.BulletinsCreate",
-                "custom.BulletinsEdit",
-                "custom.BulletinsDetails",
-                "custom.CentralFeed",
-                "custom.EventsCreate",
-                "custom.EventsEdit",
-                "custom.EventsDetails",
-                "custom.ComingEvents",
-                "custom.NotificationList",
-                "custom.ContentPanel",
-                "custom.GlobalPanelPicker",
-                "custom.DocumentLibraryPanel",
-                "custom.SearchResult",
-                "custom.Profile",
-                "custom.ProfileEdit",
-                "custom.Comments",
-                "custom.GroupActivityCreate",
-                "custom.GroupActivityDetails",
-                "custom.GroupActivityEdit",
-                "custom.ActivityCreate",
-                "custom.ActivityDetails",
-                "custom.ActivityEdit",
-                "custom.disabledGroup",
-                "custom.groupDocuments",
-                "custom.groupMembers",
-                "custom.groupEdit",
-                "custom.groupInfo",
-                "custom.CreateGroup",
-                "custom.GroupsOverview",
-                "custom.MyGroupsOverview",
-                "custom.GroupCentralFeedOverview"
+                "custom.GroupsOverview"
               ],
               "hasConfig": false,
               "controls": [
@@ -59,47 +21,15 @@
                   "editor": {
                     "alias": "custom.GroupsOverview"
                   },
-                  "active": true
+                  "active": false
                 }
               ],
-              "active": true,
-              "hasActiveChild": true
+              "active": false
             }
           ],
           "hasConfig": false,
-          "id": "4e136ebd-8d8e-c501-1c67-20a7f3948bcc",
-          "hasActiveChild": true,
-          "active": true
-        }
-      ]
-    },
-    {
-      "grid": 3,
-      "allowAll": false,
-      "allowed": [
-        "Right side"
-      ],
-      "rows": [
-        {
-          "label": "",
-          "name": "Right side",
-          "areas": [
-            {
-              "grid": 12,
-              "allowAll": false,
-              "allowed": [
-                "custom.ContentPanel",
-                "custom.GlobalPanelPicker",
-                "custom.DocumentLibraryPanel",
-                "custom.LatestActivities",
-                "custom.ComingEvents"
-              ],
-              "hasConfig": false,
-              "controls": [ ]
-            }
-          ],
-          "hasConfig": false,
-          "id": "49614415-0841-d3e9-656c-a399ce6715fd"
+          "id": "8d283a4e-7e74-bc5c-e305-7c79d06440cf",
+          "active": false
         }
       ]
     }

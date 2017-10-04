@@ -385,6 +385,7 @@
     <None Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />
     <None Include="Config\Lang\en-US.user.xml.install.xdt" />
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
+    <EmbeddedResource Include="Installer\PreValues\GroupGridPreValues.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +433,7 @@
       <Name>uIntra.Users</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

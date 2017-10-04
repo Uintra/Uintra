@@ -95,7 +95,7 @@ namespace uIntra.Core.Installer.Migrations
             CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, embeddedResourceFileName);
         }
 
-        private void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
+        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);

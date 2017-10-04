@@ -2,13 +2,11 @@
 using System.Reflection;
 using System.Web.Mvc;
 using uIntra.Bulletins.Installer;
-using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using uIntra.Core.MigrationHistories;
 using uIntra.Events.Installer;
 using uIntra.Groups.Installer;
-using uIntra.Groups.Installer.Migrations;
 using uIntra.Navigation.Installer;
 using uIntra.News.Installer;
 using uIntra.Notification.Installer;
@@ -21,7 +19,7 @@ namespace Compent.uIntra.Installer
     public class MainInstaller : ApplicationEventHandler
     {
         private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
-        private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.1");
+        private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -32,6 +30,7 @@ namespace Compent.uIntra.Installer
 
             var installer = new IntranetInstaller();
             installer.Install(installedVersion, UIntraVersion);
+            InitMigration();
 
             if (lastMigrationHistory == null)
             {
@@ -42,8 +41,6 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
-
-            InitMigration();
         }
 
         private void InitMigration()
@@ -52,11 +49,10 @@ namespace Compent.uIntra.Installer
             var defaultLocalizationsMigration = new DefaultLocalizationsMigration();
 
             InheritNavigationCompositions();
-            //AllowActivitiesForGroups();
+            AllowActivitiesForGroups();
             umbracoContentMigration.Init();
             defaultLocalizationsMigration.Init();
 
-            umbracoContentMigration.UpdateActivitiesGrids();
             var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
             var lastMigrationHistory = migrationHistoryService.GetLast();
             if (lastMigrationHistory != null)
