@@ -6,7 +6,6 @@ using System.Web.Hosting;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -22,21 +21,21 @@ namespace uIntra.Search
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IContentService _contentService;
+        private readonly IMediaService _mediaService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
             UmbracoHelper umbracoHelper, 
             ISearchApplicationSettings settings, 
             IMediaHelper mediaHelper,
             IExceptionLogger exceptionLogger,
-            IContentService contentService)
+            IMediaService mediaService)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
             _exceptionLogger = exceptionLogger;
-            _contentService = contentService;
+            _mediaService = mediaService;
         }
 
         public void FillIndex()
@@ -70,7 +69,7 @@ namespace uIntra.Search
 
         public void Index(IEnumerable<int> ids)
         {
-            var medias = _contentService.GetByIds(ids);
+            var medias = _mediaService.GetByIds(ids);
             var documents = new List<SearchableDocument>();
 
             foreach (var media in medias)
@@ -78,7 +77,7 @@ namespace uIntra.Search
                 var document = GetSearchableDocument(media.Id);
                 if (document == null) continue;
                 media.SetValue(UseInSearchPropertyAlias, true);
-                _contentService.SaveAndPublishWithStatus(media);
+                _mediaService.Save(media);
                 documents.Add(document);
             }
             _documentIndex.Index(documents);
@@ -91,11 +90,11 @@ namespace uIntra.Search
 
         public void DeleteFromIndex(IEnumerable<int> ids)
         {
-            var medias = _contentService.GetByIds(ids);
+            var medias = _mediaService.GetByIds(ids);
             foreach (var media in medias)
             {
                 media.SetValue(UseInSearchPropertyAlias, false);
-                _contentService.SaveAndPublishWithStatus(media);
+                _mediaService.Save(media);
                 _documentIndex.Delete(media.Id);
             }
         }
