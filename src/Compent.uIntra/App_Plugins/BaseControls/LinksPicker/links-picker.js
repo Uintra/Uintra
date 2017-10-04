@@ -193,7 +193,7 @@
                 $scope.config = angular.extend({}, defaultConfig, $scope.configModel);
                 $scope.isSingleMode = isSingleMode($scope.mode);
 
-                var internalPicker = internalPickerFactory($q, dialogService, contentResource, entityResource, $scope.config.internalPicker);
+                var internalPicker = internalPickerFactory($q, dialogService, contentResource, entityResource, $scope.config.internalPicker); debugger
                 var mediaPicker = mediaPickerFactory($q, dialogService);
                 init($scope, internalPicker, mediaPicker);
             }
