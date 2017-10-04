@@ -6,7 +6,11 @@
         var baseUrl = "/umbraco/backoffice/api/EditorConfig/Config";
 
         self.getConfig = function (editorAlias) {
-            return $http.get(baseUrl + '?editorAlias=' + editorAlias);
+            return $http
+                .get(baseUrl + '?editorAlias=' + editorAlias)
+                .then(function (res) {
+                    return res.data.config;
+                });
         }
     }
 

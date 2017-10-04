@@ -38,13 +38,13 @@
 </div>
 <div class="m-b-20 _clearfix link-bottom">
     <b class="span3">Links List: <span class="note">Add internal link with content picker or external link in format: "http://example or https://example"</span></b>
-    <links-picker class="span9" model="control.value.links" config="control.editor.config.linksList" mode="multiple"></links-picker>
+    <links-picker class="span9" model="control.value.links" config="linksPickerConfig" mode="multiple"></links-picker>
 </div>
 <div class="m-b-20 _clearfix">
     <b class="span3">Files:</b>
-    <media-picker class="span9" ng-model="control.value.files" config="control.editor.config.filesPicker"/>
+    <media-picker class="span9" ng-model="control.value.files" config="control.editor.config.filesPicker" />
 </div>
 <div class="m-b-20 _clearfix">
     <b class="span3">Important:</b>
-    <input type="checkbox" ng-model="control.value.isImportant"/>
+    <input type="checkbox" ng-model="control.value.isImportant" />
 </div>
