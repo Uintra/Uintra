@@ -14,10 +14,10 @@ using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
 using uIntra.Groups;
+using uIntra.Groups.Extentions;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
-using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {
@@ -61,6 +61,12 @@ namespace Compent.uIntra.Controllers
         {
             EventExtendedItemModel extendedModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, extendedModel);
+        }
+
+        public override JsonResult HasConfirmation(Guid id)
+        {
+            var @event = _eventsService.Get(id);
+            return Json(new { HasConfirmation = @event.Subscribers.Any() }, JsonRequestBehavior.AllowGet);
         }
 
         private EventExtendedItemModel GetItemViewModel(Event item, ActivityFeedOptionsWithGroups options)
