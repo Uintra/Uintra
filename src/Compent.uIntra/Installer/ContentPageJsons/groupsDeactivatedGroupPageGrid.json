@@ -41,24 +41,31 @@
                 "custom.GroupActivityEdit",
                 "custom.ActivityCreate",
                 "custom.ActivityDetails",
-                "custom.ActivityEdit"
+                "custom.ActivityEdit",
+                "custom.disabledGroup",
+                "custom.groupDocuments",
+                "custom.groupMembers",
+                "custom.groupEdit",
+                "custom.groupInfo",
+                "custom.CreateGroup",
+                "custom.GroupsOverview",
+                "custom.MyGroupsOverview",
+                "custom.GroupCentralFeedOverview"
               ],
               "hasConfig": false,
               "controls": [
                 {
                   "value": null,
                   "editor": {
-                    "alias": "custom.ActivityDetails"
+                    "alias": "custom.disabledGroup"
                   },
-                  "active": false
+                  "active": true
                 }
-              ],
-              "active": false
+              ]
             }
           ],
           "hasConfig": false,
-          "id": "bb0671ce-2bf0-0cd5-4a96-77fa866c99ce",
-          "active": false
+          "id": "000da1ff-6c0c-66be-74dd-de216c2fd76e"
         }
       ]
     },
@@ -88,7 +95,7 @@
             }
           ],
           "hasConfig": false,
-          "id": "61c077ce-c7f0-b157-947f-748be0cf7ae1"
+          "id": "e33fd896-1e15-54c0-fc06-ae94fcf8a903"
         }
       ]
     }

@@ -14,21 +14,43 @@
           "areas": [
             {
               "grid": 12,
-              "allowAll": true,
+              "allowAll": false,
               "allowed": [
                 "custom.NewsEdit",
                 "custom.NewsCreate",
                 "custom.NewsOverview",
-                "custom.NewsDetails"
+                "custom.NewsDetails",
+                "custom.BulletinsCreate",
+                "custom.BulletinsEdit",
+                "custom.BulletinsDetails",
+                "custom.CentralFeed",
+                "custom.EventsCreate",
+                "custom.EventsEdit",
+                "custom.EventsDetails",
+                "custom.ComingEvents",
+                "custom.NotificationList",
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.SearchResult",
+                "custom.Profile",
+                "custom.ProfileEdit",
+                "custom.Comments",
+                "custom.GroupActivityCreate",
+                "custom.GroupActivityDetails",
+                "custom.GroupActivityEdit",
+                "custom.ActivityCreate",
+                "custom.ActivityDetails",
+                "custom.ActivityEdit"
               ],
               "hasConfig": false,
               "controls": [
                 {
                   "value": null,
                   "editor": {
-                    "alias": "custom.BulletinsEdit"
+                    "alias": "custom.ActivityEdit"
                   },
-                  "active": false
+                  "active": true
                 }
               ]
             }
@@ -54,7 +76,10 @@
               "allowAll": false,
               "allowed": [
                 "custom.ContentPanel",
-                "custom.GlobalPanelPicker"
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.LatestActivities",
+                "custom.ComingEvents"
               ],
               "hasConfig": false,
               "controls": []

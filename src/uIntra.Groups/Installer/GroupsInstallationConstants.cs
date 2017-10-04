@@ -43,5 +43,10 @@
             public const string GroupsMembersPage = "icon-umb-members";
             public const string GroupsDeactivatedGroupPage = "icon-application-error color-red";
         }
+
+        public class DataTypeNames
+        {
+            public const string GroupGrid = "Group grid";
+        }
     }
 }
