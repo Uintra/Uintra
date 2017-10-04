@@ -13,6 +13,7 @@
         public static class SearchFacetNames
         {
             public const string Types = "types";
+            public const string GlobalFilter = "GlobalFilter";
         }
     }
 }

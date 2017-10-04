@@ -1,0 +1,37 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 12,
+      "allowAll": false,
+      "rows": [
+        {
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.GroupsOverview"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.GroupsOverview"
+                  },
+                  "active": false
+                }
+              ],
+              "active": false
+            }
+          ],
+          "hasConfig": false,
+          "id": "8d283a4e-7e74-bc5c-e305-7c79d06440cf",
+          "active": false
+        }
+      ]
+    }
+  ]
+}

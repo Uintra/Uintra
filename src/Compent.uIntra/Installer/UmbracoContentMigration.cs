@@ -34,19 +34,9 @@ namespace Compent.uIntra.Installer
         {
             CreateHomePage();
 
-            CreateNewsOverviewPage();
-            CreateNewsCreatePage();
-            CreateNewsEditPage();
-            CreateNewsDetailsPage();
-
-            CreateEventsOverviewPage();
-            CreateEventsCreatePage();
-            CreateEventsEditPage();
-            CreateEventsDetailsPage();
-
-            CreateBulletinsOverviewPage();
-            CreateBulletinsDetailsPage();
-            CreateBulletinsEditPage();
+            CreateHomeNewsPages();
+            CreateHomeEventsPages();
+            CreateHomeBulletinsPages();
 
             CreateNotificationPage();
             CreateProfilePage();
@@ -72,6 +62,44 @@ namespace Compent.uIntra.Installer
             CreateCommentEditedMailTemplate();
             CreateCommentRepliedMailTemplate();
             CreateCommentLikeAddedMailTemplate();
+
+            CreateGroupOverviewPage();
+            CreateGroupCreatePage();
+            CreateGroupMyGroupsPage();
+            CreateGroupsRoomPage();
+            CreateGroupsSettingsPage();
+            CreateGroupsMembersPage();
+            CreateGroupsDeactivatedGroupPage();
+            CreateGroupsDocumentsPage();
+
+            CreateGroupsNewsPages();
+            CreateGroupsEventsPages();
+            CreateGroupsBulletinsPages();
+        }
+
+        public void UpdateActivitiesGrids()
+        {
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage), "homePageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage), "newsOverviewPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsCreatePage), "newsCreatePageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsEditPage), "newsEditPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage, DocumentTypeAliasConstants.NewsDetailsPage), "newsDetailsPageGrid.json");
+
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage), "eventsOverviewPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage, DocumentTypeAliasConstants.EventsCreatePage), "eventsCreatePageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage, DocumentTypeAliasConstants.EventsEditPage), "eventsEditPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage, DocumentTypeAliasConstants.EventsDetailsPage), "eventsDetailsPageGrid.json");
+
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage), "bulletinsOverviewPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage, DocumentTypeAliasConstants.BulletinsEditPage), "bulletinsEditPageGrid.json");
+            UpdateGrid(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage, DocumentTypeAliasConstants.BulletinsDetailsPage), "bulletinsDetailsPageGrid.json");
+        }
+
+        private void UpdateGrid(string pageXPath, string gridResourceFileName)
+        {
+            var page = _umbracoHelper.TypedContentSingleAtXPath(pageXPath);
+            var pageContent = _contentService.GetById(page.Id);
+            SetGridValueAndSaveAndPublishContent(pageContent, gridResourceFileName);
         }
 
         private void CreateHomePage()
@@ -169,9 +197,30 @@ namespace Compent.uIntra.Installer
             SetGridValueAndSaveAndPublishContent(content, "errorPageGrid.json");
         }
 
-        private void CreateNewsOverviewPage()
+        private void CreateHomeNewsPages()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.HomePage));
+            var homePageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage);
+            CreateNewsOverviewPage(homePageXpath, "newsOverviewPageGrid.json");
+            var homeNewsOverviewPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage);
+            CreateNewsCreatePage(homeNewsOverviewPageXpath, "newsCreatePageGrid.json");
+            CreateNewsEditPage(homeNewsOverviewPageXpath, "newsEditPageGrid.json");
+            CreateNewsDetailsPage(homeNewsOverviewPageXpath, "newsDetailsPageGrid.json");
+        }
+
+        private void CreateGroupsNewsPages()
+        {
+            var groupsPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage);
+            CreateNewsOverviewPage(groupsPageXpath, "groupsNewsOverviewPageGrid.json");
+            var groupsNewsOverviewPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, 
+                DocumentTypeAliasConstants.GroupsRoomPage, DocumentTypeAliasConstants.NewsOverviewPage);
+            CreateNewsCreatePage(groupsNewsOverviewPageXpath, "groupsNewsCreatePageGrid.json");
+            CreateNewsEditPage(groupsNewsOverviewPageXpath, "groupsNewsEditPageGrid.json");
+            CreateNewsDetailsPage(groupsNewsOverviewPageXpath, "groupsNewsDetailsPageGrid.json");
+        }
+
+        private void CreateNewsOverviewPage(string parentPageXpath, string gridResourceFileName)
+        {
+            var homePage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.NewsOverviewPage)))
             {
                 return;
@@ -179,12 +228,17 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("News", homePage.Id, DocumentTypeAliasConstants.NewsOverviewPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "newsOverviewPageGrid.json");
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "News");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateNewsCreatePage()
+        private void CreateNewsCreatePage(string parentPageXpath, string gridResourceFileName)
         {
-            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage));
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.NewsCreatePage)))
             {
                 return;
@@ -192,12 +246,12 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Create", newsOverviewPage.Id, DocumentTypeAliasConstants.NewsCreatePage);
 
-            SetGridValueAndSaveAndPublishContent(content, "newsCreatePageGrid.json");
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateNewsEditPage()
+        private void CreateNewsEditPage(string parentPageXpath, string gridResourceFileName)
         {
-            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage));
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.NewsEditPage)))
             {
                 return;
@@ -205,12 +259,12 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Edit", newsOverviewPage.Id, DocumentTypeAliasConstants.NewsEditPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "newsEditPageGrid.json");
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateNewsDetailsPage()
+        private void CreateNewsDetailsPage(string parentPageXpath, string gridResourceFileName)
         {
-            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.NewsOverviewPage));
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.NewsDetailsPage)))
             {
                 return;
@@ -218,12 +272,32 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Details", newsOverviewPage.Id, DocumentTypeAliasConstants.NewsDetailsPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "newsDetailsPageGrid.json");
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateBulletinsOverviewPage()
+        private void CreateHomeBulletinsPages()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.HomePage));
+            var homePageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage);
+            CreateBulletinsOverviewPage(homePageXpath, "bulletinsOverviewPageGrid.json");
+            var homeBulletinsOverviewPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage);
+            CreateBulletinsEditPage(homeBulletinsOverviewPageXpath, "bulletinsEditPageGrid.json");
+            CreateBulletinsDetailsPage(homeBulletinsOverviewPageXpath, "bulletinsDetailsPageGrid.json");
+        }
+
+        private void CreateGroupsBulletinsPages()
+        {
+            var homePageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage);
+            CreateBulletinsOverviewPage(homePageXpath, "groupsBulletinsOverviewPageGrid.json");
+            var homeBulletinsOverviewPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage,
+                DocumentTypeAliasConstants.GroupsRoomPage, DocumentTypeAliasConstants.BulletinsOverviewPage);
+            CreateBulletinsEditPage(homeBulletinsOverviewPageXpath, "groupsBulletinsEditPageGrid.json");
+            CreateBulletinsDetailsPage(homeBulletinsOverviewPageXpath, "groupsBulletinsDetailsPageGrid.json");
+
+        }
+
+        private void CreateBulletinsOverviewPage(string parentPageXpath, string gridResourceFileName)
+        {
+            var homePage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.BulletinsOverviewPage)))
             {
                 return;
@@ -231,12 +305,16 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Bulletins", homePage.Id, DocumentTypeAliasConstants.BulletinsOverviewPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "bulletinsOverviewPageGrid.json");
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Bulletins");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateBulletinsEditPage()
+        private void CreateBulletinsEditPage(string parentPageXpath, string gridResourceFileName)
         {
-            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage));
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.BulletinsEditPage)))
             {
                 return;
@@ -244,24 +322,46 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Edit", eventsOverviewPage.Id, DocumentTypeAliasConstants.BulletinsEditPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "bulletinsEditPageGrid.json");
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateBulletinsDetailsPage()
+        private void CreateBulletinsDetailsPage(string parentPageXpath, string gridResourceFileName)
         {
-            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.BulletinsOverviewPage));
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.BulletinsDetailsPage)))
             {
                 return;
             }
 
             var content = _contentService.CreateContent("Details", eventsOverviewPage.Id, DocumentTypeAliasConstants.BulletinsDetailsPage);
-            SetGridValueAndSaveAndPublishContent(content, "bulletinsDetailsPageGrid.json");
+
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateEventsOverviewPage()
+        private void CreateHomeEventsPages()
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.HomePage));
+            var homePageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage);
+            CreateEventsOverviewPage(homePageXpath, "eventsOverviewPageGrid.json");
+            var homeEventsOverviewPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage);
+            CreateEventsCreatePage(homeEventsOverviewPageXpath, "eventsCreatePageGrid.json");
+            CreateEventsEditPage(homeEventsOverviewPageXpath, "eventsEditPageGrid.json");
+            CreateEventsDetailsPage(homeEventsOverviewPageXpath, "eventsDetailsPageGrid.json");
+        }
+
+        private void CreateGroupsEventsPages()
+        {
+            var homePageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage);
+            CreateEventsOverviewPage(homePageXpath, "groupsEventsOverviewPageGrid.json");
+            var homeEventsOverviewPageXpath = XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage,
+                DocumentTypeAliasConstants.GroupsRoomPage, DocumentTypeAliasConstants.EventsOverviewPage);
+            CreateEventsCreatePage(homeEventsOverviewPageXpath, "groupsEventsCreatePageGrid.json");
+            CreateEventsEditPage(homeEventsOverviewPageXpath, "groupsEventsEditPageGrid.json");
+            CreateEventsDetailsPage(homeEventsOverviewPageXpath, "groupsEventsDetailsPageGrid.json");
+        }
+
+        private void CreateEventsOverviewPage(string parentPageXpath, string gridResourceFileName)
+        {
+            var homePage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.EventsOverviewPage)))
             {
                 return;
@@ -269,12 +369,16 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Events", homePage.Id, DocumentTypeAliasConstants.EventsOverviewPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "eventsOverviewPageGrid.json");
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Events");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateEventsCreatePage()
+        private void CreateEventsCreatePage(string parentPageXpath, string gridResourceFileName)
         {
-            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage));
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.EventsCreatePage)))
             {
                 return;
@@ -282,12 +386,12 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Create", eventsOverviewPage.Id, DocumentTypeAliasConstants.EventsCreatePage);
 
-            SetGridValueAndSaveAndPublishContent(content, "eventsCreatePageGrid.json");
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateEventsEditPage()
+        private void CreateEventsEditPage(string parentPageXpath, string gridResourceFileName)
         {
-            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage));
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.EventsEditPage)))
             {
                 return;
@@ -295,19 +399,20 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("Edit", eventsOverviewPage.Id, DocumentTypeAliasConstants.EventsEditPage);
 
-            SetGridValueAndSaveAndPublishContent(content, "eventsEditPageGrid.json");
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
-        private void CreateEventsDetailsPage()
+        private void CreateEventsDetailsPage(string parentPageXpath, string gridResourceFileName)
         {
-            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.EventsOverviewPage));
+            var eventsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(parentPageXpath);
             if (eventsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.EventsDetailsPage)))
             {
                 return;
             }
 
             var content = _contentService.CreateContent("Details", eventsOverviewPage.Id, DocumentTypeAliasConstants.EventsDetailsPage);
-            SetGridValueAndSaveAndPublishContent(content, "eventsDetailsPageGrid.json");
+
+            SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
         private void CreateDataFolder()
@@ -619,7 +724,135 @@ namespace Compent.uIntra.Installer
 
             _contentService.SaveAndPublishWithStatus(content);
         }
-        
+
+        private void CreateGroupOverviewPage()
+        {
+            var homePage = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.HomePage));
+            if (homePage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsOverviewPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Groups", homePage.Id, DocumentTypeAliasConstants.GroupsOverviewPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Groups");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, false);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsOverviewPageGrid.json");
+        }
+
+        private void CreateGroupCreatePage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsCreatePage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Create", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsCreatePage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Create");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, false);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsCreatePageGrid.json");
+        }
+
+        private void CreateGroupMyGroupsPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("My Groups", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "My Groups");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, false);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsMyGroupsOverviewPageGrid.json");
+        }
+
+        private void CreateGroupsRoomPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsRoomPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Room", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsRoomPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Room");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, true);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsRoomPageGrid.json");
+        }
+
+        private void CreateGroupsSettingsPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsEditPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Settings", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsEditPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Settings");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsEditPageGrid.json");
+        }
+
+        private void CreateGroupsMembersPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsMembersPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Group Members", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsMembersPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Group Members");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsMembersPageGrid.json");
+        }
+
+        private void CreateGroupsDeactivatedGroupPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsDeactivatedGroupPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Disabled", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsDeactivatedGroupPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Disabled");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsDeactivatedGroupPageGrid.json");
+        }
+
+        private void CreateGroupsDocumentsPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsDocumentsPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Group Documents", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsDocumentsPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Group Documents");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsDocumentsPageGrid.json");
+        }
+
     }
 
     public static class UmbracoContentMigrationConstants
