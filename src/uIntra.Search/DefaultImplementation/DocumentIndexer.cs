@@ -8,6 +8,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using File = System.IO.File;
 
@@ -15,26 +16,27 @@ namespace uIntra.Search
 {
     public class DocumentIndexer : IIndexer, IDocumentIndexer
     {
+        public const string UseInSearchPropertyAlias = "useInSearch";
         private readonly IElasticDocumentIndex _documentIndex;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
+        private readonly IContentService _contentService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
             UmbracoHelper umbracoHelper, 
             ISearchApplicationSettings settings, 
             IMediaHelper mediaHelper,
-            IExceptionLogger exceptionLogger, 
-            IMediaFolderTypeProvider mediaFolderTypeProvider)
+            IExceptionLogger exceptionLogger,
+            IContentService contentService)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
             _exceptionLogger = exceptionLogger;
-            _mediaFolderTypeProvider = mediaFolderTypeProvider;
+            _contentService = contentService;
         }
 
         public void FillIndex()
@@ -58,7 +60,7 @@ namespace uIntra.Search
 
         private bool IsAllowedForIndexing(IPublishedContent media)
         {
-            return media.GetPropertyValue<bool>("useInSearch");
+            return media.GetPropertyValue<bool>(UseInSearchPropertyAlias);
         }
 
         public void Index(int id)
@@ -68,20 +70,34 @@ namespace uIntra.Search
 
         public void Index(IEnumerable<int> ids)
         {
-            var documents = ids.Select(GetSearchableDocument).Where(el => el != null).ToList();
+            var medias = _contentService.GetByIds(ids);
+            var documents = new List<SearchableDocument>();
+
+            foreach (var media in medias)
+            {
+                var document = GetSearchableDocument(media.Id);
+                if (document == null) continue;
+                media.SetValue(UseInSearchPropertyAlias, true);
+                _contentService.SaveAndPublishWithStatus(media);
+                documents.Add(document);
+            }
             _documentIndex.Index(documents);
         }
 
         public void DeleteFromIndex(int id)
         {
-            _documentIndex.Delete(id);
+            DeleteFromIndex(id.ToEnumerableOfOne());
         }
 
         public void DeleteFromIndex(IEnumerable<int> ids)
         {
-            foreach (var id in ids)
-                _documentIndex.Delete(id);
-
+            var medias = _contentService.GetByIds(ids);
+            foreach (var media in medias)
+            {
+                media.SetValue(UseInSearchPropertyAlias, false);
+                _contentService.SaveAndPublishWithStatus(media);
+                _documentIndex.Delete(media.Id);
+            }
         }
 
         private SearchableDocument GetSearchableDocument(int id)
