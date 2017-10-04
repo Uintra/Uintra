@@ -25,8 +25,8 @@ namespace uIntra.Search
         private readonly IContentService _contentService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
-            UmbracoHelper umbracoHelper, 
-            ISearchApplicationSettings settings, 
+            UmbracoHelper umbracoHelper,
+            ISearchApplicationSettings settings,
             IMediaHelper mediaHelper,
             IExceptionLogger exceptionLogger,
             IContentService contentService)
@@ -52,8 +52,8 @@ namespace uIntra.Search
                 .SelectMany(m => m.DescendantsOrSelf());
 
             var result = medias
-                .Where(IsAllowedForIndexing)
-                .Select(GetSearchableDocument);
+                .Where(c => IsAllowedForIndexing(c) && !_mediaHelper.IsMediaDeleted(c))
+                .SelectMany(GetSearchableDocument);
 
             return result.ToList();
         }
@@ -79,7 +79,7 @@ namespace uIntra.Search
                 if (document == null) continue;
                 media.SetValue(UseInSearchPropertyAlias, true);
                 _contentService.SaveAndPublishWithStatus(media);
-                documents.Add(document);
+                documents.AddRange(document);
             }
             _documentIndex.Index(documents);
         }
@@ -100,58 +100,46 @@ namespace uIntra.Search
             }
         }
 
-        private SearchableDocument GetSearchableDocument(int id)
+        private IEnumerable<SearchableDocument> GetSearchableDocument(int id)
         {
             var content = _umbracoHelper.TypedMedia(id);
             if (content == null)
             {
-                return null;
+                return Enumerable.Empty<SearchableDocument>();
             }
 
             return GetSearchableDocument(content);
         }
 
-        private SearchableDocument GetSearchableDocument(IPublishedContent content)
+        private IEnumerable<SearchableDocument> GetSearchableDocument(IPublishedContent content)
         {
-            if (_mediaHelper.IsMediaDeleted(content))
-            {
-                return null;
-            }
-
             var fileName = Path.GetFileName(content.Url);
             var extension = Path.GetExtension(fileName)?.Trim('.');
 
-            if (!_settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
+            bool isFileExtensionAllowedForIndex = _settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase);
 
 
             if (content.Url.IsNullOrEmpty())
             {
-                return null;
+                var physicalPath = HostingEnvironment.MapPath(content.Url);
+
+                if (!File.Exists(physicalPath))
+                {
+                    _exceptionLogger.Log(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
+                   return Enumerable.Empty<SearchableDocument>();
+                }
+                var base64File = isFileExtensionAllowedForIndex ? Convert.ToBase64String(File.ReadAllBytes(physicalPath)) : string.Empty;
+                var result = new SearchableDocument
+                {
+                    Id = content.Id,
+                    Title = fileName,
+                    Url = content.Url,
+                    Data = base64File,
+                    Type = SearchableTypeEnum.Document.ToInt()
+                };
+                 return result.ToEnumerableOfOne();
             }
-
-            var physicalPath = HostingEnvironment.MapPath(content.Url);
-
-            if (!File.Exists(physicalPath))
-            {
-                _exceptionLogger.Log(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
-                return null;
-            }
-
-            var base64File = Convert.ToBase64String(File.ReadAllBytes(physicalPath));
-
-            var result = new SearchableDocument
-            {
-                Id = content.Id,
-                Title = fileName,
-                Url = content.Url,
-                Data = base64File,
-                Type = SearchableTypeEnum.Document.ToInt()
-            };
-
-            return result;
+            return Enumerable.Empty<SearchableDocument>();
         }
     }
 }
