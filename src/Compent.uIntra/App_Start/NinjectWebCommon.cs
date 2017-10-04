@@ -26,6 +26,7 @@ using Compent.uIntra.Core.Search;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
+using Compent.uIntra.Core.Controls.EditorConfiguration;
 using EmailWorker.Ninject;
 using Localization.Core;
 using Localization.Core.Configuration;
@@ -200,7 +201,7 @@ namespace Compent.uIntra
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();            
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
-            kernel.Bind<IEditorConfigProvider>().To<EditorConfigProvider>().InRequestScope();
+            kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             
 
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
