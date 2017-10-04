@@ -7,9 +7,12 @@ namespace uIntra.Search
 {
     public class SearchMediaEventService : IUmbracoMediaEventService
     {
-        public void ProcessMediaSaved(IMediaService sender, SaveEventArgs<IMedia> e)
+        public void ProcessMediaSaved(IMediaService sender, SaveEventArgs<IMedia> args)
         {
-            throw new System.NotImplementedException();
+            foreach (var media in args.SavedEntities)
+            {
+                //
+            }
         }
     }
 }

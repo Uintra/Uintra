@@ -10,12 +10,12 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using File = System.IO.File;
+using static uIntra.Core.Constants.UmbracoAliases.Media;
 
 namespace uIntra.Search
 {
     public class DocumentIndexer : IIndexer, IDocumentIndexer
     {
-        public const string UseInSearchPropertyAlias = "useInSearch";
         private readonly IElasticDocumentIndex _documentIndex;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchApplicationSettings _settings;

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using uIntra.Core.Constants;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
 using Umbraco.Core;
@@ -324,12 +325,12 @@ namespace uIntra.Core.Installer.Migrations
             var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
             var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
 
-            var dataType = dataTypeService.GetDataTypeDefinitionByName(ImageConstants.IsDeletedDataTypeDefinitionName);
+            var dataType = dataTypeService.GetDataTypeDefinitionByName(UmbracoAliases.Media.IsDeletedDataTypeDefinitionName);
             if (dataType == null)
             {
                 dataType = new DataTypeDefinition("Umbraco.TrueFalse")
                 {
-                    Name = ImageConstants.IsDeletedDataTypeDefinitionName
+                    Name = UmbracoAliases.Media.IsDeletedDataTypeDefinitionName
                 };
 
                 dataTypeService.Save(dataType);
@@ -355,7 +356,7 @@ namespace uIntra.Core.Installer.Migrations
             return new PropertyType(dataType)
             {
                 Name = "Is deleted",
-                Alias = ImageConstants.IsDeletedPropertyTypeAlias
+                Alias = UmbracoAliases.Media.IsDeletedPropertyTypeAlias
             };
         }
 

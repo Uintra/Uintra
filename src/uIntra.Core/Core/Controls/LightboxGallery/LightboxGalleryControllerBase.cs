@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using uIntra.Core.Constants;
 using uIntra.Core.Extentions;
 using uIntra.Core.Links;
 using Umbraco.Core.Models;
