@@ -146,23 +146,39 @@ namespace uIntra.Core.Media
 
         public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType, bool createFolderIfNotExists = false)
         {
-            var mediaFolder = GetMediaFolder(mediaFolderType);
-            if (mediaFolder == null)
+            var mediaFolders = GetMediaFolders(mediaFolderType);
+
+            if (!mediaFolders.Any())
             {
                 if (createFolderIfNotExists)
-                {
-                    mediaFolder = CreateMediaFolder(mediaFolderType);
-                }
-                else
-                {
-                    return null;
-                }
+                    mediaFolders = CreateMediaFolder(mediaFolderType).ToListOfOne();
+                else return null;
             }
 
+            return IsMiscellaneousFolder(mediaFolderType)
+                ? GetSettingsForMiscellaneous(mediaFolders)
+                : GetSingleSettings(mediaFolders.Single());
+        }
+
+        private bool IsMiscellaneousFolder(IIntranetType mediaFolderType) => 
+            mediaFolderType.Id == MediaFolderTypeEnum.Other.ToInt();
+
+        protected MediaSettings GetSettingsForMiscellaneous(IEnumerable<IPublishedContent> folders)
+        {
             return new MediaSettings
             {
-                AllowedMediaExtentions = GetAllowedMediaExtentions(mediaFolder),
-                MediaRootId = mediaFolder.Id
+                AllowedMediaExtentions = GetAllowedMediaExtensions(folders),
+                MediaRootId = null
+            };
+        }
+
+        protected MediaSettings GetSingleSettings(IPublishedContent folder)
+        
+        {
+            return new MediaSettings
+            {
+                AllowedMediaExtentions = GetAllowedMediaExtensions(folder),
+                MediaRootId = folder.Id
             };
         }
 
@@ -176,9 +192,14 @@ namespace uIntra.Core.Media
             return _imageHelper.IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
         }
 
-        private string GetAllowedMediaExtentions(IPublishedContent mediaFolderContent)
+        private string GetAllowedMediaExtensions(IPublishedContent mediaFolderContent)
+            => GetAllowedMediaExtensions(mediaFolderContent.ToEnumerableOfOne());
+
+        private string GetAllowedMediaExtensions(IEnumerable<IPublishedContent> mediaFolderContent)
         {
-            var allowedMediaExtensions = mediaFolderContent.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty);
+            var allowedMediaExtensions = mediaFolderContent
+                .Select(f => f.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty))
+                .JoinWithComma();
 
             var result = allowedMediaExtensions
                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -191,17 +212,19 @@ namespace uIntra.Core.Media
             return result.JoinWithComma();
         }
 
-        private IPublishedContent GetMediaFolder(IIntranetType mediaFolderType)
+        private IList<IPublishedContent> GetMediaFolders(IIntranetType mediaFolderType)
         {
-            var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
-
-            var mediaFolder = folders.SingleOrDefault(f =>
+            var result = GetAllMediaFolders().Where(f =>
             {
                 var folderType = f.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
                 return !folderType.IsNullOrEmpty() && folderType.Equals(mediaFolderType.Name);
             });
-            
-            return mediaFolder;
+            return result.ToList();
+        }
+
+        private IEnumerable<IPublishedContent> GetAllMediaFolders()
+        {
+            return _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
         }
 
         private IPublishedContent CreateMediaFolder(IIntranetType mediaFolderType)
