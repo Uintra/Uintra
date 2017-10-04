@@ -90,9 +90,11 @@ function initFileUploader() {
         dropzone = fileUploadController.init(holder, options);
 
         dropzone.on('success', function (file, fileId) {
-            previewContainer.classList.remove("hidden");
-
             sentButton.disabled = !isEdited();
+        });
+
+        dropzone.on('sending', function (file) {
+            previewContainer.classList.remove("hidden");
         });
 
         dropzone.on('removedfile', function (file) {

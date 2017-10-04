@@ -41,24 +41,42 @@
                 "custom.GroupActivityEdit",
                 "custom.ActivityCreate",
                 "custom.ActivityDetails",
-                "custom.ActivityEdit"
+                "custom.ActivityEdit",
+                "custom.disabledGroup",
+                "custom.groupDocuments",
+                "custom.groupMembers",
+                "custom.groupEdit",
+                "custom.groupInfo",
+                "custom.CreateGroup",
+                "custom.GroupsOverview",
+                "custom.MyGroupsOverview",
+                "custom.GroupCentralFeedOverview"
               ],
               "hasConfig": false,
               "controls": [
                 {
-                  "value": null,
+                  "value": {
+                    "tabType": 4
+                  },
                   "editor": {
-                    "alias": "custom.ActivityDetails"
+                    "alias": "custom.GroupActivityCreate"
+                  },
+                  "active": false
+                },
+                {
+                  "value": {
+                    "tabType": 4
+                  },
+                  "editor": {
+                    "alias": "custom.GroupCentralFeedOverview"
                   },
                   "active": false
                 }
-              ],
-              "active": false
+              ]
             }
           ],
           "hasConfig": false,
-          "id": "bb0671ce-2bf0-0cd5-4a96-77fa866c99ce",
-          "active": false
+          "id": "7aae0cf9-a4a5-114e-32b7-fd48a2180214"
         }
       ]
     },
@@ -84,11 +102,15 @@
                 "custom.ComingEvents"
               ],
               "hasConfig": false,
-              "controls": []
+              "controls": [],
+              "active": true,
+              "hasActiveChild": true
             }
           ],
           "hasConfig": false,
-          "id": "61c077ce-c7f0-b157-947f-748be0cf7ae1"
+          "id": "761b37db-8db7-9177-d6ea-2863a79f75b1",
+          "hasActiveChild": true,
+          "active": true
         }
       ]
     }

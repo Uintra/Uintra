@@ -83,8 +83,8 @@
             function isTranslationsContains() {
                 var result = false;
 
-                for (var transaction in resource.transactions) {
-                    if (resource.transactions.hasOwnProperty(transaction) && resource.transactions[transaction].toLowerCase().indexOf(filterValue) >= 0) {
+                for (var transaction in resource.translations) {
+                    if (resource.translations.hasOwnProperty(transaction) && resource.translations[transaction].toLowerCase().indexOf(filterValue) >= 0) {
                         result = true;
                         break;
                     }
