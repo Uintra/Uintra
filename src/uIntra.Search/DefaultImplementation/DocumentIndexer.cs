@@ -118,7 +118,7 @@ namespace uIntra.Search
             bool isFileExtensionAllowedForIndex = _settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase);
 
 
-            if (content.Url.IsNullOrEmpty())
+            if (!content.Url.IsNullOrEmpty())
             {
                 var physicalPath = HostingEnvironment.MapPath(content.Url);
 
