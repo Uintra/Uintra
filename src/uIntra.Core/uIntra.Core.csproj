@@ -699,6 +699,12 @@
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+    <Content Include="App_Plugins\EnumLists\enum.resource.js" />
+    <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
+    <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
+    <Content Include="App_Plugins\EnumLists\enumdropdownlist.html" />
+    <Content Include="App_Plugins\EnumLists\enumlist.controller.js" />
+    <Content Include="App_Plugins\EnumLists\enumradiobuttonlist.html" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -796,6 +802,7 @@
     <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <None Include="App_Plugins\EnumLists\package.manifest" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
