@@ -22,13 +22,13 @@ namespace uIntra.Search
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
                     q.Bool(b => b
-                       .Should(GetQueryContainers(query.Text))
-                       .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))))
-                .Take(query.Take);
+                        .Should(GetQueryContainers(query.Text))
+                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
+                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))));
 
+            ApplyAggregations(searchRequest, query);
+            ApplyPaging(searchRequest, query);
             ApplySort(searchRequest);
-            ApplyAggregations(searchRequest);
 
             if (query.ApplyHighlights)
             {
@@ -120,6 +120,15 @@ namespace uIntra.Search
             return result;
         }
 
+        protected virtual IEnumerable<BaseFacet> GlobalFacets(IReadOnlyDictionary<string, IAggregate> facets, string facetName)
+        {
+            var aggregations = new AggregationsHelper(facets);
+            var globalAggregations = new AggregationsHelper(aggregations.Global(facetName).Aggregations);
+            var globalFilter = globalAggregations.Filter(SearchConstants.SearchFacetNames.GlobalFilter);
+            var items = globalFilter.Terms(facetName).Buckets.Select(busket => new BaseFacet { Name = busket.Key, Count = busket.DocCount ?? default(long) }); ;
+            return items;
+        }
+
         protected virtual SearchResult<SearchableBase> ParseResults(ISearchResponse<dynamic> response)
         {
             var documents = ParseDocuments<SearchableBase>(response, true);
@@ -128,7 +137,7 @@ namespace uIntra.Search
             {
                 TotalHits = response.Total,
                 Documents = documents,
-                TypeFacets = GetFacetItems(response.Aggs.Aggregations, SearchConstants.SearchFacetNames.Types)
+                TypeFacets = GlobalFacets(response.Aggs.Aggregations, SearchConstants.SearchFacetNames.Types)
             };
 
             return result;
@@ -139,9 +148,24 @@ namespace uIntra.Search
             searchDescriptor.Sort(s => s.Descending("_score"));
         }
 
-        protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor) where T : class
+        protected virtual void ApplyPaging<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class
         {
-            searchDescriptor.Aggregations(a => a.Terms(SearchConstants.SearchFacetNames.Types, t => t.Field("type").Size(ElasticHelpers.MaxAggregationSize)));
+            searchDescriptor.Take(query.Take);
+        }
+        protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class 
+        {
+            searchDescriptor.Aggregations(agg => agg
+                .Global(SearchConstants.SearchFacetNames.Types, g => g
+                    .Aggregations(a => a
+                        .Filter(SearchConstants.SearchFacetNames.GlobalFilter, ss => ss
+                            .Filter(fi => fi
+                                .Bool(b => b
+                                    .Must(GetOnlyPinnedQueryContainer(query.OnlyPinned))
+                                ))
+                            .Aggregations(
+                                ia =>
+                                    ia.Terms(SearchConstants.SearchFacetNames.Types,
+                                        f => f.Field("type").Size(ElasticHelpers.MaxAggregationSize)))))));
         }
 
         protected virtual void ApplyHighlight<T>(SearchDescriptor<T> searchRequest) where T : class
@@ -206,13 +230,6 @@ namespace uIntra.Search
             }
 
             return CollectDocuments<T>(response);
-        }
-
-        protected virtual IEnumerable<BaseFacet> GetFacetItems(IReadOnlyDictionary<string, IAggregate> facets, string facetName)
-        {
-            var aggregations = new AggregationsHelper(facets);
-            var items = aggregations.Terms(facetName).Buckets.Select(busket => new BaseFacet { Name = busket.Key, Count = busket.DocCount ?? default(long) });
-            return items;
         }
 
         protected virtual void Highlight(dynamic document, Dictionary<string, HighlightHit> fields)

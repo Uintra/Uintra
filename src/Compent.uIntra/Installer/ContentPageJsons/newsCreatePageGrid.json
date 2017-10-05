@@ -14,27 +14,55 @@
           "areas": [
             {
               "grid": 12,
-              "allowAll": true,
+              "allowAll": false,
               "allowed": [
                 "custom.NewsEdit",
                 "custom.NewsCreate",
                 "custom.NewsOverview",
-                "custom.NewsDetails"
+                "custom.NewsDetails",
+                "custom.BulletinsCreate",
+                "custom.BulletinsEdit",
+                "custom.BulletinsDetails",
+                "custom.CentralFeed",
+                "custom.EventsCreate",
+                "custom.EventsEdit",
+                "custom.EventsDetails",
+                "custom.ComingEvents",
+                "custom.NotificationList",
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.SearchResult",
+                "custom.Profile",
+                "custom.ProfileEdit",
+                "custom.Comments",
+                "custom.GroupActivityCreate",
+                "custom.GroupActivityDetails",
+                "custom.GroupActivityEdit",
+                "custom.ActivityCreate",
+                "custom.ActivityDetails",
+                "custom.ActivityEdit"
               ],
               "hasConfig": false,
               "controls": [
                 {
-                  "value": null,
+                  "value": {
+                    "tabType": 1
+                  },
                   "editor": {
-                    "alias": "custom.NewsCreate"
+                    "alias": "custom.ActivityCreate"
                   },
                   "active": true
                 }
-              ]
+              ],
+              "hasActiveChild": true,
+              "active": true
             }
           ],
           "hasConfig": false,
-          "id": "96fb0b0f-3ade-b3fa-6f74-53653effa02e"
+          "id": "96fb0b0f-3ade-b3fa-6f74-53653effa02e",
+          "hasActiveChild": true,
+          "active": true
         }
       ]
     },
@@ -51,6 +79,14 @@
           "areas": [
             {
               "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.LatestActivities",
+                "custom.ComingEvents"
+              ],
               "hasConfig": false,
               "controls": []
             }

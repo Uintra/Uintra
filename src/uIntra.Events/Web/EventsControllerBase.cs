@@ -168,11 +168,10 @@ namespace uIntra.Events.Web
             OnEventHidden(id, isNotificationNeeded);
         }
 
-        [HttpPost]
-        public virtual JsonResult HasConfirmation(EventEditModel model)
+        public virtual JsonResult HasConfirmation(Guid id)
         {
-            var @event = MapEditModel(model);
-            return Json(new { HasConfirmation = _eventsService.IsActual(@event) });
+            var @event = _eventsService.Get(id);
+            return Json(new { HasConfirmation = _eventsService.IsActual(@event) }, JsonRequestBehavior.AllowGet);
         }
 
         protected virtual EventCreateModel GetCreateModel(IActivityCreateLinks links)
@@ -202,7 +201,7 @@ namespace uIntra.Events.Web
                 EndDate = @event.EndDate,
                 Creator = creator,
                 ActivityType = @event.Type,
-                Links = links                
+                Links = links
             };
         }
 

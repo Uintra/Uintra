@@ -96,7 +96,7 @@ namespace uIntra.Core.Installer.Migrations
             CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, embeddedResourceFileName);
         }
 
-        private void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
+        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
@@ -259,6 +259,11 @@ namespace uIntra.Core.Installer.Migrations
             var parentNodeDataType = contentService.GetContentType(parentDocumentTypeAlias);
             var childNodeDataType = contentService.GetContentType(childDocumentTypeAlias);
             var allowedChildren = parentNodeDataType.AllowedContentTypes.ToList();
+            var isChildAlready = allowedChildren.Any(c => c.Id.Value == childNodeDataType.Id);
+            if (isChildAlready)
+            {
+                return;
+            }
 
             allowedChildren.Add(new ContentTypeSort(childNodeDataType.Id, 1));
             parentNodeDataType.AllowedContentTypes = allowedChildren;
