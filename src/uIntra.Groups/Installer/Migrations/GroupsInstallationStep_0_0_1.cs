@@ -31,7 +31,7 @@ namespace uIntra.Groups.Installer.Migrations
         private void CreateGroupGridDataType()
         {
             var embeddedResourceFileName = "uIntra.Groups.Installer.PreValues.GroupGridPreValues.json";
-            CoreInstallationStep_0_0_1.CreateGrid(CoreInstallationConstants.DataTypeNames.DefaultGrid, embeddedResourceFileName);
+            CoreInstallationStep_0_0_1.CreateGrid(GroupsInstallationConstants.DataTypeNames.GroupGrid, embeddedResourceFileName);
         }
 
         private void CreateGroupsOverviewPage()
