@@ -62,6 +62,12 @@
 								type: "Required" 
 							}                                                
                         ]
+                    },
+                    {
+                        label: "Default value index",
+                        description: "Enter the index of the default value",
+                        key: "defaultValueIndex",
+                        view: "number"
                     }
                 ]
             }
