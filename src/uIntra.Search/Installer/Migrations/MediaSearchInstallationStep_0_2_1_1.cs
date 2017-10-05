@@ -11,7 +11,7 @@ using static uIntra.Search.Installer.SearchInstallationConstants.MediaAliases;
 
 namespace uIntra.Search.Installer.Migrations
 {
-    class MediaSearchInstallationStep_0_2_1_1 : IIntranetInstallationStep
+    public class MediaSearchInstallationStep_0_2_1_1 : IIntranetInstallationStep
     {
         public string PackageName { get; } = "uIntra.Search";
         public int Priority => 3;
