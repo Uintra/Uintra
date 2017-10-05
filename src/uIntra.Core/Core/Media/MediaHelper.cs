@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using uIntra.Core.Caching;
+using uIntra.Core.Constants;
 using uIntra.Core.Controls.FileUpload;
 using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
@@ -11,6 +12,7 @@ using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static uIntra.Core.Constants.UmbracoAliases.Media;
 
 namespace uIntra.Core.Media
 {
@@ -85,7 +87,7 @@ namespace uIntra.Core.Media
                 throw new ArgumentNullException($"Media with id = {mediaId} doesn't exist.");
             }
 
-            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
+            media.SetValue(IsDeletedPropertyTypeAlias, true);
             _mediaService.Save(media);
         }
 
@@ -97,7 +99,7 @@ namespace uIntra.Core.Media
                 throw new ArgumentNullException($"Media \"{mediaPath}\" doesn't exist.");
             }
 
-            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
+            media.SetValue(IsDeletedPropertyTypeAlias, true);
             _mediaService.Save(media);
         }
 
@@ -107,7 +109,7 @@ namespace uIntra.Core.Media
 
             foreach (var media in medias)
             {
-                media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, true);
+                media.SetValue(IsDeletedPropertyTypeAlias, true);
             }
 
             _mediaService.Save(medias);
@@ -121,7 +123,7 @@ namespace uIntra.Core.Media
                 throw new ArgumentNullException($"Media with id = {mediaId} doesn't exist.");
             }
 
-            media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, false);
+            media.SetValue(IsDeletedPropertyTypeAlias, false);
             _mediaService.Save(media);
         }
 
@@ -131,7 +133,7 @@ namespace uIntra.Core.Media
 
             foreach (var media in medias)
             {
-                media.SetValue(ImageConstants.IsDeletedPropertyTypeAlias, false);
+                media.SetValue(IsDeletedPropertyTypeAlias, false);
             }
 
             _mediaService.Save(medias);
@@ -168,7 +170,7 @@ namespace uIntra.Core.Media
 
         public bool IsMediaDeleted(IPublishedContent media)
         {
-            return media.HasProperty(ImageConstants.IsDeletedPropertyTypeAlias) && media.GetPropertyValue<bool>(ImageConstants.IsDeletedPropertyTypeAlias, false);
+            return media.HasProperty(IsDeletedPropertyTypeAlias) && media.GetPropertyValue<bool>(IsDeletedPropertyTypeAlias, false);
         }
 
         private string GetMediaTypeAlias(byte[] fileBytes)

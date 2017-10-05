@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using uIntra.Core.Constants;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
