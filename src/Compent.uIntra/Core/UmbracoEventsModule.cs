@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using uIntra.Core.UmbracoEventServices;
 using uIntra.Search;
 using uIntra.Users;
 using Umbraco.Core.Events;
@@ -18,6 +19,14 @@ namespace Compent.uIntra.Core
             ContentService.Published += ContentServiceOnPublished;
             ContentService.UnPublished += ContentServiceOnUnPublished;
             MemberService.Deleting += MemberServiceOnDeleting;
+            MediaService.Saved += MediaServiceOnSaved;
+        }
+
+        private static void MediaServiceOnSaved(IMediaService sender, SaveEventArgs<IMedia> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMediaEventService>();
+            foreach (var service in services)
+                service.ProcessMediaSaved(sender, e);
         }
 
         private static void Init()

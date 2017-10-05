@@ -27,5 +27,14 @@
         {
             public const string ContentPageUseInSearch = "Content Page Use In Search - TrueFalse";
         }
+
+        public class MediaAliases
+        {
+            public const string SearchMediaCompositionAlias = "searchMediaComposition";
+            public const string SearchMediaCompositionName = "Search Media Composition";
+            public const string CompositionFolder = "Composition";
+            public const string CompositionTabName = "Search";
+            public const string UseInSearch = "useInSearch";
+        }
     }
 }
