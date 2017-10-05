@@ -3,7 +3,7 @@ using uIntra.Groups;
 
 namespace Compent.uIntra.Core.Activity
 {
-    class FeedActivityHelper : IFeedActivityHelper
+    public class FeedActivityHelper : IFeedActivityHelper
     {
         private readonly IGroupActivityService _groupActivityService;
         private readonly IGroupService _groupService;
