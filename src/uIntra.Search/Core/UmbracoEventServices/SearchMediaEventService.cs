@@ -29,17 +29,6 @@ namespace uIntra.Search
                     _documentIndexer.Index(media.Id);
                 else _documentIndexer.DeleteFromIndex(media.Id);
             }
-            //var entities = args
-            //    .SavedEntities
-            //    .Where(m => !m.IsNewEntity())
-            //    .ToLookup(IsAllowedForSearch)
-            //    .ToDictionary(g => g.Key, g => g.Select(m => m.Id).ToList());
-
-            //entities[true].ForEach(_documentIndexer.Index);
-            //entities[false].ForEach(_documentIndexer.DeleteFromIndex);
-
-
-
         }
 
         private bool IsAllowedForSearch(IMedia media)
