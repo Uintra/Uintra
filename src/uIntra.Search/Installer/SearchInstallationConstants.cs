@@ -35,7 +35,6 @@
             public const string CompositionFolder = "Composition";
             public const string CompositionTabName = "Search";
             public const string UseInSearch = "useInSearch";
-
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.Constants;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
@@ -20,6 +22,9 @@ namespace uIntra.Search.Installer.Migrations
         private readonly IMediaService _mediaService = ApplicationContext.Current.Services.MediaService;
         private readonly IDataTypeService _dataTypeService = ApplicationContext.Current.Services.DataTypeService;
 
+        private readonly string[] searchableMediaAliases =
+            {UmbracoAliases.Media.FileTypeAlias, UmbracoAliases.Media.ImageTypeAlias};
+
         public void Execute()
         {
             CreateSearchResultPage();
@@ -30,18 +35,30 @@ namespace uIntra.Search.Installer.Migrations
 
         private void CreateMediaUseInSearch()
         {
-            CreateSearchMediaComposition();
+            var searchMediaCompositionType = _contentTypeService.GetMediaType(SearchMediaCompositionAlias) ?? CreateSearchMediaComposition();
+            var searchableMediaTypes = GetSearchableMediaTypes();
+
+            foreach (var media in searchableMediaTypes)
+            {
+                media.AddContentType(searchMediaCompositionType);               
+                _contentTypeService.Save(media);
+            }
         }
 
-        private void CreateSearchMediaComposition()
+        private IEnumerable<IMediaType> GetSearchableMediaTypes()
         {
-            var searchMediaCompositionType = _contentTypeService.GetMediaType(SearchMediaCompositionAlias);
-            if (searchMediaCompositionType != null) return;
+            return searchableMediaAliases.Select(_contentTypeService.GetMediaType);
+        }
 
+        private MediaType CreateSearchMediaComposition()
+        {
             var compositionFolder = GetMediaCompositionFolder();
-            var composition = new MediaType(compositionFolder.Id);
-            composition.Alias = SearchMediaCompositionAlias;
-            composition.Name = SearchMediaCompositionName;
+            var composition = new MediaType(compositionFolder.Id)
+            {
+                Alias = SearchMediaCompositionAlias,
+                Name = SearchMediaCompositionName,
+                SortOrder = 2
+            };
 
             CoreInstallationStep_0_0_1.CreateTrueFalseDataType("TrueFalse");
             var trueFalseEditor = _dataTypeService.GetDataTypeDefinitionByName("TrueFalse");
@@ -51,8 +68,9 @@ namespace uIntra.Search.Installer.Migrations
 
             };
             composition.AddPropertyType(property, CompositionTabName);
-
             _contentTypeService.Save(composition);
+
+            return composition;
         }
 
         private EntityContainer GetMediaCompositionFolder()
