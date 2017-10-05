@@ -62,6 +62,11 @@ namespace uIntra.Search
             return media.GetPropertyValue<bool>(UseInSearchPropertyAlias);
         }
 
+        private bool IsAllowedForIndexing(IMedia media)
+        {
+            return media.GetValue<bool>(UseInSearchPropertyAlias);
+        }
+
         public void Index(int id)
         {
             Index(id.ToEnumerableOfOne());
@@ -76,8 +81,13 @@ namespace uIntra.Search
             {
                 var document = GetSearchableDocument(media.Id);
                 if (!document.Any()) continue;
-                media.SetValue(UseInSearchPropertyAlias, true);
-                _mediaService.Save(media, raiseEvents: false);
+
+                if (!IsAllowedForIndexing(media))
+                {
+                    media.SetValue(UseInSearchPropertyAlias, true);
+                    _mediaService.Save(media);
+                }
+
                 documents.AddRange(document);
             }
             _documentIndex.Index(documents);
@@ -93,8 +103,11 @@ namespace uIntra.Search
             var medias = _mediaService.GetByIds(ids);
             foreach (var media in medias)
             {
-                media.SetValue(UseInSearchPropertyAlias, false);
-                _mediaService.Save(media, raiseEvents: false);
+                if (IsAllowedForIndexing(media))
+                {
+                    media.SetValue(UseInSearchPropertyAlias, false);
+                    _mediaService.Save(media);
+                }
                 _documentIndex.Delete(media.Id);
             }
         }

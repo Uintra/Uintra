@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -18,23 +19,33 @@ namespace uIntra.Search
 
         public void ProcessMediaSaved(IMediaService sender, SaveEventArgs<IMedia> args)
         {
-            foreach (var media in args.SavedEntities)
-            {
-                if (media.IsNewEntity()) continue;
+            var actualMedia = args
+                .SavedEntities
+                .Where(m => !m.IsNewEntity());
 
+            foreach (var media in actualMedia)
+            {
                 if (IsAllowedForSearch(media))
                     _documentIndexer.Index(media.Id);
                 else _documentIndexer.DeleteFromIndex(media.Id);
             }
+            //var entities = args
+            //    .SavedEntities
+            //    .Where(m => !m.IsNewEntity())
+            //    .ToLookup(IsAllowedForSearch)
+            //    .ToDictionary(g => g.Key, g => g.Select(m => m.Id).ToList());
+
+            //entities[true].ForEach(_documentIndexer.Index);
+            //entities[false].ForEach(_documentIndexer.DeleteFromIndex);
+
+
+
         }
 
         private bool IsAllowedForSearch(IMedia media)
         {
             return media.HasProperty(UseInSearchPropertyAlias) &&
-                   ParseUmbracoBoolean(media.Properties[UseInSearchPropertyAlias].Value);
+                   media.GetValue<bool>(UseInSearchPropertyAlias);
         }
-
-        private bool ParseUmbracoBoolean(object value) => 
-            Int32.Parse(value.ToString()) != 0;
     }
 }
