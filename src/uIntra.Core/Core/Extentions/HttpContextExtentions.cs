@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using uIntra.Core.Constants;
 using uIntra.Core.User;
 
 namespace uIntra.Core.Extentions

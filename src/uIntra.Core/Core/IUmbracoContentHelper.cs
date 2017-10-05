@@ -1,9 +1,11 @@
-﻿using Umbraco.Core.Models;
+﻿using System;
+using Umbraco.Core.Models;
 
-namespace Compent.uIntra.Core.Helpers
+namespace uIntra.Core
 {
     public interface IUmbracoContentHelper
     {
         bool IsContentAvailable(IPublishedContent publishedContent);
+        bool IsForContentPage(Guid id);
     }
 }

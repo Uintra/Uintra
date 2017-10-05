@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core
+﻿namespace uIntra.Core.Constants
 {
     public static class IntranetConstants
     {

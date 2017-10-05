@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Compent.uIntra.Core.Helpers;
+using uIntra.Core;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 

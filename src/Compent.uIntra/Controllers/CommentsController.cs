@@ -25,6 +25,7 @@ namespace Compent.uIntra.Controllers
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+        private readonly IUmbracoContentHelper _umbracoContentHelper;
 
         public CommentsController(ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -34,14 +35,15 @@ namespace Compent.uIntra.Controllers
             UmbracoHelper umbracoHelper,
             IMediaHelper mediaHelper,
             ICommentableService customCommentableService,
-            INotificationTypeProvider notificationTypeProvider)           
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper)
+            INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper, customCommentableService, umbracoContentHelper)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _notificationTypeProvider = notificationTypeProvider;
+            _umbracoContentHelper = umbracoContentHelper;
         }
 
         protected override void OnCommentCreated(Comment comment)
@@ -77,7 +79,7 @@ namespace Compent.uIntra.Controllers
                 return OverView(model.ActivityId);
             }
 
-            if (IsForContentPage(model.ActivityId))
+            if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
                 return OverView(model.ActivityId);
@@ -102,7 +104,7 @@ namespace Compent.uIntra.Controllers
                 return OverView(model.Id);
             }
 
-            if (IsForContentPage(comment.ActivityId))
+            if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.UpdateComment(model.Id, model.Text);
                 return OverView(comment.ActivityId);
@@ -127,7 +129,7 @@ namespace Compent.uIntra.Controllers
                 return OverView(comment.ActivityId);
             }
 
-            if (IsForContentPage(comment.ActivityId))
+            if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.DeleteComment(id);
                 return OverView(comment.ActivityId);

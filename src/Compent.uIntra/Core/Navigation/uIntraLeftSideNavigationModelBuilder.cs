@@ -5,6 +5,7 @@ using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Web;
+using uIntra.Core;
 
 namespace Compent.uIntra.Core.Navigation
 {

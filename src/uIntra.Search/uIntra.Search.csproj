@@ -345,6 +345,7 @@
     <Compile Include="Core\Models\SearchBoxViewModel.cs" />
     <Compile Include="Core\Models\SearchFilterModel.cs" />
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
+    <Compile Include="Core\UmbracoEventServices\SearchMediaEventService.cs" />
     <Compile Include="DefaultImplementation\SearchableTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\Helpers\ElasticHelpers.cs" />
@@ -376,6 +377,7 @@
     <Compile Include="Core\Queries\SearchTextQuery.cs" />
     <Compile Include="Core\SearchConstants.cs" />
     <Compile Include="Core\Entities\SearchResult.cs" />
+    <Compile Include="Installer\Migrations\MediaSearchInstallationStep_0_2_1_1.cs" />
     <Compile Include="Installer\SearchInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\SearchInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

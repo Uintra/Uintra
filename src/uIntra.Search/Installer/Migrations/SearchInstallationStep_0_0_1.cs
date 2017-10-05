@@ -1,7 +1,13 @@
-﻿using uIntra.Core.Installer;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using uIntra.Core.Constants;
+using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
+using static uIntra.Search.Installer.SearchInstallationConstants.DocumentTypeAliases;
 
 namespace uIntra.Search.Installer.Migrations
 {
@@ -11,6 +17,7 @@ namespace uIntra.Search.Installer.Migrations
         public int Priority => 2;
         public string Version => InstallationVersionConstrants.Version_0_0_1;
 
+
         public void Execute()
         {
             CreateSearchResultPage();
@@ -18,22 +25,23 @@ namespace uIntra.Search.Installer.Migrations
             AddSearchToContentPage();
         }
 
+
         private void CreateSearchResultPage()
         {
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
 
-            var searchResultPage = contentService.GetContentType(SearchInstallationConstants.DocumentTypeAliases.SearchResultPage);
+            var searchResultPage = contentService.GetContentType(SearchResultPage);
             if (searchResultPage != null) return;
 
             searchResultPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
             //TODO: Move static methods to service
 
             searchResultPage.Name = SearchInstallationConstants.DocumentTypeNames.SearchResultPage;
-            searchResultPage.Alias = SearchInstallationConstants.DocumentTypeAliases.SearchResultPage;
+            searchResultPage.Alias = SearchResultPage;
             searchResultPage.Icon = SearchInstallationConstants.DocumentTypeIcons.SearchResultPage;
 
             contentService.Save(searchResultPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, SearchInstallationConstants.DocumentTypeAliases.SearchResultPage);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, SearchResultPage);
         }
 
         private void CreateContentPageUseInSearchTrueFalse()

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core
+﻿namespace uIntra.Core.Constants
 {
     public static class UmbracoAliases
     {
@@ -16,6 +16,10 @@
             public const string MediaHeight = "umbracoHeight";
             public const string MediaWidth = "umbracoWidth";
             public const string MediaExtension = "umbracoExtension";
+            public const int DefaultActivityOverviewImagesCount = 3;
+            public const string IsDeletedPropertyTypeAlias = "isDeleted";
+            public const string IsDeletedDataTypeDefinitionName = "Media - Is deleted - TrueFalse";
+            public const string UseInSearchPropertyAlias = "useInSearch";
         }
     }
 }

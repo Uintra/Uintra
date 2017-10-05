@@ -6,10 +6,11 @@ using System.Web.Hosting;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extentions;
 using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using File = System.IO.File;
+using static uIntra.Core.Constants.UmbracoAliases.Media;
 
 namespace uIntra.Search
 {
@@ -20,132 +21,137 @@ namespace uIntra.Search
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
+        private readonly IMediaService _mediaService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
-            UmbracoHelper umbracoHelper, 
-            ISearchApplicationSettings settings, 
+            UmbracoHelper umbracoHelper,
+            ISearchApplicationSettings settings,
             IMediaHelper mediaHelper,
-            IExceptionLogger exceptionLogger, 
-            IMediaFolderTypeProvider mediaFolderTypeProvider)
+            IExceptionLogger exceptionLogger,
+            IMediaService mediaService)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
             _exceptionLogger = exceptionLogger;
-            _mediaFolderTypeProvider = mediaFolderTypeProvider;
+            _mediaService = mediaService;
         }
 
         public void FillIndex()
         {
-            var mediaFolderTypes = _mediaFolderTypeProvider.GetAll();
-            foreach (var folderType in mediaFolderTypes)
-            {
-                var mediaFolderSettings = _mediaHelper.GetMediaFolderSettings(folderType.Id);
-                if (mediaFolderSettings == null)
-                {
-                    continue;
-                }
+            var documentsToIndex = GetDocumentsForIndexing();
+            Index(documentsToIndex);
+        }
 
-                var mediaFolder = _umbracoHelper.TypedMedia(mediaFolderSettings.MediaRootId);
-                var documents = mediaFolder.Children.Select(GetSearchableDocument).Where(el => el != null).ToList();
-                if (!documents.Any())
-                {
-                    continue;
-                }
+        private IEnumerable<int> GetDocumentsForIndexing()
+        {
+            var medias = _umbracoHelper
+                .TypedMediaAtRoot()
+                .SelectMany(m => m.DescendantsOrSelf());
 
-                _documentIndex.Index(documents);
-            }
+            var result = medias
+                .Where(c => IsAllowedForIndexing(c) && !_mediaHelper.IsMediaDeleted(c))
+                .Select(m => m.Id);
+
+            return result.ToList();
+        }
+
+        private bool IsAllowedForIndexing(IPublishedContent media)
+        {
+            return media.GetPropertyValue<bool>(UseInSearchPropertyAlias);
+        }
+
+        private bool IsAllowedForIndexing(IMedia media)
+        {
+            return media.HasProperty(UseInSearchPropertyAlias) && media.GetValue<bool>(UseInSearchPropertyAlias);
         }
 
         public void Index(int id)
         {
-            var document = GetSearchableDocument(id);
-            if (document == null)
-            {
-                return;
-            }
-
-            _documentIndex.Index(document);
+            Index(id.ToEnumerableOfOne());
         }
 
         public void Index(IEnumerable<int> ids)
         {
-            var documents = ids.Select(GetSearchableDocument).Where(el => el != null).ToList();
-            if (!documents.Any())
-            {
-                return;
-            }
+            var medias = _mediaService.GetByIds(ids);
+            var documents = new List<SearchableDocument>();
 
+            foreach (var media in medias)
+            {
+                var document = GetSearchableDocument(media.Id);
+                if (!document.Any()) continue;
+
+                if (!IsAllowedForIndexing(media))
+                {
+                    media.SetValue(UseInSearchPropertyAlias, true);
+                    _mediaService.Save(media);
+                }
+
+                documents.AddRange(document);
+            }
             _documentIndex.Index(documents);
         }
 
         public void DeleteFromIndex(int id)
         {
-            _documentIndex.Delete(id);
+            DeleteFromIndex(id.ToEnumerableOfOne());
         }
 
         public void DeleteFromIndex(IEnumerable<int> ids)
         {
-            foreach (var id in ids)
+            var medias = _mediaService.GetByIds(ids);
+            foreach (var media in medias)
             {
-                _documentIndex.Delete(id);
+                if (IsAllowedForIndexing(media))
+                {
+                    media.SetValue(UseInSearchPropertyAlias, false);
+                    _mediaService.Save(media);
+                }
+                _documentIndex.Delete(media.Id);
             }
         }
 
-        private SearchableDocument GetSearchableDocument(int id)
+        private IEnumerable<SearchableDocument> GetSearchableDocument(int id)
         {
             var content = _umbracoHelper.TypedMedia(id);
             if (content == null)
             {
-                return null;
+                return Enumerable.Empty<SearchableDocument>();
             }
 
             return GetSearchableDocument(content);
         }
 
-        private SearchableDocument GetSearchableDocument(IPublishedContent content)
+        private IEnumerable<SearchableDocument> GetSearchableDocument(IPublishedContent content)
         {
-            if (_mediaHelper.IsMediaDeleted(content))
-            {
-                return null;
-            }
-
             var fileName = Path.GetFileName(content.Url);
             var extension = Path.GetExtension(fileName)?.Trim('.');
 
-            if (!_settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase))
+            bool isFileExtensionAllowedForIndex = _settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase);
+
+
+            if (!content.Url.IsNullOrEmpty())
             {
-                return null;
+                var physicalPath = HostingEnvironment.MapPath(content.Url);
+
+                if (!File.Exists(physicalPath))
+                {
+                    _exceptionLogger.Log(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
+                   return Enumerable.Empty<SearchableDocument>();
+                }
+                var base64File = isFileExtensionAllowedForIndex ? Convert.ToBase64String(File.ReadAllBytes(physicalPath)) : string.Empty;
+                var result = new SearchableDocument
+                {
+                    Id = content.Id,
+                    Title = fileName,
+                    Url = content.Url,
+                    Data = base64File,
+                    Type = SearchableTypeEnum.Document.ToInt()
+                };
+                 return result.ToEnumerableOfOne();
             }
-
-
-            if (content.Url.IsNullOrEmpty())
-            {
-                return null;
-            }
-
-            var physicalPath = HostingEnvironment.MapPath(content.Url);
-
-            if (!File.Exists(physicalPath))
-            {
-                _exceptionLogger.Log(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
-                return null;
-            }
-
-            var base64File = Convert.ToBase64String(File.ReadAllBytes(physicalPath));
-
-            var result = new SearchableDocument
-            {
-                Id = content.Id,
-                Title = fileName,
-                Url = content.Url,
-                Data = base64File,
-                Type = SearchableTypeEnum.Document.ToInt()
-            };
-
-            return result;
+            return Enumerable.Empty<SearchableDocument>();
         }
     }
 }

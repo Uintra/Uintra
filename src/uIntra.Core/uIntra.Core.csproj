@@ -382,6 +382,7 @@
     <Compile Include="Core\Extentions\StreamExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
+    <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
     <Compile Include="Core\Links\IProfileLinkProvider.cs" />
     <Compile Include="Core\Links\Models\ActivityCreateLinks.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="Core\Links\ProfileLinkProvider.cs" />
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
@@ -697,6 +699,12 @@
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+    <Content Include="App_Plugins\EnumLists\enum.resource.js" />
+    <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
+    <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
+    <Content Include="App_Plugins\EnumLists\enumdropdownlist.html" />
+    <Content Include="App_Plugins\EnumLists\enumlist.controller.js" />
+    <Content Include="App_Plugins\EnumLists\enumradiobuttonlist.html" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -761,8 +769,7 @@
     <Compile Include="Core\Extentions\UmbracoMemberExtentions.cs" />
     <Compile Include="Core\Grid\GridHelper.cs" />
     <Compile Include="Core\Grid\IGridHelper.cs" />
-    <Compile Include="Core\ImageConstants.cs" />
-    <Compile Include="Core\IntranetConstants.cs" />
+    <Compile Include="Core\Constants\IntranetConstants.cs" />
     <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
     <Compile Include="Core\MediaTypeEnum.cs" />
     <Compile Include="Core\Media\IContentWithMedia.cs" />
@@ -775,7 +782,7 @@
     <Compile Include="Core\Persistence\Sql\ISqlRepository.cs" />
     <Compile Include="Core\Persistence\Sql\SqlEntity.cs" />
     <Compile Include="Core\Persistence\Sql\SqlRepository.cs" />
-    <Compile Include="Core\UmbracoAliases.cs" />
+    <Compile Include="Core\Constants\UmbracoAliases.cs" />
     <Compile Include="Core\User\IHaveCreator.cs" />
     <Compile Include="Core\User\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserService.cs" />
@@ -795,6 +802,7 @@
     <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <None Include="App_Plugins\EnumLists\package.manifest" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -804,7 +812,10 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Plugins\Core\Activity\Media\" />
+    <Folder Include="Core\Media\UmbracoEventServices\" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

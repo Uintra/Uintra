@@ -86,6 +86,7 @@ using uIntra.Users;
 using uIntra.Core.WebPagePreview;
 using uIntra.Groups;
 using Compent.uIntra.Core.Groups;
+using uIntra.Core.UmbracoEventServices;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -313,6 +314,8 @@ namespace Compent.uIntra
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
+            kernel.Bind<IUmbracoMediaEventService>().To<SearchMediaEventService>().InRequestScope();
+            
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
