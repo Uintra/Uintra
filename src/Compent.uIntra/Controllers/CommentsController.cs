@@ -35,8 +35,8 @@ namespace Compent.uIntra.Controllers
             UmbracoHelper umbracoHelper,
             IMediaHelper mediaHelper,
             ICommentableService customCommentableService,
-            INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)           
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper)
+            INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper, customCommentableService, umbracoContentHelper)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;
