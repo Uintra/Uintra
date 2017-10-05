@@ -41,10 +41,10 @@ namespace uIntra.Search
         public void FillIndex()
         {
             var documentsToIndex = GetDocumentsForIndexing();
-            _documentIndex.Index(documentsToIndex);
+            Index(documentsToIndex);
         }
 
-        private IEnumerable<SearchableDocument> GetDocumentsForIndexing()
+        private IEnumerable<int> GetDocumentsForIndexing()
         {
             var medias = _umbracoHelper
                 .TypedMediaAtRoot()
@@ -52,7 +52,7 @@ namespace uIntra.Search
 
             var result = medias
                 .Where(c => IsAllowedForIndexing(c) && !_mediaHelper.IsMediaDeleted(c))
-                .SelectMany(GetSearchableDocument);
+                .Select(m => m.Id);
 
             return result.ToList();
         }
