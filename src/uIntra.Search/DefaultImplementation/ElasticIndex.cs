@@ -152,7 +152,7 @@ namespace uIntra.Search
         {
             searchDescriptor.Take(query.Take);
         }
-        protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class 
+        protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class
         {
             searchDescriptor.Aggregations(agg => agg
                 .Global(SearchConstants.SearchFacetNames.Types, g => g
@@ -160,6 +160,8 @@ namespace uIntra.Search
                         .Filter(SearchConstants.SearchFacetNames.GlobalFilter, ss => ss
                             .Filter(fi => fi
                                 .Bool(b => b
+                                    .Should(GetQueryContainers(query.Text))
+                                    .Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds))
                                     .Must(GetOnlyPinnedQueryContainer(query.OnlyPinned))
                                 ))
                             .Aggregations(
