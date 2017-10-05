@@ -25,6 +25,7 @@ namespace uIntra.Comments.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserContentHelper _intranetUserContentHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IUmbracoContentHelper _umbracoContentHelper;
         private readonly UmbracoHelper _umbracoHelper;
 
         protected CommentsControllerBase(
@@ -33,7 +34,9 @@ namespace uIntra.Comments.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentHelper intranetUserContentHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper)
+            UmbracoHelper umbracoHelper,
+            ICommentableService customCommentableService,
+            IUmbracoContentHelper umbracoContentHelper)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
@@ -41,6 +44,8 @@ namespace uIntra.Comments.Web
             _intranetUserContentHelper = intranetUserContentHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _umbracoHelper = umbracoHelper;
+            _customCommentableService = customCommentableService;
+            _umbracoContentHelper = umbracoContentHelper;
         }
 
         [HttpPost]
@@ -52,7 +57,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.ActivityId);
             }
 
-            if (IsForContentPage(model.ActivityId))
+            if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
                 _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
                 return OverView(model.ActivityId);
@@ -76,7 +81,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.Id);
             }
 
-            if (IsForContentPage(comment.ActivityId))
+            if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.UpdateComment(model.Id, model.Text);
                 return OverView(comment.ActivityId);
@@ -100,7 +105,7 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
-            if (IsForContentPage(comment.ActivityId))
+            if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
                 _customCommentableService.DeleteComment(id);
                 return OverView(comment.ActivityId);
@@ -151,7 +156,7 @@ namespace uIntra.Comments.Web
             {
                 Count = _commentsService.GetCount(activityId),
                 Link = $"{link}#{GetOverviewElementId(activityId)}",
-                IsReadOnly =  isReadOnly
+                IsReadOnly = isReadOnly
             };
             return PartialView(PreviewViewPath, model);
         }
@@ -213,11 +218,6 @@ namespace uIntra.Comments.Web
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creator.Id);
             return model;
-        }
-
-        protected virtual bool IsForContentPage(Guid id)
-        {
-            return _umbracoHelper.TypedContent(id)?.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)

@@ -146,10 +146,8 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Localization.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Compent.Localization.Core.0.1.0\lib\Net45\Localization.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Localization.Core, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Localization.Core.0.1.1\lib\net452\Localization.Core.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Storage.UDictionary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1205,7 +1203,6 @@
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
-    <Compile Include="Core\Helpers\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
