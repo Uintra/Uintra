@@ -382,6 +382,7 @@
     <Compile Include="Core\Extentions\StreamExtensions.cs" />
     <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
+    <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
     <Compile Include="Core\Links\IProfileLinkProvider.cs" />
     <Compile Include="Core\Links\Models\ActivityCreateLinks.cs" />
