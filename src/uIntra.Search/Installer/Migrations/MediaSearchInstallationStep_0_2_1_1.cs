@@ -19,6 +19,7 @@ namespace uIntra.Search.Installer.Migrations
 
         private readonly IContentTypeService _contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
         private readonly IDataTypeService _dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+        private readonly IMediaService _mediaService = ApplicationContext.Current.Services.MediaService;
 
         private readonly string[] searchableMediaAliases =
             {UmbracoAliases.Media.FileTypeAlias, UmbracoAliases.Media.ImageTypeAlias};
@@ -33,11 +34,19 @@ namespace uIntra.Search.Installer.Migrations
             var searchMediaCompositionType = _contentTypeService.GetMediaType(SearchMediaCompositionAlias) ?? CreateSearchMediaComposition();
             var searchableMediaTypes = GetSearchableMediaTypes();
 
-            foreach (var media in searchableMediaTypes)
+            foreach (var type in searchableMediaTypes)
             {
-                media.AddContentType(searchMediaCompositionType);
-                _contentTypeService.Save(media);
+                type.AddContentType(searchMediaCompositionType);
+                _contentTypeService.Save(type);
+                MakeMediaSearchable(_mediaService.GetMediaOfMediaType(type.Id));
             }
+        }
+
+        private void MakeMediaSearchable(IEnumerable<IMedia> medias)
+        {
+            var list = medias.ToList();
+            list.ForEach(m => m.SetValue(UseInSearch, true));
+            _mediaService.Save(list);
         }
 
         private IEnumerable<IMediaType> GetSearchableMediaTypes()
