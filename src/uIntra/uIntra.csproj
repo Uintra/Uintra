@@ -349,8 +349,8 @@
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.6.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.6.2\lib\net452\uIntra.Likes.dll</HintPath>
+    <Reference Include="uIntra.Likes, Version=1.1.6.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Likes.1.1.6.3\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Navigation.1.2.2\lib\net452\uIntra.Navigation.dll</HintPath>
@@ -1226,9 +1226,6 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Notification\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1437,6 +1434,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
