@@ -357,9 +357,8 @@
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.6.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.Likes.1.1.6.2\lib\net452\uIntra.Likes.dll</HintPath>
+    <Reference Include="uIntra.Likes, Version=1.1.6.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Likes.1.1.6.3\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Navigation.1.2.2\lib\net452\uIntra.Navigation.dll</HintPath>
@@ -1004,7 +1003,6 @@
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
@@ -1057,6 +1055,7 @@
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
