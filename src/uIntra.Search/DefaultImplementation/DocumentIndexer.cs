@@ -64,7 +64,7 @@ namespace uIntra.Search
 
         private bool IsAllowedForIndexing(IMedia media)
         {
-            return media.GetValue<bool>(UseInSearchPropertyAlias);
+            return media.HasProperty(UseInSearchPropertyAlias) && media.GetValue<bool>(UseInSearchPropertyAlias);
         }
 
         public void Index(int id)
