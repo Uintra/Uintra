@@ -6,13 +6,14 @@ using Umbraco.Core;
 
 namespace Compent.uIntra.Core.Handlers
 {
+#if (!DISABLE_LICENCE)
     public sealed class ValidateLicenceHandler : ApplicationEventHandler
     {
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-#if (!DISABLE_LICENCE)
+
              UmbracoApplicationBase.ApplicationInit += Init;
-#endif
+
         }
 
         private void Init(object sender, EventArgs eventArgs)
@@ -22,4 +23,5 @@ namespace Compent.uIntra.Core.Handlers
             app.BeginRequest += licenceRequestHandler.BeginRequestHandler;
         }
     }
+#endif
 }
