@@ -99,19 +99,18 @@ namespace uIntra.Likes.Web
         protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null, bool isReadOnly = false)
         {
             var currentUserId = GetCurrentUserId();
-
-            var canAddLike = !likes.Any(el => el.UserId == currentUserId);
+            var likeModels = likes as IList<LikeModel> ?? likes.ToList();
+            var canAddLike = likeModels.All(el => el.UserId != currentUserId);
             var model = new LikesViewModel
             {
                 ActivityId = activityId,
                 CommentId = commentId,
                 UserId = currentUserId,
-                Count = likes.Count(),
+                Count = likeModels.Count,
                 CanAddLike = canAddLike,
-                Users = likes.Select(el => el.User),
+                Users = likeModels.Select(el => el.User),
                 IsReadOnly = isReadOnly
             };
-
             return PartialView(LikesViewPath, model);
         }
 
