@@ -75,7 +75,7 @@ namespace uIntra.Search
             foreach (var media in medias)
             {
                 var document = GetSearchableDocument(media.Id);
-                if (document == null) continue;
+                if (!document.Any()) continue;
                 media.SetValue(UseInSearchPropertyAlias, true);
                 _mediaService.Save(media, raiseEvents: false);
                 documents.AddRange(document);
