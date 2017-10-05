@@ -1072,6 +1072,10 @@
     <Content Include="..\Compent.uIntra\Views\**\*.*">
       <Link>Views\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\**\*">
+      <Link>Installer\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </EmbeddedResource>
+    
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
     </Content>
@@ -1146,63 +1150,6 @@
     <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\bulletinsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\errorPageGrid.json">
-      <Link>Installer\ContentPageJsons\errorPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\homePageGrid.json">
-      <Link>Installer\ContentPageJsons\homePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\newsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\newsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\newsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\newsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\notificationPageGrid.json">
-      <Link>Installer\ContentPageJsons\notificationPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profileEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\profileEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profilePageGrid.json">
-      <Link>Installer\ContentPageJsons\profilePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
-      <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
-      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
-      <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1217,11 +1164,6 @@
     <Content Include="..\Compent.uIntra\Views\Web.config">
       <Link>Views\Web.config</Link>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
-      <Link>Installer\PreValues\DefaultLocalizations.json</Link>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Localization\package.manifest" />
