@@ -244,7 +244,7 @@ namespace uIntra.Users
             _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public void DeleteFromCache(Guid userId)
+        public virtual void DeleteFromCache(Guid userId)
         {
             var allCachedUsers = GetAll().ToList();
             var oldCachedUser = allCachedUsers.Find(el => el.Id == userId);
