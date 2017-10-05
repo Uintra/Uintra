@@ -101,5 +101,13 @@ namespace uIntra.Core.Extentions
         {
             return url.AddParameter(GroupIdQueryParam, groupId);
         }
+
+        public static string ToAbsoluteUrl(this string source)
+        {
+            if (source == null)
+                return null;
+
+            return HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + source;
+        }
     }
 }
