@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Groups.Sql;
 
-// TODO TODO TODO TODO x100 : services now work with SQL entities!!1
 namespace uIntra.Groups
 {
     public interface IGroupMemberService
