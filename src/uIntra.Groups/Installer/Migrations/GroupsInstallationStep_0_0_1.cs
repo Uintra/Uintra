@@ -1,5 +1,4 @@
-﻿using uIntra.Core;
-using uIntra.Core.Constants;
+﻿using uIntra.Core.Constants;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
@@ -56,7 +55,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateGroupsRoomPage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsRoomPage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage,
@@ -69,7 +68,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateMyGroupsOverviewPage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsMyGroupsOverviewPage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage,
@@ -82,7 +81,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateGroupsCreatePage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsCreatePage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage,
@@ -95,7 +94,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateGroupsEditPage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsEditPage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage,
@@ -108,7 +107,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateGroupsDocumentsPage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsDocumentsPage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsDocumentsPage,
@@ -121,7 +120,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateGroupsMembersPage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsMembersPage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage,
@@ -134,7 +133,7 @@ namespace uIntra.Groups.Installer.Migrations
 
         private void CreateGroupsDeactivatedGroupPage()
         {
-            var createModel = new BasePageWithDefaultGridCreateModel()
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
                 Name = GroupsInstallationConstants.DocumentTypeNames.GroupsDeactivatedGroupPage,
                 Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage,

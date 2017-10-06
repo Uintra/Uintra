@@ -19,8 +19,7 @@ namespace uIntra.Groups
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            Guid groupId;
-            if (IsGroupPage(filterContext, out groupId))
+            if (IsGroupPage(filterContext, out Guid groupId))
             {
                 if (IsGroupHidden(filterContext, groupId))
                 {

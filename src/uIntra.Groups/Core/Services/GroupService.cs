@@ -73,7 +73,7 @@ namespace uIntra.Groups
 
         public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds)
         {
-            return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, ((g, id) => g));
+            return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, (g, id) => g);
         }
 
         public void UpdateGroupUpdateDate(Guid id)

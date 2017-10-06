@@ -21,7 +21,7 @@ namespace uIntra.Groups
 
         protected GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
         {
-            return new GroupMember()
+            return new GroupMember
             {
                 Id = Guid.NewGuid(),
                 MemberId = memberId,

@@ -31,7 +31,7 @@ namespace uIntra.Groups
         {
             var helper = GetPageHelper(activity.Type);
 
-            return new ActivityLinks()
+            return new ActivityLinks
             {
                 Overview = helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
@@ -46,7 +46,7 @@ namespace uIntra.Groups
         {
             IActivityPageHelper helper = GetPageHelper(model.Type);
 
-            return new ActivityCreateLinks()
+            return new ActivityCreateLinks
             {
                 Overview = helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),

@@ -14,8 +14,7 @@ namespace uIntra.Groups.Extentions
                 .Split(',') // For case query String contains few groupIds
                 .First();
 
-            Guid result;
-            return Guid.TryParse(id, out result)
+            return Guid.TryParse(id, out var result)
                 ? (Guid?)result
                 : null;
         }

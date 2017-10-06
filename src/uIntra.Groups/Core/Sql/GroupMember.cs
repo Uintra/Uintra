@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
 
-
 namespace uIntra.Groups.Sql
 {
     [uIntraTable(nameof(GroupMember))]

@@ -58,7 +58,6 @@ namespace uIntra.Groups.Dashboard
             switch (direction)
             {
                 default:
-                case Direction.Asc:
                     return collection.OrderBy(keySelector);
                 case Direction.Desc:
                     return collection.OrderByDescending(keySelector);
@@ -70,7 +69,6 @@ namespace uIntra.Groups.Dashboard
             switch (field)
             {
                 default:
-                case "title":
                     return model => model.Title;
                 case "createDate":
                     return model => model.CreateDate;

@@ -122,13 +122,9 @@ namespace uIntra.Groups.Web
 
         protected virtual IEnumerable<IFeedItem> GetGroupFeedItems(IIntranetType type, Guid groupId)
         {
-            if (type.Id == CentralFeedTypeEnum.All.ToInt())
-            {
-                var items = _groupFeedService.GetFeed(groupId).OrderByDescending(item => item.PublishDate);
-                return items;
-            }
-
-            return _groupFeedService.GetFeed(type, groupId);
+            return type.Id == CentralFeedTypeEnum.All.ToInt()
+                ? _groupFeedService.GetFeed(groupId).OrderByDescending(item => item.PublishDate)
+                : _groupFeedService.GetFeed(type, groupId);
         }
 
         protected virtual FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
@@ -136,7 +132,7 @@ namespace uIntra.Groups.Web
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
 
-            var settings = _groupFeedService.GetAllSettings();
+            var settings = _groupFeedService.GetAllSettings().ToList();
             var tabSettings = settings
                 .Single(s => s.Type.Id == model.TypeId)
                 .Map<FeedTabSettings>();
@@ -157,7 +153,7 @@ namespace uIntra.Groups.Web
 
         protected override ActivityFeedOptions GetActivityFeedOptions(Guid id)
         {
-            return new ActivityFeedOptions()
+            return new ActivityFeedOptions
             {
                 Links = _groupFeedLinkService.GetLinks(id),
                 IsReadOnly = !IsCurrentUserGroupMember
@@ -190,7 +186,7 @@ namespace uIntra.Groups.Web
 
             var settings = _groupFeedService.GetSettings(activityType);
 
-            return new CreateViewModel()
+            return new CreateViewModel
             {
                 Links = links,
                 Settings = settings
@@ -205,7 +201,7 @@ namespace uIntra.Groups.Web
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);
 
-            var viewModel = new EditViewModel()
+            var viewModel = new EditViewModel
             {
                 Id = id,
                 Links = links,
@@ -225,7 +221,7 @@ namespace uIntra.Groups.Web
             var type = service.ActivityType;
             var settings = _groupFeedService.GetSettings(type);
 
-            var viewModel = new DetailsViewModel()
+            var viewModel = new DetailsViewModel
             {
                 Id = id,
                 Options = options,

@@ -14,12 +14,7 @@ namespace uIntra.Groups.Extentions
 
         public static string UrlWithGroupId(this string url, Guid? groupId)
         {
-            if (groupId == null)
-            {
-                return url;
-            }
-
-            return url.AddParameter(GroupConstants.GroupIdQueryParam, groupId);
+            return groupId == null ? url : url.AddParameter(GroupConstants.GroupIdQueryParam, groupId);
         }
     }
 }

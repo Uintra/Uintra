@@ -126,7 +126,7 @@ namespace uIntra.Groups.Web
             var group = _groupService.Get(groupId);
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
             var media = _mediaService.GetById(document.MediaId);
-            var canDelete = CanDelete(currentUser, @group, groupMembers, media);
+            var canDelete = CanDelete(currentUser, group, groupMembers, media);
             if (canDelete)
             {
                 _mediaService.Delete(media);
@@ -139,8 +139,9 @@ namespace uIntra.Groups.Web
         protected virtual bool CanDelete(IIntranetUser currentUser, GroupModel groupModel, IEnumerable<GroupMember> groupMembers, IMedia media)
         {
             var mediaCreator = media.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
-            return currentUser.Id == groupModel.CreatorId
-                || mediaCreator.HasValue && mediaCreator.Value == currentUser.Id && groupMembers.Any(s => s.MemberId == currentUser.Id);
+            return currentUser.Id == groupModel.CreatorId ||
+                mediaCreator.HasValue && mediaCreator.Value == currentUser.Id &&
+                groupMembers.Any(s => s.MemberId == currentUser.Id);
         }
 
         protected IEnumerable<GroupDocumentTableRowViewModel> Sort(IEnumerable<GroupDocumentTableRowViewModel> documents, GroupDocumentDocumentField column, Direction direction)

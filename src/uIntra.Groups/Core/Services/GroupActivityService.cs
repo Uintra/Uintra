@@ -15,7 +15,7 @@ namespace uIntra.Groups
 
         public void AddRelation(Guid groupId, Guid activityId)
         {
-            var relation = new GroupActivityRelation()
+            var relation = new GroupActivityRelation
             {
                 ActivityId = activityId,
                 GroupId = groupId,

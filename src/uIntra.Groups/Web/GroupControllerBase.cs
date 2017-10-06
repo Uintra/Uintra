@@ -237,16 +237,15 @@ namespace uIntra.Groups.Web
                 ? _groupService.GetMany(currentUser.GroupIds).ToList() 
                 : _groupService.GetAllNotHidden().ToList();
 
-            Func<GroupModel, bool> isCurrentUserMember =
-                g => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id);
+            bool IsCurrentUserMember(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id);
 
             var groups = allGroups
-                .Select(g => MapGroupViewModel(g, isCurrentUserMember(g)))
+                .Select(g => MapGroupViewModel(g, IsCurrentUserMember(g)))
                 .OrderByDescending(g => g.Creator.Id == currentUser.Id)
                 .ThenByDescending(s => s.IsMember)
                 .ThenBy(g => g.Title);
 
-            var model = new GroupsListModel()
+            var model = new GroupsListModel
             {
                 Groups = groups.Take(take),
                 BlockScrolling = allGroups.Count <= take
@@ -268,7 +267,7 @@ namespace uIntra.Groups.Web
                 .ThenBy(s => s.Name)
                 .ToList();
 
-            var model = new GroupMemberOverviewViewModel()
+            var model = new GroupMemberOverviewViewModel
             {
                 Members = groupMembersViewModel,
                 CanExcludeFromGroup = IsGroupCreator(currentUserId, group)

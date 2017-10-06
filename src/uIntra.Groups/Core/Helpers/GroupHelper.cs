@@ -61,20 +61,16 @@ namespace uIntra.Groups
             return result;
         }
 
-        // ULTRA TODO : use tuples to return all tabs at once!
         public IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId)
         {
             yield return GetMainFeedTab(currentContent, groupId);
-
-
 
             foreach (var content in GetContent())
             {
                 var tabType = GetGroupFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
-                if (activityType == null)
-                    continue;
+                if (activityType == null) continue;
 
                 var tab = new ActivityFeedTabModel
                 {
@@ -110,15 +106,13 @@ namespace uIntra.Groups
 
             var deactivatedPage = _contentHelper.GetDeactivatedGroupPage();
 
-            Func<IPublishedContent, bool> skipPage = (content) =>
-                    (!canEdit && AreSamePages(editGroupPage, content)
-                     || AreSamePages(deactivatedPage, content));
-            return skipPage;
+            bool SkipPage(IPublishedContent content) => !canEdit && AreSamePages(editGroupPage, content) || AreSamePages(deactivatedPage, content);
+            return SkipPage;
         }
 
         private PageTabModel GetPageTab(IPublishedContent currentContent, IPublishedContent content, Guid groupId)
         {
-            return new PageTabModel()
+            return new PageTabModel
             {
                 Content = content,
                 IsActive = content.IsAncestorOrSelf(currentContent),
@@ -142,8 +136,7 @@ namespace uIntra.Groups
                 return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
             }
 
-            int tabType;
-            if (int.TryParse(value.tabType.ToString(), out tabType))
+            if (int.TryParse(value.tabType.ToString(), out int tabType))
             {
                 return _centralFeedTypeProvider.Get(tabType);
             }
