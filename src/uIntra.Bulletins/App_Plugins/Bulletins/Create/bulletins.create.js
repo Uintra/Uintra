@@ -73,10 +73,12 @@ function initEventListeners() {
     closeBulletinBtn.addEventListener("click", function(ev){
         closeBulletin(ev);
     });
-    body.addEventListener("click", function(ev) {
-        isOutsideClick(bulletin, ev.target, function() {
-            closeBulletin(ev);
-        });
+    body.addEventListener("click", function (ev) {
+        if (bulletin.classList.contains("_expanded")) {
+            isOutsideClick(bulletin, ev.target, function () {
+                closeBulletin(ev);
+            });
+        }
     });
 }
 
