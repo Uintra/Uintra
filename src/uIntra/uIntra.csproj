@@ -116,9 +116,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EnumLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Compent.EnumLists.1.1.0\lib\net40\EnumLists.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Compent.EnumLists.1.1.1\lib\net40\EnumLists.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.83.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.0.1.83\lib\net45\Examine.dll</HintPath>
@@ -365,8 +363,8 @@
     <Reference Include="uIntra.Panels, Version=2.1.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.8.5\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.1.6.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.1.6.1\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.1.6.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.1.6.4\lib\net452\uIntra.Search.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.6\lib\net452\uIntra.Subscribe.dll</HintPath>
@@ -805,7 +803,6 @@
     <Content Include="App_Plugins\EnumLists\enumdropdownlist.html" />
     <Content Include="App_Plugins\EnumLists\enumlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumradiobuttonlist.html" />
-    <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\Events\backoffice\date-greater-or-equal.directive.js" />
     <Content Include="App_Plugins\Events\backoffice\events-management.config.js" />
     <Content Include="App_Plugins\Events\backoffice\events-management.css" />
@@ -1310,18 +1307,6 @@
     <Content Include="App_Plugins\Events\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1437,6 +1422,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\EnumLists\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
