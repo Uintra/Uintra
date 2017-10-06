@@ -20,11 +20,12 @@
         }
 
         $scope.init = function (control) {
+            $scope.isTitleRequired = true;
             $scope.control = control;
             editorConfigService
                 .getConfig(control.editor.alias, control.editor.config)
-                .then(function (config) {
-                    $scope.linksPickerConfig = config;
+                .then(function (config) { debugger
+                    $scope.linksPickerConfig = config.linksList;
                 });
         };
     }
