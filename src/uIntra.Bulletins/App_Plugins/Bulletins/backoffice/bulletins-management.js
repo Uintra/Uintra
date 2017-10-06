@@ -12,6 +12,8 @@
         self.selectedIndex = null;
         self.filterModel = {};
 
+        var maxDescriptionLength = 200;
+
         self.filter = function (item) {
             var checkList = [];
 
@@ -94,6 +96,18 @@
 
         self.clearSelected = function () {
             self.selectedIndex = self.selected = null;
+        }
+
+        self.transformDescription = function (rawDescription) {
+            var description = getTextFromHtml(rawDescription);
+            var croppedDescription = description.substring(0, maxDescriptionLength);
+            return croppedDescription;
+        }
+
+        function getTextFromHtml(htmlString) {
+            var div = document.createElement("div");
+            div.innerHTML = htmlString;
+            return div.textContent || div.innerText || "";
         }
 
         var create = function (bulletin) {
