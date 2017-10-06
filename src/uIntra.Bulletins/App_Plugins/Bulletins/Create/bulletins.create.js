@@ -198,6 +198,7 @@ function hide(event) {
 
 function clear() {
     editor.setText("");
+    editor.blur();
     dropzone.removeAllFiles(true);
 }
 
