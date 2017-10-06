@@ -24,7 +24,8 @@
             editorConfigService
                 .getConfig(control.editor.alias, control.editor.config)
                 .then(function (config) {
-                    $scope.linksPickerConfig = config;
+                    $scope.linksPickerConfig = config.linksList;
+                    $scope.isTitleOptional = config.isTitleOptional
                 });
         };
     }

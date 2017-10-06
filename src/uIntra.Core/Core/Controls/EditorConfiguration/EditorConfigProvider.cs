@@ -5,7 +5,7 @@ using uIntra.Core.Constants;
 namespace uIntra.Core.Controls
 {
     public abstract class EditorConfigProvider : IEditorConfigProvider
-    {        
+    {
         public GridEditorConfig GetConfig(string editorAlias)
         {
             switch (editorAlias)
@@ -21,9 +21,16 @@ namespace uIntra.Core.Controls
         {
             return new GridEditorConfig()
             {
-                Config = new Dictionary<string, object>()
+                Config = new Dictionary<string, object>
                 {
-                    { "internalPicker", new { allowedAliases = GetAllowedAliasesForInternalLinkPicker() } }
+                    { "linksList", new
+                        {
+                            internalPicker = new
+                            {
+                                allowedAliases = GetAllowedAliasesForInternalLinkPicker()
+                            }
+                        }
+                    }
                 }
             };
         }
