@@ -11,6 +11,8 @@ namespace uIntra.Groups
     {
         protected override void Configure()
         {
+            Mapper.CreateMap<GroupMemberEntity, GroupMember>();
+
             Mapper.CreateMap<Group, GroupModel>();
             Mapper.CreateMap<GroupModel, Group>();
 
@@ -80,7 +82,7 @@ namespace uIntra.Groups
             Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>();
             Mapper.CreateMap<PageTabModel, GroupNavigationPageTabViewModel>()
                 .ForMember(d => d.AlignRight, o => o.Ignore());
-            
+
             Mapper.CreateMap<IIntranetUser, GroupMemberViewModel>()
                 .ForMember(d => d.IsGroupAdmin, o => o.Ignore())
                 .ForMember(d => d.CanUnsubscribe, o => o.Ignore())

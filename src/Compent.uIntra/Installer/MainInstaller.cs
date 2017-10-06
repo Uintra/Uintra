@@ -18,8 +18,7 @@ namespace Compent.uIntra.Installer
 {
     public class MainInstaller : ApplicationEventHandler
     {
-        //private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
-        private readonly Version UIntraVersion = new Version("0.2.0.8");
+        private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
         private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)

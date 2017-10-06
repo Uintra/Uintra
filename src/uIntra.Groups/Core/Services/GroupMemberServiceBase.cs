@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using uIntra.Core.Persistence;
 using uIntra.Groups.Sql;
 
@@ -8,9 +9,9 @@ namespace uIntra.Groups
 {
     public abstract class GroupMemberServiceBase : IGroupMemberService
     {
-        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
+        private readonly ISqlRepository<GroupMemberEntity> _groupMemberRepository;
 
-        protected GroupMemberServiceBase(ISqlRepository<GroupMember> groupMemberRepository)
+        protected GroupMemberServiceBase(ISqlRepository<GroupMemberEntity> groupMemberRepository)
         {
             _groupMemberRepository = groupMemberRepository;
         }
@@ -19,9 +20,9 @@ namespace uIntra.Groups
 
         public abstract void AddMany(Guid groupId, IEnumerable<Guid> memberIds);
 
-        protected GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
+        protected GroupMemberEntity GetNewGroupMember(Guid groupId, Guid memberId)
         {
-            return new GroupMember
+            return new GroupMemberEntity
             {
                 Id = Guid.NewGuid(),
                 MemberId = memberId,
@@ -33,12 +34,16 @@ namespace uIntra.Groups
 
         public virtual IEnumerable<GroupMember> GetGroupMemberByMember(Guid memberId)
         {
-            return _groupMemberRepository.FindAll(gm => gm.MemberId == memberId);
+            var members = _groupMemberRepository.FindAll(gm => gm.MemberId == memberId);
+            var mappedMembers = Mapper.Map<IEnumerable<GroupMember>>(members);
+            return mappedMembers;
         }
 
         public virtual IEnumerable<GroupMember> GetManyGroupMember(IEnumerable<Guid> memberIds)
         {
-            return memberIds.Join(_groupMemberRepository.GetAll(), m => m, gm => gm.MemberId, (m, gm) => gm);
+            var members = memberIds.Join(_groupMemberRepository.GetAll(), m => m, gm => gm.MemberId, (m, gm) => gm);
+            var mappedMembers = Mapper.Map<IEnumerable<GroupMember>>(members);
+            return mappedMembers;
         }
 
         public virtual int GetMembersCount(Guid groupId)
@@ -48,7 +53,9 @@ namespace uIntra.Groups
 
         public virtual IEnumerable<GroupMember> GetGroupMemberByGroup(Guid groupId)
         {
-            return _groupMemberRepository.FindAll(gm => gm.GroupId == groupId);
+            var members = _groupMemberRepository.FindAll(gm => gm.GroupId == groupId);
+            var mappedMembers = Mapper.Map<IEnumerable<GroupMember>>(members);
+            return mappedMembers;
         }
 
         public virtual bool IsGroupMember(Guid groupId, Guid userId)
