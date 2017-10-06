@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -24,6 +25,7 @@ namespace uIntra.Groups.Web
         protected virtual string SubscribeView => "~/App_Plugins/Groups/Room/Info/Subscribe.cshtml";
         protected virtual string MembersViewPath => "~/App_Plugins/Groups/Room/Members/Members.cshtml";
         protected virtual string InfoViewPath => "~/App_Plugins/Groups/Room/Info/Info.cshtml";
+        protected virtual string LeftNavigationPath => "~/App_Plugins/Groups/GroupLeftNavigation.cshtml";
 
 
         private readonly IGroupService _groupService;
@@ -134,6 +136,8 @@ namespace uIntra.Groups.Web
 
             return Redirect(_groupLinkProvider.GetGroupLink(groupId));
         }
+
+        public abstract ActionResult LeftNavigation();
 
         public virtual ActionResult Index(bool isMyGroupsPage = false, int page = 1)
         {

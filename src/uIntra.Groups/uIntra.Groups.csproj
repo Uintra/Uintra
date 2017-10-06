@@ -320,6 +320,7 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Models\Members\GroupMemberOverviewViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\GroupLeftNavigationItemViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationPageTabViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationTabViewModelBase.cs" />
     <Compile Include="Core\Services\GroupActivityService.cs" />
@@ -363,6 +364,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
     <None Include="Config\applications.config.install.xdt" />
     <None Include="Config\applications.config.uninstall.xdt" />
     <None Include="Config\Dashboard.config.install.xdt" />

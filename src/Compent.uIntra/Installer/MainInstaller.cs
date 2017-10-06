@@ -18,7 +18,8 @@ namespace Compent.uIntra.Installer
 {
     public class MainInstaller : ApplicationEventHandler
     {
-        private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        //private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        private readonly Version UIntraVersion = new Version("0.2.0.8");
         private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
@@ -106,7 +107,6 @@ namespace Compent.uIntra.Installer
             CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage, nav);
         }
 
