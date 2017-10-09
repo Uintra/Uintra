@@ -83,7 +83,6 @@ using Umbraco.Web.Security;
 using uIntra.LicenceService.ApiClient.Interfaces;
 using uIntra.LicenceService.ApiClient;
 using uIntra.Users;
-using uIntra.Core.WebPagePreview;
 using uIntra.Groups;
 using Compent.uIntra.Core.Groups;
 using uIntra.Core.UmbracoEventServices;
@@ -204,9 +203,6 @@ namespace Compent.uIntra
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             
-
-            kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
-
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
