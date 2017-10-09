@@ -5,8 +5,8 @@ using uIntra.Core.Persistence;
 
 namespace uIntra.Groups.Sql
 {
-    [uIntraTable(nameof(GroupMemberEntity))]
-    public class GroupMemberEntity : SqlEntity<Guid>
+    [uIntraTable(nameof(GroupMember))]
+    public class GroupMember : SqlEntity<Guid>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
