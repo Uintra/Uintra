@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.uIntra.Core.Helpers;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -46,7 +47,7 @@ namespace Compent.uIntra.Core.News
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
-        private readonly ICommentLinkHelper _commentLinkHelper;
+        private readonly INotifierDataHelper _notifierDataHelper;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -66,7 +67,7 @@ namespace Compent.uIntra.Core.News
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            ICommentLinkHelper commentLinkHelper)
+            INotifierDataHelper notifierDataHelper)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -84,11 +85,11 @@ namespace Compent.uIntra.Core.News
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _commentLinkHelper = commentLinkHelper;
+            _notifierDataHelper = notifierDataHelper;
         }
 
-        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
-        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
+        protected List<string> OverviewXPath => new List<string> {_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType)};
+        public override IIntranetType ActivityType => _activityTypeProvider.Get((int) IntranetActivityTypeEnum.News);
 
         public MediaSettings GetMediaSettings()
         {
@@ -129,14 +130,14 @@ namespace Compent.uIntra.Core.News
             return items;
         }
 
-        private IOrderedEnumerable<Entities.News> GetOrderedActualItems() => 
+        private IOrderedEnumerable<Entities.News> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
         protected override void MapBeforeCache(IList<IIntranetActivity> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = (Entities.News)activity;
+                var entity = (Entities.News) activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
@@ -230,7 +231,7 @@ namespace Compent.uIntra.Core.News
 
         private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
-            Entities.News news;
+            Entities.News news = Get(entityId);
             var currentUser = _intranetUserService.GetCurrentUser();
             var data = new NotifierData
             {
@@ -239,70 +240,43 @@ namespace Compent.uIntra.Core.News
 
             switch (notificationType.Id)
             {
-                case (int)NotificationTypeEnum.ActivityLikeAdded:
-                    {
-                        news = Get(entityId);
-                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
-                        data.Value = new LikesNotifierDataModel()
-                        {
-                            Url = _linkService.GetLinks(news.Id).Details,
-                            Title = news.Title,
-                            ActivityType = ActivityType,
-                            NotifierId = currentUser.Id,
-                            CreatedDate = DateTime.Now
-                        };
-                    }
-                    break;
-                case (int)NotificationTypeEnum.CommentLikeAdded:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        news = Get(comment.ActivityId);
-
-                        data.ReceiverIds = currentUser.Id == comment.UserId
-                            ? Enumerable.Empty<Guid>()
-                            : comment.UserId.ToEnumerableOfOne();
-
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            CommentId = entityId,
-                            ActivityType = ActivityType,
-                            NotifierId = currentUser.Id,
-                            Title = news.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(news.Id, comment.Id)
-                        };
-                    }
+                case (int) NotificationTypeEnum.ActivityLikeAdded:
+                {
+                    data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType);
+                }
                     break;
 
-                case (int)NotificationTypeEnum.CommentAdded:
-                case (int)NotificationTypeEnum.CommentEdited:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        news = Get(comment.ActivityId);
-                        data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel()
-                        {
-                            ActivityType = ActivityType,
-                            NotifierId = comment.UserId,
-                            Title = news.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(news.Id, comment.Id)
-                        };
-                    }
+                case (int) NotificationTypeEnum.CommentLikeAdded:
+                {
+                    var comment = _commentsService.Get(entityId);
+
+                    data.ReceiverIds = currentUser.Id == comment.UserId
+                        ? Enumerable.Empty<Guid>()
+                        : comment.UserId.ToEnumerableOfOne();
+
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType);
+                }
                     break;
-                case (int)NotificationTypeEnum.CommentReplied:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        news = Get(comment.ActivityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            ActivityType = ActivityType,
-                            NotifierId = currentUser.Id,
-                            Title = news.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(news.Id, comment.Id),
-                            CommentId = comment.Id
-                        };
-                    }
+
+                case (int) NotificationTypeEnum.CommentAdded:
+                case (int) NotificationTypeEnum.CommentEdited:
+                {
+                    var comment = _commentsService.Get(entityId);
+
+                    data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType);
+                }
                     break;
+
+                case (int) NotificationTypeEnum.CommentReplied:
+                {
+                    var comment = _commentsService.Get(entityId);
+                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType);
+                }
+                    break;
+
                 default:
                     return null;
             }

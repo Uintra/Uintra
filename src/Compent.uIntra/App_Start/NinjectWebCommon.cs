@@ -315,6 +315,7 @@ namespace Compent.uIntra
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
+            kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
