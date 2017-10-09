@@ -16,7 +16,6 @@
             }
 
             function init() {
-                debugger;
                 config.usersDataSource().then(function (result) {
                     $scope.users = [defaultOption].concat(result.data);
                     $scope.selectedUser = getSelectedUserById($scope.users, config.selectedUserId);
