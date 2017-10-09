@@ -1109,6 +1109,10 @@
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
+      <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
+      <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\package.json">
