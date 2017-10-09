@@ -11,7 +11,6 @@ namespace uIntra.Groups
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<GroupMemberEntity, GroupMember>();
 
             Mapper.CreateMap<Group, GroupModel>();
             Mapper.CreateMap<GroupModel, Group>();
