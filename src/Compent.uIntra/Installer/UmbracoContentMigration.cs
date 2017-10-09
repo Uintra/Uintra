@@ -734,9 +734,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Groups", homePage.Id, DocumentTypeAliasConstants.GroupsOverviewPage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Groups");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, false);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
 
             SetGridValueAndSaveAndPublishContent(content, "groupsOverviewPageGrid.json");
         }
