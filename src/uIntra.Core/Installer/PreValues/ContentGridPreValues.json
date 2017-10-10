@@ -46,7 +46,8 @@
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
               "custom.ComingEvents",
-              "custom.DocumentLibraryPanel"
+              "custom.DocumentLibraryPanel",
+              "custom.Comments"
             ]
           }
         ]
@@ -61,7 +62,8 @@
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
               "custom.ComingEvents",
-              "custom.DocumentLibraryPanel"
+              "custom.DocumentLibraryPanel",
+              "custom.Comments"
             ]
           },
           {
