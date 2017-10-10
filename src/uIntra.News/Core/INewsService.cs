@@ -3,7 +3,6 @@ using uIntra.Core.Media;
 
 namespace uIntra.News
 {
-
     public interface INewsService<out TNews> : IIntranetActivityService<TNews> where TNews : NewsBase 
     {
         MediaSettings GetMediaSettings();

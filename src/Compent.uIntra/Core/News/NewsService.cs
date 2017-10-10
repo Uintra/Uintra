@@ -133,11 +133,11 @@ namespace Compent.uIntra.Core.News
         private IOrderedEnumerable<Entities.News> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
-        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
+        protected override void MapBeforeCache(IList<Entities.News> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = (Entities.News) activity;
+                var entity = activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);

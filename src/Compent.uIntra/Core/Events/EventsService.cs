@@ -165,11 +165,11 @@ namespace Compent.uIntra.Core.Events
         private IOrderedEnumerable<Event> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
-        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
+        protected override void MapBeforeCache(IList<Event> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = (Event) activity;
+                var entity = activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
@@ -284,7 +284,6 @@ namespace Compent.uIntra.Core.Events
             {
                 case (int) NotificationTypeEnum.CommentReplied:
                 {
-
                     data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType);
                 }
@@ -374,7 +373,6 @@ namespace Compent.uIntra.Core.Events
 
         private SearchableActivity Map(Event @event)
         {
-
             var searchableActivity = @event.Map<SearchableActivity>();
             searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
             return searchableActivity;

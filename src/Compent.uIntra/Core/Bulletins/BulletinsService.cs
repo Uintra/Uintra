@@ -23,7 +23,7 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Bulletins
 {
-    public class BulletinsService : IntranetActivityService<Bulletin>,
+    public class BulletinsService : BulletinsServiceBase<Bulletin>,
         IBulletinsService<Bulletin>,
         IFeedItemService,
         ICommentableService,
@@ -137,11 +137,11 @@ namespace Compent.uIntra.Core.Bulletins
         private IOrderedEnumerable<Bulletin> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
-        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
+        protected override void MapBeforeCache(IList<Bulletin> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = (Bulletin) activity;
+                var entity = activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
@@ -278,7 +278,6 @@ namespace Compent.uIntra.Core.Bulletins
             }
             return data;
         }
-
 
         public ILikeable AddLike(Guid userId, Guid activityId)
         {
