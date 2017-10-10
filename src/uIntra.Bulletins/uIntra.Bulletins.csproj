@@ -303,6 +303,7 @@
   <ItemGroup>
     <Compile Include="Core\AutoMapperProfiles\BulletinsAutoMapperProfile.cs" />
     <Compile Include="Core\BulletinBase.cs" />
+    <Compile Include="Core\BulletinsServiceBase.cs" />
     <Compile Include="Core\Dashboard\BulletinsSection.cs" />
     <Compile Include="Core\Dashboard\Controllers\BulletinsSectionControllerBase.cs" />
     <Compile Include="Core\Dashboard\Models\BulletinsBackofficeCreateModel.cs" />

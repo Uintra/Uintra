@@ -123,7 +123,7 @@ namespace uIntra.Core.Activity
 
             if (activity != null)
             {
-                MapBeforeCache(((IIntranetActivity)activity).ToListOfOne());
+                MapBeforeCache((activity).ToListOfOne());
                 cachedList.Add(activity);
             }
 
@@ -147,7 +147,7 @@ namespace uIntra.Core.Activity
         private IList<TActivity> GetAllFromSql()
         {
             var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
-            MapBeforeCache(activities.Select(s => (IIntranetActivity)s).ToList());
+            MapBeforeCache(activities.ToList());
             return activities;
         }
 
@@ -175,6 +175,6 @@ namespace uIntra.Core.Activity
             return true;
         }
 
-        protected abstract void MapBeforeCache(IList<IIntranetActivity> cached);
+        protected abstract void MapBeforeCache(IList<TActivity> cached);
     }
 }
