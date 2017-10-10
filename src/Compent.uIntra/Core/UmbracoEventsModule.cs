@@ -11,11 +11,8 @@ namespace Compent.uIntra.Core
 {
     public static class UmbracoEventsModule
     {
-        private static IContentIndexer _contentIndexer;
-
         public static void RegisterEvents()
         {
-            Init();
             ContentService.Published += ContentServiceOnPublished;
             ContentService.UnPublished += ContentServiceOnUnPublished;
             MemberService.Deleting += MemberServiceOnDeleting;
@@ -29,25 +26,18 @@ namespace Compent.uIntra.Core
                 service.ProcessMediaSaved(sender, e);
         }
 
-        private static void Init()
-        {
-            _contentIndexer = DependencyResolver.Current.GetService<IContentIndexer>();
-        }
-
         private static void ContentServiceOnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
         {
+            var contentIndexer = DependencyResolver.Current.GetService<IContentIndexer>();
             foreach (var entity in publishEventArgs.PublishedEntities)
-            {
-                _contentIndexer.FillIndex(entity.Id);
-            }
+                contentIndexer.FillIndex(entity.Id);
         }
 
         private static void ContentServiceOnUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
         {
+            var contentIndexer = DependencyResolver.Current.GetService<IContentIndexer>();
             foreach (var entity in publishEventArgs.PublishedEntities)
-            {
-                _contentIndexer.DeleteFromIndex(entity.Id);
-            }
+                contentIndexer.DeleteFromIndex(entity.Id);
         }
 
         private static void MemberServiceOnDeleting(IMemberService sender, DeleteEventArgs<IMember> e)
