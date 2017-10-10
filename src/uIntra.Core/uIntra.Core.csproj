@@ -371,10 +371,8 @@
     <Compile Include="Core\BrowserCompatibility\IBrowserCompatibilityConfigurationSection.cs" />
     <Compile Include="Core\BrowserCompatibility\Models\BrowserCompatibilityModel.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
-    <Compile Include="Core\Exceptions\MaximumUsersCountException.cs" />
     <Compile Include="Core\Extentions\ListExtensions.cs" />
     <Compile Include="Core\Extentions\StreamExtensions.cs" />
-    <Compile Include="Core\Handlers\MaximumUsersCountVerificator.cs" />
     <Compile Include="Core\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
