@@ -1218,7 +1218,6 @@
     <Compile Include="Controllers\SubscribeController.cs" />
     <Compile Include="Controllers\SubscribePageController.cs" />
     <Compile Include="Controllers\LikesPageController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Constants\AppSettingConstants.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
@@ -1239,7 +1238,6 @@
     <Compile Include="Core\Licence\LicenceRequestHandler.cs" />
     <Compile Include="Core\Licence\LicenceServiceConnection.cs" />
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
-    <Compile Include="Core\Likes\LikesTestConstants.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\LocalizationService.cs" />
@@ -1271,7 +1269,6 @@
     <Compile Include="Core\Notification\NotificationHelper.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
-    <Compile Include="Core\Subscribe\SubscribeTestConstants.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
@@ -1356,8 +1353,6 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\GridPageLayout.cshtml" />
-    <Content Include="Views\LikesPage\Index.cshtml" />
-    <Content Include="Views\SubscribePage\Index.cshtml" />
     <Content Include="Views\Events\ItemView.cshtml" />
     <Content Include="Views\Events\DetailsView.cshtml" />
     <Content Include="Views\Events\EditView.cshtml" />
