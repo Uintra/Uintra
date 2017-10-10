@@ -1515,9 +1515,9 @@
     <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
       <Link>App_Start\ElmahMvc_Start.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
+    <Compile Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
       <Link>App_Start\MapperConfig.cs</Link>
-    </Content>
+    </Compile>
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
