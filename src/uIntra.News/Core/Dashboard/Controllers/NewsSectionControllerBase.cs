@@ -16,7 +16,7 @@ namespace uIntra.News.Dashboard
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMediaHelper _mediaHelper;
 
-        public NewsSectionControllerBase(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
+        protected NewsSectionControllerBase(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
         {
             _newsService = newsService;
             _intranetUserService = intranetUserService;

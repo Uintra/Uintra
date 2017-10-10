@@ -4,11 +4,11 @@ namespace uIntra.Core.Persistence
 {
     public abstract class IntranetDbContext : DbContext
     {
-        public IntranetDbContext() : this("umbracoDbDSN")
+        protected IntranetDbContext() : this("umbracoDbDSN")
         {
         }
 
-        public IntranetDbContext(string nameOrConnectionString)
+        protected IntranetDbContext(string nameOrConnectionString)
               : base(nameOrConnectionString)
         {
             Configuration.AutoDetectChangesEnabled = false;
