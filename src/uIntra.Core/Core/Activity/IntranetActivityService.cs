@@ -10,7 +10,7 @@ namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract IIntranetType ActivityType { get; }        
+        public abstract IIntranetType ActivityType { get; }
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{ActivityType.Id}";
         private readonly IIntranetActivityRepository _activityRepository;
@@ -45,7 +45,7 @@ namespace uIntra.Core.Activity
         }
 
         public IEnumerable<TActivity> GetAll(bool includeHidden = false)
-        {            
+        {
             if (!_cache.HasValue(CacheKey, ActivityCacheSuffix))
             {
                 UpdateCache();
