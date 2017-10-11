@@ -15,8 +15,11 @@ namespace Compent.uIntra.Core
         {
             ContentService.Published += ContentServiceOnPublished;
             ContentService.UnPublished += ContentServiceOnUnPublished;
+
             MemberService.Deleting += MemberServiceOnDeleting;
+
             MediaService.Saved += MediaServiceOnSaved;
+            MediaService.Trashed += MediaServiceOnTrashed;
         }
 
         private static void MediaServiceOnSaved(IMediaService sender, SaveEventArgs<IMedia> e)
@@ -24,6 +27,13 @@ namespace Compent.uIntra.Core
             var services = DependencyResolver.Current.GetServices<IUmbracoMediaEventService>();
             foreach (var service in services)
                 service.ProcessMediaSaved(sender, e);
+        }
+
+        private static void MediaServiceOnTrashed(IMediaService sender, MoveEventArgs<IMedia> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMediaEventService>();
+            foreach (var service in services)
+                service.ProcessMediaTrashed(sender, e);
         }
 
         private static void ContentServiceOnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
