@@ -5,13 +5,13 @@ using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using uIntra.Core.Grid;
+using Umbraco.Core.Services;
+using static uIntra.Core.Constants.GridEditorConstants;
 
 namespace uIntra.Search
 {
     public class ContentIndexer : IIndexer, IContentIndexer
     {
-        private const string ContentPanelAlias = "custom.ContentPanel";
-
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IElasticContentIndex _contentIndex;
@@ -79,21 +79,25 @@ namespace uIntra.Search
             };
         }
 
-        private (List<string>, List<string>) GetTitlesAndContent(IPublishedContent publishedContent)
+        private (List<string> content, List<string> titles) GetTitlesAndContent(IPublishedContent publishedContent)
         {
             var titles = new List<string>();
             var content = new List<string>();
-            var values = _gridHelper.GetValues(publishedContent, ContentPanelAlias);
+            var values = _gridHelper.GetValues(publishedContent, ContentPanelAlias, GlobalPanelPickerAlias);
 
-            foreach (dynamic control in values)
+            foreach (var control in values)
             {
                 if (control.value != null)
                 {
-                    string title = control.value.title;
+                    dynamic panel = control.alias == GlobalPanelPickerAlias
+                        ? GetContentPanelFromGlobal(control.value)
+                        : control.value;
+
+                    string title = panel.title;
                     if (!string.IsNullOrEmpty(title))
                         titles.Add(title.StripHtml());
 
-                    string desc = control.value.description;
+                    string desc = panel.description;
                     if (!string.IsNullOrEmpty(desc))
                         content.Add(desc.StripHtml());
                 }
@@ -101,5 +105,10 @@ namespace uIntra.Search
             
             return (titles, content);
         }
+
+        private dynamic GetContentPanelFromGlobal(dynamic value) => 
+            _umbracoHelper.TypedContent((int)value.id)
+            .GetPropertyValue<dynamic>(PanelConfigPropertyAlias)
+            .value;
     }
 }

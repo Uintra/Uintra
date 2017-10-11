@@ -127,8 +127,10 @@ namespace uIntra.Groups
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
         public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
-            var values = _gridHelper.GetValues(content, gridPluginAlias);
-            var value = values.FirstOrDefault(v => v.tabType != null);
+            var value = _gridHelper
+                .GetValues(content, gridPluginAlias)
+                .FirstOrDefault(t => t.value != null)
+                .value;
 
             if (value == null)
                 return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());

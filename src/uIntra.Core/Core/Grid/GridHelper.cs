@@ -3,12 +3,13 @@ using ClientDependency.Core;
 using Newtonsoft.Json.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using System.Linq;
 
 namespace uIntra.Core.Grid
 {
     public class GridHelper : IGridHelper
     {
-        public IEnumerable<dynamic> GetValues(IPublishedContent content, string alias)
+        public IEnumerable<(string alias, dynamic value)> GetValues(IPublishedContent content, params string[] aliases)
         {
             dynamic grid = GetGrid(content);
 
@@ -26,9 +27,9 @@ namespace uIntra.Core.Grid
                             if (control != null 
                                 && control.editor != null 
                                 && control.editor.view != null 
-                                && control.editor.alias == alias)
+                                && aliases.Contains((string) control.editor.alias))
                             {
-                                yield return control.value;
+                                yield return ((string) control.editor.alias, control.value);
                             }
                         }
                     }
