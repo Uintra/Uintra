@@ -66,7 +66,7 @@ namespace uIntra.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-           (List<string> content, List<string> titles) =  GetTitlesAndContent(publishedContent);
+           (List<string> content, List<string> titles) =  ParseContentPanels(publishedContent);
 
             return new SearchableContent
             {
@@ -79,7 +79,7 @@ namespace uIntra.Search
             };
         }
 
-        private (List<string> content, List<string> titles) GetTitlesAndContent(IPublishedContent publishedContent)
+        private (List<string> content, List<string> titles) ParseContentPanels(IPublishedContent publishedContent)
         {
             var titles = new List<string>();
             var content = new List<string>();
