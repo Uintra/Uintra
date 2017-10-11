@@ -18,7 +18,7 @@
         }
         public class DocumentTypePropertyAliases
         {
-            public const string PanelConfig = "panelConfig";
+            public const string PanelConfig = uIntra.Core.Constants.GridEditorConstants.PanelConfigPropertyAlias;
         }
 
         public class DataTypeNames
