@@ -62,12 +62,7 @@ namespace uIntra.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-            dynamic grid = GetGrid(publishedContent);
-
-            // We cant use pretty 2k17 syntax cause few of us use VS2015
-            Tuple<List<string>, List<string>> result = ParseTitlesAndContent(grid);
-            var titles = result.Item1;
-            var content = result.Item2;
+           (List<string> content, List<string> titles) =  GetTitlesAndContent(publishedContent);
 
             return new SearchableContent
             {
@@ -80,8 +75,9 @@ namespace uIntra.Search
             };
         }
 
-        private Tuple<List<string>, List<string>> ParseTitlesAndContent(dynamic grid)
+        private (List<string>, List<string>) GetTitlesAndContent(IPublishedContent publishedContent)
         {
+            dynamic grid = GetGrid(publishedContent);
             var titles = new List<string>();
             var content = new List<string>();
             if (grid != null)
@@ -118,8 +114,8 @@ namespace uIntra.Search
                         }
                     }
                 }
-            }           
-            return Tuple.Create(titles, content);
+            }
+            return (titles, content);
         }
 
         private dynamic GetGrid(IPublishedContent publishedContent)
