@@ -86,6 +86,7 @@ namespace uIntra.Core.Extentions
             queryCollection.Add(paramName, paramValue.ToString());
             return $"{url.TrimEnd('/')}?{queryCollection}";
         }
+
         public static string RemoveHtmlTags(this string input)
         {
             return Regex.Replace(input, "<.*?>", String.Empty);
@@ -108,6 +109,27 @@ namespace uIntra.Core.Extentions
                 return null;
 
             return HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + source;
+        }
+
+        public static string TrimByWordEnd(this string str, int maxLength)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return string.Empty;
+            }
+
+            if (str.Length <= maxLength)
+            {
+                return str;
+            }
+
+            if (str[maxLength] == ' ')
+            {
+                return str.Substring(0, maxLength);
+            }
+
+            var lastIndex = str.Substring(0, maxLength).LastIndexOf(' ');
+            return str.Substring(0, lastIndex).Trim();
         }
     }
 }
