@@ -92,6 +92,7 @@ namespace uIntra.Search
                     dynamic panel = control.alias == GlobalPanelPickerAlias
                         ? GetContentPanelFromGlobal(control.value)
                         : control.value;
+                    if (panel == null) continue;
 
                     string title = panel.title;
                     if (!string.IsNullOrEmpty(title))
@@ -107,8 +108,8 @@ namespace uIntra.Search
         }
 
         private dynamic GetContentPanelFromGlobal(dynamic value) => 
-            _umbracoHelper.TypedContent((int)value.id)
-            .GetPropertyValue<dynamic>(PanelConfigPropertyAlias)
+            _umbracoHelper.TypedContent((int)value.id)?
+            .GetPropertyValue<dynamic>(PanelConfigPropertyAlias)?
             .value;
     }
 }
