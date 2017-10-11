@@ -1,31 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using System;
+using uIntra.Core.Grid;
 
 namespace uIntra.Search
 {
     public class ContentIndexer : IIndexer, IContentIndexer
     {
+        private const string ContentPanelAlias = "custom.ContentPanel";
+
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IElasticContentIndex _contentIndex;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGridHelper _gridHelper;
 
         public ContentIndexer(
             UmbracoHelper umbracoHelper,
             ISearchUmbracoHelper searchUmbracoHelper,
             IElasticContentIndex contentIndex,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IGridHelper gridHelper)
         {
             _umbracoHelper = umbracoHelper;
             _searchUmbracoHelper = searchUmbracoHelper;
             _contentIndex = contentIndex;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _gridHelper = gridHelper;
         }
 
         public void FillIndex()
@@ -77,50 +81,25 @@ namespace uIntra.Search
 
         private (List<string>, List<string>) GetTitlesAndContent(IPublishedContent publishedContent)
         {
-            dynamic grid = GetGrid(publishedContent);
             var titles = new List<string>();
             var content = new List<string>();
-            if (grid != null)
-            {
-                foreach (var section in grid.sections)
-                {
-                    foreach (var row in section.rows)
-                    {
-                        foreach (var area in row.areas)
-                        {
-                            foreach (var control in area.controls)
-                            {
-                                if (control != null && control.editor != null && control.editor.view != null)
-                                {
-                                    if (control.editor.alias == "custom.ContentPanel")
-                                    {
-                                        if (control.value != null)
-                                        {
-                                            string title = control.value.title;
-                                            if (!string.IsNullOrEmpty(title))
-                                            {
-                                                titles.Add(title.StripHtml());
-                                            }
+            var values = _gridHelper.GetValues(publishedContent, ContentPanelAlias);
 
-                                            string desc = control.value.description;
-                                            if (!string.IsNullOrEmpty(desc))
-                                            {
-                                                content.Add(desc.StripHtml());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+            foreach (dynamic control in values)
+            {
+                if (control.value != null)
+                {
+                    string title = control.value.title;
+                    if (!string.IsNullOrEmpty(title))
+                        titles.Add(title.StripHtml());
+
+                    string desc = control.value.description;
+                    if (!string.IsNullOrEmpty(desc))
+                        content.Add(desc.StripHtml());
                 }
             }
+            
             return (titles, content);
-        }
-
-        private dynamic GetGrid(IPublishedContent publishedContent)
-        {
-            return publishedContent.GetPropertyValue<JToken>("grid")?.ToString().Deserialize<dynamic>();
         }
     }
 }
