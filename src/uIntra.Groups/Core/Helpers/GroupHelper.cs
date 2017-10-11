@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
@@ -16,7 +17,6 @@ namespace uIntra.Groups
     {
         private readonly IGroupService _groupService;
         private readonly IGridHelper _gridHelper;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGroupContentHelper _contentHelper;
@@ -24,14 +24,12 @@ namespace uIntra.Groups
         public GroupHelper(
             IGroupService groupService,
             IGridHelper gridHelper,
-            IFeedTypeProvider centralFeedTypeProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IFeedTypeProvider feedTypeProvider,
             IGroupContentHelper contentHelper)
         {
             _groupService = groupService;
             _gridHelper = gridHelper;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
             _groupFeedLinkService = groupFeedLinkService;
             _feedTypeProvider = feedTypeProvider;
             _contentHelper = contentHelper;
@@ -129,18 +127,16 @@ namespace uIntra.Groups
         // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
         public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
-            var value = _gridHelper.GetValue(content, gridPluginAlias);
+            var values = _gridHelper.GetValues(content, gridPluginAlias);
+            var value = values.FirstOrDefault(v => v.tabType != null);
 
-            if (value == null || value.tabType == null)
-            {
+            if (value == null)
                 return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
-            }
 
-            if (int.TryParse(value.tabType.ToString(), out int tabType))
-            {
-                return _centralFeedTypeProvider.Get(tabType);
-            }
-            return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
+            var tabTypeId = int.TryParse(value.tabType.ToString(), out int result)
+                ? result
+                : default(CentralFeedTypeEnum).ToInt();
+            return _feedTypeProvider.Get(tabTypeId);
         }
 
         private IEnumerable<IPublishedContent> GetContent()
