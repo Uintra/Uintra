@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Constants;
+using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.UmbracoEventServices;
 using uIntra.Search;
@@ -10,6 +10,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static uIntra.Core.Constants.GridEditorConstants;
 
 namespace Compent.uIntra.Core
 {
@@ -49,26 +50,20 @@ namespace Compent.uIntra.Core
             foreach (var entity in publishEventArgs.PublishedEntities)
             {
                 contentIndexer.FillIndex(entity.Id);
-                if(IsGlobalContentPanel(entity))
-                    umbracoHelper.TypedContentAtRoot()
-                        .SelectMany(c => c.DescendantsOrSelf())
-                        .Where(c => ContainsGlobalPanel(c, entity))
-                        .Select(c => c.Id)
-                        .ToList()
-                        .ForEach(contentIndexer.FillIndex);
+                umbracoHelper.TypedContentAtRoot()
+                    .SelectMany(c => c.DescendantsOrSelf())
+                    .Where(c => ContainsGlobalPanel(c, entity))
+                    .Select(c => c.Id)
+                    .ToList()
+                    .ForEach(contentIndexer.FillIndex);
             }
         }
         static IGridHelper gridHelper = DependencyResolver.Current.GetService<IGridHelper>();
         private static bool ContainsGlobalPanel(IPublishedContent content, IContent globalPanel)
         {
             return gridHelper
-                    .GetValues(content, GridEditorConstants.GlobalPanelPickerAlias)
+                    .GetValues(content, GlobalPanelPickerAlias)
                     .Any(t => t.value.id == globalPanel.Id);
-        }
-
-        private static bool IsGlobalContentPanel(IContent entity)
-        {
-            return true;
         }
 
         private static void ContentServiceOnUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
