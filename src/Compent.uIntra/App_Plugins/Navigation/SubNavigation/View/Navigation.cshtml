@@ -6,16 +6,18 @@
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
 
         <div class="tabset__holder">
-            @if (Model.Parent != null)
+            @if (!Model.IsTitleHidden)
             {
-                <h1 class="tabset__title">
-                    <a class="tabset__title-link" href="@Model.Parent.Url">@Model.Parent.Name</a>
-                </h1>
-            }
-
-            else
-            {
-                <h1 class="tabset__title _no-link">@Model.Title</h1>
+                if (Model.Parent != null)
+                {
+                    <h1 class="tabset__title">
+                        <a class="tabset__title-link" href="@Model.Parent.Url">@Model.Parent.Name</a>
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="tabset__title _no-link">@Model.Title</h1>
+                }
             }
 
             @if (Model.Items.Count > 0)
@@ -33,9 +35,9 @@
                             <a class="tabset__navigation-link" href="@item.Url">@item.Name</a>
 
                             <!--
-                                **********  FOR SECOND LEVEL NAVIGATION USE THIS TEMPLATE ************
+                            ********** FOR SECOND LEVEL NAVIGATION USE THIS TEMPLATE ************
 
-                              <ul class="tabset__navigation clearfix">
+                            <ul class="tabset__navigation clearfix">
                                 <li class="tabset__navigation-item">
                                     <a class="tabset__navigation-link" href="#">Test</a>
                                 </li>

@@ -2,7 +2,12 @@
     
 @foreach (var breadcrumb in Model)
 {
-
-    //use breadcrumb.IsClickable for current page
-    <a href="@breadcrumb.Url">@breadcrumb.Name</a>
+    if (breadcrumb.IsClickable)
+    {
+        <a href="@breadcrumb.Url">@breadcrumb.Name</a>
+    }
+    else
+    {
+        @breadcrumb.Name
+    }
 }

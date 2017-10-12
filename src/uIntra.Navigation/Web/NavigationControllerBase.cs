@@ -75,13 +75,13 @@ namespace uIntra.Navigation.Web
             var currentPage = CurrentPage;
             while (currentPage != null)
             {
-                if (!currentPage.GetHideInNavigation() && !currentPage.IsHeading())
+                if (!currentPage.GetHideInNavigation())
                 {
                     result.Add(new BreadcrumbItemViewModel
                     {
                         Name = currentPage.GetNavigationName(),
                         Url = currentPage.Url,
-                        IsClickable = CurrentPage.Url != currentPage.Url
+                        IsClickable = CurrentPage.Url != currentPage.Url && !currentPage.IsHeading()
                     });
                     
                 }
