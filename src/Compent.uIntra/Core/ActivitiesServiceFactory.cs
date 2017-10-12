@@ -29,42 +29,51 @@ namespace Compent.uIntra.Core
             _cache = cache;
         }
 
-        public TService GetService<TService>(Guid id) where TService : ITypedService
+        public TService GetService<TService>(Guid id) where TService : class, ITypedService
         {
             var activityType = _activityTypeHelper.GetActivityType(id);
             return GetService<TService>(activityType.Id);
         }
-       
-        public TService GetService<TService>(int typeId) where TService : ITypedService
+
+        public TService GetService<TService>(int typeId) where TService : class, ITypedService
         {
             return _cache
-                .GetOrSet(GetCacheKey<TService>(), ResolveServices<TService>,DateTimeOffset.Now)
+                .GetOrSet(GetCacheKey<TService>(), ResolveServices<TService>, DateTimeOffset.Now)
                 .Single(s => s.ActivityType.Id == typeId);
         }
 
-        private IEnumerable<TService> ResolveServices<TService>() where TService : ITypedService
+        private IEnumerable<TService> ResolveServices<TService>() where TService : class, ITypedService
         {
             var serviceType = typeof(TService);
-             return AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .Where(t => serviceType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
-                .Select(CreateInstance<TService>);
+            return AppDomain
+               .CurrentDomain
+               .GetAssemblies()
+               .SelectMany(a => a.GetTypes())
+               .Where(t => serviceType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract)
+               .Select(GetInstance<TService>);
+        }
+
+        private TService GetInstance<TService>(Type type) where TService : class
+        {
+            return _cache.GetOrSet(
+                        GetCacheKey(type),
+                        () => CreateInstance<TService>(type),
+                        CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
         private TService CreateInstance<TService>(Type type)
         {
-            var dependencies = type
-                .GetConstructors()
+            var dependencies =
+                type.GetConstructors()
                 .FirstOrDefault()?
                 .GetParameters()
                 .Select(p => _kernel.GetService(p.ParameterType))
                 .ToArray();
 
-            return (TService) Activator.CreateInstance(type, dependencies);
+            return (TService)Activator.CreateInstance(type, dependencies);
         }
 
         private string GetCacheKey<TService>() => typeof(TService).Name;
+        private string GetCacheKey(Type t) => t.Name;
     }
 }
