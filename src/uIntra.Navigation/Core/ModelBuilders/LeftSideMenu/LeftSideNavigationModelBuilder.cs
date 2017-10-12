@@ -112,7 +112,7 @@ namespace uIntra.Navigation
 
             foreach (var child in children)
             {
-                var isHeading = IsHeading(child);
+                var isHeading = child.IsHeading();
 
                 var newMenuItem = new MenuItemModel
                 {
@@ -144,9 +144,5 @@ namespace uIntra.Navigation
             }
         }
 
-        protected virtual bool IsHeading(IPublishedContent publishedContent)
-        {
-            return publishedContent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHeading());
-        }
     }
 }

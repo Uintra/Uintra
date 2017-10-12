@@ -31,6 +31,7 @@
     </aside>
     <main id="main">
         @*@{Html.RenderAction("Login", "Login");}*@
+        @{ Html.RenderAction("Breadcrumbs", "Navigation"); }
         @{Html.RenderAction("SubNavigation", "Navigation");}
         @RenderBody()
     </main>

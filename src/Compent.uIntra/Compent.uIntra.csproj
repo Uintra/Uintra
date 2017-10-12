@@ -1017,6 +1017,7 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Comments\package.manifest" />
+    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1156,7 +1157,6 @@
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
-    <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
@@ -1344,6 +1344,7 @@
     <Folder Include="App_Plugins\Search\Controls\" />
     <Folder Include="App_Plugins\Search\Result\" />
     <Folder Include="Content\scripts\" />
+    <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">

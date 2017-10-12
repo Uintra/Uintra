@@ -12,6 +12,7 @@ namespace uIntra.Navigation.Web
         protected virtual string SubNavigationViewPath { get; } = "~/App_Plugins/Navigation/SubNavigation/View/Navigation.cshtml";
         protected virtual string TopNavigationViewPath { get; } = "~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml";
         protected virtual string SystemLinksViewPath { get; } = "~/App_Plugins/Navigation/SystemLinks/View/SystemLinks.cshtml";
+        protected virtual string BreadcrumbsViewPath { get; } = "~/App_Plugins/Navigation/Breadcrumbs.cshtml";
         protected virtual string SystemLinkTitleNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkSortOrderNodePropertyAlias { get; } = string.Empty;
@@ -66,6 +67,28 @@ namespace uIntra.Navigation.Web
             var result = systemLinks.Map<List<SystemLinksViewModel>>();
 
             return PartialView(SystemLinksViewPath, result);
+        }
+
+        public virtual ActionResult Breadcrumbs()
+        {
+            var result = new List<BreadcrumbItemViewModel>();
+            var currentPage = CurrentPage;
+            while (currentPage != null)
+            {
+                if (!currentPage.GetHideInNavigation() && !currentPage.IsHeading())
+                {
+                    result.Add(new BreadcrumbItemViewModel
+                    {
+                        Name = currentPage.GetNavigationName(),
+                        Url = currentPage.Url,
+                        IsClickable = CurrentPage.Url != currentPage.Url
+                    });
+                    
+                }
+                currentPage = currentPage.Parent;
+            }
+            result.Reverse();
+            return PartialView(BreadcrumbsViewPath, result);
         }
     }
 }

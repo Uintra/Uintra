@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
+using uIntra.Navigation.Constants;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Installer;
 using Umbraco.Core;

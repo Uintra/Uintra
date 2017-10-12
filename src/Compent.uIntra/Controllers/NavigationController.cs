@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Users;
 using uIntra.CentralFeed;
 using uIntra.Core;
