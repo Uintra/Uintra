@@ -16,8 +16,8 @@ namespace uIntra.Navigation
         public LeftSideNavigationModelBuilder(
             HttpContext httpContext,
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider
-            ) : base(umbracoHelper, navigationConfigurationProvider)
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider)
+            : base(umbracoHelper, navigationConfigurationProvider)
         {
             _httpContext = httpContext;
         }
@@ -47,6 +47,12 @@ namespace uIntra.Navigation
         {
             var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsHideFromLeftNavigation.Alias);
             return result ?? NavigationConfiguration.IsHideFromLeftNavigation.DefaultValue;
+        }
+
+        protected override bool IsShowInHomeNavigation(IPublishedContent publishedContent)
+        {
+            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInHomeNavigation.Alias);
+            return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
         }
 
         private MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
@@ -90,13 +96,7 @@ namespace uIntra.Navigation
             return result;
         }
 
-        private bool IsShowInHomeNavigation(IPublishedContent publishedContent)
-        {
-            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInHomeNavigation.Alias);
-            return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
-        }
-
-        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, List<int> excludeContentIds)
+        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, IList<int> excludeContentIds)
         {
             if (!parent.Children.Any())
             {
@@ -108,16 +108,16 @@ namespace uIntra.Navigation
 
             foreach (var child in children)
             {
-                var newmenuItem = new MenuItemModel
+                var newMenuItem = new MenuItemModel
                 {
                     Id = child.Id,
-                    Name = base.GetNavigationName(child),
+                    Name = GetNavigationName(child),
                     Url = child.Url,
                     Children = BuildLeftMenuTree(child, excludeContentIds).ToList(),
                     IsActive = child.IsAncestorOrSelf(CurrentPage)
                 };
 
-                yield return newmenuItem;
+                yield return newMenuItem;
             }
         }
 

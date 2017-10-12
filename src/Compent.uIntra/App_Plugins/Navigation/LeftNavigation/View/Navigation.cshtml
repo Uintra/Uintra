@@ -1,5 +1,6 @@
 ﻿@using uIntra.Navigation
 @model uIntra.Navigation.MenuViewModel
+
 @RenderTreeRecursive(Model.MenuItems)
 
 @helper RenderTreeRecursive(IEnumerable<MenuItemViewModel> tree)
