@@ -110,23 +110,20 @@ namespace uIntra.Core.Extentions
 
         public static Guid GetGuidKey(this IPublishedContent content)
         {
-            var contentWithKey = content as IPublishedContentWithKey;
-            if (contentWithKey != null)
+            Guid result;
+            switch (content)
             {
-                return contentWithKey.Key;
+                case IPublishedContentWithKey contentWithKey:
+                    result = contentWithKey.Key;
+                    break;
+                case PublishedContentWrapped wrapped when wrapped.Unwrap() is IPublishedContentWithKey contentWithKey:
+                    result = contentWithKey.Key;
+                    break;
+                default:
+                    result = default;
+                    break;
             }
-
-            var wrapped = content as PublishedContentWrapped;
-            if (wrapped != null)
-            {
-                contentWithKey = wrapped.Unwrap() as IPublishedContentWithKey;
-                if (contentWithKey != null)
-                {
-                    return contentWithKey.Key;
-                }
-            }
-
-            return Guid.Empty;
+            return result;
         }
     }
 }
