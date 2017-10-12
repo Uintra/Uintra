@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Compent.uIntra.Core.Constants;
 using Newtonsoft.Json.Linq;
+using uIntra.Core.Constants;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.UmbracoEventServices;
@@ -12,7 +13,6 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static uIntra.Core.Constants.GridEditorConstants;
 
 namespace Compent.uIntra.Core
 {
@@ -69,7 +69,7 @@ namespace Compent.uIntra.Core
         private static bool ContainsGlobalPanel(IPublishedContent content, IContent globalPanel)
         {
             return gridHelper
-                    .GetValues(content, GlobalPanelPickerAlias)
+                    .GetValues(content, GridEditorConstants.GlobalPanelPickerAlias)
                     .Any(t => ContainsGlobalPanel(t.value, globalPanel));
         }
 

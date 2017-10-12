@@ -17,7 +17,12 @@ namespace uIntra.Bulletins
             }
 
             applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, sortOrder: 1);
-            applicationContext.Services.UserService.AddSectionToAllUsers(Alias);
+
+            var userGroups = applicationContext.Services.UserService.GetAllUserGroups();
+            foreach (var userGroup in userGroups)
+            {
+                userGroup.AddAllowedSection(Alias);
+            }
         }
     }
 }
