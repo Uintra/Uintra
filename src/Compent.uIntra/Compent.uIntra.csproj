@@ -770,6 +770,11 @@
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
     <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="App_Plugins\Groups\groups.css" />
+    <Content Include="App_Plugins\Groups\groups.js" />
+    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
+    <Content Include="App_Plugins\Groups\List\group-list.html" />
+    <Content Include="App_Plugins\Groups\List\group-list.js" />
     <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
@@ -1023,6 +1028,10 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Comments\package.manifest" />
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\package.manifest" />
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
+    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1343,7 +1352,6 @@
     <Folder Include="App_Plugins\Groups\Create\" />
     <Folder Include="App_Plugins\Groups\DisabledGroupView\" />
     <Folder Include="App_Plugins\Groups\Edit\" />
-    <Folder Include="App_Plugins\Groups\List\" />
     <Folder Include="App_Plugins\Groups\Room\Documents\" />
     <Folder Include="App_Plugins\Groups\Room\Info\" />
     <Folder Include="App_Plugins\Groups\Room\Members\" />
