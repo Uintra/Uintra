@@ -128,8 +128,10 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
-            var values = _gridHelper.GetValues(content, gridPluginAlias);
-            var value = values.FirstOrDefault(v => v.tabType != null);
+            var value = _gridHelper
+                .GetValues(content, gridPluginAlias)
+                .FirstOrDefault(t => t.value != null)
+                .value;
 
             if (value == null)
                 return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
