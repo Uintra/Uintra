@@ -6,7 +6,7 @@ namespace uIntra.Core
     {
         string GetNavigationComposition();
         string GetContentPage();
-        string GetHeadingPage();
+        string GetHeading();
         string GetSearchResultPage();
         string GetProfilePage();
         string GetProfileEditPage();

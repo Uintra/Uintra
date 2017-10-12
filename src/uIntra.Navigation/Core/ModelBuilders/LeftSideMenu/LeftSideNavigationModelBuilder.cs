@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using uIntra.Core;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Navigation.Configuration;
@@ -12,14 +13,17 @@ namespace uIntra.Navigation
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {
         private readonly HttpContext _httpContext;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public LeftSideNavigationModelBuilder(
             HttpContext httpContext,
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider)
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _httpContext = httpContext;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public override MenuModel GetMenu()
@@ -55,7 +59,7 @@ namespace uIntra.Navigation
             return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
         }
 
-        protected MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
+        protected virtual MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
         {
             var result = new MenuItemModel
             {
@@ -70,7 +74,7 @@ namespace uIntra.Navigation
             return result;
         }
 
-        protected IPublishedContent GetHomePage()
+        protected virtual IPublishedContent GetHomePage()
         {
             var homePage = CurrentPage.AncestorOrSelf(NavigationConfiguration.HomePageAlias);
             if (homePage == null)
@@ -81,7 +85,7 @@ namespace uIntra.Navigation
             return homePage;
         }
 
-        protected IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
+        protected virtual IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
         {
             var result = GetAvailableContent(homePage.Children())
                 .Where(IsShowInHomeNavigation)
@@ -96,7 +100,7 @@ namespace uIntra.Navigation
             return result;
         }
 
-        protected IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, IList<int> excludeContentIds)
+        protected virtual IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, IList<int> excludeContentIds)
         {
             if (!parent.Children.Any())
             {
@@ -108,25 +112,28 @@ namespace uIntra.Navigation
 
             foreach (var child in children)
             {
+                var isHeading = IsHeading(child);
+
                 var newMenuItem = new MenuItemModel
                 {
                     Id = child.Id,
                     Name = GetNavigationName(child),
-                    Url = child.Url,
-                    Children = BuildLeftMenuTree(child, excludeContentIds).ToList(),
-                    IsActive = child.IsAncestorOrSelf(CurrentPage)
+                    Url = isHeading ? string.Empty : child.Url,
+                    IsActive = child.IsAncestorOrSelf(CurrentPage),
+                    IsHeading = isHeading,
+                    Children = BuildLeftMenuTree(child, excludeContentIds).ToList()
                 };
 
                 yield return newMenuItem;
             }
         }
 
-        protected void FillClickable(List<MenuItemModel> resultMenuItems)
+        protected virtual void FillClickable(List<MenuItemModel> resultMenuItems)
         {
             var activeItem = resultMenuItems.Find(item => item.IsActive);
             if (activeItem != null)
             {
-                activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/');
+                activeItem.IsClickable = !activeItem.IsHeading && (_httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/'));
                 return;
             }
 
@@ -135,6 +142,11 @@ namespace uIntra.Navigation
             {
                 FillClickable(children);
             }
+        }
+
+        protected virtual bool IsHeading(IPublishedContent publishedContent)
+        {
+            return publishedContent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHeading());
         }
     }
 }
