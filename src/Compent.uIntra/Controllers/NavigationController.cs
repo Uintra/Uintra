@@ -8,13 +8,13 @@ using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Groups;
+using uIntra.Groups.Extentions;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {
@@ -47,9 +47,8 @@ namespace Compent.uIntra.Controllers
             IGroupHelper groupHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             IGroupLinkProvider groupLinkProvider,
-            IGroupContentHelper groupContentHelper) :
-            base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
-
+            IGroupContentHelper groupContentHelper)
+            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
         {
             _centralFeedContentHelper = centralFeedContentHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
@@ -78,10 +77,28 @@ namespace Compent.uIntra.Controllers
             {
                 Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
                 Parent = IsHomePage(CurrentPage.Parent) ? null : MapSubNavigationItem(CurrentPage.Parent),
-                Title = CurrentPage.GetNavigationName()
+                Title = CurrentPage.GetNavigationName(),
+                IsTitleHidden = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage()
             };
 
             return PartialView(SubNavigationViewPath, model);
+        }
+
+        public ContentResult GetTitle()
+        {
+            var currentPage = CurrentPage;
+            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+            var result = isPageHasNavigation ? currentPage.GetNavigationName() : currentPage.Name;
+
+            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
+            {
+                currentPage = currentPage.Parent;
+                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+
+                result = isPageHasNavigation ? $"{currentPage.GetNavigationName()} - {result}" : $"{currentPage.Name} - {result}";
+            }
+
+            return Content($" - {result}");
         }
 
         private ActionResult RenderGroupNavigation()
@@ -120,23 +137,6 @@ namespace Compent.uIntra.Controllers
         private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
         {
             return tab.Id == editPage.Id;
-        }
-
-        public ContentResult GetTitle()
-        {
-            var currentPage = CurrentPage;
-            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-            var result = isPageHasNavigation ? currentPage.GetNavigationName() : currentPage.Name;
-
-            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
-            {
-                currentPage = currentPage.Parent;
-                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-
-                result = isPageHasNavigation ? $"{currentPage.GetNavigationName()} - {result}" : $"{currentPage.Name} - {result}";
-            }
-
-            return Content($" - {result}");
         }
 
         private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent content)

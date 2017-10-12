@@ -6,13 +6,10 @@ namespace uIntra.Navigation
     {
         public string Title { get; set; }
 
-        public List<MenuItemViewModel> Items { get; set; }
+        public bool IsTitleHidden { get; set; }
+
+        public List<MenuItemViewModel> Items { get; set; } = new List<MenuItemViewModel>();
 
         public MenuItemViewModel Parent { get; set; }
-
-        public SubNavigationMenuViewModel()
-        {
-            Items = new List<MenuItemViewModel>();
-        }
     }
 }

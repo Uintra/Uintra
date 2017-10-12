@@ -146,7 +146,7 @@ namespace uIntra.Navigation
 
         protected virtual bool IsHeading(IPublishedContent publishedContent)
         {
-            return publishedContent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHeading());
+            return publishedContent.DocumentTypeAlias == _documentTypeAliasProvider.GetHeading();
         }
     }
 }

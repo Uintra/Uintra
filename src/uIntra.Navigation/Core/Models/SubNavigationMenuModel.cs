@@ -7,13 +7,10 @@ namespace uIntra.Navigation
     {
         public string Title { get; set; }
 
-        public IEnumerable<MenuItemModel> Items { get; set; }
+        public bool IsTitleHidden { get; set; }
+
+        public IEnumerable<MenuItemModel> Items { get; set; } = Enumerable.Empty<MenuItemModel>();
 
         public MenuItemModel Parent { get; set; }
-
-        public SubNavigationMenuModel()
-        {
-            Items = Enumerable.Empty<MenuItemModel>();
-        }
     }
 }
