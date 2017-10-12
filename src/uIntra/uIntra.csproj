@@ -1187,9 +1187,6 @@
     <Compile Include="..\Compent.uIntra\Core\Navigation\TopMenuViewModel.cs">
       <Link>Core\Navigation\TopMenuViewModel</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Core\Navigation\uIntraLeftSideNavigationModelBuilder.cs">
-      <Link>Core\Navigation\uIntraLeftSideNavigationModelBuilder</Link>
-    </Compile>
     <Compile Include="..\Compent.uIntra\Core\News\Entities\News.cs">
       <Link>Core\News\Entities\News</Link>
     </Compile>

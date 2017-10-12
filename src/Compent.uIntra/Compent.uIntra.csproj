@@ -1201,7 +1201,6 @@
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />
-    <Compile Include="Core\Navigation\UintraLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\NewsService.cs" />
