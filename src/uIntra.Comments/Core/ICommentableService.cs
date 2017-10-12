@@ -1,8 +1,9 @@
 ﻿using System;
+using uIntra.Core.Activity;
 
 namespace uIntra.Comments
 {
-    public interface ICommentableService
+    public interface ICommentableService : ITypedService
     {
         Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId);
 

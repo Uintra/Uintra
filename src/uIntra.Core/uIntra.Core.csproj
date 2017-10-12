@@ -339,6 +339,7 @@
     <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\ITypedService.cs" />
     <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Core\Constants\GridEditorConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\EditorConfigProvider.cs" />

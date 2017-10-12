@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
@@ -16,9 +15,8 @@ namespace uIntra.Core.Activity
     }
 
 
-    public interface IIntranetActivityService
+    public interface IIntranetActivityService : ITypedService
     {
-        IIntranetType ActivityType { get; }
         void Delete(Guid id);
         bool CanEdit(Guid id);
     }

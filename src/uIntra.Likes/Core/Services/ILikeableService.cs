@@ -1,8 +1,9 @@
 ﻿using System;
+using uIntra.Core.Activity;
 
 namespace uIntra.Likes
 {
-    public interface ILikeableService
+    public interface ILikeableService : ITypedService
     {
         ILikeable AddLike(Guid userId, Guid activityId);
 
