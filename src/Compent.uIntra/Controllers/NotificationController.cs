@@ -12,10 +12,10 @@ namespace Compent.uIntra.Controllers
         public NotificationController(
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            INotificationHelper notificationHelper,
+            INotificationContentProvider notificationContentProvider,
             IIntranetUserContentHelper intranetUserContentHelper,
             IProfileLinkProvider profileLinkProvider)
-            : base(uiNotifierService, intranetUserService, notificationHelper, profileLinkProvider)
+            : base(uiNotifierService, intranetUserService, notificationContentProvider, profileLinkProvider)
         {
         }
     }

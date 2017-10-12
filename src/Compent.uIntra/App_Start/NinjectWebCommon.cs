@@ -260,7 +260,7 @@ namespace Compent.uIntra
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/notificationConfiguration.json");
             kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
-            kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
+            kernel.Bind<INotificationContentProvider>().To<NotificationContentProvider>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
             kernel.Bind<INotifierService>().To<MailNotifierService>().InRequestScope();
             kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();

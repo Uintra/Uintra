@@ -345,7 +345,7 @@
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />
-    <Compile Include="Core\Services\INotificationHelper.cs" />
+    <Compile Include="Core\Services\INotificationContentProvider.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
     <Compile Include="Core\Services\INotifierService.cs" />

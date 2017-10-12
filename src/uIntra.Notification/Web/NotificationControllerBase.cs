@@ -21,19 +21,19 @@ namespace uIntra.Notification.Web
 
         private readonly IUiNotifierService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly INotificationHelper _notificationHelper;
+        private readonly INotificationContentProvider _notificationContentProvider;
         private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected NotificationControllerBase(
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            INotificationHelper notificationHelper,
+            INotificationContentProvider notificationContentProvider,
             IProfileLinkProvider profileLinkProvider)
 
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
-            _notificationHelper = notificationHelper;
+            _notificationContentProvider = notificationContentProvider;
             _profileLinkProvider = profileLinkProvider;
         }
 
@@ -82,7 +82,7 @@ namespace uIntra.Notification.Web
         public virtual PartialViewResult List()
         {
             int totalCount;
-            var notificationListPage = _notificationHelper.GetNotificationListPage();
+            var notificationListPage = _notificationContentProvider.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
             var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount).ToList();
 
@@ -118,7 +118,7 @@ namespace uIntra.Notification.Web
         {
             var result = new NotificationPreviewViewModel
             {
-                NotificationsUrl = _notificationHelper.GetNotificationListPage().Url
+                NotificationsUrl = _notificationContentProvider.GetNotificationListPage().Url
             };
 
             return PartialView(PreviewViewPath, result);
