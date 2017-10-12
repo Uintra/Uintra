@@ -111,8 +111,7 @@ namespace Compent.uIntra.Installer
 
         private void AddDefaultBackofficeSectionsToAdmin()
         {
-            var userService = ApplicationContext.Current.Services.UserService;
-            var userGroups = userService.GetAllUserGroups();
+            var userGroups = ApplicationContext.Current.Services.UserService.GetAllUserGroups();
 
             foreach (var userGroup in userGroups)
             {
