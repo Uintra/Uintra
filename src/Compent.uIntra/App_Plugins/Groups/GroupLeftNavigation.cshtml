@@ -1,9 +1,9 @@
 ﻿@using uIntra.Core.Extentions
 @model  List<uIntra.Groups.GroupLeftNavigationItemViewModel>
 
-    <ul class="side-nav" id="groupsContainer">
+    <ul class="side-nav _groups" id="groupsContainer">
         <li class="side-nav__item" data-id="">
-            <a class="side-nav__link _title-link"><span class="icon-link side-nav__icon"></span> @Html.Localize("Groups.Menu.lbl") <span class="side-nav__arrow js-systemLinks__opener"></span></a>
+            <a class="side-nav__link _title-link"><span class="icon-groups side-nav__icon"></span> @Html.Localize("Groups.Menu.lbl") <span class="side-nav__arrow js-systemLinks__opener"></span></a>
             @foreach (var link in Model)
             {
                 <ul class="side-nav">
