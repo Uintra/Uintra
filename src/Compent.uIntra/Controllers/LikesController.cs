@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Likes;
 using uIntra.Likes.Web;
@@ -15,6 +17,7 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
+        private readonly ILikesService _likesService;
 
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,
@@ -32,7 +35,10 @@ namespace Compent.uIntra.Controllers
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
             var like = base.AddLike(model);
-
+            if (IsForContentPage(model))
+            {
+                return like;
+            }
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
@@ -47,7 +53,6 @@ namespace Compent.uIntra.Controllers
                     notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }
-
             return like;
         }
     }

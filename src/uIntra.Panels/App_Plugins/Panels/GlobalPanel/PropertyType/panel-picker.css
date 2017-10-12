@@ -21,6 +21,7 @@
             margin-top: 30px;
             display: block;
             font-size: 40px;
+            line-height: 40px;
         }
 
         .panel-picker .editors-holder .editor .name {
