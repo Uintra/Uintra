@@ -112,12 +112,16 @@ namespace Compent.uIntra.Installer
         private void AddDefaultBackofficeSectionsToAdmin()
         {
             var userService = ApplicationContext.Current.Services.UserService;
+            var userGroups = userService.GetAllUserGroups();
 
-            userService.AddSectionToAllUsers("news", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
-            userService.AddSectionToAllUsers("events", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
-            userService.AddSectionToAllUsers("bulletins", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
-            userService.AddSectionToAllUsers("SentMails", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
-            userService.AddSectionToAllUsers("Localization", UsersInstallationConstants.DefaultMember.UmbracoAdminUserId);
+            foreach (var userGroup in userGroups)
+            {
+                userGroup.AddAllowedSection("news");
+                userGroup.AddAllowedSection("events");
+                userGroup.AddAllowedSection("bulletins");
+                userGroup.AddAllowedSection("SentMails");
+                userGroup.AddAllowedSection("Localization");
+            }
         }
     }
 }
