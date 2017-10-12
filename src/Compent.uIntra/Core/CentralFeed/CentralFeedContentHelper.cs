@@ -16,7 +16,6 @@ namespace Compent.uIntra.Core.CentralFeed
     public class CentralFeedContentHelper : FeedContentHelperBase, ICentralFeedContentHelper
     {
         private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly ICentralFeedService _centralFeedService;
 
         private readonly ICookieProvider _cookieProvider;
@@ -24,38 +23,32 @@ namespace Compent.uIntra.Core.CentralFeed
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
+        private readonly ICentralFeedContentProvider _contentProvider;
 
         public CentralFeedContentHelper(
-            UmbracoHelper umbracoHelper,
             ICentralFeedService centralFeedService,
-            IGridHelper gridHelper,
             ICookieProvider cookieProvider,
             IActivityTypeProvider activityTypeProvider,
-            IFeedTypeProvider feedTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            ICentralFeedLinkService centralFeedLinkService)
+            ICentralFeedLinkService centralFeedLinkService,
+            ICentralFeedContentProvider contentProvider)
         {
-            _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
             _cookieProvider = cookieProvider;
             _activityTypeProvider = activityTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _centralFeedLinkService = centralFeedLinkService;
-        }
-
-        public IPublishedContent GetOverviewPage()
-        {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage()));
+            _contentProvider = contentProvider;
         }
 
         public bool IsCentralFeedPage(IPublishedContent currentPage)
         {
-            return GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c.IsAncestorOrSelf(currentPage));
+            return _contentProvider.GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c.IsAncestorOrSelf(currentPage));
         }
 
         public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
         {
-            var overviewPage = GetOverviewPage();
+            var overviewPage = _contentProvider.GetOverviewPage();
             var type = GetCentralFeedTabType(overviewPage);
             yield return new ActivityFeedTabModel
             {
@@ -129,7 +122,7 @@ namespace Compent.uIntra.Core.CentralFeed
             var activityTypes = _activityTypeProvider.GetAll();
             var activitiesList = activityTypes.Select(_documentTypeAliasProvider.GetOverviewPage).ToArray();
 
-            return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activitiesList));
+            return _contentProvider.GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activitiesList));
         }
 
         private FeedFiltersState GetDefaultCentralFeedFiltersState()
