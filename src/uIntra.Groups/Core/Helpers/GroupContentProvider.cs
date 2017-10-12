@@ -6,16 +6,16 @@ using Umbraco.Web;
 
 namespace uIntra.Groups
 {
-    public class GroupContentProvider : IGroupContentProvider
+    public class GroupContentProvider : ContentProviderBase, IGroupContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly UmbracoHelper _umbracoHelper;
+
         private readonly IEnumerable<string> _overviewXPath;
 
-        public GroupContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
+        public GroupContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper) 
+            : base(umbracoHelper)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _umbracoHelper = umbracoHelper;
 
             _overviewXPath = new[] { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage() };
         }
@@ -23,39 +23,36 @@ namespace uIntra.Groups
         public IPublishedContent GetGroupRoomPage() => 
             _documentTypeAliasProvider.GetGroupRoomPage()
                 .Map(_overviewXPath.Append)
-                .Map(GetPage);
+                .Map(GetContent);
 
         public IPublishedContent GetCreateGroupPage() =>
             _documentTypeAliasProvider.GetGroupCreatePage()
                 .Map(_overviewXPath.Append)
-                .Map(GetPage);
+                .Map(GetContent);
 
         public IPublishedContent GetOverviewPage() => 
-            GetPage(_overviewXPath);
+            GetContent(_overviewXPath);
 
         public IPublishedContent GetEditPage() =>
             _documentTypeAliasProvider.GetGroupEditPage()
                 .Map(GetAtGroupRoomXPath)
-                .Map(GetPage);
+                .Map(GetContent);
 
         public IPublishedContent GetMyGroupsOverviewPage() => 
             _documentTypeAliasProvider
                 .GetGroupMyGroupsOverviewPage()
                 .Map(GetAtGroupRoomXPath)
-                .Map(GetPage);
+                .Map(GetContent);
 
         public IPublishedContent GetDeactivatedGroupPage() => 
             _documentTypeAliasProvider
                 .GetGroupDeactivatedPage()
                 .Map(GetAtGroupRoomXPath)
-                .Map(GetPage);
+                .Map(GetContent);
 
         private IEnumerable<string> GetAtGroupRoomXPath(string pageAlias) => 
             _overviewXPath
                 .Append(_documentTypeAliasProvider.GetGroupRoomPage())
                 .Append(pageAlias);
-
-        private IPublishedContent GetPage(IEnumerable<string> xPath) => 
-            _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(xPath));
     }
 }
