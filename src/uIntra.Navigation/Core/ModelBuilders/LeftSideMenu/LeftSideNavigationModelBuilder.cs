@@ -55,7 +55,7 @@ namespace uIntra.Navigation
             return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
         }
 
-        private MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
+        protected MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
         {
             var result = new MenuItemModel
             {
@@ -70,7 +70,7 @@ namespace uIntra.Navigation
             return result;
         }
 
-        private IPublishedContent GetHomePage()
+        protected IPublishedContent GetHomePage()
         {
             var homePage = CurrentPage.AncestorOrSelf(NavigationConfiguration.HomePageAlias);
             if (homePage == null)
@@ -81,7 +81,7 @@ namespace uIntra.Navigation
             return homePage;
         }
 
-        private IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
+        protected IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
         {
             var result = GetAvailableContent(homePage.Children())
                 .Where(IsShowInHomeNavigation)
@@ -96,7 +96,7 @@ namespace uIntra.Navigation
             return result;
         }
 
-        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, IList<int> excludeContentIds)
+        protected IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, IList<int> excludeContentIds)
         {
             if (!parent.Children.Any())
             {
@@ -121,7 +121,7 @@ namespace uIntra.Navigation
             }
         }
 
-        private void FillClickable(List<MenuItemModel> resultMenuItems)
+        protected void FillClickable(List<MenuItemModel> resultMenuItems)
         {
             var activeItem = resultMenuItems.Find(item => item.IsActive);
             if (activeItem != null)
