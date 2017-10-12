@@ -6,13 +6,13 @@ using Umbraco.Web;
 
 namespace uIntra.Groups
 {
-    public class GroupContentHelper : IGroupContentHelper
+    public class GroupContentProvider : IGroupContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IEnumerable<string> _overviewXPath;
 
-        public GroupContentHelper(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
+        public GroupContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _umbracoHelper = umbracoHelper;

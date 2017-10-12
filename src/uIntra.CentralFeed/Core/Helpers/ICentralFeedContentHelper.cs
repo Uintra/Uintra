@@ -6,8 +6,6 @@ namespace uIntra.CentralFeed
 {
     public interface ICentralFeedContentHelper : IFeedContentHelper
     {
-        IPublishedContent GetOverviewPage();
-
         bool IsCentralFeedPage(IPublishedContent currentPage);
 
         IIntranetType GetCentralFeedTabType(IPublishedContent content);

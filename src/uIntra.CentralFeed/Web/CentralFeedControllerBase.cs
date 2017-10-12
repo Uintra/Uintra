@@ -56,7 +56,7 @@ namespace uIntra.CentralFeed.Web
         }
 
         [HttpGet]
-        public ActionResult Create()//(int typeId) // TODO: dont do redundant grid parsing, send data from grid
+        public ActionResult Create()
         {
             var activityType = _centralFeedContentHelper.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType);

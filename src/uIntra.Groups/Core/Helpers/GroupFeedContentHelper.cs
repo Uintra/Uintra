@@ -19,20 +19,20 @@ namespace uIntra.Groups
         private readonly IGridHelper _gridHelper;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IFeedTypeProvider _feedTypeProvider;
-        private readonly IGroupContentHelper _contentHelper;
+        private readonly IGroupContentProvider _contentProvider;
 
         public GroupFeedContentHelper(
             IGroupService groupService,
             IGridHelper gridHelper,
             IGroupFeedLinkService groupFeedLinkService,
             IFeedTypeProvider feedTypeProvider,
-            IGroupContentHelper contentHelper)
+            IGroupContentProvider contentProvider)
         {
             _groupService = groupService;
             _gridHelper = gridHelper;
             _groupFeedLinkService = groupFeedLinkService;
             _feedTypeProvider = feedTypeProvider;
-            _contentHelper = contentHelper;
+            _contentProvider = contentProvider;
         }
 
         public override IIntranetType GetCreateActivityType(IPublishedContent content)
@@ -42,17 +42,17 @@ namespace uIntra.Groups
 
         public bool IsGroupPage(IPublishedContent currentPage)
         {
-            return _contentHelper.GetOverviewPage().IsAncestorOrSelf(currentPage);
+            return _contentProvider.GetOverviewPage().IsAncestorOrSelf(currentPage);
         }
 
         public bool IsGroupRoomPage(IPublishedContent currentPage)
         {
-            return _contentHelper.GetGroupRoomPage().IsAncestorOrSelf(currentPage);
+            return _contentProvider.GetGroupRoomPage().IsAncestorOrSelf(currentPage);
         }
 
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
         {
-            var groupRoom = _contentHelper.GetGroupRoomPage();
+            var groupRoom = _contentProvider.GetGroupRoomPage();
             var type = GetGroupFeedTabType(groupRoom);
             var result = new ActivityFeedTabModel
             {
@@ -105,9 +105,9 @@ namespace uIntra.Groups
         private Func<IPublishedContent, bool> GetPageSkipResolver(IIntranetUser user, Guid groupId)
         {
             var canEdit = _groupService.CanEdit(groupId, user);
-            var editGroupPage = _contentHelper.GetEditPage();
+            var editGroupPage = _contentProvider.GetEditPage();
 
-            var deactivatedPage = _contentHelper.GetDeactivatedGroupPage();
+            var deactivatedPage = _contentProvider.GetDeactivatedGroupPage();
 
             bool SkipPage(IPublishedContent content) => !canEdit && AreSamePages(editGroupPage, content) || AreSamePages(deactivatedPage, content);
             return SkipPage;
@@ -131,7 +131,7 @@ namespace uIntra.Groups
 
         private IEnumerable<IPublishedContent> GetContent()
         {
-            return _contentHelper.GetGroupRoomPage().Children;
+            return _contentProvider.GetGroupRoomPage().Children;
         }
 
 

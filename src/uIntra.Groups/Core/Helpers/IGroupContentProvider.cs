@@ -2,7 +2,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Groups
 {
-    public interface IGroupContentHelper
+    public interface IGroupContentProvider
     {
         IPublishedContent GetMyGroupsOverviewPage();
         IPublishedContent GetDeactivatedGroupPage();

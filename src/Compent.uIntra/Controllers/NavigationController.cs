@@ -34,7 +34,7 @@ namespace Compent.uIntra.Controllers
         private readonly IGroupFeedContentHelper _groupFeedContentHelper;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupContentProvider _groupContentProvider;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -47,7 +47,7 @@ namespace Compent.uIntra.Controllers
             IGroupFeedContentHelper groupFeedContentHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             IGroupLinkProvider groupLinkProvider,
-            IGroupContentHelper groupContentHelper) :
+            IGroupContentProvider groupContentProvider) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
@@ -57,7 +57,7 @@ namespace Compent.uIntra.Controllers
             _groupFeedContentHelper = groupFeedContentHelper;
             _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
-            _groupContentHelper = groupContentHelper;
+            _groupContentProvider = groupContentProvider;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
@@ -100,7 +100,7 @@ namespace Compent.uIntra.Controllers
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();
-                var groupEditPage = _groupContentHelper.GetEditPage();
+                var groupEditPage = _groupContentProvider.GetEditPage();
                 groupNavigationModel.PageTabs = _groupFeedContentHelper
                     .GetPageTabs(CurrentPage, currentUser, groupId.Value)
                     .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
