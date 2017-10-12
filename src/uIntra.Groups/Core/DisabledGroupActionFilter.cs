@@ -19,13 +19,10 @@ namespace uIntra.Groups
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (IsGroupPage(filterContext, out Guid groupId))
+            if (IsGroupPage(filterContext) is Guid groupId && IsGroupHidden(filterContext, groupId))
             {
-                if (IsGroupHidden(filterContext, groupId))
-                {
-                    var deactivatedGroupLink = _groupLinkProvider.GetDeactivatedGroupLink(groupId);
-                    filterContext.HttpContext.Response.Redirect(deactivatedGroupLink);
-                }
+                var deactivatedGroupLink = _groupLinkProvider.GetDeactivatedGroupLink(groupId);
+                filterContext.HttpContext.Response.Redirect(deactivatedGroupLink);
             }
         }
 
@@ -42,10 +39,12 @@ namespace uIntra.Groups
             return group.IsHidden;
         }
 
-        private bool IsGroupPage(ActionExecutingContext filterContext, out Guid groupId)
+        private Guid? IsGroupPage(ActionExecutingContext filterContext)
         {
             var groupIdValue = filterContext.HttpContext.Request.QueryString.Get(GroupConstants.GroupIdQueryParam);
-            return Guid.TryParse(groupIdValue, out groupId);
+            return Guid.TryParse(groupIdValue, out var groupId)
+                ? groupId
+                : default(Guid?);
         }
     }
 }

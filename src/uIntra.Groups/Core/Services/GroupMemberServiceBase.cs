@@ -9,9 +9,9 @@ namespace uIntra.Groups
 {
     public abstract class GroupMemberServiceBase : IGroupMemberService
     {
-        private readonly ISqlRepository<GroupMemberEntity> _groupMemberRepository;
+        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
 
-        protected GroupMemberServiceBase(ISqlRepository<GroupMemberEntity> groupMemberRepository)
+        protected GroupMemberServiceBase(ISqlRepository<GroupMember> groupMemberRepository)
         {
             _groupMemberRepository = groupMemberRepository;
         }
@@ -20,9 +20,9 @@ namespace uIntra.Groups
 
         public abstract void AddMany(Guid groupId, IEnumerable<Guid> memberIds);
 
-        protected GroupMemberEntity GetNewGroupMember(Guid groupId, Guid memberId)
+        protected GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
         {
-            return new GroupMemberEntity
+            return new GroupMember
             {
                 Id = Guid.NewGuid(),
                 MemberId = memberId,

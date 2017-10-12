@@ -1,11 +1,12 @@
 ﻿@using System.Web.Mvc.Html
 @using Umbraco.Web
+@using uIntra.Core.Constants
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<dynamic>
 
 @{
     int panelId = Model.value.id;
     var panel = Umbraco.TypedContent(panelId);
-    var model = panel != null ? panel.GetPropertyValue("panelConfig") as dynamic : null;
+    var model = panel != null ? panel.GetPropertyValue(GridEditorConstants.PanelConfigPropertyAlias) as dynamic : null;
     var editor = model?.editor;
     string renderer = editor?.render;
 }

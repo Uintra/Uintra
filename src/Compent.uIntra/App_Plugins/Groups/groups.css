@@ -500,3 +500,9 @@
         }
     }
 }
+
+.side-nav{
+    &._groups{
+        padding-top:9px;
+    }
+}

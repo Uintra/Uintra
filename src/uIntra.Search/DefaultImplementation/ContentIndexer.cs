@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using System;
+using uIntra.Core.Grid;
+using Umbraco.Core.Services;
+using static uIntra.Core.Constants.GridEditorConstants;
 
 namespace uIntra.Search
 {
@@ -15,17 +16,20 @@ namespace uIntra.Search
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IElasticContentIndex _contentIndex;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGridHelper _gridHelper;
 
         public ContentIndexer(
             UmbracoHelper umbracoHelper,
             ISearchUmbracoHelper searchUmbracoHelper,
             IElasticContentIndex contentIndex,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IGridHelper gridHelper)
         {
             _umbracoHelper = umbracoHelper;
             _searchUmbracoHelper = searchUmbracoHelper;
             _contentIndex = contentIndex;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _gridHelper = gridHelper;
         }
 
         public void FillIndex()
@@ -62,12 +66,7 @@ namespace uIntra.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-            dynamic grid = GetGrid(publishedContent);
-
-            // We cant use pretty 2k17 syntax cause few of us use VS2015
-            Tuple<List<string>, List<string>> result = ParseTitlesAndContent(grid);
-            var titles = result.Item1;
-            var content = result.Item2;
+           (List<string> content, List<string> titles) =  ParseContentPanels(publishedContent);
 
             return new SearchableContent
             {
@@ -80,51 +79,37 @@ namespace uIntra.Search
             };
         }
 
-        private Tuple<List<string>, List<string>> ParseTitlesAndContent(dynamic grid)
+        private (List<string> content, List<string> titles) ParseContentPanels(IPublishedContent publishedContent)
         {
             var titles = new List<string>();
             var content = new List<string>();
-            if (grid != null)
+            var values = _gridHelper.GetValues(publishedContent, ContentPanelAlias, GlobalPanelPickerAlias);
+
+            foreach (var control in values)
             {
-                foreach (var section in grid.sections)
+                if (control.value != null)
                 {
-                    foreach (var row in section.rows)
-                    {
-                        foreach (var area in row.areas)
-                        {
-                            foreach (var control in area.controls)
-                            {
-                                if (control != null && control.editor != null && control.editor.view != null)
-                                {
-                                    if (control.editor.alias == "custom.ContentPanel")
-                                    {
-                                        if (control.value != null)
-                                        {
-                                            string title = control.value.title;
-                                            if (!string.IsNullOrEmpty(title))
-                                            {
-                                                titles.Add(title.StripHtml());
-                                            }
+                    dynamic panel = control.alias == GlobalPanelPickerAlias
+                        ? GetContentPanelFromGlobal(control.value)
+                        : control.value;
+                    if (panel == null) continue;
 
-                                            string desc = control.value.description;
-                                            if (!string.IsNullOrEmpty(desc))
-                                            {
-                                                content.Add(desc.StripHtml());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    string title = panel.title;
+                    if (!string.IsNullOrEmpty(title))
+                        titles.Add(title.StripHtml());
+
+                    string desc = panel.description;
+                    if (!string.IsNullOrEmpty(desc))
+                        content.Add(desc.StripHtml());
                 }
-            }           
-            return Tuple.Create(titles, content);
+            }
+            
+            return (titles, content);
         }
 
-        private dynamic GetGrid(IPublishedContent publishedContent)
-        {
-            return publishedContent.GetPropertyValue<JToken>("grid")?.ToString().Deserialize<dynamic>();
-        }
+        private dynamic GetContentPanelFromGlobal(dynamic value) => 
+            _umbracoHelper.TypedContent((int)value.id)?
+            .GetPropertyValue<dynamic>(PanelConfigPropertyAlias)?
+            .value;
     }
 }

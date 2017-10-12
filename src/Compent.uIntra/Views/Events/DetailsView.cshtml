@@ -24,7 +24,7 @@
                 <div class="feed__item-feed-holder">
                     @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
                 </div>
-                @if (Model.CanSubscribe)
+                @if (!Model.IsReadOnly && Model.CanSubscribe)
                 {
                     Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
                     Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });

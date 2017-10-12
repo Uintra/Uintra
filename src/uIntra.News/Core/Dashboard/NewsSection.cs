@@ -14,7 +14,12 @@ namespace uIntra.News.Dashboard
             if (section != null) return;
 
             applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, 1);
-            applicationContext.Services.UserService.AddSectionToAllUsers(Alias);
+
+            var userGroups = applicationContext.Services.UserService.GetAllUserGroups();
+            foreach (var userGroup in userGroups)
+            {
+                userGroup.AddAllowedSection(Alias);
+            }
         }
     }
 }

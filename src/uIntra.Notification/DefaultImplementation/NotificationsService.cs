@@ -82,6 +82,7 @@ namespace uIntra.Notification
                 if (notifier == null)
                 {
                     _exceptionLogger.Log(new MissingNotifierException(notifierType, notificationType));
+                    continue;
                 }
 
                 yield return notifier;

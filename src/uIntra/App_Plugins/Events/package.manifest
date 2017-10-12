@@ -87,7 +87,7 @@
       "config": {
         "controller": "Events",
         "action": "ComingEvents",
-        "sendModelToController": true
+        "includeUmbracoValues": true
       }
     }
 

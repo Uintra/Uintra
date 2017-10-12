@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.uIntra.Core.Helpers;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Activity;
@@ -44,7 +45,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IActivityLinkService _linkService;
-        private readonly ICommentLinkHelper _commentLinkHelper;
+        private readonly INotifierDataHelper _notifierDataHelper;
 
 
         private readonly IGroupActivityService _groupActivityService;
@@ -66,7 +67,7 @@ namespace Compent.uIntra.Core.Events
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            ICommentLinkHelper commentLinkHelper)
+            INotifierDataHelper notifierDataHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -82,7 +83,7 @@ namespace Compent.uIntra.Core.Events
             _searchableTypeProvider = searchableTypeProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _commentLinkHelper = commentLinkHelper;
+            _notifierDataHelper = notifierDataHelper;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -164,11 +165,11 @@ namespace Compent.uIntra.Core.Events
         private IOrderedEnumerable<Event> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
-        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
+        protected override void MapBeforeCache(IList<Event> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = (Event)activity;
+                var entity = activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
@@ -270,8 +271,9 @@ namespace Compent.uIntra.Core.Events
 
         private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
-            Event currentEvent;
             var currentUser = _intranetUserService.GetCurrentUser();
+            var comment = new Lazy<Comment>(() => _commentsService.Get(entityId));
+            var currentEvent = Get(IsCommentMotification((NotificationTypeEnum) notificationType.Id) ? comment.Value.ActivityId : entityId);
 
             var data = new NotifierData
             {
@@ -280,116 +282,70 @@ namespace Compent.uIntra.Core.Events
 
             switch (notificationType.Id)
             {
-                case (int)NotificationTypeEnum.CommentReplied:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            ActivityType = ActivityType,
-                            NotifierId = currentUser.Id,
-                            Title = currentEvent.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id),
-                            CommentId = comment.Id
-                        };
-                    }
+                case (int) NotificationTypeEnum.CommentReplied:
+                {
+                    data.ReceiverIds = comment.Value.UserId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment.Value, notificationType);
+                }
                     break;
-                case (int)NotificationTypeEnum.CommentEdited:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            ActivityType = ActivityType,
-                            NotifierId = comment.UserId,
-                            Title = currentEvent.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id)
-                        };
-                        break;
-                    }
-                case (int)NotificationTypeEnum.CommentAdded:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
-                        data.Value = new CommentNotifierDataModel
-                        {
-                            ActivityType = ActivityType,
-                            NotifierId = comment.UserId,
-                            Title = currentEvent.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id)
-                        };
-                    }
-                    break;
-                case (int)NotificationTypeEnum.ActivityLikeAdded:
-                    {
-                        currentEvent = Get(entityId);
-                        data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
-                        data.Value = new LikesNotifierDataModel
-                        {
-                            Url = _linkService.GetLinks(currentEvent.Id).Details,
-                            Title = currentEvent.Title,
-                            ActivityType = ActivityType,
-                            NotifierId = currentUser.Id,
-                            CreatedDate = DateTime.Now
-                        };
-                    }
-                    break;
-                case (int)NotificationTypeEnum.CommentLikeAdded:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        currentEvent = Get(comment.ActivityId);
+                case (int) NotificationTypeEnum.CommentEdited:
+                {
 
-                        data.ReceiverIds = currentUser.Id == comment.UserId
-                            ? Enumerable.Empty<Guid>()
-                            : comment.UserId.ToEnumerableOfOne();
-                        
-                            data.Value = new CommentNotifierDataModel
-                        {
-                            CommentId = entityId,
-                            ActivityType = ActivityType,
-                            NotifierId = currentUser.Id,
-                            Title = currentEvent.Title,
-                            Url = _commentLinkHelper.GetDetailsUrlWithComment(currentEvent.Id, comment.Id)                            
-                        };
-                    }
+                    data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment.Value, notificationType);
+
+                }
+                    break;
+                case (int) NotificationTypeEnum.CommentAdded:
+                {
+                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment.Value, notificationType);
+                }
+                    break;
+                case (int) NotificationTypeEnum.ActivityLikeAdded:
+                {
+                    data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType);
+                }
+                    break;
+                case (int) NotificationTypeEnum.CommentLikeAdded:
+                {
+                    data.ReceiverIds = currentUser.Id == comment.Value.UserId
+                        ? Enumerable.Empty<Guid>()
+                        : comment.Value.UserId.ToEnumerableOfOne();
+
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment.Value, notificationType);
+                }
                     break;
 
-                case (int)NotificationTypeEnum.BeforeStart:
-                    {
-                        currentEvent = Get(entityId);
-                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                        data.Value = new ActivityReminderDataModel
-                        {
-                            Url = _linkService.GetLinks(currentEvent.Id).Details,
-                            Title = currentEvent.Title,
-                            ActivityType = ActivityType,
-                            StartDate = currentEvent.StartDate
-                        };
-                    }
+                case (int) NotificationTypeEnum.BeforeStart:
+                {
+                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
+                    data.Value = _notifierDataHelper.GetActivityReminderDataModel(currentEvent, notificationType);
+                }
                     break;
 
-                case (int)NotificationTypeEnum.EventHided:
-                case (int)NotificationTypeEnum.EventUpdated:
-                    {
-                        currentEvent = Get(entityId);
-                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                        data.Value = new ActivityNotifierDataModel
-                        {
-                            ActivityType = ActivityType,
-                            Title = currentEvent.Title,
-                            Url = _linkService.GetLinks(currentEvent.Id).Details,
-                            NotifierId = currentUser.Id
-                        };
-
-                        break;
-                    }
+                case (int) NotificationTypeEnum.EventHided:
+                case (int) NotificationTypeEnum.EventUpdated:
+                {
+                    currentEvent = Get(entityId);
+                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
+                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(currentEvent, notificationType);
+                }
+                    break;
                 default:
                     return null;
             }
             return data;
+        }
+
+        private static bool IsCommentMotification(NotificationTypeEnum notificationType)
+        {
+            return notificationType.In(
+                NotificationTypeEnum.CommentAdded,
+                NotificationTypeEnum.CommentReplied,
+                NotificationTypeEnum.CommentEdited,
+                NotificationTypeEnum.CommentLikeAdded);
         }
 
         private static IEnumerable<Guid> GetNotifiedSubscribers(Event currentEvent)
@@ -426,7 +382,6 @@ namespace Compent.uIntra.Core.Events
 
         private SearchableActivity Map(Event @event)
         {
-
             var searchableActivity = @event.Map<SearchableActivity>();
             searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
             return searchableActivity;

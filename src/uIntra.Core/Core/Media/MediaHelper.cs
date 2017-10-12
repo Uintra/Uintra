@@ -72,7 +72,7 @@ namespace uIntra.Core.Media
             userId = userId ?? _intranetUserService.GetCurrentUserId();
 
             media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
-            media.SetValue(UmbracoAliases.Media.UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
+            media.SetValue(UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
             stream.Close();
 
             _mediaService.Save(media);

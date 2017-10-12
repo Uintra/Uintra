@@ -4,10 +4,8 @@ using uIntra.Core.Extentions;
 
 namespace Compent.uIntra.Core.Notification
 {
-    public class MailConfiguration
+    public static class MailConfiguration
     {
-
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         static MailConfiguration()
         {
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();

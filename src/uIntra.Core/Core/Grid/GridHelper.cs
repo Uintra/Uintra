@@ -1,20 +1,20 @@
-﻿using ClientDependency.Core;
+﻿using System.Collections.Generic;
+using ClientDependency.Core;
 using Newtonsoft.Json.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using System.Linq;
 
 namespace uIntra.Core.Grid
 {
     public class GridHelper : IGridHelper
     {
-        public dynamic GetValue(IPublishedContent content, string alias)
+        public IEnumerable<(string alias, dynamic value)> GetValues(IPublishedContent content, params string[] aliases)
         {
-            var grid = content?.GetProperty("grid")?.GetValue<dynamic>();
+            dynamic grid = GetGrid(content);
 
             if (grid == null)
-            {
-                return null;
-            }
+                yield break;
 
             foreach (var section in grid.sections)
             {
@@ -24,21 +24,27 @@ namespace uIntra.Core.Grid
                     {
                         foreach (var control in area.controls)
                         {
-                            if (control != null && control.editor != null && control.editor.view != null && control.editor.alias == alias)
+                            if (control != null 
+                                && control.editor != null 
+                                && control.editor.view != null 
+                                && aliases.Contains((string) control.editor.alias))
                             {
-                                return control.value;
+                                yield return ((string) control.editor.alias, control.value);
                             }
                         }
                     }
                 }
             }
+        }
 
-            return null;
+        private static dynamic GetGrid(IPublishedContent content)
+        {
+            return content.GetProperty("grid")?.GetValue<dynamic>();
         }
 
         public T GetContentProperty<T>(IPublishedContent content, string contentKey, string propertyKey)
         {
-            var properties = GetValue(content, contentKey);
+            var properties = GetValues(content, contentKey);
             if (properties == null)
             {
                 return default(T);

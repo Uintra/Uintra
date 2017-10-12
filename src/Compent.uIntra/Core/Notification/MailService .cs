@@ -21,7 +21,6 @@ namespace Compent.uIntra.Core.Notification
         private readonly IEmailJobSenderService _emailJobSenderService;
         private readonly ISentMailsService _sentMailsService;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IDocumentTypeAliasProvider documentTypeAliasProvider;
 
         public MailService(
             IEmailService emailService,

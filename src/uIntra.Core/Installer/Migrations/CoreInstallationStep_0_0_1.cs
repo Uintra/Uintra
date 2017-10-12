@@ -96,13 +96,13 @@ namespace uIntra.Core.Installer.Migrations
             CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, embeddedResourceFileName);
         }
 
-        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
+        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName, Assembly sourceAssembly = null)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
             if (defaultGridDataType != null) return;
 
-            var gridJson = GetEmbeddedResourceValue(gridEmbeddedResourceFileName);
+            var gridJson = GetEmbeddedResourceValue(gridEmbeddedResourceFileName, sourceAssembly);
 
             var jsonPrevalues = JObject.Parse(gridJson);
             var preValueItemsAlias = CoreInstallationConstants.DataTypePropertyPreValues.DefaultGridItems;

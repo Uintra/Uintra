@@ -44,9 +44,9 @@ namespace Compent.uIntra.Controllers
             return result;
         }
 
-        protected override ActivityFeedOptions GetActivityFeedOptions(Guid i)
+        protected override ActivityFeedOptions GetActivityFeedOptions(Guid id)
         {
-            var options = base.GetActivityFeedOptions(i);
+            var options = base.GetActivityFeedOptions(id);
             return new ActivityFeedOptionsWithGroups()
             {
                 Links = options.Links,
