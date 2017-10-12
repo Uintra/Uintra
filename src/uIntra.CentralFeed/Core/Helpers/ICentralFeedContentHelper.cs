@@ -4,7 +4,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
 {
-    public interface ICentralFeedContentHelper
+    public interface ICentralFeedContentHelper : IFeedContentHelper
     {
         IPublishedContent GetOverviewPage();
 
@@ -12,9 +12,7 @@ namespace uIntra.CentralFeed
 
         IIntranetType GetCentralFeedTabType(IPublishedContent content);
 
-        IIntranetType GetCreateActivityType(IPublishedContent content);
 
-        IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias);
 
         IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage);
 

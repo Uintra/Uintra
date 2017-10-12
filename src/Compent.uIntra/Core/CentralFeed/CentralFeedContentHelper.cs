@@ -13,15 +13,15 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.CentralFeed
 {
-    public class CentralFeedContentHelper : ICentralFeedContentHelper
+    public class CentralFeedContentHelper : FeedContentHelperBase, ICentralFeedContentHelper
     {
         private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ICentralFeedService _centralFeedService;
-        private readonly IGridHelper _gridHelper;
+
         private readonly ICookieProvider _cookieProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedTypeProvider _feedTypeProvider;
+
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
 
@@ -37,10 +37,8 @@ namespace Compent.uIntra.Core.CentralFeed
         {
             _umbracoHelper = umbracoHelper;
             _centralFeedService = centralFeedService;
-            _gridHelper = gridHelper;
             _cookieProvider = cookieProvider;
             _activityTypeProvider = activityTypeProvider;
-            _feedTypeProvider = feedTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _centralFeedLinkService = centralFeedLinkService;
         }
@@ -121,25 +119,9 @@ namespace Compent.uIntra.Core.CentralFeed
             return GetActivityTypeFromPlugin(content, CentralFeedConstants.CentralFeedPluginAlias);
         }
 
-        public IIntranetType GetCreateActivityType(IPublishedContent content)
+        public override IIntranetType GetCreateActivityType(IPublishedContent content)
         {
             return GetActivityTypeFromPlugin(content, CentralFeedConstants.ActivityCreatePluginAlias);
-        }
-
-        public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
-        {
-            var value = _gridHelper
-                .GetValues(content, gridPluginAlias)
-                .FirstOrDefault(t => t.value != null)
-                .value;
-
-            if (value == null)
-                return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
-
-            var tabTypeId = int.TryParse(value.tabType.ToString(), out int result)
-                ? result
-                : default(CentralFeedTypeEnum).ToInt();
-            return _feedTypeProvider.Get(tabTypeId);
         }
 
         private IEnumerable<IPublishedContent> GetContents()

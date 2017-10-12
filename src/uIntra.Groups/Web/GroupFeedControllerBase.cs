@@ -20,7 +20,7 @@ namespace uIntra.Groups.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
-        private readonly IGroupHelper _groupContentHelper;
+        private readonly IGroupFeedContentHelper _groupFeedContentContentHelper;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private bool IsCurrentUserGroupMember { get; set; }
@@ -39,7 +39,7 @@ namespace uIntra.Groups.Web
             IIntranetUserContentHelper intranetUserContentHelper,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupHelper groupContentHelper,
+            IGroupFeedContentHelper groupFeedContentContentHelper,
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService)
@@ -53,7 +53,7 @@ namespace uIntra.Groups.Web
             _activitiesServiceFactory = activitiesServiceFactory;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
-            _groupContentHelper = groupContentHelper;
+            _groupFeedContentContentHelper = groupFeedContentContentHelper;
             _groupFeedLinkService = groupFeedLinkService;
             _groupMemberService = groupMemberService;
         }
@@ -81,7 +81,7 @@ namespace uIntra.Groups.Web
             if (!_groupMemberService.IsGroupMember(groupId, currentUser))
                 return new EmptyResult();
             
-            var activityType = _groupContentHelper.GetCreateActivityType(CurrentPage);
+            var activityType = _groupFeedContentContentHelper.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType, groupId);
             return PartialView(CreateViewPath, viewModel);
         }
@@ -163,9 +163,9 @@ namespace uIntra.Groups.Web
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var tabType = _groupContentHelper.GetGroupFeedTabType(CurrentPage);
+            var tabType = _groupFeedContentContentHelper.GetGroupFeedTabType(CurrentPage);
 
-            var tabs = _groupContentHelper.GetActivityTabs(CurrentPage, currentUser, groupId);
+            var tabs = _groupFeedContentContentHelper.GetActivityTabs(CurrentPage, currentUser, groupId);
             var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel

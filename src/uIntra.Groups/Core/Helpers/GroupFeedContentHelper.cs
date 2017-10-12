@@ -13,7 +13,7 @@ using Umbraco.Web;
 
 namespace uIntra.Groups
 {
-    public class GroupHelper : IGroupHelper
+    public class GroupFeedContentHelper : FeedContentHelperBase, IGroupFeedContentHelper
     {
         private readonly IGroupService _groupService;
         private readonly IGridHelper _gridHelper;
@@ -21,7 +21,7 @@ namespace uIntra.Groups
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGroupContentHelper _contentHelper;
 
-        public GroupHelper(
+        public GroupFeedContentHelper(
             IGroupService groupService,
             IGridHelper gridHelper,
             IGroupFeedLinkService groupFeedLinkService,
@@ -33,6 +33,11 @@ namespace uIntra.Groups
             _groupFeedLinkService = groupFeedLinkService;
             _feedTypeProvider = feedTypeProvider;
             _contentHelper = contentHelper;
+        }
+
+        public override IIntranetType GetCreateActivityType(IPublishedContent content)
+        {
+            return GetActivityTypeFromPlugin(content, GroupConstants.GroupActivityCreatePluginAlias);
         }
 
         public bool IsGroupPage(IPublishedContent currentPage)
@@ -124,36 +129,15 @@ namespace uIntra.Groups
             return first.Id == second.Id;
         }
 
-        // TODO : this method is called in a loop. EACH time we parse grid. That decrease performance a lot, young man!
-        public IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
-        {
-            var value = _gridHelper
-                .GetValues(content, gridPluginAlias)
-                .FirstOrDefault(t => t.value != null)
-                .value;
-
-            if (value == null)
-                return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
-
-            var tabTypeId = int.TryParse(value.tabType.ToString(), out int result)
-                ? result
-                : default(CentralFeedTypeEnum).ToInt();
-            return _feedTypeProvider.Get(tabTypeId);
-        }
-
         private IEnumerable<IPublishedContent> GetContent()
         {
             return _contentHelper.GetGroupRoomPage().Children;
         }
 
+
         public IIntranetType GetGroupFeedTabType(IPublishedContent content)
         {
             return GetActivityTypeFromPlugin(content, GroupConstants.GroupFeedPluginAlias);
-        }
-
-        public IIntranetType GetCreateActivityType(IPublishedContent content)
-        {
-            return GetActivityTypeFromPlugin(content, GroupConstants.GroupActivityCreatePluginAlias);
         }
     }
 }

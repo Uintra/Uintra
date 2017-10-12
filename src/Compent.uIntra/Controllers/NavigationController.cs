@@ -31,7 +31,7 @@ namespace Compent.uIntra.Controllers
         private readonly ICentralFeedContentHelper _centralFeedContentHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
-        private readonly IGroupHelper _groupHelper;
+        private readonly IGroupFeedContentHelper _groupFeedContentHelper;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentHelper _groupContentHelper;
@@ -44,7 +44,7 @@ namespace Compent.uIntra.Controllers
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
-            IGroupHelper groupHelper,
+            IGroupFeedContentHelper groupFeedContentHelper,
             IIntranetUserService<IntranetUser> intranetUserService,
             IGroupLinkProvider groupLinkProvider,
             IGroupContentHelper groupContentHelper) :
@@ -54,7 +54,7 @@ namespace Compent.uIntra.Controllers
             _centralFeedContentHelper = centralFeedContentHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
-            _groupHelper = groupHelper;
+            _groupFeedContentHelper = groupFeedContentHelper;
             _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentHelper = groupContentHelper;
@@ -69,7 +69,7 @@ namespace Compent.uIntra.Controllers
                 return new EmptyResult();
             }
 
-            if (_groupHelper.IsGroupRoomPage(CurrentPage))
+            if (_groupFeedContentHelper.IsGroupRoomPage(CurrentPage))
             {
                 return RenderGroupNavigation();
             }
@@ -94,14 +94,14 @@ namespace Compent.uIntra.Controllers
             {
                 groupNavigationModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
 
-                groupNavigationModel.ActivityTabs = _groupHelper
+                groupNavigationModel.ActivityTabs = _groupFeedContentHelper
                     .GetMainFeedTab(CurrentPage, groupId.Value)
                     .ToEnumerableOfOne()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();
                 var groupEditPage = _groupContentHelper.GetEditPage();
-                groupNavigationModel.PageTabs = _groupHelper
+                groupNavigationModel.PageTabs = _groupFeedContentHelper
                     .GetPageTabs(CurrentPage, currentUser, groupId.Value)
                     .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }

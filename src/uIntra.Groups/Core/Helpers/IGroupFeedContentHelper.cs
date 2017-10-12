@@ -7,7 +7,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Groups
 {
-    public interface IGroupHelper
+    public interface IGroupFeedContentHelper : IFeedContentHelper
     {
         bool IsGroupRoomPage(IPublishedContent currentPage);
 
@@ -16,9 +16,7 @@ namespace uIntra.Groups
 
         IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentContent, IIntranetUser user,  Guid groupId);
 
-        IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string pluginAlias);
         IIntranetType GetGroupFeedTabType(IPublishedContent content);
-        IIntranetType GetCreateActivityType(IPublishedContent content);
 
         bool IsGroupPage(IPublishedContent currentPage);
     }
