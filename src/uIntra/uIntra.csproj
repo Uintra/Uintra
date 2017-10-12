@@ -140,8 +140,9 @@
     <Reference Include="Localization.Core, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Core.0.1.1\lib\net452\Localization.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Localization.Storage.UDictionary, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\net452\Localization.Storage.UDictionary.dll</HintPath>
+    <Reference Include="Localization.Storage.UDictionary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Umbraco, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.2\lib\net452\Localization.Umbraco.dll</HintPath>
@@ -334,9 +335,6 @@
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.6.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.6.4\lib\net452\uIntra.Likes.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.2.1\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.News, Version=1.2.3.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.2.3.7\lib\net452\uIntra.News.dll</HintPath>
@@ -1585,7 +1583,12 @@
   <ItemGroup>
     <Content Include="App_Plugins\EnumLists\package.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
+      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
+      <Name>uIntra.Navigation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>

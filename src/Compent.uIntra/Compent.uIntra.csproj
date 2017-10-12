@@ -339,9 +339,6 @@
     <Reference Include="uIntra.Likes, Version=1.1.6.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.6.4\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.2.1\lib\net452\uIntra.Navigation.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.News, Version=1.2.3.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.2.3.7\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
@@ -1351,6 +1348,12 @@
     <Folder Include="App_Plugins\Search\Controls\" />
     <Folder Include="App_Plugins\Search\Result\" />
     <Folder Include="Content\scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
+      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
+      <Name>uIntra.Navigation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
