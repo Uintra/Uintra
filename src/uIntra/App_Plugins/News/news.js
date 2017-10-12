@@ -15,6 +15,11 @@ var initSubmitButton = function (holder) {
     btn.click(function (event) {
         if (!form.valid()) {
             event.preventDefault();
+            const labelHeight = 26;
+            const header = $("#header");
+            const additionalHeight = header.length > 0 ? header.outerHeight() + labelHeight : labelHeight;
+            const invalidELPos = $(".input-validation-error").first().offset().top
+            window.scrollTo(0, invalidELPos - additionalHeight);
             return;
         }
 

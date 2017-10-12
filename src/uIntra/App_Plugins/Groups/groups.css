@@ -73,8 +73,8 @@
         }
     }
 }
-.groups{
-    ._groups-create{
+.groups {
+    .form__btn._groups-create{
         position: absolute;
         top: -95px;
         right: -5px;
