@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.UmbracoEventServices;
@@ -63,8 +64,19 @@ namespace Compent.uIntra.Core
         {
             return gridHelper
                     .GetValues(content, GlobalPanelPickerAlias)
-                    .Any(t => t.value.id == globalPanel.Id);
+                    .Any(t => ContainsGlobalPanel(t.value, globalPanel));
         }
+
+        private static bool ContainsGlobalPanel(dynamic panel, IContent globalPanel)
+        {
+            int? id = GetPanelId(panel);
+            return id == globalPanel.Id;
+        }
+
+        private static int? GetPanelId(object panel) => 
+            panel is JObject json
+                ? json["id"].ToObject<int?>()
+                : default;
 
         private static void ContentServiceOnUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
         {
