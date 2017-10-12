@@ -415,6 +415,7 @@
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
+    <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />

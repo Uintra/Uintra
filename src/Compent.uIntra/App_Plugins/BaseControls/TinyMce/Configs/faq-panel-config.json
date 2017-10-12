@@ -1,0 +1,69 @@
+﻿{
+  "height": 350,
+  "toolbar": "styleselect | removeformat | bold | italic | alignleft | aligncenter | alignright | bullist | numlist | linksPicker | umbmediapicker | media | code",
+  "linksPicker": {
+    "linkTypes": [
+      "internal",
+      "external",
+      "media",
+      "email"
+    ],
+    "internalPicker": {
+      "allowedAliases": [
+        "activityOverview",
+        "event",
+        "meeting",
+        "articleWithMenu",
+        "article",
+        "homepage",
+        "newsOverview",
+        "sectionPage"
+      ]
+    },
+    "mode": "single"
+  },
+  "style_formats": [
+    {
+      "title": "Headings",
+      "items": [
+        {
+          "title": "Elderkin H1",
+          "block": "h1"
+        },
+        {
+          "title": "Elderkin H2",
+          "block": "h2"
+        },
+        {
+          "title": "Graphik H3",
+          "block": "h3"
+        },
+        {
+          "title": "Graphik H4",
+          "block": "h4"
+        },
+        {
+          "title": "Graphik H5",
+          "block": "h5"
+        },
+        {
+          "title": "Graphik H6",
+          "block": "h6"
+        },
+        {
+          "title": "Normal text",
+          "format": "p"
+        }
+      ]
+    },
+    {
+      "title": "Block",
+      "items": [
+        {
+          "title": "Blockquote",
+          "format": "blockquote"
+        }
+      ]
+    }
+  ]
+}

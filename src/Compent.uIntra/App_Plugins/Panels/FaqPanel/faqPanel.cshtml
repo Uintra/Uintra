@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<dynamic>
+@{
+    var viewModel = Model.value;
+}
+
+@viewModel.title
+@Html.Raw((string)viewModel.description)
+
+@foreach (var question in viewModel.questions)
+{
+    
+    <section class="faq-panel js-faq-panel">
+        <div class="content">
+            <div class="faq-panel__area">
+                <div class="faq-panel__heading">
+                    <h3 class="faq-panel__title js-toggler">@question.question</h3>
+                </div>
+                <div class="faq-panel__body js-body">
+                    <div class="faq-panel__holder js-holder">
+                        <div class="rich-text-editor RTE-blue">
+                            @Html.Raw((string)question.answer)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
