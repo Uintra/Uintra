@@ -499,4 +499,18 @@
             text-decoration:none;
         }
     }
+
+    &__name {
+        color: var(--color-contrast);
+    }
+
+    &__link{
+        color:var(--text-color-dark);
+
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--text-color-dark);
+        }
+    }
 }
