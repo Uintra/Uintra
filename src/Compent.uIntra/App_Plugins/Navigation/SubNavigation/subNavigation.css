@@ -53,6 +53,10 @@
         ._with-sub-nav &{
             padding:25px 0 0;
         }
+
+        ._with-sub-nav .content &{
+            padding:0;
+        }
     }
 
     &__logo{
