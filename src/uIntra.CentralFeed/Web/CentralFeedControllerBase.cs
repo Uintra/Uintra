@@ -18,6 +18,7 @@ namespace uIntra.CentralFeed.Web
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/Details.cshtml";
@@ -42,6 +43,7 @@ namespace uIntra.CentralFeed.Web
             _centralFeedContentHelper = centralFeedContentHelper;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _centralFeedLinkService = centralFeedLinkService;
+            _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
 
@@ -87,7 +89,7 @@ namespace uIntra.CentralFeed.Web
 
             var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
-            var filteredItems = ApplyFilters(items,model.FilterState, tabSettings).ToList();
+            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
             var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
 
@@ -160,12 +162,14 @@ namespace uIntra.CentralFeed.Web
             var model = new CentralFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
+                TabsWithCreateUrl = IsUserAbleToCreateActivities() ? GetTabsWithCreateUrl(activityTabs) : Enumerable.Empty<ActivityFeedTabViewModel>(),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
             return model;
         }
+
+        private bool IsUserAbleToCreateActivities() => _intranetUserService.GetCurrentUser().Role.Name != IntranetRolesEnum.UiUser.ToString();
 
         protected virtual IEnumerable<ActivityFeedTabModel> GetActivityTabs()
         {
@@ -190,9 +194,9 @@ namespace uIntra.CentralFeed.Web
             };
         }
 
-        protected virtual IEnumerable<IFeedItem> GetLatestActivities(IIntranetType activityType, int activityAmount )
+        protected virtual IEnumerable<IFeedItem> GetLatestActivities(IIntranetType activityType, int activityAmount)
         {
-            var items =  GetCentralFeedItems(activityType).Take(activityAmount);
+            var items = GetCentralFeedItems(activityType).Take(activityAmount);
             return Sort(items, activityType);
         }
 
