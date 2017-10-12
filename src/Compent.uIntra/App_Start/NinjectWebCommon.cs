@@ -21,7 +21,6 @@ using Compent.uIntra.Core.Groups;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
-using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.Search;
@@ -247,7 +246,7 @@ namespace Compent.uIntra
 
             kernel.Bind<INavigationCompositionService>().To<NavigationCompositionService>().InRequestScope();
             kernel.Bind<IHomeNavigationCompositionService>().To<HomeNavigationCompositionService>().InRequestScope();
-            kernel.Bind<ILeftSideNavigationModelBuilder>().To<UintraLeftSideNavigationModelBuilder>().InRequestScope();
+            kernel.Bind<ILeftSideNavigationModelBuilder>().To<LeftSideNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ISubNavigationModelBuilder>().To<SubNavigationModelBuilder>().InRequestScope();
             kernel.Bind<ITopNavigationModelBuilder>().To<TopNavigationModelBuilder>().InRequestScope();
             kernel.Bind<IMyLinksModelBuilder>().To<MyLinksModelBuilder>().InRequestScope();
