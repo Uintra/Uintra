@@ -13,7 +13,7 @@ namespace Compent.uIntra.Controllers
             IUiNotifierService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IProfileLinkProvider profileLinkProvider)
             : base(uiNotifierService, intranetUserService, notificationContentProvider, profileLinkProvider)
         {

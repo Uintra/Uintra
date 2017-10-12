@@ -23,7 +23,7 @@ namespace uIntra.Comments.Web
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IUmbracoContentHelper _umbracoContentHelper;
         private readonly UmbracoHelper _umbracoHelper;
@@ -32,7 +32,7 @@ namespace uIntra.Comments.Web
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             UmbracoHelper umbracoHelper,
             ICommentableService customCommentableService,
@@ -41,7 +41,7 @@ namespace uIntra.Comments.Web
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserContentHelper = intranetUserContentHelper;
+            _intranetUserContentProvider = intranetUserContentProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _umbracoHelper = umbracoHelper;
             _customCommentableService = customCommentableService;
@@ -168,7 +168,7 @@ namespace uIntra.Comments.Web
 
         protected virtual void FillProfileLink()
         {
-            var profilePageUrl = _intranetUserContentHelper.GetProfilePage().Url; // TODO: use ProfileLinkProvider instead
+            var profilePageUrl = _intranetUserContentProvider.GetProfilePage().Url; // TODO: use ProfileLinkProvider instead
             ViewData.SetProfilePageUrl(profilePageUrl);
         }
 
@@ -216,7 +216,7 @@ namespace uIntra.Comments.Web
             model.Creator = creator;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
-            model.CreatorProfileUrl = _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(creator.Id);
+            model.CreatorProfileUrl = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(creator.Id);
             return model;
         }
 

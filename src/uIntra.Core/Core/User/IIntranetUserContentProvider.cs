@@ -2,7 +2,7 @@
 
 namespace uIntra.Core.User
 {
-    public interface IIntranetUserContentHelper
+    public interface IIntranetUserContentProvider
     {
         IPublishedContent GetProfilePage();
         IPublishedContent GetEditPage();

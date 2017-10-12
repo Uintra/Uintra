@@ -34,7 +34,7 @@ namespace uIntra.CentralFeed.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService)
             : base(centralFeedContentHelper, subscribeService, centralFeedService, intranetUserService)

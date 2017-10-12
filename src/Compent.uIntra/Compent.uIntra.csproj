@@ -1192,7 +1192,7 @@
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
-    <Compile Include="Core\IntranetUserContentHelper.cs" />
+    <Compile Include="Core\IntranetUserContentProvider.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\Licence\ILicenceRequestHandler.cs" />

@@ -5,12 +5,12 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core
 {
-    public class IntranetUserContentHelper : IIntranetUserContentHelper
+    public class IntranetUserContentProvider : IIntranetUserContentProvider
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
-        public IntranetUserContentHelper(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public IntranetUserContentProvider(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;

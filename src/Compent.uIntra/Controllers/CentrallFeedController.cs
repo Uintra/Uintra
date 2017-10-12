@@ -27,7 +27,7 @@ namespace Compent.uIntra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
             IGroupFeedService groupFeedService, 
@@ -37,7 +37,7 @@ namespace Compent.uIntra.Controllers
                   activitiesServiceFactory,
                   subscribeService,
                   intranetUserService,
-                  intranetUserContentHelper,
+                  intranetUserContentProvider,
                   centralFeedTypeProvider,
                   centralFeedLinkService)
         {

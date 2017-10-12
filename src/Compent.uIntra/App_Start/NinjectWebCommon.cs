@@ -239,7 +239,7 @@ namespace Compent.uIntra
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
-            kernel.Bind<IIntranetUserContentHelper>().To<IntranetUserContentHelper>().InRequestScope();
+            kernel.Bind<IIntranetUserContentProvider>().To<IntranetUserContentProvider>().InRequestScope();
 
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()
