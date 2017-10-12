@@ -6,7 +6,6 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
-using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Comments.Web
@@ -24,17 +23,13 @@ namespace uIntra.Comments.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IUmbracoContentHelper _umbracoContentHelper;
-        private readonly UmbracoHelper _umbracoHelper;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper,
             ICommentableService customCommentableService,
             IUmbracoContentHelper umbracoContentHelper)
         {
@@ -42,8 +37,6 @@ namespace uIntra.Comments.Web
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserContentProvider = intranetUserContentProvider;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
-            _umbracoHelper = umbracoHelper;
             _customCommentableService = customCommentableService;
             _umbracoContentHelper = umbracoContentHelper;
         }

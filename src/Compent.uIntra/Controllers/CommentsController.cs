@@ -31,12 +31,10 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper,
             IMediaHelper mediaHelper,
             ICommentableService customCommentableService,
             INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentProvider, documentTypeAliasProvider, umbracoHelper, customCommentableService, umbracoContentHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentProvider, customCommentableService, umbracoContentHelper)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;
