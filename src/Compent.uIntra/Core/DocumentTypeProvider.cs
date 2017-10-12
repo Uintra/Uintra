@@ -17,6 +17,11 @@ namespace Compent.uIntra.Core
             return DocumentTypeAliasConstants.ContentPage;
         }
 
+        public virtual string GetHeadingPage()
+        {
+            return DocumentTypeAliasConstants.Heading;
+        }
+
         public virtual string GetSearchResultPage()
         {
             return DocumentTypeAliasConstants.SearchResultPage;

@@ -322,9 +322,6 @@
     <Reference Include="uIntra.Comments, Version=1.1.8.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.8.9\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.3.10.35, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.3.10.35\lib\net452\uIntra.Core.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Events, Version=1.3.3.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.3.3.8\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
@@ -1350,6 +1347,10 @@
     <Folder Include="Content\scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uIntra.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
