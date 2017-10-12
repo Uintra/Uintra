@@ -16,16 +16,12 @@ namespace Compent.uIntra.Core.Activity
             _groupLinkProvider = groupLinkProvider;
         }
 
-        public GroupInfo? GetGroupInfo(Guid itemId)
+        public GroupInfo? GetGroupInfo(Guid activityId)
         {
-            Guid? groupId = _groupActivityService.GetGroupId(itemId);
-            GroupInfo? result;
-
-            if (groupId.HasValue)
-                result = GetInfoForGroup(groupId.Value);
-            else result = null;
-
-            return result;
+            Guid? groupId = _groupActivityService.GetGroupId(activityId);
+            return groupId.HasValue
+                ? GetInfoForGroup(groupId.Value)
+                : default;
         }
 
         private GroupInfo GetInfoForGroup(Guid groupId)
