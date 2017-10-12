@@ -49,6 +49,7 @@
 }
 .events-table .btn {
     min-width: 93px;
+    margin: 2px 0;
 }
 .events-table .create-events-btn {
     text-align: center;

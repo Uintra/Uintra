@@ -46,6 +46,7 @@
 }
 .news-table .btn {
     min-width: 93px;
+    margin: 2px 0;
 }
 .news-table .create-news-btn {
     text-align: center;
