@@ -1,29 +1,35 @@
-﻿using uIntra.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using uIntra.Core;
+using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Core
 {
-    public class IntranetUserContentProvider : IIntranetUserContentProvider
+    public class IntranetUserContentProvider : ContentProviderBase, IIntranetUserContentProvider
     {
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IEnumerable<string> _baseXPath;
 
         public IntranetUserContentProvider(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+            : base(umbracoHelper)
         {
-            _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _baseXPath = new[] { _documentTypeAliasProvider.GetHomePage() };
         }
 
         public IPublishedContent GetProfilePage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetProfilePage()));
+            var xPath = _baseXPath.Append(_documentTypeAliasProvider.GetProfilePage());
+            return GetContent(xPath);
         }
 
         public IPublishedContent GetEditPage()
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetProfileEditPage()));
+            var xPath = _baseXPath.Append(_documentTypeAliasProvider.GetProfileEditPage());
+            return GetContent(xPath);
         }
     }
 }

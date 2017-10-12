@@ -9,14 +9,12 @@ namespace uIntra.Groups
     public class GroupContentProvider : ContentProviderBase, IGroupContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-
         private readonly IEnumerable<string> _overviewXPath;
 
         public GroupContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper) 
             : base(umbracoHelper)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
-
             _overviewXPath = new[] { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage() };
         }
 
