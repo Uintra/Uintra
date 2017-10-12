@@ -5,7 +5,11 @@
 
     &__title{
         font:bold 16px/23px var(--font-general);
-        margin:0 0 38px;
+        margin:40px 0 38px;
+
+        .comments &{
+            margin-top:0;
+        }
     }
 
     &__list{
@@ -216,6 +220,12 @@
     }
 
     &__form{
+        margin:0 0 40px;
+
+        .comments__list &{
+            margin:0;
+        }
+
         &-field{
             margin:0 0 10px;
         }
