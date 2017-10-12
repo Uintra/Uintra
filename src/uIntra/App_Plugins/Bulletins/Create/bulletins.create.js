@@ -73,10 +73,12 @@ function initEventListeners() {
     closeBulletinBtn.addEventListener("click", function(ev){
         closeBulletin(ev);
     });
-    body.addEventListener("click", function(ev) {
-        isOutsideClick(bulletin, ev.target, function() {
-            closeBulletin(ev);
-        });
+    body.addEventListener("click", function (ev) {
+        if (bulletin.classList.contains("_expanded")) {
+            isOutsideClick(bulletin, ev.target, function () {
+                closeBulletin(ev);
+            });
+        }
     });
 }
 
@@ -198,6 +200,7 @@ function hide(event) {
 
 function clear() {
     editor.setText("");
+    editor.blur();
     dropzone.removeAllFiles(true);
 }
 

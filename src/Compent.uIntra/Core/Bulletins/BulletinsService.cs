@@ -23,7 +23,7 @@ using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Bulletins
 {
-    public class BulletinsService : IntranetActivityService<Bulletin>,
+    public class BulletinsService : BulletinsServiceBase<Bulletin>,
         IBulletinsService<Bulletin>,
         IFeedItemService,
         ICommentableService,
@@ -137,11 +137,11 @@ namespace Compent.uIntra.Core.Bulletins
         private IOrderedEnumerable<Bulletin> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
-        protected override void MapBeforeCache(IList<IIntranetActivity> cached)
+        protected override void MapBeforeCache(IList<Bulletin> cached)
         {
             foreach (var activity in cached)
             {
-                var entity = (Bulletin) activity;
+                var entity = activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
@@ -227,10 +227,19 @@ namespace Compent.uIntra.Core.Bulletins
             _activityIndex.Index(searchableActivities);
         }
 
+        private static bool IsCommentMotification(NotificationTypeEnum notificationType)
+        {
+            return notificationType.In(
+                NotificationTypeEnum.CommentAdded,
+                NotificationTypeEnum.CommentReplied,
+                NotificationTypeEnum.CommentEdited,
+                NotificationTypeEnum.CommentLikeAdded);
+        }
+
         private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
-            var comment = _commentsService.Get(entityId);
-            var bulletinsEntity = Get(comment.ActivityId);
+            var comment = new Lazy<Comment>(() => _commentsService.Get(entityId));
+            var bulletinsEntity = Get(IsCommentMotification((NotificationTypeEnum) notificationType.Id) ? comment.Value.ActivityId : entityId);
 
             var data = new NotifierData
             {
@@ -250,26 +259,26 @@ namespace Compent.uIntra.Core.Bulletins
                 case (int) NotificationTypeEnum.CommentEdited:
                 {
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment.Value, notificationType);
                 }
                     break;
 
                 case (int) NotificationTypeEnum.CommentReplied:
                 {
 
-                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType);
+                    data.ReceiverIds = comment.Value.UserId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment.Value, notificationType);
                 }
                     break;
 
                 case (int) NotificationTypeEnum.CommentLikeAdded:
                 {
                     var currentUser = _intranetUserService.GetCurrentUser();
-                    data.ReceiverIds = currentUser.Id == comment.UserId
+                    data.ReceiverIds = currentUser.Id == comment.Value.UserId
                         ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerableOfOne();
+                        : comment.Value.UserId.ToEnumerableOfOne();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment.Value, notificationType);
                 }
                     break;
 
@@ -278,7 +287,6 @@ namespace Compent.uIntra.Core.Bulletins
             }
             return data;
         }
-
 
         public ILikeable AddLike(Guid userId, Guid activityId)
         {

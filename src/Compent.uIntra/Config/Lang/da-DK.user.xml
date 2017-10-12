@@ -4,7 +4,7 @@
 		<key alias="events">Events</key>
 		<key alias="news">News</key>
 		<key alias="SentMails">Sent Mails</key>
-		<key alias="bulletins">Bulletins</key>
 		<key alias="Localization">Localization</key>
+		<key alias="bulletins">Bulletins</key>
 	</area>
 </language>

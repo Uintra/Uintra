@@ -10,7 +10,7 @@ namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract IIntranetType ActivityType { get; }        
+        public abstract IIntranetType ActivityType { get; }
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{ActivityType.Id}";
         private readonly IIntranetActivityRepository _activityRepository;
@@ -45,7 +45,7 @@ namespace uIntra.Core.Activity
         }
 
         public IEnumerable<TActivity> GetAll(bool includeHidden = false)
-        {            
+        {
             if (!_cache.HasValue(CacheKey, ActivityCacheSuffix))
             {
                 UpdateCache();
@@ -123,7 +123,7 @@ namespace uIntra.Core.Activity
 
             if (activity != null)
             {
-                MapBeforeCache(((IIntranetActivity)activity).ToListOfOne());
+                MapBeforeCache((activity).ToListOfOne());
                 cachedList.Add(activity);
             }
 
@@ -147,7 +147,7 @@ namespace uIntra.Core.Activity
         private IList<TActivity> GetAllFromSql()
         {
             var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
-            MapBeforeCache(activities.Select(s => (IIntranetActivity)s).ToList());
+            MapBeforeCache(activities.ToList());
             return activities;
         }
 
@@ -175,6 +175,6 @@ namespace uIntra.Core.Activity
             return true;
         }
 
-        protected abstract void MapBeforeCache(IList<IIntranetActivity> cached);
+        protected abstract void MapBeforeCache(IList<TActivity> cached);
     }
 }

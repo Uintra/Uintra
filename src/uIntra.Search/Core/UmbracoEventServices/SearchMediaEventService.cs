@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -29,6 +28,14 @@ namespace uIntra.Search
                     _documentIndexer.Index(media.Id);
                 else _documentIndexer.DeleteFromIndex(media.Id);
             }
+        }
+
+        public void ProcessMediaTrashed(IMediaService sender, MoveEventArgs<IMedia> args)
+        {
+            args.MoveInfoCollection
+                .Select(i => i.Entity.Id)
+                .ToList()
+                .ForEach(_documentIndexer.DeleteFromIndex);
         }
 
         private bool IsAllowedForSearch(IMedia media)

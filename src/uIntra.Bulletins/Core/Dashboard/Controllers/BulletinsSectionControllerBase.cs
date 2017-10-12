@@ -12,7 +12,7 @@ namespace uIntra.Bulletins
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public BulletinsSectionControllerBase(IBulletinsService<BulletinBase> bulletinsService, IIntranetUserService<IIntranetUser> intranetUserService)
+        protected BulletinsSectionControllerBase(IBulletinsService<BulletinBase> bulletinsService, IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _bulletinsService = bulletinsService;
             _intranetUserService = intranetUserService;

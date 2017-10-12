@@ -59,14 +59,14 @@ namespace Compent.uIntra.Controllers
                 .OrderByDescending(item => item.PublishDate);
         }
 
-        protected override ActivityFeedOptions GetActivityFeedOptions(Guid id)
+        protected override ActivityFeedOptions GetActivityFeedOptions(Guid activityId)
         {
-            var options = base.GetActivityFeedOptions(id);
+            var options = base.GetActivityFeedOptions(activityId);
             return new ActivityFeedOptionsWithGroups()
             {
                 Links = options.Links,
                 IsReadOnly = options.IsReadOnly,
-                GroupInfo = _feedActivityHelper.GetGroupInfo(id)
+                GroupInfo = _feedActivityHelper.GetGroupInfo(activityId)
             };
         }
     } 

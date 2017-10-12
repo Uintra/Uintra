@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.props')" />
-  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props')" />
+  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -37,7 +37,7 @@
     <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,9 +60,8 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="businesslogic, Version=1.0.6396.36624, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\businesslogic.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,13 +72,11 @@
       <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="cms, Version=1.0.6396.36625, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\cms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="controls, Version=1.0.6396.36629, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\controls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
@@ -118,9 +115,8 @@
     <Reference Include="EnumLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.EnumLists.1.1.1\lib\net40\EnumLists.dll</HintPath>
     </Reference>
-    <Reference Include="Examine, Version=0.1.83.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Examine.0.1.83\lib\net45\Examine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Examine, Version=0.1.85.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Examine.0.1.85\lib\net45\Examine.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -138,9 +134,8 @@
       <HintPath>..\..\packages\ImageProcessor.Web.4.8.3\lib\net45\ImageProcessor.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="interfaces, Version=1.0.6396.36619, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\interfaces.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="interfaces, Version=1.0.6484.21640, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\interfaces.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Core, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Core.0.1.1\lib\net452\Localization.Core.dll</HintPath>
@@ -155,8 +150,7 @@
       <HintPath>..\..\packages\Compent.Localization.Web.0.0.3\lib\net452\Localization.Web.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\log4net.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
@@ -172,8 +166,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -198,35 +191,28 @@
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.CSharp.1.3.2\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IO.RecyclableMemoryStream">
       <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.1.2.1\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb">
-      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="MiniProfiler">
       <HintPath>..\..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
@@ -264,20 +250,17 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLCE4Umbraco, Version=1.0.6396.36627, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\SQLCE4Umbraco.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SQLCE4Umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\SQLCE4Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\System.Data.SqlServerCe.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -292,6 +275,9 @@
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -320,95 +306,86 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\TidyNet.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.BaseControls, Version=2.4.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.BaseControls.2.4.0.4\lib\net452\uIntra.BaseControls.dll</HintPath>
+    <Reference Include="uIntra.BaseControls, Version=2.4.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.4.0.5\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.2.6.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.2.6.4\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.2.6.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.2.6.9\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.5.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.5.15\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.2.5.19, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.5.19\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.8.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.8.7\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.8.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Comments.1.1.8.8\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.3.10.28, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.3.10.28\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.3.10.35, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.3.10.35\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.3.3.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.3.3.4\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.3.3.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.3.3.8\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.1.0\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="uIntra.Groups, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.1.0.2\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.6.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.6.3\lib\net452\uIntra.Likes.dll</HintPath>
+    <Reference Include="uIntra.Likes, Version=1.1.6.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Likes.1.1.6.4\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.2\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.2.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.2.1\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.2.3.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.2.3.1\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.2.3.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.News.1.2.3.7\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.2.4.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.2.4.8\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.2.4.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.2.4.9\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.8.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.8.7\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.8.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.8.9\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.1.7\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.1.7.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.1.7.4\lib\net452\uIntra.Search.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Subscribe, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Subscribe.1.1.6\lib\net452\uIntra.Subscribe.dll</HintPath>
+    <Reference Include="uIntra.Subscribe, Version=1.1.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.6.1\lib\net452\uIntra.Subscribe.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Tagging, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Tagging.1.1.6\lib\net452\uIntra.Tagging.dll</HintPath>
+    <Reference Include="uIntra.Tagging, Version=1.1.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Tagging.1.1.6.1\lib\net452\uIntra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.5.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.5.3.2\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.5.3.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.5.3.3\lib\net452\uIntra.Users.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.6396.36631, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.6396.36621, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\Umbraco.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Umbraco.Core, Version=1.0.6484.21641, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Umbraco.Core.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.DataLayer, Version=1.0.6396.36624, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.DataLayer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="umbraco.DataLayer, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.DataLayer.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.6396.36634, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.editorControls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="umbraco.editorControls, Version=1.0.6484.21652, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.editorControls.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.MacroEngines, Version=1.0.6396.36635, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.MacroEngines.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.6484.21653, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.MacroEngines.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder, Version=3.0.7.99, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.7\lib\Umbraco.ModelsBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.providers, Version=1.0.6396.36630, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.providers.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="umbraco.providers, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.providers.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Web.UI, Version=1.0.6396.36637, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\Umbraco.Web.UI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.6484.21653, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Umbraco.Web.UI.dll</HintPath>
     </Reference>
-    <Reference Include="UmbracoExamine, Version=0.7.0.36626, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.6.4\lib\net45\UmbracoExamine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="UmbracoExamine, Version=0.7.0.21647, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\UmbracoExamine.dll</HintPath>
     </Reference>
     <Reference Include="UrlRewritingNet.UrlRewriter">
       <HintPath>..\..\packages\UrlRewritingNet.2.0.7\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
@@ -1059,14 +1036,452 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Compent.uIntra\Core\**\*.cs" Exclude="..\Compent.uIntra\Core\**\*generated.cs">
-      <Link>Core\%(RecursiveDir)%(FileName)</Link>
+    <Compile Include="..\Compent.uIntra\Core\ActivitiesServiceFactory.cs">
+      <Link>Core\ActivitiesServiceFactory</Link>
     </Compile>
-    <Content Include="..\Compent.uIntra\Controllers\**\*.*">
-      <Link>Controllers\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Compile Include="..\Compent.uIntra\Core\Activity\ActivityAutoMapperProfile.cs">
+      <Link>Core\Activity\ActivityAutoMapperProfile</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Activity\FeedActivityHelper.cs">
+      <Link>Core\Activity\FeedActivityHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Activity\IFeedActivityHelper.cs">
+      <Link>Core\Activity\IFeedActivityHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Activity\Models\IntranetActivityItemHeaderViewModel.cs">
+      <Link>Core\Activity\Models\IntranetActivityItemHeaderViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\ApplicationSettings\IuIntraApplicationSettings.cs">
+      <Link>Core\ApplicationSettings\IuIntraApplicationSettings</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\ApplicationSettings\uIntraApplicationSettings.cs">
+      <Link>Core\ApplicationSettings\uIntraApplicationSettings</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\BulletinsAutoMapperProfile.cs">
+      <Link>Core\Bulletins\BulletinsAutoMapperProfile</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\BulletinsService.cs">
+      <Link>Core\Bulletins\BulletinsService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Entities\Bulletin.cs">
+      <Link>Core\Bulletins\Entities\Bulletin</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedCreateModel.cs">
+      <Link>Core\Bulletins\Models\BulletinExtendedCreateModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedItemViewModel.cs">
+      <Link>Core\Bulletins\Models\BulletinExtendedItemViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Bulletins\Models\BulletinExtendedViewModel.cs">
+      <Link>Core\Bulletins\Models\BulletinExtendedViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\CentralFeed\CentralFeedContentHelper.cs">
+      <Link>Core\CentralFeed\CentralFeedContentHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\CentralFeed\CentralFeedService.cs">
+      <Link>Core\CentralFeed\CentralFeedService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CommentsPageHelper.cs">
+      <Link>Core\Comments\CommentsPageHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CommentsPageTab.cs">
+      <Link>Core\Comments\CommentsPageTab</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CustomCommentable.cs">
+      <Link>Core\Comments\CustomCommentable</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\CustomCommentableService.cs">
+      <Link>Core\Comments\CustomCommentableService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Comments\ICommentsPageHelper.cs">
+      <Link>Core\Comments\ICommentsPageHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Constants\AppSettingConstants.cs">
+      <Link>Core\Constants\AppSettingConstants</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Constants\DocumentTypeConstants.cs">
+      <Link>Core\Constants\DocumentTypeConstants</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs">
+      <Link>Core\Controls\EditorConfiguration\IntranetEditorConfigProvider</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\DateTimeFormatProvider.cs">
+      <Link>Core\DateTimeFormatProvider</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\DocumentTypeProvider.cs">
+      <Link>Core\DocumentTypeProvider</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\Entities\Event.cs">
+      <Link>Core\Events\Entities\Event</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\EventsAutoMapperProfile.cs">
+      <Link>Core\Events\EventsAutoMapperProfile</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\EventsService.cs">
+      <Link>Core\Events\EventsService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\Models\EventExtendedItemModel.cs">
+      <Link>Core\Events\Models\EventExtendedItemModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Events\Models\EventExtendedViewModel.cs">
+      <Link>Core\Events\Models\EventExtendedViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Exceptions\ExceptionLogger.cs">
+      <Link>Core\Exceptions\ExceptionLogger</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
+      <Link>Core\Extentions\PublishedContentExtentions</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Feed\ActivityFeedOptionsWithGroups.cs">
+      <Link>Core\Feed\ActivityFeedOptionsWithGroups</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Feed\Links\ActivityLinkService.cs">
+      <Link>Core\Feed\Links\ActivityLinkService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Groups\GroupMemberService.cs">
+      <Link>Core\Groups\GroupMemberService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Handlers\NotFoundHandler.cs">
+      <Link>Core\Handlers\NotFoundHandler</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Handlers\ValidateLicenceHandler.cs">
+      <Link>Core\Handlers\ValidateLicenceHandler</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Helpers\INotifierDataHelper.cs">
+      <Link>Core\Helpers\INotifierDataHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Helpers\NotifierContentHelper.cs">
+      <Link>Core\Helpers\NotifierContentHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Helpers\UmbracoContentHelper.cs">
+      <Link>Core\Helpers\UmbracoContentHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\IntranetUserContentHelper.cs">
+      <Link>Core\IntranetUserContentHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\IoC\NinjectDependencyResolver.cs">
+      <Link>Core\IoC\NinjectDependencyResolver</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\ILicenceRequestHandler.cs">
+      <Link>Core\Licence\ILicenceRequestHandler</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\IValidateLicenceService.cs">
+      <Link>Core\Licence\IValidateLicenceService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\LicenceRequestHandler.cs">
+      <Link>Core\Licence\LicenceRequestHandler</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\LicenceServiceConnection.cs">
+      <Link>Core\Licence\LicenceServiceConnection</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Licence\ValidateLicenceService.cs">
+      <Link>Core\Licence\ValidateLicenceService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Likes\CustomLikeable.cs">
+      <Link>Core\Likes\CustomLikeable</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\LocalizationService.cs">
+      <Link>Core\LocalizationService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\MemberServiceHelper.cs">
+      <Link>Core\MemberServiceHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Navigation\NavigationAutoMapperProfile.cs">
+      <Link>Core\Navigation\NavigationAutoMapperProfile</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Navigation\TopMenuViewModel.cs">
+      <Link>Core\Navigation\TopMenuViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Navigation\uIntraLeftSideNavigationModelBuilder.cs">
+      <Link>Core\Navigation\uIntraLeftSideNavigationModelBuilder</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\Entities\News.cs">
+      <Link>Core\News\Entities\News</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\Models\NewsExtendedItemViewModel.cs">
+      <Link>Core\News\Models\NewsExtendedItemViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\Models\NewsExtendedViewModel.cs">
+      <Link>Core\News\Models\NewsExtendedViewModel</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\NewsAutoMapperProfile.cs">
+      <Link>Core\News\NewsAutoMapperProfile</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\News\NewsService.cs">
+      <Link>Core\News\NewsService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MailConfiguration.cs">
+      <Link>Core\Notification\MailConfiguration</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MailNotifierService .cs">
+      <Link>Core\Notification\MailNotifierService </Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MailService .cs">
+      <Link>Core\Notification\MailService </Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\ActivityLikeAddedMail.cs">
+      <Link>Core\Notification\Mails\ActivityLikeAddedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\BeforeStartMail.cs">
+      <Link>Core\Notification\Mails\BeforeStartMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentAddedMail.cs">
+      <Link>Core\Notification\Mails\CommentAddedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentEditedMail.cs">
+      <Link>Core\Notification\Mails\CommentEditedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentLikeAddedMail.cs">
+      <Link>Core\Notification\Mails\CommentLikeAddedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\CommentRepliedMail.cs">
+      <Link>Core\Notification\Mails\CommentRepliedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\EventHidedMail.cs">
+      <Link>Core\Notification\Mails\EventHidedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\EventMail.cs">
+      <Link>Core\Notification\Mails\EventMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\EventUpdatedMail.cs">
+      <Link>Core\Notification\Mails\EventUpdatedMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\IdeaMail.cs">
+      <Link>Core\Notification\Mails\IdeaMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\MonthlyMail.cs">
+      <Link>Core\Notification\Mails\MonthlyMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\Mails\NewsMail.cs">
+      <Link>Core\Notification\Mails\NewsMail</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\MonthlyEmailService.cs">
+      <Link>Core\Notification\MonthlyEmailService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\NotificationAutoMapperProfile .cs">
+      <Link>Core\Notification\NotificationAutoMapperProfile </Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Notification\NotificationHelper.cs">
+      <Link>Core\Notification\NotificationHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Search\SearchUmbracoHelper.cs">
+      <Link>Core\Search\SearchUmbracoHelper</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribable.cs">
+      <Link>Core\Subscribe\CustomSubscribable</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Subscribe\CustomSubscribeService.cs">
+      <Link>Core\Subscribe\CustomSubscribeService</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\UmbracoEventsModule.cs">
+      <Link>Core\UmbracoEventsModule</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs">
+      <Link>Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Users\Entities\IntranetUser.cs">
+      <Link>Core\Users\Entities\IntranetUser</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Core\Users\IntranetUserService.cs">
+      <Link>Core\Users\IntranetUserService</Link>
+    </Compile>
+    <Content Include="..\Compent.uIntra\Controllers\ActivityController.cs">
+      <Link>Controllers\ActivityController.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Views\**\*.*">
-      <Link>Views\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Content Include="..\Compent.uIntra\Controllers\Api\EditorConfigController.cs">
+      <Link>Controllers\Api\EditorConfigController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
+      <Link>Controllers\Api\MemberApiController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\Api\MonthlyEmailApiController.cs">
+      <Link>Controllers\Api\MonthlyEmailApiController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\Api\UserApiController.cs">
+      <Link>Controllers\Api\UserApiController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\BrowserCompatibilityController.cs">
+      <Link>Controllers\BrowserCompatibilityController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\BulletinsController.cs">
+      <Link>Controllers\BulletinsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\BulletinsSectionController.cs">
+      <Link>Controllers\BulletinsSectionController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\CentrallFeedController.cs">
+      <Link>Controllers\CentrallFeedController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\CommentsController.cs">
+      <Link>Controllers\CommentsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\CommentsEditPageController.cs">
+      <Link>Controllers\CommentsEditPageController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\CommentsPageController.cs">
+      <Link>Controllers\CommentsPageController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\EventsController.cs">
+      <Link>Controllers\EventsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\EventsSectionController.cs">
+      <Link>Controllers\EventsSectionController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\GroupController.cs">
+      <Link>Controllers\GroupController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\GroupFeedController.cs">
+      <Link>Controllers\GroupFeedController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\GroupsSectionController.cs">
+      <Link>Controllers\GroupsSectionController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LightboxGalleryController.cs">
+      <Link>Controllers\LightboxGalleryController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LikesController.cs">
+      <Link>Controllers\LikesController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LikesPageController.cs">
+      <Link>Controllers\LikesPageController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\LoginController.cs">
+      <Link>Controllers\LoginController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\MyLinksController.cs">
+      <Link>Controllers\MyLinksController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NavigationAuthorizationController.cs">
+      <Link>Controllers\NavigationAuthorizationController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NavigationController.cs">
+      <Link>Controllers\NavigationController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NewsController.cs">
+      <Link>Controllers\NewsController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NewsSectionController.cs">
+      <Link>Controllers\NewsSectionController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NotificationController.cs">
+      <Link>Controllers\NotificationController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\NotificationJobController.cs">
+      <Link>Controllers\NotificationJobController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\ProfileController.cs">
+      <Link>Controllers\ProfileController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\SearchController.cs">
+      <Link>Controllers\SearchController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\SubscribeController.cs">
+      <Link>Controllers\SubscribeController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\SubscribePageController.cs">
+      <Link>Controllers\SubscribePageController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Controllers\UserController.cs">
+      <Link>Controllers\UserController.cs</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Activity\ItemHeader.cshtml">
+      <Link>Views\Activity\ItemHeader.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Bulletins\DetailsView.cshtml">
+      <Link>Views\Bulletins\DetailsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Bulletins\ItemHeader.cshtml">
+      <Link>Views\Bulletins\ItemHeader.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Bulletins\ItemView.cshtml">
+      <Link>Views\Bulletins\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Comments\CommentsOverView.cshtml">
+      <Link>Views\Comments\CommentsOverView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Comments\CommentsView.cshtml">
+      <Link>Views\Comments\CommentsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\CreateView.cshtml">
+      <Link>Views\Events\CreateView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\DetailsView.cshtml">
+      <Link>Views\Events\DetailsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\EditView.cshtml">
+      <Link>Views\Events\EditView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Events\ItemView.cshtml">
+      <Link>Views\Events\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\GridPageLayout.cshtml">
+      <Link>Views\GridPageLayout.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\HomePage\Index.cshtml">
+      <Link>Views\HomePage\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Login\Login.cshtml">
+      <Link>Views\Login\Login.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Navigation\TopNavigation\Navigation.cshtml">
+      <Link>Views\Navigation\TopNavigation\Navigation.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\CreateView.cshtml">
+      <Link>Views\News\CreateView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\DetailsView.cshtml">
+      <Link>Views\News\DetailsView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\EditView.cshtml">
+      <Link>Views\News\EditView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\News\ItemView.cshtml">
+      <Link>Views\News\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap2-Fluid.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap2-Fluid.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap2.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap2.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap3-Fluid.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap3-Fluid.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap3.cshtml">
+      <Link>Views\Partials\Grid\Bootstrap3.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Base.cshtml">
+      <Link>Views\Partials\Grid\Editors\Base.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Embed.cshtml">
+      <Link>Views\Partials\Grid\Editors\Embed.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Macro.cshtml">
+      <Link>Views\Partials\Grid\Editors\Macro.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Media.cshtml">
+      <Link>Views\Partials\Grid\Editors\Media.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Rte.cshtml">
+      <Link>Views\Partials\Grid\Editors\Rte.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Textstring.cshtml">
+      <Link>Views\Partials\Grid\Editors\Textstring.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Shared\_Layout.cshtml">
+      <Link>Views\Shared\_Layout.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\SubscribePage\Index.cshtml">
+      <Link>Views\SubscribePage\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\TestWithLinkPicker.cshtml">
+      <Link>Views\TestWithLinkPicker.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\Web.config">
+      <Link>Views\Web.config</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\_ViewStart.cshtml">
+      <Link>Views\_ViewStart.cshtml</Link>
     </Content>
     <EmbeddedResource Include="..\Compent.uIntra\Installer\**\*">
       <Link>Installer\%(RecursiveDir)%(FileName)%(Extension)</Link>
@@ -1077,9 +1492,9 @@
     <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
       <Link>App_Start\ElmahMvc_Start.cs</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
+    <Compile Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
       <Link>App_Start\MapperConfig.cs</Link>
-    </Content>
+    </Compile>
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
@@ -1168,181 +1583,11 @@
     <Content Include="App_Plugins\Localization\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\EnumLists\package.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Members\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
@@ -1391,6 +1636,48 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
@@ -1446,6 +1733,135 @@
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -1456,7 +1872,7 @@
     <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -1500,11 +1916,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.2.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets'))" />
   </Target>
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
@@ -1526,5 +1942,5 @@
     </Copy>
     <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
-  <Import Project="..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.6.4\build\UmbracoCms.targets')" />
+  <Import Project="..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets')" />
 </Project>
