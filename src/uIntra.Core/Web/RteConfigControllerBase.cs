@@ -2,10 +2,11 @@
 using System.Web.Hosting;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Umbraco.Web.WebApi;
 
 namespace uIntra.Core.Web
 {
-    public abstract class RteConfigControllerBase
+    public abstract class RteConfigControllerBase: UmbracoAuthorizedApiController
     {
         protected string DefaultConfigFolder => "~/App_Plugins/BaseControls/TinyMce/Configs";
 

@@ -131,8 +131,8 @@
         ]
     };
 
-    var buildConfig = function ($scope, valueUpdater, interpolateFilter, dialogService) {
-        var config = angular.extend({}, angular.copy(defaultConfig), $scope.config);
+    var buildConfig = function ($scope, customConfig, valueUpdater, interpolateFilter, dialogService) {
+        var config = angular.extend({}, angular.copy(defaultConfig), customConfig);
         config.extraButtons.linksPicker = linksPickerFactory(interpolateFilter, config);
         config.extraButtons.umbmediapicker = umbmediapickerFactory(dialogService, interpolateFilter);
 
@@ -180,7 +180,7 @@
         };
     };
 
-    var factory = function ($q, $timeout, angularHelper, assetsService, interpolateFilter, dialogService) {
+    var factory = function ($q, $timeout, $http, angularHelper, assetsService, interpolateFilter, dialogService) {
         return {
             scope: { model: '=', config: '=' },
             restrict: 'E',
@@ -189,9 +189,16 @@
                 var valueUpdater = valueUpdaterFactory($scope, angularHelper);
 
                 var getConfig = function () {
-                    $timeout(function () {
-                        $scope.customConfig = buildConfig($scope, valueUpdater, interpolateFilter, dialogService);
-                    }, 150, false);
+                    if (!$scope.config) {
+                        $scope.customConfig = buildConfig($scope, {}, valueUpdater, interpolateFilter, dialogService);
+                    } else {
+                        return $http
+                            .get('/umbraco/backoffice/api/RteConfig/GetConfig?rteAlias=' + $scope.config)
+                            .then(function (res) {
+                                var config = res.data.data;
+                                $scope.customConfig = buildConfig($scope, config, valueUpdater, interpolateFilter, dialogService);
+                            });
+                    }
                 }
 
                 var init = function () {
@@ -208,6 +215,6 @@
         };
     };
 
-    factory.$inject = ['$q', '$timeout', 'angularHelper', 'assetsService', 'interpolateFilter', 'dialogService'];
+    factory.$inject = ['$q', '$timeout', '$http', 'angularHelper', 'assetsService', 'interpolateFilter', 'dialogService'];
     angular.module("umbraco").directive('tinyMce', factory);
 })(angular);

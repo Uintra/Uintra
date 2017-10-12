@@ -499,10 +499,18 @@
             text-decoration:none;
         }
     }
-}
 
-.side-nav{
-    &._groups{
-        padding-top:9px;
+    &__name {
+        color: var(--color-contrast);
+    }
+
+    &__link{
+        color:var(--text-color-dark);
+
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--text-color-dark);
+        }
     }
 }

@@ -38,6 +38,10 @@
     background: rgb(248, 248, 248);
     cursor: pointer;
 }
+.news-table .table tr._active {
+    background: rgb(248, 248, 248);
+} 
+
 .news-table .table tr._unpublished {
     background: rgb(232, 234, 237);
 }
