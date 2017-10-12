@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Constants;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
@@ -51,14 +52,19 @@ namespace Compent.uIntra.Core
             foreach (var entity in publishEventArgs.PublishedEntities)
             {
                 contentIndexer.FillIndex(entity.Id);
-                umbracoHelper.TypedContentAtRoot()
-                    .SelectMany(c => c.DescendantsOrSelf())
-                    .Where(c => ContainsGlobalPanel(c, entity))
-                    .Select(c => c.Id)
-                    .ToList()
-                    .ForEach(contentIndexer.FillIndex);
+                if (IsGlobalPanel(entity))
+                    umbracoHelper.TypedContentAtRoot()
+                        .SelectMany(c => c.DescendantsOrSelf())
+                        .Where(c => ContainsGlobalPanel(c, entity))
+                        .Select(c => c.Id)
+                        .ToList()
+                        .ForEach(contentIndexer.FillIndex);
             }
         }
+
+        private static bool IsGlobalPanel(IContent entity) => 
+            entity.Parent().ContentType.Alias == DocumentTypeAliasConstants.GlobalPanelFolder;
+
         static IGridHelper gridHelper = DependencyResolver.Current.GetService<IGridHelper>();
         private static bool ContainsGlobalPanel(IPublishedContent content, IContent globalPanel)
         {
