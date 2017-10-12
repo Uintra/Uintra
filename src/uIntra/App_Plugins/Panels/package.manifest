@@ -92,6 +92,16 @@
           "toolbar": "bold | italic | alignleft | aligncenter | alignright | bullist"
         }
       }
+    },
+    {
+      "name": "FAQ panel",
+      "alias": "custom.FaqPanel",
+      "view": "/App_Plugins/Panels/FaqPanel/backoffice/faq-panel.html",
+      "render": "/App_Plugins/Panels/FaqPanel/faqPanel.cshtml",
+      "icon": "icon-ordered-list color-orange",
+      "config": {
+
+      }
     }
   ],
   "javascript": [
@@ -99,7 +109,8 @@
     "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.js",
     "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.js",
     "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.js",
-    "/App_Plugins/Panels/DocumentLibraryPanel/backoffice/document-panel.js"
+    "/App_Plugins/Panels/DocumentLibraryPanel/backoffice/document-panel.js",
+    "/App_Plugins/Panels/FaqPanel/backoffice/faq-panel.js"
   ],
   "css": [
     "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.css"
