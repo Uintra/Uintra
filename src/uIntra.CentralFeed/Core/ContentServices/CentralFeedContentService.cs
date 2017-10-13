@@ -2,6 +2,7 @@
 using uIntra.CentralFeed.Providers;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
+using uIntra.Core.Grid;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using static uIntra.CentralFeed.CentralFeedConstants;
@@ -18,28 +19,36 @@ namespace uIntra.CentralFeed
         protected override string ActivityCreatePluginAlias { get; } = FeedActivityCreatePluginAlias;
 
         public CentralFeedContentService(
+            IFeedTypeProvider feedTypeProvider,
+            IGridHelper gridHelper,
             ICentralFeedService centralFeedService,
             ICentralFeedLinkService centralFeedLinkService,
             ICentralFeedContentProvider contentProvider)
+                : base(feedTypeProvider, gridHelper)
         {
             _centralFeedService = centralFeedService;
             _centralFeedLinkService = centralFeedLinkService;
             _contentProvider = contentProvider;
         }
 
-        public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
+        private ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentPage)
         {
             var overviewPage = _contentProvider.GetOverviewPage();
             var type = GetFeedTabType(overviewPage);
-            yield return new ActivityFeedTabModel
+            return new ActivityFeedTabModel
             {
                 Content = overviewPage,
                 Type = type,
                 IsActive = overviewPage.Id == currentPage.Id,
                 Links = _centralFeedLinkService.GetCreateLinks(type)
             };
+        }
 
-            foreach (var content in GetRelatedContent())
+        public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
+        {
+            yield return GetMainFeedTab(currentPage);
+
+            foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();

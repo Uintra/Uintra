@@ -31,7 +31,8 @@ namespace Compent.uIntra.Controllers
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
             IGroupFeedService groupFeedService, 
-            IFeedActivityHelper feedActivityHelper) 
+            IFeedActivityHelper feedActivityHelper,
+            IFeedFilterStateService feedFilterStateService) 
             : base(centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
@@ -39,7 +40,8 @@ namespace Compent.uIntra.Controllers
                   intranetUserService,
                   intranetUserContentProvider,
                   centralFeedTypeProvider,
-                  centralFeedLinkService)
+                  centralFeedLinkService,
+                  feedFilterStateService)
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;

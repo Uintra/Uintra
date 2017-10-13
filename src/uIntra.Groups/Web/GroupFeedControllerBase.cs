@@ -21,6 +21,7 @@ namespace uIntra.Groups.Web
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
+        private readonly IFeedFilterStateService _feedFilterStateService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         private bool IsCurrentUserGroupMember { get; set; }
@@ -55,6 +56,7 @@ namespace uIntra.Groups.Web
             _groupFeedContentContentService = groupFeedContentContentService;
             _groupFeedLinkService = groupFeedLinkService;
             _groupMemberService = groupMemberService;
+            _feedFilterStateService = feedFilterStateService;
         }
 
         #region Actions

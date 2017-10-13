@@ -11,18 +11,20 @@ namespace uIntra.CentralFeed
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGridHelper _gridHelper;
 
+        protected FeedContentServiceBase(IFeedTypeProvider feedTypeProvider, IGridHelper gridHelper)
+        {
+            _feedTypeProvider = feedTypeProvider;
+            _gridHelper = gridHelper;
+        }
+
         protected abstract string FeedPluginAlias { get; }
         protected abstract string ActivityCreatePluginAlias { get; }
 
-        public virtual IIntranetType GetFeedTabType(IPublishedContent content)
-        {
-            return GetActivityTypeFromPlugin(content, FeedPluginAlias);
-        }
+        public virtual IIntranetType GetFeedTabType(IPublishedContent content) => 
+            GetActivityTypeFromPlugin(content, FeedPluginAlias);
 
-        public virtual IIntranetType GetCreateActivityType(IPublishedContent content)
-        {
-            return GetActivityTypeFromPlugin(content, ActivityCreatePluginAlias);
-        }
+        public virtual IIntranetType GetCreateActivityType(IPublishedContent content) => 
+            GetActivityTypeFromPlugin(content, ActivityCreatePluginAlias);
 
         protected virtual  IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
