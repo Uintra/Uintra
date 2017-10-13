@@ -2,7 +2,7 @@
 
 namespace uIntra.Notification
 {
-    public interface INotificationHelper
+    public interface INotificationContentProvider
     {
         IPublishedContent GetNotificationListPage();
     }

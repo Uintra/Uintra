@@ -207,6 +207,10 @@
                     margin-bottom:0;
                 }
             }
+
+            img{
+                margin:0 4px;
+            }
         }
 
         &-images{

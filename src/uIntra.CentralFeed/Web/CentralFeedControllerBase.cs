@@ -14,10 +14,11 @@ namespace uIntra.CentralFeed.Web
     public abstract class CentralFeedControllerBase : FeedControllerBase
     {
         private readonly ICentralFeedService _centralFeedService;
-        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
+        private readonly IFeedFilterStateService _feedFilterStateService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
@@ -30,19 +31,21 @@ namespace uIntra.CentralFeed.Web
 
         protected CentralFeedControllerBase(
             ICentralFeedService centralFeedService,
-            ICentralFeedContentHelper centralFeedContentHelper,
+            ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            ICentralFeedLinkService centralFeedLinkService)
-            : base(centralFeedContentHelper, subscribeService, centralFeedService, intranetUserService)
+            ICentralFeedLinkService centralFeedLinkService,
+            IFeedFilterStateService feedFilterStateService)
+            : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService)
         {
             _centralFeedService = centralFeedService;
-            _centralFeedContentHelper = centralFeedContentHelper;
+            _centralFeedContentService = centralFeedContentService;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _centralFeedLinkService = centralFeedLinkService;
+            _feedFilterStateService = feedFilterStateService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
@@ -56,9 +59,9 @@ namespace uIntra.CentralFeed.Web
         }
 
         [HttpGet]
-        public ActionResult Create()//(int typeId) // TODO: dont do redundant grid parsing, send data from grid
+        public ActionResult Create()
         {
-            var activityType = _centralFeedContentHelper.GetCreateActivityType(CurrentPage);
+            var activityType = _centralFeedContentService.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType);
             return PartialView(CreateViewPath, viewModel);
         }
@@ -82,7 +85,7 @@ namespace uIntra.CentralFeed.Web
             var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
-            if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
+            if (IsEmptyFilters(model.FilterState, _feedFilterStateService.CentralFeedCookieExists()))
             {
                 model.FilterState = GetFilterStateModel();
             }
@@ -100,7 +103,7 @@ namespace uIntra.CentralFeed.Web
 
             var centralFeedModel = GetFeedListViewModel(model, filteredItems, centralFeedType);
             var filterState = MapToFilterState(centralFeedModel.FilterState);
-            _centralFeedContentHelper.SaveFiltersState(filterState);
+            _feedFilterStateService.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
         }
@@ -108,9 +111,9 @@ namespace uIntra.CentralFeed.Web
         [HttpGet]
         public virtual ActionResult OpenFilters()
         {
-            var feedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
             feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _centralFeedContentHelper.SaveFiltersState(feedState);
+            _feedFilterStateService.SaveFiltersState(feedState);
             return new EmptyResult();
         }
 
@@ -154,8 +157,8 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
-            var tabType = _centralFeedContentHelper.GetCentralFeedTabType(CurrentPage);
-            var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            var tabType = _centralFeedContentService.GetFeedTabType(CurrentPage);
+            var centralFeedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
 
             var activityTabs = GetActivityTabs().Map<List<ActivityFeedTabViewModel>>();
 
@@ -173,7 +176,7 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual IEnumerable<ActivityFeedTabModel> GetActivityTabs()
         {
-            return _centralFeedContentHelper.GetTabs(CurrentPage);
+            return _centralFeedContentService.GetTabs(CurrentPage);
         }
 
         protected virtual LatestActivitiesViewModel GetLatestActivities(LatestActivitiesPanelModel panelModel)
@@ -214,7 +217,7 @@ namespace uIntra.CentralFeed.Web
 
         private ActivityFeedTabViewModel GetTabForActivityType(IIntranetType activitiesType)
         {
-            var result = _centralFeedContentHelper
+            var result = _centralFeedContentService
                 .GetTabs(CurrentPage)
                 .Single(el => el.Type.Id == activitiesType.Id)
                 .Map<ActivityFeedTabViewModel>();
@@ -225,7 +228,6 @@ namespace uIntra.CentralFeed.Web
         protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType)
         {
             var links = _centralFeedLinkService.GetCreateLinks(activityType);
-
             var settings = _centralFeedService.GetSettings(activityType);
 
             return new CreateViewModel()

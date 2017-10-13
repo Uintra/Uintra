@@ -6,6 +6,6 @@
         public const string CentralFeedSettingsCacheKey = "CentralFeedSettings";
 
         public const string CentralFeedPluginAlias = "custom.CentralFeed";
-        public const string ActivityCreatePluginAlias = "custom.ActivityCreate";
+        public const string FeedActivityCreatePluginAlias = "custom.ActivityCreate";
     }
 }
