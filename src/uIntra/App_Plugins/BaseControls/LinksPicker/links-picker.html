@@ -15,7 +15,7 @@
             <tr ng-repeat="link in getRepeaterModel()" ng-class="{'_not-sortable' : isSingleMode}">
                 <td style="width: 20px"><i class="icon icon-navigation handle handle-move"></i></td>
                 <td>
-                    <input type="text" ng-if="link.type == linkTypes.External" ng-model="link.link" placeholder="http://example.com" required ng-pattern="config.urlRegex" />
+                    <input type="text" ng-if="link.type == linkTypes.External" ng-model="link.link" placeholder="http://example.com" required />
                     <input type="email" ng-if="link.type == linkTypes.Email" ng-model="link.prettyLink" placeholder="mail@mail.com" required ng-change="processEmailChange(link)" />
                     <span ng-if="link.type == linkTypes.Internal || link.type == linkTypes.Media" class="internal-links-picker"
                           ng-click="link.type == linkTypes.Internal ? internalPicker(link) : mediaPicker(link)">
