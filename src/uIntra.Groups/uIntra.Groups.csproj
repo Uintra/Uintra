@@ -275,7 +275,7 @@
     <Compile Include="Core\Extentions\GroupsPublishedContentExtensions.cs" />
     <Compile Include="Core\Extentions\NameValueCollectionExtensions.cs" />
     <Compile Include="Core\Helpers\GroupContentProvider.cs" />
-    <Compile Include="Core\Helpers\GroupFeedContentHelper.cs" />
+    <Compile Include="Core\Helpers\GroupFeedContentService.cs" />
     <Compile Include="Core\Links\GroupLinkProvider.cs" />
     <Compile Include="Core\Links\IGroupLinkProvider.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
@@ -315,7 +315,7 @@
     <Compile Include="Core\Enums\GroupTypeEnum.cs" />
     <Compile Include="Core\Models\GroupViewModel.cs" />
     <Compile Include="Core\IGroupActivity.cs" />
-    <Compile Include="Core\Helpers\IGroupFeedContentHelper.cs" />
+    <Compile Include="Core\Helpers\IGroupFeedContentService.cs" />
     <Compile Include="Core\Services\IGroupActivityService.cs" />
     <Compile Include="Core\Services\IGroupFeedService.cs" />
     <Compile Include="Core\Services\IGroupMediaService.cs" />

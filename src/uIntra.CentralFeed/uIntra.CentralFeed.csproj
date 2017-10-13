@@ -320,9 +320,9 @@
     <Compile Include="Core\CentralFeedTypeProvider.cs" />
     <Compile Include="Core\Constants\CentralFeedConstants.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
-    <Compile Include="Core\Helpers\FeedContentHelper.cs" />
-    <Compile Include="Core\Helpers\FeedContentHelperBase.cs" />
-    <Compile Include="Core\Helpers\ICentralFeedContentHelper.cs" />
+    <Compile Include="Core\Helpers\IFeedContentService.cs" />
+    <Compile Include="Core\Helpers\FeedContentServiceBase.cs" />
+    <Compile Include="Core\Helpers\ICentralFeedContentService.cs" />
     <Compile Include="Core\Links\ActivityTransferCreateModel.cs" />
     <Compile Include="Core\Links\ActivityTransferModel.cs" />
     <Compile Include="Core\Links\CentralFeedLinksProvider.cs" />
@@ -347,7 +347,7 @@
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
     <Compile Include="Core\Navigation\Models\PageTabModel.cs" />
     <Compile Include="Core\Navigation\Models\TabModelBase.cs" />
-    <Compile Include="Core\Helpers\CentralFeedContentHelper.cs" />
+    <Compile Include="Core\Helpers\CentralFeedContentService.cs" />
     <Compile Include="Core\Providers\CentralFeedContentProvider.cs" />
     <Compile Include="Core\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="DefaultImplementation\FeedService.cs" />
