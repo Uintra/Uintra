@@ -23,18 +23,18 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual int ItemsPerPage => 8;
 
-        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly ISubscribeService _subscribeService;
         private readonly IFeedService _feedService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected FeedControllerBase(
-            ICentralFeedContentHelper centralFeedContentHelper,
+            ICentralFeedContentService centralFeedContentService,
             ISubscribeService subscribeService,
             IFeedService feedService,
             IIntranetUserService<IIntranetUser> intranetUserService)
         {
-            _centralFeedContentHelper = centralFeedContentHelper;
+            _centralFeedContentService = centralFeedContentService;
             _subscribeService = subscribeService;
             _feedService = feedService;
             _intranetUserService = intranetUserService;
@@ -149,7 +149,7 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual FeedFilterStateModel GetFilterStateModel()
         {
-            var stateModel = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
+            var stateModel = _centralFeedContentService.GetFiltersState<FeedFiltersState>();
 
             var result = new FeedFilterStateModel()
             {

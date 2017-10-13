@@ -23,7 +23,7 @@ namespace Compent.uIntra.Controllers
 
         public CentralFeedController(
             ICentralFeedService centralFeedService,
-            ICentralFeedContentHelper centralFeedContentHelper,
+            ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetUserService<IGroupMember> intranetUserService,
@@ -33,7 +33,7 @@ namespace Compent.uIntra.Controllers
             IGroupFeedService groupFeedService, 
             IFeedActivityHelper feedActivityHelper) 
             : base(centralFeedService,
-                  centralFeedContentHelper,
+                  centralFeedContentService,
                   activitiesServiceFactory,
                   subscribeService,
                   intranetUserService,

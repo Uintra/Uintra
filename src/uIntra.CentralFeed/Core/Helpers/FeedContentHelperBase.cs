@@ -6,7 +6,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
 {
-    public abstract class FeedContentHelperBase : IFeedContentHelper
+    public abstract class FeedContentServiceBase : IFeedContentService
     {
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGridHelper _gridHelper;

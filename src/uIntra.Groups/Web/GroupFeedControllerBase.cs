@@ -15,12 +15,12 @@ namespace uIntra.Groups.Web
 {
     public abstract class GroupFeedControllerBase : FeedControllerBase
     {
-        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly IGroupFeedService _groupFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
-        private readonly IGroupFeedContentHelper _groupFeedContentContentHelper;
+        private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private bool IsCurrentUserGroupMember { get; set; }
@@ -32,28 +32,28 @@ namespace uIntra.Groups.Web
         protected override string ListViewPath => "~/App_Plugins/Groups/Room/Feed/List.cshtml";
 
         protected GroupFeedControllerBase(
-            ICentralFeedContentHelper centralFeedContentHelper,
+            ICentralFeedContentService centralFeedContentService,
             ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupFeedContentHelper groupFeedContentContentHelper,
+            IGroupFeedContentService groupFeedContentContentService,
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService)
-            : base(centralFeedContentHelper,
+            : base(centralFeedContentService,
                   subscribeService,
                   groupFeedService,                 
                   intranetUserService)
         {
-            _centralFeedContentHelper = centralFeedContentHelper;
+            _centralFeedContentService = centralFeedContentService;
             _groupFeedService = groupFeedService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
-            _groupFeedContentContentHelper = groupFeedContentContentHelper;
+            _groupFeedContentContentService = groupFeedContentContentService;
             _groupFeedLinkService = groupFeedLinkService;
             _groupMemberService = groupMemberService;
         }
@@ -81,7 +81,7 @@ namespace uIntra.Groups.Web
             if (!_groupMemberService.IsGroupMember(groupId, currentUser))
                 return new EmptyResult();
             
-            var activityType = _groupFeedContentContentHelper.GetCreateActivityType(CurrentPage);
+            var activityType = _groupFeedContentContentService.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType, groupId);
             return PartialView(CreateViewPath, viewModel);
         }
@@ -99,7 +99,7 @@ namespace uIntra.Groups.Web
             var items = GetGroupFeedItems(centralFeedType, model.GroupId).ToList();
             var tabSettings = _groupFeedService.GetSettings(centralFeedType);
 
-            if (IsEmptyFilters(model.FilterState, _centralFeedContentHelper.CentralFeedCookieExists()))
+            if (IsEmptyFilters(model.FilterState, _centralFeedContentService.CentralFeedCookieExists()))
             {
                 model.FilterState = GetFilterStateModel();
             }
@@ -114,7 +114,7 @@ namespace uIntra.Groups.Web
 
             var centralFeedModel = GetFeedListViewModel(model, filteredItems, centralFeedType);
             var filterState = MapToFilterState(centralFeedModel.FilterState);
-            _centralFeedContentHelper.SaveFiltersState(filterState);
+            _centralFeedContentService.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
         }
@@ -163,9 +163,9 @@ namespace uIntra.Groups.Web
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var tabType = _groupFeedContentContentHelper.GetFeedTabType(CurrentPage);
+            var tabType = _groupFeedContentContentService.GetFeedTabType(CurrentPage);
 
-            var tabs = _groupFeedContentContentHelper.GetActivityTabs(CurrentPage, currentUser, groupId);
+            var tabs = _groupFeedContentContentService.GetActivityTabs(CurrentPage, currentUser, groupId);
             var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel

@@ -4,11 +4,10 @@ using Umbraco.Core.Models;
 
 namespace uIntra.CentralFeed
 {
-    public interface ICentralFeedContentHelper : IFeedContentHelper
+    public interface ICentralFeedContentService : IFeedContentService
     {
         bool IsCentralFeedPage(IPublishedContent currentPage);
 
-        IIntranetType GetFeedTabType(IPublishedContent content);
 
 
 

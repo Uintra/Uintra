@@ -13,7 +13,7 @@ using static uIntra.Groups.Constants.GroupConstants;
 
 namespace uIntra.Groups
 {
-    public class GroupFeedContentHelper : FeedContentHelperBase, IGroupFeedContentHelper
+    public class GroupFeedContentService : FeedContentServiceBase, IGroupFeedContentService
     {
         private readonly IGroupService _groupService;
         private readonly IGridHelper _gridHelper;
@@ -24,7 +24,7 @@ namespace uIntra.Groups
         protected override string FeedPluginAlias { get; } = GroupFeedPluginAlias;
         protected override string ActivityCreatePluginAlias { get; } = GroupActivityCreatePluginAlias;
 
-        public GroupFeedContentHelper(
+        public GroupFeedContentService(
             IGroupService groupService,
             IGridHelper gridHelper,
             IGroupFeedLinkService groupFeedLinkService,

@@ -211,7 +211,7 @@ namespace Compent.uIntra
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
+            kernel.Bind<ICentralFeedContentService>().To<CentralFeedContentService>().InRequestScope();
 
             kernel.Bind<ICentralFeedLinkProvider>().To<CentralFeedLinkProvider>();
             kernel.Bind<IGroupFeedLinkProvider>().To<GroupFeedLinkProvider>();
@@ -297,7 +297,7 @@ namespace Compent.uIntra
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
-            kernel.Bind<IGroupFeedContentHelper>().To<GroupFeedContentHelper>().InRequestScope();
+            kernel.Bind<IGroupFeedContentService>().To<GroupFeedContentService>().InRequestScope();
             kernel.Bind<IGroupContentProvider>().To<GroupContentProvider>().InRequestScope();
             kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
 

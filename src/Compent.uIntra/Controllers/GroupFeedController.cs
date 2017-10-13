@@ -17,18 +17,18 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
 
-        public GroupFeedController(ICentralFeedContentHelper centralFeedContentHelper,
+        public GroupFeedController(ICentralFeedContentService centralFeedContentService,
             ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupFeedContentHelper groupFeedContentContentHelper,
+            IGroupFeedContentService groupFeedContentContentService,
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService) 
-            : base(centralFeedContentHelper, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentProvider, centralFeedTypeProvider, intranetUserService, groupFeedContentContentHelper, groupFeedLinkProvider, groupFeedLinkService, groupMemberService)
+            : base(centralFeedContentService, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentProvider, centralFeedTypeProvider, intranetUserService, groupFeedContentContentService, groupFeedLinkProvider, groupFeedLinkService, groupMemberService)
         {
             this._intranetUserService = intranetUserService;
         }

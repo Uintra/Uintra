@@ -7,7 +7,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Groups
 {
-    public interface IGroupFeedContentHelper : IFeedContentHelper
+    public interface IGroupFeedContentService : IFeedContentService
     {
         IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId);
         ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId);

@@ -12,7 +12,7 @@ using Umbraco.Web;
 
 namespace uIntra.CentralFeed
 {
-    public class CentralFeedContentHelper : FeedContentHelperBase, ICentralFeedContentHelper
+    public class CentralFeedContentService : FeedContentServiceBase, ICentralFeedContentService
     {
         private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
         private readonly ICentralFeedService _centralFeedService;
@@ -24,7 +24,7 @@ namespace uIntra.CentralFeed
         private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly ICentralFeedContentProvider _contentProvider;
 
-        public CentralFeedContentHelper(
+        public CentralFeedContentService(
             ICentralFeedService centralFeedService,
             ICookieProvider cookieProvider,
             IActivityTypeProvider activityTypeProvider,
