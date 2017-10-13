@@ -29,7 +29,10 @@
                     <ul>
                         @foreach (var menuItem in topLevelMenu.Items)
                         {
-                            <li>
+                            var isActive = menuItem.IsActive ? "_active" : string.Empty;
+                            var isSelected = menuItem.IsSelected ? "_selected" : string.Empty;
+
+                            <li class="@isActive @isSelected">
                                 <a href="@menuItem.Url">@menuItem.Name</a>
                             </li>
                         }
