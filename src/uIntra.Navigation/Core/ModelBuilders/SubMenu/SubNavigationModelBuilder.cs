@@ -76,10 +76,10 @@ namespace uIntra.Navigation
 
         protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage)
         {
-            var selectedItems = CurrentPage.AncestorsOrSelf().Where(pc => !pc.IsHeading() && !IsHomePage(pc)).ToList();
+            var activeItems = CurrentPage.AncestorsOrSelf().Where(pc => !pc.IsHeading() && !IsHomePage(pc)).ToList();
 
-            var menuRows = selectedItems
-                .Select(selectedItem => GetContentForSubNavigation(selectedItem).Select(MapToSubNavigationMenuItemModel))
+            var menuRows = activeItems
+                .Select(selectedItem => GetAvailableContent(selectedItem.Children).Select(MapToSubNavigationMenuItemModel))
                 .Select(menuItems => new SubNavigationMenuRowModel
                 {
                     Items = menuItems.ToList()
