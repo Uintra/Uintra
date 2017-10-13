@@ -17,20 +17,20 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
 
-        public GroupFeedController(ICentralFeedContentHelper centralFeedContentHelper,
-            ISubscribeService subscribeService,
+        public GroupFeedController(ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetUserService<IGroupMember> intranetUserService,
-            IGroupHelper groupContentHelper,
+            IGroupFeedContentService groupFeedContentContentService,
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
-            IGroupMemberService groupMemberService) 
-            : base(centralFeedContentHelper, subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentHelper, centralFeedTypeProvider, intranetUserService, groupContentHelper, groupFeedLinkProvider, groupFeedLinkService, groupMemberService)
+            IGroupMemberService groupMemberService,
+            IFeedFilterStateService feedFilterStateService) 
+            : base(subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentProvider, centralFeedTypeProvider, intranetUserService, groupFeedContentContentService, groupFeedLinkProvider, groupFeedLinkService, groupMemberService, feedFilterStateService)
         {
-            this._intranetUserService = intranetUserService;
+            _intranetUserService = intranetUserService;
         }
 
         protected override FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems,

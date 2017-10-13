@@ -316,20 +316,8 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.6.11, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.6.11\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.5.22, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.5.22\lib\net452\uIntra.CentralFeed.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.8.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.8.10\lib\net452\uIntra.Comments.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Core, Version=1.3.10.38, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.3.10.38\lib\net452\uIntra.Core.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Events, Version=1.3.3.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.3.3.10\lib\net452\uIntra.Events.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Groups, Version=0.1.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.1.0.7\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -345,9 +333,6 @@
     <Reference Include="uIntra.News, Version=1.2.3.11, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.2.3.11\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.2.4.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.2.4.10\lib\net452\uIntra.Notification.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.9\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
@@ -359,9 +344,6 @@
     </Reference>
     <Reference Include="uIntra.Tagging, Version=1.1.6.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Tagging.1.1.6.1\lib\net452\uIntra.Tagging.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Users, Version=1.5.3.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.5.3.3\lib\net452\uIntra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
@@ -1162,7 +1144,6 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedCreateModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
-    <Compile Include="Core\CentralFeed\CentralFeedContentHelper.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedService.cs" />
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
@@ -1201,7 +1182,7 @@
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
-    <Compile Include="Core\IntranetUserContentHelper.cs" />
+    <Compile Include="Core\IntranetUserContentProvider.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\Licence\ILicenceRequestHandler.cs" />
@@ -1237,7 +1218,7 @@
     <Compile Include="Core\Notification\Mails\NewsMail.cs" />
     <Compile Include="Core\Notification\MonthlyEmailService.cs" />
     <Compile Include="Core\Notification\NotificationAutoMapperProfile .cs" />
-    <Compile Include="Core\Notification\NotificationHelper.cs" />
+    <Compile Include="Core\Notification\NotificationContentProvider.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
@@ -1364,6 +1345,18 @@
       <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
       <Name>uIntra.Bulletins</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+      <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
+      <Name>uIntra.CentralFeed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Comments\uIntra.Comments.csproj">
+      <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
+      <Name>uIntra.Comments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uIntra.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>uIntra.Core</Name>
@@ -1371,6 +1364,18 @@
     <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
       <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
       <Name>uIntra.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
+      <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
+      <Name>uIntra.Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
+      <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
+      <Name>uIntra.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
+      <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
+      <Name>uIntra.Users</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

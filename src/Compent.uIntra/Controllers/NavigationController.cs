@@ -28,43 +28,49 @@ namespace Compent.uIntra.Controllers
         protected override string SystemLinksContentXPath { get; }
         private string GroupNavigationViewPath { get; } = "~/App_Plugins/Groups/GroupNavigation.cshtml";
 
-        private readonly ICentralFeedContentHelper _centralFeedContentHelper;
+        private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
-        private readonly IGroupHelper _groupHelper;
+        private readonly IGroupFeedContentService _groupFeedContentService;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
-        private readonly IGroupContentHelper _groupContentHelper;
+        private readonly IGroupContentProvider _groupContentProvider;
+        private readonly IGroupHelper _groupHelper;
+        private readonly ICentralFeedHelper _centralFeedHelper;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
-            ICentralFeedContentHelper centralFeedContentHelper,
+            ICentralFeedContentService centralFeedContentService,
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
-            IGroupHelper groupHelper,
+            IGroupFeedContentService groupFeedContentService,
             IIntranetUserService<IntranetUser> intranetUserService,
             IGroupLinkProvider groupLinkProvider,
-            IGroupContentHelper groupContentHelper) :
+            IGroupContentProvider groupContentProvider,
+            IGroupHelper groupHelper,
+            ICentralFeedHelper centralFeedHelper) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
-            _centralFeedContentHelper = centralFeedContentHelper;
+            _centralFeedContentService = centralFeedContentService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
-            _groupHelper = groupHelper;
+            _groupFeedContentService = groupFeedContentService;
             _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
-            _groupContentHelper = groupContentHelper;
+            _groupContentProvider = groupContentProvider;
+            _groupHelper = groupHelper;
+            _centralFeedHelper = centralFeedHelper;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
 
         public override ActionResult SubNavigation()
         {
-            if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
+            if (_centralFeedHelper.IsCentralFeedPage(CurrentPage))
             {
                 return new EmptyResult();
             }
@@ -94,14 +100,14 @@ namespace Compent.uIntra.Controllers
             {
                 groupNavigationModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
 
-                groupNavigationModel.ActivityTabs = _groupHelper
+                groupNavigationModel.ActivityTabs = _groupFeedContentService
                     .GetMainFeedTab(CurrentPage, groupId.Value)
                     .ToEnumerableOfOne()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();
-                var groupEditPage = _groupContentHelper.GetEditPage();
-                groupNavigationModel.PageTabs = _groupHelper
+                var groupEditPage = _groupContentProvider.GetEditPage();
+                groupNavigationModel.PageTabs = _groupFeedContentService
                     .GetPageTabs(CurrentPage, currentUser, groupId.Value)
                     .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }

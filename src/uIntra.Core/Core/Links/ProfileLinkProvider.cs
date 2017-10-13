@@ -6,17 +6,17 @@ namespace uIntra.Core.Links
 {
     public class ProfileLinkProvider : IProfileLinkProvider
     {
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
-        public ProfileLinkProvider(IIntranetUserContentHelper intranetUserContentHelper)
+        public ProfileLinkProvider(IIntranetUserContentProvider intranetUserContentProvider)
         {
-            _intranetUserContentHelper = intranetUserContentHelper;
+            _intranetUserContentProvider = intranetUserContentProvider;
         }
 
         public string GetProfileLink(IIntranetUser user) => 
             GetProfileLink(user.Id);
 
         public string GetProfileLink(Guid userId) => 
-            _intranetUserContentHelper.GetProfilePage().Url.AddIdParameter(userId);
+            _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(userId);
     }
 }
