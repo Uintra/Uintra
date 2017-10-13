@@ -1366,20 +1366,6 @@
     <Folder Include="Content\scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
-      <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
-      <Name>uIntra.Bulletins</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
-      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
-      <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
-      <Name>uIntra.Events</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
