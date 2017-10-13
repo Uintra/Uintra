@@ -1124,9 +1124,6 @@
     <Compile Include="..\Compent.uIntra\Core\Exceptions\ExceptionLogger.cs">
       <Link>Core\Exceptions\ExceptionLogger</Link>
     </Compile>
-    <Compile Include="..\Compent.uIntra\Core\Extentions\PublishedContentExtentions.cs">
-      <Link>Core\Extentions\PublishedContentExtentions</Link>
-    </Compile>
     <Compile Include="..\Compent.uIntra\Core\Feed\ActivityFeedOptionsWithGroups.cs">
       <Link>Core\Feed\ActivityFeedOptionsWithGroups</Link>
     </Compile>
