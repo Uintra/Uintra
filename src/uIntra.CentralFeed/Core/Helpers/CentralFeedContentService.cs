@@ -9,6 +9,7 @@ using uIntra.Core.Extentions;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using static uIntra.CentralFeed.CentralFeedConstants;
 
 namespace uIntra.CentralFeed
 {
@@ -23,6 +24,9 @@ namespace uIntra.CentralFeed
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly ICentralFeedContentProvider _contentProvider;
+
+        protected override string FeedPluginAlias { get; } = CentralFeedPluginAlias;
+        protected override string ActivityCreatePluginAlias { get; } = FeedActivityCreatePluginAlias;
 
         public CentralFeedContentService(
             ICentralFeedService centralFeedService,
@@ -40,10 +44,6 @@ namespace uIntra.CentralFeed
             _contentProvider = contentProvider;
         }
 
-        public bool IsCentralFeedPage(IPublishedContent currentPage)
-        {
-            return _contentProvider.GetOverviewPage().Id == currentPage.Id || GetContents().Any(c => c.IsAncestorOrSelf(currentPage));
-        }
 
         public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
         {

@@ -349,7 +349,9 @@
     <Compile Include="Core\Navigation\Models\TabModelBase.cs" />
     <Compile Include="Core\Helpers\CentralFeedContentService.cs" />
     <Compile Include="Core\Providers\CentralFeedContentProvider.cs" />
+    <Compile Include="Core\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Core\Providers\ICentralFeedContentProvider.cs" />
+    <Compile Include="Core\Providers\IFeedContentProvider.cs" />
     <Compile Include="DefaultImplementation\FeedService.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />

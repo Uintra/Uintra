@@ -1,24 +1,19 @@
-﻿using uIntra.Core;
+﻿using System.Collections.Generic;
+using uIntra.Core;
 using uIntra.Core.Extentions;
-using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace uIntra.CentralFeed.Providers
 {
-    public class CentralFeedContentProvider : ContentProviderBase, ICentralFeedContentProvider
+    public class CentralFeedContentProvider : FeedContentProviderBase, ICentralFeedContentProvider
     {
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        protected override IEnumerable<string> OverviewXPath { get; }
 
-        public CentralFeedContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
+        public CentralFeedContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper)
             : base(umbracoHelper)
         {
-            _documentTypeAliasProvider = documentTypeAliasProvider;
-        }
-
-        public IPublishedContent GetOverviewPage()
-        {
-            var xPath = _documentTypeAliasProvider.GetHomePage().ToEnumerableOfOne();
-            return GetContent(xPath);
+            OverviewXPath = documentTypeAliasProvider.GetHomePage().ToEnumerableOfOne();
         }
     }
 }

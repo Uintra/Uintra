@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using uIntra.CentralFeed.Providers;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
@@ -6,30 +7,27 @@ using Umbraco.Web;
 
 namespace uIntra.Groups
 {
-    public class GroupContentProvider : ContentProviderBase, IGroupContentProvider
+    public class GroupContentProvider : FeedContentProviderBase, IGroupContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IEnumerable<string> _overviewXPath;
+        protected override IEnumerable<string> OverviewXPath { get; }
 
         public GroupContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper) 
             : base(umbracoHelper)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _overviewXPath = new[] { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage() };
+            OverviewXPath = new[] { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage() };
         }
 
         public IPublishedContent GetGroupRoomPage() => 
             _documentTypeAliasProvider.GetGroupRoomPage()
-                .Map(_overviewXPath.Append)
+                .Map(OverviewXPath.Append)
                 .Map(GetContent);
 
         public IPublishedContent GetCreateGroupPage() =>
             _documentTypeAliasProvider.GetGroupCreatePage()
-                .Map(_overviewXPath.Append)
+                .Map(OverviewXPath.Append)
                 .Map(GetContent);
-
-        public IPublishedContent GetOverviewPage() => 
-            GetContent(_overviewXPath);
 
         public IPublishedContent GetEditPage() =>
             _documentTypeAliasProvider.GetGroupEditPage()
@@ -49,7 +47,7 @@ namespace uIntra.Groups
                 .Map(GetContent);
 
         private IEnumerable<string> GetXPathAtGroupRoom(string pageAlias) => 
-            _overviewXPath
+            OverviewXPath
                 .Append(_documentTypeAliasProvider.GetGroupRoomPage())
                 .Append(pageAlias);
     }

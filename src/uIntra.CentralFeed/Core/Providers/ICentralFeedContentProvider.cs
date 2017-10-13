@@ -1,9 +1,9 @@
-﻿using Umbraco.Core.Models;
-
-namespace uIntra.CentralFeed.Providers
+﻿namespace uIntra.CentralFeed.Providers
 {
-    public interface ICentralFeedContentProvider
+    /// <summary>
+    /// Interface-marker
+    /// </summary>
+    public interface ICentralFeedContentProvider : IFeedContentProvider
     {
-        IPublishedContent GetOverviewPage();
     }
 }
