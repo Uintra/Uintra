@@ -79,15 +79,17 @@ namespace uIntra.Navigation
             var selectedItems = CurrentPage.AncestorsOrSelf().Where(pc => !pc.IsHeading() && !IsHomePage(pc)).ToList();
 
             var menuRows = selectedItems
-                .Select(selectedItem => GetContentForSubNavigation(selectedItem)
-                .Select(MapToSubNavigationMenuItemModel))
+                .Select(selectedItem => GetContentForSubNavigation(selectedItem).Select(MapToSubNavigationMenuItemModel))
                 .Select(menuItems => new SubNavigationMenuRowModel
                 {
-                    Items = menuItems
+                    Items = menuItems.ToList()
                 })
                 .ToList();
 
             menuRows.Reverse();
+
+            var topLevelMenuRow = menuRows.First();
+            topLevelMenuRow.Items.Insert(0, MapToSubNavigationMenuItemModel(subMenuStartPage));
 
             return menuRows;
         }

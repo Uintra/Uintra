@@ -24,7 +24,7 @@
             @if (Model.Rows.Any())
             {
                 var topLevelMenu = Model.Rows.First();
-                if (topLevelMenu.Items.Any())
+                if (topLevelMenu.Items.Count > 0)
                 {
                     <ul>
                         @foreach (var menuItem in topLevelMenu.Items)
@@ -41,7 +41,7 @@
                 {
                     foreach (var menuRow in lowLevelMenuRows)
                     {
-                        if (menuRow.Items.Any())
+                        if (menuRow.Items.Count > 0)
                         {
                             <ul class="tabset__navigation clearfix">
                                 @foreach (var menuItem in menuRow.Items)
