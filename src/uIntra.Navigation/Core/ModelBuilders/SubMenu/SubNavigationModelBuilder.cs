@@ -38,9 +38,10 @@ namespace uIntra.Navigation
                     null :
                     MapSubNavigationItem(CurrentPage.Parent),
                 Title = GetNavigationName(CurrentPage),
-                IsTitleHidden = IsContentPage(CurrentPage),
-                ShowBreadcrumbs = Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs])
+                IsTitleHidden = IsContentPage(CurrentPage)
             };
+
+            model.ShowBreadcrumbs = IsContentPage(CurrentPage) && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
 
             return model;
         }

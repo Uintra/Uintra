@@ -80,9 +80,11 @@ namespace Compent.uIntra.Controllers
                 Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
                 Parent = IsHomePage(CurrentPage.Parent) ? null : MapSubNavigationItem(CurrentPage.Parent),
                 Title = CurrentPage.GetNavigationName(),
-                IsTitleHidden = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage(),
-                ShowBreadcrumbs = Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs])
+                IsTitleHidden = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage()
             };
+
+            model.ShowBreadcrumbs = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage() &&
+                                    Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
 
             return PartialView(SubNavigationViewPath, model);
         }
