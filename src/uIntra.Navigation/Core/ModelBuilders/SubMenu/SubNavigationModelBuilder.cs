@@ -28,14 +28,22 @@ namespace uIntra.Navigation
                 return null;
             }
 
+            var contentUnderHeading = CurrentPage.AncestorsOrSelf().SingleOrDefault(pc => pc.Parent != null && pc.Parent.IsHeading());
+
+            var subMenuStartPage = contentUnderHeading ?? CurrentPage.AncestorsOrSelf().SingleOrDefault(pc => pc.Parent != null && IsHomePage(pc.Parent));
+            if (subMenuStartPage == null)
+            {
+                return null;
+            }
+
             var model = new SubNavigationMenuModel
             {
-                Items = GetContentForSubNavigation(CurrentPage).Select(MapSubNavigationItem),
-                Parent = (IsHomePage(CurrentPage.Parent) || IsContentUnavailable(CurrentPage.Parent)) ?
-                    null :
-                    MapSubNavigationItem(CurrentPage.Parent),
-                Title = GetNavigationName(CurrentPage),
-                IsTitleHidden = IsContentPage(CurrentPage)
+                Rows = GetSubNavigationMenuRows(subMenuStartPage),
+                Parent = IsHomePage(CurrentPage.Parent) || IsContentUnavailable(CurrentPage.Parent)
+                    ? null
+                    : MapToMenuItemModel(CurrentPage.Parent),
+                Title = GetNavigationName(subMenuStartPage),
+                IsTitleHidden = IsContentPage(subMenuStartPage)
             };
 
             return model;
@@ -66,7 +74,25 @@ namespace uIntra.Navigation
             return content.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
-        protected virtual MenuItemModel MapSubNavigationItem(IPublishedContent publishedContent)
+        protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage)
+        {
+            var selectedItems = CurrentPage.AncestorsOrSelf().Where(pc => !pc.IsHeading() && !IsHomePage(pc)).ToList();
+
+            var menuRows = selectedItems
+                .Select(selectedItem => GetContentForSubNavigation(selectedItem)
+                .Select(MapToSubNavigationMenuItemModel))
+                .Select(menuItems => new SubNavigationMenuRowModel
+                {
+                    Items = menuItems
+                })
+                .ToList();
+
+            menuRows.Reverse();
+
+            return menuRows;
+        }
+
+        protected virtual MenuItemModel MapToMenuItemModel(IPublishedContent publishedContent)
         {
             var result = new MenuItemModel
             {
@@ -74,6 +100,20 @@ namespace uIntra.Navigation
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
                 IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
+            };
+
+            return result;
+        }
+
+        protected virtual SubNavigationMenuItemModel MapToSubNavigationMenuItemModel(IPublishedContent publishedContent)
+        {
+            var result = new SubNavigationMenuItemModel
+            {
+                Id = publishedContent.Id,
+                Name = GetNavigationName(publishedContent),
+                Url = publishedContent.Url,
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage),
+                IsSelected = publishedContent == CurrentPage
             };
 
             return result;

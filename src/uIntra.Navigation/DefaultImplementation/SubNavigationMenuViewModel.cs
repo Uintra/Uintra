@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace uIntra.Navigation
 {
@@ -8,8 +9,8 @@ namespace uIntra.Navigation
 
         public bool IsTitleHidden { get; set; }
 
-        public List<MenuItemViewModel> Items { get; set; } = new List<MenuItemViewModel>();
+        public IEnumerable<SubNavigationMenuRowModel> Rows { get; set; } = Enumerable.Empty<SubNavigationMenuRowModel>();
 
-        public MenuItemViewModel Parent { get; set; }
+        public MenuItemModel Parent { get; set; }
     }
 }

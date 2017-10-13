@@ -1,4 +1,5 @@
-﻿@model uIntra.Navigation.SubNavigationMenuViewModel
+﻿@using uIntra.Navigation;
+@model uIntra.Navigation.SubNavigationMenuViewModel
 
 @if (Model != null)
 {
@@ -20,39 +21,42 @@
                 }
             }
 
-            @if (Model.Items.Count > 0)
+            @if (Model.Rows.Any())
             {
-                <ul class="tabset__navigation clearfix">
-                    @if (Model.Parent == null)
-                    {
-                        <li class="tabset__navigation-item _for-mobile">
-                            <a class="tabset__navigation-link">@Model.Title</a>
-                        </li>
-                    }
-                    @foreach (var item in Model.Items)
-                    {
-                        <li class="tabset__navigation-item @(item.IsActive ? "_active" : "")">
-                            <a class="tabset__navigation-link" href="@item.Url">@item.Name</a>
+                var topLevelMenu = Model.Rows.First();
+                if (topLevelMenu.Items.Any())
+                {
+                    <ul>
+                        @foreach (var menuItem in topLevelMenu.Items)
+                        {
+                            <li>
+                                <a href="@menuItem.Url">@menuItem.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
 
-                            <!--
-                            ********** FOR SECOND LEVEL NAVIGATION USE THIS TEMPLATE ************
-
+                var lowLevelMenuRows = Model.Rows.Skip(1).ToList();
+                if (lowLevelMenuRows.Count > 0)
+                {
+                    foreach (var menuRow in lowLevelMenuRows)
+                    {
+                        if (menuRow.Items.Any())
+                        {
                             <ul class="tabset__navigation clearfix">
-                                <li class="tabset__navigation-item">
-                                    <a class="tabset__navigation-link" href="#">Test</a>
-                                </li>
-                                <li class="tabset__navigation-item">
-                                    <a class="tabset__navigation-link" href="#">Test 2</a>
-                                </li>
-                                <li class="tabset__navigation-item">
-                                    <a class="tabset__navigation-link" href="#">Test 3</a>
-                                </li>
-                            </ul>
-                            -->
+                                @foreach (var menuItem in menuRow.Items)
+                                {
+                                    var isActive = menuItem.IsActive ? "_active" : string.Empty;
+                                    var isSelected = menuItem.IsSelected ? "_selected" : string.Empty;
 
-                        </li>
+                                    <li class="tabset__navigation-item @isActive @isSelected">
+                                        <a class="tabset__navigation-link" href="@menuItem.Url">@menuItem.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
                     }
-                </ul>
+                }
             }
         </div>
     </nav>
