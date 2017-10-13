@@ -106,10 +106,7 @@ namespace uIntra.Groups
             };
         }
 
-        private static bool AreSamePages(IPublishedContent first, IPublishedContent second)
-        {
-            return first.Id == second.Id;
-        }
+        private static bool AreSamePages(IPublishedContent f, IPublishedContent s) => f.Id == s.Id;
 
         private IEnumerable<IPublishedContent> GetContent()
         {

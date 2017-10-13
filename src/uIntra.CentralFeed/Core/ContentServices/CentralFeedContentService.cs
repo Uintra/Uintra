@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using uIntra.CentralFeed.Providers;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
-using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using static uIntra.CentralFeed.CentralFeedConstants;
@@ -15,13 +10,7 @@ namespace uIntra.CentralFeed
 {
     public class CentralFeedContentService : FeedContentServiceBase, ICentralFeedContentService
     {
-        private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
         private readonly ICentralFeedService _centralFeedService;
-
-        private readonly ICookieProvider _cookieProvider;
-        private readonly IActivityTypeProvider _activityTypeProvider;
-
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly ICentralFeedContentProvider _contentProvider;
 
@@ -30,16 +19,10 @@ namespace uIntra.CentralFeed
 
         public CentralFeedContentService(
             ICentralFeedService centralFeedService,
-            ICookieProvider cookieProvider,
-            IActivityTypeProvider activityTypeProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
             ICentralFeedLinkService centralFeedLinkService,
             ICentralFeedContentProvider contentProvider)
         {
             _centralFeedService = centralFeedService;
-            _cookieProvider = cookieProvider;
-            _activityTypeProvider = activityTypeProvider;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _centralFeedLinkService = centralFeedLinkService;
             _contentProvider = contentProvider;
         }
@@ -76,48 +59,6 @@ namespace uIntra.CentralFeed
                     Links = _centralFeedLinkService.GetCreateLinks(tabType),
                 };
             }
-        }
-
-        public void SaveFiltersState(FeedFiltersState stateModel)
-        {
-            var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
-            cookie.Value = stateModel.ToJson();
-            _cookieProvider.Save(cookie);
-        }
-
-        public TStateServer GetFiltersState<TStateServer>()
-        {
-            var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
-            if (string.IsNullOrEmpty(cookie?.Value))
-            {
-                cookie = new HttpCookie(CentralFeedFiltersStateCookieName)
-                {
-                    Expires = DateTime.Now.AddDays(7),
-                    Value = GetDefaultCentralFeedFiltersState().ToJson()
-                };
-                _cookieProvider.Save(cookie);
-            }
-            return cookie.Value.Deserialize<TStateServer>();
-        }
-
-        public bool CentralFeedCookieExists()
-        {
-            return _cookieProvider.Exists(CentralFeedFiltersStateCookieName);
-        }
-
-        private IEnumerable<IPublishedContent> GetRelatedContent()
-        {
-            var activityTypes = _activityTypeProvider.GetAll();
-            var activitiesList = activityTypes.Select(_documentTypeAliasProvider.GetOverviewPage).ToArray();
-            return _contentProvider.GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activitiesList));
-        }
-
-        private FeedFiltersState GetDefaultCentralFeedFiltersState()
-        {
-            return new FeedFiltersState()
-            {
-                BulletinFilterSelected = true
-            };
         }
     }
 }

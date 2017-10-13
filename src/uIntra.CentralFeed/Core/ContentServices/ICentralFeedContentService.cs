@@ -6,8 +6,5 @@ namespace uIntra.CentralFeed
     public interface ICentralFeedContentService : IFeedContentService
     {
         IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage);
-        void SaveFiltersState(FeedFiltersState stateModel);
-        T GetFiltersState<T>();
-        bool CentralFeedCookieExists();
     }
 }
