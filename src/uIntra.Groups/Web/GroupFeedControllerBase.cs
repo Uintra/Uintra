@@ -163,7 +163,7 @@ namespace uIntra.Groups.Web
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            var tabType = _groupFeedContentContentHelper.GetGroupFeedTabType(CurrentPage);
+            var tabType = _groupFeedContentContentHelper.GetFeedTabType(CurrentPage);
 
             var tabs = _groupFeedContentContentHelper.GetActivityTabs(CurrentPage, currentUser, groupId);
             var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();

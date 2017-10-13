@@ -154,7 +154,7 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
-            var tabType = _centralFeedContentHelper.GetCentralFeedTabType(CurrentPage);
+            var tabType = _centralFeedContentHelper.GetFeedTabType(CurrentPage);
             var centralFeedState = _centralFeedContentHelper.GetFiltersState<FeedFiltersState>();
 
             var activityTabs = GetActivityTabs().Map<List<ActivityFeedTabViewModel>>();

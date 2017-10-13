@@ -347,6 +347,9 @@
     <Compile Include="Core\Models\LatestActivities\LatestActivitiesViewModel.cs" />
     <Compile Include="Core\Navigation\Models\PageTabModel.cs" />
     <Compile Include="Core\Navigation\Models\TabModelBase.cs" />
+    <Compile Include="Core\Helpers\CentralFeedContentHelper.cs" />
+    <Compile Include="Core\Providers\CentralFeedContentProvider.cs" />
+    <Compile Include="Core\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="DefaultImplementation\FeedService.cs" />
     <Compile Include="Web\CentralFeedControllerBase.cs" />
     <Compile Include="Core\Entities\CentralFeedSettings.cs" />
@@ -409,7 +412,9 @@
       <Name>uIntra.Subscribe</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Service\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

@@ -8,7 +8,7 @@ namespace uIntra.CentralFeed
     {
         bool IsCentralFeedPage(IPublishedContent currentPage);
 
-        IIntranetType GetCentralFeedTabType(IPublishedContent content);
+        IIntranetType GetFeedTabType(IPublishedContent content);
 
 
 

@@ -7,9 +7,9 @@ using uIntra.Core.Extentions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
-using uIntra.Groups.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using static uIntra.Groups.Constants.GroupConstants;
 
 namespace uIntra.Groups
 {
@@ -20,6 +20,9 @@ namespace uIntra.Groups
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGroupContentProvider _contentProvider;
+
+        protected override string FeedPluginAlias { get; } = GroupFeedPluginAlias;
+        protected override string ActivityCreatePluginAlias { get; } = GroupActivityCreatePluginAlias;
 
         public GroupFeedContentHelper(
             IGroupService groupService,
@@ -35,11 +38,6 @@ namespace uIntra.Groups
             _contentProvider = contentProvider;
         }
 
-        public override IIntranetType GetCreateActivityType(IPublishedContent content)
-        {
-            return GetActivityTypeFromPlugin(content, GroupConstants.GroupActivityCreatePluginAlias);
-        }
-
         public bool IsGroupPage(IPublishedContent currentPage)
         {
             return _contentProvider.GetOverviewPage().IsAncestorOrSelf(currentPage);
@@ -53,7 +51,7 @@ namespace uIntra.Groups
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
         {
             var groupRoom = _contentProvider.GetGroupRoomPage();
-            var type = GetGroupFeedTabType(groupRoom);
+            var type = GetFeedTabType(groupRoom);
             var result = new ActivityFeedTabModel
             {
                 Content = groupRoom,
@@ -70,7 +68,7 @@ namespace uIntra.Groups
 
             foreach (var content in GetContent())
             {
-                var tabType = GetGroupFeedTabType(content);
+                var tabType = GetFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
 
                 if (activityType == null) continue;
@@ -95,7 +93,7 @@ namespace uIntra.Groups
             {
                 if (skipPage(content))
                     continue;
-                var tabType = GetGroupFeedTabType(content);
+                var tabType = GetFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
                 if (activityType == null)
                     yield return GetPageTab(currentContent, content, groupId);
@@ -132,12 +130,6 @@ namespace uIntra.Groups
         private IEnumerable<IPublishedContent> GetContent()
         {
             return _contentProvider.GetGroupRoomPage().Children;
-        }
-
-
-        public IIntranetType GetGroupFeedTabType(IPublishedContent content)
-        {
-            return GetActivityTypeFromPlugin(content, GroupConstants.GroupFeedPluginAlias);
         }
     }
 }
