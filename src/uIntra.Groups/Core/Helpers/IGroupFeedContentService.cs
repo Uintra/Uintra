@@ -12,8 +12,5 @@ namespace uIntra.Groups
         IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentContent, IIntranetUser user, Guid groupId);
         ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId);
         IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentContent, IIntranetUser user,  Guid groupId);
-
-        bool IsGroupPage(IPublishedContent currentPage);
-        bool IsGroupRoomPage(IPublishedContent currentPage);
     }
 }

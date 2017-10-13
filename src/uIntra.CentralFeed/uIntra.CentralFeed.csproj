@@ -320,6 +320,8 @@
     <Compile Include="Core\CentralFeedTypeProvider.cs" />
     <Compile Include="Core\Constants\CentralFeedConstants.cs" />
     <Compile Include="Core\Enums\CentralFeedTypeEnum.cs" />
+    <Compile Include="Core\Helpers\CentralFeedHelper.cs" />
+    <Compile Include="Core\Helpers\ICentralFeedHelper.cs" />
     <Compile Include="Core\Helpers\IFeedContentService.cs" />
     <Compile Include="Core\Helpers\FeedContentServiceBase.cs" />
     <Compile Include="Core\Helpers\ICentralFeedContentService.cs" />

@@ -10,9 +10,4 @@ namespace uIntra.CentralFeed
         T GetFiltersState<T>();
         bool CentralFeedCookieExists();
     }
-
-    public interface ICentralFeedHelper
-    {
-        bool IsCentralFeedPage(IPublishedContent page);
-    }
 }

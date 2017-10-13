@@ -35,6 +35,8 @@ namespace Compent.uIntra.Controllers
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentProvider _groupContentProvider;
+        private readonly IGroupHelper _groupHelper;
+        private readonly ICentralFeedHelper _centralFeedHelper;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -47,7 +49,9 @@ namespace Compent.uIntra.Controllers
             IGroupFeedContentService groupFeedContentService,
             IIntranetUserService<IntranetUser> intranetUserService,
             IGroupLinkProvider groupLinkProvider,
-            IGroupContentProvider groupContentProvider) :
+            IGroupContentProvider groupContentProvider,
+            IGroupHelper groupHelper,
+            ICentralFeedHelper centralFeedHelper) :
             base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
 
         {
@@ -58,18 +62,20 @@ namespace Compent.uIntra.Controllers
             _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentProvider = groupContentProvider;
+            _groupHelper = groupHelper;
+            _centralFeedHelper = centralFeedHelper;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
 
         public override ActionResult SubNavigation()
         {
-            if (_centralFeedContentService.IsCentralFeedPage(CurrentPage))
+            if (_centralFeedHelper.IsCentralFeedPage(CurrentPage))
             {
                 return new EmptyResult();
             }
 
-            if (_groupFeedContentService.IsGroupRoomPage(CurrentPage))
+            if (_groupHelper.IsGroupRoomPage(CurrentPage))
             {
                 return RenderGroupNavigation();
             }

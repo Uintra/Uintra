@@ -276,6 +276,8 @@
     <Compile Include="Core\Extentions\NameValueCollectionExtensions.cs" />
     <Compile Include="Core\Helpers\GroupContentProvider.cs" />
     <Compile Include="Core\Helpers\GroupFeedContentService.cs" />
+    <Compile Include="Core\Helpers\GroupHelper.cs" />
+    <Compile Include="Core\Helpers\IGroupHelper.cs" />
     <Compile Include="Core\Links\GroupLinkProvider.cs" />
     <Compile Include="Core\Links\IGroupLinkProvider.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />

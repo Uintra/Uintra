@@ -16,9 +16,7 @@ namespace uIntra.Groups
     public class GroupFeedContentService : FeedContentServiceBase, IGroupFeedContentService
     {
         private readonly IGroupService _groupService;
-        private readonly IGridHelper _gridHelper;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
-        private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGroupContentProvider _contentProvider;
 
         protected override string FeedPluginAlias { get; } = GroupFeedPluginAlias;
@@ -26,26 +24,12 @@ namespace uIntra.Groups
 
         public GroupFeedContentService(
             IGroupService groupService,
-            IGridHelper gridHelper,
             IGroupFeedLinkService groupFeedLinkService,
-            IFeedTypeProvider feedTypeProvider,
             IGroupContentProvider contentProvider)
         {
             _groupService = groupService;
-            _gridHelper = gridHelper;
             _groupFeedLinkService = groupFeedLinkService;
-            _feedTypeProvider = feedTypeProvider;
             _contentProvider = contentProvider;
-        }
-
-        public bool IsGroupPage(IPublishedContent currentPage)
-        {
-            return _contentProvider.GetOverviewPage().IsAncestorOrSelf(currentPage);
-        }
-
-        public bool IsGroupRoomPage(IPublishedContent currentPage)
-        {
-            return _contentProvider.GetGroupRoomPage().IsAncestorOrSelf(currentPage);
         }
 
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentContent, Guid groupId)
