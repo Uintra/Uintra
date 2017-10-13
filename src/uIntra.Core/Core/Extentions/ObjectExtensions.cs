@@ -35,14 +35,12 @@ namespace uIntra.Core.Extentions
                 : default;
         }
 
-        public static TResult? Bind<T, TResult>(this T? value, Func<T, TResult?> func) 
+        public static TResult? Map<T, TResult>(this T? value, Func<T, TResult> func)
             where T : struct where TResult : struct
         {
             return value.HasValue
                 ? func(value.Value)
-                : null;
+                : (TResult?) null;
         }
-
-        public static T? Return<T>(this T value) where T : struct => value;
     }
 }
