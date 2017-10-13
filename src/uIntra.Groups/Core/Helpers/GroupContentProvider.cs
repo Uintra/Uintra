@@ -19,6 +19,9 @@ namespace uIntra.Groups
             OverviewXPath = new[] { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage() };
         }
 
+        public override IEnumerable<IPublishedContent> GetRelatedPages() => 
+            GetGroupRoomPage().Children;
+
         public IPublishedContent GetGroupRoomPage() => 
             _documentTypeAliasProvider.GetGroupRoomPage()
                 .Map(OverviewXPath.Append)

@@ -14,5 +14,7 @@ namespace uIntra.CentralFeed.Providers
 
         public virtual IPublishedContent GetOverviewPage() =>
             GetContent(OverviewXPath);
+
+        public abstract IEnumerable<IPublishedContent> GetRelatedPages();
     }
 }

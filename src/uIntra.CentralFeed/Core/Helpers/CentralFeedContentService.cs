@@ -44,7 +44,6 @@ namespace uIntra.CentralFeed
             _contentProvider = contentProvider;
         }
 
-
         public IEnumerable<ActivityFeedTabModel> GetTabs(IPublishedContent currentPage)
         {
             var overviewPage = _contentProvider.GetOverviewPage();
@@ -57,7 +56,7 @@ namespace uIntra.CentralFeed
                 Links = _centralFeedLinkService.GetCreateLinks(type)
             };
 
-            foreach (var content in GetContents())
+            foreach (var content in GetRelatedContent())
             {
                 var tabType = GetFeedTabType(content);
                 var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
@@ -106,11 +105,10 @@ namespace uIntra.CentralFeed
             return _cookieProvider.Exists(CentralFeedFiltersStateCookieName);
         }
 
-        private IEnumerable<IPublishedContent> GetContents()
+        private IEnumerable<IPublishedContent> GetRelatedContent()
         {
             var activityTypes = _activityTypeProvider.GetAll();
             var activitiesList = activityTypes.Select(_documentTypeAliasProvider.GetOverviewPage).ToArray();
-
             return _contentProvider.GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activitiesList));
         }
 
