@@ -33,22 +33,22 @@ namespace uIntra.Groups
 
         public IPublishedContent GetEditPage() =>
             _documentTypeAliasProvider.GetGroupEditPage()
-                .Map(GetAtGroupRoomXPath)
+                .Map(GetXPathAtGroupRoom)
                 .Map(GetContent);
 
         public IPublishedContent GetMyGroupsOverviewPage() => 
             _documentTypeAliasProvider
                 .GetGroupMyGroupsOverviewPage()
-                .Map(GetAtGroupRoomXPath)
+                .Map(GetXPathAtGroupRoom)
                 .Map(GetContent);
 
         public IPublishedContent GetDeactivatedGroupPage() => 
             _documentTypeAliasProvider
                 .GetGroupDeactivatedPage()
-                .Map(GetAtGroupRoomXPath)
+                .Map(GetXPathAtGroupRoom)
                 .Map(GetContent);
 
-        private IEnumerable<string> GetAtGroupRoomXPath(string pageAlias) => 
+        private IEnumerable<string> GetXPathAtGroupRoom(string pageAlias) => 
             _overviewXPath
                 .Append(_documentTypeAliasProvider.GetGroupRoomPage())
                 .Append(pageAlias);
