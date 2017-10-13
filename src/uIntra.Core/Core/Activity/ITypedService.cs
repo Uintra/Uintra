@@ -1,4 +1,4 @@
-using uIntra.Core.TypeProviders;
+﻿using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
