@@ -9,6 +9,8 @@ namespace uIntra.Navigation
 
         public bool IsTitleHidden { get; set; }
 
+        public bool ShowBreadcrumbs { get; set; }
+
         public IEnumerable<MenuItemModel> Items { get; set; } = Enumerable.Empty<MenuItemModel>();
 
         public MenuItemModel Parent { get; set; }

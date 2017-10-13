@@ -7,4 +7,9 @@
         public const string IsHideFromSubNavigationPropName = "isHideFromSubNavigation";
         public const string IsShowInHomeNavigationPropName = "isShowInHomeNavigation";
     }
+
+    public static class NavigationApplicationSettingsConstants
+    {
+        public const string NavigationShowBreadcrumbs = "Navigation.ShowBreadcrumbs";
+    }
 }

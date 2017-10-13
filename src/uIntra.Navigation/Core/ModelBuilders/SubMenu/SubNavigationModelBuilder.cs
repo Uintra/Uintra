@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using uIntra.Core;
 using uIntra.Core.Configuration;
 using uIntra.Navigation.Configuration;
+using uIntra.Navigation.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -35,7 +38,8 @@ namespace uIntra.Navigation
                     null :
                     MapSubNavigationItem(CurrentPage.Parent),
                 Title = GetNavigationName(CurrentPage),
-                IsTitleHidden = IsContentPage(CurrentPage)
+                IsTitleHidden = IsContentPage(CurrentPage),
+                ShowBreadcrumbs = Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs])
             };
 
             return model;

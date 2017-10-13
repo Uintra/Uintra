@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Users;
@@ -10,6 +12,7 @@ using uIntra.Groups;
 using uIntra.Groups.Extentions;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Navigation;
+using uIntra.Navigation.Constants;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
 using Umbraco.Core.Models;
@@ -77,7 +80,8 @@ namespace Compent.uIntra.Controllers
                 Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
                 Parent = IsHomePage(CurrentPage.Parent) ? null : MapSubNavigationItem(CurrentPage.Parent),
                 Title = CurrentPage.GetNavigationName(),
-                IsTitleHidden = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage()
+                IsTitleHidden = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage(),
+                ShowBreadcrumbs = Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs])
             };
 
             return PartialView(SubNavigationViewPath, model);

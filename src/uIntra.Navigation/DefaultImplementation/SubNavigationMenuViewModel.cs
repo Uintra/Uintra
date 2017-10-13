@@ -8,6 +8,8 @@ namespace uIntra.Navigation
 
         public bool IsTitleHidden { get; set; }
 
+        public bool ShowBreadcrumbs { get; set; }
+
         public List<MenuItemViewModel> Items { get; set; } = new List<MenuItemViewModel>();
 
         public MenuItemViewModel Parent { get; set; }
