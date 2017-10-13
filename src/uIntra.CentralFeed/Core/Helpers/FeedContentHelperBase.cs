@@ -13,7 +13,6 @@ namespace uIntra.CentralFeed
 
         public abstract IIntranetType GetCreateActivityType(IPublishedContent content);
 
-
         protected virtual  IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
             var value = _gridHelper

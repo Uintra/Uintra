@@ -33,9 +33,7 @@ namespace Compent.uIntra.Core.CentralFeed
             return items.Where(IsCentralFeedActivity);
         }
 
-        private bool IsCentralFeedActivity(IFeedItem item)
-        {
-            return (item as IGroupActivity)?.GroupId == null;
-        }
+        private bool IsCentralFeedActivity(IFeedItem item) => 
+            (item as IGroupActivity)?.GroupId == null;
     }
 }

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using uIntra.CentralFeed;
+using uIntra.CentralFeed.Providers;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extentions;
-using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class CentralFeedContentHelper : FeedContentHelperBase, ICentralFeedContentHelper
     {
