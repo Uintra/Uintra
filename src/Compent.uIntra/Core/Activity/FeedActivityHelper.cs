@@ -20,7 +20,7 @@ namespace Compent.uIntra.Core.Activity
         public GroupInfo? GetGroupInfo(Guid activityId) => 
             _groupActivityService
                 .GetGroupId(activityId)
-                .Bind(id => GetInfoForGroup(id).Return());
+                .Map(GetInfoForGroup);
 
         private GroupInfo GetInfoForGroup(Guid groupId)
         {
