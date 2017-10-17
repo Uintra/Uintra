@@ -2,10 +2,10 @@
     var trigger = document.getElementById('toTop');
 
     window.addEventListener('scroll', function (e) {
-        if (window.scrollY > 100 && !trigger.classList.contains('_visible')) {
+        if (window.pageYOffset > 100 && !trigger.classList.contains('_visible')) {
             trigger.classList.add('_visible');
         }
-        else if (window.scrollY <= 100 && trigger.classList.contains('_visible')) {
+        else if (window.pageYOffset <= 100 && trigger.classList.contains('_visible')) {
             trigger.classList.remove('_visible');
         }
     });
