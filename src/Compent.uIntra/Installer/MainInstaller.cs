@@ -20,6 +20,7 @@ namespace Compent.uIntra.Installer
     {
         private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
         private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
+        private readonly Version AddingHeadingUIntraVersion = new Version("0.2.2.10");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -30,11 +31,17 @@ namespace Compent.uIntra.Installer
 
             var installer = new IntranetInstaller();
             installer.Install(installedVersion, UIntraVersion);
-            InitMigration();
 
             if (lastMigrationHistory == null)
             {
                 InitMigration();
+            }
+
+            if (installedVersion < AddingHeadingUIntraVersion && UIntraVersion >= AddingHeadingUIntraVersion)
+            {
+                CoreInstallationStep_0_0_1.InheritCompositionForPage(
+                    CoreInstallationConstants.DocumentTypeAliases.Heading,
+                    NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition);
             }
 
             if (UIntraVersion > installedVersion)
@@ -83,6 +90,7 @@ namespace Compent.uIntra.Installer
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.HomePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ContentPage, nav);
+            CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.Heading, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ErrorPage, nav);
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage, nav);
@@ -98,7 +106,6 @@ namespace Compent.uIntra.Installer
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfilePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage, nav);
-
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);
