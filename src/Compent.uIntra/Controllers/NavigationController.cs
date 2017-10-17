@@ -36,6 +36,7 @@ namespace Compent.uIntra.Controllers
         private readonly IGroupContentProvider _groupContentProvider;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ICentralFeedHelper _centralFeedHelper;
+        private readonly IGroupHelper _groupHelper;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -50,7 +51,8 @@ namespace Compent.uIntra.Controllers
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
-            ICentralFeedHelper centralFeedHelper) :
+            ICentralFeedHelper centralFeedHelper)
+            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
         {
             _centralFeedContentService = centralFeedContentService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
