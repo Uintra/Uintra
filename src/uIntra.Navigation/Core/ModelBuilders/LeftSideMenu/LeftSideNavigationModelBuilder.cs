@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using uIntra.Core;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
 using uIntra.Navigation.Configuration;
@@ -13,17 +12,14 @@ namespace uIntra.Navigation
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {
         private readonly HttpContext _httpContext;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public LeftSideNavigationModelBuilder(
             HttpContext httpContext,
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _httpContext = httpContext;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public override MenuModel GetMenu()
@@ -107,8 +103,8 @@ namespace uIntra.Navigation
                 yield break;
             }
 
-            var children = GetAvailableContent(parent.Children)
-                .Where(pContent => !excludeContentIds.Contains(pContent.Id));
+            var children = GetAvailableContent(parent.Children).Where(pContent => !excludeContentIds.Contains(pContent.Id));
+            var activeMenuItem = CurrentPage.AncestorsOrSelf().FirstOrDefault(pc => !IsHideFromNavigation(pc));
 
             foreach (var child in children)
             {
@@ -119,7 +115,7 @@ namespace uIntra.Navigation
                     Id = child.Id,
                     Name = GetNavigationName(child),
                     Url = isHeading ? string.Empty : child.Url,
-                    IsActive = child.IsAncestorOrSelf(CurrentPage),
+                    IsActive = child == activeMenuItem,
                     IsHeading = isHeading,
                     Children = BuildLeftMenuTree(child, excludeContentIds).ToList()
                 };
