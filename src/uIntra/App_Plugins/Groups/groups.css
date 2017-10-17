@@ -306,7 +306,7 @@
 
 .table-holder{
     margin:0 -15px;
-    max-width:780px;
+    max-width:100%;
     overflow:hidden;
     overflow-x:auto;
     position:relative;
