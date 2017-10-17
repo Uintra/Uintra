@@ -67,7 +67,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit, "id")]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var bulletin = _bulletinsService.Get(id);

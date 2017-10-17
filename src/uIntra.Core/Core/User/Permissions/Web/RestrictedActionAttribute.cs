@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -13,15 +14,24 @@ namespace uIntra.Core.User.Permissions.Web
     {
         private readonly int _activityTypeId;
         private readonly IntranetActivityActionEnum _action;
+        private readonly string _activityIdParameterName;
 
-        public RestrictedActionAttribute(int activityTypeId, IntranetActivityActionEnum action)
+        public RestrictedActionAttribute(int activityTypeId, IntranetActivityActionEnum action, string activityIdParameterName = null)
         {
             _activityTypeId = activityTypeId;
             _action = action;
+            _activityIdParameterName = activityIdParameterName;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            var activityId = default(Guid?);
+            if (filterContext.ActionParameters.ContainsKey(_activityIdParameterName) && _activityIdParameterName != null)
+            {
+                activityId = filterContext.ActionParameters[_activityIdParameterName] as Guid?;
+            }
+
+
             if (Skip(filterContext))
             {
                 return;
@@ -29,7 +39,7 @@ namespace uIntra.Core.User.Permissions.Web
 
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var provider = HttpContext.Current.GetService<IActivityTypeProvider>();
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider.Get(_activityTypeId), _action);
+            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider.Get(_activityTypeId), _action, activityId);
 
             if (!isUserHasAccess)
             {
