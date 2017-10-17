@@ -894,6 +894,7 @@
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
     <Content Include="App_Plugins\Users\users.js" />
+    <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -1135,6 +1136,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\Api\CacheController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
