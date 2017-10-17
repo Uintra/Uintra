@@ -10,8 +10,12 @@
 {
     <div class="content__item-subscribe" id="@elementId">
         <div class="content__item-subscribe-set">
-            @using (Html.BeginUmbracoForm("Subscribe", "Group", FormMethod.Post, new { @class = "js-group-subscribe"}))
+            @using (Html.BeginUmbracoForm("Subscribe", "Group", FormMethod.Post, new { @class = "js-group-subscribe" }))
             {
+                if (Model.IsMember)
+                {
+                    <span class="content__item-is-subscribed">@Html.Localize("GroupInfo.IsSubscribed.lbl")</span>
+                }
                 <input type="submit" 
                        class="@(Model.IsMember ? "form__btn _submit _unsubscribe" : "form__btn _submit _subscribe")"
                        value="@(Model.IsMember ? Html.Localize("GroupInfo.Unsubscribe.lnk") : Html.Localize("GroupInfo.Subscribe.lnk"))"

@@ -1,10 +1,9 @@
 ﻿@using uIntra.Core.Extensions
 @using uIntra.Groups
-@model GroupDocumentsViewModel
+@model uIntra.Groups.GroupDocumentsViewModel
 
 @{
-    Guid groupId;
-    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out groupId))
+    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out var groupId))
     {
         <h3>Group id is not defined!!</h3>
         return;

@@ -124,6 +124,8 @@
                 }
             }
 
+            &:active,
+            &:focus,
             &:hover{
                 color:var(--text-color-dark);
                 text-decoration:none;
@@ -188,7 +190,7 @@
         &-txt{
             font-size:14px;
             margin:0 0 7px;
-            max-height:44px;
+            max-height:40px;
             overflow:hidden;
 
             @media (--for-tablet-portrait-down) {

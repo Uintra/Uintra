@@ -11,7 +11,7 @@
     <div class="block__description">@Html.Raw(Model.Description)</div>
     <div class="block__meta">
         <dl class="block__meta-info">
-            @if (@Model.MembersCount > 0)
+            @if (Model.MembersCount > 0)
             {
                 <dt class="block__meta-count"><span id='membersCount'>@Model.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
             }
