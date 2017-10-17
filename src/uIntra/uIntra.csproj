@@ -46,6 +46,7 @@
     <DefineConstants>TRACE;DISABLE_LICENCE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Archetype">
