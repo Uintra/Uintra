@@ -30,6 +30,7 @@
         public const string ErrorPage = "errorPage";
         public const string NavigationComposition = "navigationComposition";
         public const string ContentPage = "contentPage";
+        public const string Heading = "heading";
         public const string SystemLink = "systemLink";
 
         public const string GroupsCreatePage = "groupsCreatePage";
@@ -43,13 +44,7 @@
         public const string GroupsMembersPage = "groupsMembersPage";
         public const string GroupsDeactivatedGroupPage = "groupsDeactivatedGroupPage";
     }
-    public static class NavigationPropertiesConstants
-    {
-        public const string NavigationNamePropName = "navigationName";
-        public const string IsHideFromLeftNavigationPropName = "isHideFromLeftNavigation";
-        public const string IsHideFromSubNavigationPropName = "isHideFromSubNavigation";
-        public const string IsShowInHomeNavigationPropName = "isShowInHomeNavigation";
-    }
+    
 
     public static class MailTemplatePropertiesConstants
     {

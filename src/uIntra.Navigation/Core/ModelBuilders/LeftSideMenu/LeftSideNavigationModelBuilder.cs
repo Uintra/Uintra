@@ -16,8 +16,8 @@ namespace uIntra.Navigation
         public LeftSideNavigationModelBuilder(
             HttpContext httpContext,
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider
-            ) : base(umbracoHelper, navigationConfigurationProvider)
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider)
+            : base(umbracoHelper, navigationConfigurationProvider)
         {
             _httpContext = httpContext;
         }
@@ -49,7 +49,13 @@ namespace uIntra.Navigation
             return result ?? NavigationConfiguration.IsHideFromLeftNavigation.DefaultValue;
         }
 
-        private MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
+        protected override bool IsShowInHomeNavigation(IPublishedContent publishedContent)
+        {
+            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInHomeNavigation.Alias);
+            return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
+        }
+
+        protected virtual MenuItemModel GetHomePageMenuItem(IPublishedContent homePage)
         {
             var result = new MenuItemModel
             {
@@ -64,7 +70,7 @@ namespace uIntra.Navigation
             return result;
         }
 
-        private IPublishedContent GetHomePage()
+        protected virtual IPublishedContent GetHomePage()
         {
             var homePage = CurrentPage.AncestorOrSelf(NavigationConfiguration.HomePageAlias);
             if (homePage == null)
@@ -75,7 +81,7 @@ namespace uIntra.Navigation
             return homePage;
         }
 
-        private IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
+        protected virtual IEnumerable<MenuItemModel> GetHomeSubNavigation(IPublishedContent homePage)
         {
             var result = GetAvailableContent(homePage.Children())
                 .Where(IsShowInHomeNavigation)
@@ -90,43 +96,40 @@ namespace uIntra.Navigation
             return result;
         }
 
-        private bool IsShowInHomeNavigation(IPublishedContent publishedContent)
-        {
-            var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInHomeNavigation.Alias);
-            return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
-        }
-
-        private IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, List<int> excludeContentIds)
+        protected virtual IEnumerable<MenuItemModel> BuildLeftMenuTree(IPublishedContent parent, IList<int> excludeContentIds)
         {
             if (!parent.Children.Any())
             {
                 yield break;
             }
 
-            var children = GetAvailableContent(parent.Children)
-                .Where(pContent => !excludeContentIds.Contains(pContent.Id));
+            var children = GetAvailableContent(parent.Children).Where(pContent => !excludeContentIds.Contains(pContent.Id));
+            var activeMenuItem = CurrentPage.AncestorsOrSelf().FirstOrDefault(pc => !IsHideFromNavigation(pc));
 
             foreach (var child in children)
             {
-                var newmenuItem = new MenuItemModel
+                var isHeading = child.IsHeading();
+
+                var newMenuItem = new MenuItemModel
                 {
                     Id = child.Id,
-                    Name = base.GetNavigationName(child),
-                    Url = child.Url,
-                    Children = BuildLeftMenuTree(child, excludeContentIds).ToList(),
-                    IsActive = child.IsAncestorOrSelf(CurrentPage)
+                    Name = GetNavigationName(child),
+                    Url = isHeading ? string.Empty : child.Url,
+                    IsActive = child == activeMenuItem,
+                    IsHeading = isHeading,
+                    Children = BuildLeftMenuTree(child, excludeContentIds).ToList()
                 };
 
-                yield return newmenuItem;
+                yield return newMenuItem;
             }
         }
 
-        private void FillClickable(List<MenuItemModel> resultMenuItems)
+        protected virtual void FillClickable(List<MenuItemModel> resultMenuItems)
         {
             var activeItem = resultMenuItems.Find(item => item.IsActive);
             if (activeItem != null)
             {
-                activeItem.IsClickable = _httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/');
+                activeItem.IsClickable = !activeItem.IsHeading && (_httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/'));
                 return;
             }
 
@@ -136,5 +139,6 @@ namespace uIntra.Navigation
                 FillClickable(children);
             }
         }
+
     }
 }

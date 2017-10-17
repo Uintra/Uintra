@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Extentions;
 using Compent.uIntra.Core.Users;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using uIntra.Core.User;
 using uIntra.Groups;
+using uIntra.Groups.Extentions;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using uIntra.Groups.Extentions;
 
 namespace Compent.uIntra.Controllers
 {
@@ -35,8 +34,9 @@ namespace Compent.uIntra.Controllers
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentProvider _groupContentProvider;
-        private readonly IGroupHelper _groupHelper;
+        private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ICentralFeedHelper _centralFeedHelper;
+        private readonly IGroupHelper _groupHelper;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -51,9 +51,8 @@ namespace Compent.uIntra.Controllers
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
-            ICentralFeedHelper centralFeedHelper) :
-            base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
-
+            ICentralFeedHelper centralFeedHelper)
+            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
         {
             _centralFeedContentService = centralFeedContentService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
@@ -62,6 +61,7 @@ namespace Compent.uIntra.Controllers
             _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentProvider = groupContentProvider;
+            _subNavigationModelBuilder = subNavigationModelBuilder;
             _groupHelper = groupHelper;
             _centralFeedHelper = centralFeedHelper;
 
@@ -80,14 +80,27 @@ namespace Compent.uIntra.Controllers
                 return RenderGroupNavigation();
             }
 
-            var model = new SubNavigationMenuViewModel
-            {
-                Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
-                Parent = IsHomePage(CurrentPage.Parent) ? null : MapSubNavigationItem(CurrentPage.Parent),
-                Title = CurrentPage.GetNavigationName()
-            };
+            var subNavigation = _subNavigationModelBuilder.GetMenu();
+            var result = subNavigation.Map<SubNavigationMenuViewModel>();
 
-            return PartialView(SubNavigationViewPath, model);
+            return PartialView(SubNavigationViewPath, result);
+        }
+
+        public ContentResult GetTitle()
+        {
+            var currentPage = CurrentPage;
+            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+            var result = isPageHasNavigation ? currentPage.GetNavigationName() : currentPage.Name;
+
+            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
+            {
+                currentPage = currentPage.Parent;
+                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
+
+                result = isPageHasNavigation ? $"{currentPage.GetNavigationName()} - {result}" : $"{currentPage.Name} - {result}";
+            }
+
+            return Content($" - {result}");
         }
 
         private ActionResult RenderGroupNavigation()
@@ -126,23 +139,6 @@ namespace Compent.uIntra.Controllers
         private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
         {
             return tab.Id == editPage.Id;
-        }
-
-        public ContentResult GetTitle()
-        {
-            var currentPage = CurrentPage;
-            var isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-            var result = isPageHasNavigation ? currentPage.GetNavigationName() : currentPage.Name;
-
-            while (currentPage.Parent != null && !currentPage.Parent.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()))
-            {
-                currentPage = currentPage.Parent;
-                isPageHasNavigation = currentPage.IsComposedOf(_documentTypeAliasProvider.GetNavigationComposition());
-
-                result = isPageHasNavigation ? $"{currentPage.GetNavigationName()} - {result}" : $"{currentPage.Name} - {result}";
-            }
-
-            return Content($" - {result}");
         }
 
         private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent content)

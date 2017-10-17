@@ -9,14 +9,13 @@ namespace uIntra.Navigation
 {
     public abstract class NavigationModelBuilderBase<T> where T : class
     {
-        private readonly UmbracoHelper _umbracoHelper;
-
         protected readonly NavigationConfiguration NavigationConfiguration;
+
+        private readonly UmbracoHelper _umbracoHelper;
 
         protected NavigationModelBuilderBase(
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider
-            )
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
             NavigationConfiguration = navigationConfigurationProvider.GetSettings();

@@ -1,11 +1,10 @@
 ﻿using System.Web;
-using Compent.uIntra.Core.Constants;
 using uIntra.Core;
 using uIntra.Core.Extentions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Extentions
+namespace uIntra.Navigation
 {
     public static class PublishedContentExtentions
     {
@@ -48,6 +47,18 @@ namespace Compent.uIntra.Core.Extentions
             }
 
             return string.Empty;
+        }
+
+        public static bool IsHeading(this IPublishedContent publishedContent)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            return publishedContent.DocumentTypeAlias.Equals(docTypeAliasProvider.GetHeading());
+        }
+
+        public static bool IsContentPage(this IPublishedContent publishedContent)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            return publishedContent.DocumentTypeAlias.Equals(docTypeAliasProvider.GetContentPage());
         }
     }
 }

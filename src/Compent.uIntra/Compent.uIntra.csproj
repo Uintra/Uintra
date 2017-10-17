@@ -1183,7 +1183,6 @@
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
-    <Compile Include="Core\Extentions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
@@ -1228,7 +1227,6 @@
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />
-    <Compile Include="Core\Navigation\UintraLeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\NewsService.cs" />
@@ -1372,9 +1370,17 @@
     <Folder Include="App_Plugins\Search\Controls\" />
     <Folder Include="App_Plugins\Search\Result\" />
     <Folder Include="Content\scripts\" />
+    <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uIntra.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
+      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
+      <Name>uIntra.Navigation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Extentions;
 using uIntra.Core;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Web;
+using uIntra.Navigation;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 

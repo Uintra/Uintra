@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using uIntra.Core;
 using uIntra.Core.Configuration;
 using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
@@ -9,11 +12,15 @@ namespace uIntra.Navigation
 {
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider
-            ) : base(umbracoHelper, navigationConfigurationProvider)
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            : base(umbracoHelper, navigationConfigurationProvider)
         {
+            _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
         public override SubNavigationMenuModel GetMenu()
@@ -23,14 +30,25 @@ namespace uIntra.Navigation
                 return null;
             }
 
+            var contentUnderHeading = CurrentPage.AncestorsOrSelf().SingleOrDefault(pc => pc.Parent != null && pc.Parent.IsHeading());
+
+            var subMenuStartPage = contentUnderHeading ?? CurrentPage.AncestorsOrSelf().SingleOrDefault(pc => pc.Parent != null && IsHomePage(pc.Parent));
+            if (subMenuStartPage == null)
+            {
+                return null;
+            }
+
             var model = new SubNavigationMenuModel
             {
-                Items = GetContentForSubNavigation(CurrentPage).Select(MapSubNavigationItem),
-                Parent = (IsHomePage(CurrentPage.Parent) || IsContentUnavailable(CurrentPage.Parent)) ?
-                    null :
-                    MapSubNavigationItem(CurrentPage.Parent),
-                Title = GetNavigationName(CurrentPage)
+                Rows = GetSubNavigationMenuRows(subMenuStartPage),
+                Parent = IsHomePage(CurrentPage.Parent) || IsContentUnavailable(CurrentPage.Parent)
+                    ? null
+                    : MapToMenuItemModel(CurrentPage.Parent),
+                Title = GetNavigationName(subMenuStartPage),
+                IsTitleHidden = subMenuStartPage.IsContentPage()
             };
+
+            model.ShowBreadcrumbs = CurrentPage.IsContentPage() && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
 
             return model;
         }
@@ -41,21 +59,46 @@ namespace uIntra.Navigation
             return result ?? NavigationConfiguration.IsHideFromSubNavigation.DefaultValue;
         }
 
-        private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent publishedContent)
+        protected virtual IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent publishedContent)
         {
-            var result = (publishedContent.Children.Any() || IsHomePage(publishedContent.Parent)) ?
-                publishedContent.Children :
-                 publishedContent.Parent.Children;
+            var result = (publishedContent.Children.Any() || IsHomePage(publishedContent.Parent))
+                ? publishedContent.Children
+                : publishedContent.Parent.Children;
 
             return GetAvailableContent(result);
         }
 
-        private bool IsHomePage(IPublishedContent content)
+        protected virtual bool IsHomePage(IPublishedContent content)
         {
             return content.DocumentTypeAlias == NavigationConfiguration.HomePageAlias;
         }
 
-        private MenuItemModel MapSubNavigationItem(IPublishedContent publishedContent)
+        protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage)
+        {
+            if (!subMenuStartPage.IsContentPage())
+            {
+                return Enumerable.Empty<SubNavigationMenuRowModel>();
+            }
+
+            var activeItems = CurrentPage.AncestorsOrSelf().Where(pc => !pc.IsHeading() && !IsHomePage(pc)).ToList();
+
+            var menuRows = activeItems
+                .Select(selectedItem => GetAvailableContent(selectedItem.Children).Select(MapToSubNavigationMenuItemModel))
+                .Select(menuItems => new SubNavigationMenuRowModel
+                {
+                    Items = menuItems.ToList()
+                })
+                .ToList();
+
+            menuRows.Reverse();
+
+            var topLevelMenuRow = menuRows.First();
+            topLevelMenuRow.Items.Insert(0, MapToSubNavigationMenuItemModel(subMenuStartPage));
+
+            return menuRows;
+        }
+
+        protected virtual MenuItemModel MapToMenuItemModel(IPublishedContent publishedContent)
         {
             var result = new MenuItemModel
             {
@@ -63,6 +106,20 @@ namespace uIntra.Navigation
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
                 IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
+            };
+
+            return result;
+        }
+
+        protected virtual SubNavigationMenuItemModel MapToSubNavigationMenuItemModel(IPublishedContent publishedContent)
+        {
+            var result = new SubNavigationMenuItemModel
+            {
+                Id = publishedContent.Id,
+                Name = GetNavigationName(publishedContent),
+                Url = publishedContent.Url,
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage),
+                IsSelected = publishedContent == CurrentPage
             };
 
             return result;

@@ -6,6 +6,7 @@ namespace uIntra.Core
     {
         string GetNavigationComposition();
         string GetContentPage();
+        string GetHeading();
         string GetSearchResultPage();
         string GetProfilePage();
         string GetProfileEditPage();
@@ -29,6 +30,5 @@ namespace uIntra.Core
         string GetGroupEditPage();
         string GetGroupMyGroupsOverviewPage();
         string GetGroupDeactivatedPage();
-
     }
 }

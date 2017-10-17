@@ -18,7 +18,7 @@
                 <h1 class="tabset__title _no-link">@Model.Title</h1>
             }
 
-            @if (Model.Items.Count > 0)
+            @if (Model.Rows.Count > 0)
             {
                 <ul class="tabset__navigation clearfix">
                     @if (Model.Parent == null)
@@ -27,7 +27,7 @@
                             <a class="tabset__navigation-link">@Model.Title</a>
                         </li>
                     }
-                    @foreach (var item in Model.Items)
+                    @foreach (var item in Model.Rows)
                     {
                         <li class="tabset__navigation-item @(item.IsActive ? "_active" : "")">
                             <a class="tabset__navigation-link" href="@item.Url">@item.Name</a>

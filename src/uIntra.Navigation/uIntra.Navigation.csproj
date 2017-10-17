@@ -341,6 +341,7 @@
     <Compile Include="Core\AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Core\Configuration\NavigationPropertySettings.cs" />
+    <Compile Include="Core\NavigationConstants.cs" />
     <Compile Include="Core\Dashboard\Models\CreateNavigationCompositionsModel.cs" />
     <Compile Include="Core\Dashboard\Models\DocumentTypeState.cs" />
     <Compile Include="Core\Dashboard\Models\NavigationState.cs" />
@@ -358,11 +359,15 @@
     <Compile Include="Core\ModelBuilders\MyLinks\MyLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\TopMenu\ITopNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\TopMenu\TopNavigationModelBuilder.cs" />
+    <Compile Include="Core\Models\BreadcrumbItemViewModel.cs" />
+    <Compile Include="Core\Models\SubNavigationMenuItemModel.cs" />
+    <Compile Include="Core\Models\SubNavigationMenuRowModel.cs" />
     <Compile Include="Core\Models\MyLinkDTO.cs" />
     <Compile Include="Core\Models\SystemLinkItemModel.cs" />
     <Compile Include="Core\Models\MyLinkItemModel.cs" />
     <Compile Include="Core\Models\SystemLinksModel.cs" />
     <Compile Include="Core\Models\TopMenuModel.cs" />
+    <Compile Include="Core\PublishedContentExtentions.cs" />
     <Compile Include="Core\Services\ISystemLinksService.cs" />
     <Compile Include="Core\Services\SystemLinksService.cs" />
     <Compile Include="Core\Services\MyLinksService.cs" />
@@ -375,6 +380,7 @@
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
     <Compile Include="DefaultImplementation\SystemLinksViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
+    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
     <None Include="App_Plugins\Navigation\Web.config" />
     <None Include="config\Dashboard.config.install.xdt" />
     <None Include="config\Dashboard.config.uninstall.xdt" />

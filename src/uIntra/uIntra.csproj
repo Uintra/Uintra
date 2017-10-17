@@ -140,8 +140,9 @@
     <Reference Include="Localization.Core, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Core.0.1.1\lib\net452\Localization.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Localization.Storage.UDictionary, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\net452\Localization.Storage.UDictionary.dll</HintPath>
+    <Reference Include="Localization.Storage.UDictionary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.0\lib\Net45\Localization.Storage.UDictionary.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Umbraco, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.2\lib\net452\Localization.Umbraco.dll</HintPath>

@@ -10,12 +10,8 @@ namespace uIntra.Navigation
         public bool IsActive { get; set; }
         public bool IsHomePage { get; set; }
         public bool IsClickable { get; set; }
+        public bool IsHeading { get; set; }
 
-        public List<MenuItemViewModel> Children { get; set; }
-
-        public MenuItemViewModel()
-        {
-            Children = new List<MenuItemViewModel>();
-        }
+        public List<MenuItemViewModel> Children { get; set; } = new List<MenuItemViewModel>();
     }
 }

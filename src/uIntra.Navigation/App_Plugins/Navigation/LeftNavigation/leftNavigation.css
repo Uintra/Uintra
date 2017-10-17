@@ -75,6 +75,7 @@
         right:0;
         cursor:pointer;
 
+        ._heading > &,
         ._system &,
         ._links &{
 		    left: -12px;
@@ -96,17 +97,19 @@
 			border-width: 1px 0 0 1px;
             transform: rotate(225deg);
 
+            ._heading > &,
             ._system &,
             ._links &{
 			    top:10px;
                 left:auto;
             }
 
-			._expand & {
+			._expand > & {
 				transform: rotate(45deg);
 				border-color: var(--text-color-dark);
                 top:12px;
 
+                ._heading > &,
                 ._system &,
                 ._links &{
                     top:13px;
@@ -159,6 +162,17 @@
                             font-weight:bold;
                         }
                     }
+
+                    .side-nav{
+                        &__link{
+                            padding-left:59px;
+
+                            &._title{
+                                padding-left:49px;
+                                font-weight:bold;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -168,7 +182,7 @@
         display: none;
     }
 
-    ._expand &{
+    ._expand > &{
         display: block;
     }
 
