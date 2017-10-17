@@ -4,7 +4,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Core.Extensions
 {
-    public static class UmbracoMemberExtentions
+    public static class UmbracoMemberExtensions
     {
         public static TValue GetValueOrDefault<TValue>(this IMember member, string alias)
         {

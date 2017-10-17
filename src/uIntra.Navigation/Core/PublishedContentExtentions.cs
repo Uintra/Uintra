@@ -6,7 +6,7 @@ using Umbraco.Web;
 
 namespace uIntra.Navigation
 {
-    public static class PublishedContentExtentions
+    public static class PublishedContentExtensions
     {
         public static bool GetHideInNavigation(this IPublishedContent content)
         {

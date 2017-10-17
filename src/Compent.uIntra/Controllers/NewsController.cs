@@ -15,7 +15,7 @@ using uIntra.News.Web;
 using uIntra.Search;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Feed;
-using uIntra.Groups.Extentions;
+using uIntra.Groups.Extensions;
 
 namespace Compent.uIntra.Controllers
 {

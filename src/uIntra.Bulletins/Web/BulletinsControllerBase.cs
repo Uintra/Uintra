@@ -145,7 +145,7 @@ namespace uIntra.Bulletins.Web
                 Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
                 Creator = currentUser,
                 Links = links,
-                AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions,
+                AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions,
                 MediaRootId = mediaSettings.MediaRootId
             };
             return result;
@@ -241,7 +241,7 @@ namespace uIntra.Bulletins.Web
 
         protected virtual void FillMediaSettingsData(MediaSettings settings)
         {
-            ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
+            ViewData["AllowedMediaExtensions"] = settings.AllowedMediaExtensions;
         }
 
         protected virtual void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)

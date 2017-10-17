@@ -149,7 +149,7 @@ namespace uIntra.News.Web
 
         protected virtual void FillMediaSettingsData(MediaSettings settings)
         {
-            ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
+            ViewData["AllowedMediaExtensions"] = settings.AllowedMediaExtensions;
         }
 
         protected virtual NewsViewModel GetViewModel(NewsBase news)

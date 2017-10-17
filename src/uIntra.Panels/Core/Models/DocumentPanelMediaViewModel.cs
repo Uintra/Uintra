@@ -9,7 +9,7 @@ namespace uIntra.Panels.Core.Models
 
         public string Title { get; set; }
 
-        public string Extention { get; set; }        
+        public string Extension { get; set; }        
 
         public string Url { get; set; }
 
@@ -19,7 +19,7 @@ namespace uIntra.Panels.Core.Models
             {
                 Id = content.Id,
                 Title = content.Name,
-                Extention = content.GetMediaExtention(),
+                Extension = content.GetMediaExtension(),
                 Url = content.Url
             };
         }

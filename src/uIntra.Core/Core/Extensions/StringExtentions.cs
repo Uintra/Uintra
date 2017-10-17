@@ -6,7 +6,7 @@ using System.Web;
 
 namespace uIntra.Core.Extensions
 {
-    public static class StringExtentions
+    public static class StringExtensions
     {
         public const string GroupIdQueryParam = "groupId";
 

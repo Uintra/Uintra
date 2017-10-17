@@ -2,7 +2,7 @@
 
 namespace uIntra.Core.Extensions
 {
-    public static class AutoMapperExtentions
+    public static class AutoMapperExtensions
     {
         public static T Map<T>(this object obj) where T: class
         {

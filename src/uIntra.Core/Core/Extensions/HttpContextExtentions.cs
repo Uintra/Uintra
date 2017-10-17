@@ -6,7 +6,7 @@ using uIntra.Core.User;
 
 namespace uIntra.Core.Extensions
 {
-    public static class HttpContextExtentions
+    public static class HttpContextExtensions
     {
         public static T GetService<T>(this HttpContext context)
             where T : class

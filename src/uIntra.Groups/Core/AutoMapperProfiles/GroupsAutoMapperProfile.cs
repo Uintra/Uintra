@@ -37,7 +37,7 @@ namespace uIntra.Groups
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId))
                 .ForMember(d => d.Media, o => o.MapFrom(el => el.ImageId))
-                .ForMember(d => d.AllowedMediaExtentions, o => o.Ignore())
+                .ForMember(d => d.AllowedMediaExtensions, o => o.Ignore())
                 .ForMember(d => d.MediaRootId, o => o.Ignore())
                 .ForMember(d => d.NewMedia, o => o.Ignore());
 

@@ -8,7 +8,7 @@ using uIntra.Core.ModelBinders;
 
 namespace uIntra.Core.Extensions
 {
-    public static class HtmlExtentions
+    public static class HtmlExtensions
     {
         public static string Localize(this HtmlHelper htmlHelper, string key)
         {

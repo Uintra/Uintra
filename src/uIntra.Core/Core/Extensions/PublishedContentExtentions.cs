@@ -10,7 +10,7 @@ using Umbraco.Web;
 
 namespace uIntra.Core.Extensions
 {
-    public static class PublishedContentExtentions
+    public static class PublishedContentExtensions
     {
         private const string UmbracoExtensionPropertyAlias = "umbracoExtension";
 
@@ -19,7 +19,7 @@ namespace uIntra.Core.Extensions
             return parent.FirstChild(s => s.DocumentTypeAlias == childAlias);
         }
 
-        public static string GetMediaExtention(this IPublishedContent content)
+        public static string GetMediaExtension(this IPublishedContent content)
         {
             return content.GetPropertyValue<string>(UmbracoExtensionPropertyAlias, default(string));
         }

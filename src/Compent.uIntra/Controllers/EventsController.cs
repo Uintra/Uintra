@@ -14,7 +14,7 @@ using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Web;
 using uIntra.Groups;
-using uIntra.Groups.Extentions;
+using uIntra.Groups.Extensions;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;

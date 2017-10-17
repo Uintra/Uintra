@@ -3,7 +3,7 @@ using uIntra.Core.User;
 
 namespace uIntra.Core
 {
-    public static class IntranetUserServiceExtentions
+    public static class IntranetUserServiceExtensions
     {
         public static Guid GetCurrentUserId(this IIntranetUserService<IIntranetUser> intranetUserService)
         {

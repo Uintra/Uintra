@@ -15,7 +15,7 @@ namespace uIntra.Groups
         [Required, AllowHtml]
         public string Description { get; set; }
 
-        public string AllowedMediaExtentions { get; set; }
+        public string AllowedMediaExtensions { get; set; }
 
         public string Media { get; set; }
 

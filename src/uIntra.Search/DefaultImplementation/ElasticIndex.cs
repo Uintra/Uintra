@@ -207,13 +207,13 @@ namespace uIntra.Search
                     case (int)SearchableTypeEnum.Events:
                     case (int)SearchableTypeEnum.News:
                     case (int)SearchableTypeEnum.Bulletins:
-                        documents.Add(SerializationExtentions.Deserialize<SearchableActivity>(document.ToString()));
+                        documents.Add(SerializationExtensions.Deserialize<SearchableActivity>(document.ToString()));
                         break;
                     case (int)SearchableTypeEnum.Content:
-                        documents.Add(SerializationExtentions.Deserialize<SearchableContent>(document.ToString()));
+                        documents.Add(SerializationExtensions.Deserialize<SearchableContent>(document.ToString()));
                         break;
                     case (int)SearchableTypeEnum.Document:
-                        documents.Add(SerializationExtentions.Deserialize<SearchableDocument>(document.ToString()));
+                        documents.Add(SerializationExtensions.Deserialize<SearchableDocument>(document.ToString()));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(

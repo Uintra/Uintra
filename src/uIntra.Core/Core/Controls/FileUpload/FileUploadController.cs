@@ -29,7 +29,7 @@ namespace uIntra.Core.Controls.FileUpload
             {
                 Id = s.Id,
                 Url = s.GetCropUrl(UmbracoAliases.GalleryPreviewImageCrop),
-                Extention = s.GetMediaExtention(),
+                Extension = s.GetMediaExtension(),
                 Type = s.GetMediaType(),
                 FileName = s.Name
             });

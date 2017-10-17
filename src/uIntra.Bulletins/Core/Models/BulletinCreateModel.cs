@@ -20,7 +20,7 @@ namespace uIntra.Bulletins
         [RequiredIfEmpty(OtherProperty = nameof(Description))]
         public string NewMedia { get; set; }
 
-        public string AllowedMediaExtentions { get; set; }
+        public string AllowedMediaExtensions { get; set; }
 
         public IEnumerable<string> Dates { get; set; }
     }
