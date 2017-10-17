@@ -15,8 +15,8 @@
                 <input type="submit" 
                        class="@(Model.IsMember ? "form__btn _submit _unsubscribe" : "form__btn _submit _subscribe")"
                        value="@(Model.IsMember ? Html.Localize("GroupInfo.Unsubscribe.lnk") : Html.Localize("GroupInfo.Subscribe.lnk"))"
-                       data-title=@Html.Localize("GroupInfo.Unsubscribe.Title.lnk")
-                       data-message=@Html.Localize("GroupInfo.Unsubscribe.Message.lnk")
+                       data-title="@Html.Localize("GroupInfo.Unsubscribe.Title.lnk")"
+                       data-message="@Html.Localize("GroupInfo.Unsubscribe.Message.lnk")"
                        />
                 <input type="hidden" name="@nameof(Model.GroupId)" value="@Model.GroupId" />
                 <input type="submit" hidden  />
