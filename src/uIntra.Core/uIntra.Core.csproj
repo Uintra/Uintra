@@ -415,6 +415,7 @@
     <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
+    <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
@@ -670,6 +671,7 @@
     <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+    <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -767,6 +769,8 @@
     <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
     <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
+    <Content Include="Config\Dashboard.config.install.xdt" />
+    <Content Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

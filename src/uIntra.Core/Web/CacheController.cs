@@ -2,7 +2,7 @@
 using System.Web.Http;
 using Umbraco.Web.Mvc;
 
-namespace Compent.uIntra.Controllers.Api
+namespace uIntra.Core.Web
 {
     public class CacheController : SurfaceController
     {
