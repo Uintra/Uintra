@@ -18,7 +18,9 @@
             public const string ErrorPage = "Error Page";
             public const string HomePage = "Home Page";
             public const string ContentPage = "Content Page";
+            public const string Heading = "Heading";
         }
+
         public class DocumentTypeAliases
         {
             public const string DataFolder = "dataFolder";
@@ -29,6 +31,7 @@
             public const string HomePage = "homePage";
             public const string GridPageLayoutTemplateAlias = "GridPageLayout";
             public const string ContentPage = "contentPage";
+            public const string Heading = "heading";
         }
 
         public class DocumentTypeIcons
@@ -36,6 +39,7 @@
             public const string ErrorPage = "icon-wrong";
             public const string HomePage = "icon-home";
             public const string ContentPage = "icon-article";
+            public const string Heading = "icon-hd";
         }
 
         public class DataTypeNames
