@@ -34,7 +34,7 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService)

@@ -31,21 +31,21 @@
                 </tr>
             </thead>
             <tbody stop-propagation="click">
-                <tr ng-repeat="news in vm.newsList | filter: vm.filter track by news.id" ng-class="{'_unpublished' : news.isHidden}">
-                    <td class="_admin" ng-click="vm.selectNewsToEdit(news, $index)">{{news.id}}</td>
-                    <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.title}}</td>
-                    <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.publishDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.unpublishDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.createdDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectNewsToEdit(news, $index)">{{news.modifyDate | date: vm.dateFormat}}</td>
+                <tr ng-repeat="news in vm.newsList | filter: vm.filter track by news.id" ng-class="{'_unpublished' : news.isHidden, '_active' : vm.selectedIndex == $index}" ng-click="vm.selectNewsToEdit(news, $index)">
+                    <td class="_admin">{{news.id}}</td>
+                    <td>{{news.title}}</td>
+                    <td>{{news.publishDate | date: vm.dateFormat}}</td>
+                    <td>{{news.unpublishDate | date: vm.dateFormat}}</td>
+                    <td>{{news.createdDate | date: vm.dateFormat}}</td>
+                    <td>{{news.modifyDate | date: vm.dateFormat}}</td>
                     <td>
-                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="news.isHidden" ng-click="vm.unpublish(news, $index)" />
-                        <input type="button" class="btn btn-success" value="Publish" ng-show="news.isHidden" ng-click="vm.publish(news, $index)" />
-                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(news, $index)" />
+                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="news.isHidden" ng-click="vm.unpublish(news, $index); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-success" value="Publish" ng-show="news.isHidden" ng-click="vm.publish(news, $index); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(news, $index); $event.stopPropagation();" />
                     </td>
                 </tr>
                 <tr ng-click="vm.selectNewsToEdit(null, null)">
-                    <td colspan="6" class="create-news-btn">
+                    <td colspan="7" class="create-news-btn">
                         <i class="icon icon-add"></i>
                     </td>
                 </tr>

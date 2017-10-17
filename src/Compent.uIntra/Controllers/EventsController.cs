@@ -40,7 +40,7 @@ namespace Compent.uIntra.Controllers
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IReminderService reminderService,
-            IIntranetUserContentHelper intranetUserContentHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,

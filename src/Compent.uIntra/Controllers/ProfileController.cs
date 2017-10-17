@@ -13,7 +13,7 @@ namespace Compent.uIntra.Controllers
     public class ProfileController : ProfileControllerBase
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IIntranetUserContentHelper _intranetUserContentHelper;
+        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
 
         public ProfileController(
@@ -22,16 +22,16 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService, 
             UmbracoHelper umbracoHelper,
-            IIntranetUserContentHelper intranetUserContentHelper) 
+            IIntranetUserContentProvider intranetUserContentProvider) 
             : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
         {
             _umbracoHelper = umbracoHelper;
-            _intranetUserContentHelper = intranetUserContentHelper;
+            _intranetUserContentProvider = intranetUserContentProvider;
         }
 
         public ActionResult EditPage()
         {
-            var profilePage = _intranetUserContentHelper.GetEditPage();
+            var profilePage = _intranetUserContentProvider.GetEditPage();
             return Redirect(profilePage.Url);
         }
 

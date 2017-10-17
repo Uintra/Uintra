@@ -73,7 +73,14 @@
         }
     }
 }
-.groups{
+.groups {
+    .form__btn._groups-create{
+        position: absolute;
+        top: -95px;
+        right: -5px;
+        z-index: 999;
+    }
+
     &__list{
         margin:0 0 0 -40px;
         padding:0;
@@ -497,6 +504,20 @@
 
         &:hover{
             text-decoration:none;
+        }
+    }
+
+    &__name {
+        color: var(--color-contrast);
+    }
+
+    &__link{
+        color:var(--text-color-dark);
+
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--text-color-dark);
         }
     }
 }

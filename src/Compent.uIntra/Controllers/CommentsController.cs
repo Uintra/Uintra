@@ -30,13 +30,11 @@ namespace Compent.uIntra.Controllers
         public CommentsController(ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentHelper intranetUserContentHelper,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper,
+            IIntranetUserContentProvider intranetUserContentProvider,
             IMediaHelper mediaHelper,
             ICommentableService customCommentableService,
             INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentHelper, documentTypeAliasProvider, umbracoHelper, customCommentableService, umbracoContentHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentProvider, customCommentableService, umbracoContentHelper)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;

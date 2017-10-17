@@ -34,5 +34,13 @@ namespace uIntra.Core.Extentions
                 ? func(tuple.property)
                 : default;
         }
+
+        public static TResult? Map<T, TResult>(this T? value, Func<T, TResult> func)
+            where T : struct where TResult : struct
+        {
+            return value.HasValue
+                ? func(value.Value)
+                : (TResult?) null;
+        }
     }
 }

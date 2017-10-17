@@ -1,8 +1,9 @@
 ﻿using System;
+using uIntra.Core.Activity;
 
 namespace uIntra.Subscribe
 {
-    public interface ISubscribableService
+    public interface ISubscribableService : ITypedService
     {
         ISubscribable Subscribe(Guid userId, Guid activityId);
 

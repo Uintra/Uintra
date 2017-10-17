@@ -27,15 +27,10 @@ var pinActivity = {
     initPinDate: function (holder) {
         var pinDate = helpers.initDatePicker(holder, ".js-endpin-date", ".js-endpin-date-value");
 
-        var initialMinDate = new Date();
-        setMinDate(initialMinDate);
-    
-        function setMinDate(minDate) {
-            minDate && pinDate.set('minDate', minDate);
-        }
+        pinDate.set('minDate', new Date());
 
         var clearEndPinDateBtn = holder.find('.js-clear-endpin-date');
-        clearEndPinDateBtn.click(function () {
+        clearEndPinDateBtn.on("click", function () {
             pinDate.clear();
         });
 

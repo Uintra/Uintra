@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.Extentions;
 using uIntra.Groups;
 
 namespace Compent.uIntra.Core.Activity
@@ -16,17 +17,10 @@ namespace Compent.uIntra.Core.Activity
             _groupLinkProvider = groupLinkProvider;
         }
 
-        public GroupInfo? GetGroupInfo(Guid itemId)
-        {
-            Guid? groupId = _groupActivityService.GetGroupId(itemId);
-            GroupInfo? result;
-
-            if (groupId.HasValue)
-                result = GetInfoForGroup(groupId.Value);
-            else result = null;
-
-            return result;
-        }
+        public GroupInfo? GetGroupInfo(Guid activityId) => 
+            _groupActivityService
+                .GetGroupId(activityId)
+                .Map(GetInfoForGroup);
 
         private GroupInfo GetInfoForGroup(Guid groupId)
         {

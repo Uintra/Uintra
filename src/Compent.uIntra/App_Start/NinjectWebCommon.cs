@@ -42,6 +42,7 @@ using Ninject;
 using Ninject.Web.Common;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
+using uIntra.CentralFeed.Providers;
 using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
@@ -209,36 +210,44 @@ namespace Compent.uIntra
 
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
+            // Feed
+            kernel.Bind<IFeedItemService>().To<NewsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<EventsService>().InRequestScope();
+            kernel.Bind<IFeedItemService>().To<BulletinsService>().InRequestScope();
+
             kernel.Bind<ICentralFeedService>().To<CentralFeedService>().InRequestScope();
-            kernel.Bind<ICentralFeedContentHelper>().To<CentralFeedContentHelper>().InRequestScope();
+            kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
 
             kernel.Bind<ICentralFeedLinkProvider>().To<CentralFeedLinkProvider>();
             kernel.Bind<IGroupFeedLinkProvider>().To<GroupFeedLinkProvider>();
-
-            kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
-
             kernel.Bind<IActivityLinkService>().To<ActivityLinkService>();
             kernel.Bind<ICentralFeedLinkService>().To<ActivityLinkService>();
             kernel.Bind<IGroupFeedLinkService>().To<ActivityLinkService>();
 
-            kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
 
+            kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
             kernel.Bind<IGroupActivityService>().To<GroupActivityService>();
-
-            kernel.Bind<IGroupFeedService>().To<GroupFeedService>().InRequestScope();
+            kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
             kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>().InRequestScope();
 
-            kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope(); // TODO WHY??
+            kernel.Bind<ICentralFeedContentService>().To<CentralFeedContentService>().InRequestScope();
+            kernel.Bind<IGroupFeedContentService>().To<GroupFeedContentService>().InRequestScope();
 
-            kernel.Bind<IFeedItemService>().To<NewsService>().InRequestScope();
-            kernel.Bind<IFeedItemService>().To<EventsService>().InRequestScope();
-            kernel.Bind<IFeedItemService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ICentralFeedContentProvider>().To<CentralFeedContentProvider>().InRequestScope();
+
+            kernel.Bind<ICentralFeedHelper>().To<CentralFeedHelper>().InRequestScope();
+            kernel.Bind<IGroupHelper>().To<GroupHelper>().InRequestScope();
+            kernel.Bind<IFeedFilterStateService>().To<CentralFeedFilterStateService>().InRequestScope();
+
+
+            // kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope();
+
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();
-            kernel.Bind<IIntranetUserContentHelper>().To<IntranetUserContentHelper>().InRequestScope();
+            kernel.Bind<IIntranetUserContentProvider>().To<IntranetUserContentProvider>().InRequestScope();
 
             // Navigation 
             kernel.Bind<IConfigurationProvider<NavigationConfiguration>>().To<ConfigurationProvider<NavigationConfiguration>>().InSingletonScope()
@@ -259,7 +268,7 @@ namespace Compent.uIntra
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/notificationConfiguration.json");
             kernel.Bind<IConfigurationProvider<ReminderConfiguration>>().To<ConfigurationProvider<ReminderConfiguration>>().InSingletonScope()
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
-            kernel.Bind<INotificationHelper>().To<NotificationHelper>().InRequestScope();
+            kernel.Bind<INotificationContentProvider>().To<NotificationContentProvider>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
             kernel.Bind<INotifierService>().To<MailNotifierService>().InRequestScope();
             kernel.Bind<IUiNotifierService>().To<UiNotifierService>().InRequestScope();
@@ -296,14 +305,11 @@ namespace Compent.uIntra
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
-            kernel.Bind<IGroupHelper>().To<GroupHelper>().InRequestScope();
-            kernel.Bind<IGroupContentHelper>().To<GroupContentHelper>().InRequestScope();
+            kernel.Bind<IGroupContentProvider>().To<GroupContentProvider>().InRequestScope();
             kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
 
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
-
-
 
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();

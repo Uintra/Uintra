@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'icomoon';
-  src: url('./icomoon.woff?5dp6tu') format('woff');
+  src: url('./icomoon.woff?nbo8qg') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,11 +23,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-bold:before {
+    content: "\e91a";
+}
+.icon-groups:before {
+    content: "\e91d";
+}
+.icon-insert-link:before {
+    content: "\e91b";
+}
+.icon-italic:before {
+    content: "\e91c";
+}
 .icon-blog:before {
-  content: "\e919";
+    content: "\e919";
 }
 .icon-bulletins:before {
-  content: "\e914";
+    content: "\e914";
 }
 .icon-ideas:before {
   content: "\e915";
@@ -346,7 +358,6 @@ h5{
 
 #main{
     width:100%;
-    overflow:hidden;
     padding:50px 80px 20px 70px;
     position:relative;
     min-height:190px;

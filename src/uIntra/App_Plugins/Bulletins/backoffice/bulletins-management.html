@@ -30,14 +30,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="bulletin in vm.bulletinsList | filter: vm.filter track by bulletin.id">
-                    <td class="_admin" ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.id}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{vm.transformDescription(bulletin.description)}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.publishDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.createdDate | date: vm.dateFormat}}</td>
-                    <td ng-click="vm.selectBulletinsToEdit(bulletin, $index)">{{bulletin.modifyDate | date: vm.dateFormat}}</td>
+                <tr ng-repeat="bulletin in vm.bulletinsList | filter: vm.filter track by bulletin.id" ng-class="{'_active' : vm.selectedIndex == $index}" ng-click="vm.selectBulletinsToEdit(bulletin, $index)">
+                    <td class="_admin">{{bulletin.id}}</td>
+                    <td>{{vm.transformDescription(bulletin.description)}}</td>
+                    <td>{{bulletin.publishDate | date: vm.dateFormat}}</td>
+                    <td>{{bulletin.createdDate | date: vm.dateFormat}}</td>
+                    <td>{{bulletin.modifyDate | date: vm.dateFormat}}</td>
                     <td>
-                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(bulletin, $index)" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(bulletin, $index); $event.stopPropagation();" />
                     </td>
                 </tr>
                 <tr ng-click="vm.selectBulletinsToEdit({}, null)">
@@ -46,6 +46,8 @@
                     </td>
                 </tr>
             </tbody>
+
+
         </table>
     </div>
     <div class="bulletins-edit umbraco-panel">

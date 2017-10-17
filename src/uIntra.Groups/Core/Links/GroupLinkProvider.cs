@@ -5,31 +5,31 @@ namespace uIntra.Groups
 {
     public class GroupLinkProvider : IGroupLinkProvider
     {
-        private readonly IGroupContentHelper _contentHelper;
+        private readonly IGroupContentProvider _contentProvider;
 
-        public GroupLinkProvider(IGroupContentHelper contentHelper)
+        public GroupLinkProvider(IGroupContentProvider contentProvider)
         {
-            _contentHelper = contentHelper;
+            _contentProvider = contentProvider;
         }
 
         public string GetGroupLink(Guid groupId)
         {
-           return _contentHelper.GetGroupRoomPage().Url.AddGroupId(groupId);
+           return _contentProvider.GetGroupRoomPage().Url.AddGroupId(groupId);
         }
 
         public string GetDeactivatedGroupLink(Guid groupId)
         {
-            return _contentHelper.GetDeactivatedGroupPage().Url.AddGroupId(groupId);
+            return _contentProvider.GetDeactivatedGroupPage().Url.AddGroupId(groupId);
         }
 
         public string GetGroupsOverviewLink()
         {
-            return _contentHelper.GetOverviewPage().Url;
+            return _contentProvider.GetOverviewPage().Url;
         }
 
         public string GetCreateGroupLink()
         {
-            return _contentHelper.GetCreateGroupPage().Url;
+            return _contentProvider.GetCreateGroupPage().Url;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
 
@@ -10,8 +11,8 @@ namespace uIntra.Core.User.Permissions
         IEnumerable<string> GetRolePermission(IRole role);
         string GetPermissionFromTypeAndAction(IIntranetType activityType, IntranetActivityActionEnum action);
 
-        bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action);
-        bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action);
+        bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null);
+        bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null);
         bool IsUserWebmaster(IIntranetUser user);
     }
 }

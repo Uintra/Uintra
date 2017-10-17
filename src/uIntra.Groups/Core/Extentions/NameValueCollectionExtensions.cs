@@ -15,8 +15,8 @@ namespace uIntra.Groups.Extentions
                 .First();
 
             return Guid.TryParse(id, out var result)
-                ? result
-                : default;
+                ? new Guid?(result)
+                : null;
         }
     }
 }
