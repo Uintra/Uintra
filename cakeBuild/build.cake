@@ -72,6 +72,7 @@ Task("Build")
      Information("Building {0}", uIntraProject);
         MSBuild(uIntraProject, settings =>
             settings.SetPlatformTarget(PlatformTarget.MSIL)
+					.UseToolVersion(MSBuildToolVersion.VS2017)
                 .WithTarget("Build")
                 .SetConfiguration(configuration));
 });

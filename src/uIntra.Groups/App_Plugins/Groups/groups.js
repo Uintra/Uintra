@@ -3,6 +3,7 @@ import editGroup from './Edit/edit-group';
 import listGroup from './List/group-list';
 import groupMembers from './Room/Members/group-members';
 import groupSubscribe from './GroupSubscribe';
+import groupsLeftNavigation from './GroupsLeftNavigation';
 
 require("./groups.css");
 
@@ -12,4 +13,5 @@ export default function () {
     listGroup.init();
     groupMembers.init();
     groupSubscribe.init();
+    groupsLeftNavigation.init();
 }
