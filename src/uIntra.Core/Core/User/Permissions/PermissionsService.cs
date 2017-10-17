@@ -12,15 +12,18 @@ namespace uIntra.Core.User.Permissions
         private readonly IPermissionsConfiguration _configuration;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         public PermissionsService(
             IPermissionsConfiguration configuration,
             IExceptionLogger exceptionLogger,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IActivitiesServiceFactory activitiesServiceFactory)
         {
             _configuration = configuration;
             _exceptionLogger = exceptionLogger;
             _intranetUserService = intranetUserService;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         public virtual bool IsRoleHasPermissions(IRole role, params string[] permissions)
@@ -54,20 +57,22 @@ namespace uIntra.Core.User.Permissions
             return $"{activityType.Name}{action}";
         }
 
-        public virtual bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action)
+        public virtual bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
+
             if (currentUser == null)
             {
                 return false;
             }
 
-            var result = IsUserHasAccess(currentUser, activityType, action);
+            var result = IsUserHasAccess(currentUser, activityType, action, activityId);
             return result;
         }
 
-        public virtual bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action)
+        public virtual bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
+
             if (user == null)
             {
                 return false;
@@ -80,6 +85,17 @@ namespace uIntra.Core.User.Permissions
 
             var permission = $"{activityType.Name}{action}";
             var userHasPermissions = IsRoleHasPermissions(user.Role, permission);
+
+            if (userHasPermissions && activityId.HasValue)
+            {
+                var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityType.Id);
+                var activity = service.Get(activityId.Value);
+
+                if (activity is IHaveCreator creator)
+                {
+                    return creator.CreatorId == user.Id;
+                }
+            }
 
             return userHasPermissions;
         }
