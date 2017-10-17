@@ -793,6 +793,7 @@
     <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
     <Content Include="App_Plugins\Groups\groups.css" />
     <Content Include="App_Plugins\Groups\groups.js" />
+    <Content Include="App_Plugins\Groups\GroupsLeftNavigation.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\List\group-list.html" />
     <Content Include="App_Plugins\Groups\List\group-list.js" />
