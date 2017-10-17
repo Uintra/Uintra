@@ -7,7 +7,7 @@ using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;

@@ -4,7 +4,7 @@ using System.Web;
 using Compent.uIntra.Core.Constants;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using uIntra.Navigation;

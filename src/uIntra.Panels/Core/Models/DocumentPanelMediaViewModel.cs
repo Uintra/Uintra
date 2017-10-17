@@ -1,4 +1,4 @@
-﻿using uIntra.Core.Extentions;
+﻿using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 
 namespace uIntra.Panels.Core.Models

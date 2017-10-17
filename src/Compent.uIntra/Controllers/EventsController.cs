@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Feed;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
 using uIntra.Core.Media;

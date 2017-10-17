@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Constants;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 

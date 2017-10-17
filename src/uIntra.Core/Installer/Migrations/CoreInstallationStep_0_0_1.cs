@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Constants;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using Umbraco.Core;
 using Umbraco.Core.Models;

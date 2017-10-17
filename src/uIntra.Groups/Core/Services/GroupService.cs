@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;

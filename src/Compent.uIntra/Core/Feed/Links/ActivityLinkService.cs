@@ -1,7 +1,7 @@
 ﻿using System;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;

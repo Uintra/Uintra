@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Compent.uIntra.Core.Users;
 using uIntra.CentralFeed;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Extentions;

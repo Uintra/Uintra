@@ -2,7 +2,7 @@
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
     public static class UmbracoMemberExtentions
     {

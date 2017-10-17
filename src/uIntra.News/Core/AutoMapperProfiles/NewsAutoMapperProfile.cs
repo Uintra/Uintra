@@ -1,6 +1,6 @@
 using AutoMapper;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.News.Dashboard;
 
 namespace uIntra.News

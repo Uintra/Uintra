@@ -4,7 +4,7 @@ using AutoMapper;
 using Compent.uIntra.Core.Bulletins;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;

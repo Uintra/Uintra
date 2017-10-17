@@ -724,7 +724,7 @@
     <Compile Include="Core\Exceptions\InconsistentDataException.cs" />
     <Compile Include="Core\Extentions\AutoMapperExtentions.cs" />
     <Compile Include="Core\Extentions\EnumerableExtensions.cs" />
-    <Compile Include="Core\Extentions\EnumExtentions.cs" />
+    <Compile Include="Core\Extentions\EnumExtensions.cs" />
     <Compile Include="Core\Extentions\HtmlExtentions.cs" />
     <Compile Include="Core\Extentions\HttpContextExtentions.cs" />
     <Compile Include="Core\Extentions\LocalizationExtensions.cs" />

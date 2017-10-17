@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nest;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Search
 {

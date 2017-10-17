@@ -9,7 +9,7 @@ using EmailWorker.Web.Helper;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Notification.Configuration;
 using Umbraco.Web;
 

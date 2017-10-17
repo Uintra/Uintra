@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Localization;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;

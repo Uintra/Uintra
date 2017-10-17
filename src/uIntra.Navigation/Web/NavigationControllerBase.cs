@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Navigation.SystemLinks;
 using Umbraco.Web.Mvc;
 

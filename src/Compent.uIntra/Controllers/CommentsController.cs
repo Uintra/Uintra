@@ -5,7 +5,7 @@ using uIntra.Comments;
 using uIntra.Comments.Web;
 using uIntra.Core;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;

@@ -5,7 +5,7 @@ using AutoMapper;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.Links;
 using uIntra.Core.Media;

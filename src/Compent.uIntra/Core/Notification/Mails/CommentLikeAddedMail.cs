@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EmailWorker.Data.Model;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Notification.MailModels;
 
 namespace Compent.uIntra.Core.Notification.Mails

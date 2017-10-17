@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
     public static class DateTimeExtensions
     {

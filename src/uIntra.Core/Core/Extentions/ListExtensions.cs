@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
     public static class ListExtensions
     {

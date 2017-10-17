@@ -5,7 +5,7 @@ using System.Text;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Exceptions;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;

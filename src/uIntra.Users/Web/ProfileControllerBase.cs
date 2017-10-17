@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;

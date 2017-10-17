@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using uIntra.CentralFeed.Providers;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using Umbraco.Core.Models;
 using Umbraco.Web;

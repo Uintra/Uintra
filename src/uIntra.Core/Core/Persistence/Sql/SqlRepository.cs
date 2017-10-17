@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Core.Persistence
 {

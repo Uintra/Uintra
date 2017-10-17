@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace uIntra.CentralFeed
 {

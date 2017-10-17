@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

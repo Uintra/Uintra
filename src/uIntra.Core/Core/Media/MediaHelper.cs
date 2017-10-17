@@ -6,7 +6,7 @@ using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Constants;
 using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Core.Models;

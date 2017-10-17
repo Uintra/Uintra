@@ -2,7 +2,7 @@
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Groups;
 using uIntra.Search;
 

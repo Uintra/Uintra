@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using Umbraco.Web;
 

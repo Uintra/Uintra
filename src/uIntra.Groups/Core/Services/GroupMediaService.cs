@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
     public static class AutoMapperExtentions
     {

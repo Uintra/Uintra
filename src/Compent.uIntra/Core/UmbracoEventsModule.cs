@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Compent.uIntra.Core.Constants;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Constants;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.UmbracoEventServices;
 using uIntra.Search;

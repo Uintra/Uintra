@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.BrowserCompatibility.Models;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Core.Web

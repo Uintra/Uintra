@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using Localization.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Installer.Migrations;
 
 namespace Compent.uIntra.Installer

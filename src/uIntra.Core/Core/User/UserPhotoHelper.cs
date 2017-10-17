@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Core.User
 {

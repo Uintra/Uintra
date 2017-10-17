@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using uIntra.Core.Constants;
 using uIntra.Core.User;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
     public static class HttpContextExtentions
     {

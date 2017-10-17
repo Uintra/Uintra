@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.User;
 using Umbraco.Web;

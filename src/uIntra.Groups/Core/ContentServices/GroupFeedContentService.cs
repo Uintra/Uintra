@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
