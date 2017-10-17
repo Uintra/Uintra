@@ -53,7 +53,7 @@
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>
             @{
-                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
+                var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>

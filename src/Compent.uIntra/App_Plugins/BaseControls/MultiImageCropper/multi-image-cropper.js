@@ -1,8 +1,8 @@
 ﻿(function (angular) {
     'use strict';
 
-    var imageExtentions = ["jpeg", "jpg", "gif", "bmp", "png", "tiff", "tif", "svg"];
-    var svgExtention = ['svg'];
+    var imageExtensions = ["jpeg", "jpg", "gif", "bmp", "png", "tiff", "tif", "svg"];
+    var svgExtension = ['svg'];
 
     function checkIsSingleMode(mode) {
         var modes = ['single', 'multiple'];
@@ -44,13 +44,13 @@
             $scope.isSvgImage = function(src) {
                 if (!src) return false;
                 var extention = src.split('.')[1];
-                return svgExtention.indexOf(extention) > -1;
+                return svgExtension.indexOf(extention) > -1;
             }
 
             $scope.isImage = function (src) {
                 if (!src) return false;
                 var extention = src.split('.')[1];
-                return imageExtentions.indexOf(extention) > -1;
+                return imageExtensions.indexOf(extention) > -1;
             }
 
             $scope.noop = angular.noop;

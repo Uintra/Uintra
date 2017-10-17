@@ -25,7 +25,7 @@
             <label class="form__label" for="file-upload">@Html.Localize("GroupCreate.GroupImage.lbl")</label>
             <span class="form__note">@Html.Localize("GroupCreate.GroupImage.note")</span>
             @{
-                var settings = new FileUploadSettings { AllowedExtentions = Model.AllowedMediaExtentions, MaxFilesCount = 1 };
+                var settings = new FileUploadSettings { AllowedExtensions = Model.AllowedMediaExtensions, MaxFilesCount = 1 };
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
