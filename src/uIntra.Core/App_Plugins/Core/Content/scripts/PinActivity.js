@@ -5,10 +5,11 @@ var pinInfoHolder;
 var pinAccept;
 
 var pinActivity = {
-    initPinControl: function(holder) {    
+    initPinControl: function (holder) {
         pinControl = holder.find('.pin-control');
         pinInfoHolder = holder.find('.pin-info');
         pinAccept = holder.find('.pin-accept');
+        pinValue = holder.find('.js-endpin-date-value');
 
         if (pinControl.is(":unchecked")) {
             pinInfoHolder.hide();
@@ -16,11 +17,15 @@ var pinActivity = {
         else {
             pinAccept.prop('checked', true);
         }
-        pinControl.change(function() {
+
+        pinControl.change(function () {
             if ($(this).is(":checked")) {
                 pinInfoHolder.show();
+                pinValue.prop('disabled', false);
+
             } else {
                 pinInfoHolder.hide();
+                pinValue.prop('disabled', true);
             }
         });
     },
@@ -30,13 +35,13 @@ var pinActivity = {
         pinDate.set('minDate', new Date());
 
         var clearEndPinDateBtn = holder.find('.js-clear-endpin-date');
-        clearEndPinDateBtn.on("click", function () {
+        clearEndPinDateBtn.click(function () {
             pinDate.clear();
         });
 
         return pinDate;
     },
-    isPinAccepted: function(holder) {
+    isPinAccepted: function (holder) {
         pinControl = holder.find('.pin-control');
         if (pinControl.is(":checked")) {
             if (pinAccept.is(":unchecked")) {
