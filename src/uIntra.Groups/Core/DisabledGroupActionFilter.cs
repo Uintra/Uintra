@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Groups.Constants;
 
 namespace uIntra.Groups

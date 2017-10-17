@@ -7,7 +7,7 @@ using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Caching;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
@@ -227,20 +227,8 @@ namespace Compent.uIntra.Core.Bulletins
             _activityIndex.Index(searchableActivities);
         }
 
-        private static bool IsCommentMotification(NotificationTypeEnum notificationType)
-        {
-            return notificationType.In(
-                NotificationTypeEnum.CommentAdded,
-                NotificationTypeEnum.CommentReplied,
-                NotificationTypeEnum.CommentEdited,
-                NotificationTypeEnum.CommentLikeAdded);
-        }
-
         private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
-            var comment = new Lazy<Comment>(() => _commentsService.Get(entityId));
-            var bulletinsEntity = Get(IsCommentMotification((NotificationTypeEnum) notificationType.Id) ? comment.Value.ActivityId : entityId);
-
             var data = new NotifierData
             {
                 NotificationType = notificationType
@@ -250,6 +238,7 @@ namespace Compent.uIntra.Core.Bulletins
             {
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
+                    var bulletinsEntity = Get(entityId);
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetLikesNotifierDataModel(bulletinsEntity, notificationType);
                 }
@@ -258,27 +247,32 @@ namespace Compent.uIntra.Core.Bulletins
                 case (int) NotificationTypeEnum.CommentAdded:
                 case (int) NotificationTypeEnum.CommentEdited:
                 {
+                    var comment = _commentsService.Get(entityId);
+                    var bulletinsEntity = Get(comment.ActivityId);
                     data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment.Value, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType);
                 }
                     break;
 
                 case (int) NotificationTypeEnum.CommentReplied:
                 {
-
-                    data.ReceiverIds = comment.Value.UserId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment.Value, notificationType);
+                    var comment = _commentsService.Get(entityId);
+                    var bulletinsEntity = Get(comment.ActivityId);
+                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType);
                 }
                     break;
 
                 case (int) NotificationTypeEnum.CommentLikeAdded:
                 {
+                    var comment = _commentsService.Get(entityId);
+                    var bulletinsEntity = Get(comment.ActivityId);
                     var currentUser = _intranetUserService.GetCurrentUser();
-                    data.ReceiverIds = currentUser.Id == comment.Value.UserId
+                    data.ReceiverIds = currentUser.Id == comment.UserId
                         ? Enumerable.Empty<Guid>()
-                        : comment.Value.UserId.ToEnumerableOfOne();
+                        : comment.UserId.ToEnumerableOfOne();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment.Value, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType);
                 }
                     break;
 

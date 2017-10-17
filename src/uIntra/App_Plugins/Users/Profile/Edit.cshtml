@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extentions
+@using uIntra.Core.Extensions
 @using uIntra.Notification.Configuration
 @using Umbraco.Web
 @model uIntra.Users.ProfileEditModel
@@ -18,7 +18,7 @@
                 <div class="form__row clearfix @additionClass">
                     <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
                     @{
-                        var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string, MaxFilesCount = 1 };
+                        var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
                         Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
                     }
                 </div>

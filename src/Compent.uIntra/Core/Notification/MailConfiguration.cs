@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace Compent.uIntra.Core.Notification
 {

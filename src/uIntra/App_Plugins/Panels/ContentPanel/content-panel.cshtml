@@ -1,4 +1,4 @@
-﻿@using uIntra.Core.Extentions
+﻿@using uIntra.Core.Extensions
 @using uIntra.BaseControls
 @inherits UmbracoViewPage<dynamic>
 
@@ -138,7 +138,7 @@
                     var file = Umbraco.TypedMedia(id);
                     <li class="documents__item">
                         <a class="documents__item-link" target="_blank" href="@file.Url">
-                            <span class="documents__icon file-extension _@file.GetMediaExtention()"></span>
+                            <span class="documents__icon file-extension _@file.GetMediaExtension()"></span>
                             <span class="documents__item-name">@file.Name</span>
                         </a>
                     </li>

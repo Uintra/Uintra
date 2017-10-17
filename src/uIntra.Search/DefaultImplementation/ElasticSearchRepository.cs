@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nest;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Search.Configuration;
 using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;

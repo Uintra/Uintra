@@ -6,7 +6,7 @@ using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Constants;
 using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Core.Models;
@@ -163,7 +163,7 @@ namespace uIntra.Core.Media
 
             return new MediaSettings
             {
-                AllowedMediaExtentions = GetAllowedMediaExtentions(mediaFolder),
+                AllowedMediaExtensions = GetAllowedMediaExtensions(mediaFolder),
                 MediaRootId = mediaFolder.Id
             };
         }
@@ -178,7 +178,7 @@ namespace uIntra.Core.Media
             return _imageHelper.IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
         }
 
-        private string GetAllowedMediaExtentions(IPublishedContent mediaFolderContent)
+        private string GetAllowedMediaExtensions(IPublishedContent mediaFolderContent)
         {
             var allowedMediaExtensions = mediaFolderContent.GetPropertyValue<string>(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, string.Empty);
 

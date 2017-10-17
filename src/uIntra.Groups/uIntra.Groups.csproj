@@ -364,6 +364,7 @@
     <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
     <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\GroupsLeftNavigation.js" />
     <Content Include="App_Plugins\Groups\List\List.cshtml" />
     <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
     <Content Include="App_Plugins\Groups\package.manifest" />

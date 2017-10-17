@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using uIntra.Core.User;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
-    public static class EnumExtentions
+    public static class EnumExtensions
     {
         public static string ToRoleName(this IntranetRolesEnum enm)
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
 using uIntra.Core.Caching;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using Umbraco.Core.Models;

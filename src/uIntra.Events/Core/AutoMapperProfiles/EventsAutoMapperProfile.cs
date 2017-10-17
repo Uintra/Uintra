@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Events.Dashboard;
 
 namespace uIntra.Events

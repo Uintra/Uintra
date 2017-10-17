@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using uIntra.Core.Exceptions;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;

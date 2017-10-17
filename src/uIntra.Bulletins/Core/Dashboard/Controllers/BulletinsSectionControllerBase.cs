@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using Umbraco.Web.WebApi;
 

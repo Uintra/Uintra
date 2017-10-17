@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
@@ -149,7 +149,7 @@ namespace uIntra.News.Web
 
         protected virtual void FillMediaSettingsData(MediaSettings settings)
         {
-            ViewData["AllowedMediaExtentions"] = settings.AllowedMediaExtentions;
+            ViewData["AllowedMediaExtensions"] = settings.AllowedMediaExtensions;
         }
 
         protected virtual NewsViewModel GetViewModel(NewsBase news)

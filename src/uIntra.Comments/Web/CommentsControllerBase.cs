@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 

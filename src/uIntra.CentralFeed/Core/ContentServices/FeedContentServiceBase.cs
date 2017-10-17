@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;

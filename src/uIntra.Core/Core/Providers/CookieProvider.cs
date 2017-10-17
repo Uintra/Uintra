@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Core
 {

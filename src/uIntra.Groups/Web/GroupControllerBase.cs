@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
@@ -111,7 +111,7 @@ namespace uIntra.Groups.Web
 
             createGroupModel.MediaRootId = mediaSettings.MediaRootId;
             createGroupModel.CreatorId = _userService.GetCurrentUserId();
-            createGroupModel.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
+            createGroupModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
             return PartialView(CreateViewPath, createGroupModel);
         }
@@ -292,7 +292,7 @@ namespace uIntra.Groups.Web
             var model = group.Map<GroupEditModel>();
             var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
             model.MediaRootId = mediaSettings.MediaRootId;
-            model.AllowedMediaExtentions = mediaSettings.AllowedMediaExtentions;
+            model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             return model;
         }
 

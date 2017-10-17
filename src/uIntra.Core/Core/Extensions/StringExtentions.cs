@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
-    public static class StringExtentions
+    public static class StringExtensions
     {
         public const string GroupIdQueryParam = "groupId";
 

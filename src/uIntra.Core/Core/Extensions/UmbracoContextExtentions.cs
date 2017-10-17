@@ -1,9 +1,9 @@
 ﻿using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
-    public static class UmbracoContextExtentions
+    public static class UmbracoContextExtensions
     {
         public static IPublishedContent GetCurrentPage(this UmbracoContext context)
         {

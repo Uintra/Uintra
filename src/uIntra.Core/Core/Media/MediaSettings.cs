@@ -2,7 +2,7 @@
 {
     public class MediaSettings
     {
-        public string AllowedMediaExtentions { get; set; }
+        public string AllowedMediaExtensions { get; set; }
         public int? MediaRootId { get; set; }
     }
 }

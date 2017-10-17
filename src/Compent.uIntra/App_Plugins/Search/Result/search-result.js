@@ -11,6 +11,7 @@ let searchTimeout;
 let formController;
 let holder;
 let select;
+let searchInProgress = false;
 
 let initTypesSelect = function () {
     select.select2({
@@ -35,7 +36,8 @@ function initSearchPage() {
         function () {
             clearTimeout(searchTimeout);
             var text = searchBox.value;
-            if (text.length > 1) {
+            if (text.length > 1 || searchInProgress) {
+                searchInProgress = true;
                 searchTimeout = setTimeout(function () { search() }, 250);
             } else {
                 document.querySelector(".js-searchResults-listContainer").innerHTML = "";

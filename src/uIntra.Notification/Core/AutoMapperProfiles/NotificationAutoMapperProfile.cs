@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Helpers;
 using AutoMapper;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Notification
 {

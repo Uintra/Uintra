@@ -1,6 +1,6 @@
 ﻿@using uIntra.Core.Activity
 @using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extentions
+@using uIntra.Core.Extensions
 @using Umbraco.Web
 @model uIntra.News.NewsEditModel
 
@@ -55,7 +55,7 @@
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
             @{
-                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
+                var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>

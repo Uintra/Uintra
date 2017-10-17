@@ -6,9 +6,9 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
-    public static class PermissionsExtentions
+    public static class PermissionsExtensions
     {
         public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role,
             IEnumerable<KeyValuePair<IIntranetType, IntranetActivityActionEnum>> collection)

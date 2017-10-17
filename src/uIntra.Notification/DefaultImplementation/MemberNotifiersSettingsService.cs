@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Notification.Configuration;
 
@@ -55,7 +55,7 @@ namespace uIntra.Notification
         private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(Guid memberId,
             IEnumerable<NotifierTypeEnum> existingSettings)
         {
-            var absentSettings = EnumExtentions.GetEnumCases<NotifierTypeEnum>().Except(existingSettings);
+            var absentSettings = EnumExtensions.GetEnumCases<NotifierTypeEnum>().Except(existingSettings);
             var newEntities = absentSettings
                 .Select(s => new MemberNotifierSetting()
                 {

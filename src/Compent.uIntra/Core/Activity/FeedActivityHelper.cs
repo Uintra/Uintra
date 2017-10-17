@@ -1,5 +1,5 @@
 ﻿using System;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Groups;
 
 namespace Compent.uIntra.Core.Activity

@@ -6,9 +6,9 @@ using uIntra.Core.Links;
 using uIntra.Core.Localization;
 using uIntra.Core.ModelBinders;
 
-namespace uIntra.Core.Extentions
+namespace uIntra.Core.Extensions
 {
-    public static class HtmlExtentions
+    public static class HtmlExtensions
     {
         public static string Localize(this HtmlHelper htmlHelper, string key)
         {

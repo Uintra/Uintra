@@ -45,7 +45,7 @@ let fileUploader = (function () {
 
             let dropzoneAllowedData = dropzoneElem.data('allowed');
             if (dropzoneAllowedData == undefined) return;
-            let allowedExtentions = dropzoneAllowedData.replace(/\s/g, '') || "";
+            let allowedExtensions = dropzoneAllowedData.replace(/\s/g, '') || "";
             let maxCount = dropzoneElem.data('maxCount');
 
             let defaultOptions = {
@@ -53,7 +53,7 @@ let fileUploader = (function () {
                 maxFiles: maxCount,
                 addRemoveLinks: true,
                 maxFilesize: 50,
-                acceptedFiles: allowedExtentions,
+                acceptedFiles: allowedExtensions,
                 dictDefaultMessage: dropzoneElem.data('defaultText'),
                 dictRemoveFile: dropzoneElem.data('removeText'),
                 createImageThumbnails: false

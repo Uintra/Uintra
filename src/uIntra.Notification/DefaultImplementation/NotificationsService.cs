@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
-using uIntra.Core.Extentions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;

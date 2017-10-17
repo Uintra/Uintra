@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using uIntra.Core.Extentions
+@using uIntra.Core.Extensions
 @model uIntra.Comments.CommentCreateModel
 
 @using (Ajax.BeginForm("Add", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "POST", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}');" }, new { @class = "comments__form js-comment-create", data_parentid = Model.ParentId }))
