@@ -11,7 +11,7 @@ namespace uIntra.Navigation
 
         public IEnumerable<SubNavigationMenuRowModel> Rows { get; set; } = Enumerable.Empty<SubNavigationMenuRowModel>();
 
-        public MenuItemModel Parent { get; set; }
+        public MenuItemViewModel Parent { get; set; }
 
         public bool ShowBreadcrumbs { get; set; }
     }

@@ -34,6 +34,7 @@ namespace Compent.uIntra.Controllers
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentHelper _groupContentHelper;
+        private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -56,35 +57,28 @@ namespace Compent.uIntra.Controllers
             _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentHelper = groupContentHelper;
+            _subNavigationModelBuilder = subNavigationModelBuilder;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
 
-        //public override ActionResult SubNavigation()
-        //{
-        //    if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
-        //    {
-        //        return new EmptyResult();
-        //    }
+        public override ActionResult SubNavigation()
+        {
+            if (_centralFeedContentHelper.IsCentralFeedPage(CurrentPage))
+            {
+                return new EmptyResult();
+            }
 
-        //    if (_groupHelper.IsGroupRoomPage(CurrentPage))
-        //    {
-        //        return RenderGroupNavigation();
-        //    }
+            if (_groupHelper.IsGroupRoomPage(CurrentPage))
+            {
+                return RenderGroupNavigation();
+            }
 
-        //    var model = new SubNavigationMenuViewModel
-        //    {
-        //        Items = GetContentForSubNavigation(CurrentPage).Where(c => c.IsShowPageInSubNavigation()).Select(MapSubNavigationItem).ToList(),
-        //        Parent = IsHomePage(CurrentPage.Parent) ? null : MapSubNavigationItem(CurrentPage.Parent),
-        //        Title = CurrentPage.GetNavigationName(),
-        //        IsTitleHidden = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage()
-        //    };
+            var subNavigation = _subNavigationModelBuilder.GetMenu();
+            var result = subNavigation.Map<SubNavigationMenuViewModel>();
 
-        //    model.ShowBreadcrumbs = CurrentPage.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage() &&
-        //                            Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
-
-        //    return PartialView(SubNavigationViewPath, model);
-        //}
+            return PartialView(SubNavigationViewPath, result);
+        }
 
         public ContentResult GetTitle()
         {
