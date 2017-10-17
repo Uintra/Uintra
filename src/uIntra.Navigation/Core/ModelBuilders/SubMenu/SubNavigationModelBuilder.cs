@@ -5,7 +5,6 @@ using System.Linq;
 using uIntra.Core;
 using uIntra.Core.Configuration;
 using uIntra.Navigation.Configuration;
-using uIntra.Navigation.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -46,10 +45,10 @@ namespace uIntra.Navigation
                     ? null
                     : MapToMenuItemModel(CurrentPage.Parent),
                 Title = GetNavigationName(subMenuStartPage),
-                IsTitleHidden = IsContentPage(subMenuStartPage)
+                IsTitleHidden = subMenuStartPage.IsContentPage()
             };
 
-            model.ShowBreadcrumbs = IsContentPage(CurrentPage) && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
+            model.ShowBreadcrumbs = CurrentPage.IsContentPage() && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
 
             return model;
         }
@@ -72,11 +71,6 @@ namespace uIntra.Navigation
         protected virtual bool IsHomePage(IPublishedContent content)
         {
             return content.DocumentTypeAlias == NavigationConfiguration.HomePageAlias;
-        }
-
-        protected virtual bool IsContentPage(IPublishedContent content)
-        {
-            return content.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
         protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage)

@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using uIntra.Core;
 using uIntra.Core.Extentions;
-using uIntra.Navigation.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -54,6 +53,12 @@ namespace uIntra.Navigation
         {
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
             return publishedContent.DocumentTypeAlias.Equals(docTypeAliasProvider.GetHeading());
+        }
+
+        public static bool IsContentPage(this IPublishedContent publishedContent)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            return publishedContent.DocumentTypeAlias.Equals(docTypeAliasProvider.GetContentPage());
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Navigation.Constants
+﻿namespace uIntra.Navigation
 {
     public static class NavigationPropertiesConstants
     {

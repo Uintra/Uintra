@@ -10,9 +10,9 @@ namespace uIntra.Navigation
         public bool IsTitleHidden { get; set; }
 
         public IEnumerable<SubNavigationMenuRowModel> Rows { get; set; } = Enumerable.Empty<SubNavigationMenuRowModel>();
-        public bool ShowBreadcrumbs { get; set; }
-
 
         public MenuItemModel Parent { get; set; }
+
+        public bool ShowBreadcrumbs { get; set; }
     }
 }
