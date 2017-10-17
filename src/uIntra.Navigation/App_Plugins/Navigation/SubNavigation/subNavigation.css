@@ -425,3 +425,31 @@
         }
     }
 }
+
+.breadcrumbs{
+    margin:0;
+    padding:10px 0 0 65px;
+    list-style:none;
+
+    &__item{
+        display:inline-block;
+        vertical-align:top;
+        margin:0;
+
+        &:before{
+            content:">";
+        }
+
+        &:first-child{
+            &:before{
+                content:"";
+            }
+        }
+
+        &:last-child{
+            &:before{
+                content:":";
+            }
+        }
+    }
+}

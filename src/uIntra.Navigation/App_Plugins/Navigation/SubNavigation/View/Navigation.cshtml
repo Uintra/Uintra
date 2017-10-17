@@ -19,6 +19,10 @@
                     <h1 class="tabset__title _no-link">@Model.Title</h1>
                 }
             }
+            @if (Model.ShowBreadcrumbs)
+            {
+                Html.RenderAction("Breadcrumbs", "Navigation");
+            }
 
             @if (Model.Rows.Count > 0)
             {

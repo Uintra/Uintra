@@ -1,13 +1,17 @@
 ﻿@model List<uIntra.Navigation.BreadcrumbItemViewModel>
 
-@foreach (var breadcrumb in Model)
-{
-    if (breadcrumb.IsClickable)
+<ul class="breadcrumbs">
+    @foreach (var breadcrumb in Model)
     {
-        <a href="@breadcrumb.Url">@breadcrumb.Name</a>
+        <li class="breadcrumbs__item">
+            @if (breadcrumb.IsClickable)
+            {
+                <a class="breadcrumbs__link" href="@breadcrumb.Url">@breadcrumb.Name</a>
+            }
+            else
+            {
+                @breadcrumb.Name
+            }
+        </li>
     }
-    else
-    {
-        @breadcrumb.Name
-    }
-}
+</ul>
