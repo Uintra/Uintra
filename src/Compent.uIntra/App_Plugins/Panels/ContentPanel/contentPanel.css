@@ -126,6 +126,10 @@
         ._content-panel &{
             padding:0;
         }
+
+        iframe{
+            border:none;
+        }
     }
     &__image{
         margin:0 0 20px;
