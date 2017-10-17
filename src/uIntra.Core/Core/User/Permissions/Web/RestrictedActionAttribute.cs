@@ -26,7 +26,7 @@ namespace uIntra.Core.User.Permissions.Web
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var activityId = default(Guid?);
-            if (filterContext.ActionParameters.ContainsKey(_activityIdParameterName) && _activityIdParameterName != null)
+            if (_activityIdParameterName != null && filterContext.ActionParameters.ContainsKey(_activityIdParameterName) )
             {
                 activityId = filterContext.ActionParameters[_activityIdParameterName] as Guid?;
             }
