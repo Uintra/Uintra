@@ -95,7 +95,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings)
         {
             var feedItems = items as IList<IFeedItem> ?? items.ToList();
-            var result = Enumerable.Empty<IFeedItem>();
+            var result = feedItems.AsEnumerable();
 
             if (filterState.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
