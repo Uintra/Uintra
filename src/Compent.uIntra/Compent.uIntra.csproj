@@ -316,8 +316,8 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.7.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.7.3\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.6\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.2.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.8\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9\lib\net452\uIntra.Comments.dll</HintPath>
@@ -348,8 +348,8 @@
     <Reference Include="uIntra.Notification, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Notification.1.2.5\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.10.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.10.2\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.10\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Search, Version=0.1.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Search.0.1.8\lib\net452\uIntra.Search.dll</HintPath>
@@ -488,6 +488,7 @@
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.css" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.html" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.js" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <Content Include="App_Plugins\BaseControls\TinyMce\link-picker-overlay.html" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
@@ -820,6 +821,7 @@
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitiesService.js" />
+    <Content Include="App_Plugins\LatestActivities\latestActivities.js" />
     <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
@@ -880,11 +882,13 @@
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.css" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js" />
@@ -892,6 +896,7 @@
     <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.js" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.css" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
@@ -1021,8 +1026,6 @@
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="config\HealthChecks.config" />
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
     <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
     <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
@@ -1036,8 +1039,6 @@
     <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
@@ -1056,12 +1057,10 @@
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Users\package.manifest" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
@@ -1104,10 +1103,14 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
-    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

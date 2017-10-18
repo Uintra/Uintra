@@ -1,8 +1,9 @@
-﻿@using uIntra.Core.Extensions
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extensions
 @model uIntra.CentralFeed.LatestActivitiesViewModel
 
 
-<section class="block clearfix _latest-activities">
+<section class="block clearfix _latest-activities js-latest-activities">
 
     <h2 class="block__title">@Model.Title</h2>
     <h3 class="block__teaser">@Html.Raw(Model.Teaser)</h3>
@@ -13,5 +14,6 @@
                 @{ Html.RenderAction("PreviewItem", item.ControllerName, new { item = item.Activity, links = item.Options.Links }); }
             </div>
          }
-    <a href="@Model.Tab.Links.Overview" class="btn">@Html.Localize("LatestActivities.SeeAll.btn")</a>
+    @Html.HiddenFor(m => m.Tab.Type.Id);
+    <a class="btn js-see-all">@Html.Localize("LatestActivities.SeeAll.btn")</a>
 </section>
