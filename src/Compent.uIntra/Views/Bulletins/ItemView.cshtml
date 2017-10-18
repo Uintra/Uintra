@@ -1,12 +1,11 @@
-﻿@using uIntra.Core.Extensions
-@model Compent.uIntra.Core.Bulletins.BulletinExtendedItemViewModel
+﻿@model Compent.uIntra.Core.Bulletins.BulletinExtendedItemViewModel
 
 <div class="feed__item">
     <div class="clearfix">
         @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
     </div>
     <div class="feed__item-image"> </div>
-    @if (!string.IsNullOrWhiteSpace(StringExtensions.StripHtml(Model.Description)))
+    @if (!string.IsNullOrWhiteSpace(uIntra.Core.Extensions.StringExtensions.StripHtml(Model.Description)))
     {
         <div class="feed__item-txt _clamp" data-url="@Model.Links.Details">@Html.Raw(Model.Description)</div>
     }
