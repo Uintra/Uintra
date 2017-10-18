@@ -3,6 +3,7 @@
 var pinControl;
 var pinInfoHolder;
 var pinAccept;
+var pinValue;
 
 var pinActivity = {
     initPinControl: function (holder) {

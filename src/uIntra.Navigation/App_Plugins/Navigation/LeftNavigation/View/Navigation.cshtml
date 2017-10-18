@@ -10,11 +10,10 @@
         {
             var hasNavigableChildren = item.Children.Count > 0;
             var isActive = item.IsActive ? "_active" : string.Empty;
-            var isExpanded = hasNavigableChildren ? "_expand" : string.Empty;
             var isClickable = item.IsClickable ? "_clickable" : string.Empty;
             var isHeading = item.IsHeading ? "_heading" : string.Empty;
 
-            <li @(hasNavigableChildren ? "data-id=" + item.Id : "") class="@isActive side-nav__item js-side-nav__item @isExpanded @isClickable @isHeading">
+            <li @(hasNavigableChildren ? "data-id=" + item.Id : "") class="@isActive side-nav__item js-side-nav__item @isClickable @isHeading">
                 <a class="side-nav__link js-side-nav__link" href="@item.Url">
                     @item.Name
                     @if (item.IsHomePage)

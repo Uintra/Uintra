@@ -1,5 +1,4 @@
-﻿import initBlockOnSubmit from "./../Core/Content/scripts/BlockOnSubmit";
-import helpers from "./../Core/Content/scripts/Helpers";
+﻿import helpers from "./../Core/Content/scripts/Helpers";
 
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
@@ -25,7 +24,6 @@ var initSubmitButton  = function(holder) {
             $this.submit();
         });
     });
-    initBlockOnSubmit();
 };
 
 var initCreateControl = function (holder) {
