@@ -17,6 +17,7 @@ import news from './../App_Plugins/News/news';
 import {} from './../App_Plugins/Likes/likes';
 import confirmOnBeforeUnload from './../App_Plugins/Core/Content/Scripts/ConfirmOnBeforeUnload';
 import initGroups from './../App_Plugins/Groups/groups';
+import latestActivities from './../App_Plugins/LatestActivities/latestActivities';
 import initFaqPanel from "./../App_Plugins/Panels/FaqPanel/faqPanel";
 
 initCore();
@@ -37,3 +38,4 @@ confirmOnBeforeUnload();
 browserCompatibility.init();
 initGroups();
 initFaqPanel();
+latestActivities.init();
