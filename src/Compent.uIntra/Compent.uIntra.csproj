@@ -339,8 +339,8 @@
     <Reference Include="uIntra.Likes, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.7\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.4.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.4.5\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.2.4.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.4.6\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.News, Version=1.2.4.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.2.4.2\lib\net452\uIntra.News.dll</HintPath>
@@ -1047,7 +1047,6 @@
     <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
     <Content Include="App_Plugins\Groups\package.manifest" />
     <Content Include="App_Plugins\Likes\package.manifest" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
@@ -1097,6 +1096,7 @@
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
