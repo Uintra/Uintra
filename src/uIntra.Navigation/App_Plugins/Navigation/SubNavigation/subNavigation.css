@@ -97,7 +97,6 @@
 
     &__inner{
         position:relative;
-        padding:12px 0 0;
     }
 
     &__navigation{
@@ -162,6 +161,16 @@
 
             ._active &{
                 font-weight:bold;
+            }
+
+            ._active:not(:first-child) > &{
+                background:var(--color-white);
+                color:#636363;
+                border-right-color:#ccc;
+                text-decoration:none;
+                cursor:default;
+                padding-right:19px;
+                font-weight:normal;
             }
 
             ._active._selected &{
@@ -284,6 +293,7 @@
                 &._selected{
                     .tabset__navigation-link{
                         border-bottom:4px solid var(--header-bg)  !important;
+                        background:none;
 
                         &:focus,
                         &:active,
@@ -297,12 +307,13 @@
             &-link{
                 background:none;
                 border:none !important;
-                padding:0 19px 12px;
+                padding:12px 19px;
 
                 ._selected > &{
                     font-weight:bold;
                     color:var(--text-color-dark);
                     border-bottom:4px solid var(--header-bg) !important;
+                    background:none;
                 }
 
                 &:focus,
