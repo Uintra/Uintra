@@ -62,8 +62,8 @@ namespace Compent.uIntra.Core
             }
         }
 
-        private static bool IsGlobalPanel(IContent entity) => 
-            entity.Parent().ContentType.Alias == DocumentTypeAliasConstants.GlobalPanelFolder;
+        private static bool IsGlobalPanel(IContent entity) =>
+            entity.Parent()?.ContentType.Alias == DocumentTypeAliasConstants.GlobalPanelFolder;
 
         static IGridHelper gridHelper = DependencyResolver.Current.GetService<IGridHelper>();
         private static bool ContainsGlobalPanel(IPublishedContent content, IContent globalPanel)
@@ -79,7 +79,7 @@ namespace Compent.uIntra.Core
             return id == globalPanel.Id;
         }
 
-        private static int? GetPanelId(object panel) => 
+        private static int? GetPanelId(object panel) =>
             panel is JObject json
                 ? json["id"].ToObject<int?>()
                 : default;
@@ -105,7 +105,7 @@ namespace Compent.uIntra.Core
 
             if (e.CanCancel)
             {
-                e.Cancel = true;                           
+                e.Cancel = true;
             }
         }
     }
