@@ -20,10 +20,20 @@
 
     @if (!Model.IsReadOnly)
     {
+        if (Model.Users.Count() <= 0)
+        {
+            @(Model.CanAddLike
+              ? Ajax.ActionLink("Like", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
+              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link _remove" }))
+        }
 
-        @(Model.CanAddLike
-              ? Ajax.ActionLink("Add", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
-              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" }))
+        else
+        {
+            @(Model.CanAddLike
+              ? Ajax.ActionLink("Like", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link _hasLikes" })
+              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link _remove _hasLikes" }))
+        }
+
         if (Model.Users.Any())
         {
             <div class="like__popup">
