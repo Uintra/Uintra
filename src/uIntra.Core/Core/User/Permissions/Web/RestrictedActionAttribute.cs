@@ -14,23 +14,25 @@ namespace uIntra.Core.User.Permissions.Web
     {
         private readonly int _activityTypeId;
         private readonly IntranetActivityActionEnum _action;
-        private readonly string _activityIdParameterName;
+        private const string ActivityIdParameterName = "id";
 
-        public RestrictedActionAttribute(int activityTypeId, IntranetActivityActionEnum action, string activityIdParameterName = null)
+        public RestrictedActionAttribute(int activityTypeId, IntranetActivityActionEnum action)
         {
             _activityTypeId = activityTypeId;
             _action = action;
-            _activityIdParameterName = activityIdParameterName;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var activityId = default(Guid?);
-            if (_activityIdParameterName != null && filterContext.ActionParameters.ContainsKey(_activityIdParameterName) )
+            Guid? activityId;
+            if (filterContext.ActionParameters.TryGetValue(ActivityIdParameterName, out var obj))
             {
-                activityId = filterContext.ActionParameters[_activityIdParameterName] as Guid?;
+                activityId = obj as Guid?;
             }
-
+            else
+            {
+                activityId = null;
+            }
 
             if (Skip(filterContext))
             {
@@ -56,8 +58,8 @@ namespace uIntra.Core.User.Permissions.Web
 
         private static bool Skip(ActionExecutingContext context)
         {
-            return context.ActionDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any() || 
-                context.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any();
+            return context.ActionDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any() ||
+                   context.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(IgnoreRestrictedActionAttribute), false).Any();
         }
     }
 }
