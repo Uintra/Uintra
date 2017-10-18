@@ -106,7 +106,8 @@ Task("NuGet-Pack")
     var nuGetPackSettings = new NuGetPackSettings 
     {
         OutputDirectory = nugetPackageDir,
-        ArgumentCustomization = args => args.Append("-Prop Configuration=" + configuration)
+        ArgumentCustomization = args => args.Append("-Prop Configuration=" + configuration),
+        MSBuildVersion = 15
     };
 
     NuGetPack(uIntraProjectPath + "/" + uIntraProjectFileName, nuGetPackSettings);
