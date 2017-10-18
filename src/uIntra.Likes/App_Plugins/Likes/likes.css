@@ -35,8 +35,20 @@
         left:0;
         right:0;
         bottom:0;
-        text-indent:-9999px;
-        overflow:hidden;
+        color:var(--text-color-dark);
+        padding:0 0 0 30px;
+
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--text-color-dark);
+        }
+
+        &._hasLikes,
+        &._remove{
+            text-indent:-9999px;
+            overflow:hidden;
+        }
     }
 
     &__popup{
