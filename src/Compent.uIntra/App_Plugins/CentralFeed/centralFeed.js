@@ -180,6 +180,10 @@ function goToAllTab() {
     goToTab(0);
 }
 
+function goActivityTab(tabNum) {
+    goToTab(tabNum);
+}
+
 function runReloadInverval() {
     reloadintervalId = setInterval(function () {
         reload(true, true, false);
@@ -265,5 +269,6 @@ function init() {
 export default {
     init,
     reload,
-    goToAllTab
+    goToAllTab,
+    goActivityTab
 }
