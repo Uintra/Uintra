@@ -30,6 +30,7 @@ module.exports = {
                         '--for-tablet-portrait-up': ' (width >= 600px)',
                         '--for-tablet-portrait-down': ' (width < 900px)',
                         '--for-tablet-landscape-up': ' (width >= 900px)',
+                        '--for-desktop-down': '(width <= 1200px)',
                         '--for-desktop-up': '(width >= 1200px)',
                         '--for-big-desktop-up': '(width >= 1800px)'
                     }
