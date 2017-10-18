@@ -3,7 +3,9 @@
 
 @if (Model != null)
 {
-    <nav class="tabset">
+    var hasRows = Model.Rows.Skip(1).ToList().Count > 0;
+
+    <nav class='tabset @(hasRows ? "_hasRows" : String.Empty)'>
         <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
 
         <div class="tabset__holder">
@@ -31,39 +33,41 @@
                 var topLevelMenu = Model.Rows.First();
                 if (topLevelMenu.Items.Count > 0)
                 {
-                    <ul>
+                    <ul class="tabset__navigation clearfix">
                         @foreach (var menuItem in topLevelMenu.Items)
                         {
                             var isActive = menuItem.IsActive ? "_active" : string.Empty;
                             var isSelected = menuItem.IsSelected ? "_selected" : string.Empty;
 
-                            <li class="@isActive @isSelected">
-                                <a href="@menuItem.Url">@menuItem.Name</a>
+                            <li class="tabset__navigation-item @isActive @isSelected">
+                                <a class="tabset__navigation-link" href="@menuItem.Url">@menuItem.Name</a>
+                                @{
+                                    var lowLevelMenuRows = Model.Rows.Skip(1).ToList();
+                                    if (lowLevelMenuRows.Count > 0)
+                                    {
+                                        foreach (var menuRow in lowLevelMenuRows)
+                                        {
+                                            if (menuRow.Items.Count > 0)
+                                            {
+                                                <ul class="tabset__navigation clearfix">
+                                                    @foreach (var innerMenuItem in menuRow.Items)
+                                                    {
+                                                        var isActiveInner = innerMenuItem.IsActive ? "_active" : string.Empty;
+                                                        var isSelectedInner = innerMenuItem.IsSelected ? "_selected" : string.Empty;
+
+                                                        <li class="tabset__navigation-item @isActiveInner @isSelectedInner">
+                                                            <a class="tabset__navigation-link" href="@innerMenuItem.Url">@innerMenuItem.Name</a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            }
+                                        }
+                                    }
+                                }
+                                
                             </li>
                         }
                     </ul>
-                }
-
-                var lowLevelMenuRows = Model.Rows.Skip(1).ToList();
-                if (lowLevelMenuRows.Count > 0)
-                {
-                    foreach (var menuRow in lowLevelMenuRows)
-                    {
-                        if (menuRow.Items.Count > 0)
-                        {
-                            <ul class="tabset__navigation clearfix">
-                                @foreach (var menuItem in menuRow.Items)
-                                {
-                                    var isActive = menuItem.IsActive ? "_active" : string.Empty;
-                                    var isSelected = menuItem.IsSelected ? "_selected" : string.Empty;
-
-                                    <li class="tabset__navigation-item @isActive @isSelected">
-                                        <a class="tabset__navigation-link" href="@menuItem.Url">@menuItem.Name</a>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                    }
                 }
             }
         </div>
