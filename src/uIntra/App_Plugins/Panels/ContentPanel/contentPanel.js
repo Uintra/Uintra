@@ -1,6 +1,5 @@
 ﻿import ajax from "./../../Core/Content/scripts/Ajax";
 
-var MobileDetect = require('mobile-detect');
 var Photoswipe = require('photoswipe');
 var photoswipeUiDefault = require('photoswipe/dist/photoswipe-ui-default');
 
@@ -23,6 +22,7 @@ var youtubeImageLink = "https://img.youtube.com/vi/";
 var youtubeDefaultImage = "default.jpg";
 var selectors = window.contentPanelSelectors || [];
 var body = document.querySelector('body');
+var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
 var videoPlay = function (videoElement, isLightBox) {
     if (!isLightBox) {
@@ -146,7 +146,11 @@ var initPanel = function (selector) {
 var initMobileBanners = function () {
     var opener = document.querySelector("#js-sidepanel-opener");
     var container = document.querySelector('.sidebar');
-    if (!container) return;
+
+    if (!opener || !container) {
+        body.classList.add('_hide-sidepanel-opener');
+        return
+    };
 
     var sideBlock = container.querySelectorAll('.block');
 
@@ -167,7 +171,6 @@ var initMobileBanners = function () {
                 });
         });
     }
-
     else {
         body.classList.add('_hide-sidepanel-opener');
     }
@@ -186,9 +189,7 @@ var controller = {
             initPanel(selector);
         });
 
-        var md = new MobileDetect(window.navigator.userAgent);
-
-        if (md.mobile()) {
+        if (mobileMediaQuery.matches) {
             initMobileBanners();
         }
     }

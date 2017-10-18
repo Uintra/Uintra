@@ -222,6 +222,7 @@
             background-position: 50% 50%;
             background-size: 100% 100%;
             background-size: cover;
+            background-color:transparent;
             text-indent: -999em;
             overflow: hidden;
             opacity: 1;
