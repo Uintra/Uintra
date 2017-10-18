@@ -316,8 +316,8 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.7.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.7.4\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.10.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.2\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.2.10.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.4\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9\lib\net452\uIntra.Comments.dll</HintPath>
@@ -1072,14 +1072,6 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
@@ -1109,6 +1101,14 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
