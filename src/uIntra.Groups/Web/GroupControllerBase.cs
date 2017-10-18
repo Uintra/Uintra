@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -38,7 +37,8 @@ namespace uIntra.Groups.Web
 
         protected int ItemsPerPage = 10;
 
-        protected GroupControllerBase(IGroupService groupService,
+        protected GroupControllerBase(
+            IGroupService groupService,
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
             IGroupMediaService groupMediaService,

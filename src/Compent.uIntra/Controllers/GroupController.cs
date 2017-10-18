@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Links;
@@ -17,13 +17,17 @@ namespace Compent.uIntra.Controllers
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
-        public GroupController(IGroupService groupService, 
-            IGroupMemberService groupMemberService, 
+        public GroupController(
+            IGroupService groupService,
+            IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
-            IGroupLinkProvider groupLinkProvider, 
-            IUserService userService, 
-            IGroupMediaService groupMediaService, 
-            IIntranetUserService<IGroupMember> intranetUserService, IProfileLinkProvider profileLinkProvider, UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider) 
+            IGroupLinkProvider groupLinkProvider,
+            IUserService userService,
+            IGroupMediaService groupMediaService,
+            IIntranetUserService<IGroupMember> intranetUserService, 
+            IProfileLinkProvider profileLinkProvider,
+            UmbracoHelper umbracoHelper, 
+            IDocumentTypeAliasProvider documentTypeAliasProvider)
             : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider)
         {
             _umbracoHelper = umbracoHelper;
@@ -32,22 +36,22 @@ namespace Compent.uIntra.Controllers
 
         public override ActionResult LeftNavigation()
         {
-            var result = new List<GroupLeftNavigationItemViewModel>();
-            var xpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage());
-            var groupPage = _umbracoHelper.TypedContentSingleAtXPath(xpath);
-            var children = groupPage.Children;
+            var groupPageXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage());
+            var groupPage = _umbracoHelper.TypedContentSingleAtXPath(groupPageXpath);
 
-            foreach (var child in children)
-            {
-                if (child.IsShowPageInSubNavigation())
+            var menuItems = groupPage.Children
+                .Where(child => child.IsShowPageInSubNavigation())
+                .Select(child => new GroupLeftNavigationItemViewModel
                 {
-                    result.Add(new GroupLeftNavigationItemViewModel()
-                    {
-                        Name = child.GetNavigationName(),
-                        Url = child.Url
-                    });
-                }
-            }
+                    Name = child.GetNavigationName(),
+                    Url = child.Url
+                });
+
+            var result = new GroupLeftNavigationMenuViewModel
+            {
+                Items = menuItems,
+                GroupOverviewPageUrl = groupPage.Url
+            };
 
             return PartialView(LeftNavigationPath, result);
         }
