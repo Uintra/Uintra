@@ -207,7 +207,7 @@ if (Test-Path $MODULES_PACKAGES_CONFIG) {
     Set-Location $MODULES_DIR
 
     Write-Verbose -Message "Restoring modules from NuGet..."
-    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$MODULES_DIR`""
+    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -MSBuildVersion 15 -ExcludeVersion -OutputDirectory `"$MODULES_DIR`""
 
     if ($LASTEXITCODE -ne 0) {
         Throw "An error occured while restoring NuGet modules."
