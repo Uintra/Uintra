@@ -301,6 +301,7 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Models\Members\GroupMemberOverviewViewModel.cs" />
+    <Compile Include="Core\Navigation\Models\GroupLeftNavigationMenuViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupLeftNavigationItemViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationPageTabViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationTabViewModelBase.cs" />
