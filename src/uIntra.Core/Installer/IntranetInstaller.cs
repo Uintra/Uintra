@@ -10,8 +10,8 @@ namespace uIntra.Core.Installer
         public void Install(Version installedVersion, Version updatingVersion)
         {
             var installationType = typeof(IIntranetInstallationStep);
-            var steps = AppDomain.CurrentDomain.GetAssemblies().
-                SelectMany(GetTypesSafely)
+            var steps = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(GetTypesSafely)
                 .Where(p => installationType.IsAssignableFrom(p) && p.IsClass)
                 .Select(st =>
                 {
@@ -19,12 +19,13 @@ namespace uIntra.Core.Installer
                     return new
                     {
                         Step = installationStep,
-                        Version = new Version(installationStep?.Version)
+                        Version = new Version(installationStep.Version)
                     };
                 })
                 .Where(el => (el.Version > installedVersion) && (el.Version <= updatingVersion))
+                .OrderBy(el => el.Version)
+                .ThenBy(el => el.Step.Priority)
                 .Select(el => el.Step)
-                .OrderBy(s => s?.Priority)
                 .ToList();
 
             foreach (var step in steps)
