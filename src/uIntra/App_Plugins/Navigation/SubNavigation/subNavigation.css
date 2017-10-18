@@ -17,6 +17,10 @@
         flex-wrap:nowrap;
         align-items:center;
 
+        &._hasRows{
+            border-bottom:none;
+        }
+
         ._with-sub-nav &{
             align-items:flex-start;
         }
@@ -132,6 +136,10 @@
             :first-child > &,
             :nth-child(2) > &{
                 border-left-color:var(--color-light-gray);
+            }
+
+            ._hasRows &{
+                border-bottom:1px solid var(--color-light-gray);
             }
 
             ._active &{
@@ -261,6 +269,12 @@
 
         & & &-item{
             padding:0;
+
+            &._active{
+                .tabset__navigation-link{
+                    border-bottom:4px solid var(--header-bg);
+                }
+            }
         }
 
         & & &-link{
@@ -271,6 +285,7 @@
             ._active > &{
                 font-weight:bold;
                 color:var(--text-color-dark);
+                border-bottom:4px solid var(--header-bg);
             }
 
             &:hover{
