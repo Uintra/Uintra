@@ -1048,8 +1048,6 @@
     <Compile Include="..\Compent.uIntra\Core\**\*.cs">
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
-    <Compile Remove="..\Compent.uIntra\Core\**\*.generated.cs">
-    </Compile>
     <Content Include="..\Compent.uIntra\Controllers\ActivityController.cs">
       <Link>Controllers\ActivityController.cs</Link>
     </Content>
