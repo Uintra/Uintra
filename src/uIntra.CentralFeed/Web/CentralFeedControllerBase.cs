@@ -7,6 +7,7 @@ using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Subscribe;
 
 namespace uIntra.CentralFeed.Web
@@ -19,7 +20,7 @@ namespace uIntra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly IFeedFilterStateService _feedFilterStateService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IPermissionsService _permissionsService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/Details.cshtml";
@@ -38,7 +39,8 @@ namespace uIntra.CentralFeed.Web
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
-            IFeedFilterStateService feedFilterStateService)
+            IFeedFilterStateService feedFilterStateService,
+            IPermissionsService permissionsService)
             : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService)
         {
             _centralFeedService = centralFeedService;
@@ -46,7 +48,7 @@ namespace uIntra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _centralFeedLinkService = centralFeedLinkService;
             _feedFilterStateService = feedFilterStateService;
-            _intranetUserService = intranetUserService;
+            _permissionsService = permissionsService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
 
@@ -165,14 +167,13 @@ namespace uIntra.CentralFeed.Web
             var model = new CentralFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = IsUserAbleToCreateActivities() ? GetTabsWithCreateUrl(activityTabs) : Enumerable.Empty<ActivityFeedTabViewModel>(),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
+                    .Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
             return model;
         }
-
-        private bool IsUserAbleToCreateActivities() => _intranetUserService.GetCurrentUser().Role.Name != IntranetRolesEnum.UiUser.ToString();
 
         protected virtual IEnumerable<ActivityFeedTabModel> GetActivityTabs()
         {
