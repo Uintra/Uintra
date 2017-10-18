@@ -1,13 +1,12 @@
 ﻿@using uIntra.Core.Extensions
 @model uIntra.Bulletins.BulletinPreviewViewModel
 
-<h3 class="block__subtitle">
-    <a href="@Model.Links.Details">@Html.Raw(Model.Description)</a>
-</h3>
-<div class="clearfix">
-    <a href="@Model.Links.Details"><span class="feed__item-category">@Html.Localize(Model.ActivityType.Name)</span></a>
-</div>
-<div class="block__about">
-    <p class="block__about-item"><a href="@Model.Links.Creator">@Model.Creator.DisplayedName</a></p>
-    <p class="block__about-item">@Model.PublishDate.ToDateTimeFormat()</p>
+<div class="block__item">
+    <p>
+        @Html.Localize(Model.ActivityType.Name)<br />
+        @Model.PublishDate.ToDateTimeFormat()
+    </p>
+    <h3 class="block__subtitle">
+        <a href="@Model.Links.Details">@Html.Raw(Model.Description)</a>
+    </h3>
 </div>
