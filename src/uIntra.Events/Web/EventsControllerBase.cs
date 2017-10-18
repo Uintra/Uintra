@@ -126,7 +126,7 @@ namespace uIntra.Events.Web
             return Redirect(redirectUrl);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit, "id")]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
 

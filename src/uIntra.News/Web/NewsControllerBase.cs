@@ -82,7 +82,7 @@ namespace uIntra.News.Web
             return Redirect(redirectUri);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit, "id")]
+        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var news = _newsService.Get(id);
