@@ -9,6 +9,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Groups;
 using uIntra.Subscribe;
 
@@ -32,7 +33,8 @@ namespace Compent.uIntra.Controllers
             ICentralFeedLinkService centralFeedLinkService,
             IGroupFeedService groupFeedService, 
             IFeedActivityHelper feedActivityHelper,
-            IFeedFilterStateService feedFilterStateService) 
+            IFeedFilterStateService feedFilterStateService,
+            IPermissionsService permissionsService) 
             : base(centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
@@ -41,7 +43,8 @@ namespace Compent.uIntra.Controllers
                   intranetUserContentProvider,
                   centralFeedTypeProvider,
                   centralFeedLinkService,
-                  feedFilterStateService)
+                  feedFilterStateService,
+                  permissionsService)
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
