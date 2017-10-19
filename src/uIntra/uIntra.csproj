@@ -328,8 +328,8 @@
     <Reference Include="uIntra.Events, Version=1.3.4.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.3.4.4\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.1.2\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="uIntra.Groups, Version=0.1.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.1.2.1\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
@@ -1457,60 +1457,6 @@
     <Content Include="App_Plugins\Events\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1632,6 +1578,60 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
