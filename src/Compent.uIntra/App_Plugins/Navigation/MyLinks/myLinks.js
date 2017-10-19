@@ -17,6 +17,7 @@ var controller = {
         var myLinksState = helpers.localStorage.getItem("myLinks") || {};
         var opener = $('.js-mylinks__opener');
         var activeClass = '_expand';
+        var myLinksItem = $(".js-mylinks__item");
 
         opener.on('click', function(e){
             toggleLinks(this);
@@ -55,6 +56,11 @@ var controller = {
             ajax.PostJson(this.dataset.url, {contentId: this.dataset.contentId} , function(data) {
                 currentLinkId = data.Id;
                 reloadList(container);
+                if (!myLinksItem.hasClass(activeClass)) {
+                    myLinksItem.addClass(activeClass);
+                    myLinksState[currentLinkId] = true;
+                    helpers.localStorage.setItem("myLinks", myLinksState);
+                }
                 addControlBtn.classList.toggle(className);
             });
         });
