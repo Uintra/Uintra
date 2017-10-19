@@ -47,7 +47,8 @@
               "custom.GlobalPanelPicker",
               "custom.ComingEvents",
               "custom.DocumentLibraryPanel",
-              "custom.Comments"
+              "custom.Comments",
+              "custom.FaqPanel"
             ]
           }
         ]
@@ -63,7 +64,8 @@
               "custom.GlobalPanelPicker",
               "custom.ComingEvents",
               "custom.DocumentLibraryPanel",
-              "custom.Comments"
+              "custom.Comments",
+              "custom.FaqPanel"
             ]
           },
           {
@@ -73,7 +75,8 @@
               "custom.ContentPanel",
               "custom.GlobalPanelPicker",
               "custom.ComingEvents",
-              "custom.DocumentLibraryPanel"
+              "custom.DocumentLibraryPanel",
+              "custom.FaqPanel"
             ]
           }
         ]
