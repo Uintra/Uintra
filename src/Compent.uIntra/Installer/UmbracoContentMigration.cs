@@ -71,7 +71,7 @@ namespace Compent.uIntra.Installer
             CreateGroupsSettingsPage();
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
-            CreateGroupsDocumentsPage();
+            //CreateGroupsDocumentsPage(); This functionality under construction now.
 
             CreateGroupsNewsPages();
             CreateGroupsEventsPages();
