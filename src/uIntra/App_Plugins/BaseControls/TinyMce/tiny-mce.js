@@ -189,16 +189,21 @@
                 var valueUpdater = valueUpdaterFactory($scope, angularHelper);
 
                 var getConfig = function () {
-                    if (!$scope.config) {
-                        $scope.customConfig = buildConfig($scope, {}, valueUpdater, interpolateFilter, dialogService);
-                    } else {
+                    if (typeof $scope.config === 'string') {
                         return $http
                             .get('/umbraco/backoffice/api/RteConfig/GetConfig?rteAlias=' + $scope.config)
                             .then(function (res) {
                                 var config = res.data.data;
-                                $scope.customConfig = buildConfig($scope, config, valueUpdater, interpolateFilter, dialogService);
+                                $scope.customConfig = buildConfig($scope,
+                                    config,
+                                    valueUpdater,
+                                    interpolateFilter,
+                                    dialogService);
                             });
                     }
+
+                    var config = $scope.config ? $scope.config : {};
+                    $scope.customConfig = buildConfig($scope, config, valueUpdater, interpolateFilter, dialogService);
                 }
 
                 var init = function () {

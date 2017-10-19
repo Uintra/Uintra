@@ -103,14 +103,26 @@
                 "custom.GlobalPanelPicker",
                 "custom.DocumentLibraryPanel",
                 "custom.LatestActivities",
-                "custom.ComingEvents"
+                "custom.ComingEvents",
+                "custom.groupInfo"
               ],
               "hasConfig": false,
-              "controls": []
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.groupInfo"
+                  },
+                  "active": true
+                }
+              ],
+              "active": true
             }
           ],
           "hasConfig": false,
-          "id": "8a94442a-2131-c6a1-523a-033c9696f4a1"
+          "id": "8a94442a-2131-c6a1-523a-033c9696f4a1",
+          "hasActiveChild": true,
+          "active": true
         }
       ]
     }
