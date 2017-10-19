@@ -28,6 +28,11 @@
         }
 	}
 
+    .block__description,
+    .block__title{
+        padding-left:10px;
+    }
+
 	&__heading {
 		color: #003693;
 	}
