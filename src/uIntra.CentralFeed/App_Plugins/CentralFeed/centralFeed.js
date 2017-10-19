@@ -137,9 +137,11 @@ function tabClickEventHandler(e) {
         e.preventDefault();
         window.history.replaceState({}, "", e.currentTarget.dataset["pageUrl"]);
         extendedState.tab = e.currentTarget.dataset['type'];
-
         $(e.target).closest('.tabset').removeClass('_expanded');
+    } else {
+        e.preventDefault();
     }
+
 }
 
 function getCookie(name) {
