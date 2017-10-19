@@ -552,6 +552,7 @@
 
     &__btns{
         padding-right:10px;
+        max-width:736px;
     }
 }
 
