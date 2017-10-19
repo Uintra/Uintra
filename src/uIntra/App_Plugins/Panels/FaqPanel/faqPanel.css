@@ -36,8 +36,9 @@
 		display: inline-block;
 		font-size: 16px;
 		line-height: 22px;
+        margin:0;
         
-        .faq-panel._active &{
+        ._active &{
             margin:0 0 10px;
         }
 
@@ -52,7 +53,7 @@
             vertical-align: top;
             transform:rotate(-90deg);
 
-            .faq-panel._active &{
+            ._active &{
                 transform:rotate(0);
                 margin-top:3px;
             }
