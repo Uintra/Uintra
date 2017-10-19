@@ -2,7 +2,7 @@
 
 namespace Compent.uIntra.Controllers.Api
 {
-    public class RteConfigController: RteConfigControllerBase
+    public class RteConfigController : RteConfigControllerBase
     {
     }
 }

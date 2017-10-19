@@ -1045,6 +1045,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Compent.uIntra\Controllers\Api\RteConfigController.cs">
+      <Link>Controllers\Api\RteConfigController.cs</Link>
+    </Content>
     <Compile Include="..\Compent.uIntra\Core\**\*.cs">
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
