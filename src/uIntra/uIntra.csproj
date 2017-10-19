@@ -316,8 +316,8 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.7.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.7.5\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.10.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.6\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.2.10.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.7\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.9.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.2\lib\net452\uIntra.Comments.dll</HintPath>
@@ -1436,9 +1436,6 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1620,6 +1617,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
