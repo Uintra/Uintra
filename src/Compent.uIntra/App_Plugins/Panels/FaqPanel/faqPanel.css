@@ -40,6 +40,7 @@
 		line-height: 22px;
         margin:0;
         padding:14px 5px;
+        color:var(--color-contrast);
 
 		&:hover {
 			cursor: pointer;
@@ -51,6 +52,7 @@
             display: inline-block;
             vertical-align: top;
             transform:rotate(-90deg);
+            color:var(--text-color-dark);
 
             ._active &{
                 transform:rotate(0);
