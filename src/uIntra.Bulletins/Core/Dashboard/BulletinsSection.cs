@@ -16,12 +16,14 @@ namespace uIntra.Bulletins
                 return;
             }
 
-            applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, sortOrder: 1);
+            applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, 1);
 
-            var userGroups = applicationContext.Services.UserService.GetAllUserGroups();
+            var userService = applicationContext.Services.UserService;
+            var userGroups = userService.GetAllUserGroups();
             foreach (var userGroup in userGroups)
             {
                 userGroup.AddAllowedSection(Alias);
+                userService.Save(userGroup);
             }
         }
     }
