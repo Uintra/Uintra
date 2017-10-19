@@ -17,7 +17,7 @@
             <span class="tabset__group-label"> - @Html.Localize("GroupRoom.Label")</span>
         </h1>
 
-        <ul id="nav nav-tabs" class="tabset__navigation clearfix js-feed-links">
+        <ul id="nav nav-tabs" class="tabset__navigation _groups clearfix js-feed-links">
             @foreach (var tab in Model.ActivityTabs)
             {
                 <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
