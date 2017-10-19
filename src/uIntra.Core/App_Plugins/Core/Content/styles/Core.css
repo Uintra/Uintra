@@ -669,6 +669,7 @@ h5{
         max-width:100%;
     }
 
+    .comments__list &,
     .comments &{
         float:left;
         margin:7px 0 0;

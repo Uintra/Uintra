@@ -19,7 +19,6 @@
 
         $scope.init = function (control) {
             $scope.control = control;
-            console.log(control);
             if (!$scope.control.value) {
                 $scope.control.value = {};
             }

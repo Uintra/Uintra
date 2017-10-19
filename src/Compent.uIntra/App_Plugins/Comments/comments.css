@@ -60,6 +60,10 @@
                     text-decoration:none;
                 }
             }
+
+            img{
+                margin:0 4px;
+            }
         }
 
         &-replies{

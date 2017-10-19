@@ -71,7 +71,7 @@ namespace Compent.uIntra.Installer
             CreateGroupsSettingsPage();
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
-            CreateGroupsDocumentsPage();
+            //CreateGroupsDocumentsPage(); This functionality under construction now.
 
             CreateGroupsNewsPages();
             CreateGroupsEventsPages();
@@ -229,11 +229,6 @@ namespace Compent.uIntra.Installer
 
             var content = _contentService.CreateContent("News", homePage.Id, DocumentTypeAliasConstants.NewsOverviewPage);
 
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "News");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
-
-
             SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
 
@@ -293,7 +288,6 @@ namespace Compent.uIntra.Installer
                 DocumentTypeAliasConstants.GroupsRoomPage, DocumentTypeAliasConstants.BulletinsOverviewPage);
             CreateBulletinsEditPage(homeBulletinsOverviewPageXpath, "groupsBulletinsEditPageGrid.json");
             CreateBulletinsDetailsPage(homeBulletinsOverviewPageXpath, "groupsBulletinsDetailsPageGrid.json");
-
         }
 
         private void CreateBulletinsOverviewPage(string parentPageXpath, string gridResourceFileName)
@@ -305,10 +299,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Bulletins", homePage.Id, DocumentTypeAliasConstants.BulletinsOverviewPage);
-
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Bulletins");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
 
             SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }
@@ -369,10 +359,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Events", homePage.Id, DocumentTypeAliasConstants.EventsOverviewPage);
-
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Events");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
 
             SetGridValueAndSaveAndPublishContent(content, gridResourceFileName);
         }

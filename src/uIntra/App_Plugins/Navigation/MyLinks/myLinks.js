@@ -17,8 +17,9 @@ var controller = {
         var myLinksState = helpers.localStorage.getItem("myLinks") || {};
         var opener = $('.js-mylinks__opener');
         var activeClass = '_expand';
+        var myLinksItem = $(".js-mylinks__item");
 
-        opener.on('click', function(e){
+        opener.on('click', function (e) {
             toggleLinks(this);
         });
 
@@ -49,28 +50,33 @@ var controller = {
         });
 
         initRemoveLinks(container);
-        addControlBtn.addEventListener('click', function(e){
+        addControlBtn.addEventListener('click', function (e) {
             e.preventDefault();
 
-            ajax.PostJson(this.dataset.url, {contentId: this.dataset.contentId} , function(data) {
+            ajax.PostJson(this.dataset.url, { contentId: this.dataset.contentId }, function (data) {
                 currentLinkId = data.Id;
                 reloadList(container);
+                if (!myLinksItem.hasClass(activeClass)) {
+                    myLinksItem.addClass(activeClass);
+                    myLinksState[currentLinkId] = true;
+                    helpers.localStorage.setItem("myLinks", myLinksState);
+                }
                 addControlBtn.classList.toggle(className);
             });
         });
 
-        function getNavState(){
+        function getNavState() {
             var navItem = $('.js-mylinks__item');
             $(navItem).data("id");
-    
-            if(!jQuery.isEmptyObject(myLinksState)){
-                for(var item in myLinksState){
+
+            if (!jQuery.isEmptyObject(myLinksState)) {
+                for (var item in myLinksState) {
                     $(navItem).toggleClass(activeClass, myLinksState[item]);
                 }
             }
         }
 
-        function toggleLinks(el){
+        function toggleLinks(el) {
             var item = $(el).closest('.js-mylinks__item');
             var itemId = item.data("id");
 
@@ -85,13 +91,13 @@ var controller = {
         function initRemoveLinks(container) {
             var removeLinks = container.querySelectorAll('.js-myLinks-remove');
 
-            for(var i = 0; i < removeLinks.length; i++){
-                removeLinks[i].addEventListener('click', function(e) {
+            for (var i = 0; i < removeLinks.length; i++) {
+                removeLinks[i].addEventListener('click', function (e) {
                     e.preventDefault();
                     var link = this;
                     var url = this.dataset.url;
-                    ajax.Delete(url, function() {
-                        reloadList(container);    
+                    ajax.Delete(url, function () {
+                        reloadList(container);
                         if (link.dataset.id == currentLinkId) {
                             addControlBtn.classList.toggle(className);
                         }
@@ -101,7 +107,7 @@ var controller = {
         }
 
         function reloadList(container) {
-            ajax.Get(container.dataset.url,function(data) {
+            ajax.Get(container.dataset.url, function (data) {
                 container.innerHTML = data;
                 initRemoveLinks(container);
             });
