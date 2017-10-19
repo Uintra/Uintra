@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using uIntra.Bulletins.Installer;
@@ -110,16 +111,13 @@ namespace Compent.uIntra.Installer
 
         private void AddDefaultBackofficeSectionsToAdmin()
         {
-            var userGroups = ApplicationContext.Current.Services.UserService.GetAllUserGroups();
+            var userService = ApplicationContext.Current.Services.UserService;
+            var adminUserGroup = userService.GetAllUserGroups().Single(group => group.Alias == "admin");
 
-            foreach (var userGroup in userGroups)
-            {
-                userGroup.AddAllowedSection("news");
-                userGroup.AddAllowedSection("events");
-                userGroup.AddAllowedSection("bulletins");
-                userGroup.AddAllowedSection("SentMails");
-                userGroup.AddAllowedSection("Localization");
-            }
+            adminUserGroup.AddAllowedSection("SentMails");
+            adminUserGroup.AddAllowedSection("Localization");
+
+            userService.Save(adminUserGroup);
         }
     }
 }
