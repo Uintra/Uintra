@@ -11,9 +11,10 @@ namespace uIntra.Events.Dashboard
         public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {
             var section = applicationContext.Services.SectionService.GetByAlias(Alias);
-            if (section != null) return;
-
-            applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, 1);
+            if (section == null)
+            {
+                applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, 1);
+            }
 
             var userService = applicationContext.Services.UserService;
             var userGroups = userService.GetAllUserGroups();

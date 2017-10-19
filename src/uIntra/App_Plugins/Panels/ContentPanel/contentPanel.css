@@ -42,7 +42,7 @@
         &__title{
             background:var(--header-bg);
             color:var(--color-white);
-            margin:-1px -20px 10px;
+            margin:-1px -20px 20px;
             padding:10px 19px 12px;
 
             &-link{
@@ -52,6 +52,18 @@
                 &:focus,
                 &:active{
                     color:var(--color-white);
+                }
+            }
+        }
+
+        &._document-panel{
+            .documents{
+                padding:0;
+            }
+
+            &._vertical{
+                .documents{
+                    padding:10px 0 0;
                 }
             }
         }
@@ -69,7 +81,7 @@
             padding:10px 20px 12px;
 
             .sidebar &{
-                margin:-1px -20px 10px;
+                margin:-1px -20px 20px;
                 padding:10px 19px 12px;
             }
         }
@@ -83,11 +95,15 @@
                 color:var(--text-color-dark);
             }
         }
+
+        .coming-events &{
+            margin-bottom:0;
+        }
     }
 
     &__headline{
         font:bold 16px/20px var(--font-general);
-        margin:0 0 10px;
+        margin:0;
     }
 
     &__item{
@@ -150,14 +166,14 @@
     }
 
     &__image{
-        margin:0 0 20px;
+        margin:-20px 0 20px;
 
         .img-responsive{
             width:100%;
         }
 
         .sidebar &{
-            margin:-10px -20px 20px;
+            margin:-20px -20px 20px;
         }
 
 	    &._small{
@@ -177,13 +193,13 @@
             margin:0 0 20px;
 
             .sidebar &{
-                margin:-10px -20px 0;
+                margin:-20px -20px 20px;
             }
         }
     }
 
     &__links{
-        margin:0 0 20px;
+        margin:20px 0 -17px;
         overflow:hidden;
 
         &-list{
@@ -192,14 +208,10 @@
             list-style:none;
 
             &-item{
-                border-bottom:1px solid var(--color-light-gray);
+                border-top:1px solid var(--color-light-gray);
                 padding:10px;
                 margin:0 -10px;
                 position:relative;
-
-                &:first-child{
-                    border-top:1px solid var(--color-light-gray);
-                }
             }
 
             &-link{
@@ -383,7 +395,7 @@
 		flex-direction: column;
 		flex-wrap: wrap;
 		margin: 0;
-		padding: 0;
+		padding: 37px 0 10px;
 		list-style: none;
 	}
 }
