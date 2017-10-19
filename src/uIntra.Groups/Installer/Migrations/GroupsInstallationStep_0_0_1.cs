@@ -21,7 +21,7 @@ namespace uIntra.Groups.Installer.Migrations
             CreateMyGroupsOverviewPage();
             CreateGroupsCreatePage();
             CreateGroupsEditPage();
-            CreateGroupsDocumentsPage();
+            //CreateGroupsDocumentsPage(); This functionality under construction now.
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
 
