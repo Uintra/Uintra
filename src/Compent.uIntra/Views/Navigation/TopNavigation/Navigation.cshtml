@@ -4,7 +4,6 @@
 @{
     var userAvatar = Model.CurrentUser.Photo.IsNotNullOrEmpty() ? "_with-avatar" : "";
 }
-
 <div class="menu _for-mobile">
     <div class="menu__burger js-menu-opener">
         <span class="menu__burger-line"></span>
@@ -15,7 +14,7 @@
 @Html.Action("SearchBox", "Search")
 @Html.Action("Preview", "Notification")
 <div class="header__right">
-    <div class="greeting _for-desktop">
+    <div class="greeting">
         <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
         <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
     </div>
@@ -27,7 +26,6 @@
             <span class="user__opener-arrow"></span>
         </a>
         <ul class="user__menu">
-            
             <li class="user__menu-item">
                 <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
                     <span class="icon icon-user"></span>

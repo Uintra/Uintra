@@ -15,7 +15,7 @@
         Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");
     }
     <header id="header">
-        <strong class="logo _for-desktop">
+        <strong class="logo">
             <a class="logo__link" href="/"><img src="~/Content/images/logo.png" class="logo__img"></a>
         </strong>
         @{Html.RenderAction("TopNavigation", "Navigation");}
@@ -23,6 +23,7 @@
     </header>
     <aside id="sidebar" class="js-sidebar">
         <div class="sidebar__holder js-sidebar-inner">
+            @Html.Action("SearchBox", "Search")
             @{Html.RenderAction("LeftNavigation", "Navigation"); }
             @{Html.RenderAction("SystemLinks", "Navigation"); }
             @{Html.RenderAction("LeftNavigation", "Group"); }

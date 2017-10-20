@@ -29,7 +29,7 @@ function initSearchBox() {
             query = originalQuery;
             var result = {
                 suggestions: $.map(response.Documents, function (dataItem) {
-                    return { value: dataItem.Title?dataItem.Title:"", additionalInfo: dataItem.AdditionalInfo, url: dataItem.Url, type: dataItem.Type };
+                    return { value: dataItem.Title ? dataItem.Title : "", additionalInfo: dataItem.AdditionalInfo, url: dataItem.Url, type: dataItem.Type };
                 })
             };
 
@@ -45,11 +45,11 @@ function initSearchBox() {
         formatResult: function (suggestion, currentValue) {
             var newData;
             if (suggestion.value) {
-                newData = suggestion.value.split('(?i)' + currentValue).join('<strong>' + currentValue + '</strong>');    
+                newData = suggestion.value.split('(?i)' + currentValue).join('<strong>' + currentValue + '</strong>');
             } else {
                 newData = "";
             }
-            
+
             if (suggestion.type === 'all') {
                 return `<span class='title _all'>${newData}</span>`;
             }
@@ -64,7 +64,7 @@ function initSearchBox() {
     function renderIcon(data) {
         if (!data) return "";
 
-        const filteredData = data.filter((item) => {return item.Name === "Photo"});
+        const filteredData = data.filter((item) => { return item.Name === "Photo" });
         if (!filteredData.length || !filteredData[0].Value) return "";
 
         return `<img class="icon" src="${filteredData[0].Value}" />`;
@@ -95,38 +95,38 @@ function initSearchBox() {
         return true;
     });
 
-    searchBoxIcon.on('click',function() {
+    searchBoxIcon.on('click', function () {
         window.location = url + searchBox.val();
     });
 }
 
-function initMobileSearch() {
-    var opener = document.querySelector("#js-search-opener");
-    if (!opener) {
-        return;
-    }
-    
-    var searchContainer = document.querySelector('.search');
+//function initMobileSearch() {
+//    var opener = document.querySelector("#js-search-opener");
+//    if (!opener) {
+//        return;
+//    }
 
-    opener.addEventListener('click',
-        () => {
-            body.classList.toggle('_search-expanded');
-            if (body.classList.contains('_sidebar-expanded')) {
-                body.classList.remove('_sidebar-expanded');
-            }
-            if (body.classList.contains('_menu-expanded')) {
-                body.classList.remove('_menu-expanded');
-            }
-        });
+//    var searchContainer = document.querySelector('.search');
 
-    body.addEventListener("click", function(ev) {
-        isOutsideClick(searchContainer, opener, ev.target, "_search-expanded", function() {
-            body.classList.remove("_search-expanded");
-        });
-    });
-};
+//    opener.addEventListener('click',
+//        () => {
+//            body.classList.toggle('_search-expanded');
+//            if (body.classList.contains('_sidebar-expanded')) {
+//                body.classList.remove('_sidebar-expanded');
+//            }
+//            if (body.classList.contains('_menu-expanded')) {
+//                body.classList.remove('_menu-expanded');
+//            }
+//        });
 
-function isOutsideClick(el, trigger, target, className, callback){
+//    body.addEventListener("click", function(ev) {
+//        isOutsideClick(searchContainer, opener, ev.target, "_search-expanded", function() {
+//            body.classList.remove("_search-expanded");
+//        });
+//    });
+//};
+
+function isOutsideClick(el, trigger, target, className, callback) {
     if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(className)) {
         if (typeof callback === "function") {
             callback();
@@ -136,5 +136,5 @@ function isOutsideClick(el, trigger, target, className, callback){
 
 export default function () {
     initSearchBox();
-    initMobileSearch();
+    //initMobileSearch();
 }

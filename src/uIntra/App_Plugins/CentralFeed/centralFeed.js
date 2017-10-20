@@ -75,6 +75,7 @@ function attachEventFilter() {
             $(showSubscribed).val(false);
             $(showPinned).val(false);
             $(inlcudeBulletin).val(false);
+            goToAllTab();
             reload(false, false, false);
         });
     }
