@@ -8,9 +8,9 @@
         @foreach (var link in Model.Items)
         {
             <ul class="side-nav">
-                <a class="side-nav__link" href="@link.Url">
-                    @link.Name
-                </a>
+                <li class="side-nav__item">
+                    <a class="side-nav__link" href="@link.Url">@link.Name</a>
+                </li>
             </ul>
         }
     </li>

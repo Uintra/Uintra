@@ -8,6 +8,7 @@
     font-family:var(--font-general);
     border-top:1px solid var(--color-light-gray);
 
+    &._groups,
     &._system{
         padding-top:9px;
     }
