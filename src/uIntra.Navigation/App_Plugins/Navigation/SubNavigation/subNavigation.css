@@ -491,6 +491,8 @@
     margin:0 0 -10px;
     padding:0 0 0 65px;
     list-style:none;
+    position:relative;
+    z-index:999;
 
     @media (--for-tablet-portrait-down){
         &{
@@ -506,20 +508,37 @@
         vertical-align:top;
         margin:0;
 
+
         &:before{
             content:">";
+            display: inline-block;
+            vertical-align: top;
+            margin: 1px 2px 0 2px;
         }
 
         &:first-child{
             &:before{
                 content:"";
+                margin:0;
             }
         }
 
         &:last-child{
+            color:var(--color-contrast);
+
             &:before{
-                content:":";
+                color:var(--text-color-dark);
             }
+        }
+    }
+
+    &__link{
+        color:var(--text-color-dark);
+
+        &:hover,
+        &:active,
+        &:focus{
+            color:var(--text-color-dark);
         }
     }
 }
