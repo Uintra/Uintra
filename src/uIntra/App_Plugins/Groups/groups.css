@@ -190,7 +190,7 @@
         &-txt{
             font-size:14px;
             margin:0 0 7px;
-            max-height:40px;
+            max-height:38px;
             overflow:hidden;
 
             @media (--for-tablet-portrait-down) {
