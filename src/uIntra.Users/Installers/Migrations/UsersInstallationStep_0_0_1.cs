@@ -75,7 +75,7 @@ namespace uIntra.Users.Installers.Migrations
             dataType = new DataTypeDefinition(UsersInstallationConstants.DataTypePropertyEditors.MemberUserPicker)
             {
                 Name = UsersInstallationConstants.DataTypeNames.MemberUserPicker,
-                DatabaseType = DataTypeDatabaseType.Integer
+                DatabaseType = DataTypeDatabaseType.Nvarchar
             };
 
             dataTypeService.Save(dataType);

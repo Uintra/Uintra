@@ -33,7 +33,7 @@
 
         public class DataTypePropertyEditors
         {
-            public const string MemberUserPicker = "Umbraco.UserPicker";
+            public const string MemberUserPicker = "custom.RelatedUserPicker";
             public const string MemberChangesWatcher = "MemberChangesWatcher";
         }
 
