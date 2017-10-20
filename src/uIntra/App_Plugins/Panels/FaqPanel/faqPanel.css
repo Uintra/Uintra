@@ -15,7 +15,6 @@
 	}
 
 	&__area {
-		padding: 14px 5px;
 		border-top: 1px solid var(--color-light-gray);
 
 		@media screen and (max-width: 599px) {
@@ -23,7 +22,16 @@
 				padding: 20px 10px 20px 35px;
 			}
 		}
+
+        ._active &{
+            padding-bottom:14px;
+        }
 	}
+
+    .block__description,
+    .block__title{
+        padding-left:10px;
+    }
 
 	&__heading {
 		color: #003693;
@@ -31,15 +39,13 @@
 
 	&__title {
 		position: relative;
-		left: -25px;
+		left: 0;
 		padding-left: 25px;
-		display: inline-block;
 		font-size: 16px;
 		line-height: 22px;
-        
-        .faq-panel._active &{
-            margin:0 0 10px;
-        }
+        margin:0;
+        padding:14px 5px;
+        color:var(--color-contrast);
 
 		&:hover {
 			cursor: pointer;
@@ -51,12 +57,19 @@
             display: inline-block;
             vertical-align: top;
             transform:rotate(-90deg);
+            color:var(--text-color-dark);
 
-            .faq-panel._active &{
+            ._active &{
                 transform:rotate(0);
                 margin-top:3px;
             }
         }
+
+        @media screen and (max-width: 599px) {
+			& {
+				padding: 20px 10px 20px 35px;
+			}
+		}
 	}
 
 	&__body {

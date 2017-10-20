@@ -16,10 +16,7 @@
               "grid": 12,
               "allowAll": true,
               "allowed": [
-                "custom.NewsEdit",
-                "custom.NewsCreate",
-                "custom.NewsOverview",
-                "custom.NewsDetails"
+                "custom.NotificationList"
               ],
               "hasConfig": false,
               "controls": [
