@@ -1,17 +1,7 @@
 ﻿{
   "allowedEditors": [
     "custom.ContentPanel",
-    "custom.ComingEvents",
-    "custom.EventsDetails",
-    "custom.EventsEdit",
-    "custom.EventsCreate",
-    "custom.CentralFeed",
-    "custom.BulletinsDetails",
-    "custom.BulletinsEdit",
-    "custom.NewsCreate",
-    "custom.NewsEdit",
-    "custom.NewsDetails",
-    "custom.NotificationList",
-    "custom.GlobalPanelPicker"
-  ]
+    "custom.DocumentLibraryPanel",
+    "custom.FaqPanel"
+  ] 
 }
