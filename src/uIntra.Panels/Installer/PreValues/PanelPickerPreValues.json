@@ -12,6 +12,7 @@
     "custom.NewsEdit",
     "custom.NewsDetails",
     "custom.NotificationList",
-    "custom.GlobalPanelPicker"
-  ]
+    "custom.GlobalPanelPicker",
+    "custom.FaqPanel"
+  ] 
 }
