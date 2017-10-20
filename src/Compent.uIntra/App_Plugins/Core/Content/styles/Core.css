@@ -298,6 +298,12 @@ h5{
             visibility:visible;
         }
     }
+
+    .search{
+        @media (--for-tablet-landscape-up) {
+            display:none;
+        }
+    }
 }
 
 #header {
