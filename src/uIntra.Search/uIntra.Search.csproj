@@ -321,6 +321,7 @@
     <Compile Include="Core\Models\SearchFilterModel.cs" />
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
     <Compile Include="Core\UmbracoEventServices\SearchMediaEventService.cs" />
+    <Compile Include="Core\Exceptions\ElasticSearchRequestErrorException.cs" />
     <Compile Include="DefaultImplementation\SearchableTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\Helpers\ElasticHelpers.cs" />

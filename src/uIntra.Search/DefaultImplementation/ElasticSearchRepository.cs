@@ -41,9 +41,9 @@ namespace uIntra.Search
         {
             if (Client.IndexExists(IndexName).Exists) return;
 
-            var createIndexResponse = Client.CreateIndex(IndexName, c => c
-                .Index(IndexName).Settings(s => s.NumberOfShards(Configuration.NumberOfShards).NumberOfReplicas(Configuration.NumberOfReplicas).Analysis(analysis))
-                );
+            var createIndexResponse = Client.CreateIndex(
+                IndexName,
+                c => c.Index(IndexName).Settings(s => s.NumberOfShards(Configuration.NumberOfShards).NumberOfReplicas(Configuration.NumberOfReplicas).Analysis(analysis)));
 
             if (!createIndexResponse.IsValid)
             {
@@ -87,7 +87,8 @@ namespace uIntra.Search
 
         protected void RequestError(IResponse response)
         {
-            _exceptionLogger.Log(response.OriginalException);
+            var exception = new ElasticSearchRequestErrorException(response.DebugInformation, new System.Diagnostics.StackTrace().ToString());
+            _exceptionLogger.Log(exception);
         }
 
         private void EnsureAttachmentsPipelineExists()
@@ -98,9 +99,10 @@ namespace uIntra.Search
                 return;
             }
 
-            var putPipelineResponse = Client.PutPipeline(AttachmentsPipelineName,
-                       p => p.Description("Extract attachment information").Processors(pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Data).
-                       TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Data))));
+            var putPipelineResponse = Client.PutPipeline(
+                AttachmentsPipelineName,
+                p => p.Description("Extract attachment information").Processors(
+                    pr => pr.Attachment<SearchableDocument>(a => a.Field(f => f.Data).TargetField(f => f.Attachment)).Remove<SearchableDocument>(r => r.Field(f => f.Data))));
 
             if (!putPipelineResponse.IsValid)
             {
@@ -119,8 +121,7 @@ namespace uIntra.Search
             string indexName,
             IElasticConfigurationSection configuration,
             PropertiesDescriptor<T> properties,
-            IExceptionLogger exceptionLogger
-            )
+            IExceptionLogger exceptionLogger)
             : base(indexName, configuration, exceptionLogger)
         {
             _properties = properties;
