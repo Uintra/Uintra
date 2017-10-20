@@ -1,8 +1,6 @@
 ﻿@using uIntra.Core.Extensions
 @model uIntra.Search.SearchBoxViewModel
 
-<a href="#" class="search__opener _for-mobile" id="js-search-opener"><span class="icon-search"></span></a>
-
 <div class="search">
     <form action="#" class="search__form">
         <input class="search__input js-searchbox" type="search" name="query"
@@ -11,7 +9,6 @@
                data-empty-text="@Html.Localize("SearchBox.Empty.lbl")"
                data-see-all-text="@Html.Localize("SearchBox.SeeAll.lnk")"
                placeholder="@Html.Localize("SearchBox.Placeholder.lbl")" />
-        <a class="search__button _for-desktop js-searchbox-icon" type="submit"><span class="icon-search"></span></a>
-        <span class="search__clear _for-mobile"></span>
+        <a class="search__button js-searchbox-icon" type="submit"><span class="icon-search"></span></a>
     </form>
 </div>
