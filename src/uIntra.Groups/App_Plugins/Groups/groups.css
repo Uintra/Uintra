@@ -162,7 +162,7 @@
         &-title{
             font:bold 20px/22px var(--font-custom);
             text-transform:uppercase;
-            margin:0 40px 9px 0;
+            margin:0 40px 15px 0;
             overflow:hidden;
             white-space:nowrap;
             text-overflow:ellipsis;
@@ -178,7 +178,7 @@
 
         &-holder{
             overflow:hidden;
-            padding:10px 20px 0 0;
+            padding:15px 20px 0 0;
 
             @media(--for-desktop-down){
                 &{
@@ -189,8 +189,8 @@
 
         &-txt{
             font-size:14px;
-            margin:0 0 7px;
-            max-height:38px;
+            margin:0 0 15px;
+            height:38px;
             overflow:hidden;
 
             @media (--for-tablet-portrait-down) {
@@ -207,12 +207,13 @@
 
         &-meta{
             font-size:13px;
-            font-weight:bold;
             padding:0 10px 0 0;
             margin:0;
+            text-transform:uppercase;
 
             &-count{
                 float:left;
+                font-weight:normal;
                 margin:0 5px 0 0;
 
                 &:after{
