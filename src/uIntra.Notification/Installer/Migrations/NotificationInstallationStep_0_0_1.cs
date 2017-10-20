@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core;
 using uIntra.Core.Constants;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
@@ -46,7 +45,7 @@ namespace uIntra.Notification.Installer.Migrations
             var notificationPage = contentService.GetContentType(NotificationInstallationConstants.DocumentTypeAliases.NotificationPage);
             if (notificationPage != null) return;
 
-            notificationPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithContentGrid);
+            notificationPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
 
             notificationPage.Name = NotificationInstallationConstants.DocumentTypeNames.NotificationPage;
             notificationPage.Alias = NotificationInstallationConstants.DocumentTypeAliases.NotificationPage;

@@ -28,6 +28,7 @@
                 "custom.EventsEdit",
                 "custom.EventsDetails",
                 "custom.ComingEvents",
+                "custom.NotificationList",
                 "custom.ContentPanel",
                 "custom.GlobalPanelPicker",
                 "custom.DocumentLibraryPanel",
