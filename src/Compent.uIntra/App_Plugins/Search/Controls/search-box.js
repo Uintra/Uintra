@@ -100,31 +100,31 @@ function initSearchBox() {
     });
 }
 
-function initMobileSearch() {
-    var opener = document.querySelector("#js-search-opener");
-    if (!opener) {
-        return;
-    }
+//function initMobileSearch() {
+//    var opener = document.querySelector("#js-search-opener");
+//    if (!opener) {
+//        return;
+//    }
     
-    var searchContainer = document.querySelector('.search');
+//    var searchContainer = document.querySelector('.search');
 
-    opener.addEventListener('click',
-        () => {
-            body.classList.toggle('_search-expanded');
-            if (body.classList.contains('_sidebar-expanded')) {
-                body.classList.remove('_sidebar-expanded');
-            }
-            if (body.classList.contains('_menu-expanded')) {
-                body.classList.remove('_menu-expanded');
-            }
-        });
+//    opener.addEventListener('click',
+//        () => {
+//            body.classList.toggle('_search-expanded');
+//            if (body.classList.contains('_sidebar-expanded')) {
+//                body.classList.remove('_sidebar-expanded');
+//            }
+//            if (body.classList.contains('_menu-expanded')) {
+//                body.classList.remove('_menu-expanded');
+//            }
+//        });
 
-    body.addEventListener("click", function(ev) {
-        isOutsideClick(searchContainer, opener, ev.target, "_search-expanded", function() {
-            body.classList.remove("_search-expanded");
-        });
-    });
-};
+//    body.addEventListener("click", function(ev) {
+//        isOutsideClick(searchContainer, opener, ev.target, "_search-expanded", function() {
+//            body.classList.remove("_search-expanded");
+//        });
+//    });
+//};
 
 function isOutsideClick(el, trigger, target, className, callback){
     if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(className)) {
@@ -136,5 +136,5 @@ function isOutsideClick(el, trigger, target, className, callback){
 
 export default function () {
     initSearchBox();
-    initMobileSearch();
+    //initMobileSearch();
 }
