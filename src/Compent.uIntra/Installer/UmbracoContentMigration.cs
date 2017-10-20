@@ -126,9 +126,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Notifications", homePage.Id, DocumentTypeAliasConstants.NotificationPage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Notifications");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, true);
             content.SetValue("itemCountForPopup", 5);
 
             SetGridValueAndSaveAndPublishContent(content, "notificationPageGrid.json");
@@ -143,9 +140,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Profile", homePage.Id, DocumentTypeAliasConstants.ProfilePage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Profile");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "profilePageGrid.json");
         }
@@ -159,9 +153,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Profile Edit", homePage.Id, DocumentTypeAliasConstants.ProfileEditPage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Profile Edit");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "profileEditPageGrid.json");
         }
@@ -175,9 +166,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Search", homePage.Id, DocumentTypeAliasConstants.SearchResultPage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Search");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "searchResultPageGrid.json");
         }
@@ -191,9 +179,6 @@ namespace Compent.uIntra.Installer
             }
 
             var content = _contentService.CreateContent("Error", homePage.Id, DocumentTypeAliasConstants.ErrorPage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Error");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, true);
 
             SetGridValueAndSaveAndPublishContent(content, "errorPageGrid.json");
         }
