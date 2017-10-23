@@ -240,8 +240,29 @@ namespace Compent.uIntra
             kernel.Bind<IFeedFilterStateService>().To<CentralFeedFilterStateService>().InRequestScope();
 
 
-            // kernel.Bind<IFeedItem>().To<Core.News.Entities.News>().InRequestScope();
+            kernel.Bind(typeof(IIntranetActivityService<>)).To<NewsService>().InRequestScope();
+            kernel.Bind(typeof(IIntranetActivityService<>)).To<EventsService>().InRequestScope();
+            kernel.Bind(typeof(IIntranetActivityService<>)).To<BulletinsService>().InRequestScope();
+            
+            kernel.Bind<IIntranetActivityService>().To<NewsService>().InRequestScope();
+            kernel.Bind<IIntranetActivityService>().To<EventsService>().InRequestScope();
+            kernel.Bind<IIntranetActivityService>().To<BulletinsService>().InRequestScope();
 
+            kernel.Bind<ISubscribableService>().To<EventsService>().InRequestScope();
+
+            kernel.Bind<ILikeableService>().To<NewsService>().InRequestScope();
+            kernel.Bind<ILikeableService>().To<EventsService>().InRequestScope();
+            kernel.Bind<ILikeableService>().To<BulletinsService>().InRequestScope();
+
+            kernel.Bind<ICommentableService>().To<NewsService>().InRequestScope();
+            kernel.Bind<ICommentableService>().To<EventsService>().InRequestScope();
+            kernel.Bind<ICommentableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ICustomCommentableService>().To<CustomCommentableService>().InRequestScope();
+            
+
+            kernel.Bind<INotifyableService>().To<NewsService>().InRequestScope();
+            kernel.Bind<INotifyableService>().To<EventsService>().InRequestScope();
+            kernel.Bind<INotifyableService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
