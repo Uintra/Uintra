@@ -14,6 +14,6 @@ namespace uIntra.Events
         public int? UmbracoCreatorId { get; set; }
 
         [JsonIgnore]
-        public DateTime PublishDate => StartDate;
+        public DateTime PublishDate => CreatedDate;
     }
 }
