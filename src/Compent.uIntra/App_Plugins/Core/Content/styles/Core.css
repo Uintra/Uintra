@@ -221,7 +221,7 @@ h5{
 #wrapper {
     width:100%;
     overflow:hidden;
-    padding:50px 0 0 251px;
+    padding:56px 0 0 251px;
     opacity:1;
     position:relative;
     left:0;
@@ -343,7 +343,7 @@ h5{
     }
 
     @media (--for-tablet-landscape-up) {
-        padding:0 50px 0 30px;
+        padding:0 70px 0 30px;
         min-height:50px;
     }
 
