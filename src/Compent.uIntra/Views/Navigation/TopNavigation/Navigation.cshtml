@@ -20,7 +20,7 @@
     </div>
     <div class="user">
         <a class="user__opener icon-user @userAvatar">
-            <div class="user__avatar _for-desktop">
+            <div class="user__avatar">
                 <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
             </div>
             <span class="user__opener-arrow"></span>
@@ -46,14 +46,6 @@
                     <span class="icon icon-logout"></span>
                     @Html.Localize("TopNavigation.Logout.lbl")
                 </a>
-            </li>
-            <li class="user__menu-item _for-mobile">
-                <div class="user__menu-link @userAvatar">
-                    <div class="user__avatar icon-user">
-                        <img src="@Model.CurrentUser.Photo" width="30">
-                    </div>
-                    <span class="user__menu-name">@Model.CurrentUser.DisplayedName - @Model.CurrentUser.Role.Name</span>
-                </div>
             </li>
         </ul>
     </div>

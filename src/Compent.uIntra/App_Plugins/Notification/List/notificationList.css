@@ -243,6 +243,7 @@
         &-avatar{
             width:60px;
             min-width:60px;
+            max-width:60px;
             height:60px;
             border:1px solid var(--color-light-gray);
             margin:7px 50px 0 0;

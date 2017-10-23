@@ -17,12 +17,6 @@
 	&__area {
 		border-top: 1px solid var(--color-light-gray);
 
-		@media screen and (max-width: 599px) {
-			& {
-				padding: 20px 10px 20px 35px;
-			}
-		}
-
         ._active &{
             padding-bottom:14px;
         }
@@ -56,20 +50,21 @@
             margin: 2px 2px 0 0;
             display: inline-block;
             vertical-align: top;
-            transform:rotate(-90deg);
             color:var(--text-color-dark);
 
+            &:before{
+                transform:rotate(-90deg);
+                display:block;
+            }
+
             ._active &{
-                transform:rotate(0);
                 margin-top:3px;
+
+                &:before{
+                    transform:rotate(0);
+                }
             }
         }
-
-        @media screen and (max-width: 599px) {
-			& {
-				padding: 20px 10px 20px 35px;
-			}
-		}
 	}
 
 	&__body {

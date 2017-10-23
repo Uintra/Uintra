@@ -4,7 +4,7 @@ using uIntra.Core.TypeProviders;
 
 namespace Compent.uIntra.Core.Comments
 {
-    public class CustomCommentableService : ICommentableService
+    public class CustomCommentableService : ICustomCommentableService
     {
         // TODO: remove this contract after decoupling comments from activities
         public IIntranetType ActivityType { get; } = GetDummyType();

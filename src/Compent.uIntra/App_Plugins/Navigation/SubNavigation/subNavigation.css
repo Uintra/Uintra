@@ -564,7 +564,7 @@
             margin:-40px 0 10px;
             padding:0 0 0 20px;
             position:relative;
-            z-index:999;
+            z-index:initial;
         }
     }
 
