@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Comments;
 using Localization.Umbraco.Attributes;
 using uIntra.Comments;
 using uIntra.Comments.Web;
@@ -20,7 +21,7 @@ namespace Compent.uIntra.Controllers
         protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
         protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
 
-        private readonly ICommentableService _customCommentableService;
+        private readonly ICustomCommentableService _customCommentableService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -32,7 +33,7 @@ namespace Compent.uIntra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
             IMediaHelper mediaHelper,
-            ICommentableService customCommentableService,
+            ICustomCommentableService customCommentableService,
             INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)
             : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentProvider, customCommentableService, umbracoContentHelper)
         {
