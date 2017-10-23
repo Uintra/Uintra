@@ -806,8 +806,7 @@ h5{
     }
 
     .ql-tooltip {
-        left: 15px !important;
-        top:-30px !important;
+        z-index:9999;
     }
 }
 
