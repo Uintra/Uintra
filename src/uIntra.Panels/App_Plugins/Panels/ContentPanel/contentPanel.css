@@ -166,7 +166,7 @@
     }
 
     &__image{
-        margin:-20px 0 20px;
+        margin:0 0 20px;
 
         .img-responsive{
             width:100%;
@@ -420,7 +420,7 @@
         ._sidebar-expanded & {
             transform: translate(0, 0);
             box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            top:52px;
+            top:0;
             overflow:auto;
             height:calc(100vh - 111px);
 
