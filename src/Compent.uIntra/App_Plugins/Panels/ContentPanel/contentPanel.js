@@ -146,6 +146,13 @@ var initPanel = function (selector) {
 var initMobileBanners = function () {
     var opener = document.querySelector("#js-sidepanel-opener");
     var container = document.querySelector('.sidebar');
+    var tabset = document.querySelector('.tabset');
+    var header = document.getElementById('header');
+    var height = header.clientHeight;
+
+    if (tabset) {
+        height += tabset.clientHeight;
+    }
 
     if (!opener || !container) {
         body.classList.add('_hide-sidepanel-opener');
@@ -153,6 +160,7 @@ var initMobileBanners = function () {
     };
 
     var sideBlock = container.querySelectorAll('.block');
+    container.style.top = height + 'px';
 
     if (sideBlock.length > 0) {
         opener.addEventListener('click',

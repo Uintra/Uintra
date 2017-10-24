@@ -39,28 +39,30 @@ var initSubMenuPosition = function () {
     
 var initMobileMenu = function() {
     var opener = menu.find('.tabset__navigation-link');
+    var itemHeigth = 0;
 
     if (menu.find('._active').length <= 0) {
         menu.find('.tabset__navigation-item:first-child').addClass('_active');
     }
 
-    if(body.hasClass('_with-sub-nav')){
-        if(title.hasClass('_no-link')){
-            wrapper.css({
-                'padding-top': '131px'
-            })
+    menu.each(function () {
+        if ($(this).closest('.tabset__inner').length == 0) {
+            $(this).css({
+                'padding-top': '50px'
+            });
         }
+    });
 
-        else{
-            wrapper.css({
-                'padding-top': '181px'
-            })
-        }
+    if (body.hasClass('_with-sub-nav')) {
+        var height = tabset.outerHeight() + header.outerHeight();
+        wrapper.css({
+            'padding-top': height + 'px'
+        })
     }
 
     if (opener.length > 1) {
         opener.on("click", function (e) {
-            if ($(this).closest('._active').length > 0) {
+            if ($(this).closest('li').hasClass('_selected')) {
                 e.preventDefault();
                 menuHolder.toggleClass('_expanded');
                 body.removeClass('_search-expanded notifications-expanded _menu-expanded _sidebar-expanded');

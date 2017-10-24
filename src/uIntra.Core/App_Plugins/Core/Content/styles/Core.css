@@ -374,6 +374,7 @@ h5{
     @media (--for-tablet-portrait-down) {
         padding: 20px;
         overflow: visible;
+        position:static;
     }
 
     &::before{
