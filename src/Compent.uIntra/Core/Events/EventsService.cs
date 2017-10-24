@@ -285,7 +285,7 @@ namespace Compent.uIntra.Core.Events
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
                     data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
                 }
                     break;
                 case (int) NotificationTypeEnum.CommentEdited:
@@ -293,7 +293,7 @@ namespace Compent.uIntra.Core.Events
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
                     data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
 
                 }
                     break;
@@ -302,14 +302,14 @@ namespace Compent.uIntra.Core.Events
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
                     data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                 }
                     break;
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     var currentEvent = Get(entityId);
                     data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType);
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                 }
                     break;
                 case (int) NotificationTypeEnum.CommentLikeAdded:
@@ -320,7 +320,7 @@ namespace Compent.uIntra.Core.Events
                         ? Enumerable.Empty<Guid>()
                         : comment.UserId.ToEnumerableOfOne();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
                 }
                     break;
 
@@ -337,7 +337,7 @@ namespace Compent.uIntra.Core.Events
                 {
                     var currentEvent = Get(entityId);
                     data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(currentEvent, notificationType);
+                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                 }
                     break;
                 default:

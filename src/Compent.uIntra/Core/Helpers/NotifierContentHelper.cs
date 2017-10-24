@@ -22,7 +22,7 @@ namespace Compent.uIntra.Core.Helpers
             _intranetUserService = intranetUserService;
         }
 
-        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType activityType)
+        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType activityType, Guid notifierId)
         {
             return new CommentNotifierDataModel
             {
@@ -34,7 +34,7 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType activityType)
+        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId)
         {
             return new ActivityNotifierDataModel
             {
@@ -45,7 +45,7 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType) 
+        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId) 
         {
             return new LikesNotifierDataModel
             {

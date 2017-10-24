@@ -1,4 +1,5 @@
-﻿using uIntra.Comments;
+﻿using System;
+using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
 using uIntra.Events;
@@ -8,9 +9,9 @@ namespace Compent.uIntra.Core.Helpers
 {
     public interface INotifierDataHelper
     {
-        ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType activityType);
+        ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId);
         ActivityReminderDataModel GetActivityReminderDataModel(EventBase @event, IIntranetType activityType);
-        CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType activityType);
-        LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType);
+        CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType activityType, Guid notifierId);
+        LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId);
     }
 }

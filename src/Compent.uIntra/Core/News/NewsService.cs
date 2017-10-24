@@ -244,7 +244,7 @@ namespace Compent.uIntra.Core.News
                 {
                     var news = Get(entityId);
                     data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType);
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
                 }
                     break;
 
@@ -256,7 +256,7 @@ namespace Compent.uIntra.Core.News
                         ? Enumerable.Empty<Guid>()
                         : comment.UserId.ToEnumerableOfOne();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
                 }
                     break;
 
@@ -266,7 +266,7 @@ namespace Compent.uIntra.Core.News
                     var comment = _commentsService.Get(entityId);
                     var news = Get(comment.ActivityId);
                     data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
                 }
                     break;
 
@@ -275,7 +275,7 @@ namespace Compent.uIntra.Core.News
                     var comment = _commentsService.Get(entityId);
                     var news = Get(comment.ActivityId);
                     data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType);
+                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
                 }
                     break;
 
