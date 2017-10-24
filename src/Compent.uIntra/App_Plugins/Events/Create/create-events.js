@@ -84,13 +84,20 @@ var initDatePickers = function () {
         var endDate = end.selectedDates[0];
         if (endDate != null && endDate < new Date(newDate)) {
             end.setDate(newDate);
-            pin.setDate(newDate);
         }
+        
         end.set('minDate', newDate);
+        pin.setDate(newDate);
         pin.set('minDate', newDate);
     }
 
+    function endOnChange(newDates) {
+        var newDate = newDates[0];
+        pin.setDate(newDate);
+    }
+
     start.config.onChange.push(startOnChange);
+    end.config.onChange.push(endOnChange);
 }
 
 var controller = {
