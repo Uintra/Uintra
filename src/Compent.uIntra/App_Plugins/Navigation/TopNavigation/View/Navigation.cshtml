@@ -13,12 +13,12 @@
     </div>
 </div>
 <div class="header__right">
-    <div class="greeting _for-desktop">
-        <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
-        <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
-    </div>
     <div class="user">
         <a class="user__opener icon-user @userAvatar">
+            <div class="greeting _for-desktop">
+                <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
+                <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
+            </div>
             <div class="user__avatar _for-desktop">
                 <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
             </div>

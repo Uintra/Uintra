@@ -722,7 +722,12 @@ h5{
 /* emoji styles */
 .ql-toolbar.ql-snow{
     position:relative;
+
+    .ql-formats{
+        margin-right:0;
+    }
 }
+
 .ql-emoji{
     position:relative;
 
