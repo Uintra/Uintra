@@ -96,7 +96,7 @@ namespace Compent.uIntra.Core.Events
         public IEnumerable<Event> GetComingEvents(DateTime fromDate)
         {
             var events = GetAll()
-                .Where(e => e.PublishDate > fromDate)
+                .Where(e => e.StartDate > fromDate)
                 .OrderBy(e => e.PublishDate);
             return events;
         }
