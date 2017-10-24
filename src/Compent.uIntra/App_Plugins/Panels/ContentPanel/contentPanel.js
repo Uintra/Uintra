@@ -164,20 +164,20 @@ var initMobileBanners = function () {
 
     if (sideBlock.length > 0) {
         opener.addEventListener('click',
-        () => {
-            body.classList.toggle('_sidebar-expanded');
-            if (body.classList.contains('_search-expanded')) {
-                body.classList.remove('_search-expanded');
-            }
-            if (body.classList.contains('_menu-expanded')) {
-                body.classList.remove('_menu-expanded');
-            }
+            () => {
+                body.classList.toggle('_sidebar-expanded');
+                if (body.classList.contains('_search-expanded')) {
+                    body.classList.remove('_search-expanded');
+                }
+                if (body.classList.contains('_menu-expanded')) {
+                    body.classList.remove('_menu-expanded');
+                }
 
-            body.addEventListener('click',
-                function (ev) {
-                    isOutsideClick(container, opener, ev.target, '_sidebar-expanded');
-                });
-        });
+                body.addEventListener('click',
+                    function (ev) {
+                        isOutsideClick(container, opener, ev.target, '_sidebar-expanded');
+                    });
+            });
     }
     else {
         body.classList.add('_hide-sidepanel-opener');
