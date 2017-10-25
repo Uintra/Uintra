@@ -4,7 +4,7 @@
     white-space:nowrap;
     text-overflow:ellipsis;
     font:16px/1.25em var(--font-custom);
-    padding:20px 12px 16px 20px;
+    padding:4px 35px 0 0;
     text-transform:uppercase;
     text-align:right;
 
@@ -324,7 +324,7 @@
         &-arrow{
             position:absolute;
             top:11px;
-            left:0;
+            right:45px;
             width:6px;
             height:6px;
             border:solid var(--color-white);
@@ -332,7 +332,7 @@
             transform:rotate(45deg);
 
             ._with-avatar &{
-                top:15px;
+                top:13px;
             }
 
             @media (--for-tablet-portrait-down){
@@ -346,6 +346,7 @@
         width:30px;
         height:30px;
         overflow:hidden;
+        float:right;
 
         &-img{
             height: auto;

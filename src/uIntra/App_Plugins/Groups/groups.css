@@ -78,7 +78,7 @@
         position: absolute;
         top: -95px;
         right: -5px;
-        z-index: 999;
+        z-index: 11;
     }
 
     &__list{

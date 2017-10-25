@@ -221,7 +221,7 @@ h5{
 #wrapper {
     width:100%;
     overflow:hidden;
-    padding:50px 0 0 251px;
+    padding:56px 0 0 251px;
     opacity:1;
     position:relative;
     left:0;
@@ -343,7 +343,7 @@ h5{
     }
 
     @media (--for-tablet-landscape-up) {
-        padding:0 50px 0 30px;
+        padding:0 70px 0 30px;
         min-height:50px;
     }
 
@@ -374,6 +374,7 @@ h5{
     @media (--for-tablet-portrait-down) {
         padding: 20px;
         overflow: visible;
+        position:static;
     }
 
     &::before{
@@ -721,7 +722,12 @@ h5{
 /* emoji styles */
 .ql-toolbar.ql-snow{
     position:relative;
+
+    .ql-formats{
+        margin-right:0;
+    }
 }
+
 .ql-emoji{
     position:relative;
 
@@ -806,8 +812,7 @@ h5{
     }
 
     .ql-tooltip {
-        left: 15px !important;
-        top:-30px !important;
+        z-index:9999;
     }
 }
 

@@ -1,14 +1,4 @@
 .faq-panel {
-	font-size: 17px;
-	line-height: 25px;
-
-	@media screen and (max-width: 599px) {
-		& {
-			font-size: 15px;
-			line-height: 1.47;
-		}
-	}
-
 	.content {
 		padding-top: 0;
 		padding-bottom: 0;
@@ -21,11 +11,6 @@
             padding-bottom:14px;
         }
 	}
-
-    .block__description,
-    .block__title{
-        padding-left:10px;
-    }
 
 	&__heading {
 		color: #003693;
