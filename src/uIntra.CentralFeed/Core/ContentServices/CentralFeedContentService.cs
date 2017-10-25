@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using uIntra.CentralFeed.Providers;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using static uIntra.CentralFeed.CentralFeedConstants;
@@ -14,6 +16,7 @@ namespace uIntra.CentralFeed
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly ICentralFeedContentProvider _contentProvider;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected override string FeedPluginAlias { get; } = CentralFeedPluginAlias;
         protected override string ActivityCreatePluginAlias { get; } = FeedActivityCreatePluginAlias;
@@ -23,12 +26,13 @@ namespace uIntra.CentralFeed
             IGridHelper gridHelper,
             ICentralFeedService centralFeedService,
             ICentralFeedLinkService centralFeedLinkService,
-            ICentralFeedContentProvider contentProvider)
+            ICentralFeedContentProvider contentProvider, IActivityTypeProvider activityTypeProvider)
                 : base(feedTypeProvider, gridHelper)
         {
             _centralFeedService = centralFeedService;
             _centralFeedLinkService = centralFeedLinkService;
             _contentProvider = contentProvider;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         private ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentPage)
@@ -48,10 +52,12 @@ namespace uIntra.CentralFeed
         {
             yield return GetMainFeedTab(currentPage);
 
+            var allActivityTypes = _activityTypeProvider.GetAll().ToList();
+
             foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
-                var activityType = tabType.Id.ToEnum<IntranetActivityTypeEnum>();
+                var activityType = allActivityTypes.SingleOrDefault(a => a.Id == tabType.Id);
 
                 if (activityType == null)
                 {
