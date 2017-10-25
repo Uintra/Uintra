@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Linq;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Core.Grid
 {
@@ -13,7 +14,7 @@ namespace uIntra.Core.Grid
         {
             dynamic grid = GetGrid(content);
 
-            if (grid == null)
+            if (!IsValidGrid(grid))
                 yield break;
 
             foreach (var section in grid.sections)
@@ -41,6 +42,12 @@ namespace uIntra.Core.Grid
         {
             return content.GetProperty("grid")?.GetValue<dynamic>();
         }
+
+        private bool IsValidGrid(object grid)
+        {
+            return grid != null && grid is JObject gridJson && gridJson["sections"] != null;
+        }
+
 
         public T GetContentProperty<T>(IPublishedContent content, string contentKey, string propertyKey)
         {
