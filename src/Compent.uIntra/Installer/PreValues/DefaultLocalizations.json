@@ -92,6 +92,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "CentralFeed.IsSubscribed.lbl",
+    "translations": {
+      "en-US": "Is subscribed"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CentralFeed.CreateLink_Events.lnk",
     "translations": {
       "en-US": "Create Event"
@@ -326,6 +333,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "ComingEvents.SeeAll.btn",
+    "translations": {
+      "en-US": "See all"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Events",
     "translations": {
       "en-US": "Events"
@@ -431,6 +445,13 @@
       "en-US": "Event Start date and time"
     },
     "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.StartDateRequired.lbl",
+    "translations": {
+      "en-US": "Start date required"
+    },
     "updateDate": "0001-01-01T00:00:00"
   },
   {
@@ -680,6 +701,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "NewsEdit.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "NewsEdit.Creator.lbl",
     "translations": {
       "en-US": "Creator"
@@ -829,6 +857,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Search.OnlyPinned",
+    "translations": {
+      "en-US": "Only pinned"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Search.Bulletins",
     "translations": {
       "en-US": "Bulletin"
@@ -927,6 +962,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "SearchResult.Loading.lbl",
+    "translations": {
+      "en-US": "Loading"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "SearchResult.Filter.Title",
     "translations": {
       "en-US": "Search results based on:"
@@ -937,6 +979,13 @@
     "key": "SearchResult.YouSearchedFor.lbl",
     "translations": {
       "en-US": "You searched for \"{0}\"."
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "LatestActivities.SeeAll.btn",
+    "translations": {
+      "en-US": "See all"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -987,6 +1036,13 @@
     "key": "SystemLinks.Menu.lbl",
     "translations": {
       "en-US": "System Links Block"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.NotifierSettings.Confirmation.lbl",
+    "translations": {
+      "en-US": "Confirmation"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1051,6 +1107,210 @@
     "key": "Login.Validation.UserNotValid",
     "translations": {
       "en-US": "User not valid"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+
+  {
+    "key": "ActivityItemHeader.Creator.Inactive.lbl",
+    "translations": {
+      "en-US": "Inactive"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "CreateActivity.EndPinDateRequired.lbl",
+    "translations": {
+      "en-US": "Endpin date required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Groups.Menu.lbl",
+    "translations": {
+      "en-US": "Menu"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupCreate.FormTitle.lbl",
+    "translations": {
+      "en-US": "FormTitle"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupCreate.GroupTitle.lbl",
+    "translations": {
+      "en-US": "GroupTitle"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupCreate.Description.lbl",
+    "translations": {
+      "en-US": "Description"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupCreate.GroupImage.lbl",
+    "translations": {
+      "en-US": "GroupImage"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupCreate.Create.btn",
+    "translations": {
+      "en-US": "Create"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupRoom.Navigation.All.lbl",
+    "translations": {
+      "en-US": "All"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupRoom.Label",
+    "translations": {
+      "en-US": "Label"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupInfo.MembersCount",
+    "translations": {
+      "en-US": "Members count"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupInfo.CreatorName",
+    "translations": {
+      "en-US": "Creator name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.PageTitle.lbl",
+    "translations": {
+      "en-US": "Page title"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.Title.lbl",
+    "translations": {
+      "en-US": "Title"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.Description.lbl",
+    "translations": {
+      "en-US": "Description"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.GroupImage.lbl",
+    "translations": {
+      "en-US": "Group image"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.GroupImage.note",
+    "translations": {
+      "en-US": "Group image"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.GroupImage.note",
+    "translations": {
+      "en-US": "Group image"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.Update.btn",
+    "translations": {
+      "en-US": "Update"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupEdit.Hide.btn",
+    "translations": {
+      "en-US": "Hide"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Title",
+    "translations": {
+      "en-US": "Title"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Table.Name.lbl",
+    "translations": {
+      "en-US": "Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Table.Email.lbl",
+    "translations": {
+      "en-US": "Email"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Table.Role.lbl",
+    "translations": {
+      "en-US": "Role"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Table.GroupAdmin.lbl",
+    "translations": {
+      "en-US": "Group admin"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Delete.Text.lbl",
+    "translations": {
+      "en-US": "Delete"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Delete.Confirm.btn",
+    "translations": {
+      "en-US": "Confirm"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Delete.ConfirmCancel.btn",
+    "translations": {
+      "en-US": "Cancel"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "BrowserCompatibility.Notification.Message",
+    "translations": {
+      "en-US": "NB! Your browser is not fully compatible with the current version of Intranet."
     },
     "updateDate": "0001-01-01T00:00:00"
   }
