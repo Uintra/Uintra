@@ -40,5 +40,11 @@
             public const string Assembly = "assembly";
             public const string Enum = "enum";
         }
+
+        public class DocumentTypeIcons
+        {
+            public const string Panel = "icon-desktop";
+
+        }
     }
 }

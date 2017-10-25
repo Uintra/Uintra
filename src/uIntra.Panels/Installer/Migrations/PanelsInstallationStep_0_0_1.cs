@@ -5,6 +5,7 @@ using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using static uIntra.Panels.Installer.PanelsInstallationConstants;
 
 namespace uIntra.Panels.Installer.Migrations
 {
@@ -24,19 +25,19 @@ namespace uIntra.Panels.Installer.Migrations
         private void CreatePanelPickerDataType()
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-            var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(PanelsInstallationConstants.DataTypeNames.PanelPicker);
+            var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
             var jsonValue = CoreInstallationStep_0_0_1.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
             var jsonPrevalues = JObject.Parse(jsonValue);
 
-            panelPickerDataType = new DataTypeDefinition(-1, PanelsInstallationConstants.DataTypePropertyEditors.PanelPicker)
+            panelPickerDataType = new DataTypeDefinition(-1, DataTypePropertyEditors.PanelPicker)
             {
-                Name = PanelsInstallationConstants.DataTypeNames.PanelPicker
+                Name = DataTypeNames.PanelPicker
             };
             var preValues = new Dictionary<string, PreValue>
             {
-                { PanelsInstallationConstants.DataTypePreValueAliases.PanelPickerConfig, new PreValue(jsonPrevalues.ToString())}
+                { DataTypePreValueAliases.PanelPickerConfig, new PreValue(jsonPrevalues.ToString())}
             };
             dataTypeService.SaveDataTypeAndPreValues(panelPickerDataType, preValues);
         }
@@ -45,46 +46,47 @@ namespace uIntra.Panels.Installer.Migrations
         {
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-            var panelDocumentType = contentService.GetContentType(PanelsInstallationConstants.DocumentTypeNames.Panel);
+            var panelDocumentType = contentService.GetContentType(DocumentTypeNames.Panel);
 
             if (panelDocumentType != null) return;
 
             panelDocumentType = new ContentType(-1)
             {
-                Name = PanelsInstallationConstants.DocumentTypeNames.Panel,
-                Alias = PanelsInstallationConstants.DocumentTypeAliases.Panel
+                Name = DocumentTypeNames.Panel,
+                Alias = DocumentTypeAliases.Panel,
+                Icon = DocumentTypeIcons.Panel
             };
 
             panelDocumentType.AddPropertyGroup("Panel");
-            var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(PanelsInstallationConstants.DataTypeNames.PanelPicker);
+            var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(DataTypeNames.PanelPicker);
             var panelPickerProperty = new PropertyType(panelPickerDataType)
             {
-                Name = PanelsInstallationConstants.DocumentTypePropertyNames.PanelConfig,
-                Alias = PanelsInstallationConstants.DocumentTypePropertyAliases.PanelConfig
+                Name = DocumentTypePropertyNames.PanelConfig,
+                Alias = DocumentTypePropertyAliases.PanelConfig,
             };
             panelDocumentType.AddPropertyType(panelPickerProperty, "Panel");
 
             contentService.Save(panelDocumentType);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder, PanelsInstallationConstants.DocumentTypeAliases.Panel);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(DocumentTypeAliases.GlobalPanelFolder, DocumentTypeAliases.Panel);
         }
 
         private void CreateGlobalPanelFolder()
         {
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
 
-            var dataFolderDocType = contentService.GetContentType(PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder);
+            var dataFolderDocType = contentService.GetContentType(DocumentTypeAliases.GlobalPanelFolder);
             if (dataFolderDocType != null) return;
 
             var folder = contentService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
             dataFolderDocType = new ContentType(folder.Id)
             {
-                Name = PanelsInstallationConstants.DocumentTypeNames.GlobalPanelFolder,
-                Alias = PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder
+                Name = DocumentTypeNames.GlobalPanelFolder,
+                Alias = DocumentTypeAliases.GlobalPanelFolder
             };
 
             contentService.Save(dataFolderDocType);
 
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder);
+            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, DocumentTypeAliases.GlobalPanelFolder);
         }
     }
 }
