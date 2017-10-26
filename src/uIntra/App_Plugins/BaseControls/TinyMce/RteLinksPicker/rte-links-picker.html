@@ -13,7 +13,7 @@
         <tbody ng-model="model">
             <tr class="_not-sortable">
                 <td>
-                    <input type="text" ng-if="model.type == linkTypes.External" ng-model="model.link" placeholder="http://example.com" required ng-pattern="config.urlRegex" />
+                    <input type="text" ng-if="model.type == linkTypes.External" ng-model="model.link" placeholder="http://example.com" required />
                     <input type="email" ng-if="model.type == linkTypes.Email" ng-model="model.prettyLink" placeholder="mail@mail.com" required ng-change="processEmailChange(model)" />
                     <span ng-if="model.type == linkTypes.Internal || model.type == linkTypes.Media" class="internal-links-picker"
                           ng-click="model.type == linkTypes.Internal ? internalPicker(model) : mediaPicker(model)">
