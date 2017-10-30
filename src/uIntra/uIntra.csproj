@@ -315,8 +315,8 @@
     <Reference Include="uIntra.Bulletins, Version=0.2.7.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.2.7.6\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.10.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.10\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.2.10.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.13\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.9.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.3\lib\net452\uIntra.Comments.dll</HintPath>
@@ -1426,30 +1426,6 @@
     <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1640,6 +1616,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

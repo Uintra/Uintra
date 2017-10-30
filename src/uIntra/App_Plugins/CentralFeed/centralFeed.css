@@ -23,6 +23,10 @@
         &-item {
             float: left;
             margin: 0 20px 2px 0;
+
+            &.pull-right{
+                margin-right:5px;
+            }
         }
     }
 
@@ -142,6 +146,16 @@
                 &:focus,
                 &:active{
                     color:var(--text-color-dark);
+                }
+            }
+
+            a{
+                &:hover{
+                    text-decoration:none;
+
+                    > span{
+                        text-decoration:underline;
+                    }
                 }
             }
         }
@@ -588,7 +602,7 @@
 		position: relative;
 		display: inline-block;
 		align-items: center;
-		margin: 0 0 20px;
+		margin: 0 0 10px;
 		padding: 10px 10px 10px 30px;
 		background: none;
 		border: none;
