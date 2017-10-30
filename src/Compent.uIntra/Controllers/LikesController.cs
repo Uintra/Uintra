@@ -1,9 +1,7 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Likes;
 using uIntra.Likes.Web;
@@ -17,7 +15,6 @@ namespace Compent.uIntra.Controllers
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
-        private readonly ILikesService _likesService;
 
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,

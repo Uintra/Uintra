@@ -84,7 +84,6 @@ namespace Compent.uIntra.Installer
         private void InheritNavigationCompositions()
         {
             var nav = NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition;
-            var homeNav = NavigationInstallationConstants.DocumentTypeAliases.HomeNavigationComposition;
 
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.HomePage, nav);
             CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ContentPage, nav);
