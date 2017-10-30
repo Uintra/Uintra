@@ -8,5 +8,6 @@ namespace uIntra.CentralFeed
         public string Teaser { get; set; }
         public IEnumerable<FeedItemViewModel> Feed { get; set; }
         public ActivityFeedTabViewModel Tab { get; set; }
+        public bool ShowSeeAllButton { get; set; }
     }
 }

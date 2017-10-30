@@ -61,6 +61,7 @@ function initCustomControls() {
     $('.js-notification__list-item').on('click', function () {
         var $this = $(this);
         var delivered = $this.data("viewed");
+        var url = $this.data("href");
 
         if (!delivered) {
             $.ajax({
@@ -72,6 +73,8 @@ function initCustomControls() {
                 }
             });
         }
+
+        window.location.href = url;
     });
 }
 
