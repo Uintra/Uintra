@@ -6,10 +6,9 @@
 
     &__set{
         color: #b2b2b2;
-        min-width:50px;
         display:inline-block;
         vertical-align:top;
-        margin: 0 27px 0 0;
+        margin: 0 20px 0 0;
 
         .like:hover &,
         &:hover{

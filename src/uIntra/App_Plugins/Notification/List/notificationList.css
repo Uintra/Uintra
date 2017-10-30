@@ -185,6 +185,14 @@
             margin:0;
             border-bottom:1px solid var(--color-light-gray);
             position:relative;
+            display:flex;
+            width:100%;
+            padding:13px 20px;
+            color:var(--text-color-dark);
+
+            &:hover{
+                cursor:pointer;
+            }
 
             &:last-child{
                 border:none;
@@ -226,18 +234,6 @@
                     }
                 }
             }
-
-            &-link{
-                display:flex;
-                width:100%;
-                padding:13px 20px;
-                color:var(--text-color-dark);
-
-                &:hover{
-                    text-decoration:none;
-                    color:var(--text-color-dark);
-                }
-            }
         }
 
         &-avatar{
@@ -272,6 +268,8 @@
 	    &-heading{
 		    font:13px/22px var(--font-general);
 		    color:var(--text-color-dark);
+            max-height:24px;
+            overflow:hidden;
 
 		    &:hover {
 			    color:var(--text-color-dark);
