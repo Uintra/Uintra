@@ -12,7 +12,6 @@ using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
-using uIntra.Events.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Events.Web
@@ -73,33 +72,34 @@ namespace uIntra.Events.Web
         protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
         {
             var comingEvents = GetComingEvents(panelModel.EventsAmount);
-            var viewModel = new ComingEventsPanelViewModel()
+            var viewModel = new ComingEventsPanelViewModel
             {
-                OverviewUrl = comingEvents.FirstOrDefault()?.Links.Overview,
+                OverviewUrl = comingEvents.events.FirstOrDefault()?.Links.Overview,
                 Title = panelModel.DisplayTitle,
-                Events = comingEvents
+                Events = comingEvents.events,
+                ShowSeeAllButton = comingEvents.events.Count < comingEvents.totalCount
             };
             return viewModel;
         }
 
-        protected virtual IList<ComingEventViewModel> GetComingEvents(int eventsAmount)
+        protected virtual (IList<ComingEventViewModel> events, int totalCount) GetComingEvents(int eventsAmount)
         {
-            var events = _eventsService.GetComingEvents(DateTime.UtcNow).Take(eventsAmount);
-            var eventsList = events as IList<EventBase> ?? events.ToList();
+            var events = _eventsService.GetComingEvents(DateTime.UtcNow).ToList();
+            var filteredEvents = events.Take(eventsAmount).ToList();
 
-            var creatorsDictionary = _intranetUserService.GetMany(eventsList.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
+            var creatorsDictionary = _intranetUserService.GetMany(filteredEvents.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
 
-            var comingEvents = new List<ComingEventViewModel>();
+            var comingEvents = filteredEvents
+                .Select(@event =>
+                {
+                    var viewModel = @event.Map<ComingEventViewModel>();
+                    viewModel.Creator = creatorsDictionary[@event.CreatorId];
+                    viewModel.Links = _activityLinkService.GetLinks(@event.Id);
+                    return viewModel;
+                })
+                .ToList();
 
-            foreach (var e in eventsList)
-            {
-                var viewModel = e.Map<ComingEventViewModel>();
-                viewModel.Creator = creatorsDictionary[e.CreatorId];
-                viewModel.Links = _activityLinkService.GetLinks(e.Id);
-                comingEvents.Add(viewModel);
-            }
-
-            return comingEvents;
+            return (comingEvents, events.Count);
         }
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
