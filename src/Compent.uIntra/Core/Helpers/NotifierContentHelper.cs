@@ -13,13 +13,11 @@ namespace Compent.uIntra.Core.Helpers
     {
         private readonly IActivityLinkService _linkService;
         private readonly ICommentLinkHelper _commentLinkHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public NotifierDataHelper(IActivityLinkService linkService, ICommentLinkHelper commentLinkHelper, IIntranetUserService<IIntranetUser> intranetUserService)
+        public NotifierDataHelper(IActivityLinkService linkService, ICommentLinkHelper commentLinkHelper)
         {
             _linkService = linkService;
             _commentLinkHelper = commentLinkHelper;
-            _intranetUserService = intranetUserService;
         }
 
         public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType activityType, Guid notifierId)
@@ -28,7 +26,7 @@ namespace Compent.uIntra.Core.Helpers
             {
                 CommentId = comment.Id,
                 ActivityType = activityType,
-                NotifierId = _intranetUserService.GetCurrentUser().Id,
+                NotifierId = notifierId,
                 Title = activity.Title,
                 Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id)
             };
@@ -41,7 +39,7 @@ namespace Compent.uIntra.Core.Helpers
                 ActivityType = activityType,
                 Title = activity.Title,
                 Url = _linkService.GetLinks(activity.Id).Details,
-                NotifierId = activity.Id
+                NotifierId = notifierId
             };
         }
 
@@ -51,7 +49,7 @@ namespace Compent.uIntra.Core.Helpers
             {
                 Title = activity.Description,
                 ActivityType = activityType,
-                NotifierId = _intranetUserService.GetCurrentUser().Id,
+                NotifierId = notifierId,
                 CreatedDate = DateTime.Now,
                 Url = _linkService.GetLinks(activity.Id).Details
             };
@@ -63,8 +61,7 @@ namespace Compent.uIntra.Core.Helpers
             {
                 Url = _linkService.GetLinks(@event.Id).Details,
                 Title = @event.Title,
-                ActivityType = activityType,
-                StartDate = @event.StartDate
+                ActivityType = activityType
             };
         }
 
