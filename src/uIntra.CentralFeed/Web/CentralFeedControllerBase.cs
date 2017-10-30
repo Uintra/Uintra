@@ -186,22 +186,26 @@ namespace uIntra.CentralFeed.Web
             var activitiesType = _centralFeedTypeProvider.Get(panelModel.ActivityTypeId);
 
             var latestActivities = GetLatestActivities(activitiesType, panelModel.ActivityAmount);
-            var feedItems = GetFeedItems(latestActivities, settings);
+            var feedItems = GetFeedItems(latestActivities.activities, settings);
             var tab = GetTabForActivityType(activitiesType);
 
-            return new LatestActivitiesViewModel()
+            return new LatestActivitiesViewModel
             {
                 Title = panelModel.Title,
                 Teaser = panelModel.Teaser,
                 Feed = feedItems,
-                Tab = tab
+                Tab = tab,
+                ShowSeeAllButton = latestActivities.activities.Count() < latestActivities.totalCount
             };
         }
 
-        protected virtual IEnumerable<IFeedItem> GetLatestActivities(IIntranetType activityType, int activityAmount)
+        protected virtual (IEnumerable<IFeedItem> activities, int totalCount) GetLatestActivities(IIntranetType activityType, int activityAmount)
         {
-            var items = GetCentralFeedItems(activityType).Take(activityAmount);
-            return Sort(items, activityType);
+            var items = GetCentralFeedItems(activityType).ToList();
+            var filteredItems = items.Take(activityAmount);
+            var sortedItems = Sort(filteredItems, activityType);
+
+            return (sortedItems, items.Count);
         }
 
         protected virtual IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
