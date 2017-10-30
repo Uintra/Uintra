@@ -238,48 +238,49 @@ namespace Compent.uIntra.Core.Bulletins
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
-                {
-                    var bulletinsEntity = Get(entityId);
-                    data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(bulletinsEntity, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                    {
+                        var bulletinsEntity = Get(entityId);
+                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.Value = _notifierDataHelper.GetLikesNotifierDataModel(bulletinsEntity, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentAdded:
-                case (int) NotificationTypeEnum.CommentEdited:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var bulletinsEntity = Get(comment.ActivityId);
-                    data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, comment.UserId);
-                }
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var bulletinsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, comment.UserId);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentReplied:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var bulletinsEntity = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.CommentReplied:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var bulletinsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentLikeAdded:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var bulletinsEntity = Get(comment.ActivityId);
-                    data.ReceiverIds = currentUser.Id == comment.UserId
-                        ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerableOfOne();
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var bulletinsEntity = Get(comment.ActivityId);
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, currentUser.Id);
-                }
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
                 default:
                     return null;
             }
+
             return data;
         }
 

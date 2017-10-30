@@ -1,9 +1,9 @@
 ﻿using System;
 using uIntra.Comments;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Notification;
 
@@ -27,7 +27,7 @@ namespace Compent.uIntra.Core.Helpers
                 CommentId = comment.Id,
                 ActivityType = activityType,
                 NotifierId = notifierId,
-                Title = activity.Title,
+                Title = GetNotifierDataTitle(activity),
                 Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id)
             };
         }
@@ -37,17 +37,17 @@ namespace Compent.uIntra.Core.Helpers
             return new ActivityNotifierDataModel
             {
                 ActivityType = activityType,
-                Title = activity.Title,
+                Title = GetNotifierDataTitle(activity),
                 Url = _linkService.GetLinks(activity.Id).Details,
                 NotifierId = notifierId
             };
         }
 
-        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId) 
+        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId)
         {
             return new LikesNotifierDataModel
             {
-                Title = activity.Description,
+                Title = GetNotifierDataTitle(activity),
                 ActivityType = activityType,
                 NotifierId = notifierId,
                 CreatedDate = DateTime.Now,
@@ -65,6 +65,9 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-
+        private static string GetNotifierDataTitle(IIntranetActivity activity)
+        {
+            return activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? activity.Description : activity.Title;
+        }
     }
 }
