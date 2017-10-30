@@ -324,7 +324,7 @@
         &-arrow{
             position:absolute;
             top:11px;
-            right:45px;
+            right:0;
             width:6px;
             height:6px;
             border:solid var(--color-white);
@@ -347,6 +347,7 @@
         height:30px;
         overflow:hidden;
         float:right;
+        margin:0 20px 0 0;
 
         &-img{
             height: auto;
@@ -378,7 +379,7 @@
     &__menu{
         position:absolute;
         top:100%;
-        right:37px;
+        right:-7px;
         background:var(--color-white);
         margin:0;
         padding:0;
