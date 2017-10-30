@@ -2,10 +2,15 @@
 	.content {
 		padding-top: 0;
 		padding-bottom: 0;
+        padding-right:0;
 	}
 
 	&__area {
-		border-top: 1px solid var(--color-light-gray);
+		border-bottom: 1px solid var(--color-light-gray);
+
+        &:first-child{
+            border-top:1px solid var(--color-light-gray);
+        }
 
         ._active &{
             padding-bottom:14px;

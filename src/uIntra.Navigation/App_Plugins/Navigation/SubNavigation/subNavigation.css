@@ -141,6 +141,7 @@
                 margin:0 -1px 0 0;
             }
 
+            ._groups &._right,
             &._right{
                 float:right;
                 margin:0 -120px 0 0;
