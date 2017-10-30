@@ -794,6 +794,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Notifications.EmptyNotificationList.lbl",
+    "translations": {
+      "en-US": "There are no notifications yet"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "NotificationPreview.ShowAllNotifications.lbl",
     "translations": {
       "en-US": "See all notifications"
@@ -1189,6 +1196,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "GroupInfo.CreatorName",
+    "translations": {
+      "en-US": "Creator name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupInfo.IsSubscribed.lbl",
+    "translations": {
+      "en-US": "You are subscribed"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "GroupInfo.MembersCount",
     "translations": {
       "en-US": "Members count"
@@ -1196,9 +1217,30 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "GroupInfo.CreatorName",
+    "key": "GroupInfo.Subscribe.lnk",
     "translations": {
-      "en-US": "Creator name"
+      "en-US": "Subscribe"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupInfo.Unsubscribe.lnk",
+    "translations": {
+      "en-US": "Unsubscribe"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupInfo.Unsubscribe.Message.lnk",
+    "translations": {
+      "en-US": "Are you sure?"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupInfo.Unsubscribe.Title.lnk",
+    "translations": {
+      "en-US": "Unsubscribe confirmation"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1255,6 +1297,13 @@
     "key": "GroupMembers.Title",
     "translations": {
       "en-US": "Title"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupMembers.Table.GroupMember.lbl",
+    "translations": {
+      "en-US": "Group member"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
