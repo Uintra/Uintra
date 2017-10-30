@@ -26,43 +26,28 @@ namespace uIntra.Users.Installers.Migrations
 
         private void CreateProfilePage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = UsersInstallationConstants.DocumentTypeNames.ProfilePage,
+                Alias = UsersInstallationConstants.DocumentTypeAliases.ProfilePage,
+                Icon = UsersInstallationConstants.DocumentTypeIcons.ProfilePage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            var usersProfilePage =
-                contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfilePage);
-            if (usersProfilePage != null) return;
-
-            usersProfilePage =
-                CoreInstallationStep_0_0_1.GetBasePageWithGridBase(
-                    CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            usersProfilePage.Name = UsersInstallationConstants.DocumentTypeNames.ProfilePage;
-            usersProfilePage.Alias = UsersInstallationConstants.DocumentTypeAliases.ProfilePage;
-            usersProfilePage.Icon = UsersInstallationConstants.DocumentTypeIcons.ProfilePage;
-
-            contentService.Save(usersProfilePage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, UsersInstallationConstants.DocumentTypeAliases.ProfilePage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateUsersEditProfilePage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = UsersInstallationConstants.DocumentTypeNames.ProfileEditPage,
+                Alias = UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage,
+                Icon = UsersInstallationConstants.DocumentTypeIcons.ProfileEditPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            var usersProfileEditPage =
-                contentService.GetContentType(UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
-            if (usersProfileEditPage != null) return;
-
-            usersProfileEditPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            usersProfileEditPage.Name = UsersInstallationConstants.DocumentTypeNames.ProfileEditPage;
-            usersProfileEditPage.Alias = UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage;
-            usersProfileEditPage.Icon = UsersInstallationConstants.DocumentTypeIcons.ProfileEditPage;
-
-            contentService.Save(usersProfileEditPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage,
-                UsersInstallationConstants.DocumentTypeAliases.ProfileEditPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateMemberUserPickerDataType()

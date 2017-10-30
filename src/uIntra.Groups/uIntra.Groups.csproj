@@ -328,7 +328,6 @@
     <Compile Include="Core\Sql\GroupActivityRelation.cs" />
     <Compile Include="Core\Services\GroupMemberServiceBase.cs" />
     <Compile Include="Installer\GroupsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\GroupMigrations.cs" />
     <Compile Include="Core\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />
     <Compile Include="Core\Services\GroupService.cs" />
     <Compile Include="Core\IGroupable.cs" />
