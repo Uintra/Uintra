@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extentions
-@model  uIntra.Events.Core.Models.ComingEventsPanelViewModel
+﻿@using uIntra.Core.Extensions
+@model uIntra.Events.ComingEventsPanelViewModel
 
 <section class="block coming-events clearfix">
     <h2 class="block__title"><span class="icon-calendar"></span>@Model.Title</h2>
@@ -10,10 +10,8 @@
                 @Html.Localize("Events.ComingEvents.Empty.lbl")
             </li>
         }
-
         else
         {
-
             foreach (var e in Model.Events)
             {
                 <li class="coming-events__list-item clearfix">
@@ -22,7 +20,7 @@
                         <span class="coming-events__month">@e.StartDate.ToString("MMM")</span>
                     </div>
                     <div class="coming-events__description">
-                        <a href="@e.DetailsPageUrl">
+                        <a href="@e.Links.Details">
                             <h3 class="coming-events__title">@e.Title</h3>
                         </a>
                         <span class="coming-events__creator">@e.Creator.DisplayedName</span>
@@ -30,10 +28,12 @@
                     </div>
                 </li>
             }
-            <li class="coming-events__list-item clearfix">
-                <a href="@Model.OverviewUrl" class="btn">@Html.Localize("ComingEvents.SeeAll.btn")</a>
-            </li>
+            if (Model.ShowSeeAllButton)
+            {
+                <li class="coming-events__list-item clearfix">
+                    <a href="@Model.OverviewUrl" class="btn">@Html.Localize("ComingEvents.SeeAll.btn")</a>
+                </li>
+            }
         }
-
     </ul>
 </section>
