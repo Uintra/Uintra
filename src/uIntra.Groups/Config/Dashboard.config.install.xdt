@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <section alias="groups" xdt:Locator="Condition(@alias='events')" xdt:Transform="InsertIfMissing">
+  <section alias="groups" xdt:Locator="Condition(@alias='groups')" xdt:Transform="InsertIfMissing">
     <areas>
       <area>groups</area>
     </areas>
