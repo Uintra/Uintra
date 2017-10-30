@@ -359,6 +359,7 @@ h5{
     padding:14px 0 17px;
     z-index: 2;
     margin:0 auto;
+    min-width:85px;
 
     @media (--for-tablet-landscape-up) {
         margin:0 190px 0 0;

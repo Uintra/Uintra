@@ -279,10 +279,12 @@
     &__item{
         &-group{
             display:inline-block;
+            vertical-align:top;
             width: 14px;
             opacity: 0.5;
             cursor: pointer;
             position:relative;
+            margin:-1px 0 0 7px;
         }
 
         &-tooltip{
