@@ -23,7 +23,7 @@ var initHideControl = function () {
              function () {
                  $.post('/umbraco/surface/Group/Hide?id=' + hideControl.data('id'),
                      function (data) {
-                         window.location.href = data.Url;
+                         window.location.href = data;
                      });
              }, function () { }, confirm.defaultSettings);
 
