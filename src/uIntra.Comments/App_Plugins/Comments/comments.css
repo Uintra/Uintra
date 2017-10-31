@@ -293,24 +293,34 @@
     position:relative;
 
     &__link{
-        color: #b2b2b2;
+        color:var(--text-color-dark);
 
         &:active,
         &:focus,
         &:hover{
-            text-decoration:none;
             color:var(--text-color-dark);
+            text-decoration:underline;
+
+            .icon-comment{
+                color:var(--text-color-dark);
+                text-decoration:none;
+            }
         }
     }
 
     .icon-comment{
         font-size:16px;
-        margin:2px 5px 0 0;
+        margin:2px 9px 0 0;
         vertical-align:top;
         display:inline-block;
+        color: #b2b2b2;
     }
 }
 
 .comments-preview._hasComments .comments-preview__link {
     color: var(--text-color-dark);
+
+    .icon-comment{
+        color: var(--text-color-dark);
+    }
 }
