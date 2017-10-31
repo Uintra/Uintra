@@ -572,6 +572,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "EventUpdated",
+    "translations": {
+      "en-US": "An event has been updated"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "FileUploadView.File.lbl",
     "translations": {
       "en-US": "File"
