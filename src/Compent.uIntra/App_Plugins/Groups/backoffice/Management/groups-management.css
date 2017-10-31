@@ -27,3 +27,7 @@
 .btn-group[button-style="link"]{
     order:1;
 }
+.groups-managment .umb-overlay-drawer__align-right {
+    flex-direction: row-reverse;
+    justify-content:flex-start !important;
+}

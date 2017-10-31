@@ -1,11 +1,11 @@
-﻿<div ng-controller="groupsController as gc">
+﻿<div class="groups-managment" ng-controller="groupsController as gc">
     <div>
         <div>
             <label for="showHidden">Show hidden</label>
             <input id="showHidden" type="checkbox" ng-model="gc.showHidden" ng-change="gc.showHiddenChanged()" />
         </div>
         <div>
-            <input type="text" ng-model="$$filter" placeholder="Search..."/>
+            <input type="text" ng-model="$$filter" placeholder="Search..." />
         </div>
     </div>
     <table class="table">
