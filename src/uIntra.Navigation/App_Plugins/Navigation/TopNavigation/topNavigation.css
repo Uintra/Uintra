@@ -4,9 +4,13 @@
     white-space:nowrap;
     text-overflow:ellipsis;
     font:16px/1.25em var(--font-custom);
-    padding:4px 35px 0 0;
+    padding:4px 60px 0 0;
     text-transform:uppercase;
     text-align:right;
+
+    ._with-avatar &{
+        padding-right:35px;
+    }
 
     &__username {
         font-family: var(--font-custom);
@@ -267,6 +271,11 @@
 	}
 
     .icon-user{
+        &.user__opener:before{
+            position:absolute;
+            right:15px;
+        }
+
         &._with-avatar:before{
             display:none;
 
