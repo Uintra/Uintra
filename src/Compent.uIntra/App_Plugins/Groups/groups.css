@@ -117,6 +117,8 @@
             display:block;
             height:100%;
             color:var(--text-color-dark);
+            padding:10px;
+            overflow:hidden;
 
             @media(--for-desktop-down){
                 &{
@@ -162,7 +164,7 @@
         &-title{
             font:bold 20px/22px var(--font-custom);
             text-transform:uppercase;
-            margin:0 40px 15px 0;
+            margin:0 40px 20px 0;
             overflow:hidden;
             white-space:nowrap;
             text-overflow:ellipsis;
@@ -178,18 +180,18 @@
 
         &-holder{
             overflow:hidden;
-            padding:15px 20px 0 0;
+            padding:0 20px;
 
             @media(--for-desktop-down){
                 &{
-                    padding:10px 15px 10px 0; 
+                    padding:0 15px 10px 0; 
                 }
             }
         }
 
         &-txt{
             font-size:14px;
-            margin:0 0 15px;
+            margin:0 0 40px;
             height:38px;
             overflow:hidden;
 
