@@ -8,7 +8,7 @@
         color: #b2b2b2;
         display:inline-block;
         vertical-align:top;
-        margin: 0 20px 0 0;
+        margin: 0 10px 0 0;
 
         .like:hover &,
         &:hover{
@@ -18,24 +18,27 @@
 
         &._isLiked{
             color:var(--text-color-dark);
+            margin: 0 20px 0 0;
+
+            .icon-like{
+                margin:-2px 5px 0 0;
+            }
         }
     }
 
     .icon-like{
         font-size:16px;
-        margin:-2px 5px 0 0;
+        margin:-2px 0 0;
         vertical-align:top;
         display:inline-block;
     }
 
     &__link{
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
         color:var(--text-color-dark);
-        padding:0 0 0 30px;
+        padding:0;
+        display:inline-block;
+        vertical-align:top;
+        margin:0 20px 0 -4px;
 
         &:hover,
         &:active,
@@ -47,6 +50,11 @@
         &._remove{
             text-indent:-9999px;
             overflow:hidden;
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
         }
     }
 

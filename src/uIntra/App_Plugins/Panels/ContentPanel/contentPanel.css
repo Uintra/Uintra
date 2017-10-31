@@ -24,6 +24,7 @@
     &._latest-activities{
         .btn{
             margin-bottom:20px;
+            margin-top:20px;
         }
     }
 
@@ -113,6 +114,10 @@
         font-size:13px;
         line-height:1.38;
 
+        ._latest-activities &{
+            margin:20px -20px -1px;
+        }
+
         p{
             margin:0 0 6px;
         }
@@ -136,6 +141,10 @@
 
     &__teaser{
         font-weight:normal;
+
+        ._latest-activities &{
+            margin:0 0 -5px;
+        }
     }
 
     &__description{
