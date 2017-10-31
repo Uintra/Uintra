@@ -7,5 +7,6 @@ namespace uIntra.Groups
     {
         public string GroupOverviewPageUrl { get; set; }
         public IEnumerable<GroupLeftNavigationItemViewModel> Items { get; set; } = Enumerable.Empty<GroupLeftNavigationItemViewModel>();
+        public bool IsActive { get; set; }
     }
 }
