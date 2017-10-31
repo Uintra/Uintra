@@ -17,6 +17,25 @@
             $scope.activeQuestion = index;
         }
 
+        $scope.overlay = {
+            show: false,
+            view: "/App_Plugins/Panels/FaqPanel/backoffice/overlay.html",
+            title: "FAQ panel",
+            close: function () {
+                $scope.overlay.show = false;
+                $scope.control.value = $scope.backupModel;
+            },
+            submit: function () {
+                $scope.overlay.show = false;
+            }
+        }
+
+        $scope.open = function () {
+            $scope.overlay.show = true;
+            $scope.control.value = $scope.control.value || getDefaultModel();
+            $scope.backupModel = angular.copy($scope.control.value);
+        }
+
         $scope.init = function (control) {
             $scope.control = control;
             if (!$scope.control.value) {

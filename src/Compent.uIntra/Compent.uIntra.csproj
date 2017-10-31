@@ -872,6 +872,7 @@
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js" />
     <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.html" />
     <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.js" />
+    <Content Include="App_Plugins\Panels\FaqPanel\backoffice\overlay.html" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.css" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
