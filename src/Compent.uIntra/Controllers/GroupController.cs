@@ -50,7 +50,8 @@ namespace Compent.uIntra.Controllers
             var result = new GroupLeftNavigationMenuViewModel
             {
                 Items = menuItems,
-                GroupOverviewPageUrl = groupPage.Url
+                GroupOverviewPageUrl = groupPage.Url,
+                IsActive = _umbracoHelper.AssignedContentItem.IsDescendantOrSelf(groupPage)
             };
 
             return PartialView(LeftNavigationPath, result);
