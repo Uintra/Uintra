@@ -114,7 +114,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EnumLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.EnumLists.1.1.1\lib\net40\EnumLists.dll</HintPath>
+      <HintPath>..\..\packages\Compent.EnumLists.1.1.2\lib\net40\EnumLists.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.85.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.0.1.85\lib\net45\Examine.dll</HintPath>
@@ -1349,9 +1349,6 @@
     <Content Include="App_Plugins\Localization\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\EnumLists\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1597,7 +1594,9 @@
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\EnumLists\package.manifest" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
