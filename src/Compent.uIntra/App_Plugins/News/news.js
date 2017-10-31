@@ -44,11 +44,11 @@ var initDescriptionControl = function (holder) {
     var toolbarOptions = [
         [{ 'header': [1, 2, 3, false] }],
         ['bold', 'italic', 'underline', 'link'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['emoji'],
         ['clean']
     ];
-    var editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { 
+    var editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
         modules: {
             toolbar: toolbarOptions
         },
@@ -56,7 +56,7 @@ var initDescriptionControl = function (holder) {
     });
 
     let emojiContainer = editor.container.querySelector(".js-emoji");
-    if(!emojiContainer){
+    if (!emojiContainer) {
         helpers.initSmiles(editor, editor.getModule('toolbar').container);
         emojiContainer = true;
     }
@@ -74,19 +74,18 @@ var initDescriptionControl = function (holder) {
 };
 
 var initDates = function (holder) {
-    var publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
-    var unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
-    var pin = pinActivity.initPinDate(holder);
-    var initialMinDate = publish.selectedDates[0] || null;
-
-    setMinDate(initialMinDate);
+    let publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
+    let unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
+    let pin = pinActivity.initPinDate(holder);
 
     publish.config.onChange.push(publishDateChanged);
 
     function setMinDate(minDate) {
-        if(unpublish){
+        if (unpublish) {
             minDate && unpublish.set('minDate', minDate);
         }
+
+        pin.setDate(minDate, true);
         pin.set('minDate', minDate);
     }
 
@@ -100,7 +99,7 @@ var controller = {
         this.initItem($('#js-news-create-page'));
         this.initItem($('#js-news-edit-page'));
     },
-    initItem: function(holder) {
+    initItem: function (holder) {
         if (!holder.length) {
             return;
         }
