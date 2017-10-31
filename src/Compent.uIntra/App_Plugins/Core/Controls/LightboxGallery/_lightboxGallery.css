@@ -29,7 +29,7 @@
 
         &._attachments{
             width:140px;
-            min-height:70px;
+            min-height:83px;
             text-align:center;
             max-width:initial;
             max-height:initial;
@@ -54,6 +54,7 @@
 
             ._attachments &{
                 padding-top:25px;
+                min-height:95px;
             }
 
             &:hover{
