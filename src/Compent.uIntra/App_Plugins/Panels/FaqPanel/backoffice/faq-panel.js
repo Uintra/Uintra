@@ -4,7 +4,7 @@
         $scope.activeQuestion = -1;
         $scope.rteConfigAlias = "faq-panel";
 
-        $scope.addQuestion = function() {
+        $scope.addQuestion = function () {
             var emptyQuestion = {
                 question: "",
                 answer: ""
@@ -13,7 +13,7 @@
             $scope.activeQuestion = $scope.control.value.questions.length - 1;
         }
 
-        $scope.changeActiveQuestion = function(index) {
+        $scope.changeActiveQuestion = function (index) {
             $scope.activeQuestion = index;
         }
 
