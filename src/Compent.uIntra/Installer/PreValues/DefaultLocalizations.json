@@ -305,6 +305,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "DeactivatedGroupPage.GroupWasDisabled.lbl",
+    "translations": {
+      "en-US": "Group was hidden"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "DetailsView.Edit.lbl",
     "translations": {
       "en-US": "Edit"
@@ -1140,6 +1147,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Groups.Create.lbl",
+    "translations": {
+      "en-US": "Create group"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Groups.Menu.lbl",
     "translations": {
       "en-US": "Groups"
@@ -1171,6 +1185,13 @@
     "key": "GroupCreate.GroupImage.lbl",
     "translations": {
       "en-US": "GroupImage"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupCreate.GroupImage.note",
+    "translations": {
+      "en-US": "Group picture"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
