@@ -326,8 +326,8 @@
     <Reference Include="uIntra.Events, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.4.0\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.1.2.16, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.1.2.16\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="uIntra.Groups, Version=0.1.2.18, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.1.2.18\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1090,6 +1090,7 @@
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
@@ -1102,7 +1103,6 @@
     <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
     <Content Include="App_Plugins\Groups\package.manifest" />
     <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
     <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
     <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
