@@ -86,6 +86,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+using uIntra.Core.Attributes;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -356,7 +357,7 @@ namespace Compent.uIntra
 
         private static void RegisterGlobalFilters(IKernel kernel)
         {
-            GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
+            GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
         }
 
         private static void RegisterLocalizationServices(IKernel kernel)
