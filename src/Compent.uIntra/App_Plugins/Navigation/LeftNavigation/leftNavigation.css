@@ -66,6 +66,7 @@
                     background:#e5e5e5;
                     margin:0 0 0 -20px;
                     padding-left:39px;
+                    pointer-events:initial;
                 }
             }
         }
