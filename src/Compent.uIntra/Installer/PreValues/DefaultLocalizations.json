@@ -610,6 +610,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "LeftNavigationUserMenu.Logout.lbl",
+    "translations": {
+      "en-US": "Logout"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "LeftNavigationUserMenu.ViewProfile.lbl",
+    "translations": {
+      "en-US": "View profile"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Links.Menu.lbl",
     "translations": {
       "en-US": "My Links"

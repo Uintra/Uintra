@@ -5,6 +5,7 @@ using Compent.uIntra.Core.Users;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Extensions;
+using uIntra.Core.Links;
 using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Extensions;
@@ -51,8 +52,9 @@ namespace Compent.uIntra.Controllers
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
-            ICentralFeedHelper centralFeedHelper)
-            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder)
+            ICentralFeedHelper centralFeedHelper,
+            IProfileLinkProvider profileLinkProvider)
+            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder, intranetUserService, profileLinkProvider)
         {
             _centralFeedContentService = centralFeedContentService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
