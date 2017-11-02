@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Links;
@@ -7,6 +8,7 @@ using uIntra.Core.User;
 using uIntra.Groups;
 using uIntra.Groups.Web;
 using uIntra.Navigation;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
@@ -39,22 +41,35 @@ namespace Compent.uIntra.Controllers
             var groupPageXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage());
             var groupPage = _umbracoHelper.TypedContentSingleAtXPath(groupPageXpath);
 
+            var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
+                
             var menuItems = groupPage.Children
                 .Where(child => child.IsShowPageInSubNavigation())
-                .Select(child => new GroupLeftNavigationItemViewModel
-                {
-                    Name = child.GetNavigationName(),
-                    Url = child.Url
-                });
+                .Select(p => MapToLeftNavigationItem(p, isPageActive));
 
             var result = new GroupLeftNavigationMenuViewModel
             {
                 Items = menuItems,
                 GroupOverviewPageUrl = groupPage.Url,
-                IsActive = _umbracoHelper.AssignedContentItem.IsDescendantOrSelf(groupPage)
+                IsActive = isPageActive(groupPage)
             };
 
             return PartialView(LeftNavigationPath, result);
+        }
+
+        private static Func<IPublishedContent, bool> GetIsPageActiveFunc(IPublishedContent currentPage)
+        {
+            return p => currentPage.Id == p.Id;
+        }
+
+        private static GroupLeftNavigationItemViewModel MapToLeftNavigationItem(IPublishedContent page, Func<IPublishedContent, bool> isPageActive)
+        {
+            return new GroupLeftNavigationItemViewModel
+            {
+                Name = page.GetNavigationName(),
+                Url = page.Url,
+                IsActive = isPageActive(page)
+            };
         }
     }
 }
