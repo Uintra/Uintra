@@ -7,6 +7,7 @@ using uIntra.Comments.Web;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Notification;
@@ -31,11 +32,12 @@ namespace Compent.uIntra.Controllers
         public CommentsController(ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IMediaHelper mediaHelper,
             ICustomCommentableService customCommentableService,
-            INotificationTypeProvider notificationTypeProvider, IUmbracoContentHelper umbracoContentHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, intranetUserContentProvider, customCommentableService, umbracoContentHelper)
+            INotificationTypeProvider notificationTypeProvider,
+            IUmbracoContentHelper umbracoContentHelper,
+            IProfileLinkProvider profileLinkProvider)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, customCommentableService, umbracoContentHelper, profileLinkProvider)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;
@@ -72,7 +74,6 @@ namespace Compent.uIntra.Controllers
         [HttpPost]
         public override PartialViewResult Add(CommentCreateModel model)
         {
-            FillProfileLink();
             if (!ModelState.IsValid)
             {
                 return OverView(model.ActivityId);
@@ -95,7 +96,6 @@ namespace Compent.uIntra.Controllers
         [HttpPut]
         public override PartialViewResult Edit(CommentEditModel model)
         {
-            FillProfileLink();
             var comment = _commentsService.Get(model.Id);
 
             if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
@@ -119,7 +119,6 @@ namespace Compent.uIntra.Controllers
         [HttpDelete]
         public override PartialViewResult Delete(Guid id)
         {
-            FillProfileLink();
             var comment = _commentsService.Get(id);
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
 

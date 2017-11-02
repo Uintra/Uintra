@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.Links;
 using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
@@ -22,29 +23,28 @@ namespace uIntra.Comments.Web
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUmbracoContentHelper _umbracoContentHelper;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentProvider intranetUserContentProvider,
             ICommentableService customCommentableService,
-            IUmbracoContentHelper umbracoContentHelper)
+            IUmbracoContentHelper umbracoContentHelper,
+            IProfileLinkProvider profileLinkProvider)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserContentProvider = intranetUserContentProvider;
             _customCommentableService = customCommentableService;
             _umbracoContentHelper = umbracoContentHelper;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         [HttpPost]
         public virtual PartialViewResult Add(CommentCreateModel model)
         {
-            FillProfileLink();
             if (!ModelState.IsValid)
             {
                 return OverView(model.ActivityId);
@@ -66,7 +66,6 @@ namespace uIntra.Comments.Web
         [HttpPut]
         public virtual PartialViewResult Edit(CommentEditModel model)
         {
-            FillProfileLink();
             var comment = _commentsService.Get(model.Id);
 
             if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
@@ -89,7 +88,6 @@ namespace uIntra.Comments.Web
         [HttpDelete]
         public virtual PartialViewResult Delete(Guid id)
         {
-            FillProfileLink();
             var comment = _commentsService.Get(id);
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
 
@@ -159,12 +157,6 @@ namespace uIntra.Comments.Web
             return PartialView(ViewPath, viewModel);
         }
 
-        protected virtual void FillProfileLink()
-        {
-            var profilePageUrl = _intranetUserContentProvider.GetProfilePage().Url; // TODO: use ProfileLinkProvider instead
-            ViewData.SetProfilePageUrl(profilePageUrl);
-        }
-
         protected virtual PartialViewResult OverView(Guid activityId)
         {
             return OverView(activityId, _commentsService.GetMany(activityId));
@@ -203,13 +195,13 @@ namespace uIntra.Comments.Web
         protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
-            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
+            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default;
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
             model.Creator = creator;
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
-            model.CreatorProfileUrl = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(creator.Id);
+            model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
             return model;
         }
 
