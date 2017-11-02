@@ -73,7 +73,7 @@ namespace uIntra.Bulletins.Web
             var bulletin = _bulletinsService.Get(id);
             if (bulletin.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
             var model = GetEditViewModel(bulletin, links);

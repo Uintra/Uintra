@@ -66,7 +66,7 @@
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
             @Html.PassLinks(Model.Links)
             <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")"/>
-            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
+            <a class="form__btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
 
                     }

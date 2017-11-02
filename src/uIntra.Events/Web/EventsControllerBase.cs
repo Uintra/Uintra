@@ -129,11 +129,10 @@ namespace uIntra.Events.Web
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
-
             var @event = _eventsService.Get(id);
             if (@event.IsHidden)
             {
-                HttpContext.Response.Redirect(ViewData.GetActivityOverviewPageUrl(ActivityTypeId));
+                HttpContext.Response.Redirect(links.Overview);
             }
 
             var model = GetEditViewModel(@event, links);

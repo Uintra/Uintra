@@ -684,7 +684,6 @@
     <Compile Include="Core\Activity\Models\IntranetPinActivityModel.cs" />
     <Compile Include="Core\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Core\Extensions\ViewDataExtensions.cs" />
     <Compile Include="Core\FolderConstants.cs" />
     <Compile Include="Core\Providers\IDateTimeFormatProvider.cs" />
     <Compile Include="Core\Handlers\NotFoundHandlerBase.cs" />
