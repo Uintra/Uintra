@@ -28,21 +28,7 @@
                 @{Html.RenderAction("SystemLinks", "Navigation"); }
                 @{Html.RenderAction("LeftNavigation", "Group"); }
                 @{Html.RenderAction("Overview", "MyLinks"); }
-
-                <ul class="side-nav _for-mobile">
-                    <li class="side-nav__item">
-                        <a class="side-nav__link _with-icon">
-                            <img src="/media/1001/0070.jpg" width="30">
-                            Edit or view
-                        </a>
-                    </li>
-                    <li class="side-nav__item">
-                        <a class="side-nav__link _with-icon js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
-                            <span class="icon icon-logout"></span>
-                            @Html.Localize("TopNavigation.Logout.lbl")
-                        </a>
-                    </li>
-                </ul>
+                @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
             </div>
         </aside>
         <main id="main">

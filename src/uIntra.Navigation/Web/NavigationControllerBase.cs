@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.User;
 using uIntra.Navigation.SystemLinks;
 using Umbraco.Web.Mvc;
 
@@ -13,6 +15,7 @@ namespace uIntra.Navigation.Web
         protected virtual string TopNavigationViewPath { get; } = "~/App_Plugins/Navigation/TopNavigation/View/Navigation.cshtml";
         protected virtual string SystemLinksViewPath { get; } = "~/App_Plugins/Navigation/SystemLinks/View/SystemLinks.cshtml";
         protected virtual string BreadcrumbsViewPath { get; } = "~/App_Plugins/Navigation/Breadcrumbs.cshtml";
+        protected virtual string LeftNavigationUserMenuViewPath { get; } = "~/App_Plugins/Navigation/LeftNavigation/View/UserMenu.cshtml";
         protected virtual string SystemLinkTitleNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkSortOrderNodePropertyAlias { get; } = string.Empty;
@@ -22,18 +25,23 @@ namespace uIntra.Navigation.Web
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
-
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected NavigationControllerBase(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
-            ISystemLinksModelBuilder systemLinksModelBuilder)
+            ISystemLinksModelBuilder systemLinksModelBuilder,
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IProfileLinkProvider profileLinkProvider)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _topNavigationModelBuilder = topNavigationModelBuilder;
             _systemLinksModelBuilder = systemLinksModelBuilder;
+            _intranetUserService = intranetUserService;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         public virtual ActionResult LeftNavigation()
@@ -86,6 +94,19 @@ namespace uIntra.Navigation.Web
             }
             result.Reverse();
             return PartialView(BreadcrumbsViewPath, result);
+        }
+
+        public virtual ActionResult LeftNavigationUserMenu()
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+
+            var result = new LeftNavigationUserMenuViewModel
+            {
+                CurrentUser = currentUser,
+                ProfileLink = _profileLinkProvider.GetProfileLink(currentUser.Id)
+            };
+
+            return PartialView(LeftNavigationUserMenuViewPath, result);
         }
     }
 }
