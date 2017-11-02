@@ -13,7 +13,7 @@
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about @inactiveUser">
-                <span class="comments__author-name">@Model.Creator.DisplayedName</span>
+                <a class="comments__author-name" href="@Model.CreatorProfileUrl">@Model.Creator.DisplayedName</a>
                 <span class="comments__author-inactive">[@Html.Localize("Comments.Author.Inactive.lbl")]</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-date">@(Model.CreatedDate.ToDateFormat())</span>
