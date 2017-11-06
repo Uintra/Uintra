@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -54,13 +56,11 @@ namespace uIntra.Core.Web
             model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
             if (model.CanEditCreator)
             {
-                var intranetType = _activityTypeProvider.Get((int)activityType);
-                model.Users = _intranetUserService.GetAll().Where(x => _permissionsService.IsUserHasAccess(x, intranetType, IntranetActivityActionEnum.Create)).OrderBy(user => user.DisplayedName);
+                model.Users = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
             }
 
             return PartialView(CreatorEditViewPath, model);
         }
-
 
         public virtual ActionResult PinActivity(bool isPinned, DateTime? endPinDate)
         {
@@ -70,6 +70,19 @@ namespace uIntra.Core.Web
                     IsPinned = isPinned,
                     EndPinDate = endPinDate ?? DateTime.Now
                 });
+        }
+
+        protected virtual IEnumerable<IntranetActivityCreatorViewModel> GetUsersWithAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        {
+            var intranetType = _activityTypeProvider.Get(activityType.ToInt());
+
+            var result = _intranetUserService
+                .GetAll()
+                .Where(user => _permissionsService.IsUserHasAccess(user, intranetType, action))
+                .Map<IEnumerable<IntranetActivityCreatorViewModel>>()
+                .OrderBy(user => user.DisplayedName);
+
+            return result;
         }
     }
 }
