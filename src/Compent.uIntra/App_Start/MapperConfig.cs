@@ -3,7 +3,6 @@ using Compent.uIntra.Core.Activity;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
-using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Events;
 using uIntra.Groups;
@@ -21,7 +20,6 @@ namespace Compent.uIntra
     {
         public static void RegisterMappings()
         {
-            Mapper.AddProfile<ActivityAutoMapperProfile>();
             Mapper.AddProfile<CommentAutoMapperProfile>();
             Mapper.AddProfile<NewsAutoMapperProfile>();
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
@@ -40,7 +38,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
             Mapper.AddProfile<GroupsAutoMapperProfile>();
-            Mapper.AddProfile<ActivityExtendedAutoMapperProfile>();
+            Mapper.AddProfile<ActivityAutoMapperProfile>();
 
             var typeMaps = Mapper.GetAllTypeMaps();
 
