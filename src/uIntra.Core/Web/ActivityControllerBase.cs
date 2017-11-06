@@ -72,14 +72,13 @@ namespace uIntra.Core.Web
                 });
         }
 
-        protected virtual IEnumerable<IntranetActivityCreatorViewModel> GetUsersWithAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
+        protected virtual IEnumerable<IIntranetUser> GetUsersWithAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
         {
             var intranetType = _activityTypeProvider.Get(activityType.ToInt());
 
             var result = _intranetUserService
                 .GetAll()
                 .Where(user => _permissionsService.IsUserHasAccess(user, intranetType, action))
-                .Map<IEnumerable<IntranetActivityCreatorViewModel>>()
                 .OrderBy(user => user.DisplayedName);
 
             return result;
