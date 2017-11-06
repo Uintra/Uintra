@@ -3,6 +3,7 @@ using Compent.uIntra.Core.Activity;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
+using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Events;
 using uIntra.Groups;
@@ -20,6 +21,7 @@ namespace Compent.uIntra
     {
         public static void RegisterMappings()
         {
+            Mapper.AddProfile<ActivityAutoMapperProfile>();
             Mapper.AddProfile<CommentAutoMapperProfile>();
             Mapper.AddProfile<NewsAutoMapperProfile>();
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
@@ -38,16 +40,16 @@ namespace Compent.uIntra
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
             Mapper.AddProfile<GroupsAutoMapperProfile>();
-            Mapper.AddProfile<ActivityAutoMapperProfile>();
+            Mapper.AddProfile<ActivityExtendedAutoMapperProfile>();
 
-            var typemaps = Mapper.GetAllTypeMaps();
+            var typeMaps = Mapper.GetAllTypeMaps();
 
-            foreach (var typemap in typemaps)
+            foreach (var typeMap in typeMaps)
             {
                 // (╯°□°）╯︵ ┻━┻ Skip invalid umbraco map. 
-                if (typemap.SourceType == typeof(IUser) && typemap.DestinationType == typeof(BackOfficeIdentityUser)) continue;
+                if (typeMap.SourceType == typeof(IUser) && typeMap.DestinationType == typeof(BackOfficeIdentityUser)) continue;
 
-                Mapper.AssertConfigurationIsValid(typemap);
+                Mapper.AssertConfigurationIsValid(typeMap);
             }
         }
     }

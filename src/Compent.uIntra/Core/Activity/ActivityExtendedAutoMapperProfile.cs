@@ -4,7 +4,7 @@ using uIntra.Core.Activity;
 
 namespace Compent.uIntra.Core.Activity
 {
-    public class ActivityAutoMapperProfile : Profile
+    public class ActivityExtendedAutoMapperProfile : Profile
     {
         protected override void Configure()
         {
