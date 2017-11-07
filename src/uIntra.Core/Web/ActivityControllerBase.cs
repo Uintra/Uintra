@@ -16,7 +16,7 @@ namespace uIntra.Core.Web
     {
         protected virtual string DetailsHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml";
-        protected virtual string OwnerEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityCreatorEdit.cshtml";
+        protected virtual string OwnerEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityOwnerEdit.cshtml";
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -53,8 +53,8 @@ namespace uIntra.Core.Web
             };
 
             var currentUser = _intranetUserService.GetCurrentUser();
-            model.CanEditCreator = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
-            if (model.CanEditCreator)
+            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
+            if (model.CanEditOwner)
             {
                 model.Users = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
             }

@@ -1,6 +1,6 @@
 ﻿@model uIntra.Core.Activity.IntranetActivityCreatorEditModel
 
-@if (Model.CanEditCreator)
+@if (Model.CanEditOwner)
 {
     <select class="js-user-select form-control" name="@Model.OwnerIdPropertyName">
         @foreach (var user in Model.Users)
