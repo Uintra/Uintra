@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
@@ -181,7 +182,7 @@ namespace uIntra.Events.Web
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
                 CanSubscribe = true,
-                Creator = _intranetUserService.GetCurrentUser(),
+                OwnerId = _intranetUserService.GetCurrentUserId(),
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -192,7 +193,7 @@ namespace uIntra.Events.Web
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event, ActivityLinks links)
         {
             var creator = _intranetUserService.Get(@event);
-            return new EventPreviewViewModel()
+            return new EventPreviewViewModel
             {
                 Id = @event.Id,
                 Title = @event.Title,
@@ -224,7 +225,6 @@ namespace uIntra.Events.Web
             FillMediaSettingsData(mediaSettings);
 
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-            model.Creator = _intranetUserService.Get(@event);
 
             model.Links = links;
             return model;
@@ -287,6 +287,7 @@ namespace uIntra.Events.Web
             @event.StartDate = createModel.StartDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             return @event;
         }
@@ -296,7 +297,6 @@ namespace uIntra.Events.Web
             var @event = MapEditModel(editModel);
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
             @event.StartDate = editModel.StartDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
