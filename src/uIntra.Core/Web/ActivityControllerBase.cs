@@ -16,7 +16,7 @@ namespace uIntra.Core.Web
     {
         protected virtual string DetailsHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityDetailsHeader.cshtml";
         protected virtual string ItemHeaderViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityItemHeader.cshtml";
-        protected virtual string CreatorEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityCreatorEdit.cshtml";
+        protected virtual string OwnerEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityCreatorEdit.cshtml";
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -43,12 +43,12 @@ namespace uIntra.Core.Web
             return PartialView(ItemHeaderViewPath, header);
         }
 
-        public virtual ActionResult CreatorEdit(IIntranetUser creator, string creatorIdPropertyName, IntranetActivityTypeEnum activityType, IActivityCreateLinks links)
+        public virtual ActionResult OwnerEdit(Guid ownerId, string ownerIdPropertyName, IntranetActivityTypeEnum activityType, IActivityCreateLinks links)
         {
             var model = new IntranetActivityCreatorEditModel
             {
-                Creator = creator,
-                CreatorIdPropertyName = creatorIdPropertyName,
+                Owner = _intranetUserService.Get(ownerId),
+                OwnerIdPropertyName = ownerIdPropertyName,
                 Links = links
             };
 
@@ -59,7 +59,7 @@ namespace uIntra.Core.Web
                 model.Users = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
             }
 
-            return PartialView(CreatorEditViewPath, model);
+            return PartialView(OwnerEditViewPath, model);
         }
 
         public virtual ActionResult PinActivity(bool isPinned, DateTime? endPinDate)

@@ -2,20 +2,20 @@
 
 @if (Model.CanEditCreator)
 {
-    <select class="js-user-select form-control" name="@Model.CreatorIdPropertyName">
+    <select class="js-user-select form-control" name="@Model.OwnerIdPropertyName">
         @foreach (var user in Model.Users)
         {
-            <option value="@user.Id" selected="@(user.Id == Model.Creator.Id)">@user.DisplayedName</option>
+            <option value="@user.Id" selected="@(user.Id == Model.Owner.Id)">@user.DisplayedName</option>
         }
     </select>
 }
 else
 {
-    <input type="hidden" name="@Model.CreatorIdPropertyName" value="@Model.Creator.Id" />
+    <input type="hidden" name="@Model.OwnerIdPropertyName" value="@Model.Owner.Id" />
     @Html.Action("Photo", "User", new
     {
-        user = Model.Creator, profilePageUrl = Model.Links.Creator
+        user = Model.Owner, profilePageUrl = Model.Links.Creator
     
     })
-    <span>@Model.Creator.DisplayedName</span>
+    <span>@Model.Owner.DisplayedName</span>
 }

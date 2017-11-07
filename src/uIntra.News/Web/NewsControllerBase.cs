@@ -125,7 +125,7 @@ namespace uIntra.News.Web
             var model = new NewsCreateModel
             {
                 PublishDate = DateTime.UtcNow,
-                Creator = _intranetUserService.GetCurrentUser(),
+                OwnerId = _intranetUserService.GetCurrentUser().Id,
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -222,6 +222,7 @@ namespace uIntra.News.Web
             news.PublishDate = createModel.PublishDate.ToUniversalTime();
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
+            news.CreatorId = _intranetUserService.GetCurrentUser().Id;
 
             return news;
         }
