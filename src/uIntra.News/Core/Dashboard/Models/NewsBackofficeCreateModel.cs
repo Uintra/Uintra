@@ -9,6 +9,7 @@ namespace uIntra.News.Dashboard
         public string Media { get; set; }
         public Guid CreatorId { get; set; }
         public int? UmbracoCreatorId { get; set; }
+        public Guid OwnerId { get; set; }
         public DateTime PublishDate { get; set; }
         public DateTime? UnpublishDate { get; set; }
         public bool IsHidden { get; set; }

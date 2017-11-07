@@ -20,6 +20,9 @@ namespace uIntra.Core.Activity
         [Required]
         public Guid CreatorId { get; set; }
 
+        [Required]
+        public Guid OwnerId { get; set; }
+
         public IIntranetUser Creator { get; set; }
 
         public IIntranetType ActivityType { get; set; }

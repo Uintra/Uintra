@@ -11,6 +11,7 @@ namespace uIntra.Events
         public DateTime EndDate { get; set; }
         public bool CanSubscribe { get; set; }
         public Guid CreatorId { get; set; }
+        public Guid OwnerId { get; set; }
         public int? UmbracoCreatorId { get; set; }
 
         [JsonIgnore]
