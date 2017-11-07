@@ -4,7 +4,6 @@ using uIntra.Core.Attributes;
 using uIntra.Core.Links;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
 
 namespace uIntra.Core.Activity
 {
@@ -20,12 +19,7 @@ namespace uIntra.Core.Activity
         public virtual DateTime? EndPinDate { get; set; }
 
         [Required]
-        public Guid CreatorId { get; set; }
-
-        [Required]
         public Guid OwnerId { get; set; }
-
-        public IIntranetUser Creator { get; set; }
 
         public IIntranetType ActivityType { get; set; }
 

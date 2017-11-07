@@ -140,8 +140,6 @@ namespace uIntra.News.Web
             model.MediaRootId = mediaSettings.MediaRootId;
             FillMediaSettingsData(mediaSettings);
 
-            model.Creator = _intranetUserService.Get(news);
-
             model.Links = links;
 
             return model;
@@ -232,7 +230,6 @@ namespace uIntra.News.Web
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            activity.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
             activity.PublishDate = editModel.PublishDate.ToUniversalTime();
             activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime();
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime();

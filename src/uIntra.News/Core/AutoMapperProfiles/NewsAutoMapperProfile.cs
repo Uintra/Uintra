@@ -29,7 +29,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
@@ -48,6 +47,7 @@ namespace uIntra.News
             Mapper.CreateMap<NewsEditModel, NewsBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
