@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using uIntra.Core.User;
@@ -25,11 +26,6 @@ namespace uIntra.Events.Dashboard
         public virtual IEnumerable<EventBackofficeViewModel> GetAll()
         {
             var events = _eventsService.GetAll(true);
-            foreach (var @event in events)
-            {
-                @event.CreatorId = _intranetUserService.Get(@event).Id;
-            }
-
             var result = events.Map<IEnumerable<EventBackofficeViewModel>>();
             return result;
         }
@@ -37,10 +33,12 @@ namespace uIntra.Events.Dashboard
         [HttpPost]
         public virtual EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
-            var eventId = _eventsService.Create(createModel.Map<EventBase>());
-            var createdModel = _eventsService.Get(eventId);
-            var result = createdModel.Map<EventBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.Get(createdModel).Id;
+            var creatingEvent = createModel.Map<EventBase>();
+            creatingEvent.CreatorId = _intranetUserService.GetCurrentUserId();
+            var eventId = _eventsService.Create(creatingEvent);
+
+            var createdEvent = _eventsService.Get(eventId);
+            var result = createdEvent.Map<EventBackofficeViewModel>();
             return result;
         }
 
@@ -52,9 +50,8 @@ namespace uIntra.Events.Dashboard
             _eventsService.Save(@event);
             _mediaHelper.RestoreMedia(@event.MediaIds);
 
-            var updatedModel = _eventsService.Get(saveModel.Id);
-            var result = updatedModel.Map<EventBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.Get(updatedModel).Id;
+            var updatedEvent = _eventsService.Get(saveModel.Id);
+            var result = updatedEvent.Map<EventBackofficeViewModel>();
             return result;
         }
 
