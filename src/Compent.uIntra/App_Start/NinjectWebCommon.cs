@@ -87,6 +87,7 @@ using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.Attributes;
+using uIntra.Notification.Core.Services;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -343,6 +344,8 @@ namespace Compent.uIntra
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
+
+            kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
