@@ -5,7 +5,7 @@ using uIntra.Core.User;
 
 namespace uIntra.Events
 {
-    public class EventBase : IntranetActivity, IHaveCreator
+    public class EventBase : IntranetActivity, IHaveCreator, IHaveOwner
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

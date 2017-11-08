@@ -29,7 +29,7 @@ namespace uIntra.Core.ModelBinders
                 Create = createLink,
                 Details = detailsLink,
                 Edit = editLink,
-                Creator = creatorLink,
+                Owner = creatorLink,
                 DetailsNoId = detailsNoIdLink
             };
 

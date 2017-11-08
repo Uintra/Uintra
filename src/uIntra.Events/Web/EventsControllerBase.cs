@@ -246,7 +246,7 @@ namespace uIntra.Events.Web
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.HeaderInfo.Creator = _intranetUserService.Get(@event);
+            model.HeaderInfo.Owner = _intranetUserService.Get(@event);
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -262,7 +262,7 @@ namespace uIntra.Events.Web
             model.Links = links;
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Creator = _intranetUserService.Get(@event);
+            model.HeaderInfo.Owner = _intranetUserService.Get(@event);
             model.HeaderInfo.Links = links;
 
             return model;

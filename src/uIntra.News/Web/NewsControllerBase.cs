@@ -155,7 +155,7 @@ namespace uIntra.News.Web
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
-            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news.OwnerId);
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -171,7 +171,7 @@ namespace uIntra.News.Web
             // TODO : try to move this logic smwhere to avoid duplication
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
-            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news.OwnerId);
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -185,7 +185,7 @@ namespace uIntra.News.Web
             model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news.OwnerId);
             model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel

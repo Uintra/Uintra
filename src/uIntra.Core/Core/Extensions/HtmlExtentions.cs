@@ -85,7 +85,7 @@ namespace uIntra.Core.Extensions
 
             result += helper.Hidden(LinksBinder.DetailsNoIdFormKey, links.DetailsNoId);
             result += helper.Hidden(LinksBinder.CreateFormKey, links.Create);
-            result += helper.Hidden(LinksBinder.CreatorFormKey, links.Creator);
+            result += helper.Hidden(LinksBinder.CreatorFormKey, links.Owner);
             result += helper.Hidden(LinksBinder.OverviewFormKey, links.Overview);
 
             return MvcHtmlString.Create(result);

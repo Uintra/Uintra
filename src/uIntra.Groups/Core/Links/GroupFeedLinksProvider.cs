@@ -5,7 +5,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 
-namespace uIntra.Groups 
+namespace uIntra.Groups
 {
     public class GroupFeedLinkProvider : FeedLinkProvider, IGroupFeedLinkProvider
     {
@@ -37,7 +37,7 @@ namespace uIntra.Groups
                 Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
                 Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
                 Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
-                Creator = GetProfileLink(activity.CreatorId),
+                Owner = GetProfileLink(activity.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(activity.GroupId)
             };
         }
@@ -50,7 +50,7 @@ namespace uIntra.Groups
             {
                 Overview = helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
-                Creator = GetProfileLink(model.CreatorId),
+                Owner = GetProfileLink(model.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(model.GroupId)
             };
         }

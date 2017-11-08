@@ -15,7 +15,7 @@ else
     @Html.Action("Photo", "User", new
 {
     user = Model.Owner,
-    profilePageUrl = Model.Links.Creator
+    profilePageUrl = Model.Links.Owner
 })
     <span>@Model.Owner.DisplayedName</span>
 }

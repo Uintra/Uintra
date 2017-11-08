@@ -6,6 +6,6 @@ namespace uIntra.CentralFeed
     public class ActivityTransferCreateModel
     {
         public IIntranetType Type { get; set; }
-        public Guid CreatorId { get; set; }
+        public Guid OwnerId { get; set; }
     }
 }

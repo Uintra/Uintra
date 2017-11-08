@@ -75,7 +75,7 @@ namespace uIntra.News
 
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()

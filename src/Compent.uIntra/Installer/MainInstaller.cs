@@ -56,7 +56,7 @@ namespace Compent.uIntra.Installer
             if (UIntraVersion > installedVersion)
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
-            } 
+            }
         }
 
         private void InitMigration()
@@ -157,6 +157,8 @@ namespace Compent.uIntra.Installer
                             bulletin.OwnerId = creatorId;
                             service.Save(bulletin);
                             break;
+                        default:
+                            throw new Exception("Please fill OwnerId property with CreatorId value for you custom activity.");
                     }
                 }
             }

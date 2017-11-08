@@ -86,7 +86,7 @@ namespace uIntra.Events
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()

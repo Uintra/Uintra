@@ -1,14 +1,14 @@
 ﻿@using uIntra.Core.Extensions
 @model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 @{
-    var inactiveUser = Model.Creator.Inactive ? "_inactive" : string.Empty;
+    var inactiveUser = Model.Owner.Inactive ? "_inactive" : string.Empty;
 }
 
 <header class="feed__item-heading clearfix @inactiveUser">
-    @Html.Action("Photo", "User", new { user = Model.Creator })
+    @Html.Action("Photo", "User", new { user = Model.Owner })
     <div class="feed__item-title-holder">
         <h2 class="feed__item-title">
-            <a class="feed__item-title-link" href="@Model.Links.Creator">@Model.Title</a>
+            <a class="feed__item-title-link" href="@Model.Links.Owner">@Model.Title</a>
             <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
         </h2>
         <p class="feed__item-meta">

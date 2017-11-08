@@ -312,9 +312,6 @@
     <Reference Include="uIntra.BaseControls, Version=2.4.2.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.2\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.2.10.14, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.2.10.14\lib\net452\uIntra.CentralFeed.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Comments, Version=1.1.9.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.5\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
@@ -1534,6 +1531,10 @@
     <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
       <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
       <Name>uIntra.Bulletins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+      <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
+      <Name>uIntra.CentralFeed</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
