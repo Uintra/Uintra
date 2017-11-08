@@ -57,6 +57,8 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
+
+            FixEmptyOwners();//TODO remove this after merge in master
         }
 
         private void InitMigration()

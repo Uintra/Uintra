@@ -67,10 +67,10 @@ namespace uIntra.News
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsBackofficeViewModel>()
-                .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
-                .ForMember(d => d.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate.HasValue ? s.UnpublishDate.Value.ToIsoUtcString() : string.Empty))
-                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
-                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
+                .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
+                .ForMember(dst => dst.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate.HasValue ? s.UnpublishDate.Value.ToIsoUtcString() : string.Empty))
+                .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
@@ -91,6 +91,8 @@ namespace uIntra.News
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -104,6 +106,8 @@ namespace uIntra.News
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
