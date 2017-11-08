@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Groups;
 using uIntra.Groups.Extensions;
 using uIntra.Groups.Navigation.Models;
@@ -38,6 +39,7 @@ namespace Compent.uIntra.Controllers
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ICentralFeedHelper _centralFeedHelper;
         private readonly IGroupHelper _groupHelper;
+        private readonly IPermissionsService _permissionsService;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -53,8 +55,9 @@ namespace Compent.uIntra.Controllers
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
             ICentralFeedHelper centralFeedHelper,
-            IProfileLinkProvider profileLinkProvider)
-            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder, intranetUserService, profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IPermissionsService permissionsService)
+            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder, intranetUserService, profileLinkProvider, permissionsService)
         {
             _centralFeedContentService = centralFeedContentService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
@@ -66,6 +69,7 @@ namespace Compent.uIntra.Controllers
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _groupHelper = groupHelper;
             _centralFeedHelper = centralFeedHelper;
+            _permissionsService = permissionsService;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
