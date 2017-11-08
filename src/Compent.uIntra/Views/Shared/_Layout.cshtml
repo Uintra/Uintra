@@ -27,13 +27,19 @@
                 @{Html.RenderAction("LeftNavigation", "Navigation"); }
                 @{Html.RenderAction("SystemLinks", "Navigation"); }
                 @{Html.RenderAction("LeftNavigation", "Group"); }
-                @{Html.RenderAction("Overview", "MyLinks"); }
+                @{Html.RenderAction("Overview", "MyLinks"); }               
                 @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
             </div>
         </aside>
         <main id="main">
             @*@{Html.RenderAction("Login", "Login");}*@
             @{Html.RenderAction("SubNavigation", "Navigation");}
+            
+            @{
+                var publishedContent = (IPublishedContent)ViewContext.ViewData.Model;
+            }
+            @{Html.RenderAction("RenderUmbracoPageLink", "Navigation", new {umbracoPageId = publishedContent.Id});}
+
             @RenderBody()
         </main>
     </div>
