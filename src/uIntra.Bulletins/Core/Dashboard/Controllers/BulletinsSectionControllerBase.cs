@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using Umbraco.Web.WebApi;
@@ -21,11 +23,6 @@ namespace uIntra.Bulletins
         public virtual IEnumerable<BulletinsBackofficeViewModel> GetAll()
         {
             var bulletins = _bulletinsService.GetAll(true);
-            foreach (var bulletin in bulletins)
-            {
-                bulletin.CreatorId = _intranetUserService.Get(bulletin).Id;
-            }
-
             var result = bulletins.Map<IEnumerable<BulletinsBackofficeViewModel>>();
             return result;
         }
@@ -33,22 +30,25 @@ namespace uIntra.Bulletins
         [HttpPost]
         public virtual BulletinsBackofficeViewModel Create(BulletinsBackofficeCreateModel createModel)
         {
-            var bulletinId = _bulletinsService.Create(createModel.Map<BulletinBase>());
-            var createdModel = _bulletinsService.Get(bulletinId);
+            var creatingBulletin = createModel.Map<BulletinBase>();
+            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetUserService.GetCurrentUserId();
 
-            var result = createdModel.Map<BulletinsBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.Get(createdModel).Id;
+            var bulletinId = _bulletinsService.Create(creatingBulletin);
+            var createdBulletin = _bulletinsService.Get(bulletinId);
+
+            var result = createdBulletin.Map<BulletinsBackofficeViewModel>();
             return result;
         }
 
         [HttpPost]
         public virtual BulletinsBackofficeViewModel Save(BulletinsBackofficeSaveModel saveModel)
         {
-            _bulletinsService.Save(saveModel.Map<BulletinBase>());
+            var bulletin = _bulletinsService.Get(saveModel.Id);
+            bulletin = Mapper.Map(saveModel, bulletin);
+            _bulletinsService.Save(bulletin);
 
-            var updatedModel = _bulletinsService.Get(saveModel.Id);
-            var result = updatedModel.Map<BulletinsBackofficeViewModel>();
-            result.CreatorId = _intranetUserService.Get(updatedModel).Id;
+            var updatedBulletin = _bulletinsService.Get(saveModel.Id);
+            var result = updatedBulletin.Map<BulletinsBackofficeViewModel>();
             return result;
         }
 

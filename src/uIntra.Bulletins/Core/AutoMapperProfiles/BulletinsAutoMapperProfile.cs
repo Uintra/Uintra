@@ -65,10 +65,10 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, BulletinsBackofficeViewModel>()
-                .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
-                .ForMember(d => d.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
-                .ForMember(d => d.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
-                .ForMember(d => d.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
+                .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+                .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
+                .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<BulletinBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
@@ -80,30 +80,33 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<BulletinsBackofficeCreateModel, BulletinBase>()
-                .ForMember(d => d.MediaIds, o => o.Ignore())
-                .ForMember(d => d.Type, o => o.Ignore())
-                .ForMember(d => d.CreatorId, o => o.Ignore())
-                .ForMember(d => d.Id, o => o.Ignore())
-                .ForMember(d => d.CreatedDate, o => o.Ignore())
-                .ForMember(d => d.ModifyDate, o => o.Ignore())
-                .ForMember(d => d.IsPinned, o => o.Ignore())
-                .ForMember(d => d.EndPinDate, o => o.Ignore())
-                .ForMember(d => d.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.MediaIds, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.Id, o => o.Ignore())
+                .ForMember(dst => dst.CreatedDate, o => o.Ignore())
+                .ForMember(dst => dst.ModifyDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
+                .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
                 });
 
             Mapper.CreateMap<BulletinsBackofficeSaveModel, BulletinBase>()
-                .ForMember(d => d.MediaIds, o => o.Ignore())
-                .ForMember(d => d.Type, o => o.Ignore())
-                .ForMember(d => d.CreatorId, o => o.Ignore())
-                .ForMember(d => d.CreatedDate, o => o.Ignore())
-                .ForMember(d => d.ModifyDate, o => o.Ignore())
-                .ForMember(d => d.IsPinned, o => o.Ignore())
-                .ForMember(d => d.EndPinDate, o => o.Ignore())
-                .ForMember(d => d.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.MediaIds, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.OwnerId, o => o.Ignore())
+                .ForMember(dst => dst.CreatedDate, o => o.Ignore())
+                .ForMember(dst => dst.ModifyDate, o => o.Ignore())
+                .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
