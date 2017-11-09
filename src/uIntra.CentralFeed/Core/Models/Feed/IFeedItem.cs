@@ -7,7 +7,7 @@ namespace uIntra.CentralFeed
     {
         Guid Id { get; }
 
-        Guid CreatorId { get; set; }
+        Guid OwnerId { get; set; }
 
         IIntranetType Type { get; }
 

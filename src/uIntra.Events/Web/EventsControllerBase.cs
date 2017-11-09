@@ -192,14 +192,14 @@ namespace uIntra.Events.Web
 
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event, ActivityLinks links)
         {
-            var creator = _intranetUserService.Get(@event);
+            var owner = _intranetUserService.Get(@event);
             return new EventPreviewViewModel
             {
                 Id = @event.Id,
                 Title = @event.Title,
                 StartDate = @event.StartDate,
                 EndDate = @event.EndDate,
-                Creator = creator,
+                Owner = owner,
                 ActivityType = @event.Type,
                 Links = links
             };

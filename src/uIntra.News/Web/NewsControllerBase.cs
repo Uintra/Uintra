@@ -202,13 +202,13 @@ namespace uIntra.News.Web
 
         protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news, ActivityLinks links)
         {
-            IIntranetUser creator = _intranetUserService.Get(news);
+            var owner = _intranetUserService.Get(news);
             return new NewsPreviewViewModel
             {
                 Id = news.Id,
                 Title = news.Title,
                 PublishDate = news.PublishDate,
-                Creator = creator,
+                Owner = owner,
                 ActivityType = news.Type,
                 Links = links
             };

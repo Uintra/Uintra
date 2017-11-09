@@ -10,7 +10,7 @@ namespace uIntra.Core.ModelBinders
         public const string DetailsFormKey = "links.Details";
         public const string EditFormKey = "links.Edit";
         public const string DetailsNoIdFormKey = "links.DetailsNoId";
-        public const string CreatorFormKey = "links.Creator";
+        public const string OwnerFormKey = "links.Owner";
         public const string CreateFormKey = "links.Create"; 
          
         public object BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext,
@@ -20,16 +20,16 @@ namespace uIntra.Core.ModelBinders
             var createLink = GetValue(bindingContext.ValueProvider, CreateFormKey);
             var detailsLink = GetValue(bindingContext.ValueProvider, DetailsFormKey);
             var editLink = GetValue(bindingContext.ValueProvider, EditFormKey);
-            var creatorLink = GetValue(bindingContext.ValueProvider, CreatorFormKey);
+            var ownerLink = GetValue(bindingContext.ValueProvider, OwnerFormKey);
             var detailsNoIdLink = GetValue(bindingContext.ValueProvider, DetailsNoIdFormKey);
 
-            var result = new ActivityLinks()
+            var result = new ActivityLinks
             {
                 Overview = overviewLink,
                 Create = createLink,
                 Details = detailsLink,
                 Edit = editLink,
-                Owner = creatorLink,
+                Owner = ownerLink,
                 DetailsNoId = detailsNoIdLink
             };
 

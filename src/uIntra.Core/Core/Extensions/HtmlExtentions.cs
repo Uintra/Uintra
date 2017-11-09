@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using uIntra.Core.Links;
@@ -69,7 +68,7 @@ namespace uIntra.Core.Extensions
 
         public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityLinks links)
         {
-            string result = String.Empty;
+            var result = string.Empty;
 
             result += helper.PassLinks((IActivityCreateLinks)links);
             result += helper.Hidden(LinksBinder.EditFormKey, links.Edit);
@@ -81,11 +80,11 @@ namespace uIntra.Core.Extensions
 
         public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityCreateLinks links)
         {
-            string result = String.Empty;
+            var result = string.Empty;
 
             result += helper.Hidden(LinksBinder.DetailsNoIdFormKey, links.DetailsNoId);
             result += helper.Hidden(LinksBinder.CreateFormKey, links.Create);
-            result += helper.Hidden(LinksBinder.CreatorFormKey, links.Owner);
+            result += helper.Hidden(LinksBinder.OwnerFormKey, links.Owner);
             result += helper.Hidden(LinksBinder.OverviewFormKey, links.Overview);
 
             return MvcHtmlString.Create(result);

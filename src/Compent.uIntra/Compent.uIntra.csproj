@@ -314,9 +314,6 @@
     <Reference Include="uIntra.Comments, Version=1.1.9.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.5\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.1.2.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.1.2.19\lib\net452\uIntra.Groups.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
@@ -1376,6 +1373,10 @@
     <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
       <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
       <Name>uIntra.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
+      <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
+      <Name>uIntra.Groups</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
       <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>
