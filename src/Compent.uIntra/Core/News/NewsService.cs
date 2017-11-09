@@ -106,11 +106,11 @@ namespace Compent.uIntra.Core.News
                 return true;
             }
 
-            var creatorId = Get(cached.Id).CreatorId;
-            var isCreator = creatorId == currentUser.Id;
+            var ownerId = Get(cached.Id).OwnerId;
+            var isOwner = ownerId == currentUser.Id;
 
             var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
-            return isCreator && isUserHasPermissions;
+            return isOwner && isUserHasPermissions;
         }
 
         public FeedSettings GetFeedSettings()

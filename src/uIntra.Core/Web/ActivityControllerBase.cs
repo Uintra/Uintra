@@ -53,7 +53,7 @@ namespace uIntra.Core.Web
             };
 
             var currentUser = _intranetUserService.GetCurrentUser();
-            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditCreator);
+            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditOwner);
             if (model.CanEditOwner)
             {
                 model.Users = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);

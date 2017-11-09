@@ -72,7 +72,6 @@ namespace uIntra.Core.User.Permissions
 
         public virtual bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
-
             if (user == null)
             {
                 return false;
@@ -91,9 +90,9 @@ namespace uIntra.Core.User.Permissions
                 var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityType.Id);
                 var activity = service.Get(activityId.Value);
 
-                if (activity is IHaveCreator creator)
+                if (activity is IHaveOwner owner)
                 {
-                    return creator.CreatorId == user.Id;
+                    return owner.OwnerId == user.Id;
                 }
             }
 

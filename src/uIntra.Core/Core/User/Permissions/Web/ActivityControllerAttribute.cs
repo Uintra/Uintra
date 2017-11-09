@@ -2,7 +2,7 @@
 
 namespace uIntra.Core.User.Permissions.Web
 {
-    public class ActivityControllerAttribute:ActionFilterAttribute
+    public class ActivityControllerAttribute : ActionFilterAttribute
     {
         public int ActivityType { get; }
 

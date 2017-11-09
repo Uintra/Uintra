@@ -1359,7 +1359,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\scripts\" />
-    <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">

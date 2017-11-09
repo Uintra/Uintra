@@ -143,17 +143,17 @@ namespace Compent.uIntra.Core.Events
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            var isWebmater = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmater)
+            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
+            if (isWebmaster)
             {
                 return true;
             }
 
-            var creatorId = Get(cached.Id).CreatorId;
-            var isCreator = creatorId == currentUser.Id;
+            var ownerId = Get(cached.Id).OwnerId;
+            var isOwner = ownerId == currentUser.Id;
 
             var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
-            return isCreator && isUserHasPermissions;
+            return isOwner && isUserHasPermissions;
         }
 
         public IEnumerable<IFeedItem> GetItems()
