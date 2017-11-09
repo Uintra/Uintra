@@ -361,6 +361,7 @@
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
     <EmbeddedResource Include="Installer\PreValues\GroupGridPreValues.json" />
     <None Include="packages.config" />
+    <None Include="uIntra.Groups.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
