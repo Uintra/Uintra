@@ -24,7 +24,7 @@ namespace Compent.uIntra.Installer
         private readonly Version UIntraVersion = Assembly.GetExecutingAssembly().GetName().Version;
         private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
         private readonly Version AddingHeadingUIntraVersion = new Version("0.2.2.10");
-        private readonly Version AddingOwnerUIntraVersion = new Version("0.0.0.0"); //TODO change to real values
+        private readonly Version AddingOwnerUIntraVersion = new Version("0.2.4.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -48,7 +48,7 @@ namespace Compent.uIntra.Installer
                     NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition);
             }
 
-            if (installedVersion < AddingOwnerUIntraVersion)
+            if (installedVersion < AddingOwnerUIntraVersion && UIntraVersion >= AddingOwnerUIntraVersion)
             {
                 FixEmptyOwners();
             }
@@ -57,8 +57,6 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
-
-            FixEmptyOwners();//TODO remove this after merge in master
         }
 
         private void InitMigration()
