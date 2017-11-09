@@ -72,13 +72,13 @@ namespace uIntra.Events.Web
 
         protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
         {
-            var comingEvents = GetComingEvents(panelModel.EventsAmount);
+            (IList<ComingEventViewModel> comingEvents, int totalCount) = GetComingEvents(panelModel.EventsAmount);
             var viewModel = new ComingEventsPanelViewModel
             {
-                OverviewUrl = comingEvents.events.FirstOrDefault()?.Links.Overview,
+                OverviewUrl = comingEvents.FirstOrDefault()?.Links.Overview,
                 Title = panelModel.DisplayTitle,
-                Events = comingEvents.events,
-                ShowSeeAllButton = comingEvents.events.Count < comingEvents.totalCount
+                Events = comingEvents,
+                ShowSeeAllButton = comingEvents.Count < totalCount
             };
             return viewModel;
         }
@@ -88,13 +88,13 @@ namespace uIntra.Events.Web
             var events = _eventsService.GetComingEvents(DateTime.UtcNow).ToList();
             var filteredEvents = events.Take(eventsAmount).ToList();
 
-            var creatorsDictionary = _intranetUserService.GetMany(filteredEvents.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
+            var ownersDictionary = _intranetUserService.GetMany(filteredEvents.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
 
             var comingEvents = filteredEvents
                 .Select(@event =>
                 {
                     var viewModel = @event.Map<ComingEventViewModel>();
-                    viewModel.Creator = creatorsDictionary[@event.CreatorId];
+                    viewModel.Owner = ownersDictionary[@event.OwnerId];
                     viewModel.Links = _activityLinkService.GetLinks(@event.Id);
                     return viewModel;
                 })

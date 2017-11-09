@@ -12,7 +12,7 @@ namespace uIntra.Events
         {
             Mapper.CreateMap<EventBase, ComingEventViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore());
+                .ForMember(dst => dst.Owner, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())

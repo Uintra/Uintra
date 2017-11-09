@@ -23,7 +23,7 @@
                         <a href="@e.Links.Details">
                             <h3 class="coming-events__title">@e.Title</h3>
                         </a>
-                        <span class="coming-events__creator">@e.Creator.DisplayedName</span>
+                        <span class="coming-events__creator">@e.Owner.DisplayedName</span>
                         <span class="coming-events__time">@e.StartDate.ToDateTimeFormat() - @e.EndDate.ToDateTimeFormat()</span>
                     </div>
                 </li>
