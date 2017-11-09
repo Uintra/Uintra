@@ -241,7 +241,7 @@ namespace Compent.uIntra.Core.Bulletins
                 case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var bulletinsEntity = Get(entityId);
-                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerableOfOne();
                         data.Value = _notifierDataHelper.GetLikesNotifierDataModel(bulletinsEntity, notificationType, currentUser.Id);
                     }
                     break;
@@ -251,7 +251,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerableOfOne();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, comment.UserId);
                     }
                     break;

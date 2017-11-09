@@ -243,7 +243,7 @@ namespace Compent.uIntra.Core.News
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     var news = Get(entityId);
-                    data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = news.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
                 }
                     break;
@@ -265,7 +265,7 @@ namespace Compent.uIntra.Core.News
                 {
                     var comment = _commentsService.Get(entityId);
                     var news = Get(comment.ActivityId);
-                    data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = news.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
                 }
                     break;

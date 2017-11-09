@@ -292,7 +292,7 @@ namespace Compent.uIntra.Core.Events
                 {
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
 
                 }
@@ -301,14 +301,14 @@ namespace Compent.uIntra.Core.Events
                 {
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
+                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerableOfOne()).Distinct();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                 }
                     break;
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     var currentEvent = Get(entityId);
-                    data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                 }
                     break;
