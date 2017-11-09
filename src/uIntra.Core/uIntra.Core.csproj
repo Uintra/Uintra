@@ -397,7 +397,7 @@
     <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
-    <Compile Include="Core\Activity\Models\IntranetActivityCreatorEditModel.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />
     <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
     <Compile Include="Core\User\IntranetUserDTO.cs" />

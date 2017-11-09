@@ -45,7 +45,7 @@ namespace uIntra.Core.Web
 
         public virtual ActionResult OwnerEdit(Guid ownerId, string ownerIdPropertyName, IntranetActivityTypeEnum activityType, IActivityCreateLinks links)
         {
-            var model = new IntranetActivityCreatorEditModel
+            var model = new IntranetActivityOwnerEditModel
             {
                 Owner = _intranetUserService.Get(ownerId),
                 OwnerIdPropertyName = ownerIdPropertyName,

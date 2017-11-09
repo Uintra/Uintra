@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
@@ -220,7 +221,7 @@ namespace uIntra.News.Web
             news.PublishDate = createModel.PublishDate.ToUniversalTime();
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
-            news.CreatorId = _intranetUserService.GetCurrentUser().Id;
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
 
             return news;
         }

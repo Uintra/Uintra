@@ -5,7 +5,7 @@ using uIntra.Core.User;
 
 namespace uIntra.Core.Activity
 {
-    public class IntranetActivityCreatorEditModel
+    public class IntranetActivityOwnerEditModel
     {
         public IIntranetUser Owner { get; set; }
         public IEnumerable<IIntranetUser> Users { get; set; } = Enumerable.Empty<IIntranetUser>();
