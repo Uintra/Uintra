@@ -34,11 +34,7 @@
         <main id="main">
             @*@{Html.RenderAction("Login", "Login");}*@
             @{Html.RenderAction("SubNavigation", "Navigation");}
-            
-            @{
-                var publishedContent = (IPublishedContent)ViewContext.ViewData.Model;
-            }
-            @{Html.RenderAction("RenderUmbracoPageLink", "Navigation", new {umbracoPageId = publishedContent.Id});}
+            @{Html.RenderAction("RenderUmbracoPageLink", "Navigation");}
 
             @RenderBody()
         </main>
