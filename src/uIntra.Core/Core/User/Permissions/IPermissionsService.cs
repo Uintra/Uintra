@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
+using Umbraco.Core.Models;
 
 namespace uIntra.Core.User.Permissions
 {
@@ -14,5 +15,6 @@ namespace uIntra.Core.User.Permissions
         bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null);
         bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null);
         bool IsUserWebmaster(IIntranetUser user);
+        bool IsUserHasAccessToContent(IIntranetUser user, IPublishedContent content);
     }
 }

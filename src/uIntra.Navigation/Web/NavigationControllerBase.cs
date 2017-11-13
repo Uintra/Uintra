@@ -116,16 +116,15 @@ namespace uIntra.Navigation.Web
             return PartialView(LeftNavigationUserMenuViewPath, result);
         }
 
-        public virtual ActionResult RenderUmbracoPageLink(int umbracoPageId)
+        public virtual ActionResult RenderUmbracoPageLink()
         {
             var currentUser = _intranetUserService.GetCurrentUser();
-            if (_permissionsService.IsUserWebmaster(currentUser))
+            if (_permissionsService.IsUserHasAccessToContent(currentUser, CurrentPage))
             {
-                string url = String.Format(UmbracoEditPageUrl, umbracoPageId);
+                string url = String.Format(UmbracoEditPageUrl, CurrentPage.Id);
                 return PartialView(UmbracoPageNavigationLinkViewPath, url.ToAbsoluteUrl());
             }
             return new EmptyResult();
-
         }
     }
 }

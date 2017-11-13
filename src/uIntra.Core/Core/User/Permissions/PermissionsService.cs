@@ -4,6 +4,10 @@ using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
 using uIntra.Core.TypeProviders;
+using umbraco.cms.businesslogic.web;
+using Umbraco.Core;
+using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 
 namespace uIntra.Core.User.Permissions
 {
@@ -35,7 +39,7 @@ namespace uIntra.Core.User.Permissions
             }
 
             var defaultValue = false;
-            _exceptionLogger.Log(new Exception($"Tryed check role permissions but no permissions was passed into method! Return {defaultValue}!!"));
+            _exceptionLogger.Log(new Exception($"Tried check role permissions but no permissions was passed into method! Return {defaultValue}!!"));
 
             return defaultValue;
         }
@@ -102,6 +106,11 @@ namespace uIntra.Core.User.Permissions
         public virtual bool IsUserWebmaster(IIntranetUser user)
         {
             return user.Role.Name == IntranetRolesEnum.WebMaster.ToString();
+        }
+
+        public virtual bool IsUserHasAccessToContent(IIntranetUser user, IPublishedContent content)
+        {
+            return user.UmbracoId.HasValue;
         }
     }
 }
