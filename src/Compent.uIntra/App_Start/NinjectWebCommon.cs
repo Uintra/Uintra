@@ -300,6 +300,7 @@ namespace Compent.uIntra
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
+            kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();           
 
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
@@ -344,8 +345,6 @@ namespace Compent.uIntra
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
-
-            kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

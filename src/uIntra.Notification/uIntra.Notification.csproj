@@ -348,14 +348,15 @@
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\Models\NotifierSettingsModels.cs" />
     <Compile Include="Core\Models\NotifierViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />
     <Compile Include="Core\Services\INotificationContentProvider.cs" />
+    <Compile Include="Core\Services\INotificationSettingsService.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
-    <Compile Include="Core\Services\INotificationSettingsService.cs" />
     <Compile Include="Core\Services\INotifierService.cs" />
     <Compile Include="Core\Services\INotifyableService.cs" />
     <Compile Include="Core\Services\IReminderableService.cs" />
@@ -367,12 +368,13 @@
     <Compile Include="Core\Configuration\ReminderTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Sql\MemberNotifierSettingDataModel.cs" />
+    <Compile Include="Core\Sql\NotificationSetting.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
     <Compile Include="Core\Services\IMailService.cs" />
     <Compile Include="DefaultImplementation\MailNotifierServiceBase.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
-    <Compile Include="DefaultImplementation\MotificationsSettingsService.cs" />
+    <Compile Include="DefaultImplementation\MotificationSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
@@ -387,6 +389,8 @@
     <Compile Include="Web\MemberNotifierSettingsControllerBase.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />
     <Compile Include="Web\NotificationJobControllerBase.cs" />
+    <Compile Include="Web\NotificationSettingsController.cs" />
+    <Compile Include="Web\NotificationSettingsTreeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,0 +1,22 @@
+﻿<script>
+ 
+    function CustomSectionEditController($scope, $routeParams) {
+        $scope.content = { tabs: [{ id: 1, label: "Tab 1" }, { id: 2, label: "Tab 2" }] };
+ 
+        $scope.EditMode = function() {
+            return $routeParams.create == 'true';
+        };
+    }
+</script>
+ 
+<div ng-controller="settingController">
+    <div>
+        <label>Email</label>
+        <input type="checkbox" ng-model="settings.emailNotifierSetting.isEnabled"> {{settings.emailNotifierSetting.isEnabled}} 
+    </div>
+    <div>
+        <label>Ui</label>
+        <input type="checkbox" ng-model="settings.uiNotifierSetting.isEnabled"> {{settings.emailNotifierSetting.isEnabled}} 
+    </div>
+    <input type="button" ng-click="Save()" value="Save"/>
+</div>
