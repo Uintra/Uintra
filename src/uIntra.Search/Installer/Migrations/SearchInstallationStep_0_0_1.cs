@@ -23,25 +23,20 @@ namespace uIntra.Search.Installer.Migrations
 
         private void CreateSearchResultPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = SearchInstallationConstants.DocumentTypeNames.SearchResultPage,
+                Alias = SearchInstallationConstants.DocumentTypeAliases.SearchResultPage,
+                Icon = SearchInstallationConstants.DocumentTypeIcons.SearchResultPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            var searchResultPage = contentService.GetContentType(SearchResultPage);
-            if (searchResultPage != null) return;
-
-            searchResultPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            searchResultPage.Name = SearchInstallationConstants.DocumentTypeNames.SearchResultPage;
-            searchResultPage.Alias = SearchResultPage;
-            searchResultPage.Icon = SearchInstallationConstants.DocumentTypeIcons.SearchResultPage;
-
-            contentService.Save(searchResultPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, SearchResultPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateContentPageUseInSearchTrueFalse()
         {
-            CoreInstallationStep_0_0_1.CreateTrueFalseDataType(SearchInstallationConstants.DataTypeNames.ContentPageUseInSearch);
+            InstallationStepsHelper.CreateTrueFalseDataType(SearchInstallationConstants.DataTypeNames.ContentPageUseInSearch);
         }
 
         private void AddSearchToContentPage()

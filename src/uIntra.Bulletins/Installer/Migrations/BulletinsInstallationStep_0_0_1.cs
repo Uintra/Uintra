@@ -4,7 +4,7 @@ using Umbraco.Core;
 
 namespace uIntra.Bulletins.Installer.Migrations
 {
-    public class BulletinsInstallationStep_0_0_1: IIntranetInstallationStep
+    public class BulletinsInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Bulletins";
         public int Priority => 2;
@@ -19,54 +19,41 @@ namespace uIntra.Bulletins.Installer.Migrations
 
         private void CreateBulletinsOverviewPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsOverviewPage,
+                Alias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage,
+                Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsOverviewPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            var bulletinsOverviewPage = contentService.GetContentType(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
-            if (bulletinsOverviewPage != null) return;
-
-            bulletinsOverviewPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            bulletinsOverviewPage.Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsOverviewPage;
-            bulletinsOverviewPage.Alias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage;
-            bulletinsOverviewPage.Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsOverviewPage;
-
-            contentService.Save(bulletinsOverviewPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
         private void CreateBulletinsEditPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsEditPage,
+                Alias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage,
+                Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsEditPage,
+                ParentAlias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage
+            };
 
-            var bulletinsEditPage = contentService.GetContentType(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage);
-            if (bulletinsEditPage != null) return;
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
 
-            bulletinsEditPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            bulletinsEditPage.Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsEditPage;
-            bulletinsEditPage.Alias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage;
-            bulletinsEditPage.Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsEditPage;
-
-            contentService.Save(bulletinsEditPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsEditPage);
         }
         private void CreateBulletinsDetailsPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsDetailsPage,
+                Alias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage,
+                Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsDetailsPage,
+                ParentAlias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage
+            };
 
-            var bulletinsDetailsPage = contentService.GetContentType(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage);
-            if (bulletinsDetailsPage != null) return;
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
 
-            bulletinsDetailsPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            bulletinsDetailsPage.Name = BulletinsInstallationConstants.DocumentTypeNames.BulletinsDetailsPage;
-            bulletinsDetailsPage.Alias = BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage;
-            bulletinsDetailsPage.Icon = BulletinsInstallationConstants.DocumentTypeIcons.BulletinsDetailsPage;
-
-            contentService.Save(bulletinsDetailsPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsDetailsPage);
         }
 
     }

@@ -31,8 +31,8 @@ namespace uIntra.Core.Installer.Migrations
             };
 
             contentService.Save(heading);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, CoreInstallationConstants.DocumentTypeAliases.Heading);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.Heading, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
+            InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, CoreInstallationConstants.DocumentTypeAliases.Heading);
+            InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.Heading, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
         }
     }
 }

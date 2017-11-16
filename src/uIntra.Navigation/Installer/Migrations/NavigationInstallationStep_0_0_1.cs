@@ -38,7 +38,7 @@ namespace uIntra.Navigation.Installer.Migrations
 
             contentService.Save(dataFolderDocType);
 
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, NavigationInstallationConstants.DocumentTypeAliases.SystemLinkFolder);
+            InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, NavigationInstallationConstants.DocumentTypeAliases.SystemLinkFolder);
         }
 
         private void CreateNavigationComposition()
@@ -128,7 +128,7 @@ namespace uIntra.Navigation.Installer.Migrations
             navigationCompositionType.AddPropertyType(linksProperty, NavigationInstallationConstants.DocumentTypeTabNames.Navigation);
 
             contentService.Save(navigationCompositionType);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(NavigationInstallationConstants.DocumentTypeAliases.SystemLinkFolder, NavigationInstallationConstants.DocumentTypeAliases.SystemLink);
+            InstallationStepsHelper.AddAllowedChildNode(NavigationInstallationConstants.DocumentTypeAliases.SystemLinkFolder, NavigationInstallationConstants.DocumentTypeAliases.SystemLink);
 
         }
 
@@ -179,9 +179,9 @@ namespace uIntra.Navigation.Installer.Migrations
 
         private void CreateNavigationTrueFalseDataTypes()
         {
-            CoreInstallationStep_0_0_1.CreateTrueFalseDataType(NavigationInstallationConstants.DataTypeNames.IsShowInHomeNavigationTrueFalse);
-            CoreInstallationStep_0_0_1.CreateTrueFalseDataType(NavigationInstallationConstants.DataTypeNames.IsHideFromLeftNavigation);
-            CoreInstallationStep_0_0_1.CreateTrueFalseDataType(NavigationInstallationConstants.DataTypeNames.IsHideFromSubNavigation);
+            InstallationStepsHelper.CreateTrueFalseDataType(NavigationInstallationConstants.DataTypeNames.IsShowInHomeNavigationTrueFalse);
+            InstallationStepsHelper.CreateTrueFalseDataType(NavigationInstallationConstants.DataTypeNames.IsHideFromLeftNavigation);
+            InstallationStepsHelper.CreateTrueFalseDataType(NavigationInstallationConstants.DataTypeNames.IsHideFromSubNavigation);
         }
     }
 }
