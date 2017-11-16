@@ -63,9 +63,7 @@ namespace Compent.uIntra.Controllers
                 topNavigationModelBuilder,
                 systemLinksModelBuilder,
                 intranetUserService,
-                profileLinkProvider,
-                permissionsService,
-                userService)
+                profileLinkProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
