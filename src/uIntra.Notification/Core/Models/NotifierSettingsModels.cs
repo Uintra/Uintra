@@ -8,16 +8,6 @@ using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification.Core.Models
 {
-    public interface INotifierSettingModel
-    {
-        bool IsEnabled { get; set; }
-    }
-
-    public class EmailNotifierSettingModel : INotifierSettingModel
-    {
-        public bool IsEnabled { get; set; }
-        public EmailNotifierTemplate Template { get; set; }
-    }
 
     public class EmailNotifierTemplate
     {
@@ -25,22 +15,24 @@ namespace uIntra.Notification.Core.Models
         public string Content { get; set; }
     }
 
-    public class UiNotifierSettingModel : INotifierSettingModel
-    {
-        public bool IsEnabled { get; set; }
-        public UiNotifierTemplate Template { get; set; }
-    }
-
     public class UiNotifierTemplate
     {
         public string Message { get; set; }
     }
 
-    public class NotifierSettingsModel
+    public class NotifierSettingModel<T>
     {
         public IntranetActivityTypeEnum ActivityType { get; set; }
         public NotificationTypeEnum NotificationType { get; set; }
-        public EmailNotifierSettingModel EmailNotifierSetting { get; set; }
-        public UiNotifierSettingModel UiNotifierSetting { get; set; }
+        public NotifierTypeEnum NotifierType { get; set; }
+        public bool IsEnabled { get; set; }
+        public T Template { get; set; }
+    }
+
+
+    public class NotifierSettingsModel
+    {
+        public NotifierSettingModel<EmailNotifierTemplate> EmailNotifierSetting { get; set; }
+        public NotifierSettingModel<UiNotifierTemplate> UiNotifierSetting { get; set; }
     }
 }
