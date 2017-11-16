@@ -16,12 +16,13 @@ namespace uIntra.Notification.Core.Models
     public class EmailNotifierSettingModel : INotifierSettingModel
     {
         public bool IsEnabled { get; set; }
+        public EmailNotifierTemplate Template { get; set; }
     }
 
     public class EmailNotifierTemplate
     {
-        private string Subject { get; set; }
-        private string Content { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
     }
 
     public class UiNotifierSettingModel : INotifierSettingModel

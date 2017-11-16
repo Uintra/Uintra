@@ -25,9 +25,10 @@ namespace uIntra.Notification
             var existSettings = _repository.FindAll(s => s.ActivityType == activityType && s.NotificationType == notificationType).ToList();
 
             var absentSettings = GetAbsentSettings(existSettings, activityType, notificationType);
-            var notifierSettings = GetMappedSettings(existSettings, absentSettings);
+            var absentSettingsList = absentSettings as IList<NotificationSetting> ?? absentSettings.ToList();
+            var notifierSettings = GetMappedSettings(existSettings, absentSettingsList, activityType, notificationType);
 
-            //_repository.Add(absentSettings);
+            _repository.Add(absentSettingsList);
 
             return notifierSettings;
         }
@@ -48,7 +49,7 @@ namespace uIntra.Notification
             var updatedEmailSetting = GetUpdatedSetting(
                 settingsEntitiesDictionary[NotifierTypeEnum.EmailNotifier],
                 settings.EmailNotifierSetting.IsEnabled,
-                settings.EmailNotifierSetting.ToJson());
+                settings.EmailNotifierSetting.Template.ToJson());
 
             var updatedUiSetting = GetUpdatedSetting(
                 settingsEntitiesDictionary[NotifierTypeEnum.UiNotifier],
@@ -71,7 +72,9 @@ namespace uIntra.Notification
 
         private NotifierSettingsModel GetMappedSettings(
             IEnumerable<NotificationSetting> existingEntities,
-            IEnumerable<NotificationSetting> absentSettings)
+            IEnumerable<NotificationSetting> absentSettings,
+            IntranetActivityTypeEnum activityType,
+            NotificationTypeEnum notificationType)
         {
 
             var settingsDictionary = existingEntities
@@ -80,6 +83,8 @@ namespace uIntra.Notification
 
             var notifierSettings = new NotifierSettingsModel
             {
+                ActivityType = activityType,
+                NotificationType = notificationType,
                 EmailNotifierSetting = GetEmailNotifierSetting(settingsDictionary[NotifierTypeEnum.EmailNotifier]),
                 UiNotifierSetting = GetUiNotifierSetting(settingsDictionary[NotifierTypeEnum.UiNotifier])
             };
@@ -101,25 +106,47 @@ namespace uIntra.Notification
         private NotificationSetting CreateSetting(
             NotifierTypeEnum notifierType,
             IntranetActivityTypeEnum activityType,
-            NotificationTypeEnum notificationType) =>
-            new NotificationSetting
+            NotificationTypeEnum notificationType)
+        {
+            string jsonData;
+
+            switch (notifierType)
+            {
+                case NotifierTypeEnum.EmailNotifier:
+                    var defaultTemplate = new EmailNotifierTemplate()
+                    {
+                        Content = "content",
+                        Subject = "subject"
+                    };
+                    jsonData = defaultTemplate.ToJson();
+                    break;
+                default:
+                    jsonData = String.Empty;
+                    break;
+            }
+
+
+            return new NotificationSetting
             {
                 Id = Guid.NewGuid(),
                 NotifierType = notifierType,
                 ActivityType = activityType,
                 NotificationType = notificationType,
                 IsEnabled = true,
-                JsonData = String.Empty
+                JsonData = jsonData
             };
+        }
 
         private EmailNotifierSettingModel GetEmailNotifierSetting(NotificationSetting notificationSetting) =>
-            new EmailNotifierSettingModel()
+            new EmailNotifierSettingModel
             {
-                IsEnabled = notificationSetting.IsEnabled
+                IsEnabled = notificationSetting.IsEnabled,
+                Template = notificationSetting.JsonData.Deserialize<EmailNotifierTemplate>()
+
             };
 
         private UiNotifierSettingModel GetUiNotifierSetting(NotificationSetting notificationSetting) =>
-            new UiNotifierSettingModel()
+            new UiNotifierSettingModel
             {
                 IsEnabled = notificationSetting.IsEnabled
             };
