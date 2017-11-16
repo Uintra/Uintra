@@ -4,12 +4,14 @@ import confirm from "./../../Core/Controls/Confirm/Confirm";
 import alertify from 'alertifyjs/build/alertify.min';
 
 let holder;
+let descriptionElem;
+let editor;
 
 function initEditor() {
-    let description = holder.querySelector(".js-edit-bulletin__description");
+    descriptionElem = holder.querySelector(".js-edit-bulletin__description");
     let dataStorage = holder.querySelector(".js-edit-bulletin__description-hidden");
 
-    let editor = helpers.initQuill(description, dataStorage, {
+    editor = helpers.initQuill(descriptionElem, dataStorage, {
         theme: 'snow',
         modules: {
             toolbar: [
@@ -19,14 +21,14 @@ function initEditor() {
         }
     });
     let emojiContainer = editor.container.querySelector(".js-emoji");
-    if(!emojiContainer){
+    if (!emojiContainer) {
         helpers.initSmiles(editor, editor.getModule('toolbar').container);
         emojiContainer = true;
     }
 
     editor.on('text-change', function () {
-        if (editor.getLength() > 1 && description.classList.contains('input-validation-error')) {
-            description.classList.remove('input-validation-error');
+        if (editor.getLength() > 1 && descriptionElem.classList.contains('input-validation-error')) {
+            descriptionElem.classList.remove('input-validation-error');
         }
     });
 }
@@ -44,6 +46,8 @@ function initEventListeners() {
 }
 
 function submitClickHandler(event) {
+    $(descriptionElem).toggleClass("input-validation-error", editor.getLength() <= 1);
+
     if (!isModelValid()) {
         holder.querySelector('.form__required').style.display = 'block';
         event.preventDefault();
