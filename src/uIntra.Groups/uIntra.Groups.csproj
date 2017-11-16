@@ -330,7 +330,6 @@
     <Compile Include="Core\Sql\GroupActivityRelation.cs" />
     <Compile Include="Core\Services\GroupMemberServiceBase.cs" />
     <Compile Include="Installer\GroupsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\GroupMigrations.cs" />
     <Compile Include="Core\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />
     <Compile Include="Core\Services\GroupService.cs" />
     <Compile Include="Core\IGroupable.cs" />
@@ -361,6 +360,7 @@
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
     <EmbeddedResource Include="Installer\PreValues\GroupGridPreValues.json" />
     <None Include="packages.config" />
+    <None Include="uIntra.Groups.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />

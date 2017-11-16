@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
@@ -71,13 +72,13 @@ namespace uIntra.Events.Web
 
         protected virtual ComingEventsPanelViewModel GetComingEventsViewModel(ComingEventsPanelModel panelModel)
         {
-            var comingEvents = GetComingEvents(panelModel.EventsAmount);
+            (IList<ComingEventViewModel> comingEvents, int totalCount) = GetComingEvents(panelModel.EventsAmount);
             var viewModel = new ComingEventsPanelViewModel
             {
-                OverviewUrl = comingEvents.events.FirstOrDefault()?.Links.Overview,
+                OverviewUrl = comingEvents.FirstOrDefault()?.Links.Overview,
                 Title = panelModel.DisplayTitle,
-                Events = comingEvents.events,
-                ShowSeeAllButton = comingEvents.events.Count < comingEvents.totalCount
+                Events = comingEvents,
+                ShowSeeAllButton = comingEvents.Count < totalCount
             };
             return viewModel;
         }
@@ -87,13 +88,13 @@ namespace uIntra.Events.Web
             var events = _eventsService.GetComingEvents(DateTime.UtcNow).ToList();
             var filteredEvents = events.Take(eventsAmount).ToList();
 
-            var creatorsDictionary = _intranetUserService.GetMany(filteredEvents.Select(e => e.CreatorId)).ToDictionary(c => c.Id);
+            var ownersDictionary = _intranetUserService.GetMany(filteredEvents.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
 
             var comingEvents = filteredEvents
                 .Select(@event =>
                 {
                     var viewModel = @event.Map<ComingEventViewModel>();
-                    viewModel.Creator = creatorsDictionary[@event.CreatorId];
+                    viewModel.Owner = ownersDictionary[@event.OwnerId];
                     viewModel.Links = _activityLinkService.GetLinks(@event.Id);
                     return viewModel;
                 })
@@ -181,7 +182,7 @@ namespace uIntra.Events.Web
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
                 CanSubscribe = true,
-                Creator = _intranetUserService.GetCurrentUser(),
+                OwnerId = _intranetUserService.GetCurrentUserId(),
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -191,14 +192,14 @@ namespace uIntra.Events.Web
 
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event, ActivityLinks links)
         {
-            var creator = _intranetUserService.Get(@event);
-            return new EventPreviewViewModel()
+            var owner = _intranetUserService.Get(@event);
+            return new EventPreviewViewModel
             {
                 Id = @event.Id,
                 Title = @event.Title,
                 StartDate = @event.StartDate,
                 EndDate = @event.EndDate,
-                Creator = creator,
+                Owner = owner,
                 ActivityType = @event.Type,
                 Links = links
             };
@@ -224,7 +225,6 @@ namespace uIntra.Events.Web
             FillMediaSettingsData(mediaSettings);
 
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-            model.Creator = _intranetUserService.Get(@event);
 
             model.Links = links;
             return model;
@@ -246,7 +246,7 @@ namespace uIntra.Events.Web
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
-            model.HeaderInfo.Creator = _intranetUserService.Get(@event);
+            model.HeaderInfo.Owner = _intranetUserService.Get(@event);
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -262,7 +262,7 @@ namespace uIntra.Events.Web
             model.Links = links;
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Creator = _intranetUserService.Get(@event);
+            model.HeaderInfo.Owner = _intranetUserService.Get(@event);
             model.HeaderInfo.Links = links;
 
             return model;
@@ -287,6 +287,7 @@ namespace uIntra.Events.Web
             @event.StartDate = createModel.StartDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
+            @event.CreatorId = _intranetUserService.GetCurrentUserId();
 
             return @event;
         }
@@ -296,7 +297,6 @@ namespace uIntra.Events.Web
             var @event = MapEditModel(editModel);
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            @event.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
             @event.StartDate = editModel.StartDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();

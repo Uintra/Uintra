@@ -14,11 +14,10 @@ namespace Compent.uIntra.Core.CentralFeed
         public CentralFeedService(
             IEnumerable<IFeedItemService> feedItemServices,
             ICacheService cacheService,
-            IFeedTypeProvider centralFeedTypeProvider,
-            IEnumerable<IFeedItemService> feedItemServices2) 
+            IFeedTypeProvider centralFeedTypeProvider) 
             : base(feedItemServices, cacheService, centralFeedTypeProvider)
         {
-            _feedItemServices = feedItemServices2;
+            _feedItemServices = feedItemServices;
         }
 
         public IEnumerable<IFeedItem> GetFeed(IIntranetType type)

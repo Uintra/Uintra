@@ -10,7 +10,7 @@ namespace uIntra.Core.Activity
     {
         public string Title { get; set; }
         public IIntranetType Type { get; set; }
-        public IIntranetUser Creator { get; set; }
+        public IIntranetUser Owner { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
         public IActivityLinks Links { get; set; }
     }

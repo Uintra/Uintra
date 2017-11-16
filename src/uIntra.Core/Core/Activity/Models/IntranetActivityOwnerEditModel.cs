@@ -5,12 +5,12 @@ using uIntra.Core.User;
 
 namespace uIntra.Core.Activity
 {
-    public class IntranetActivityCreatorEditModel
+    public class IntranetActivityOwnerEditModel
     {
-        public IIntranetUser Creator { get; set; }
+        public IIntranetUser Owner { get; set; }
         public IEnumerable<IIntranetUser> Users { get; set; } = Enumerable.Empty<IIntranetUser>();
-        public bool CanEditCreator { get; set; }
-        public string CreatorIdPropertyName { get; set; }
+        public bool CanEditOwner { get; set; }
+        public string OwnerIdPropertyName { get; set; }
         public IActivityCreateLinks Links { get; set; }
     }
 }

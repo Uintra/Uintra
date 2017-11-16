@@ -4,7 +4,7 @@ using Umbraco.Core;
 
 namespace uIntra.Events.Installer.Migrations
 {
-    public class EventsInstallationStep_0_0_1: IIntranetInstallationStep
+    public class EventsInstallationStep_0_0_1 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Events";
         public int Priority => 2;
@@ -20,72 +20,54 @@ namespace uIntra.Events.Installer.Migrations
 
         private void CreateEventsOverviewPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = EventsInstallationConstants.DocumentTypeNames.EventsOverviewPage,
+                Alias = EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage,
+                Icon = EventsInstallationConstants.DocumentTypeIcons.EventsOverviewPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            var eventsOverviewPage = contentService.GetContentType(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage);
-            if (eventsOverviewPage != null) return;
-
-            eventsOverviewPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            eventsOverviewPage.Name = EventsInstallationConstants.DocumentTypeNames.EventsOverviewPage;
-            eventsOverviewPage.Alias = EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage;
-            eventsOverviewPage.Icon = EventsInstallationConstants.DocumentTypeIcons.EventsOverviewPage;
-
-            contentService.Save(eventsOverviewPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateEventsCreatePage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = EventsInstallationConstants.DocumentTypeNames.EventsCreatePage,
+                Alias = EventsInstallationConstants.DocumentTypeAliases.EventsCreatePage,
+                Icon = EventsInstallationConstants.DocumentTypeIcons.EventsCreatePage,
+                ParentAlias = EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage
+            };
 
-            var eventsCreatePage = contentService.GetContentType(EventsInstallationConstants.DocumentTypeAliases.EventsCreatePage);
-            if (eventsCreatePage != null) return;
-
-            eventsCreatePage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            eventsCreatePage.Name = EventsInstallationConstants.DocumentTypeNames.EventsCreatePage;
-            eventsCreatePage.Alias = EventsInstallationConstants.DocumentTypeAliases.EventsCreatePage;
-            eventsCreatePage.Icon = EventsInstallationConstants.DocumentTypeIcons.EventsCreatePage;
-
-            contentService.Save(eventsCreatePage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, EventsInstallationConstants.DocumentTypeAliases.EventsCreatePage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
+
         private void CreateEventsEditPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = EventsInstallationConstants.DocumentTypeNames.EventsEditPage,
+                Alias = EventsInstallationConstants.DocumentTypeAliases.EventsEditPage,
+                Icon = EventsInstallationConstants.DocumentTypeIcons.EventsEditPage,
+                ParentAlias = EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage
+            };
 
-            var eventsEditPage = contentService.GetContentType(EventsInstallationConstants.DocumentTypeAliases.EventsEditPage);
-            if (eventsEditPage != null) return;
-
-            eventsEditPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            eventsEditPage.Name = EventsInstallationConstants.DocumentTypeNames.EventsEditPage;
-            eventsEditPage.Alias = EventsInstallationConstants.DocumentTypeAliases.EventsEditPage;
-            eventsEditPage.Icon = EventsInstallationConstants.DocumentTypeIcons.EventsEditPage;
-
-            contentService.Save(eventsEditPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, EventsInstallationConstants.DocumentTypeAliases.EventsEditPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
+
         private void CreateEventsDetailsPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = EventsInstallationConstants.DocumentTypeNames.EventsDetailsPage,
+                Alias = EventsInstallationConstants.DocumentTypeAliases.EventsDetailsPage,
+                Icon = EventsInstallationConstants.DocumentTypeIcons.EventsDetailsPage,
+                ParentAlias = EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage
+            };
 
-            var eventsDetailsPage = contentService.GetContentType(EventsInstallationConstants.DocumentTypeAliases.EventsDetailsPage);
-            if (eventsDetailsPage != null) return;
-
-            eventsDetailsPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-            //TODO: Move static methods to service
-
-            eventsDetailsPage.Name = EventsInstallationConstants.DocumentTypeNames.EventsDetailsPage;
-            eventsDetailsPage.Alias = EventsInstallationConstants.DocumentTypeAliases.EventsDetailsPage;
-            eventsDetailsPage.Icon = EventsInstallationConstants.DocumentTypeIcons.EventsDetailsPage;
-
-            contentService.Save(eventsDetailsPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage, EventsInstallationConstants.DocumentTypeAliases.EventsDetailsPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
     }

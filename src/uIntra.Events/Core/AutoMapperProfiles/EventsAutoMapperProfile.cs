@@ -12,7 +12,7 @@ namespace uIntra.Events
         {
             Mapper.CreateMap<EventBase, ComingEventViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore());
+                .ForMember(dst => dst.Owner, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
@@ -27,7 +27,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
@@ -37,7 +37,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
@@ -46,6 +45,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
@@ -55,6 +55,7 @@ namespace uIntra.Events
             Mapper.CreateMap<EventEditModel, EventBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
@@ -85,7 +86,7 @@ namespace uIntra.Events
 
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Creator, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
@@ -102,6 +103,8 @@ namespace uIntra.Events
                .ForMember(dst => dst.IsPinned, o => o.Ignore())
                .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+               .ForMember(dst => dst.CreatorId, o => o.Ignore())
+               .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                .AfterMap((src, dst) =>
                {
                    dst.MediaIds = src.Media.ToIntCollection();
@@ -116,6 +119,8 @@ namespace uIntra.Events
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Groups;
 using uIntra.Groups.Extensions;
 using uIntra.Groups.Navigation.Models;
@@ -14,6 +15,7 @@ using uIntra.Navigation;
 using uIntra.Navigation.SystemLinks;
 using uIntra.Navigation.Web;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
@@ -28,7 +30,6 @@ namespace Compent.uIntra.Controllers
         protected override string SystemLinksContentXPath { get; }
         private string GroupNavigationViewPath { get; } = "~/App_Plugins/Groups/GroupNavigation.cshtml";
 
-        private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
         private readonly IGroupFeedContentService _groupFeedContentService;
@@ -53,10 +54,19 @@ namespace Compent.uIntra.Controllers
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
             ICentralFeedHelper centralFeedHelper,
-            IProfileLinkProvider profileLinkProvider)
-            : base(leftSideNavigationModelBuilder, subNavigationModelBuilder, topNavigationModelBuilder, systemLinksModelBuilder, intranetUserService, profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IPermissionsService permissionsService,
+            IUserService userService)
+            : base(
+                leftSideNavigationModelBuilder,
+                subNavigationModelBuilder,
+                topNavigationModelBuilder,
+                systemLinksModelBuilder,
+                intranetUserService,
+                profileLinkProvider,
+                permissionsService,
+                userService)
         {
-            _centralFeedContentService = centralFeedContentService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
             _groupFeedContentService = groupFeedContentService;
@@ -141,32 +151,6 @@ namespace Compent.uIntra.Controllers
         private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
         {
             return tab.Id == editPage.Id;
-        }
-
-        private IEnumerable<IPublishedContent> GetContentForSubNavigation(IPublishedContent content)
-        {
-            if (content.Children.Any() || IsHomePage(content.Parent))
-            {
-                return content.Children;
-            }
-
-            return content.Parent.Children;
-        }
-
-        private bool IsHomePage(IPublishedContent content)
-        {
-            return content.DocumentTypeAlias == _documentTypeAliasProvider.GetHomePage();
-        }
-
-        private MenuItemViewModel MapSubNavigationItem(IPublishedContent content)
-        {
-            return new MenuItemViewModel
-            {
-                Id = content.Id,
-                Name = content.GetNavigationName(),
-                Url = content.Url,
-                IsActive = content.IsAncestorOrSelf(CurrentPage)
-            };
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
@@ -125,7 +126,7 @@ namespace uIntra.News.Web
             var model = new NewsCreateModel
             {
                 PublishDate = DateTime.UtcNow,
-                Creator = _intranetUserService.GetCurrentUser(),
+                OwnerId = _intranetUserService.GetCurrentUser().Id,
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -139,8 +140,6 @@ namespace uIntra.News.Web
             var mediaSettings = _newsService.GetMediaSettings();
             model.MediaRootId = mediaSettings.MediaRootId;
             FillMediaSettingsData(mediaSettings);
-
-            model.Creator = _intranetUserService.Get(news);
 
             model.Links = links;
 
@@ -157,7 +156,7 @@ namespace uIntra.News.Web
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
-            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -173,7 +172,7 @@ namespace uIntra.News.Web
             // TODO : try to move this logic smwhere to avoid duplication
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
-            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -187,7 +186,7 @@ namespace uIntra.News.Web
             model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Creator = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
@@ -203,13 +202,13 @@ namespace uIntra.News.Web
 
         protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news, ActivityLinks links)
         {
-            IIntranetUser creator = _intranetUserService.Get(news);
-            return new NewsPreviewViewModel()
+            var owner = _intranetUserService.Get(news);
+            return new NewsPreviewViewModel
             {
                 Id = news.Id,
                 Title = news.Title,
                 PublishDate = news.PublishDate,
-                Creator = creator,
+                Owner = owner,
                 ActivityType = news.Type,
                 Links = links
             };
@@ -222,6 +221,7 @@ namespace uIntra.News.Web
             news.PublishDate = createModel.PublishDate.ToUniversalTime();
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
+            news.CreatorId = _intranetUserService.GetCurrentUserId();
 
             return news;
         }
@@ -231,7 +231,6 @@ namespace uIntra.News.Web
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            activity.UmbracoCreatorId = _intranetUserService.Get(editModel.CreatorId).UmbracoId;
             activity.PublishDate = editModel.PublishDate.ToUniversalTime();
             activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime();
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime();

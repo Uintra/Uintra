@@ -2,6 +2,6 @@
 {
     public static class PermissionConstants
     {
-        public const string CanEditCreator = "CanEditCreator";
+        public const string CanEditOwner = "CanEditOwner";
     }
 }

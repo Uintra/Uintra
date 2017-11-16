@@ -67,10 +67,10 @@
 
         self.selectEventsToEdit = function (events, index) {
             if (events == null) {
-                var currentCreator = self.users.filter(function (user) { return user.umbracoId === self.currentUser.id })[0];
-                events = { creator: currentCreator };
+                var currentOwner = self.users.filter(function (user) { return user.umbracoId === self.currentUser.id })[0];
+                events = { owner: currentOwner };
             } else {
-                events.creator = self.users.filter(function (user) { return user.id === events.creatorId })[0];
+                events.owner = self.users.filter(function (user) { return user.id === events.ownerId })[0];
             }
 
             self.selectedIndex = index;
@@ -85,8 +85,7 @@
                 return;
             }
 
-            self.selected.creatorId = self.selected.creator.id;
-            self.selected.umbracoCreatorId = self.selected.creator.umbracoId;
+            self.selected.ownerId = self.selected.owner.id;
 
             if (self.selected.id == null) {
                 create(self.selected);

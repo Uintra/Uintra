@@ -252,6 +252,7 @@
                 &._with-icon{
                     padding-right:0;
                     padding-left:0;
+                    background:none;
 
                     .icon{
                         display:inline-block;

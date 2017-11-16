@@ -73,7 +73,7 @@ namespace Compent.uIntra.Core.Feed.Links
             {
                 GroupId = groupId,
                 Type = activityType,
-                CreatorId = CurrentUserId
+                OwnerId = CurrentUserId
             };           
         }
 
@@ -82,7 +82,7 @@ namespace Compent.uIntra.Core.Feed.Links
             return new ActivityTransferCreateModel()
             {
                 Type = activityType,
-                CreatorId = CurrentUserId
+                OwnerId = CurrentUserId
             };
         }
 

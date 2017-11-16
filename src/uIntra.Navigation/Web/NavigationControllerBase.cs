@@ -3,7 +3,9 @@ using System.Web.Mvc;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using uIntra.Navigation.SystemLinks;
+using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Navigation.Web
@@ -16,6 +18,8 @@ namespace uIntra.Navigation.Web
         protected virtual string SystemLinksViewPath { get; } = "~/App_Plugins/Navigation/SystemLinks/View/SystemLinks.cshtml";
         protected virtual string BreadcrumbsViewPath { get; } = "~/App_Plugins/Navigation/Breadcrumbs.cshtml";
         protected virtual string LeftNavigationUserMenuViewPath { get; } = "~/App_Plugins/Navigation/LeftNavigation/View/UserMenu.cshtml";
+        protected virtual string UmbracoContentLinkViewPath { get; } = "~/App_Plugins/Navigation/UmbracoNavigation/View/UmbracoContentLink.cshtml";
+
         protected virtual string SystemLinkTitleNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkSortOrderNodePropertyAlias { get; } = string.Empty;
@@ -27,6 +31,8 @@ namespace uIntra.Navigation.Web
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly IPermissionsService _permissionsService;
+        private readonly IUserService _userService;
 
         protected NavigationControllerBase(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -34,7 +40,9 @@ namespace uIntra.Navigation.Web
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IProfileLinkProvider profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IPermissionsService permissionsService,
+            IUserService userService)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
@@ -42,6 +50,8 @@ namespace uIntra.Navigation.Web
             _systemLinksModelBuilder = systemLinksModelBuilder;
             _intranetUserService = intranetUserService;
             _profileLinkProvider = profileLinkProvider;
+            _permissionsService = permissionsService;
+            _userService = userService;
         }
 
         public virtual ActionResult LeftNavigation()
@@ -70,8 +80,13 @@ namespace uIntra.Navigation.Web
 
         public virtual PartialViewResult SystemLinks()
         {
-            var systemLinks = _systemLinksModelBuilder.Get(SystemLinksContentXPath, SystemLinkTitleNodePropertyAlias,
-                SystemLinkNodePropertyAlias, SystemLinkSortOrderNodePropertyAlias, x => x.SortOrder);
+            var systemLinks = _systemLinksModelBuilder.Get(
+                SystemLinksContentXPath,
+                SystemLinkTitleNodePropertyAlias,
+                SystemLinkNodePropertyAlias,
+                SystemLinkSortOrderNodePropertyAlias,
+                x => x.SortOrder);
+
             var result = systemLinks.Map<List<SystemLinksViewModel>>();
 
             return PartialView(SystemLinksViewPath, result);
@@ -107,6 +122,32 @@ namespace uIntra.Navigation.Web
             };
 
             return PartialView(LeftNavigationUserMenuViewPath, result);
+        }
+
+        public virtual ActionResult UmbracoContentLink()
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            if (_permissionsService.IsUserHasAccessToContent(currentUser, CurrentPage))
+            {
+                return PartialView(UmbracoContentLinkViewPath, CurrentPage.Id);
+            }
+
+            return new EmptyResult();
+        }
+
+        public virtual ActionResult GoToUmbracoEditPage(int pageId)
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            var pageUrl = string.Format(NavigationUmbracoConstants.UmbracoEditPageUrl, pageId);
+
+            var umbracoUser = _userService.GetUserById(currentUser.UmbracoId.Value);
+            if (umbracoUser == null || umbracoUser.IsLockedOut || !umbracoUser.IsApproved)
+            {
+                return Redirect(pageUrl);
+            }
+
+            UmbracoContext.Security.PerformLogin(umbracoUser.Id);  // back office user always isn't logged in
+            return Redirect(pageUrl);
         }
     }
 }

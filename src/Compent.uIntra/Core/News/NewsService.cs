@@ -106,11 +106,11 @@ namespace Compent.uIntra.Core.News
                 return true;
             }
 
-            var creatorId = Get(cached.Id).CreatorId;
-            var isCreator = creatorId == currentUser.Id;
+            var ownerId = Get(cached.Id).OwnerId;
+            var isOwner = ownerId == currentUser.Id;
 
             var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
-            return isCreator && isUserHasPermissions;
+            return isOwner && isUserHasPermissions;
         }
 
         public FeedSettings GetFeedSettings()
@@ -243,7 +243,7 @@ namespace Compent.uIntra.Core.News
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     var news = Get(entityId);
-                    data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = news.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
                 }
                     break;
@@ -265,7 +265,7 @@ namespace Compent.uIntra.Core.News
                 {
                     var comment = _commentsService.Get(entityId);
                     var news = Get(comment.ActivityId);
-                    data.ReceiverIds = news.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = news.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
                 }
                     break;

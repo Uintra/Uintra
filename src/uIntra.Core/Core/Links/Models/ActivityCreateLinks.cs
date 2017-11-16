@@ -4,7 +4,7 @@ namespace uIntra.Core.Links
     {
         public string Overview { get; set; }
         public string Create { get; set; }
-        public string Creator { get; set; }
+        public string Owner { get; set; }
         public string DetailsNoId { get; set; }
     }
 }

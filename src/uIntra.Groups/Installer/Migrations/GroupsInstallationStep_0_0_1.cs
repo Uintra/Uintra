@@ -32,7 +32,7 @@ namespace uIntra.Groups.Installer.Migrations
         {
             var embeddedResourceFileName = "uIntra.Groups.Installer.PreValues.GroupGridPreValues.json";
             var currentAssembly = Assembly.GetExecutingAssembly();
-            CoreInstallationStep_0_0_1.CreateGrid(GroupsInstallationConstants.DataTypeNames.GroupGrid, embeddedResourceFileName, currentAssembly);
+            InstallationStepsHelper.CreateGrid(GroupsInstallationConstants.DataTypeNames.GroupGrid, embeddedResourceFileName, currentAssembly);
         }
 
         private void CreateGroupsOverviewPage()
@@ -42,17 +42,17 @@ namespace uIntra.Groups.Installer.Migrations
             var page = contentService.GetContentType(GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage);
             if (page != null) return;
 
-            page = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePage);
+            page = InstallationStepsHelper.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePage);
 
             page.Name = GroupsInstallationConstants.DocumentTypeNames.GroupsOverviewPage;
             page.Alias = GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage;
             page.Icon = GroupsInstallationConstants.DocumentTypeIcons.GroupsOverviewPage;
 
             page.AddPropertyGroup(CoreInstallationConstants.DataTypePropertyGroupNames.Content);
-            page.AddPropertyType(CoreInstallationStep_0_0_1.GetGridPropertyType(GroupsInstallationConstants.DataTypeNames.GroupGrid), CoreInstallationConstants.DataTypePropertyGroupNames.Content);
+            page.AddPropertyType(InstallationStepsHelper.GetGridPropertyType(GroupsInstallationConstants.DataTypeNames.GroupGrid), CoreInstallationConstants.DataTypePropertyGroupNames.Content);
             contentService.Save(page);
 
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, page.Alias);
+            InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, page.Alias);
         }
 
         private void CreateGroupsRoomPage()
@@ -65,7 +65,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateMyGroupsOverviewPage()
@@ -78,7 +78,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateGroupsCreatePage()
@@ -91,7 +91,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsOverviewPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateGroupsEditPage()
@@ -104,7 +104,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateGroupsDocumentsPage()
@@ -117,7 +117,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateGroupsMembersPage()
@@ -130,7 +130,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateGroupsDeactivatedGroupPage()
@@ -143,7 +143,7 @@ namespace uIntra.Groups.Installer.Migrations
                 ParentAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage
             };
 
-            CoreInstallationStep_0_0_1.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         public static void AddFolderGroupIdProperty()

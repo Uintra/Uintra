@@ -7,8 +7,9 @@
         <span class="side-nav__arrow js-groups__opener"></span>
         @foreach (var link in Model.Items)
         {
+            var activeClass = link.IsActive ? "_active" : String.Empty;
             <ul class="side-nav">
-                <li class="side-nav__item">
+                <li class="side-nav__item @activeClass">
                     <a class="side-nav__link" href="@link.Url">@link.Name</a>
                 </li>
             </ul>

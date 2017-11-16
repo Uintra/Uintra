@@ -28,13 +28,13 @@ namespace uIntra.CentralFeed
         {
             IActivityPageHelper helper = GetPageHelper(activity.Type);
 
-            return new ActivityLinks()
+            return new ActivityLinks
             {
-                Overview =  helper.GetOverviewPageUrl(),
+                Overview = helper.GetOverviewPageUrl(),
                 Create = helper.GetCreatePageUrl(),
                 Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id),
                 Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id),
-                Creator = GetProfileLink(activity.CreatorId),
+                Owner = GetProfileLink(activity.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl()
             };
         }
@@ -43,11 +43,11 @@ namespace uIntra.CentralFeed
         {
             IActivityPageHelper helper = GetPageHelper(model.Type);
 
-            return new ActivityCreateLinks()
+            return new ActivityCreateLinks
             {
                 Overview = helper.GetOverviewPageUrl(),
                 Create = helper.GetCreatePageUrl(),
-                Creator = GetProfileLink(model.CreatorId),
+                Owner = GetProfileLink(model.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl()
             };
         }
