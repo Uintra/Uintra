@@ -374,7 +374,7 @@
     <Compile Include="DefaultImplementation\MailNotifierServiceBase.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
-    <Compile Include="DefaultImplementation\MotificationSettingsService.cs" />
+    <Compile Include="DefaultImplementation\NotificationSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
