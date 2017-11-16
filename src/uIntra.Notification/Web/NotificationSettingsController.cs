@@ -19,7 +19,8 @@ namespace uIntra.Notification.Web
         [HttpGet]
         public virtual NotifierSettingsModel Get(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
         {
-            return _notificationSettingsService.Get(activityType, notificationType);
+            var activityEventIdentity = new ActivityEventIdentity(activityType, notificationType);
+            return _notificationSettingsService.Get(activityEventIdentity);
         }
 
         [HttpPost]

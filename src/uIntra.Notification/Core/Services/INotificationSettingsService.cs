@@ -6,7 +6,7 @@ namespace uIntra.Notification.Core.Services
 {
     public interface INotificationSettingsService
     {
-        NotifierSettingsModel Get(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType);
+        NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity);
         void Save<T>(NotifierSettingModel<T> setting);
     }
 }
