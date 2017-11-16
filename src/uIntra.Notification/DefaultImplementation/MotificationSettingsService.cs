@@ -120,8 +120,15 @@ namespace uIntra.Notification
                     };
                     jsonData = defaultTemplate.ToJson();
                     break;
+                case NotifierTypeEnum.UiNotifier:
+                    var uiNotifierTemplate = new UiNotifierTemplate()
+                    {
+                        Message = "msg"
+                    };
+                    jsonData = uiNotifierTemplate.ToJson();
+                    break;
                 default:
-                    jsonData = String.Empty;
+                    jsonData = string.Empty;
                     break;
             }
 
@@ -148,7 +155,8 @@ namespace uIntra.Notification
         private UiNotifierSettingModel GetUiNotifierSetting(NotificationSetting notificationSetting) =>
             new UiNotifierSettingModel
             {
-                IsEnabled = notificationSetting.IsEnabled
+                IsEnabled = notificationSetting.IsEnabled,
+                Template = notificationSetting.JsonData.Deserialize<UiNotifierTemplate>()
             };
 
         private NotificationSetting GetUpdatedSetting(NotificationSetting setting, bool isEnabled, string jsonData)

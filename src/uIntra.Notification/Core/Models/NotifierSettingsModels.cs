@@ -28,6 +28,12 @@ namespace uIntra.Notification.Core.Models
     public class UiNotifierSettingModel : INotifierSettingModel
     {
         public bool IsEnabled { get; set; }
+        public UiNotifierTemplate Template { get; set; }
+    }
+
+    public class UiNotifierTemplate
+    {
+        public string Message { get; set; }
     }
 
     public class NotifierSettingsModel

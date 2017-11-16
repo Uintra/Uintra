@@ -25,7 +25,12 @@
     </div>
     <div>
         <label>Ui</label>
-        <input type="checkbox" ng-model="settings.uiNotifierSetting.isEnabled"> {{settings.emailNotifierSetting.isEnabled}} 
+        <div>
+            <input type="checkbox" ng-model="settings.uiNotifierSetting.isEnabled">
+        </div>      
+        <div>
+            <input type="text" ng-model="settings.uiNotifierSetting.template.message" />
+        </div>
     </div>
     <input type="button" ng-click="Save()" value="Save"/>
 </div>
