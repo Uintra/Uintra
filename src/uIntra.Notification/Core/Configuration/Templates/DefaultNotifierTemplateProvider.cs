@@ -2,7 +2,7 @@
 
 namespace uIntra.Notification.Configuration
 {
-    public class DefaultNotifierTemplateProvider : 
+    public class DefaultNotifierTemplateProvider :
         IDefaultNotifierTemplateProvider<EmailNotifierTemplate>,
         IDefaultNotifierTemplateProvider<UiNotifierTemplate>
     {
@@ -13,15 +13,11 @@ namespace uIntra.Notification.Configuration
             _defaultTemplateReader = defaultTemplateReader;
         }
 
-        EmailNotifierTemplate IDefaultNotifierTemplateProvider<EmailNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent)
-        {
-            return GetTemplate<EmailNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
-        }
+        EmailNotifierTemplate IDefaultNotifierTemplateProvider<EmailNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent) =>
+            GetTemplate<EmailNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
 
-        UiNotifierTemplate IDefaultNotifierTemplateProvider<UiNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent)
-        {
-            return GetTemplate<UiNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
-        }
+        UiNotifierTemplate IDefaultNotifierTemplateProvider<UiNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent) =>
+            GetTemplate<UiNotifierTemplate>(activityEvent, NotifierTypeEnum.UiNotifier);
 
         private T GetTemplate<T>(ActivityEventIdentity activityEvent, NotifierTypeEnum notifier)
         {
