@@ -400,6 +400,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentAdded - Copy.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentAdded - Copy %282%29.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\ActivityLikeAdded.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
   </ItemGroup>
@@ -415,7 +419,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DefaultTemplates\Email\" />
-    <Folder Include="DefaultTemplates\UI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />

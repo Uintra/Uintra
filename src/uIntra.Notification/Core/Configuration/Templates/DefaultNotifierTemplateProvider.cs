@@ -1,5 +1,4 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+﻿using uIntra.Core.Extensions;
 
 namespace uIntra.Notification.Configuration
 {
@@ -14,23 +13,21 @@ namespace uIntra.Notification.Configuration
             _defaultTemplateReader = defaultTemplateReader;
         }
 
-        public EmailNotifierTemplate GetTemplate(ActivityEventIdentity notificationType)
+        EmailNotifierTemplate IDefaultNotifierTemplateProvider<EmailNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent)
         {
-            throw new System.NotImplementedException();
+            return GetTemplate<EmailNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
         }
 
-        UiNotifierTemplate IDefaultNotifierTemplateProvider<UiNotifierTemplate>.GetTemplate(ActivityEventIdentity notificationType)
+        UiNotifierTemplate IDefaultNotifierTemplateProvider<UiNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent)
         {
-            var dto = _defaultTemplateReader.ReadTemplate(notificationType).Deserialize<UiNotifierTemplateDto>();
-            return new UiNotifierTemplate()
-            {
-                Message = dto.Message
-            };
+            return GetTemplate<UiNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
         }
-    }
 
-    internal class UiNotifierTemplateDto
-    {
-        public string Message { get; set; }
+        private T GetTemplate<T>(ActivityEventIdentity activityEvent, NotifierTypeEnum notifier)
+        {
+            var notificationType = activityEvent.AddNotifierIdentity(notifier);
+            var result = _defaultTemplateReader.ReadTemplate(notificationType).Deserialize<T>();
+            return result;
+        }
     }
 }
