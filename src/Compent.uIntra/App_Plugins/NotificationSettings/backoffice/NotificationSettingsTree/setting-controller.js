@@ -33,6 +33,15 @@
             saveSettings(self.settings);
         }
 
+        self.isControlTextHasValidLength = function (control, maxLength) {
+            const trimmedText = trimHtml(control.$modelValue);
+            const isValidLength = trimmedText.length <= maxLength;
+
+            control.$setValidity("maxLength", isValidLength);
+
+            return isValidLength;
+        }
+
         function initalize() {
             var selectedNode = appState.getTreeState('selectedNode');
 
@@ -67,6 +76,10 @@
 
         function showSaveErrorMessage() {
             notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
+        }
+
+        function trimHtml(text) {
+            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
         }
 
         initalize();
