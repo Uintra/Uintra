@@ -304,8 +304,8 @@ namespace Compent.uIntra
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
             kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();
 
-            kernel.Bind<IDefaultTemplateReader>().To<DefaultTemplateReader>();
-            kernel.Bind(typeof(IDefaultNotifierTemplateProvider<>)).To<DefaultNotifierTemplateProvider>();            
+            kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
+            kernel.Bind(typeof(IBackofficeNotificationSettingsProvider<>)).To<BackofficeNotificationSettingsProvider>();            
 
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 

@@ -24,19 +24,17 @@ namespace uIntra.Notification.Web
         public NotificationSettingsTreeController()
         {
             var icon = "icon-circle-dotted";
-            var rnd =  new Random();
-            string GetUniqueUrl(string @base) => @base + "?=" + rnd.Next();
 
             _tree = Node("-1", "root", icon, CategoryView,
-                Node(IntranetActivityTypeEnum.Bulletins, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
-                    Node(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded, icon, GetUniqueUrl(SettingView)),
-                    Node(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded, icon, GetUniqueUrl(SettingView))),
-                Node(IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.News, icon, CategoryView,
-                    Node(NotificationTypeEnum.News, NotificationTypeEnum.News, icon, GetUniqueUrl(SettingView)),
-                    Node(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited, icon, GetUniqueUrl(SettingView))),
-                Node(IntranetActivityTypeEnum.Events, IntranetActivityTypeEnum.Events, icon, CategoryView,
-                    Node(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded, icon, GetUniqueUrl(SettingView)),
-                    Node(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.CommentAdded, icon, GetUniqueUrl(SettingView))));
+                WithUrlIdentity(Node(IntranetActivityTypeEnum.Bulletins, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
+                    Node(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
+                WithUrlIdentity(Node(IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.News, icon, CategoryView,
+                    Node(NotificationTypeEnum.News, NotificationTypeEnum.News, icon, SettingView),
+                    Node(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited, icon, SettingView))),
+                WithUrlIdentity(Node(IntranetActivityTypeEnum.Events, IntranetActivityTypeEnum.Events, icon, CategoryView,
+                    Node(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.CommentAdded, icon, SettingView))));
         }
 
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
@@ -61,9 +59,28 @@ namespace uIntra.Notification.Web
 
         }
 
+        protected Tree<TreeNodeModel> WithUrlIdentity(Tree<TreeNodeModel> tree)
+        {
+            TreeNodeModel AddNotificationTypeParameter(TreeNodeModel model) =>
+                model.WithViewPath(model.ViewPath + "?notificationType=" + model.Id);
+
+            TreeNodeModel AddActivityTypeParameter(TreeNodeModel model, string type) =>
+                model.WithViewPath(model.ViewPath + "&activityType=" + type);
+
+            return tree.TreeCatamorphism(
+                leaf => Node(AddNotificationTypeParameter(leaf)),
+                (node, children) => Node(node.Id, node.Name, node.Icon, node.ViewPath, children
+                    .Select(c => Node(AddActivityTypeParameter(c.Value, node.Id), c.Children.ToArray())).ToArray()));
+        }
+
         protected Tree<TreeNodeModel> Node(object id, object name, string icon, string viewPath, params Tree<TreeNodeModel>[] children)
         {
             return new Tree<TreeNodeModel>(new TreeNodeModel(id.ToString(), name.ToString(), icon, viewPath), children);
+        }
+
+        protected Tree<TreeNodeModel> Node(TreeNodeModel treeNodeModel, params Tree<TreeNodeModel>[] children)
+        {
+            return new Tree<TreeNodeModel>(treeNodeModel, children);
         }
 
         protected class TreeNodeModel
@@ -80,6 +97,8 @@ namespace uIntra.Notification.Web
                 Icon = icon;
                 ViewPath = viewPath;
             }
+
+            public TreeNodeModel WithViewPath(string viewPath) => new TreeNodeModel(Id, Name, Icon, viewPath);
         }
 
     }
