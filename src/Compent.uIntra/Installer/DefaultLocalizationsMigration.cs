@@ -7,6 +7,7 @@ using Localization.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
+using uIntra.Core.Utils;
 
 namespace Compent.uIntra.Installer
 {
@@ -30,7 +31,7 @@ namespace Compent.uIntra.Installer
         {
             var existedLocalizations = _localizationCoreService.GetAllResourceModels();
 
-            var fileContent = InstallationStepsHelper.GetEmbeddedResourceValue(DefaultLocalizationsEmbeddedResourceFilePath, Assembly.GetExecutingAssembly());
+            var fileContent = EmbeddedResourcesUtils.ReadResourceContent(DefaultLocalizationsEmbeddedResourceFilePath, Assembly.GetExecutingAssembly());
             var newLocalizations = fileContent.Deserialize<List<ResourceModel>>();
 
             var parentKeys = newLocalizations

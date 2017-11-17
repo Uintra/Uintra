@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
+using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using static uIntra.Panels.Installer.PanelsInstallationConstants;
@@ -28,7 +29,7 @@ namespace uIntra.Panels.Installer.Migrations
             var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
-            var jsonValue = InstallationStepsHelper.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
+            var jsonValue = EmbeddedResourcesUtils.ReadResourceContent("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
             var jsonPrevalues = JObject.Parse(jsonValue);
 
             panelPickerDataType = new DataTypeDefinition(-1, DataTypePropertyEditors.PanelPicker)

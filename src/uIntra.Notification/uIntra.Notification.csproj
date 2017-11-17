@@ -314,6 +314,10 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
+    <Compile Include="Core\Configuration\Templates\DefaultNotifierTemplateProvider.cs" />
+    <Compile Include="Core\Configuration\Templates\DefaultTemplateReader.cs" />
+    <Compile Include="Core\Configuration\Templates\IDefaultNotifierTemplateProvider.cs" />
+    <Compile Include="Core\Configuration\Templates\IDefaultTemplateReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />
@@ -409,7 +413,10 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DefaultTemplates\Email\" />
+    <Folder Include="DefaultTemplates\UI\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />

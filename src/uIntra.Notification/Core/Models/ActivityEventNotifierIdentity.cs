@@ -1,18 +1,15 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Notification.Configuration;
+﻿using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Models
+namespace uIntra.Notification
 {
     public class ActivityEventNotifierIdentity
     {
-        public IntranetActivityTypeEnum ActivityType { get;  }
-        public NotificationTypeEnum NotificationType { get;}
-        public NotifierTypeEnum NotifierType { get;}
+        public ActivityEventIdentity Event { get; }
+        public NotifierTypeEnum NotifierType { get; }
 
-        public ActivityEventNotifierIdentity(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType, NotifierTypeEnum notifierTypeEnum)
+        public ActivityEventNotifierIdentity(ActivityEventIdentity @event, NotifierTypeEnum notifierTypeEnum)
         {
-            ActivityType = activityType;
-            NotificationType = notificationType;
+            Event = @event;
             NotifierType = notifierTypeEnum;
         }
     }

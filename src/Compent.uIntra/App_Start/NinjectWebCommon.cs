@@ -88,6 +88,7 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.Attributes;
 using uIntra.Notification.Core.Services;
+using uIntra.Core.Utils;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -204,7 +205,8 @@ namespace Compent.uIntra
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
-
+            kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
+            
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
@@ -300,7 +302,10 @@ namespace Compent.uIntra
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
-            kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();           
+            kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();
+
+            kernel.Bind<IDefaultTemplateReader>().To<DefaultTemplateReader>();
+            kernel.Bind(typeof(IDefaultNotifierTemplateProvider<>)).To<DefaultNotifierTemplateProvider>();            
 
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
