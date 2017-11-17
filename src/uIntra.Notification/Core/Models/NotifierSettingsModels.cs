@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using uIntra.Core.Activity;
+﻿using uIntra.Core.Activity;
 using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Models
+namespace uIntra.Notification
 {
+    /// <summary>
+    /// Marker
+    /// </summary>
+    public interface INotifierTemplate { }
 
-    public class EmailNotifierTemplate
+    public class EmailNotifierTemplate : INotifierTemplate
     {
         public string Subject { get; set; }
         public string Content { get; set; }
     }
 
-    public class UiNotifierTemplate
+    public class UiNotifierTemplate : INotifierTemplate
     {
         public string Message { get; set; }
     }
+
 
     public class NotifierSettingModel<T>
     {
