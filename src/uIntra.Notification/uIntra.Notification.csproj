@@ -315,7 +315,9 @@
     </Compile>
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\Templates\DefaultNotifierTemplateProvider.cs" />
+    <Compile Include="Core\Configuration\Templates\DefaultTemplateReader.cs" />
     <Compile Include="Core\Configuration\Templates\IDefaultNotifierTemplateProvider.cs" />
+    <Compile Include="Core\Configuration\Templates\IDefaultTemplateReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />

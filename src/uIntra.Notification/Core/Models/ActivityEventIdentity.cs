@@ -6,7 +6,7 @@ namespace uIntra.Notification.Core.Models
     public class ActivityEventIdentity
     {
         public IntranetActivityTypeEnum ActivityType { get; }
-        public NotificationTypeEnum NotificationType { get;  }
+        public NotificationTypeEnum NotificationType { get; }
         public ActivityEventIdentity(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
         {
             ActivityType = activityType;
