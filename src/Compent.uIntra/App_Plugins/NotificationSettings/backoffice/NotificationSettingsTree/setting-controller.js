@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, $http, appState, notificationSettingsConfig) {
+    var controller = function ($scope, $http, appState, notificationSettingsConfig, notificationSettingsService) {
         var self = this;
         self.settings = {};
 
@@ -40,7 +40,7 @@
                 var notificationType = selectedNode.id;
                 var activityType = selectedNode.parentId;
 
-                getSettings(activityType, notificationType).then(function (result) {
+                notificationSettingsService.getSettings(activityType, notificationType).then(function (result) {
                     self.settings = result.data;
                 });
             }
@@ -48,26 +48,19 @@
             self.config = notificationSettingsConfig;
         }
 
-        function getSettings(activityType, notificationType) {
-            return $http.get('/umbraco/backoffice/api/NotificationSettingsApi/Get?activityType=' +
-                activityType +
-                '&notificationType=' +
-                notificationType);
-        }
-
         function saveSettings(settings) {
-            if (self.isUiTabSelected()) {
-                $http.post('/umbraco/backoffice/api/NotificationSettingsApi/SaveUiNotifierSetting', settings.uiNotifierSetting);
-                return;
+            if (self.isEmailTabSelected()) {
+                notificationSettingsService.seveEmailSettings(settings.emailNotifierSetting);
             }
-
-            $http.post('/umbraco/backoffice/api/NotificationSettingsApi/SaveEmailNotifierSetting', settings.emailNotifierSetting);
+            else if (self.isUiTabSelected()) {
+                notificationSettingsService.seveEmailSettings(settings.uiNotifierSetting);
+            }
         }
 
         initalize();
     }
 
-    controller.$inject = ["$scope", "$http", "appState", "notificationSettingsConfig", "$routeParams"];
+    controller.$inject = ["$scope", "$http", "appState", "notificationSettingsConfig", "notificationSettingsService"];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
