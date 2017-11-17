@@ -1,5 +1,4 @@
 ﻿using uIntra.Core.Activity;
-using uIntra.Notification.Core.Models;
 
 namespace uIntra.Notification.Configuration
 {

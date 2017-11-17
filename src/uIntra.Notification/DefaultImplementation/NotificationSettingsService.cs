@@ -4,7 +4,6 @@ using System.Linq;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Models;
 using uIntra.Notification.Core.Services;
 using uIntra.Notification.Core.Sql;
 
@@ -13,14 +12,20 @@ namespace uIntra.Notification
     public class NotificationSettingsService : INotificationSettingsService
     {
         private readonly ISqlRepository<NotificationSetting> _repository;
+        private readonly IDefaultNotifierTemplateProvider<UiNotifierTemplate> _notifierTemplateProvider;
 
-        public NotificationSettingsService(ISqlRepository<NotificationSetting> repository)
+        public NotificationSettingsService(ISqlRepository<NotificationSetting> repository, IDefaultNotifierTemplateProvider<UiNotifierTemplate> notifierTemplateProvider)
         {
             _repository = repository;
+            _notifierTemplateProvider = notifierTemplateProvider;
         }
 
         public NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity)
         {
+            // --- we have no unit tests ---
+            // var testTemplate = _notifierTemplateProvider.GetTemplate(activityEventIdentity);
+            // ---   ---
+
             var existSettings = _repository.FindAll(s =>
                     s.ActivityType == activityEventIdentity.ActivityType &&
                     s.NotificationType == activityEventIdentity.NotificationType)
@@ -125,8 +130,8 @@ namespace uIntra.Notification
         private NotifierSettingModel<T> NotifierSetting<T>(NotificationSetting notificationSetting, ActivityEventNotifierIdentity identity) =>
             new NotifierSettingModel<T>
             {
-                ActivityType = identity.ActivityType,
-                NotificationType = identity.NotificationType,
+                ActivityType = identity.Event.ActivityType,
+                NotificationType = identity.Event.NotificationType,
                 NotifierType = identity.NotifierType,
                 IsEnabled = notificationSetting.IsEnabled,
                 NotificationInfo = "NotificationInfo",

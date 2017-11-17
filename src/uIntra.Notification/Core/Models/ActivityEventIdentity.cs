@@ -1,7 +1,7 @@
 ﻿using uIntra.Core.Activity;
 using uIntra.Notification.Configuration;
 
-namespace uIntra.Notification.Core.Models
+namespace uIntra.Notification
 {
     public class ActivityEventIdentity
     {
@@ -15,7 +15,7 @@ namespace uIntra.Notification.Core.Models
 
         public ActivityEventNotifierIdentity AddNotifierIdentity(NotifierTypeEnum notifierType)
         {
-           return new ActivityEventNotifierIdentity(ActivityType, NotificationType, notifierType);
+           return new ActivityEventNotifierIdentity(this, notifierType);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using uIntra.Core.Activity;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Models;
 using uIntra.Notification.Core.Services;
 using Umbraco.Web.WebApi;
 using System.Web.Http;

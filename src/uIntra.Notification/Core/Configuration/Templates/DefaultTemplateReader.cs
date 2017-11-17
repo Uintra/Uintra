@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using uIntra.Core.Activity;
 using uIntra.Core.Utils;
-using uIntra.Notification.Core.Models;
 
 namespace uIntra.Notification.Configuration
 {
