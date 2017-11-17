@@ -29,7 +29,7 @@ namespace uIntra.Notification.Web
         }
 
         [HttpPost]
-        public virtual void SaveUiNotifierSetting(NotifierSettingModel<EmailNotifierTemplate> notifierSettingModel)
+        public virtual void SaveEmailNotifierSetting(NotifierSettingModel<EmailNotifierTemplate> notifierSettingModel)
         {
             _notificationSettingsService.Save(notifierSettingModel);
         }
