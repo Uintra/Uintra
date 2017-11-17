@@ -413,6 +413,7 @@
     <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
     <Compile Include="Installer\IIntranetInstallationStep.cs" />
+    <Compile Include="Installer\InstallationStepsHelper.cs" />
     <Compile Include="Installer\IntranetInstaller.cs" />
     <Compile Include="Installer\Migrations\HeadingInstallationStep_0_2_2_10.cs" />
     <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />

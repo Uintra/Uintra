@@ -312,8 +312,8 @@
     <Reference Include="uIntra.BaseControls, Version=2.4.2.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.2\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.3.0\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.3.0.2\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.CentralFeed, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.CentralFeed.1.3.0\lib\net452\uIntra.CentralFeed.dll</HintPath>
@@ -321,8 +321,8 @@
     <Reference Include="uIntra.Comments, Version=1.1.9.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.5\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.0\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.4.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.4.0.1\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.0\lib\net452\uIntra.Events.dll</HintPath>
@@ -336,8 +336,8 @@
     <Reference Include="uIntra.Likes, Version=1.1.7.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.7.4\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.4.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.4.27\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.5\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.News, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0\lib\net452\uIntra.News.dll</HintPath>
@@ -857,6 +857,8 @@
     <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\umbracoContentLink.css" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\UmbracoContentLink.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
@@ -1409,47 +1411,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
-    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
-    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
@@ -1491,6 +1460,40 @@
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+    <Content Include="App_Plugins\Core\package.manifest" />
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

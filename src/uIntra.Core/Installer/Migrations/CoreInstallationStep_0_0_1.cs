@@ -88,35 +88,12 @@ namespace uIntra.Core.Installer.Migrations
         private void CreateDefaultGridDataType()
         {
             var embeddedResourceFileName = "uIntra.Core.Installer.PreValues.DefaultGridPreValues.json";
-            CreateGrid(CoreInstallationConstants.DataTypeNames.DefaultGrid, embeddedResourceFileName);
+            InstallationStepsHelper.CreateGrid(CoreInstallationConstants.DataTypeNames.DefaultGrid, embeddedResourceFileName);
         }
         private void CreateContentGridDataType()
         {
             var embeddedResourceFileName = "uIntra.Core.Installer.PreValues.ContentGridPreValues.json";
-            CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, embeddedResourceFileName);
-        }
-
-        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName, Assembly sourceAssembly = null)
-        {
-            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-            var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
-            if (defaultGridDataType != null) return;
-
-            var gridJson = GetEmbeddedResourceValue(gridEmbeddedResourceFileName, sourceAssembly);
-
-            var jsonPrevalues = JObject.Parse(gridJson);
-            var preValueItemsAlias = CoreInstallationConstants.DataTypePropertyPreValues.DefaultGridItems;
-            var preValueRteAlias = CoreInstallationConstants.DataTypePropertyPreValues.DefaultGridRte;
-            defaultGridDataType = new DataTypeDefinition(-1, "Umbraco.Grid")
-            {
-                Name = dataTypeName
-            };
-            var preValues = new Dictionary<string, PreValue>
-            {
-                { preValueItemsAlias, new PreValue(jsonPrevalues.Property(preValueItemsAlias).Value.ToString())},
-                { preValueRteAlias, new PreValue(jsonPrevalues.Property(preValueRteAlias).Value.ToString())}
-            };
-            dataTypeService.SaveDataTypeAndPreValues(defaultGridDataType, preValues);
+            InstallationStepsHelper.CreateGrid(CoreInstallationConstants.DataTypeNames.ContentGrid, embeddedResourceFileName);
         }
 
         private void CreateBasePageWithGrid()
@@ -134,7 +111,7 @@ namespace uIntra.Core.Installer.Migrations
             };
 
             basePageDocumentType.AddPropertyGroup(CoreInstallationConstants.DataTypePropertyGroupNames.Content);
-            basePageDocumentType.AddPropertyType(GetGridPropertyType(CoreInstallationConstants.DataTypeNames.DefaultGrid), CoreInstallationConstants.DataTypePropertyGroupNames.Content);
+            basePageDocumentType.AddPropertyType(InstallationStepsHelper.GetGridPropertyType(CoreInstallationConstants.DataTypeNames.DefaultGrid), CoreInstallationConstants.DataTypePropertyGroupNames.Content);
 
             contentService.Save(basePageDocumentType);
         }
@@ -154,88 +131,52 @@ namespace uIntra.Core.Installer.Migrations
             };
 
             basePageDocumentType.AddPropertyGroup(CoreInstallationConstants.DataTypePropertyGroupNames.Content);
-            basePageDocumentType.AddPropertyType(GetGridPropertyType(CoreInstallationConstants.DataTypeNames.ContentGrid), CoreInstallationConstants.DataTypePropertyGroupNames.Content);
+            basePageDocumentType.AddPropertyType(InstallationStepsHelper.GetGridPropertyType(CoreInstallationConstants.DataTypeNames.ContentGrid), CoreInstallationConstants.DataTypePropertyGroupNames.Content);
 
             contentService.Save(basePageDocumentType);
         }
 
         private void CreateHomePage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = CoreInstallationConstants.DocumentTypeNames.HomePage,
+                Alias = CoreInstallationConstants.DocumentTypeAliases.HomePage,
+                Icon = CoreInstallationConstants.DocumentTypeIcons.HomePage
+            };
 
-            var homePage = contentService.GetContentType(CoreInstallationConstants.DocumentTypeAliases.HomePage);
-            if (homePage != null) return;
-
-            homePage = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-
-            homePage.Name = CoreInstallationConstants.DocumentTypeNames.HomePage;
-            homePage.Alias = CoreInstallationConstants.DocumentTypeAliases.HomePage;
-            homePage.Icon = CoreInstallationConstants.DocumentTypeIcons.HomePage;
+            var homePage = InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
             homePage.AllowedAsRoot = true;
 
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
             contentService.Save(homePage);
         }
 
         private void CreateErrorPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = CoreInstallationConstants.DocumentTypeNames.ErrorPage,
+                Alias = CoreInstallationConstants.DocumentTypeAliases.ErrorPage,
+                Icon = CoreInstallationConstants.DocumentTypeIcons.ErrorPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            var errorPage = contentService.GetContentType(CoreInstallationConstants.DocumentTypeAliases.ErrorPage);
-            if (errorPage != null) return;
-
-            errorPage = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithContentGrid);
-
-            errorPage.Name = CoreInstallationConstants.DocumentTypeNames.ErrorPage;
-            errorPage.Alias = CoreInstallationConstants.DocumentTypeAliases.ErrorPage;
-            errorPage.Icon = CoreInstallationConstants.DocumentTypeIcons.ErrorPage;
-
-            contentService.Save(errorPage);
-            AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, CoreInstallationConstants.DocumentTypeAliases.ErrorPage);
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
         }
 
         private void CreateContentPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var contentPage = contentService.GetContentType(CoreInstallationConstants.DocumentTypeAliases.ContentPage);
-            if (contentPage != null) return;
-
-            contentPage = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithContentGrid);
-
-            contentPage.Name = CoreInstallationConstants.DocumentTypeNames.ContentPage;
-            contentPage.Alias = CoreInstallationConstants.DocumentTypeAliases.ContentPage;
-            contentPage.Icon = CoreInstallationConstants.DocumentTypeIcons.ContentPage;
-
-            contentService.Save(contentPage);
-            AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
-            AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.ContentPage, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
-        }
-
-        public static PropertyType GetGridPropertyType(string gridTypeName)
-        {
-            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-            var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(gridTypeName);
-            var gridProperty = new PropertyType(defaultGridDataType)
+            var createModel = new BasePageWithDefaultGridCreateModel
             {
-                Name = CoreInstallationConstants.DataTypePropertyNames.Grid,
-                Alias = CoreInstallationConstants.DataTypePropertyAliases.Grid
+                Name = CoreInstallationConstants.DocumentTypeNames.ContentPage,
+                Alias = CoreInstallationConstants.DocumentTypeAliases.ContentPage,
+                Icon = CoreInstallationConstants.DocumentTypeIcons.ContentPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
             };
 
-            return gridProperty;
-        }
-
-        public static ContentType GetBasePageWithGridBase(string basePageTypeAlias)
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-            var fileService = ApplicationContext.Current.Services.FileService;
-
-            var basePageWithGrid = contentService.GetContentType(basePageTypeAlias);
-            var basePageWithGridBase = new ContentType(basePageWithGrid.Id);
-
-            basePageWithGridBase.AddContentType(basePageWithGrid);
-            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.DocumentTypeAliases.GridPageLayoutTemplateAlias));
-
-            return basePageWithGridBase;
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.ContentPage, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
         }
 
         private void CreateGridPageLayoutTemplate()
@@ -248,27 +189,9 @@ namespace uIntra.Core.Installer.Migrations
             gridPageLayoutTemplate = new Template(alias, alias);
 
             var layoutEmbeddedResourceFileName = "uIntra.Core.Installer.PreValues.GridPageLayout.cshtml";
-            gridPageLayoutTemplate.Content = GetEmbeddedResourceValue(layoutEmbeddedResourceFileName);
+            gridPageLayoutTemplate.Content = InstallationStepsHelper.GetEmbeddedResourceValue(layoutEmbeddedResourceFileName);
 
             fileService.SaveTemplate(gridPageLayoutTemplate);
-        }
-
-        public static void AddAllowedChildNode(string parentDocumentTypeAlias, string childDocumentTypeAlias)
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-            var parentNodeDataType = contentService.GetContentType(parentDocumentTypeAlias);
-            var childNodeDataType = contentService.GetContentType(childDocumentTypeAlias);
-            var allowedChildren = parentNodeDataType.AllowedContentTypes.ToList();
-            var isChildAlready = allowedChildren.Any(c => c.Id.Value == childNodeDataType.Id);
-            if (isChildAlready)
-            {
-                return;
-            }
-
-            allowedChildren.Add(new ContentTypeSort(childNodeDataType.Id, 1));
-            parentNodeDataType.AllowedContentTypes = allowedChildren;
-
-            contentService.Save(parentNodeDataType);
         }
 
         private static void AddImageCropperPreset()
@@ -470,90 +393,6 @@ namespace uIntra.Core.Installer.Migrations
                 Name = "Intranet user id",
                 Alias = IntranetConstants.IntranetCreatorId
             };
-        }
-
-        public static void CreateTrueFalseDataType(string name)
-        {
-            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-
-            var dataType = dataTypeService.GetDataTypeDefinitionByName(name);
-            if (dataType == null)
-            {
-                dataType = new DataTypeDefinition("Umbraco.TrueFalse")
-                {
-                    Name = name
-                };
-
-                dataTypeService.Save(dataType);
-            }
-        }
-
-        public static void InheritCompositionForPage(string pageTypeAlias, string compositionTypeAlias)
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var page = contentService.GetContentType(pageTypeAlias);
-            var composition = contentService.GetContentType(compositionTypeAlias);
-            if (page == null || composition == null) return;
-
-            if (page.ContentTypeCompositionExists(composition.Alias)) return;
-
-            page.AddContentType(composition);
-            contentService.Save(page);
-        }
-
-        public static string GetEmbeddedResourceValue(string embeddedResourceName, Assembly sourceAssembly = null)
-        {
-            var assembly = sourceAssembly != null ? sourceAssembly : Assembly.GetCallingAssembly();
-            string json;
-            using (Stream stream = assembly.GetManifestResourceStream(embeddedResourceName))
-            {
-                if (stream == null)
-                {
-                    throw new FileNotFoundException($"Embedded resource {embeddedResourceName} doesn't exist.");
-                }
-                using (TextReader reader = new StreamReader(stream))
-                {
-                    json = reader.ReadToEnd();
-                }
-
-            }
-
-            return json;
-        }
-
-        public static IContentType CreatePageDocTypeWithBaseGrid(BasePageWithDefaultGridCreateModel model)
-        {
-            if (!ValidateCreationModel(model))
-            {
-                return null;
-            }
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var page = contentService.GetContentType(model.Alias);
-            if (page != null) return null;
-
-            page = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-
-            page.Name = model.Name;
-            page.Alias = model.Alias;
-            page.Icon = model.Icon;
-
-            contentService.Save(page);
-            if (model.ParentAlias.IsNotNullOrEmpty())
-            {
-                AddAllowedChildNode(model.ParentAlias, model.Alias);
-            }
-
-            return page;
-        }
-
-        private static bool ValidateCreationModel(BasePageWithDefaultGridCreateModel model)
-        {
-            var context = new ValidationContext(model);
-            var validationResults = new List<ValidationResult>();
-
-            return Validator.TryValidateObject(model, context, validationResults, true);
         }
     }
 }

@@ -41,15 +41,15 @@ namespace uIntra.Notification.Installer.Migrations
 
         private void CreateNotificationPage()
         {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-            var notificationPage = contentService.GetContentType(NotificationInstallationConstants.DocumentTypeAliases.NotificationPage);
-            if (notificationPage != null) return;
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = NotificationInstallationConstants.DocumentTypeNames.NotificationPage,
+                Alias = NotificationInstallationConstants.DocumentTypeAliases.NotificationPage,
+                Icon = NotificationInstallationConstants.DocumentTypeIcons.NotificationPage,
+                ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
+            };
 
-            notificationPage = CoreInstallationStep_0_0_1.GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-
-            notificationPage.Name = NotificationInstallationConstants.DocumentTypeNames.NotificationPage;
-            notificationPage.Alias = NotificationInstallationConstants.DocumentTypeAliases.NotificationPage;
-            notificationPage.Icon = NotificationInstallationConstants.DocumentTypeIcons.NotificationPage;
+            var notificationPage = InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
 
             var itemCountForPopupProperty = new PropertyType("Umbraco.Integer", DataTypeDatabaseType.Integer)
             {
@@ -58,8 +58,8 @@ namespace uIntra.Notification.Installer.Migrations
             };
             notificationPage.AddPropertyType(itemCountForPopupProperty, "Content");
 
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
             contentService.Save(notificationPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.HomePage, NotificationInstallationConstants.DocumentTypeAliases.NotificationPage);
         }
     }
 }

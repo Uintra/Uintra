@@ -32,9 +32,8 @@
             </div>
         </aside>
         <main id="main">
-            @*@{Html.RenderAction("Login", "Login");}*@
             @{Html.RenderAction("SubNavigation", "Navigation");}
-            @{Html.RenderAction("RenderUmbracoPageLink", "Navigation");}
+            @{Html.RenderAction("UmbracoContentLink", "Navigation");}
 
             @RenderBody()
         </main>
