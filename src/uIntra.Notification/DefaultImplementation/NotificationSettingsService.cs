@@ -129,6 +129,7 @@ namespace uIntra.Notification
                 NotificationType = identity.NotificationType,
                 NotifierType = identity.NotifierType,
                 IsEnabled = notificationSetting.IsEnabled,
+                NotificationInfo = "NotificationInfo",
                 Template = notificationSetting.JsonData.Deserialize<T>()
             };
 

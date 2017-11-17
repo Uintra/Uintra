@@ -26,6 +26,7 @@ namespace uIntra.Notification.Core.Models
         public NotificationTypeEnum NotificationType { get; set; }
         public NotifierTypeEnum NotifierType { get; set; }
         public bool IsEnabled { get; set; }
+        public string NotificationInfo { get; set; } 
         public T Template { get; set; }
     }
 
