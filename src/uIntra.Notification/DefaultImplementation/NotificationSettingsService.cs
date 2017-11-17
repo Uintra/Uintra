@@ -12,18 +12,23 @@ namespace uIntra.Notification
     public class NotificationSettingsService : INotificationSettingsService
     {
         private readonly ISqlRepository<NotificationSetting> _repository;
-        private readonly IDefaultNotifierTemplateProvider<UiNotifierTemplate> _notifierTemplateProvider;
+        private readonly IDefaultNotifierTemplateProvider<EmailNotifierTemplate> _emailNotifierTemplateProvider;
+        private readonly IDefaultNotifierTemplateProvider<UiNotifierTemplate> _uiNotifierTemplateProvider;
 
-        public NotificationSettingsService(ISqlRepository<NotificationSetting> repository, IDefaultNotifierTemplateProvider<UiNotifierTemplate> notifierTemplateProvider)
+        public NotificationSettingsService(ISqlRepository<NotificationSetting> repository,
+            IDefaultNotifierTemplateProvider<EmailNotifierTemplate> emailNotifierTemplateProvider,
+            IDefaultNotifierTemplateProvider<UiNotifierTemplate> uiNotifierTemplateProvider)
         {
             _repository = repository;
-            _notifierTemplateProvider = notifierTemplateProvider;
+            _emailNotifierTemplateProvider = emailNotifierTemplateProvider;
+            _uiNotifierTemplateProvider = uiNotifierTemplateProvider;
         }
 
         public NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity)
         {
             // --- we have no unit tests ---
-            // var testTemplate = _notifierTemplateProvider.GetTemplate(activityEventIdentity);
+            var testTemplate = _uiNotifierTemplateProvider.GetTemplate(activityEventIdentity);
+            var testTemplate1 = _emailNotifierTemplateProvider.GetTemplate(activityEventIdentity);
             // ---   ---
 
             var existSettings = _repository.FindAll(s =>

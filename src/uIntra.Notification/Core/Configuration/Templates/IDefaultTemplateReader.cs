@@ -2,6 +2,6 @@
 {
     public interface IDefaultTemplateReader
     {
-        string ReadTemplate(ActivityEventIdentity notificationType);
+        string ReadTemplate(ActivityEventNotifierIdentity notificationType);
     }
 }

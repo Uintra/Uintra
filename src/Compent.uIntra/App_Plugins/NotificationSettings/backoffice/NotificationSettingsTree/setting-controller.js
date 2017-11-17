@@ -4,13 +4,14 @@
     var controller = function ($scope, $location, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
         var self = this;
         self.settings = {};
+        self.selectedNotifierSettings = {};
 
         const notifierType = {
             email: 1,
             ui: 2
         };
 
-        let selectedNotifierType = notifierType.email;
+        let selectedNotifierType;
 
 
         self.isEmailTabSelected = function () {
@@ -23,10 +24,12 @@
 
         self.selectEmailTab = function () {
             selectedNotifierType = notifierType.email;
+            self.selectedNotifierSettings = self.settings.emailNotifierSetting;
         }
 
         self.selectUiTab = function () {
             selectedNotifierType = notifierType.ui;
+            self.selectedNotifierSettings = self.settings.uiNotifierSetting;
         }
 
         self.save = function () {
@@ -57,6 +60,7 @@
             var params = getUrlParams($location.path());
                 notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
                     self.settings = result.data;
+                    self.selectEmailTab();
                 }, showGetErrorMessage);
 
             self.config = notificationSettingsConfig;

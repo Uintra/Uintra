@@ -17,7 +17,7 @@ namespace uIntra.Notification.Web
     public class NotificationSettingsTreeController : TreeController
     {
         private const string CategoryView = "NotificationSettings/NotificationSettingsTree/Category/edit";
-        private const string SettingView = "NotificationSettings/NotificationSettingsTree/Setting/edit";
+        private const string SettingView = "NotificationSettings/NotificationSettingsTree/Settings/edit";
 
         private readonly Tree<TreeNodeModel> _tree;
 
