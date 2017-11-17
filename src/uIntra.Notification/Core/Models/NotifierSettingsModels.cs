@@ -19,8 +19,21 @@ namespace uIntra.Notification
         public string Message { get; set; }
     }
 
+    public class BackofficeNotificationSettingsModel<T>
+        where T : INotifierTemplate
+    {
+        public BackofficeNotificationSettingsModel(string label, T template)
+        {
+            Label = label;
+            Template = template;
+        }
+
+        public string Label { get; }
+        public T Template { get; }
+    }
 
     public class NotifierSettingModel<T>
+        where T : INotifierTemplate
     {
         public IntranetActivityTypeEnum ActivityType { get; set; }
         public NotificationTypeEnum NotificationType { get; set; }

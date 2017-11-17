@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
-using uIntra.Core.Activity;
 using uIntra.Core.Utils;
 
 namespace uIntra.Notification.Configuration
 {
     public class DefaultTemplateReader : IDefaultTemplateReader
     {
-        private const string RootFolderName = "DefaultTemplates";
+        private const string RootFolderName = "BackofficeNotificationSettings";
 
         private readonly IEmbeddedResourceService _embeddedResourceService;
 

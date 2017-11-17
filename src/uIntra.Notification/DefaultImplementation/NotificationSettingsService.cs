@@ -12,12 +12,12 @@ namespace uIntra.Notification
     public class NotificationSettingsService : INotificationSettingsService
     {
         private readonly ISqlRepository<NotificationSetting> _repository;
-        private readonly IDefaultNotifierTemplateProvider<EmailNotifierTemplate> _emailNotifierTemplateProvider;
-        private readonly IDefaultNotifierTemplateProvider<UiNotifierTemplate> _uiNotifierTemplateProvider;
+        private readonly IBackofficeNotificationSettingsProvider<EmailNotifierTemplate> _emailNotifierTemplateProvider;
+        private readonly IBackofficeNotificationSettingsProvider<UiNotifierTemplate> _uiNotifierTemplateProvider;
 
         public NotificationSettingsService(ISqlRepository<NotificationSetting> repository,
-            IDefaultNotifierTemplateProvider<EmailNotifierTemplate> emailNotifierTemplateProvider,
-            IDefaultNotifierTemplateProvider<UiNotifierTemplate> uiNotifierTemplateProvider)
+            IBackofficeNotificationSettingsProvider<EmailNotifierTemplate> emailNotifierTemplateProvider,
+            IBackofficeNotificationSettingsProvider<UiNotifierTemplate> uiNotifierTemplateProvider)
         {
             _repository = repository;
             _emailNotifierTemplateProvider = emailNotifierTemplateProvider;
@@ -27,8 +27,8 @@ namespace uIntra.Notification
         public NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity)
         {
             // --- we have no unit tests ---
-            var testTemplate = _uiNotifierTemplateProvider.GetTemplate(activityEventIdentity);
-            var testTemplate1 = _emailNotifierTemplateProvider.GetTemplate(activityEventIdentity);
+            var testTemplate = _uiNotifierTemplateProvider.GetBackofficeSettings(activityEventIdentity);
+            var testTemplate1 = _emailNotifierTemplateProvider.GetBackofficeSettings(activityEventIdentity);
             // ---   ---
 
             var existSettings = _repository.FindAll(s =>
@@ -45,7 +45,7 @@ namespace uIntra.Notification
             return notifierSettings;
         }
 
-        public void Save<T>(NotifierSettingModel<T> setting)
+        public void Save<T>(NotifierSettingModel<T> setting) where T : INotifierTemplate
         {
             var entry = _repository.Find(s =>
                 s.ActivityType == setting.ActivityType &&
@@ -132,8 +132,9 @@ namespace uIntra.Notification
             };
         }
 
-        private NotifierSettingModel<T> NotifierSetting<T>(NotificationSetting notificationSetting, ActivityEventNotifierIdentity identity) =>
-            new NotifierSettingModel<T>
+        private NotifierSettingModel<T> NotifierSetting<T>(NotificationSetting notificationSetting, ActivityEventNotifierIdentity identity)
+            where T : INotifierTemplate 
+            => new NotifierSettingModel<T>
             {
                 ActivityType = identity.Event.ActivityType,
                 NotificationType = identity.Event.NotificationType,
@@ -144,6 +145,7 @@ namespace uIntra.Notification
             };
 
         private NotificationSetting GetUpdatedSetting<T>(NotificationSetting setting, NotifierSettingModel<T> notifierSettingModel)
+            where T : INotifierTemplate
         {
             setting.JsonData = notifierSettingModel.Template.ToJson();
             setting.IsEnabled = notifierSettingModel.IsEnabled;

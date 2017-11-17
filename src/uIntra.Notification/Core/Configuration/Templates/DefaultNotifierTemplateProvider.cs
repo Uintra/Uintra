@@ -2,27 +2,32 @@
 
 namespace uIntra.Notification.Configuration
 {
-    public class DefaultNotifierTemplateProvider :
-        IDefaultNotifierTemplateProvider<EmailNotifierTemplate>,
-        IDefaultNotifierTemplateProvider<UiNotifierTemplate>
+    public class BackofficeNotificationSettingsProvider :
+        IBackofficeNotificationSettingsProvider<EmailNotifierTemplate>,
+        IBackofficeNotificationSettingsProvider<UiNotifierTemplate>
     {
         private readonly IDefaultTemplateReader _defaultTemplateReader;
 
-        public DefaultNotifierTemplateProvider(IDefaultTemplateReader defaultTemplateReader)
+        public BackofficeNotificationSettingsProvider(IDefaultTemplateReader defaultTemplateReader)
         {
             _defaultTemplateReader = defaultTemplateReader;
         }
 
-        EmailNotifierTemplate IDefaultNotifierTemplateProvider<EmailNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent) =>
-            GetTemplate<EmailNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
+        BackofficeNotificationSettingsModel<EmailNotifierTemplate> IBackofficeNotificationSettingsProvider<EmailNotifierTemplate>.GetBackofficeSettings(ActivityEventIdentity activityEvent)
+        {
+            return GetTemplate<EmailNotifierTemplate>(activityEvent, NotifierTypeEnum.EmailNotifier);
+        }
 
-        UiNotifierTemplate IDefaultNotifierTemplateProvider<UiNotifierTemplate>.GetTemplate(ActivityEventIdentity activityEvent) =>
-            GetTemplate<UiNotifierTemplate>(activityEvent, NotifierTypeEnum.UiNotifier);
+        BackofficeNotificationSettingsModel<UiNotifierTemplate> IBackofficeNotificationSettingsProvider<UiNotifierTemplate>.GetBackofficeSettings(ActivityEventIdentity activityEvent)
+        {
+            return GetTemplate<UiNotifierTemplate>(activityEvent, NotifierTypeEnum.UiNotifier);
+        }
 
-        private T GetTemplate<T>(ActivityEventIdentity activityEvent, NotifierTypeEnum notifier)
+        private BackofficeNotificationSettingsModel<T> GetTemplate<T>(ActivityEventIdentity activityEvent, NotifierTypeEnum notifier)
+            where T : INotifierTemplate
         {
             var notificationType = activityEvent.AddNotifierIdentity(notifier);
-            var result = _defaultTemplateReader.ReadTemplate(notificationType).Deserialize<T>();
+            var result = _defaultTemplateReader.ReadTemplate(notificationType).Deserialize<BackofficeNotificationSettingsModel<T>>();
             return result;
         }
     }
