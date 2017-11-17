@@ -1,36 +1,67 @@
-﻿<script>
- 
+﻿<!--<script>
     function CustomSectionEditController($scope, $routeParams) {
         $scope.content = { tabs: [{ id: 1, label: "Tab 1" }, { id: 2, label: "Tab 2" }] };
- 
-        $scope.EditMode = function() {
+
+        $scope.EditMode = function () {
             return $routeParams.create == 'true';
         };
     }
-</script>
- 
-<div ng-controller="settingController">
-    <div>
-        <label>Email</label>
-        <div>
-            <div>
-                <input type="checkbox" ng-model="settings.emailNotifierSetting.isEnabled"> {{settings.emailNotifierSetting.isEnabled}}
+</script>-->
+<style>
+    .custom-umb-panel-body {
+        padding-left: 10px;
+    }
+
+    .tab._active {
+        font-weight: bold;
+    }
+</style>
+
+<umb-panel>
+    <div class="umb-panel-body custom-umb-panel-body">
+        <div ng-controller="settingController as ctrl">
+
+            <span class="tab" ng-class="{'_active' : ctrl.isEmailTabSelected()}" ng-click="ctrl.selectEmailTab()">E-mail notification</span>
+            <span class="tab" ng-class="{'_active' : ctrl.isUiTabSelected()}" ng-click="ctrl.selectUiTab()">In-App notification</span>
+
+            <div ng-show="ctrl.isEmailTabSelected()">
                 <div>
-                    <input type="text" ng-model="settings.emailNotifierSetting.template.subject" />
-                </div>
-                <div>
-                    <input type="text" ng-model="settings.emailNotifierSetting.template.content" />
+                    <div>
+                        <span>Do you want to enable this notification:</span>
+                        <label for="enableEmailNotification">Yes, enable</label>
+                        <input id="enableEmailNotification" type="radio" ng-model="ctrl.settings.emailNotifierSetting.isEnabled" ng-value="true">
+                        <label for="disableEmailNotification">No, disable</label>
+                        <input id="disableEmailNotification" type="radio" ng-model="ctrl.settings.emailNotifierSetting.isEnabled" ng-value="false">
+                    </div>
+                    <div>
+                        <label for="emailSubject">E-mail subject:</label>
+                        <input id="emailSubject" type="text" max-length="400" required ng-model="ctrl.settings.emailNotifierSetting.template.subject"/>
+                    </div>
+                    <div>
+                        <label for="emailContent">E-mail content:</label>
+                        <tiny-mce id="emailContent" config="ctrl.config.description" required max-length="4000" model="ctrl.settings.emailNotifierSetting.template.content"></tiny-mce>
+                        <!--<input type="hidden" ng-model="settings.emailNotifierSetting.template.content" required="" name="Content"/>-->
+                    </div>
                 </div>
             </div>
-    </div>
-    <div>
-        <label>Ui</label>
-        <div>
-            <input type="checkbox" ng-model="settings.uiNotifierSetting.isEnabled">
-        </div>      
-        <div>
-            <input type="text" ng-model="settings.uiNotifierSetting.template.message" />
+
+            <div ng-show="ctrl.isUiTabSelected()">
+                <div>
+                    <span>Do you want to enable this notification:</span>
+                    <label for="enableUiNotification">Yes, enable</label>
+                    <input id="enableUiNotification" type="radio" ng-model="ctrl.settings.uiNotifierSetting.isEnabled" ng-value="true">
+                    <label for="disableUiNotification">No, disable</label>
+                    <input id="disableUiNotification" type="radio" ng-model="ctrl.settings.uiNotifierSetting.isEnabled" ng-value="false">
+                </div>
+                <div>
+                    <label for="uiMessage">In-App message:</label>
+                    <textarea id="uiMessage" type="text" max-length="200" required ng-model="ctrl.settings.uiNotifierSetting.template.message"></textarea>
+                </div>
+            </div>
+
+
+            <input type="button" ng-click="ctrl.save()" value="Save" />
         </div>
+
     </div>
-    <input type="button" ng-click="Save()" value="Save"/>
-</div>
+</umb-panel>

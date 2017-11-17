@@ -1,22 +1,39 @@
-﻿(function(angular) {
+﻿(function (angular) {
     'use strict';
 
-    var controller = function($scope, $http, appState) {
+    var controller = function ($scope, $http, appState, notificationSettingsConfig) {
         var self = this;
-        $scope.content = {
-            tabs:
-            [
-                { id: 1, label: "Mail" },
-                { id: 2, label: "Ui" }
-            ]
+        self.settings = {};
+
+        const notifierType = {
+            email: 1,
+            ui: 2
         };
 
-        $scope.Save = function() {
-            saveSettings($scope.settings);
+        let selectedNotifierType = notifierType.email;
+
+
+        self.isEmailTabSelected = function () {
+            return selectedNotifierType === notifierType.email;
         }
 
-        function initalize()
-        {
+        self.isUiTabSelected = function () {
+            return selectedNotifierType === notifierType.ui;
+        }
+
+        self.selectEmailTab = function () {
+            selectedNotifierType = notifierType.email;
+        }
+
+        self.selectUiTab = function () {
+            selectedNotifierType = notifierType.ui;
+        }
+
+        self.save = function () {
+            saveSettings(self.settings);
+        }
+
+        function initalize() {
             var selectedNode = appState.getTreeState("selectedNode");
 
             if (selectedNode) {
@@ -24,10 +41,11 @@
                 var activityType = selectedNode.parentId;
 
                 getSettings(activityType, notificationType).then(function (result) {
-                    $scope.settings = result.data;
+                    self.settings = result.data;
                 });
             }
 
+            self.config = notificationSettingsConfig;
         }
 
         function getSettings(activityType, notificationType) {
@@ -38,13 +56,18 @@
         }
 
         function saveSettings(settings) {
-            $http.post('/umbraco/backoffice/api/NotificationSettingsApi/Save', settings);
+            if (self.isUiTabSelected()) {
+                $http.post('/umbraco/backoffice/api/NotificationSettingsApi/SaveUiNotifierSetting', settings.uiNotifierSetting);
+                return;
+            }
+
+            $http.post('/umbraco/backoffice/api/NotificationSettingsApi/SaveEmailNotifierSetting', settings.emailNotifierSetting);
         }
 
         initalize();
     }
 
-    controller.$inject = ["$scope", "$http", "appState"];
+    controller.$inject = ["$scope", "$http", "appState", "notificationSettingsConfig", "$routeParams"];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
