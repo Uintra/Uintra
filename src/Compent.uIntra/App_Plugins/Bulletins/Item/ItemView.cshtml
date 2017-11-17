@@ -5,7 +5,7 @@
         @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
     </div>
     <div class="feed__item-image"> </div>
-    @if (!string.IsNullOrWhiteSpace(uIntra.Core.Extensions.StringExtensions.StripHtml(Model.Description)))
+    @if (!string.IsNullOrWhiteSpace(Model.Description))
     {
         <div class="feed__item-txt _clamp" data-url="@Model.Links.Details">@Html.Raw(Model.Description)</div>
     }
