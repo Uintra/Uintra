@@ -27,8 +27,8 @@ namespace uIntra.Notification
         public NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity)
         {
             // --- we have no unit tests ---
-            var testTemplate = _uiNotifierTemplateProvider.GetBackofficeSettings(activityEventIdentity);
-            var testTemplate1 = _emailNotifierTemplateProvider.GetBackofficeSettings(activityEventIdentity);
+            var testTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventIdentity);
+            var testTemplate1 = _emailNotifierTemplateProvider.GetSettings(activityEventIdentity);
             // ---   ---
 
             var existSettings = _repository.FindAll(s =>

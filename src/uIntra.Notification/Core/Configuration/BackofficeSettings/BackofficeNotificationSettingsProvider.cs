@@ -3,6 +3,6 @@
     public interface IBackofficeNotificationSettingsProvider<T>
         where T : INotifierTemplate
     {
-        BackofficeNotificationSettingsModel<T> GetBackofficeSettings(ActivityEventIdentity activityEvent);
+        BackofficeNotificationSettingsModel<T> GetSettings(ActivityEventIdentity activityEvent);
     }
 }

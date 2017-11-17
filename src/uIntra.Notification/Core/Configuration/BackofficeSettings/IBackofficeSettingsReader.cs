@@ -2,6 +2,6 @@
 {
     public interface IBackofficeSettingsReader
     {
-        string ReadTemplate(ActivityEventNotifierIdentity notificationType);
+        string ReadSettings(ActivityEventNotifierIdentity notificationType);
     }
 }

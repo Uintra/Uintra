@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using uIntra.Core.Utils;
 
 namespace uIntra.Notification.Configuration
@@ -14,11 +15,23 @@ namespace uIntra.Notification.Configuration
             _embeddedResourceService = embeddedResourceService;
         }
 
-        public string ReadTemplate(ActivityEventNotifierIdentity notificationType)
+        public string ReadSettings(ActivityEventNotifierIdentity notificationType)
         {
             (string resourceName, Assembly assembly) = GetEmbeddedResource(notificationType);
-            return _embeddedResourceService.ReadResourceContent(resourceName, assembly);
+            try
+            {
+                return _embeddedResourceService.ReadResourceContent(resourceName, assembly);
+            }
+            catch (FileNotFoundException)
+            {
+                string description =
+                    "Embedded resource with config for notification(" +
+                    $"{notificationType.NotifierType}, {notificationType.Event.ActivityType}, {notificationType.Event.NotificationType}" +
+                    $") was not found at path {resourceName}.";
+                throw new FileNotFoundException(description);
+            }
         }
+
 
         private (string resourceName, Assembly assembly) GetEmbeddedResource(ActivityEventNotifierIdentity notificationType)
         {
