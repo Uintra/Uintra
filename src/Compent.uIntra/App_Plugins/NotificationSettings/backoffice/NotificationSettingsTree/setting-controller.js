@@ -4,13 +4,14 @@
     var controller = function ($scope, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
         var self = this;
         self.settings = {};
+        self.selectedNotifierSettings = {};
 
         const notifierType = {
             email: 1,
             ui: 2
         };
 
-        let selectedNotifierType = notifierType.email;
+        let selectedNotifierType;
 
 
         self.isEmailTabSelected = function () {
@@ -23,14 +24,25 @@
 
         self.selectEmailTab = function () {
             selectedNotifierType = notifierType.email;
+            self.selectedNotifierSettings = self.settings.emailNotifierSetting;
         }
 
         self.selectUiTab = function () {
             selectedNotifierType = notifierType.ui;
+            self.selectedNotifierSettings = self.settings.uiNotifierSetting;
         }
 
         self.save = function () {
             saveSettings(self.settings);
+        }
+
+        self.isControlTextHasValidLength = function (control, maxLength) {
+            const trimmedText = trimHtml(control.$modelValue);
+            const isValidLength = trimmedText.length <= maxLength;
+
+            control.$setValidity("maxLength", isValidLength);
+
+            return isValidLength;
         }
 
         function initalize() {
@@ -42,6 +54,7 @@
 
                 notificationSettingsService.getSettings(activityType, notificationType).then(function (result) {
                     self.settings = result.data;
+                    self.selectEmailTab();
                 }, showGetErrorMessage);
             }
 
@@ -67,6 +80,10 @@
 
         function showSaveErrorMessage() {
             notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
+        }
+
+        function trimHtml(text) {
+            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
         }
 
         initalize();
