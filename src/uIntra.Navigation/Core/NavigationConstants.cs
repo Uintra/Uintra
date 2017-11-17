@@ -12,4 +12,9 @@
     {
         public const string NavigationShowBreadcrumbs = "Navigation.ShowBreadcrumbs";
     }
+
+    public static class NavigationUmbracoConstants
+    {
+        public const string UmbracoEditPageUrl = "/umbraco#/content/content/edit/{0}";
+    }
 }

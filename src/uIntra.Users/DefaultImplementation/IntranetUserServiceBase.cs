@@ -55,19 +55,9 @@ namespace uIntra.Users
             return member;
         }
 
-        public virtual T Get(IHaveCreator model)
+        public virtual T Get(IHaveOwner model)
         {
-            T member;
-
-            if (model.UmbracoCreatorId.HasValue)
-            {
-                member = Get(model.UmbracoCreatorId.Value);
-            }
-            else
-            {
-                member = Get(model.CreatorId);
-            }
-            return member;
+            return Get(model.OwnerId);
         }
 
         public virtual IEnumerable<T> GetMany(IEnumerable<Guid> ids)

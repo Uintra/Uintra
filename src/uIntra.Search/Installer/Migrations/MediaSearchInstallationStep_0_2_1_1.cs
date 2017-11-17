@@ -64,7 +64,7 @@ namespace uIntra.Search.Installer.Migrations
                 SortOrder = 2
             };
 
-            CoreInstallationStep_0_0_1.CreateTrueFalseDataType("TrueFalse");
+            InstallationStepsHelper.CreateTrueFalseDataType("TrueFalse");
             var trueFalseEditor = _dataTypeService.GetDataTypeDefinitionByName("TrueFalse");
             var property = new PropertyType(trueFalseEditor, UseInSearch)
             {

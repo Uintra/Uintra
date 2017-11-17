@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Notification.Configuration;
@@ -20,13 +19,16 @@ namespace uIntra.Notification
             _repository = repository;
         }
 
-        public NotifierSettingsModel Get(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
+        public NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity)
         {
-            var existSettings = _repository.FindAll(s => s.ActivityType == activityType && s.NotificationType == notificationType).ToList();
+            var existSettings = _repository.FindAll(s =>
+                    s.ActivityType == activityEventIdentity.ActivityType &&
+                    s.NotificationType == activityEventIdentity.NotificationType)
+                .ToList();
 
-            var absentSettings = GetAbsentSettings(existSettings, activityType, notificationType);
+            var absentSettings = GetAbsentSettings(existSettings, activityEventIdentity);
             var absentSettingsList = absentSettings as IList<NotificationSetting> ?? absentSettings.ToList();
-            var notifierSettings = GetMappedSettings(existSettings, absentSettingsList, activityType, notificationType);
+            var notifierSettings = GetMappedSettings(existSettings, absentSettingsList, activityEventIdentity);
 
             _repository.Add(absentSettingsList);
 
@@ -45,34 +47,25 @@ namespace uIntra.Notification
 
         private IEnumerable<NotificationSetting> GetAbsentSettings(
             IEnumerable<NotificationSetting> existingSettings,
-            IntranetActivityTypeEnum activityType,
-            NotificationTypeEnum notificationType) =>
+            ActivityEventIdentity activityEventIdentity) =>
             GetAbsentSettingsTypes(existingSettings)
-                .Select(type => CreateSetting(type, activityType, notificationType));
+                .Select(type => CreateSetting(type, activityEventIdentity));
 
         private NotifierSettingsModel GetMappedSettings(
             IEnumerable<NotificationSetting> existingEntities,
             IEnumerable<NotificationSetting> absentSettings,
-            IntranetActivityTypeEnum activityType,
-            NotificationTypeEnum notificationType)
+            ActivityEventIdentity activityEventIdentity)
         {
-
             var settingsDictionary = existingEntities
                 .Concat(absentSettings)
                 .ToDictionary(e => e.NotifierType);
 
             var notifierSettings = new NotifierSettingsModel
             {
-                EmailNotifierSetting = NotifierSetting<EmailNotifierTemplate>(
-                    settingsDictionary[NotifierTypeEnum.EmailNotifier],
-                    activityType,
-                    notificationType,
-                    NotifierTypeEnum.EmailNotifier),
-                UiNotifierSetting = NotifierSetting<UiNotifierTemplate>(
-                    settingsDictionary[NotifierTypeEnum.UiNotifier],
-                    activityType,
-                    notificationType,
-                    NotifierTypeEnum.UiNotifier)
+                EmailNotifierSetting = NotifierSetting<EmailNotifierTemplate>(settingsDictionary[NotifierTypeEnum.EmailNotifier],
+                    activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.EmailNotifier)),
+                UiNotifierSetting = NotifierSetting<UiNotifierTemplate>(settingsDictionary[NotifierTypeEnum.UiNotifier],
+                    activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.UiNotifier))
             };
 
             return notifierSettings;
@@ -91,8 +84,7 @@ namespace uIntra.Notification
 
         private NotificationSetting CreateSetting(
             NotifierTypeEnum notifierType,
-            IntranetActivityTypeEnum activityType,
-            NotificationTypeEnum notificationType)
+            ActivityEventIdentity activityEventIdentity)
         {
             string jsonData;
 
@@ -123,23 +115,19 @@ namespace uIntra.Notification
             {
                 Id = Guid.NewGuid(),
                 NotifierType = notifierType,
-                ActivityType = activityType,
-                NotificationType = notificationType,
+                ActivityType = activityEventIdentity.ActivityType,
+                NotificationType = activityEventIdentity.NotificationType,
                 IsEnabled = true,
                 JsonData = jsonData
             };
         }
 
-        private NotifierSettingModel<T> NotifierSetting<T>(
-            NotificationSetting notificationSetting,
-            IntranetActivityTypeEnum activityType,
-            NotificationTypeEnum notificationType,
-            NotifierTypeEnum notifierType) =>
+        private NotifierSettingModel<T> NotifierSetting<T>(NotificationSetting notificationSetting, ActivityEventNotifierIdentity identity) =>
             new NotifierSettingModel<T>
             {
-                ActivityType = activityType,
-                NotificationType = notificationType,
-                NotifierType = notifierType,
+                ActivityType = identity.ActivityType,
+                NotificationType = identity.NotificationType,
+                NotifierType = identity.NotifierType,
                 IsEnabled = notificationSetting.IsEnabled,
                 Template = notificationSetting.JsonData.Deserialize<T>()
             };

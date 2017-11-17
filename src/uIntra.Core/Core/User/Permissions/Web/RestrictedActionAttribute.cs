@@ -4,7 +4,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
-using uIntra.Core.Core.User.Permissions.Web;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 

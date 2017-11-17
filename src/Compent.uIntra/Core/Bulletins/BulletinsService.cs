@@ -241,7 +241,7 @@ namespace Compent.uIntra.Core.Bulletins
                 case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var bulletinsEntity = Get(entityId);
-                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerableOfOne();
                         data.Value = _notifierDataHelper.GetLikesNotifierDataModel(bulletinsEntity, notificationType, currentUser.Id);
                     }
                     break;
@@ -251,7 +251,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = bulletinsEntity.CreatorId.ToEnumerableOfOne();
+                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerableOfOne();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, comment.UserId);
                     }
                     break;
@@ -300,17 +300,17 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            var isWebmater = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmater)
+            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
+            if (isWebmaster)
             {
                 return true;
             }
 
-            var creatorId = Get(cached.Id).CreatorId;
-            var isCreator = creatorId == currentUser.Id;
+            var ownerId = Get(cached.Id).OwnerId;
+            var isOwner = ownerId == currentUser.Id;
 
             var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, action);
-            return isCreator && isUserHasPermissions;
+            return isOwner && isUserHasPermissions;
         }
 
         private bool IsBulletinHidden(Bulletin bulletin)

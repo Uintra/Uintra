@@ -28,7 +28,7 @@ namespace uIntra.Panels.Installer.Migrations
             var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
-            var jsonValue = CoreInstallationStep_0_0_1.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
+            var jsonValue = InstallationStepsHelper.GetEmbeddedResourceValue("uIntra.Panels.Installer.PreValues.PanelPickerPreValues.json");
             var jsonPrevalues = JObject.Parse(jsonValue);
 
             panelPickerDataType = new DataTypeDefinition(-1, DataTypePropertyEditors.PanelPicker)
@@ -67,7 +67,7 @@ namespace uIntra.Panels.Installer.Migrations
             panelDocumentType.AddPropertyType(panelPickerProperty, "Panel");
 
             contentService.Save(panelDocumentType);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(DocumentTypeAliases.GlobalPanelFolder, DocumentTypeAliases.Panel);
+            InstallationStepsHelper.AddAllowedChildNode(DocumentTypeAliases.GlobalPanelFolder, DocumentTypeAliases.Panel);
         }
 
         private void CreateGlobalPanelFolder()
@@ -86,7 +86,7 @@ namespace uIntra.Panels.Installer.Migrations
 
             contentService.Save(dataFolderDocType);
 
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, DocumentTypeAliases.GlobalPanelFolder);
+            InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.DataFolder, DocumentTypeAliases.GlobalPanelFolder);
         }
     }
 }

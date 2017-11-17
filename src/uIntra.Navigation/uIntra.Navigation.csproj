@@ -388,6 +388,7 @@
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
     <None Include="App_Plugins\Navigation\Web.config" />
     <None Include="config\Dashboard.config.install.xdt" />
     <None Include="config\Dashboard.config.uninstall.xdt" />
@@ -436,6 +437,8 @@
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\umbracoContentLink.css" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\UmbracoContentLink.js" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>

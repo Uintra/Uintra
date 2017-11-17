@@ -143,17 +143,17 @@ namespace Compent.uIntra.Core.Events
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            var isWebmater = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmater)
+            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
+            if (isWebmaster)
             {
                 return true;
             }
 
-            var creatorId = Get(cached.Id).CreatorId;
-            var isCreator = creatorId == currentUser.Id;
+            var ownerId = Get(cached.Id).OwnerId;
+            var isOwner = ownerId == currentUser.Id;
 
             var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
-            return isCreator && isUserHasPermissions;
+            return isOwner && isUserHasPermissions;
         }
 
         public IEnumerable<IFeedItem> GetItems()
@@ -292,7 +292,7 @@ namespace Compent.uIntra.Core.Events
                 {
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
 
                 }
@@ -301,14 +301,14 @@ namespace Compent.uIntra.Core.Events
                 {
                     var comment = _commentsService.Get(entityId);
                     var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.CreatorId.ToEnumerableOfOne()).Distinct();
+                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerableOfOne()).Distinct();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                 }
                     break;
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     var currentEvent = Get(entityId);
-                    data.ReceiverIds = currentEvent.CreatorId.ToEnumerableOfOne();
+                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
                     data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                 }
                     break;

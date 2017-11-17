@@ -139,7 +139,6 @@ namespace uIntra.Bulletins.Web
 
             var result = new BulletinCreateModel
             {
-
                 Title = currentUser.DisplayedName,
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
@@ -173,7 +172,7 @@ namespace uIntra.Bulletins.Web
 
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
-            model.HeaderInfo.Creator = _userService.Get(bulletin);
+            model.HeaderInfo.Owner = _userService.Get(bulletin);
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -182,14 +181,14 @@ namespace uIntra.Bulletins.Web
         protected virtual BulletinItemViewModel GetItemViewModel(BulletinBase bulletin, IActivityLinks links)
         {
             var model = bulletin.Map<BulletinItemViewModel>();
-            var creator = _userService.Get(bulletin);
+            var owner = _userService.Get(bulletin);
 
             model.Links = links;
             model.MediaIds = bulletin.MediaIds;
 
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Creator = _userService.Get(bulletin);
-            model.HeaderInfo.Title = creator.DisplayedName;
+            model.HeaderInfo.Owner = owner;
+            model.HeaderInfo.Title = owner.DisplayedName;
             model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
@@ -204,13 +203,13 @@ namespace uIntra.Bulletins.Web
 
         protected virtual BulletinPreviewViewModel GetPreviewViewModel(BulletinBase bulletin, ActivityLinks links)
         {
-            var creator = _userService.Get(bulletin);
-            return new BulletinPreviewViewModel()
+            var owner = _userService.Get(bulletin);
+            return new BulletinPreviewViewModel
             {
                 Id = bulletin.Id,
                 Description = bulletin.Description,
                 PublishDate = bulletin.PublishDate,
-                Creator = creator,
+                Owner = owner,
                 ActivityType = bulletin.Type,
                 Links = links
             };
@@ -220,7 +219,7 @@ namespace uIntra.Bulletins.Web
         {
             var bulletin = model.Map<BulletinBase>();
             bulletin.PublishDate = DateTime.UtcNow;
-            bulletin.CreatorId = _userService.GetCurrentUserId();
+            bulletin.CreatorId = bulletin.OwnerId = _userService.GetCurrentUserId();
 
             if (model.NewMedia.IsNotNullOrEmpty())
             {

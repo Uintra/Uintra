@@ -326,6 +326,8 @@
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
     <Compile Include="Core\INotificationTypeProvider.cs" />
+    <Compile Include="Core\Models\ActivityEventIdentity.cs" />
+    <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />
