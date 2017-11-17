@@ -33,7 +33,7 @@ namespace uIntra.Notification.Configuration
             $"{GetRootFolder(assembly)}.{GetEmbeddedResourceName(notificationType)}";
 
         private string GetEmbeddedResourceName(ActivityEventIdentity notificationType) => 
-            $"{notificationType.ActivityType.ToString()}.{notificationType.ActivityType.ToString()}";
+            $"{notificationType.ActivityType.ToString()}.{notificationType.NotificationType.ToString()}.json";
 
         private string GetRootFolder(Assembly assembly) => 
             $"{assembly.GetName().Name}.{RootFolderName}";
