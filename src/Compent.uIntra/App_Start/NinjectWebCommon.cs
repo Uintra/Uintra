@@ -87,6 +87,7 @@ using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.Attributes;
+using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]

@@ -5,11 +5,13 @@ using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Extensions;
 using uIntra.Core.User;
+using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
+using uIntra.Navigation.MyLinks;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation.MyLinks
+namespace Compent.uIntra.Core.Navigation
 {
     public class MyLinksModelBuilder : NavigationModelBuilderBase<IEnumerable<MyLinkItemModel>>, IMyLinksModelBuilder
     {
