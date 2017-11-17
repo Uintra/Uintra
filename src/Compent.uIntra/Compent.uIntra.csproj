@@ -851,8 +851,10 @@
     <Content Include="App_Plugins\News\Details\news-details.html" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\news.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.config.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\setting-controller.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\Setting.html" />
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
@@ -1106,7 +1108,6 @@
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -1433,9 +1434,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>App_Plugins\NotificationSettings\package.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
