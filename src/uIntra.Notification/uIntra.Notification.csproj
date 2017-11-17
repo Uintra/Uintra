@@ -401,9 +401,35 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentAdded.json" />
-    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentAdded - Copy.json" />
-    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentAdded - Copy %282%29.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentReplied.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\CommentEdited.json" />
     <EmbeddedResource Include="DefaultTemplates\UiNotifier\Bulletins\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\News\CommentReplied.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\News\CommentEdited.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\News\CommentAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\News\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\CommentReplied.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\CommentEdited.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\CommentAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\EventHided.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\EventUpdated.json" />
+    <EmbeddedResource Include="DefaultTemplates\UiNotifier\Events\Event.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Bulletins\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Bulletins\CommentAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Bulletins\CommentEdited.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Bulletins\CommentReplied.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\CommentAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\CommentEdited.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\CommentReplied.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\Event.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\EventHided.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\Events\EventUpdated.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\News\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\News\CommentAdded.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\News\CommentEdited.json" />
+    <EmbeddedResource Include="DefaultTemplates\EmailNotifier\News\CommentReplied.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
   </ItemGroup>
@@ -417,9 +443,7 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DefaultTemplates\Email\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
