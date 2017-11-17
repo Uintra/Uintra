@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Media;
+using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
@@ -189,7 +190,7 @@ namespace uIntra.Core.Installer.Migrations
             gridPageLayoutTemplate = new Template(alias, alias);
 
             var layoutEmbeddedResourceFileName = "uIntra.Core.Installer.PreValues.GridPageLayout.cshtml";
-            gridPageLayoutTemplate.Content = InstallationStepsHelper.GetEmbeddedResourceValue(layoutEmbeddedResourceFileName);
+            gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
 
             fileService.SaveTemplate(gridPageLayoutTemplate);
         }
