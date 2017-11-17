@@ -5,6 +5,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Extensions;
 using uIntra.Core.User;
+using uIntra.Groups;
 using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
 using uIntra.Navigation.MyLinks;
@@ -20,6 +21,7 @@ namespace Compent.uIntra.Core.Navigation
         private readonly IMyLinksService _myLinksService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INavigationApplicationSettings _navigationApplicationSettings;
+        private readonly IGroupService _groupService;
 
         public MyLinksModelBuilder(
             UmbracoHelper umbracoHelper,
@@ -27,7 +29,8 @@ namespace Compent.uIntra.Core.Navigation
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMyLinksService myLinksService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            INavigationApplicationSettings navigationApplicationSettings)
+            INavigationApplicationSettings navigationApplicationSettings,
+            IGroupService groupService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
@@ -35,6 +38,7 @@ namespace Compent.uIntra.Core.Navigation
             _myLinksService = myLinksService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _navigationApplicationSettings = navigationApplicationSettings;
+            _groupService = groupService;
         }
 
         public override IEnumerable<MyLinkItemModel> GetMenu()
@@ -58,7 +62,13 @@ namespace Compent.uIntra.Core.Navigation
 
         protected string GetLinkName(Guid entityId)
         {
-            return GetActivityLink(entityId);
+            var linkName = GetGroupLink(entityId);
+            if (linkName.IsNullOrEmpty())
+            {
+                return GetActivityLink(entityId);
+            }
+
+            return linkName;
         }
 
         private string GetActivityLink(Guid entityId)
@@ -75,6 +85,12 @@ namespace Compent.uIntra.Core.Navigation
             }
 
             return activity.Title;
+        }
+
+        private string GetGroupLink(Guid entityId)
+        {
+            var groupModel = _groupService.Get(entityId);
+            return groupModel?.Title;
         }
 
 

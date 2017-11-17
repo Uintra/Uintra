@@ -337,8 +337,8 @@
     <Reference Include="uIntra.Likes, Version=1.1.7.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.7.4\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.5.1\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.6\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.News, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0\lib\net452\uIntra.News.dll</HintPath>
@@ -1034,7 +1034,6 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
@@ -1119,6 +1118,7 @@
     <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
