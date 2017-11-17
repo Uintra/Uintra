@@ -24,7 +24,7 @@ namespace uIntra.Navigation.MyLinks
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMyLinksService myLinksService,
-            IActivitiesServiceFactory activitiesServiceFactory, 
+            IActivitiesServiceFactory activitiesServiceFactory,
             INavigationApplicationSettings navigationApplicationSettings)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
@@ -47,17 +47,23 @@ namespace uIntra.Navigation.MyLinks
                 {
                     Id = link.Id,
                     ContentId = link.ContentId,
-                    Name = link.ActivityId.HasValue ? GetActivityLinkName(link.ActivityId.Value) : GetNavigationName(content),
+                    Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
             return models.Distinct();
         }
 
-        private string GetActivityLinkName(Guid activityId)
+        protected string GetLinkName(Guid entityId)
         {
-            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
-            var activity = service.Get(activityId);
+            return GetActivityLink(entityId);
+        }
+
+        private string GetActivityLink(Guid entityId)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(entityId);
+
+            var activity = service.Get(entityId);
 
             if (activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt())
             {
@@ -68,6 +74,7 @@ namespace uIntra.Navigation.MyLinks
 
             return activity.Title;
         }
+
 
         private static string GetUrl(MyLink link, IPublishedContent content)
         {
