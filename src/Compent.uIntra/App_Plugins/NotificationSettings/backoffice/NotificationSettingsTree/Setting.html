@@ -1,13 +1,4 @@
-﻿<!--<script>
-    function CustomSectionEditController($scope, $routeParams) {
-        $scope.content = { tabs: [{ id: 1, label: "Tab 1" }, { id: 2, label: "Tab 2" }] };
-
-        $scope.EditMode = function () {
-            return $routeParams.create == 'true';
-        };
-    }
-</script>-->
-<style>
+﻿<style>
     .custom-umb-panel-body {
         padding-left: 10px;
     }
@@ -24,44 +15,49 @@
             <span class="tab" ng-class="{'_active' : ctrl.isEmailTabSelected()}" ng-click="ctrl.selectEmailTab()">E-mail notification</span>
             <span class="tab" ng-class="{'_active' : ctrl.isUiTabSelected()}" ng-click="ctrl.selectUiTab()">In-App notification</span>
 
-            <div ng-show="ctrl.isEmailTabSelected()">
-                <div>
+            <form id="settingsForm" name="settingsForm" data-ng-submit="settingsForm.$valid && ctrl.save()">
+
+                <div ng-if="ctrl.isEmailTabSelected()">
+                    <div>
+                        <div>
+                            <span>Do you want to enable this notification:</span>
+                            <label for="enableEmailNotification">Yes, enable</label>
+                            <input id="enableEmailNotification" type="radio" ng-model="ctrl.settings.emailNotifierSetting.isEnabled" ng-value="true">
+                            <label for="disableEmailNotification">No, disable</label>
+                            <input id="disableEmailNotification" type="radio" ng-model="ctrl.settings.emailNotifierSetting.isEnabled" ng-value="false">
+                        </div>
+                        <div>
+                            <label for="emailSubject">E-mail subject:</label>
+                            <input id="emailSubject" name="EmailSubject" type="text" max-length="400" required ng-model="ctrl.settings.emailNotifierSetting.template.subject" />
+                            <div data-ng-show="settingsForm.EmailSubject.$error.required">E-mail subject is required</div>
+                        </div>
+                        <div>
+                            <label for="emailContent">E-mail content:</label>
+                            <tiny-mce id="emailContent" config="ctrl.config.description" required max-length="4000" model="ctrl.settings.emailNotifierSetting.template.content"></tiny-mce>
+                            <input type="hidden" name="EmailContent" ng-model="ctrl.settings.emailNotifierSetting.template.content" required="" />
+                            <div data-ng-show="settingsForm.EmailContent.$error.required">E-mail content is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="ctrl.isUiTabSelected()">
                     <div>
                         <span>Do you want to enable this notification:</span>
-                        <label for="enableEmailNotification">Yes, enable</label>
-                        <input id="enableEmailNotification" type="radio" ng-model="ctrl.settings.emailNotifierSetting.isEnabled" ng-value="true">
-                        <label for="disableEmailNotification">No, disable</label>
-                        <input id="disableEmailNotification" type="radio" ng-model="ctrl.settings.emailNotifierSetting.isEnabled" ng-value="false">
+                        <label for="enableUiNotification">Yes, enable</label>
+                        <input id="enableUiNotification" type="radio" ng-model="ctrl.settings.uiNotifierSetting.isEnabled" ng-value="true">
+                        <label for="disableUiNotification">No, disable</label>
+                        <input id="disableUiNotification" type="radio" ng-model="ctrl.settings.uiNotifierSetting.isEnabled" ng-value="false">
                     </div>
                     <div>
-                        <label for="emailSubject">E-mail subject:</label>
-                        <input id="emailSubject" type="text" max-length="400" required ng-model="ctrl.settings.emailNotifierSetting.template.subject"/>
-                    </div>
-                    <div>
-                        <label for="emailContent">E-mail content:</label>
-                        <tiny-mce id="emailContent" config="ctrl.config.description" required max-length="4000" model="ctrl.settings.emailNotifierSetting.template.content"></tiny-mce>
-                        <!--<input type="hidden" ng-model="settings.emailNotifierSetting.template.content" required="" name="Content"/>-->
+                        <label for="uiMessage">In-App message:</label>
+                        <textarea id="uiMessage" name="UiMessage" type="text" max-length="200" required ng-model="ctrl.settings.uiNotifierSetting.template.message"></textarea>
+                        <div data-ng-show="settingsForm.UiMessage.$error.required">In-App message is required</div>
                     </div>
                 </div>
-            </div>
 
-            <div ng-show="ctrl.isUiTabSelected()">
-                <div>
-                    <span>Do you want to enable this notification:</span>
-                    <label for="enableUiNotification">Yes, enable</label>
-                    <input id="enableUiNotification" type="radio" ng-model="ctrl.settings.uiNotifierSetting.isEnabled" ng-value="true">
-                    <label for="disableUiNotification">No, disable</label>
-                    <input id="disableUiNotification" type="radio" ng-model="ctrl.settings.uiNotifierSetting.isEnabled" ng-value="false">
-                </div>
-                <div>
-                    <label for="uiMessage">In-App message:</label>
-                    <textarea id="uiMessage" type="text" max-length="200" required ng-model="ctrl.settings.uiNotifierSetting.template.message"></textarea>
-                </div>
-            </div>
+                <input type="submit" value="Save" ng-disabled="settingsForm.$invalid" />
 
-
-            <input type="button" ng-click="ctrl.save()" value="Save" />
+            </form>
         </div>
-
     </div>
 </umb-panel>
