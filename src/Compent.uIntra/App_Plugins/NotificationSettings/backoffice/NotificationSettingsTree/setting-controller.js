@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, $http, appState, notificationSettingsConfig, notificationSettingsService) {
+    var controller = function ($scope, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
         var self = this;
         self.settings = {};
 
@@ -34,7 +34,7 @@
         }
 
         function initalize() {
-            var selectedNode = appState.getTreeState("selectedNode");
+            var selectedNode = appState.getTreeState('selectedNode');
 
             if (selectedNode) {
                 var notificationType = selectedNode.id;
@@ -42,7 +42,7 @@
 
                 notificationSettingsService.getSettings(activityType, notificationType).then(function (result) {
                     self.settings = result.data;
-                });
+                }, showGetErrorMessage);
             }
 
             self.config = notificationSettingsConfig;
@@ -50,17 +50,29 @@
 
         function saveSettings(settings) {
             if (self.isEmailTabSelected()) {
-                notificationSettingsService.seveEmailSettings(settings.emailNotifierSetting);
+                notificationSettingsService.seveEmailSettings(settings.emailNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
             }
             else if (self.isUiTabSelected()) {
-                notificationSettingsService.seveEmailSettings(settings.uiNotifierSetting);
+                notificationSettingsService.seveUiSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
             }
+        }
+
+        function showGetErrorMessage() {
+            notificationsService.error("Error", "Notification settings were not loaded, because some error has occurred");
+        }
+
+        function showSaveSuccessMessage() {
+            notificationsService.success("Success", "Notification settings were updated successfully");
+        }
+
+        function showSaveErrorMessage() {
+            notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
         }
 
         initalize();
     }
 
-    controller.$inject = ["$scope", "$http", "appState", "notificationSettingsConfig", "notificationSettingsService"];
+    controller.$inject = ['$scope', 'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
