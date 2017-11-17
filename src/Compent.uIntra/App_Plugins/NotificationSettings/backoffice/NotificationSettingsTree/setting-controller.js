@@ -1,50 +1,78 @@
-﻿(function(angular) {
+﻿(function (angular) {
     'use strict';
 
-    var controller = function($scope, $http, appState) {
+    var controller = function ($scope, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
         var self = this;
-        $scope.content = {
-            tabs:
-            [
-                { id: 1, label: "Mail" },
-                { id: 2, label: "Ui" }
-            ]
+        self.settings = {};
+
+        const notifierType = {
+            email: 1,
+            ui: 2
         };
 
-        $scope.Save = function() {
-            saveSettings($scope.settings);
+        let selectedNotifierType = notifierType.email;
+
+
+        self.isEmailTabSelected = function () {
+            return selectedNotifierType === notifierType.email;
         }
 
-        function initalize()
-        {
-            var selectedNode = appState.getTreeState("selectedNode");
+        self.isUiTabSelected = function () {
+            return selectedNotifierType === notifierType.ui;
+        }
+
+        self.selectEmailTab = function () {
+            selectedNotifierType = notifierType.email;
+        }
+
+        self.selectUiTab = function () {
+            selectedNotifierType = notifierType.ui;
+        }
+
+        self.save = function () {
+            saveSettings(self.settings);
+        }
+
+        function initalize() {
+            var selectedNode = appState.getTreeState('selectedNode');
 
             if (selectedNode) {
                 var notificationType = selectedNode.id;
                 var activityType = selectedNode.parentId;
 
-                getSettings(activityType, notificationType).then(function (result) {
-                    $scope.settings = result.data;
-                });
+                notificationSettingsService.getSettings(activityType, notificationType).then(function (result) {
+                    self.settings = result.data;
+                }, showGetErrorMessage);
             }
 
-        }
-
-        function getSettings(activityType, notificationType) {
-            return $http.get('/umbraco/backoffice/api/NotificationSettingsApi/Get?activityType=' +
-                activityType +
-                '&notificationType=' +
-                notificationType);
+            self.config = notificationSettingsConfig;
         }
 
         function saveSettings(settings) {
-            $http.post('/umbraco/backoffice/api/NotificationSettingsApi/Save', settings);
+            if (self.isEmailTabSelected()) {
+                notificationSettingsService.seveEmailSettings(settings.emailNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+            }
+            else if (self.isUiTabSelected()) {
+                notificationSettingsService.seveUiSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+            }
+        }
+
+        function showGetErrorMessage() {
+            notificationsService.error("Error", "Notification settings were not loaded, because some error has occurred");
+        }
+
+        function showSaveSuccessMessage() {
+            notificationsService.success("Success", "Notification settings were updated successfully");
+        }
+
+        function showSaveErrorMessage() {
+            notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
         }
 
         initalize();
     }
 
-    controller.$inject = ["$scope", "$http", "appState"];
+    controller.$inject = ['$scope', 'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
