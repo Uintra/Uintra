@@ -42,5 +42,23 @@ namespace uIntra.Core.Core.Extensions
 
             return WhereRec(tree);
         }
+
+        public static TResult TreeCatamorphism<T, TResult>(this Tree<T> tree, Func<T, TResult> leafFunc, Func<T, IEnumerable<TResult>, TResult> nodeFunc)
+        {
+            TResult TreeCatamorphismRec(Tree<T> tr)
+            {
+                if (tr.Children.Any())
+                {
+                    var mappedChildren = tr.Children.Select(TreeCatamorphismRec);
+                    return nodeFunc(tr.Value, mappedChildren);
+                }
+                else
+                {
+                    return leafFunc(tr.Value);
+                }
+            }
+
+            return TreeCatamorphismRec(tree);
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
+    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -45,18 +45,23 @@
             return isValidLength;
         }
 
+        var getUrlParams = function (url) {
+            var params = {};
+            (url + '?').split('?')[1].split('&').forEach(function (pair) {
+                pair = (pair + '=').split('=').map(decodeURIComponent);
+                if (pair[0].length) {
+                    params[pair[0]] = pair[1];
+                }
+            });
+            return params;
+        };
+
         function initalize() {
-            var selectedNode = appState.getTreeState('selectedNode');
-
-            if (selectedNode) {
-                var notificationType = selectedNode.id;
-                var activityType = selectedNode.parentId;
-
-                notificationSettingsService.getSettings(activityType, notificationType).then(function (result) {
+            var params = getUrlParams($location.path());
+                notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
                     self.settings = result.data;
                     self.selectEmailTab();
                 }, showGetErrorMessage);
-            }
 
             self.config = notificationSettingsConfig;
         }
@@ -89,7 +94,7 @@
         initalize();
     }
 
-    controller.$inject = ['$scope', 'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
+    controller.$inject = ['$scope','$location',  'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
