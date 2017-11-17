@@ -6,11 +6,11 @@ namespace uIntra.Notification.Configuration
         IBackofficeNotificationSettingsProvider<EmailNotifierTemplate>,
         IBackofficeNotificationSettingsProvider<UiNotifierTemplate>
     {
-        private readonly IDefaultTemplateReader _defaultTemplateReader;
+        private readonly IBackofficeSettingsReader _backofficeSettingsReader;
 
-        public BackofficeNotificationSettingsProvider(IDefaultTemplateReader defaultTemplateReader)
+        public BackofficeNotificationSettingsProvider(IBackofficeSettingsReader backofficeSettingsReader)
         {
-            _defaultTemplateReader = defaultTemplateReader;
+            _backofficeSettingsReader = backofficeSettingsReader;
         }
 
         BackofficeNotificationSettingsModel<EmailNotifierTemplate> IBackofficeNotificationSettingsProvider<EmailNotifierTemplate>.GetBackofficeSettings(ActivityEventIdentity activityEvent)
@@ -27,7 +27,7 @@ namespace uIntra.Notification.Configuration
             where T : INotifierTemplate
         {
             var notificationType = activityEvent.AddNotifierIdentity(notifier);
-            var result = _defaultTemplateReader.ReadTemplate(notificationType).Deserialize<BackofficeNotificationSettingsModel<T>>();
+            var result = _backofficeSettingsReader.ReadTemplate(notificationType).Deserialize<BackofficeNotificationSettingsModel<T>>();
             return result;
         }
     }

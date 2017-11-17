@@ -1,6 +1,6 @@
 ﻿namespace uIntra.Notification.Configuration
 {
-    public interface IDefaultTemplateReader
+    public interface IBackofficeSettingsReader
     {
         string ReadTemplate(ActivityEventNotifierIdentity notificationType);
     }

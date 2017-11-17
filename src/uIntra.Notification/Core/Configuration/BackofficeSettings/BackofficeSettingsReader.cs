@@ -3,13 +3,13 @@ using uIntra.Core.Utils;
 
 namespace uIntra.Notification.Configuration
 {
-    public class DefaultTemplateReader : IDefaultTemplateReader
+    public class BackofficeSettingsReader : IBackofficeSettingsReader
     {
         private const string RootFolderName = "BackofficeNotificationSettings";
 
         private readonly IEmbeddedResourceService _embeddedResourceService;
 
-        public DefaultTemplateReader(IEmbeddedResourceService embeddedResourceService)
+        public BackofficeSettingsReader(IEmbeddedResourceService embeddedResourceService)
         {
             _embeddedResourceService = embeddedResourceService;
         }

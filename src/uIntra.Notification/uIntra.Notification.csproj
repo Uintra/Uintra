@@ -314,10 +314,10 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Core\Configuration\Templates\DefaultNotifierTemplateProvider.cs" />
-    <Compile Include="Core\Configuration\Templates\DefaultTemplateReader.cs" />
-    <Compile Include="Core\Configuration\Templates\BackofficeNotificationSettingsProvider.cs" />
-    <Compile Include="Core\Configuration\Templates\IDefaultTemplateReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\DefaultNotifierTemplateProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />
@@ -332,6 +332,11 @@
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
+    <Compile Include="Core\Models\Configuration\BackofficeNotificationSettingsModel.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
+    <Compile Include="Core\Models\Configuration\NotifierSettingModel.cs" />
+    <Compile Include="Core\Models\Configuration\NotifierSettingsModel.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />
@@ -347,15 +352,15 @@
     <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
     <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
-    <Compile Include="Core\Models\NotificationListViewModel.cs" />
-    <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
-    <Compile Include="Core\Models\NotificationViewModel.cs" />
+    <Compile Include="Core\Models\ViewModels\NotificationListViewModel.cs" />
+    <Compile Include="Core\Models\ViewModels\NotificationPreviewViewModel.cs" />
+    <Compile Include="Core\Models\ViewModels\NotificationViewModel.cs" />
     <Compile Include="Core\Configuration\NotificationConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
-    <Compile Include="Core\Models\NotifierSettingsModels.cs" />
-    <Compile Include="Core\Models\NotifierViewModel.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\UiNotifierTemplate.cs" />
+    <Compile Include="Core\Models\ViewModels\NotifierViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />
