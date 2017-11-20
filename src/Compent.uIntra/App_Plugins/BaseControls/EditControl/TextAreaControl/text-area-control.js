@@ -8,13 +8,19 @@
             }
 
             $scope.config.triggerValidate = function () {
-                if ($scope.config.isValidationRequired) {
-                    $scope.includeValidation = true;
-                    $scope.isValidValue = angular.isDefined($scope.config.value) && $scope.config.value !== null && $scope.config.value !== '';
-                    return $scope.isValidValue;
+                if (!$scope.config.isValidationRequired) {
+                    return true;
                 }
 
-                return true;
+                $scope.includeValidation = true;
+
+                $scope.isTextLengthNotValid = $scope.config.value && $scope.config.value.length > $scope.config.maxLength;
+                $scope.isValidValue = angular.isDefined($scope.config.value)
+                    && $scope.config.value !== null
+                    && $scope.config.value !== ''
+                    && $scope.config.value.length <= $scope.config.maxLength;
+
+                return $scope.isValidValue;
             }
 
             $scope.config.triggerCopySavedData = function () {
@@ -31,6 +37,10 @@
 
             $scope.isConfigValueValid = function () {
                 return !$scope.includeValidation || $scope.isValidValue;
+            }
+
+            $scope.isTextRequiredButEmpty = function () {
+                return $scope.config.isRequired && $scope.config.value.length === 0;
             }
 
             $scope.setValue = function () {
@@ -75,7 +85,7 @@
             templateUrl: '/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control.html',
             replace: true,
             scope: { config: "=" },
-            controller: ['$scope',controller]
+            controller: ['$scope', controller]
         };
     }
 

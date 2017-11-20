@@ -1,7 +1,10 @@
 ﻿function TextControlModel(mode) {
     this.mode = mode ? mode : ControlMode.disable;
     this.inputType = InputType.text;
-    this.maxLength = 400;
+    this.isRequired = false;
+    this.requiredValidationMessage = '';
+    this.maxLength = 200;
+    this.maxLengthValidationMessage = '';
     this.isValidationRequired = true;
     this.onSave = function () { };
     this.triggerRefresh = function () { };

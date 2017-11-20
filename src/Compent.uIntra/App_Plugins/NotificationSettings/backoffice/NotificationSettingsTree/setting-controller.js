@@ -107,7 +107,15 @@
             self.emailSubjectControlConfig = new TextControlModel(ControlMode.view);
             self.emailSubjectControlConfig.value = self.settings.emailNotifierSetting.template.subject;
 
-            self.emailSubjectControlConfig.onSave = function (emailSubject) { self.settings.emailNotifierSetting.template.subject = emailSubject };
+            self.emailSubjectControlConfig.isRequired = true;
+            self.emailSubjectControlConfig.requiredValidationMessage = 'E-mail subject is required';
+            self.emailSubjectControlConfig.maxLength = 400;
+            self.emailSubjectControlConfig.maxLengthValidationMessage = 'E-mail subject max length is 400 symbols';
+
+            self.emailSubjectControlConfig.onSave = function (emailSubject) {
+                self.settings.emailNotifierSetting.template.subject = emailSubject;
+                self.save();
+            };
 
             self.emailSubjectControlConfig.triggerRefresh();
         }
@@ -116,7 +124,15 @@
             self.uiMessageControlConfig = new TextAreaControlModel(ControlMode.view);
             self.uiMessageControlConfig.value = self.settings.uiNotifierSetting.template.message;
 
-            self.uiMessageControlConfig.onSave = function (uiMessage) { self.settings.uiNotifierSetting.template.message = uiMessage };
+            self.uiMessageControlConfig.isRequired = true;
+            self.uiMessageControlConfig.requiredValidationMessage = 'In-App message is required';
+            self.uiMessageControlConfig.maxLength = 200;
+            self.uiMessageControlConfig.maxLengthValidationMessage = 'In-App message max length is 200 symbols';
+
+            self.uiMessageControlConfig.onSave = function (uiMessage) {
+                self.settings.uiNotifierSetting.template.message = uiMessage;
+                self.save();
+            };
 
             self.uiMessageControlConfig.triggerRefresh();
         }

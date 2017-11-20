@@ -44,6 +44,10 @@
                 return !$scope.includeValidation || $scope.isValidValue;
             }
 
+            $scope.isTextRequiredButEmpty = function () {
+                return $scope.config.isRequired && $scope.config.value.length === 0;
+            }
+
             $scope.setValue = function () {
                 if ($scope.editControlConfig.mode == ControlMode.create) {
                     $scope.config.onSave($scope.config.value);
