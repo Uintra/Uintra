@@ -2,8 +2,8 @@
     <div data-ng-if="isActiveEditMode" class="edit-control__bg" data-ng-click="save()"></div>
     <div class="edit-control"
          ng-class="{'_active-edit-control' : isActiveEditMode, '_disabled' : isActiveDisadledMode, '_create': isActiveCreateMode}"
-         click-outside="save()"
-         outside-if-not="ui-select-choices-row-inner,ui-select-match-close,js-delete-file,js-change-file-description,js-edit-pencil,js-edit-fieldset">
+         c-click-outside="save(true)"
+         outside-if-not="js-edit-pencil, js-edit-fieldset">
 
         <div class="edit-control__content" ng-click="activateEditMode()">
             <fieldset data-ng-disabled="isActiveDisadledMode" class="js-edit-fieldset">
