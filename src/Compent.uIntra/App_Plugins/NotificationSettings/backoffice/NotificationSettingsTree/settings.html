@@ -27,16 +27,18 @@
                 </div>
 
                 <div ng-if="ctrl.isEmailTabSelected()">
-
                     <div>
-                        <label for="emailSubject">E-mail subject:</label>
-                        <input id="emailSubject" name="EmailSubject" type="text" ng-maxlength="400" required ng-model="ctrl.settings.emailNotifierSetting.template.subject" c-blur="ctrl.save()" />
+                        <label>E-mail subject:</label>
+                        <text-control config="ctrl.emailSubjectControlConfig"></text-control>
+
+                    <!--<label for="emailSubject">E-mail subject:</label>
+                        <input id="emailSubject" name="EmailSubject" type="text" ng-maxlength="400" required ng-model="ctrl.settings.emailNotifierSetting.template.subject" c-blur="ctrl.save(settingsForm.EmailSubject)"/>
                         <div data-ng-show="settingsForm.EmailSubject.$error.required">E-mail subject is required</div>
-                        <div data-ng-show="settingsForm.EmailSubject.$error.maxlength">E-mail subject max length is 400 symbols</div>
+                        <div data-ng-show="settingsForm.EmailSubject.$error.maxlength">E-mail subject max length is 400 symbols</div>-->
                     </div>
                     <div>
-                        <label for="emailContent">E-mail content:</label>
-                        <tiny-mce id="emailContent" config="ctrl.config.description" required model="ctrl.settings.emailNotifierSetting.template.content"></tiny-mce>
+                        <!--<label for="emailContent">E-mail content:</label>-->
+                        <!--<tiny-mce id="emailContent" config="ctrl.config.description" required model="ctrl.settings.emailNotifierSetting.template.content"></tiny-mce>-->
                         <input type="hidden" name="EmailContent" ng-model="ctrl.settings.emailNotifierSetting.template.content" required="" />
                         <div data-ng-show="settingsForm.EmailContent.$error.required">E-mail content is required</div>
                         <div data-ng-show="!ctrl.isControlTextHasValidLength(settingsForm.EmailContent, 4000)">Max length is 4000 symbols</div>
@@ -45,10 +47,13 @@
 
                 <div ng-if="ctrl.isUiTabSelected()">
                     <div>
-                        <label for="uiMessage">In-App message:</label>
-                        <textarea id="uiMessage" name="UiMessage" type="text" ng-maxlength="200" required ng-model="ctrl.settings.uiNotifierSetting.template.message" c-blur="ctrl.save()"></textarea>
+                        <!--<label for="uiMessage">In-App message:</label>
+                        <textarea id="uiMessage" name="UiMessage" type="text" ng-maxlength="200" required ng-model="ctrl.settings.uiNotifierSetting.template.message" c-blur="ctrl.save(settingsForm.UiMessage)"></textarea>
                         <div data-ng-show="settingsForm.UiMessage.$error.required">In-App message is required</div>
-                        <div data-ng-show="settingsForm.UiMessage.$error.maxlength">In-App message max length is 200 symbols</div>
+                        <div data-ng-show="settingsForm.UiMessage.$error.maxlength">In-App message max length is 200 symbols</div>-->
+                        
+                        <label>In-App message:</label>
+                        <text-area-control config="ctrl.uiMessageControlConfig"></text-area-control>
                     </div>
                 </div>
 

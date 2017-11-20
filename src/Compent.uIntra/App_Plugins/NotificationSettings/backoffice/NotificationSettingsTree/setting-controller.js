@@ -32,7 +32,11 @@
             self.selectedNotifierSettings = self.settings.uiNotifierSetting;
         }
 
-        self.save = function () {
+        self.save = function (control) {
+            if (control && control.$pristine) {
+                return;
+            }
+
             if ($scope.settingsForm.$pristine || $scope.settingsForm.$invalid) {
                 return;
             }
@@ -49,7 +53,7 @@
             return isValidLength;
         }
 
-        var getUrlParams = function (url) {
+        function getUrlParams(url) {
             var params = {};
             (url + '?').split('?')[1].split('&').forEach(function (pair) {
                 pair = (pair + '=').split('=').map(decodeURIComponent);
@@ -62,12 +66,16 @@
 
         function initalize() {
             var params = getUrlParams($location.path());
-                notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
-                    self.settings = result.data;
-                    self.selectEmailTab();
-                }, showGetErrorMessage);
+            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
+                self.settings = result.data;
+                self.selectEmailTab();
 
-            self.config = notificationSettingsConfig;
+                initEmailSubjectControlConfig();
+                initUiMessageControlConfig();
+
+            }, showGetErrorMessage);
+
+            //   self.config = notificationSettingsConfig;
         }
 
         function saveSettings(settings) {
@@ -95,10 +103,28 @@
             return text ? String(text).replace(/<[^>]+>/gm, '') : '';
         }
 
+        function initEmailSubjectControlConfig() {
+            self.emailSubjectControlConfig = new TextControlModel(ControlMode.view);
+            self.emailSubjectControlConfig.value = self.settings.emailNotifierSetting.template.subject;
+
+            self.emailSubjectControlConfig.onSave = function (emailSubject) { self.settings.emailNotifierSetting.template.subject = emailSubject };
+
+            self.emailSubjectControlConfig.triggerRefresh();
+        }
+
+        function initUiMessageControlConfig() {
+            self.uiMessageControlConfig = new TextAreaControlModel(ControlMode.view);
+            self.uiMessageControlConfig.value = self.settings.uiNotifierSetting.template.message;
+
+            self.uiMessageControlConfig.onSave = function (uiMessage) { self.settings.uiNotifierSetting.template.message = uiMessage };
+
+            self.uiMessageControlConfig.triggerRefresh();
+        }
+
         initalize();
     }
 
-    controller.$inject = ['$scope','$location',  'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
+    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
