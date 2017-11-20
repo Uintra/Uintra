@@ -332,7 +332,7 @@
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
-    <Compile Include="Core\Models\Configuration\BackofficeNotificationSettingsModel.cs" />
+    <Compile Include="Core\Models\Configuration\NotificationSettingDefaults.cs" />
     <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
     <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingModel.cs" />
