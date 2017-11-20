@@ -33,6 +33,10 @@
         }
 
         self.save = function () {
+            if ($scope.settingsForm.$pristine || $scope.settingsForm.$invalid) {
+                return;
+            }
+
             saveSettings(self.settings);
         }
 

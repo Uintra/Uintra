@@ -64,7 +64,31 @@
         }
     }
 
+    var focusFactory = function ($parse) {
+        return function (scope, element, attr) {
+            var fn = $parse(attr['cFocus']);
+            element.bind('focus', function (event) {
+                scope.$apply(function () {
+                    fn(scope, { $event: event });
+                });
+            });
+        }
+    }
+
+    var blurFactory = function ($parse) {
+        return function (scope, element, attr) {
+            var fn = $parse(attr['cBlur']);
+            element.bind('blur', function (event) {
+                scope.$apply(function () {
+                    fn(scope, { $event: event });
+                });
+            });
+        }
+    }
+
     angular.module('umbraco').directive('stopPropagation', stopPropagationFactory);
     angular.module('umbraco').directive('validatePanel', panelValidationFactory);
     angular.module('umbraco').directive('cRequired', controlRequiredFactory);
+    angular.module('umbraco').directive('cFocus', ['$parse', focusFactory]);
+    angular.module('umbraco').directive('cBlur', ['$parse', blurFactory]);
 })();
