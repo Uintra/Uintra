@@ -1,9 +1,9 @@
 namespace uIntra.Notification
 {
-    public class BackofficeNotificationSettingsModel<T>
+    public class NotificationSettingDefaults<T>
         where T : INotifierTemplate
     {
-        public BackofficeNotificationSettingsModel(string label, T template)
+        public NotificationSettingDefaults(string label, T template)
         {
             Label = label;
             Template = template;

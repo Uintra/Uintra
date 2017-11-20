@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Notification.Configuration;
@@ -27,18 +28,33 @@ namespace uIntra.Notification
         public NotifierSettingsModel Get(ActivityEventIdentity activityEventIdentity)
         {
             // --- we have no unit tests ---
-            var testTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventIdentity);
-            var testTemplate1 = _emailNotifierTemplateProvider.GetSettings(activityEventIdentity);
+            var defaultUiNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventIdentity);
+            var defaultEmailNotifierTemplate = _emailNotifierTemplateProvider.GetSettings(activityEventIdentity);
             // ---   ---
 
-            var existSettings = _repository.FindAll(s =>
+            var settingsDefaults = new Dictionary<NotifierTypeEnum, NotificationSettingDefaults<INotifierTemplate>>
+            {
+                {
+                    NotifierTypeEnum.EmailNotifier,
+                    new NotificationSettingDefaults<INotifierTemplate>(defaultEmailNotifierTemplate.Label, defaultEmailNotifierTemplate.Template)
+                },
+                {
+                    NotifierTypeEnum.UiNotifier,
+                    new NotificationSettingDefaults<INotifierTemplate>(defaultUiNotifierTemplate.Label, defaultUiNotifierTemplate.Template)
+                }
+            };
+
+            var existingSettings = _repository.FindAll(s =>
                     s.ActivityType == activityEventIdentity.ActivityType &&
                     s.NotificationType == activityEventIdentity.NotificationType)
                 .ToList();
 
-            var absentSettings = GetAbsentSettings(existSettings, activityEventIdentity);
+            var absentSettingsTypes = GetAbsentSettingsTypes(existingSettings);
+            var absentSettings = absentSettingsTypes
+                .Select(type => CreateSetting(activityEventIdentity.AddNotifierIdentity(type), settingsDefaults));
+
             var absentSettingsList = absentSettings as IList<NotificationSetting> ?? absentSettings.ToList();
-            var notifierSettings = GetMappedSettings(existSettings, absentSettingsList, activityEventIdentity);
+            var notifierSettings = GetMappedSettings(existingSettings, absentSettingsList, activityEventIdentity, settingsDefaults);
 
             _repository.Add(absentSettingsList);
 
@@ -55,16 +71,11 @@ namespace uIntra.Notification
             _repository.Update(updatedSetting);
         }
 
-        private IEnumerable<NotificationSetting> GetAbsentSettings(
-            IEnumerable<NotificationSetting> existingSettings,
-            ActivityEventIdentity activityEventIdentity) =>
-            GetAbsentSettingsTypes(existingSettings)
-                .Select(type => CreateSetting(type, activityEventIdentity));
-
         private NotifierSettingsModel GetMappedSettings(
             IEnumerable<NotificationSetting> existingEntities,
             IEnumerable<NotificationSetting> absentSettings,
-            ActivityEventIdentity activityEventIdentity)
+            ActivityEventIdentity activityEventIdentity,
+            IDictionary<NotifierTypeEnum, NotificationSettingDefaults<INotifierTemplate>> settingsDefaults)
         {
             var settingsDictionary = existingEntities
                 .Concat(absentSettings)
@@ -73,9 +84,9 @@ namespace uIntra.Notification
             var notifierSettings = new NotifierSettingsModel
             {
                 EmailNotifierSetting = NotifierSetting<EmailNotifierTemplate>(settingsDictionary[NotifierTypeEnum.EmailNotifier],
-                    activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.EmailNotifier)),
+                    activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.EmailNotifier), settingsDefaults),
                 UiNotifierSetting = NotifierSetting<UiNotifierTemplate>(settingsDictionary[NotifierTypeEnum.UiNotifier],
-                    activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.UiNotifier))
+                    activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.UiNotifier), settingsDefaults)
             };
 
             return notifierSettings;
@@ -92,57 +103,37 @@ namespace uIntra.Notification
             return absentNotifierTypes;
         }
 
-        private NotificationSetting CreateSetting(
-            NotifierTypeEnum notifierType,
-            ActivityEventIdentity activityEventIdentity)
+        private NotificationSetting CreateSetting(ActivityEventNotifierIdentity identity,
+            Dictionary<NotifierTypeEnum, NotificationSettingDefaults<INotifierTemplate>> dict)
         {
-            string jsonData;
-
-            switch (notifierType)
-            {
-                case NotifierTypeEnum.EmailNotifier:
-                    var defaultTemplate = new EmailNotifierTemplate()
-                    {
-                        Content = "content",
-                        Subject = "subject"
-                    };
-                    jsonData = defaultTemplate.ToJson();
-                    break;
-                case NotifierTypeEnum.UiNotifier:
-                    var uiNotifierTemplate = new UiNotifierTemplate()
-                    {
-                        Message = "msg"
-                    };
-                    jsonData = uiNotifierTemplate.ToJson();
-                    break;
-                default:
-                    jsonData = string.Empty;
-                    break;
-            }
-
-
             return new NotificationSetting
             {
                 Id = Guid.NewGuid(),
-                NotifierType = notifierType,
-                ActivityType = activityEventIdentity.ActivityType,
-                NotificationType = activityEventIdentity.NotificationType,
+                NotifierType = identity.NotifierType,
+                ActivityType = identity.Event.ActivityType,
+                NotificationType = identity.Event.NotificationType,
                 IsEnabled = true,
-                JsonData = jsonData
+                JsonData = dict[identity.NotifierType].Template.ToJson()
             };
         }
 
-        private NotifierSettingModel<T> NotifierSetting<T>(NotificationSetting notificationSetting, ActivityEventNotifierIdentity identity)
-            where T : INotifierTemplate 
-            => new NotifierSettingModel<T>
+        private NotifierSettingModel<T> NotifierSetting<T>(
+            NotificationSetting notificationSetting,
+            ActivityEventNotifierIdentity identity,
+            IDictionary<NotifierTypeEnum, NotificationSettingDefaults<INotifierTemplate>> settingsDefaults)
+            where T : INotifierTemplate
+        {
+
+            return new NotifierSettingModel<T>
             {
                 ActivityType = identity.Event.ActivityType,
                 NotificationType = identity.Event.NotificationType,
                 NotifierType = identity.NotifierType,
                 IsEnabled = notificationSetting.IsEnabled,
-                NotificationInfo = "NotificationInfo",
+                NotificationInfo = settingsDefaults[identity.NotifierType].Label,
                 Template = notificationSetting.JsonData.Deserialize<T>()
             };
+        }
 
         private NotificationSetting GetUpdatedSetting<T>(NotificationSetting setting, NotifierSettingModel<T> notifierSettingModel)
             where T : INotifierTemplate
