@@ -16,9 +16,9 @@
             <span class="tab" ng-class="{'_active' : ctrl.isUiTabSelected()}" ng-click="ctrl.selectUiTab()">In-App notification</span>
 
             <form name="settingsForm">
-                <br/>
+                <br />
                 <div ng-bind-html="ctrl.selectedNotifierSettings.notificationInfo"></div>
-                <br/>
+                <br />
                 <div>
                     <span>Do you want to enable this notification:</span>
                     <label for="enableNotification">Yes, enable</label>
@@ -26,10 +26,9 @@
                     <label for="disableNotification">No, disable</label>
                     <input id="disableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="false" ng-change="ctrl.save()">
                 </div>
-                
-                <br/>
+                <br />
 
-                <div ng-if="ctrl.isEmailTabSelected()">
+                <div ng-if="ctrl.emailSubjectControlConfig" ng-show="ctrl.isEmailTabSelected()">
                     <div>
                         <label>E-mail subject:</label>
                         <text-control config="ctrl.emailSubjectControlConfig"></text-control>
@@ -40,7 +39,7 @@
                     </div>
                 </div>
 
-                <div ng-if="ctrl.isUiTabSelected()">
+                <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected()">
                     <div>
                         <label>In-App message:</label>
                         <text-area-control config="ctrl.uiMessageControlConfig"></text-area-control>
