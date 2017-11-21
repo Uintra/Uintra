@@ -9,10 +9,12 @@
             }
 
             $scope.config.triggerValidate = function () {
+                $scope.maxDescriptionLength = $scope.config.maxLength - $scope.config.value.length;
+
                 if ($scope.config.value) {
                     $scope.includeValidation = true;
                     $scope.isValidValue = $scope.config.value.length <= $scope.config.maxLength;
-                    $scope.maxDescriptionLength = $scope.config.maxLength - $scope.config.value.length; /*+ ' ' + $filter('translate')('characters left')*/;
+                   
                     return $scope.isValidValue;
                 } else {
                     return true;
@@ -28,18 +30,12 @@
             }
 
             $scope.isEditableMode = function () {
-                return $scope.editControlConfig.mode == ControlMode.edit;
+                return $scope.editControlConfig.mode === ControlMode.edit;
             }
 
-            //$scope.summernoteOptions = {
-            //    height: 100,
-            //    toolbar: [
-            //      ['style', ['bold', 'italic']],
-            //      ['para', ['ul', 'ol']],
-            //      ['height', ['height']]
-            //    ],
-            //    disableDragAndDrop: true
-            //};
+            $scope.isTextRequiredButEmpty = function () {
+                return $scope.config.isRequired && $scope.config.value.length === 0;
+            }
 
             function saveHandler() {
                 if (!$scope.config.triggerValidate()) {
