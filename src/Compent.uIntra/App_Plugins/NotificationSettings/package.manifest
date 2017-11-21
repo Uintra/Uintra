@@ -1,5 +1,6 @@
 ﻿{
   "javascript": [
+    "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.config.js",
     "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.service.js",
     "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.controller.js"
   ],

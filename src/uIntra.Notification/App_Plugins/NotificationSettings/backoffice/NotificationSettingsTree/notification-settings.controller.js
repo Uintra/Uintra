@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsService) {
+    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig) {
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -116,8 +116,10 @@
         }
 
         function initUiMessageControlConfig() {
-            self.uiMessageControlConfig = new TextAreaControlModel(ControlMode.view);
+            self.uiMessageControlConfig = new RichTextEditorModel(ControlMode.view);
             self.uiMessageControlConfig.value = self.settings.uiNotifierSetting.template.message;
+
+            self.uiMessageControlConfig.tinyMceOptions = notificationSettingsConfig.uiMessageTinyMceOptions;
 
             self.uiMessageControlConfig.isRequired = true;
             self.uiMessageControlConfig.requiredValidationMessage = 'In-App message is required';
@@ -135,7 +137,7 @@
         initalize();
     }
 
-    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService'];
+    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig'];
 
     angular.module('umbraco').controller('notificationSettingController', controller);
 })(angular);
