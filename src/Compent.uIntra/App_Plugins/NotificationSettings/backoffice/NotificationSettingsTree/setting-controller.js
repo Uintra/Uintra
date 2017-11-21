@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
+    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsService) {
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -32,25 +32,8 @@
             self.selectedNotifierSettings = self.settings.uiNotifierSetting;
         }
 
-        self.save = function (control) {
-            if (control && control.$pristine) {
-                return;
-            }
-
-            if ($scope.settingsForm.$pristine || $scope.settingsForm.$invalid) {
-                return;
-            }
-
+        self.save = function () {
             saveSettings(self.settings);
-        }
-
-        self.isControlTextHasValidLength = function (control, maxLength) {
-            const trimmedText = trimHtml(control.$modelValue);
-            const isValidLength = trimmedText.length <= maxLength;
-
-            control.$setValidity("maxLength", isValidLength);
-
-            return isValidLength;
         }
 
         function getUrlParams(url) {
@@ -71,11 +54,10 @@
                 self.selectEmailTab();
 
                 initEmailSubjectControlConfig();
+                initEmailContentControlConfig();
                 initUiMessageControlConfig();
 
             }, showGetErrorMessage);
-
-            //   self.config = notificationSettingsConfig;
         }
 
         function saveSettings(settings) {
@@ -99,10 +81,6 @@
             notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
         }
 
-        function trimHtml(text) {
-            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
-        }
-
         function initEmailSubjectControlConfig() {
             self.emailSubjectControlConfig = new TextControlModel(ControlMode.view);
             self.emailSubjectControlConfig.value = self.settings.emailNotifierSetting.template.subject;
@@ -118,6 +96,23 @@
             };
 
             self.emailSubjectControlConfig.triggerRefresh();
+        }
+
+        function initEmailContentControlConfig() {
+            self.emailContentControlConfig = new RichTextEditorModel(ControlMode.view);
+            self.emailContentControlConfig.value = self.settings.emailNotifierSetting.template.content;
+
+            self.emailContentControlConfig.isRequired = true;
+            self.emailContentControlConfig.requiredValidationMessage = 'E-mail content is required';
+            self.emailContentControlConfig.maxLength = 4000;
+            self.emailContentControlConfig.maxLengthValidationMessage = 'E-mail content max length is 4000 symbols';
+
+            self.emailContentControlConfig.onSave = function (emailContent) {
+                self.settings.emailNotifierSetting.template.content = emailContent;
+                self.save();
+            };
+
+            self.emailContentControlConfig.triggerRefresh();
         }
 
         function initUiMessageControlConfig() {
@@ -140,7 +135,7 @@
         initalize();
     }
 
-    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
+    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService'];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
