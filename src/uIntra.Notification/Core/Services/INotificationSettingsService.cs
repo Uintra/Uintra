@@ -8,6 +8,7 @@ namespace uIntra.Notification.Core.Services
         NotifierSettingsModel GetAll(ActivityEventIdentity activityEventIdentity);
         NotifierSettingModel<EmailNotifierTemplate> GetEmailNotifierSettings(ActivityEventNotifierIdentity activityEventNotifierIdentity);
         NotifierSettingModel<UiNotifierTemplate> GetUiNotifierSettings(ActivityEventNotifierIdentity activityEventNotifierIdentity);
-        void Save<T>(NotifierSettingModel<T> setting) where T : INotifierTemplate;
+        void SaveUiNotifierSettings(NotifierSettingModel<UiNotifierTemplate> settingModel);
+        void SaveEmailNotifierSettings(NotifierSettingModel<EmailNotifierTemplate> settingModel);
     }
 }

@@ -32,11 +32,8 @@ namespace uIntra.Notification
 
         public NotifierSettingsModel GetAll(ActivityEventIdentity activityEventIdentity)
         {
-            // --- we have no unit tests ---
             var defaultUiNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventIdentity);
             var defaultEmailNotifierTemplate = _emailNotifierTemplateProvider.GetSettings(activityEventIdentity);
-            // ---   ---
-
             var settingsDefaults = new Dictionary<IIntranetType, NotificationSettingDefaults<INotifierTemplate>>(new IntranetTypeComparer())
             {
                 {
@@ -55,13 +52,15 @@ namespace uIntra.Notification
                 .ToList();
 
             var absentSettingsTypes = GetAbsentSettingsTypes(existingSettings);
-            var absentSettings = absentSettingsTypes.Select(type =>
-                NewSetting(activityEventIdentity.AddNotifierIdentity(type), settingsDefaults[type]));
+            var absentSettings = absentSettingsTypes.Select(type => NewSetting(activityEventIdentity.AddNotifierIdentity(type), settingsDefaults[type]));
 
             var absentSettingsList = absentSettings as IList<NotificationSetting> ?? absentSettings.ToList();
-            var notifierSettings = GetMappedSettings(existingSettings, absentSettingsList, activityEventIdentity, settingsDefaults);
-
-            _repository.Add(absentSettingsList);
+            var notifierSettings = GetMappedSettings(
+                existingSettings,
+                absentSettingsList,
+                activityEventIdentity,
+                defaultEmailNotifierTemplate,
+                defaultUiNotifierTemplate);
 
             return notifierSettings;
         }
@@ -69,63 +68,76 @@ namespace uIntra.Notification
         public NotifierSettingModel<EmailNotifierTemplate> GetEmailNotifierSettings(ActivityEventNotifierIdentity activityEventNotifierIdentity)
         {
             var defaultEmailNotifierTemplate = _emailNotifierTemplateProvider.GetSettings(activityEventNotifierIdentity.Event);
-            return GetNotifierSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+            var setting = FindOrCreateSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+
+            var mappedSetting = MappedNotifierSetting(setting, activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+
+            return mappedSetting;
         }
 
         public NotifierSettingModel<UiNotifierTemplate> GetUiNotifierSettings(ActivityEventNotifierIdentity activityEventNotifierIdentity)
         {
-            var defaultUiNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventNotifierIdentity.Event);
-            return GetNotifierSetting(activityEventNotifierIdentity, defaultUiNotifierTemplate);
+            var defaultEmailNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventNotifierIdentity.Event);
+            var setting = FindOrCreateSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+
+            var mappedSetting = MappedNotifierSetting(setting, activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+
+            return mappedSetting;
         }
 
-
-        public void Save<T>(NotifierSettingModel<T> setting) where T : INotifierTemplate
+        public void SaveEmailNotifierSettings(NotifierSettingModel<EmailNotifierTemplate> settingModel)
         {
+            var defaultUiNotifierTemplate = _emailNotifierTemplateProvider
+                .GetSettings(new ActivityEventIdentity(settingModel.ActivityType, settingModel.NotificationType));
+            Save(settingModel, defaultUiNotifierTemplate);
+        }
 
+        public void SaveUiNotifierSettings(NotifierSettingModel<UiNotifierTemplate> settingModel)
+        {
+            var defaultUiNotifierTemplate = _uiNotifierTemplateProvider
+                .GetSettings(new ActivityEventIdentity(settingModel.ActivityType, settingModel.NotificationType));
+            Save(settingModel, defaultUiNotifierTemplate);
+        }
 
-            var entry = _repository.Find(s =>
-                s.ActivityType == setting.ActivityType.Id &&
-                s.NotificationType == setting.NotificationType.Id &&
-                s.NotifierType == setting.NotifierType.Id);
+        private void Save<T>(NotifierSettingModel<T> settingModel, NotificationSettingDefaults<T> defaults) where T : INotifierTemplate
+        {
+            var identity = new ActivityEventIdentity(settingModel.ActivityType, settingModel.NotificationType)
+                .AddNotifierIdentity(settingModel.NotifierType);
 
-            var updatedSetting = GetUpdatedSetting(entry, setting);
+            var defaultUiNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(identity.Event);
+            var setting = FindOrCreateSetting(identity, defaultUiNotifierTemplate);
+
+            var mappedSetting = MappedNotifierSetting(setting, identity, defaults);
+            var updatedSetting = GetUpdatedSetting(setting, mappedSetting);
+
             _repository.Update(updatedSetting);
         }
 
-        private NotifierSettingModel<T> GetNotifierSetting<T>(
-            ActivityEventNotifierIdentity activityEventNotifierIdentity,
-            NotificationSettingDefaults<T> defaults)
-            where T : INotifierTemplate
-        {
-            var entry = _repository.Find(s =>
+        private NotificationSetting Find(ActivityEventNotifierIdentity activityEventNotifierIdentity) =>
+            _repository.Find(s =>
                 s.ActivityType == activityEventNotifierIdentity.Event.ActivityType.Id &&
                 s.NotificationType == activityEventNotifierIdentity.Event.NotificationType.Id &&
                 s.NotifierType == activityEventNotifierIdentity.NotifierType.Id);
 
-            entry = entry ?? NewSetting(activityEventNotifierIdentity, defaults);
-
-            var setting = MappedNotifierSetting(entry, activityEventNotifierIdentity, defaults);
-
-            return setting;
+        private NotificationSetting FindOrCreateSetting<T>(
+            ActivityEventNotifierIdentity activityEventNotifierIdentity,
+            NotificationSettingDefaults<T> defaults)
+            where T : INotifierTemplate
+        {
+            var entry = Find(activityEventNotifierIdentity);
+            return entry ?? NewSetting(activityEventNotifierIdentity, defaults);
         }
 
-        private NotifierSettingsModel GetMappedSettings<T>(
+        private NotifierSettingsModel GetMappedSettings(
             IEnumerable<NotificationSetting> existingEntities,
             IEnumerable<NotificationSetting> absentSettings,
             ActivityEventIdentity activityEventIdentity,
-            IDictionary<IIntranetType, NotificationSettingDefaults<T>> settingsDefaults) where T : INotifierTemplate
+            NotificationSettingDefaults<EmailNotifierTemplate> emailNotifierSettingDefaults,
+            NotificationSettingDefaults<UiNotifierTemplate> uiNotifierSettingDefaults)
         {
             var settingsDictionary = existingEntities
                 .Concat(absentSettings)
                 .ToDictionary(e => _notifierTypeProvider.Get(e.NotifierType), new IntranetTypeComparer());
-
-            var emailNotifierSettingDefaults = new NotificationSettingDefaults<EmailNotifierTemplate>
-            (settingsDefaults[GetIntranetType(EmailNotifier)].Label,
-                settingsDefaults[GetIntranetType(EmailNotifier)].Template as EmailNotifierTemplate);
-
-            var uiNotifierSettingDefaults = new NotificationSettingDefaults<UiNotifierTemplate>
-            (settingsDefaults[GetIntranetType(UiNotifier)].Label,
-                settingsDefaults[GetIntranetType(UiNotifier)].Template as UiNotifierTemplate);
 
             var notifierSettings = new NotifierSettingsModel
             {

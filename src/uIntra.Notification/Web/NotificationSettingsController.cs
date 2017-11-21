@@ -34,14 +34,14 @@ namespace uIntra.Notification.Web
         public virtual void SaveUiNotifierSetting(NotifierSettingSaveModel<UiNotifierTemplate> notifierSettingModel)
         {
             var mappedModel = notifierSettingModel.Map<NotifierSettingModel<UiNotifierTemplate>>();
-            _notificationSettingsService.Save(mappedModel);
+            _notificationSettingsService.SaveUiNotifierSettings(mappedModel);
         }
 
         [HttpPost]
         public virtual void SaveEmailNotifierSetting(NotifierSettingSaveModel<EmailNotifierTemplate> notifierSettingModel)
         {
             var mappedModel = notifierSettingModel.Map<NotifierSettingModel<EmailNotifierTemplate>>();
-            _notificationSettingsService.Save(mappedModel);
+            _notificationSettingsService.SaveEmailNotifierSettings(mappedModel);
         }
     }
 }
