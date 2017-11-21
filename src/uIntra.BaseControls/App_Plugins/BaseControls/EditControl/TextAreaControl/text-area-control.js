@@ -1,7 +1,6 @@
 ﻿(function () {
-    var richTextEditor = function () {
+    var textAreaControl = function () {
         var controller = function ($scope) {
-
             $scope.config.triggerRefresh = function () {
                 $scope.includeValidation = false;
                 $scope.config.triggerCopySavedData();
@@ -9,10 +8,17 @@
             }
 
             $scope.config.triggerValidate = function () {
-                $scope.maxDescriptionLength = $scope.config.maxLength - $scope.config.value.length;
+                if (!$scope.config.isValidationRequired) {
+                    return true;
+                }
 
                 $scope.includeValidation = true;
-                $scope.isValidValue = !$scope.isTextRequiredButEmpty() && $scope.config.value.length <= $scope.config.maxLength;
+
+                $scope.isTextLengthNotValid = $scope.config.value && $scope.config.value.length > $scope.config.maxLength;
+                $scope.isValidValue = angular.isDefined($scope.config.value)
+                    && $scope.config.value !== null
+                    && $scope.config.value !== ''
+                    && $scope.config.value.length <= $scope.config.maxLength;
 
                 return $scope.isValidValue;
             }
@@ -26,11 +32,21 @@
             }
 
             $scope.isEditableMode = function () {
-                return $scope.editControlConfig.mode === ControlMode.edit;
+                return $scope.editControlConfig.mode == ControlMode.edit || $scope.editControlConfig.mode == ControlMode.create;
+            }
+
+            $scope.isConfigValueValid = function () {
+                return !$scope.includeValidation || $scope.isValidValue;
             }
 
             $scope.isTextRequiredButEmpty = function () {
                 return $scope.config.isRequired && $scope.config.value.length === 0;
+            }
+
+            $scope.setValue = function () {
+                if ($scope.editControlConfig.mode == ControlMode.create) {
+                    $scope.config.onSave($scope.config.value);
+                }
             }
 
             function saveHandler() {
@@ -66,12 +82,12 @@
 
         return {
             restrict: 'E',
-            templateUrl: '/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor.html',
+            templateUrl: '/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control.html',
             replace: true,
             scope: { config: "=" },
             controller: ['$scope', controller]
         };
     }
 
-    angular.module('umbraco').directive('richTextEditor', [richTextEditor]);
+    angular.module('umbraco').directive('textAreaControl', [textAreaControl]);
 })();

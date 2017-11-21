@@ -1,18 +1,29 @@
 ﻿(function () {
-    var richTextEditor = function () {
+    var textControl = function () {
         var controller = function ($scope) {
-
             $scope.config.triggerRefresh = function () {
-                $scope.includeValidation = false;
                 $scope.config.triggerCopySavedData();
                 $scope.editControlConfig.mode = $scope.config.mode;
             }
 
             $scope.config.triggerValidate = function () {
-                $scope.maxDescriptionLength = $scope.config.maxLength - $scope.config.value.length;
+                if (!$scope.config.isValidationRequired) {
+                    return true;
+                }
 
+                isTextLengthExceeded();
                 $scope.includeValidation = true;
-                $scope.isValidValue = !$scope.isTextRequiredButEmpty() && $scope.config.value.length <= $scope.config.maxLength;
+                if ($scope.config && $scope.config.inputType == InputType.text) {
+                    $scope.isValidValue = angular.isDefined($scope.config.value) &&
+                        $scope.config.value !== null &&
+                        $scope.config.value.length &&
+                        $scope.config.value.length <= $scope.config.maxLength;
+                } else {
+                    $scope.isValidValue = angular.isDefined($scope.config.value) &&
+                        $scope.config.value !== null &&
+                        $scope.config.value !== 0 &&
+                        $scope.config.value !== '';
+                }
 
                 return $scope.isValidValue;
             }
@@ -26,11 +37,27 @@
             }
 
             $scope.isEditableMode = function () {
-                return $scope.editControlConfig.mode === ControlMode.edit;
+                return $scope.editControlConfig.mode == ControlMode.edit || $scope.editControlConfig.mode == ControlMode.create;
+            }
+
+            $scope.isConfigValueValid = function () {
+                return !$scope.includeValidation || $scope.isValidValue;
             }
 
             $scope.isTextRequiredButEmpty = function () {
                 return $scope.config.isRequired && $scope.config.value.length === 0;
+            }
+
+            $scope.setValue = function () {
+                if ($scope.editControlConfig.mode == ControlMode.create) {
+                    $scope.config.onSave($scope.config.value);
+                }
+            }
+
+            function isTextLengthExceeded() {
+                if ($scope.config && $scope.config.inputType == InputType.text) {
+                    $scope.isTextLengthNotValid = $scope.config.value && $scope.config.value.length > $scope.config.maxLength;
+                }
             }
 
             function saveHandler() {
@@ -53,6 +80,8 @@
             }
 
             function initControl() {
+                $scope.includeValidation = false;
+
                 $scope.editControlConfig = new EditControlModel();
                 $scope.editControlConfig.mode = $scope.config.mode;
                 $scope.editControlConfig.onSave = saveHandler;
@@ -66,12 +95,12 @@
 
         return {
             restrict: 'E',
-            templateUrl: '/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor.html',
+            templateUrl: '/App_Plugins/BaseControls/EditControl/TextControl/text-control.html',
             replace: true,
             scope: { config: "=" },
             controller: ['$scope', controller]
         };
     }
 
-    angular.module('umbraco').directive('richTextEditor', [richTextEditor]);
+    angular.module('umbraco').directive('textControl', [textControl]);
 })();
