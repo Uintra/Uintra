@@ -19,6 +19,10 @@ namespace uIntra.Notification
                     var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
                     dst.Type = notificationTypeProvider.Get(src.Type);
                 });
+
+
+            Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>();
+            Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>();
         }
     }
 }

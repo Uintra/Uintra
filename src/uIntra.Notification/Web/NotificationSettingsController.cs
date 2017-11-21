@@ -1,6 +1,7 @@
 ﻿using uIntra.Notification.Core.Services;
 using Umbraco.Web.WebApi;
 using System.Web.Http;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Web
@@ -32,13 +33,15 @@ namespace uIntra.Notification.Web
         [HttpPost]
         public virtual void SaveUiNotifierSetting(NotifierSettingModel<UiNotifierTemplate> notifierSettingModel)
         {
-            _notificationSettingsService.Save(notifierSettingModel);
+            var mappedModel = notifierSettingModel.Map<NotifierSettingModel<UiNotifierTemplate>>();
+            _notificationSettingsService.Save(mappedModel);
         }
 
         [HttpPost]
-        public virtual void SaveEmailNotifierSetting(NotifierSettingModel<EmailNotifierTemplate> notifierSettingModel)
+        public virtual void SaveEmailNotifierSetting(NotifierSettingSaveModel<EmailNotifierTemplate> notifierSettingModel)
         {
-            _notificationSettingsService.Save(notifierSettingModel);
+            var mappedModel = notifierSettingModel.Map<NotifierSettingModel<EmailNotifierTemplate>>();
+            _notificationSettingsService.Save(mappedModel);
         }
     }
 }

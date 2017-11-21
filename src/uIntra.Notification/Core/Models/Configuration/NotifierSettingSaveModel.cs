@@ -2,12 +2,12 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification
 {
-    public class NotifierSettingSaveModel<T>
+    public class NotifierSettingModel<T>
         where T : INotifierTemplate
     {
-        public IntranetType ActivityType { get; set; }
-        public IntranetType NotificationType { get; set; }
-        public IntranetType NotifierType { get; set; }
+        public IIntranetType ActivityType { get; set; }
+        public IIntranetType NotificationType { get; set; }
+        public IIntranetType NotifierType { get; set; }
         public bool IsEnabled { get; set; }
         public string NotificationInfo { get; set; } 
         public T Template { get; set; }

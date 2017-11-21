@@ -7,6 +7,7 @@ using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
+using uIntra.Notification.Core.Services;
 using uIntra.Notification.Exceptions;
 
 namespace uIntra.Notification
@@ -17,19 +18,22 @@ namespace uIntra.Notification
         private readonly IConfigurationProvider<NotificationConfiguration> _notificationConfigurationService;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
+        private readonly INotificationSettingsService _notificationSettingsService;
 
         public NotificationsService(
             IEnumerable<INotifierService> notifiers,
             IConfigurationProvider<NotificationConfiguration> notificationConfigurationService,
             IExceptionLogger exceptionLogger,
-            IMemberNotifiersSettingsService memberNotifiersSettingsService)
+            IMemberNotifiersSettingsService memberNotifiersSettingsService,
+            INotificationSettingsService notificationSettingsService)
         {
             _notifiers = notifiers;
             _notificationConfigurationService = notificationConfigurationService;
             _exceptionLogger = exceptionLogger;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
+            _notificationSettingsService = notificationSettingsService;
         }
-
+         
         public void ProcessNotification(NotifierData data)
         {
             var notifiers = GetNotifiers(data.NotificationType).ToList();
@@ -47,7 +51,7 @@ namespace uIntra.Notification
                     .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifier.Type))
                     .ToList();
 
-                if (receiverIds.Count == 0)
+                if (receiverIds.Count == 0 )
                 {
                     continue;
                 }
