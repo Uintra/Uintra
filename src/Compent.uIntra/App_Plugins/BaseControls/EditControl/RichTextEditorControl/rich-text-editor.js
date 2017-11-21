@@ -31,15 +31,15 @@
                 return $scope.editControlConfig.mode == ControlMode.edit;
             }
 
-            $scope.summernoteOptions = {
-                height: 100,
-                toolbar: [
-                  ['style', ['bold', 'italic']],
-                  ['para', ['ul', 'ol']],
-                  ['height', ['height']]
-                ],
-                disableDragAndDrop: true
-            };
+            //$scope.summernoteOptions = {
+            //    height: 100,
+            //    toolbar: [
+            //      ['style', ['bold', 'italic']],
+            //      ['para', ['ul', 'ol']],
+            //      ['height', ['height']]
+            //    ],
+            //    disableDragAndDrop: true
+            //};
 
             function saveHandler() {
                 if (!$scope.config.triggerValidate()) {
