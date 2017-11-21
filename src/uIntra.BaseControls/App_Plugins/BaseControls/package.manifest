@@ -28,7 +28,17 @@
     "~/App_Plugins/BaseControls/ColorPicker/color-picker.js",
     "/App_Plugins/BaseControls/MultiImageCropper/multi-image-cropper-config.js",
     "/App_Plugins/BaseControls/MultiImageCropper/multi-image-cropper.js",
-    "/App_Plugins/BaseControls/backoffice/LinksPicker/links.js"
+    "/App_Plugins/BaseControls/backoffice/LinksPicker/links.js",
+    "/App_Plugins/BaseControls/EditControl/edit-control-model.js",
+    "/App_Plugins/BaseControls/EditControl/edit-control.js",
+    "/App_Plugins/BaseControls/Enums/control-mode.js",
+    "/App_Plugins/BaseControls/Enums/input-type.js",
+    "/App_Plugins/BaseControls/EditControl/TextControl/text-control-model.js",
+    "/App_Plugins/BaseControls/EditControl/TextControl/text-control.js",
+    "/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control-model.js",
+    "/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control.js",
+    "/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor-model.js",
+    "/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor.js"
   ],
   "css": [
     "/App_Plugins/BaseControls/DatePicker/date-picker.css",
