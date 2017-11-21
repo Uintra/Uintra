@@ -36,7 +36,9 @@
     "/App_Plugins/BaseControls/EditControl/TextControl/text-control-model.js",
     "/App_Plugins/BaseControls/EditControl/TextControl/text-control.js",
     "/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control-model.js",
-    "/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control.js"
+    "/App_Plugins/BaseControls/EditControl/TextAreaControl/text-area-control.js",
+    "/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor-model.js",
+    "/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor.js"
   ],
   "css": [
     "/App_Plugins/BaseControls/DatePicker/date-picker.css",

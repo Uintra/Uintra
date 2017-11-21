@@ -396,6 +396,9 @@
     <Content Include="App_Plugins\BaseControls\EditControl\edit-control.html" />
     <Content Include="App_Plugins\BaseControls\EditControl\edit-control.js" />
     <Content Include="App_Plugins\BaseControls\EditControl\edit-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor-model.js" />
     <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.html" />
     <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.js" />
     <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control-model.js" />
