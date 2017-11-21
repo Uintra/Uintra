@@ -32,25 +32,8 @@
             self.selectedNotifierSettings = self.settings.uiNotifierSetting;
         }
 
-        self.save = function (control) {
-            //if (control && control.$pristine) {
-            //    return;
-            //}
-
-            //if ($scope.settingsForm.$pristine || $scope.settingsForm.$invalid) {
-            //    return;
-            //}
-
+        self.save = function () {
             saveSettings(self.settings);
-        }
-
-        self.isControlTextHasValidLength = function (control, maxLength) {
-            const trimmedText = trimHtml(control.$modelValue);
-            const isValidLength = trimmedText.length <= maxLength;
-
-            control.$setValidity("maxLength", isValidLength);
-
-            return isValidLength;
         }
 
         function getUrlParams(url) {
@@ -75,8 +58,6 @@
                 initUiMessageControlConfig();
 
             }, showGetErrorMessage);
-
-            //   self.config = notificationSettingsConfig;
         }
 
         function saveSettings(settings) {
@@ -98,10 +79,6 @@
 
         function showSaveErrorMessage() {
             notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
-        }
-
-        function trimHtml(text) {
-            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
         }
 
         function initEmailSubjectControlConfig() {
