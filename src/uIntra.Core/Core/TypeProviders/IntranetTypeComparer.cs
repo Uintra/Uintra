@@ -6,12 +6,12 @@ namespace uIntra.Core.TypeProviders
     {
         public bool Equals(IIntranetType x, IIntranetType y)
         {
-            return x.Name == y.Name;
+            return GetHashCode(x) == GetHashCode(y);
         }
 
         public int GetHashCode(IIntranetType obj)
         {
-            return obj.Name.GetHashCode();
+            return obj.Id ^ obj.Name.GetHashCode();
         }
     }
 }

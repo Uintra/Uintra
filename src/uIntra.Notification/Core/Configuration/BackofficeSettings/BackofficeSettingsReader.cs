@@ -44,7 +44,7 @@ namespace uIntra.Notification.Configuration
             $"{GetRootFolder(assembly)}.{GetEmbeddedResourceFileName(notificationType)}";
 
         private string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) => 
-            $"{type.NotifierType.ToString()}.{type.Event.ActivityType.ToString()}.{type.Event.NotificationType.ToString()}.json";
+            $"{type.NotifierType.Name}.{type.Event.ActivityType.Name}.{type.Event.NotificationType.Name}.json";
 
         private string GetRootFolder(Assembly assembly) => 
             $"{assembly.GetName().Name}.{RootFolderName}";

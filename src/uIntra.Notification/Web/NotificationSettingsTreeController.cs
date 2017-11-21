@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using uIntra.Core.Activity;
 using uIntra.Core.Core.Extensions;
+using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
 using umbraco.businesslogic;
 using umbraco.interfaces;
@@ -18,23 +19,28 @@ namespace uIntra.Notification.Web
     {
         private const string CategoryView = "NotificationSettings/NotificationSettingsTree/Category/edit";
         private const string SettingView = "NotificationSettings/NotificationSettingsTree/Settings/edit";
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         private readonly Tree<TreeNodeModel> _tree;
 
-        public NotificationSettingsTreeController()
+        public NotificationSettingsTreeController(IActivityTypeProvider activityTypeProvider, INotificationTypeProvider notificationTypeProvider)
         {
+            _activityTypeProvider = activityTypeProvider;
+            _notificationTypeProvider = notificationTypeProvider;
+
             var icon = "icon-circle-dotted";
 
             _tree = Node("-1", "root", icon, CategoryView,
-                WithUrlIdentity(Node(IntranetActivityTypeEnum.Bulletins, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
-                    Node(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded, icon, SettingView),
-                    Node(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
-                WithUrlIdentity(Node(IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.News, icon, CategoryView,
-                    Node(NotificationTypeEnum.News, NotificationTypeEnum.News, icon, SettingView),
-                    Node(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited, icon, SettingView))),
-                WithUrlIdentity(Node(IntranetActivityTypeEnum.Events, IntranetActivityTypeEnum.Events, icon, CategoryView,
-                    Node(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded, icon, SettingView),
-                    Node(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.CommentAdded, icon, SettingView))));
+                WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Bulletins).Id, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
+                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
+                WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.News).Id, IntranetActivityTypeEnum.News, icon, CategoryView,
+                    Node(GetIntranetType(NotificationTypeEnum.News).Id, NotificationTypeEnum.News, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, NotificationTypeEnum.CommentEdited, icon, SettingView))),
+                WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Events).Id, IntranetActivityTypeEnum.Events, icon, CategoryView,
+                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView))));
         }
 
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
@@ -101,6 +107,8 @@ namespace uIntra.Notification.Web
             public TreeNodeModel WithViewPath(string viewPath) => new TreeNodeModel(Id, Name, Icon, viewPath);
         }
 
+        protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int) type);
+        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int) type);
     }
 
     [Application("NotificationSettings", "NotificationSettings", "icon-file-cabinet")]

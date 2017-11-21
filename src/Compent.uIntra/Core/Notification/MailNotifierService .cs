@@ -3,16 +3,18 @@ using uIntra.Core.Localization;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
+using uIntra.Notification.Core.Services;
 
 namespace Compent.uIntra.Core.Notification
 {
     public class MailNotifierService : MailNotifierServiceBase
     {
-        public MailNotifierService(
+        protected MailNotifierService(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetLocalizationService intranetLocalizationService) :
-            base(mailService, intranetUserService, intranetLocalizationService)
+            IIntranetLocalizationService intranetLocalizationService,
+            INotificationSettingsService notificationSettingsService) :
+            base(mailService, intranetUserService, intranetLocalizationService, notificationSettingsService)
         {
         }
 
