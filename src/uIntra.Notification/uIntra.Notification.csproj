@@ -438,6 +438,7 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentEdited.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentReplied.json" />
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
   </ItemGroup>
@@ -453,6 +454,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\category.html" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.controller.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.service.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\settings.html" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />

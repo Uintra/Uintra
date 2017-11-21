@@ -836,7 +836,7 @@
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
     <Content Include="App_Plugins\News\news.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.service.js" />
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\setting-controller.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.controller.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\settings.html" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />

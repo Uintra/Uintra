@@ -137,5 +137,5 @@
 
     controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService'];
 
-    angular.module('umbraco').controller('settingController', controller);
+    angular.module('umbraco').controller('notificationSettingController', controller);
 })(angular);
