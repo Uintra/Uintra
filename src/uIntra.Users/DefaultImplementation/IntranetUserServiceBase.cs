@@ -43,21 +43,19 @@ namespace uIntra.Users
             _cacheService = cacheService;
         }
 
+        public virtual T Get(IHaveOwner model) => Get(model.OwnerId);
+
+        public virtual T Get(Guid id) => GetSingle(el => el.Id == id);
+
         public virtual T Get(int umbracoId)
         {
-            var member = GetAll().SingleOrDefault(el => el.UmbracoId == umbracoId);
-            return member;
+            return GetSingle(el => el.UmbracoId == umbracoId);
         }
 
-        public virtual T Get(Guid id)
+        private T GetSingle(Func<T, bool> predicate)
         {
-            var member = GetAll().SingleOrDefault(el => el.Id == id);
+            var member = GetAll().SingleOrDefault(predicate);
             return member;
-        }
-
-        public virtual T Get(IHaveOwner model)
-        {
-            return Get(model.OwnerId);
         }
 
         public virtual IEnumerable<T> GetMany(IEnumerable<Guid> ids)
