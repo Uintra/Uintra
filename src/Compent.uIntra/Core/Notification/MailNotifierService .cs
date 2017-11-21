@@ -9,12 +9,11 @@ namespace Compent.uIntra.Core.Notification
 {
     public class MailNotifierService : MailNotifierServiceBase
     {
-        protected MailNotifierService(
+        public MailNotifierService(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetLocalizationService intranetLocalizationService,
-            INotificationSettingsService notificationSettingsService) :
-            base(mailService, intranetUserService, intranetLocalizationService, notificationSettingsService)
+            IIntranetLocalizationService intranetLocalizationService) :
+            base(mailService, intranetUserService, intranetLocalizationService)
         {
         }
 

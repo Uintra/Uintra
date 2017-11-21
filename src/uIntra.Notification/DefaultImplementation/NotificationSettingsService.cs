@@ -58,7 +58,10 @@ namespace uIntra.Notification
             var absentSettings = absentSettingsTypes.Select(type =>
                 NewSetting(activityEventIdentity.AddNotifierIdentity(type), settingsDefaults[type]));
 
-            var notifierSettings = GetMappedSettings(existingSettings, absentSettings, activityEventIdentity, settingsDefaults);
+            var absentSettingsList = absentSettings as IList<NotificationSetting> ?? absentSettings.ToList();
+            var notifierSettings = GetMappedSettings(existingSettings, absentSettingsList, activityEventIdentity, settingsDefaults);
+
+            _repository.Add(absentSettingsList);
 
             return notifierSettings;
         }
@@ -78,10 +81,13 @@ namespace uIntra.Notification
 
         public void Save<T>(NotifierSettingModel<T> setting) where T : INotifierTemplate
         {
+
+
             var entry = _repository.Find(s =>
                 s.ActivityType == setting.ActivityType.Id &&
                 s.NotificationType == setting.NotificationType.Id &&
                 s.NotifierType == setting.NotifierType.Id);
+
             var updatedSetting = GetUpdatedSetting(entry, setting);
             _repository.Update(updatedSetting);
         }

@@ -31,7 +31,7 @@ namespace uIntra.Notification.Web
         }
 
         [HttpPost]
-        public virtual void SaveUiNotifierSetting(NotifierSettingModel<UiNotifierTemplate> notifierSettingModel)
+        public virtual void SaveUiNotifierSetting(NotifierSettingSaveModel<UiNotifierTemplate> notifierSettingModel)
         {
             var mappedModel = notifierSettingModel.Map<NotifierSettingModel<UiNotifierTemplate>>();
             _notificationSettingsService.Save(mappedModel);

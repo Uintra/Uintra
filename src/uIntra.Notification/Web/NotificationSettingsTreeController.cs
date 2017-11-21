@@ -33,14 +33,11 @@ namespace uIntra.Notification.Web
 
             _tree = Node("-1", "root", icon, CategoryView,
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Bulletins).Id, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
-                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
                     Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.News).Id, IntranetActivityTypeEnum.News, icon, CategoryView,
-                    Node(GetIntranetType(NotificationTypeEnum.News).Id, NotificationTypeEnum.News, icon, SettingView),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, NotificationTypeEnum.CommentEdited, icon, SettingView))),
+                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Events).Id, IntranetActivityTypeEnum.Events, icon, CategoryView,
-                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
-                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView))));
+                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))));
         }
 
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)

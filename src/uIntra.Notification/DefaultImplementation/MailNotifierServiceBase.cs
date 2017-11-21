@@ -6,7 +6,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Services;
 using uIntra.Notification.MailModels;
 
 namespace uIntra.Notification
@@ -16,18 +15,15 @@ namespace uIntra.Notification
         private readonly IMailService _mailService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
-        private readonly INotificationSettingsService _notificationSettingsService;
 
         protected MailNotifierServiceBase(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetLocalizationService intranetLocalizationService,
-            INotificationSettingsService notificationSettingsService)
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _intranetLocalizationService = intranetLocalizationService;
-            _notificationSettingsService = notificationSettingsService;
         }
 
         public NotifierTypeEnum Type => NotifierTypeEnum.EmailNotifier;
@@ -38,7 +34,7 @@ namespace uIntra.Notification
             foreach (var receiverId in data.ReceiverIds)
             {
                 var user = receivers.Find(receiver => receiver.Id == receiverId);
-                SendMail(data.ActivityType, data.NotificationType, data.Value, user);
+                SendMail(data.NotificationType, data.NotificationType, data.Value, user);
             }
         }
 
