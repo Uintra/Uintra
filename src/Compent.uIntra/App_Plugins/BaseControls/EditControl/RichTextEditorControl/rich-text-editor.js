@@ -11,14 +11,10 @@
             $scope.config.triggerValidate = function () {
                 $scope.maxDescriptionLength = $scope.config.maxLength - $scope.config.value.length;
 
-                if ($scope.config.value) {
-                    $scope.includeValidation = true;
-                    $scope.isValidValue = $scope.config.value.length <= $scope.config.maxLength;
-                   
-                    return $scope.isValidValue;
-                } else {
-                    return true;
-                }
+                $scope.includeValidation = true;
+                $scope.isValidValue = !$scope.isTextRequiredButEmpty() && $scope.config.value.length <= $scope.config.maxLength;
+
+                return $scope.isValidValue;
             }
 
             $scope.config.triggerCopySavedData = function () {
