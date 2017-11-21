@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsConfig, notificationSettingsService) {
+    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsService) {
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -158,7 +158,7 @@
         initalize();
     }
 
-    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsConfig', 'notificationSettingsService'];
+    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService'];
 
     angular.module('umbraco').controller('settingController', controller);
 })(angular);
