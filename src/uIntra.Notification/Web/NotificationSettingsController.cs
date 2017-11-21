@@ -1,25 +1,32 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Services;
+﻿using uIntra.Notification.Core.Services;
 using Umbraco.Web.WebApi;
 using System.Web.Http;
+using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Web
 {
     public abstract class NotificationSettingsApiControllerBase : UmbracoAuthorizedApiController
     {
         private readonly INotificationSettingsService _notificationSettingsService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
+        
 
-        protected NotificationSettingsApiControllerBase(INotificationSettingsService notificationSettingsService)
+        protected NotificationSettingsApiControllerBase(
+            INotificationSettingsService notificationSettingsService,
+            IActivityTypeProvider activityTypeProvider,
+            INotificationTypeProvider notificationTypeProvider)
         {
             _notificationSettingsService = notificationSettingsService;
+            _activityTypeProvider = activityTypeProvider;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
         [HttpGet]
-        public virtual NotifierSettingsModel Get(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
+        public virtual NotifierSettingsModel Get(int activityType, int notificationType)
         {
-            var activityEventIdentity = new ActivityEventIdentity(activityType, notificationType);
-            return _notificationSettingsService.Get(activityEventIdentity);
+            var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider.Get(activityType), _notificationTypeProvider.Get(notificationType));
+            return _notificationSettingsService.GetAll(activityEventIdentity);
         }
 
         [HttpPost]

@@ -89,6 +89,8 @@ using Umbraco.Web.Security;
 using uIntra.Core.Attributes;
 using uIntra.Notification.Core.Services;
 using uIntra.Core.Utils;
+using uIntra.Notification.Core;
+using uIntra.Notification.DefaultImplementation;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -329,6 +331,7 @@ namespace Compent.uIntra
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InRequestScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
             kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
 

@@ -14,9 +14,9 @@ namespace uIntra.Notification.Core.Sql
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
-        public IntranetActivityTypeEnum ActivityType { get; set; }
-        public NotificationTypeEnum NotificationType { get; set; }
-        public NotifierTypeEnum NotifierType { get; set; }
+        public int ActivityType { get; set; }
+        public int NotificationType { get; set; }
+        public int NotifierType { get; set; }
         public bool IsEnabled { get; set; }
 
         [StringLength(int.MaxValue)]

@@ -6,6 +6,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
+using uIntra.Notification.Core.Services;
 using uIntra.Notification.MailModels;
 
 namespace uIntra.Notification
@@ -15,15 +16,18 @@ namespace uIntra.Notification
         private readonly IMailService _mailService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
+        private readonly INotificationSettingsService _notificationSettingsService;
 
         protected MailNotifierServiceBase(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetLocalizationService intranetLocalizationService)
+            IIntranetLocalizationService intranetLocalizationService,
+            INotificationSettingsService notificationSettingsService)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _intranetLocalizationService = intranetLocalizationService;
+            _notificationSettingsService = notificationSettingsService;
         }
 
         public NotifierTypeEnum Type => NotifierTypeEnum.EmailNotifier;
@@ -34,11 +38,11 @@ namespace uIntra.Notification
             foreach (var receiverId in data.ReceiverIds)
             {
                 var user = receivers.Find(receiver => receiver.Id == receiverId);
-                SendMail(data.NotificationType, data.Value, user);
+                SendMail(data.ActivityType, data.NotificationType, data.Value, user);
             }
         }
 
-        protected virtual void SendMail(IIntranetType notificationType, INotifierDataValue notifierDataValue, IIntranetUser user)
+        protected virtual void SendMail(IIntranetType activityType, IIntranetType notificationType, INotifierDataValue notifierDataValue, IIntranetUser user)
         {
             var recipient = new MailRecipient { Email = user.Email, Name = user.DisplayedName };
 
@@ -82,6 +86,8 @@ namespace uIntra.Notification
                 default:
                     throw new ArgumentOutOfRangeException(nameof(notificationType), "Unknown Notification Type");
             }
+
+
 
             _mailService.Send(mail);
         }

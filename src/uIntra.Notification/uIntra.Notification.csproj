@@ -330,6 +330,7 @@
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
     <Compile Include="Core\INotificationTypeProvider.cs" />
+    <Compile Include="Core\INotifierTypeProvider.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
     <Compile Include="Core\Models\Configuration\NotificationSettingDefaults.cs" />
@@ -389,6 +390,7 @@
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
+    <Compile Include="Core\NotifierTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotifierService.cs" />
