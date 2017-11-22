@@ -318,6 +318,7 @@
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Navigation.1.2.6\lib\net452\uIntra.Navigation.dll</HintPath>
+    </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.20, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.20\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
