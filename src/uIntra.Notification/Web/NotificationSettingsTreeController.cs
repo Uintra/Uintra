@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http.Formatting;
 using uIntra.Core.Activity;
 using uIntra.Core.Core.Extensions;
@@ -33,10 +32,22 @@ namespace uIntra.Notification.Web
 
             _tree = Node("-1", "root", icon, CategoryView,
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Bulletins).Id, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
+                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, NotificationTypeEnum.CommentEdited, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, NotificationTypeEnum.CommentReplied, icon, SettingView),
                     Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.News).Id, IntranetActivityTypeEnum.News, icon, CategoryView,
+                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, NotificationTypeEnum.CommentEdited, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, NotificationTypeEnum.CommentReplied, icon, SettingView),
                     Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))),
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Events).Id, IntranetActivityTypeEnum.Events, icon, CategoryView,
+                    Node(GetIntranetType(NotificationTypeEnum.EventUpdated).Id, NotificationTypeEnum.EventUpdated, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.EventHided).Id, NotificationTypeEnum.EventHided, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.BeforeStart).Id, NotificationTypeEnum.BeforeStart, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, NotificationTypeEnum.CommentAdded, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, NotificationTypeEnum.CommentEdited, icon, SettingView),
+                    Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, NotificationTypeEnum.CommentReplied, icon, SettingView),
                     Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))));
         }
 
