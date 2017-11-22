@@ -134,7 +134,7 @@ namespace uIntra.Notification
             {
                 Recipients = recipient.ToListOfOne(),
                 Title = data.Title,
-                Type = GetActivityTypeText(data.ActivityType),
+                Type = GetActivityTypeText(data.NotificationType),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
             };
@@ -154,7 +154,7 @@ namespace uIntra.Notification
                 Recipients = recipient.ToListOfOne(),
                 Title = data.Title,
                 NotifierFullName = notifier.DisplayedName,
-                Type = GetActivityTypeText(data.ActivityType),
+                Type = GetActivityTypeText(data.NotificationType),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
             };
@@ -172,7 +172,7 @@ namespace uIntra.Notification
             {
                 Recipients = recipient.ToListOfOne(),
                 ActivityTitle = data.Title,
-                ActivityType = GetActivityTypeText(data.ActivityType),
+                ActivityType = GetActivityTypeText(data.NotificationType),
                 StartDate = data.StartDate.ToDateTimeFormat(),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
@@ -191,7 +191,7 @@ namespace uIntra.Notification
             {
                 Recipients = recipient.ToListOfOne(),
                 ActivityTitle = data.Title,
-                ActivityType = GetActivityTypeText(data.ActivityType),
+                ActivityType = GetActivityTypeText(data.NotificationType),
                 CreatedDate = data.CreatedDate.ToDateTimeFormat(),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
@@ -209,7 +209,7 @@ namespace uIntra.Notification
             var result = new T
             {
                 Recipients = recipient.ToListOfOne(),
-                ActivityTitle = GetActivityTypeText(data.ActivityType),
+                ActivityTitle = GetActivityTypeText(data.NotificationType),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
             };
@@ -226,7 +226,7 @@ namespace uIntra.Notification
             var result = new T
             {
                 Recipients = recipient.ToListOfOne(),
-                ActivityTitle = GetActivityTypeText(data.ActivityType),
+                ActivityTitle = GetActivityTypeText(data.NotificationType),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
             };
@@ -243,7 +243,7 @@ namespace uIntra.Notification
             var result = new T
             {
                 Recipients = recipient.ToListOfOne(),
-                ActivityTitle = GetActivityTypeText(data.ActivityType),
+                ActivityTitle = GetActivityTypeText(data.NotificationType),
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
             };

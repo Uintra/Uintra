@@ -6,7 +6,7 @@ namespace uIntra.Notification
 {
     public class CommentNotifierDataModel: INotifierDataValue, IHaveNotifierId
     {
-        public IIntranetType  ActivityType { get; set; }
+        public IIntranetType NotificationType { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
         public Guid NotifierId { get; set; }
