@@ -68,7 +68,7 @@ namespace uIntra.Notification
         public NotifierSettingModel<EmailNotifierTemplate> GetEmailNotifierSettings(ActivityEventNotifierIdentity activityEventNotifierIdentity)
         {
             var defaultEmailNotifierTemplate = _emailNotifierTemplateProvider.GetSettings(activityEventNotifierIdentity.Event);
-            var setting = FindOrCreateSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+            var (setting, _) = FindOrCreateSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
 
             var mappedSetting = MappedNotifierSetting(setting, activityEventNotifierIdentity, defaultEmailNotifierTemplate);
 
@@ -78,7 +78,7 @@ namespace uIntra.Notification
         public NotifierSettingModel<UiNotifierTemplate> GetUiNotifierSettings(ActivityEventNotifierIdentity activityEventNotifierIdentity)
         {
             var defaultEmailNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(activityEventNotifierIdentity.Event);
-            var setting = FindOrCreateSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
+            var (setting, _) = FindOrCreateSetting(activityEventNotifierIdentity, defaultEmailNotifierTemplate);
 
             var mappedSetting = MappedNotifierSetting(setting, activityEventNotifierIdentity, defaultEmailNotifierTemplate);
 
@@ -104,13 +104,18 @@ namespace uIntra.Notification
             var identity = new ActivityEventIdentity(settingModel.ActivityType, settingModel.NotificationType)
                 .AddNotifierIdentity(settingModel.NotifierType);
 
-            var defaultUiNotifierTemplate = _uiNotifierTemplateProvider.GetSettings(identity.Event);
-            var setting = FindOrCreateSetting(identity, defaultUiNotifierTemplate);
+            var (setting, isCreated) = FindOrCreateSetting(identity, defaults);
 
-            var mappedSetting = MappedNotifierSetting(setting, identity, defaults);
-            var updatedSetting = GetUpdatedSetting(setting, mappedSetting);
+            var updatedSetting = GetUpdatedSetting(setting, settingModel);
 
-            _repository.Update(updatedSetting);
+            if (isCreated)
+            {
+                _repository.Add(updatedSetting);
+            }
+            else
+            {
+                _repository.Update(updatedSetting);
+            }
         }
 
         private NotificationSetting Find(ActivityEventNotifierIdentity activityEventNotifierIdentity) =>
@@ -119,13 +124,14 @@ namespace uIntra.Notification
                 s.NotificationType == activityEventNotifierIdentity.Event.NotificationType.Id &&
                 s.NotifierType == activityEventNotifierIdentity.NotifierType.Id);
 
-        private NotificationSetting FindOrCreateSetting<T>(
+        private (NotificationSetting setting, bool isCreated) FindOrCreateSetting<T>(
             ActivityEventNotifierIdentity activityEventNotifierIdentity,
             NotificationSettingDefaults<T> defaults)
             where T : INotifierTemplate
         {
             var entry = Find(activityEventNotifierIdentity);
-            return entry ?? NewSetting(activityEventNotifierIdentity, defaults);
+            var setting = entry ?? NewSetting(activityEventNotifierIdentity, defaults);
+            return (setting, entry is null);
         }
 
         private NotifierSettingsModel GetMappedSettings(
