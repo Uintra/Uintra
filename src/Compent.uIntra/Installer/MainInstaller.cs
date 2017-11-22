@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Web.Mvc;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
 using uIntra.Core.Activity;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
 using uIntra.Events;
@@ -28,6 +28,8 @@ namespace Compent.uIntra.Installer
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
+            SetCurrentCulture();
+
             var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
             var lastMigrationHistory = migrationHistoryService.GetLast();
 
@@ -57,6 +59,11 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
+        }
+
+        private static void SetCurrentCulture()
+        {
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
         }
 
         private void InitMigration()

@@ -397,6 +397,7 @@
     <Compile Include="DefaultImplementation\UiNotifierService.cs" />
     <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
     <Compile Include="Core\Sql\Notification.cs" />
+    <Compile Include="Installer\Migrations\NotificationSettingsInstallationStep_0_0_0.cs" />
     <Compile Include="Installer\NotificationInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
