@@ -1,0 +1,100 @@
+﻿.tabs{
+    padding:0 20px 20px;
+}
+
+.tabs .tab{
+    display:inline-block;
+    vertical-align:top;
+    border:1px solid #333;
+    background:#fefefe;
+    padding:10px;
+}
+
+.tabs .tab._active{
+    background-color:#ccc;
+    font-weight:normal;
+}
+.info{
+    padding:10px;
+    background:#ccc;
+    border:1px solid #333;
+}
+
+.form {
+    padding: 0 20px 20px;
+}
+
+.form__row {
+    overflow: hidden;
+    margin:0 0 20px;
+}
+
+.form__label {
+    float: left;
+    width: 200px;
+    margin: 0 20px 0 0;
+}
+
+.form__content{
+    overflow:hidden;
+}
+
+.form__radio{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.form__radio li{
+    display:inline-block;
+    vertical-align:top;
+    margin:0 10px 0 0;
+}
+
+.form__radio input[type=radio]{
+    margin:0 5px 0 0;
+}
+
+.form__radio label{
+    margin:0;
+    vertical-align:middle;
+}
+
+.edit-control__content {
+    display:inline-block;
+    vertical-align:top;
+}
+
+.edit-control__fieldset {
+    display:inline-block;
+}
+
+.edit-control__content .rte,
+.text-control__text {
+    display: inline-block;
+    padding: 5px 6px;
+    vertical-align: top;
+    min-width: 300px;
+    border: 1px solid #e9e9eb;
+    margin: 0;
+}
+
+._active-edit-control .edit-control__content .rte{
+    border:none;
+    padding:0;
+}
+
+.edit-control__content .form-control {
+    border-color: #e9e9eb;
+    min-width:314px;
+    margin:0;
+}
+
+.edit-control__btns {
+    display:inline-block;
+    vertical-align:top;
+}
+
+.edit-control__btn-edit {
+    vertical-align: top;
+}
