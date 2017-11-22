@@ -441,6 +441,7 @@
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.config.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.css" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\BeforeStart.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
   </ItemGroup>
