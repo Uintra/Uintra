@@ -316,6 +316,8 @@
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="uIntra.Navigation, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.6\lib\net452\uIntra.Navigation.dll</HintPath>
     <Reference Include="uIntra.Panels, Version=2.1.10.20, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.20\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
@@ -1037,6 +1039,7 @@
     <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
     <Content Include="App_Plugins\Comments\package.manifest" />
+    <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
@@ -1096,6 +1099,13 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1280,6 +1290,7 @@
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
+    <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />

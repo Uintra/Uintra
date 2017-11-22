@@ -101,6 +101,11 @@ namespace uIntra.Navigation.Web
                 model.ActivityId = GetActivityLinkFromQuery(queryString);
             }
 
+            if (IsGroupPage(contentId))
+            {
+                model.ActivityId = GetActivityLinkFromQuery(queryString);
+            }
+
             return model;
         }
 
@@ -119,6 +124,13 @@ namespace uIntra.Navigation.Web
             return false;
         }
 
+        protected bool IsGroupPage(int contentId)
+        {
+            var page = _umbracoHelper.TypedContent(contentId);
+
+            return page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetGroupRoomPage());
+        }
+
         protected Guid? GetActivityLinkFromQuery(string query)
         {
             var activityIdMatch = Regex.Match(query, @"id=([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})", RegexOptions.IgnoreCase);
@@ -126,6 +138,17 @@ namespace uIntra.Navigation.Web
             if (activityIdMatch.Success)
             {
                 return new Guid(activityIdMatch.Groups[1].Value);
+            }
+            return null;
+        }
+
+        protected Guid? GetGroupLinkFromQuery(string query)
+        {
+            var groupIdMatch = Regex.Match(query, @"groupId=([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})", RegexOptions.IgnoreCase);
+
+            if (groupIdMatch.Success)
+            {
+                return new Guid(groupIdMatch.Groups[1].Value);
             }
             return null;
         }

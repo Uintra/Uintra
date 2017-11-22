@@ -5,11 +5,14 @@ using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Extensions;
 using uIntra.Core.User;
+using uIntra.Groups;
+using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
+using uIntra.Navigation.MyLinks;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation.MyLinks
+namespace Compent.uIntra.Core.Navigation
 {
     public class MyLinksModelBuilder : NavigationModelBuilderBase<IEnumerable<MyLinkItemModel>>, IMyLinksModelBuilder
     {
@@ -18,14 +21,16 @@ namespace uIntra.Navigation.MyLinks
         private readonly IMyLinksService _myLinksService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INavigationApplicationSettings _navigationApplicationSettings;
+        private readonly IGroupService _groupService;
 
         public MyLinksModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMyLinksService myLinksService,
-            IActivitiesServiceFactory activitiesServiceFactory, 
-            INavigationApplicationSettings navigationApplicationSettings)
+            IActivitiesServiceFactory activitiesServiceFactory,
+            INavigationApplicationSettings navigationApplicationSettings,
+            IGroupService groupService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
@@ -33,6 +38,7 @@ namespace uIntra.Navigation.MyLinks
             _myLinksService = myLinksService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _navigationApplicationSettings = navigationApplicationSettings;
+            _groupService = groupService;
         }
 
         public override IEnumerable<MyLinkItemModel> GetMenu()
@@ -47,17 +53,29 @@ namespace uIntra.Navigation.MyLinks
                 {
                     Id = link.Id,
                     ContentId = link.ContentId,
-                    Name = link.ActivityId.HasValue ? GetActivityLinkName(link.ActivityId.Value) : GetNavigationName(content),
+                    Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
             return models.Distinct();
         }
 
-        private string GetActivityLinkName(Guid activityId)
+        protected string GetLinkName(Guid entityId)
         {
-            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
-            var activity = service.Get(activityId);
+            var linkName = GetGroupLink(entityId);
+            if (linkName.IsNullOrEmpty())
+            {
+                return GetActivityLink(entityId);
+            }
+
+            return linkName;
+        }
+
+        private string GetActivityLink(Guid entityId)
+        {
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(entityId);
+
+            var activity = service.Get(entityId);
 
             if (activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt())
             {
@@ -68,6 +86,13 @@ namespace uIntra.Navigation.MyLinks
 
             return activity.Title;
         }
+
+        private string GetGroupLink(Guid entityId)
+        {
+            var groupModel = _groupService.Get(entityId);
+            return groupModel?.Title;
+        }
+
 
         private static string GetUrl(MyLink link, IPublishedContent content)
         {

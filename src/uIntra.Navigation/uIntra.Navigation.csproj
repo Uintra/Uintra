@@ -361,7 +361,6 @@
     <Compile Include="Core\ModelBuilders\SystemLinks\ISystemLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\SystemLinks\SystemLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\MyLinks\IMyLinksModelBuilder.cs" />
-    <Compile Include="Core\ModelBuilders\MyLinks\MyLinksModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\TopMenu\ITopNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\TopMenu\TopNavigationModelBuilder.cs" />
     <Compile Include="Core\Models\BreadcrumbItemViewModel.cs" />
