@@ -112,7 +112,7 @@
 	        justify-content: center;
 	        align-items: center;
 	        width: 57px;
-	        margin: 0 0 0 10px;
+	        margin: 0 -50px 0 0;
 
 	        &__icon {
 		        position:relative;
