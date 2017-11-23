@@ -103,9 +103,10 @@ var controller = {
         if (!holder.length) {
             return;
         }
+
+        pinActivity.initPinControl(holder);
         initSubmitButton(holder);
         initDates(holder);
-        pinActivity.initPinControl(holder);
         initUserSelect(holder);
         initDescriptionControl(holder);
         fileUploadController.init(holder);
