@@ -367,6 +367,7 @@
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />
     <Compile Include="Core\Services\INotificationContentProvider.cs" />
+    <Compile Include="Core\Services\INotificationModelBuilder.cs" />
     <Compile Include="Core\Services\INotificationSettingsService.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />

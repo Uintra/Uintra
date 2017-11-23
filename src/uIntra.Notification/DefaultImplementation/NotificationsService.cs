@@ -16,115 +16,64 @@ namespace uIntra.Notification
 {
     public class NotificationsService : INotificationsService
     {
-        private readonly IEnumerable<INotifierService> _notifiers;
-        private readonly IConfigurationProvider<NotificationConfiguration> _notificationConfigurationService;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly INotificationSettingsService _notificationSettingsService;
         private readonly INotifierTypeProvider _notifierTypeProvider;
-        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly INotificationModelMapper<UiNotificationMessage> _uiNotificationModelMapper;
+        private readonly IUiNotifierService _uiNotifierService;
 
         public NotificationsService(
-            IEnumerable<INotifierService> notifiers,
-            IConfigurationProvider<NotificationConfiguration> notificationConfigurationService,
             IExceptionLogger exceptionLogger,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             INotificationSettingsService notificationSettingsService,
-            INotifierTypeProvider notifierTypeProvider, IActivityTypeProvider activityTypeProvider)
+            INotifierTypeProvider notifierTypeProvider,
+            INotificationModelMapper<UiNotificationMessage> uiNotificationModelMapper,
+            IUiNotifierService uiNotifierService)
         {
-            _notifiers = notifiers;
-            _notificationConfigurationService = notificationConfigurationService;
             _exceptionLogger = exceptionLogger;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _notificationSettingsService = notificationSettingsService;
             _notifierTypeProvider = notifierTypeProvider;
-            _activityTypeProvider = activityTypeProvider;
+            _uiNotificationModelMapper = uiNotificationModelMapper;
+            _uiNotifierService = uiNotifierService;
         }
-         
+
         public void ProcessNotification(NotifierData data)
         {
-            var notifiers = GetNotifiers(data.NotificationType).ToList();
             var allReceiversIds = data.ReceiverIds.ToList();
             var allReceiversNotifiersSettings = _memberNotifiersSettingsService.GetForMembers(allReceiversIds);
 
-
-
-            if (!notifiers.Any())
+            (IEnumerable<Guid> receiverIds, bool isNotEmpty) GetReceiverIdsForNotifier(NotifierTypeEnum notifierType)
             {
-                _exceptionLogger.Log(new MissingNotificationException(data.NotificationType));
-            }
-
-            foreach (var notifier in notifiers)
-            {
-
-                if (data.Value is LikesNotifierDataModel model && notifier.Type == NotifierTypeEnum.UiNotifier)
-                {
-                    var settings = _notificationSettingsService.GetUiNotifierSettings(new ActivityEventNotifierIdentity(
-                        new ActivityEventIdentity(_activityTypeProvider.Get((int)IntranetActivityTypeEnum.News), data.NotificationType),
-                        _notifierTypeProvider.Get((int) NotifierTypeEnum.UiNotifier)));
-                    if (!settings.IsEnabled) break;
-                    model.Title = settings.Template.Message;
-                    data.Value = model;
-                }
-
-
-                var receiverIds = allReceiversIds
-                    .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifier.Type))
+                var ids = allReceiversIds
+                    .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifierType))
                     .ToList();
-
-                if (receiverIds.Count == 0 )
-                {
-                    continue;
-                }
-
-                data.ReceiverIds = receiverIds;
-
-                try
-                {
-                    notifier.Notify(data);
-                }
-                catch (Exception ex)
-                {
-                    _exceptionLogger.Log(ex);
-                }
+                return (ids, ids.Any());
             }
-        }
 
-        private IEnumerable<INotifierService> GetNotifiers(IIntranetType notificationType)
-        {
-            var notifierTypes = GetNotifierTypes(notificationType);
-            var configuration = _notificationConfigurationService.GetSettings();
+            var eventIdentity = new ActivityEventIdentity(data.ActivityType, data.NotificationType);
 
-            foreach (var notifierType in notifierTypes)
+            var (receiverIds, isNotEmpty) = GetReceiverIdsForNotifier(_uiNotifierService.Type);
+
+            if (isNotEmpty)
             {
-                var notifierConfiguration = configuration.NotifierConfigurations.Single(n => n.NotifierType == notifierType);
-                if (!notifierConfiguration.Enabled)
+                var notifierSettings = _notificationSettingsService.GetUiNotifierSettings(
+                    eventIdentity.AddNotifierIdentity(_notifierTypeProvider.Get((int) NotifierTypeEnum.UiNotifier)));
+                if (notifierSettings.IsEnabled)
                 {
-                    continue;
+                    data.ReceiverIds = receiverIds;
+                    var message = _uiNotificationModelMapper.Map(data, notifierSettings.Template);
+                    try
+                    {
+                        _uiNotifierService.Notify(message);
+                    }
+                    catch (Exception ex)
+                    {
+                        _exceptionLogger.Log(ex);
+                    }
                 }
-
-                var notifier = _notifiers.SingleOrDefault(n => n.Type == notifierType);
-                if (notifier == null)
-                {
-                    _exceptionLogger.Log(new MissingNotifierException(notifierType, notificationType));
-                    continue;
-                }
-
-                yield return notifier;
             }
-        }
-
-        private IEnumerable<NotifierTypeEnum> GetNotifierTypes(IIntranetType notificationType)
-        {
-            var configuration = _notificationConfigurationService.GetSettings();
-            var notificationTypeConfiguration = configuration.NotificationTypeConfigurations.SingleOrDefault(c => c.NotificationType == notificationType.Name);
-
-            if (notificationTypeConfiguration == null || notificationTypeConfiguration.NotifierTypes.IsEmpty())
-            {
-                return configuration.DefaultNotifier.ToEnumerableOfOne();
-            }
-
-            return notificationTypeConfiguration.NotifierTypes;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 
@@ -10,5 +11,6 @@ namespace uIntra.Notification
         public string Title { get; set; }
         public string Url { get; set; }
         public DateTime StartDate { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
     }
 }

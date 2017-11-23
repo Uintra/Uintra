@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 
@@ -13,6 +14,10 @@ namespace uIntra.Notification
         private readonly ISqlRepository<Notification> _notificationRepository;
 
         public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
+        public void Notify(NotifierData data)
+        {
+            throw new NotImplementedException();
+        }
 
         public UiNotifierService(ISqlRepository<Notification> notificationRepository)
         {
@@ -31,7 +36,7 @@ namespace uIntra.Notification
             return allNotifications.Take(count);
         }
 
-        public void Notify(NotifierData data)
+        public void Notify(UiNotificationMessage data)
         {
             var notifications = data.ReceiverIds
                 .Select(el => new Notification
@@ -41,7 +46,7 @@ namespace uIntra.Notification
                     IsNotified = false,
                     IsViewed = false,
                     Type = data.NotificationType.Id,
-                    Value = data.Value.ToJson(),
+                    Value = new {data.Message, data.Url}.ToJson(),
                     ReceiverId = el
                 });
 
@@ -69,5 +74,17 @@ namespace uIntra.Notification
             notification.IsViewed = true;
             _notificationRepository.Update(notification);
         }
+    }
+    public class UiNotificationMessage : INotificationMessage
+    {
+        public IIntranetType NotificationType { get; set; }
+        public IEnumerable<Guid> ReceiverIds { get; set; }
+        public string Url { get; set; }
+        public string Message { get; set; }
+    }
+
+    public interface INotificationMessage
+    {
+        
     }
 }

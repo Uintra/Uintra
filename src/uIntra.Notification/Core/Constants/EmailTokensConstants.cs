@@ -1,6 +1,6 @@
 ﻿namespace uIntra.Notification.Constants
 {
-    public static class EmailTokensConstants
+    public static class TokensConstants
     {
         public const string ActivityTitle = "##ActivityTitle##";
         public const string FullName = "##FullName##";

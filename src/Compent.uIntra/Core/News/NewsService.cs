@@ -235,7 +235,8 @@ namespace Compent.uIntra.Core.News
 
             var data = new NotifierData
             {
-                NotificationType = notificationType
+                NotificationType = notificationType,
+                ActivityType = ActivityType
             };
 
             switch (notificationType.Id)

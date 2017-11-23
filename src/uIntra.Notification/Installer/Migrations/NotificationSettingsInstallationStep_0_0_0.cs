@@ -171,13 +171,13 @@ namespace uIntra.Notification.Installer.Migrations
                 case NotificationTypeEnum.CommentReplied:
                 case NotificationTypeEnum.EventUpdated:
                 case NotificationTypeEnum.EventHided:
-                    message = $"<strong>{EmailTokensConstants.FullName} {_localizationService.Translate(notificationType.ToString())}</strong>"
-                              + $"<p>{EmailTokensConstants.ActivityTitle}</p>";
+                    message = $"<strong>{TokensConstants.FullName} {_localizationService.Translate(notificationType.ToString())}</strong>"
+                              + $"<p>{TokensConstants.ActivityTitle}</p>";
                     break;
 
                 case NotificationTypeEnum.BeforeStart:
                     message = $"<strong>{_localizationService.Translate(notificationType.ToString())}</strong>"
-                              + $"<p>{EmailTokensConstants.ActivityTitle}</p>";
+                              + $"<p>{TokensConstants.ActivityTitle}</p>";
                     break;
             }
 

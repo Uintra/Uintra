@@ -196,7 +196,6 @@ namespace uIntra.Notification
                 Url = data.Url.ToAbsoluteUrl(),
                 FullName = recipient.Name
             };
-
             return result;
         }
 

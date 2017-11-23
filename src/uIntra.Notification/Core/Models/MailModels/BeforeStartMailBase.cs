@@ -20,11 +20,11 @@ namespace uIntra.Notification.MailModels
         {
             var result = new Dictionary<string, string>
             {
-                {EmailTokensConstants.ActivityTitle, ActivityTitle},
-                {EmailTokensConstants.ActivityType, ActivityType},
-                {EmailTokensConstants.StartDate, StartDate},
-                {EmailTokensConstants.Url, Url},
-                {EmailTokensConstants.FullName, FullName}
+                {TokensConstants.ActivityTitle, ActivityTitle},
+                {TokensConstants.ActivityType, ActivityType},
+                {TokensConstants.StartDate, StartDate},
+                {TokensConstants.Url, Url},
+                {TokensConstants.FullName, FullName}
             };
 
             return result;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 
@@ -11,5 +12,6 @@ namespace uIntra.Notification
         public string Url { get; set; }
         public Guid NotifierId { get; set; }
         public Guid CommentId { get; set; }
+        public Dictionary<string, string> Tokens { get; set; }
     }
 }
