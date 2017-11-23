@@ -157,8 +157,6 @@ namespace Compent.uIntra.Installer
                             bulletin.OwnerId = creatorId;
                             service.Save(bulletin);
                             break;
-                        default:
-                            throw new Exception("Please fill OwnerId property with CreatorId value for you custom activity.");
                     }
                 }
             }
