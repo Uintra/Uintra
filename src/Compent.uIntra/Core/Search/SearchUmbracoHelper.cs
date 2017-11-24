@@ -1,4 +1,5 @@
 ﻿using uIntra.Core;
+using uIntra.Core.Extensions;
 using uIntra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -25,6 +26,14 @@ namespace Compent.uIntra.Core.Search
         {
             var isContentPage = content.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetContentPage());
             return isContentPage && content.GetPropertyValue<bool>("useInSearch"); 
+        }
+
+        public string GetSearchLink(string searchQuery)
+        {
+            var searchPage = GetSearchPage();
+            var searchLink = searchPage?.Url.AddParameter("query", searchPage);
+
+            return searchLink;
         }
     }
 }
