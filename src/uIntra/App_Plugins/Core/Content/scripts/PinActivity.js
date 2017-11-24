@@ -19,8 +19,10 @@ var pinActivity = {
             pinAccept.prop('checked', true);
         }
 
-        pinControl.change(function () {
-            if ($(this).is(":checked")) {
+        pinControl.on('change', switchPinControlDisabledProp);
+
+        function switchPinControlDisabledProp() {
+            if (pinControl.is(":checked")) {
                 pinInfoHolder.show();
                 pinValue.prop('disabled', false);
 
@@ -28,11 +30,12 @@ var pinActivity = {
                 pinInfoHolder.hide();
                 pinValue.prop('disabled', true);
             }
-        });
+        }
+
+        switchPinControlDisabledProp();
     },
     initPinDate: function (holder) {
         var pinDate = helpers.initDatePicker(holder, ".js-endpin-date", ".js-endpin-date-value");
-
         pinDate.set('minDate', new Date());
 
         var clearEndPinDateBtn = holder.find('.js-clear-endpin-date');

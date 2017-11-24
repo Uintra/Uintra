@@ -314,6 +314,10 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\DefaultNotifierTemplateProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />
@@ -326,6 +330,15 @@
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
     <Compile Include="Core\INotificationTypeProvider.cs" />
+    <Compile Include="Core\INotifierTypeProvider.cs" />
+    <Compile Include="Core\Models\ActivityEventIdentity.cs" />
+    <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
+    <Compile Include="Core\Models\Configuration\NotificationSettingDefaults.cs" />
+    <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
+    <Compile Include="Core\Models\Configuration\NotifierSettingModel.cs" />
+    <Compile Include="Core\Models\Configuration\NotifierSettingsModel.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />
@@ -341,18 +354,22 @@
     <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
     <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
-    <Compile Include="Core\Models\NotificationListViewModel.cs" />
-    <Compile Include="Core\Models\NotificationPreviewViewModel.cs" />
-    <Compile Include="Core\Models\NotificationViewModel.cs" />
+    <Compile Include="Core\Models\NotificationMessage.cs" />
+    <Compile Include="Core\Models\ViewModels\NotificationListViewModel.cs" />
+    <Compile Include="Core\Models\ViewModels\NotificationPreviewViewModel.cs" />
+    <Compile Include="Core\Models\ViewModels\NotificationViewModel.cs" />
     <Compile Include="Core\Configuration\NotificationConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
-    <Compile Include="Core\Models\NotifierViewModel.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\UiNotifierTemplate.cs" />
+    <Compile Include="Core\Models\ViewModels\NotifierViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />
     <Compile Include="Core\Services\INotificationContentProvider.cs" />
+    <Compile Include="Core\Services\INotificationModelBuilder.cs" />
+    <Compile Include="Core\Services\INotificationSettingsService.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
     <Compile Include="Core\Services\INotifierService.cs" />
@@ -366,28 +383,69 @@
     <Compile Include="Core\Configuration\ReminderTypeConfiguration.cs" />
     <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Sql\MemberNotifierSettingDataModel.cs" />
+    <Compile Include="Core\Sql\NotificationSetting.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
     <Compile Include="Core\Services\IMailService.cs" />
     <Compile Include="DefaultImplementation\MailNotifierServiceBase.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
+    <Compile Include="DefaultImplementation\NotificationSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
+    <Compile Include="Core\NotifierTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotifierService.cs" />
     <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
     <Compile Include="Core\Sql\Notification.cs" />
+    <Compile Include="Installer\Migrations\NotificationSettingsInstallationStep_0_0_0.cs" />
     <Compile Include="Installer\NotificationInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\MemberNotifierSettingsControllerBase.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />
     <Compile Include="Web\NotificationJobControllerBase.cs" />
+    <Compile Include="Web\NotificationSettingsController.cs" />
+    <Compile Include="Web\NotificationSettingsTreeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventHided.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventUpdated.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\Event.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\Event.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\EventHided.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\EventUpdated.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentReplied.json" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.config.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.css" />
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\BeforeStart.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
   </ItemGroup>
@@ -403,6 +461,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\category.html" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.controller.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.service.js" />
+    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\settings.html" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />

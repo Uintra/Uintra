@@ -7,6 +7,7 @@ using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.Installer.Migrations;
+using uIntra.Core.Utils;
 using uIntra.Navigation;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Installer;
@@ -450,7 +451,7 @@ namespace Compent.uIntra.Installer
             mailTemplateDocType.AddPropertyType(newEmailTypeProperty, "Content");
             contentService.Save(mailTemplateDocType);
 
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(DocumentTypeAliasConstants.MailTemplatesFolder, DocumentTypeAliasConstants.MailTemplate);
+            InstallationStepsHelper.AddAllowedChildNode(DocumentTypeAliasConstants.MailTemplatesFolder, DocumentTypeAliasConstants.MailTemplate);
         }
         private void CreateMailTemplatesFolderDataType()
         {
@@ -691,7 +692,7 @@ namespace Compent.uIntra.Installer
 
         private void SetGridValueAndSaveAndPublishContent(IContent content, string gridEmbeddedResourceFileName)
         {
-            var gridContent = CoreInstallationStep_0_0_1.GetEmbeddedResourceValue($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
+            var gridContent = EmbeddedResourcesUtils.ReadResourceContent($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
             _contentService.SaveAndPublishWithStatus(content);

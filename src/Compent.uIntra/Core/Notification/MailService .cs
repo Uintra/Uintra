@@ -36,8 +36,7 @@ namespace Compent.uIntra.Core.Notification
 
         public void Send(MailBase mail)
         {
-            var email = mail as IEmailBase;
-            if (email == null)
+            if (!(mail is IEmailBase email))
             {
                 throw new NotImplementedException();
             }
@@ -52,7 +51,6 @@ namespace Compent.uIntra.Core.Notification
 
         public void SendMailByTypeAndDay(MailBase mail, string email, DateTime date, NotificationTypeEnum mailTemplateTypeEnum)
         {
-            int totalCount;
             var query = new EmailLogQuery
             {
                 StartCreateDate = new DateTime(date.Year, date.Month, date.Day),
@@ -60,7 +58,7 @@ namespace Compent.uIntra.Core.Notification
                 ToEmail = email
             };
 
-            _sentMailsService.GetAllByFilter(query, out totalCount);
+            _sentMailsService.GetAllByFilter(query, out var totalCount);
             if (totalCount == 0)
             {
                 Send(mail);

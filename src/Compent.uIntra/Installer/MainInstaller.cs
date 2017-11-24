@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Web.Mvc;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
 using uIntra.Core.Activity;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
 using uIntra.Events;
@@ -28,6 +28,8 @@ namespace Compent.uIntra.Installer
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
+            SetCurrentCulture();
+
             var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
             var lastMigrationHistory = migrationHistoryService.GetLast();
 
@@ -43,7 +45,7 @@ namespace Compent.uIntra.Installer
 
             if (installedVersion < AddingHeadingUIntraVersion && UIntraVersion >= AddingHeadingUIntraVersion)
             {
-                CoreInstallationStep_0_0_1.InheritCompositionForPage(
+                InstallationStepsHelper.InheritCompositionForPage(
                     CoreInstallationConstants.DocumentTypeAliases.Heading,
                     NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition);
             }
@@ -57,6 +59,11 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
+        }
+
+        private static void SetCurrentCulture()
+        {
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture;
         }
 
         private void InitMigration()
@@ -87,26 +94,26 @@ namespace Compent.uIntra.Installer
         {
             var groupRoomPageAlias = GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage;
 
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(groupRoomPageAlias, NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(groupRoomPageAlias, EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage);
-            CoreInstallationStep_0_0_1.AddAllowedChildNode(groupRoomPageAlias, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
+            InstallationStepsHelper.AddAllowedChildNode(groupRoomPageAlias, NewsInstallationConstants.DocumentTypeAliases.NewsOverviewPage);
+            InstallationStepsHelper.AddAllowedChildNode(groupRoomPageAlias, EventsInstallationConstants.DocumentTypeAliases.EventsOverviewPage);
+            InstallationStepsHelper.AddAllowedChildNode(groupRoomPageAlias, BulletinsInstallationConstants.DocumentTypeAliases.BulletinsOverviewPage);
         }
 
         private void InheritNavigationCompositions()
         {
             var nav = NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition;
 
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.HomePage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ContentPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.Heading, nav);
+            InstallationStepsHelper.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.HomePage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.ContentPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.Heading, nav);
 
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDocumentsPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage, nav);
-            CoreInstallationStep_0_0_1.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDocumentsPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsRoomPage, nav);
         }
 
         private void AddDefaultBackofficeSectionsToAdmin()
