@@ -12,7 +12,7 @@ using static uIntra.Notification.Constants.TokensConstants;
 
 namespace Compent.uIntra.Core.Notification
 {
-    public class UiNotificationModelMapper : INotificationModelMapper<UiNotificationMessage>
+    public class UiNotificationModelMapper : INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
@@ -21,18 +21,18 @@ namespace Compent.uIntra.Core.Notification
             _intranetUserService = intranetUserService;
         }
 
-        public UiNotificationMessage Map(NotifierData notifierData, UiNotifierTemplate template)
+        public UiNotificationMessage Map(INotifierDataValue notifierData, UiNotifierTemplate template, IIntranetUser receiver)
         {
 
             var message = new UiNotificationMessage
             {
-                NotificationType = notifierData.NotificationType,
-                ReceiverIds = notifierData.ReceiverIds
+                ReceiverId = receiver.Id
             };
 
-            switch (notifierData.Value)
+            switch (notifierData)
             {
                 case ActivityNotifierDataModel model:
+                    message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
                     message.Message = ReplaceTokens(
                         template.Message,
@@ -40,6 +40,7 @@ namespace Compent.uIntra.Core.Notification
                         (ActivityTitle, model.Title));
                     break;
                 case ActivityReminderDataModel model:
+                    message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
                     message.Message = ReplaceTokens(
                         template.Message,
@@ -47,6 +48,7 @@ namespace Compent.uIntra.Core.Notification
                         (StartDate, model.StartDate.ToShortDateString()));
                     break;
                 case CommentNotifierDataModel model:
+                    message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
                     message.Message = ReplaceTokens(
                         template.Message,
@@ -54,6 +56,7 @@ namespace Compent.uIntra.Core.Notification
                         (ActivityTitle, model.Title));
                     break;
                 case LikesNotifierDataModel model:
+                    message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
                     message.Message = ReplaceTokens(
                         template.Message,
@@ -67,6 +70,5 @@ namespace Compent.uIntra.Core.Notification
         public string ReplaceTokens(string source, params(string token, string value)[] replacePairs) =>
             replacePairs
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
-
     }
 }

@@ -112,7 +112,7 @@ namespace uIntra.Notification.Installer.Migrations
             var mailBody = mailTemplate.GetPropertyValue<string>("body");
             if (mailBody.IsNotNullOrEmpty())
             {
-                notifierSettings.Template.Content = mailBody;
+                notifierSettings.Template.Subject = mailBody;
             }
 
             _notificationSettingsService.SaveEmailNotifierSettings(notifierSettings);

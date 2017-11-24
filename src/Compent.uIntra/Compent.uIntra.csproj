@@ -1300,6 +1300,7 @@
     <Compile Include="Core\News\Models\NewsExtendedItemViewModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedViewModel.cs" />
     <Compile Include="Core\News\NewsAutoMapperProfile.cs" />
+    <Compile Include="Core\Notification\MailNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\MailNotifierService .cs" />
     <Compile Include="Core\Notification\MailService .cs" />
     <Compile Include="Core\Notification\Mails\ActivityLikeAddedMail.cs" />

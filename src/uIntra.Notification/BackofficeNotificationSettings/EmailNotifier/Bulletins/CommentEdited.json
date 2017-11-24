@@ -2,6 +2,6 @@
   "label": "MyLabel",
   "template": {
     "subject": "Default template subject",
-    "content": "Default template content, yeah. Have an awesome day!"
+    "body": "Default template content, yeah. Have an awesome day!"
   }
 }

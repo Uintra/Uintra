@@ -94,7 +94,7 @@ namespace uIntra.Notification
             var result = new T
             {
                 Recipients = recipient.ToListOfOne(),
-                FullName = recipient.Name
+                FullName = recipient.Name,
             };
 
             return result;

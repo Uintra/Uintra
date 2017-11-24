@@ -275,7 +275,9 @@ namespace Compent.uIntra.Core.Events
 
             var data = new NotifierData
             {
-                NotificationType = notificationType
+                NotificationType = notificationType,
+                ActivityType =  ActivityType
+                
             };
 
             switch (notificationType.Id)

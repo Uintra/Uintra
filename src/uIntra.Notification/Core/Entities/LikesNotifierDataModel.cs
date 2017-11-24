@@ -12,6 +12,5 @@ namespace uIntra.Notification
         public string Url { get; set; }
         public Guid NotifierId { get; set; }
         public DateTime CreatedDate { get; set; }
-        public Dictionary<string, string> Tokens { get; set; }
     }
 }

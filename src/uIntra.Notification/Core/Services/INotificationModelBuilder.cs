@@ -1,9 +1,11 @@
-﻿using uIntra.Notification.Base;
+﻿using uIntra.Core.User;
+using uIntra.Notification.Base;
 
 namespace uIntra.Notification.Core.Services
 {
-    public interface INotificationModelMapper<out TNotificationModel> where TNotificationModel : INotificationMessage
+    public interface INotificationModelMapper<in TTemplate, out TNotificationModel>
+        where TNotificationModel : INotificationMessage where TTemplate : INotifierTemplate
     {
-        TNotificationModel Map(NotifierData notifierData, UiNotifierTemplate template);
+        TNotificationModel Map(INotifierDataValue notifierData, TTemplate template, IIntranetUser receiver);
     }
 }
