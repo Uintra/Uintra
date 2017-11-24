@@ -335,7 +335,6 @@ h5{
             content: '';
         }
 
-        .notification,
         .search,
         .header__right{
             display: none;
