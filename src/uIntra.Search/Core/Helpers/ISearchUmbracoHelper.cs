@@ -7,5 +7,7 @@ namespace uIntra.Search
         IPublishedContent GetSearchPage();
 
         bool IsSearchable(IPublishedContent content);
+
+        string GetSearchLink(string searchQuery);
     }
 }
