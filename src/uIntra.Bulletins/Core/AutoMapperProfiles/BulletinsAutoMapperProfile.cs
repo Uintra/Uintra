@@ -50,6 +50,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.PublishDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
+                .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
