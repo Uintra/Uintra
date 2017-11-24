@@ -354,6 +354,7 @@
     <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
     <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
+    <Compile Include="Core\Models\NotificationMessage.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationPreviewViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationViewModel.cs" />
