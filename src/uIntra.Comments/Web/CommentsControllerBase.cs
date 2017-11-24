@@ -195,7 +195,7 @@ namespace uIntra.Comments.Web
         protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
-            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default;
+            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
             model.Creator = creator;
