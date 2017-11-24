@@ -20,35 +20,35 @@ namespace Compent.uIntra.Core.Helpers
             _commentLinkHelper = commentLinkHelper;
         }
 
-        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType activityType, Guid notifierId)
+        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType notificationType, Guid notifierId)
         {
             return new CommentNotifierDataModel
             {
                 CommentId = comment.Id,
-                ActivityType = activityType,
+                NotificationType = notificationType,
                 NotifierId = notifierId,
                 Title = GetNotifierDataTitle(activity),
                 Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id)
             };
         }
 
-        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId)
+        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId)
         {
             return new ActivityNotifierDataModel
             {
-                ActivityType = activityType,
+                NotificationType = notificationType,
                 Title = GetNotifierDataTitle(activity),
                 Url = _linkService.GetLinks(activity.Id).Details,
                 NotifierId = notifierId
             };
         }
 
-        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType activityType, Guid notifierId)
+        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId)
         {
             return new LikesNotifierDataModel
             {
                 Title = GetNotifierDataTitle(activity),
-                ActivityType = activityType,
+                NotificationType = notificationType,
                 NotifierId = notifierId,
                 CreatedDate = DateTime.Now,
                 Url = _linkService.GetLinks(activity.Id).Details
@@ -61,7 +61,7 @@ namespace Compent.uIntra.Core.Helpers
             {
                 Url = _linkService.GetLinks(@event.Id).Details,
                 Title = @event.Title,
-                ActivityType = activityType
+                NotificationType = activityType
             };
         }
 

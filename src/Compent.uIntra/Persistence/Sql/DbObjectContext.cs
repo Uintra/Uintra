@@ -12,6 +12,7 @@ using uIntra.Groups.Sql;
 using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Notification;
+using uIntra.Notification.Core.Sql;
 using uIntra.Subscribe;
 
 namespace Compent.uIntra.Persistence.Sql
@@ -40,6 +41,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<MemberNotifierSetting> MemberNotifierSettings { get; set; }
+        public DbSet<NotificationSetting> NotificationSettings { get; set; }
         public DbSet<MigrationHistory> MigrationHistories { get; set; }
         public DbSet<IntranetMediaEntity> IntranetMediaEntities { get; set; }
         public DbSet<Group> Groups { get; set; }

@@ -15,7 +15,7 @@ namespace uIntra.Notification.MailModels
         {
             var result = new Dictionary<string, string>
             {
-                {EmailTokensConstants.FullName, FullName}
+                {TokensConstants.FullName, FullName}
             };
 
             return result;

@@ -3,6 +3,7 @@ using uIntra.Core.Localization;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
+using uIntra.Notification.Core.Services;
 
 namespace Compent.uIntra.Core.Notification
 {

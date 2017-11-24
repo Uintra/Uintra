@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Extensions;
+using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
@@ -78,25 +79,6 @@ namespace uIntra.Core.Installer
             return Validator.TryValidateObject(model, context, validationResults, true);
         }
 
-        public static string GetEmbeddedResourceValue(string embeddedResourceName, Assembly sourceAssembly = null)
-        {
-            var assembly = sourceAssembly != null ? sourceAssembly : Assembly.GetCallingAssembly();
-            string json;
-            using (Stream stream = assembly.GetManifestResourceStream(embeddedResourceName))
-            {
-                if (stream == null)
-                {
-                    throw new FileNotFoundException($"Embedded resource {embeddedResourceName} doesn't exist.");
-                }
-                using (TextReader reader = new StreamReader(stream))
-                {
-                    json = reader.ReadToEnd();
-                }
-            }
-
-            return json;
-        }
-
         public static void InheritCompositionForPage(string pageTypeAlias, string compositionTypeAlias)
         {
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
@@ -133,7 +115,7 @@ namespace uIntra.Core.Installer
             var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
             if (defaultGridDataType != null) return;
 
-            var gridJson = GetEmbeddedResourceValue(gridEmbeddedResourceFileName, sourceAssembly);
+            var gridJson = EmbeddedResourcesUtils.ReadResourceContent(gridEmbeddedResourceFileName, sourceAssembly);
 
             var jsonPrevalues = JObject.Parse(gridJson);
             var preValueItemsAlias = CoreInstallationConstants.DataTypePropertyPreValues.DefaultGridItems;

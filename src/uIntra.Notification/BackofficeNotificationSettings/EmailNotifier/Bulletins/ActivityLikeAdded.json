@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is a notification that is dispayed as in-app if a user liked a comment. Notification is sent to creator of item that is liked<br> You can insert the following dynamic values:<br><br>##WhoLike## who liked posting<br>##RecipientName## The Reciver of notification<br>##DateToDay## The date event is sent<br>##Time## The time event is sent",
+  "template": {
+    "subject": "Default template subject",
+    "body": "Default template content, yeah. Have an awesome day!"
+  }
+}

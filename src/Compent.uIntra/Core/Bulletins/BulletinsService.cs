@@ -231,7 +231,8 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var data = new NotifierData
             {
-                NotificationType = notificationType
+                NotificationType = notificationType,
+                ActivityType = ActivityType
             };
 
             var currentUser = _intranetUserService.GetCurrentUser();

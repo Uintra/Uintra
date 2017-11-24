@@ -1,0 +1,54 @@
+﻿<style>
+    .custom-umb-panel-body {
+        padding-left: 10px;
+    }
+
+    .tab._active {
+        font-weight: bold;
+    }
+</style>
+
+<umb-panel>
+    <div class="umb-panel-body custom-umb-panel-body">
+        <div ng-controller="notificationSettingController as ctrl">
+            <div class="tabs">
+                <span class="tab" ng-class="{'_active' : ctrl.isEmailTabSelected()}" ng-click="ctrl.selectEmailTab()">E-mail notification</span>
+                <span class="tab" ng-class="{'_active' : ctrl.isUiTabSelected()}" ng-click="ctrl.selectUiTab()">In-App notification</span>
+            </div>
+            <form class="form" name="settingsForm">
+                <div class="form__row">
+                    <div class="info" ng-bind-html="ctrl.selectedNotifierSettings.notificationInfo"></div>
+                </div>
+                <div class="form__row">
+                    <span class="form__label">Do you want to enable this notification:</span>
+                    <ul class="form__radio">
+                        <li>
+                            <input id="enableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="true" ng-change="ctrl.save()">
+                            <label for="enableNotification">Yes, enable</label>
+                        </li>
+                        <li>
+                            <input id="disableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="false" ng-change="ctrl.save()">
+                            <label for="disableNotification">No, disable</label>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-if="ctrl.emailSubjectControlConfig" ng-show="ctrl.isEmailTabSelected()">
+                    <div class="form__row">
+                        <label class="form__label">E-mail subject:</label>
+                        <text-control class="form__content" config="ctrl.emailSubjectControlConfig"></text-control>
+                    </div>
+                    <div class="form__row">
+                        <label class="form__label">E-mail content:</label>
+                        <rich-text-editor class="form__content" config="ctrl.emailContentControlConfig"></rich-text-editor>
+                    </div>
+                </div>
+                <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected()">
+                    <div class="form__row">
+                        <label class="form__label">In-App message:</label>
+                        <rich-text-editor class="form__content" config="ctrl.uiMessageControlConfig"></rich-text-editor>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</umb-panel>
