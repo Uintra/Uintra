@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig) {
+    var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig) {
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -48,6 +48,8 @@
         };
 
         function initalize() {
+            initLocationChangeStartEvent();
+
             var params = getUrlParams($location.path());
             notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
                 self.settings = result.data;
@@ -134,10 +136,22 @@
             self.uiMessageControlConfig.triggerRefresh();
         }
 
+        function initLocationChangeStartEvent() {
+            $rootScope.$on('$locationChangeStart', function () {
+                var settingsForm = $scope.settingsForm;
+                if (!settingsForm) return;
+
+                var activeEditControls = angular.element(document.querySelectorAll('form[name="' + settingsForm.$name + '"] .js-active-edit-control'));
+                if (activeEditControls.length > 0) {
+                    settingsForm.$setDirty(); // for showing umbraco confirmation popup
+                }
+            });
+        }
+
         initalize();
     }
 
-    controller.$inject = ['$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig'];
+    controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig'];
 
     angular.module('umbraco').controller('notificationSettingController', controller);
 })(angular);
