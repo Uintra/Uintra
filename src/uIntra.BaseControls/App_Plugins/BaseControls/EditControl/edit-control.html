@@ -1,7 +1,7 @@
 ﻿<div>
     <div data-ng-if="isActiveEditMode" class="edit-control__bg" data-ng-click="save()"></div>
     <div class="edit-control"
-         ng-class="{'_active-edit-control' : isActiveEditMode, '_disabled' : isActiveDisadledMode, '_create': isActiveCreateMode}"
+         ng-class="{'_active-edit-control js-active-edit-control' : isActiveEditMode, '_disabled' : isActiveDisadledMode, '_create': isActiveCreateMode}"
          c-click-outside="save(true)"
          outside-if-not="js-edit-pencil, js-edit-fieldset">
 
