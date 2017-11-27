@@ -15,7 +15,7 @@
                 <span class="tab" ng-class="{'_active' : ctrl.isEmailTabSelected()}" ng-click="ctrl.selectEmailTab()">E-mail notification</span>
                 <span class="tab" ng-class="{'_active' : ctrl.isUiTabSelected()}" ng-click="ctrl.selectUiTab()">In-App notification</span>
             </div>
-            <form class="form" name="settingsForm">
+            <form class="form" name="settingsForm" val-form-manager>
                 <div class="form__row">
                     <div class="info" ng-bind-html="ctrl.selectedNotifierSettings.notificationInfo"></div>
                 </div>
