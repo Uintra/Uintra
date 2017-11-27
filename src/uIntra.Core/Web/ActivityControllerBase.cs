@@ -21,12 +21,12 @@ namespace uIntra.Core.Web
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IPermissionsService _permissionsService;
-        private readonly ActivityTypeProvider _activityTypeProvider;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected ActivityControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
             IPermissionsService permissionsService,
-            ActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _permissionsService = permissionsService;
