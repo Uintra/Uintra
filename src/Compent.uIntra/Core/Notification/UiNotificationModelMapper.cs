@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.Core;
 using uIntra.Notification.Core.Services;
 using static uIntra.Notification.Constants.TokensConstants;
 
