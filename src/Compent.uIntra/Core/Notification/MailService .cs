@@ -36,13 +36,30 @@ namespace Compent.uIntra.Core.Notification
 
         public void Send(MailBase mail)
         {
-            if (!(mail is IEmailBase email))
+            if (mail is IEmailBase email)
+            {
+                foreach (var recipient in mail.Recipients)
+                {
+                    var sentMailsModel = new SentMails
+                    {
+                        Body = email.Body,
+                        Subject = email.Subject,
+                        IsSent = false,
+                        CreatedUtcDate = DateTime.UtcNow,
+                        FromEmail = email.FromEmail ?? string.Empty,
+                        FromName = email.FromName ?? string.Empty,
+                        ToEmail = recipient.Email,
+                        ToName = recipient.Name,
+                        
+                    };
+                    _sentMailsService.Insert(sentMailsModel);
+                }
+            }
+            else
             {
                 throw new NotImplementedException();
             }
-
-            _emailService.AddInMailQueue(email);
-        }       
+        }
 
         public void ProcessMails(int? count = null, int? mailId = null)
         {

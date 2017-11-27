@@ -102,7 +102,7 @@
 
         function initEmailContentControlConfig() {
             self.emailContentControlConfig = new RichTextEditorModel(ControlMode.view);
-            self.emailContentControlConfig.value = self.settings.emailNotifierSetting.template.content;
+            self.emailContentControlConfig.value = self.settings.emailNotifierSetting.template.body;
 
             self.emailContentControlConfig.isRequired = true;
             self.emailContentControlConfig.requiredValidationMessage = 'E-mail content is required';

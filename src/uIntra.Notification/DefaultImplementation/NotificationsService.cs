@@ -19,34 +19,16 @@ namespace uIntra.Notification
     {
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
-        private readonly INotificationSettingsService _notificationSettingsService;
-        private readonly INotifierTypeProvider _notifierTypeProvider;
-        private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _uiNotificationModelMapper;
-        private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _emailNotificationModelMapper;
-        private readonly IUiNotifierService _uiNotifierService;
-        private readonly IMailService _mailService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IEnumerable<INotifierService> _notifiers;
 
         public NotificationsService(
             IExceptionLogger exceptionLogger,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            INotificationSettingsService notificationSettingsService,
-            INotifierTypeProvider notifierTypeProvider,
-            INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> uiNotificationModelMapper,
-            IUiNotifierService uiNotifierService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> emailNotificationModelMapper,
-            IMailService mailService)
+            IEnumerable<INotifierService> notifiers)
         {
             _exceptionLogger = exceptionLogger;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
-            _notificationSettingsService = notificationSettingsService;
-            _notifierTypeProvider = notifierTypeProvider;
-            _uiNotificationModelMapper = uiNotificationModelMapper;
-            _uiNotifierService = uiNotifierService;
-            _intranetUserService = intranetUserService;
-            _emailNotificationModelMapper = emailNotificationModelMapper;
-            _mailService = mailService;
+            _notifiers = notifiers;
         }
 
         public void ProcessNotification(NotifierData data)
@@ -62,48 +44,22 @@ namespace uIntra.Notification
                 return (ids, ids.Any());
             }
 
-            var eventIdentity = new ActivityEventIdentity(data.ActivityType, data.NotificationType);
-
-            var (receiverIds, isNotEmpty) = GetReceiverIdsForNotifier(_uiNotifierService.Type);
-
-            if (isNotEmpty)
+            foreach (var notifier in _notifiers)
             {
-                var notifierSettings = _notificationSettingsService.GetUiNotifierSettings(
-                    eventIdentity.AddNotifierIdentity(_notifierTypeProvider.Get((int) NotifierTypeEnum.UiNotifier)));
-                if (notifierSettings.IsEnabled)
-                {
-                    var receivers = _intranetUserService.GetMany(receiverIds);
-                    var messages = receivers.Select(r => _uiNotificationModelMapper.Map(data.Value, notifierSettings.Template, r));
-                    try
-                    {
-                        _uiNotifierService.Notify(messages);
-                    }
-                    catch (Exception ex)
-                    {
-                        _exceptionLogger.Log(ex);
-                    }
-                }
+                var filterResult = GetReceiverIdsForNotifier(notifier.Type);
+                if (filterResult.isNotEmpty) Notify(notifier, data);
             }
+        }
 
-            (receiverIds, isNotEmpty) = GetReceiverIdsForNotifier(NotifierTypeEnum.EmailNotifier);
-
-            if (isNotEmpty)
+        protected void Notify(INotifierService service, NotifierData data)
+        {
+            try
             {
-                var notifierSettings = _notificationSettingsService.GetEmailNotifierSettings(
-                    eventIdentity.AddNotifierIdentity(_notifierTypeProvider.Get((int) NotifierTypeEnum.EmailNotifier)));
-                if (notifierSettings.IsEnabled)
-                {
-                    var receivers = _intranetUserService.GetMany(receiverIds);
-                    var messages = receivers.Select(r => _emailNotificationModelMapper.Map(data.Value, notifierSettings.Template, r)).ToList();
-                    try
-                    {
-                        messages.ForEach(_mailService.Send);
-                    }
-                    catch (Exception ex)
-                    {
-                        _exceptionLogger.Log(ex);
-                    }
-                }
+               service.Notify(data);
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogger.Log(ex);
             }
         }
     }

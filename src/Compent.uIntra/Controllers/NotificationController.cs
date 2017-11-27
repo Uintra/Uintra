@@ -10,12 +10,12 @@ namespace Compent.uIntra.Controllers
         protected override int ItemsPerPage { get; } = 10;
 
         public NotificationController(
-            IUiNotifierService uiNotifierService,
+            IUiNotificationService uiNotificationService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
             IIntranetUserContentProvider intranetUserContentProvider,
             IProfileLinkProvider profileLinkProvider)
-            : base(uiNotifierService, intranetUserService, notificationContentProvider, profileLinkProvider)
+            : base(uiNotificationService, intranetUserService, notificationContentProvider, profileLinkProvider)
         {
         }
     }

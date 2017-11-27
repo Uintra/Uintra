@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
-    public class UiNotifierService : IUiNotifierService
+    public class UiNotificationService: IUiNotificationService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
 
-        public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
-
-        public UiNotifierService(ISqlRepository<Notification> notificationRepository)
+        public UiNotificationService(ISqlRepository<Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
         }
-
         public IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount)
         {
             var allNotifications = _notificationRepository
@@ -40,11 +36,23 @@ namespace uIntra.Notification
                     IsNotified = false,
                     IsViewed = false,
                     Type = el.NotificationType.Id,
-                    Value = new {el.Message, el.Url}.ToJson(),
+                    Value = new { el.Message, el.Url }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
 
             _notificationRepository.Add(notifications);
+        }
+
+        public int GetNotNotifiedCount(Guid receiverId)
+        {
+            return (int)_notificationRepository.Count(el => el.ReceiverId == receiverId && !el.IsNotified);
+        }
+
+        public void ViewNotification(Guid id)
+        {
+            var notification = _notificationRepository.Get(id);
+            notification.IsViewed = true;
+            _notificationRepository.Update(notification);
         }
 
         public void Notify(IEnumerable<Notification> notifications)
@@ -55,18 +63,6 @@ namespace uIntra.Notification
             }
 
             _notificationRepository.Update(notifications);
-        }
-
-        public int GetNotNotifiedCount(Guid receiverId)
-        {
-            return (int) _notificationRepository.Count(el => el.ReceiverId == receiverId && !el.IsNotified);
-        }
-
-        public void ViewNotification(Guid id)
-        {
-            var notification = _notificationRepository.Get(id);
-            notification.IsViewed = true;
-            _notificationRepository.Update(notification);
         }
     }
 }

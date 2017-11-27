@@ -19,13 +19,13 @@ namespace uIntra.Notification.Web
 
         protected virtual int ItemsPerPage { get; } = 8;
 
-        private readonly IUiNotifierService _uiNotifierService;
+        private readonly IUiNotificationService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationContentProvider _notificationContentProvider;
         private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected NotificationControllerBase(
-            IUiNotifierService uiNotifierService,
+            IUiNotificationService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
             IProfileLinkProvider profileLinkProvider)

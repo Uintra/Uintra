@@ -1,86 +1,53 @@
-﻿using Compent.uIntra.Core.Notification.Mails;
+﻿using System.Linq;
+using Compent.uIntra.Core.Notification.Mails;
 using uIntra.Core.Localization;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 using uIntra.Notification.Core.Services;
+using uIntra.Notification.DefaultImplementation;
 
 namespace Compent.uIntra.Core.Notification
 {
-    public class MailNotifierService : MailNotifierServiceBase
+    public class MailNotifierService : INotifierService
     {
+        private readonly IMailService _mailService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
+        private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly NotifierTypeProvider _notifierTypeProvider;
+
         public MailNotifierService(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetLocalizationService intranetLocalizationService) :
-            base(mailService, intranetUserService, intranetLocalizationService)
+            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
+            NotifierTypeProvider notifierTypeProvider,
+            NotificationSettingsService notificationSettingsService)
         {
+            _mailService = mailService;
+            _intranetUserService = intranetUserService;
+            _notificationModelMapper = notificationModelMapper;
+            _notifierTypeProvider = notifierTypeProvider;
+            _notificationSettingsService = notificationSettingsService;
         }
 
-        protected override T GetEventMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetEventMail<EventMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
+        public NotifierTypeEnum Type => NotifierTypeEnum.EmailNotifier;
 
-        protected override T GetNewsMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
+        public void Notify(NotifierData data)
         {
-            var result = base.GetNewsMail<NewsMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
+            var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType)
+                .AddNotifierIdentity(_notifierTypeProvider.Get((int) Type));
+            var settings = _notificationSettingsService.GetEmailNotifierSettings(identity);
+            if (!settings.IsEnabled) return;
+            var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();
+            foreach (var receiverId in data.ReceiverIds)
+            {
+                var user = receivers.Find(receiver => receiver.Id == receiverId);
 
-        protected override T GetIdeaMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetIdeaMail<IdeaMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetEventUpdatedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetEventUpdatedMail<EventUpdatedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetEventHidedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetEventHidedMail<EventHidedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetBeforeStartMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetBeforeStartMail<BeforeStartMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetActivityLikeAddedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetActivityLikeAddedMail<ActivityLikeAddedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetCommentAddedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetCommentAddedMail<CommentAddedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetCommentEditedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetCommentEditedMail<CommentEditedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetCommentRepliedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetCommentRepliedMail<CommentRepliedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
-        }
-
-        protected override T GetCommentLikeAddedMail<T>(INotifierDataValue notifierDataValue, MailRecipient recipient)
-        {
-            var result = base.GetCommentLikeAddedMail<CommentLikeAddedMail>(notifierDataValue, recipient);
-            return (T)(object)result;
+                var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
+                _mailService.Send(message);
+            }
         }
     }
 }
