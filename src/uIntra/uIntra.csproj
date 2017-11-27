@@ -309,8 +309,8 @@
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.BaseControls, Version=2.4.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.2\lib\net452\uIntra.BaseControls.dll</HintPath>
+    <Reference Include="uIntra.BaseControls, Version=2.4.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.3\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.3.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.3.0.3\lib\net452\uIntra.Bulletins.dll</HintPath>
@@ -483,6 +483,18 @@
     <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
     <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
     <Content Include="App_Plugins\BaseControls\directives.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\edit-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\edit-control.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\edit-control.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.js" />
     <Content Include="App_Plugins\BaseControls\filters.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ext-beautify.js" />
@@ -1370,9 +1382,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
