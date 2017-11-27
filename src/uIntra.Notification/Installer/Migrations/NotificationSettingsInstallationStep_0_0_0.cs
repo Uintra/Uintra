@@ -22,7 +22,7 @@ namespace uIntra.Notification.Installer.Migrations
     {
         public string PackageName => "uIntra.Notification";
         public int Priority => 1;
-        public string Version => "0.2.4.4";
+        public string Version => "0.2.4.6";
 
         private readonly NotificationTypeEnum[] eventNotificationTypes =
             {
