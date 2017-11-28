@@ -106,8 +106,8 @@ var initEdit = function (holder) {
     var dataStorage = findControl(holder, '.js-hidden-comment-edit-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
     var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
-    var button = findControl(holder, '.js-comment-edit-btn');
-    var form = findControl(holder, '.js-comment-edit');
+    var button = holder.find('.js-comment-edit-btn');
+    var form = holder.find('.js-comment-edit');
     
 
     button.click(function (event) {
