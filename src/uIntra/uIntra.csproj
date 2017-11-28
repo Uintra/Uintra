@@ -1306,6 +1306,13 @@
       <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.designer.cs</Link>
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201711141621545_NotificationSettings.cs">
+      <Link>Persistence\Sql\Migrations\201711141621545_NotificationSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201711141621545_NotificationSettings.designer.cs">
+      <Link>Persistence\Sql\Migrations\201711141621545_NotificationSettings.designer.cs</Link>
+      <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1313,6 +1320,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx">
+      <Link>Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx</Link>
+      <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

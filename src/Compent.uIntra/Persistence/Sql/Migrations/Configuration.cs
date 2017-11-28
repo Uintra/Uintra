@@ -2,7 +2,7 @@ using System.Data.Entity.Migrations;
 
 namespace Compent.uIntra.Persistence.Sql.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<Compent.uIntra.Persistence.Sql.DbObjectContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Compent.uIntra.Persistence.Sql.DbObjectContext>
     {
         public Configuration()
         {
