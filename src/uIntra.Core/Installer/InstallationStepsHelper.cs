@@ -36,7 +36,7 @@ namespace uIntra.Core.Installer
             var contentService = ApplicationContext.Current.Services.ContentTypeService;
 
             var page = contentService.GetContentType(model.Alias);
-            if (page != null) return null;
+            if (page != null) return page;
 
             page = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
 
@@ -109,7 +109,13 @@ namespace uIntra.Core.Installer
             }
         }
 
-        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName, Assembly sourceAssembly = null)
+        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
+        {
+            var sourceAssembly = Assembly.GetCallingAssembly();
+            CreateGrid(dataTypeName, gridEmbeddedResourceFileName, sourceAssembly);
+        }
+
+        public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName, Assembly sourceAssembly)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var defaultGridDataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
