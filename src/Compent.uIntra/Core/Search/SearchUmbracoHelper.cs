@@ -31,7 +31,7 @@ namespace Compent.uIntra.Core.Search
         public string GetSearchLink(string searchQuery)
         {
             var searchPage = GetSearchPage();
-            var searchLink = searchPage?.Url.AddParameter("query", searchPage);
+            var searchLink = searchPage?.Url.AddParameter("query", searchQuery);
 
             return searchLink;
         }
