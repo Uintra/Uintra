@@ -1411,9 +1411,6 @@
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -1502,21 +1499,6 @@
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Dev.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.NuGet.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.PublicNuget.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
