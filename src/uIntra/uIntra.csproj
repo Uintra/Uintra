@@ -321,14 +321,14 @@
     <Reference Include="uIntra.Comments, Version=1.1.9.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.5\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.1.2\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.4.1.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.4.1.3\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.0\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.2.0\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="uIntra.Groups, Version=0.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.2.0.1\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
@@ -1432,24 +1432,6 @@
     <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-    <Content Include="App_Plugins\Groups\package.manifest" />
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
@@ -1487,22 +1469,6 @@
     <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\package.manifest" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
-    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
@@ -1511,7 +1477,108 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
