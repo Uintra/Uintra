@@ -28,7 +28,7 @@ namespace uIntra.Notification.Web
             _activityTypeProvider = activityTypeProvider;
             _notificationTypeProvider = notificationTypeProvider;
 
-            var icon = "icon-circle-dotted";
+            var icon = "icon-folder-outline";
 
             _tree = Node("-1", "root", icon, CategoryView,
                 WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Bulletins).Id, IntranetActivityTypeEnum.Bulletins, icon, CategoryView,
@@ -49,6 +49,7 @@ namespace uIntra.Notification.Web
                     Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, NotificationTypeEnum.CommentEdited, icon, SettingView),
                     Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, NotificationTypeEnum.CommentReplied, icon, SettingView),
                     Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, NotificationTypeEnum.ActivityLikeAdded, icon, SettingView))))
+
                     .Select(n => n.WithViewPath(n.ViewPath + "&id=" + n.Id));
 
         }
@@ -85,7 +86,7 @@ namespace uIntra.Notification.Web
                 model.WithViewPath(model.ViewPath + "&activityType=" + type).WithId($"{model.Id}{type}");
 
             return tree.TreeCatamorphism(
-                leaf => Node(AddNotificationTypeParameter(leaf)),
+                leaf => Node(AddNotificationTypeParameter(leaf).WithIcon("icon-navigation-right")),
                 (node, children) => Node(node.Id, node.Name, node.Icon, node.ViewPath, children
                     .Select(c => Node(AddActivityTypeParameter(c.Value, node.Id), c.Children.ToArray())).ToArray()));
         }
@@ -117,6 +118,7 @@ namespace uIntra.Notification.Web
 
             public TreeNodeModel WithViewPath(string viewPath) => new TreeNodeModel(Id, Name, Icon, viewPath);
             public TreeNodeModel WithId(string id) => new TreeNodeModel(id, Name, Icon, ViewPath);
+            public TreeNodeModel WithIcon(string icon) => new TreeNodeModel(Id, Name, icon, ViewPath);
         }
 
         protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int) type);
