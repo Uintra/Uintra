@@ -148,7 +148,7 @@
             $rootScope.$on('$locationChangeStart', function () {
                 var settingsForm = $scope.settingsForm;
                 if (!settingsForm) return;
-
+                settingsForm.$setPristine();
                 var activeEditControls = angular.element(document.querySelectorAll('form[name="' + settingsForm.$name + '"] .js-active-edit-control'));
                 if (activeEditControls.length > 0) {
                     settingsForm.$setDirty(); // for showing umbraco confirmation popup
