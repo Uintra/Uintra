@@ -319,6 +319,7 @@
     <Compile Include="Core\Configuration\BackofficeSettings\BackofficeNotificationSettingsProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
+    <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
