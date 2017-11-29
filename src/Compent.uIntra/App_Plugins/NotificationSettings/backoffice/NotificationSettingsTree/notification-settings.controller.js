@@ -1,7 +1,15 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig) {
+    var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig, navigationService) {
+
+        debugger
+        var url = $location.path();
+        var queryString = getUrlParams(url)
+        var parentId = queryString.activityType
+        var currentNodeId = queryString.id;
+        navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1",parentId , currentNodeId], forceReload: false });
+        
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -147,11 +155,11 @@
                 }
             });
         }
-
+                
         initalize();
     }
 
-    controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig'];
+    controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig', 'navigationService'];
 
     angular.module('umbraco').controller('notificationSettingController', controller);
 })(angular);
