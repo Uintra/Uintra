@@ -309,8 +309,8 @@
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.BaseControls, Version=2.4.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.3\lib\net452\uIntra.BaseControls.dll</HintPath>
+    <Reference Include="uIntra.BaseControls, Version=2.4.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.4\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.3.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.3.0.3\lib\net452\uIntra.Bulletins.dll</HintPath>
@@ -495,6 +495,8 @@
     <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control-model.js" />
     <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.html" />
     <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.js" />
+    <Content Include="App_Plugins\BaseControls\Enums\control-mode.js" />
+    <Content Include="App_Plugins\BaseControls\Enums\input-type.js" />
     <Content Include="App_Plugins\BaseControls\filters.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ext-beautify.js" />
@@ -1383,9 +1385,6 @@
     <Content Include="App_Plugins\Localization\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\EnumLists\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1669,6 +1668,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
