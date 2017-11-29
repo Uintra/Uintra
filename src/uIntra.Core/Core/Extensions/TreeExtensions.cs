@@ -59,9 +59,9 @@ namespace uIntra.Core.Extensions
             return TreeCatamorphismRec(tree);
         }
 
-        public static Tree<TResult> Select<T, TResult>(this Tree<T> tree, Func<T, TResult> f) => 
+        public static Tree<TResult> Select<T, TResult>(this Tree<T> tree, Func<T, TResult> func) => 
             tree.TreeCatamorphism(
-                leaf => new Tree<TResult>(f(leaf)),
-                (node, children) => new Tree<TResult>(f(node), children));
+                leaf => new Tree<TResult>(func(leaf)),
+                (node, children) => new Tree<TResult>(func(node), children));
     }
 }
