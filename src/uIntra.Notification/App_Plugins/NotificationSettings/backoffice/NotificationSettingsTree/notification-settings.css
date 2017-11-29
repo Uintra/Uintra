@@ -1,27 +1,6 @@
-﻿.tabs{
-    padding:0 20px 20px;
-}
-
-.tabs .tab{
-    display:inline-block;
-    vertical-align:top;
-    border:1px solid #333;
-    background:#fefefe;
+﻿.info{
     padding:10px;
-}
-
-.tabs .tab._active{
-    background-color:#ccc;
-    font-weight:normal;
-}
-.info{
-    padding:10px;
-    background:#ccc;
-    border:1px solid #333;
-}
-
-.form {
-    padding: 0 20px 20px;
+    border:1px solid #ccc;
 }
 
 .form__row {
