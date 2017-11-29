@@ -6,7 +6,7 @@ namespace uIntra.Notification.Dashboard
     {
         protected const string Alias = "NotificationSettings";
         protected const string Name = "Notifications";
-        protected const string Icon = "icon-wrench-alt _news-section-color";
+        protected const string Icon = "icon-wrench";
 
         public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {
