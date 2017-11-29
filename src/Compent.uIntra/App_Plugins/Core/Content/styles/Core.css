@@ -218,6 +218,13 @@ h5{
     margin:0 0 15px;
 }
 
+.centring{
+    max-width:1580px;
+    padding:0 20px;
+    margin:0 auto;
+    width:100%;
+}
+
 #wrapper {
     width:100%;
     overflow:hidden;

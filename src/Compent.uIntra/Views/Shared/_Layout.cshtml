@@ -15,11 +15,13 @@
             Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");
         }
         <header id="header">
-            <strong class="logo">
-                <a class="logo__link" href="/"><img src="~/Content/images/logo.png" class="logo__img"></a>
-            </strong>
-            @{Html.RenderAction("TopNavigation", "Navigation");}
-            <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
+            <div class="centring">
+                <strong class="logo">
+                    <a class="logo__link" href="/"><img src="~/Content/images/logo.png" class="logo__img"></a>
+                </strong>
+                @{Html.RenderAction("TopNavigation", "Navigation");}
+                <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
+            </div>
         </header>
         <aside id="sidebar" class="js-sidebar">
             <div class="sidebar__holder">
