@@ -2,8 +2,7 @@
     'use strict';
 
     var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig, navigationService) {
-
-        debugger
+       
         var url = $location.path();
         var queryString = getUrlParams(url)
         var parentId = queryString.activityType
