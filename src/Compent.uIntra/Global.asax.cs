@@ -4,6 +4,7 @@ using uIntra.Bulletins;
 using uIntra.Events.Dashboard;
 using uIntra.Groups.Dashboard;
 using uIntra.News.Dashboard;
+using uIntra.Notification.Dashboard;
 using Umbraco.Core;
 
 namespace Compent.uIntra
@@ -22,6 +23,7 @@ namespace Compent.uIntra
             EventsSection.AddSectionToAllUsers(applicationContext);
             BulletinsSection.AddSectionToAllUsers(applicationContext);
             GroupsSection.AddSectionToAllUsers(applicationContext);
+            NotificationSettingsSection.AddSectionToAllUsers(applicationContext);
 
             RegisterRoutes();
 
