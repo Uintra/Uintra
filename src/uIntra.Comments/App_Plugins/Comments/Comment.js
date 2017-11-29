@@ -114,7 +114,7 @@ var initEdit = function (holder) {
         if (!form.valid()) {
             return;
         }
-        form.submit();
+        $(event.target).closest(form).submit();
     });
 
     button.removeAttr("disabled");
