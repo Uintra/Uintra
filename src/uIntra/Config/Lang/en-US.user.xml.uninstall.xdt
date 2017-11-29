@@ -7,5 +7,6 @@
     <key alias="Localization" xdt:Locator="Condition(@alias='Localization')" xdt:Transform="Remove">Localization</key>
     <key alias="SentMails" xdt:Locator="Condition(@alias='SentMails')" xdt:Transform="Remove">Sent Mails</key>
     <key alias="bulletins" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="Remove">Bulletins</key>
+    <key alias="bulletins" xdt:Locator="Condition(@alias='NotificationSettings')" xdt:Transform="Remove">Notifications</key>
   </area>
 </language>
