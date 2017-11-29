@@ -1068,6 +1068,9 @@
     <Content Include="..\Compent.uIntra\Controllers\Api\RteConfigController.cs">
       <Link>Controllers\Api\RteConfigController.cs</Link>
     </Content>
+    <Compile Include="..\Compent.uIntra\Controllers\Api\NotificationSettingsApiController.cs">
+      <Link>Controllers\Api\NotificationSettingsApiController.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Core\**\*.cs">
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
