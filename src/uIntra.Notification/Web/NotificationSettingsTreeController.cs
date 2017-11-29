@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
 using uIntra.Core.Activity;
-using uIntra.Core.Core.Extensions;
+using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
 using umbraco.businesslogic;
