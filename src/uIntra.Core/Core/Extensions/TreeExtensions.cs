@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace uIntra.Core.Core.Extensions
 {
 
-    public class Tree<T>
+    public class Tree<T> 
     {
         public Tree(T value, IEnumerable<Tree<T>> children)
         {
@@ -60,5 +61,10 @@ namespace uIntra.Core.Core.Extensions
 
             return TreeCatamorphismRec(tree);
         }
+
+        public static Tree<TResult> Select<T, TResult>(this Tree<T> tree, Func<T, TResult> f) => 
+            tree.TreeCatamorphism(
+                leaf => new Tree<TResult>(f(leaf)),
+                (node, children) => new Tree<TResult>(f(node), children));
     }
 }
