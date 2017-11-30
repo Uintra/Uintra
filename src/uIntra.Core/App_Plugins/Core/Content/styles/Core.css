@@ -73,7 +73,7 @@
 }
 .icon-bell:before {
   content: "\e901";
-  font-size:19px;
+  font-size:25px;
 }
 .icon-logout:before {
   content: "\e908";
@@ -218,6 +218,27 @@ h5{
     margin:0 0 15px;
 }
 
+.centring{
+    max-width:1550px;
+    padding:0 20px;
+    margin:0 auto;
+    width:100%;
+    position:relative;
+}
+
+.holder{
+    padding:0 0 0 330px;
+    flex-grow:1;
+}
+
+.flex{
+    display:flex;
+
+    &._f-center{
+        align-items:center;
+    }
+}
+
 #wrapper {
     width:100%;
     overflow:hidden;
@@ -342,8 +363,8 @@ h5{
     }
 
     @media (--for-tablet-landscape-up) {
-        padding:0 70px 0 30px;
-        min-height:50px;
+        padding:0;
+        min-height:70px;
     }
 
 	.header__right {
@@ -355,14 +376,11 @@ h5{
 }
 
 .logo {
-    padding:14px 0 17px;
+    position:absolute;
+    top:0;
+    left:20px;
+    padding:9px 0;
     z-index: 2;
-    margin:0 auto;
-    min-width:85px;
-
-    @media (--for-tablet-landscape-up) {
-        margin:0 190px 0 0;
-    }
 }
 
 #main{

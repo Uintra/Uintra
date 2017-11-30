@@ -5,11 +5,10 @@
     text-overflow:ellipsis;
     font:16px/1.25em var(--font-custom);
     padding:4px 60px 0 0;
-    text-transform:uppercase;
     text-align:right;
 
     ._with-avatar &{
-        padding-right:35px;
+        padding-right:18px;
     }
 
     &__username {
@@ -88,9 +87,16 @@
         }
     }
 }
+.search-holder {
+    display: flex;
+    width: 100%;
+    padding: 0 21px 0 0;
+    align-items:center;
+}
 
 .search{
     position:relative;
+    flex-grow:1;
 
     @media (--for-tablet-portrait-down) {
         background: var(--color-light-gray-2);
@@ -103,11 +109,10 @@
 
     @media (--for-tablet-landscape-up) {
         float: left;
-        width:25%;
-        max-width:592px;
+        max-width:100%;
         padding:7px 0;
         text-align: left;
-        margin:0 19px 0 0;
+        margin:0 13px 0 0;
 
         &__form {
             display: block;
@@ -123,11 +128,11 @@
         width:100%;
         background:var(--color-white);
         border:none;
-        font-size:13px;
+        font-size:16px;
         line-height:36px;
-        height:36px;
+        height:40px;
         margin:0;
-        padding:0 40px 0 20px;
+        padding:1px 40px 1px 21px;
         color:var(--text-color-dark);
 
         &:-ms-input-placeholder {
@@ -142,8 +147,8 @@
 
     &__button{
         position:absolute;
-        top:9px;
-        right:-2px;
+        top: 11px;
+        right: 6px;
         border:none;
         background:none;
         padding:0 8px;
@@ -261,8 +266,8 @@
 .user {
     float:right;
     position:relative;
-    padding:13px 10px 8px 37px;
-    margin:0 -10px 0 0;
+    padding:14px 0 13px;
+    margin:0;
 
 	@media (--for-tablet-portrait-down){
 		position:static;
@@ -333,7 +338,7 @@
         &-arrow{
             position:absolute;
             top:11px;
-            right:0;
+            right:-2px;
             width:6px;
             height:6px;
             border:solid var(--color-white);
@@ -341,7 +346,7 @@
             transform:rotate(45deg);
 
             ._with-avatar &{
-                top:13px;
+                top:12px;
             }
 
             @media (--for-tablet-portrait-down){
@@ -356,7 +361,8 @@
         height:30px;
         overflow:hidden;
         float:right;
-        margin:0 20px 0 0;
+        margin:0 13px 0 0;
+        border-radius:50%;
 
         &-img{
             height: auto;

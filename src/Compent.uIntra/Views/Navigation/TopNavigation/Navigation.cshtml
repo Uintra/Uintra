@@ -11,42 +11,50 @@
         <span class="menu__burger-line"></span>
     </div>
 </div>
-@Html.Action("SearchBox", "Search")
-@Html.Action("Preview", "Notification")
-<div class="header__right">
-    <div class="user">
-        <a class="user__opener icon-user @userAvatar">
-            <div class="user__avatar">
-                <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
+<div class="holder">
+    <div class="row clearfix">
+        <div class="col-md-8">
+            <div class="search-holder">
+                @Html.Action("SearchBox", "Search")
+                @Html.Action("Preview", "Notification")
             </div>
-            <span class="user__opener-arrow"></span>
-            <div class="greeting">
-                <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
-                <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
+        </div>
+        <div class="col-md-4">
+            <div class="user">
+                <a class="user__opener icon-user @userAvatar">
+                    <div class="user__avatar">
+                        <img class="user__avatar-img" src="@Model.CurrentUser.Photo" width="30">
+                    </div>
+                    <span class="user__opener-arrow"></span>
+                    <div class="greeting">
+                        <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
+                        <!--span class="greeting__role">@Model.CurrentUser.Role.Name</span-->
+                    </div>
+                </a>
+                <ul class="user__menu">
+                    <li class="user__menu-item">
+                        <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
+                            <span class="icon icon-user"></span>
+                            @Html.Localize("TopNavigation.EditProfile.lbl")
+                        </a>
+                    </li>
+                    @if (Model.CurrentUser.UmbracoId.HasValue)
+                    {
+                        <li class="user__menu-item">
+                            <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
+                                <span class="icon icon-umbraco"></span>
+                                @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
+                            </a>
+                        </li>
+                    }
+                    <li class="user__menu-item">
+                        <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
+                            <span class="icon icon-logout"></span>
+                            @Html.Localize("TopNavigation.Logout.lbl")
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </a>
-        <ul class="user__menu">
-            <li class="user__menu-item">
-                <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
-                    <span class="icon icon-user"></span>
-                    @Html.Localize("TopNavigation.EditProfile.lbl")
-                </a>
-            </li>
-            @if (Model.CurrentUser.UmbracoId.HasValue)
-            {
-                <li class="user__menu-item">
-                    <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                        <span class="icon icon-umbraco"></span>
-                        @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
-                    </a>
-                </li>
-            }
-            <li class="user__menu-item">
-                <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
-                    <span class="icon icon-logout"></span>
-                    @Html.Localize("TopNavigation.Logout.lbl")
-                </a>
-            </li>
-        </ul>
+        </div>
     </div>
 </div>
