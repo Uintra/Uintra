@@ -183,6 +183,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Comments.Empty.lbl",
+    "translations": {
+      "en-US": "Comments"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CommentsOverView.AddComment.lbl",
     "translations": {
       "en-US": "Add comment"
