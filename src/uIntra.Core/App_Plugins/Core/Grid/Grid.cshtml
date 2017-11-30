@@ -16,7 +16,7 @@
                 sectionOffsetNumber -= int.Parse(section.grid.ToString());
                 var renderOffset = i == grid.sections.Count - 1 && sectionOffsetNumber > 0;
 
-                <div class="col-md-@(section.grid) @(renderOffset ? "sidebar col-md-offset-" + sectionOffsetNumber : "" )">
+                <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "" )">
                     @foreach (var row in section.rows)
                     {
 

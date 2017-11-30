@@ -5,11 +5,11 @@
     &._important{
         border:1px solid var(--color-light-gray);
         padding:0 20px 20px;
-        margin:0 -20px 20px;
+        margin:0 0 20px;
 
         .sidebar &{
             padding:0 19px 20px;
-            margin:0 -10px 20px;
+            margin:0 0 20px;
         }
     }
 
@@ -31,7 +31,7 @@
     .sidebar &{
         border:1px solid var(--color-light-gray);
         padding:0 19px 20px;
-        margin:0 -10px 20px;
+        margin:0 0 20px;
 
         &._latest-activities,
         &._content-panel,

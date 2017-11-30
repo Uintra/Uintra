@@ -1,7 +1,7 @@
 ﻿.create-bulletin {
 	position: relative;
 	border: 1px solid var(--color-light-gray);
-    margin:0 -15px 20px;
+    margin:0 0 20px;
     height:52px;
 
     &._expanded{
@@ -14,12 +14,6 @@
                     top:auto;
                 }
             }
-        }
-    }
-
-    @media(--for-tablet-landscape-up){
-        &{
-            max-width:746px;
         }
     }
 

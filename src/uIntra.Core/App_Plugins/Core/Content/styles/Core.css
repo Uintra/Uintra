@@ -242,11 +242,12 @@ h5{
 #wrapper {
     width:100%;
     overflow:hidden;
-    padding:56px 0 0 251px;
+    padding:56px 0 0;
     opacity:1;
     position:relative;
     left:0;
     min-height:100%;
+    background:#f6f6f6;
 
     ._with-sub-nav._with-subtitle &{
         padding-top:172px;
@@ -271,14 +272,21 @@ h5{
 
 #sidebar {
     position:fixed;
-    top:50px;
-    left:0;
-    width:251px;
-    border-right:1px solid #c9c9c9;
-    box-shadow:2px 0 3px rgba(0, 0, 0, 0.2);
-    height:calc(100vh - 50px);
+    top:70px;
+    left:calc(50% - 755px);
+    width:282px;
+    height:calc(100vh - 70px);
     z-index:11;
-    background:var(--color-white);
+
+    &:after{
+        position:absolute;
+        top:0;
+        left:-9999px;
+        right:0;
+        bottom:0;
+        background:var(--color-white);
+        content:'';
+    }
 
     @media (--for-tablet-portrait-down) {
         position: fixed;
@@ -385,7 +393,7 @@ h5{
 
 #main{
     width:100%;
-    padding:50px 80px 20px 70px;
+    padding:50px 0 20px;
     position:relative;
     min-height:190px;
 
@@ -436,12 +444,6 @@ h5{
 
 .content{
     padding:0;
-
-    @media(--for-tablet-landscape-up){
-        &._central-feed{
-            max-width:716px;
-        }
-    }
 
     .btn{
         @media (--for-tablet-portrait-down){

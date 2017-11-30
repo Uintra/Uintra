@@ -3,13 +3,13 @@
         ._show-filters &{
             border:solid var(--color-light-gray);
             border-width:1px 1px 0;
-            margin: -40px -15px 0;
+            margin: -40px 0 0;
             padding: 8px 19px 0;
             overflow:hidden;
         }
 
         &-form {
-            margin: 0 -15px 49px;
+            margin: 0 0 49px;
             padding: 0 15px 0 20px;
             box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .1);
             border: solid #cfd7dc;
@@ -36,7 +36,7 @@
 	    align-items: center;
         border:solid var(--color-light-gray);
         border-width:0 1px 1px;
-        margin: -25px -15px 50px;
+        margin: -25px 0 50px;
         padding:12px 19px 5px;
         box-shadow:0 3px 3px -3px rgba(0, 0, 0, 0.3);
 
@@ -52,12 +52,11 @@
 
     &__header{
         padding:0 20px 0 0;
-        max-width:756px;
     }
 
     &__item{
         padding:0 15px;
-        margin:0 -15px 40px;
+        margin:0 0 40px;
         font-size:16px;
         color:var(--text-color-dark);
         position:relative;
@@ -513,7 +512,7 @@
 	}
 
 	&-create {
-		margin: -21px -15px 10px;
+		margin: -21px 0 10px;
 		padding: 10px 20px 0;
 		list-style: none;
         border:1px solid var(--color-light-gray);

@@ -34,10 +34,14 @@
             </div>
         </aside>
         <main id="main">
-            @{Html.RenderAction("SubNavigation", "Navigation");}
-            @{Html.RenderAction("UmbracoContentLink", "Navigation");}
+            <div class="centring">
+                <div class="holder">
+                    @{Html.RenderAction("SubNavigation", "Navigation");}
+                    @{Html.RenderAction("UmbracoContentLink", "Navigation");}
 
-            @RenderBody()
+                    @RenderBody()
+                </div>
+            </div>
         </main>
     </div>
     <a id="toTop" class="top">Go to top</a>
