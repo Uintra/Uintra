@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
+using EmailWorker.Data.Services.Interfaces;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
 using uIntra.Core.Activity;
@@ -29,7 +30,7 @@ namespace Compent.uIntra.Installer
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             SetCurrentCulture();
-
+            AddDefaultMailSettings();
             var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
             var lastMigrationHistory = migrationHistoryService.GetLast();
 
@@ -59,6 +60,8 @@ namespace Compent.uIntra.Installer
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
+
+            AddDefaultMailSettings();
         }
 
         private static void SetCurrentCulture()
@@ -125,6 +128,14 @@ namespace Compent.uIntra.Installer
             adminUserGroup.AddAllowedSection("Localization");
 
             userService.Save(adminUserGroup);
+        }
+
+        private void AddDefaultMailSettings()
+        {
+            var mailsColumnSettingsService = DependencyResolver.Current.GetService<ISentMailsColumnSettingsService>();
+            var sentMailsSmtpSettingsService = DependencyResolver.Current.GetService<ISentMailsSmtpSettingsService>();
+            mailsColumnSettingsService.CreateColumnDefaultSettings();
+            sentMailsSmtpSettingsService.CreateSmtpDefaultSettings();
         }
 
         private void FixEmptyOwners()
