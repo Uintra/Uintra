@@ -63,7 +63,7 @@
                 self.selectEmailTab();
 
                 initEmailSubjectControlConfig();
-                initEmailContentControlConfig();
+                initEmailBodyControlConfig();
                 initUiMessageControlConfig();
 
             }, showGetErrorMessage);
@@ -107,21 +107,22 @@
             self.emailSubjectControlConfig.triggerRefresh();
         }
 
-        function initEmailContentControlConfig() {
-            self.emailContentControlConfig = new RichTextEditorModel(ControlMode.view);
-            self.emailContentControlConfig.value = self.settings.emailNotifierSetting.template.body;
+        function initEmailBodyControlConfig() {
+            self.emailBodyControlConfig = new RichTextEditorModel(ControlMode.view);
+            self.emailBodyControlConfig.tinyMceOptions = notificationSettingsConfig.emailMessageTinyMceOptions;
+            self.emailBodyControlConfig.value = self.settings.emailNotifierSetting.template.body;
 
-            self.emailContentControlConfig.isRequired = true;
-            self.emailContentControlConfig.requiredValidationMessage = 'E-mail content is required';
-            self.emailContentControlConfig.maxLength = 4000;
-            self.emailContentControlConfig.maxLengthValidationMessage = 'E-mail content max length is 4000 symbols';
+            self.emailBodyControlConfig.isRequired = true;
+            self.emailBodyControlConfig.requiredValidationMessage = 'E-mail content is required';
+            self.emailBodyControlConfig.maxLength = 4000;
+            self.emailBodyControlConfig.maxLengthValidationMessage = 'E-mail content max length is 4000 symbols';
 
-            self.emailContentControlConfig.onSave = function (emailContent) {
-                self.settings.emailNotifierSetting.template.content = emailContent;
+            self.emailBodyControlConfig.onSave = function (emailBody) {
+                self.settings.emailNotifierSetting.template.body = emailBody;
                 self.save();
             };
 
-            self.emailContentControlConfig.triggerRefresh();
+            self.emailBodyControlConfig.triggerRefresh();
         }
 
         function initUiMessageControlConfig() {

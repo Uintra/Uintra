@@ -308,8 +308,8 @@
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.BaseControls, Version=2.4.2.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.4\lib\net452\uIntra.BaseControls.dll</HintPath>
+    <Reference Include="uIntra.BaseControls, Version=2.4.2.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.5\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Bulletins, Version=0.3.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Bulletins.0.3.0.3\lib\net452\uIntra.Bulletins.dll</HintPath>
@@ -343,8 +343,8 @@
     <Reference Include="uIntra.News, Version=1.3.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.2\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.3.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.3.1\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.3.3.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.3.2\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
@@ -426,31 +426,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.html" />
-    <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.js" />
-    <Content Include="App_Plugins\BaseControls\base.css" />
-    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.js" />
-    <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.css" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.html" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
-    <Content Include="App_Plugins\BaseControls\directives.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\edit-control-model.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\edit-control.html" />
-    <Content Include="App_Plugins\BaseControls\EditControl\edit-control.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor-model.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.html" />
-    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control-model.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.html" />
-    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control-model.js" />
-    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.html" />
-    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.js" />
-    <Content Include="App_Plugins\BaseControls\Enums\control-mode.js" />
-    <Content Include="App_Plugins\BaseControls\Enums\input-type.js" />
     <Content Include="App_Plugins\Archetype\css\archetype.css" />
     <Content Include="App_Plugins\Archetype\js\archetype.js" />
     <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
@@ -477,6 +452,31 @@
     <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
     <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
     <Content Include="App_Plugins\Archetype\views\archetype.html" />
+    <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.html" />
+    <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.js" />
+    <Content Include="App_Plugins\BaseControls\base.css" />
+    <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.js" />
+    <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.css" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.html" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.js" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
+    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
+    <Content Include="App_Plugins\BaseControls\directives.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\edit-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\edit-control.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\edit-control.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\RichTextEditorControl\rich-text-editor.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextAreaControl\text-area-control.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control-model.js" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.html" />
+    <Content Include="App_Plugins\BaseControls\EditControl\TextControl\text-control.js" />
+    <Content Include="App_Plugins\BaseControls\Enums\control-mode.js" />
+    <Content Include="App_Plugins\BaseControls\Enums\input-type.js" />
     <Content Include="App_Plugins\BaseControls\filters.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ace.js" />
     <Content Include="App_Plugins\BaseControls\GlobalConfig\ConfigEditor\aceeditor\ext-beautify.js" />
@@ -1102,7 +1102,6 @@
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -1132,6 +1131,7 @@
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
