@@ -1,9 +1,6 @@
-﻿
-
-<umb-panel>
+﻿<umb-panel>
     <div ng-controller="notificationSettingController as ctrl">
         <div class="umb-editor-header umb-panel-header">
-            
             <div class="umb-panel-header-content-wrapper">
                 <ul class="nav nav-tabs umb-nav-tabs">
                     <li ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
@@ -13,7 +10,6 @@
         </div>
         <div class="umb-panel-body custom-umb-panel-body">
             <div class="umb-pane">
-                <h4>{{ctrl.selectedNotifierSettings.activityType.name}} - {{ctrl.selectedNotifierSettings.notificationType.name}}</h4>
                 <form class="form" name="settingsForm" val-form-manager>
                     <div class="form__row">
                         <div class="info" ng-bind-html="ctrl.selectedNotifierSettings.notificationInfo"></div>

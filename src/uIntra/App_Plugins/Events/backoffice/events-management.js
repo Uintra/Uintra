@@ -77,6 +77,8 @@
             self.selected = angular.copy(events);
             self.selected.startDate = self.selected.startDate || new Date().toISOString();
             self.selected.endDate = self.selected.endDate || new Date().toISOString();
+
+            self.config.endDate.minDate = self.selected.startDate;
         }
 
         self.save = function () {
@@ -132,6 +134,7 @@
                 }
 
                 startDate.setHours(0, 0, 0, 0);
+                setEndMinDate(startDate)
 
                 var endDate = self.endDatePicker.selectedDates[0];
                 if (endDate != null) {
@@ -142,6 +145,10 @@
                     self.endDatePicker.setDate(startDate);
                 }
             })
+        }
+
+        function setEndMinDate(minDate) {
+            self.endDatePicker.set('minDate', minDate);
         }
 
         self.endDateChanged = function () {

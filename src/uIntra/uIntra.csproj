@@ -318,14 +318,14 @@
     <Reference Include="uIntra.CentralFeed, Version=1.3.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.CentralFeed.1.3.0.1\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.9.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.9.7\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.9.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Comments.1.1.9.8\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Core, Version=1.4.1.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Core.1.4.1.7\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.5.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.5.0.1\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.5.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.5.0.2\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Groups, Version=0.2.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Groups.0.2.0.2\lib\net452\uIntra.Groups.dll</HintPath>
@@ -342,8 +342,8 @@
     <Reference Include="uIntra.News, Version=1.3.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.2\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.2.6\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.3.2.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.2.9\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
@@ -1400,21 +1400,6 @@
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1461,15 +1446,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
@@ -1650,6 +1626,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Notification\package.manifest" />
