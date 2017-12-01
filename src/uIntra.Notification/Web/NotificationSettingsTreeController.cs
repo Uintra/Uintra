@@ -30,60 +30,45 @@ namespace uIntra.Notification.Web
             _activityTypeProvider = activityTypeProvider;
             _notificationTypeProvider = notificationTypeProvider;
 
-            var icon = "icon-folder-outline";
+            var bulletinSettings = ActivityCategory(IntranetActivityTypeEnum.Bulletins, IntranetActivityTypeEnum.Bulletins,
+                NotificationSetting(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded),
+                NotificationSetting(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited),
+                NotificationSetting(NotificationTypeEnum.CommentReplied, NotificationTypeEnum.CommentReplied),
+                NotificationSetting(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded)
+            );
 
-            var leafBuilder = GetNotificationNodeBuilder("icon-navigation-right", SettingView);
-            var categoryBuilder = GetActivityNodeBuilder("icon-folder-outline", CategoryView);
+            var newsSettings = ActivityCategory(IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.News,
+                NotificationSetting(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded),
+                NotificationSetting(NotificationTypeEnum.CommentReplied, NotificationTypeEnum.CommentReplied),
+                NotificationSetting(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded),
+                NotificationSetting(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded)
+            );
 
+            var eventSettings = ActivityCategory(IntranetActivityTypeEnum.Events, IntranetActivityTypeEnum.Events,
+                NotificationSetting(NotificationTypeEnum.EventUpdated, NotificationTypeEnum.EventUpdated),
+                NotificationSetting(NotificationTypeEnum.EventHided, NotificationTypeEnum.EventHided),
+                NotificationSetting(NotificationTypeEnum.BeforeStart, NotificationTypeEnum.BeforeStart),
+                NotificationSetting(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded),
+                NotificationSetting(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited),
+                NotificationSetting(NotificationTypeEnum.CommentReplied, NotificationTypeEnum.CommentReplied),
+                NotificationSetting(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded)
+            );
 
-            var bulletinSettings = categoryBuilder(IntranetActivityTypeEnum.Bulletins, IntranetActivityTypeEnum.Bulletins)
-                .WithChildren(
-                    leafBuilder(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded),
-                    leafBuilder(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited),
-                    leafBuilder(NotificationTypeEnum.CommentReplied, NotificationTypeEnum.CommentReplied),
-                    leafBuilder(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded));
-
-            var newsSettings = categoryBuilder(IntranetActivityTypeEnum.News, IntranetActivityTypeEnum.News)
-                .WithChildren(
-                    leafBuilder(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded),
-                    leafBuilder(NotificationTypeEnum.CommentReplied, NotificationTypeEnum.CommentReplied),
-                    leafBuilder(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded),
-                    leafBuilder(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded));
-
-            var eventSettings = categoryBuilder(IntranetActivityTypeEnum.Events, IntranetActivityTypeEnum.Events)
-                .WithChildren(
-                    leafBuilder(NotificationTypeEnum.EventUpdated, NotificationTypeEnum.EventUpdated),
-                    leafBuilder(NotificationTypeEnum.EventHided, NotificationTypeEnum.EventHided),
-                    leafBuilder(NotificationTypeEnum.BeforeStart, NotificationTypeEnum.BeforeStart),
-                    leafBuilder(NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentAdded),
-                    leafBuilder(NotificationTypeEnum.CommentEdited, NotificationTypeEnum.CommentEdited),
-                    leafBuilder(NotificationTypeEnum.CommentReplied, NotificationTypeEnum.CommentReplied),
-                    leafBuilder(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.ActivityLikeAdded));
-
-            _tree = RootNode
-                .WithChildren(
+            _tree = RootNode.WithChildren(
                     bulletinSettings,
                     newsSettings,
                     eventSettings)
                 .Select(n => n.WithViewPath(n.ViewPath + "&id=" + n.Id));
         }
 
-        private Func<IntranetActivityTypeEnum, object, Tree<TreeNodeModel>> GetActivityNodeBuilder(string icon, string view)
-        {
-            return (s, t) => WithUrlIdentity(GetNodeBuilder(icon, view)(GetIntranetType(s).Id, t));
-        }
+        protected Tree<TreeNodeModel> ActivityCategory(IntranetActivityTypeEnum activityType, object name, params Tree<TreeNodeModel>[] children) =>
+            Node(GetIntranetType(activityType).Id, name, "icon-navigation-right", CategoryView, children);
 
-        private Func<NotificationTypeEnum, object, Tree<TreeNodeModel>> GetNotificationNodeBuilder(string icon, string view)
-        {
-            return (s, t) => GetNodeBuilder(icon, view)(GetIntranetType(s).Id, t);
-        }
+        protected Tree<TreeNodeModel> NotificationSetting(NotificationTypeEnum notificationType, object name) =>
+            Node(GetIntranetType(notificationType).Id, name, "icon-folder-outline", SettingView);
 
-        private Func<object, object, Tree<TreeNodeModel>> GetNodeBuilder(string icon, string view)
-        {
-            return (s, t) => Node(s, t, icon, SettingView);
-        }
-
-        private Tree<TreeNodeModel> RootNode => Node("-1", "root", "", CategoryView);
+        protected Tree<TreeNodeModel> RootNode =>
+            Node("-1", "root", "", CategoryView);
 
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
         {
@@ -94,7 +79,6 @@ namespace uIntra.Notification.Web
 
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
-
             return new MenuItemCollection();
         }
 
@@ -152,8 +136,8 @@ namespace uIntra.Notification.Web
             public TreeNodeModel WithIcon(string icon) => new TreeNodeModel(Id, Name, icon, ViewPath);
         }
 
-        protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
-        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
+        protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int) type);
+        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int) type);
     }
 
     [Application("NotificationSettings", "NotificationSettings", "icon-file-cabinet")]
