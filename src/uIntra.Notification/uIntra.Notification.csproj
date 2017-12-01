@@ -448,10 +448,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\App_Plugins\NotificationSettings\**\*">
-      <Link>App_Plugins\NotificationSettings\%(RecursiveDir)%(FileName)</Link>
+      <Link>App_Plugins\NotificationSettings\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
     <Content Include="..\Compent.uIntra\App_Plugins\Notification\**\*">
-      <Link>App_Plugins\Notification\%(RecursiveDir)%(FileName)</Link>
+      <Link>App_Plugins\Notification\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>

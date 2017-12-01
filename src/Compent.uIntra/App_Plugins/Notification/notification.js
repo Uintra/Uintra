@@ -106,5 +106,3 @@ export default function () {
     initCustomControls();
     initInfinityScroll();
 }
-
-console.log("Hello! This file is linked from main projet. No more duplication!");
