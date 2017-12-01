@@ -320,9 +320,6 @@
     <Reference Include="uIntra.Comments, Version=1.1.9.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.8\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.1.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.1.8\lib\net452\uIntra.Core.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Events, Version=1.5.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.0.2\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
@@ -343,8 +340,8 @@
     <Reference Include="uIntra.News, Version=1.3.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.2\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.3.2\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.3.3.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.3.3\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
@@ -1419,6 +1416,10 @@
     <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uIntra.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
