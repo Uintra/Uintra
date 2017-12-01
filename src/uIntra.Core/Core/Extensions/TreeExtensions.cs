@@ -19,12 +19,6 @@ namespace uIntra.Core.Extensions
 
         public T Value { get; }
         public IEnumerable<Tree<T>> Children { get; }
-
-        public Tree<T> WithChildren(params Tree<T>[] children) => WithChildren(children.AsEnumerable());
-
-        public Tree<T> WithChildren(IEnumerable<Tree<T>> children) => new Tree<T>(Value, children);
-
-        public Tree<T> AddChild(Tree<T> child) => this.WithChildren(Children.Append(child));
     }
 
     public static class TreeExtensions
