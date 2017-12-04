@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -18,51 +19,62 @@ namespace Compent.uIntra.Core.Notification
 
         public UiNotificationMessage Map(INotifierDataValue notifierData, UiNotifierTemplate template, IIntranetUser receiver)
         {
-
             var message = new UiNotificationMessage
             {
                 ReceiverId = receiver.Id
             };
-
+            (string, string)[] tokens;
             switch (notifierData)
             {
                 case ActivityNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.Message = ReplaceTokens(
-                        template.Message,
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (ActivityTitle, model.Title));
+                    tokens = new[]
+                    {
+                        (ActivityTitle, model.Title),
+                        (ActivityType, model.ActivityType.Name),
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                    };
                     break;
                 case ActivityReminderDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.Message = ReplaceTokens(
-                        template.Message,
+                    tokens = new[]
+                    {
                         (ActivityTitle, model.Title),
-                        (StartDate, model.StartDate.ToShortDateString()));
+                        (ActivityType, model.ActivityType.Name),
+                        (StartDate, model.StartDate.ToShortDateString())
+                    };
                     break;
                 case CommentNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.Message = ReplaceTokens(
-                        template.Message,
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (ActivityTitle, model.Title));
+                    tokens = new[]
+                    {
+                        (ActivityTitle, model.Title),
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                    };
                     break;
                 case LikesNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.Message = ReplaceTokens(
-                        template.Message,
+                    tokens = new[]
+                    {
+                        (ActivityTitle, model.Title),
+                        (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (ActivityTitle, model.Title));
+                        (CreatedDate, model.CreatedDate.ToShortDateString())
+                    };
                     break;
+                default:
+                    throw new IndexOutOfRangeException();
             }
+
+            message.Message = ReplaceTokens(template.Message, tokens);
             return message;
         }
 
-        public string ReplaceTokens(string source, params(string token, string value)[] replacePairs) =>
+        private string ReplaceTokens(string source, params (string token, string value)[] replacePairs) =>
             replacePairs
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
     }

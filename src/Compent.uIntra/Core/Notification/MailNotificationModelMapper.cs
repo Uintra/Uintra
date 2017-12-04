@@ -27,33 +27,40 @@ namespace Compent.uIntra.Core.Notification
             switch (notifierData)
             {
                 case ActivityNotifierDataModel model:
-
                     tokens = new[]
-                    {
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (ActivityTitle, model.Title)
+                     {
+                        (Url, model.Url),
+                        (ActivityTitle, model.Title),
+                        (ActivityType, model.ActivityType.Name),
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
 
                     break;
                 case ActivityReminderDataModel model:
                     tokens = new[]
                     {
+                        (Url, model.Url),
                         (ActivityTitle, model.Title),
+                        (ActivityType, model.ActivityType.Name),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
                     break;
                 case CommentNotifierDataModel model:
                     tokens = new[]
                     {
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (ActivityTitle, model.Title)
+                        (Url, model.Url),
+                        (ActivityTitle, model.Title),
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
                 case LikesNotifierDataModel model:
                     tokens = new[]
                     {
+                        (Url, model.Url),
+                        (ActivityTitle, model.Title),
+                        (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (ActivityTitle, model.Title)
+                        (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
                 default:
@@ -61,7 +68,7 @@ namespace Compent.uIntra.Core.Notification
             }
             message.Body = ReplaceTokens(template.Body, tokens);
             message.Subject = ReplaceTokens(template.Subject, tokens);
-            message.Recipients = new MailRecipient {Name = receiver.DisplayedName, Email = receiver.Email}.ToListOfOne();
+            message.Recipients = new MailRecipient { Name = receiver.DisplayedName, Email = receiver.Email }.ToListOfOne();
             return message;
         }
 
