@@ -343,9 +343,6 @@
     <Reference Include="uIntra.News, Version=1.3.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.2\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.3.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.3.7\lib\net452\uIntra.Notification.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
@@ -1422,6 +1419,10 @@
     <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
+      <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
+      <Name>uIntra.Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -10,7 +10,7 @@ namespace Compent.uIntra.Core.Helpers
     public interface INotifierDataHelper
     {
         ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId);
-        ActivityReminderDataModel GetActivityReminderDataModel(EventBase @event, IIntranetType notificationType);
+        ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, IIntranetType notificationType);
         CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType notificationType, Guid notifierId);
         LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId);
     }
