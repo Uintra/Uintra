@@ -57,11 +57,6 @@ namespace uIntra.Bulletins.Web
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var bulletin = _bulletinsService.Get(id);
-            if (bulletin.IsHidden)
-            {
-                HttpContext.Response.Redirect(options.Links.Overview);
-            }
-
             var model = GetViewModel(bulletin, options);
 
             return PartialView(DetailsViewPath, model);

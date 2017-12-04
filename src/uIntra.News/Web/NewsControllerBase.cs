@@ -49,11 +49,6 @@ namespace uIntra.News.Web
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var news = _newsService.Get(id);
-            if (news.IsHidden)
-            {
-                HttpContext.Response.Redirect(options.Links.Overview);
-            }
-
             var model = GetViewModel(news, options);
 
             return PartialView(DetailsViewPath, model);
