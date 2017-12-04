@@ -563,7 +563,7 @@ h5{
     }
 
     &:hover{
-        background-color:#afafaf;
+        background-color:#dedede;
         color: var(--text-color-dark);
         text-decoration:none;
     }
