@@ -175,8 +175,7 @@ namespace uIntra.Groups.Web
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
                 GroupId = groupId,
-                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser),
-                IsFiltersOpened = true
+                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser)
             };
             return model;
         }
@@ -231,6 +230,4 @@ namespace uIntra.Groups.Web
             return viewModel;
         }
     }
-
-
 }
