@@ -28,12 +28,12 @@ namespace uIntra.Notification.Installer.Migrations
         private readonly NotificationTypeEnum[] eventNotificationTypes =
             {
                 NotificationTypeEnum.EventUpdated,
-            NotificationTypeEnum.EventHided,
-            NotificationTypeEnum.BeforeStart,
-            NotificationTypeEnum.CommentAdded,
-            NotificationTypeEnum.CommentEdited,
+                NotificationTypeEnum.EventHided,
+                NotificationTypeEnum.BeforeStart,
+                NotificationTypeEnum.CommentAdded,
+                NotificationTypeEnum.CommentEdited,
                 NotificationTypeEnum.CommentReplied,
-            NotificationTypeEnum.ActivityLikeAdded
+                NotificationTypeEnum.ActivityLikeAdded
             };
 
         private readonly NotificationTypeEnum[] newsNotificationTypes =
@@ -165,8 +165,8 @@ namespace uIntra.Notification.Installer.Migrations
 
         private void DeleteExistedMailTemplates()
         {
-            var path = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
-            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(path);
+            var mailTemplateFolderXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
+            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
             var content = contentService.GetById(publishedContent.Id);
             contentService.Delete(content);
         }
