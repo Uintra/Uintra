@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
@@ -29,28 +28,12 @@ namespace uIntra.Core.Installer
 
         public static IContentType CreatePageDocTypeWithBaseGrid(BasePageWithDefaultGridCreateModel model)
         {
-            if (!ValidateCreationModel(model))
-            {
-                return null;
-            }
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+            return CreatePageDocTypeWithGrid(model, CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
+        }
 
-            var page = contentService.GetContentType(model.Alias);
-            if (page != null) return page;
-
-            page = GetBasePageWithGridBase(CoreInstallationConstants.DocumentTypeAliases.BasePageWithGrid);
-
-            page.Name = model.Name;
-            page.Alias = model.Alias;
-            page.Icon = model.Icon;
-
-            contentService.Save(page);
-            if (model.ParentAlias.IsNotNullOrEmpty())
-            {
-                AddAllowedChildNode(model.ParentAlias, model.Alias);
-            }
-
-            return page;
+        public static IContentType CreatePageDocTypeWithContentGrid(BasePageWithDefaultGridCreateModel model)
+        {
+            return CreatePageDocTypeWithGrid(model, CoreInstallationConstants.DocumentTypeAliases.BasePageWithContentGrid);
         }
 
         public static void AddAllowedChildNode(string parentDocumentTypeAlias, string childDocumentTypeAlias)
@@ -149,6 +132,30 @@ namespace uIntra.Core.Installer
             };
 
             return gridProperty;
+        }
+
+        private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)
+        {
+            if (!ValidateCreationModel(model)) return null;
+
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var page = contentService.GetContentType(model.Alias);
+            if (page != null) return page;
+
+            page = GetBasePageWithGridBase(basePageTypeAlias);
+
+            page.Name = model.Name;
+            page.Alias = model.Alias;
+            page.Icon = model.Icon;
+
+            contentService.Save(page);
+            if (model.ParentAlias.IsNotNullOrEmpty())
+            {
+                AddAllowedChildNode(model.ParentAlias, model.Alias);
+            }
+
+            return page;
         }
     }
 }

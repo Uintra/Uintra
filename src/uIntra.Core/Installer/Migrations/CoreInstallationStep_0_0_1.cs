@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
@@ -176,7 +174,7 @@ namespace uIntra.Core.Installer.Migrations
                 ParentAlias = CoreInstallationConstants.DocumentTypeAliases.HomePage
             };
 
-            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
+            InstallationStepsHelper.CreatePageDocTypeWithContentGrid(createModel);
             InstallationStepsHelper.AddAllowedChildNode(CoreInstallationConstants.DocumentTypeAliases.ContentPage, CoreInstallationConstants.DocumentTypeAliases.ContentPage);
         }
 
