@@ -342,6 +342,7 @@
     <Compile Include="Core\Activity\ITypedService.cs" />
     <Compile Include="Core\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />
+    <Compile Include="Core\Attributes\NotFoundActivityAttribute.cs" />
     <Compile Include="Core\Constants\GridEditorConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\EditorConfigProvider.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IEditorConfigProvider.cs" />
@@ -428,7 +429,6 @@
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
-
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -540,12 +540,12 @@
     <Folder Include="Core\Media\UmbracoEventServices\" />
   </ItemGroup>
   <ItemGroup>
-      <Content Include="..\Compent.uIntra\App_Plugins\Core\**\*">
-        <Link>App_Plugins\Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
-      </Content>
-      <Content Include="..\Compent.uIntra\App_Plugins\Utils\**\*">
-        <Link>App_Plugins\Utils\%(RecursiveDir)%(FileName)%(Extension)</Link>
-      </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\**\*">
+      <Link>App_Plugins\Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Utils\**\*">
+      <Link>App_Plugins\Utils\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
