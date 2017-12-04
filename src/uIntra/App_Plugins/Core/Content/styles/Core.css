@@ -323,6 +323,7 @@ h5{
 	    flex-direction: row-reverse;
 	    min-height: 79px;
         padding:0 20px 0 0;
+        z-index:999;
 
         &:before {
             position: absolute;

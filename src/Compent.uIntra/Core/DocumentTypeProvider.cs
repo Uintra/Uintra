@@ -47,6 +47,11 @@ namespace Compent.uIntra.Core
             return DocumentTypeAliasConstants.HomePage;
         }
 
+        public string GetErrorPage()
+        {
+            return DocumentTypeAliasConstants.ErrorPage;
+        }
+
         public virtual string GetOverviewPage(IIntranetType type)
         {
             switch (type.Id)

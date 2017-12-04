@@ -50,6 +50,7 @@
 
         function initalize() {
             initLocationChangeStartEvent();
+            initCurrentNodeHighlighting();
 
             var params = getUrlParams($location.path());
             notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
@@ -59,8 +60,7 @@
                 initEmailSubjectControlConfig();
                 initEmailBodyControlConfig();
                 initUiMessageControlConfig();
-                initCurrentNodeHighlighting();
-
+                
             }, showGetErrorMessage);
         }
 

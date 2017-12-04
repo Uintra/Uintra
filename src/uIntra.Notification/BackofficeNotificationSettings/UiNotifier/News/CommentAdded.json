@@ -1,5 +1,5 @@
 ﻿{
-  "label": "MyLabel",
+  "label": "This is an in-app notification that is sent to the creator of the news post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of news <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
     "message": "Here we go, our first default template for notifications!"
   }
