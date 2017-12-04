@@ -541,39 +541,22 @@ h5{
     }
 }
 
-.btn{
-    background: var(--color-light-gray-2);
-    color: var(--text-color-dark);
-    display:inline-block;
-    vertical-align:top;
-    font: 13px/15px var(--font-custom);
+.btn {
+    background: var(--color-white);
+    color: #555;
+    border:1px solid #8f8f8f;
+    border-radius:20px;
+    display: inline-block;
+    vertical-align: top;
+    font: 12px/15px var(--font-custom);
     margin: 0;
     max-width: 100%;
     overflow: hidden;
-    padding: 6px 9px 7px;
+    padding: 7px 14px 6px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    border-radius:0;
-    position:relative;
-
-    &._add{
-        padding-left:20px;
-
-        &:before,
-        &:after{
-            position:absolute;
-            top:14px;
-            left:10px;
-            width:7px;
-            height:1px;
-            background:var(--text-color-dark);
-            content:'';
-        }
-
-        &:after{
-            transform:rotate(90deg);
-        }
-    }
+    position: relative;
+    text-transform:uppercase;
 
     &.pull-right{
         margin-left:20px;

@@ -1,6 +1,8 @@
 ﻿.side-nav{
     &._links{
-        padding-top:9px;
+        border-bottom:2px solid #f6f6f6;
+        padding-bottom:22px;
+        margin-bottom:0;
 
         .side-nav{
             .side-nav{

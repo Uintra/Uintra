@@ -8,6 +8,8 @@
 }
 
 .sidebar{
+    padding-left:35px !important;
+
     &__holder{
         padding:50px 32px 0 0;
     }
@@ -21,11 +23,12 @@
     font-size:16px;
     line-height: 22px;
     font-family:var(--font-general);
-    border-top:1px solid var(--color-light-gray);
+    border-top:2px solid #f6f6f6;
 
     &._groups,
-    &._system{
-        padding-top:9px;
+    &._system,
+    &._links{
+        padding-top:17px;
     }
 
     &:first-of-type{
@@ -33,8 +36,9 @@
     }
 
     .ss-content &{
-        margin:0;
-        padding:0;
+        margin:0 -32px 18px 0;
+        padding:0 32px 0 0;
+        max-width:282px;
     }
 
     &__title {
@@ -57,32 +61,16 @@
         &:focus,
         &:active,
         ._active > &{
-            background:#e5e5e5;
+            background:#f6f6f6;
             text-decoration:none;
-            color:var(--text-color-dark);
+            color:#261d43;
+            border-left:2px solid var(--header-bg);
+            padding-left:17px;
         }
 
         &:hover{
             .icon-close{
                 display:block;
-            }
-        }
-
-        &._title-link{
-            &:hover,
-            &:focus,
-            &:active,
-            ._active > &{
-                background:none;
-            }
-
-            ._active > &{
-                ._groups &{
-                    background:#e5e5e5;
-                    margin:0 0 0 -20px;
-                    padding-left:39px;
-                    pointer-events:initial;
-                }
             }
         }
 
@@ -95,12 +83,25 @@
             pointer-events:initial;
             cursor:pointer;
         }
+
+        ._system &,
+        ._links &,
+        ._groups &{
+            padding-left:50px;
+
+            &:hover,
+            &:focus,
+            &:active,
+            ._active > &{
+                padding-left:48px;
+            }
+        }
     }
 
 	&__arrow{
 		position: absolute;
         top:0;
-        height:30px;
+        height:42px;
         width:30px;
         right:0;
         cursor:pointer;
@@ -119,10 +120,10 @@
 		&:after {
 			content: '';
 			position: absolute;
-            top:9px;
-            right:17px;
-			width: 8px;
-			height: 8px;
+            top:15px;
+            right:21px;
+			width: 9px;
+			height: 9px;
 			border: solid var(--text-color-dark);
 			border-width: 1px 0 0 1px;
             transform: rotate(225deg);
@@ -130,14 +131,14 @@
             ._heading > &,
             ._system &,
             ._links &{
-			    top:10px;
+			    top:15px;
                 left:auto;
             }
 
 			._expand > & {
 				transform: rotate(45deg);
 				border-color: var(--text-color-dark);
-                top:12px;
+                top:20px;
 
                 ._heading > &,
                 ._system &,
@@ -149,57 +150,90 @@
 	}
 
     .glyphicon{
-        position:absolute;
-        top:8px;
-        right:15px;
+        position: absolute;
+        top: 11px;
+        right: 19px;
+        color:var(--header-bg);
+
+        &:before{
+            font-size:15px;
+        }
     }
 
     & &{
         margin:0;
         padding:0;
         list-style:none;
-        font-weight: normal;
         font-family:var(--font-general);
-        font-size:13px;
         border-top:none;
 
         .side-nav{
             &__link{
-                padding-left:29px;
+                padding-left:40px;
 
-                &._title{
-                    padding-left:19px;
-                    font-weight:bold;
+                &:before{
+                    position:absolute;
+                    top:21px;
+                    left:27px;
+                    width:3px;
+                    height:3px;
+                    background:#261d43;
+                    content:'';
+                }
+
+                &:hover,
+                &:focus,
+                &:active,
+                ._active > &{
+                    padding-left:38px;
                 }
             }
 
             .side-nav{
                 &__link{
-                    padding-left:39px;
+                    padding-left:60px;
 
-                    &._title{
-                        padding-left:29px;
-                        font-weight:bold;
+                    &:before{
+                        left:47px;
+                    }
+
+                    &:hover,
+                    &:focus,
+                    &:active,
+                    ._active > &{
+                        padding-left:58px;
                     }
                 }
 
                 .side-nav{
                     &__link{
-                        padding-left:49px;
+                        padding-left:80px;
 
-                        &._title{
-                            padding-left:39px;
-                            font-weight:bold;
+                        &:before{
+                            left:67px;
+                        }
+
+                        &:hover,
+                        &:focus,
+                        &:active,
+                        ._active > &{
+                            padding-left:78px;
                         }
                     }
 
                     .side-nav{
                         &__link{
-                            padding-left:59px;
+                            padding-left:100px;
 
-                            &._title{
-                                padding-left:49px;
-                                font-weight:bold;
+                            &:before{
+                                left:87px;
+                            }
+
+                            &:hover,
+                            &:focus,
+                            &:active,
+                            ._active > &{
+                                padding-left:98px;
                             }
                         }
                     }
@@ -218,9 +252,15 @@
 
     &__icon{
         font-size: 15px;
-        left: -10px;
+        left: 18px;
         position: absolute;
-        top: 7px;
+        top: 11px;
+
+        &.icon-groups{
+            &:before{
+                font-size:18px;
+            }
+        }
 
         @media(--for-tablet-portrait-down){
             &{
