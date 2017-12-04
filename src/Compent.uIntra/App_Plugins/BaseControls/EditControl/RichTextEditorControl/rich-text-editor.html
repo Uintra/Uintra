@@ -2,7 +2,7 @@
     <edit-control config="editControlConfig">
         <div data-ng-show="isEditableMode()" class="cursor-text rte">
             <div data-ng-class="config.triggerValidate() ? 'show-correct' : 'show-error'">
-                <tiny-mce id="emailContent" config="config.tinyMceOptions" model="config.value"></tiny-mce>
+                <tiny-mce config="config.tinyMceOptions" model="config.value"></tiny-mce>
                 <label class="error-label">{{maxDescriptionLength}} characters left</label>
                 <label class="error-label" data-ng-show="isTextRequiredButEmpty()">{{config.requiredValidationMessage ? config.requiredValidationMessage : 'Field is required'}}</label>
             </div>
