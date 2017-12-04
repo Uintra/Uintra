@@ -14,11 +14,12 @@ using uIntra.Notification.Constants;
 using uIntra.Notification.Core;
 using uIntra.Notification.Core.Services;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace uIntra.Notification.Installer.Migrations
 {
-    public class NotificationSettingsInstallationStep_0_0_0 : IIntranetInstallationStep
+    public class NotificationSettingsInstallationStep_0_2_4_6 : IIntranetInstallationStep
     {
         public string PackageName => "uIntra.Notification";
         public int Priority => 1;
@@ -26,8 +27,13 @@ namespace uIntra.Notification.Installer.Migrations
 
         private readonly NotificationTypeEnum[] eventNotificationTypes =
             {
-                NotificationTypeEnum.EventUpdated, NotificationTypeEnum.EventHided, NotificationTypeEnum.BeforeStart, NotificationTypeEnum.CommentAdded, NotificationTypeEnum.CommentEdited,
-                NotificationTypeEnum.CommentReplied, NotificationTypeEnum.ActivityLikeAdded
+                NotificationTypeEnum.EventUpdated,
+            NotificationTypeEnum.EventHided,
+            NotificationTypeEnum.BeforeStart,
+            NotificationTypeEnum.CommentAdded,
+            NotificationTypeEnum.CommentEdited,
+                NotificationTypeEnum.CommentReplied,
+            NotificationTypeEnum.ActivityLikeAdded
             };
 
         private readonly NotificationTypeEnum[] newsNotificationTypes =
@@ -50,8 +56,10 @@ namespace uIntra.Notification.Installer.Migrations
         private readonly INotifierTypeProvider _notifierTypeProvider = DependencyResolver.Current.GetService<INotifierTypeProvider>();
         private readonly IExceptionLogger _exceptionLogger = DependencyResolver.Current.GetService<IExceptionLogger>();
         private readonly IIntranetLocalizationService _localizationService = DependencyResolver.Current.GetService<IIntranetLocalizationService>();
+        private readonly IContentService contentService = DependencyResolver.Current.GetService<IContentService>();
 
-        public NotificationSettingsInstallationStep_0_0_0()
+
+        public NotificationSettingsInstallationStep_0_2_4_6()
         {
             mailTemplates = GetMailTemplates();
         }
@@ -60,6 +68,7 @@ namespace uIntra.Notification.Installer.Migrations
         {
             ImportExistedEmailNotificationSettings();
             ImportExistedUiNotificationSettings();
+            DeleteExistedMailTemplates();
         }
 
         private void ImportExistedEmailNotificationSettings()
@@ -152,6 +161,14 @@ namespace uIntra.Notification.Installer.Migrations
             }
 
             _notificationSettingsService.SaveUiNotifierSettings(notifierSettings);
+        }
+
+        private void DeleteExistedMailTemplates()
+        {
+            var path = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
+            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(path);
+            var content = contentService.GetById(publishedContent.Id);
+            contentService.Delete(content);
         }
 
         private NotifierSettingModel<UiNotifierTemplate> GetUiNotifierSettings(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
