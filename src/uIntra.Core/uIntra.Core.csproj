@@ -356,6 +356,7 @@
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Extensions\ListExtensions.cs" />
     <Compile Include="Core\Extensions\StreamExtensions.cs" />
+    <Compile Include="Core\Helpers\UrlHelper.cs" />
     <Compile Include="Core\Providers\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />

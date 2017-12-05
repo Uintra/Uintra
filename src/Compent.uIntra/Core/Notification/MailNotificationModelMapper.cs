@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using EmailWorker.Data.Extensions;
+using uIntra.Core;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -20,7 +21,6 @@ namespace Compent.uIntra.Core.Notification
 
         public EmailNotificationMessage Map(INotifierDataValue notifierData, EmailNotifierTemplate template, IIntranetUser receiver)
         {
-
             var message = new EmailNotificationMessage();
             (string, string)[] tokens;
 
@@ -30,7 +30,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                      {
                         (Url, model.Url),
-                        (ActivityTitle, model.Title),
+                         (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
@@ -40,7 +40,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, model.Title),
+                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (ActivityType, model.ActivityType.Name),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
@@ -49,7 +49,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, model.Title),
+                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
@@ -57,7 +57,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, model.Title),
+                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
@@ -66,6 +66,7 @@ namespace Compent.uIntra.Core.Notification
                 default:
                     throw new IndexOutOfRangeException();
             }
+
             message.Body = ReplaceTokens(template.Body, tokens);
             message.Subject = ReplaceTokens(template.Subject, tokens);
             message.Recipients = new MailRecipient { Name = receiver.DisplayedName, Email = receiver.Email }.ToListOfOne();
@@ -75,5 +76,7 @@ namespace Compent.uIntra.Core.Notification
         public string ReplaceTokens(string source, params (string token, string value)[] replacePairs) =>
             replacePairs
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
+
+        private static string GetHtmlLink(string title, string url) => $"<a href=\"{url.GetFullUrl()}\">{title}</a>";
     }
 }
