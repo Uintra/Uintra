@@ -29,9 +29,10 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                      {
                         (Url, model.Url),
-                         (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
+                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (ActivityType, model.ActivityType.Name),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (NotifierFullName, receiver.DisplayedName)
                     };
 
                     break;
