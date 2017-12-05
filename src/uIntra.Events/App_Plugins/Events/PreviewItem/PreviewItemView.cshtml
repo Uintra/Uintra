@@ -6,7 +6,7 @@
         @Html.Localize(Model.ActivityType.Name)<br />
         @Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()
     </p>
-    <h3 class="block__subtitle">
-        <a href="@Model.Links.Details" class="js-clamp">@Html.Raw(Model.Title)</a>
+    <h3 class="block__subtitle _clamp">
+        <a href="@Model.Links.Details">@Html.Raw(Model.Title)</a>
     </h3>
 </div>
