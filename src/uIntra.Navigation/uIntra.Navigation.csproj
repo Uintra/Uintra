@@ -346,6 +346,7 @@
     <Compile Include="Core\AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Core\Configuration\NavigationPropertySettings.cs" />
+    <Compile Include="Core\EqualityComparers\MyLinkItemModelComparer.cs" />
     <Compile Include="Core\NavigationConstants.cs" />
     <Compile Include="Core\Dashboard\Models\CreateNavigationCompositionsModel.cs" />
     <Compile Include="Core\Dashboard\Models\DocumentTypeState.cs" />
