@@ -437,8 +437,6 @@
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\umbracoContentLink.css" />
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\UmbracoContentLink.js" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
