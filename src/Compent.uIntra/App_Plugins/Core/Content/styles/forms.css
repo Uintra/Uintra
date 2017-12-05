@@ -212,11 +212,10 @@
 
     &__fake-input{
         float:left;
-        width:21px;
-        height:21px;
-        border:1px solid #ccc;
-        border-radius:4px;
-        margin:0 6px 0 0;
+        width:25px;
+        height:25px;
+        border:1px solid #c7c7c7;
+        margin:0 13px 0 0;
 
         &:before{
             display:none;
@@ -226,11 +225,11 @@
             display:block;
             color: #333;
             display: block;
-            font-size: 11px;
+            font-size: 15px;
             line-height:14px;
             left: 6px;
             position: absolute;
-            top: 4px;
+            top: 5px;
         }
 
         .check__box[disabled] ~ &:before{
@@ -245,7 +244,7 @@
 
     &__fake-label{
         font-size:13px;
-        line-height:22px;
+        line-height:26px;
         display:block;
         overflow:hidden;
         font-weight:normal;

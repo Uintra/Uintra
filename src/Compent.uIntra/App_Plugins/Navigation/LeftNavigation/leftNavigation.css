@@ -52,10 +52,11 @@
 
     &__link{
         display:block;
-        padding:9px 45px 11px 19px;
+        padding:11px 45px 9px 19px;
         color:var(--text-color-dark);
         word-wrap: break-word;
         cursor:pointer;
+        margin:0 0 -2px;
 
         &:hover,
         &:focus,

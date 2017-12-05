@@ -20,8 +20,8 @@ module.exports = {
                         '--color-submit': '#003693',
                         '--color-submit-hover': '#1f4a93',
                         '--header-bg': '#5776f9',
-                        '--font-custom': '"Open Sans", Arial, Helvetica, sans-serif',
-                        '--font-general': '"Open Sans", Arial, Helvetica, sans-serif'
+                        '--font-custom': 'muli, Arial, Helvetica, sans-serif',
+                        '--font-general': 'muli, Arial, Helvetica, sans-serif'
                     }
                 },
                 customMedia: {
