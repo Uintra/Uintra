@@ -322,6 +322,7 @@
     </Reference>
     <Reference Include="uIntra.Core, Version=1.4.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Core.1.4.3.2\lib\net452\uIntra.Core.dll</HintPath>
+    </Reference>
     <Reference Include="uIntra.Events, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.0.5\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
