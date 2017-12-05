@@ -112,7 +112,7 @@ namespace Compent.uIntra.Installer
             var _documentTypeAliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
 
             var mailTemplateFolderXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
-            var publishedContent = _umbracoHelper.TypedContentAtXPath(mailTemplateFolderXpath);
+            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
 
             bool IsForRemove(IPublishedContent content)
             {
@@ -128,7 +128,7 @@ namespace Compent.uIntra.Installer
                     );
             }
 
-            var publishedContentToRemove = publishedContent.Where(IsForRemove);
+            var publishedContentToRemove = publishedContent.Children.Where(IsForRemove);
             var contentToRemove = contentService.GetByIds(publishedContentToRemove.Select(c => c.Id)).ToList();
             contentToRemove.ForEach(c => contentService.Delete(c));
         }
