@@ -68,7 +68,6 @@ namespace uIntra.Notification.Installer.Migrations
         {
             ImportExistedEmailNotificationSettings();
             ImportExistedUiNotificationSettings();
-            DeleteExistedMailTemplates();
         }
 
         private void ImportExistedEmailNotificationSettings()
@@ -161,15 +160,6 @@ namespace uIntra.Notification.Installer.Migrations
             }
 
             _notificationSettingsService.SaveUiNotifierSettings(notifierSettings);
-        }
-
-        private void DeleteExistedMailTemplates()
-        {
-            var mailTemplateFolderXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
-            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
-            if (publishedContent is null) return;
-            var content = contentService.GetById(publishedContent.Id);
-            contentService.Delete(content);
         }
 
         private NotifierSettingModel<UiNotifierTemplate> GetUiNotifierSettings(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
