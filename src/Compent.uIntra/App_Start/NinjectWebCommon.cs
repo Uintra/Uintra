@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Collections.Generic;
 using Compent.uIntra;
 using Compent.uIntra.Core;
 using Compent.uIntra.Core.Activity;
@@ -89,6 +90,7 @@ using Umbraco.Web.Security;
 using uIntra.Core.Attributes;
 using uIntra.Notification.Core.Services;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
+using uIntra.Navigation.EqualityComparers;
 using uIntra.Core.Utils;
 using uIntra.Notification.Core;
 using uIntra.Notification.DefaultImplementation;
@@ -290,6 +292,8 @@ namespace Compent.uIntra
             kernel.Bind<IMyLinksService>().To<MyLinksService>().InRequestScope();
             kernel.Bind<ISystemLinksModelBuilder>().To<SystemLinksModelBuilder>().InRequestScope();
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
+            kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
+            
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
