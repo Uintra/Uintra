@@ -1,6 +1,6 @@
 ﻿{
   "label": "This is an in-app notification that is sent to the creator of the bulletin post when a user edits a comment that has been posted on the original bulletin post.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of bulletin<br>##FullName## - Name of the user who added a comment",
   "template": {
-    "message": "Here we go, our first default template for notifications!"
+    "message": "##FullName## has edited a comment on your post: ##ActivityTitle##"
   }
 }

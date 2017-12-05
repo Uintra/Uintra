@@ -1,7 +1,7 @@
 ﻿{
   "label": "This is an email notification that is sent to the creator of the bulletin post and the creator of the comment, when someone replies to a comment on the original bulletin post.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of bulletin<br>##FullName## - Name of the user who added a comment",
   "template": {
-    "subject": "Default template subject",
-    "body": "Default template content, yeah. Have an awesome day!"
+    "subject": "Bulletin - comment replied",
+    "body": "##FullName## has replied to a comment on the post: ##ActivityTitle##"
   }
 }

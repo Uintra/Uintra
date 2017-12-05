@@ -2,6 +2,6 @@
   "label": "This is an in-app notification that is sent to the subscribers of an event post if the event was updated.<br><br> You can insert the following dynamic values:<br><br>##Title## - Title of event<br>##NotifierFullName## - Name of the creator of the event<br>##FullName## - Name of the subscriber receiving the notification",
   "template": {
     "subject": "Default template subject",
-    "body": "Default template content, yeah. Have an awesome day!"
+    "body": "Dear ##FullName##, the event you subscribed to: ##ActivityTitle## has been updated, please check the event page for further information"
   }
 }
