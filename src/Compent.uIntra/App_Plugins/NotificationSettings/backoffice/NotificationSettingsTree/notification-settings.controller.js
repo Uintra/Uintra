@@ -37,6 +37,22 @@
             saveSettings(self.settings);
         }
 
+        function initalize() {
+            initLocationChangeStartEvent();
+            initCurrentNodeHighlighting();
+
+            var params = getCurrentUrlParams();
+            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
+                self.settings = result.data;
+                self.selectEmailTab();
+
+                initEmailSubjectControlConfig();
+                initEmailBodyControlConfig();
+                initUiMessageControlConfig();
+
+            }, showGetErrorMessage);
+        }
+
         function getUrlParams(url) {
             var params = {};
             (url + '?').split('?')[1].split('&').forEach(function (pair) {
@@ -48,25 +64,17 @@
             return params;
         };
 
-        function initalize() {
-            initLocationChangeStartEvent();
-            initCurrentNodeHighlighting();
+        function getCurrentUrlParams() {
+            var params = $location.search();
 
-            var params = getUrlParams($location.path());
-            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
-                self.settings = result.data;
-                self.selectEmailTab();
-
-                initEmailSubjectControlConfig();
-                initEmailBodyControlConfig();
-                initUiMessageControlConfig();
-                
-            }, showGetErrorMessage);
+            if (angular.equals(params, {})) {
+                params = getUrlParams($location.path());
+            }
+            return params;
         }
 
         function initCurrentNodeHighlighting() {
-            var url = $location.path();
-            var queryString = getUrlParams(url);
+            var queryString = getCurrentUrlParams();
             var parentId = queryString.activityType;
             var currentNodeId = queryString.id;
             navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1", parentId, currentNodeId], forceReload: false });

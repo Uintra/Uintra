@@ -34,7 +34,7 @@
             }
 
             $scope.isTextRequiredButEmpty = function () {
-                return $scope.config.isRequired && $scope.config.value.length === 0;
+                return $scope.config.isRequired && (!$scope.config.value || $scope.config.value.length === 0);
             }
 
             function saveHandler() {
