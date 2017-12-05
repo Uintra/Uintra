@@ -131,5 +131,8 @@ namespace uIntra.Core.Extensions
             var lastIndex = str.Substring(0, maxLength).LastIndexOf(' ');
             return str.Substring(0, lastIndex).Trim();
         }
+
+        public static string SplitOnUpperCaseLetters(this string str) =>
+             str.IsNullOrEmpty() ? string.Empty : Regex.Split(str, @"(?<!^)(?=[A-Z])").JoinWithSeparator(" ");
     }
 }
