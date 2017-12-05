@@ -320,9 +320,6 @@
     <Reference Include="uIntra.Comments, Version=1.1.9.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.8\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.2\lib\net452\uIntra.Core.dll</HintPath>
-    </Reference>
     <Reference Include="uIntra.Events, Version=1.5.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.0.4\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
@@ -336,9 +333,6 @@
     </Reference>
     <Reference Include="uIntra.Likes, Version=1.1.7.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Likes.1.1.7.6\lib\net452\uIntra.Likes.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.6.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.6.1\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.News, Version=1.3.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.4\lib\net452\uIntra.News.dll</HintPath>
@@ -1414,6 +1408,14 @@
     <Folder Include="Core\Extentions\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+      <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
+      <Name>uIntra.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
+      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
+      <Name>uIntra.Navigation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
