@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Subscribe;
+using Umbraco.Web;
 
 namespace uIntra.CentralFeed.Web
 {
@@ -69,6 +71,7 @@ namespace uIntra.CentralFeed.Web
         }
 
         [HttpGet]
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id)
         {
             var viewModel = GetDetailsViewModel(id);

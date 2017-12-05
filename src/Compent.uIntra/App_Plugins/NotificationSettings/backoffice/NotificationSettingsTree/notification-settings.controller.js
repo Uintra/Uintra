@@ -3,12 +3,6 @@
 
     var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig, navigationService) {
 
-        var url = $location.path();
-        var queryString = getUrlParams(url)
-        var parentId = queryString.activityType
-        var currentNodeId = queryString.id;
-        navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1", parentId, currentNodeId], forceReload: false });
-
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -43,6 +37,22 @@
             saveSettings(self.settings);
         }
 
+        function initalize() {
+            initLocationChangeStartEvent();
+            initCurrentNodeHighlighting();
+
+            var params = getCurrentUrlParams();
+            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
+                self.settings = result.data;
+                self.selectEmailTab();
+
+                initEmailSubjectControlConfig();
+                initEmailBodyControlConfig();
+                initUiMessageControlConfig();
+
+            }, showGetErrorMessage);
+        }
+
         function getUrlParams(url) {
             var params = {};
             (url + '?').split('?')[1].split('&').forEach(function (pair) {
@@ -54,19 +64,20 @@
             return params;
         };
 
-        function initalize() {
-            initLocationChangeStartEvent();
+        function getCurrentUrlParams() {
+            var params = $location.search();
 
-            var params = getUrlParams($location.path());
-            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
-                self.settings = result.data;
-                self.selectEmailTab();
+            if (angular.equals(params, {})) {
+                params = getUrlParams($location.path());
+            }
+            return params;
+        }
 
-                initEmailSubjectControlConfig();
-                initEmailBodyControlConfig();
-                initUiMessageControlConfig();
-
-            }, showGetErrorMessage);
+        function initCurrentNodeHighlighting() {
+            var queryString = getCurrentUrlParams();
+            var parentId = queryString.activityType;
+            var currentNodeId = queryString.id;
+            navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1", parentId, currentNodeId], forceReload: false });
         }
 
         function saveSettings(settings) {

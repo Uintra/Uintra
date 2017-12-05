@@ -17,6 +17,12 @@ using uIntra.Navigation.Installer;
 using uIntra.News;
 using uIntra.News.Installer;
 using Umbraco.Core;
+using uIntra.Core;
+using Umbraco.Core.Services;
+using Umbraco.Web;
+using uIntra.Notification.Configuration;
+using uIntra.Core.Extensions;
+using Umbraco.Core.Models;
 
 namespace Compent.uIntra.Installer
 {
@@ -26,6 +32,7 @@ namespace Compent.uIntra.Installer
         private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
         private readonly Version AddingHeadingUIntraVersion = new Version("0.2.2.10");
         private readonly Version AddingOwnerUIntraVersion = new Version("0.2.4.0");
+        private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -54,6 +61,11 @@ namespace Compent.uIntra.Installer
             if (installedVersion < AddingOwnerUIntraVersion && UIntraVersion >= AddingOwnerUIntraVersion)
             {
                 FixEmptyOwners();
+            }
+
+            if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
+            {
+                DeleteExistedMailTemplates();
             }
 
             if (UIntraVersion > installedVersion)
@@ -91,6 +103,34 @@ namespace Compent.uIntra.Installer
             }
 
             AddDefaultBackofficeSectionsToAdmin();
+        }
+
+        private void DeleteExistedMailTemplates()
+        {
+            var contentService = DependencyResolver.Current.GetService<IContentService>();
+            var _umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
+            var _documentTypeAliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
+
+            var mailTemplateFolderXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
+            var publishedContent = _umbracoHelper.TypedContentAtXPath(mailTemplateFolderXpath);
+
+            bool IsForRemove(IPublishedContent content)
+            {
+                var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
+                return templateType.In(
+                    NotificationTypeEnum.ActivityLikeAdded,
+                    NotificationTypeEnum.CommentAdded,
+                    NotificationTypeEnum.CommentEdited,
+                    NotificationTypeEnum.CommentLikeAdded,
+                    NotificationTypeEnum.CommentReplied,
+                    NotificationTypeEnum.EventHided,
+                    NotificationTypeEnum.EventUpdated
+                    );
+            }
+
+            var publishedContentToRemove = publishedContent.Where(IsForRemove);
+            var contentToRemove = contentService.GetByIds(publishedContentToRemove.Select(c => c.Id)).ToList();
+            contentToRemove.ForEach(c => contentService.Delete(c));
         }
 
         private void AllowActivitiesForGroups()

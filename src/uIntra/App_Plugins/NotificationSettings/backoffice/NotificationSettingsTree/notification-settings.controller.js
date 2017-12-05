@@ -3,12 +3,6 @@
 
     var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig, navigationService) {
 
-        var url = $location.path();
-        var queryString = getUrlParams(url)
-        var parentId = queryString.activityType
-        var currentNodeId = queryString.id;
-        navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1", parentId, currentNodeId], forceReload: false });
-
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -56,6 +50,7 @@
 
         function initalize() {
             initLocationChangeStartEvent();
+            initCurrentNodeHighlighting();
 
             var params = getUrlParams($location.path());
             notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
@@ -65,8 +60,16 @@
                 initEmailSubjectControlConfig();
                 initEmailBodyControlConfig();
                 initUiMessageControlConfig();
-
+                
             }, showGetErrorMessage);
+        }
+
+        function initCurrentNodeHighlighting() {
+            var url = $location.path();
+            var queryString = getUrlParams(url);
+            var parentId = queryString.activityType;
+            var currentNodeId = queryString.id;
+            navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1", parentId, currentNodeId], forceReload: false });
         }
 
         function saveSettings(settings) {

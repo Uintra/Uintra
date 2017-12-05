@@ -53,11 +53,6 @@ namespace uIntra.Events.Web
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var @event = _eventsService.Get(id);
-            if (@event.IsHidden)
-            {
-                HttpContext.Response.Redirect(options.Links.Overview);
-            }
-
             var model = GetViewModel(@event, options);
 
             return PartialView(DetailsViewPath, model);

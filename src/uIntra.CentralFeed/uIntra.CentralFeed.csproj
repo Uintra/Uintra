@@ -408,7 +408,6 @@
     <None Include="Installer\PreValues\GridPageLayout.cshtml" />
     <None Include="packages.config" />
     <None Include="uIntra.CentralFeed.nuspec" />
-    <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
