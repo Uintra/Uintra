@@ -136,6 +136,8 @@
         config.extraButtons.linksPicker = linksPickerFactory(interpolateFilter, config);
         config.extraButtons.umbmediapicker = umbmediapickerFactory(dialogService, interpolateFilter);
 
+        var thisEditorId = config.editorId;
+        
         config.elements = 'tiny-mce-' + $scope.$id;
         config.setup = function (editor) {
             var updateValue = function (e) { valueUpdater(editor); };
@@ -147,6 +149,13 @@
                     updateValue(e);
                 }
             }); // when: copy/pasted text, plugins altering content
+
+            // dirty hack to reset editor when data is outdated
+            $(document).on('editorDataReset', function (event, model, editorId) {
+                if (editorId === thisEditorId) {
+                    editor.setContent(model);
+                }
+            });
 
             angular.forEach(config.extraButtons, function (value, key) {
                 var originalOnClick = value.onclick || angular.noop;
