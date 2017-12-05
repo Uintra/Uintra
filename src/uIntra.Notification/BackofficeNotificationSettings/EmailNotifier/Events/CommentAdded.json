@@ -2,6 +2,6 @@
   "label": "This is an email notification that is sent to the creator of the event post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of event <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
     "subject": "Event - comment added",
-    "body": "##FullName## has added a comment to your news post: ##ActivityTitle##"
+    "body": "##FullName## has added a comment to your event post: ##ActivityTitle##"
   }
 }
