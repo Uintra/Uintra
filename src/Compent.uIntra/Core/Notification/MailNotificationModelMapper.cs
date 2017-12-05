@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using EmailWorker.Data.Extensions;
-using uIntra.Core;
+using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -77,6 +76,6 @@ namespace Compent.uIntra.Core.Notification
             replacePairs
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
 
-        private static string GetHtmlLink(string title, string url) => $"<a href=\"{url.GetFullUrl()}\">{title}</a>";
+        private static string GetHtmlLink(string title, string url) => $"<a href=\"{url.ToAbsoluteUrl()}\">{title}</a>";
     }
 }
