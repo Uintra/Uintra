@@ -11,8 +11,8 @@
         <span class="menu__burger-line"></span>
     </div>
 </div>
-@Html.Action("SearchBox", "Search")
-@Html.Action("Preview", "Notification")
+@{Html.RenderAction("SearchBox", "Search");}
+@{Html.RenderAction("Preview", "Notification");}
 <div class="header__right">
     <div class="user">
         <a class="user__opener icon-user @userAvatar">
@@ -32,15 +32,7 @@
                     @Html.Localize("TopNavigation.EditProfile.lbl")
                 </a>
             </li>
-            @if (Model.CurrentUser.UmbracoId.HasValue)
-            {
-                <li class="user__menu-item">
-                    <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                        <span class="icon icon-umbraco"></span>
-                        @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
-                    </a>
-                </li>
-            }
+            @{Html.RenderAction("UmbracoContentLink", "Navigation");}
             <li class="user__menu-item">
                 <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
                     <span class="icon icon-logout"></span>
