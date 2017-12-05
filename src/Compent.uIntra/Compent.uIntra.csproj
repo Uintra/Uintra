@@ -1416,14 +1416,6 @@
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
-      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
-      <Name>uIntra.Navigation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
-      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
-      <Name>uIntra.Navigation</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
