@@ -33,7 +33,8 @@ namespace Compent.uIntra.Core.Notification
                     {
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.Name),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (NotifierFullName, receiver.DisplayedName)
                     };
                     break;
                 case ActivityReminderDataModel model:
