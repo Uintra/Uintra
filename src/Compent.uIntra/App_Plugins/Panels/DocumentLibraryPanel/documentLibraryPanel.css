@@ -1,6 +1,6 @@
-﻿.block{
+﻿.block._document-panel {
     &__title{
-        font:bold 20px/25px var(--font-custom);
+        font:bold 16px/20px var(--font-custom);
         text-transform:uppercase;
         margin:0 0 9px;
         color:var(--text-color-dark);

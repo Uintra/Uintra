@@ -298,11 +298,11 @@
         &:active,
         &:focus,
         &:hover{
-            color:var(--text-color-dark);
-            text-decoration:underline;
+            color:#5776f9;
+            text-decoration:none;
 
             .icon-comment{
-                color:var(--text-color-dark);
+                color:#b2b2b2;
                 text-decoration:none;
             }
         }
@@ -310,7 +310,7 @@
 
     .icon-comment{
         font-size:16px;
-        margin:2px 9px 0 0;
+        margin:1px 9px 1px 0;
         vertical-align:top;
         display:inline-block;
         color: #b2b2b2;
@@ -320,7 +320,13 @@
 .comments-preview._hasComments .comments-preview__link {
     color: var(--text-color-dark);
 
+    &:active,
+    &:focus,
+    &:hover{
+        color:#5776f9;
+    }
+
     .icon-comment{
-        color: var(--text-color-dark);
+        color: #b2b2b2;
     }
 }

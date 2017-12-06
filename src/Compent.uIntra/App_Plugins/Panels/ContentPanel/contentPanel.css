@@ -1,17 +1,12 @@
 ﻿.block{
-    margin:0 0 20px;
-    padding:0;
+    margin:0 0 22px;
+    padding:20px 20px 0;
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
 
     &._important{
         padding:0 20px 20px;
         margin:0 0 20px;
-
-        .sidebar &{
-            padding:0 19px 20px;
-            margin:0 0 20px;
-        }
     }
 
     &._horizontal .documents {
@@ -30,21 +25,19 @@
     }
 
     .sidebar &{
-        padding:0 19px 20px;
-        margin:0 0 20px;
+        margin:0 0 31px;
 
         &._latest-activities,
-        &._content-panel,
         &._document-panel,
         &.coming-events{
             padding-bottom:0;
         }
 
         &__title{
-            background:var(--header-bg);
+            background:#261d43;
             color:var(--color-white);
-            margin:-1px -20px 20px;
-            padding:10px 19px 12px;
+            padding:15px 19px 12px;
+            margin-bottom:20px;
 
             &-link{
                 color:var(--color-white);
@@ -71,20 +64,15 @@
     }
 
     &__title{
-        font:bold 20px/25px var(--font-custom);
-        margin:0 0 9px;
+        font:bold 16px/20px var(--font-general);
+        margin:-20px -20px 0;
+        padding:16px 19px 15px;
+        text-transform:uppercase;
         color:var(--text-color-dark);
 
         ._important &{
             background:var(--color-contrast);
             color:var(--color-white);
-            margin:0 -20px 20px;
-            padding:10px 20px 12px;
-
-            .sidebar &{
-                margin:-1px -20px 20px;
-                padding:10px 19px 12px;
-            }
         }
 
         &-link{
@@ -151,38 +139,71 @@
         margin:0;
         overflow:hidden;
         color:var(--text-color-dark);
-        line-height:1.4;
+        font-size:16px;
+        line-height:22px;
+        padding:0 0 16px;
 
         p{
-            margin:0 0 22px;
+            margin:0 0 10px;
+
+            .sidebar &{
+                margin:0 0 18px;
+            }
         }
 
         h2{
-            margin:0 0 20px;
+            font-size:18px;
+            line-height:22px;
+            margin:0 0 10px;
+
+            .sidebar &{
+                font-size:16px;
+                line-height:1.4em;
+                margin:0 0 19px;
+            }
         }
 
         .sidebar &{
-            padding:0 0 20px;
-        }
-
-        ._content-panel &{
+            font-size:14px;
+            line-height:1.43;
             padding:0;
         }
 
         iframe{
             border:none;
         }
+
+        ul{
+            margin:0;
+            padding:0 0 9px 10px;
+            list-style:none;
+
+            li{
+                margin:0 0 6px;
+
+                &:before{
+                    width:6px;
+                    height:6px;
+                    background:#c9c6d0;
+                    border-radius:50%;
+                    display:inline-block;
+                    vertical-align:top;
+                    margin:7px 12px 0 0;
+                    content:'';
+                }
+            }
+        }
     }
 
     &__image{
-        margin:0 0 20px;
+        margin:0 -20px 21px;
+
+        .sidebar &{
+            margin:-20px -20px 17px;
+        }
 
         .img-responsive{
             width:100%;
-        }
-
-        .sidebar &{
-            margin:-20px -20px 20px;
         }
 
 	    &._small{
@@ -196,15 +217,6 @@
 			    }
 		    }
 	    }
-
-        &._large{
-            width:auto;
-            margin:0 0 20px;
-
-            .sidebar &{
-                margin:-20px -20px 20px;
-            }
-        }
     }
 
     &__links{
@@ -242,8 +254,12 @@
     }
 
     &__video{
-        margin:0 0 20px;
+        margin:0 -20px 20px;
         position:relative;
+
+        .sidebar &{
+            margin:-20px -20px 20px;
+        }
 
         &-play{
             position: absolute;
@@ -320,10 +336,6 @@
             }
         }
 
-        .sidebar &{
-            margin:-10px -20px 20px;
-        }
-
 	    &._small{
 		    @media(--for-tablet-portrait-up) {
 			    float:right;
@@ -335,16 +347,6 @@
 			    }
 		    }
 	    }
-
-        &._large{
-            float:none;
-            width:auto;
-            margin:0 0 20px;
-
-            .sidebar &{
-                margin:-10px -20px 20px;
-            }
-        }
 
         &-iframe{
             position: relative;
@@ -407,6 +409,10 @@
 		padding: 37px 0 10px;
 		list-style: none;
 	}
+
+    .btn{
+        margin-bottom:20px;
+    }
 }
 
 ._sidebar-expanded{
