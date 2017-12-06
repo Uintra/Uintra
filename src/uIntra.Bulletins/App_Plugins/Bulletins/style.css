@@ -193,7 +193,7 @@
 
     .dropzone{
         border:none !important;
-        padding:0;
+        padding:0 !important;
     }
 }
 
