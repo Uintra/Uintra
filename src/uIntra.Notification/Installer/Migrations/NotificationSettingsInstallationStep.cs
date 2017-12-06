@@ -19,12 +19,8 @@ using Umbraco.Web;
 
 namespace uIntra.Notification.Installer.Migrations
 {
-    public class NotificationSettingsInstallationStep_0_2_4_6 : IIntranetInstallationStep
+    public class NotificationSettingsMigrations 
     {
-        public string PackageName => "uIntra.Notification";
-        public int Priority => 1;
-        public string Version => "0.2.4.6";
-
         private readonly NotificationTypeEnum[] eventNotificationTypes =
             {
                 NotificationTypeEnum.EventUpdated,
@@ -57,12 +53,6 @@ namespace uIntra.Notification.Installer.Migrations
         private readonly IExceptionLogger _exceptionLogger = DependencyResolver.Current.GetService<IExceptionLogger>();
         private readonly IIntranetLocalizationService _localizationService = DependencyResolver.Current.GetService<IIntranetLocalizationService>();
         private readonly IContentService contentService = DependencyResolver.Current.GetService<IContentService>();
-
-
-        public NotificationSettingsInstallationStep_0_2_4_6()
-        {
-            mailTemplates = GetMailTemplates();
-        }
 
         public void Execute()
         {

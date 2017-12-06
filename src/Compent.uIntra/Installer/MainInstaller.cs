@@ -19,6 +19,7 @@ using uIntra.Navigation.Installer;
 using uIntra.News;
 using uIntra.News.Installer;
 using uIntra.Notification.Configuration;
+using uIntra.Notification.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -65,6 +66,8 @@ namespace Compent.uIntra.Installer
 
             if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
             {
+                var notificationSettingsMigrations = new NotificationSettingsMigrations();
+                notificationSettingsMigrations.Execute();
                 DeleteExistedMailTemplates();
             }
 
