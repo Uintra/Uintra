@@ -64,7 +64,7 @@ namespace Compent.uIntra.Installer
                 FixEmptyOwners();
             }
 
-            if (installedVersion != default && installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
+            if (installedVersion != new Version("0.0.0.0") && installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
             {
                 var notificationSettingsMigrations = new NotificationSettingsMigrations();
                 notificationSettingsMigrations.Execute();
