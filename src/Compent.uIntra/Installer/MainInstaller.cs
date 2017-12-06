@@ -68,6 +68,10 @@ namespace Compent.uIntra.Installer
             {
                 var notificationSettingsMigrations = new NotificationSettingsMigrations();
                 notificationSettingsMigrations.Execute();
+            }
+
+            if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
+            {
                 DeleteExistedMailTemplates();
             }
 
