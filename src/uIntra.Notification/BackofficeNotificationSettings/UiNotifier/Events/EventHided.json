@@ -1,6 +1,6 @@
 ﻿{
-  "label": "This is an in-app notification that is sent to the subscribers of an event post if the event is cancelled or has to be postponed (the system cannot fully delete events so instead the event will be hidden).<br> You can insert the following dynamic values:<br><br>##Title## - Title of event<br>##NotifierFullName## - Name of the creator of the event<br>##FullName## - Name of the subscriber receiving the notification",
+  "label": "This is an in-app notification that is sent to the subscribers of an event post if the event is cancelled or has to be postponed (the system cannot fully delete events so instead the event will be hidden).<br> You can insert the following dynamic values:<br><br>##ActivityTitle## - Title of event<br>##NotifierFullName## - Name of the subscriber receiving the notification<br>##FullName## - Name of the creator of the event",
   "template": {
-    "message": "Dear ##FullName##, you subscribed to the event ##ActivityTitle## the ##StartDate##. Unfortunate circumstances has let to the event being cancelled or postponed. We apologize for the inconvenience"
+    "message": "Dear ##NotifierFullName##, you subscribed to the event ##ActivityTitle## the ##StartDate##. Unfortunate circumstances has let to the event being cancelled or postponed. We apologize for the inconvenience"
   }
 }
