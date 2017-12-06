@@ -6,7 +6,9 @@ using System.Web.Mvc;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
+using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
@@ -16,13 +18,11 @@ using uIntra.Groups.Installer;
 using uIntra.Navigation.Installer;
 using uIntra.News;
 using uIntra.News.Installer;
+using uIntra.Notification.Configuration;
 using Umbraco.Core;
-using uIntra.Core;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using uIntra.Notification.Configuration;
-using uIntra.Core.Extensions;
-using Umbraco.Core.Models;
 
 namespace Compent.uIntra.Installer
 {
@@ -117,7 +117,18 @@ namespace Compent.uIntra.Installer
             bool IsForRemove(IPublishedContent content)
             {
                 var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
-                return templateType != NotificationTypeEnum.CommentLikeAdded;
+
+                return templateType.In(
+                    NotificationTypeEnum.Event,
+                    NotificationTypeEnum.EventUpdated,
+                    NotificationTypeEnum.EventHided,
+                    NotificationTypeEnum.BeforeStart,
+                    NotificationTypeEnum.News,
+                    NotificationTypeEnum.Idea,
+                    NotificationTypeEnum.ActivityLikeAdded,
+                    NotificationTypeEnum.CommentAdded,
+                    NotificationTypeEnum.CommentEdited,
+                    NotificationTypeEnum.CommentReplied);
             }
 
             var publishedContentToRemove = publishedContent.Children.Where(IsForRemove);
