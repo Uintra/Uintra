@@ -361,8 +361,8 @@
     <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.6484.21641, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Umbraco.Core.dll</HintPath>
+    <Reference Include="Umbraco.Core">
+      <HintPath>..\uIntra.Core\bin\Debug\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="umbraco.DataLayer, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.DataLayer.dll</HintPath>
@@ -1352,6 +1352,8 @@
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
+    <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
