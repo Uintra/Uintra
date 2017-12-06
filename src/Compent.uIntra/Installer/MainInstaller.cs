@@ -117,15 +117,7 @@ namespace Compent.uIntra.Installer
             bool IsForRemove(IPublishedContent content)
             {
                 var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
-                return templateType.In(
-                    NotificationTypeEnum.ActivityLikeAdded,
-                    NotificationTypeEnum.CommentAdded,
-                    NotificationTypeEnum.CommentEdited,
-                    NotificationTypeEnum.CommentLikeAdded,
-                    NotificationTypeEnum.CommentReplied,
-                    NotificationTypeEnum.EventHided,
-                    NotificationTypeEnum.EventUpdated
-                    );
+                return templateType != NotificationTypeEnum.CommentLikeAdded;
             }
 
             var publishedContentToRemove = publishedContent.Children.Where(IsForRemove);
