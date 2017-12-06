@@ -54,8 +54,14 @@ namespace uIntra.Notification.Installer.Migrations
         private readonly IIntranetLocalizationService _localizationService = DependencyResolver.Current.GetService<IIntranetLocalizationService>();
         private readonly IContentService contentService = DependencyResolver.Current.GetService<IContentService>();
 
+        public NotificationSettingsMigrations()
+        {
+            mailTemplates = GetMailTemplates();
+        }
+
         public void Execute()
         {
+            
             ImportExistedEmailNotificationSettings();
             ImportExistedUiNotificationSettings();
         }
