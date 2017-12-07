@@ -8,7 +8,7 @@
 }
 
 <input type="hidden" class="js-type-search-counts" data-all-types-placeholder="@Model.AllTypesPlaceholder" data-types="@Model.FilterItems.ToJson()">
-<h1 class="search-result__title">@queryLabel @countLabel</h1>
+<h1 class="search-result__result">@queryLabel @countLabel</h1>
 @foreach (var result in Model.Results)
 {
     <div class="search-result__item">

@@ -1,13 +1,23 @@
 ﻿.search-result{
+    background:var(--color-white);
+    box-shadow:0 0 2px rgba(0,0,0,0.2);
+    padding:37px 20px 0;
+
+    &__title{
+        font:25px/27px var(--font-general);
+        margin:0 0 19px;
+        color:#262626;
+    }
+
     &__textbox-holder{
         position:relative;
-        margin:0 0 45px;
+        margin:0 0 24px;
 
         .icon-search{
             font-size: 18px;
             position: absolute;
             right: 7px;
-            top: 5px;
+            top: 30px;
         }
     }
 
@@ -24,7 +34,7 @@
 
     &__filter{
         position:relative;
-        margin:0 0 40px;
+        margin:0 0 10px;
 
         &-title{
             font:bold 13px/22px var(--font-general);
@@ -59,25 +69,19 @@
         }
     }
 
-    &__title{
-        font:bold 20px/22px var(--font-custom);
+    &__result{
+        font:16px/1.38em var(--font-general);
         text-transform:uppercase;
-        color:var(--text-color-dark);
-        margin:0 0 28px;
+        margin:30px 0 27px;
     }
 
     &__item{
-        margin:0 -15px 18px;
+        margin:0 -15px 14px;
         padding:15px;
         font-size:16px;
         line-height:22px;
         position:relative;
         color:var(--text-color-dark);
-        transition:background ease-in 300ms;
-
-        &:hover{
-            background:#f1f1f1;
-        }
 
         &-link{
             color:var(--text-color-dark);
@@ -98,12 +102,12 @@
 
         &-title{
             font:bold 16px/20px var(--font-general);
-            margin:0 0 13px;
+            margin:0 0 9px;
             color:var(--text-color-dark);
         }
 
         &-teaser{
-            margin:0 0 12px;
+            margin:0 0 17px;
             color:var(--text-color-light);
             line-height:1.4;
 
@@ -115,7 +119,7 @@
         &-meta{
             font:bold 13px/14px var(--font-custom);
             text-transform:uppercase;
-            color:var(--text-color-light);
+            color:#bbb;
         }
     }
 }

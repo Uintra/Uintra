@@ -4,8 +4,8 @@
     border-top:1px solid var(--color-light-gray);
 
     &__title{
-        font:bold 16px/23px var(--font-general);
-        margin:40px 0 38px;
+        font:20px/25px var(--font-general);
+        margin:40px 0 36px;
 
         .comments &{
             margin-top:0;
@@ -19,7 +19,7 @@
         position: relative;
 
         &._inner{
-            margin:22px 0 0 -14px;
+            margin:14px 0 0 -14px;
             padding:0 0 0 10px;
             border-left: 2px solid var(--color-light-gray-2);
         }
@@ -46,8 +46,7 @@
         }
         &-text{
             position:relative;
-            padding-bottom:27px;
-            line-height:1.4em;
+            padding-bottom:10px;
 
             p{
                 margin:0;
@@ -95,6 +94,7 @@
         &-name{
             font-weight: bold;
             font-family:var(--font-general);
+            color:var(--text-color-dark);
         }
             
         &-about{
@@ -138,7 +138,7 @@
 
         &:before {
             position:absolute;
-            top:6px;
+            top:5px;
             right:15px;
             width:7px;
             height:7px;
@@ -245,7 +245,9 @@
         color: var(--text-color-dark);
         text-decoration: underline;
         cursor: pointer;
+        float:left;
         font-size: 12px;
+        margin:0 13px 0 7px;
 
         &:active,
         &:focus,

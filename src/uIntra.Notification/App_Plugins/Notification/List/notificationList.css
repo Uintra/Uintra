@@ -1,4 +1,15 @@
-﻿.notification{
+﻿.notification-page{
+    background:var(--color-white);
+    box-shadow:0 0 2px rgba(0,0,0,0.2);
+    padding:36px 19px 0;
+
+    &__title{
+        font:27px/27px var(--font-general);
+        margin:0;
+        color:#262626;
+    }
+}
+.notification{
     position:relative;
 
     /* Notification popup styles */
@@ -242,10 +253,10 @@
             min-width:60px;
             max-width:60px;
             height:60px;
-            border:1px solid var(--color-light-gray);
             margin:7px 50px 0 0;
             position:relative;
             overflow:hidden;
+            border-radius:50%;
 
 	        .notification & {
 		        margin: 3px 20px 0 0;

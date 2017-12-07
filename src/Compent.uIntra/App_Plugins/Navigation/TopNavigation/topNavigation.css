@@ -178,7 +178,7 @@
     border:1px solid var(--color-light-gray-3);
     border-top:none;
     position:fixed !important;
-    top:46px !important;
+    top:55px !important;
 
     @media (--for-tablet-portrait-down){
         top:58px !important; 
@@ -394,7 +394,7 @@
     &__menu{
         position:absolute;
         top:100%;
-        right:-7px;
+        right:-20px;
         background:var(--color-white);
         margin:0;
         padding:0;

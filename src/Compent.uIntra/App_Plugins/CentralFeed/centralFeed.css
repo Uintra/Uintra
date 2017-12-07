@@ -64,7 +64,7 @@
     }
 
     &__header{
-        padding:0 20px 0 0;
+        padding:0 0 5px;
     }
 
     &__item{
@@ -75,6 +75,11 @@
         position:relative;
         background:var(--color-white);
         box-shadow:0 0 2px rgba(0,0,0,0.2);
+
+        .content:not(._central-feed) &{
+            background:none;
+            box-shadow:none;
+        }
 
         &._pinned:not(._pinnedExpired) {
 		    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0.6) 100%);
@@ -109,7 +114,7 @@
             }
 
             ._details &{
-                margin:0 0 22px;
+                margin:0 0 25px;
             }
         }
 
@@ -146,12 +151,11 @@
             }
 
             a{
-                &:hover{
-                    text-decoration:none;
+                color:#555;
 
-                    > span{
-                        text-decoration:underline;
-                    }
+                &:hover{
+                    color:#5776f9;
+                    text-decoration:underline;
                 }
             }
         }
@@ -185,6 +189,10 @@
 
             p{
                 margin:0;
+
+                ._details &{
+                    margin:0 0 12px;
+                }
             }
 
             b,
@@ -221,9 +229,32 @@
             img{
                 margin:0 4px;
             }
+
+            ul{
+                margin:0;
+                padding:0 0 13px 8px;
+                list-style:none;
+
+                li{
+                      margin:0 0 6px;
+
+                      &:before{
+                        width:6px;
+                        height:6px;
+                        background:#c9c6d0;
+                        border-radius:50%;
+                        display:inline-block;
+                        vertical-align:top;
+                        margin:8px 13px 0 0;
+                        content:'';
+                    }
+                }
+            }
         }
 
         &-images{
+            margin:0 0 49px;
+
             &-list{
                 margin:0 0 10px -26px;
                 padding:0;
@@ -285,7 +316,7 @@
             margin: 0;
 
             ._details &{
-                margin:0 0 25px;
+                margin:0 0 20px;
             }
 
             &-holder{
@@ -308,7 +339,7 @@
 
         &._details{
             position:relative;
-            padding-top:25px;
+            padding:0;
         }
 
         ._details &-label{
@@ -318,7 +349,9 @@
         }
 
         ._details &-title{
-            margin: 0 0 19px;
+            margin: 0 0 15px;
+            font-size:25px;
+            line-height:27px;
 
             &-holder{
                 align-self:center;
@@ -370,8 +403,8 @@
         }
         
         &-subtitle{
-            font:bold 16px/23px var(--font-general);
-            margin:0 0 11px;
+            font:18px/22px var(--font-general);
+            margin:0 0 24px;
         }
 
         &-address{

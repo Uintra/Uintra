@@ -6,6 +6,10 @@
     flex-wrap:wrap;
     align-items: stretch;
 
+    ._details &{
+        margin-bottom:36px;
+    }
+
     &__item{
         padding:0;
         position:relative;
@@ -94,10 +98,11 @@
     padding:0;
     list-style:none;
     font-size:13px;
+    max-width:50%;
 
     &__item{
         border-bottom:1px solid var(--color-light-gray);
-        padding:5px 0;
+        padding:10px 0;
 
         &:first-child{
             border-top:1px solid var(--color-light-gray);
@@ -118,12 +123,12 @@
     &__icon{
         display:inline-block !important;
         vertical-align:top;
-        margin:0 10px 0 0;
+        margin:0 16px 0 0;
     }
 
     &__title{
         display:inline-block;
         vertical-align:top;
-        padding:10px 0 0;
+        padding:2px 0 0;
     }
 }

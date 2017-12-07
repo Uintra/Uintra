@@ -1,7 +1,7 @@
 ﻿.tabset {
     position:fixed;
-    padding:0 52px 0 480px;
-    top:50px;
+    padding:0 52px 0 488px;
+    top:70px;
     left:0;
     right:0;
     font-size:13px;
@@ -38,7 +38,8 @@
         flex-grow:1;
 
         ._with-sub-nav &{
-            padding:25px 0 0;
+            padding:16px 0 0;
+            margin:0 0 -4px;
         }
 
         ._with-sub-nav .content &{
@@ -91,10 +92,12 @@
     }
 
     &__navigation{
-        margin:0 -20px 0 0;
-        padding:29px 52px 0 49px;
+        margin:0 -20px 16px 0;
+        padding:21px 52px 0 67px;
         list-style:none;
         position:relative;
+        font-size:20px;
+        line-height:22px;
 
         div.tabset &{
             padding-top:50px;
@@ -102,6 +105,7 @@
 
         &-item{
             float:left;
+            margin:0 27px 0 0;
 
             ._groups &._right,
             &._right{
@@ -116,27 +120,21 @@
 
         &-link{
             display:block;
-            padding:6px 18px 8px 17px;
-            color:#666;
+            padding:0;
+            color:#c9c6d0;
             cursor: pointer;
 
             ._groups ._active &,
             ._selected &{
-                color:#636363;
+                color:#261d43;
                 text-decoration:none;
                 cursor:default;
-                padding-right:19px;
-            }
-
-            ._active &{
-                font-weight:bold;
             }
 
             ._active:not(:first-child) > &{
-                color:#636363;
+                color:#261d43;
                 text-decoration:none;
                 cursor:default;
-                padding-right:19px;
                 font-weight:normal;
             }
 
@@ -148,7 +146,7 @@
             &:focus,
             &:active,
             &:hover {
-                color:#666;
+                color:#261d43;
                 text-decoration:none;
             }
 
@@ -230,7 +228,10 @@
 
         .tabset__inner & {
             padding-top:0;
-            margin:0 -52px 0 0;
+            margin:0 -52px 16px 0;
+            font-size:13px;
+            line-height:15px;
+            font-weight:bold;
 
             @media (--for-tablet-portrait-down){
                 &{
@@ -256,13 +257,6 @@
             }
 
             &-link{
-                padding-top:10px;
-
-                @media (--for-tablet-portrait-down){
-                    & {
-                        padding-top: 14px;
-                    }
-                }
 
                 ._selected > &{
                     font-weight:bold;
@@ -273,7 +267,7 @@
                 &:active,
                 &:hover{
                     cursor:pointer;
-                    text-decoration:underline;
+                    text-decoration:none;
                 }
             }
         }
@@ -464,6 +458,8 @@
     list-style:none;
     position:relative;
     z-index:999;
+    font-size:11px;
+    text-transform:uppercase;
 
     @media (--for-tablet-portrait-down){
         &{
@@ -492,14 +488,6 @@
             &:before{
                 content:"";
                 margin:0;
-            }
-        }
-
-        &:last-child{
-            color:var(--color-contrast);
-
-            &:before{
-                color:var(--text-color-dark);
             }
         }
     }

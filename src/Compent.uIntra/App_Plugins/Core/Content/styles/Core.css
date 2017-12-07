@@ -443,8 +443,10 @@ h5{
 }
 
 
-.content{
-    padding:0;
+.content:not(._central-feed) {
+    padding: 26px 21px 10px;
+    background: var(--color-white);
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
     .btn{
         @media (--for-tablet-portrait-down){
@@ -551,7 +553,7 @@ h5{
     vertical-align: top;
     font: 12px/17px var(--font-custom);
     height:30px;
-    margin: 0;
+    margin: 0 6px 0 0;
     max-width: 100%;
     overflow: hidden;
     padding: 7px 14px 6px;
@@ -575,6 +577,18 @@ h5{
         cursor:default;
         pointer-events:none;
     }
+
+    &._submit{
+        background:#261d43;
+        border-color:#261d43;
+        color:var(--color-white);
+
+        &:hover{
+            background-color:#5c5672;
+            color:var(--color-white);
+            border-color:#5c5672;
+        }
+    }
 }
 
 .link{
@@ -585,6 +599,7 @@ h5{
         padding:0 0 0 15px;
         margin:0;
         font:13px/20px var(--font-custom);
+        text-transform:uppercase;
 
         &:before{
             position:absolute;
@@ -680,6 +695,10 @@ h5{
         margin: 0 10px 0 0;
         vertical-align:middle;
     }
+
+    ._details &{
+        margin-bottom:0;
+    }
 }
 
 .ellipsis{
@@ -704,23 +723,27 @@ h5{
 /*pin-info*/
 .pin-info {
 	&__box {
-		margin: 10px 0;
-		padding: 20px;
-		border: 1px solid #ccc;
+		padding: 10px 39px;
 	}
 
 	&__text {
 		display: block;
 		margin: 0 0 10px;
+        line-height:22px;
 	}
 
 	&__holder {
 		position: relative;
+        padding:0 0 0 39px;
 	}
 
 	.icon-close {
 		display:none;
 	}
+
+    .form__input{
+        max-width:50%;
+    }
 }
 /*end pin-info*/
 

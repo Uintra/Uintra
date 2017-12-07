@@ -155,12 +155,16 @@
 
 			&._send {
 				color: var(--color-white);
-				background-color: var(--color-black);
-				border: 1px solid var(--color-black) !important;
+				background-color: #261d43;
+				border: 1px solid #261d43 !important;
                 border-radius:20px;
+                padding-left:14px;
+                padding-right:14px;
 
 				&:hover {
-					color: var(--color-white);
+					background-color:#5c5672;
+                    color:var(--color-white);
+                    border-color:#5c5672 !important;
 				}
 
 				&:disabled {

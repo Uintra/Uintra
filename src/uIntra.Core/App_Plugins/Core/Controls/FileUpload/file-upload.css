@@ -5,10 +5,10 @@
 }
 
 .file-extension{
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 19px;
     display: block;
-    background-size: cover;
+    background-size: 100%;
     background-image: url(./images/file-type-icons/doc.svg);
 
     &._jpg,

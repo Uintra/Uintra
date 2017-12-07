@@ -16,7 +16,7 @@ module.exports = {
                         '--color-light-gray-3': '#c7c7c7',
                         '--color-light-gray-4': '#aaa',
                         '--text-color-light': '#8f8f8f',
-                        '--text-color-dark': '#333',
+                        '--text-color-dark': '#555',
                         '--color-submit': '#003693',
                         '--color-submit-hover': '#1f4a93',
                         '--header-bg': '#5776f9',
