@@ -1686,6 +1686,10 @@
   <ItemGroup>
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="config\imageprocessor\processing.config.install.xdt" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

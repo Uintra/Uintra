@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
+using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -17,11 +18,13 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IActivityLinkService _linkService;
+        private readonly ImageHelper _imageHelper;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, ImageHelper imageHelper)
         {
             _umbracoHelper = umbracoHelper;
             _linkService = linkService;
+            _imageHelper = imageHelper;
         }
 
         public virtual ActionResult RenderGallery(string mediaIds)
@@ -56,7 +59,7 @@ namespace uIntra.Core.Controls.LightboxGallery
             }
 
             var ids = mediaIds.ToIntCollection();
-            var medias = _umbracoHelper.TypedMedia(ids).ToList();            
+            var medias = _umbracoHelper.TypedMedia(ids).ToList();
             result.GalleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type.Id);
 
             return result;
@@ -77,10 +80,13 @@ namespace uIntra.Core.Controls.LightboxGallery
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
-                result.PreviewUrl = media.GetCropUrl(UmbracoAliases.GalleryPreviewImageCrop);
+                result.PreviewUrl = _imageHelper.ToThumbnailImage(media.Url);
             }
             return result;
         }
+
+
+
 
         protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
         {
