@@ -1,4 +1,4 @@
-﻿namespace uIntra.Notification.Core.Services
+﻿namespace uIntra.Notification
 {
     public interface INotificationSettingsService
     {

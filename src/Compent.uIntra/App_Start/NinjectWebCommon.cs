@@ -88,7 +88,6 @@ using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using uIntra.Core.Attributes;
-using uIntra.Notification.Core.Services;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
 using uIntra.Navigation.EqualityComparers;
 using uIntra.Core.Utils;
