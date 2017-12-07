@@ -1,13 +1,10 @@
 ﻿using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
 using uIntra.Notification.Core;
 
 namespace uIntra.Notification.Configuration
 {
-    public class 
-        BackofficeNotificationSettingsProvider :
-        IBackofficeNotificationSettingsProvider<EmailNotifierTemplate>,
-        IBackofficeNotificationSettingsProvider<UiNotifierTemplate>
+    public class
+        BackofficeNotificationSettingsProvider : IBackofficeNotificationSettingsProvider
     {
         private readonly IBackofficeSettingsReader _backofficeSettingsReader;
         private readonly INotifierTypeProvider _notifierTypeProvider;
@@ -18,21 +15,9 @@ namespace uIntra.Notification.Configuration
             _notifierTypeProvider = notifierTypeProvider;
         }
 
-        NotificationSettingDefaults<EmailNotifierTemplate> IBackofficeNotificationSettingsProvider<EmailNotifierTemplate>.GetSettings(ActivityEventIdentity activityEvent)
+        public NotificationSettingDefaults<T> Get<T>(ActivityEventNotifierIdentity identity) where T : INotifierTemplate
         {
-            return GetTemplate<EmailNotifierTemplate>(activityEvent, _notifierTypeProvider.Get((int)NotifierTypeEnum.EmailNotifier));
-        }
-
-        NotificationSettingDefaults<UiNotifierTemplate> IBackofficeNotificationSettingsProvider<UiNotifierTemplate>.GetSettings(ActivityEventIdentity activityEvent)
-        {
-            return GetTemplate<UiNotifierTemplate>(activityEvent, _notifierTypeProvider.Get((int)NotifierTypeEnum.UiNotifier));
-        }
-
-        private NotificationSettingDefaults<T> GetTemplate<T>(ActivityEventIdentity activityEvent, IIntranetType notifier)
-            where T : INotifierTemplate
-        {
-            var notificationType = activityEvent.AddNotifierIdentity(notifier);
-            var result = _backofficeSettingsReader.ReadSettings(notificationType).Deserialize<NotificationSettingDefaults<T>>();
+            var result = _backofficeSettingsReader.ReadSettings(identity).Deserialize<NotificationSettingDefaults<T>>();
             return result;
         }
     }

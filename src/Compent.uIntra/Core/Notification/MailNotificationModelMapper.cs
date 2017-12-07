@@ -4,7 +4,6 @@ using uIntra.Core.Extensions;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
-using uIntra.Notification.Core.Services;
 using static uIntra.Notification.Constants.TokensConstants;
 
 namespace Compent.uIntra.Core.Notification
