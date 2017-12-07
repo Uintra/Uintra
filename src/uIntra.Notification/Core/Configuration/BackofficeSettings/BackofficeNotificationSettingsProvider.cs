@@ -1,8 +1,7 @@
 ﻿namespace uIntra.Notification.Configuration
 {
-    public interface IBackofficeNotificationSettingsProvider<T>
-        where T : INotifierTemplate
+    public interface IBackofficeNotificationSettingsProvider 
     {
-        NotificationSettingDefaults<T> GetSettings(ActivityEventIdentity activityEvent);
+        NotificationSettingDefaults<T> Get<T>(ActivityEventNotifierIdentity identity) where T : INotifierTemplate;
     }
 }

@@ -6,7 +6,6 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extensions;
-using uIntra.Core.Installer;
 using uIntra.Core.Localization;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
@@ -92,7 +91,7 @@ namespace uIntra.Notification.Installer.Migrations
 
         private NotifierSettingModel<EmailNotifierTemplate> GetEmailNotifierSettings(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
         {
-            return _notificationSettingsService.GetEmailNotifierSettings(GetActivityEventNotifierIdentity(NotifierTypeEnum.EmailNotifier, activityType, notificationType));
+            return _notificationSettingsService.Get<EmailNotifierTemplate>(GetActivityEventNotifierIdentity(NotifierTypeEnum.EmailNotifier, activityType, notificationType));
         }
 
         private void ImportSettingsFromMailTemplates(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
@@ -119,7 +118,7 @@ namespace uIntra.Notification.Installer.Migrations
                 notifierSettings.Template.Subject = mailBody;
             }
 
-            _notificationSettingsService.SaveEmailNotifierSettings(notifierSettings);
+            _notificationSettingsService.Save(notifierSettings);
         }
 
         private void ImportExistedUiNotificationSettings()
@@ -155,12 +154,12 @@ namespace uIntra.Notification.Installer.Migrations
                 notifierSettings.Template.Message = uiNotificationMessage;
             }
 
-            _notificationSettingsService.SaveUiNotifierSettings(notifierSettings);
+            _notificationSettingsService.Save(notifierSettings);
         }
 
         private NotifierSettingModel<UiNotifierTemplate> GetUiNotifierSettings(IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
         {
-            return _notificationSettingsService.GetUiNotifierSettings(GetActivityEventNotifierIdentity(NotifierTypeEnum.UiNotifier, activityType, notificationType));
+            return _notificationSettingsService.Get<UiNotifierTemplate>(GetActivityEventNotifierIdentity(NotifierTypeEnum.UiNotifier, activityType, notificationType));
         }
 
         private string GetUiNotificationMessage(NotificationTypeEnum notificationType)

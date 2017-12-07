@@ -41,7 +41,7 @@ namespace Compent.uIntra.Core.Notification
             var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType)
                 .AddNotifierIdentity(_notifierTypeProvider.Get((int)Type));
 
-            var settings = _notificationSettingsService.GetUiNotifierSettings(identity);
+            var settings = _notificationSettingsService.Get<UiNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds);
 

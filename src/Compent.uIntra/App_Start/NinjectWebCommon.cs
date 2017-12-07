@@ -314,7 +314,7 @@ namespace Compent.uIntra
             kernel.Bind<INotificationModelMapper<EmailNotifierTemplate,EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
-            kernel.Bind(typeof(IBackofficeNotificationSettingsProvider<>)).To<BackofficeNotificationSettingsProvider>();            
+            kernel.Bind(typeof(IBackofficeNotificationSettingsProvider)).To<BackofficeNotificationSettingsProvider>();            
 
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
@@ -364,6 +364,7 @@ namespace Compent.uIntra
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
         {
+
             kernel.Bind(typeof(IDbContextFactory<DbObjectContext>)).To<DbContextFactory>().WithConstructorArgument(typeof(string), "umbracoDbDSN");
             kernel.Bind<DbContext>().ToMethod(c => kernel.Get<IDbContextFactory<DbObjectContext>>().Create()).InRequestScope();
             kernel.Bind<IntranetDbContext>().To<DbObjectContext>();

@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using Compent.uIntra.Core.Notification.Mails;
-using uIntra.Core.Localization;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -38,7 +36,7 @@ namespace Compent.uIntra.Core.Notification
         {
             var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType)
                 .AddNotifierIdentity(_notifierTypeProvider.Get((int) Type));
-            var settings = _notificationSettingsService.GetEmailNotifierSettings(identity);
+            var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();
             foreach (var receiverId in data.ReceiverIds)

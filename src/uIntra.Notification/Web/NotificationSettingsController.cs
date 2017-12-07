@@ -27,21 +27,21 @@ namespace uIntra.Notification.Web
         public virtual NotifierSettingsModel Get(int activityType, int notificationType)
         {
             var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider.Get(activityType), _notificationTypeProvider.Get(notificationType));
-            return _notificationSettingsService.GetAll(activityEventIdentity);
+            return _notificationSettingsService.GetSettings(activityEventIdentity);
         }
 
         [HttpPost]
         public virtual void SaveUiNotifierSetting(NotifierSettingSaveModel<UiNotifierTemplate> notifierSettingModel)
         {
             var mappedModel = notifierSettingModel.Map<NotifierSettingModel<UiNotifierTemplate>>();
-            _notificationSettingsService.SaveUiNotifierSettings(mappedModel);
+            _notificationSettingsService.Save(mappedModel);
         }
 
         [HttpPost]
         public virtual void SaveEmailNotifierSetting(NotifierSettingSaveModel<EmailNotifierTemplate> notifierSettingModel)
         {
             var mappedModel = notifierSettingModel.Map<NotifierSettingModel<EmailNotifierTemplate>>();
-            _notificationSettingsService.SaveEmailNotifierSettings(mappedModel);
+            _notificationSettingsService.Save(mappedModel);
         }
     }
 }
