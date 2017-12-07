@@ -6,7 +6,6 @@ using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extensions;
-using uIntra.Core.Installer;
 using uIntra.Core.Localization;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
@@ -116,7 +115,7 @@ namespace uIntra.Notification.Installer.Migrations
             var mailBody = mailTemplate.GetPropertyValue<string>("body");
             if (mailBody.IsNotNullOrEmpty())
             {
-                notifierSettings.Template.Subject = mailBody;
+                notifierSettings.Template.Body = mailBody;
             }
 
             _notificationSettingsService.SaveEmailNotifierSettings(notifierSettings);
