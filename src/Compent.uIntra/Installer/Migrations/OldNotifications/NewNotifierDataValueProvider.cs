@@ -25,13 +25,34 @@ namespace Compent.uIntra.Installer.Migrations
 
             switch (notificationType.Id)
             {
+                case (int) NotificationTypeEnum.ActivityLikeAdded:
+                {
+                     result =  _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, oldData.NotifierId);
+                     break;
+                }
                 case (int)NotificationTypeEnum.CommentAdded:
                 case (int)NotificationTypeEnum.CommentReplied:
-                {
+                case (int)NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                    {
                     var commentId = ParseCommentId(oldData.Url);
                     var comment = _commentsService.Get(commentId);
                     result = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, oldData.NotifierId);
                     break;
+                }
+
+                case (int) NotificationTypeEnum.BeforeStart:
+                {
+                    result = _notifierDataHelper.GetActivityReminderDataModel(activity, notificationType);
+                    break;
+                }
+
+                case (int) NotificationTypeEnum.EventHided:
+                case (int) NotificationTypeEnum.EventUpdated:
+                {
+
+                        result = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, oldData.NotifierId);
+                        break;
                 }
 
                 default:

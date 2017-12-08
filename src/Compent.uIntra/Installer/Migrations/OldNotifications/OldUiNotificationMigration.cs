@@ -20,7 +20,12 @@ namespace Compent.uIntra.Installer.Migrations
         private readonly NewNotifierDataValueProvider _newNotifierDataValueProvider;
         private readonly NewNotificationMessageService _newNotificationMessageService;
 
-        public OldUiNotificationMigration(INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper, ISqlRepository<Notification> notificationRepository, INotifierDataHelper notifierDataHelper, IActivitiesServiceFactory activitiesServiceFactory, INotificationTypeProvider notificationTypeProvider, IIntranetUserService<IIntranetUser> intranetUserService, INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper1, INotificationSettingsService notificationSettingsService, INotifierTypeProvider notifierTypeProvider, NewNotifierDataValueProvider newNotifierDataValueProvider, NewNotificationMessageService newNotificationMessageService)
+        public OldUiNotificationMigration(
+            ISqlRepository<Notification> notificationRepository,
+            IActivitiesServiceFactory activitiesServiceFactory,
+            INotificationTypeProvider notificationTypeProvider,
+            NewNotifierDataValueProvider newNotifierDataValueProvider,
+            NewNotificationMessageService newNotificationMessageService)
         {
             _notificationRepository = notificationRepository;
             _activitiesServiceFactory = activitiesServiceFactory;
@@ -29,8 +34,7 @@ namespace Compent.uIntra.Installer.Migrations
             _newNotificationMessageService = newNotificationMessageService;
         }
 
-        private T GetService<T>() => DependencyResolver.Current.GetService<T>();
-        
+
         public void Execute()
         {
             var allNotifications = _notificationRepository.GetAll();
@@ -42,18 +46,37 @@ namespace Compent.uIntra.Installer.Migrations
                 .Where(n => IsOldNotifierData(n.data))
                 .ToList();
 
-            var updatedNotifications = oldNotifications
+            var parsedNotifications = oldNotifications
                 .Select(UpdateNotificationValue)
-                .ToList();
+                .ToLookup(n => n.isValid);
 
-           // _notificationRepository.Update(updatedNotifications);
+            var invalidNotifications = parsedNotifications[false].Select(UnpackNotification); 
+            var updatedNotifications = parsedNotifications[true].Select(UnpackNotification); // notifications to activities that do not exist
+
+            Notification UnpackNotification((bool isValid, Notification notification) arg) => arg.notification;
+
+            _notificationRepository.Update(updatedNotifications);
+            _notificationRepository.Delete(invalidNotifications); // we delete notifications that could not be migrated for some reason
         }
 
-        private Notification UpdateNotificationValue((Notification item, OldNotifierData data) notification)
+        private (bool isValid, Notification notification) UpdateNotificationValue((Notification notification, OldNotifierData data) item)
         {
-            var item = notification.item;
-            item.Value = MapToNewNotificationValue(notification).ToJson();
-            return item;
+            var notification = item.notification;
+
+            NotificationValue newValue;
+            try
+            {
+                newValue = MapToNewNotificationValue(item);
+                if (newValue == null)
+                    throw new NullReferenceException();
+            }
+            catch (Exception e)
+            {
+                return (isValid: false, notification);
+            }
+
+            notification.Value = newValue.ToJson();
+            return (isValid: true, notification);
         }
 
         private NotificationValue MapToNewNotificationValue((Notification item, OldNotifierData data) notification)
@@ -64,12 +87,11 @@ namespace Compent.uIntra.Installer.Migrations
                 _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(notification.data.ActivityType.Id);
 
             var activity = activityService.Get(activityId);
-            if (activity == null) return null;
 
             var notificationType = _notificationTypeProvider.Get(notification.item.Type);
 
-            INotifierDataValue newValue = _newNotifierDataValueProvider.GetNotifierDataValue(notification.data, activity, notificationType);
-            UiNotificationMessage message = _newNotificationMessageService.GetUiNotificationMessage(notification.item.ReceiverId, notification.data.ActivityType, notificationType, newValue);
+            var newValue = _newNotifierDataValueProvider.GetNotifierDataValue(notification.data, activity, notificationType);
+            var message = _newNotificationMessageService.GetUiNotificationMessage(notification.item.ReceiverId, notification.data.ActivityType, notificationType, newValue);
 
             return new NotificationValue
             {
@@ -78,12 +100,11 @@ namespace Compent.uIntra.Installer.Migrations
             };
         }
 
-
         private Guid ParseActivityId(string url) => url.ParseIdFromQueryString("id=");
 
         private bool IsOldNotifierData(OldNotifierData data)
         {
-            return data.Title.IsNotNullOrEmpty() && data.ActivityType != null;
+            return data != null && data.Title.IsNotNullOrEmpty() && data.ActivityType != null;
         }
     }
 }

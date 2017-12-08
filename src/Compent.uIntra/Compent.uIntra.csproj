@@ -1354,7 +1354,11 @@
     </Compile>
     <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
-    <Compile Include="Installer\Migrations\OldUiNotificationMigration.cs" />
+    <Compile Include="Installer\Migrations\OldNotifications\Helpers.cs" />
+    <Compile Include="Installer\Migrations\OldNotifications\NewNotificationMessageService.cs" />
+    <Compile Include="Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs" />
+    <Compile Include="Installer\Migrations\OldNotifications\OldNotifierData.cs" />
+    <Compile Include="Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>

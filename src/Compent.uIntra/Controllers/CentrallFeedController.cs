@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Compent.uIntra.Core.Activity;
 using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
@@ -49,6 +50,10 @@ namespace Compent.uIntra.Controllers
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
             _feedActivityHelper = feedActivityHelper;
+
+            
+            var migration = DependencyResolver.Current.GetService<global::Compent.uIntra.Installer.Migrations.OldUiNotificationMigration>();
+            migration.Execute();
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
