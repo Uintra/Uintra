@@ -344,6 +344,9 @@
     <Reference Include="uIntra.News, Version=1.3.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.5\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
+    <Reference Include="uIntra.Notification, Version=1.3.3.17, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.3.17\lib\net452\uIntra.Notification.dll</HintPath>
+    </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>

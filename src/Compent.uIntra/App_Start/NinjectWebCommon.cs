@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -6,7 +7,6 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Collections.Generic;
 using Compent.uIntra;
 using Compent.uIntra.Core;
 using Compent.uIntra.Core.Activity;
@@ -48,6 +48,7 @@ using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Attributes;
 using uIntra.Core.BrowserCompatibility;
 using uIntra.Core.Caching;
 using uIntra.Core.Configuration;
@@ -64,6 +65,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
+using uIntra.Core.Utils;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.LicenceService.ApiClient;
@@ -72,11 +74,15 @@ using uIntra.Likes;
 using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
 using uIntra.Navigation.Dashboard;
+using uIntra.Navigation.EqualityComparers;
 using uIntra.Navigation.MyLinks;
 using uIntra.Navigation.SystemLinks;
 using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
+using uIntra.Notification.Core;
+using uIntra.Notification.Core.Services;
+using uIntra.Notification.DefaultImplementation;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
@@ -87,13 +93,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using uIntra.Core.Attributes;
-using uIntra.Notification.Core.Services;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
-using uIntra.Navigation.EqualityComparers;
-using uIntra.Core.Utils;
-using uIntra.Notification.Core;
-using uIntra.Notification.DefaultImplementation;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -110,6 +110,9 @@ namespace Compent.uIntra
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbObjectContext, Persistence.Sql.Migrations.Configuration>());
+
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             GlobalConfiguration.Configure((config) =>
             {
