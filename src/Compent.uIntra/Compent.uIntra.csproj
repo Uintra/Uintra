@@ -768,6 +768,8 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
+    <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js" />
+    <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.html" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
