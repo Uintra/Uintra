@@ -1,7 +1,7 @@
 using System;
 using uIntra.Core.TypeProviders;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.uIntra.Core.Migration
 {
     internal class OldNotifierData
     {

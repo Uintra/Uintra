@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Mvc;
-using Compent.uIntra.Core.Helpers;
-using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
-using uIntra.Core.User;
 using uIntra.Notification;
-using uIntra.Notification.Base;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.uIntra.Core.Migration
 {
     public class OldUiNotificationMigration
     {
-        private readonly ISqlRepository<Notification> _notificationRepository;
+        private readonly ISqlRepository<global::uIntra.Notification.Notification> _notificationRepository;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly NewNotifierDataValueProvider _newNotifierDataValueProvider;
         private readonly NewNotificationMessageService _newNotificationMessageService;
 
         public OldUiNotificationMigration(
-            ISqlRepository<Notification> notificationRepository,
+            ISqlRepository<global::uIntra.Notification.Notification> notificationRepository,
             IActivitiesServiceFactory activitiesServiceFactory,
             INotificationTypeProvider notificationTypeProvider,
             NewNotifierDataValueProvider newNotifierDataValueProvider,
@@ -53,13 +48,13 @@ namespace Compent.uIntra.Installer.Migrations
             var invalidNotifications = parsedNotifications[false].Select(UnpackNotification); 
             var updatedNotifications = parsedNotifications[true].Select(UnpackNotification); // notifications to activities that do not exist
 
-            Notification UnpackNotification((bool isValid, Notification notification) arg) => arg.notification;
+            global::uIntra.Notification.Notification UnpackNotification((bool isValid, global::uIntra.Notification.Notification notification) arg) => arg.notification;
 
             _notificationRepository.Update(updatedNotifications);
             _notificationRepository.Delete(invalidNotifications); // we delete notifications that could not be migrated for some reason
         }
 
-        private (bool isValid, Notification notification) UpdateNotificationValue((Notification notification, OldNotifierData data) item)
+        private (bool isValid, global::uIntra.Notification.Notification notification) UpdateNotificationValue((global::uIntra.Notification.Notification notification, OldNotifierData data) item)
         {
             var notification = item.notification;
 
@@ -79,7 +74,7 @@ namespace Compent.uIntra.Installer.Migrations
             return (isValid: true, notification);
         }
 
-        private NotificationValue MapToNewNotificationValue((Notification item, OldNotifierData data) notification)
+        private NotificationValue MapToNewNotificationValue((global::uIntra.Notification.Notification item, OldNotifierData data) notification)
         {
             Guid activityId = ParseActivityId(notification.data.Url);
 
