@@ -3,7 +3,6 @@ using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Services;
 using uIntra.Notification.DefaultImplementation;
 
 namespace Compent.uIntra.Core.Notification

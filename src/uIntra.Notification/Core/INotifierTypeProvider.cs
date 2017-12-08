@@ -1,6 +1,6 @@
 ﻿using uIntra.Core.TypeProviders;
 
-namespace uIntra.Notification.Core
+namespace uIntra.Notification
 {
     public interface INotifierTypeProvider : IIntranetTypeProvider
     {

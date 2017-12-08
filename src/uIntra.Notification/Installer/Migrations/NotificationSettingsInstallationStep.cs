@@ -11,7 +11,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Constants;
 using uIntra.Notification.Core;
-using uIntra.Notification.Core.Services;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;

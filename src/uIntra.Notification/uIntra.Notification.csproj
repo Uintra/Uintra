@@ -333,6 +333,7 @@
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\INotifierTypeProvider.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
+    <Compile Include="Core\Models\ActivityEventIdentityExtensions.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
     <Compile Include="Core\Models\Configuration\NotificationSettingDefaults.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
