@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Migration;
 using Newtonsoft.Json;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -29,7 +30,7 @@ namespace Compent.uIntra.Core.News.Entities
 
         public News()
         {
-            var migration = DependencyResolver.Current.GetService<global::Compent.uIntra.Installer.Migrations.OldUiNotificationMigration>();
+            var migration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
             migration.Execute();
         }
     }

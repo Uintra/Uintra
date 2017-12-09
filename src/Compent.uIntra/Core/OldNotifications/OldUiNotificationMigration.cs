@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Compent.uIntra.Installer.Migrations;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;

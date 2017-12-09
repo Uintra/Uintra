@@ -1,5 +1,6 @@
 using System;
 using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Installer.Migrations;
 using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;

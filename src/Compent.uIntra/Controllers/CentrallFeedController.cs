@@ -49,11 +49,7 @@ namespace Compent.uIntra.Controllers
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
-            _feedActivityHelper = feedActivityHelper;
-
-            
-            var migration = DependencyResolver.Current.GetService<global::Compent.uIntra.Installer.Migrations.OldUiNotificationMigration>();
-            migration.Execute();
+            _feedActivityHelper = feedActivityHelper;           
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
