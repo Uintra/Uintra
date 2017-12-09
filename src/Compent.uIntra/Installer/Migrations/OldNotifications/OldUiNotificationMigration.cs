@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Compent.uIntra.Installer.Migrations;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Notification;
 
-namespace Compent.uIntra.Core.Migration
+namespace Compent.uIntra.Installer.Migrations
 {
     public class OldUiNotificationMigration
     {

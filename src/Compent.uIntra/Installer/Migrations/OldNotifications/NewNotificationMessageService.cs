@@ -6,7 +6,7 @@ using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 
-namespace Compent.uIntra.Core.Migration
+namespace Compent.uIntra.Installer.Migrations
 {
     public class NewNotificationMessageService
     {
