@@ -321,8 +321,8 @@
     <Reference Include="uIntra.Comments, Version=1.1.9.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.9.8\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.4\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.4.5\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.0.5\lib\net452\uIntra.Events.dll</HintPath>
@@ -1486,7 +1486,9 @@
     <Content Include="..\Compent.uIntra\Views\Events\CreateView.cshtml">
       <Link>Views\Events\CreateView.cshtml</Link>
     </Content>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
