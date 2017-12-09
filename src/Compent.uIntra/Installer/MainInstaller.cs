@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
+using Compent.uIntra.Installer.Migrations;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
@@ -68,6 +69,9 @@ namespace Compent.uIntra.Installer
             {
                 var notificationSettingsMigrations = new NotificationSettingsMigrations();
                 notificationSettingsMigrations.Execute();
+
+                var uiNotificationMigration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
+                uiNotificationMigration.Execute();
             }
 
             if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
