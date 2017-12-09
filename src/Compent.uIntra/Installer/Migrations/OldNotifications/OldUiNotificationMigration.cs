@@ -32,23 +32,17 @@ namespace Compent.uIntra.Installer.Migrations
 
         public void Execute()
         {
-            var allNotifications = _notificationRepository.GetAll();
-
-            var mappedNotifications =
-                allNotifications.Select(n => (item: n, data: n.Value.Deserialize<OldNotifierData>()));
-
-            var oldNotifications = mappedNotifications
+            var parsedNotifications = _notificationRepository
+                .GetAll()
+                .Select(n => (item: n, data: n.Value.Deserialize<OldNotifierData>()))
                 .Where(n => IsOldNotifierData(n.data))
-                .ToList();
-
-            var parsedNotifications = oldNotifications
                 .Select(UpdateNotificationValue)
                 .ToLookup(n => n.isValid);
 
             var invalidNotifications = parsedNotifications[false].Select(UnpackNotification); 
             var updatedNotifications = parsedNotifications[true].Select(UnpackNotification); // notifications to activities that do not exist
 
-            global::uIntra.Notification.Notification UnpackNotification((bool isValid, global::uIntra.Notification.Notification notification) arg) => arg.notification;
+            Notification UnpackNotification((bool isValid, global::uIntra.Notification.Notification notification) arg) => arg.notification;
 
             _notificationRepository.Update(updatedNotifications);
             _notificationRepository.Delete(invalidNotifications); // we delete notifications that could not be migrated for some reason
@@ -65,7 +59,7 @@ namespace Compent.uIntra.Installer.Migrations
                 if (newValue == null)
                     throw new NullReferenceException();
             }
-            catch (Exception e)
+            catch (Exception) // something has gone wrong, so return notification and mark it as invalid
             {
                 return (isValid: false, notification);
             }
@@ -99,7 +93,7 @@ namespace Compent.uIntra.Installer.Migrations
 
         private bool IsOldNotifierData(OldNotifierData data)
         {
-            return data != null && data.Title.IsNotNullOrEmpty() && data.ActivityType != null;
+            return data?.ActivityType != null;
         }
     }
 }

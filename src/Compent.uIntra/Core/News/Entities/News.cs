@@ -27,11 +27,5 @@ namespace Compent.uIntra.Core.News.Entities
 
         [JsonIgnore]
         public bool IsReadOnly { get; set; }
-
-        public News()
-        {
-            var migration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
-            migration.Execute();
-        }
     }
 }
