@@ -1272,8 +1272,140 @@
     <Content Include="..\Compent.uIntra\Views\_ViewStart.cshtml">
       <Link>Views\_ViewStart.cshtml</Link>
     </Content>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\**\*">
-      <Link>Installer\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\bulletinsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\errorPageGrid.json">
+      <Link>Installer\ContentPageJsons\errorPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\eventsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsBulletinsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsBulletinsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsBulletinsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsBulletinsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsBulletinsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsBulletinsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsDeactivatedGroupPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsDeactivatedGroupPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsDocumentsPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsDocumentsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsEventsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsEventsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsEventsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsEventsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsMembersPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsMembersPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsNewsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsNewsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsNewsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsRoomPageGrid.json">
+      <Link>Installer\ContentPageJsons\groupsRoomPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\homePageGrid.json">
+      <Link>Installer\ContentPageJsons\homePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsCreatePageGrid.json">
+      <Link>Installer\ContentPageJsons\newsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsDetailsPageGrid.json">
+      <Link>Installer\ContentPageJsons\newsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\newsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsOverviewPageGrid.json">
+      <Link>Installer\ContentPageJsons\newsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\notificationPageGrid.json">
+      <Link>Installer\ContentPageJsons\notificationPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profileEditPageGrid.json">
+      <Link>Installer\ContentPageJsons\profileEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profilePageGrid.json">
+      <Link>Installer\ContentPageJsons\profilePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
+      <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\DefaultLocalizationsMigration.cs">
+      <Link>Installer\DefaultLocalizationsMigration.cs</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\MainInstaller.cs">
+      <Link>Installer\MainInstaller.cs</Link>
+    </EmbeddedResource>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\Helpers.cs">
+      <Link>Installer\Migrations\OldNotifications\Helpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\NewNotificationMessageService.cs">
+      <Link>Installer\Migrations\OldNotifications\NewNotificationMessageService.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs">
+      <Link>Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\OldNotifierData.cs">
+      <Link>Installer\Migrations\OldNotifications\OldNotifierData.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs">
+      <Link>Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
+      <Link>Installer\PreValues\DefaultLocalizations.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Installer\UmbracoContentMigration.cs">
+      <Link>Installer\UmbracoContentMigration.cs</Link>
     </EmbeddedResource>
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
