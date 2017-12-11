@@ -1159,6 +1159,7 @@
     <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsOverviewPageGrid.json" />
+    <None Include="Properties\PublishProfiles\QA.pubxml" />
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
