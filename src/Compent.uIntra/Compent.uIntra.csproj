@@ -1181,6 +1181,9 @@
     <None Include="Web.PublicNuget.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.QA.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
