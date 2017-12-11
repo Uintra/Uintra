@@ -414,11 +414,6 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-    <ItemGroup>
-    <Content Include="..\Compent.uIntra\App_Plugins\Navigation\**\*">
-      <Link>App_Plugins\Navigation\%(RecursiveDir)%(FileName)%(Extension)</Link>
-    </Content>
-  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -433,7 +428,13 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Navigation\**\*">
+      <Link>App_Plugins\Navigation\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

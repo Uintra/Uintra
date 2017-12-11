@@ -375,34 +375,9 @@
     <Compile Include="Core\Models\Feed\FeedItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\ActivityCreate\activity-create.html" />
-    <Content Include="App_Plugins\CentralFeed\ActivityDetails\activity-details.html" />
-    <Content Include="App_Plugins\CentralFeed\ActivityEdit\activity-edit.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-overlay.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\central-feed-view.html" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedController.js" />
-    <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
-    <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\loader.gif" />
-    <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
-    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitiesService.js" />
-    <Content Include="App_Plugins\LatestActivities\latestActivities.js" />
     <Content Include="Config\splashes\booting.aspx" />
     <Content Include="Config\splashes\noNodes.aspx" />
     <None Include="app.config" />
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <None Include="Installer\PreValues\ContentGridPreValues.json" />
     <None Include="Installer\PreValues\DefaultGridPreValues.json" />
     <None Include="Installer\PreValues\GridPageLayout.cshtml" />
@@ -426,6 +401,18 @@
   <ItemGroup>
     <Folder Include="Core\Service\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\CentralFeed\**\*">
+      <Link>App_Plugins\CentralFeed\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+    <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\LatestActivities\**\*">
+      <Link>App_Plugins\LatestActivities\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

@@ -298,30 +298,23 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  
   <ItemGroup>
-    <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
-    <Content Include="App_Plugins\Members\member-changes-watcher.html" />
-    <Content Include="App_Plugins\Members\member.service.js" />
-    <Content Include="App_Plugins\Members\package.manifest" />
-    <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
-    <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
-    <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Users\Login\login.css" />
-    <Content Include="App_Plugins\Users\Login\logo.png" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\profile.css" />
-    <Content Include="App_Plugins\Users\Profile\profile.html" />
-    <Content Include="App_Plugins\Users\Profile\profile.js" />
-    <Content Include="App_Plugins\Users\users.js" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Members\**\*">
+      <Link>App_Plugins\Members\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Plugins\Users\backoffice\" />
+    <Content Include="..\Compent.uIntra\App_Plugins\UserPicker\**\*">
+      <Link>App_Plugins\UserPicker\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Users\**\*">
+      <Link>App_Plugins\Users\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

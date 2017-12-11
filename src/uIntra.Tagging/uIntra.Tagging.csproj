@@ -333,15 +333,13 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="App_Plugins\Tagging\taggle.css" />
-    <Content Include="App_Plugins\Tagging\tags.css" />
-    <Content Include="App_Plugins\Tagging\tags.js" />
-    <Content Include="App_Plugins\Tagging\tagsEdit.js" />
-    <Content Include="App_Plugins\Tagging\tagsView.js" />
-    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Tagging\**\*">
+      <Link>App_Plugins\Tagging\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

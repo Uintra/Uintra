@@ -476,23 +476,13 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  
   <ItemGroup>
-    <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
-    <Content Include="App_Plugins\News\backoffice\news-management.css" />
-    <Content Include="App_Plugins\News\backoffice\news-management.html" />
-    <Content Include="App_Plugins\News\backoffice\news-management.js" />
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\News\Create\news-create.html" />
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\News\Details\news-details.html" />
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\News\Edit\news-edit.html" />
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\News\news.js" />
-    <Content Include="App_Plugins\News\package.manifest" />
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="..\Compent.uIntra\App_Plugins\News\**\*">
+      <Link>App_Plugins\News\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

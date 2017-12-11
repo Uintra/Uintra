@@ -313,25 +313,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management-factory.js" />
-    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.config.js" />
-    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.css" />
-    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.html" />
-    <Content Include="App_Plugins\Bulletins\backoffice\bulletins-management.js" />
-    <Content Include="App_Plugins\Bulletins\bulletins.js" />
-    <Content Include="App_Plugins\Bulletins\Create\bulletins-create.html" />
-    <Content Include="App_Plugins\Bulletins\Create\bulletins.create.js" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\bulletins-details.html" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
-    <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <Content Include="App_Plugins\Bulletins\style.css" />
     <Content Include="Config\applications.config.install.xdt" />
     <Content Include="Config\applications.config.uninstall.xdt" />
     <Content Include="Config\Dashboard.config.install.xdt" />
@@ -342,7 +323,6 @@
     <Content Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />
     <Content Include="Config\Lang\en-US.user.xml.install.xdt" />
     <Content Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
-    <None Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
     <None Include="packages.config" />
     <None Include="uIntra.Bulletins.nuspec" />
   </ItemGroup>
@@ -353,6 +333,13 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Bulletins\**\*">
+      <Link>App_Plugins\Bulletins\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>
