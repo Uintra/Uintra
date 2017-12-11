@@ -15,6 +15,17 @@ namespace uIntra.Core.Extensions
             return string.IsNullOrEmpty(str);
         }
 
+        public static string Take(this string str, int n)
+        {
+            var substring = Enumerable.Take(str, n).ToArray();
+            return new string(substring);
+        }
+
+        public static string SubstringAfter(this string str, string substring)
+        {
+            return str.Substring(str.IndexOf(substring) + substring.Length);
+        }
+
         public static bool IsNotNullOrEmpty(this string str)
         {
             return !str.IsNullOrEmpty();
@@ -131,5 +142,8 @@ namespace uIntra.Core.Extensions
             var lastIndex = str.Substring(0, maxLength).LastIndexOf(' ');
             return str.Substring(0, lastIndex).Trim();
         }
+
+        public static string SplitOnUpperCaseLetters(this string str) =>
+             str.IsNullOrEmpty() ? string.Empty : Regex.Split(str, @"(?<!^)(?=[A-Z])").JoinWithSeparator(" ");
     }
 }

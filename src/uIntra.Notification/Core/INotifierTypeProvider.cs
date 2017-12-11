@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using uIntra.Core.TypeProviders;
+﻿using uIntra.Core.TypeProviders;
 
-namespace uIntra.Notification.Core
+namespace uIntra.Notification
 {
     public interface INotifierTypeProvider : IIntranetTypeProvider
     {

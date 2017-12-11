@@ -37,6 +37,11 @@
             saveSettings(self.settings);
         }
 
+        self.splitOnUpperCaseCharacters = function (text) {
+            if (!text || text.length === 0) return '';
+            return text.split(/(?=[A-Z])/).join(' ');
+        }
+
         function initalize() {
             initLocationChangeStartEvent();
             initCurrentNodeHighlighting();

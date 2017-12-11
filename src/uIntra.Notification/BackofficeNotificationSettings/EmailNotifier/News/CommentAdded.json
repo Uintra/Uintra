@@ -1,7 +1,7 @@
 ﻿{
   "label": "This is an email notification that is sent to the creator of the news post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of news <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
-    "subject": "Default template subject",
-    "body": "Default template content, yeah. Have an awesome day!"
+    "subject": "News - comment added",
+    "body": "##FullName## has added a comment to your news post: ##ActivityTitle##"
   }
 }

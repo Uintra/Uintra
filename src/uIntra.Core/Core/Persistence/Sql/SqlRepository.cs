@@ -114,14 +114,13 @@ namespace uIntra.Core.Persistence
         public void Delete(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
             var deletingEntities = _dbSet.Where(predicate);
-            _dbSet.RemoveRange(deletingEntities);
-
-            Save();
+            Delete(deletingEntities);
         }
 
         public void Delete(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
+            Save();
         }
 
         public long Count(System.Linq.Expressions.Expression<Func<T, bool>> predicate)

@@ -3,10 +3,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
+using Compent.uIntra.Installer.Migrations;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
+using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
@@ -16,13 +19,12 @@ using uIntra.Groups.Installer;
 using uIntra.Navigation.Installer;
 using uIntra.News;
 using uIntra.News.Installer;
+using uIntra.Notification.Configuration;
+using uIntra.Notification.Installer.Migrations;
 using Umbraco.Core;
-using uIntra.Core;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using uIntra.Notification.Configuration;
-using uIntra.Core.Extensions;
-using Umbraco.Core.Models;
 
 namespace Compent.uIntra.Installer
 {
@@ -61,6 +63,15 @@ namespace Compent.uIntra.Installer
             if (installedVersion < AddingOwnerUIntraVersion && UIntraVersion >= AddingOwnerUIntraVersion)
             {
                 FixEmptyOwners();
+            }
+
+            if (installedVersion != new Version("0.0.0.0") && installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
+            {
+                var notificationSettingsMigrations = new NotificationSettingsMigrations();
+                notificationSettingsMigrations.Execute();
+
+                var uiNotificationMigration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
+                uiNotificationMigration.Execute();
             }
 
             if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
@@ -112,23 +123,26 @@ namespace Compent.uIntra.Installer
             var _documentTypeAliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
 
             var mailTemplateFolderXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
-            var publishedContent = _umbracoHelper.TypedContentAtXPath(mailTemplateFolderXpath);
+            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
 
             bool IsForRemove(IPublishedContent content)
             {
                 var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
+
                 return templateType.In(
+                    NotificationTypeEnum.Event,
+                    NotificationTypeEnum.EventUpdated,
+                    NotificationTypeEnum.EventHided,
+                    NotificationTypeEnum.BeforeStart,
+                    NotificationTypeEnum.News,
+                    NotificationTypeEnum.Idea,
                     NotificationTypeEnum.ActivityLikeAdded,
                     NotificationTypeEnum.CommentAdded,
                     NotificationTypeEnum.CommentEdited,
-                    NotificationTypeEnum.CommentLikeAdded,
-                    NotificationTypeEnum.CommentReplied,
-                    NotificationTypeEnum.EventHided,
-                    NotificationTypeEnum.EventUpdated
-                    );
+                    NotificationTypeEnum.CommentReplied);
             }
 
-            var publishedContentToRemove = publishedContent.Where(IsForRemove);
+            var publishedContentToRemove = publishedContent.Children.Where(IsForRemove);
             var contentToRemove = contentService.GetByIds(publishedContentToRemove.Select(c => c.Id)).ToList();
             contentToRemove.ForEach(c => contentService.Delete(c));
         }

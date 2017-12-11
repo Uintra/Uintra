@@ -57,6 +57,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -295,32 +305,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
-    <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.css" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js" />
-    <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.html" />
-    <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.js" />
-    <Content Include="App_Plugins\Panels\FaqPanel\backoffice\overlay.html" />
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.css" />
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="uIntra.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
@@ -329,7 +313,6 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Installer\PreValues\PanelPickerPreValues.json" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -342,7 +325,16 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\**\*">
+      <Link>App_Plugins\Panels\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json">
+      <Link>App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

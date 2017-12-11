@@ -268,7 +268,7 @@
 	    &-heading{
 		    font:13px/22px var(--font-general);
 		    color:var(--text-color-dark);
-            max-height:24px;
+            max-height:42px;
             overflow:hidden;
 
 		    &:hover {
