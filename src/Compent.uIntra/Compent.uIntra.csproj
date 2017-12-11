@@ -973,7 +973,6 @@
     <Content Include="App_Plugins\Web.config" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -1086,6 +1085,7 @@
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
