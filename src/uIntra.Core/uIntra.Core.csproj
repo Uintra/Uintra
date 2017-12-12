@@ -356,6 +356,7 @@
     <Compile Include="Core\Constants\GridEditorConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\EditorConfigProvider.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IEditorConfigProvider.cs" />
+    <Compile Include="Core\Extensions\Tree.cs" />
     <Compile Include="Core\Extensions\TreeExtensions.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />

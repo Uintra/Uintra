@@ -323,11 +323,16 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingCategoryProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingsTreeProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingCategoryProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsCategoryDto.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsTreeProvider.cs" />
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\DefaultNotifierTemplateProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeSettingsReader.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeNotificationSettingsProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\IBackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\IBackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
@@ -420,6 +425,7 @@
     <Compile Include="Web\NotificationJobControllerBase.cs" />
     <Compile Include="Web\NotificationSettingsController.cs" />
     <Compile Include="Web\NotificationSettingsTreeController.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
