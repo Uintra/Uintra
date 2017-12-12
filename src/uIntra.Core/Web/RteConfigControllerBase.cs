@@ -8,11 +8,11 @@ namespace uIntra.Core.Web
 {
     public abstract class RteConfigControllerBase: UmbracoAuthorizedApiController
     {
-        protected string DefaultConfigFolder => "~/App_Plugins/BaseControls/TinyMce/Configs";
+        protected virtual string ConfigFolderPath => "~/App_Plugins/BaseControls/TinyMce/Configs";
 
         public virtual JsonResult GetConfig(string rteAlias)
         {
-            var path = $"{DefaultConfigFolder}/{rteAlias}-config.json";
+            var path = $"{ConfigFolderPath}/{rteAlias}-config.json";
             var configFilePath = HostingEnvironment.MapPath(path);
             if (!File.Exists(configFilePath))
             {
