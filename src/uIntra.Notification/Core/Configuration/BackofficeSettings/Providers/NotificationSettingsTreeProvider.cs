@@ -42,7 +42,7 @@ namespace uIntra.Notification.Configuration
         }
 
         protected virtual Tree<TreeNodeModel> GetCategoryNode(IIntranetType activityType) => 
-            GetNode(activityType.Id, activityType.Name, CategoryIconAlias, CategoryIconAlias);
+            GetNode(activityType.Id, activityType.Name, CategoryIconAlias, CategoryRoutePath);
 
         protected virtual Tree<TreeNodeModel> GetSettingsNode(IIntranetType notificationType) => 
             GetNode(notificationType.Id, notificationType.Name, SettingsIconAlias, SettingRoutePath);
