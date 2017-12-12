@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
@@ -11,6 +12,9 @@ namespace uIntra.Notification.Configuration
         protected virtual string CategoryRoutePath => "NotificationSettings/NotificationSettingsTree/Category/edit";
         protected virtual string SettingRoutePath => "NotificationSettings/NotificationSettingsTree/Settings/edit";
 
+        protected virtual string CategoryIconAlias => "icon-folder-outline";
+        protected virtual string SettingsIconAlias => "icon-navigation-right";
+
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly INotificationTypeProvider _notificationTypeProvider;
 
@@ -22,32 +26,47 @@ namespace uIntra.Notification.Configuration
 
         public virtual Tree<TreeNodeModel> GetSettingsTree()
         {
-            var icon = "icon-folder-outline";
+            var bulletinSettings = GetCategoryNode(GetIntranetType(IntranetActivityTypeEnum.Bulletins))
+                .WithChildren(
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentAdded)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentEdited)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentReplied)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
+                );
 
-            var tree = Node("-1", "root", icon, CategoryRoutePath,
-                WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Bulletins).Id, IntranetActivityTypeEnum.Bulletins, icon, CategoryRoutePath,
-                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, GetNodeName(NotificationTypeEnum.CommentAdded), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, GetNodeName(NotificationTypeEnum.CommentEdited), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, GetNodeName(NotificationTypeEnum.CommentReplied), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, GetNodeName(NotificationTypeEnum.ActivityLikeAdded), icon, SettingRoutePath))),
-                WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.News).Id, IntranetActivityTypeEnum.News, icon, CategoryRoutePath,
-                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, GetNodeName(NotificationTypeEnum.CommentAdded), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, GetNodeName(NotificationTypeEnum.CommentEdited), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, GetNodeName(NotificationTypeEnum.CommentReplied), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, GetNodeName(NotificationTypeEnum.ActivityLikeAdded), icon, SettingRoutePath))),
-                WithUrlIdentity(Node(GetIntranetType(IntranetActivityTypeEnum.Events).Id, IntranetActivityTypeEnum.Events, icon, CategoryRoutePath,
-                    Node(GetIntranetType(NotificationTypeEnum.EventUpdated).Id, GetNodeName(NotificationTypeEnum.EventUpdated), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.EventHided).Id, GetNodeName(NotificationTypeEnum.EventHided), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.BeforeStart).Id, GetNodeName(NotificationTypeEnum.BeforeStart), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentAdded).Id, GetNodeName(NotificationTypeEnum.CommentAdded), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentEdited).Id, GetNodeName(NotificationTypeEnum.CommentEdited), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.CommentReplied).Id, GetNodeName(NotificationTypeEnum.CommentReplied), icon, SettingRoutePath),
-                    Node(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded).Id, GetNodeName(NotificationTypeEnum.ActivityLikeAdded), icon, SettingRoutePath))))
-                    .Select(n => n.WithViewPath(n.ViewPath + "&id=" + n.Id));
+            var newsSettings = GetCategoryNode(GetIntranetType(IntranetActivityTypeEnum.News))
+                .WithChildren(
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentAdded)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentEdited)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentReplied)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
+                );
+
+            var eventSettings = GetCategoryNode(GetIntranetType(IntranetActivityTypeEnum.Events))
+                .WithChildren(
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.EventUpdated)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.EventHided)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.BeforeStart)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentAdded)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentEdited)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentReplied)),
+                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
+               );
+
+            var categories = new[] {bulletinSettings, newsSettings, eventSettings}.Select(WithUrlIdentity).Select(PrettifyName);
+
+            var tree = RootNode.WithChildren(categories);
 
             return tree;
         }
 
+        protected virtual Tree<TreeNodeModel> GetCategoryNode(IIntranetType activityType) => 
+            GetNode(activityType.Id, activityType.Name, CategoryIconAlias, CategoryIconAlias);
+
+        protected virtual Tree<TreeNodeModel> GetSettingsNode(IIntranetType notificationType) => 
+            GetNode(notificationType.Id, notificationType.Name, SettingsIconAlias, SettingRoutePath);
+
+        protected virtual Tree<TreeNodeModel> RootNode => GetNode("-1", "root", string.Empty, CategoryRoutePath);
 
         protected Tree<TreeNodeModel> WithUrlIdentity(Tree<TreeNodeModel> tree)
         {
@@ -57,13 +76,15 @@ namespace uIntra.Notification.Configuration
             TreeNodeModel AddActivityTypeParameter(TreeNodeModel model, string type) =>
                 model.WithViewPath(model.ViewPath + "&activityType=" + type).WithId($"{model.Id}{type}");
 
-            return tree.TreeCatamorphism(
+            var mappedTree = tree.TreeCatamorphism(
                 leaf => Node(AddNotificationTypeParameter(leaf).WithIcon("icon-navigation-right")),
-                (node, children) => Node(node.Id, node.Name, node.Icon, node.ViewPath, children
+                (node, children) => GetNode(node.Id, node.Name, node.Icon, node.ViewPath, children
                     .Select(c => Node(AddActivityTypeParameter(c.Value, node.Id), c.Children.ToArray())).ToArray()));
+
+            return mappedTree.Select(n => n.WithViewPath(n.ViewPath + "&id=" + n.Id));
         }
 
-        protected Tree<TreeNodeModel> Node(object id, object name, string icon, string viewPath, params Tree<TreeNodeModel>[] children)
+        protected Tree<TreeNodeModel> GetNode(object id, object name, string icon, string viewPath, params Tree<TreeNodeModel>[] children)
         {
             return new Tree<TreeNodeModel>(new TreeNodeModel(id.ToString(), name.ToString(), icon, viewPath), children);
         }
@@ -75,6 +96,9 @@ namespace uIntra.Notification.Configuration
 
         protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
         protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
-        protected string GetNodeName(NotificationTypeEnum type) => type.ToString().SplitOnUpperCaseLetters();
+        protected string SplitOnUpperCaseLetters(string name) => name.SplitOnUpperCaseLetters();
+
+        protected Tree<TreeNodeModel> PrettifyName(Tree<TreeNodeModel> node) =>
+            node.Select(v => v.WithName(v.Name.SplitOnUpperCaseLetters()));
     }
 }

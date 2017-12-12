@@ -21,5 +21,6 @@
         public TreeNodeModel WithViewPath(string viewPath) => new TreeNodeModel(Id, Name, Icon, viewPath);
         public TreeNodeModel WithId(string id) => new TreeNodeModel(id, Name, Icon, ViewPath);
         public TreeNodeModel WithIcon(string icon) => new TreeNodeModel(Id, Name, icon, ViewPath);
+        public TreeNodeModel WithName(string name) => new TreeNodeModel(Id, name, Icon, ViewPath);
     }
 }
