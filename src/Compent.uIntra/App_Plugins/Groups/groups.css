@@ -100,7 +100,7 @@
         &-item{
             width: 50%;
             padding: 0 0 0 20px;
-            margin: 0 0 62px;
+            margin: 0 0 30px;
             position: relative;
 
             @media (--for-desktop-down) {
@@ -113,11 +113,12 @@
         }
 
         &-link{
-            border:1px solid var(--color-light-gray);
-            display:block;
+            background:var(--color-white);
+            box-shadow:0 0 3px rgba(0,0,0,0.3);
+            display:flex;
+            align-items:center;
             height:100%;
             color:var(--text-color-dark);
-            padding:10px;
             overflow:hidden;
 
             @media(--for-desktop-down){
@@ -137,9 +138,10 @@
 
         &-image{
             float:left;
-            width:140px;
-            height:140px;
-            margin:-1px 20px 0 -1px;
+            width:165px;
+            min-width:165px;
+            height:165px;
+            margin:-1px 30px 0 -1px;
             position:relative;
             overflow:hidden;
 
@@ -162,9 +164,8 @@
         }
 
         &-title{
-            font:bold 20px/22px var(--font-custom);
-            text-transform:uppercase;
-            margin:0 40px 20px 0;
+            font:bold 18px/22px var(--font-general);
+            margin:0 40px 10px 0;
             overflow:hidden;
             white-space:nowrap;
             text-overflow:ellipsis;
@@ -180,7 +181,8 @@
 
         &-holder{
             overflow:hidden;
-            padding:0 20px;
+            padding:0 20px 0 0;
+            flex-grow:1;
 
             @media(--for-desktop-down){
                 &{
@@ -190,9 +192,10 @@
         }
 
         &-txt{
-            font-size:14px;
-            margin:0 0 40px;
-            height:38px;
+            font-size:16px;
+            line-height:22px;
+            margin:0;
+            max-height:66px;
             overflow:hidden;
 
             @media (--for-tablet-portrait-down) {

@@ -7,19 +7,6 @@
 
     <nav class='tabset @(hasRows ? "_hasRows" : String.Empty)'>
         <div class="tabset__holder">
-            @if (!Model.IsTitleHidden)
-            {
-                if (Model.Parent != null)
-                {
-                    <h1 class="tabset__title">
-                        <a class="tabset__title-link" href="@Model.Parent.Url">@Model.Parent.Name</a>
-                    </h1>
-                }
-                else
-                {
-                    <h1 class="tabset__title _no-link">@Model.Title</h1>
-                }
-            }
 
             @if (Model.ShowBreadcrumbs)
             {
