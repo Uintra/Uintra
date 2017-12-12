@@ -121,9 +121,6 @@ namespace uIntra.CentralFeed.Web
             IEnumerable<IFeedItem> result;
             switch (type.Id)
             {
-                case (int)CentralFeedTypeEnum.Events:
-                    result = sortedItems.OrderBy(i => i, new CentralFeedEventComparer());
-                    break;
                 case (int)CentralFeedTypeEnum.All:
                     result = sortedItems.OrderBy(i => i, new CentralFeedItemComparer());
                     break;
