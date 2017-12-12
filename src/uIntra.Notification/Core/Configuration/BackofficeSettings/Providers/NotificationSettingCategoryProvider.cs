@@ -6,6 +6,9 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {
+    /// <summary>
+    /// Is responsible for defining activities with notification types that would be displayed in backoffice section
+    /// </summary>
     public class NotificationSettingCategoryProvider : INotificationSettingCategoryProvider
     {
         private readonly IActivityTypeProvider _activityTypeProvider;

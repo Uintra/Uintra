@@ -5,6 +5,10 @@ using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {
+    /// <summary>
+    /// Responsible for mapping defined by category provider categories into tree.
+    /// To add your custom notification type <see cref="INotificationSettingCategoryProvider"/>
+    /// </summary>
     public class NotificationSettingsTreeProvider : INotificationSettingsTreeProvider
     {
         protected virtual string CategoryRoutePath => "NotificationSettings/NotificationSettingsTree/Category/edit";
