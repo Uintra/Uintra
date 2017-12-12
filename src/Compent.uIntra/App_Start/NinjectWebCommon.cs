@@ -315,8 +315,8 @@ namespace Compent.uIntra
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
             kernel.Bind(typeof(IBackofficeNotificationSettingsProvider)).To<BackofficeNotificationSettingsProvider>();
             kernel.Bind<INotificationSettingsTreeProvider>().To<NotificationSettingsTreeProvider>();
-
-
+            kernel.Bind<INotificationSettingCategoryProvider>().To<NotificationSettingCategoryProvider>();
+            
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
             // Factories

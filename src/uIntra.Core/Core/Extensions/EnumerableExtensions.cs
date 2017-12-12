@@ -5,6 +5,8 @@ namespace uIntra.Core.Extensions
 {
     public static class EnumerableExtensions
     {
+        public static IEnumerable<T> AsEnumerable<T>(params T[] items) => items;
+
         public static IEnumerable<T> ToEnumerableOfOne<T>(this T obj)
         {
             if (obj != null) yield return obj;

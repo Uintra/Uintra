@@ -323,7 +323,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingCategoryProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingsTreeProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingCategoryProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsCategoryDto.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsTreeProvider.cs" />
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />

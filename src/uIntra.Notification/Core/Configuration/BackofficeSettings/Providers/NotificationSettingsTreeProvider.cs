@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
@@ -8,56 +7,38 @@ namespace uIntra.Notification.Configuration
 {
     public class NotificationSettingsTreeProvider : INotificationSettingsTreeProvider
     {
-
         protected virtual string CategoryRoutePath => "NotificationSettings/NotificationSettingsTree/Category/edit";
         protected virtual string SettingRoutePath => "NotificationSettings/NotificationSettingsTree/Settings/edit";
 
         protected virtual string CategoryIconAlias => "icon-folder-outline";
         protected virtual string SettingsIconAlias => "icon-navigation-right";
 
-        private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
+        private readonly INotificationSettingCategoryProvider _categoryProvider;
 
-        public NotificationSettingsTreeProvider(IActivityTypeProvider activityTypeProvider, INotificationTypeProvider notificationTypeProvider)
+        public NotificationSettingsTreeProvider(INotificationSettingCategoryProvider categoryProvider)
         {
-            _activityTypeProvider = activityTypeProvider;
-            _notificationTypeProvider = notificationTypeProvider;
+            _categoryProvider = categoryProvider;
         }
 
         public virtual Tree<TreeNodeModel> GetSettingsTree()
         {
-            var bulletinSettings = GetCategoryNode(GetIntranetType(IntranetActivityTypeEnum.Bulletins))
-                .WithChildren(
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentAdded)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentEdited)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentReplied)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
-                );
-
-            var newsSettings = GetCategoryNode(GetIntranetType(IntranetActivityTypeEnum.News))
-                .WithChildren(
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentAdded)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentEdited)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentReplied)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
-                );
-
-            var eventSettings = GetCategoryNode(GetIntranetType(IntranetActivityTypeEnum.Events))
-                .WithChildren(
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.EventUpdated)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.EventHided)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.BeforeStart)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentAdded)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentEdited)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.CommentReplied)),
-                    GetSettingsNode(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
-               );
-
-            var categories = new[] {bulletinSettings, newsSettings, eventSettings}.Select(WithUrlIdentity).Select(PrettifyName);
+            var categories = _categoryProvider
+                .GetAvailableCategories()
+                .Select(ParseCategory)
+                .Select(WithUrlIdentity)
+                .Select(PrettifyName);
 
             var tree = RootNode.WithChildren(categories);
 
             return tree;
+        }
+
+        protected virtual Tree<TreeNodeModel> ParseCategory(NotificationSettingsCategoryDto dto)
+        {
+            var categoryNode = GetCategoryNode(dto.ActivityType);
+            var children = dto.NotificationTypes.Select(GetSettingsNode);
+
+            return categoryNode.WithChildren(children);
         }
 
         protected virtual Tree<TreeNodeModel> GetCategoryNode(IIntranetType activityType) => 
@@ -94,11 +75,9 @@ namespace uIntra.Notification.Configuration
             return new Tree<TreeNodeModel>(treeNodeModel, children);
         }
 
-        protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
-        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
         protected string SplitOnUpperCaseLetters(string name) => name.SplitOnUpperCaseLetters();
 
         protected Tree<TreeNodeModel> PrettifyName(Tree<TreeNodeModel> node) =>
-            node.Select(v => v.WithName(v.Name.SplitOnUpperCaseLetters()));
+            node.Select(v => v.WithName(v.Name.SplitOnUpperCaseLetters())); 
     }
 }
