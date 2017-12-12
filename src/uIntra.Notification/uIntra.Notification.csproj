@@ -323,6 +323,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingsTreeProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsTreeProvider.cs" />
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
