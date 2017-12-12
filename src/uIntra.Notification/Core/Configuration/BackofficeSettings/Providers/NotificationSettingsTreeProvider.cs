@@ -55,7 +55,7 @@ namespace uIntra.Notification.Configuration
                 model.WithViewPath(model.ViewPath + "?notificationType=" + model.Id);
 
             TreeNodeModel AddActivityTypeParameter(TreeNodeModel model, string type) =>
-                model.WithViewPath(model.ViewPath + "&activityType=" + type).WithId($"{model.Id}{type}");
+                model.WithViewPath(model.ViewPath + "&activityType=" + type).WithId($"{model.Id}-{type}");
 
             var mappedTree = tree.TreeCatamorphism(
                 leaf => Node(AddNotificationTypeParameter(leaf).WithIcon("icon-navigation-right")),
