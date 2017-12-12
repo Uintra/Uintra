@@ -17,7 +17,7 @@ namespace uIntra.Notification.Configuration
             _notificationTypeProvider = notificationTypeProvider;
         }
 
-        public IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
+        public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
         {
             return GetBulletinSettings().ToEnumerableOfOne().Append(GetNewsSettings()).Append(GetEventSettings());
         }
