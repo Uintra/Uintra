@@ -32,21 +32,22 @@ namespace uIntra.Notification.Configuration
             }
         }
 
-
-        private (string resourceName, Assembly assembly) GetEmbeddedResource(ActivityEventNotifierIdentity notificationType)
+        protected virtual (string resourceName, Assembly assembly) GetEmbeddedResource(ActivityEventNotifierIdentity notificationType)
         {
-            var assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = GetResourceAssembly(notificationType);
             string resourceName = GetEmbeddedResourceName(notificationType, assembly);
             return (resourceName, assembly);
         }
 
-        private string GetEmbeddedResourceName(ActivityEventNotifierIdentity notificationType, Assembly assembly) => 
+        protected virtual Assembly GetResourceAssembly(ActivityEventNotifierIdentity notificationType) => Assembly.GetExecutingAssembly();
+
+        protected virtual string GetEmbeddedResourceName(ActivityEventNotifierIdentity notificationType, Assembly assembly) => 
             $"{GetRootFolder(assembly)}.{GetEmbeddedResourceFileName(notificationType)}";
 
-        private string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) => 
+        protected virtual string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) => 
             $"{type.NotifierType.Name}.{type.Event.ActivityType.Name}.{type.Event.NotificationType.Name}.json";
 
-        private string GetRootFolder(Assembly assembly) => 
+        protected virtual string GetRootFolder(Assembly assembly) => 
             $"{assembly.GetName().Name}.{RootFolderName}";
     }
 }
