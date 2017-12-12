@@ -19,23 +19,34 @@ namespace uIntra.Notification.Configuration
 
         public IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
         {
-            var commentNotificationTypes = new[] 
-            {
-                GetIntranetType(NotificationTypeEnum.CommentAdded),
-                GetIntranetType(NotificationTypeEnum.CommentEdited),
-                GetIntranetType(NotificationTypeEnum.CommentReplied) 
-            };
+            return GetBulletinSettings().ToEnumerableOfOne().Append(GetNewsSettings()).Append(GetEventSettings());
+        }
 
-            var bulletinSettings = new NotificationSettingsCategoryDto(
-                GetIntranetType(IntranetActivityTypeEnum.Bulletins),
-                commentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
-               );
+        protected virtual IIntranetType[] CommentNotificationTypes => new[]
+        {
+            GetIntranetType(NotificationTypeEnum.CommentAdded),
+            GetIntranetType(NotificationTypeEnum.CommentEdited),
+            GetIntranetType(NotificationTypeEnum.CommentReplied)
+        };
 
-            var newsSettings = new NotificationSettingsCategoryDto(
-                GetIntranetType(IntranetActivityTypeEnum.News),
-                commentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded))
-            );
+        protected virtual NotificationSettingsCategoryDto GetBulletinSettings()
+        {
+            var notificationTypes =
+                CommentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
 
+            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Bulletins), notificationTypes);
+        }
+
+        protected virtual NotificationSettingsCategoryDto GetNewsSettings()
+        {
+            var notificationTypes =
+                CommentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
+
+            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.News), notificationTypes);
+        }
+
+        protected virtual NotificationSettingsCategoryDto GetEventSettings()
+        {
             var eventNotificationTypes = new[]
             {
                 GetIntranetType(NotificationTypeEnum.EventUpdated),
@@ -43,12 +54,14 @@ namespace uIntra.Notification.Configuration
                 GetIntranetType(NotificationTypeEnum.BeforeStart),
             };
 
-            var eventSettings = new NotificationSettingsCategoryDto(
-                GetIntranetType(IntranetActivityTypeEnum.Events),
-                commentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded)).Concat(eventNotificationTypes)
-            );
-            return bulletinSettings.ToEnumerableOfOne().Append(newsSettings).Append(eventSettings);
+            var notificationTypes =
+                eventNotificationTypes
+                .Concat(CommentNotificationTypes)
+                .Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
+
+            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Events), notificationTypes);
         }
+
 
         protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
         protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
