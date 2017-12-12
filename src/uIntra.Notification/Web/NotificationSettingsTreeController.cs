@@ -98,25 +98,7 @@ namespace uIntra.Notification.Web
             return new Tree<TreeNodeModel>(treeNodeModel, children);
         }
 
-        protected class TreeNodeModel
-        {
-            public string Id { get; }
-            public string Name { get; }
-            public string Icon { get; }
-            public string ViewPath { get; }
 
-            public TreeNodeModel(string id, string name, string icon, string viewPath)
-            {
-                Id = id;
-                Name = name;
-                Icon = icon;
-                ViewPath = viewPath;
-            }
-
-            public TreeNodeModel WithViewPath(string viewPath) => new TreeNodeModel(Id, Name, Icon, viewPath);
-            public TreeNodeModel WithId(string id) => new TreeNodeModel(id, Name, Icon, ViewPath);
-            public TreeNodeModel WithIcon(string icon) => new TreeNodeModel(Id, Name, icon, ViewPath);
-        }
 
         protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
         protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
