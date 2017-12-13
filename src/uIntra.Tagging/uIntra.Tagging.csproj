@@ -317,16 +317,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\AutoMapperProfiles\TagAutoMapperProfile.cs" />
-    <Compile Include="Core\Entities\TagDTO.cs" />
-    <Compile Include="Core\ITagsActivityCreateEditModel.cs" />
-    <Compile Include="Core\Models\TagEditModel.cs" />
-    <Compile Include="Core\Models\TagViewModel.cs" />
-    <Compile Include="Core\Services\ITagsService.cs" />
-    <Compile Include="Core\Sql\TagActivityRelation.cs" />
-    <Compile Include="Core\Sql\Tag.cs" />
     <Compile Include="Web\TagsControllerBase.cs" />
-    <Compile Include="DefaultImplementation\TagsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +327,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
