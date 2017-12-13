@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Compent.uIntra.Core.PagePromotion.Models;
 using uIntra.Core.Extensions;
 using uIntra.Core.PagePromotion;
 using Umbraco.Core.Models;
@@ -10,7 +11,7 @@ namespace Compent.uIntra.Core.PagePromotion
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<IPublishedContent, PagePromotion>()
+            Mapper.CreateMap<IPublishedContent, Entities.PagePromotion>()
                .ForMember(dst => dst.Id, src => src.MapFrom(el => el.GetKey()))
                .ForMember(dst => dst.CreatedDate, src => src.MapFrom(el => el.CreateDate))
                .ForMember(dst => dst.UmbracoCreatorId, src => src.MapFrom(el => el.CreatorId))
@@ -33,7 +34,7 @@ namespace Compent.uIntra.Core.PagePromotion
                .ForMember(dst => dst.Likeable, src => src.Ignore())
                .ForMember(dst => dst.IsReadOnly, src => src.Ignore());
 
-            Mapper.CreateMap<PagePromotionConfig, PagePromotion>()
+            Mapper.CreateMap<PagePromotionConfig, Entities.PagePromotion>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
@@ -56,6 +57,12 @@ namespace Compent.uIntra.Core.PagePromotion
                 {
                     dst.MediaIds = src.Files.ToIntCollection();
                 });
+
+            Mapper.CreateMap<Entities.PagePromotion, PagePromotionExtendedItemViewModel>()
+                .IncludeBase<PagePromotionBase, PagePromotionItemViewModel>()
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
+                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
         }
     }
 }

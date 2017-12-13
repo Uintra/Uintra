@@ -369,7 +369,8 @@
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\IPagePromotionService.cs" />
-    <Compile Include="Core\PagePromotion\PagePromotionConfig.cs" />
+    <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
+    <Compile Include="Core\PagePromotion\Models\PagePromotionItemViewModel.cs" />
     <Compile Include="Core\Providers\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
@@ -441,6 +442,7 @@
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
+    <Compile Include="Web\PagePromotionControllerBase.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
     <Content Include="Web.config.install.xdt">

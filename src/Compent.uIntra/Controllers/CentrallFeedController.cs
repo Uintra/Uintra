@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using Compent.uIntra.Core.Activity;
 using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
+using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Groups;
 using uIntra.Subscribe;
+using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -22,6 +25,8 @@ namespace Compent.uIntra.Controllers
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupFeedService _groupFeedService;
         private readonly IFeedActivityHelper _feedActivityHelper;
+        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
         public CentralFeedController(
             ICentralFeedService centralFeedService,
@@ -32,10 +37,11 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
-            IGroupFeedService groupFeedService, 
+            IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
             IFeedFilterStateService feedFilterStateService,
-            IPermissionsService permissionsService) 
+            IPermissionsService permissionsService,
+            UmbracoHelper umbracoHelper)
             : base(centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
@@ -49,7 +55,9 @@ namespace Compent.uIntra.Controllers
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
-            _feedActivityHelper = feedActivityHelper;           
+            _feedActivityHelper = feedActivityHelper;
+            _umbracoHelper = umbracoHelper;
+            _intranetUserContentProvider = intranetUserContentProvider;
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
@@ -67,13 +75,36 @@ namespace Compent.uIntra.Controllers
 
         protected override ActivityFeedOptions GetActivityFeedOptions(Guid activityId)
         {
+            var content = _umbracoHelper.TypedContent(activityId);
+            if (content != null)
+            {
+                return GetPagePromotionFeedOptions(content);
+            }
+
             var options = base.GetActivityFeedOptions(activityId);
-            return new ActivityFeedOptionsWithGroups()
+
+            return new ActivityFeedOptionsWithGroups
             {
                 Links = options.Links,
                 IsReadOnly = options.IsReadOnly,
                 GroupInfo = _feedActivityHelper.GetGroupInfo(activityId)
             };
         }
-    } 
+
+        private ActivityFeedOptions GetPagePromotionFeedOptions(IPublishedContent content)
+        {
+            var creator = _intranetUserService.Get(content.CreatorId);
+            var profilePageUrl = _intranetUserContentProvider.GetProfilePage().Url;
+
+            var result = new ActivityFeedOptions
+            {
+                Links = new ActivityLinks
+                {
+                    Details = content.Url,
+                    Owner = profilePageUrl.AddIdParameter(creator.Id)
+                }
+            };
+            return result;
+        }
+    }
 }

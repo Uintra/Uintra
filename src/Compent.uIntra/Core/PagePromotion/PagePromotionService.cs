@@ -18,7 +18,7 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionService : IPagePromotionService<PagePromotion>, IFeedItemService
+    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IFeedItemService
     {
         protected virtual string PagePromotionConfigAlias { get; } = "pagePromotionConfig";
 
@@ -66,7 +66,7 @@ namespace Compent.uIntra.Core.PagePromotion
             };
         }
 
-        public PagePromotion GetPagePromotion(Guid pageId)
+        public Entities.PagePromotion GetPagePromotion(Guid pageId)
         {
             var content = _umbracoHelper.TypedContent(pageId);
             var config = GetPagePromotionConfig(content);
@@ -97,9 +97,9 @@ namespace Compent.uIntra.Core.PagePromotion
             return (content, pagePromotionConfig);
         }
 
-        protected virtual PagePromotion GetPagePromotion(IPublishedContent content, PagePromotionConfig config)
+        protected virtual Entities.PagePromotion GetPagePromotion(IPublishedContent content, PagePromotionConfig config)
         {
-            var pagePromotion = content.Map<PagePromotion>();
+            var pagePromotion = content.Map<Entities.PagePromotion>();
             Mapper.Map(config, pagePromotion);
 
             pagePromotion.Type = new IntranetType

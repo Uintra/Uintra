@@ -5,7 +5,7 @@ using uIntra.Comments;
 using uIntra.Core.PagePromotion;
 using uIntra.Likes;
 
-namespace Compent.uIntra.Core.PagePromotion
+namespace Compent.uIntra.Core.PagePromotion.Entities
 {
     public class PagePromotion : PagePromotionBase, IFeedItem, ICommentable, ILikeable
     {

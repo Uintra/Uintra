@@ -308,7 +308,6 @@
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-
     <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
     </Reference>
@@ -1176,6 +1175,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <Content Include="Views\PagePromotion\ItemView.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1209,6 +1209,7 @@
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\NewsSectionController.cs" />
+    <Compile Include="Controllers\PagePromotionController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -1304,7 +1305,8 @@
     <Compile Include="Core\Notification\NotificationMessageTypes.cs" />
     <Compile Include="Core\Notification\UiNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\UiNotifierService.cs" />
-    <Compile Include="Core\PagePromotion\PagePromotion.cs" />
+    <Compile Include="Core\PagePromotion\Models\PagePromotionExtendedItemViewModel.cs" />
+    <Compile Include="Core\PagePromotion\Entities\PagePromotion.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
