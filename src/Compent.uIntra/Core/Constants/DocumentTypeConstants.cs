@@ -24,6 +24,7 @@
 
         public const string DataFolder = "dataFolder";
         public const string UserTagFolder = "userTagFolder";
+        public const string UserTag = "userTag";
         public const string GlobalPanelFolder = "globalPanelFolder";
         public const string SystemLinkFolder = "systemLinkFolder";
         public const string MailTemplatesFolder = "mailTemplatesFolder";

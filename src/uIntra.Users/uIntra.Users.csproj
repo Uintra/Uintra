@@ -281,6 +281,7 @@
     <Compile Include="Core\ProfileConstants.cs" />
     <Compile Include="Core\Models\ProfileEditModel.cs" />
     <Compile Include="Core\Models\ProfileViewModel.cs" />
+    <Compile Include="DefaultImplementation\MemberEventService.cs" />
     <Compile Include="DefaultImplementation\RoleServiceBase.cs" />
     <Compile Include="Installers\UsersInstallationConstants.cs" />
     <Compile Include="Installers\Migrations\UsersInstallationStep_0_0_1.cs" />

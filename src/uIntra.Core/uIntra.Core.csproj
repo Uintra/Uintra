@@ -380,7 +380,6 @@
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
     <Compile Include="Core\Providers\IXPathProvider.cs" />
-    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
@@ -410,6 +409,7 @@
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
     <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoEventService.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />
