@@ -60,7 +60,9 @@ namespace Compent.uIntra.Core.PagePromotion
                 Type = _feedTypeProvider.Get(CentralFeedTypeEnum.PagePromotion.ToInt()),
                 Controller = "PagePromotion",
                 HasSubscribersFilter = false,
-                HasPinnedFilter = false
+                HasPinnedFilter = false,
+                ExcludeFromAvailableActivityTypes = true,
+                ExcludeFromLatestActivities = true
             };
         }
 
