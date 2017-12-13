@@ -1,4 +1,4 @@
-﻿namespace uIntra.Tagging.UserTags
+﻿namespace uIntra.Core
 {
     public interface IXPathProvider
     {
