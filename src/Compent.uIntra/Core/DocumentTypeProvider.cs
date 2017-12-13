@@ -7,50 +7,23 @@ namespace Compent.uIntra.Core
 {
     public class DocumentTypeProvider : IDocumentTypeAliasProvider
     {
-        public virtual string GetNavigationComposition()
-        {
-            return DocumentTypeAliasConstants.NavigationComposition;
-        }
+        public virtual string GetNavigationComposition() => DocumentTypeAliasConstants.NavigationComposition;
 
-        public virtual string GetContentPage()
-        {
-            return DocumentTypeAliasConstants.ContentPage;
-        }
+        public virtual string GetContentPage() => DocumentTypeAliasConstants.ContentPage;
 
-        public virtual string GetHeading()
-        {
-            return DocumentTypeAliasConstants.Heading;
-        }
+        public virtual string GetHeading() => DocumentTypeAliasConstants.Heading;
 
-        public virtual string GetSearchResultPage()
-        {
-            return DocumentTypeAliasConstants.SearchResultPage;
-        }
+        public virtual string GetSearchResultPage() => DocumentTypeAliasConstants.SearchResultPage;
 
-        public virtual string GetProfilePage()
-        {
-            return DocumentTypeAliasConstants.ProfilePage;
-        }
+        public virtual string GetProfilePage() => DocumentTypeAliasConstants.ProfilePage;
 
-        public virtual string GetProfileEditPage()
-        {
-            return DocumentTypeAliasConstants.ProfileEditPage;
-        }
+        public virtual string GetProfileEditPage() => DocumentTypeAliasConstants.ProfileEditPage;
 
-        public virtual string GetNotificationPage()
-        {
-            return DocumentTypeAliasConstants.NotificationPage;
-        }
+        public virtual string GetNotificationPage() => DocumentTypeAliasConstants.NotificationPage;
 
-        public virtual string GetHomePage()
-        {
-            return DocumentTypeAliasConstants.HomePage;
-        }
+        public virtual string GetHomePage() => DocumentTypeAliasConstants.HomePage;
 
-        public string GetErrorPage()
-        {
-            return DocumentTypeAliasConstants.ErrorPage;
-        }
+        public string GetErrorPage() => DocumentTypeAliasConstants.ErrorPage;
 
         public virtual string GetOverviewPage(IIntranetType type)
         {
@@ -99,64 +72,30 @@ namespace Compent.uIntra.Core
             }
         }
 
-        public virtual string GetMailTemplateFolder()
-        {
-            return DocumentTypeAliasConstants.MailTemplatesFolder;
-        }
+        public virtual string GetMailTemplateFolder() => DocumentTypeAliasConstants.MailTemplatesFolder;
 
-        public virtual string GetMailTemplate()
-        {
-            return DocumentTypeAliasConstants.MailTemplate;
-        }
+        public virtual string GetMailTemplate() => DocumentTypeAliasConstants.MailTemplate;
 
-        public virtual string GetDataFolder()
-        {
-            return DocumentTypeAliasConstants.DataFolder;
-        }
+        public virtual string GetDataFolder() => DocumentTypeAliasConstants.DataFolder;
 
-        public string GetUserTagFolder()
-        {
-            return DocumentTypeAliasConstants.UserTagFolder;
-        }
+        public string GetUserTagFolder() => DocumentTypeAliasConstants.UserTagFolder;
 
-        public virtual string GetSystemLink()
-        {
-            return DocumentTypeAliasConstants.SystemLink;
-        }
+        public string GetUserTag() => DocumentTypeAliasConstants.UserTag;
 
-        public virtual string GetSystemLinkFolder()
-        {
-            return DocumentTypeAliasConstants.SystemLinkFolder;
-        }
+        public virtual string GetSystemLink() => DocumentTypeAliasConstants.SystemLink;
 
-        public virtual string GetGroupOverviewPage()
-        {
-            return DocumentTypeAliasConstants.GroupsOverviewPage;
-        }
+        public virtual string GetSystemLinkFolder() => DocumentTypeAliasConstants.SystemLinkFolder;
 
-        public virtual string GetGroupCreatePage()
-        {
-            return DocumentTypeAliasConstants.GroupsCreatePage;
-        }
+        public virtual string GetGroupOverviewPage() => DocumentTypeAliasConstants.GroupsOverviewPage;
 
-        public virtual string GetGroupRoomPage()
-        {
-            return DocumentTypeAliasConstants.GroupsRoomPage;
-        }
+        public virtual string GetGroupCreatePage() => DocumentTypeAliasConstants.GroupsCreatePage;
 
-        public virtual string GetGroupEditPage()
-        {
-            return DocumentTypeAliasConstants.GroupsEditPage;
-        }
+        public virtual string GetGroupRoomPage() => DocumentTypeAliasConstants.GroupsRoomPage;
 
-        public virtual string GetGroupMyGroupsOverviewPage()
-        {
-            return DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage;
-        }
+        public virtual string GetGroupEditPage() => DocumentTypeAliasConstants.GroupsEditPage;
 
-        public virtual string GetGroupDeactivatedPage()
-        {
-            return DocumentTypeAliasConstants.GroupsDeactivatedGroupPage;
-        }
+        public virtual string GetGroupMyGroupsOverviewPage() => DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage;
+
+        public virtual string GetGroupDeactivatedPage() => DocumentTypeAliasConstants.GroupsDeactivatedGroupPage;
     }
 }
