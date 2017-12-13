@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace uIntra.Tagging.Core.UserTags.Services
+namespace uIntra.Tagging.UserTags
 {
-    class IUserTagRelationService
+    public interface IUserTagRelationService
     {
+        IEnumerable<Guid> GetForEntity(Guid entityId);
+        IEnumerable<(Guid tagId, Guid entityId)> GetAll();
+        void AddRelation(Guid entityId, Guid tagId);
+        void RemoveRelation(Guid entityId, Guid tagId);
+
+        void AddRelations(Guid entityId, IEnumerable<Guid> tagIds);
+        void RemoveRelations(Guid entityId, IEnumerable<Guid> tagIds);
     }
 }

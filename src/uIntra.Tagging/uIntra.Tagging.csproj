@@ -320,6 +320,9 @@
     <Compile Include="Core\UserTags\Models\UserTag.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagProvider.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagRelationService.cs" />
+    <Compile Include="Core\UserTags\Services\IUserTagService.cs" />
+    <Compile Include="DefaultImplementation\UserTags\UserTagService.cs" />
+    <Compile Include="DefaultImplementation\UserTags\UserTagRelationService.cs" />
     <Compile Include="Core\UserTags\Sql\UserTagRelation.cs" />
     <Compile Include="DefaultImplementation\UserTags\UserTagProvider.cs" />
     <Compile Include="Web\TagsControllerBase.cs" />
