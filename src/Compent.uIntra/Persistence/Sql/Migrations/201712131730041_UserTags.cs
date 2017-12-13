@@ -11,7 +11,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                 "dbo.uIntra_UserTagRelation",
                 c => new
                     {
-                        Id = c.Guid(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         UserTagId = c.Guid(nullable: false),
                         EntityId = c.Guid(nullable: false),
                     })

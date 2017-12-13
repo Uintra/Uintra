@@ -6,11 +6,11 @@ using uIntra.Core.Persistence;
 namespace uIntra.Tagging.UserTags
 {
     [uIntraTable(nameof(UserTagRelation))]
-    public class UserTagRelation : SqlEntity<Guid>
+    public class UserTagRelation
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public override Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required, Index("UQ_UserTagRelation_UserTagId_EntityId", 1, IsUnique = true)]
         public Guid UserTagId { get; set; }

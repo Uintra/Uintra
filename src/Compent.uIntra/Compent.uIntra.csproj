@@ -1084,8 +1084,8 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201712131710208_UserTags.resx">
-      <DependentUpon>201712131710208_UserTags.cs</DependentUpon>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201712131730041_UserTags.resx">
+      <DependentUpon>201712131730041_UserTags.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
@@ -1332,9 +1332,9 @@
     <Compile Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.Designer.cs">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201712131710208_UserTags.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201712131710208_UserTags.Designer.cs">
-      <DependentUpon>201712131710208_UserTags.cs</DependentUpon>
+    <Compile Include="Persistence\Sql\Migrations\201712131730041_UserTags.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201712131730041_UserTags.Designer.cs">
+      <DependentUpon>201712131730041_UserTags.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
