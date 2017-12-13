@@ -28,7 +28,7 @@
 //        public virtual JsonResult Autocomplete(string query)
 //        {
 //            var result = _tagsService
-//                .FindAll(query)
+//                .FindAll(query) // todo: move search/trim logic to separate class
 //                .Select(tag => tag)
 //                .OrderBy(tag => tag.Text);
 

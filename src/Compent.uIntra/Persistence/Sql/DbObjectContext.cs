@@ -14,6 +14,7 @@ using uIntra.Navigation;
 using uIntra.Notification;
 using uIntra.Notification.Core.Sql;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Persistence.Sql
 {
@@ -48,7 +49,8 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<GroupDocument> GroupDocuments { get; set; }
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
-
+        public DbSet<UserTagRelation> UserTagRelations { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
