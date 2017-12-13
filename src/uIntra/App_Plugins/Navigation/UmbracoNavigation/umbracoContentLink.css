@@ -1,5 +1,5 @@
 ﻿.umbraco-link {
-    display:none;
+    display:none !important;
     position: fixed;
     top: 15px;
     right: 15px;

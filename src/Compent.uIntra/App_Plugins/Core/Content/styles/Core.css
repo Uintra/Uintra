@@ -224,11 +224,23 @@ h5{
     margin:0 auto;
     width:100%;
     position:relative;
+
+    @media (--for-tablet-portrait-down) {
+        &{
+            position:static;
+        }
+    }
 }
 
-.holder{
-    padding:0 0 0 330px;
-    flex-grow:1;
+.holder {
+    padding: 0 0 0 330px;
+    flex-grow: 1;
+
+    @media (--for-tablet-portrait-down) {
+        &{
+            padding:0;
+        }
+    }
 }
 
 .flex{
@@ -287,6 +299,12 @@ h5{
         bottom:0;
         background:var(--color-white);
         content:'';
+    }
+
+    @media screen and (max-width: 1550px){
+        &{
+            left:20px;
+        }
     }
 
     @media (--for-tablet-portrait-down) {
@@ -385,11 +403,18 @@ h5{
 }
 
 .logo {
-    position:absolute;
-    top:0;
-    left:20px;
-    padding:9px 0;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    padding: 9px 0;
     z-index: 2;
+
+    @media (--for-tablet-portrait-down){
+        &{
+            left:50%;
+            margin:0 0 0 -10px;
+        }
+    }
 }
 
 #main{
@@ -399,7 +424,7 @@ h5{
     min-height:190px;
 
     @media (--for-tablet-portrait-down) {
-        padding: 20px;
+        padding: 0;
         overflow: visible;
         position:static;
     }

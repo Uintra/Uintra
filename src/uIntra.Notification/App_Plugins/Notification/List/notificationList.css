@@ -119,12 +119,9 @@
 
     @media (--for-tablet-portrait-down) {
         & {
-	        position:static;
-	        display: flex;
-	        justify-content: center;
-	        align-items: center;
+	        position:absolute;
 	        width: 57px;
-	        margin: 0 -50px 0 0;
+            left:0;
 
 	        &__icon {
 		        position:relative;

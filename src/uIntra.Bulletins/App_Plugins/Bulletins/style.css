@@ -5,6 +5,30 @@
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
 
+    &__dimmed-bg{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background:rgba(0,0,0,0.2);
+        display:none;
+        z-index:11;
+        content:'';
+
+        ._expanded &{
+            display:block;
+        }
+    }
+
+    &__form{
+        ._expanded &{
+            position:relative;
+            z-index:12;
+            background:var(--color-white);
+        }
+    }
+
     &._expanded{
         height:auto;
 

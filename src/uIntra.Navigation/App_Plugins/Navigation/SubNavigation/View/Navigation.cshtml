@@ -1,7 +1,7 @@
 ﻿@using uIntra.Navigation;
 @model uIntra.Navigation.SubNavigationMenuViewModel
 
-@if (Model != null)
+@if (Model != null && (Model.ShowBreadcrumbs || Model.Rows.Any()))
 {
     var hasRows = Model.Rows.Skip(1).ToList().Count > 0;
 
