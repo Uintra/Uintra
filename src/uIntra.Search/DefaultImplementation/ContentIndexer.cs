@@ -5,12 +5,14 @@ using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using uIntra.Core.Grid;
-using Umbraco.Core.Services;
+using uIntra.Core.UmbracoEventServices;
+using Umbraco.Core.Events;
+using Umbraco.Core.Publishing;
 using static uIntra.Core.Constants.GridEditorConstants;
 
 namespace uIntra.Search
 {
-    public class ContentIndexer : IIndexer, IContentIndexer
+    public class ContentIndexer : IIndexer, IContentIndexer , IUmbracoEventService<IPublishingStrategy , PublishEventArgs<IContent>>
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
@@ -111,5 +113,10 @@ namespace uIntra.Search
             _umbracoHelper.TypedContent((int)value.id)?
             .GetPropertyValue<dynamic>(PanelConfigPropertyAlias)?
             .value;
+
+        public void Process(IPublishingStrategy sender, PublishEventArgs<IContent> args)
+        {
+            foreach (var entity in args.PublishedEntities) DeleteFromIndex(entity.Id);
+        }
     }
 }

@@ -19,6 +19,7 @@ using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Exceptions;
 using Compent.uIntra.Core.Feed.Links;
 using Compent.uIntra.Core.Groups;
+using Compent.uIntra.Core.Handlers;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
@@ -93,6 +94,9 @@ using uIntra.Navigation.EqualityComparers;
 using uIntra.Core.Utils;
 using uIntra.Notification.Core;
 using uIntra.Notification.DefaultImplementation;
+using Umbraco.Core.Events;
+using Umbraco.Core.Models;
+using Umbraco.Core.Publishing;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -355,8 +359,15 @@ namespace Compent.uIntra
             kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
-            kernel.Bind<IUmbracoMediaEventService>().To<SearchMediaEventService>().InRequestScope();
 
+
+            //umbraco events subscriptions
+            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoEventService<IMediaService, SaveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
+            kernel.Bind<IUmbracoEventService<IMediaService, MoveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
+            kernel.Bind<IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>>().To<MemberEventService>().InRequestScope();
+            
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
