@@ -114,6 +114,11 @@ namespace Compent.uIntra.Core
             return DocumentTypeAliasConstants.DataFolder;
         }
 
+        public string GetUserTagFolder()
+        {
+            return DocumentTypeAliasConstants.UserTagFolder;
+        }
+
         public virtual string GetSystemLink()
         {
             return DocumentTypeAliasConstants.SystemLink;

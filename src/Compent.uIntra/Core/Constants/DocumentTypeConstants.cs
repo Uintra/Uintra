@@ -1,6 +1,6 @@
 ﻿namespace Compent.uIntra.Core.Constants
 {
-    public class DocumentTypeAliasConstants
+    public static class DocumentTypeAliasConstants
     {
         public const string HomePage = "homePage";
         public const string NotificationPage = "notificationPage";
@@ -23,6 +23,7 @@
         public const string BulletinsDetailsPage = "bulletinsDetailsPage";
 
         public const string DataFolder = "dataFolder";
+        public const string UserTagFolder = "userTagFolder";
         public const string GlobalPanelFolder = "globalPanelFolder";
         public const string SystemLinkFolder = "systemLinkFolder";
         public const string MailTemplatesFolder = "mailTemplatesFolder";

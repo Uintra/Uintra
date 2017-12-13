@@ -379,6 +379,7 @@
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
+    <Compile Include="Core\Providers\IXPathProvider.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoMediaEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />

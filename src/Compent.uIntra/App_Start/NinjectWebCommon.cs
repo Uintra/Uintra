@@ -359,6 +359,8 @@ namespace Compent.uIntra
 
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
+            kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
+            
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
         }
