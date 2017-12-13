@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
+using uIntra.Core.Grid;
 using uIntra.Core.PagePromotion;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -17,6 +20,8 @@ namespace Compent.uIntra.Core.PagePromotion
 {
     public class PagePromotionService : IPagePromotionService<PagePromotion>, IFeedItemService
     {
+        protected virtual string PagePromotionConfigAlias { get; } = "pagePromotionConfig";
+
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly UmbracoHelper _umbracoHelper;
@@ -24,6 +29,7 @@ namespace Compent.uIntra.Core.PagePromotion
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGridHelper _gridHelper;
 
         public PagePromotionService(
             IActivityTypeProvider activityTypeProvider,
@@ -32,7 +38,8 @@ namespace Compent.uIntra.Core.PagePromotion
             IIntranetUserService<IIntranetUser> userService,
             ILikesService likesService,
             ICommentsService commentsService,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IGridHelper gridHelper)
         {
             _activityTypeProvider = activityTypeProvider;
             _feedTypeProvider = feedTypeProvider;
@@ -41,6 +48,7 @@ namespace Compent.uIntra.Core.PagePromotion
             _likesService = likesService;
             _commentsService = commentsService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _gridHelper = gridHelper;
         }
 
         public IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
@@ -59,95 +67,93 @@ namespace Compent.uIntra.Core.PagePromotion
         public PagePromotion GetPagePromotion(Guid pageId)
         {
             var content = _umbracoHelper.TypedContent(pageId);
-            var contentAndPagePromotionConfig = GetActualContentAndPagePromotionConfig(content);
-            return MapToPagePromotionModel(contentAndPagePromotionConfig);
+            var config = GetPagePromotionConfig(content);
+            return GetPagePromotion(content, config);
         }
 
-        public IEnumerable<IFeedItem> GetItems()
+        public virtual IEnumerable<IFeedItem> GetItems()
         {
             return GetManyActual().OrderByDescending(i => i.PublishDate);
         }
 
-        private IEnumerable<IFeedItem> GetManyActual()
+        protected virtual IEnumerable<IFeedItem> GetManyActual()
         {
             var homePage = _umbracoHelper.TypedContentAtRoot().Single(pc => pc.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()));
 
             var contentAndPagePromotionConfigs = homePage
                 .Descendants()
-                .Select(GetActualContentAndPagePromotionConfig);
+                .Where(IsPagePromotion)
+                .Select(GetContentAndConfig)
+                .Where(contentAndConfig => IsActual(contentAndConfig.config));
 
-            return contentAndPagePromotionConfigs.Where(conf => conf != null).Select(MapToCentralFeedItem);
+            return contentAndPagePromotionConfigs.Select(contentAndConfig => GetCentralFeedItem(contentAndConfig.content, contentAndConfig.config));
         }
 
-        private Tuple<IPublishedContent, PagePromotionConfig> GetActualContentAndPagePromotionConfig(IPublishedContent content)
+        protected virtual (IPublishedContent content, PagePromotionConfig config) GetContentAndConfig(IPublishedContent content)
         {
-            var isContentPromotionPage = false;// content is IPagePromotionComposition;
-            if (!isContentPromotionPage)
-            {
-                return null;
-            }
-
             var pagePromotionConfig = GetPagePromotionConfig(content);
-            if (pagePromotionConfig != null && pagePromotionConfig.PromoteOnCentralFeed && pagePromotionConfig.PublishDate <= DateTime.Now)
-            {
-                return new Tuple<IPublishedContent, PagePromotionConfig>(content, pagePromotionConfig);
-            }
-
-            return null;
+            return (content, pagePromotionConfig);
         }
 
-        private PagePromotion MapToPagePromotionModel(Tuple<IPublishedContent, PagePromotionConfig> contentAndPagePromotionConfig)
+        protected virtual PagePromotion GetPagePromotion(IPublishedContent content, PagePromotionConfig config)
         {
-            var pagePromotionConfig = contentAndPagePromotionConfig.Item2;
-            var pagePromotionModel = contentAndPagePromotionConfig.Item1.Map<PagePromotion>();
-            pagePromotionModel.CreatorId = _userService.Get(pagePromotionModel.UmbracoCreatorId.Value).Id;
+            var pagePromotion = content.Map<PagePromotion>();
+            Mapper.Map(config, pagePromotion);
 
-            FillPagePromotionConfig(pagePromotionModel, pagePromotionConfig);
-            return pagePromotionModel;
-        }
-
-        private IFeedItem MapToCentralFeedItem(Tuple<IPublishedContent, PagePromotionConfig> contentAndPagePromotionConfig)
-        {
-            var pagePromotionConfig = contentAndPagePromotionConfig.Item2;
-
-            var centralFeedItem = contentAndPagePromotionConfig.Item1.Map<PagePromotion>();
-            FillPagePromotionConfig(centralFeedItem, pagePromotionConfig);
-
-            centralFeedItem.Commentable = pagePromotionConfig.Comentable;
-            centralFeedItem.Likeable = pagePromotionConfig.Likeable;
-            centralFeedItem.CreatorId = _userService.Get(centralFeedItem.UmbracoCreatorId.Value).Id;
-
-            _likesService.FillLikes(centralFeedItem);
-            _commentsService.FillComments(centralFeedItem);
-
-            return centralFeedItem;
-        }
-
-        private void FillPagePromotionConfig(PagePromotion model, PagePromotionConfig pagePromotionConfig)
-        {
-            model.Type = new IntranetType
+            pagePromotion.Type = new IntranetType
             {
                 Id = ActivityType.Id,
-                Name = model.PageAlias
+                Name = pagePromotion.PageAlias
             };
-            model.Title = pagePromotionConfig.Title;
-            model.Description = pagePromotionConfig.Description;
-            model.PublishDate = pagePromotionConfig.PublishDate;
-            model.MediaIds = pagePromotionConfig.Files.ToIntCollection();
+
+            pagePromotion.CreatorId = _userService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
+
+            return pagePromotion;
         }
 
-        private PagePromotionConfig GetPagePromotionConfig(IPublishedContent content)
+        protected virtual PagePromotionConfig GetPagePromotionConfig(IPublishedContent content)
         {
             var config = new PagePromotionConfig();
-            var prop = content.GetPropertyValue<string>("pagePromotionConfig");
+            var prop = content.GetPropertyValue<string>(PagePromotionConfigAlias);
             if (prop.IsNotNullOrEmpty())
             {
                 config = prop.Deserialize<PagePromotionConfig>();
-               // config.Comentable = content.GridContainsPlugin("Comments");
-               // config.Likeable = content.GridContainsPlugin("Likes");
+
+                var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
+
+                config.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
+                config.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
                 return config;
             }
+
             return config;
+        }
+
+        protected virtual IFeedItem GetCentralFeedItem(IPublishedContent content, PagePromotionConfig config)
+        {
+            var centralFeedItem = GetPagePromotion(content, config);
+
+            if (centralFeedItem.Likeable)
+            {
+                _likesService.FillLikes(centralFeedItem);
+            }
+
+            if (centralFeedItem.Commentable)
+            {
+                _commentsService.FillComments(centralFeedItem);
+            }
+          
+            return centralFeedItem;
+        }
+
+        protected virtual bool IsPagePromotion(IPublishedContent content)
+        {
+            return content.HasProperty(PagePromotionConfigAlias);
+        }
+
+        protected virtual bool IsActual(PagePromotionConfig config)
+        {
+            return config.PromoteOnCentralFeed && config.PublishDate <= DateTime.Now;
         }
     }
 }
