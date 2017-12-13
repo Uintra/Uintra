@@ -13,7 +13,7 @@
         bottom:0;
         background:rgba(0,0,0,0.2);
         display:none;
-        z-index:11;
+        z-index:12;
         content:'';
 
         ._expanded &{
@@ -24,7 +24,7 @@
     &__form{
         ._expanded &{
             position:relative;
-            z-index:12;
+            z-index:13;
             background:var(--color-white);
         }
     }
