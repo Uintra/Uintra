@@ -1086,6 +1086,7 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

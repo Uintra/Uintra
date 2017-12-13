@@ -10,7 +10,7 @@ namespace uIntra.Core.Web
 {
     public abstract class PagePromotionControllerBase : SurfaceController
     {
-        protected virtual string ItemViewPath { get; } = "~/App_Plugins/PagePromotion/List/ItemView.cshtml";
+        protected virtual string ItemViewPath { get; } = "~/App_Plugins/Core/PagePromotion/Item/ItemView.cshtml";
         protected virtual int DisplayedImagesCount { get; } = 3;
 
         private readonly IIntranetUserService<IIntranetUser> _userService;
