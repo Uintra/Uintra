@@ -266,7 +266,7 @@ h5{
     }
     
     @media (--for-tablet-portrait-down) {
-        padding: 79px 0 0;
+        padding: 60px 0 0;
 
         ._with-sub-nav & {
             padding: 131px 0 0;
@@ -369,8 +369,8 @@ h5{
 	    position: absolute;
 	    display: flex;
 	    flex-direction: row-reverse;
-	    min-height: 79px;
-        padding:0 20px 0 0;
+	    min-height: 60px;
+        padding:0;
 
         &:before {
             position: absolute;
@@ -413,6 +413,7 @@ h5{
         &{
             left:50%;
             margin:0 0 0 -10px;
+            padding:8px 0;
         }
     }
 }

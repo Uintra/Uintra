@@ -27,18 +27,18 @@
     @media (--for-tablet-portrait-down) {
         position:absolute;
         top:50%;
-        right:15px;
+        left:16px;
         z-index: 101;
         width: 30px;
         height:30px;
 	    padding: 0;
-        margin:-15px 0 0;
+        margin:-18px 0 0;
         display: flex;
 	    justify-content: center;
 	    align-items: center;
 
         &__burger{
-            width: 20px;
+            width: 22px;
             height: 17px;
             position: relative;
             transform: rotate(0deg);
@@ -67,7 +67,7 @@
                 }
 
                 &:nth-child(2) {
-                    top: 7px;
+                    top: 9px;
 
                     ._menu-expanded &{
                         opacity: 0;
@@ -76,7 +76,7 @@
                 }
 
                 &:nth-child(3) {
-                    top: 14px;
+                    top: 18px;
 
                     ._menu-expanded &{
                         top: 7px;

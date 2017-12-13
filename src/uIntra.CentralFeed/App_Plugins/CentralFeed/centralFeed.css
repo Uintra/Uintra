@@ -92,6 +92,13 @@
             }
 	    }
 
+        @media(--for-tablet-portrait-down){
+            &{
+                margin:0 -20px 10px;
+                box-shadow:none;
+            }
+        }
+
         &-heading{
             margin:0 0 13px;
             font-size:13px;

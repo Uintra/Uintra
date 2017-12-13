@@ -4,6 +4,12 @@
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
 
+    @media (--for-tablet-portrait-down){
+        &{
+            margin:0 -20px 10px;
+        }
+    }
+
     &._important{
         padding:0 20px 20px;
         margin:0 0 20px;
@@ -427,7 +433,7 @@
         left: 0;
         right: 0;
         background: var(--color-white);
-        padding: 30px 20px 20px;
+        padding: 30px 20px 10px;
         transform: translate(0, -100%);
         transition: transform linear 300ms;
         z-index:6;
@@ -467,11 +473,12 @@
 
         &__opener {
             float: right;
-            width: 50px;
-            max-width:50px;
-            min-width:50px;
-            height: 51px;
-            background: var(--color-light-gray);
+            width: 51px;
+            max-width:51px;
+            min-width:51px;
+            height: 50px;
+            background: var(--color-white);
+            border-left:2px solid #f6f6f6;
             position: relative;
             z-index:10;
             cursor: pointer;
@@ -483,18 +490,18 @@
                 left: 50%;
                 width: 12px;
                 height: 12px;
-                border: 2px solid var(--text-color-dark);
+                border: 2px solid #261d43;
                 border-top-width: 4px;
-                background: var(--color-light-gray);
+                background: var(--color-white);
                 content: '';
             }
 
             &:before {
-                margin: -4px 0 0 -6px;
+                margin: -4px 0 0 -7px;
             }
 
             &:after {
-                margin: -8px 0 0 -2px;
+                margin: -8px 0 0 -3px;
             }
 
             ._hide-sidepanel-opener &{

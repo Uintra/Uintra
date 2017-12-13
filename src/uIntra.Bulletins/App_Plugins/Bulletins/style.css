@@ -235,7 +235,26 @@
             background: var(--color-white);
             position: relative;
             z-index: 5;
-            min-height:51px;
+            min-height:50px;
+
+            @media(--for-tablet-portrait-down) {
+		        &{
+                    margin-top:0;
+                    border-bottom:none;
+		        }
+	        }
+        }
+        &-expand{
+            display:block;
+            padding:4px 0;
+            font-size:16px;
+            line-height:22px;
+            color:#aaa;
+
+            &:hover{
+                text-decoration:none;
+                color:#aaa;
+            }
         }
     }
 }
