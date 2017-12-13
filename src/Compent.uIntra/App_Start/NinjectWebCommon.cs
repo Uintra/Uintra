@@ -325,7 +325,8 @@ namespace Compent.uIntra
 
             // User tags
             kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();
-
+            kernel.Bind<IUserTagRelationService>().To<UserTagRelationService>().InRequestScope();
+            kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
