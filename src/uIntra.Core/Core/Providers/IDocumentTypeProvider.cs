@@ -23,6 +23,7 @@ namespace uIntra.Core
         string GetMailTemplate();
         string GetDataFolder();
         string GetUserTagFolder();
+        string GetUserTag();
         string GetSystemLink();
         string GetSystemLinkFolder();
 

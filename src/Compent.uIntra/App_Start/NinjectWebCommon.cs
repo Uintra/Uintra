@@ -91,7 +91,7 @@ using uIntra.Core.Attributes;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
 using uIntra.Navigation.EqualityComparers;
 using uIntra.Core.Utils;
-using uIntra.Notification.Core;
+using uIntra.Tagging.UserTags;
 using uIntra.Notification.DefaultImplementation;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
@@ -319,6 +319,10 @@ namespace Compent.uIntra
             
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
+            // User tags
+            kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();
+
+
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
 
@@ -356,7 +360,6 @@ namespace Compent.uIntra
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
             kernel.Bind<IUmbracoMediaEventService>().To<SearchMediaEventService>().InRequestScope();
-
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();

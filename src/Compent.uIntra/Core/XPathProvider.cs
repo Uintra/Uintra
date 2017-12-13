@@ -1,5 +1,4 @@
 ﻿using uIntra.Core;
-using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core
 {
@@ -17,9 +16,10 @@ namespace Compent.uIntra.Core
             get
             {
                 string dataFolderAlias = _documentTypeAliasProvider.GetDataFolder();
-                string userTagsFolder = _documentTypeAliasProvider.GetUserTagFolder();
+                string userTagsFolderAlias = _documentTypeAliasProvider.GetUserTagFolder();
+                string userTagAlias = _documentTypeAliasProvider.GetUserTag();
 
-                return XPathHelper.GetXpath(dataFolderAlias, userTagsFolder);
+                return XPathHelper.GetXpath(dataFolderAlias, userTagsFolderAlias, userTagAlias);
             }
         }
     }
