@@ -254,10 +254,12 @@ namespace Compent.uIntra
             kernel.Bind(typeof(IIntranetActivityService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IIntranetActivityService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IIntranetActivityService<>)).To<BulletinsService>().InRequestScope();
+            kernel.Bind(typeof(IIntranetActivityService<>)).To<PagePromotionService>().InRequestScope();
             
             kernel.Bind<IIntranetActivityService>().To<NewsService>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<EventsService>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<IIntranetActivityService>().To<PagePromotionService>().InRequestScope();
 
             kernel.Bind<ISubscribableService>().To<EventsService>().InRequestScope();
 

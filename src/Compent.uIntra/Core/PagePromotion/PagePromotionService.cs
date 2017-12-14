@@ -18,7 +18,7 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IFeedItemService
+    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IIntranetActivityService<Entities.PagePromotion>, IFeedItemService
     {
         protected virtual string PagePromotionConfigAlias { get; } = "pagePromotionConfig";
 
@@ -64,6 +64,15 @@ namespace Compent.uIntra.Core.PagePromotion
                 ExcludeFromAvailableActivityTypes = true,
                 ExcludeFromLatestActivities = true
             };
+        }
+
+        public Entities.PagePromotion Get(Guid id)
+        {
+            var content = _umbracoHelper.TypedContent(id);
+            if (content == null) return null;
+
+            var config = GetPagePromotionConfig(content);
+            return GetPagePromotion(content, config);
         }
 
         public Entities.PagePromotion GetPagePromotion(Guid pageId)
@@ -159,5 +168,54 @@ namespace Compent.uIntra.Core.PagePromotion
         {
             return config.PromoteOnCentralFeed && config.PublishDate <= DateTime.Now;
         }
+
+        #region NotImplemented
+
+        public bool CanEdit(IIntranetActivity cached)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void MapBeforeCache(IList<Entities.PagePromotion> cached)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanEdit(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Entities.PagePromotion> IIntranetActivityService<Entities.PagePromotion>.GetManyActual()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Entities.PagePromotion> GetAll(bool includeHidden = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsActual(IIntranetActivity cachedActivity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Guid Create(IIntranetActivity activity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(IIntranetActivity activity)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

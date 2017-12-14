@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Compent.uIntra.Core.PagePromotion.Models;
+using uIntra.CentralFeed;
 using uIntra.Core.Extensions;
 using uIntra.Core.PagePromotion;
 using Umbraco.Core.Models;
@@ -62,6 +63,11 @@ namespace Compent.uIntra.Core.PagePromotion
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
+
+            Mapper.CreateMap<Entities.PagePromotion, ActivityTransferCreateModel>();
+
+            Mapper.CreateMap<Entities.PagePromotion, ActivityTransferModel>()
+                .IncludeBase<Entities.PagePromotion, ActivityTransferCreateModel>();
         }
     }
 }
