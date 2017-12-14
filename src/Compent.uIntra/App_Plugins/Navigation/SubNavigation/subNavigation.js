@@ -41,8 +41,8 @@ var initMobileMenu = function() {
     var opener = menu.find('.tabset__navigation-link');
     var itemHeigth = 0;
 
-    if (menu.find('._active').length <= 0) {
-        menu.find('.tabset__navigation-item:first-child').addClass('_active');
+    if (menu.find('._selected').length <= 0) {
+        menu.find('.tabset__navigation-item:first-child').addClass('_selected');
     }
 
     menu.each(function () {
