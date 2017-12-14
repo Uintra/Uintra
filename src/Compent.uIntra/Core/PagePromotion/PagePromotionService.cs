@@ -20,8 +20,6 @@ namespace Compent.uIntra.Core.PagePromotion
 {
     public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IFeedItemService
     {
-        protected virtual string PagePromotionConfigAlias { get; } = "pagePromotionConfig";
-
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly UmbracoHelper _umbracoHelper;
@@ -135,19 +133,13 @@ namespace Compent.uIntra.Core.PagePromotion
 
         protected virtual PagePromotionConfig GetPagePromotionConfig(IPublishedContent content)
         {
-            var config = new PagePromotionConfig();
-            var prop = content.GetPropertyValue<string>(PagePromotionConfigAlias);
-            if (prop.IsNotNullOrEmpty())
-            {
-                config = prop.Deserialize<PagePromotionConfig>();
+            var config = PagePromotionConfigHelper.GetPagePromotionConfig(content);
+            if (config == null) return null;
 
-                var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
+            var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
 
-                config.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
-                config.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
-                return config;
-            }
-
+            config.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
+            config.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
             return config;
         }
 
@@ -170,7 +162,7 @@ namespace Compent.uIntra.Core.PagePromotion
 
         protected virtual bool IsPagePromotion(IPublishedContent content)
         {
-            return content.HasProperty(PagePromotionConfigAlias);
+            return content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
         }
 
         protected virtual bool IsActual(PagePromotionConfig config)
