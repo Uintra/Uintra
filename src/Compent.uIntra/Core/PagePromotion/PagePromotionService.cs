@@ -69,6 +69,8 @@ namespace Compent.uIntra.Core.PagePromotion
         public Entities.PagePromotion GetPagePromotion(Guid pageId)
         {
             var content = _umbracoHelper.TypedContent(pageId);
+            if (content == null) return null;
+
             var config = GetPagePromotionConfig(content);
             return GetPagePromotion(content, config);
         }
@@ -105,7 +107,7 @@ namespace Compent.uIntra.Core.PagePromotion
             pagePromotion.Type = new IntranetType
             {
                 Id = ActivityType.Id,
-                Name = pagePromotion.PageAlias
+                Name = ActivityType.Name
             };
 
             pagePromotion.CreatorId = _userService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
@@ -144,7 +146,7 @@ namespace Compent.uIntra.Core.PagePromotion
             {
                 _commentsService.FillComments(centralFeedItem);
             }
-          
+
             return centralFeedItem;
         }
 
