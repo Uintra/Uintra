@@ -22,6 +22,10 @@ namespace uIntra.Core.Activity
 
         public IIntranetType GetActivityType(Guid activityId)
         {
+            //TODO what about using next code
+            // var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
+            // var activityType = activityServices.Select(service => service.Get(activityId.Value)).Single(a => a != null).Type;
+
             var typeId = GetActivityTypeId(activityId);
             return _activityTypeProvider.Get(typeId);
         }
