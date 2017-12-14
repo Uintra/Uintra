@@ -40,7 +40,6 @@ namespace Compent.uIntra.Core.PagePromotion
                 .ForMember(dst => dst.Comments, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-                .ForMember(dst => dst.Commentable, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.PageAlias, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
