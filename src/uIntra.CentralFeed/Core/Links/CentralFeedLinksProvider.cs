@@ -65,7 +65,7 @@ namespace uIntra.CentralFeed
         {
             return new ActivityLinks
             {
-                Details = _pagePromotionService.GetPagePromotion(activity.Id).Url,
+                Details = _pagePromotionService.Get(activity.Id).Url,
                 Owner = GetProfileLink(activity.OwnerId)
             };
         }

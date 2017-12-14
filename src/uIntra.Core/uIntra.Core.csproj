@@ -369,8 +369,8 @@
     <Compile Include="Core\Extensions\StreamExtensions.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
-    <Compile Include="Core\PagePromotion\IPagePromotionService.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
+    <Compile Include="Core\PagePromotion\IPagePromotionService.cs" />
     <Compile Include="Core\PagePromotion\Models\PagePromotionItemViewModel.cs" />
     <Compile Include="Core\Providers\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IUmbracoContentHelper.cs" />
