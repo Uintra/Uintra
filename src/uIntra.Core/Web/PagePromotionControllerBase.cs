@@ -3,7 +3,9 @@ using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.PagePromotion;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
+using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Core.Web
@@ -12,6 +14,7 @@ namespace uIntra.Core.Web
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/Core/PagePromotion/Item/ItemView.cshtml";
         protected virtual int DisplayedImagesCount { get; } = 3;
+        protected virtual string PagePromotionTranslationPrefix { get; } = "PagePromotion.";
 
         private readonly IIntranetUserService<IIntranetUser> _userService;
 
@@ -20,22 +23,28 @@ namespace uIntra.Core.Web
             _userService = userService;
         }
 
-        protected virtual PagePromotionItemViewModel GetItemViewModel(PagePromotionBase page, IActivityLinks links)
+        protected virtual PagePromotionItemViewModel GetItemViewModel(PagePromotionBase item, IActivityLinks links)
         {
-            var model = page.Map<PagePromotionItemViewModel>();
-            model.MediaIds = page.MediaIds;
+            var model = item.Map<PagePromotionItemViewModel>();
+            model.MediaIds = item.MediaIds;
             model.Links = links;
 
-            model.HeaderInfo = page.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _userService.Get(page.CreatorId);
+            model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
+            model.HeaderInfo.Owner = _userService.Get(item.CreatorId);
             model.HeaderInfo.Links = links;
+
+            model.HeaderInfo.Type = new IntranetType
+            {
+                Id = item.Type.Id,
+                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
+            };
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {
-                MediaIds = page.MediaIds,
+                MediaIds = item.MediaIds,
                 DisplayedImagesCount = DisplayedImagesCount,
-                ActivityId = page.Id,
-                ActivityType = page.Type
+                ActivityId = item.Id,
+                ActivityType = item.Type
             };
 
             return model;

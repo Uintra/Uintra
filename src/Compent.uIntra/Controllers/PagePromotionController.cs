@@ -4,8 +4,10 @@ using Compent.uIntra.Core.PagePromotion.Entities;
 using Compent.uIntra.Core.PagePromotion.Models;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.Web;
+using Umbraco.Core;
 
 namespace Compent.uIntra.Controllers
 {
@@ -30,6 +32,11 @@ namespace Compent.uIntra.Controllers
             var extendedModel = model.Map<PagePromotionExtendedItemViewModel>();
 
             extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            model.HeaderInfo.Type = new IntranetType
+            {
+                Id = item.Type.Id,
+                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
+            };
 
             extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
