@@ -8,14 +8,13 @@ using uIntra.Core.Exceptions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Localization;
 using uIntra.Core.TypeProviders;
+using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Constants;
-using uIntra.Notification.Core;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace uIntra.Notification.Installer.Migrations
+namespace Compent.uIntra.Installer.Migrations
 {
     public class NotificationSettingsMigrations 
     {
@@ -50,7 +49,6 @@ namespace uIntra.Notification.Installer.Migrations
         private readonly INotifierTypeProvider _notifierTypeProvider = DependencyResolver.Current.GetService<INotifierTypeProvider>();
         private readonly IExceptionLogger _exceptionLogger = DependencyResolver.Current.GetService<IExceptionLogger>();
         private readonly IIntranetLocalizationService _localizationService = DependencyResolver.Current.GetService<IIntranetLocalizationService>();
-        private readonly IContentService contentService = DependencyResolver.Current.GetService<IContentService>();
 
         public NotificationSettingsMigrations()
         {
