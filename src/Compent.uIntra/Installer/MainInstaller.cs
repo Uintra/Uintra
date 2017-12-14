@@ -34,7 +34,7 @@ namespace Compent.uIntra.Installer
         private readonly Version AddingHeadingUIntraVersion = new Version("0.2.2.10");
         private readonly Version AddingOwnerUIntraVersion = new Version("0.2.4.0");
         private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
-        private readonly Version PagePromotionUIntraVersion = new Version("0.2.5.7");
+        private readonly Version PagePromotionUIntraVersion = new Version("0.2.8.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
