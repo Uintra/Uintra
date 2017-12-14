@@ -34,6 +34,7 @@ namespace Compent.uIntra.Installer
         private readonly Version AddingHeadingUIntraVersion = new Version("0.2.2.10");
         private readonly Version AddingOwnerUIntraVersion = new Version("0.2.4.0");
         private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
+        private readonly Version PagePromotionUIntraVersion = new Version("0.2.5.7");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -73,9 +74,20 @@ namespace Compent.uIntra.Installer
                 uiNotificationMigration.Execute();
             }
 
+
             if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
             {
                 DeleteExistedMailTemplates();
+            }
+
+            if (installedVersion < PagePromotionUIntraVersion && UIntraVersion >= PagePromotionUIntraVersion)
+            {
+                var pagePromotionMigration = new PagePromotionMigration();
+                pagePromotionMigration.Execute();
+
+                InstallationStepsHelper.InheritCompositionForPage(
+                    CoreInstallationConstants.DocumentTypeAliases.ContentPage,
+                    PagePromotionInstallationConstants.DocumentTypeAliases.PagePromotionComposition);
             }
 
             if (UIntraVersion > installedVersion)
