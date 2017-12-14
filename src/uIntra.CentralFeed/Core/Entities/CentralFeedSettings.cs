@@ -8,5 +8,8 @@ namespace uIntra.CentralFeed
         public string Controller { get; set; }        
         public bool HasSubscribersFilter { get; set; }
         public bool HasPinnedFilter { get; set; }
+
+        public bool ExcludeFromAvailableActivityTypes { get; set; }
+        public bool ExcludeFromLatestActivities { get; set; }
     }
 }

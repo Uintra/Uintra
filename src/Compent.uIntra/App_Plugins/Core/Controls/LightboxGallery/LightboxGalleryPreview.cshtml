@@ -10,7 +10,7 @@
     {
         var originalSize = $"{image.Width}x{image.Height}";
         <li class="gallery__item" style="@(image.IsHidden ? "display:none;" : string.Empty)">
-            <img class="gallery__image" src="@image.Url" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
+            <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
         </li>
     }
     @if (Model.OtherFiles.Any())

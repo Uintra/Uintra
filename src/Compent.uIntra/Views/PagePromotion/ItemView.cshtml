@@ -1,0 +1,28 @@
+@using uIntra.Core.Extensions
+@model Compent.uIntra.Core.PagePromotion.Models.PagePromotionExtendedItemViewModel
+
+<div class="feed__item">
+    <div class="clearfix">
+        @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+    </div>
+    <div class="feed__item-image"> </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div class="feed__item-txt _clamp" data-url="@Model.Links.Details">@Html.Raw(Model.Description)</div>
+    }
+    <div class="feed__item-images">
+        @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+    </div>
+    <div class="feed__item-feed">
+        <div class="feed__item-feed-holder">
+            @if (Model.Likeable)
+            {
+                { Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+            }
+            @if (Model.Commentable)
+            {
+                { Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.Links.Details, isReadOnly = Model.IsReadOnly }); }
+            }
+        </div>
+    </div>
+</div>
