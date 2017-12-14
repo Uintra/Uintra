@@ -37,6 +37,10 @@
 	    justify-content: center;
 	    align-items: center;
 
+        ._menu-expanded &{
+            left:14px;
+        }
+
         &__burger{
             width: 22px;
             height: 17px;
@@ -61,7 +65,7 @@
                     top: 0px;
 
                     ._menu-expanded &{
-                        top: 7px;
+                        top: 9px;
                         transform: rotate(135deg);
                     }
                 }
@@ -79,7 +83,7 @@
                     top: 18px;
 
                     ._menu-expanded &{
-                        top: 7px;
+                        top: 9px;
                         transform: rotate(-135deg);
                     }
                 }
@@ -99,8 +103,20 @@
     flex-grow:1;
 
     @media (--for-tablet-portrait-down) {
-        background: var(--color-light-gray-2);
-        padding:17px 15px;
+        background: var(--header-bg);
+        padding:10px 0 10px 10px;
+        transition:all ease-in 100ms;
+        transition-delay:250ms;
+        opacity:0;
+        z-index:5;
+
+        ._menu-expanded &{
+            opacity:1;
+            position:fixed;
+            top:0;
+            left:0;
+            width:calc(100% - 60px);
+        }
 
         &__form {
             overflow:hidden;
@@ -140,8 +156,9 @@
         }
 
         @media (--for-tablet-portrait-down){
-            height: 41px;
+            height: 40px;
             font-size: 16px;
+            padding:1px 40px 1px 9px;
         }
     }
 
@@ -159,13 +176,21 @@
         }
 
         @media (--for-tablet-portrait-down) {
-            top: 22px;
-            right: 15px;
+            top: 18px;
+            right: 0;
         }
 
         .icon-search{
             font-size:18px;
             color:var(--color-black);
+
+            @media (--for-tablet-portrait-down) {
+                &{
+                    &:before{
+                        font-size:25px;
+                    }
+                }
+            }
         }
     }
 }
@@ -181,7 +206,7 @@
     top:55px !important;
 
     @media (--for-tablet-portrait-down){
-        top:58px !important; 
+        top:50px !important; 
         position:absolute !important;
     }
     

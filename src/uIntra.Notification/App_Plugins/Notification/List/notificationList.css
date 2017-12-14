@@ -3,6 +3,12 @@
     box-shadow:0 0 2px rgba(0,0,0,0.2);
     padding:36px 19px 0;
 
+    @media(--for-tablet-portrait-down){
+        &{
+            margin:0 -20px;
+        }
+    }
+
     &__title{
         font:27px/27px var(--font-general);
         margin:0;
@@ -31,7 +37,8 @@
             ._notifications-expanded &{
                 background-color:var(--color-light-gray-2);
                 color:var(--text-color-dark);
-                padding:30px 0;
+                padding:23px 0 13px;
+                margin:0;
             }
         }
     }
@@ -66,10 +73,12 @@
 
             @media(--for-tablet-portrait-down){
                 &{
-                    width:100%;
+                    width:calc(100vw - 17px);
                     transform:translate(0, -100%);
                     transition: transform linear 200ms;
                     display:block;
+                    left:auto;
+                    right:0;
 
                     ._notifications-expanded &{
                         transform:translate(0, 0);
@@ -121,7 +130,7 @@
         & {
 	        position:absolute;
 	        width: 57px;
-            right:0;
+            right:-5px;
 
 	        &__icon {
 		        position:relative;

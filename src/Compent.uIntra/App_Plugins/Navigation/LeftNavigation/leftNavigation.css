@@ -12,6 +12,12 @@
 
     &__holder{
         padding:50px 32px 0 0;
+
+        @media (--for-tablet-portrait-down){
+            &{
+                padding:0;
+            }
+        }
     }
 }
 
@@ -147,6 +153,12 @@
                     top:13px;
                 }
 			}
+
+            @media (--for-tablet-portrait-down) {
+                &{
+                    right:15px;
+                }
+            }
 		}
 	}
 
@@ -158,6 +170,12 @@
 
         &:before{
             font-size:15px;
+        }
+
+        @media (--for-tablet-portrait-down) {
+            &{
+                right:13px;
+            }
         }
     }
 
@@ -265,14 +283,20 @@
 
         @media(--for-tablet-portrait-down){
             &{
-                display:none;
+                
             }
         }
     }
 
     @media (--for-tablet-portrait-down) {
         &{
-            font-size: 18px;
+            font-size: 16px;
+            padding:31px 11px 20px 0;
+            background:var(--color-white);
+
+            &._for-mobile{
+                border-top:none;
+            }
 
             &__overlay{
                 position:fixed;
@@ -280,7 +304,6 @@
                 left:0;
                 right:0;
                 bottom:0;
-                background:rgba(0,0,0,0.5);
                 opacity:0;
                 visibility:hidden;
                 z-index:100;
@@ -291,8 +314,17 @@
                     visibility:visible;
                 }
             }
+
+            &__link {
+                padding: 11px 45px 9px 19px;
+                margin: 0 0 -7px;
+
+                ._active &{
+                    border-left-width:5px;
+                    padding-left:13px;
+                }
+            }
         }
-        
 
         & & {
             padding: 3px 0 0;
@@ -303,8 +335,6 @@
             }
 
             &__link {
-                padding-left: 19px;
-
                 &._with-icon{
                     padding-right:0;
                     padding-left:0;

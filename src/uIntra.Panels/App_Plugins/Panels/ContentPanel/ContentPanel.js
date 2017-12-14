@@ -148,10 +148,15 @@ var initMobileBanners = function () {
     var container = document.querySelector('.sidebar');
     var tabset = document.querySelector('.tabset');
     var header = document.getElementById('header');
+    var bulletinBtn = document.querySelector('.bulletin__btn-holder');
     var height = header.clientHeight;
 
     if (tabset) {
         height += tabset.clientHeight;
+    }
+
+    if (bulletinBtn) {
+        height += bulletinBtn.clientHeight;
     }
 
     if (!opener || !container) {

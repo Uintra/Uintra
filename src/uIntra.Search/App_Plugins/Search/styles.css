@@ -3,6 +3,12 @@
     box-shadow:0 0 2px rgba(0,0,0,0.2);
     padding:37px 20px 0;
 
+    @media (--for-tablet-portrait-down){
+        &{
+            margin:0 -20px;
+        }
+    }
+
     &__title{
         font:25px/27px var(--font-general);
         margin:0 0 19px;
