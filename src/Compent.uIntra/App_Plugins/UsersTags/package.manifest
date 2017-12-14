@@ -1,0 +1,19 @@
+{
+  "gridEditors": [
+    {
+      "name": "Users tags",
+      "alias": "custom.UsersTags",
+      "view": "~/App_Plugins/UsersTags/backoffice/users-tags.view.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "Tags",
+        "action": "ForContent",
+        "includeUmbracoValues": true
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/UsersTags/backoffice/usersTagsService.js",
+    "/App_Plugins/UsersTags/backoffice/usersTagsController.js"
+  ]
+}

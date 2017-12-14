@@ -904,6 +904,10 @@
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
+    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.overlay.html" />
+    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.view.html" />
+    <Content Include="App_Plugins\UsersTags\backoffice\usersTagsController.js" />
+    <Content Include="App_Plugins\UsersTags\backoffice\usersTagsService.js" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
@@ -1087,6 +1091,7 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201712131730041_UserTags.resx">
       <DependentUpon>201712131730041_UserTags.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1196,6 +1201,7 @@
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
     <Compile Include="Controllers\Api\RteConfigController.cs" />
     <Compile Include="Controllers\Api\UserApiController.cs" />
+    <Compile Include="Controllers\Api\UsersTagsApiController.cs" />
     <Compile Include="Controllers\BrowserCompatibilityController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\BulletinsSectionController.cs" />

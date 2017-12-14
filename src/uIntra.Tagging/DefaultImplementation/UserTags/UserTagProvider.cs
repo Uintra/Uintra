@@ -4,6 +4,7 @@ using uIntra.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Linq;
+using uIntra.Tagging.UserTags.Models;
 
 namespace uIntra.Tagging.UserTags
 {

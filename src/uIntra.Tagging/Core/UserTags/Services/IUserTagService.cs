@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using uIntra.Tagging.UserTags.Models;
 
 namespace uIntra.Tagging.UserTags
 {
