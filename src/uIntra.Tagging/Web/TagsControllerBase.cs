@@ -1,44 +1,51 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web.Mvc;
-//using uIntra.Core.Extensions;
-//using uIntra.Tagging.Core.Models;
-//using Umbraco.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using uIntra.Core.Extensions;
+using uIntra.Tagging.UserTags;
+using uIntra.Tagging.UserTags.Models;
+using Umbraco.Web.Mvc;
 
-//namespace uIntra.Tagging.Web
-//{
-//    public abstract class TagsControllerBase : SurfaceController
-//    {
-//        protected virtual string TagsViewPath { get; set; } = "~/App_Plugins/Tagging/Views/TagsView.cshtml";
-//        protected virtual string TagsEditViewPath { get; set; } = "~/App_Plugins/Tagging/Views/TagsEditView.cshtml";
+namespace uIntra.Tagging.Web
+{
+    public abstract class TagsControllerBase : SurfaceController
+    {
+        protected virtual string TagsViewPath { get; set; } = "~/App_Plugins/Tagging/Views/Tags.cshtml";
+        protected virtual string TagsPickerViewPath { get; set; } = "~/App_Plugins/UsersTags/Views/TagPicker.cshtml";
 
-//        private readonly ITagsService _tagsService;
+        private readonly IUserTagService _tagsService;
+        private readonly IUserTagProvider _tagProvider;
 
-//        protected TagsControllerBase(ITagsService tagsService)
-//        {
-//            _tagsService = tagsService;
-//        }
+        protected TagsControllerBase(IUserTagService tagsService, IUserTagProvider tagProvider)
+        {
+            _tagsService = tagsService;
+            _tagProvider = tagProvider;
+        }
 
-//        public virtual ActionResult Tags(IEnumerable<TagEditModel> tags)
-//        {
-//            return PartialView(TagsEditViewPath, tags);
-//        }
+        public virtual ActionResult Get(Guid activityId)
+        {
+            var tags = _tagsService.GetRelatedTags(activityId).Map<IEnumerable<UserTagViewModel>>();
+            return PartialView(TagsViewPath, tags);
+        }
 
-//        public virtual JsonResult Autocomplete(string query)
-//        {
-//            var result = _tagsService
-//                .FindAll(query) // todo: move search/trim logic to separate class
-//                .Select(tag => tag)
-//                .OrderBy(tag => tag.Text);
+        public ActionResult TagPicker(Guid? entityId = null)
+        {
+            var pickerViewModel = GetPickerViewModel(entityId);
 
-//            return Json(new { Tags = result }, JsonRequestBehavior.AllowGet);
-//        }
+            return PartialView(TagsPickerViewPath, pickerViewModel);
+        }
 
-//        public virtual ActionResult ForActivity(Guid activityId)
-//        {
-//            var tags = _tagsService.GetAllForActivity(activityId).Map<IEnumerable<TagViewModel>>();
-//            return PartialView(TagsViewPath, tags);
-//        }
-//    }
-//}
+        private TagPickerViewModel GetPickerViewModel(Guid? entityId)
+        {
+            var pickerViewModel = new TagPickerViewModel
+            {
+                UserTagCollection = _tagProvider.GetAll(),
+                TagIdsData = entityId.HasValue
+                    ? _tagsService.GetRelatedTags(entityId.Value).Select(t => t.Id)
+                    : Enumerable.Empty<Guid>()
+            };
+            return pickerViewModel;
+        }
+    }
+}

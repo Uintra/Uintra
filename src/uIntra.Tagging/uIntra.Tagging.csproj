@@ -317,7 +317,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\UserTags\Models\UsersTagViewModel.cs" />
+    <Compile Include="Core\UserTags\Models\TagPickerViewModel.cs" />
+    <Compile Include="Core\UserTags\Models\UserTagViewModel.cs" />
     <Compile Include="Core\UserTags\Models\UserTag.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagProvider.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagRelationService.cs" />
@@ -345,8 +346,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\App_Plugins\Tagging\**\*">
-      <Link>App_Plugins\Tagging\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Content Include="..\Compent.uIntra\App_Plugins\UsersTags\**\*">
+      <Link>App_Plugins\UsersTags\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
