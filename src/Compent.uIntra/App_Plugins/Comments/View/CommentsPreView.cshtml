@@ -6,7 +6,7 @@
     var link = Model.IsReadOnly ? "" : Model.Link;
 }
 
-<span class="comments-preview @(showCount ? "_hasComments" : string.Empty) js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
+<span class="comments-preview @(showCount ? "_hasComments" : string.Empty) @(Model.IsExistsUserComment ? "_hasUserComment" : "") js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
     <input type="hidden" name="readonlyClickTitle" value="@Html.Localize("Comments.ReadonlyClick.Title.lbl")" />
     <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Comments.ReadonlyClick.Message.lbl")" />
 

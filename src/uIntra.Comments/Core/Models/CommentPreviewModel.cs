@@ -7,5 +7,7 @@
         public string Link { get; set; }
 
         public bool IsReadOnly { get; set; }
+
+        public bool IsExistsUserComment { get; set; }
     }
 }

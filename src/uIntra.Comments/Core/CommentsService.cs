@@ -98,5 +98,13 @@ namespace uIntra.Comments
         {
             return $"js-comment-view-{commentId}";
         }
+
+        public bool IsExistsUserComment(Guid activityId, Guid userId)
+        {
+            var result = _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
+
+            return result;
+
+        }
     }
 }
