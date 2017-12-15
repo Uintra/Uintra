@@ -1,10 +1,55 @@
 ﻿{
+  "propertyEditors": [
+    {
+      "name": "Page Promotion",
+      "alias": "custom.PagePromotion",
+      "hideLabel": true,
+      "editor": {
+        "view": "~/App_Plugins/Core/PagePromotion/backoffice/page-promotion.html",
+        "valueType": "JSON"
+      },
+      "defaultConfig": {
+        "description": {
+          "height": 350,
+          "toolbar": "styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat",
+          "style_formats": [
+            {
+              "title": "Heading 1",
+              "block": "h1"
+            },
+            {
+              "title": "Heading 2",
+              "block": "h2"
+            },
+            {
+              "title": "Heading 3",
+              "block": "h3"
+            },
+            {
+              "title": "Normal",
+              "block": "p"
+            }
+          ]
+        },
+        "filesPicker": {
+          "disableFolderSelect": "1",
+          "multiPicker": "1",
+          "onlyImages": "0"
+        },
+        "publishDate": {
+          "dateFormat": "d/m/Y H:i",
+          "enableTime": true,
+          "time_24hr": true
+        }
+      }
+    }
+  ],
   "javascript": [
     "~/App_Plugins/Core/Content/backoffice/dummy-plugin-view.directive.js",
     "~/App_Plugins/Core/Content/backoffice/debug-helper/debug-helper.directive.js",
     "~/App_Plugins/Core/Content/backoffice/EditorConfig/editorConfigService.js",
-    "~/App_Plugins/Core/User/backoffice/intranetUserService.js"
-
+    "~/App_Plugins/Core/User/backoffice/intranetUserService.js",
+    "~/App_Plugins/Core/PagePromotion/backoffice/page-promotion.controller.js"
   ],
   "css": [
     "~/App_Plugins/Core/Content/backoffice/dummy-plugin-view.directive.css",
