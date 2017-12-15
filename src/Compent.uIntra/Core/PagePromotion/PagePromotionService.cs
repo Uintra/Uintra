@@ -167,7 +167,7 @@ namespace Compent.uIntra.Core.PagePromotion
 
         protected virtual bool IsActual(PagePromotionConfig config)
         {
-            return config.PromoteOnCentralFeed && config.PublishDate <= DateTime.Now;
+            return config != null && config.PromoteOnCentralFeed && config.PublishDate <= DateTime.Now;
         }
 
         #region NotImplemented
