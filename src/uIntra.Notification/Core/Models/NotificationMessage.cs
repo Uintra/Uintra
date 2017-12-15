@@ -14,5 +14,7 @@ namespace uIntra.Notification
         public Guid ReceiverId { get; set; }
         public string Url { get; set; }
         public string Message { get; set; }
+        public bool IsPinned { get; set; }
+        public bool IsPinActual { get; set; }
     }
 }

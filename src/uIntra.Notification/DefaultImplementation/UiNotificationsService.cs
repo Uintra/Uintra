@@ -37,7 +37,7 @@ namespace uIntra.Notification
                     IsNotified = false,
                     IsViewed = false,
                     Type = el.NotificationType.Id,
-                    Value = new { el.Message, el.Url }.ToJson(),
+                    Value = new { el.Message, el.Url, el.IsPinned, el.IsPinActual }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
 
