@@ -208,7 +208,9 @@ namespace Compent.uIntra.Installer
         {
             var userService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
 
-            var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
+            var activityServices = DependencyResolver.Current
+                .GetServices<IIntranetActivityService<IIntranetActivity>>()
+                .Where(service => service.ActivityType.Id != (int)IntranetActivityTypeEnum.PagePromotion);
             foreach (var service in activityServices)
             {
                 var activities = service.GetAll(true).ToList();
