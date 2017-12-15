@@ -1837,6 +1837,11 @@
   <ItemGroup>
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Views\PagePromotion\ItemView.cshtml">
+      <Link>Views\PagePromotion\ItemView.cshtml</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
