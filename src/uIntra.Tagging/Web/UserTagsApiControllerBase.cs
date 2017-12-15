@@ -8,13 +8,13 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Tagging.Web
 {
-    public abstract class UsersTagsApiControllerBase : UmbracoAuthorizedApiController
+    public abstract class UserTagsApiControllerBase : UmbracoAuthorizedApiController
     {
         private readonly UserTagService _userTagService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IUserTagProvider _userTagProvider;
 
-        public UsersTagsApiControllerBase(UserTagService userTagService, UmbracoHelper umbracoHelper, IUserTagProvider userTagProvider)
+        public UserTagsApiControllerBase(UserTagService userTagService, UmbracoHelper umbracoHelper, IUserTagProvider userTagProvider)
         {
             _userTagService = userTagService;
             _umbracoHelper = umbracoHelper;
@@ -22,7 +22,7 @@ namespace uIntra.Tagging.Web
         }
 
         [HttpGet]
-        public IEnumerable<UserTagViewModel> GetAll(int pageId)
+        public IEnumerable<UserTagsViewModel> GetAll(int pageId)
         {
             var content = _umbracoHelper.TypedContent(pageId);
 
@@ -32,7 +32,7 @@ namespace uIntra.Tagging.Web
                 .GetRelatedTags(content.GetKey())
                 .ToDictionary(tag => tag.Id);
 
-            var result = allTags.Select(tag => new UserTagViewModel
+            var result = allTags.Select(tag => new UserTagsViewModel
             {
                 Id = tag.Id,
                 Text = tag.Text,

@@ -3,7 +3,7 @@
 
     var service = function ($http) {
         var self = this;
-        var baseUrl = "/umbraco/backoffice/api/UsersTagsApi/";
+        var baseUrl = "/umbraco/backoffice/api/UserTagsApi/";
 
         self.getAll = function (pageId) {
             return $http.get(baseUrl + "GetAll?pageId=" + pageId);

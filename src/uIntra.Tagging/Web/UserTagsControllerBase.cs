@@ -9,7 +9,7 @@ using Umbraco.Web.Mvc;
 
 namespace uIntra.Tagging.Web
 {
-    public abstract class TagsControllerBase : SurfaceController
+    public abstract class UserTagsControllerBase : SurfaceController
     {
         protected virtual string TagsViewPath { get; set; } = "~/App_Plugins/Tagging/Views/Tags.cshtml";
         protected virtual string TagsPickerViewPath { get; set; } = "~/App_Plugins/UsersTags/Views/TagPicker.cshtml";
@@ -17,7 +17,7 @@ namespace uIntra.Tagging.Web
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
 
-        protected TagsControllerBase(IUserTagService tagsService, IUserTagProvider tagProvider)
+        protected UserTagsControllerBase(IUserTagService tagsService, IUserTagProvider tagProvider)
         {
             _tagsService = tagsService;
             _tagProvider = tagProvider;
@@ -25,7 +25,7 @@ namespace uIntra.Tagging.Web
 
         public virtual ActionResult Get(Guid activityId)
         {
-            var tags = _tagsService.GetRelatedTags(activityId).Map<IEnumerable<UserTagViewModel>>();
+            var tags = _tagsService.GetRelatedTags(activityId).Map<IEnumerable<UserTagsViewModel>>();
             return PartialView(TagsViewPath, tags);
         }
 
