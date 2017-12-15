@@ -18,10 +18,8 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IIntranetActivityService<Entities.PagePromotion>, IFeedItemService
+    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IFeedItemService
     {
-        protected virtual string PagePromotionConfigAlias { get; } = "pagePromotionConfig";
-
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly UmbracoHelper _umbracoHelper;
@@ -75,31 +73,40 @@ namespace Compent.uIntra.Core.PagePromotion
             return GetPagePromotion(content, config);
         }
 
-        public Entities.PagePromotion GetPagePromotion(Guid pageId)
+        public IEnumerable<Entities.PagePromotion> GetManyActual()
         {
-            var content = _umbracoHelper.TypedContent(pageId);
-            if (content == null) return null;
+            return GetActualContentAndConfigs()
+                .Select(contentAndConfig => GetPagePromotion(contentAndConfig.content, contentAndConfig.config));
+        }
 
-            var config = GetPagePromotionConfig(content);
-            return GetPagePromotion(content, config);
+        public IEnumerable<Entities.PagePromotion> GetAll(bool includeHidden = false)
+        {
+            return GetAllContentAndConfigs()
+                .Select(contentAndConfig => GetPagePromotion(contentAndConfig.content, contentAndConfig.config));
         }
 
         public virtual IEnumerable<IFeedItem> GetItems()
         {
-            return GetManyActual().OrderByDescending(i => i.PublishDate);
+            return GetActualContentAndConfigs()
+                .Select(contentAndConfig => GetCentralFeedItem(contentAndConfig.content, contentAndConfig.config))
+                .OrderByDescending(i => i.PublishDate);
         }
 
-        protected virtual IEnumerable<IFeedItem> GetManyActual()
+        protected virtual IEnumerable<(IPublishedContent content, PagePromotionConfig config)> GetAllContentAndConfigs()
         {
             var homePage = _umbracoHelper.TypedContentAtRoot().Single(pc => pc.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()));
 
             var contentAndPagePromotionConfigs = homePage
                 .Descendants()
                 .Where(IsPagePromotion)
-                .Select(GetContentAndConfig)
-                .Where(contentAndConfig => IsActual(contentAndConfig.config));
+                .Select(GetContentAndConfig);
 
-            return contentAndPagePromotionConfigs.Select(contentAndConfig => GetCentralFeedItem(contentAndConfig.content, contentAndConfig.config));
+            return contentAndPagePromotionConfigs;
+        }
+
+        protected virtual IEnumerable<(IPublishedContent content, PagePromotionConfig config)> GetActualContentAndConfigs()
+        {
+            return GetAllContentAndConfigs().Where(contentAndConfig => IsActual(contentAndConfig.config));
         }
 
         protected virtual (IPublishedContent content, PagePromotionConfig config) GetContentAndConfig(IPublishedContent content)
@@ -126,19 +133,13 @@ namespace Compent.uIntra.Core.PagePromotion
 
         protected virtual PagePromotionConfig GetPagePromotionConfig(IPublishedContent content)
         {
-            var config = new PagePromotionConfig();
-            var prop = content.GetPropertyValue<string>(PagePromotionConfigAlias);
-            if (prop.IsNotNullOrEmpty())
-            {
-                config = prop.Deserialize<PagePromotionConfig>();
+            var config = PagePromotionConfigHelper.GetPagePromotionConfig(content);
+            if (config == null) return null;
 
-                var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
+            var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
 
-                config.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
-                config.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
-                return config;
-            }
-
+            config.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
+            config.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
             return config;
         }
 
@@ -161,7 +162,7 @@ namespace Compent.uIntra.Core.PagePromotion
 
         protected virtual bool IsPagePromotion(IPublishedContent content)
         {
-            return content.HasProperty(PagePromotionConfigAlias);
+            return content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
         }
 
         protected virtual bool IsActual(PagePromotionConfig config)
@@ -187,16 +188,6 @@ namespace Compent.uIntra.Core.PagePromotion
         }
 
         public bool CanEdit(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Entities.PagePromotion> IIntranetActivityService<Entities.PagePromotion>.GetManyActual()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Entities.PagePromotion> GetAll(bool includeHidden = false)
         {
             throw new NotImplementedException();
         }
