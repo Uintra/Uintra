@@ -342,8 +342,8 @@
     <Reference Include="uIntra.News, Version=1.3.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.0.5\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.4.1\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.3.4.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.4.2\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
@@ -1388,6 +1388,9 @@
     <EmbeddedResource Include="..\Compent.uIntra\Installer\MainInstaller.cs">
       <Link>Installer\MainInstaller.cs</Link>
     </EmbeddedResource>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\NotificationSettingsMigrations.cs">
+      <Link>Installer\Migrations\NotificationSettingsMigrations.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\Helpers.cs">
       <Link>Installer\Migrations\OldNotifications\Helpers.cs</Link>
     </Compile>
@@ -1426,6 +1429,12 @@
     </Compile>
     <Compile Include="..\Compent.uIntra\Installer\MainInstaller.cs">
       <Link>Installer\MainInstaller.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\PagePromotionInstallationConstants.cs">
+      <Link>Installer\Migrations\PagePromotionInstallationConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\PagePromotionMigration.cs">
+      <Link>Installer\Migrations\PagePromotionMigration.cs</Link>
     </Compile>
     <Compile Include="..\Compent.uIntra\Installer\UmbracoContentMigration.cs">
       <Link>Installer\UmbracoContentMigration.cs</Link>
@@ -1694,12 +1703,6 @@
     <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Compent.uIntra\Compent.uIntra.csproj">
-      <Project>{469DC179-83EE-4696-9D36-2173E4BEAFDA}</Project>
-      <Name>Compent.uIntra</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
   </ItemGroup>
   <ItemGroup>
@@ -1757,27 +1760,6 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1830,6 +1812,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
