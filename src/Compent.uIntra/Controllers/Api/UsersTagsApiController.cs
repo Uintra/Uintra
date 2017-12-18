@@ -4,9 +4,9 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers.Api
 {
-    public class UsersTagsApiController : UserTagsApiControllerBase
+    public class UserTagsApiController : UserTagsApiControllerBase
     {
-        public UsersTagsApiController(
+        public UserTagsApiController(
             UserTagService userTagService,
             UmbracoHelper umbracoHelper,
             IUserTagProvider userTagProvider) : base(userTagService, umbracoHelper, userTagProvider)
