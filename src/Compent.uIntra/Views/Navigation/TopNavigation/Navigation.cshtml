@@ -32,12 +32,6 @@
                     </div>
                 </a>
                 <ul class="user__menu">
-                    <li class="user__menu-item">
-                        <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
-                            <span class="icon icon-user"></span>
-                            @Html.Localize("TopNavigation.EditProfile.lbl")
-                        </a>
-                    </li>
                     @if (Model.CurrentUser.UmbracoId.HasValue)
                     {
                         <li class="user__menu-item">
@@ -47,6 +41,12 @@
                             </a>
                         </li>
                     }
+                    <li class="user__menu-item">
+                        <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
+                            <span class="icon icon-user"></span>
+                            @Html.Localize("TopNavigation.EditProfile.lbl")
+                        </a>
+                    </li>
                     <li class="user__menu-item">
                         <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
                             <span class="icon icon-logout"></span>

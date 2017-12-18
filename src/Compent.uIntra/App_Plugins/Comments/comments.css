@@ -210,12 +210,6 @@
                 }
             }
         }
-
-        @media (--for-tablet-portrait-down){
-            &{
-                display:none;
-            }
-        }
     }
 
     &__subtitle{

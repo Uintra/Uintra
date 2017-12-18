@@ -419,14 +419,14 @@
     &__menu{
         position:absolute;
         top:100%;
-        right:-20px;
+        right:-26px;
         background:var(--color-white);
         margin:0;
         padding:0;
         list-style:none;
         border:1px solid #bfbfbf;
         box-shadow:2px 2px 3px rgba(0,0,0,0.2);
-        width:286px;
+        width:247px;
         font-size:14px;
         transform:translate(0, -100%);
         transition: transform linear 200ms;
@@ -439,24 +439,6 @@
             border:none;
             background:var(--color-light-gray-2);
             display:block;
-        }
-
-        &:before{
-            display:block;
-            content:'';
-            width:10px;
-            height:10px;
-            background:var(--color-white);
-            border:solid #bfbfbf;
-            border-width:1px 1px 0 0;
-            transform:rotate(-45deg);
-            position:absolute;
-            top:-6px;
-            right:14px;
-
-            @media (--for-tablet-portrait-down){
-                display:none;
-            }
         }
 
         ._usermenu-expanded &{
@@ -500,11 +482,11 @@
                             content: '';
                             width: 10px;
                             height: 10px;
-                            background: #333;
+                            background: #b6b6b6;
                             transform: rotate(-45deg);
                             position: absolute;
                             top: -6px;
-                            right: 14px;
+                            right: 21px;
                         }
 
 
@@ -516,7 +498,7 @@
         &-link{
             color:var(--text-color-dark);
             display:block;
-            padding:13px 10px 11px 58px;
+            padding:14px 10px 13px 57px;
             position:relative;
 
             @media (--for-tablet-portrait-down){
@@ -535,7 +517,7 @@
                     transform:rotate(-45deg);
                     position:absolute;
                     top:-6px;
-                    right:14px;
+                    right:21px;
 
                     @media (--for-tablet-portrait-down){
                         display:none;
@@ -546,7 +528,7 @@
                 &:active,
                 &:focus{
                     &:before{
-                        background:#333;
+                        background:#f6f6f6;
                     }
                 }
             }
@@ -555,8 +537,8 @@
             &:not(._with-avatar):focus,
             &:not(._with-avatar):hover{
                 text-decoration:none;
-                color:var(--color-white);
-                background:#333;
+                color:var(--text-color-dark);
+                background:#f6f6f6;
             }
         }
 
@@ -568,20 +550,33 @@
         .icon{
             position:absolute;
             top:11px;
-            left:17px;
+            left:15px;
+            color:#261d43;
 
             &.icon-user{
                 top:6px;
-                left: 16px;
+                left: 13px;
+
+                &:before{
+                    font-size:31px;
+                }
             }
 
             &.icon-logout{
-                left: 21px;
-                top: 10px;
+                left: 19px;
+                top: 12px;
+
+                &:before{
+                    font-size:20px;
+                }
             }
 
             &.icon-umbraco{
                 top: 8px;
+
+                &:before{
+                    font-size:29px;
+                }
             }
 
             @media (--for-tablet-portrait-down){
