@@ -348,8 +348,8 @@
     <Reference Include="uIntra.Panels, Version=2.1.10.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.10.21\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.2.0\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.2.0.1\lib\net452\uIntra.Search.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Subscribe, Version=1.1.7.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Subscribe.1.1.7.1\lib\net452\uIntra.Subscribe.dll</HintPath>
@@ -1763,18 +1763,6 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1841,6 +1829,18 @@
     <Content Include="..\Compent.uIntra\Views\PagePromotion\ItemView.cshtml">
       <Link>Views\PagePromotion\ItemView.cshtml</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

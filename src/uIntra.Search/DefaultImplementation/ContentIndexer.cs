@@ -50,6 +50,8 @@ namespace uIntra.Search
         public void FillIndex(int id)
         {
             var publishedContent = _umbracoHelper.TypedContent(id);
+            if (publishedContent == null) return;
+
             var isSearchable = _searchUmbracoHelper.IsSearchable(publishedContent);
             if (isSearchable)
             {
