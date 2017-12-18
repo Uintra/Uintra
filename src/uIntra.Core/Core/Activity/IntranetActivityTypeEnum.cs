@@ -4,6 +4,7 @@
     {
         News = 1,
         Events = 3,
-        Bulletins = 4
+        Bulletins = 4,
+        PagePromotion = 5
     }
 }

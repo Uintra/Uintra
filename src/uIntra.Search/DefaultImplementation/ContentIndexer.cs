@@ -2,17 +2,22 @@
 using System.Linq;
 using uIntra.Core;
 using uIntra.Core.Extensions;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 using uIntra.Core.Grid;
+using uIntra.Core.PagePromotion;
 using uIntra.Core.UmbracoEventServices;
+using Umbraco.Core.Events;
+using Umbraco.Core.Models;
+using Umbraco.Core.Publishing;
+using Umbraco.Web;
+using uIntra.Core.UmbracoEventServices;
+using Umbraco.Core.Services;
 using Umbraco.Core.Events;
 using Umbraco.Core.Publishing;
 using static uIntra.Core.Constants.GridEditorConstants;
 
 namespace uIntra.Search
 {
-    public class ContentIndexer : IIndexer, IContentIndexer , IUmbracoEventService<IPublishingStrategy , PublishEventArgs<IContent>>
+    public class ContentIndexer : IIndexer, IContentIndexer, IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
@@ -49,6 +54,8 @@ namespace uIntra.Search
         public void FillIndex(int id)
         {
             var publishedContent = _umbracoHelper.TypedContent(id);
+            if (publishedContent == null) return;
+
             var isSearchable = _searchUmbracoHelper.IsSearchable(publishedContent);
             if (isSearchable)
             {
@@ -68,7 +75,10 @@ namespace uIntra.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-           (List<string> content, List<string> titles) =  ParseContentPanels(publishedContent);
+            (List<string> content, List<string> titles) = ParseContentPanels(publishedContent);
+            var pagePromotionContent = GetPagePromotionContent(publishedContent);
+
+            content.AddRange(pagePromotionContent);
 
             return new SearchableContent
             {
@@ -105,11 +115,24 @@ namespace uIntra.Search
                         content.Add(desc.StripHtml());
                 }
             }
-            
+
             return (titles, content);
         }
 
-        private dynamic GetContentPanelFromGlobal(dynamic value) => 
+        private List<string> GetPagePromotionContent(IPublishedContent publishedContent)
+        {
+            var content = new List<string>();
+
+            var config = PagePromotionConfigHelper.GetPagePromotionConfig(publishedContent);
+            if (config == null) return content;
+
+            content.Add(config.Title);
+            content.Add(config.Description);
+
+            return content;
+        }
+
+        private dynamic GetContentPanelFromGlobal(dynamic value) =>
             _umbracoHelper.TypedContent((int)value.id)?
             .GetPropertyValue<dynamic>(PanelConfigPropertyAlias)?
             .value;

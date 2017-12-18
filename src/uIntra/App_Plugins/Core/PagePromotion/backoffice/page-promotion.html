@@ -1,0 +1,51 @@
+﻿<style>    
+    .note {
+        padding-top: 5px;
+        font-size: 12px;
+        line-height: 1.5em;
+        color: #a2a1a6;
+        font-weight:normal;
+    }
+</style>
+<div data-ng-controller="pagePromotionController as ctrl">
+    <div class="m-b-20 _clearfix">
+        <label style="display:block;">
+            <strong class="span3">
+                Promote on central feed
+            </strong>
+            <input type="checkbox" ng-model="model.value.promoteOnCentralFeed" ng-change="ctrl.promoteOnCentralFeedChange()" />
+        </label>
+    </div>
+
+    <form name="editForm" class="form">
+        <div ng-if="model.value.promoteOnCentralFeed">
+            <div class="m-b-20 _clearfix">
+                <b class="span3">Title *</b>
+                <input name="title" class="span9" type="text" ng-model="model.value.title" required />
+                <span style="color: red" ng-show="editForm.title.$error.required">
+                    Title is required!
+                </span>
+            </div>
+            <div class="m-b-20 _clearfix">
+                <b class="span3">Description * <br /><small class="note">Recommended text - 250 symbols</small></b>
+                <tiny-mce class="span9" model="model.value.description" config="model.config.description"></tiny-mce>
+                <input name="description" type="hidden" ng-model="model.value.description" required />
+                <span style="color: red" ng-show="editForm.description.$error.required">
+                    Description is required!
+                </span>
+            </div>
+            <div class="m-b-20 _clearfix">
+                <b class="span3">Publish date *</b>
+                <date-picker model="model.value.publishDate" config="model.config.publishDate" placeholder="Select date"></date-picker>
+                <input name="publishDate" type="hidden" ng-model="model.value.publishDate" required />
+                <span style="color: red" ng-show="editForm.publishDate.$error.required">
+                    Publish date is required!
+                </span>
+            </div>
+            <div class="m-b-20 _clearfix">
+                <b class="span3">Files <br /> <small class="note">Recommended amount of files - 3 files</small></b>
+                <media-picker class="span9" ng-model="model.value.files" config="model.config.filesPicker" />
+            </div>
+        </div>
+    </form>
+</div>

@@ -117,6 +117,21 @@ namespace uIntra.Core.Media
             return stream;
         }
 
+        public string ToThumbnailImage(string source)
+        {
+            return GetImagePath(source, "thumbnail");
+        }
+
+        private string GetImagePath(string source, string imageGenClass)
+        {
+            return StartWithParam(source, "preset", imageGenClass);
+        }
+
+        private string StartWithParam(string source, string paramName, object value)
+        {
+            return $"{source}?{paramName}={value}";
+        }
+
     }
 }
 

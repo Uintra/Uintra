@@ -723,6 +723,8 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
+    <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js" />
+    <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.html" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
@@ -1081,6 +1083,7 @@
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201712131730041_UserTags.resx">
       <DependentUpon>201712131730041_UserTags.cs</DependentUpon>
     </EmbeddedResource>
@@ -1175,6 +1178,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <Content Include="Views\PagePromotion\ItemView.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1209,6 +1213,7 @@
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\NewsSectionController.cs" />
+    <Compile Include="Controllers\PagePromotionController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -1306,6 +1311,10 @@
     <Compile Include="Core\Notification\NotificationMessageTypes.cs" />
     <Compile Include="Core\Notification\UiNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\UiNotifierService.cs" />
+    <Compile Include="Core\PagePromotion\Models\PagePromotionExtendedItemViewModel.cs" />
+    <Compile Include="Core\PagePromotion\Entities\PagePromotion.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionAutoMapperProfile.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
@@ -1315,16 +1324,21 @@
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
     <Compile Include="Core\XPathProvider.cs" />
+    <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
+    <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
+    <Compile Include="Installer\Migrations\NotificationSettingsMigrations.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\Helpers.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\NewNotificationMessageService.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\OldNotifierData.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs" />
+    <Compile Include="Installer\Migrations\PagePromotionInstallationConstants.cs" />
+    <Compile Include="Installer\Migrations\PagePromotionMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>

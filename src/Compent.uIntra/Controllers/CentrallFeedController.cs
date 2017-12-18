@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using Compent.uIntra.Core.Activity;
 using Compent.uIntra.Core.Feed;
 using uIntra.CentralFeed;
@@ -13,6 +12,7 @@ using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Groups;
 using uIntra.Subscribe;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -32,10 +32,12 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
-            IGroupFeedService groupFeedService, 
+            IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
             IFeedFilterStateService feedFilterStateService,
-            IPermissionsService permissionsService) 
+            IPermissionsService permissionsService,
+            UmbracoHelper umbracoHelper,
+            IFeedActivityHelper feedActivityHelper1)
             : base(centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
@@ -49,7 +51,7 @@ namespace Compent.uIntra.Controllers
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
-            _feedActivityHelper = feedActivityHelper;           
+            _feedActivityHelper = feedActivityHelper1;
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
@@ -68,12 +70,13 @@ namespace Compent.uIntra.Controllers
         protected override ActivityFeedOptions GetActivityFeedOptions(Guid activityId)
         {
             var options = base.GetActivityFeedOptions(activityId);
-            return new ActivityFeedOptionsWithGroups()
+
+            return new ActivityFeedOptionsWithGroups
             {
                 Links = options.Links,
                 IsReadOnly = options.IsReadOnly,
                 GroupInfo = _feedActivityHelper.GetGroupInfo(activityId)
             };
         }
-    } 
+    }
 }
