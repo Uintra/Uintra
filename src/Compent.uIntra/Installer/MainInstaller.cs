@@ -20,6 +20,7 @@ using uIntra.Navigation.Installer;
 using uIntra.News;
 using uIntra.News.Installer;
 using uIntra.Notification.Configuration;
+using uIntra.Notification.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -207,7 +208,9 @@ namespace Compent.uIntra.Installer
         {
             var userService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
 
-            var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
+            var activityServices = DependencyResolver.Current
+                .GetServices<IIntranetActivityService<IIntranetActivity>>()
+                .Where(service => service.ActivityType.Id != (int)IntranetActivityTypeEnum.PagePromotion);
             foreach (var service in activityServices)
             {
                 var activities = service.GetAll(true).ToList();

@@ -8,13 +8,18 @@
 @if (grid != null && grid.sections != null)
 {
     <div class="row">
-        @{
+                @{
             var sectionOffsetNumber = 12;
             for (var i = 0; i < grid.sections.Count; i++)
             {
                 var section = grid.sections[i];
+                var renderOffset = false;
                 sectionOffsetNumber -= int.Parse(section.grid.ToString());
-                var renderOffset = i == grid.sections.Count - 1;
+
+                if(grid.sections.Count > 1)
+                {
+                    renderOffset = i == grid.sections.Count - 1;
+                }
 
                 <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "" )">
                     @foreach (var row in section.rows)

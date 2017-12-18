@@ -13,7 +13,7 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Handlers
 {
-    class SearchContentEventService : IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>
+    public class SearchContentEventService : IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>
     {
 
         public void Process(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
