@@ -31,11 +31,18 @@ namespace Compent.uIntra.Core.PagePromotion
 
             if (content.Published)
             {
+                var newContentConfig = PagePromotionHelper.GetConfig(content);
+                if (!newContentConfig.PromoteOnCentralFeed)
+                {
+                    documentIndexer.DeleteFromIndex(newsFilesIds);
+                    return;
+                }
+
                 var oldContentVersion = contentService.GetVersions(content.Id).FirstOrDefault(c => c.Version != content.Version);
                 var oldFilesIds = PagePromotionHelper.GetFileIds(oldContentVersion).ToList();
               
                 documentIndexer.DeleteFromIndex(oldFilesIds.Except(newsFilesIds));
-                documentIndexer.Index(newsFilesIds.Except(oldFilesIds));
+                documentIndexer.Index(newsFilesIds);
             }
             else
             {
