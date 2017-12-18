@@ -15,6 +15,11 @@
         <a class="search-result__item-link" href="@result.Url"></a>
 
         <h2 class="search-result__item-title">@Html.Raw(result.Title)</h2>
+        
+        @if (result.IsPinned || result.IsPinActual)
+        {
+            <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+        }
 
         @if (result.PanelContent.Any())
         {

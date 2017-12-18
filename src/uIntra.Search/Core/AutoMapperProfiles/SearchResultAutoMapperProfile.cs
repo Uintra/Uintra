@@ -20,6 +20,8 @@ namespace uIntra.Search
                 .ForMember(d => d.PanelContent, o => o.Ignore())
                 .ForMember(d => d.StartDate, o => o.Ignore())
                 .ForMember(d => d.EndDate, o => o.Ignore())
+                .ForMember(d=>d.IsPinned, o=>o.Ignore())
+                .ForMember(d=>d.IsPinActual, o=>o.Ignore())
                 .ForMember(d => d.PublishedDate, o => o.Ignore());
 
             Mapper.CreateMap<SearchableActivity, SearchResultViewModel>()
@@ -27,7 +29,9 @@ namespace uIntra.Search
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
                 .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
-                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishedDate));
+                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishedDate))
+                .ForMember(d=>d.IsPinned, o=>o.MapFrom(s=>s.IsPinned))
+                .ForMember(d=>d.IsPinActual, o=>o.MapFrom(s=>s.IsPinActual));
 
             Mapper.CreateMap<SearchableContent, SearchResultViewModel>()
                 .IncludeBase<SearchableBase, SearchResultViewModel>()

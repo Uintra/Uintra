@@ -990,15 +990,6 @@
     <Content Include="..\Compent.uIntra\Global.asax">
       <Link>Global.asax</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Views\Comments\CommentsView.cshtml">
-      <Link>Views\Comments\CommentsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Login\Login.cshtml">
-      <Link>Views\Login\Login.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Comments\CommentsOverView.cshtml">
-      <Link>Views\Comments\CommentsOverView.cshtml</Link>
-    </Content>
     <Content Include="..\Compent.uIntra\Content\fonts\open-sans-700.woff">
       <Link>Content\fonts\open-sans-700.woff</Link>
     </Content>
@@ -1032,32 +1023,8 @@
     <Content Include="..\Compent.uIntra\postcss.config.js">
       <Link>postcss.config.js</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Views\News\DetailsView.cshtml">
-      <Link>Views\News\DetailsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\ItemView.cshtml">
-      <Link>Views\News\ItemView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\CreateView.cshtml">
-      <Link>Views\News\CreateView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\EditView.cshtml">
-      <Link>Views\News\EditView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Navigation\TopNavigation\Navigation.cshtml">
-      <Link>Views\Navigation\TopNavigation\Navigation.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Bulletins\DetailsView.cshtml">
-      <Link>Views\Bulletins\DetailsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Bulletins\ItemView.cshtml">
-      <Link>Views\Bulletins\ItemView.cshtml</Link>
-    </Content>
     <Content Include="uIntra.nuspec">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\HomePage\Index.cshtml">
-      <Link>Views\HomePage\Index.cshtml</Link>
     </Content>
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
@@ -1067,215 +1034,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Controllers\Api\RteConfigController.cs">
-      <Link>Controllers\Api\RteConfigController.cs</Link>
-    </Content>
-    <Compile Include="..\Compent.uIntra\Controllers\Api\NotificationSettingsApiController.cs">
-      <Link>Controllers\Api\NotificationSettingsApiController.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Controllers\PagePromotionController.cs">
-      <Link>Controllers\Api\PagePromotionController.cs</Link>
-    </Compile>
+    <!-- <Compile Include="..\Compent.uIntra\Persistence\**\*.cs">
+      <Link>Persistence\%(RecursiveDir)%(FileName)</Link>
+    </Compile> -->
     <Compile Include="..\Compent.uIntra\Core\**\*.cs">
       <Link>Core\%(RecursiveDir)%(FileName)</Link>
     </Compile>
-    <Content Include="..\Compent.uIntra\Controllers\ActivityController.cs">
-      <Link>Controllers\ActivityController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\Api\EditorConfigController.cs">
-      <Link>Controllers\Api\EditorConfigController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\Api\MemberApiController.cs">
-      <Link>Controllers\Api\MemberApiController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\Api\MonthlyEmailApiController.cs">
-      <Link>Controllers\Api\MonthlyEmailApiController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\Api\UserApiController.cs">
-      <Link>Controllers\Api\UserApiController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\BrowserCompatibilityController.cs">
-      <Link>Controllers\BrowserCompatibilityController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\BulletinsController.cs">
-      <Link>Controllers\BulletinsController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\BulletinsSectionController.cs">
-      <Link>Controllers\BulletinsSectionController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\CentrallFeedController.cs">
-      <Link>Controllers\CentrallFeedController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\CommentsController.cs">
-      <Link>Controllers\CommentsController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\CommentsEditPageController.cs">
-      <Link>Controllers\CommentsEditPageController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\CommentsPageController.cs">
-      <Link>Controllers\CommentsPageController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\EventsController.cs">
-      <Link>Controllers\EventsController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\EventsSectionController.cs">
-      <Link>Controllers\EventsSectionController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\GroupController.cs">
-      <Link>Controllers\GroupController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\GroupFeedController.cs">
-      <Link>Controllers\GroupFeedController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\GroupsSectionController.cs">
-      <Link>Controllers\GroupsSectionController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\LightboxGalleryController.cs">
-      <Link>Controllers\LightboxGalleryController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\LikesController.cs">
-      <Link>Controllers\LikesController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\LikesPageController.cs">
-      <Link>Controllers\LikesPageController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\LoginController.cs">
-      <Link>Controllers\LoginController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\MyLinksController.cs">
-      <Link>Controllers\MyLinksController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\NavigationAuthorizationController.cs">
-      <Link>Controllers\NavigationAuthorizationController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\NavigationController.cs">
-      <Link>Controllers\NavigationController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\NewsController.cs">
-      <Link>Controllers\NewsController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\NewsSectionController.cs">
-      <Link>Controllers\NewsSectionController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\NotificationController.cs">
-      <Link>Controllers\NotificationController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\NotificationJobController.cs">
-      <Link>Controllers\NotificationJobController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\ProfileController.cs">
-      <Link>Controllers\ProfileController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\SearchController.cs">
-      <Link>Controllers\SearchController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\SubscribeController.cs">
-      <Link>Controllers\SubscribeController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\SubscribePageController.cs">
-      <Link>Controllers\SubscribePageController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Controllers\UserController.cs">
-      <Link>Controllers\UserController.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Activity\ItemHeader.cshtml">
-      <Link>Views\Activity\ItemHeader.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Bulletins\DetailsView.cshtml">
-      <Link>Views\Bulletins\DetailsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Bulletins\ItemHeader.cshtml">
-      <Link>Views\Bulletins\ItemHeader.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Bulletins\ItemView.cshtml">
-      <Link>Views\Bulletins\ItemView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Comments\CommentsOverView.cshtml">
-      <Link>Views\Comments\CommentsOverView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Comments\CommentsView.cshtml">
-      <Link>Views\Comments\CommentsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\CreateView.cshtml">
-      <Link>Views\Events\CreateView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\DetailsView.cshtml">
-      <Link>Views\Events\DetailsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\EditView.cshtml">
-      <Link>Views\Events\EditView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\ItemView.cshtml">
-      <Link>Views\Events\ItemView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\GridPageLayout.cshtml">
-      <Link>Views\GridPageLayout.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\HomePage\Index.cshtml">
-      <Link>Views\HomePage\Index.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Login\Login.cshtml">
-      <Link>Views\Login\Login.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Navigation\TopNavigation\Navigation.cshtml">
-      <Link>Views\Navigation\TopNavigation\Navigation.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\CreateView.cshtml">
-      <Link>Views\News\CreateView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\DetailsView.cshtml">
-      <Link>Views\News\DetailsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\EditView.cshtml">
-      <Link>Views\News\EditView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\News\ItemView.cshtml">
-      <Link>Views\News\ItemView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap2-Fluid.cshtml">
-      <Link>Views\Partials\Grid\Bootstrap2-Fluid.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap2.cshtml">
-      <Link>Views\Partials\Grid\Bootstrap2.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap3-Fluid.cshtml">
-      <Link>Views\Partials\Grid\Bootstrap3-Fluid.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Bootstrap3.cshtml">
-      <Link>Views\Partials\Grid\Bootstrap3.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Base.cshtml">
-      <Link>Views\Partials\Grid\Editors\Base.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Embed.cshtml">
-      <Link>Views\Partials\Grid\Editors\Embed.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Macro.cshtml">
-      <Link>Views\Partials\Grid\Editors\Macro.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Media.cshtml">
-      <Link>Views\Partials\Grid\Editors\Media.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Rte.cshtml">
-      <Link>Views\Partials\Grid\Editors\Rte.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Partials\Grid\Editors\Textstring.cshtml">
-      <Link>Views\Partials\Grid\Editors\Textstring.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Shared\_Layout.cshtml">
-      <Link>Views\Shared\_Layout.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\SubscribePage\Index.cshtml">
-      <Link>Views\SubscribePage\Index.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\TestWithLinkPicker.cshtml">
-      <Link>Views\TestWithLinkPicker.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Web.config">
-      <Link>Views\Web.config</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\_ViewStart.cshtml">
-      <Link>Views\_ViewStart.cshtml</Link>
+    <Content Include="..\Compent.uIntra\Controllers\**\*.cs">
+      <Link>Controllers\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Views\**\*">
+      <Link>Views\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
     <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
       <Link>Installer\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
@@ -1478,28 +1247,7 @@
   <ItemGroup>
     <Content Include="..\Compent.uIntra\package.json">
       <Link>package.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Shared\_Layout.cshtml">
-      <Link>Views\Shared\_Layout.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\_ViewStart.cshtml">
-      <Link>Views\_ViewStart.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\GridPageLayout.cshtml">
-      <Link>Views\GridPageLayout.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\ItemView.cshtml">
-      <Link>Views\Events\ItemView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\DetailsView.cshtml">
-      <Link>Views\Events\DetailsView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\EditView.cshtml">
-      <Link>Views\Events\EditView.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Views\Events\CreateView.cshtml">
-      <Link>Views\Events\CreateView.cshtml</Link>
-    </Content>
+    </Content>    
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1514,18 +1262,9 @@
   <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Compent.uIntra\Views\Web.config">
-      <Link>Views\Web.config</Link>
-    </Content>
-  </ItemGroup>
+
   <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Compent.uIntra\Views\Web.config">
-      <Link>Views\Web.config</Link>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Localization\package.manifest" />
@@ -1824,11 +1563,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Compent.uIntra\Views\PagePromotion\ItemView.cshtml">
-      <Link>Views\PagePromotion\ItemView.cshtml</Link>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
