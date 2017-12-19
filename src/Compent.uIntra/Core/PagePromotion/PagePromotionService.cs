@@ -133,7 +133,7 @@ namespace Compent.uIntra.Core.PagePromotion
 
         protected virtual PagePromotionConfig GetPagePromotionConfig(IPublishedContent content)
         {
-            var config = PagePromotionConfigHelper.GetPagePromotionConfig(content);
+            var config = PagePromotionHelper.GetConfig(content);
             if (config == null) return null;
 
             var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();

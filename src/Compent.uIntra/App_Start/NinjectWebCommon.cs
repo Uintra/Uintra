@@ -89,6 +89,9 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
+using Umbraco.Core.Events;
+using Umbraco.Core.Models;
+using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Web;
@@ -378,6 +381,7 @@ namespace Compent.uIntra
             //umbraco events subscriptions
             kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMediaService, SaveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMediaService, MoveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>>().To<MemberEventService>().InRequestScope();

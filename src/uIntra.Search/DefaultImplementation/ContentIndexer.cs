@@ -123,7 +123,7 @@ namespace uIntra.Search
         {
             var content = new List<string>();
 
-            var config = PagePromotionConfigHelper.GetPagePromotionConfig(publishedContent);
+            var config = PagePromotionHelper.GetConfig(publishedContent);
             if (config == null) return content;
 
             content.Add(config.Title);
