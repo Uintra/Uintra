@@ -14,8 +14,8 @@ namespace uIntra.Core.Persistence
         private bool _disposed;
 
         public SqlRepository(IntranetDbContext dbContext)
-        {
-            if (dbContext == null) throw new ArgumentNullException("dbContext");
+        {   
+            if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
 
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
