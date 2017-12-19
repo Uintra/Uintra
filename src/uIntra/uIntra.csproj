@@ -443,6 +443,9 @@
     <Content Include="..\Compent.uIntra\Content\images\group.svg">
       <Link>Content\images\group.svg</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\images\groups.gif">
+      <Link>Content\images\groups.gif</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\licence.html">
       <Link>licence.html</Link>
     </Content>
