@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<processing>
-  <presets xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">    
+<processing xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <presets>
     <preset name="thumbnail" value="width=200&amp;height=470;mode=max" xdt:Locator="Condition(@name='thumbnail')" xdt:Transform="InsertIfMissing"/>
   </presets>
 </processing>

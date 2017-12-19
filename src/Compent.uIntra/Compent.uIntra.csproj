@@ -1242,6 +1242,7 @@
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionEventService.cs" />
     <Compile Include="Core\Handlers\SearchContentEventService.cs" />
     <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />

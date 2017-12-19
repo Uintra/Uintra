@@ -23,5 +23,9 @@ namespace uIntra.Search
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
+
+        public bool IsPinned { get; set; }
+
+        public bool IsPinActual { get; set; }
     }
 }
