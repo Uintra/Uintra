@@ -57,5 +57,11 @@ namespace uIntra.Tagging.UserTags
             var tagIdHashSet = new HashSet<Guid>(tagIds);
             _relationRepository.Delete(e => tagIdHashSet.Contains(e.UserTagId) && e.EntityId == entityId);
         }
+
+        public void RemoveRelationsForTags(IEnumerable<Guid> tagIds)
+        {
+            var tagIdHashSet = new HashSet<Guid>(tagIds);
+            _relationRepository.Delete(rel => tagIdHashSet.Contains(rel.UserTagId));
+        }
     }
 }
