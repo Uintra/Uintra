@@ -21,9 +21,11 @@
                         </div>
                     </div>
                 </div>
-                @if (notification.Value.IsPinned != null && notification.Value.IsPinActual != null && (notification.Value.IsPinned || notification.Value.IsPinActual))
+                @if (notification.Value.IsPinned != null)
                 {
-                    <span class="pinned__item"></span>
+                    <span class="@(notification.Value.IsPinActual ? "_pinned" : string.Empty)">
+                        <span class="pinned__item"></span>
+                    </span>
                 }
             </li>
         }
