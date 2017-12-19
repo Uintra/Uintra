@@ -323,6 +323,7 @@
     <Compile Include="Core\UserTags\Services\IUserTagProvider.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagRelationService.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagService.cs" />
+    <Compile Include="Core\UserTags\UmbracoEvents\UserTagUmbracoEventHandler.cs" />
     <Compile Include="DefaultImplementation\UserTags\UserTagService.cs" />
     <Compile Include="DefaultImplementation\UserTags\UserTagRelationService.cs" />
     <Compile Include="Core\UserTags\Sql\UserTagRelation.cs" />
