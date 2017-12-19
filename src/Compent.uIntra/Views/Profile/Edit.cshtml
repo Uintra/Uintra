@@ -1,0 +1,72 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extensions
+@using uIntra.Notification.Configuration
+@using Umbraco.Web
+@model Compent.uIntra.Core.Users.ExtendedProfileEditModel
+
+<div id="js-profile-page" class="form profile-edit _profile">
+    @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
+    {
+        @Html.HiddenFor(el => el.Id)
+        <div class="form__row clearfix">
+            <div class="form__header">
+                @{
+                    var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+                }
+                <div class="form__row clearfix @additionClass">
+                    <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
+                    @{
+                        var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
+                        Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
+                    }
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Photo))
+                {
+                    <div class="form__avatar-holder">
+                        <div class="form__avatar">
+                            <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
+                        </div>
+                        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
+                    </div>
+                }
+                <div class="form__meta">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form__input" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Action("TagPicker", "Tags", new { entityId = Model.Id })
+        <div class="form__row clearfix">
+            <div class="check">
+                <label class="check__label">
+                    @Html.CheckBox("js-member-notifier-setting",
+                          Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+                          new
+                          {
+                              notifiertype = NotifierTypeEnum.EmailNotifier,
+                              @class = "check__box",
+                              dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
+                          })
+                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
+                </label>
+            </div>
+        </div>
+        <div class="form__row clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _submit _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
+        </div>
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+    }
+   
+</div>

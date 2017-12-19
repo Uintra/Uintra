@@ -1179,6 +1179,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1284,6 +1285,8 @@
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedCreateModel.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedEditModel.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
@@ -1322,6 +1325,7 @@
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
     <Compile Include="Core\XPathProvider.cs" />

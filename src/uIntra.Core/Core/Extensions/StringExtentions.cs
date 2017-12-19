@@ -145,5 +145,26 @@ namespace uIntra.Core.Extensions
 
         public static string SplitOnUpperCaseLetters(this string str) =>
              str.IsNullOrEmpty() ? string.Empty : Regex.Split(str, @"(?<!^)(?=[A-Z])").JoinWithSeparator(" ");
+
+
+        public static IEnumerable<TResult> ParseStringCollection<TResult>(this string collection, Func<string, TResult> parserFunc, char separator = ',')
+        {
+            return collection.SplitBySeparator(separator).Select(parserFunc);
+        }
+
+        public static IEnumerable<string> SplitBySeparator(this string str, char separator)
+        {
+            if (str.IsNullOrEmpty())
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return str.Split(separator);
+        }
+
+        public static IEnumerable<TResult> ParseStringCollection<TResult>(this IEnumerable<string> collection, Func<string, TResult> parserFunc, char separator = ',')
+        {
+            return collection.SelectMany(col => col.ParseStringCollection(parserFunc, separator));
+        }
     }
 }
