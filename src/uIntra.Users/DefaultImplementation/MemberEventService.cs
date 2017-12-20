@@ -6,18 +6,24 @@ using Umbraco.Core.Services;
 
 namespace uIntra.Users
 {
-    public class MemberEventService: IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>
+    public class MemberEventService : IUmbracoMemberDeletingEventService
     {
-        public void Process(IMemberService sender, DeleteEventArgs<IMember> args)
-        {
-            var cacheableUserService = DependencyResolver.Current.GetService<ICacheableIntranetUserService>();
-            var memberService = DependencyResolver.Current.GetService<IMemberService>();
+        private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
+        private readonly IMemberService _memberService;
 
+        public MemberEventService(ICacheableIntranetUserService cacheableIntranetUserService, IMemberService memberService)
+        {
+            _cacheableIntranetUserService = cacheableIntranetUserService;
+            _memberService = memberService;
+        }
+
+        public void ProcessMemberDeleting(IMemberService sender, DeleteEventArgs<IMember> args)
+        {
             foreach (var member in args.DeletedEntities)
             {
                 member.IsLockedOut = true;
-                memberService?.Save(member);
-                cacheableUserService?.UpdateUserCache(member.Key);
+                _memberService.Save(member);
+                _cacheableIntranetUserService.UpdateUserCache(member.Key);
             }
 
             if (args.CanCancel)

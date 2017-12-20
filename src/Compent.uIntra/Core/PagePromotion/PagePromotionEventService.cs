@@ -10,9 +10,9 @@ using Umbraco.Core.Services;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionEventService : IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>
+    public class PagePromotionEventService : IUmbracoContentPublishedEventService
     {
-        public void Process(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
+        public void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
         {
             foreach (var entity in publishEventArgs.PublishedEntities)
             {
