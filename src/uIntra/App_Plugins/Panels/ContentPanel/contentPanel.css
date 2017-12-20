@@ -1,16 +1,12 @@
 ﻿.block{
     margin:0 0 20px;
-    padding:0;
+    padding:20px;
+    background:var(--color-white);
+    box-shadow:0 0 2px rgba(0,0,0,0.2);
 
     &._important{
-        border:1px solid var(--color-light-gray);
         padding:0 20px 20px;
-        margin:0 -20px 20px;
-
-        .sidebar &{
-            padding:0 19px 20px;
-            margin:0 -10px 20px;
-        }
+        margin:0 0 20px;
     }
 
     &._horizontal .documents {
@@ -29,10 +25,6 @@
     }
 
     .sidebar &{
-        border:1px solid var(--color-light-gray);
-        padding:0 19px 20px;
-        margin:0 -10px 20px;
-
         &._latest-activities,
         &._content-panel,
         &._document-panel,
@@ -41,10 +33,8 @@
         }
 
         &__title{
-            background:var(--header-bg);
+            background:#261d43;
             color:var(--color-white);
-            margin:-1px -20px 20px;
-            padding:10px 19px 12px;
 
             &-link{
                 color:var(--color-white);
@@ -71,8 +61,8 @@
     }
 
     &__title{
-        font:bold 20px/25px var(--font-custom);
-        margin:0 0 9px;
+        font:bold 16px/20px var(--font-general);
+        margin:-20px -20px 9px;
         color:var(--text-color-dark);
 
         ._important &{
@@ -80,11 +70,6 @@
             color:var(--color-white);
             margin:0 -20px 20px;
             padding:10px 20px 12px;
-
-            .sidebar &{
-                margin:-1px -20px 20px;
-                padding:10px 19px 12px;
-            }
         }
 
         &-link{

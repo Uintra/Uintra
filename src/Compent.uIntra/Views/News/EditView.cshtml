@@ -2,10 +2,10 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions
 @using Umbraco.Web
-@model Compent.uIntra.Core.News.Models.NewsExtendedEditModel
+@model uIntra.News.NewsEditModel
 
 <div class="form js-check-before-unload" id="js-news-edit-page">
-    @using (Html.BeginUmbracoForm("EditExtended", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsEditPage.Title.lbl")</h1>
         <input type="hidden" name="id" value="@Model.Id" />
@@ -27,7 +27,7 @@
                 @Html.Raw(Model.Description)
             </div>
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
-                   data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true" />
+                   data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true"/>
         </div>
 
         <div class="form__row clearfix">
@@ -52,7 +52,6 @@
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
         </div>
-        @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
             @{
@@ -66,10 +65,9 @@
         </div>
         <div class="form__row clearfix">
             @Html.PassLinks(Model.Links)
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _submit _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />
-            <a class="form__btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
+            <input class="btn _submit _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")"/>
+            <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
-    }
+                }
 </div>
-

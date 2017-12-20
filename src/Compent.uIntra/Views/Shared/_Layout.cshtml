@@ -13,26 +13,32 @@
     <div id="wrapper" class="_loading">
         @{Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");}
         <header id="header">
-            <strong class="logo">
-                <a class="logo__link" href="/"><img src="~/Content/images/logo.png" class="logo__img"></a>
-            </strong>
-            @{Html.RenderAction("TopNavigation", "Navigation");}
-            <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
+            <div class="centring flex _f-center">
+                <strong class="logo">
+                    <a class="logo__link" href="/"><img src="~/Content/images/logo.svg" class="logo__img" width="21" height="33"></a>
+                </strong>
+                @{Html.RenderAction("TopNavigation", "Navigation");}
+                <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
+            </div>
         </header>
         <aside id="sidebar" class="js-sidebar">
             <div class="sidebar__holder">
                 @{Html.RenderAction("SearchBox", "Search"); }
                 @{Html.RenderAction("LeftNavigation", "Navigation"); }
-                @{Html.RenderAction("SystemLinks", "Navigation"); }
                 @{Html.RenderAction("LeftNavigation", "Group"); }
+                @{Html.RenderAction("SystemLinks", "Navigation"); }
                 @{Html.RenderAction("Overview", "MyLinks"); }
                 @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
             </div>
         </aside>
         <main id="main">
-            @{Html.RenderAction("SubNavigation", "Navigation");}
+            <div class="centring">
+                <div class="holder">
+                    @{Html.RenderAction("SubNavigation", "Navigation");}
            
-            @RenderBody()
+                    @RenderBody()
+                </div>
+            </div>
         </main>
     </div>
     <a id="toTop" class="top">Go to top</a>

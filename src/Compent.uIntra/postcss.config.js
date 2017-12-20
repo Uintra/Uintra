@@ -7,7 +7,7 @@ module.exports = {
                 customProperties: {
                     variables: {
                         '--color-white': '#fff',
-                        '--color-contrast': '#d97400',
+                        '--color-contrast': '#ed7872',
                         '--color-red': '#dd0a2d',
                         '--color-dark-red': '#c00927',
                         '--color-black': '#000',
@@ -16,12 +16,12 @@ module.exports = {
                         '--color-light-gray-3': '#c7c7c7',
                         '--color-light-gray-4': '#aaa',
                         '--text-color-light': '#8f8f8f',
-                        '--text-color-dark': '#333',
+                        '--text-color-dark': '#555',
                         '--color-submit': '#003693',
                         '--color-submit-hover': '#1f4a93',
-                        '--header-bg': '#373737',
-                        '--font-custom': '"Open Sans", Arial, Helvetica, sans-serif',
-                        '--font-general': '"Open Sans", Arial, Helvetica, sans-serif'
+                        '--header-bg': '#5776f9',
+                        '--font-custom': 'muli, Arial, Helvetica, sans-serif',
+                        '--font-general': 'muli, Arial, Helvetica, sans-serif'
                     }
                 },
                 customMedia: {

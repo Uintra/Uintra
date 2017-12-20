@@ -2,10 +2,10 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions
 @using Umbraco.Web
-@model Compent.uIntra.Core.News.Models.NewsExtendedCreateModel
+@model uIntra.News.NewsCreateModel
 
 <div class="form js-check-before-unload" id="js-news-create-page">
-    @using (Html.BeginUmbracoForm("CreateExtended", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -46,9 +46,8 @@
                 </div>
             </div>
         </div>
-        @Html.Action("TagPicker", "UserTags", new { })
         <div class="form__row clearfix">
-            @Html.Action("PinActivity", "Activity", new { isPinned = false })
+            @Html.Action("PinActivity", "Activity", new {isPinned = false})
 
         </div>
         <div class="form__row clearfix">
@@ -64,9 +63,9 @@
         </div>
         <div class="form__row clearfix">
             @Html.PassLinks(Model.Links)
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
-            <a class="form__btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
+            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")"/>
+            <a class="btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
-    }
+                }
 </div>

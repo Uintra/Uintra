@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using Compent.uIntra.Installer.Migrations;
 using Newtonsoft.Json;
 using uIntra.CentralFeed;
 using uIntra.Comments;
