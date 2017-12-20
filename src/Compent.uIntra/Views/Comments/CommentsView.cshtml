@@ -20,7 +20,22 @@
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-time">@(Model.CreatedDate.ToTimeFormat())</span>
             </div>
-
+            @if (Model.ModifyDate.HasValue)
+            {
+                <div class="comments__modified">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <div class="comments__modified-info">
+                        @Html.Localize("CommentsView.ModifyDate.lbl")
+                        <span class="comments__author-date">@(Model.ModifyDate.Value.ToDateFormat())</span>
+                        <span class="comments__divider"> - </span>
+                        <span class="comments__author-time">@(Model.ModifyDate.Value.ToTimeFormat())</span>
+                    </div>
+                </div>
+            }
+            @if (!Model.IsReply)
+            {
+                <a class="js-comment-showReplyLink comments__reply">@Html.Localize("CommentsView.Reply.lnk")</a>
+            }
             @if (Model.CanDelete || Model.CanEdit)
             {
                 <div class="comments__controls">
@@ -41,22 +56,6 @@
                         </li>
                     </ul>
                 </div>
-            }
-            @if (Model.ModifyDate.HasValue)
-            {
-                <div class="comments__modified">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <div class="comments__modified-info">
-                        @Html.Localize("CommentsView.ModifyDate.lbl")
-                        <span class="comments__author-date">@(Model.ModifyDate.Value.ToDateFormat())</span>
-                        <span class="comments__divider"> - </span>
-                        <span class="comments__author-time">@(Model.ModifyDate.Value.ToTimeFormat())</span>
-                    </div>
-                </div>
-            }
-            @if (!Model.IsReply)
-            {
-                <a class="js-comment-showReplyLink comments__reply">@Html.Localize("CommentsView.Reply.lnk")</a>
             }
         </div>
         <div class="comments__list-text js-comment-description">
