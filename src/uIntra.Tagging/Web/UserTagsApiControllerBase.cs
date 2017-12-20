@@ -22,7 +22,7 @@ namespace uIntra.Tagging.Web
         }
 
         [HttpGet]
-        public IEnumerable<UserTagsViewModel> GetAll(int pageId)
+        public IEnumerable<UserTagBackofficeViewModel> GetAll(int pageId)
         {
             var content = _umbracoHelper.TypedContent(pageId);
 
@@ -32,7 +32,7 @@ namespace uIntra.Tagging.Web
                 .GetRelatedTags(content.GetKey())
                 .ToDictionary(tag => tag.Id);
 
-            var result = allTags.Select(tag => new UserTagsViewModel
+            var result = allTags.Select(tag => new UserTagBackofficeViewModel
             {
                 Id = tag.Id,
                 Text = tag.Text,

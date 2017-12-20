@@ -11,7 +11,6 @@ namespace uIntra.Tagging.Web
 {
     public abstract class UserTagsControllerBase : SurfaceController
     {
-        protected virtual string TagsViewPath { get; set; } = "~/App_Plugins/Tagging/Views/Tags.cshtml";
         protected virtual string TagsPickerViewPath { get; set; } = "~/App_Plugins/UsersTags/Views/TagPicker.cshtml";
 
         private readonly IUserTagService _tagsService;
@@ -21,12 +20,6 @@ namespace uIntra.Tagging.Web
         {
             _tagsService = tagsService;
             _tagProvider = tagProvider;
-        }
-
-        public virtual ActionResult Get(Guid activityId)
-        {
-            var tags = _tagsService.GetRelatedTags(activityId).Map<IEnumerable<UserTagsViewModel>>();
-            return PartialView(TagsViewPath, tags);
         }
 
         public ActionResult TagPicker(Guid? entityId = null)
