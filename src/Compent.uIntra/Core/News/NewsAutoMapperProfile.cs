@@ -26,6 +26,9 @@ namespace Compent.uIntra.Core.News
             Mapper.CreateMap<NewsEditModel, NewsExtendedEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
+            Mapper.CreateMap<NewsCreateModel, NewsExtendedCreateModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
             Mapper.CreateMap<Entities.News, NewsBackofficeViewModel>()
                 .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 

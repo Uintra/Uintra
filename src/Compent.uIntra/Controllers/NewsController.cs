@@ -95,6 +95,12 @@ namespace Compent.uIntra.Controllers
             return extendedModel;
         }
 
+        protected override NewsCreateModel GetCreateModel(IActivityCreateLinks links)
+        {
+            var extendedModel = base.GetCreateModel(links).Map<NewsExtendedCreateModel>();
+            return extendedModel;
+        }
+
         protected override void OnNewsEdited(NewsBase news, NewsEditModel model)
         {
             if (model is NewsExtendedEditModel extendedModel)
