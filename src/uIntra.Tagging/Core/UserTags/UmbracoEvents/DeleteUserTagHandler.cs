@@ -1,19 +1,18 @@
 ﻿using System.Linq;
 using uIntra.Core;
 using uIntra.Core.UmbracoEventServices;
-using uIntra.Tagging.UserTags.Models;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
 namespace uIntra.Tagging.UserTags
 {
-    public class UserTagUmbracoEventHandler : IUmbracoContentTrashedEventService
+    public class DeleteUserTagHandler : IUmbracoContentTrashedEventService
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IUserTagRelationService _userTagRelationService;
 
-        public UserTagUmbracoEventHandler(IDocumentTypeAliasProvider documentTypeAliasProvider, IUserTagRelationService userTagRelationService)
+        public DeleteUserTagHandler(IDocumentTypeAliasProvider documentTypeAliasProvider, IUserTagRelationService userTagRelationService)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _userTagRelationService = userTagRelationService;

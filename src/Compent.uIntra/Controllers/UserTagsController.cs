@@ -5,6 +5,7 @@ using Compent.uIntra.Core.UserTags.ViewModels;
 using uIntra.Tagging.UserTags;
 using uIntra.Tagging.UserTags.Models;
 using uIntra.Tagging.Web;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
@@ -26,6 +27,12 @@ namespace Compent.uIntra.Controllers
                 .Select(MapToViewModel)
                 .ToList();
             return PartialView(EntityTagsViewPath, tags);
+        }
+
+        public ActionResult ForContent()
+        {
+            var currentContentPageId = CurrentPage.GetKey();
+            return ForEntity(currentContentPageId);
         }
 
         private UserTagViewModel MapToViewModel(UserTag tag)

@@ -6,7 +6,7 @@
       "view": "~/App_Plugins/UsersTags/backoffice/users-tags.view.html",
       "icon": "icon-settings-alt color-blue",
       "config": {
-        "controller": "Tags",
+        "controller": "UserTags",
         "action": "ForContent",
         "includeUmbracoValues": true
       }

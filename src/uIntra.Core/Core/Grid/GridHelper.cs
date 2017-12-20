@@ -14,9 +14,13 @@ namespace uIntra.Core.Grid
         {
             dynamic grid = GetGrid(content);
 
-            if (!IsValidGrid(grid))
-                yield break;
+            return IsValidGrid(grid)
+                ? GetValues(grid, aliases)
+                : Enumerable.Empty<(string, dynamic)>();
+        }
 
+        public IEnumerable<(string alias, dynamic value)> GetValues(dynamic grid, params string[] aliases)
+        {
             foreach (var section in grid.sections)
             {
                 foreach (var row in section.rows)
@@ -25,12 +29,12 @@ namespace uIntra.Core.Grid
                     {
                         foreach (var control in area.controls)
                         {
-                            if (control != null 
-                                && control.editor != null 
-                                && control.editor.view != null 
-                                && aliases.Contains((string) control.editor.alias))
+                            if (control != null
+                                && control.editor != null
+                                //&& control.editor.view != null
+                                && aliases.Contains((string)control.editor.alias))
                             {
-                                yield return ((string) control.editor.alias, control.value);
+                                yield return ((string)control.editor.alias, control.value);
                             }
                         }
                     }

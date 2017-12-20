@@ -26,14 +26,14 @@
         function init() {
             if (!$scope.control.value) {
                 $scope.control.value = {
-                    activityId: "",
+                    entityId: "",
                     usersTags: []
                 };
             }
 
-            if (!$scope.control.value.activityId) {
+            if (!$scope.control.value.entityId) {
                 contentResource.getById($routeParams.id).then(function (content) {
-                    $scope.control.value.activityId = content.key;
+                    $scope.control.value.entityId = content.key;
                 }, onError);
             }
         }
