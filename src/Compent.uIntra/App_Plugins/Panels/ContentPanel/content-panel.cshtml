@@ -10,14 +10,14 @@
     }
     var panelId = "js-content-panel-" + Guid.NewGuid();
     bool isImportant = viewModel.isImportant != null ? viewModel.isImportant.Value : false; //Actual type of viewModel.isImportant will be JValue, not pure boolean
-    string importantCssSelector = isImportant ? "_important" : String.Empty;
+    string importantCssSelector = isImportant ? "_important" : string.Empty;
 }
 
 <section class="block _content-panel clearfix @importantCssSelector" id="@panelId">
     @{
-        string titleLink = viewModel.titleLink?.link;
+        string titleLink = string.IsNullOrEmpty(Convert.ToString(viewModel.titleLink)) ? null : viewModel.titleLink.link;
         string title = viewModel.title;
-        bool hasTitle = String.IsNullOrEmpty(title);
+        bool hasTitle = string.IsNullOrEmpty(title);
 
         if (!hasTitle)
         {

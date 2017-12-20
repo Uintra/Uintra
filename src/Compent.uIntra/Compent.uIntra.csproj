@@ -1181,6 +1181,8 @@
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Bulletins\EditView.cshtml" />
+    <Content Include="Views\Bulletins\CreationForm.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1231,6 +1233,7 @@
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedCreateModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedEditModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedService.cs" />
