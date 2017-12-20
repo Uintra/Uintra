@@ -216,7 +216,7 @@ namespace Compent.uIntra
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
-            
+
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
@@ -259,7 +259,7 @@ namespace Compent.uIntra
             kernel.Bind(typeof(IIntranetActivityService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IIntranetActivityService<>)).To<BulletinsService>().InRequestScope();
             kernel.Bind(typeof(IIntranetActivityService<>)).To<PagePromotionService>().InRequestScope();
-            
+
             kernel.Bind<IIntranetActivityService>().To<NewsService>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<EventsService>().InRequestScope();
             kernel.Bind<IIntranetActivityService>().To<BulletinsService>().InRequestScope();
@@ -275,7 +275,7 @@ namespace Compent.uIntra
             kernel.Bind<ICommentableService>().To<EventsService>().InRequestScope();
             kernel.Bind<ICommentableService>().To<BulletinsService>().InRequestScope();
             kernel.Bind<ICustomCommentableService>().To<CustomCommentableService>().InRequestScope();
-            
+
 
             kernel.Bind<INotifyableService>().To<NewsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<EventsService>().InRequestScope();
@@ -301,7 +301,7 @@ namespace Compent.uIntra
             kernel.Bind<ISystemLinksModelBuilder>().To<SystemLinksModelBuilder>().InRequestScope();
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
             kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
-            
+
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
@@ -318,14 +318,14 @@ namespace Compent.uIntra
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
             kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();
-            kernel.Bind<INotificationModelMapper<UiNotifierTemplate,UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
-            kernel.Bind<INotificationModelMapper<EmailNotifierTemplate,EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
+            kernel.Bind<INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
+            kernel.Bind<INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
             kernel.Bind(typeof(IBackofficeNotificationSettingsProvider)).To<BackofficeNotificationSettingsProvider>();
             kernel.Bind<INotificationSettingsTreeProvider>().To<NotificationSettingsTreeProvider>();
             kernel.Bind<INotificationSettingCategoryProvider>().To<NotificationSettingCategoryProvider>();
-            
+
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
             // Factories
@@ -373,7 +373,6 @@ namespace Compent.uIntra
             kernel.Bind<IUmbracoEventService<IMediaService, SaveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMediaService, MoveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>>().To<MemberEventService>().InRequestScope();
-            
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();

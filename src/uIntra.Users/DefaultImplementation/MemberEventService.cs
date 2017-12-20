@@ -6,7 +6,7 @@ using Umbraco.Core.Services;
 
 namespace uIntra.Users
 {
-    public class MemberEventService: IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>
+    public class MemberEventService : IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>
     {
         public void Process(IMemberService sender, DeleteEventArgs<IMember> args)
         {
