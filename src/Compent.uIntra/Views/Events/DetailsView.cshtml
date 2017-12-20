@@ -21,6 +21,9 @@
                 @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
             </div>
             <div class="feed__item-feed">
+
+                @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id });
+
                 <div class="feed__item-feed-holder">
                     @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
                 </div>
