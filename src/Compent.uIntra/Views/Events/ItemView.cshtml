@@ -16,6 +16,9 @@
             <span class="feed__item-subscribed js-feed__item-subscribed"><i class="icon-check"></i> @Html.Localize("CentralFeed.IsSubscribed.lbl")</span>
         }
     </div>
+
+    @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id });
+
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
     {

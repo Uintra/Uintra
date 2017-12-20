@@ -2,7 +2,7 @@
 
 namespace uIntra.Tagging.UserTags.Models
 {
-    public class UserTagsViewModel
+    public class UserTagBackofficeViewModel
     {
         public Guid Id { get; set; }
         public string Text { get; set; }

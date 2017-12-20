@@ -318,7 +318,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\UserTags\Models\TagPickerViewModel.cs" />
-    <Compile Include="Core\UserTags\Models\UserTagsViewModel.cs" />
+    <Compile Include="Core\UserTags\Models\UserTagBackofficeViewModel.cs" />
     <Compile Include="Core\UserTags\Models\UserTag.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagProvider.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagRelationService.cs" />
