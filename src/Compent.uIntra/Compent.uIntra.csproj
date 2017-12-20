@@ -1089,6 +1089,7 @@
     </EmbeddedResource>
     <Content Include="App_Plugins\UsersTags\package.manifest" />
     <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
+    <Content Include="Views\UserTags\EntityTags.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1218,7 +1219,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\TagsController.cs" />
+    <Compile Include="Controllers\UserTagsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
@@ -1328,6 +1329,7 @@
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\UserTags\ViewModels\UserTagViewModel.cs" />
     <Compile Include="Core\XPathProvider.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />
