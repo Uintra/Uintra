@@ -342,7 +342,7 @@ h5{
         opacity:0;
         position:absolute;
         top:0;
-        left:0;
+        left:-30px;
         right:0;
         bottom:0;
         z-index: 2;
@@ -460,7 +460,7 @@ h5{
         }
 
         @media (--for-tablet-landscape-up) {
-            background-position:66px 50px;
+            background-position:530px 50px;
         }
 
         ._loading &{
