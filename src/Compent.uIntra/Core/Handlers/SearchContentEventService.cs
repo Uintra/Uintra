@@ -13,34 +13,45 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.Handlers
 {
-    public class SearchContentEventService : IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>
+    public class SearchContentEventService : IUmbracoContentUnPublishedEventService, IUmbracoContentPublishedEventService
     {
+        private readonly IContentIndexer _contentIndexer;
+        private readonly IGridHelper _gridHelper;
+        private readonly UmbracoHelper _umbracoHelper;
 
-        public void Process(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
+        public SearchContentEventService(IContentIndexer contentIndexer, IGridHelper gridHelper, UmbracoHelper umbracoHelper)
         {
-            var contentIndexer = DependencyResolver.Current.GetService<IContentIndexer>();
-            var umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
+            _contentIndexer = contentIndexer;
+            _gridHelper = gridHelper;
+            _umbracoHelper = umbracoHelper;
+        }
 
-            foreach (var entity in publishEventArgs.PublishedEntities)
+        public void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> args)
+        {
+            foreach (var entity in args.PublishedEntities)
             {
-                contentIndexer.FillIndex(entity.Id);
+                _contentIndexer.FillIndex(entity.Id);
                 if (IsGlobalPanel(entity))
-                    umbracoHelper.TypedContentAtRoot()
+                    _umbracoHelper.TypedContentAtRoot()
                         .SelectMany(c => c.DescendantsOrSelf())
                         .Where(c => ContainsGlobalPanel(c, entity))
                         .Select(c => c.Id)
                         .ToList()
-                        .ForEach(contentIndexer.FillIndex);
+                        .ForEach(_contentIndexer.FillIndex);
             }
+        }
+
+        public void ProcessContentUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> args)
+        {
+            foreach (var entity in args.PublishedEntities) _contentIndexer.DeleteFromIndex(entity.Id);
         }
 
         private static bool IsGlobalPanel(IContent entity) =>
             entity.Parent()?.ContentType.Alias == DocumentTypeAliasConstants.GlobalPanelFolder;
 
-        static IGridHelper gridHelper = DependencyResolver.Current.GetService<IGridHelper>();
-        private static bool ContainsGlobalPanel(IPublishedContent content, IContent globalPanel)
+        private bool ContainsGlobalPanel(IPublishedContent content, IContent globalPanel)
         {
-            return gridHelper
+            return _gridHelper
                 .GetValues(content, GridEditorConstants.GlobalPanelPickerAlias)
                 .Any(t => ContainsGlobalPanel(t.value, globalPanel));
         }

@@ -8,7 +8,7 @@ using Umbraco.Core.Services;
 
 namespace uIntra.Tagging.UserTags
 {
-    public class UserTagUmbracoEventHandler : IUmbracoContentTrashedEventsService
+    public class UserTagUmbracoEventHandler : IUmbracoContentTrashedEventService
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IUserTagRelationService _userTagRelationService;
