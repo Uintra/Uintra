@@ -17,17 +17,13 @@ namespace uIntra.Core.Activity
             _pagePromotionService = pagePromotionService;
         }
 
-        public string GetDetailsPageUrl(Guid activityId) => _pagePromotionService.Get(activityId).Url;
+        public string GetDetailsPageUrl(Guid? activityId = null) =>
+            activityId.HasValue ? _pagePromotionService.Get(activityId.Value).Url : null;
 
         public string GetOverviewPageUrl() => null;
 
-        public string GetDetailsPageUrl()
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetCreatePageUrl() => null;
 
-        public string GetEditPageUrl() => null;
+        public string GetEditPageUrl(Guid activityId) => null;
     }
 }

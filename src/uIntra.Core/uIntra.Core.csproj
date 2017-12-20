@@ -343,13 +343,13 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Activity\Helpers\PagePromotionPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
     <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\Helpers\PagePromotionPageHelper.cs" />
     <Compile Include="Core\Activity\ITypedService.cs" />
     <Compile Include="Core\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />

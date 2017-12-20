@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
@@ -5,7 +6,7 @@ using Umbraco.Web;
 
 namespace uIntra.Core.Activity
 {
-    class ActivityPageHelper : IActivityPageHelper
+    public class ActivityPageHelper : IActivityPageHelper
     {
         public IIntranetType ActivityType { get; }
 
@@ -27,10 +28,12 @@ namespace uIntra.Core.Activity
             return GetPageUrl(_activityXPath);
         }
 
-        public string GetDetailsPageUrl()
+        public string GetDetailsPageUrl(Guid? activityId = null)
         {
             var xPath = _activityXPath.Append(_aliasProvider.GetDetailsPage(ActivityType));
-            return GetPageUrl(xPath);
+            var detailsPageUrl = GetPageUrl(xPath);
+
+            return activityId.HasValue ? detailsPageUrl.AddIdParameter(activityId) : detailsPageUrl;
         }
 
         public string GetCreatePageUrl()
@@ -42,10 +45,10 @@ namespace uIntra.Core.Activity
                 : GetPageUrl(_activityXPath.Append(createPage));
         }
 
-        public string GetEditPageUrl()
+        public string GetEditPageUrl(Guid activityId)
         {
             var xPath = _activityXPath.Append(_aliasProvider.GetEditPage(ActivityType));
-            return GetPageUrl(xPath);
+            return GetPageUrl(xPath).AddIdParameter(activityId);
         }
 
         private string GetPageUrl(IEnumerable<string> xPath)

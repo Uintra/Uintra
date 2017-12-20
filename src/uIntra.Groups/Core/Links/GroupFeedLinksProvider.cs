@@ -9,7 +9,6 @@ namespace uIntra.Groups
 {
     public class GroupFeedLinkProvider : FeedLinkProvider, IGroupFeedLinkProvider
     {
-
         protected override IEnumerable<string> FeedActivitiesXPath => new[]
         {
             _aliasProvider.GetHomePage(),
@@ -35,8 +34,8 @@ namespace uIntra.Groups
             {
                 Overview = helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
-                Details = helper.GetDetailsPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
-                Edit = helper.GetEditPageUrl().AddIdParameter(activity.Id).AddGroupId(activity.GroupId),
+                Details = helper.GetDetailsPageUrl(activity.Id).AddGroupId(activity.GroupId),
+                Edit = helper.GetEditPageUrl(activity.Id).AddGroupId(activity.GroupId),
                 Owner = GetProfileLink(activity.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(activity.GroupId)
             };
