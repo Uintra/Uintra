@@ -90,14 +90,14 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
+using Umbraco.Core.Events;
+using Umbraco.Core.Models;
+using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
-using Umbraco.Core.Events;
-using Umbraco.Core.Models;
-using Umbraco.Core.Publishing;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -369,6 +369,7 @@ namespace Compent.uIntra
             //umbraco events subscriptions
             kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMediaService, SaveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMediaService, MoveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>>().To<MemberEventService>().InRequestScope();

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using uIntra.Core.Activity;
 
 namespace uIntra.Core.PagePromotion
 {
-    public interface IPagePromotionService<out T> where T : PagePromotionBase
+    public interface IPagePromotionService<out T> : IIntranetActivityService<T> where T : PagePromotionBase
     {
-        T GetPagePromotion(Guid pageId);
     }
 }

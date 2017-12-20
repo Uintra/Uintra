@@ -3,6 +3,7 @@ using System.Linq;
 using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
+using uIntra.Core.PagePromotion;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -71,6 +72,9 @@ namespace uIntra.Search
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
             (List<string> content, List<string> titles) = ParseContentPanels(publishedContent);
+            var pagePromotionContent = GetPagePromotionContent(publishedContent);
+
+            content.AddRange(pagePromotionContent);
 
             return new SearchableContent
             {
@@ -109,6 +113,19 @@ namespace uIntra.Search
             }
 
             return (titles, content);
+        }
+
+        private List<string> GetPagePromotionContent(IPublishedContent publishedContent)
+        {
+            var content = new List<string>();
+
+            var config = PagePromotionHelper.GetConfig(publishedContent);
+            if (config == null) return content;
+
+            content.Add(config.Title);
+            content.Add(config.Description);
+
+            return content;
         }
 
         private dynamic GetContentPanelFromGlobal(dynamic value) =>

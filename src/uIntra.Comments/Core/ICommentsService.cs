@@ -28,5 +28,7 @@ namespace uIntra.Comments
         void FillComments(ICommentable entity);
 
         string GetCommentViewId(Guid commentId);
+
+        bool IsExistsUserComment(Guid activityId, Guid userId);
     }
 }

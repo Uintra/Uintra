@@ -33,7 +33,7 @@ namespace uIntra.Core.Activity
         private int GetActivityTypeId(Guid activityId)
         {
             var activityTypeId = _activityRepository.Get(activityId)?.Type;
-            return activityTypeId ?? _pagePromotionService.GetPagePromotion(activityId).Type.Id;
+            return activityTypeId ?? _pagePromotionService.Get(activityId).Type.Id;
         }
     }
 }
