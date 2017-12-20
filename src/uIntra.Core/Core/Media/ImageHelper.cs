@@ -122,6 +122,11 @@ namespace uIntra.Core.Media
             return GetImagePath(source, "thumbnail");
         }
 
+        public string ToPreviewImage(string source)
+        {
+            return GetImagePath(source, "preview");
+        }
+
         private string GetImagePath(string source, string imageGenClass)
         {
             return StartWithParam(source, "preset", imageGenClass);
@@ -131,7 +136,6 @@ namespace uIntra.Core.Media
         {
             return $"{source}?{paramName}={value}";
         }
-
     }
 }
 
