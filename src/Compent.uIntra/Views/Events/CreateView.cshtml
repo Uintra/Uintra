@@ -5,7 +5,7 @@
 @model uIntra.Events.EventCreateModel
 
 <div class="form js-check-before-unload" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
+    @using (Html.BeginUmbracoForm("CreateExtended", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -43,6 +43,7 @@
                 </div>
             </div>
         </div>
+        @Html.Action("TagPicker", "Tags", new {})
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
         </div>
@@ -67,9 +68,9 @@
             @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
-            @Html.PassLinks(Model.Links)            
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
-            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")"/>
+            @Html.PassLinks(Model.Links)
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
             <a class="form__btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }
