@@ -1,5 +1,9 @@
-﻿@model int
+﻿@using uIntra.Core.Extensions
+@model int
 
-<div class="umbraco-link _for-desktop">
-    <a class="umbraco-link__link" href="@Url.Action("GoToUmbracoEditPage", "Navigation", new { pageId = Model })" title="" target="_blank" rel="noopener noreferrer"><i class="icon-umbraco"></i></a>
-</div>
+<li class="user__menu-item">
+    <a class="user__menu-link" href="@Url.Action("GoToUmbracoEditPage", "Navigation", new { pageId = Model })" target="_blank" rel="noopener noreferrer">
+        <span class="icon icon-umbraco"></span>
+        @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
+    </a>
+</li>

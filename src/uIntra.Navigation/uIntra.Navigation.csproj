@@ -58,6 +58,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -346,6 +356,7 @@
     <Compile Include="Core\AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Core\Configuration\NavigationPropertySettings.cs" />
+    <Compile Include="Core\EqualityComparers\MyLinkItemModelComparer.cs" />
     <Compile Include="Core\NavigationConstants.cs" />
     <Compile Include="Core\Dashboard\Models\CreateNavigationCompositionsModel.cs" />
     <Compile Include="Core\Dashboard\Models\DocumentTypeState.cs" />
@@ -385,10 +396,6 @@
     <Compile Include="DefaultImplementation\MenuViewModel.cs" />
     <Compile Include="DefaultImplementation\SystemLinksViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinksViewModel.cs" />
-    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
-    <None Include="App_Plugins\Navigation\Web.config" />
     <None Include="config\Dashboard.config.install.xdt" />
     <None Include="config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopNavigationViewModel.cs" />
@@ -413,31 +420,6 @@
     <None Include="uIntra.Navigation.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
-    <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />
-    <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
-    <Content Include="App_Plugins\Navigation\MyLinks\sort.svg" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <Content Include="App_Plugins\Navigation\navigation.js" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\umbracoContentLink.css" />
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\UmbracoContentLink.js" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>
@@ -456,7 +438,11 @@
       <Name>uIntra.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Navigation\**\*">
+      <Link>App_Plugins\Navigation\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

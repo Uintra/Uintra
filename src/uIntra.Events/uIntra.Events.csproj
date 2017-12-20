@@ -59,6 +59,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -324,7 +334,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
     <None Include="Config\Lang\da-DK.user.xml.uninstall.xdt" />
     <None Include="Config\Lang\da-DK.user.xml.install.xdt" />
     <None Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />
@@ -349,28 +358,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\backoffice\date-greater-or-equal.directive.js" />
-    <Content Include="App_Plugins\Events\backoffice\events-management.config.js" />
-    <Content Include="App_Plugins\Events\backoffice\events-management.css" />
-    <Content Include="App_Plugins\Events\backoffice\events-management.html" />
-    <Content Include="App_Plugins\Events\backoffice\events-management.js" />
-    <Content Include="App_Plugins\Events\ComingEvents\coming-events-overlay.html" />
-    <Content Include="App_Plugins\Events\ComingEvents\coming-events-view.html" />
-    <Content Include="App_Plugins\Events\ComingEvents\comingEventsController.js" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\create-events.js" />
-    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Events\Create\events-create.html" />
-    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
-    <Content Include="App_Plugins\Events\Details\events-details.html" />
-    <Content Include="App_Plugins\Events\Edit\edit-events.js" />
-    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Events\Edit\events-edit.html" />
-    <Content Include="App_Plugins\Events\events.js" />
-    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-    <Content Include="App_Plugins\Events\style.css" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Events\**\*">
+      <Link>App_Plugins\Events\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

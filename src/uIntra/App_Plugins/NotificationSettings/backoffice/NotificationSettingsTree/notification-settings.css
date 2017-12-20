@@ -1,27 +1,6 @@
-﻿.tabs{
-    padding:0 20px 20px;
-}
-
-.tabs .tab{
-    display:inline-block;
-    vertical-align:top;
-    border:1px solid #333;
-    background:#fefefe;
+﻿.info{
     padding:10px;
-}
-
-.tabs .tab._active{
-    background-color:#ccc;
-    font-weight:normal;
-}
-.info{
-    padding:10px;
-    background:#ccc;
-    border:1px solid #333;
-}
-
-.form {
-    padding: 0 20px 20px;
+    border:1px solid #ccc;
 }
 
 .form__row {
@@ -74,7 +53,7 @@
     display: inline-block;
     padding: 5px 6px;
     vertical-align: top;
-    min-width: 300px;
+    min-width: 600px;
     border: 1px solid #e9e9eb;
     margin: 0;
 }
@@ -86,13 +65,15 @@
 
 .edit-control__content .form-control {
     border-color: #e9e9eb;
-    min-width:314px;
+    min-width:614px;
     margin:0;
 }
-
+.edit-control__fieldset .show-correct {
+    min-width: 614px;
+}
 .edit-control__btns {
-    display:inline-block;
-    vertical-align:top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .edit-control__btn-edit {

@@ -19,9 +19,10 @@ namespace uIntra.Notification
             var allNotifications = _notificationRepository
                 .FindAll(el => el.ReceiverId == receiverId)
                 .OrderBy(n => n.IsNotified)
-                .ThenByDescending(n => n.Date);
+                .ThenByDescending(n => n.Date)
+                .ToList();
 
-            totalCount = allNotifications.Count();
+            totalCount = allNotifications.Count;
 
             return allNotifications.Take(count);
         }

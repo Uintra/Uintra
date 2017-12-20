@@ -22,6 +22,7 @@ namespace Compent.uIntra.Core.Navigation
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INavigationApplicationSettings _navigationApplicationSettings;
         private readonly IGroupService _groupService;
+        private readonly IEqualityComparer<MyLinkItemModel> _myLinkItemModelComparer;
 
         public MyLinksModelBuilder(
             UmbracoHelper umbracoHelper,
@@ -30,7 +31,8 @@ namespace Compent.uIntra.Core.Navigation
             IMyLinksService myLinksService,
             IActivitiesServiceFactory activitiesServiceFactory,
             INavigationApplicationSettings navigationApplicationSettings,
-            IGroupService groupService)
+            IGroupService groupService,
+            IEqualityComparer<MyLinkItemModel> myLinkItemModelComparer)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
@@ -39,11 +41,16 @@ namespace Compent.uIntra.Core.Navigation
             _activitiesServiceFactory = activitiesServiceFactory;
             _navigationApplicationSettings = navigationApplicationSettings;
             _groupService = groupService;
+            _myLinkItemModelComparer = myLinkItemModelComparer;
         }
 
         public override IEnumerable<MyLinkItemModel> GetMenu()
         {
-            var links = _myLinksService.GetMany(_intranetUserService.GetCurrentUser().Id).OrderByDescending(link => link.CreatedDate).ToList();
+            var links = _myLinksService
+                .GetMany(_intranetUserService.GetCurrentUser().Id)
+                .OrderByDescending(link => link.CreatedDate)
+                .ToList();
+
             var contents = _umbracoHelper.TypedContent(links.Select(el => el.ContentId));
 
             var models = links.Join(contents,
@@ -57,7 +64,7 @@ namespace Compent.uIntra.Core.Navigation
                     Url = GetUrl(link, content)
                 });
 
-            return models.Distinct();
+            return models.Distinct(_myLinkItemModelComparer);
         }
 
         protected string GetLinkName(Guid entityId)

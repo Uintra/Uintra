@@ -1,6 +1,10 @@
 ﻿(function () {
     var richTextEditor = function () {
+
         var controller = function ($scope) {
+            var editorId = "editor" + $scope.$id;
+
+            $scope.config.tinyMceOptions.editorId = editorId;
 
             $scope.config.triggerRefresh = function () {
                 $scope.includeValidation = false;
@@ -30,7 +34,7 @@
             }
 
             $scope.isTextRequiredButEmpty = function () {
-                return $scope.config.isRequired && $scope.config.value.length === 0;
+                return $scope.config.isRequired && (!$scope.config.value || $scope.config.value.length === 0);
             }
 
             function saveHandler() {
@@ -50,6 +54,7 @@
                 $scope.config.value = $scope.savedValue;
                 $scope.includeValidation = false;
                 $scope.isValidValue = true;
+                $(document).trigger('editorDataReset', [$scope.savedValue, editorId]);
             }
 
             function initControl() {

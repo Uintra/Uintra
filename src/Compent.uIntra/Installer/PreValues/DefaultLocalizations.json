@@ -14,6 +14,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "PagePromotion.ContentPage",
+    "translations": {
+      "en-US": "Promotion"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Bulletins",
     "translations": {
       "en-US": "Bulletins"
@@ -179,6 +186,13 @@
     "key": "CommentsCreate.AddComment.btn",
     "translations": {
       "en-US": "Send"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Comments.Empty.lbl",
+    "translations": {
+      "en-US": "Comments"
     },
     "updateDate": "0001-01-01T00:00:00"
   },

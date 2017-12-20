@@ -1,6 +1,6 @@
 ﻿{
-  "label": "MyLabel",
+  "label": "This is an in-app notification that is sent to the subscribers of an event post 3 days before the event starts.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Title of event<br>##StartDate## - The start date of the event<br>##FullName## - Name of the subscriber receiving the notification",
   "template": {
-    "message": "Here we go, our first default template for notifications!"
+    "message": "Dear ##FullName##, you subscribed to the event ##ActivityTitle## and it will start the ##StartDate##. Looking forward to seeing you there!"
   }
 }

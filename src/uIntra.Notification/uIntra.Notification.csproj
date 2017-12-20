@@ -63,6 +63,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -313,11 +323,16 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingCategoryProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingsTreeProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingCategoryProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsCategoryDto.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsTreeProvider.cs" />
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\DefaultNotifierTemplateProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeSettingsReader.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\BackofficeNotificationSettingsProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\IBackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\IBackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
@@ -333,9 +348,11 @@
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\INotifierTypeProvider.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
+    <Compile Include="Core\Models\ActivityEventIdentityExtensions.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
     <Compile Include="Core\Models\Configuration\NotificationSettingDefaults.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
+    <Compile Include="Core\Models\NotificationValue.cs" />
     <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
     <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingModel.cs" />
@@ -399,7 +416,6 @@
     <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
     <Compile Include="Core\Sql\Notification.cs" />
     <Compile Include="DefaultImplementation\UiNotificationsService.cs" />
-    <Compile Include="Installer\Migrations\NotificationSettingsInstallationStep_0_0_0.cs" />
     <Compile Include="Installer\NotificationInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -408,6 +424,7 @@
     <Compile Include="Web\NotificationJobControllerBase.cs" />
     <Compile Include="Web\NotificationSettingsController.cs" />
     <Compile Include="Web\NotificationSettingsTreeController.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -415,39 +432,42 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentEdited.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentEdited.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentEdited.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventHided.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventUpdated.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\Event.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\ActivityLikeAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentEdited.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentEdited.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\Event.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\EventHided.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\EventUpdated.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\BeforeStart.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\ActivityLikeAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentEdited.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentReplied.json" />
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.config.js" />
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.css" />
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\BeforeStart.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventHided.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventUpdated.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\NotificationSettings\**\*">
+      <Link>App_Plugins\NotificationSettings\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Notification\**\*">
+      <Link>App_Plugins\Notification\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
@@ -461,19 +481,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\category.html" />
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.controller.js" />
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.service.js" />
-    <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\settings.html" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\List\notification-list.html" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\List\notificationList.css" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-    <Content Include="App_Plugins\Notification\notification.js" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

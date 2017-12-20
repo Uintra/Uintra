@@ -46,6 +46,7 @@ namespace uIntra.CentralFeed.Web
         {
             var activityTypes = _feedService
                 .GetAllSettings()
+                .Where(s => !s.ExcludeFromAvailableActivityTypes)
                 .Select(s => s.Type)
                 .Select(a => new { a.Id, a.Name })
                 .OrderBy(el => el.Id);
@@ -111,7 +112,7 @@ namespace uIntra.CentralFeed.Web
         }
 
         protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, IIntranetType type)
-        {            
+        {
             var sortedItems = Sort(items, type);
             return SortByPin(sortedItems).ToList();
         }
@@ -121,9 +122,6 @@ namespace uIntra.CentralFeed.Web
             IEnumerable<IFeedItem> result;
             switch (type.Id)
             {
-                case (int)CentralFeedTypeEnum.Events:
-                    result = sortedItems.OrderBy(i => i, new CentralFeedEventComparer());
-                    break;
                 case (int)CentralFeedTypeEnum.All:
                     result = sortedItems.OrderBy(i => i, new CentralFeedItemComparer());
                     break;
@@ -134,7 +132,7 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected virtual IEnumerable<IFeedItem> SortByPin(IEnumerable<IFeedItem> items) => 
+        protected virtual IEnumerable<IFeedItem> SortByPin(IEnumerable<IFeedItem> items) =>
             items.OrderByDescending(el => el.IsPinActual);
 
         [Pure]
@@ -164,7 +162,7 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) => 
+        protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
             tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.IsNotNullOrEmpty());
 
         protected static bool IsTypeForAllActivities(IIntranetType type) =>

@@ -3,9 +3,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
+using Compent.uIntra.Installer.Migrations;
+using EmailWorker.Data.Services.Interfaces;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
+using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
@@ -15,7 +19,12 @@ using uIntra.Groups.Installer;
 using uIntra.Navigation.Installer;
 using uIntra.News;
 using uIntra.News.Installer;
+using uIntra.Notification.Configuration;
+using uIntra.Notification.Installer.Migrations;
 using Umbraco.Core;
+using Umbraco.Core.Models;
+using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace Compent.uIntra.Installer
 {
@@ -25,11 +34,13 @@ namespace Compent.uIntra.Installer
         private readonly Version NewPluginsUIntraVersion = new Version("0.2.0.8");
         private readonly Version AddingHeadingUIntraVersion = new Version("0.2.2.10");
         private readonly Version AddingOwnerUIntraVersion = new Version("0.2.4.0");
+        private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
+        private readonly Version PagePromotionUIntraVersion = new Version("0.2.8.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             SetCurrentCulture();
-
+            AddDefaultMailSettings();
             var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
             var lastMigrationHistory = migrationHistoryService.GetLast();
 
@@ -55,10 +66,37 @@ namespace Compent.uIntra.Installer
                 FixEmptyOwners();
             }
 
+            if (installedVersion != new Version("0.0.0.0") && installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
+            {
+                var notificationSettingsMigrations = new NotificationSettingsMigrations();
+                notificationSettingsMigrations.Execute();
+
+                var uiNotificationMigration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
+                uiNotificationMigration.Execute();
+            }
+
+
+            if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
+            {
+                DeleteExistedMailTemplates();
+            }
+
+            if (installedVersion < PagePromotionUIntraVersion && UIntraVersion >= PagePromotionUIntraVersion)
+            {
+                var pagePromotionMigration = new PagePromotionMigration();
+                pagePromotionMigration.Execute();
+
+                InstallationStepsHelper.InheritCompositionForPage(
+                    CoreInstallationConstants.DocumentTypeAliases.ContentPage,
+                    PagePromotionInstallationConstants.DocumentTypeAliases.PagePromotionComposition);
+            }
+
             if (UIntraVersion > installedVersion)
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
+
+            AddDefaultMailSettings();
         }
 
         private static void SetCurrentCulture()
@@ -88,6 +126,37 @@ namespace Compent.uIntra.Installer
             }
 
             AddDefaultBackofficeSectionsToAdmin();
+        }
+
+        private void DeleteExistedMailTemplates()
+        {
+            var contentService = DependencyResolver.Current.GetService<IContentService>();
+            var _umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
+            var _documentTypeAliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
+
+            var mailTemplateFolderXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetDataFolder(), _documentTypeAliasProvider.GetMailTemplateFolder());
+            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
+
+            bool IsForRemove(IPublishedContent content)
+            {
+                var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
+
+                return templateType.In(
+                    NotificationTypeEnum.Event,
+                    NotificationTypeEnum.EventUpdated,
+                    NotificationTypeEnum.EventHided,
+                    NotificationTypeEnum.BeforeStart,
+                    NotificationTypeEnum.News,
+                    NotificationTypeEnum.Idea,
+                    NotificationTypeEnum.ActivityLikeAdded,
+                    NotificationTypeEnum.CommentAdded,
+                    NotificationTypeEnum.CommentEdited,
+                    NotificationTypeEnum.CommentReplied);
+            }
+
+            var publishedContentToRemove = publishedContent.Children.Where(IsForRemove);
+            var contentToRemove = contentService.GetByIds(publishedContentToRemove.Select(c => c.Id)).ToList();
+            contentToRemove.ForEach(c => contentService.Delete(c));
         }
 
         private void AllowActivitiesForGroups()
@@ -127,11 +196,21 @@ namespace Compent.uIntra.Installer
             userService.Save(adminUserGroup);
         }
 
+        private void AddDefaultMailSettings()
+        {
+            var mailsColumnSettingsService = DependencyResolver.Current.GetService<ISentMailsColumnSettingsService>();
+            var sentMailsSmtpSettingsService = DependencyResolver.Current.GetService<ISentMailsSmtpSettingsService>();
+            mailsColumnSettingsService.CreateColumnDefaultSettings();
+            sentMailsSmtpSettingsService.CreateSmtpDefaultSettings();
+        }
+
         private void FixEmptyOwners()
         {
             var userService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
 
-            var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
+            var activityServices = DependencyResolver.Current
+                .GetServices<IIntranetActivityService<IIntranetActivity>>()
+                .Where(service => service.ActivityType.Id != (int)IntranetActivityTypeEnum.PagePromotion);
             foreach (var service in activityServices)
             {
                 var activities = service.GetAll(true).ToList();

@@ -12,6 +12,7 @@ namespace uIntra.Core
         string GetProfileEditPage();
         string GetNotificationPage();
         string GetHomePage();
+        string GetErrorPage();
 
         string GetOverviewPage(IIntranetType type);
         string GetEditPage(IIntranetType type);

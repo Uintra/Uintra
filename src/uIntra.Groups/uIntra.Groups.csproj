@@ -33,6 +33,16 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -347,7 +357,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
     <None Include="Config\applications.config.install.xdt" />
     <None Include="Config\applications.config.uninstall.xdt" />
     <None Include="Config\Dashboard.config.install.xdt" />
@@ -363,50 +372,7 @@
     <None Include="uIntra.Groups.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupsLeftNavigation.js" />
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\package.manifest" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
     <Content Include="packages.config" />
-    <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
-    <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
-    <Content Include="App_Plugins\Groups\ActivityEdit\activity-edit.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-overlay.html" />
-    <Content Include="App_Plugins\Groups\backoffice\group-central-feed-view.html" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedController.js" />
-    <Content Include="App_Plugins\Groups\backoffice\groupCentralFeedService.js" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.css" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
-    <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
-    <Content Include="App_Plugins\Groups\Create\create-group.js" />
-    <Content Include="App_Plugins\Groups\Create\group-create.html" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\disabled-group.html" />
-    <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
-    <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
-    <Content Include="App_Plugins\Groups\groups.css" />
-    <Content Include="App_Plugins\Groups\groups.js" />
-    <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
-    <Content Include="App_Plugins\Groups\List\group-list.html" />
-    <Content Include="App_Plugins\Groups\List\group-list.js" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
-    <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
-    <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
-    <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
-    <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
@@ -426,7 +392,11 @@
       <Name>uIntra.Users</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Groups\**\*">
+      <Link>App_Plugins\Groups\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

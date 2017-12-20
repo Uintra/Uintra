@@ -37,6 +37,7 @@ namespace Compent.uIntra.Core.Helpers
             return new ActivityNotifierDataModel
             {
                 NotificationType = notificationType,
+                ActivityType = activity.Type,
                 Title = GetNotifierDataTitle(activity),
                 Url = _linkService.GetLinks(activity.Id).Details,
                 NotifierId = notifierId
@@ -49,19 +50,21 @@ namespace Compent.uIntra.Core.Helpers
             {
                 Title = GetNotifierDataTitle(activity),
                 NotificationType = notificationType,
+                ActivityType = activity.Type,
                 NotifierId = notifierId,
                 CreatedDate = DateTime.Now,
                 Url = _linkService.GetLinks(activity.Id).Details
             };
         }
 
-        public ActivityReminderDataModel GetActivityReminderDataModel(EventBase @event, IIntranetType activityType)
+        public ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, IIntranetType activityType)
         {
             return new ActivityReminderDataModel
             {
-                Url = _linkService.GetLinks(@event.Id).Details,
-                Title = @event.Title,
-                NotificationType = activityType
+                Url = _linkService.GetLinks(activity.Id).Details,
+                Title = activity.Title,
+                NotificationType = activityType,
+                ActivityType = activity.Type
             };
         }
 

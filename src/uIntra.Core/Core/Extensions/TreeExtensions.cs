@@ -1,30 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace uIntra.Core.Core.Extensions
+namespace uIntra.Core.Extensions
 {
-
-    public class Tree<T>
-    {
-        public Tree(T value, IEnumerable<Tree<T>> children)
-        {
-            Value = value;
-            Children = children;
-        }
-
-        public Tree(T value, params Tree<T>[] children) : this(value, children.AsEnumerable())
-        {
-        }
-
-        public T Value { get; }
-        public IEnumerable<Tree<T>> Children { get; }
-    }
-
     public static class TreeExtensions
     {
+        public static Tree<T> WithChildren<T>(this Tree<T> tree, params Tree<T>[] children) => 
+            WithChildren(tree, children.AsEnumerable());
+
+        public static Tree<T> WithChildren<T>(this Tree<T> tree, IEnumerable<Tree<T>> children) => 
+            new Tree<T>(tree.Value, children);
+
         public static IEnumerable<Tree<T>> Where<T>(this Tree<T> tree, Func<T, bool> predicate)
         {
             IEnumerable<Tree<T>> WhereRec(Tree<T> tr)
@@ -60,5 +47,10 @@ namespace uIntra.Core.Core.Extensions
 
             return TreeCatamorphismRec(tree);
         }
+
+        public static Tree<TResult> Select<T, TResult>(this Tree<T> tree, Func<T, TResult> func) => 
+            tree.TreeCatamorphism(
+                leaf => new Tree<TResult>(func(leaf)),
+                (node, children) => new Tree<TResult>(func(node), children));
     }
 }

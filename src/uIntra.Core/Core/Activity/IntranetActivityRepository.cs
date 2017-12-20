@@ -66,7 +66,7 @@ namespace uIntra.Core.Activity
 
         public void Delete(Guid id)
         {
-            _sqlRepository.DeleteById(id);
+            _sqlRepository.Delete(id);
         }
     }
 }

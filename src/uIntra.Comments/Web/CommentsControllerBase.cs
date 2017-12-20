@@ -143,11 +143,13 @@ namespace uIntra.Comments.Web
 
         public virtual PartialViewResult PreView(Guid activityId, string link, bool isReadOnly)
         {
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
             var model = new CommentPreviewModel
             {
                 Count = _commentsService.GetCount(activityId),
                 Link = $"{link}#{GetOverviewElementId(activityId)}",
-                IsReadOnly = isReadOnly
+                IsReadOnly = isReadOnly,
+                IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentUserId)
             };
             return PartialView(PreviewViewPath, model);
         }

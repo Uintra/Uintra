@@ -7,6 +7,7 @@ namespace uIntra.CentralFeed
         All = 0,
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,
-        Bulletins = IntranetActivityTypeEnum.Bulletins
+        Bulletins = IntranetActivityTypeEnum.Bulletins,
+        PagePromotion = IntranetActivityTypeEnum.PagePromotion
     }
 }

@@ -1,7 +1,8 @@
 ﻿(function (angular) {
     'use strict';
 
-    var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig) {
+    var controller = function ($rootScope, $scope, $location, appState, notificationsService, notificationSettingsService, notificationSettingsConfig, navigationService) {
+
         var self = this;
         self.settings = {};
         self.selectedNotifierSettings = {};
@@ -36,6 +37,27 @@
             saveSettings(self.settings);
         }
 
+        self.splitOnUpperCaseCharacters = function (text) {
+            if (!text || text.length === 0) return '';
+            return text.split(/(?=[A-Z])/).join(' ');
+        }
+
+        function initalize() {
+            initLocationChangeStartEvent();
+            initCurrentNodeHighlighting();
+
+            var params = getCurrentUrlParams();
+            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
+                self.settings = result.data;
+                self.selectEmailTab();
+
+                initEmailSubjectControlConfig();
+                initEmailBodyControlConfig();
+                initUiMessageControlConfig();
+
+            }, showGetErrorMessage);
+        }
+
         function getUrlParams(url) {
             var params = {};
             (url + '?').split('?')[1].split('&').forEach(function (pair) {
@@ -47,19 +69,20 @@
             return params;
         };
 
-        function initalize() {
-            initLocationChangeStartEvent();
+        function getCurrentUrlParams() {
+            var params = $location.search();
 
-            var params = getUrlParams($location.path());
-            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
-                self.settings = result.data;
-                self.selectEmailTab();
+            if (angular.equals(params, {})) {
+                params = getUrlParams($location.path());
+            }
+            return params;
+        }
 
-                initEmailSubjectControlConfig();
-                initEmailContentControlConfig();
-                initUiMessageControlConfig();
-
-            }, showGetErrorMessage);
+        function initCurrentNodeHighlighting() {
+            var queryString = getCurrentUrlParams();
+            var parentId = queryString.activityType;
+            var currentNodeId = queryString.id;
+            navigationService.syncTree({ tree: 'NotificationSettingsTree', path: ["-1", parentId, currentNodeId], forceReload: false });
         }
 
         function saveSettings(settings) {
@@ -100,21 +123,22 @@
             self.emailSubjectControlConfig.triggerRefresh();
         }
 
-        function initEmailContentControlConfig() {
-            self.emailContentControlConfig = new RichTextEditorModel(ControlMode.view);
-            self.emailContentControlConfig.value = self.settings.emailNotifierSetting.template.body;
+        function initEmailBodyControlConfig() {
+            self.emailBodyControlConfig = new RichTextEditorModel(ControlMode.view);
+            self.emailBodyControlConfig.tinyMceOptions = notificationSettingsConfig.emailMessageTinyMceOptions;
+            self.emailBodyControlConfig.value = self.settings.emailNotifierSetting.template.body;
 
-            self.emailContentControlConfig.isRequired = true;
-            self.emailContentControlConfig.requiredValidationMessage = 'E-mail content is required';
-            self.emailContentControlConfig.maxLength = 4000;
-            self.emailContentControlConfig.maxLengthValidationMessage = 'E-mail content max length is 4000 symbols';
+            self.emailBodyControlConfig.isRequired = true;
+            self.emailBodyControlConfig.requiredValidationMessage = 'E-mail content is required';
+            self.emailBodyControlConfig.maxLength = 4000;
+            self.emailBodyControlConfig.maxLengthValidationMessage = 'E-mail content max length is 4000 symbols';
 
-            self.emailContentControlConfig.onSave = function (emailContent) {
-                self.settings.emailNotifierSetting.template.content = emailContent;
+            self.emailBodyControlConfig.onSave = function (emailBody) {
+                self.settings.emailNotifierSetting.template.body = emailBody;
                 self.save();
             };
 
-            self.emailContentControlConfig.triggerRefresh();
+            self.emailBodyControlConfig.triggerRefresh();
         }
 
         function initUiMessageControlConfig() {
@@ -140,7 +164,7 @@
             $rootScope.$on('$locationChangeStart', function () {
                 var settingsForm = $scope.settingsForm;
                 if (!settingsForm) return;
-
+                settingsForm.$setPristine();
                 var activeEditControls = angular.element(document.querySelectorAll('form[name="' + settingsForm.$name + '"] .js-active-edit-control'));
                 if (activeEditControls.length > 0) {
                     settingsForm.$setDirty(); // for showing umbraco confirmation popup
@@ -151,7 +175,7 @@
         initalize();
     }
 
-    controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig'];
+    controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig', 'navigationService'];
 
     angular.module('umbraco').controller('notificationSettingController', controller);
 })(angular);

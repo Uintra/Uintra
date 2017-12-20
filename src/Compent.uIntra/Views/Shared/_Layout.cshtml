@@ -11,9 +11,7 @@
 </head>
 <body>
     <div id="wrapper" class="_loading">
-        @{
-            Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");
-        }
+        @{Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");}
         <header id="header">
             <div class="centring flex _f-center">
                 <strong class="logo">
@@ -25,11 +23,11 @@
         </header>
         <aside id="sidebar" class="js-sidebar">
             <div class="sidebar__holder">
-                @Html.Action("SearchBox", "Search")
+                @{Html.RenderAction("SearchBox", "Search"); }
                 @{Html.RenderAction("LeftNavigation", "Navigation"); }
                 @{Html.RenderAction("LeftNavigation", "Group"); }
                 @{Html.RenderAction("SystemLinks", "Navigation"); }
-                @{Html.RenderAction("Overview", "MyLinks"); }               
+                @{Html.RenderAction("Overview", "MyLinks"); }
                 @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
             </div>
         </aside>
@@ -37,8 +35,7 @@
             <div class="centring">
                 <div class="holder">
                     @{Html.RenderAction("SubNavigation", "Navigation");}
-                    @{Html.RenderAction("UmbracoContentLink", "Navigation");}
-
+           
                     @RenderBody()
                 </div>
             </div>

@@ -4,7 +4,7 @@
     {
         public const string GalleryPreviewImageCrop = "galleryPreview";
         public const string EnumDropdownList = "EnumDropdownList";
-        
+
         public static class Media
         {
             public const string ImageTypeAlias = "Image";
@@ -20,6 +20,16 @@
             public const string IsDeletedPropertyTypeAlias = "isDeleted";
             public const string IsDeletedDataTypeDefinitionName = "Media - Is deleted - TrueFalse";
             public const string UseInSearchPropertyAlias = "useInSearch";
+        }
+
+        public static class ImagePresets
+        {
+            public const string Thumbnail = "thumbnail";            
+        }
+
+        public static class QueryStringParameters
+        {
+            public const string ImagePreset = "preset";
         }
     }
 }

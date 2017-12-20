@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Subscribe;
+using Umbraco.Web;
 
 namespace uIntra.CentralFeed.Web
 {
@@ -69,6 +71,7 @@ namespace uIntra.CentralFeed.Web
         }
 
         [HttpGet]
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id)
         {
             var viewModel = GetDetailsViewModel(id);
@@ -202,7 +205,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual (IEnumerable<IFeedItem> activities, int totalCount) GetLatestActivities(IIntranetType activityType, int activityAmount)
         {
             var items = GetCentralFeedItems(activityType).ToList();
-            var filteredItems = items.Take(activityAmount);
+            var filteredItems = FilterLatestActivities(items).Take(activityAmount);
             var sortedItems = Sort(filteredItems, activityType);
 
             return (sortedItems, items.Count);
@@ -227,6 +230,14 @@ namespace uIntra.CentralFeed.Web
                 .Single(el => el.Type.Id == activitiesType.Id)
                 .Map<ActivityFeedTabViewModel>();
             return result;
+        }
+
+        private IEnumerable<IFeedItem> FilterLatestActivities(IEnumerable<IFeedItem> activities)
+        {
+            var settings = _centralFeedService.GetAllSettings().Where(s => !s.ExcludeFromLatestActivities).Select(s => s.Type);
+            var items = activities.Join(settings, item => item.Type.Id, type => type.Id, (item, _) => item);
+
+            return items;
         }
 
         // TODO : duplication

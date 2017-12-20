@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
+using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -17,11 +18,13 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IActivityLinkService _linkService;
+        private readonly ImageHelper _imageHelper;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, ImageHelper imageHelper)
         {
             _umbracoHelper = umbracoHelper;
             _linkService = linkService;
+            _imageHelper = imageHelper;
         }
 
         public virtual ActionResult RenderGallery(string mediaIds)
@@ -56,36 +59,39 @@ namespace uIntra.Core.Controls.LightboxGallery
             }
 
             var ids = mediaIds.ToIntCollection();
-            var medias = _umbracoHelper.TypedMedia(ids).ToList();            
-            result.GalleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type.Id);
+            var medias = _umbracoHelper.TypedMedia(ids).ToList();
+            result.GalleryItems = medias.Select(m => MapToMedia(m, medias.Count)).OrderBy(s => s.Type.Id);
 
             return result;
         }
 
-        protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
+        protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media, int totalMediasCount)
         {
-            var result = new LightboxGalleryItemViewModel()
+            var result = new LightboxGalleryItemViewModel
             {
                 Id = media.Id,
                 Url = media.Url,
                 Name = media.GetFileName(),
                 Extension = media.GetMediaExtension(),
-                Type = media.GetMediaType(),
+                Type = media.GetMediaType()
             };
 
             if (result.Type.Id == MediaTypeEnum.Image.ToInt())
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
-                result.PreviewUrl = media.GetCropUrl(UmbracoAliases.GalleryPreviewImageCrop);
+                result.PreviewUrl = totalMediasCount == 1 ? _imageHelper.ToPreviewImage(media.Url) : _imageHelper.ToThumbnailImage(media.Url);
             }
+
             return result;
         }
 
         protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
         {
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
-            var galleryViewModelList = medias.Select(MapToMedia).ToList();
+
+            var totalMediasCount = medias.Count();
+            var galleryViewModelList = medias.Select(m => MapToMedia(m, totalMediasCount)).ToList();
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());

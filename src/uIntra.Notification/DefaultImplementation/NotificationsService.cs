@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Configuration;
 using uIntra.Core.Exceptions;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core;
-using uIntra.Notification.Core.Services;
-using uIntra.Notification.Exceptions;
 
 namespace uIntra.Notification
 {

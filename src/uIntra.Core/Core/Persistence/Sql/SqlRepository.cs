@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using uIntra.Core.Extensions;
 
 namespace uIntra.Core.Persistence
@@ -10,74 +11,60 @@ namespace uIntra.Core.Persistence
     {
         private readonly IntranetDbContext _dbContext;
         private readonly DbSet<T> _dbSet;
-        private bool disposed;
+        private bool _disposed;
 
         public SqlRepository(IntranetDbContext dbContext)
-        {
-            if (dbContext == null)
-            {
-                throw new ArgumentNullException("dbContext");
-            }
+        {   
+            if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
 
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
-
         }
 
-        public T Get(TKey id)
-        {
-            return _dbSet.Find(id);
-        }
+        public IQueryable<T> AsQueryable() => _dbSet;
 
-        public IEnumerable<T> GetMany(IEnumerable<TKey> ids)
+        public IList<T> GetAll() => _dbSet.ToList();
+
+        public T Get(TKey id) => _dbSet.Find(id);
+
+        public T Find(Expression<Func<T, bool>> predicate) => _dbSet.FirstOrDefault(predicate);
+
+        public IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue) =>
+            _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
+
+        public IList<T> GetMany(IEnumerable<TKey> ids)
         {
-            if (ids.IsEmpty())
+            var idList = ids as IList<TKey> ?? ids.ToList();
+
+            if (idList.IsEmpty())
             {
-                return Enumerable.Empty<T>();
+                return new List<T>();
             }
 
             var result = _dbContext.Set<T>().Join(
-                ids,
+                idList,
                 ent => ent.Id,
                 id => id,
                 (ent, id) => ent);
 
-            return result;
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return _dbSet;
-        }
-
-        public T Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
-        {
-            return _dbSet.FirstOrDefault(predicate);
-        }
-
-        public IEnumerable<T> FindAll(System.Linq.Expressions.Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue)
-        {
-            return _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
+            return result.ToList();
         }
 
         public void Add(T entity)
         {
             _dbSet.Add(entity);
-
             Save();
         }
 
         public void Add(IEnumerable<T> entities)
         {
             _dbSet.AddRange(entities);
-
             Save();
         }
 
         public void Update(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-
             Save();
         }
 
@@ -94,11 +81,10 @@ namespace uIntra.Core.Persistence
         public void Delete(T entity)
         {
             _dbSet.Remove(entity);
-
             Save();
         }
 
-        public void DeleteById(TKey id)
+        public void Delete(TKey id)
         {
             var deletingEntity = _dbSet.Find(id);
             if (deletingEntity == null)
@@ -111,25 +97,24 @@ namespace uIntra.Core.Persistence
             Save();
         }
 
-        public void Delete(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public void Delete(Expression<Func<T, bool>> predicate)
         {
             var deletingEntities = _dbSet.Where(predicate);
-            _dbSet.RemoveRange(deletingEntities);
-
-            Save();
+            Delete(deletingEntities);
         }
 
         public void Delete(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
+            Save();
         }
 
-        public long Count(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public long Count(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.Where(predicate).Count();
         }
 
-        public bool Exists(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public bool Exists(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.Where(predicate).Any();
         }
@@ -147,12 +132,12 @@ namespace uIntra.Core.Persistence
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed && disposing)
+            if (!_disposed && disposing)
             {
                 _dbContext.Dispose();
             }
 
-            disposed = true;
+            _disposed = true;
         }
     }
 

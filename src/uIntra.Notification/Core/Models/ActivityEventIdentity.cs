@@ -6,15 +6,11 @@ namespace uIntra.Notification
     {
         public IIntranetType ActivityType { get; }
         public IIntranetType NotificationType { get; }
+
         public ActivityEventIdentity(IIntranetType activityType, IIntranetType notificationType)
         {
             ActivityType = activityType;
             NotificationType = notificationType;
-        }
-
-        public ActivityEventNotifierIdentity AddNotifierIdentity(IIntranetType notifierType)
-        {
-           return new ActivityEventNotifierIdentity(this, notifierType);
         }
     }
 }
