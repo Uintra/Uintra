@@ -343,6 +343,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Activity\Helpers\PagePromotionPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
     <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
