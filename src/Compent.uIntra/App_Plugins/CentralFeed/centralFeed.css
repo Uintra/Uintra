@@ -255,7 +255,11 @@
         }
 
         &-images{
-            margin:0 0 49px;
+            margin:0;
+
+            ._details &{
+                margin:0 0 49px;
+            }
 
             &-list{
                 margin:0 0 10px -26px;
