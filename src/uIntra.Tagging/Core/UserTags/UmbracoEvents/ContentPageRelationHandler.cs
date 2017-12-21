@@ -25,27 +25,49 @@ namespace uIntra.Tagging.UserTags
         public void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> args)
         {
             var contentPagesWithTags = ParseUserTags(args.PublishedEntities);
+
+            foreach (var (_, tagIds, entityId) in contentPagesWithTags)
+            {
+                _userTagService.ReplaceRelations(entityId, tagIds);
+            }
         }
 
         // TODO
-        private IEnumerable<(IContent content, IEnumerable<Guid>)> ParseUserTags(IEnumerable<IContent> affectedContent)
+        private IEnumerable<(IContent content, IEnumerable<Guid> tagIds, Guid entityId)> ParseUserTags(IEnumerable<IContent> affectedContent)
         {
             foreach (var content in affectedContent)
             {
+                var tags = new List<Guid>();
                 if (content.ContentType.Alias == "contentPage")
                 {
                     var json = content.GetValue<string>("grid");
                     var grid = JObject.Parse(json);
-                    var systemTags = _gridHelper.GetValues(grid, "custom.UsersTags").FirstOrDefault();
+                    var data = _gridHelper.GetValues(grid, "custom.UsersTags").FirstOrDefault();
+
+
+                    foreach (var systemTag in data.value.usersTags)
+                    {
+                        if ((bool) systemTag.selected)
+                        {
+                            tags.Add(Guid.Parse((string) systemTag.id));
+                        }
+                    }
+
+                    var entityId = Guid.Parse((string) data.value.entityId);
+
+                    yield return (content, tags, entityId);
                 }
             }
-
-            return null;
         }
 
         public void ProcessContentUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e)
         {
-            throw new System.NotImplementedException();
+            var contentPagesWithTags = ParseUserTags(e.PublishedEntities);
+
+            foreach (var (_, _, entityId) in contentPagesWithTags)
+            {
+                _userTagService.ReplaceRelations(entityId, Enumerable.Empty<Guid>());
+            }
         }
     }
 }
