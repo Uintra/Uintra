@@ -944,10 +944,6 @@
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
-    <Content Include="Content\fonts\open-sans-700.woff" />
-    <Content Include="Content\fonts\open-sans-700.woff2" />
-    <Content Include="Content\fonts\open-sans-regular.woff" />
-    <Content Include="Content\fonts\open-sans-regular.woff2" />
     <Content Include="config\trees.config" />
     <Content Include="config\Dashboard.config">
       <SubType>Designer</SubType>
@@ -1132,6 +1128,14 @@
     <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsEditPageGrid.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json" />
     <Content Include="Media\Web.config" />
+    <Content Include="Content\fonts\muli-bold-webfont.ttf" />
+    <Content Include="Content\fonts\muli-bold-webfont.woff" />
+    <Content Include="Content\fonts\muli-bold-webfont.woff2" />
+    <Content Include="Content\fonts\muli-regular-webfont.ttf" />
+    <Content Include="Content\fonts\muli-regular-webfont.woff" />
+    <Content Include="Content\fonts\muli-regular-webfont.woff2" />
+    <Content Include="Content\fonts\muli-semibold-webfont.woff" />
+    <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
