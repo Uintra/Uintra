@@ -1000,13 +1000,23 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="Content\css\styles.css" />
+    <Content Include="Content\fonts\muli-bold-webfont.ttf" />
+    <Content Include="Content\fonts\muli-bold-webfont.woff" />
+    <Content Include="Content\fonts\muli-bold-webfont.woff2" />
+    <Content Include="Content\fonts\muli-regular-webfont.ttf" />
+    <Content Include="Content\fonts\muli-regular-webfont.woff" />
+    <Content Include="Content\fonts\muli-regular-webfont.woff2" />
+    <Content Include="Content\fonts\muli-semibold-webfont.woff" />
+    <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
+    <Content Include="Content\head_css.js" />
+    <Content Include="Content\images\calendar.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\group.svg" />
     <Content Include="Content\images\groups.gif" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
     <Content Include="Content\main.js" />
-    <Content Include="Content\head_css.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="licence.html" />
@@ -1130,14 +1140,6 @@
     <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsEditPageGrid.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json" />
     <Content Include="Media\Web.config" />
-    <Content Include="Content\fonts\muli-bold-webfont.ttf" />
-    <Content Include="Content\fonts\muli-bold-webfont.woff" />
-    <Content Include="Content\fonts\muli-bold-webfont.woff2" />
-    <Content Include="Content\fonts\muli-regular-webfont.ttf" />
-    <Content Include="Content\fonts\muli-regular-webfont.woff" />
-    <Content Include="Content\fonts\muli-regular-webfont.woff2" />
-    <Content Include="Content\fonts\muli-semibold-webfont.woff" />
-    <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1394,7 +1396,6 @@
     <Folder Include="App_Plugins\SentMails\dashboard\css\" />
     <Folder Include="App_Plugins\SentMails\data\" />
     <Folder Include="App_Plugins\SentMails\shared\" />
-    <Folder Include="Content\scripts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
