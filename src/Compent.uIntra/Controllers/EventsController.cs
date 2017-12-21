@@ -6,6 +6,7 @@ using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Feed;
 using Compent.uIntra.Core.News.Models;
+using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -78,6 +79,20 @@ namespace Compent.uIntra.Controllers
         public ActionResult EditExtended(EventExtendedEditModel editModel)
         {
             return Edit(editModel);
+        }
+
+        protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
+        {
+            var baseModel = base.GetEditViewModel(@event, links);
+            var extendedModel = baseModel.Map<EventExtendedEditModel>();
+            return extendedModel;
+        }
+
+        protected override EventCreateModel GetCreateModel(IActivityCreateLinks links)
+        {
+            var baseModel = base.GetCreateModel(links);
+            var extendedModel = baseModel.Map<EventExtendedCreateModel>();
+            return extendedModel;
         }
 
         [HttpPost]

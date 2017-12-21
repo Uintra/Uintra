@@ -16,6 +16,13 @@ namespace Compent.uIntra.Core.Events
                   .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
                   .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
+            
+
+            Mapper.CreateMap<EventEditModel, EventExtendedEditModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
+            Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
 
             Mapper.CreateMap<Event, EventExtendedItemModel>()
@@ -25,6 +32,8 @@ namespace Compent.uIntra.Core.Events
 
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
+
+            
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()

@@ -2,17 +2,16 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions;
 @using Umbraco.Web
-@model uIntra.Events.EventCreateModel
+@model Compent.uIntra.Core.Events.EventExtendedCreateModel
 
 <div class="form js-check-before-unload" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
+    @using (Html.BeginUmbracoForm("CreateExtended", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("EventsCreate.Creator.lbl")</label>
             @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.Events, links = Model.Links })
         </div>
-
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsCreate.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
@@ -27,6 +26,7 @@
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
                    data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")" data-val="true" />
         </div>
+        @Html.Action("TagPicker", "UserTags", new { })
         <div class="form__row clearfix">
             <div class="row">
                 <div class="col-md-6">
@@ -62,14 +62,13 @@
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
-            @Html.PassLinks(Model.Links)            
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
-            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")"/>
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            @Html.PassLinks(Model.Links)
+            <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
             <a class="btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }
