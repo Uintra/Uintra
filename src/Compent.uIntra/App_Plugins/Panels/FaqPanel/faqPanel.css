@@ -1,4 +1,6 @@
 .faq-panel {
+    padding-bottom:20px;
+
     .block__title{
         margin-bottom:14px;
     }
@@ -6,7 +8,7 @@
 	&__area {
 		border-bottom: 1px solid var(--color-light-gray);
 
-        &:first-child{
+        :first-child > &{
             border-top:1px solid var(--color-light-gray);
         }
 
@@ -62,5 +64,25 @@
         font-size:14px;
         line-height:1.57em;
         padding:0 4px;
+
+        img{
+            max-width:100%;
+            display:block;
+        }
+
+        blockquote{
+            font-size:15px;
+            line-height:21px;
+            font-style:italic;
+        }
+
+        iframe{
+            max-width:100%;
+        }
+
+        ul,
+        ol{
+            padding:0 0 0 20px;
+        }
 	}
 }
