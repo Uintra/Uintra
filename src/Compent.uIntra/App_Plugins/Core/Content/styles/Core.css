@@ -412,7 +412,7 @@ h5{
     position: absolute;
     top: 0;
     left: 20px;
-    padding: 9px 0;
+    padding: 11px 0;
     z-index: 2;
 
     @media (--for-tablet-portrait-down){

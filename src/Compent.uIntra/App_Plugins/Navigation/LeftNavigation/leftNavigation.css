@@ -150,7 +150,7 @@
                 ._heading > &,
                 ._system &,
                 ._links &{
-                    top:13px;
+                    top:20px;
                 }
 			}
 
@@ -179,6 +179,20 @@
         }
     }
 
+    &._system & &,
+    &._links & &,
+    &._groups & &{
+        &__link{
+            padding-left:53px;
+
+            &:hover,
+            &:focus,
+            &:active{
+                padding-left:51px;
+            }
+        }
+    }
+
     & &{
         margin:0;
         padding:0;
@@ -188,71 +202,50 @@
 
         .side-nav{
             &__link{
-                padding-left:40px;
-
-                &:before{
-                    position:absolute;
-                    top:21px;
-                    left:27px;
-                    width:3px;
-                    height:3px;
-                    background:#261d43;
-                    content:'';
-                }
+                padding-left:30px;
+                font-weight:normal;
 
                 &:hover,
                 &:focus,
                 &:active,
                 ._active > &{
-                    padding-left:38px;
+                    padding-left:28px;
                 }
             }
 
             .side-nav{
                 &__link{
-                    padding-left:60px;
-
-                    &:before{
-                        left:47px;
-                    }
+                    padding-left:50px;
 
                     &:hover,
                     &:focus,
                     &:active,
                     ._active > &{
-                        padding-left:58px;
+                        padding-left:48px;
                     }
                 }
 
                 .side-nav{
                     &__link{
-                        padding-left:80px;
-
-                        &:before{
-                            left:67px;
-                        }
+                        padding-left:70px;
 
                         &:hover,
                         &:focus,
                         &:active,
                         ._active > &{
-                            padding-left:78px;
+                            padding-left:68px;
                         }
                     }
 
                     .side-nav{
                         &__link{
-                            padding-left:100px;
-
-                            &:before{
-                                left:87px;
-                            }
+                            padding-left:90px;
 
                             &:hover,
                             &:focus,
                             &:active,
                             ._active > &{
-                                padding-left:98px;
+                                padding-left:88px;
                             }
                         }
                     }
