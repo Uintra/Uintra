@@ -31,7 +31,15 @@
 
     &__item{
         overflow:hidden;
-        margin:0 0 10px;
+        padding:10px 0;
+        
+        ._content-panel &{
+            border-bottom:1px solid #d6d6d6;
+
+            &:first-child{
+                border-top:1px solid #d6d6d6;
+            }
+        }
 
         ._vertical &{
             overflow:hidden;
@@ -91,8 +99,9 @@
     }
 
     &__icon{
-        width: 24px;
-        height: 24px;
+        width: 40px;
+        height: 19px;
+        background-size:cover;
         float:left;
         margin:0 10px 0 0;
 

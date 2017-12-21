@@ -43,6 +43,7 @@
             background:#261d43;
             color:var(--color-white);
             padding:15px 19px 12px;
+            border-bottom:none;
             margin-bottom:20px;
 
             &-link{
@@ -72,8 +73,9 @@
     &__title{
         font:bold 16px/20px var(--font-general);
         margin:-20px -20px 0;
-        padding:16px 19px 15px;
+        padding:15px 19px 12px;
         text-transform:uppercase;
+        border-bottom:1px solid #f6f6f6;
         color:var(--text-color-dark);
 
         ._important &{
@@ -98,7 +100,7 @@
 
     &__headline{
         font:bold 16px/20px var(--font-general);
-        margin:0;
+        margin:0 0 17px;
     }
 
     &__item{
@@ -145,9 +147,9 @@
         margin:0;
         overflow:hidden;
         color:var(--text-color-dark);
-        font-size:16px;
-        line-height:22px;
-        padding:0 0 16px;
+        font-size:14px;
+        line-height:20px;
+        padding:0 0 9px;
 
         p{
             margin:0 0 10px;
@@ -158,9 +160,9 @@
         }
 
         h2{
-            font-size:18px;
+            font-size:16px;
             line-height:22px;
-            margin:0 0 10px;
+            margin:0 0 19px;
 
             .sidebar &{
                 font-size:16px;
@@ -202,7 +204,7 @@
     }
 
     &__image{
-        margin:0 -20px 21px;
+        margin:-1px -20px 17px;
 
         .sidebar &{
             margin:-20px -20px 17px;
@@ -226,8 +228,11 @@
     }
 
     &__links{
-        margin:20px 0 -17px;
+        margin:0;
+        padding:16px 0 0;
         overflow:hidden;
+        border-top:1px solid #d6d6d6;
+        font-size:14px;
 
         &-list{
             margin:0;
@@ -235,19 +240,18 @@
             list-style:none;
 
             &-item{
-                border-top:1px solid var(--color-light-gray);
-                padding:10px;
-                margin:0 -10px;
                 position:relative;
+                margin:0 0 14px;
             }
 
             &-link{
-                padding:0 0 0 15px;
+                padding:0 0 0 21px;
+                color:var(--text-color-dark);
 
                 &:before{
                     position:absolute;
-                    top:17px;
-                    left:8px;
+                    top:5px;
+                    left:3px;
                     width:8px;
                     height:8px;
                     border:solid var(--color-light-gray);
@@ -412,7 +416,7 @@
 		flex-direction: column;
 		flex-wrap: wrap;
 		margin: 0;
-		padding: 37px 0 10px;
+		padding: 15px 0 20px;
 		list-style: none;
 	}
 
