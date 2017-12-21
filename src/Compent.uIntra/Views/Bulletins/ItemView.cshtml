@@ -3,7 +3,6 @@
 <div class="feed__item">
     <div class="clearfix">
         @{ Html.RenderAction("ItemHeader", "Bulletins", new { model = Model.HeaderInfo }); }
-        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))

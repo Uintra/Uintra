@@ -26,6 +26,7 @@
                 Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });
             }
         </div>
+        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
         <div class="feed__item-images">
             @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
         </div>
