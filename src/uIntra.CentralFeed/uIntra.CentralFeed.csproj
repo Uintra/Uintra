@@ -345,6 +345,7 @@
     <Compile Include="Core\Links\ActivityTransferModel.cs" />
     <Compile Include="Core\Links\CentralFeedLinksProvider.cs" />
     <Compile Include="Core\Links\FeedLinkProvider.cs" />
+    <Compile Include="Core\Links\GroupFeedLinkProviderHelper.cs" />
     <Compile Include="Core\Links\ICentralFeedLinksProvider.cs" />
     <Compile Include="Core\ICentralFeedTypeProvider.cs" />
     <Compile Include="Core\IFeedItemService.cs" />

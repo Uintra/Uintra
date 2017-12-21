@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Links;
 
@@ -7,24 +5,16 @@ namespace uIntra.CentralFeed
 {
     public class CentralFeedLinkProvider : FeedLinkProvider, ICentralFeedLinkProvider
     {
-        protected override IEnumerable<string> FeedActivitiesXPath => new[]
-        {
-            _aliasProvider.GetHomePage()
-        };
-
-        private readonly IDocumentTypeAliasProvider _aliasProvider;
         public CentralFeedLinkProvider(
             IActivityPageHelperFactory pageHelperFactory,
-            IProfileLinkProvider profileLinkProvider,
-            IDocumentTypeAliasProvider aliasProvider)
+            IProfileLinkProvider profileLinkProvider)
             : base(pageHelperFactory, profileLinkProvider)
         {
-            _aliasProvider = aliasProvider;
         }
 
         public IActivityLinks GetLinks(ActivityTransferModel activity)
         {
-            IActivityPageHelper helper = GetPageHelper(activity.Type);
+            var helper = GetPageHelper(activity.Type);
 
             return new ActivityLinks
             {
@@ -39,7 +29,7 @@ namespace uIntra.CentralFeed
 
         public IActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model)
         {
-            IActivityPageHelper helper = GetPageHelper(model.Type);
+            var helper = GetPageHelper(model.Type);
 
             return new ActivityCreateLinks
             {

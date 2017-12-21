@@ -290,6 +290,7 @@
     <Compile Include="Core\ContentServices\GroupFeedContentService.cs" />
     <Compile Include="Core\Helpers\GroupHelper.cs" />
     <Compile Include="Core\Helpers\IGroupHelper.cs" />
+    <Compile Include="Core\Links\GroupFeedLinkProviderHelper.cs" />
     <Compile Include="Core\Links\GroupLinkProvider.cs" />
     <Compile Include="Core\Links\IGroupLinkProvider.cs" />
     <Compile Include="Core\IGroupActivityHeader.cs" />
