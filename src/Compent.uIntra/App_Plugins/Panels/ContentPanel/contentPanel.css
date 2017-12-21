@@ -17,10 +17,6 @@
 
     &._horizontal .documents {
 		flex-direction: row;
-
-		&__item {
-			max-width: 150px;
-		}
 	}
 
     &._latest-activities{
@@ -94,7 +90,11 @@
         }
 
         .coming-events &{
-            margin-bottom:0;
+            margin-bottom:16px;
+        }
+
+        ._document-panel &{
+            margin-bottom:14px;
         }
     }
 
@@ -171,12 +171,6 @@
             }
         }
 
-        .sidebar &{
-            font-size:14px;
-            line-height:1.43;
-            padding:0;
-        }
-
         iframe{
             border:none;
         }
@@ -200,6 +194,16 @@
                     content:'';
                 }
             }
+        }
+
+        .sidebar &{
+            font-size:14px;
+            line-height:1.43;
+            padding:0;
+        }
+
+        ._document-panel &{
+            padding-bottom:0;
         }
     }
 
@@ -419,6 +423,12 @@
 		padding: 15px 0 20px;
 		list-style: none;
 	}
+
+    &._document-panel{
+        .documents{
+            padding:9px 0 20px;
+        }
+    }
 
     .btn{
         margin-bottom:20px;
