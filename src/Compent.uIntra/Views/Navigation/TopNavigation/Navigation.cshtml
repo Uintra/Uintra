@@ -2,7 +2,7 @@
 @model uIntra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatar = Model.CurrentUser.Photo.IsNotNullOrEmpty() ? "_with-avatar" : "";
+    var userAvatar = Model.CurrentUser.Photo.IsNotNullOrEmpty() ? "_with-avatar" : string.Empty;
 }
 <div class="menu _for-mobile">
     <div class="menu__burger js-menu-opener">
@@ -15,8 +15,8 @@
     <div class="row clearfix">
         <div class="col-md-8">
             <div class="search-holder">
-                @Html.Action("SearchBox", "Search")
-                @Html.Action("Preview", "Notification")
+                @{ Html.RenderAction("SearchBox", "Search"); }
+                @{ Html.RenderAction("Preview", "Notification"); }
             </div>
         </div>
         <div class="col-md-4 _for-desktop">
@@ -32,15 +32,7 @@
                     </div>
                 </a>
                 <ul class="user__menu">
-                    @if (Model.CurrentUser.UmbracoId.HasValue)
-                    {
-                        <li class="user__menu-item">
-                            <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                                <span class="icon icon-umbraco"></span>
-                                @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
-                            </a>
-                        </li>
-                    }
+                    @{ Html.RenderAction("UmbracoContentLink", "Navigation"); }
                     <li class="user__menu-item">
                         <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
                             <span class="icon icon-user"></span>

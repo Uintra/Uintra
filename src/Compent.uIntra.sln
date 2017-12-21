@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DF5381CA-82B8-44E0-A419-73BBC6290AD3}"
 	ProjectSection(SolutionItems) = preProject
@@ -173,8 +173,8 @@ Global
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
-		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.QA|Any CPU.ActiveCfg = NuGet|Any CPU
-		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.QA|Any CPU.Build.0 = NuGet|Any CPU
+		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.QA|Any CPU.ActiveCfg = QA|Any CPU
+		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.QA|Any CPU.Build.0 = QA|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{774EBA5A-679C-401D-B3F1-130562785C60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
