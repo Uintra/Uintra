@@ -321,7 +321,7 @@ h5{
         width:calc(100% - 60px);
         bottom: 0;
         background: var(--header-bg);
-        padding: 60px 0 38px;
+        padding: 60px 0 0;
         height: auto;
         transition: all linear 250ms;
         z-index:9999;

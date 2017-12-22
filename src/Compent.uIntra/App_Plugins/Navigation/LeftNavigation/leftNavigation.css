@@ -16,6 +16,8 @@
         @media (--for-tablet-portrait-down){
             &{
                 padding:0;
+                overflow:hidden;
+                background:var(--color-white);
             }
         }
     }
@@ -103,6 +105,15 @@
                 padding-left:48px;
             }
         }
+
+        @media (--for-tablet-portrait-down) {
+            &._with-icon {
+                .side-nav :first-child > &{
+                    padding-left:0;
+                }
+            }
+        }
+        
     }
 
 	&__arrow{
@@ -289,6 +300,13 @@
 
             &._for-mobile{
                 border-top:none;
+                border-bottom:2px solid #f6f6f6;
+                margin:0 0 40px;
+                padding:14px 0 22px 24px;
+
+                .icon-logout{
+                    display:none !important;
+                }
             }
 
             &__overlay{
@@ -330,7 +348,7 @@
             &__link {
                 &._with-icon{
                     padding-right:0;
-                    padding-left:0;
+                    padding-left:35px;
                     background:none;
 
                     .icon{
