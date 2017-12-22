@@ -4,6 +4,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.TypeProviders;
+using uIntra.Events;
 using uIntra.Notification;
 
 namespace Compent.uIntra.Core.Helpers

@@ -28,7 +28,6 @@ namespace Compent.uIntra.Core.Notification
                 case ActivityNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.NotifierId = model.NotifierId;
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
@@ -50,7 +49,6 @@ namespace Compent.uIntra.Core.Notification
                 case CommentNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.NotifierId = model.NotifierId;
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
@@ -60,7 +58,6 @@ namespace Compent.uIntra.Core.Notification
                 case LikesNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
-                    message.NotifierId = model.NotifierId;
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
