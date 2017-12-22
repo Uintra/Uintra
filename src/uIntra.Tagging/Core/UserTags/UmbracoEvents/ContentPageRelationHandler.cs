@@ -8,10 +8,11 @@ using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
+using Umbraco.Core.Services;
 
 namespace uIntra.Tagging.UserTags
 {
-    public class ContentPageRelationHandler : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService
+    public class ContentPageRelationHandler : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
     {
         private readonly IUserTagService _userTagService;
         private readonly IGridHelper _gridHelper;
@@ -62,7 +63,13 @@ namespace uIntra.Tagging.UserTags
 
         public void ProcessContentUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e)
         {
-            var contentPagesWithTags = ParseUserTags(e.PublishedEntities);
+
+        }
+
+        public void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> args)
+        {
+            var content = args.MoveInfoCollection.Select(info => info.Entity);
+            var contentPagesWithTags = ParseUserTags(content);
 
             foreach (var (_, _, entityId) in contentPagesWithTags)
             {

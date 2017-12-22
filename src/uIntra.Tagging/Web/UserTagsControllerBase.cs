@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Extensions;
 using uIntra.Tagging.UserTags;
 using uIntra.Tagging.UserTags.Models;
 using Umbraco.Web.Mvc;

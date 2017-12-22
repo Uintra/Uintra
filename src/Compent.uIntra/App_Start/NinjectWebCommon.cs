@@ -27,6 +27,7 @@ using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.PagePromotion;
 using Compent.uIntra.Core.Search;
+using Compent.uIntra.Core.Search.Indexes;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
@@ -446,7 +447,9 @@ namespace Compent.uIntra
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
-            kernel.Bind<IElasticIndex>().To<ElasticIndex>().InRequestScope();
+            kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
+            kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
+            
 
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }

@@ -1190,6 +1190,7 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Bulletins\EditView.cshtml" />
     <Content Include="Views\Bulletins\CreationForm.cshtml" />
+    <Content Include="Views\Search\SearchResult.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1330,6 +1331,20 @@
     <Compile Include="Core\PagePromotion\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionEventService.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
+    <Compile Include="Core\Search\Entities\SearchableTag.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUser.cs" />
+    <Compile Include="Core\Search\Entities\SearchScoreModel.cs" />
+    <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
+    <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
+    <Compile Include="Core\Search\ISearchScoreProvider.cs" />
+    <Compile Include="Core\Search\Models\SearchInfoListItemModel.cs" />
+    <Compile Include="Core\Search\Models\UintraSearchAutocompleteResultViewModel.cs" />
+    <Compile Include="Core\Search\Models\UintraSearchResultsOverviewViewModel.cs" />
+    <Compile Include="Core\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
+    <Compile Include="Core\Search\UintraSearchResultViewModel.cs" />
+    <Compile Include="Core\Search\SearchScoreProvider.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
