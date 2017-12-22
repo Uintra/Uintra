@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.PagePromotion;
 using uIntra.Core.User;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -25,7 +26,8 @@ namespace uIntra.Likes.Web
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService,
             ILikesService likesService,
-            IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserService = intranetUserService;
@@ -59,6 +61,11 @@ namespace uIntra.Likes.Web
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
+            if (IsForPagePromotion(model))
+            {
+                return AddActivityLike(model.ActivityId);
+            }
+
             if (IsForContentPage(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.ActivityId);
@@ -77,6 +84,11 @@ namespace uIntra.Likes.Web
                 return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
 
+            if (IsForPagePromotion(model))
+            {
+                return RemoveActivityLike(model.ActivityId);
+            }
+
             if (IsForContentPage(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.ActivityId);
@@ -89,6 +101,12 @@ namespace uIntra.Likes.Web
         protected virtual bool IsForComment(AddRemoveLikeModel model)
         {
             return model.CommentId.HasValue;
+        }
+
+        protected virtual bool IsForPagePromotion(AddRemoveLikeModel model)
+        {
+            var content = _umbracoHelper.TypedContent(model.ActivityId);
+            return content != null && PagePromotionHelper.IsPagePromotion(content);
         }
 
         protected virtual bool IsForContentPage(AddRemoveLikeModel model)

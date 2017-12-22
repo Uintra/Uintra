@@ -275,12 +275,13 @@ namespace Compent.uIntra
             kernel.Bind<ILikeableService>().To<NewsService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<EventsService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ILikeableService>().To<PagePromotionService>().InRequestScope();
 
             kernel.Bind<ICommentableService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICommentableService>().To<EventsService>().InRequestScope();
             kernel.Bind<ICommentableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ICommentableService>().To<PagePromotionService>().InRequestScope();
             kernel.Bind<ICustomCommentableService>().To<CustomCommentableService>().InRequestScope();
-
 
             kernel.Bind<INotifyableService>().To<NewsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<EventsService>().InRequestScope();

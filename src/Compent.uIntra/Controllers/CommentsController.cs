@@ -29,15 +29,17 @@ namespace Compent.uIntra.Controllers
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IUmbracoContentHelper _umbracoContentHelper;
 
-        public CommentsController(ICommentsService commentsService,
+        public CommentsController(
+            ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IMediaHelper mediaHelper,
             ICustomCommentableService customCommentableService,
             INotificationTypeProvider notificationTypeProvider,
             IUmbracoContentHelper umbracoContentHelper,
-            IProfileLinkProvider profileLinkProvider)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, customCommentableService, umbracoContentHelper, profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            UmbracoHelper umbracoHelper)
+            : base(commentsService, intranetUserService, activitiesServiceFactory, customCommentableService, umbracoContentHelper, profileLinkProvider, umbracoHelper)
         {
             _customCommentableService = customCommentableService;
             _activitiesServiceFactory = activitiesServiceFactory;

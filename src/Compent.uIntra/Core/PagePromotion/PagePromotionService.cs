@@ -20,7 +20,10 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>, IFeedItemService
+    public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>,
+        IFeedItemService,
+        ILikeableService,
+        ICommentableService
     {
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
@@ -72,6 +75,43 @@ namespace Compent.uIntra.Core.PagePromotion
             return GetOrderedActualItems();
         }
 
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        {
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
+        }
+
+        public void UpdateComment(Guid id, string text)
+        {
+            var comment = _commentsService.Update(id, text);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId)
+        {
+            return Get(activityId);
+        }
+
         protected override Entities.PagePromotion UpdateCachedEntity(Guid id)
         {
             var cachedEntity = Get(id);
@@ -119,16 +159,6 @@ namespace Compent.uIntra.Core.PagePromotion
             var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
             pagePromotion.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
             pagePromotion.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
-
-            //if (pagePromotion.Likeable)
-            //{
-            //    _likesService.FillLikes(pagePromotion);
-            //}
-
-            //if (pagePromotion.Commentable)
-            //{
-            //    _commentsService.FillComments(pagePromotion);
-            //}
 
             return pagePromotion;
         }
