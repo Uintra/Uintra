@@ -20,19 +20,14 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IFeedItemService
+    public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>, IFeedItemService
     {
-        private const string CacheKey = "PagePromotionCache";
-
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGridHelper _gridHelper;
-        private readonly ICacheService _cache;
         private readonly IDocumentIndexer _documentIndexer;
 
         public PagePromotionService(
@@ -44,22 +39,20 @@ namespace Compent.uIntra.Core.PagePromotion
             ICommentsService commentsService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGridHelper gridHelper,
-            ICacheService cache,
+            ICacheService cacheService,
             IDocumentIndexer documentIndexer)
+            : base(cacheService, umbracoHelper, documentTypeAliasProvider)
         {
             _activityTypeProvider = activityTypeProvider;
             _feedTypeProvider = feedTypeProvider;
-            _umbracoHelper = umbracoHelper;
             _userService = userService;
             _likesService = likesService;
             _commentsService = commentsService;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _gridHelper = gridHelper;
-            _cache = cache;
             _documentIndexer = documentIndexer;
         }
 
-        public IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
 
         public FeedSettings GetFeedSettings()
         {
@@ -74,99 +67,16 @@ namespace Compent.uIntra.Core.PagePromotion
             };
         }
 
-        public Entities.PagePromotion Get(Guid id)
-        {
-            var cached = GetAll(true).SingleOrDefault(s => s.Id == id);
-            return cached;
-        }
-
-        public IEnumerable<Entities.PagePromotion> GetManyActual()
-        {
-            var cached = GetAll(true);
-            return cached.Where(IsActual);
-        }
-
-        public IEnumerable<Entities.PagePromotion> GetAll(bool includeHidden = false)
-        {
-            if (!_cache.HasValue(CacheKey))
-            {
-                UpdateCache();
-            }
-
-            var cached = GetAllFromCache();
-            if (!includeHidden)
-            {
-                cached = cached.Where(s => !s.IsHidden);
-            }
-
-            return cached;
-        }
-
         public IEnumerable<IFeedItem> GetItems()
         {
             return GetOrderedActualItems();
         }
 
-        public bool CanEdit(IIntranetActivity cached) => false;
-
-        public bool CanEdit(Guid id) => false;
-
-        public void Delete(Guid id)
-        {
-            UpdateCachedEntity(id);
-        }
-
-        public bool IsActual(IIntranetActivity cachedActivity)
-        {
-            var pagePromotion = (Entities.PagePromotion)cachedActivity;
-            return !pagePromotion.IsHidden && pagePromotion.PublishDate <= DateTime.Now;
-        }
-
-        public Guid Create(IIntranetActivity activity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(IIntranetActivity activity)
-        {
-            UpdateCachedEntity(activity.Id);
-        }
-
-        private IOrderedEnumerable<Entities.PagePromotion> GetOrderedActualItems() => GetManyActual().OrderByDescending(i => i.PublishDate);
-
-        private void UpdateCache()
-        {
-            FillCache();
-        }
-
-        private void FillCache()
-        {
-            var items = GetAllFromStorage();
-            _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset());
-        }
-
-        private IEnumerable<Entities.PagePromotion> GetAllFromCache()
-        {
-            var activities = _cache.Get<IList<Entities.PagePromotion>>(CacheKey);
-            return activities;
-        }
-
-        private Entities.PagePromotion UpdateCachedEntity(Guid id)
+        protected override Entities.PagePromotion UpdateCachedEntity(Guid id)
         {
             var cachedEntity = Get(id);
 
-            var activity = GetFromStorage(id);
-            var cached = GetAll(true);
-            var cachedList = (cached as List<Entities.PagePromotion> ?? cached.ToList()).FindAll(s => s.Id != id);
-
-            if (activity != null)
-            {
-                MapBeforeCache(activity.ToListOfOne());
-                cachedList.Add(activity);
-            }
-
-            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset());
-
+            var activity = base.UpdateCachedEntity(id);
             if (IsPagePromotionHidden(activity))
             {
                 _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
@@ -179,40 +89,24 @@ namespace Compent.uIntra.Core.PagePromotion
             return activity;
         }
 
-        private Entities.PagePromotion GetFromStorage(Guid id)
-        {
-            var content = _umbracoHelper.TypedContent(id);
-            if (content == null || !PagePromotionHelper.IsPagePromotion(content)) return null;
-
-            return MapInternal(content);
-        }
-
-        private IList<Entities.PagePromotion> GetAllFromStorage()
-        {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(pc => pc.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()));
-
-            var activities = homePage
-                .Descendants()
-                .Where(PagePromotionHelper.IsPagePromotion)
-                .Select(MapInternal)
-                .ToList();
-
-            return activities;
-        }
-
-        private void MapBeforeCache(IList<Entities.PagePromotion> cached)
+        protected override void MapBeforeCache(IList<Entities.PagePromotion> cached)
         {
             foreach (var activity in cached)
             {
-                //var entity = activity;
-                //entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
-                //_subscribeService.FillSubscribers(entity);
-                //_commentsService.FillComments(entity);
-                //_likesService.FillLikes(entity);
+                var entity = activity;
+                if (entity.Likeable)
+                {
+                    _likesService.FillLikes(entity);
+                }
+
+                if (entity.Commentable)
+                {
+                    _commentsService.FillComments(entity);
+                }
             }
         }
 
-        private Entities.PagePromotion MapInternal(IPublishedContent content)
+        protected override Entities.PagePromotion MapInternal(IPublishedContent content)
         {
             var pagePromotion = content.Map<Entities.PagePromotion>();
             var config = PagePromotionHelper.GetConfig(content);
@@ -226,22 +120,19 @@ namespace Compent.uIntra.Core.PagePromotion
             pagePromotion.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
             pagePromotion.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
 
-            if (pagePromotion.Likeable)
-            {
-                _likesService.FillLikes(pagePromotion);
-            }
+            //if (pagePromotion.Likeable)
+            //{
+            //    _likesService.FillLikes(pagePromotion);
+            //}
 
-            if (pagePromotion.Commentable)
-            {
-                _commentsService.FillComments(pagePromotion);
-            }
+            //if (pagePromotion.Commentable)
+            //{
+            //    _commentsService.FillComments(pagePromotion);
+            //}
 
             return pagePromotion;
         }
 
-        private bool IsPagePromotionHidden(Entities.PagePromotion pagePromotion)
-        {
-            return pagePromotion == null || pagePromotion.IsHidden;
-        }
+        private IOrderedEnumerable<Entities.PagePromotion> GetOrderedActualItems() => GetManyActual().OrderByDescending(i => i.PublishDate);
     }
 }
