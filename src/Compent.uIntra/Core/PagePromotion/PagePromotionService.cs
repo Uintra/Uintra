@@ -14,6 +14,7 @@ using uIntra.Core.PagePromotion;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Likes;
+using uIntra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -32,6 +33,7 @@ namespace Compent.uIntra.Core.PagePromotion
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGridHelper _gridHelper;
         private readonly ICacheService _cache;
+        private readonly IDocumentIndexer _documentIndexer;
 
         public PagePromotionService(
             IActivityTypeProvider activityTypeProvider,
@@ -42,7 +44,8 @@ namespace Compent.uIntra.Core.PagePromotion
             ICommentsService commentsService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGridHelper gridHelper,
-            ICacheService cache)
+            ICacheService cache,
+            IDocumentIndexer documentIndexer)
         {
             _activityTypeProvider = activityTypeProvider;
             _feedTypeProvider = feedTypeProvider;
@@ -53,6 +56,7 @@ namespace Compent.uIntra.Core.PagePromotion
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _gridHelper = gridHelper;
             _cache = cache;
+            _documentIndexer = documentIndexer;
         }
 
         public IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
@@ -109,6 +113,7 @@ namespace Compent.uIntra.Core.PagePromotion
 
         public void Delete(Guid id)
         {
+            UpdateCachedEntity(id);
         }
 
         public bool IsActual(IIntranetActivity cachedActivity)
@@ -124,6 +129,7 @@ namespace Compent.uIntra.Core.PagePromotion
 
         public void Save(IIntranetActivity activity)
         {
+            UpdateCachedEntity(activity.Id);
         }
 
         private IOrderedEnumerable<Entities.PagePromotion> GetOrderedActualItems() => GetManyActual().OrderByDescending(i => i.PublishDate);
@@ -145,6 +151,42 @@ namespace Compent.uIntra.Core.PagePromotion
             return activities;
         }
 
+        private Entities.PagePromotion UpdateCachedEntity(Guid id)
+        {
+            var cachedEntity = Get(id);
+
+            var activity = GetFromStorage(id);
+            var cached = GetAll(true);
+            var cachedList = (cached as List<Entities.PagePromotion> ?? cached.ToList()).FindAll(s => s.Id != id);
+
+            if (activity != null)
+            {
+                MapBeforeCache(activity.ToListOfOne());
+                cachedList.Add(activity);
+            }
+
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset());
+
+            if (IsPagePromotionHidden(activity))
+            {
+                _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
+                return null;
+            }
+
+            var cachedEntityMediaIds = cachedEntity?.MediaIds ?? Enumerable.Empty<int>();
+            _documentIndexer.DeleteFromIndex(cachedEntityMediaIds.Except(activity.MediaIds));
+            _documentIndexer.Index(activity.MediaIds);
+            return activity;
+        }
+
+        private Entities.PagePromotion GetFromStorage(Guid id)
+        {
+            var content = _umbracoHelper.TypedContent(id);
+            if (content == null || !PagePromotionHelper.IsPagePromotion(content)) return null;
+
+            return MapInternal(content);
+        }
+
         private IList<Entities.PagePromotion> GetAllFromStorage()
         {
             var homePage = _umbracoHelper.TypedContentAtRoot().Single(pc => pc.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()));
@@ -156,6 +198,18 @@ namespace Compent.uIntra.Core.PagePromotion
                 .ToList();
 
             return activities;
+        }
+
+        private void MapBeforeCache(IList<Entities.PagePromotion> cached)
+        {
+            foreach (var activity in cached)
+            {
+                //var entity = activity;
+                //entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
+                //_subscribeService.FillSubscribers(entity);
+                //_commentsService.FillComments(entity);
+                //_likesService.FillLikes(entity);
+            }
         }
 
         private Entities.PagePromotion MapInternal(IPublishedContent content)
@@ -183,6 +237,11 @@ namespace Compent.uIntra.Core.PagePromotion
             }
 
             return pagePromotion;
+        }
+
+        private bool IsPagePromotionHidden(Entities.PagePromotion pagePromotion)
+        {
+            return pagePromotion == null || pagePromotion.IsHidden;
         }
     }
 }

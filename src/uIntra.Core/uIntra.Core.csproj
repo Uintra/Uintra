@@ -375,6 +375,7 @@
     <Compile Include="Core\PagePromotion\Models\PagePromotionItemViewModel.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionHelper.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionConstants.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionServiceBase.cs" />
     <Compile Include="Core\Providers\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
