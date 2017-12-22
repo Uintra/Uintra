@@ -64,8 +64,9 @@
                     autoplayIframe = string.Empty;
                     // posterImageUrl get poster from youtube
                 }
-
-                <button class="block__video-play js-videoPoster @lightboxClass" style="background-image: url(@posterImageUrl);"></button>
+                else { 
+                    <button class="block__video-play js-videoPoster @lightboxClass" style="background-image: url(@posterImageUrl);"></button>
+                }
 
                 @switch (videoSourceType)
                 {
