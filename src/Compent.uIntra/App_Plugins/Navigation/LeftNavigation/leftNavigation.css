@@ -14,11 +14,9 @@
         padding:50px 32px 0 0;
 
         @media (--for-tablet-portrait-down){
-            &{
-                padding:0;
-                overflow:hidden;
-                background:var(--color-white);
-            }
+            padding:0;
+            overflow:hidden;
+            background:var(--color-white);
         }
     }
 }
