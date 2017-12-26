@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using uIntra.Core.Activity;
+using uIntra.Core.Jobs.Models;
 
 namespace uIntra.Core.Jobs
 {
@@ -10,18 +11,7 @@ namespace uIntra.Core.Jobs
         public UpdateActivityCacheJob(IEnumerable<IIntranetActivityService<IIntranetActivity>> activityServices)
         {
             _activityServices = activityServices;
-        }
-
-        public override JobSettings GetSettings()
-        {
-            return new JobSettings()
-            {
-                RunType = JobRunTypeEnum.RunEvery,
-                TimeType = JobTimeType.Minutes,
-                IsEnabled = true,
-                Time = 1
-            };
-        }
+        }       
 
         public override void Action()
         {

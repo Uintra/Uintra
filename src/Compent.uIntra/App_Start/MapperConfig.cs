@@ -4,6 +4,7 @@ using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Core.Jobs.AutoMapperProfiles;
 using uIntra.Core.PagePromotion;
 using uIntra.Events;
 using uIntra.Groups;
@@ -42,6 +43,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<ActivityAutoMapperProfile>();
             Mapper.AddProfile<PagePromotionAutoMapperProfile>();
             Mapper.AddProfile<Core.PagePromotion.PagePromotionAutoMapperProfile>();
+            Mapper.AddProfile<JobAutoMapperProfile>();
 
             var typeMaps = Mapper.GetAllTypeMaps();
 

@@ -1,6 +1,6 @@
 ﻿namespace uIntra.Core.Jobs
 {
-    public enum  JobTimeType
+    public enum  JobTimeTypeEnum
     {
         Seconds,
         Minutes,

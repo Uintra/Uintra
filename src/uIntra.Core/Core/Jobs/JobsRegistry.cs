@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FluentScheduler;
 using uIntra.Core.Extensions;
+using uIntra.Core.Jobs.Configuration;
+using uIntra.Core.Jobs.Enums;
+using uIntra.Core.Jobs.Models;
 
 namespace uIntra.Core.Jobs
 {
     public class JobsRegistry : Registry
     {
+        private readonly IJobSettingsConfiguration _jobSettingsConfiguration;
+
         public JobsRegistry()
         {
+            _jobSettingsConfiguration = DependencyResolver.Current.GetService<IJobSettingsConfiguration>();
             SetupJobs();
         }
 
@@ -18,79 +25,97 @@ namespace uIntra.Core.Jobs
 
             foreach (var baseJob in baseIntranetJobs)
             {
-                var jobSettings = baseJob.GetSettings();
+                JobConfiguration jobConfiguration = GetConfiguration(baseJob.GetType().Name);
 
-                VailidateSettings(jobSettings);
+                VailidateConfiguration(jobConfiguration);
 
-                if (jobSettings.IsEnabled)
+                if (jobConfiguration.Enabled)
                 {
                     var schedule = Schedule(() =>
                     {
                         baseJob.Action();
                     });
 
-                    if (jobSettings.RunType == JobRunTypeEnum.RunOnceAtDate)
+                    if (jobConfiguration.RunType == JobRunTypeEnum.RunOnceAtDate)
                     {
-                        schedule.ToRunOnceAt(jobSettings.Date.GetValueOrDefault());
-                        continue;                        
+                        schedule.ToRunOnceAt(jobConfiguration.Date.GetValueOrDefault());
+                        continue;
                     }
 
-                    var timeUnit = ResolveRunType(schedule, jobSettings);
-                    ResolveTimeType(timeUnit, jobSettings);
+                    var timeUnit = ResolveRunType(schedule, jobConfiguration);
+                    ResolveTimeType(timeUnit, jobConfiguration);
                 }
             }
         }
 
-        private TimeUnit ResolveRunType(Schedule schedule, JobSettings settings)
+        private JobConfiguration GetConfiguration(string jobName)
         {
-            var time = settings.Time.GetValueOrDefault();
+            var jobSettings = _jobSettingsConfiguration.Settings.FirstOrDefault(s => s.Job.Equals(jobName, StringComparison.OrdinalIgnoreCase));
 
-            switch (settings.RunType)
+            if (jobSettings == null)
+            {
+                return new JobConfiguration() { Enabled = true };
+            }
+
+            return jobSettings.Map<JobConfiguration>();
+        }
+
+        private TimeUnit ResolveRunType(Schedule schedule, JobConfiguration configuration)
+        {
+            var time = configuration.Time.GetValueOrDefault();
+
+            switch (configuration.RunType)
             {
                 case JobRunTypeEnum.RunEvery:
                     return schedule.ToRunEvery(time);
                 case JobRunTypeEnum.RunNow:
                     return schedule.ToRunNow().AndEvery(time);
-                case JobRunTypeEnum.RunOnceAt:
+                case JobRunTypeEnum.RunOnceIn:
                     return schedule.ToRunOnceIn(time);
                 default:
-                    throw new Exception($"Unexpected job run type - {settings.RunType}");
+                    throw new Exception($"Unexpected job run type - {configuration.RunType}");
             }
         }
 
 
 
-        private void ResolveTimeType(TimeUnit timeUnit, JobSettings settings)
+        private void ResolveTimeType(TimeUnit timeUnit, JobConfiguration configuration)
         {
-            switch (settings.TimeType)
+            switch (configuration.TimeType)
             {
-                case JobTimeType.Seconds:
+                case JobTimeTypeEnum.Seconds:
                     timeUnit.Seconds();
                     break;
-                case JobTimeType.Minutes:
+                case JobTimeTypeEnum.Minutes:
                     timeUnit.Minutes();
                     break;
-                case JobTimeType.Hours:
+                case JobTimeTypeEnum.Hours:
                     timeUnit.Hours();
                     break;
-                case JobTimeType.Days:
-                    timeUnit.Days();
+                case JobTimeTypeEnum.Days:
+                    var dayUnit = timeUnit.Days();
+                    if (configuration.AtHour.HasValue && configuration.AtMinutes.HasValue)
+                    {
+                        dayUnit.At(configuration.AtHour.Value, configuration.AtMinutes.Value);
+                    }
                     break;
                 default:
-                    throw new Exception($"Unexpected job time type - {settings.TimeType}");
+                    throw new Exception($"Unexpected job time type - {configuration.TimeType}");
             }
+
+
         }
 
-        private void VailidateSettings(JobSettings settings)
+        private void VailidateConfiguration(JobConfiguration configuration)
         {
-            if (settings.RunType.In(JobRunTypeEnum.RunEvery, JobRunTypeEnum.RunNow, JobRunTypeEnum.RunOnceAt) && !settings.Time.HasValue)
+            if (configuration.RunType.In(JobRunTypeEnum.RunEvery, JobRunTypeEnum.RunOnceIn) && !configuration.Time.HasValue)
             {
-                throw new Exception($"Job with run type - {settings.RunType} should have time value");
+                throw new Exception($"Job with run type - {configuration.RunType} should have time value");
             }
 
-            if (settings.RunType == JobRunTypeEnum.RunOnceAtDate && !settings.Date.HasValue)
+            if (configuration.RunType == JobRunTypeEnum.RunOnceAtDate && !configuration.Date.HasValue)
             {
-                throw new Exception($"Job with run type - {settings.RunType} should have date value");
+                throw new Exception($"Job with run type - {configuration.RunType} should have date value");
             }
         }
 
