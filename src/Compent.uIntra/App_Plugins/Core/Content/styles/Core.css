@@ -219,7 +219,7 @@ h5{
 }
 
 .centring{
-    max-width:1550px;
+    max-width:1552px;
     padding:0 20px;
     margin:0 auto;
     width:100%;
@@ -301,12 +301,12 @@ h5{
         background:var(--color-white);
         content:'';
 
-        @media screen and (max-width: 1550px){
+        @media screen and (max-width: 1552px){
             left:-20px;
         }
     }
 
-    @media screen and (max-width: 1550px){
+    @media screen and (max-width: 1552px){
         left:20px;
     }
 
