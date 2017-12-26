@@ -19,18 +19,18 @@ namespace uIntra.Tagging.UserTags
             _xPathProvider = xPathProvider;
         }
 
-        public UserTag Get(Guid tagId)
+        public virtual UserTag Get(Guid tagId)
         {
             var umbracoNode = _umbracoHelper.TypedContent(tagId);
             return Map(umbracoNode);
         }
 
-        public IEnumerable<UserTag> Get(IEnumerable<Guid> tagIds)
+        public virtual IEnumerable<UserTag> Get(IEnumerable<Guid> tagIds)
         {
             return GetAll().Join(tagIds, t => t.Id, id => id, (t, _) => t);
         }
 
-        public IEnumerable<UserTag> GetAll()
+        public virtual IEnumerable<UserTag> GetAll()
         {
             return _umbracoHelper
                 .TypedContentAtXPath(_xPathProvider.UserTagFolderXPath)

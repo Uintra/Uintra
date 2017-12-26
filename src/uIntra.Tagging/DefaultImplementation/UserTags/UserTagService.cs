@@ -16,14 +16,14 @@ namespace uIntra.Tagging.UserTags
             _tagProvider = tagProvider;
         }
 
-        public IEnumerable<UserTag> GetRelatedTags(Guid entityId)
+        public virtual IEnumerable<UserTag> GetRelatedTags(Guid entityId)
         {
             var tagIds = _relationService.GetForEntity(entityId);
             var tags = _tagProvider.Get(tagIds);
             return tags;
         }
 
-        public void ReplaceRelations(Guid entityId, IEnumerable<Guid> tagIds)
+        public virtual void ReplaceRelations(Guid entityId, IEnumerable<Guid> tagIds)
         {
             var tagIdsList = tagIds as IList<Guid> ?? tagIds.ToList();
 
