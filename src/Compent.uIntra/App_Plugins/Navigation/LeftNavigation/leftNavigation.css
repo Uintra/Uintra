@@ -59,7 +59,7 @@
     &__link{
         display:block;
         padding:11px 45px 9px 19px;
-        color:var(--text-color-dark);
+        color:var(--color-submit);
         word-wrap: break-word;
         cursor:pointer;
         margin:0 0 -2px;
@@ -212,7 +212,6 @@
         .side-nav{
             &__link{
                 padding-left:30px;
-                font-weight:normal;
 
                 &:hover,
                 &:focus,
