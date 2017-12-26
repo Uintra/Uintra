@@ -429,6 +429,30 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "EventsCreate.LocationTitle.lbl",
+    "translations": {
+      "en-US": "Location title"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitleMaxLength.lbl",
+    "translations": {
+      "en-US": "The location title is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitlePlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter name of the location"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "EventsCreate.StartDate.lbl",
     "translations": {
       "en-US": "Event Start date and time"

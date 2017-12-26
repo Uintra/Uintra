@@ -15,5 +15,6 @@ namespace uIntra.Events.Dashboard
         public bool IsHidden { get; set; }
         public string ModifyDate { get; set; }
         public string CreatedDate { get; set; }
+        public string LocationTitle { get; set; }
     }
 }

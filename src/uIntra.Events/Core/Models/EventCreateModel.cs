@@ -32,5 +32,7 @@ namespace uIntra.Events
 
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
+
+        public string LocationTitle { get; set; }
     }
 }
