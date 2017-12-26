@@ -618,8 +618,8 @@ h5{
     }
 
     &._submit{
-        background:#261d43;
-        border-color:#261d43;
+        background:var(--color-submit);
+        border-color:var(--color-submit);
         color:var(--color-white);
 
         &:hover{

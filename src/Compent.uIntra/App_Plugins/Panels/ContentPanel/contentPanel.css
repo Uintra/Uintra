@@ -36,7 +36,7 @@
         }
 
         &__title{
-            background:#261d43;
+            background:var(--color-submit);
             color:var(--color-white);
             padding:15px 19px 12px;
             border-bottom:none;
@@ -461,12 +461,12 @@
                 height:calc(100vh - 111px);
 
                 &__opener {
-                    background: #261d43;
+                    background: var(--color-submit);
 
                     &:before,
                     &:after {
-                        background: #261d43;
-                        border-color:var(--color-white);
+                        background: var(--color-submit);
+                        border-color: var(--color-white);
                     }
                 }
             }
@@ -495,7 +495,7 @@
                     left: 50%;
                     width: 12px;
                     height: 12px;
-                    border: 2px solid #261d43;
+                    border: 2px solid var(--color-submit);
                     border-top-width: 4px;
                     background: var(--color-white);
                     content: '';

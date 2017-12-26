@@ -1017,7 +1017,11 @@
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
     <Content Include="Content\main.js" />
+    <Content Include="Content\vendors.js" />
     <Content Include="default.aspx" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-32x32.png" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="licence.html" />
     <Content Include="Views\Comments\CommentsView.cshtml" />

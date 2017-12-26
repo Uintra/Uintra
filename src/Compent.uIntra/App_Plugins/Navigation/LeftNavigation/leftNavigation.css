@@ -70,7 +70,7 @@
         ._active > &{
             background:#f6f6f6;
             text-decoration:none;
-            color:#261d43;
+            color:var(--color-submit);
             border-left:2px solid var(--header-bg);
             padding-left:17px;
         }

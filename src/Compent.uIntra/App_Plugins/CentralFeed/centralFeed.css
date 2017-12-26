@@ -88,10 +88,8 @@
 	    }
 
         @media(--for-tablet-portrait-down){
-            &{
-                margin:0 -20px 10px;
-                box-shadow:none;
-            }
+            margin:0 -20px 10px;
+            box-shadow:none;
         }
 
         &-heading{
@@ -129,12 +127,12 @@
             margin:-5px 0 7px;
 
             &-link{
-                color:var(--text-color-dark);
+                color:#262626;
 
                 &:hover,
                 &:focus,
                 &:active{
-                    color:var(--text-color-dark);
+                    color:#262626;
                 }
             }
         }
@@ -498,7 +496,7 @@
             &:active,
             &:focus{
                 text-decoration:none;
-                color: #261d43;
+                color: var(--color-submit);
 			}
 
             &:last-child{
@@ -506,7 +504,7 @@
             }
 
 			.feed-links__frame._active & {
-				color: #261d43;
+				color: var(--color-submit);
 			}
 
             .icon-news{
@@ -577,8 +575,8 @@
             border:1px solid #8f8f8f;
 
             :last-child > &{
-                background:#261d43;
-                border-color:#261d43;
+                background:var(--color-submit);
+                border-color:var(--color-submit);
                 color:var(--color-white);
 
                 &:active,
