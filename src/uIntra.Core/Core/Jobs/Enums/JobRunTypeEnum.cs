@@ -1,10 +1,10 @@
-﻿namespace uIntra.Core.Jobs
+﻿namespace uIntra.Core.Jobs.Enums
 {
     public enum JobRunTypeEnum
     {
         RunEvery=1,
         RunNow,
-        RunOnceAt,
+        RunOnceIn,
         RunOnceAtDate
     }
 }

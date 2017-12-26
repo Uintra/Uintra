@@ -1,6 +1,6 @@
 ﻿using System.Web.Hosting;
 
-namespace uIntra.Core.Jobs
+namespace uIntra.Core.Jobs.Models
 {
     public class BaseIntranetJob : IIntranetJob
     {
@@ -10,6 +10,7 @@ namespace uIntra.Core.Jobs
 
         public BaseIntranetJob()
         {
+
             HostingEnvironment.RegisterObject(this);
         }
 
@@ -32,20 +33,7 @@ namespace uIntra.Core.Jobs
             }
 
             HostingEnvironment.UnregisterObject(this);
-        }
-
-
-        public virtual JobSettings GetSettings()
-        {
-            //TODO: in child classes add getting settings from configuration/db/cache...
-            return new JobSettings()
-            {
-                TimeType = JobTimeType.Minutes,
-                Time = 1,
-                RunType = JobRunTypeEnum.RunEvery,
-                IsEnabled = true
-            };
-        }
+        }       
 
         public virtual void Action()
         {
