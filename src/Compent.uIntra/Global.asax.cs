@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using FluentScheduler;
 using uIntra.Bulletins;
+using uIntra.Core.Jobs;
 using uIntra.Events.Dashboard;
 using uIntra.Groups.Dashboard;
 using uIntra.News.Dashboard;
@@ -14,7 +16,7 @@ namespace Compent.uIntra
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             AreaRegistration.RegisterAllAreas();
-            MapperConfig.RegisterMappings();
+            MapperConfig.RegisterMappings();           
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
@@ -27,6 +29,7 @@ namespace Compent.uIntra
 
             RegisterRoutes();
 
+            JobManager.Initialize(new JobsRegistry());
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }
 
