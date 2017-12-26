@@ -376,6 +376,7 @@
     <Compile Include="Core\Jobs\IIntranetJob.cs" />
     <Compile Include="Core\Jobs\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\JobTimeType.cs" />
+    <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
