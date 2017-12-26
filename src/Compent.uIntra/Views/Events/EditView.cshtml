@@ -32,7 +32,7 @@
         <div class="form__row clearfix">
             <div class="row">
                 <div class="col-md-6">
-                    <label class="form__label" for="js-start-date">@Html.Localize("EventsEdir.StartDate.lbl")</label>
+                    <label class="form__label" for="js-start-date">@Html.Localize("EventsEdit.StartDate.lbl")</label>
                     <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
                     <span class="form__clear icon-close js-clear-date hide"></span>
@@ -46,7 +46,13 @@
             </div>
         </div>
         <div class="form__row clearfix">
-            @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
+            <label class="form__label" for="js-publish-date">@Html.Localize("EventsEdit.PublishDate.lbl")</label>
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsEdit.PublishDateRequired.lbl")" data-val="true" />
+            <span class="form__clear icon-close js-clear-date hide"></span>
+        </div>
+        <div class="form__row clearfix">
+            @Html.Action("PinActivity", "Activity", new { isPinned = Model.IsPinned, endPinDate = Model.EndPinDate })
         </div>
         <div class="form__row clearfix">
             <div class="check">

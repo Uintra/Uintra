@@ -19,6 +19,9 @@ namespace uIntra.Events
         [Required, GreaterThan("StartDate"), PropertyBinder(typeof(DateTimeBinder))]
         public DateTime EndDate { get; set; }
 
+        [Required, PropertyBinder(typeof(DateTimeBinder))]
+        public DateTime PublishDate { get; set; }
+
         public string Media { get; set; }
 
         public string NewMedia { get; set; }

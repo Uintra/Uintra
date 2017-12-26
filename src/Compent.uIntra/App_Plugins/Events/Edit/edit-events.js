@@ -169,6 +169,7 @@ function showNotifyAllSubscribersDialog(callbacks) {
 let initDatePickers = function () {
     let start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     let end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+    let publish = helpers.initDatePicker(holder, '#js-publish-date', '#js-publish-date-value');
     let pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {

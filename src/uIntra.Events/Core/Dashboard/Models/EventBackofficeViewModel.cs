@@ -11,6 +11,7 @@ namespace uIntra.Events.Dashboard
         public Guid OwnerId { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
+        public string PublishDate { get; set; }
         public bool IsHidden { get; set; }
         public string ModifyDate { get; set; }
         public string CreatedDate { get; set; }

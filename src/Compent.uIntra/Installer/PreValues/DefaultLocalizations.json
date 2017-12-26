@@ -437,6 +437,21 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "EventsCreate.PublishDate.lbl",
+    "translations": {
+      "en-US": "Event Publish date and time"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "EventsCreate.Title.lbl",
     "translations": {
       "en-US": "Title"
@@ -461,7 +476,7 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "EventsEdir.StartDate.lbl",
+    "key": "EventsEdit.StartDate.lbl",
     "translations": {
       "en-US": "Event Start date and time"
     },
@@ -472,6 +487,21 @@
     "key": "EventsEdit.StartDateRequired.lbl",
     "translations": {
       "en-US": "Start date required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.PublishDate.lbl",
+    "translations": {
+      "en-US": "Event Publish date and time"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
