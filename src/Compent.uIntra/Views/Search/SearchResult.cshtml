@@ -32,7 +32,13 @@
         {
             <div class="search-result__item-teaser">@Html.Raw(result.Description.CropText(SearchConstants.Global.FragmentSize))</div>
         }
-
+        @if (result.TagsHighlighted)
+        {
+            foreach (var tag in result.UserTagNames)
+            {
+                <span class="tags__item">@Html.Raw(tag)</span>
+            }
+        }
         <div class="search-result__item-meta">
             <span class="search-result__item-type">@Html.Raw(result.Type)</span>
             @if (result.PublishedDate.HasValue)

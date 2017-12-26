@@ -127,7 +127,7 @@ namespace Compent.uIntra.Core.Search.Indexes
                             document.fullName = highlightedField;
                             break;
                         case "userTagNames":
-                            document.TagsHighlighted = true;
+                            document.tagsHighlighted = true;
                             document.userTagNames = highlightedField.ToEnumerableOfOne().ToDynamic();
                             break;
                         case "phone":

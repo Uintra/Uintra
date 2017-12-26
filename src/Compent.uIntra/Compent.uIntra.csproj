@@ -1343,6 +1343,7 @@
     <Compile Include="Core\Search\Models\UintraSearchAutocompleteResultViewModel.cs" />
     <Compile Include="Core\Search\Models\UintraSearchResultsOverviewViewModel.cs" />
     <Compile Include="Core\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
+    <Compile Include="Core\Search\UintraSearchableTypeProvider.cs" />
     <Compile Include="Core\Search\UintraSearchResultViewModel.cs" />
     <Compile Include="Core\Search\SearchScoreProvider.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
@@ -1353,6 +1354,9 @@
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\UserTags\ElasticTagIndex.cs" />
+    <Compile Include="Core\UserTags\IElasticTagIndex.cs" />
+    <Compile Include="Core\UserTags\UserTagsSearchIndexer.cs" />
     <Compile Include="Core\UserTags\ViewModels\UserTagViewModel.cs" />
     <Compile Include="Core\XPathProvider.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />

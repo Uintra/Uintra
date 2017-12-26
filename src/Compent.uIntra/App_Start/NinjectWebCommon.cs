@@ -90,22 +90,14 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
-using Umbraco.Core.Events;
-using Umbraco.Core.Models;
-using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
-using Umbraco.Core.Events;
-using Umbraco.Core.Models;
 using uIntra.Tagging.UserTags;
-using Umbraco.Core.Publishing;
-using Umbraco.Core.Events;
-using Umbraco.Core.Models;
-using Umbraco.Core.Publishing;
+using Compent.uIntra.Core.UserTags;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -374,7 +366,7 @@ namespace Compent.uIntra
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
-            kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
+            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
@@ -436,6 +428,7 @@ namespace Compent.uIntra
             kernel.Bind<IIndexer>().To<BulletinsService>().InRequestScope();
             kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
             kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
@@ -447,6 +440,8 @@ namespace Compent.uIntra
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
+            kernel.Bind<IElasticTagIndex>().To<ElasticTagIndex>().InRequestScope();
+            
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
             

@@ -31,6 +31,11 @@ namespace uIntra.Core.Extensions
             return !str.IsNullOrEmpty();
         }
 
+        public static string AddQueryParameter(this string url, string query)
+        {
+            return url.AddParameter("query", query);
+        }
+
         public static IEnumerable<int> ToIntCollection(this string str)
         {
             return str.IsNullOrEmpty() ? Enumerable.Empty<int>() : str.Split(',').Where(s => s.IsNotNullOrEmpty()).Select(int.Parse);
