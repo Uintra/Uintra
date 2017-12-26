@@ -74,6 +74,18 @@ namespace uIntra.Core.Activity
             return !cachedActivity.IsHidden;
         }
 
+        public virtual bool IsPinActual(IIntranetActivity activity)
+        {
+            if (!activity.IsPinned) return false;
+
+            if (activity.EndPinDate.HasValue)
+            {
+                return activity.EndPinDate.Value.ToUniversalTime() > DateTime.UtcNow;
+            }
+
+            return true;
+        }
+
         public Guid Create(IIntranetActivity activity)
         {
             var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
@@ -130,7 +142,7 @@ namespace uIntra.Core.Activity
             _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
-        }
+        }       
 
         private TActivity GetFromSql(Guid id)
         {
@@ -161,20 +173,9 @@ namespace uIntra.Core.Activity
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);
             cachedActivity.MediaIds = _intranetMediaService.GetEntityMedia(cachedActivity.Id);
             return cachedActivity;
-        }
-
-        private static bool IsPinActual(IIntranetActivity activity)
-        {
-            if (!activity.IsPinned) return false;
-
-            if (activity.EndPinDate.HasValue)
-            {
-                return activity.EndPinDate.Value.ToUniversalTime() > DateTime.UtcNow;
-            }
-
-            return true;
-        }
+        }       
 
         protected abstract void MapBeforeCache(IList<TActivity> cached);
+       
     }
 }
