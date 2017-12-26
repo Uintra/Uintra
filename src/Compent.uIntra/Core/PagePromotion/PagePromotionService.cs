@@ -197,6 +197,11 @@ namespace Compent.uIntra.Core.PagePromotion
             throw new NotImplementedException();
         }
 
+        public bool IsPinActual(IIntranetActivity cachedActivity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Guid Create(IIntranetActivity activity)
         {
             throw new NotImplementedException();

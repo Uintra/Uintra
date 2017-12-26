@@ -57,6 +57,7 @@ using uIntra.Core.Configuration;
 using uIntra.Core.Controls;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
+using uIntra.Core.Jobs;
 using uIntra.Core.Links;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
@@ -377,6 +378,10 @@ namespace Compent.uIntra
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
+
+            //Jobs 
+
+            kernel.Bind<BaseIntranetJob>().To<UpdateActivityCacheJob>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
