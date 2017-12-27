@@ -1,5 +1,8 @@
-﻿@using uIntra.Core.Extensions
+﻿@using System.Web.Mvc
+@using uIntra.Core.Extensions
 @using uIntra.BaseControls
+@using uIntra.Core.Constants
+@using uIntra.Core.Media
 @inherits UmbracoViewPage<dynamic>
 
 @{
@@ -11,6 +14,8 @@
     var panelId = "js-content-panel-" + Guid.NewGuid();
     bool isImportant = viewModel.isImportant != null ? viewModel.isImportant.Value : false; //Actual type of viewModel.isImportant will be JValue, not pure boolean
     string importantCssSelector = isImportant ? "_important" : string.Empty;
+
+    var imageHelper = DependencyResolver.Current.GetService<IImageHelper>();
 }
 
 <section class="block _content-panel clearfix @importantCssSelector" id="@panelId">
@@ -35,7 +40,7 @@
 
         int mediaId;
         var hasMedia = int.TryParse(Model.value?.image?.ToString() ?? string.Empty, out mediaId);
-        var posterImageUrl = hasMedia ? GetMediaUrl(mediaId) : null;
+        var posterImageUrl = hasMedia ? imageHelper.GetImageWithPreset(GetMediaUrl(mediaId), UmbracoAliases.ImagePresets.Preview) : null;
         var videoUrl = GetUrl(Model.value.videoLink);
         var showAsLightbox = Model.value.videoType == "lightbox";
         var lightboxClass = showAsLightbox ? "js-show-lightbox" : string.Empty;
@@ -64,7 +69,8 @@
                     autoplayIframe = string.Empty;
                     // posterImageUrl get poster from youtube
                 }
-                else { 
+                else
+                {
                     <button class="block__video-play js-videoPoster @lightboxClass" style="background-image: url(@posterImageUrl);"></button>
                 }
 
