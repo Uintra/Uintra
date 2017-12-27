@@ -98,6 +98,9 @@ using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
 using uIntra.Tagging.UserTags;
 using Compent.uIntra.Core.UserTags;
+using Compent.uIntra.Core.UserTags.Indexers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.Search.Entities.Mappings;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -332,6 +335,8 @@ namespace Compent.uIntra
             kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();
             kernel.Bind<IUserTagRelationService>().To<UserTagRelationService>().InRequestScope();
             kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
+            kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
+            
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -435,13 +440,19 @@ namespace Compent.uIntra
             kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
             kernel.Bind(typeof(IElasticSearchRepository<>)).To(typeof(ElasticSearchRepository<>)).InRequestScope().WithConstructorArgument(typeof(string), "intranet");
             kernel.Bind(typeof(PropertiesDescriptor<SearchableActivity>)).To<SearchableActivityMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableUintraActivity>)).To<SearchableUintraActivityMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableTag>)).To<SearchableTagMap>().InSingletonScope();
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticUintraActivityIndex>().To<ElasticUintraActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
             kernel.Bind<IElasticTagIndex>().To<ElasticTagIndex>().InRequestScope();
+            kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
             
+
+
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
             

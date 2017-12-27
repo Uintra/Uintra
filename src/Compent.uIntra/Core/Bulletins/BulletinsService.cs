@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.UserTags.Indexers;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -20,6 +22,7 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -39,13 +42,14 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly INotificationsService _notificationService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly UserTagService _userTagService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -58,14 +62,14 @@ namespace Compent.uIntra.Core.Bulletins
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IElasticActivityIndex activityIndex,
+            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper)
+            INotifierDataHelper notifierDataHelper, UserTagService userTagService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -83,6 +87,7 @@ namespace Compent.uIntra.Core.Bulletins
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _userTagService = userTagService;
         }
 
 
@@ -222,7 +227,7 @@ namespace Compent.uIntra.Core.Bulletins
             var activities = GetAll().Where(s => !IsBulletinHidden(s));
             var searchableActivities = activities.Select(Map);
 
-            var searchableType = _searchableTypeProvider.Get(SearchableTypeEnum.Bulletins.ToInt());
+            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Bulletins.ToInt());
             _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
         }
@@ -319,10 +324,11 @@ namespace Compent.uIntra.Core.Bulletins
             return bulletin == null || bulletin.IsHidden;
         }
 
-        private SearchableActivity Map(Bulletin bulletin)
+        private SearchableUintraActivity Map(Bulletin bulletin)
         {
-            var searchableActivity = bulletin.Map<SearchableActivity>();
+            var searchableActivity = bulletin.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.GetRelatedTags(bulletin.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

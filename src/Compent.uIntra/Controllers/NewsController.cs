@@ -15,6 +15,7 @@ using uIntra.News.Web;
 using uIntra.Search;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Feed;
+using Compent.uIntra.Core.UserTags;
 using uIntra.Groups.Extensions;
 using uIntra.Tagging.UserTags;
 
@@ -31,6 +32,7 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
         private readonly UserTagService _userTagService;
+        private readonly IActivityTagsHelper _activityTagsHelper;
 
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -39,13 +41,14 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentProvider intranetUserContentProvider,
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
-            IGroupActivityService groupActivityService, UserTagService userTagService)
+            IGroupActivityService groupActivityService, UserTagService userTagService, IActivityTagsHelper activityTagsHelper)
             : base(intranetUserService, newsService, mediaHelper, activityTypeProvider)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
             _userTagService = userTagService;
+            _activityTagsHelper = activityTagsHelper;
         }
 
         public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
@@ -105,7 +108,7 @@ namespace Compent.uIntra.Controllers
         {
             if (model is NewsExtendedEditModel extendedModel)
             {
-                ReplaceTags(news.Id, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(news.Id, extendedModel.TagIdsData);
             }
         }
 
@@ -135,14 +138,8 @@ namespace Compent.uIntra.Controllers
             }
             if (model is NewsExtendedCreateModel extendedModel)
             {
-                ReplaceTags(activityId, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
             }
-        }
-
-        private void ReplaceTags(Guid entityId, string collectionString)
-        {
-            var tagIds = collectionString.ParseStringCollection(Guid.Parse);
-            _userTagService.ReplaceRelations(entityId, tagIds);
         }
     }
 }

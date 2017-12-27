@@ -5,8 +5,7 @@ using System.Web.Mvc;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Feed;
-using Compent.uIntra.Core.News.Models;
-using uIntra.Core;
+using Compent.uIntra.Core.UserTags;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -37,7 +36,7 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly UserTagService _userTagService;
+        private readonly IActivityTagsHelper _activityTagsHelper;
 
         public EventsController(
             IEventsService<Event> eventsService,
@@ -51,7 +50,8 @@ namespace Compent.uIntra.Controllers
             INotificationTypeProvider notificationTypeProvider,
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
-            UserTagService userTagService)
+            UserTagService userTagService,
+            IActivityTagsHelper activityTagsHelper)
             : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
@@ -60,7 +60,7 @@ namespace Compent.uIntra.Controllers
             _documentIndexer = documentIndexer;
             _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
-            _userTagService = userTagService;
+            _activityTagsHelper = activityTagsHelper;
         }
 
         public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
@@ -144,7 +144,7 @@ namespace Compent.uIntra.Controllers
             }
             if (model is EventExtendedCreateModel extendedModel)
             {
-                ReplaceTags(activityId, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
             }
         }
 
@@ -163,7 +163,7 @@ namespace Compent.uIntra.Controllers
 
             if (model is EventExtendedEditModel extendedModel)
             {
-                ReplaceTags(@event.Id, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(@event.Id, extendedModel.TagIdsData);
             }
 
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
@@ -176,12 +176,6 @@ namespace Compent.uIntra.Controllers
                 var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
                 ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
-        }
-
-        private void ReplaceTags(Guid entityId, string collectionString)
-        {
-            var tagIds = collectionString.ParseStringCollection(Guid.Parse);
-            _userTagService.ReplaceRelations(entityId, tagIds);
         }
     }
 }

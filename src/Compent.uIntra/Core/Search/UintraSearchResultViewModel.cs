@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using uIntra.Search;
 
-namespace Compent.uIntra.Core.Search.Models
+namespace Compent.uIntra.Core.Search
 {
     public class UintraSearchResultViewModel : SearchResultViewModel
     {

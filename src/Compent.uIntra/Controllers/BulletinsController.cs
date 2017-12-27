@@ -13,9 +13,9 @@ using uIntra.Groups;
 using uIntra.Navigation;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Feed;
+using Compent.uIntra.Core.UserTags;
 using uIntra.Core.Feed;
 using uIntra.Groups.Extensions;
-using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Controllers
 {
@@ -30,22 +30,22 @@ namespace Compent.uIntra.Controllers
         private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly UserTagService _userTagService;
+        private readonly IActivityTagsHelper _activityTagsHelper;
 
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IActivityTypeProvider activityTypeProvider, 
+            IActivityTypeProvider activityTypeProvider,
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
-            UserTagService userTagService)
+            IActivityTagsHelper activityTagsHelper)
             : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
             _groupActivityService = groupActivityService;
-            _userTagService = userTagService;
+            _activityTagsHelper = activityTagsHelper;
         }
 
         [HttpPost]
@@ -78,13 +78,13 @@ namespace Compent.uIntra.Controllers
         {
             if (model is BulletinExtendedEditModel extendedModel)
             {
-                ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
             }
         }
 
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityFeedOptions options)
         {
-            var extendedBullet = (Bulletin)bulletin;
+            var extendedBullet = (Bulletin) bulletin;
             var extendedModel = base.GetViewModel(bulletin, options).Map<BulletinExtendedViewModel>();
             extendedModel = Mapper.Map(extendedBullet, extendedModel);
             return extendedModel;
@@ -135,14 +135,8 @@ namespace Compent.uIntra.Controllers
 
             if (model is BulletinExtendedCreateModel extendedModel)
             {
-                ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
             }
-        }
-
-        private void ReplaceTags(Guid entityId, string collectionString)
-        {
-            var tagIds = collectionString.ParseStringCollection(Guid.Parse);
-            _userTagService.ReplaceRelations(entityId, tagIds);
         }
     }
 }

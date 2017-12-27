@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.UserTags.Indexers;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -41,7 +42,7 @@ namespace Compent.uIntra.Core.News
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
@@ -61,7 +62,7 @@ namespace Compent.uIntra.Core.News
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex,
+            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
