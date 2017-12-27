@@ -19,6 +19,9 @@ namespace uIntra.Events
         [GreaterThan("StartDate"), PropertyBinder(typeof(DateTimeBinder))]
         public DateTime EndDate { get; set; }
 
+        [PropertyBinder(typeof(DateTimeBinder))]
+        public DateTime PublishDate { get; set; }
+
         public string Media { get; set; }
 
         public string NewMedia { get; set; }
@@ -33,5 +36,9 @@ namespace uIntra.Events
 
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
+
+        public string LocationTitle { get; set; }
+
+        public string LocationAddress { get; set; }
     }
 }

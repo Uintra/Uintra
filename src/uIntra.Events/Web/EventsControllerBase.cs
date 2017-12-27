@@ -176,6 +176,7 @@ namespace uIntra.Events.Web
             {
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
+                PublishDate = DateTime.UtcNow,
                 CanSubscribe = true,
                 OwnerId = _intranetUserService.GetCurrentUserId(),
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
@@ -240,7 +241,6 @@ namespace uIntra.Events.Web
             model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.HeaderInfo.Owner = _intranetUserService.Get(@event);
             model.HeaderInfo.Links = options.Links;
 

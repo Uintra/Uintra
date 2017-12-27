@@ -77,6 +77,7 @@ var initDescriptionControl = function () {
 var initDatePickers = function () {
     var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+    var publish = helpers.initDatePicker(holder, '#js-publish-date', '#js-publish-date-value');
     var pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {
