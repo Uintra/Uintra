@@ -233,13 +233,15 @@ h5{
 }
 
 .holder {
-    padding: 0 0 0 330px;
+    padding: 0 0 0 305px;
     flex-grow: 1;
 
     @media (--for-tablet-portrait-down) {
-        &{
-            padding:0;
-        }
+        padding:0;
+    }
+
+    @media (--for-desktop-up){
+        padding-left:330px;
     }
 }
 
@@ -422,7 +424,7 @@ h5{
 
 #main{
     width:100%;
-    padding:50px 0 20px;
+    padding:20px 0;
     position:relative;
     min-height:190px;
 
@@ -435,6 +437,10 @@ h5{
             visibility:hidden;
             background:
         }
+    }
+
+    @media (--for-desktop-up){
+       padding-top:50px; 
     }
 
     &::before{

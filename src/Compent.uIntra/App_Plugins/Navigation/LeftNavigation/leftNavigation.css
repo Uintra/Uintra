@@ -8,7 +8,9 @@
 }
 
 .sidebar{
-    padding-left:35px !important;
+    @media (--for-desktop-up){
+        padding-left:35px !important;
+    }
 
     &__holder{
         padding:50px 32px 0 0;
