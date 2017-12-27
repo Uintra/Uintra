@@ -21,11 +21,13 @@
             <div>
                 <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
             </div>
-            @if (!Model.LocationTitle.IsNullOrEmpty())
+            @if (Model.LocationTitle.IsNotNullOrEmpty())
             {
-                <div>
-                    <span>@Model.LocationTitle</span>
-                </div>
+                <div>@Model.LocationTitle</div>
+            }
+            @if (Model.LocationAddress.IsNotNullOrEmpty())
+            {
+                <div>@Model.LocationAddress</div>
             }
         </div>
         <div class="feed__item-txt">

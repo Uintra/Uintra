@@ -13,5 +13,6 @@ namespace uIntra.Events.Dashboard
         public DateTime PublishDate { get; set; }
         public bool IsHidden { get; set; }
         public string LocationTitle { get; set; }
+        public string LocationAddress { get; set; }
     }
 }

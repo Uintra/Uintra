@@ -21,6 +21,14 @@
             <div>
                 <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
             </div>
+            @if (Model.LocationTitle.IsNotNullOrEmpty())
+            {
+                <div>@Model.LocationTitle</div>
+            }
+            @if (Model.LocationAddress.IsNotNullOrEmpty())
+            {
+                <div>@Model.LocationAddress</div>
+            }
         </div>
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)

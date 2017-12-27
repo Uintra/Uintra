@@ -12,5 +12,6 @@ namespace uIntra.Events
         public string Media { get; set; }
         public bool CanSubscribe { get; set; }
         public string LocationTitle { get; set; }
+        public string LocationAddress { get; set; }
     }
 }

@@ -55,6 +55,11 @@
                    data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
         </div>
         <div class="form__row clearfix">
+            <label class="form__label" for="locationAddress">@Html.Localize("EventsCreate.LocationAddress.lbl")</label>
+            <input class="form__input" id="locationAddress" type="text" name="locationAddress" value="@(Model.LocationAddress)" placeholder="@Html.Localize("EventsCreate.LocationAddressPlaceholder.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationAddressMaxLength.lbl"), 200)" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
         </div>
         <div class="form__row clearfix">

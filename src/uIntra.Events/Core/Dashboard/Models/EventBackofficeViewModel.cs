@@ -16,5 +16,6 @@ namespace uIntra.Events.Dashboard
         public string ModifyDate { get; set; }
         public string CreatedDate { get; set; }
         public string LocationTitle { get; set; }
+        public string LocationAddress { get; set; }
     }
 }
