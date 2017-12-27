@@ -4,9 +4,7 @@
     padding:36px 21px 0;
 
     @media(--for-tablet-portrait-down){
-        &{
-            margin:0 -20px;
-        }
+        margin:0 -20px;
     }
 
     &__title{
@@ -190,9 +188,7 @@
         border:1px solid var(--color-light-gray);
 
         @media(--for-tablet-portrait-down){
-            &{
-                border:none;
-            }
+            border:none;
         }
 
         .notification-page &{
@@ -317,12 +313,12 @@
 
 	    &-heading{
 		    font:13px/20px var(--font-general);
-		    color:var(--text-color-dark);
+		    color:#333;
             max-height:60px;
             overflow:hidden;
 
 		    &:hover {
-			    color:var(--text-color-dark);
+			    color:#333;
 		    }
 
 		    p {
@@ -330,7 +326,7 @@
 		    }
 
             &-link{
-                color:var(--text-color-dark);
+                color:#333;
             }
 
             .notification-page &{
@@ -441,7 +437,6 @@
 	    &-date{
             font-size:11px;
             line-height:20px;
-            margin:0 0 -3px;
             display:block;
 	    }
     }
