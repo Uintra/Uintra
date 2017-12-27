@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using uIntra.Core.Configuration;
 using uIntra.Navigation.Configuration;
@@ -65,6 +67,16 @@ namespace uIntra.Navigation
         {
             var result = publishedContent.GetPropertyValue<bool?>(NavigationConfiguration.IsShowInHomeNavigation.Alias);
             return result ?? NavigationConfiguration.IsShowInHomeNavigation.DefaultValue;
+        }
+
+        protected virtual bool IsShowBreadcrumbs(IPublishedContent publishedContent)
+        {
+            return publishedContent.IsContentPage() && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
+        }
+
+        protected virtual bool IsTitleHidden(IPublishedContent publishedContent)
+        {
+            return !publishedContent.IsContentPage();
         }
     }
 }
