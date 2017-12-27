@@ -1338,6 +1338,7 @@
     </Compile>
     <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
+    <Compile Include="Installer\Migrations\EventPublishDateMigration.cs" />
     <Compile Include="Installer\Migrations\NotificationSettingsMigrations.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\Helpers.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\NewNotificationMessageService.cs" />
