@@ -9,7 +9,7 @@
 }
 @if (images.Any())
 {
-    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery clearfix @fullSizeClass">
+    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery @fullSizeClass">
         @foreach (var image in images)
         {
             var originalSize = $"{image.Width}x{image.Height}";

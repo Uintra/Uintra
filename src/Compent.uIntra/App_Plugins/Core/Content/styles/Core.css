@@ -601,7 +601,7 @@ h5{
     margin: 0 6px 0 0;
     max-width: 100%;
     overflow: hidden;
-    padding: 7px 14px 6px;
+    padding: 7px 15px 6px;
     text-overflow: ellipsis;
     white-space: nowrap;
     position: relative;
@@ -881,7 +881,7 @@ h5{
     .ql-editor {
         height:149px;
         overflow:auto;
-        font:13px/22px Arial, Helvetica, sans-serif;
+        font:13px/22px var(--font-general);
     }
 
     .ql-tooltip {
