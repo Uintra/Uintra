@@ -8,15 +8,17 @@
 }
 
 .sidebar{
-    padding-left:35px !important;
+    @media (--for-desktop-up){
+        padding-left:35px !important;
+    }
 
     &__holder{
         padding:50px 32px 0 0;
 
         @media (--for-tablet-portrait-down){
-            &{
-                padding:0;
-            }
+            padding:0;
+            overflow:hidden;
+            background:var(--color-white);
         }
     }
 }
@@ -59,7 +61,7 @@
     &__link{
         display:block;
         padding:11px 45px 9px 19px;
-        color:var(--text-color-dark);
+        color:var(--color-submit);
         word-wrap: break-word;
         cursor:pointer;
         margin:0 0 -2px;
@@ -70,7 +72,7 @@
         ._active > &{
             background:#f6f6f6;
             text-decoration:none;
-            color:#261d43;
+            color:var(--color-submit);
             border-left:2px solid var(--header-bg);
             padding-left:17px;
         }
@@ -103,6 +105,15 @@
                 padding-left:48px;
             }
         }
+
+        @media (--for-tablet-portrait-down) {
+            &._with-icon {
+                .side-nav :first-child > &{
+                    padding-left:0;
+                }
+            }
+        }
+        
     }
 
 	&__arrow{
@@ -150,7 +161,7 @@
                 ._heading > &,
                 ._system &,
                 ._links &{
-                    top:13px;
+                    top:20px;
                 }
 			}
 
@@ -179,6 +190,20 @@
         }
     }
 
+    &._system & &,
+    &._links & &,
+    &._groups & &{
+        &__link{
+            padding-left:53px;
+
+            &:hover,
+            &:focus,
+            &:active{
+                padding-left:51px;
+            }
+        }
+    }
+
     & &{
         margin:0;
         padding:0;
@@ -188,71 +213,49 @@
 
         .side-nav{
             &__link{
-                padding-left:40px;
-
-                &:before{
-                    position:absolute;
-                    top:21px;
-                    left:27px;
-                    width:3px;
-                    height:3px;
-                    background:#261d43;
-                    content:'';
-                }
+                padding-left:30px;
 
                 &:hover,
                 &:focus,
                 &:active,
                 ._active > &{
-                    padding-left:38px;
+                    padding-left:28px;
                 }
             }
 
             .side-nav{
                 &__link{
-                    padding-left:60px;
-
-                    &:before{
-                        left:47px;
-                    }
+                    padding-left:50px;
 
                     &:hover,
                     &:focus,
                     &:active,
                     ._active > &{
-                        padding-left:58px;
+                        padding-left:48px;
                     }
                 }
 
                 .side-nav{
                     &__link{
-                        padding-left:80px;
-
-                        &:before{
-                            left:67px;
-                        }
+                        padding-left:70px;
 
                         &:hover,
                         &:focus,
                         &:active,
                         ._active > &{
-                            padding-left:78px;
+                            padding-left:68px;
                         }
                     }
 
                     .side-nav{
                         &__link{
-                            padding-left:100px;
-
-                            &:before{
-                                left:87px;
-                            }
+                            padding-left:90px;
 
                             &:hover,
                             &:focus,
                             &:active,
                             ._active > &{
-                                padding-left:98px;
+                                padding-left:88px;
                             }
                         }
                     }
@@ -296,6 +299,13 @@
 
             &._for-mobile{
                 border-top:none;
+                border-bottom:2px solid #f6f6f6;
+                margin:0 0 40px;
+                padding:14px 0 22px 24px;
+
+                .icon-logout{
+                    display:none !important;
+                }
             }
 
             &__overlay{
@@ -337,7 +347,7 @@
             &__link {
                 &._with-icon{
                     padding-right:0;
-                    padding-left:0;
+                    padding-left:35px;
                     background:none;
 
                     .icon{

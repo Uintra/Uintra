@@ -12,12 +12,11 @@ namespace Compent.uIntra.Core.Events
         protected override void Configure()
         {
             Mapper.CreateMap<Event, EventExtendedViewModel>()
-                  .IncludeBase<EventBase, EventViewModel>()
-                  .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                  .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
-                  .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
+                .IncludeBase<EventBase, EventViewModel>()
+                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
             
-
             Mapper.CreateMap<EventEditModel, EventExtendedEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
@@ -31,9 +30,12 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.IsSubscribed, o => o.Ignore());
 
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
-                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
+                .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
             
+
+            Mapper.CreateMap<Event, IntranetActivityDetailsHeaderViewModel>()
+                .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>();
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()
@@ -64,8 +66,8 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<Event, SearchableActivity>()
-                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
-                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
+                .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate))
+                .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate))
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())

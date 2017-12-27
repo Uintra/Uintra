@@ -126,7 +126,7 @@
     @media (--for-tablet-landscape-up) {
         float: left;
         max-width:100%;
-        padding:7px 0;
+        padding:10px 0;
         text-align: left;
         margin:0 13px 0 0;
 
@@ -148,7 +148,7 @@
         line-height:36px;
         height:40px;
         margin:0;
-        padding:1px 40px 1px 21px;
+        padding:3px 40px 1px 21px;
         color:var(--text-color-dark);
 
         &:-ms-input-placeholder {
@@ -164,7 +164,7 @@
 
     &__button{
         position:absolute;
-        top: 11px;
+        top: 14px;
         right: 6px;
         border:none;
         background:none;
@@ -291,7 +291,7 @@
 .user {
     float:right;
     position:relative;
-    padding:14px 0 13px;
+    padding:12px 0;
     margin:0;
 
 	@media (--for-tablet-portrait-down){
@@ -300,32 +300,17 @@
 		padding:0;
 	}
 
-    .icon-user{
-        &.user__opener:before{
-            position:absolute;
-            right:15px;
-        }
-
-        &._with-avatar:before{
-            display:none;
-
-            @media (--for-tablet-portrait-down){
-                &{
-                    display:block;
-                }
-            }
-        }
-    }
-
     &__opener{
         color:var(--color-white);
         display:block;
         position:relative;
         padding:2px 2px 4px 17px;
         cursor:pointer;
+        margin-right:3px;
 
         &._with-avatar{
-            margin:-5px 0;
+            margin-top:-5px;
+            margin-bottom:-5px;
 
             @media (--for-tablet-portrait-down){
                 margin:0;
@@ -551,7 +536,7 @@
             position:absolute;
             top:11px;
             left:15px;
-            color:#261d43;
+            color:var(--color-submit);
 
             &.icon-user{
                 top:6px;
@@ -581,6 +566,23 @@
 
             @media (--for-tablet-portrait-down){
                 top:19px;
+            }
+        }
+    }
+
+    .icon-user{
+        &.user__opener:before{
+            position:absolute;
+            right:15px;
+        }
+
+        &._with-avatar:before{
+            display:none;
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    display:block;
+                }
             }
         }
     }

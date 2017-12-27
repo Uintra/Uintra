@@ -55,5 +55,10 @@
             vertical-align:top;
             cursor:pointer;
         }
+
+        .btn._submit{
+            color:#fefeff;
+            font-weight:bold;
+        }
     }
 }

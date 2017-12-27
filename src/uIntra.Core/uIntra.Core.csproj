@@ -114,6 +114,9 @@
     <Reference Include="Examine, Version=0.1.85.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.0.1.85\lib\net45\Examine.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
@@ -367,6 +370,16 @@
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Extensions\ListExtensions.cs" />
     <Compile Include="Core\Extensions\StreamExtensions.cs" />
+    <Compile Include="Core\Jobs\AutoMapperProfiles\JobAutoMapperProfile.cs" />
+    <Compile Include="Core\Jobs\Configuration\IJobSettingsConfiguration.cs" />
+    <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
+    <Compile Include="Core\Jobs\Enums\JobRunTypeEnum.cs" />
+    <Compile Include="Core\Jobs\JobConfiguration.cs" />
+    <Compile Include="Core\Jobs\JobsRegistry.cs" />
+    <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
+    <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
+    <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
+    <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />

@@ -29,8 +29,9 @@ namespace Compent.uIntra.Controllers
             IIntranetUserService<IGroupMember> intranetUserService, 
             IProfileLinkProvider profileLinkProvider,
             UmbracoHelper umbracoHelper, 
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            IImageHelper imageHelper)
+            : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider, imageHelper)
         {
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;

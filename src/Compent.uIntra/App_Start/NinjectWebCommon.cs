@@ -58,6 +58,9 @@ using uIntra.Core.Configuration;
 using uIntra.Core.Controls;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
+using uIntra.Core.Jobs;
+using uIntra.Core.Jobs.Configuration;
+using uIntra.Core.Jobs.Models;
 using uIntra.Core.Links;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
@@ -84,6 +87,7 @@ using uIntra.News;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.DefaultImplementation;
+using uIntra.Notification.Jobs;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
@@ -97,6 +101,7 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
 using uIntra.Tagging.UserTags;
+using ReminderJob = uIntra.Notification.ReminderJob;
 using Compent.uIntra.Core.UserTags;
 using Compent.uIntra.Core.UserTags.Indexers;
 using Compent.uIntra.Core.Search.Entities;
@@ -179,6 +184,7 @@ namespace Compent.uIntra
         {
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
+            kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
 
             //licence
@@ -392,6 +398,12 @@ namespace Compent.uIntra
             
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
+
+            //Jobs 
+            kernel.Bind<BaseIntranetJob>().To<global::uIntra.Notification.Jobs.ReminderJob>().InRequestScope();
+            kernel.Bind<BaseIntranetJob>().To<MontlyMailJob>().InRequestScope();
+            kernel.Bind<BaseIntranetJob>().To<SendEmailJob>().InRequestScope();            
+            kernel.Bind<BaseIntranetJob>().To<UpdateActivityCacheJob>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

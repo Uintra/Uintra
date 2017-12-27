@@ -126,13 +126,13 @@
 
             ._groups ._active &,
             ._selected &{
-                color:#261d43;
+                color:var(--color-submit);
                 text-decoration:none;
                 cursor:default;
             }
 
             ._active:not(:first-child) > &{
-                color:#261d43;
+                color:var(--color-submit);
                 text-decoration:none;
                 cursor:default;
                 font-weight:normal;
@@ -146,7 +146,7 @@
             &:focus,
             &:active,
             &:hover {
-                color:#261d43;
+                color:var(--color-submit);
                 text-decoration:none;
             }
 

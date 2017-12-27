@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
+using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
@@ -13,7 +14,6 @@ namespace uIntra.Groups.Web
 {
     public abstract class GroupControllerBase : SurfaceController
     {
-
         protected virtual string OverviewPath => "~/App_Plugins/Groups/List/Overview.cshtml";
         protected virtual string ListViewPath => "~/App_Plugins/Groups/List/List.cshtml";
         protected virtual string DisabledGroupViewPath => "~/App_Plugins/Groups/DisabledGroupView/DisabledGroup.cshtml";
@@ -26,14 +26,14 @@ namespace uIntra.Groups.Web
         protected virtual string InfoViewPath => "~/App_Plugins/Groups/Room/Info/Info.cshtml";
         protected virtual string LeftNavigationPath => "~/App_Plugins/Groups/GroupLeftNavigation.cshtml";
 
-
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IGroupMember> _userService;
         private readonly IGroupMediaService _groupMediaService;
         private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IGroupLinkProvider _groupLinkProvider;       
+        private readonly IGroupLinkProvider _groupLinkProvider;
+        private readonly IImageHelper _imageHelper;
 
         protected int ItemsPerPage = 10;
 
@@ -44,7 +44,8 @@ namespace uIntra.Groups.Web
             IGroupMediaService groupMediaService,
             IIntranetUserService<IGroupMember> userService,
             IProfileLinkProvider profileLinkProvider,
-            IGroupLinkProvider groupLinkProvider)
+            IGroupLinkProvider groupLinkProvider,
+            IImageHelper imageHelper)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
@@ -53,6 +54,7 @@ namespace uIntra.Groups.Web
             _userService = userService;
             _profileLinkProvider = profileLinkProvider;
             _groupLinkProvider = groupLinkProvider;
+            _imageHelper = imageHelper;
         }
 
         public virtual ActionResult Overview()
@@ -167,7 +169,7 @@ namespace uIntra.Groups.Web
 
             if (group.ImageId.HasValue)
             {
-                groupInfo.GroupImageUrl = Umbraco.TypedMedia(group.ImageId.Value).Url;
+                groupInfo.GroupImageUrl = _imageHelper.GetImageWithPreset(Umbraco.TypedMedia(group.ImageId.Value).Url, UmbracoAliases.ImagePresets.GroupImageThumbnail);
             }
 
             return groupInfo;
@@ -237,8 +239,8 @@ namespace uIntra.Groups.Web
             var take = page * ItemsPerPage;
             var currentUser = _userService.GetCurrentUser();
 
-            var allGroups = isMyGroupsPage 
-                ? _groupService.GetMany(currentUser.GroupIds).ToList() 
+            var allGroups = isMyGroupsPage
+                ? _groupService.GetMany(currentUser.GroupIds).ToList()
                 : _groupService.GetAllNotHidden().ToList();
 
             bool IsCurrentUserMember(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id);
@@ -275,7 +277,6 @@ namespace uIntra.Groups.Web
             {
                 Members = groupMembersViewModel,
                 CanExcludeFromGroup = IsGroupCreator(currentUserId, group)
-
             };
             return model;
         }
@@ -325,7 +326,7 @@ namespace uIntra.Groups.Web
             groupModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
             if (groupModel.HasImage)
             {
-                groupModel.GroupImageUrl = Umbraco.TypedMedia(group.ImageId).Url;
+                groupModel.GroupImageUrl = _imageHelper.GetImageWithPreset(Umbraco.TypedMedia(group.ImageId.Value).Url, UmbracoAliases.ImagePresets.GroupImageThumbnail);
             }
 
             return groupModel;

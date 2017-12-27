@@ -4,10 +4,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/build/head_css.js"></script>
     <title>@Html.Localize("SitePrefix.lbl") @{Html.RenderAction("GetTitle", "Navigation");}</title>
+    <link type="text/css" href="/build/vendors.css" rel="stylesheet" />
     <link type="text/css" href="/build/app.css" rel="stylesheet" />
     <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico">
 </head>
 <body>
     <div id="wrapper" class="_loading">
@@ -75,7 +78,7 @@
             </div>
         </div>
     </div>
-
+    <script src="/build/vendors.js"></script>
     <script src="/build/app.js"></script>
 </body>
 </html>

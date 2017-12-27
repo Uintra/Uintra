@@ -219,7 +219,7 @@ h5{
 }
 
 .centring{
-    max-width:1550px;
+    max-width:1552px;
     padding:0 20px;
     margin:0 auto;
     width:100%;
@@ -233,13 +233,15 @@ h5{
 }
 
 .holder {
-    padding: 0 0 0 330px;
+    padding: 0 0 0 305px;
     flex-grow: 1;
 
     @media (--for-tablet-portrait-down) {
-        &{
-            padding:0;
-        }
+        padding:0;
+    }
+
+    @media (--for-desktop-up){
+        padding-left:330px;
     }
 }
 
@@ -301,17 +303,13 @@ h5{
         background:var(--color-white);
         content:'';
 
-        @media screen and (max-width: 1550px){
-            &{
-                display:none;
-            }
+        @media screen and (max-width: 1552px){
+            left:-20px;
         }
     }
 
-    @media screen and (max-width: 1550px){
-        &{
-            left:20px;
-        }
+    @media screen and (max-width: 1552px){
+        left:20px;
     }
 
     @media (--for-tablet-portrait-down) {
@@ -321,7 +319,7 @@ h5{
         width:calc(100% - 60px);
         bottom: 0;
         background: var(--header-bg);
-        padding: 60px 0 38px;
+        padding: 60px 0 0;
         height: auto;
         transition: all linear 250ms;
         z-index:9999;
@@ -412,7 +410,7 @@ h5{
     position: absolute;
     top: 0;
     left: 20px;
-    padding: 9px 0;
+    padding: 11px 0;
     z-index: 2;
 
     @media (--for-tablet-portrait-down){
@@ -426,7 +424,7 @@ h5{
 
 #main{
     width:100%;
-    padding:50px 0 20px;
+    padding:20px 0;
     position:relative;
     min-height:190px;
 
@@ -439,6 +437,10 @@ h5{
             visibility:hidden;
             background:
         }
+    }
+
+    @media (--for-desktop-up){
+       padding-top:50px; 
     }
 
     &::before{
@@ -594,7 +596,7 @@ h5{
     border-radius:20px;
     display: inline-block;
     vertical-align: top;
-    font: 12px/17px var(--font-custom);
+    font:bold 12px/17px var(--font-custom);
     height:30px;
     margin: 0 6px 0 0;
     max-width: 100%;
@@ -622,8 +624,8 @@ h5{
     }
 
     &._submit{
-        background:#261d43;
-        border-color:#261d43;
+        background:var(--color-submit);
+        border-color:var(--color-submit);
         color:var(--color-white);
 
         &:hover{

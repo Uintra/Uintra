@@ -9,41 +9,36 @@
     }
 
     &__list{
-        margin:0 0 -1px;
-        padding:0;
+        margin:0;
+        padding:0 0 2px;
         list-style:none;
 
         &-item{
-            padding:20px;
-            margin:0 -20px;
-            border-bottom:1px solid var(--color-light-gray);
-
-            &:last-child{
-                border:none;
-            }
+            padding:2px 0 13px;
         }
     }
 
     &__date{
         float:left;
-        border:1px solid var(--color-light-gray);
-        border-radius:3px;
+        background:#f6f6f6;
         text-align:center;
-        width:45px;
-        margin:0 15px 0 0;
-        padding:5px;
+        width:50px;
+        height:50px;
+        margin:0 20px 0 0;
+        padding:10px;
     }
 
     &__day{
         display:block;
-        font-size:20px;
-        line-height:1.2em;
+        font-size:18px;
+        line-height:1em;
         font-weight:bold;
     }
 
     &__month{
         display:block;
-        font-size:12px;
+        font-size:13px;
+        line-height:1.33em;
         text-transform:uppercase;
     }
 
@@ -55,9 +50,23 @@
 
     &__title{
         font-size:14px;
-        line-height:1.4em;
+        line-height:12px;
         font-weight:bold;
-        margin:0 0 3px;
+        margin:0 0 7px;
+
+        &-link{
+            color:#333;
+
+            &:hover,
+            &:active,
+            &:focus{
+                color:#333;
+            }
+        }
+    }
+
+    &__creator{
+        margin:0 0 2px;
     }
 
     &__time,

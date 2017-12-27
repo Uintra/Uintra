@@ -80,6 +80,7 @@ namespace uIntra.Events
             Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
                 .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
                 .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate.ToIsoUtcString()))
+                .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
                 .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
                 .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
                 .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
@@ -87,11 +88,12 @@ namespace uIntra.Events
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateTimeFormat().ToEnumerableOfOne()));
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>()
-                .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
+                .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id))
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 
             Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
                .ForMember(dst => dst.MediaIds, o => o.Ignore())
