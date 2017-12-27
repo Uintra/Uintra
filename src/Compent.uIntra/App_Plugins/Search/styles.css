@@ -32,7 +32,7 @@
         width:100%;
         margin:0;
         padding:8px 10px 10px;
-        font:13px/22px var(--font-general);
+        font:16px/22px var(--font-general);
         color: var(--text-color-dark);
         background-color: var(--color-white);
         border: 1px solid var(--color-light-gray);
@@ -109,12 +109,12 @@
         &-title{
             font:bold 16px/20px var(--font-general);
             margin:0 0 9px;
-            color:var(--text-color-dark);
+            color:#262626;
         }
 
         &-teaser{
             margin:0 0 17px;
-            color:var(--text-color-light);
+            color:var(--text-color-dark);
             line-height:1.4;
 
             b{
