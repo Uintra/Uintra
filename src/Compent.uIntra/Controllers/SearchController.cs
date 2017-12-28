@@ -122,9 +122,8 @@ namespace Compent.uIntra.Controllers
                 if (searchResult is SearchableUser user)
                 {
                     var email = new SearchInfoListItemModel {Name = "Email", Value = user.Email};
-                    var phone = new SearchInfoListItemModel {Name = "Phone", Value = user.Phone};
                     var photo = new SearchInfoListItemModel {Name = "Photo", Value = user.Photo};
-                    model.AdditionalInfo = new List<SearchInfoListItemModel> {email, photo, phone};
+                    model.AdditionalInfo = new List<SearchInfoListItemModel> {email, photo};
                 }
 
                 return model;

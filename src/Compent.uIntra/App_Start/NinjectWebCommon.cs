@@ -446,6 +446,7 @@ namespace Compent.uIntra
             kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<IntranetUserService<IntranetUser>>().InRequestScope();
             kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
@@ -462,6 +463,7 @@ namespace Compent.uIntra
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
             kernel.Bind<IElasticTagIndex>().To<ElasticTagIndex>().InRequestScope();
             kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
+            kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             
 
 

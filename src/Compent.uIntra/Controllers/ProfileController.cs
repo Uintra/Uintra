@@ -65,9 +65,9 @@ namespace Compent.uIntra.Controllers
         public ActionResult Edit(ExtendedProfileEditModel model)
         {
             var user = MapToUserDTO(model);
-            _intranetUserService.Save(user);
             var tagIds = model.TagIdsData.ParseStringCollection(Guid.Parse);
             _userTagService.ReplaceRelations(user.Id, tagIds);
+            _intranetUserService.Save(user);
             return RedirectToCurrentUmbracoPage();
         }
 

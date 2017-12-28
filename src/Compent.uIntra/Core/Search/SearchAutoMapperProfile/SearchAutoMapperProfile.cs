@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Compent.uIntra.Core.Search.Entities;
 using Compent.uIntra.Core.Search.Models;
+using Compent.uIntra.Core.Users;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Search;
@@ -17,12 +18,21 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Title, src => src.MapFrom(s => s.Text))
                 .ForMember(dst => dst.Type, src => src.MapFrom(s => UintraSearchableTypeEnum.Tag.ToInt()));
 
+            Mapper.CreateMap<IntranetUser, SearchableUser>()
+                .ForMember(dst => dst.FullName, o => o.MapFrom(src => src.DisplayedName))
+                .ForMember(dst => dst.Email, o => o.MapFrom(src => src.Email))
+                .ForMember(dst => dst.Photo, o => o.MapFrom(src => src.Photo))
+                .ForMember(dst => dst.Type, o => o.MapFrom(src => (int)UintraSearchableTypeEnum.User))
+                .ForMember(dst => dst.UserTagNames, o => o.Ignore())
+                .ForMember(dst => dst.TagsHighlighted, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Title, o => o.Ignore());
+
             Mapper.CreateMap<SearchableUintraActivity, UintraSearchResultViewModel>()
                 .IncludeBase<SearchableActivity, UintraSearchResultViewModel>()
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => s.TagsHighlighted))
                 .ForMember(dst => dst.UserTagNames, src => src.MapFrom(s => s.UserTagNames))
                 .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
-                .ForMember(dst => dst.Phone, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore())
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.PanelContent, src => src.Ignore());
@@ -45,7 +55,6 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => s.TagsHighlighted))
                 .ForMember(dst => dst.UserTagNames, src => src.MapFrom(s => s.UserTagNames))
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Phone, o => o.MapFrom(s => s.Phone))
                 .ForMember(dst => dst.Email, o => o.MapFrom(s => s.Email))
                 .ForMember(dst => dst.Photo, o => o.MapFrom(s => s.Photo));
 
@@ -53,7 +62,6 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .IncludeBase<SearchableActivity, SearchResultViewModel>()
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => false))
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Phone, o => o.Ignore())
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore());
@@ -63,14 +71,12 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.TagsHighlighted, o => o.MapFrom(s => false))
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.UserTagNames, o => o.Ignore())
-                .ForMember(dst => dst.Phone, o => o.Ignore())
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore());
 
             Mapper.CreateMap<SearchableUintraContent, UintraSearchResultViewModel>()
                 .IncludeBase<SearchableContent, SearchResultViewModel>()
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Phone, o => o.Ignore())
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore());
 
@@ -107,7 +113,6 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.PublishedDate, src => src.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => false))
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
-                .ForMember(dst => dst.Phone, o => o.Ignore())
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())

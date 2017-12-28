@@ -70,11 +70,6 @@ namespace Compent.uIntra.Core.Search.Indexes
                     .Query(query)
                     .Analyzer(ElasticHelpers.Lowercase)
                     .Field(f => f.Email)
-                    .Boost(scores.UserEmailScore)),
-                new QueryContainerDescriptor<SearchableUser>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.Phone)
                     .Boost(scores.UserEmailScore))
             };
 
