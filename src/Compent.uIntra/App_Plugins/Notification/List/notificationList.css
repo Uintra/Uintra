@@ -13,6 +13,7 @@
         color:#262626;
     }
 }
+
 .notification{
     position:relative;
 
@@ -126,50 +127,52 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        & {
-	        position:absolute;
-	        width: 57px;
-            right:-5px;
+        position:absolute;
+        width: 57px;
+        right:-5px;        
 
-	        &__icon {
-		        position:relative;
-		        z-index:3;
-		        flex: 1 1 auto;
-		        display: flex;
-		        justify-content: center;
-		        align-items: center;
-		        height: 100%;
-		        padding: 0;
+        &__icon {
+            position:relative;
+            z-index:3;
+            flex: 1 1 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            transition:opacity 0.4s ease;
+            opacity:1;
 
-		        span {
-			        margin: 0 0 0 5px;
-		        }
-	        }
-
-            &__number {
-                top: -10px;
-                margin: -15px 0 0 5px;
-                left: 50%;
+            ._menu-expanded &{
+                opacity:0;
             }
 
-            &__list{
-                width:auto;
-                right:0;
+            span {
+                margin: 0 0 0 5px;
             }
+        }
 
-            &__all{
-                border-width:1px 0;
-            }
+        &__number {
+            top: -10px;
+            margin: -15px 0 0 5px;
+            left: 50%;
+        }
+
+        &__list{
+            width:auto;
+            right:0;
+        }
+
+        &__all{
+            border-width:1px 0;
         }
     }
 
     @media (--for-tablet-landscape-up) {
-        & {
-            float: left;
-            width: auto;
-            text-align: left;
-            padding:0;
-        }
+        float: left;
+        width: auto;
+        text-align: left;
+        padding:0;
     }
 
     /* Notification page styles */

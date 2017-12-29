@@ -849,6 +849,7 @@
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.html" />
+    <Content Include="App_Plugins\Navigation\images\arrow.svg" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />

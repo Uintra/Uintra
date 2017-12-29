@@ -263,7 +263,6 @@ h5{
     left:0;
     min-height:100%;
     background:#f6f6f6;
-    transition:left ease-in 250ms;
 
     ._with-sub-nav._with-subtitle &{
         padding-top:172px;
@@ -277,11 +276,7 @@ h5{
         }
 
         ._with-sub-nav._with-subtitle &{
-            padding:181px 0 0 !important;
-        }
-
-        ._menu-expanded &{
-            left:calc(100% - 60px);
+            padding:181px 0 0;
         }
     }
 }
@@ -289,48 +284,49 @@ h5{
 #sidebar {
     position:fixed;
     top:70px;
-    left:calc(50% - 755px);
+    left:20px;
     width:283px;
     height:calc(100vh - 70px);
     z-index:11;
     border-right:1px solid #f6f6f6;
 
-    &:after{
-        position:absolute;
-        top:0;
-        left:-9999px;
-        right:0;
-        bottom:0;
-        background:var(--color-white);
-        content:'';
-
-        @media screen and (max-width: 1552px){
-            left:-20px;
-        }
-    }
-
-    @media screen and (max-width: 1552px){
-        left:20px;
-    }
-
     @media (--for-tablet-portrait-down) {
         position: fixed;
         top: 0;
-        left:calc(-100% + 60px);
+        left: 0;
         width:calc(100% - 60px);
+        transform:translate(-101%, 0);
         bottom: 0;
         background: var(--header-bg);
-        padding: 60px 0 0;
+        padding:0;
         height: auto;
-        transition: all linear 250ms;
+        transition: transform linear 250ms;
         z-index:9999;
-        overflow:hidden;
-        overflow-y:auto;
-        border:none;
+        border:0;
 
         ._menu-expanded & {
-            left:0;
+            transform:translate(0, 0);
         }
+    }
+
+    @media (--for-tablet-landscape-up){
+        &::after{
+            position:absolute;
+            top:0;
+            left:-9999px;
+            right:0;
+            bottom:0;
+            background:var(--color-white);
+            content:'';
+        }
+
+        .search{
+            display:none;
+        }
+    }
+
+    @media (min-width: 1552px){
+        left:calc(50% - 755px);        
     }
 
     &::before{
@@ -349,12 +345,6 @@ h5{
         ._loading &{
             opacity:1;
             visibility:visible;
-        }
-    }
-
-    .search{
-        @media (--for-tablet-landscape-up) {
-            display:none;
         }
     }
 }
@@ -590,7 +580,7 @@ h5{
     }
 }
 
-.btn {
+.btn{
     background: var(--color-white);
     color: #555;
     border:1px solid #8f8f8f;
@@ -634,6 +624,10 @@ h5{
             color:var(--color-white);
             border-color:#5c5672;
         }
+    }
+
+    &-holder{
+        padding:8px 17px;
     }
 }
 
