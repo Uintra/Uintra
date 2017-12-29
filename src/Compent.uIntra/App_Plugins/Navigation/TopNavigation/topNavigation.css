@@ -216,11 +216,18 @@
         border-top:1px solid var(--color-light-gray-3);
         padding:9px 15px 8px 20px;
         font-size:14px;
+        min-height:45px;
+        color:var(--text-color-dark);
 
         &.autocomplete-selected,
         &:hover{
-            background-color:var(--color-light-gray-3);
+            background-color:var(--color-light-gray-4);
             cursor:pointer;
+            color:#fff;
+
+            .type{
+                color:#dfdfdf;
+            }
         }
 
         &__link{
@@ -237,6 +244,7 @@
 		    padding: 0;
 		    list-style: none;
 	    }
+
 	    &__frame {
 		    display: inline-block;
 		    margin: 0 5px;
