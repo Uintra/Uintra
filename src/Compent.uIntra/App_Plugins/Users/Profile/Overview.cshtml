@@ -3,15 +3,11 @@
 <div class="form _profile">
     <div class="form__row">
         <div class="form__header">
-            <div class="avatar">
-                <img class="avatar__img" style="width: 100px;" src="@Model.Photo" />
-                @Html.Action("Photo", "User", new
-                {
-                    user = Model.Photo,
-
-                    additionalCssModificator = "form__avatar-img"
-                })
-            </div>
+            @Html.Action("Photo", "User", new
+            {
+                user = Model.Photo,
+                сssModificator = "form__avatar-img"
+            })
             <div class="form__meta">
                 <strong class="form__name">@Model.FirstName @Model.LastName</strong>
                 <span class="form__email">@Model.Email</span>

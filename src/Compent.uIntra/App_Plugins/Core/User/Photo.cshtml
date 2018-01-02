@@ -19,7 +19,7 @@ else
         if (string.IsNullOrEmpty(avatar.PhotoUrl))
         {
             <div class="avatar__letter">
-                @avatar.AltText.Substring(0, 1)
+                @avatar.AltText.First()
             </div>
         }
         else
