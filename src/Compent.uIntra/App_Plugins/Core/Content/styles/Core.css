@@ -1,6 +1,10 @@
 @import "libs.css";
 @import "forms.css";
 
+*{
+    box-sizing: border-box;
+}
+
 @font-face {
   font-family: 'icomoon';
   src: url('./icomoon.woff?nbo8qg') format('woff');
@@ -479,9 +483,7 @@ h5{
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
     @media (--for-tablet-portrait-down){
-        &{
-            margin:0 -20px;
-        }
+        margin:0 -20px;
     }
 
     .btn{
@@ -598,14 +600,20 @@ h5{
     position: relative;
     text-transform:uppercase;
 
-    &.pull-right{
-        margin-left:20px;
-    }
-
     &:hover{
         background-color:#dedede;
         color: var(--text-color-dark);
         text-decoration:none;
+    }
+
+    &:focus,
+    &:active{
+        box-shadow:0 0 4px #8f8f8f;
+        outline:0;
+    }
+
+    &.pull-right{
+        margin-left:20px;
     }
 
     &._disabled{
@@ -623,6 +631,11 @@ h5{
             background-color:#5c5672;
             color:var(--color-white);
             border-color:#5c5672;
+        }
+
+        &:focus,
+        &:active{
+            box-shadow:0 0 4px #5c5672;
         }
     }
 
@@ -703,15 +716,11 @@ h5{
     position: relative;
     overflow: hidden;
     border-radius:50%;
-
-    &__img{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        height: auto !important;
-        transform: translate(-50%, -50%);
-        max-width:100%;
-    }
+    
+    ._profile &{
+        width: 100px;
+        height: 100px;
+    }    
 
     .comments__list &,
     .comments &{
@@ -738,6 +747,15 @@ h5{
 
     ._details &{
         margin-bottom:0;
+    }
+
+    &__img{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: auto;
+        transform: translate(-50%, -50%);
+        max-width:100%;
     }
 }
 

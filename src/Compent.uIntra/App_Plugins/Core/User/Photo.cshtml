@@ -1,11 +1,7 @@
 ﻿@using uIntra.Core.User
 @model UserPhotoViewModel
-@{
-    var userAvatarSrc = UserPhotoHelper.GetUserPhotoOrDefaultAvatar(Model.Photo);
-}
 
-<div class="avatar">
-    <a href="@Model.ProfilePageUrl">
-        <img style="width: 60px; height: 60px;" class="avatar__img" src="@userAvatarSrc?width=60" />
-    </a>
-</div>
+
+<a class="avatar" href="@Model.ProfilePageUrl">
+    <img class="avatar__img" src="@Model.Photo?width=60" />
+</a>

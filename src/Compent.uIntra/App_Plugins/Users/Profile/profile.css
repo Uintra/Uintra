@@ -4,13 +4,6 @@
 		align-items: center;
 	}
 
-	&__avatar{
-		._profile &{
-			width: 100px;
-			height: 100px;
-		}
-	}
-
 	&__meta{
 		overflow: hidden;
 		flex-grow: 2;

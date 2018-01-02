@@ -79,31 +79,6 @@
             box-shadow:0 0 2px rgba(0,0,0,0.5);
         }
     }
-
-    &__avatar{
-        position: relative;
-        overflow:hidden;
-        border: 1px solid #ccc;
-        display:inline-block;
-        height: 60px;
-        width: 60px;
-        vertical-align:middle;
-        position: relative;
-
-        &-img{
-            height: auto;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            max-width:100%;
-        }
-
-        &-holder{
-            margin: 0 20px 0 0;
-            position:relative;
-        }
-    }
 }
 
 .check{
