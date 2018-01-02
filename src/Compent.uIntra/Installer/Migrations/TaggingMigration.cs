@@ -3,11 +3,11 @@ using System.Web;
 using Compent.uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
-using uIntra.Users.Installers;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static Compent.uIntra.Installer.Migrations.TaggingInstallationConstants;
 
 namespace Compent.uIntra.Installer.Migrations
 {
@@ -33,18 +33,19 @@ namespace Compent.uIntra.Installer.Migrations
         private void CreateUserTagDocumentType()
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
-            var userTagDocumentType = contentTypeService.GetContentType("userTag");
+            var userTagDocumentType = contentTypeService.GetContentType(DocumentTypeAliases.UserTag);
             if (userTagDocumentType != null) return;
 
             var dataContentFolder = contentTypeService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 1).First();
 
             userTagDocumentType = new ContentType(dataContentFolder.Id)
             {
-                Name = "User Tag",
-                Alias = "userTag"
+                Name = DocumentTypeNames.UserTag,
+                Alias = DocumentTypeAliases.UserTag,
+                Icon = DocumentTypeIcons.UserTag
             };
 
-            userTagDocumentType.AddPropertyGroup("Content");
+            userTagDocumentType.AddPropertyGroup(DocumentTypeTabNames.Content);
 
             var textProperty = new PropertyType("Umbraco.Textbox", DataTypeDatabaseType.Nvarchar)
             {
@@ -53,7 +54,7 @@ namespace Compent.uIntra.Installer.Migrations
                 Mandatory = true
             };
 
-            userTagDocumentType.AddPropertyType(textProperty, "Content");
+            userTagDocumentType.AddPropertyType(textProperty, DocumentTypeTabNames.Content);
 
             contentTypeService.Save(userTagDocumentType);
         }
@@ -62,32 +63,32 @@ namespace Compent.uIntra.Installer.Migrations
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
 
-            var dataFolderDocType = contentTypeService.GetContentType("userTagFolder");
+            var dataFolderDocType = contentTypeService.GetContentType(DocumentTypeAliases.UserTagFolder);
             if (dataFolderDocType != null) return;
 
             var folder = contentTypeService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
             dataFolderDocType = new ContentType(folder.Id)
             {
-                Name = "User Tags Folder",
-                Alias = "userTagFolder"
+                Name = DocumentTypeNames.UserTagFolder,
+                Alias = DocumentTypeAliases.UserTagFolder
             };
 
             contentTypeService.Save(dataFolderDocType);
 
-            InstallationStepsHelper.AddAllowedChildNode("userTagFolder", "userTag");
-            InstallationStepsHelper.AddAllowedChildNode("dataFolder", "userTagFolder");
+            InstallationStepsHelper.AddAllowedChildNode(DocumentTypeAliases.UserTagFolder, DocumentTypeAliases.UserTag);
+            InstallationStepsHelper.AddAllowedChildNode("dataFolder", DocumentTypeAliases.UserTagFolder);
         }
 
 
         private void CreateUserTagsFolder()
         {
             var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.DataFolder));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals("userTagFolder")))
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliases.UserTagFolder)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("User Tags Folder", dataFolder.Id, "userTagFolder");
+            var content = _contentService.CreateContentWithIdentity(DocumentTypeNames.UserTagFolder, dataFolder.Id, DocumentTypeAliases.UserTagFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
