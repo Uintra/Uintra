@@ -1407,6 +1407,8 @@
     <Compile Include="Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs" />
     <Compile Include="Installer\Migrations\PagePromotionInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\PagePromotionMigration.cs" />
+    <Compile Include="Installer\Migrations\TaggingInstallationConstants.cs" />
+    <Compile Include="Installer\Migrations\TaggingMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>

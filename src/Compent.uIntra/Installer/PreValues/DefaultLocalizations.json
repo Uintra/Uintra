@@ -1053,6 +1053,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Search.Tag",
+    "translations": {
+      "en-US": "Tag"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Search.User",
     "translations": {
       "en-US": "User"

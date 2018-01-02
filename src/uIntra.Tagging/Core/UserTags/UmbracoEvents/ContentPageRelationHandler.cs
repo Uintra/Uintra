@@ -54,9 +54,7 @@ namespace uIntra.Tagging.UserTags
                         }
                     }
 
-                    var entityId = Guid.Parse((string) data.value.entityId);
-
-                    yield return (content, tags, entityId);
+                    yield return (content, tags, content.Key);
                 }
             }
         }

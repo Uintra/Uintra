@@ -103,6 +103,8 @@ namespace Compent.uIntra.Installer
             }
 
             AddDefaultMailSettings();
+
+            new TaggingMigration().Execute();
         }
 
         private static void SetCurrentCulture()

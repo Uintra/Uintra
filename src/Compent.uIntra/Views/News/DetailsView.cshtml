@@ -20,7 +20,7 @@
                 @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             </div>
         </div>            
-        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id });
+        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
         <div class="feed__item-images">
             @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
         </div>
