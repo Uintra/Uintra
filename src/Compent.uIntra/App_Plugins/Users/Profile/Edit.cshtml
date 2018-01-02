@@ -24,8 +24,8 @@
                 </div>
                 @if (!string.IsNullOrEmpty(Model.Photo))
                 {
-                    <div class="avatar">
-                        <img class="avatar__img" style="width: 100px;" src="@Model.Photo" />
+                    <div class="avatar avatar--square">
+                        <img class="avatar__img" src="@Model.Photo?width=100" />
 
                         <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
                     </div>

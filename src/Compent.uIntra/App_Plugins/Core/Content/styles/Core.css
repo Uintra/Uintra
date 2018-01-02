@@ -752,6 +752,11 @@ h5{
         margin-bottom:0;
     }
 
+    &--square{
+        border-radius:0;
+        overflow:visible;
+    }
+
     &__img{
         position: absolute;
         top: 50%;
@@ -759,6 +764,22 @@ h5{
         height: auto;
         transform: translate(-50%, -50%);
         max-width:100%;
+    }
+
+    &__letter{
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background:#f6f6f6;
+        font-size:20px;
+        text-transform:uppercase;
+        color:var(--header-bg);
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        padding:0 0 0 4px;
     }
 }
 

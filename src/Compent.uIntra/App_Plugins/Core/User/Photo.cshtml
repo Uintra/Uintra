@@ -1,8 +1,29 @@
 ﻿@using uIntra.Core.User
 @model UserPhotoViewModel
 
-<div class=" @($"avatar {Model.AdditionalCssModificator}")">
-    <a href="@Model.ProfileUrl">
-        <img style="width: 60px; height: 60px;" class="avatar__img" src="@Model.ProfileUrl"/>
+@if (string.IsNullOrEmpty(Model.ProfileUrl))
+{
+    <div class="avatar @Model.CssModificator">
+        @getImage(Model)
+    </div>
+}
+else
+{
+    <a class="avatar @Model.CssModificator" href="@Model.ProfileUrl">
+        @getImage(Model)
     </a>
-<div>
+}
+
+@helper getImage(UserPhotoViewModel avatar)
+    {
+        if (string.IsNullOrEmpty(avatar.PhotoUrl))
+        {
+            <div class="avatar__letter">
+                @avatar.AltText.Substring(0, 1)
+            </div>
+        }
+        else
+        {
+            <img class="avatar__img" src="@avatar.PhotoUrl?width=60" alt="@avatar.AltText" />
+        }
+}
