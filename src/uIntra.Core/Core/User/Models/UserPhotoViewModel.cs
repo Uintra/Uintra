@@ -6,5 +6,6 @@
         public string AltText { get; set; }
         public string ProfileUrl { get; set; }
         public string CssModificator { get; set; }
+        public string PhotoWidth { get; set; }
     }
 }
