@@ -1,11 +1,11 @@
-﻿using System;
-
+﻿
 namespace uIntra.Core.User
 {
     public class UserPhotoViewModel
     {
-        public Guid Id { get; set; }
-        public string Photo { get; set; }
-        public string ProfilePageUrl { get; set; }
+        public string PhotoUrl { get; set; }
+        public string AltText { get; set; }
+        public string ProfileUrl { get; set; }
+        public string AdditionalCssModificator { get; set; }
     }
 }

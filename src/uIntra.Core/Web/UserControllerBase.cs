@@ -8,13 +8,14 @@ namespace uIntra.Core.Web
     {
         protected virtual string UserPhotoViewPath { get; } = "~/App_Plugins/Core/User/Photo.cshtml";
 
-        public virtual ActionResult Photo(IIntranetUser user, string profilePageUrl)
+        public virtual ActionResult Photo(IIntranetUser user, string profilePageUrl = null, string additionalCssModificator = null)
         {
             var result = new UserPhotoViewModel
             {
-                Id = user.Id,
-                Photo = user.Photo,
-                ProfilePageUrl = profilePageUrl
+                PhotoUrl = user.Photo,
+                AltText = user.DisplayedName,
+                ProfileUrl = profilePageUrl ?? string.Empty,
+                AdditionalCssModificator = additionalCssModificator ?? string.Empty
             };
 
             return PartialView(UserPhotoViewPath, result);

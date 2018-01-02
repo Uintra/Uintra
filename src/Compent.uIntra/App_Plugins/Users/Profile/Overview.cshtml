@@ -1,11 +1,16 @@
-﻿@using uIntra.Core.User
-@model uIntra.Users.ProfileViewModel
+﻿@model uIntra.Users.ProfileViewModel
 
 <div class="form _profile">
     <div class="form__row">
         <div class="form__header">
             <div class="form__avatar">
                 <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
+                @Html.Action("Photo", "User", new
+                {
+                    user = Model.Photo,
+
+                    additionalCssModificator = "form__avatar-img"
+                })
             </div>
             <div class="form__meta">
                 <strong class="form__name">@Model.FirstName @Model.LastName</strong>
