@@ -1,6 +1,16 @@
 @import "libs.css";
 @import "forms.css";
 
+@define-mixin btn-focus-color $color {
+    &:focus,
+    &:active,
+    &:focus:active
+    {
+        box-shadow:0 0 4px $color;
+        outline:0;
+    }
+}
+
 *{
     box-sizing: border-box;
 }
@@ -604,13 +614,9 @@ h5{
         background-color:#dedede;
         color: var(--text-color-dark);
         text-decoration:none;
-    }
+    }    
 
-    &:focus,
-    &:active{
-        box-shadow:0 0 4px #8f8f8f;
-        outline:0;
-    }
+    @mixin btn-focus-color #8f8f8f;
 
     &.pull-right{
         margin-left:20px;
@@ -633,10 +639,7 @@ h5{
             border-color:#5c5672;
         }
 
-        &:focus,
-        &:active{
-            box-shadow:0 0 4px #5c5672;
-        }
+        @mixin btn-focus-color #5c5672;
     }
 
     &-holder{
