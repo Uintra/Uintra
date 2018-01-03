@@ -15,7 +15,8 @@ namespace uIntra.Core.Web
                 PhotoUrl = user.Photo,
                 AltText = user.DisplayedName,
                 ProfileUrl = profilePageUrl ?? string.Empty,
-                CssModificator = cssModificator ?? string.Empty
+                CssModificator = cssModificator ?? string.Empty,
+                PhotoWidth = photoWidth
             };
 
             return PartialView(UserPhotoViewPath, result);
