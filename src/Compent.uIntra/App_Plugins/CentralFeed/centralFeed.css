@@ -64,7 +64,12 @@
     }
 
     &__header{
-        padding:0 0 5px;
+        padding:0 0 15px;
+
+        .btn{
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
     }
 
     &__item{
@@ -124,6 +129,7 @@
         &-title{
             font:20px/22px var(--font-general);
             margin:-5px 0 7px;
+            color:#262626;
 
             &-link{
                 color:#262626;

@@ -651,20 +651,19 @@ h5{
         display:inline-block;
         color:var(--text-color-dark);
         position:relative;
-        padding:0 0 0 15px;
+        padding:0 0 0 20px;
         margin:0;
         font:13px/20px var(--font-custom);
         text-transform:uppercase;
-
+        
         &:before{
             position:absolute;
-            top:7px;
+            width:15px;
+            height:11px;
+            background:url(../images/arrow-left.svg) no-repeat 0 0 / 100% auto;
+            top:50%;
             left:0;
-            width:7px;
-            height:7px;
-            border:solid #333;
-            border-width:0 1px 1px 0;
-            transform:rotate(135deg);
+            margin-top:-5px;
             content:'';
         }
         &:hover,

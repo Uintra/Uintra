@@ -35,9 +35,9 @@
         .ql-container .ql-editor {
             &.ql-blank{
                 &:before{
-                    left:auto;
+                    left:20px;
                     top:auto;
-                    right:auto;
+                    right:20px;
                     color:#aaa;
                 }
             }
