@@ -1,13 +1,13 @@
 ﻿require("./subNavigation.css");
 
 const mobileMediaQuery = window.matchMedia("(max-width: 899px)");
+const $body = $('body');
+const $wrapper = $('#wrapper');
+const $header = $('#header');
 const $tabset = $('.tabset');
 const $subMenu = $('.tabset__navigation');
 const $title = $('.tabset__title');
 //const $menuHolder = subMenu.closest('.tabset');
-const $body = $('body');
-const $wrapper = $('#wrapper');
-const $header = $('#header');
 
 if ($subMenu.length > 0) {
     $body.addClass('_with-sub-nav');
@@ -24,16 +24,20 @@ const initSubMenuPosition = function () {
 
     let height = $header.outerHeight() + $tabset.outerHeight();
 
-    if($subMenu.length > 1){
-        $wrapper.css({
-            'padding-top': height + 46 + 'px'
-        });
-    }
-    else{
-        $wrapper.css({
-            'padding-top': height + 'px'
-        });
-    }
+    $wrapper.css({
+        'padding-top': height + 'px'
+    });
+
+    // if($subMenu.length > 1){
+    //     $wrapper.css({
+    //         'padding-top': height + 46 + 'px'
+    //     });
+    // }
+    // else{
+    //     $wrapper.css({
+    //         'padding-top': height + 'px'
+    //     });
+    // }
 }
     
 // const initMobileMenu = function() {

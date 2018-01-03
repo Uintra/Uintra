@@ -81,6 +81,7 @@
         top: -95px;
         right: -5px;
         z-index: 11;
+        display:none;
     }
 
     &__list{

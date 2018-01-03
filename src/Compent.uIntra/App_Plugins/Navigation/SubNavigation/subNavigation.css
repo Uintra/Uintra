@@ -78,12 +78,11 @@
         }
 
         &-link{
-            color:var(--text-color-dark);
-
+            &,
             &:hover,
             &:active,
             &:focus{
-                color:var(--text-color-dark);
+                color:var(--color-submit);
             }
         }
     }
@@ -100,7 +99,7 @@
 
     &__navigation{
         margin:0 0 16px 0;
-        padding:21px 0 0;
+        padding:11px 0 0;
         list-style:none;
         position:relative;
         font-size:20px;
@@ -442,7 +441,7 @@
 }
 
 .breadcrumbs{
-    margin:0 0 -10px;
+    margin:0;
     padding:0;
     list-style:none;
     position:relative;
