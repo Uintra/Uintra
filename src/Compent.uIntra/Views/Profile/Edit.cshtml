@@ -43,7 +43,9 @@
                 </div>
             </div>
         </div>
-        @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
+        <div class="form__row clearfix">
+            @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
+        </div>
         <div class="form__row clearfix">
             <div class="check">
                 <label class="check__label">

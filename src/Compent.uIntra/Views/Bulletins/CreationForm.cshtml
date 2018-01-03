@@ -30,7 +30,9 @@
                 </div>
             </header>
         </div>
-        @Html.Action("TagPicker", "UserTags", new { })
+        <div class="create-bulletin__tags">
+            @Html.Action("TagPicker", "UserTags", new { })
+        </div>
         <div class="dropzone">
             <div class="dropzone-previews js-dropzone-previews hidden"></div>
         </div>

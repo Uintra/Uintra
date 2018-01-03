@@ -26,7 +26,9 @@
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
                    data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")" data-val="true" />
         </div>
-        @Html.Action("TagPicker", "UserTags", new { })
+        <div class="form__row clearfix">
+            @Html.Action("TagPicker", "UserTags", new { })
+        </div>
         <div class="form__row clearfix">
             <div class="row">
                 <div class="col-md-6">

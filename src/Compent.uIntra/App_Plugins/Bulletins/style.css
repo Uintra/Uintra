@@ -68,7 +68,13 @@
             }
         }
     }
-
+    &__tags{
+        display:none;
+        padding: 0 22px 25px;
+        ._expanded &{
+            display:block;
+        }
+    }
 	&__description {
 		border: none !important;
 	}

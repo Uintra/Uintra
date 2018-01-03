@@ -21,7 +21,8 @@ let controller = {
             let tagPickerControl = $(container).select2({
                 data: availableForPickingTags,
                 placeholder: placeholder,
-                allowClear: true
+                allowClear: true,
+                width: '100%'
             });
             return tagPickerControl;
         }
