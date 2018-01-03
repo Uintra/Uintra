@@ -1,17 +1,18 @@
 ﻿@using uIntra.Core.Extensions
 @model uIntra.Groups.GroupsOverviewModel
-<section class="groups">
-    <a class="btn _groups-create _submit" href="@Model.CreatePageUrl">@Html.Localize("Groups.Create.lbl")</a>
+<section class="groups">    
+    @{Html.RenderAction("SubNavigation", "Navigation");}
+    <a class="form__btn _groups-create _submit" href="@Model.CreatePageUrl">@Html.Localize("Groups.Create.lbl")</a>
     <div class="js-groups-overview">
-        @using (Html.BeginUmbracoForm("Index", "Group", null, new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-groups-listContainer" } }))
+        @using (Html.BeginUmbracoForm("Index", "Group", null, new Dictionary<string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-groups-listContainer"}}))
         {
             <div class="content__loader js-loading-status" style="display: none;">Loading...</div>
 
-            <input type="hidden" name="page" />
-            <input type="hidden" name="isMyGroupsPage" value="@Model.IsMyGroupsPage.ToString().ToLower()" />
+            <input type="hidden" name="page"/>
+            <input type="hidden" name="isMyGroupsPage" value="@Model.IsMyGroupsPage.ToString().ToLower()"/>
             <div class="tab-content js-groups-listContainer">
-                @{ Html.RenderAction("Index", "Group", new { isMyGroupsPage = Model.IsMyGroupsPage });}
+                @{ Html.RenderAction("Index", "Group", new {isMyGroupsPage = Model.IsMyGroupsPage});}
             </div>
-                    }
+        }
     </div>
 </section>
