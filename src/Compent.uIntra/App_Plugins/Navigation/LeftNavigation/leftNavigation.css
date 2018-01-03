@@ -251,56 +251,48 @@
                 font-size:18px;
             }
         }
-
-        @media(--for-tablet-portrait-down){
-            &{
-                
-            }
-        }
     }
 
     @media (--for-tablet-portrait-down) {
-        &{
-            font-size: 16px;
-            padding:31px 11px 20px 0;
-            background:var(--color-white);
+        font-size: 16px;
+        padding:31px 11px 20px 0;
+        background:var(--color-white);
 
-            &._for-mobile{
-                border-top:none;
-                border-bottom:2px solid #f6f6f6;
-                margin:0 0 40px;
-                padding:14px 0 22px 24px;
+        &._for-mobile{
+            border-top:none;
+            border-bottom:2px solid #f6f6f6;
+            margin:0 0 40px;
+            padding:14px 0 22px 24px;
 
-                .icon-logout{
-                    display:none !important;
-                }
+            .icon-logout{
+                display:none !important;
             }
+        }
 
-            &__overlay{
-                position:fixed;
-                top:0;
-                left:0;
-                right:0;
-                bottom:0;
-                opacity:0;
-                visibility:hidden;
-                z-index:100;
-                transition:all linear 250ms;
-                
-                ._menu-expanded &{
-                    opacity:1;
-                    visibility:visible;
-                }
+        &__overlay{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            opacity:0;
+            visibility:hidden;
+            z-index:100;
+            transition:all linear 250ms;
+            
+            ._menu-expanded &{
+                opacity:1;
+                visibility:visible;
             }
+        }
 
-            &__link {
-                padding: 11px 45px 9px 19px;
-                margin: 0 0 -7px;
+        &__link {
+            padding: 11px 45px 9px 19px;
+            margin: 0 0 -7px;
 
-                ._active &{
-                    border-left-width:5px;
-                    padding-left:13px;
-                }
+            ._active &{
+                border-left-width:5px;
+                padding-left:13px;
             }
         }
 

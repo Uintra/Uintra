@@ -84,7 +84,7 @@
     }
 
     &__list{
-        margin:0 0 0 -40px;
+        margin:0 -17px;
         padding:0;
         list-style:none;
         display:flex;
@@ -99,16 +99,14 @@
 
         &-item{
             width: 50%;
-            padding: 0 0 0 20px;
-            margin: 0 0 30px;
+            padding: 0 17px;
+            margin: 0 0 34px;
             position: relative;
 
             @media (--for-desktop-down) {
-                & {
-                    width: 100%;
-                    padding: 0;
-                    margin: 0 0 20px;
-                }
+                width: 100%;
+                padding: 0;
+                margin: 0 0 20px;
             }
         }
 
@@ -122,9 +120,7 @@
             overflow:hidden;
 
             @media(--for-desktop-down){
-                &{
-                    height:auto;
-                }
+                height:auto;
             }
 
             &:active,
@@ -145,12 +141,10 @@
             position:relative;
             overflow:hidden;
 
-            @media(--for-desktop-down){
-                &{
-                    width:80px;
-                    height:80px;
-                    margin:10px 20px 10px 10px;
-                }
+            @media (--for-desktop-down){
+                width:80px;
+                height:80px;
+                margin:10px 20px 10px 10px;
             }
 
             .img-responsive{
@@ -170,12 +164,10 @@
             white-space:nowrap;
             text-overflow:ellipsis;
 
-            @media(--for-tablet-portrait-down){
-                &{
-                    margin-bottom:5px;
-                    font-size:16px;
-                    line-height:20px;
-                }
+            @media (--for-tablet-portrait-down){
+                margin-bottom:5px;
+                font-size:16px;
+                line-height:20px;
             }
         }
 
@@ -185,9 +177,7 @@
             flex-grow:1;
 
             @media(--for-desktop-down){
-                &{
-                    padding:0 15px 10px 0; 
-                }
+                padding:0 15px 10px 0; 
             }
         }
 
@@ -199,10 +189,8 @@
             overflow:hidden;
 
             @media (--for-tablet-portrait-down) {
-                & {
-                    font-size:12px;
-                    margin:0 0 5px;
-                }
+                font-size:12px;
+                margin:0 0 5px;
             }
             
             p{
@@ -230,17 +218,15 @@
 
     &__member{
         position:absolute;
-        top:15px;
-        right:20px;
-        width:14px;
+        top:14px;
+        right:34px;
+        width:18px;
         opacity:0.5;
         cursor:pointer;
 
-        @media(--for-tablet-portrait-down){
-            &{
-                top:8px;
-                right:10px;
-            }
+        @media (--for-tablet-portrait-down){
+            top:8px;
+            right:10px;
         }
 
         &-tooltip{
@@ -350,10 +336,8 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        & {
-            margin:0 -20px;
-            max-width:calc(100% + 40px);
-        }
+        margin:0 -20px;
+        max-width:calc(100% + 40px);
     }
 }
 
@@ -361,9 +345,7 @@
     width:100%;
 
     @media (--for-tablet-portrait-down) {
-        & {
-            font-size:13px;
-        }
+        font-size:13px;
     }
 
     &__row{
@@ -375,16 +357,14 @@
         padding:18px 15px;
 
         @media (--for-tablet-portrait-down) {
-            & {
-                padding:10px 5px;
+            padding:10px 5px;
 
-                &:first-child{
-                    padding-left:20px;
-                }
+            &:first-child{
+                padding-left:20px;
+            }
 
-                &:last-child{
-                    padding-right:20px;
-                }
+            &:last-child{
+                padding-right:20px;
             }
         }
 
@@ -468,10 +448,8 @@
         padding:18px 15px;
 
         @media (--for-tablet-portrait-down) {
-            & {
-                padding:18px 20px;
-                white-space:nowrap;
-            }
+            padding:18px 20px;
+            white-space:nowrap;
         }
 
         &._delete{

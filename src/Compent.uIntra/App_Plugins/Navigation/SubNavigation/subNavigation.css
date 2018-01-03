@@ -51,7 +51,7 @@
         }
     }
 
-    &__logo{
+    /*&__logo{
         max-width:118px;
         margin:0;
         order:2;
@@ -63,12 +63,13 @@
         @media (--for-tablet-portrait-down) {
             display: none;
         }
-    }
+    }*/
 
     &__title{
         overflow:hidden;
         margin:0;
-        font:bold 22px/30px var(--font-custom);
+        font:20px/30px var(--font-custom);
+        color:var(--color-submit);
 
         @media (--for-phone-only){
             ._with-sub-nav &{
