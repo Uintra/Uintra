@@ -1,66 +1,102 @@
-﻿@define-mixin icon $name {
-    &._$(name){
-        background-image: url(./images/file-type-icons/$(name).svg);
-    }
-}
-
-.file-extension{
+﻿.file-extension{
     width: 40px;
-    height: 19px;
+    height: 20px;
+    background:#545454;
+    border-radius:3px;
     display: block;
-    background-size: 100%;
-    background-image: url(./images/file-type-icons/doc.svg);
+    font-size:12px;
+    text-align:center;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+    color:#fff;
+
+    &::before{
+        content:'doc';
+    }
 
     &._jpg,
     &._jpeg{
-        background-image: url(./images/file-type-icons/jpg.svg);
+        &::before{
+            content:'jpg';
+        }
     }
     &._mp4{
-        background-image: url(./images/file-type-icons/mp4.svg);
+        &::before{
+            content:'mp4';
+        }
     }
     &._avi{
-        background-image: url(./images/file-type-icons/avi.svg);
+        &::before{
+            content:'avi';
+        }
     }
     &._asf{
-        background-image: url(./images/file-type-icons/asf.svg);
+        &::before{
+            content:'asf';
+        }
     }
     &._mov{
-        background-image: url(./images/file-type-icons/mov.svg);
+        &::before{
+            content:'mov';
+        }
     }
     &._swf{
-        background-image: url(./images/file-type-icons/swf.svg);
+        &::before{
+            content:'swf';
+        }
     }
     &._mpg{
-        background-image: url(./images/file-type-icons/mpg.svg);
+        &::before{
+            content:'mpg';
+        }
     }
     &._wmv{
-        background-image: url(./images/file-type-icons/wmv.svg);
+        &::before{
+            content:'wmv';
+        }
     }
     &._pdf{
-        background-image: url(./images/file-type-icons/pdf.svg);
+        &::before{
+            content:'pdf';
+        }
     }
     &._svg{
-        background-image: url(./images/file-type-icons/svg.svg);
+        &::before{
+            content:'svg';
+        }
     }
     &._docx,
     &._doc{
-        background-image: url(./images/file-type-icons/doc.svg);
+        &::before{
+            content:'doc';
+        }
     }
     &._xlsx,
     &._xls{
-        background-image: url(./images/file-type-icons/xls.svg);
+        &::before{
+            content:'xls';
+        }
     }
     &._csv{
-        background-image: url(./images/file-type-icons/csv.svg);
+        &::before{
+            content:'csv';
+        }
     }
     &._txt{
-        background-image: url(./images/file-type-icons/txt.svg);
+        &::before{
+            content:'txt';
+        }
     }
     &._pptx,
     &._ppt{
-        background-image: url(./images/file-type-icons/ppt.svg);
+        &::before{
+            content:'ppt';
+        }
     }
     &._png{
-        background-image: url(./images/file-type-icons/png.svg);
+        &::before{
+            content:'png';
+        }
     }
 }

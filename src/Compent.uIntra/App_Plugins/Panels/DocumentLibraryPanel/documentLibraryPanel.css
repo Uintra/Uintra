@@ -26,7 +26,7 @@
         display:flex;
         align-items:stretch;
         flex-wrap:wrap;
-        margin:0 0 -20px -20px;
+        margin:0 0 0 -20px;
     }
 
     &__item{
@@ -58,6 +58,8 @@
 
         &-link{
             color:var(--text-color-dark);
+            display: block;
+            overflow: hidden;
 
             &:hover{
                 color:var(--text-color-dark);
@@ -66,7 +68,7 @@
             ._horizontal &{
                 display:flex;
                 flex-direction:column;
-                justify-content:center;
+                justify-content:space-around;
                 height:100%;
                 border:1px solid #d6d6d6;
                 padding:20px 10px;
@@ -81,9 +83,11 @@
                 }
             }
         }
+
         &-name{
             display:block;
             overflow:hidden;
+            text-overflow: ellipsis;
 
             ._horizontal &{
                 font-size:11px;
@@ -98,7 +102,6 @@
     &__icon{
         width: 40px;
         height: 19px;
-        background-size:cover;
         float:left;
         margin:0 10px 0 0;
 

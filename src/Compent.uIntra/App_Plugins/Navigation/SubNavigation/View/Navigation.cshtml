@@ -23,7 +23,7 @@
                         {
                             var lowLevelMenuRows = Model.Rows.Skip(1).ToList();
 
-                            <ul class="tabset__navigation clearfix">
+                            <ul class="tabset__navigation clearfix js-sub-navigation">
                                 @foreach (var menuItem in topLevelMenu.Items)
                                 {
                                     var isActive = menuItem.IsActive ? "_active" : string.Empty;

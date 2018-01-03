@@ -24,10 +24,9 @@
                 </div>
                 @if (!string.IsNullOrEmpty(Model.Photo))
                 {
-                    <div class="form__avatar-holder">
-                        <div class="form__avatar">
-                            <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
-                        </div>
+                    <div class="avatar avatar--square">
+                        <img class="avatar__img" src="@Model.Photo?width=100" />
+
                         <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
                     </div>
                 }
@@ -61,7 +60,7 @@
         </div>
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _submit _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
+            <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
         </div>
         <div class="form__row clearfix">
             @Html.ValidationSummary()

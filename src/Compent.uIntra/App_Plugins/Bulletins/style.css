@@ -37,6 +37,8 @@
                 &:before{
                     left:auto;
                     top:auto;
+                    right:auto;
+                    color:#aaa;
                 }
             }
         }
@@ -55,14 +57,14 @@
         }
 
         .avatar{
-            width:30px !important;
-            height:30px !important;
+            width:30px;
+            height:30px;
             min-width:30px;
             border-radius:50%;
 
             ._expanded &{
-                width:60px !important;
-                height:60px !important;
+                width:60px;
+                height:60px;
             }
         }
     }
@@ -81,7 +83,7 @@
                 font-family:var(--font-general);
                 font-style:normal;
                 color:var(--text-color-dark);
-                opacity:0.5;
+                opacity:1;
                 white-space:nowrap;
                 text-overflow:ellipsis;
                 overflow:hidden;
@@ -102,11 +104,13 @@
 
 	&__close {
 		position: absolute;
-		top: 5px;
+		top: 19px;
 		right: 10px;
-		width: 20px;
-		height: 20px;
+		width: 31px;
+		height: 31px;
 		border: none;
+        padding:0;
+        margin:0;
 		background: none;
         text-indent:-9999px;
         overflow:hidden;
@@ -114,23 +118,25 @@
 		&:before {
 			content: '';
 			position: absolute;
-			left: 3px;
+			left: 8px;
 			top: 50%;
-			right: 3px;
-			height: 1px;
-			background: #aaa;
+			right: 8px;
+			height: 2px;
+			background: #303030;
 			transform: rotate(45deg);
+            margin-top:-1px;
 		}
 
 		&:after {
 			content: '';
 			position: absolute;
-			left: 3px;
+			left: 8px;
 			top: 50%;
-			right: 3px;
-			height: 1px;
-			background: #aaa;
+			right: 8px;
+			height: 2px;
+			background: #303030;
 			transform: rotate(-45deg);
+            margin-top:-1px;
 		}
 	}
 
@@ -151,9 +157,9 @@
 
 			button {
 				margin: 0 0 0 15px;
-                height:30px !important;
+                height:30px;
                 border-radius:50%;
-                border-color:#d6d6d6;
+                border:1px solid #d8d8d8;
 
                 svg{
                     width:18px;
@@ -167,11 +173,10 @@
 		}
 
 		button {
-			min-width: 28px;
+			min-width: 30px;
 			min-height: 24px;
-			width: auto !important;
-			height: auto !important;
-			border: 1px solid #ccc !important;
+			width: auto;
+			height: auto;
 
             &:hover {
 				color: var(--text-color-dark);
@@ -181,7 +186,7 @@
 			&._send {
 				color: var(--color-white);
 				background-color: var(--color-submit);
-				border: 1px solid var(--color-submit) !important;
+				border: 1px solid var(--color-submit);
                 border-radius:20px;
                 padding-left:14px;
                 padding-right:14px;
@@ -189,7 +194,7 @@
 				&:hover {
 					background-color:#5c5672;
                     color:var(--color-white);
-                    border-color:#5c5672 !important;
+                    border-color:#5c5672;
 				}
 
 				&:disabled {
@@ -202,7 +207,9 @@
 			}
 
             &._upload{
-                color:var(--text-color-dark);
+                text-indent:-9999px;
+                font-size:0;
+                background:url(./images/attach.svg) no-repeat 50% 50% / 14px auto;
 
                 &:hover {
 					color: var(--text-color-dark);
@@ -216,6 +223,19 @@
                 max-width:30px;
                 max-height:30px;
                 display:inline-block;
+            }
+
+            &.ql-link{
+                background:url(./images/link.svg) no-repeat 50% 50% / 13px auto;
+
+                &:hover {
+					color: var(--text-color-dark);
+                    background-color:var(--color-light-gray-2);
+				}
+
+                svg{
+                    display:none;
+                }
             }
 		}
 	}

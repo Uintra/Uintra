@@ -1,5 +1,5 @@
 ﻿.gallery{
-    margin:0 0 21px -26px;
+    margin:0 0 21px -10px;
     padding:0;
     list-style:none;
     display:flex;
@@ -13,9 +13,7 @@
     &__item{
         padding:0;
         position:relative;
-        margin:0 0 10px 26px;
-        max-height:100px;
-        max-width:25%;
+        margin:0 0 10px 10px;
         overflow:hidden;
 
         ._full-size &{
@@ -24,26 +22,22 @@
         }
 
         @media(--for-tablet-portrait-down){
-            &{
-                max-width:50%;
-                padding:0 0 0 26px;
-                margin:0 0 20px;
-            }
+            max-width:50%;
+            padding:0 0 0 26px;
+            margin:0 0 20px;
         }
 
         &._attachments{
-            width:140px;
-            min-height:83px;
+            width:120px;
+            height:100px;
             text-align:center;
             max-width:initial;
             max-height:initial;
 
             @media(--for-tablet-portrait-down){
-                &{
-                    max-width:calc(50% - 26px);
-                    margin:0 0 20px 26px;
-                    padding:0;
-                }
+                max-width:calc(50% - 26px);
+                margin:0 0 20px 26px;
+                padding:0;
             }
         }
 
@@ -54,11 +48,12 @@
             width:100%;
             height:100%;
             flex-direction:column;
+            justify-content: center;
             color:var(--text-color-dark);
 
-            ._attachments &{
-                padding-top:25px;
-                min-height:95px;
+            .gallery__image{
+                height:auto;
+                margin-bottom:7px;
             }
 
             &:hover{
@@ -70,14 +65,13 @@
     }
 
     &__image{
-        max-width:100%;
         margin:0 auto;
         min-height:27px;
+        width:auto;
+        height:100px;
 
-        ._attachments{
-            &{
-                 width:20px;
-            }
+        ._attachments &{
+            width:20px;
         }
 
         ._full-size &{
@@ -86,10 +80,7 @@
     }
 
     &__count{
-        display:block;
-        padding:3px 0 0;
         font-size:13px;
-        flex-basis: 100%;
     }
 }
 

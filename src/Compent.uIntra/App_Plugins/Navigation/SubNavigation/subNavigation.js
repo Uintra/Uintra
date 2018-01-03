@@ -1,87 +1,87 @@
 ﻿require("./subNavigation.css");
 
-var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
-var tabset = $('.tabset');
-var menu = $('.tabset__navigation');
-var title = $('.tabset__title');
-var menuHolder = menu.closest('.tabset');
-var body = $('body');
-var wrapper = $('#wrapper');
-var header = $('#header');
+const mobileMediaQuery = window.matchMedia("(max-width: 899px)");
+const $tabset = $('.tabset');
+const $subMenu = $('.tabset__navigation');
+const $title = $('.tabset__title');
+//const $menuHolder = subMenu.closest('.tabset');
+const $body = $('body');
+const $wrapper = $('#wrapper');
+const $header = $('#header');
 
-if (menu.length > 0) {
-    body.addClass('_with-sub-nav');
+if ($subMenu.length > 0) {
+    $body.addClass('_with-sub-nav');
 }
 
-if (title.length > 0) {
-    body.addClass('_with-subtitle');
+if ($title.length > 0) {
+    $body.addClass('_with-subtitle');
 }
 
-var initSubMenuPosition = function () {
-    if(!tabset || !header){
+const initSubMenuPosition = function () {
+    if(!$tabset || !$header){
         return;
     }
 
-    var height = header.outerHeight() + tabset.outerHeight();
+    let height = $header.outerHeight() + $tabset.outerHeight();
 
-    if(menu.length > 1){
-        wrapper.css({
+    if($subMenu.length > 1){
+        $wrapper.css({
             'padding-top': height + 46 + 'px'
         });
     }
-
     else{
-        wrapper.css({
+        $wrapper.css({
             'padding-top': height + 'px'
         });
     }
 }
     
-var initMobileMenu = function() {
-    var opener = menu.find('.tabset__navigation-link');
-    var itemHeigth = 0;
+// const initMobileMenu = function() {
+//     const opener = $subMenu.find('.tabset__navigation-link');
 
-    if (menu.find('._selected').length <= 0) {
-        menu.find('.tabset__navigation-item:first-child').addClass('_selected');
-    }
+//     if ($subMenu.find('._selected').length <= 0) {
+//         $subMenu.find('.tabset__navigation-item:first-child').addClass('_selected');
+//     }
 
-    menu.each(function () {
-        if ($(this).closest('.tabset__inner').length == 0) {
-            $(this).css({
-                'padding-top': '50px'
-            });
-        }
-    });
+//     $subMenu.each(function () {
+//         if ($(this).closest('.tabset__inner').length == 0) {
+//             $(this).css({
+//                 'padding-top': '50px'
+//             });
+//         }
+//     });
 
-    if (body.hasClass('_with-sub-nav')) {
-        var height = tabset.outerHeight() + header.outerHeight();
-        wrapper.css({
-            'padding-top': height + 'px'
-        })
-    }
+//     if ($body.hasClass('_with-sub-nav')) {
+//         const height = $tabset.outerHeight() + $header.outerHeight();
 
-    if (opener.length > 1) {
-        opener.on("click", function (e) {
-            if ($(this).closest('li').hasClass('_selected')) {
-                e.preventDefault();
-                menuHolder.toggleClass('_expanded');
-                body.removeClass('_search-expanded notifications-expanded _menu-expanded _sidebar-expanded');
-            }
-        });
-    }
-    else {
-        opener.closest('.tabset__navigation-item').addClass('_disabled');
-    }
-}
+//         $wrapper.css({
+//             'padding-top': height + 'px'
+//         })
+//     }
 
-var controller = {
+//     if (opener.length > 1) {
+//         opener.on("click", function (e) {
+//             if ($(this).closest('li').hasClass('_selected')) {
+//                 e.preventDefault();
+//                 $menuHolder.toggleClass('_expanded');
+//                 $body.removeClass('_search-expanded notifications-expanded _menu-expanded _sidebar-expanded');
+//             }
+//         });
+//     }
+//     else {
+//         opener.closest('.tabset__navigation-item').addClass('_disabled');
+//     }
+// }
+
+const controller = {
     init: function () {
         initSubMenuPosition();
         $(window).resize(function(){
             initSubMenuPosition();
         });
+
         if (mobileMediaQuery.matches) {
-            initMobileMenu();
+            //initMobileMenu();
         }
     }
 }

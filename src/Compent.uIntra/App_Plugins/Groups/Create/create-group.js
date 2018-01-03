@@ -4,7 +4,7 @@ import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 var holder;
  
 var initDescriptionControl = function () {    
-    helpers.initActivityDescription(holder, '#js-hidden-description-container', '#description', '.form__btn._submit');    
+    helpers.initActivityDescription(holder, '#js-hidden-description-container', '#description', '.js-submit');    
 }
 
 

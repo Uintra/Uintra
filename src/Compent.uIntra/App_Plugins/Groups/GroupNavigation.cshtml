@@ -1,8 +1,6 @@
 ﻿@using uIntra.Core.Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
 <nav class="tabset">
-    <strong class="tabset__logo"><a href="/"><img class="img-responsive" src="/Content/images/logo.png"></a></strong>
-    <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
     <div class="tabset__holder">
 
         <h1 class="tabset__title">
@@ -17,7 +15,7 @@
             <span class="tabset__group-label"> - @Html.Localize("GroupRoom.Label")</span>
         </h1>
 
-        <ul id="nav nav-tabs" class="tabset__navigation _groups clearfix js-feed-links">
+        <ul class="tabset__navigation _groups clearfix js-feed-links">
             @foreach (var tab in Model.ActivityTabs)
             {
                 <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
