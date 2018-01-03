@@ -36,7 +36,6 @@
     border-top:2px solid #f6f6f6;
 
     @media (--for-tablet-portrait-down) {
-        font-size: 16px;
         padding:31px 11px 20px 0;
         background:var(--color-white);
     }
@@ -64,7 +63,7 @@
             border-top:none;
             border-bottom:2px solid #f6f6f6;
             margin:0 0 40px;
-            padding:14px 0 22px 40px;
+            padding:14px 0 22px 0;
             display:block;
 
             .icon-logout{
@@ -90,11 +89,6 @@
         cursor:pointer;
         margin:0 0 -2px;
         position:relative;
-
-        @media (--for-tablet-portrait-down) {  
-            padding: 11px 45px 9px 19px;
-            margin: 0 0 -7px;
-        }
 
         &::before{
             position:absolute;
@@ -128,6 +122,12 @@
             .icon-close{
                 display:block;
             }
+        }
+
+        &--title{
+            font-size:18px;
+            color:var(--text-color-dark);
+            line-height:30px;
         }
 
         ._active > &{
@@ -205,9 +205,7 @@
 			}
 
             @media (--for-tablet-portrait-down) {
-                &{
-                    right:15px;
-                }
+                right:15px;
             }
 		}
 	}
@@ -216,7 +214,13 @@
     &._links & &,
     &._groups & &{
         &__link{
-            padding-left:53px;
+            padding-left:50px;
+        }
+    }
+
+    &--profile &{
+        &__link{
+            padding-left:60px;
         }
     }
 
@@ -226,11 +230,6 @@
         list-style:none;
         font-family:var(--font-general);
         border-top:none;
-
-        @media (--for-tablet-portrait-down) {
-            padding: 3px 0 0;
-            font-size:16px;
-        }
     }
 
     /* Second level */
@@ -287,6 +286,12 @@
         @media (--for-tablet-portrait-down) {
             right:13px;
         }
+    }
+
+    .avatar-img{
+        margin:0 10px 0 -40px;
+        border-radius:50%;
+        float:left;
     }
 
     @media (--for-tablet-portrait-down) {       

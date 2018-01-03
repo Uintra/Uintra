@@ -3,7 +3,7 @@
 
  <ul class="side-nav side-nav--profile">
     <li class="side-nav__item">
-        <a class="side-nav__link" href="@Model.ProfileLink">
+        <a class="side-nav__link side-nav__link--title" href="@Model.ProfileLink">
             @if (!string.IsNullOrWhiteSpace(Model.CurrentUser.Photo)) { 
                 <img class="avatar-img" src="@Model.CurrentUser.Photo?width=30" width="30">
             }
