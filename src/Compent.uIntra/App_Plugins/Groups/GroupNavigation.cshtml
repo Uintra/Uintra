@@ -2,7 +2,6 @@
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
 <nav class="tabset">
     <div class="tabset__holder">
-
         <h1 class="tabset__title">
             @if (Model.GroupUrl.IsNullOrEmpty())
             {
@@ -14,24 +13,25 @@
             }
             <span class="tabset__group-label"> - @Html.Localize("GroupRoom.Label")</span>
         </h1>
-
-        <ul class="tabset__navigation _groups clearfix js-feed-links">
-            @foreach (var tab in Model.ActivityTabs)
-            {
-                <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
-                    <a class="tabset__navigation-link " href="@tab.Links.Overview">
-                        <span>@Html.Localize($"GroupRoom.Navigation.{tab.Type.Name}.lbl")</span>
-                    </a>
-                </li>
-            }
-            @foreach (var tab in Model.PageTabs)
-            {
+        <div class="tabset__inner">
+            <ul class="tabset__navigation _groups clearfix js-feed-links">
+                @foreach (var tab in Model.ActivityTabs)
+                {
+                    <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
+                        <a class="tabset__navigation-link " href="@tab.Links.Overview">
+                            @Html.Localize($"GroupRoom.Navigation.{tab.Type.Name}.lbl")
+                        </a>
+                    </li>
+                }
+                @foreach (var tab in Model.PageTabs)
+                {
                     <li class="tabset__navigation-item @(tab.IsActive ? "_active" : "") @(tab.AlignRight ? "_right _for-desktop" : "")">
                         <a class="tabset__navigation-link " href="@tab.Link">
-                            <span>@tab.Title</span>
+                            @tab.Title
                         </a>
                     </li>                
-            }
-        </ul>
+                }
+            </ul>
+        </div>
     </div>
 </nav>

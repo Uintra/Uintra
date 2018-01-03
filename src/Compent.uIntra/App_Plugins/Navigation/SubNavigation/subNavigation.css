@@ -85,6 +85,10 @@
                 color:var(--color-submit);
             }
         }
+
+        + .tabset__inner{
+            padding-top:13px;
+        }
     }
 
     &__inner{
@@ -141,11 +145,6 @@
                 color:var(--color-submit);
                 text-decoration:none;
                 cursor:default;
-                font-weight:normal;
-            }
-
-            ._groups ._active &,
-            ._active._selected &{
                 font-weight:normal;
             }
 
@@ -234,7 +233,7 @@
 
         .tabset__inner & {
             padding-top:0;
-            margin:0 -52px 16px 0;
+            margin:0 0 16px 0;
             font-size:13px;
             line-height:15px;
             font-weight:bold;
