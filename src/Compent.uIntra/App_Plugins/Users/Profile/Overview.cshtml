@@ -6,7 +6,8 @@
             @Html.Action("Photo", "User", new
             {
                 user = Model.EditingUser,
-                сssModificator = "form__avatar-img"
+                сssModificator = "form__avatar-img",
+                photoWidth = 100
             })
             <div class="form__meta">
                 <strong class="form__name">@Model.FirstName @Model.LastName</strong>

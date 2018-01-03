@@ -35,15 +35,15 @@
     font-family:var(--font-general);
     border-top:2px solid #f6f6f6;
 
+    &:first-of-type{
+        border:none;
+    }
+
     &._groups,
     &._system,
     &._links{
         padding-top:17px;
-    }
-
-    &:first-of-type{
-        border:none;
-    }
+    }    
 
     .ss-content &{
         margin:0 -32px 18px 0;
@@ -67,6 +67,18 @@
         word-wrap: break-word;
         cursor:pointer;
         margin:0 0 -2px;
+        position:relative;
+
+        &::before{
+            position:absolute;
+            content:'';
+            background:var(--header-bg);
+            width:2px;
+            left:0;
+            top:0;
+            bottom:0;
+            display:none;
+        }
 
         &:hover,
         &:focus,
@@ -75,8 +87,10 @@
             background:#f6f6f6;
             text-decoration:none;
             color:var(--color-submit);
-            border-left:2px solid var(--header-bg);
-            padding-left:17px;
+
+            &::before{
+                display:block;
+            }
         }
 
         &:hover{
@@ -99,13 +113,6 @@
         ._links &,
         ._groups &{
             padding-left:50px;
-
-            &:hover,
-            &:focus,
-            &:active,
-            ._active > &{
-                padding-left:48px;
-            }
         }
 
         @media (--for-tablet-portrait-down) {
@@ -115,7 +122,6 @@
                 }
             }
         }
-        
     }
 
 	&__arrow{
@@ -186,9 +192,7 @@
         }
 
         @media (--for-tablet-portrait-down) {
-            &{
-                right:13px;
-            }
+            right:13px;
         }
     }
 
@@ -197,12 +201,6 @@
     &._groups & &{
         &__link{
             padding-left:53px;
-
-            &:hover,
-            &:focus,
-            &:active{
-                padding-left:51px;
-            }
         }
     }
 
@@ -212,58 +210,26 @@
         list-style:none;
         font-family:var(--font-general);
         border-top:none;
+    }
 
-        .side-nav{
-            &__link{
-                padding-left:30px;
+    /* Second level */
+    & & &__link{
+        padding-left:30px;
+    }
 
-                &:hover,
-                &:focus,
-                &:active,
-                ._active > &{
-                    padding-left:28px;
-                }
-            }
+    /* Third level */
+    & & & &__link{
+        padding-left:50px;
+    }
 
-            .side-nav{
-                &__link{
-                    padding-left:50px;
+    /* 4 level */
+    & & & & &__link{
+        padding-left:70px;
+    }
 
-                    &:hover,
-                    &:focus,
-                    &:active,
-                    ._active > &{
-                        padding-left:48px;
-                    }
-                }
-
-                .side-nav{
-                    &__link{
-                        padding-left:70px;
-
-                        &:hover,
-                        &:focus,
-                        &:active,
-                        ._active > &{
-                            padding-left:68px;
-                        }
-                    }
-
-                    .side-nav{
-                        &__link{
-                            padding-left:90px;
-
-                            &:hover,
-                            &:focus,
-                            &:active,
-                            ._active > &{
-                                padding-left:88px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    /* 5 level */
+    & & & & & &__link{
+        padding-left:90px;
     }
 
     .side-nav{

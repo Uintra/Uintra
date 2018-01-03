@@ -286,7 +286,7 @@ h5{
         padding: 60px 0 0;
 
         ._with-sub-nav & {
-            padding: 131px 0 0;
+            padding: 111px 0 0;
         }
 
         ._with-sub-nav._with-subtitle &{
@@ -375,7 +375,6 @@ h5{
 	padding:0;
 
     @media (--for-tablet-portrait-down) {
-	    position: absolute;
 	    display: flex;
 	    flex-direction: row-reverse;
 	    min-height: 60px;
@@ -779,7 +778,7 @@ h5{
         display:flex;
         justify-content: center;
         align-items:center;
-        padding:0 0 0 4px;
+        padding:0 0 0 3px;
     }
 }
 

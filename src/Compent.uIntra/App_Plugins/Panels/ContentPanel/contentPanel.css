@@ -445,82 +445,80 @@
 
 .sidebar {
     @media (--for-tablet-portrait-down) {
-        &{
-            position: absolute !important;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 0 !important;
-            transform: translate(0, -100%);
-            transition: transform linear 300ms;
-            background:#f6f6f6;
-            z-index:4;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 0;
+        transform: translate(0, -100%);
+        transition: transform linear 300ms;
+        background:#f6f6f6;
+        z-index:5;
 
-            ._sidebar-expanded & {
-                transform: translate(0, 0);
-                top:0;
-                overflow:hidden;
-                overflow-y:auto;
-                height:calc(100vh - 111px);
-
-                &__opener {
-                    background: var(--color-submit);
-
-                    &:before,
-                    &:after {
-                        background: var(--color-submit);
-                        border-color: var(--color-white);
-                    }
-                }
-            }
-
-            ._with-sub-nav._with-subtitle._sidebar-expanded &{
-                height:calc(100vh - 182px);
-                top:1px;
-            }
+        ._sidebar-expanded & {
+            transform: translate(0, 0);
+            top:0;
+            overflow:hidden;
+            overflow-y:auto;
+            height:calc(100vh - 111px);
 
             &__opener {
-                float: right;
-                width: 51px;
-                max-width:51px;
-                min-width:51px;
-                height: 50px;
-                background: var(--color-white);
-                border-left:2px solid #f6f6f6;
-                position: relative;
-                z-index:10;
-                cursor: pointer;
+                background: var(--color-submit);
 
                 &:before,
                 &:after {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 12px;
-                    height: 12px;
-                    border: 2px solid var(--color-submit);
-                    border-top-width: 4px;
-                    background: var(--color-white);
-                    content: '';
+                    background: var(--color-submit);
+                    border-color: var(--color-white);
                 }
+            }
+        }
 
-                &:before {
-                    margin: -4px 0 0 -7px;
-                }
+        ._with-sub-nav._with-subtitle._sidebar-expanded &{
+            height:calc(100vh - 110px);
+            top:1px;
+        }
 
-                &:after {
-                    margin: -8px 0 0 -3px;
-                }
+        &__opener {
+            float: right;
+            width: 51px;
+            max-width:51px;
+            min-width:51px;
+            height: 50px;
+            background: var(--color-white);
+            border-left:2px solid #f6f6f6;
+            position: relative;
+            z-index:10;
+            cursor: pointer;
 
-                ._hide-sidepanel-opener &{
-                    display:none;
-                }
+            &:before,
+            &:after {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 12px;
+                height: 12px;
+                border: 2px solid var(--color-submit);
+                border-top-width: 4px;
+                background: var(--color-white);
+                content: '';
+            }
 
-                .bulletin__btn-holder &{
-                    position:absolute;
-                    top:0;
-                    right:0;
-                }
+            &:before {
+                margin: -4px 0 0 -7px;
+            }
+
+            &:after {
+                margin: -8px 0 0 -3px;
+            }
+
+            ._hide-sidepanel-opener &{
+                display:none;
+            }
+
+            .bulletin__btn-holder &{
+                position:absolute;
+                top:0;
+                right:0;
             }
         }
     }

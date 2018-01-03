@@ -1,5 +1,5 @@
 ﻿.block{
-    &._groups-info{
+    /*&._groups-info{
         border: 1px solid #ccc;
         margin: 0 -10px 20px;
         padding: 0 19px 18px;
@@ -35,24 +35,21 @@
     }
 
     &__description{
-
         p{
             ._groups-info &{
                 margin:0 0 13px;
             }
         }
     }
-
+    */
     &__meta{
-        ._groups-info &{
-            font-size:13px;
-            font-weight:bold;
-        }
+        font-size:13px;
+        font-weight:bold;
 
         &-info{
-            ._groups-info &{
-                margin:0 0 27px;
-            }
+            margin:0;
+            padding:0 0 20px;
+            overflow:hidden;
         }
 
         &-count{
@@ -60,10 +57,8 @@
             margin:0 5px 0 0;
 
             &:after{
-                &:after{
                 content:' - ';
             }
-        }
         }
 
         &-name{
@@ -73,7 +68,14 @@
         }
     }
 }
+
 .groups {
+    padding-top:10px;
+
+    @media (--for-tablet-landscape-up){
+        padding-top:0;
+    }
+
     ._groups-create{
         position: absolute;
         top: -95px;
@@ -91,10 +93,8 @@
         clear:right;
 
         @media (--for-desktop-down){
-            & {
-                display:block;
-                margin:0 -10px;
-            }
+            display:block;
+            margin:0 -10px;
         }
 
         &-item{
