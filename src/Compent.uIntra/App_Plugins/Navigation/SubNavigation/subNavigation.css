@@ -450,7 +450,7 @@
 
     @media (--for-tablet-portrait-down){
         margin:0;
-        padding:0 50px 10px 19px;
+        padding:10px 50px 10px 19px;
         position:relative;
         z-index:initial;
 

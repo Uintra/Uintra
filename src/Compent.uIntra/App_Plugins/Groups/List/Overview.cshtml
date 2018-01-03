@@ -1,7 +1,6 @@
 ﻿@using uIntra.Core.Extensions
 @model uIntra.Groups.GroupsOverviewModel
 <section class="groups">    
-    @{Html.RenderAction("SubNavigation", "Navigation");}
     <a class="form__btn _groups-create _submit" href="@Model.CreatePageUrl">@Html.Localize("Groups.Create.lbl")</a>
     <div class="js-groups-overview">
         @using (Html.BeginUmbracoForm("Index", "Group", null, new Dictionary<string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-groups-listContainer"}}))
