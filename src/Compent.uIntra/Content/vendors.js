@@ -10,7 +10,9 @@ import {} from 'alertifyjs/build/alertify.min';
 import {} from 'taggle';
 import {} from 'devbridge-autocomplete';
 
-
+require('bootstrap/dist/css/bootstrap.min.css');
+require('photoswipe/dist/photoswipe.css');
+require('photoswipe/dist/default-skin/default-skin.css');
 require('alertifyjs/build/css/alertify.min.css');
 require('alertifyjs/build/css/themes/default.min.css');
 require('flatpickr/dist/flatpickr.min.css');

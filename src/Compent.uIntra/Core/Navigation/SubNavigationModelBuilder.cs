@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using uIntra.Core;
 using uIntra.Core.Configuration;
+using uIntra.Groups;
+using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation
+namespace Compent.uIntra.Core.Navigation
 {
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGroupHelper _groupHelper;
 
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
+            IGroupHelper groupHelper)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
-            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _groupHelper = groupHelper;
         }
 
         public override SubNavigationMenuModel GetMenu()
@@ -45,12 +46,22 @@ namespace uIntra.Navigation
                     ? null
                     : MapToMenuItemModel(CurrentPage.Parent),
                 Title = GetNavigationName(subMenuStartPage),
-                IsTitleHidden = subMenuStartPage.IsContentPage()
+                IsTitleHidden = IsTitleHidden(subMenuStartPage),
+                ShowBreadcrumbs = IsShowBreadcrumbs(CurrentPage)
             };
 
-            model.ShowBreadcrumbs = CurrentPage.IsContentPage() && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
 
             return model;
+        }
+
+        protected override bool IsShowBreadcrumbs(IPublishedContent publishedContent)
+        {
+            return (publishedContent.IsContentPage() || _groupHelper.IsGroupPage(publishedContent)) && Convert.ToBoolean(ConfigurationManager.AppSettings[NavigationApplicationSettingsConstants.NavigationShowBreadcrumbs]);
+        }
+
+        protected override bool IsTitleHidden(IPublishedContent publishedContent)
+        {
+            return !publishedContent.IsContentPage() && !_groupHelper.IsGroupPage(publishedContent);
         }
 
         protected override bool IsHideFromNavigation(IPublishedContent publishedContent)
@@ -75,7 +86,7 @@ namespace uIntra.Navigation
 
         protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage)
         {
-            if (!subMenuStartPage.IsContentPage())
+            if (!subMenuStartPage.IsContentPage() && !_groupHelper.IsGroupPage(subMenuStartPage))
             {
                 return Enumerable.Empty<SubNavigationMenuRowModel>();
             }

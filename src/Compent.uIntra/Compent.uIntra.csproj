@@ -1302,6 +1302,7 @@
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
+    <Compile Include="Core\Navigation\SubNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
     <Compile Include="Core\News\Models\NewsExtendedItemViewModel.cs" />

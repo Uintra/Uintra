@@ -44,7 +44,6 @@
 
         ._with-sub-nav &{
             padding-top:16px;
-            margin-bottom:-4px;
         }
 
         ._with-sub-nav .content &{
@@ -52,7 +51,7 @@
         }
     }
 
-    &__logo{
+    /*&__logo{
         max-width:118px;
         margin:0;
         order:2;
@@ -64,12 +63,13 @@
         @media (--for-tablet-portrait-down) {
             display: none;
         }
-    }
+    }*/
 
     &__title{
         overflow:hidden;
         margin:0;
-        font:bold 22px/30px var(--font-custom);
+        font:20px/30px var(--font-custom);
+        color:var(--color-submit);
 
         @media (--for-phone-only){
             ._with-sub-nav &{
@@ -78,12 +78,11 @@
         }
 
         &-link{
-            color:var(--text-color-dark);
-
+            &,
             &:hover,
             &:active,
             &:focus{
-                color:var(--text-color-dark);
+                color:var(--color-submit);
             }
         }
     }
@@ -100,7 +99,7 @@
 
     &__navigation{
         margin:0 0 16px 0;
-        padding:21px 0 0;
+        padding:11px 0 0;
         list-style:none;
         position:relative;
         font-size:20px;
@@ -117,7 +116,7 @@
             ._groups &._right,
             &._right{
                 float:right;
-                margin:0 -120px 0 0;
+                margin:0;
             }
 
             &._item-add{
@@ -281,7 +280,7 @@
     @media (--for-tablet-portrait-down) {
         position: absolute;
         top: 60px;
-        padding: 10px 0 0;
+        padding: 0;
         background:var(--color-white);
         z-index:initial;
         min-height:0;
@@ -290,10 +289,6 @@
 
         &:before {
             display: none;
-        }   
-
-        ._with-sub-nav._with-subtitle &{
-            top: 69px;
         }
                     
         &__holder{
@@ -324,7 +319,7 @@
             overflow:hidden;
 
             ._with-sub-nav &{
-                border-bottom:2px solid var(--color-light-gray);
+                border-bottom:1px solid var(--color-light-gray);
                 font:bold 20px/22px var(--font-general);
                 padding:14px 20px 13px;
             }
@@ -446,7 +441,7 @@
 }
 
 .breadcrumbs{
-    margin:0 0 -10px;
+    margin:0;
     padding:0;
     list-style:none;
     position:relative;
@@ -461,7 +456,7 @@
         z-index:initial;
 
         + .tabset__frame{
-            position:static;
+            display:none;
 
             .sidebar__opener{
                 position:absolute;
