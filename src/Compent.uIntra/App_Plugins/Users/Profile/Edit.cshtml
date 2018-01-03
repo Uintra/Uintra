@@ -10,35 +10,31 @@
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
         @Html.HiddenFor(el => el.Id)
-        <div class="form__row clearfix">
-            <div class="form__header">
+        <div class="form__header">
+            @{
+                var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+            }
+            <div class="form__row clearfix @additionClass">
+                <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
                 @{
-                    var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+                    var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
+                    Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
                 }
-                <div class="form__row clearfix @additionClass">
-                    <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
-                    @{
-                        var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
-                        Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
-                    }
-                </div>
-                @if (!string.IsNullOrEmpty(Model.Photo))
-                {
-                    <div class="avatar avatar--square">
-                        <img class="avatar__img" src="@Model.Photo?width=100" />
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Photo))
+            {
+                <div class="avatar avatar--square">
+                    <img class="avatar__img" src="@Model.Photo?width=100" />
 
-                        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
-                    </div>
-                }
-                <div class="form__meta">
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input" })
-                        </div>
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(m => m.LastName, new { @class = "form__input" })
-                        </div>
-                    </div>
+                    <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
+                </div>
+            }
+            <div class="form__meta">
+                <div class="form__row">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input", @placeholder = Html.Localize("Profile.FirstName.Placeholder") })
+                </div>
+                <div class="form__row">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form__input", @placeholder = Html.Localize("Profile.LastName.Placeholder") })
                 </div>
             </div>
         </div>
@@ -62,9 +58,7 @@
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
         </div>
-        <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
+        @Html.ValidationSummary()
     }
     
 </div>

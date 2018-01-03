@@ -1,7 +1,6 @@
 ﻿.form{
 	&__header{
 		display: flex;
-		align-items: center;
 	}
 
 	&__meta{
