@@ -32,10 +32,11 @@ namespace Compent.uIntra.Controllers
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
             var like = base.AddLike(model);
-            if (IsForContentPage(model))
+            if (IsForContentPage(model) || IsForPagePromotion(model))
             {
                 return like;
             }
+
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
@@ -50,6 +51,7 @@ namespace Compent.uIntra.Controllers
                     notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }
+
             return like;
         }
     }
