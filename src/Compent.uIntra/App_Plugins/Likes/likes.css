@@ -41,7 +41,7 @@
     }
 
     &__link{
-        color:var(--text-color-dark);
+        color:#aaa;
         padding:0 0 0 25px;
         display:inline-block;
         vertical-align:top;

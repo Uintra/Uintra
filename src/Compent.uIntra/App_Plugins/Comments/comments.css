@@ -240,7 +240,7 @@
         text-decoration: underline;
         cursor: pointer;
         float:left;
-        font-size: 12px;
+        font-size: 13px;
         margin:0 13px 0 7px;
 
         &:active,
