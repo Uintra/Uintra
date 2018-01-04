@@ -372,12 +372,10 @@
         border-radius:50%;
 
         &-img{
-            height: auto;
-            left: 50%;
-            max-width: 100%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            height:100%;
+            width:100%;
+            object-fit:cover;
+            display:block;
         }
 
         .user__menu &{

@@ -292,6 +292,9 @@
         margin:0 10px 0 -40px;
         border-radius:50%;
         float:left;
+        width:30px;
+        height:30px;
+        object-fit:cover;
     }
 
     @media (--for-tablet-portrait-down) {       
