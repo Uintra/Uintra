@@ -4,14 +4,14 @@
 
 @if (Model.Any())
 {
-    <div class="article _tags">
-        @Html.Label("title-lbl", Html.Localize("UserTagsView.Title.lbl"), new { @class = "sub-title" })
-
-        <div class="tags">
+    <div class="tags">
+        @*@Html.Label("title-lbl", Html.Localize("UserTagsView.Title.lbl"), new { @class = "sub-title" })*@
+        <strong class="tags__title">@Html.Localize("UserTagsView.Title.lbl")</strong>
+        <div class="tags__list">
             @foreach (var tag in Model)
             {
-                <a class="tags__link" href="@tag.SearchUrl">
-                    <span class="tags__item">@tag.Text</span>
+                <a class="tags__list-item" href="@tag.SearchUrl">
+                    <span class="tags__list-txt">@tag.Text</span>
                 </a>
             }
         </div>
