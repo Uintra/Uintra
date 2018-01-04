@@ -340,6 +340,9 @@ namespace Compent.uIntra
 
             // Link preview
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
+            kernel.Bind<ILinkPreviewDataProvider>().To<LinkPreviewDataProvider>().InRequestScope();
+            kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
+            
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();

@@ -5,22 +5,18 @@ namespace uIntra.Core.LinkPreview
 {
     public class LinkPreviewService : ILinkPreviewService
     {
-        private readonly IHttpHelper _httpHelper;
+        private readonly ILinkPreviewDataProvider _dataProvider;
 
-        public LinkPreviewService(IHttpHelper httpHelper)
+        public LinkPreviewService(ILinkPreviewDataProvider dataProvider)
         {
-            _httpHelper = httpHelper;
+            _dataProvider = dataProvider;
         }
 
-        public LinkPreview GetLinkPreview(string url)
+        public LinkPreview GetLinkPreview(string link)
         {
-            var dto = _httpHelper
-                .GetStringAsync($"http://localhost:62224/api/preview?url={url}")
-                .Result
-                .Deserialize<LinkPreviewDto>();
+            var dto = _dataProvider.GetLinkPreviewDto(link);
 
             var result = dto.Map<LinkPreview>();
-
             result.Description = GetLongest(dto.OgDescription, dto.Description);
 
             return result;

@@ -2,6 +2,6 @@
 {
     public interface ILinkPreviewService
     {
-        LinkPreview GetLinkPreview(string url);
+        LinkPreview GetLinkPreview(string link);
     }
 }
