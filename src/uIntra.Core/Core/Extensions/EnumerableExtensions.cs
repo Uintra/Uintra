@@ -20,7 +20,10 @@ namespace uIntra.Core.Extensions
                 .Select(x => x.Select(v => v.Value));
         }
 
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T item) =>
-            source.Concat(item.ToEnumerable());
+        /// <summary>Adds elements at the end of sequence.</summary>
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> source,  T element)
+        {
+            return source.Concat(element.ToEnumerable());
+        }
     }
 }

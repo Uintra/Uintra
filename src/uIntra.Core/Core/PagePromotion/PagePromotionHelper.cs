@@ -3,6 +3,7 @@ using System.Linq;
 using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Extensions;
 
 namespace uIntra.Core.PagePromotion
 {

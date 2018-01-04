@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using Umbraco.Web;
@@ -33,14 +34,10 @@ namespace uIntra.Core.Activity
             return GetPageUrl(xPath);
         }
 
-        public string GetCreatePageUrl()
-        {
-            var createPage = _aliasProvider.GetCreatePage(ActivityType);
-
-            return createPage == null
-                ? null
-                : GetPageUrl(_activityXPath.Append(createPage));
-        }
+        public string GetCreatePageUrl() =>
+            _aliasProvider
+                .GetCreatePage(ActivityType)
+                .Bind(createPage => createPage.Map(_activityXPath.Append).Map(GetPageUrl));
 
         public string GetEditPageUrl()
         {
