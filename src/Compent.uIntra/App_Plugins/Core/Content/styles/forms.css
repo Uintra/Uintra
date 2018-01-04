@@ -11,6 +11,10 @@
 
     &__row{
         margin: 0 0 25px;
+
+        &--no-indent{
+            margin:0;
+        }
     }
 
     &__label{

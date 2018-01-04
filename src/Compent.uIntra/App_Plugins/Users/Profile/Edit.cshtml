@@ -14,7 +14,7 @@
             @{
                 var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
             }
-            <div class="form__row clearfix @additionClass">
+            <div class="form__row @additionClass">
                 <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
                 @{
                     var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
@@ -31,9 +31,11 @@
             }
             <div class="form__meta">
                 <div class="form__row">
+                    <label class="form__label">@Html.Localize("Profile.FirstName.lbl")</label>
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input", @placeholder = Html.Localize("Profile.FirstName.Placeholder") })
                 </div>
                 <div class="form__row">
+                    <label class="form__label">@Html.Localize("Profile.LastName.lbl")</label>
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form__input", @placeholder = Html.Localize("Profile.LastName.Placeholder") })
                 </div>
             </div>
