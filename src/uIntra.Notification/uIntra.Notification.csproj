@@ -363,6 +363,9 @@
     <Compile Include="Core\Exceptions\ReminderIsAlreadyDeliveredException.cs" />
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\INotifierTypeProvider.cs" />
+    <Compile Include="Core\Jobs\MontlyMailJob.cs" />
+    <Compile Include="Core\Jobs\ReminderJob.cs" />
+    <Compile Include="Core\Jobs\SendEmailJob.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
     <Compile Include="Core\Models\ActivityEventIdentityExtensions.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
@@ -460,6 +463,9 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
+    <Content Include="Web.config.install.xdt">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\App_Plugins\NotificationSettings\**\*">

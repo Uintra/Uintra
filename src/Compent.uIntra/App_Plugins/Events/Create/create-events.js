@@ -38,7 +38,7 @@ var initUserSelect = function () {
 var initDescriptionControl = function () {
     var dataStorage = holder.find('#js-hidden-description-container');
     var descriptionElem = holder.find('#description');
-    var btn = holder.find('.form__btn._submit');
+    var btn = holder.find('.js-submit');
     var toolbarOptions = [
         [{ 'header': [1, 2, 3, false] }],
         ['bold', 'italic', 'underline', 'link'],
@@ -77,6 +77,7 @@ var initDescriptionControl = function () {
 var initDatePickers = function () {
     var start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     var end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+    var publish = helpers.initDatePicker(holder, '#js-publish-date', '#js-publish-date-value');
     var pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {

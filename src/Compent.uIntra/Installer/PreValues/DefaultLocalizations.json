@@ -429,11 +429,74 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "EventsCreate.LocationAddress.lbl",
+    "translations": {
+      "en-US": "Location address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationAddressMaxLength.lbl",
+    "translations": {
+      "en-US": "The location address is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationAddressPlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitle.lbl",
+    "translations": {
+      "en-US": "Location title"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitleMaxLength.lbl",
+    "translations": {
+      "en-US": "The location title is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitlePlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter name of the location"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "EventsCreate.StartDate.lbl",
     "translations": {
       "en-US": "Event Start date and time"
     },
     "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.PublishDate.lbl",
+    "translations": {
+      "en-US": "Event Publish date and time"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
+    },
     "updateDate": "0001-01-01T00:00:00"
   },
   {
@@ -461,7 +524,7 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "EventsEdir.StartDate.lbl",
+    "key": "EventsEdit.StartDate.lbl",
     "translations": {
       "en-US": "Event Start date and time"
     },
@@ -472,6 +535,21 @@
     "key": "EventsEdit.StartDateRequired.lbl",
     "translations": {
       "en-US": "Start date required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.PublishDate.lbl",
+    "translations": {
+      "en-US": "Event Publish date and time"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -566,6 +644,54 @@
     "key": "EventsEdit.DescriptionRequired.lbl",
     "translations": {
       "en-US": "A description is required"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationAddress.lbl",
+    "translations": {
+      "en-US": "Location address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationAddressMaxLength.lbl",
+    "translations": {
+      "en-US": "The location address is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationAddressPlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationTitle.lbl",
+    "translations": {
+      "en-US": "Location title"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationTitleMaxLength.lbl",
+    "translations": {
+      "en-US": "The location title is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationTitlePlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter name of the location"
     },
     "parentKey": "Events",
     "updateDate": "0001-01-01T00:00:00"

@@ -18,9 +18,9 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IActivityLinkService _linkService;
-        private readonly ImageHelper _imageHelper;
+        private readonly IImageHelper _imageHelper;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, ImageHelper imageHelper)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, IImageHelper imageHelper)
         {
             _umbracoHelper = umbracoHelper;
             _linkService = linkService;
@@ -80,7 +80,9 @@ namespace uIntra.Core.Controls.LightboxGallery
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
-                result.PreviewUrl = totalMediasCount == 1 ? _imageHelper.ToPreviewImage(media.Url) : _imageHelper.ToThumbnailImage(media.Url);
+                result.PreviewUrl = totalMediasCount == 1 ?
+                    _imageHelper.GetImageWithPreset(media.Url, UmbracoAliases.ImagePresets.Preview) :
+                    _imageHelper.GetImageWithPreset(media.Url, UmbracoAliases.ImagePresets.Thumbnail);
             }
 
             return result;

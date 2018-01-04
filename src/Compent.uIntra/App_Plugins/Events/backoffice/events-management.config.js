@@ -24,6 +24,12 @@
                 useSeconds: false,
                 dateFormat: "d/m/Y"
             },
+            publishDate: {
+                useTime: false,
+                useDate: true,
+                useSeconds: false,
+                dateFormat: "d/m/Y"
+            },
             filterDate: {
                 enableTime: false,
                 time_24hr: true,

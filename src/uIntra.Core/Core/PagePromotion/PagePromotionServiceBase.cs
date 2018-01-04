@@ -69,6 +69,7 @@ namespace uIntra.Core.PagePromotion
             return pagePromotion != null && !pagePromotion.IsHidden && pagePromotion.PublishDate <= DateTime.Now;
         }
 
+        public bool IsPinActual(IIntranetActivity cachedActivity) => false;
         public virtual Guid Create(IIntranetActivity activity) => activity.Id;
 
         public virtual void Save(IIntranetActivity activity)

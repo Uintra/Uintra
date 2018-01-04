@@ -39,7 +39,7 @@ var initDescriptionControl = function (holder) {
         throw new Error(holder.attr("id") + ": Hiden input field missing");
     }
     var descriptionElem = holder.find('#description');
-    var btn = holder.find('.form__btn._submit');
+    var btn = holder.find('.js-submit');
 
     var toolbarOptions = [
         [{ 'header': [1, 2, 3, false] }],

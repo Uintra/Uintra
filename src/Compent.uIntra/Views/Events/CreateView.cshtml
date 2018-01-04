@@ -44,6 +44,22 @@
             </div>
         </div>
         <div class="form__row clearfix">
+            <label class="form__label" for="js-publish-date">@Html.Localize("EventsCreate.PublishDate.lbl")</label>
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsCreate.PublishDateRequired.lbl")" data-val="true" />
+            <span class="form__clear icon-close js-clear-date hide"></span>
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="locationTitle">@Html.Localize("EventsCreate.LocationTitle.lbl")</label>
+            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsCreate.LocationTitlePlaceholder.lbl")" 
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="locationAddress">@Html.Localize("EventsCreate.LocationAddress.lbl")</label>
+            <input class="form__input" id="locationAddress" type="text" name="locationAddress" value="@(Model.LocationAddress)" placeholder="@Html.Localize("EventsCreate.LocationAddressPlaceholder.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationAddressMaxLength.lbl"), 200)" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
         </div>
         <div class="form__row clearfix">
@@ -67,9 +83,9 @@
             @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
-            @Html.PassLinks(Model.Links)            
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
-            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")"/>
+            @Html.PassLinks(Model.Links)
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
             <a class="btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }

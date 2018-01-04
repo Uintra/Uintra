@@ -48,6 +48,22 @@
             </div>
         </div>
         <div class="form__row clearfix">
+            <label class="form__label" for="js-publish-date">@Html.Localize("EventsEdit.PublishDate.lbl")</label>
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsEdit.PublishDateRequired.lbl")" data-val="true" />
+            <span class="form__clear icon-close js-clear-date hide"></span>
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="locationTitle">@Html.Localize("EventsEdit.LocationTitle.lbl")</label>
+            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsEdit.LocationTitlePlaceholder.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="locationAddress">@Html.Localize("EventsEdit.LocationAddress.lbl")</label>
+            <input class="form__input" id="locationAddress" type="text" name="locationAddress" value="@(Model.LocationAddress)" placeholder="@Html.Localize("EventsEdit.LocationAddressPlaceholder.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationAddressMaxLength.lbl"), 200)" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
         </div>
         <div class="form__row clearfix">
@@ -86,9 +102,9 @@
 
             @Html.PassLinks(Model.Links)
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" />
+            <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" />
             <input class="btn _submit js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@Model.Links.Overview" />
-            <a class="form__btn _default" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
+            <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
                 }
 </div>

@@ -412,7 +412,6 @@
     <Compile Include="Core\ModelBuilders\SubMenu\ISubNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\LeftSideMenu\LeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\NavigationModelBuilderBase.cs" />
-    <Compile Include="Core\ModelBuilders\SubMenu\SubNavigationModelBuilder.cs" />
     <Compile Include="Core\Models\MenuItemModel.cs" />
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />

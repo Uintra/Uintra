@@ -91,6 +91,7 @@
         }
     }
 }
+
 .search-holder {
     display: flex;
     width: 100%;
@@ -105,18 +106,8 @@
     @media (--for-tablet-portrait-down) {
         background: var(--header-bg);
         padding:10px 0 10px 10px;
-        transition:all ease-in 100ms;
-        transition-delay:250ms;
-        opacity:0;
         z-index:5;
-
-        ._menu-expanded &{
-            opacity:1;
-            position:fixed;
-            top:0;
-            left:0;
-            width:calc(100% - 60px);
-        }
+        width:100%;
 
         &__form {
             overflow:hidden;
@@ -185,10 +176,8 @@
             color:var(--color-black);
 
             @media (--for-tablet-portrait-down) {
-                &{
-                    &:before{
-                        font-size:25px;
-                    }
+                &::before{
+                    font-size:25px;
                 }
             }
         }
@@ -216,11 +205,18 @@
         border-top:1px solid var(--color-light-gray-3);
         padding:9px 15px 8px 20px;
         font-size:14px;
+        min-height:45px;
+        color:var(--text-color-dark);
 
         &.autocomplete-selected,
         &:hover{
-            background-color:var(--color-light-gray-3);
+            background-color:var(--color-light-gray-4);
             cursor:pointer;
+            color:#fff;
+
+            .type{
+                color:#dfdfdf;
+            }
         }
 
         &__link{
@@ -237,6 +233,7 @@
 		    padding: 0;
 		    list-style: none;
 	    }
+
 	    &__frame {
 		    display: inline-block;
 		    margin: 0 5px;
@@ -300,32 +297,17 @@
 		padding:0;
 	}
 
-    .icon-user{
-        &.user__opener:before{
-            position:absolute;
-            right:15px;
-        }
-
-        &._with-avatar:before{
-            display:none;
-
-            @media (--for-tablet-portrait-down){
-                &{
-                    display:block;
-                }
-            }
-        }
-    }
-
     &__opener{
         color:var(--color-white);
         display:block;
         position:relative;
         padding:2px 2px 4px 17px;
         cursor:pointer;
+        margin-right:3px;
 
         &._with-avatar{
-            margin:-5px 0;
+            margin-top:-5px;
+            margin-bottom:-5px;
 
             @media (--for-tablet-portrait-down){
                 margin:0;
@@ -551,7 +533,7 @@
             position:absolute;
             top:11px;
             left:15px;
-            color:#261d43;
+            color:var(--color-submit);
 
             &.icon-user{
                 top:6px;
@@ -581,6 +563,23 @@
 
             @media (--for-tablet-portrait-down){
                 top:19px;
+            }
+        }
+    }
+
+    .icon-user{
+        &.user__opener:before{
+            position:absolute;
+            right:15px;
+        }
+
+        &._with-avatar:before{
+            display:none;
+
+            @media (--for-tablet-portrait-down){
+                &{
+                    display:block;
+                }
             }
         }
     }

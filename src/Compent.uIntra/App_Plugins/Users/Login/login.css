@@ -14,11 +14,9 @@
         box-shadow:0 0 3px rgba(0,0,0,0.2);
 
         @media (--for-phone-only) {
-            &{
-                max-width:100%;
-                padding:49px 20px 24px;
-                margin:0 20px;
-            }
+            max-width:100%;
+            padding:49px 20px 24px;
+            margin:0 20px;
         }
 
         &__logo{
@@ -36,9 +34,7 @@
                 text-align:center;
 
                 @media (--for-phone-only) {
-                    &{
-                        margin:0 -20px 19px;
-                    }
+                    margin:0 -20px 19px;
                 }
             }
         }

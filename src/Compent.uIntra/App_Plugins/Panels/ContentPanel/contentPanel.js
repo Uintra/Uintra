@@ -165,7 +165,7 @@ var initMobileBanners = function () {
     };
 
     var sideBlock = container.querySelectorAll('.block');
-    container.style.top = height + 'px';
+    //container.style.top = height + 'px';
 
     if (sideBlock.length > 0) {
         opener.addEventListener('click',
@@ -197,7 +197,6 @@ var isOutsideClick = function (el, opener, target, className) {
 
 var controller = {
     init: function () {
-
         selectors.forEach(function (selector) {
             initPanel(selector);
         });

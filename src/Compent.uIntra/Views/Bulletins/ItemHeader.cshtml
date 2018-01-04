@@ -4,7 +4,7 @@
     var inactiveUser = Model.Owner.Inactive ? "_inactive" : string.Empty;
 }
 
-<header class="feed__item-heading clearfix @inactiveUser">
+<header class="feed__item-heading @inactiveUser">
     @Html.Action("Photo", "User", new { user = Model.Owner })
     <div class="feed__item-title-holder">
         <h2 class="feed__item-title">

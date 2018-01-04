@@ -14,6 +14,23 @@
     <div class="feed__item _details">
         @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
         <div class="feed__item-txt">
+            <div>
+                <span>@Model.StartDate.Day</span>
+                <span>@Model.StartDate.ToString("MMM")</span>
+            </div>
+            <div>
+                <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
+            </div>
+            @if (Model.LocationTitle.IsNotNullOrEmpty())
+            {
+                <div>@Model.LocationTitle</div>
+            }
+            @if (Model.LocationAddress.IsNotNullOrEmpty())
+            {
+                <div>@Model.LocationAddress</div>
+            }
+        </div>
+        <div class="feed__item-txt">
             @Html.Raw(Model.Description)
         </div>
         <div class="feed__item-images">

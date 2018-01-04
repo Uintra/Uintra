@@ -10,18 +10,18 @@
         @foreach (var typeModel in Model.TabsWithCreateUrl)
         {
             <li class="feed-create__frame">
-                <a class="feed-create__item" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
+                <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
             </li>
         }
 
         <li class="feed-create__frame">
-            <a class="feed-create__item js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+            <a class="btn _submit js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
         </li>
     </ul>
     @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
     @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
-    <div class="feed__filter filter__body js-feed-navigation">
-        <div class="tabset__holder">
+    <div class="feed__filter js-feed-navigation">
+        <div class="filter__body">
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
@@ -36,7 +36,7 @@
         @using (Html.BeginUmbracoForm("List", "CentralFeed", null,
                                     new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
         {
-            <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50" /></div>
+            
             <input type="hidden" name="typeId" value="@Model.CurrentType.Id" />
             <input type="hidden" name="page" />
             <div class="tab-content js-feed-listContainer">
@@ -48,7 +48,8 @@
                                 TypeId = Model.CurrentType.Id
                             }
                         }); }
+                <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50" /></div>
             </div>
-                    }
+        }
     </div>
 </section>

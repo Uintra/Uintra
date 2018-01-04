@@ -24,7 +24,9 @@
 
         public static class ImagePresets
         {
-            public const string Thumbnail = "thumbnail";            
+            public const string Thumbnail = "thumbnail";         
+            public const string Preview = "preview";
+            public const string GroupImageThumbnail = "groupImageThumbnail";
         }
 
         public static class QueryStringParameters
