@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -10,11 +11,6 @@ namespace uIntra.Core.Extensions
     {
         public const string GroupIdQueryParam = "groupId";
 
-        public static bool IsNullOrEmpty(this string str)
-        {
-            return string.IsNullOrEmpty(str);
-        }
-
         public static string Take(this string str, int n)
         {
             var substring = Enumerable.Take(str, n).ToArray();
@@ -24,11 +20,6 @@ namespace uIntra.Core.Extensions
         public static string SubstringAfter(this string str, string substring)
         {
             return str.Substring(str.IndexOf(substring) + substring.Length);
-        }
-
-        public static bool IsNotNullOrEmpty(this string str)
-        {
-            return !str.IsNullOrEmpty();
         }
 
         public static IEnumerable<int> ToIntCollection(this string str)

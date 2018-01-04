@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
@@ -150,7 +151,7 @@ namespace uIntra.News.Web
         {
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.CanEdit = _newsService.CanEdit(news);
             return model;
@@ -166,7 +167,7 @@ namespace uIntra.News.Web
 
             // TODO : try to move this logic smwhere to avoid duplication
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.HeaderInfo.Links = options.Links;
 

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.News.Dashboard;
@@ -76,7 +77,7 @@ namespace uIntra.News
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerable()));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>()

@@ -1,16 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 
 namespace uIntra.Core.Extensions
 {
     public static class EnumerableExtensions
     {
-        public static IEnumerable<T> AsEnumerable<T>(params T[] items) => items;
-
-        public static IEnumerable<T> ToEnumerableOfOne<T>(this T obj)
-        {
-            if (obj != null) yield return obj;
-        }
 
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable)
         {
@@ -26,6 +21,6 @@ namespace uIntra.Core.Extensions
         }
 
         public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T item) =>
-            source.Concat(item.ToEnumerableOfOne());
+            source.Concat(item.ToEnumerable());
     }
 }
