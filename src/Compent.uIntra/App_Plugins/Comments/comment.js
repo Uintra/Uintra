@@ -204,11 +204,31 @@ function findControl(holder, selector) {
 }
 
 function quillTextChangeEventHandler(quill, button, delta, oldDelta, source) {
+    setButtonDisableState(quill, button);
+
+    // if (isTimeForLinkPreview)
+    showLinkPreview();
+
+}
+
+function setButtonDisableState(quill, button) {
     var n = quill.container.querySelectorAll("img").length;
     if (quill.getText().trim().length > 0 || n > 0) {
         button.removeAttr("disabled");
     } else {
         button.attr("disabled", "disabled");
+    }
+}
+
+var flag = true;
+function showLinkPreview() {
+    if (flag) {
+
+        $.get('/umbraco/api/LinkPreviewApi/Preview?url=https://github.com', function(data) {
+            console.log(data)
+        })
+
+        flag = false;
     }
 }
 

@@ -1215,6 +1215,7 @@
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
+    <Compile Include="Controllers\Api\LinkPreviewApiController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />

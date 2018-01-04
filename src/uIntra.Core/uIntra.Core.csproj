@@ -443,7 +443,9 @@
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
+    <Compile Include="Core\Utils\HttpHelper.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
+    <Compile Include="Core\Utils\IHttpHelper.cs" />
     <Compile Include="Installer\BasePageWithDefaultGridCreateModel.cs" />
     <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
@@ -452,8 +454,11 @@
     <Compile Include="Installer\IntranetInstaller.cs" />
     <Compile Include="Installer\Migrations\HeadingInstallationStep_0_2_2_10.cs" />
     <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
+    <Compile Include="LinkPreview\Models\LinkPreviewDto.cs" />
+    <Compile Include="LinkPreview\Services\LinkPreviewService.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
+    <Compile Include="Web\LinkPreviewApiControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
