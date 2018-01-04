@@ -28,6 +28,8 @@ namespace uIntra.Events
 
         public bool CanSubscribe { get; set; }
 
+        public string SubscribeNotes { get; set; }
+
         public bool CanEditSubscribe { get; set; }
 
         public int? MediaRootId { get; set; }

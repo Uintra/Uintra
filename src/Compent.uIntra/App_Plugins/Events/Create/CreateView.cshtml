@@ -65,10 +65,15 @@
         <div class="form__row clearfix">
             <div class="check">
                 <label class="check__label">
-                    @Html.CheckBoxFor(m => m.CanSubscribe, new { @class = "check__box" })
+                    @Html.CheckBoxFor(m => m.CanSubscribe, new { @class = "check__box js-can-subscribe" })
                     <span class="check__fake-input icon-check"></span>
                     <span class="check__fake-label">@Html.Localize("EventsCreate.CanSubscribe.lbl")</span>
                 </label>
+                <div class="js-subscribe-notes-holder">
+                    <label class="form__label" for="subscribeNotes">@Html.Localize("EventsCreate.SubscribeNotes.lbl")</label>
+                    <textarea class="form__input" id="subscribeNotes" type="text" name="subscribeNotes" data-val-length-max="200"
+                              data-val-length="@string.Format(Html.Localize("EventsCreate.SubscribeNotesMaxLength.lbl"), 200)" data-val="true">@Model.SubscribeNotes</textarea>
+                </div>
             </div>
         </div>
         <div class="form__row clearfix">

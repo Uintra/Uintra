@@ -101,6 +101,27 @@ var initDatePickers = function () {
     end.config.onChange.push(endOnChange);
 }
 
+let initSubscribeNotes = function () {
+    let subscribeNotesHolder = $('.js-subscribe-notes-holder');
+    let canSubscibeChx = $('.js-can-subscribe');
+
+    if (canSubscibeChx.is(":unchecked")) {
+        subscribeNotesHolder.hide();
+    }
+
+    canSubscibeChx.on('change', canSubscibeChange);
+
+    function canSubscibeChange() {
+        if (canSubscibeChx.is(":checked")) {
+            subscribeNotesHolder.show();
+        } else {
+            subscribeNotesHolder.hide();
+        }
+    }
+
+    canSubscibeChange();
+}
+
 var controller = {
     init: function () {
         holder = $('#js-events-create-page');
@@ -114,6 +135,7 @@ var controller = {
         initUserSelect();
         initDatePickers();
         initDescriptionControl();
+        initSubscribeNotes();
         fileUploadController.init(holder);
     }
 }

@@ -10,6 +10,7 @@ let userSelect;
 let editor;
 let form;
 
+
 let initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
@@ -193,6 +194,27 @@ let initDatePickers = function () {
     end.config.onChange.push(endOnChange);
 }
 
+let initSubscribeNotes = function() {
+    let subscribeNotesHolder = $('.js-subscribe-notes-holder');
+    let canSubscibeChx = $('.js-can-subscribe');
+
+    if (canSubscibeChx.is(":unchecked")) {
+        subscribeNotesHolder.hide();
+    }
+
+    canSubscibeChx.on('change', canSubscibeChange);
+
+    function canSubscibeChange() {
+        if (canSubscibeChx.is(":checked")) {
+            subscribeNotesHolder.show();
+        } else {
+            subscribeNotesHolder.hide();
+        }
+    }
+
+    canSubscibeChange();
+}
+
 let controller = {
     init: function () {
         holder = $('#js-events-edit-page');
@@ -206,6 +228,7 @@ let controller = {
         initDescriptionControl();
         initSubmitButton();
         initHideControl();
+        initSubscribeNotes();
         fileUploadController.init(holder);
     }
 }
