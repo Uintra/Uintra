@@ -73,6 +73,7 @@ using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
+using uIntra.Core.LinkPreview;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.LicenceService.ApiClient;
@@ -336,6 +337,9 @@ namespace Compent.uIntra
             kernel.Bind<INotificationSettingCategoryProvider>().To<NotificationSettingCategoryProvider>();
 
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
+
+            // Link preview
+            kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();

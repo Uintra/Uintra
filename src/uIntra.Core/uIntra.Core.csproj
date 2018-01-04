@@ -455,6 +455,8 @@
     <Compile Include="Installer\Migrations\HeadingInstallationStep_0_2_2_10.cs" />
     <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="LinkPreview\Models\LinkPreviewDto.cs" />
+    <Compile Include="LinkPreview\Models\LinkPreview.cs" />
+    <Compile Include="LinkPreview\Services\ILinkPreviewService.cs" />
     <Compile Include="LinkPreview\Services\LinkPreviewService.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />

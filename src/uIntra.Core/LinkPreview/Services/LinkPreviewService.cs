@@ -1,20 +1,20 @@
 ﻿using uIntra.Core.Extensions;
 using uIntra.Core.Utils;
 
-namespace uIntra.Core.LinkPreview.Services
+namespace uIntra.Core.LinkPreview
 {
-    public class ILinkPreviewService
+    public class LinkPreviewService : ILinkPreviewService
     {
         private readonly IHttpHelper _httpHelper;
 
-        public ILinkPreviewService(IHttpHelper httpHelper)
+        public LinkPreviewService(IHttpHelper httpHelper)
         {
             _httpHelper = httpHelper;
         }
 
-        public LinkPreviewDto GetLinkPreview(string url)
+        public LinkPreview GetLinkPreview(string url)
         {
-            return _httpHelper.GetStringAsync($"http://localhost:62224/api/preview?url={url}").Result.Deserialize<LinkPreviewDto>();
+            return _httpHelper.GetStringAsync($"http://localhost:62224/api/preview?url={url}").Result.Deserialize<LinkPreview>();
         }
     }
 }

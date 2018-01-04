@@ -224,9 +224,10 @@ var flag = true;
 function showLinkPreview() {
     if (flag) {
 
-        $.get('/umbraco/api/LinkPreviewApi/Preview?url=https://github.com', function(data) {
-            console.log(data)
-        })
+        $.get('/umbraco/api/LinkPreviewApi/Preview?url=https://github.com',
+            function(data) {
+                console.log(data);
+            });
 
         flag = false;
     }
