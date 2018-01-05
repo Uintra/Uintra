@@ -3,12 +3,15 @@ using System.Linq;
 using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Extensions;
 
 namespace uIntra.Core.PagePromotion
 {
-    public class PagePromotionHelper
+    public static class PagePromotionHelper
     {
         public static bool IsPagePromotion(IContent content) => content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
+
+        public static bool IsPagePromotion(IPublishedContent content) => content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
 
         public static PagePromotionConfig GetConfig(IPublishedContent content)
         {

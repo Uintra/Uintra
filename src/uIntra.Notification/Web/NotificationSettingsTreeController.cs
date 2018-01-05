@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
+using BCLExtensions.Trees;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
@@ -25,7 +26,7 @@ namespace uIntra.Notification.Web
 
         protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
         {
-            var node = _notificationSettingsTreeProvider.GetSettingsTree().Where(t => t.Id == id).First();
+            var node = _notificationSettingsTreeProvider.GetSettingsTree().FirstOrDefault(t => t.Id == id);
             var mappedNode = MapNode(node, queryStrings);
             return mappedNode;
         }
@@ -35,10 +36,10 @@ namespace uIntra.Notification.Web
             return new MenuItemCollection();
         }
 
-        protected TreeNodeCollection MapNode(Tree<TreeNodeModel> tree, FormDataCollection queryStrings)
+        protected TreeNodeCollection MapNode(ITree<TreeNodeModel> tree, FormDataCollection queryStrings)
         {
-            var mapped = tree.Children.Select(ch =>
-                CreateTreeNode(ch.Value.Id, tree.Value.Id, queryStrings, ch.Value.Name, ch.Value.Icon, ch.Children.Any(), ch.Value.ViewPath));
+            var mapped = tree.GetChildren().Select(ch =>
+                CreateTreeNode(ch.Value.Id, tree.Value.Id, queryStrings, ch.Value.Name, ch.Value.Icon, ch.IsNode(), ch.Value.ViewPath));
             var col = new TreeNodeCollection();
             col.AddRange(mapped);
             return col;

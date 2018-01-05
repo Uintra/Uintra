@@ -1,16 +1,17 @@
 ﻿@using uIntra.Core.Extensions
 @model uIntra.Navigation.LeftNavigationUserMenuViewModel
 
- <ul class="side-nav _for-mobile">
+ <ul class="side-nav side-nav--profile">
     <li class="side-nav__item">
-        <a class="side-nav__link _with-icon" href="@Model.ProfileLink">
-            <img class="avatar-img" src="@Model.CurrentUser.Photo?width=30" width="30">
-            @Html.Localize("LeftNavigationUserMenu.ViewProfile.lbl")
+        <a class="side-nav__link side-nav__link--title" href="@Model.ProfileLink">
+            @if (!string.IsNullOrWhiteSpace(Model.CurrentUser.Photo)) { 
+                <img class="avatar-img" src="@Model.CurrentUser.Photo?width=30&height=30&mode=min" width="30">
+            }
+            @Model.CurrentUser.DisplayedName
         </a>
     </li>
     <li class="side-nav__item">
-        <a class="side-nav__link _with-icon js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
-            <span class="icon icon-logout"></span>
+        <a class="side-nav__link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
             @Html.Localize("LeftNavigationUserMenu.Logout.lbl")
          </a>
      </li>

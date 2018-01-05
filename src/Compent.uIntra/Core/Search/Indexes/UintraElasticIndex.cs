@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Search.Entities;
+using Extensions;
 using Nest;
 using uIntra.Core.Extensions;
 using uIntra.Search;
@@ -123,7 +124,7 @@ namespace Compent.uIntra.Core.Search.Indexes
                             break;
                         case "userTagNames":
                             document.tagsHighlighted = true;
-                            document.userTagNames = highlightedField.ToEnumerableOfOne().ToDynamic();
+                            document.userTagNames = highlightedField.ToEnumerable().ToDynamic();
                             break;
                         case "phone":
                             document.phone = highlightedField;

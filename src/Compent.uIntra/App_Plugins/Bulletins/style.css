@@ -35,9 +35,9 @@
         .ql-container .ql-editor {
             &.ql-blank{
                 &:before{
-                    left:auto;
+                    left:20px;
                     top:auto;
-                    right:auto;
+                    right:20px;
                     color:#aaa;
                 }
             }
@@ -57,14 +57,14 @@
         }
 
         .avatar{
-            width:30px !important;
-            height:30px !important;
+            width:30px;
+            height:30px;
             min-width:30px;
             border-radius:50%;
 
             ._expanded &{
-                width:60px !important;
-                height:60px !important;
+                width:60px;
+                height:60px;
             }
         }
     }

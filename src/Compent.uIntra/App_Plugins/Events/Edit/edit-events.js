@@ -80,6 +80,7 @@ let initDescriptionControl = function () {
     ];
 
     editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
+        placeholder: dataStorage.first().data('placeholder') || '',
         modules: {
             toolbar: toolbarOptions
         },

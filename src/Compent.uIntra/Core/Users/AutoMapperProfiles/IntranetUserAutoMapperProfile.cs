@@ -8,7 +8,8 @@ namespace Compent.uIntra.Core.Users
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<IntranetUser, ProfileViewModel>();
+            Mapper.CreateMap<IntranetUser, ProfileViewModel>()
+                .ForMember(dst => dst.EditingUser, o => o.MapFrom(user => user));
 
 
 

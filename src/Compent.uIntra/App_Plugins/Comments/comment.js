@@ -10,6 +10,11 @@ const quillOptions = {
     modules: {
         toolbar: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
     }
+    /*modules: {
+        toolbar: ['emoji', 'bold', 'italic', 'link']
+    },
+    theme: 'snow',
+    placeholder: 'Tilføj kommentar'*/
 };
 
 var initSubmitButton  = function(holder) {
@@ -54,14 +59,9 @@ var initCreateControl = function (holder) {
             $(this).attr('title', tooltip);
         });
 
-        quill.on('text-change', function () {
-            var n = quill.container.querySelectorAll("img").length;
-            if (quill.getText().trim().length > 0 || n > 0) {
-                button.removeAttr("disabled");
-            } else {
-                button.attr("disabled", "disabled");
-            }
-        });
+        quill.on('text-change',
+            (delta, oldDelta, source) =>
+                quillTextChangeEventHandler(quill, button, delta, oldDelta, source));
 
         quill.setText('');
         dataStorage.value = '';
@@ -127,14 +127,9 @@ var initEdit = function (holder) {
         $(this).attr('title', tooltip);
     });
 
-    quill.on('text-change', function () {
-        var n = quill.container.querySelectorAll("img").length;
-        if (quill.getText().trim().length > 0 ||n > 0) {
-            button.removeAttr("disabled");
-        } else {
-            button.attr("disabled", "disabled");
-        }
-    });
+    quill.on('text-change',
+        (delta, oldDelta, source) =>
+            quillTextChangeEventHandler(quill, button, delta, oldDelta, source));
 };
 
 var initReply = function (holder) {
@@ -178,14 +173,9 @@ var initReply = function (holder) {
         $(this).attr('title', tooltip);
     });
 
-    quill.on('text-change', function () {
-        var n = quill.container.querySelectorAll("img").length;
-        if (quill.getText().trim().length > 0 || n > 0) {
-            button.removeAttr("disabled");
-        } else {
-            button.attr("disabled", "disabled");
-        }
-    });
+    quill.on('text-change',
+        (delta, oldDelta, source) =>
+            quillTextChangeEventHandler(quill, button, delta, oldDelta, source));
 };
 
 var initDelete = function (holder) {
@@ -216,6 +206,15 @@ function findControl(holder, selector) {
         var parent = $this.closest('.js-comment-view');
         return parent.data('id') === holder.data('id');
     });
+}
+
+function quillTextChangeEventHandler(quill, button, delta, oldDelta, source) {
+    var n = quill.container.querySelectorAll("img").length;
+    if (quill.getText().trim().length > 0 || n > 0) {
+        button.removeAttr("disabled");
+    } else {
+        button.attr("disabled", "disabled");
+    }
 }
 
 var CommentOverview = function (selector) {

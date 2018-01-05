@@ -13,6 +13,7 @@
         color:#262626;
     }
 }
+
 .notification{
     position:relative;
 
@@ -40,6 +41,7 @@
             }
         }
     }
+    
     &__number{
         display: none;
         position:absolute;
@@ -70,18 +72,16 @@
                 display:block;
             }
 
-            @media(--for-tablet-portrait-down){
-                &{
-                    width:calc(100vw - 17px);
-                    transform:translate(0, -100%);
-                    transition: transform linear 200ms;
-                    display:block;
-                    left:auto;
-                    right:0;
+            @media (--for-tablet-portrait-down){
+                width:calc(100vw - 17px);
+                transform:translate(0, -100%);
+                transition: transform linear 200ms;
+                display:block;
+                left:auto;
+                right:0;
 
-                    ._notifications-expanded &{
-                        transform:translate(0, 0);
-                    }
+                ._notifications-expanded &{
+                    transform:translate(0, 0);
                 }
             }
         }
@@ -126,50 +126,52 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        & {
-	        position:absolute;
-	        width: 57px;
-            right:-5px;
+        position:absolute;
+        width: 57px;
+        right:-5px;        
 
-	        &__icon {
-		        position:relative;
-		        z-index:3;
-		        flex: 1 1 auto;
-		        display: flex;
-		        justify-content: center;
-		        align-items: center;
-		        height: 100%;
-		        padding: 0;
+        &__icon {
+            position:relative;
+            z-index:3;
+            flex: 1 1 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            transition:opacity 0.4s ease;
+            opacity:1;
 
-		        span {
-			        margin: 0 0 0 5px;
-		        }
-	        }
-
-            &__number {
-                top: -10px;
-                margin: -15px 0 0 5px;
-                left: 50%;
+            ._menu-expanded &{
+                opacity:0;
             }
 
-            &__list{
-                width:auto;
-                right:0;
+            span {
+                margin: 0 0 0 5px;
             }
+        }
 
-            &__all{
-                border-width:1px 0;
-            }
+        &__number {
+            top: -10px;
+            margin: -15px 0 0 5px;
+            left: 50%;
+        }
+
+        &__list{
+            width:auto;
+            right:0;
+        }
+
+        &__all{
+            border-width:1px 0;
         }
     }
 
     @media (--for-tablet-landscape-up) {
-        & {
-            float: left;
-            width: auto;
-            text-align: left;
-            padding:0;
-        }
+        float: left;
+        width: auto;
+        text-align: left;
+        padding:0;
     }
 
     /* Notification page styles */
@@ -245,13 +247,15 @@
                 align-items:center;
 
                 &:first-child{
-                                 background:#f6f6f6;
-                             }
+                    background:#f6f6f6;
 
-                @media(--for-tablet-portrait-down){
-                    &{
-                        align-items:flex-start;
+                    .avatar__letter{
+                        background:#fff;
                     }
+                }
+
+                @media (--for-tablet-portrait-down){
+                    align-items:flex-start;
                 }
             }
 
@@ -270,6 +274,10 @@
             &[data-viewed='false']{
                 .notification &{
                     background:#f6f6f6;
+
+                    .avatar__letter{
+                        background:#fff;
+                    }
                 }
 
                 &:after{
@@ -279,35 +287,6 @@
                         display:none;
                     }
                 }
-            }
-        }
-
-        &-avatar{
-            width:60px;
-            min-width:60px;
-            max-width:60px;
-            height:60px;
-            margin:7px 50px 0 0;
-            position:relative;
-            overflow:hidden;
-            border-radius:50%;
-
-	        .notification & {
-		        margin: 3px 20px 0 0;
-	        }
-
-            &-img{
-                height: auto !important;
-                left: 50%;
-                position: absolute;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                width:60px;
-                max-width:100%;
-            }
-
-            .notification-page &{
-                margin-top:0;
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 
@@ -29,12 +30,12 @@ namespace uIntra.Tagging.UserTags
 
         public virtual void AddRelation(Guid entityId, Guid tagId)
         {
-            AddRelations(entityId, tagId.ToEnumerableOfOne());
+            AddRelations(entityId, tagId.ToEnumerable());
         }
 
         public virtual void RemoveRelation(Guid entityId, Guid tagId)
         {
-            RemoveRelations(entityId, tagId.ToEnumerableOfOne());
+            RemoveRelations(entityId, tagId.ToEnumerable());
         }
 
         public virtual void AddRelations(Guid entityId, IEnumerable<Guid> tagIds)
