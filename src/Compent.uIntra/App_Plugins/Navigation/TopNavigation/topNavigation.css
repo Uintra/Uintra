@@ -107,27 +107,16 @@
         background: var(--header-bg);
         padding:10px 0 10px 10px;
         z-index:5;
-        width:100%;
-
-        &__form {
-            overflow:hidden;
-        }
     }
 
     @media (--for-tablet-landscape-up) {
         float: left;
-        max-width:100%;
-        padding:10px 0;
-        text-align: left;
         margin:0 13px 0 0;
-
-        &__form {
-            display: block;
-        }
     }
 
-    @media (--for-big-desktop-up) {
-        width:100%;
+    &__form {
+        position:relative;
+        overflow:hidden;
     }
 
     &__input{
@@ -155,11 +144,12 @@
 
     &__button{
         position:absolute;
-        top: 14px;
-        right: 6px;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
         border:none;
         background:none;
-        padding:0 8px;
+        padding:4px 14px 6px 8px;
         cursor:pointer;
 
         &:hover{
@@ -167,16 +157,15 @@
         }
 
         @media (--for-tablet-portrait-down) {
-            top: 18px;
-            right: 0;
+            padding:6px 8px;
         }
 
         .icon-search{
-            font-size:18px;
+            display:block;
             color:var(--color-black);
 
-            @media (--for-tablet-portrait-down) {
-                &::before{
+            &:before{
+                @media (--for-tablet-portrait-down) {
                     font-size:25px;
                 }
             }
@@ -288,7 +277,7 @@
 .user {
     float:right;
     position:relative;
-    padding:12px 0;
+    padding:12px 0 0;
     margin:0;
 
 	@media (--for-tablet-portrait-down){
