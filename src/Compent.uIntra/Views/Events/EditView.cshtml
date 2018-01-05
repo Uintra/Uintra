@@ -3,6 +3,7 @@
 @using uIntra.Core.Extensions
 @using uIntra.Subscribe
 @using Umbraco.Web
+@using Extensions
 @model Compent.uIntra.Core.Events.EventExtendedEditModel
 
 <div class="form js-check-before-unload" id="js-events-edit-page">
@@ -32,7 +33,7 @@
             <div id="description">
                 @Html.Raw(Model.Description)
             </div>
-            <input type="hidden" id="js-hidden-description-container" name="description" 
+            <input type="hidden" id="js-hidden-description-container" name="description"
                    value="@(Model.Description)"
                    data-placeholder="@Html.Localize("Events.Description.placeholder")"
                    data-val-required="@Html.Localize("EventsEdit.DescriptionRequired.lbl")"
@@ -75,7 +76,6 @@
         </div>
         <div class="form__row clearfix">
             @{ Html.RenderAction("ActivitySubscribeSettings", "Subscribe", new ActivitySubscribeSettingsModel
-                <label class="form__label">@Html.Localize("EventsEdit.Participation.lbl")</label>
                 {
                     CanSubscribe = Model.CanSubscribe,
                     CanEditSubscribe = Model.CanEditSubscribe,
@@ -86,7 +86,11 @@
             <label class="form__label" for="file-upload">@Html.Localize("EventsEdit.UploadFiles.lbl")</label>
             @{
                 var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };
-                Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
+                Html.RenderAction("Editor", "FileUpload", new
+                {
+                    Settings = settings,
+                    Model = Model?.Media
+                });
             }
         </div>
 
