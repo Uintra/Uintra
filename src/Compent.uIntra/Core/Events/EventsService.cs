@@ -46,8 +46,6 @@ namespace Compent.uIntra.Core.Events
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
-
-
         private readonly IGroupActivityService _groupActivityService;
 
         public EventsService(
@@ -108,19 +106,12 @@ namespace Compent.uIntra.Core.Events
             Save(@event);
         }
 
-        public bool CanEditSubscribe(Event activity)
-        {
-            return !activity.Subscribers.Any();
-        }
+        public bool CanEditSubscribe(Event activity) => !activity.Subscribers.Any();
 
-        public bool CanSubscribe(EventBase activity)
+        public bool CanSubscribe(Guid activityId)
         {
-            return IsActual(activity) && activity.CanSubscribe;
-        }
-
-        public bool HasSubscribers(Event activity)
-        {
-            return activity.Subscribers.Any();
+            var @event = Get(activityId);
+            return IsActual(@event) && @event.CanSubscribe;
         }
 
         public MediaSettings GetMediaSettings()
@@ -276,71 +267,71 @@ namespace Compent.uIntra.Core.Events
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                ActivityType =  ActivityType
-                
+                ActivityType = ActivityType
+
             };
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.CommentReplied:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.CommentReplied:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
+                    }
                     break;
-                case (int) NotificationTypeEnum.CommentEdited:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
+                case (int)NotificationTypeEnum.CommentEdited:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
 
-                }
+                    }
                     break;
-                case (int) NotificationTypeEnum.CommentAdded:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerableOfOne()).Distinct();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
-                }
+                case (int)NotificationTypeEnum.CommentAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerableOfOne()).Distinct();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
+                    }
                     break;
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
-                {
-                    var currentEvent = Get(entityId);
-                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                    {
+                        var currentEvent = Get(entityId);
+                        data.ReceiverIds = currentEvent.OwnerId.ToEnumerableOfOne();
+                        data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
+                    }
                     break;
-                case (int) NotificationTypeEnum.CommentLikeAdded:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = currentUser.Id == comment.UserId
-                        ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerableOfOne();
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var currentEvent = Get(comment.ActivityId);
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerableOfOne();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
-                }
-                    break;
-
-                case (int) NotificationTypeEnum.BeforeStart:
-                {
-                    var currentEvent = Get(entityId);
-                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                    data.Value = _notifierDataHelper.GetActivityReminderDataModel(currentEvent, notificationType);
-                }
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.EventHided:
-                case (int) NotificationTypeEnum.EventUpdated:
-                {
-                    var currentEvent = Get(entityId);
-                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(currentEvent, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.BeforeStart:
+                    {
+                        var currentEvent = Get(entityId);
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
+                        data.Value = _notifierDataHelper.GetActivityReminderDataModel(currentEvent, notificationType);
+                    }
+                    break;
+
+                case (int)NotificationTypeEnum.EventHided:
+                case (int)NotificationTypeEnum.EventUpdated:
+                    {
+                        var currentEvent = Get(entityId);
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
+                        data.Value = _notifierDataHelper.GetActivityNotifierDataModel(currentEvent, notificationType, currentUser.Id);
+                    }
                     break;
                 default:
                     return null;
