@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Extensions;
 using uIntra.Core;
-using uIntra.Core.Extensions;
 
 namespace uIntra.CentralFeed
 {
@@ -8,7 +8,7 @@ namespace uIntra.CentralFeed
     {
         public static IEnumerable<string> GetFeedActivitiesXPath(IDocumentTypeAliasProvider aliasProvider)
         {
-            return aliasProvider.GetHomePage().ToEnumerableOfOne();
+            return aliasProvider.GetHomePage().ToEnumerable();
         }
     }
 }
