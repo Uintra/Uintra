@@ -8,6 +8,7 @@ using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
+using Extensions;
 
 namespace uIntra.Core.Controls.LightboxGallery
 {
@@ -91,9 +92,8 @@ namespace uIntra.Core.Controls.LightboxGallery
         protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
         {
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
-
-            var totalMediasCount = medias.Count();
-            var galleryViewModelList = medias.Select(m => MapToMedia(m, totalMediasCount)).ToList();
+            var mediasList = medias.AsList();
+            var galleryViewModelList = mediasList.Select(m => MapToMedia(m, mediasList.Count)).ToList();
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Events.Dashboard;
@@ -88,7 +89,7 @@ namespace uIntra.Events
             Mapper.CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateTimeFormat().ToEnumerableOfOne()));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateTimeFormat().ToEnumerable()));
 
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>()

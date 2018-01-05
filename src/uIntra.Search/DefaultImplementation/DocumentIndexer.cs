@@ -11,6 +11,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using File = System.IO.File;
 using static uIntra.Core.Constants.UmbracoAliases.Media;
+using Extensions;
 
 namespace uIntra.Search
 {
@@ -69,7 +70,7 @@ namespace uIntra.Search
 
         public void Index(int id)
         {
-            Index(id.ToEnumerableOfOne());
+            Index(id.ToEnumerable());
         }
 
         public void Index(IEnumerable<int> ids)
@@ -95,7 +96,7 @@ namespace uIntra.Search
 
         public void DeleteFromIndex(int id)
         {
-            DeleteFromIndex(id.ToEnumerableOfOne());
+            DeleteFromIndex(id.ToEnumerable());
         }
 
         public void DeleteFromIndex(IEnumerable<int> ids)
@@ -149,7 +150,7 @@ namespace uIntra.Search
                     Data = base64File,
                     Type = SearchableTypeEnum.Document.ToInt()
                 };
-                 return result.ToEnumerableOfOne();
+                 return result.ToEnumerable();
             }
             return Enumerable.Empty<SearchableDocument>();
         }

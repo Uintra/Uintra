@@ -80,6 +80,9 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BCLExtensions, Version=0.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCLExtensions.0.2.7\lib\net452\BCLExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
@@ -360,8 +363,6 @@
     <Compile Include="Core\Constants\GridEditorConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\EditorConfigProvider.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IEditorConfigProvider.cs" />
-    <Compile Include="Core\Extensions\Tree.cs" />
-    <Compile Include="Core\Extensions\TreeExtensions.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
