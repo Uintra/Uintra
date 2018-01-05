@@ -335,6 +335,7 @@
     <Compile Include="Core\Model\SubscribeNotificationDisableUpdateModel.cs" />
     <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
     <Compile Include="Core\Model\SubscribeViewModel.cs" />
+    <Compile Include="Core\Sql\ActivitySubscribeSetting.cs" />
     <Compile Include="Core\Sql\Subscribe.cs" />
     <Compile Include="Web\SubscribeControllerBase.cs" />
     <Compile Include="Core\Services\SubscribeService.cs" />

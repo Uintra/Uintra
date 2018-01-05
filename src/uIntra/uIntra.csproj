@@ -1234,6 +1234,13 @@
       <Link>Persistence\Sql\Migrations\201711141621545_NotificationSettings.designer.cs</Link>
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.cs">
+      <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.designer.cs">
+      <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.designer.cs</Link>
+      <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1245,6 +1252,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx">
       <Link>Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx</Link>
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
+      <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx</Link>
+      <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
