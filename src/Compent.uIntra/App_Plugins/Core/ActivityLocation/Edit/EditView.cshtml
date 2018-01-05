@@ -4,8 +4,8 @@
 <div class="js-location-edit">
     <div class="row">
         <div class="col-md-12">
-            @Html.TextBoxFor(model => model.Address, new { @class = "form__input", type = "text", id = "js-map-address", name = "location.address" })
-            @Html.HiddenFor(model => model.ShortAddress, new { id = "js-map-short", name = "location.shortAddress" })
+            <input id="js-map-address" type="text" class="form__input" name="location.address" />
+            <input id="js-map-short" type="hidden" name="location.shortAddress"/>
         </div>
     </div>
     <div id="js-map-container" class="map-container"></div>
