@@ -7,6 +7,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "UserTagsPicker.AddTags.lbl",
+    "translations": {
+      "en-US": "Add tags"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "UserTagsView.Title.lbl",
     "translations": {
       "en-US": "Related tags"

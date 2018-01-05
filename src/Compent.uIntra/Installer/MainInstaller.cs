@@ -98,6 +98,12 @@ namespace Compent.uIntra.Installer
                 eventPublishDateMigration.Execute();
             }
 
+            if (installedVersion < TaggingUIntraVersion && UIntraVersion >= TaggingUIntraVersion)
+            {
+                var taggingMigration = new TaggingMigration();
+                taggingMigration.Execute();
+            }
+
             if (UIntraVersion > installedVersion)
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
@@ -105,12 +111,8 @@ namespace Compent.uIntra.Installer
 
             AddDefaultMailSettings();
 
-            
-            if (installedVersion < TaggingUIntraVersion && UIntraVersion >= TaggingUIntraVersion)
-            {
-                var taggingMigration = new TaggingMigration();
-                taggingMigration.Execute();
-            }
+
+
         }
 
         private static void SetCurrentCulture()
