@@ -1113,6 +1113,9 @@
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801051125257_Add_ActivityLocation.resx">
+      <DependentUpon>201801051125257_Add_ActivityLocation.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1372,6 +1375,10 @@
     <Compile Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.cs" />
     <Compile Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.Designer.cs">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801051125257_Add_ActivityLocation.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801051125257_Add_ActivityLocation.Designer.cs">
+      <DependentUpon>201801051125257_Add_ActivityLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

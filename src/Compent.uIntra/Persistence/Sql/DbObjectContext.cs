@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using uIntra.Comments;
 using uIntra.Core.Activity;
+using uIntra.Core.Location.Entities;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories.Sql;
 using uIntra.Core.Persistence;
@@ -35,6 +36,7 @@ namespace Compent.uIntra.Persistence.Sql
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<IntranetActivityEntity> IntranetActivityEntities { get; set; }
+        public DbSet<ActivityLocationEntity> ActivityLocations { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<MyLink> MyLinks { get; set; }
         public DbSet<Notification> Notifications { get; set; }
