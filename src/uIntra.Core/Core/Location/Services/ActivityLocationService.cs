@@ -32,6 +32,9 @@ namespace uIntra.Core.Location
 
             if (oldLocation is default)
             {
+                if (location == null)
+                    return;
+
                 var newLocation = new ActivityLocationEntity()
                 {
                     ActivityId = activityId,
@@ -43,9 +46,16 @@ namespace uIntra.Core.Location
             }
             else
             {
-                oldLocation.Address = location.Address;
-                oldLocation.ShortAddress = location.ShortAddress;
-                _locationRepository.Update(oldLocation);
+                if (location == null || location.Address == null || location.ShortAddress == null)
+                {
+                    _locationRepository.Delete(oldLocation);
+                }
+                else
+                {
+                    oldLocation.Address = location.Address;
+                    oldLocation.ShortAddress = location.ShortAddress;
+                    _locationRepository.Update(oldLocation);
+                }
             }
         }
     }
