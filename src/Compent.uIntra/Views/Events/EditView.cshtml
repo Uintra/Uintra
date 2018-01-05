@@ -1,11 +1,12 @@
 ﻿@using uIntra.Core.Activity
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions
+@using uIntra.Subscribe
 @using Umbraco.Web
-@model uIntra.Events.EventEditModel
+@model Compent.uIntra.Core.Events.EventExtendedEditModel
 
 <div class="form js-check-before-unload" id="js-events-edit-page">
-    @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
+    @using (Html.BeginUmbracoForm("EditExtended", "Events", FormMethod.Post, new { id = "editForm" }))
     {
         @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })
         <h1 class="form__title">@Html.Localize("EventsEditPage.Title.lbl")</h1>
@@ -65,25 +66,12 @@
             @Html.Action("PinActivity", "Activity", new { isPinned = Model.IsPinned, endPinDate = Model.EndPinDate })
         </div>
         <div class="form__row clearfix">
-            <div class="check">
-                <label class="check__label">
-                    @{
-                        var canSubscribeAttrs = new RouteValueDictionary(new { @class = "check__box js-can-subscribe" });
-                        if (!Model.CanEditSubscribe)
-                        {
-                            canSubscribeAttrs.Add("disabled", "disabled");
-                        }
-                    }
-                    @Html.CheckBoxFor(m => m.CanSubscribe, canSubscribeAttrs)
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("EventsEdit.CanSubscribe.lbl")</span>
-                </label>
-                <div class="js-subscribe-notes-holder">
-                    <label class="form__label" for="subscribeNotes">@Html.Localize("EventsEdit.SubscribeNotes.lbl")</label>
-                    <textarea class="form__input" id="subscribeNotes" type="text" name="subscribeNotes" data-val-length-max="200"
-                              data-val-length="@string.Format(Html.Localize("EventsEdit.SubscribeNotesMaxLength.lbl"), 200)" data-val="true">@Model.SubscribeNotes</textarea>
-                </div>
-            </div>
+            @{ Html.RenderAction("ActivitySubscribeSettings", "Subscribe", new ActivitySubscribeSettingsModel
+                {
+                    CanSubscribe = Model.CanSubscribe,
+                    CanEditSubscribe = Model.CanEditSubscribe,
+                    SubscribeNotes = Model.SubscribeNotes
+                });}
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("EventsEdit.UploadFiles.lbl")</label>

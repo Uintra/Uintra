@@ -328,6 +328,7 @@
     </Compile>
     <Compile Include="Core\AutoMapperProfiles\SubscribeAutoMapperProfiles.cs" />
     <Compile Include="Core\ISubscribable.cs" />
+    <Compile Include="Core\Model\ActivitySubscribeSettingsModel.cs" />
     <Compile Include="Core\Services\ISubscribableService.cs" />
     <Compile Include="Core\Services\ISubscribeService.cs" />
     <Compile Include="Core\Model\SubscribeItemModel.cs" />
