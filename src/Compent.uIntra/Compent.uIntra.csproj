@@ -959,6 +959,7 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
+    <Content Include="App_Plugins\Subscribe\activitySubscribeSettings.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
