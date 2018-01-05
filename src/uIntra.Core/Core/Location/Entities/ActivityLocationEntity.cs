@@ -13,6 +13,7 @@ namespace uIntra.Core.Location.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
+        [Index("UQ_ActivityLocation_ActivityId", IsUnique = true)]
         public Guid ActivityId { get; set; }
 
         public string Address { get; set; }
