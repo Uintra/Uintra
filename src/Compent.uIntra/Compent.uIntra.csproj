@@ -1109,6 +1109,7 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1280,6 +1281,7 @@
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />

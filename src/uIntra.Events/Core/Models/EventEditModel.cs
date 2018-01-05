@@ -26,12 +26,6 @@ namespace uIntra.Events
 
         public string NewMedia { get; set; }
 
-        public bool CanSubscribe { get; set; }
-
-        public string SubscribeNotes { get; set; }
-
-        public bool CanEditSubscribe { get; set; }
-
         public int? MediaRootId { get; set; }
 
         public bool NotifyAllSubscribers { get; set; }

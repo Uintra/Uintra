@@ -22,6 +22,10 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.IsSubscribed, o => o.Ignore());
 
+            Mapper.CreateMap<Event, EventExtendedEditModel>()
+                .IncludeBase<EventBase, EventEditModel>()
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
@@ -39,6 +43,7 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())

@@ -57,6 +57,12 @@ namespace Compent.uIntra.Controllers
             _groupActivityService = groupActivityService;
         }
 
+        [HttpPost]
+        public ActionResult EditExtended(EventExtendedEditModel editModel)
+        {
+            return Edit(editModel);
+        }
+
         public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
             EventExtendedItemModel extendedModel = GetItemViewModel(item, options);
@@ -106,7 +112,7 @@ namespace Compent.uIntra.Controllers
             if (groupId.HasValue)
             {
                 _groupActivityService.AddRelation(groupId.Value, activityId);
-                var @event = _eventsService.Get(activityId);               
+                var @event = _eventsService.Get(activityId);
                 @event.GroupId = groupId;
             }
         }
@@ -121,7 +127,7 @@ namespace Compent.uIntra.Controllers
             if (model.NotifyAllSubscribers)
             {
                 var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventUpdated.ToInt());
-                ((INotifyableService) _eventsService).Notify(@event.Id, notificationType);
+                ((INotifyableService)_eventsService).Notify(@event.Id, notificationType);
             }
 
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
@@ -134,6 +140,33 @@ namespace Compent.uIntra.Controllers
                 var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
                 ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
+        }
+
+        protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
+        {
+            var eventExtended = (Event)@event;
+            var model = base.GetEditViewModel(@event, links).Map<EventExtendedEditModel>();
+
+            model.CanSubscribe = eventExtended.CanSubscribe;
+            model.SubscribeNotes = eventExtended.SubscribeNotes;
+            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
+
+            return model;
+        }
+
+        protected override EventBase MapToEvent(EventEditModel editModel)
+        {
+            var @event = (Event)base.MapToEvent(editModel);
+            var extendedEditModel = (EventExtendedEditModel)editModel;
+
+            @event.SubscribeNotes = extendedEditModel.SubscribeNotes;
+
+            if (_eventsService.CanEditSubscribe(@event.Id))
+            {
+                @event.CanSubscribe = extendedEditModel.CanSubscribe;
+            }
+
+            return @event;
         }
     }
 }

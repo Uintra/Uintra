@@ -22,6 +22,9 @@ namespace Compent.uIntra.Core.Events
         [JsonIgnore]
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
+        public bool CanSubscribe { get; set; }
+        public string SubscribeNotes { get; set; }
+
         public Guid? GroupId { get; set; }
 
         [JsonIgnore]

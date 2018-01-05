@@ -220,8 +220,6 @@ namespace uIntra.Events.Web
             model.MediaRootId = mediaSettings.MediaRootId;
             FillMediaSettingsData(mediaSettings);
 
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-
             model.Links = links;
             return model;
         }
@@ -236,7 +234,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventViewModel>();
 
             model.CanEdit = _eventsService.CanEdit(@event);
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.CanSubscribe = _eventsService.CanSubscribe(@event.Id);
             model.Links = options.Links;
             model.IsReadOnly = options.IsReadOnly;
 
@@ -252,7 +250,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventItemViewModel>();
 
             model.MediaIds = @event.MediaIds;
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.CanSubscribe = _eventsService.CanSubscribe(@event.Id);
             model.LightboxGalleryPreviewInfo = GetGalleryPreviewInfo(@event);
             model.Links = links;
 
@@ -295,11 +293,6 @@ namespace uIntra.Events.Web
             @event.StartDate = editModel.StartDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
-
-            if (_eventsService.CanEditSubscribe(@event.Id))
-            {
-                @event.CanSubscribe = editModel.CanSubscribe;
-            }
 
             return @event;
         }
