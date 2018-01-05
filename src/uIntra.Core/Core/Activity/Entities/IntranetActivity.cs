@@ -36,5 +36,8 @@ namespace uIntra.Core.Activity
         public bool IsPinned { get; set; }
 
         public DateTime? EndPinDate { get; set; }
+
+        [JsonIgnore]
+        public ActivityLocation Location { get; set; }
     }
 }

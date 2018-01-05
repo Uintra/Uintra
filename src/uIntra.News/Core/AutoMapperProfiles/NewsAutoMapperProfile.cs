@@ -106,7 +106,6 @@ namespace uIntra.News
 
             Mapper.CreateMap<NewsBackofficeSaveModel, NewsBase>()
                 .ForMember(dst => dst.Location, o => o.Ignore())
-
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())

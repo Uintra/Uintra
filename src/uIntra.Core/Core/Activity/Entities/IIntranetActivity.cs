@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using uIntra.Core.Location;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
-    public interface IIntranetActivity
+    public interface IIntranetActivity : IHaveLocation
     {
         Guid Id { get; set; }
         IIntranetType Type { get; set; }

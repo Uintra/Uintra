@@ -24,5 +24,7 @@ namespace uIntra.Core.Activity
 
         [PropertyBinder(typeof(LinksBinder))]
         public IActivityCreateLinks Links { get; set; }
+
+        public ActivityLocationEditModel Location { get; set; }
     }
 }

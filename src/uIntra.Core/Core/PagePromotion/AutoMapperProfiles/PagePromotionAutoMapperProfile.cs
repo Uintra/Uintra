@@ -25,7 +25,8 @@ namespace uIntra.Core.PagePromotion
                 .ForMember(dst => dst.PublishDate, src => src.Ignore())
                 .ForMember(dst => dst.Title, src => src.Ignore())
                 .ForMember(dst => dst.Description, src => src.Ignore())
-                .ForMember(dst => dst.OwnerId, src => src.Ignore());
+                .ForMember(dst => dst.OwnerId, src => src.Ignore())
+                .ForMember(dst => dst.Location, src => src.Ignore());
 
             Mapper.CreateMap<PagePromotionBase, PagePromotionItemViewModel>()
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))

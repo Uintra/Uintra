@@ -15,15 +15,12 @@ namespace uIntra.News
         DateTime? UnpublishDate { get; set; }
     }
 
-    public class NewsBase : IntranetActivity, IHaveCreator, IHaveOwner, INewsBase, IHaveLocation
+    public class NewsBase : IntranetActivity, IHaveCreator, IHaveOwner, INewsBase
     {
         public int? UmbracoCreatorId { get; set; }
         public Guid CreatorId { get; set; }
         public Guid OwnerId { get; set; }
         public DateTime PublishDate { get; set; }
         public DateTime? UnpublishDate { get; set; }
-
-        [Newtonsoft.Json.JsonIgnore]
-        public ActivityLocation Location { get; set; }
     }
 }

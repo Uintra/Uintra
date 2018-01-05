@@ -28,7 +28,5 @@ namespace uIntra.News
 
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
-
-        public ActivityLocationEditModel Location { get; set; }
     }
 }
