@@ -201,7 +201,7 @@ namespace uIntra.Core.Media
             var mediaFolder = folders.SingleOrDefault(f =>
             {
                 var folderType = f.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
-                return !folderType.IsNullOrEmpty() && folderType.Equals(mediaFolderType.Name);
+                return folderType.HasValue() && folderType.Equals(mediaFolderType.Name);
             });
             
             return mediaFolder;
