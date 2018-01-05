@@ -3,7 +3,7 @@
 @model uIntra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatar = Model.CurrentUser.Photo.IsNotNullOrEmpty() ? "_with-avatar" : "";
+    var userAvatar = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : "";
 }
 
 <div class="menu _for-mobile">
