@@ -177,7 +177,6 @@ namespace uIntra.Events.Web
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
                 PublishDate = DateTime.UtcNow,
-                CanSubscribe = true,
                 OwnerId = _intranetUserService.GetCurrentUserId(),
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,

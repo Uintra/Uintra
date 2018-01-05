@@ -58,10 +58,10 @@ namespace Compent.uIntra.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditExtended(EventExtendedEditModel editModel)
-        {
-            return Edit(editModel);
-        }
+        public ActionResult CreateExtended(EventExtendedCreateModel createModel) => Create(createModel);
+
+        [HttpPost]
+        public ActionResult EditExtended(EventExtendedEditModel editModel) => Edit(editModel);
 
         public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
@@ -119,10 +119,7 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnEventEdited(EventBase @event, EventEditModel model)
         {
-            if (!_eventsService.IsActual(@event))
-            {
-                return;
-            }
+            if (!_eventsService.IsActual(@event)) return;
 
             if (model.NotifyAllSubscribers)
             {
@@ -142,6 +139,15 @@ namespace Compent.uIntra.Controllers
             }
         }
 
+        protected override EventCreateModel GetCreateModel(IActivityCreateLinks links)
+        {
+            var extendedCreateModel = base.GetCreateModel(links).Map<EventExtendedCreateModel>();
+            extendedCreateModel.CanSubscribe = true;
+            extendedCreateModel.CanEditSubscribe = true;
+
+            return extendedCreateModel;
+        }
+
         protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
         {
             var eventExtended = (Event)@event;
@@ -152,6 +158,17 @@ namespace Compent.uIntra.Controllers
             model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
 
             return model;
+        }
+
+        protected override EventBase MapToEvent(EventCreateModel createModel)
+        {
+            var @event = (Event)base.MapToEvent(createModel);
+            var extendedCreateModel = (EventExtendedCreateModel)createModel;
+
+            @event.CanSubscribe = extendedCreateModel.CanSubscribe;
+            @event.SubscribeNotes = extendedCreateModel.SubscribeNotes;
+
+            return @event;
         }
 
         protected override EventBase MapToEvent(EventEditModel editModel)

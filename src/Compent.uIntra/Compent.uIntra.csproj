@@ -1280,6 +1280,7 @@
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedCreateModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
