@@ -47,6 +47,7 @@ namespace Compent.uIntra.Core.Events
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -65,7 +66,8 @@ namespace Compent.uIntra.Core.Events
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper)
+            INotifierDataHelper notifierDataHelper,
+            IActivitySubscribeSettingService activitySubscribeSettingService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -82,6 +84,7 @@ namespace Compent.uIntra.Core.Events
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _activitySubscribeSettingService = activitySubscribeSettingService;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -153,6 +156,24 @@ namespace Compent.uIntra.Core.Events
             return items;
         }
 
+        public override Guid Create(IIntranetActivity activity)
+        {
+            return base.Create(activity, (activityId) =>
+                {
+                    var @event = Map(activity);
+                    @event.ActivityId = activityId;
+                    _activitySubscribeSettingService.Create(@event);
+                });
+        }
+
+        public override void Save(IIntranetActivity activity)
+        {
+            base.Save(activity, () =>
+                 {
+                     _activitySubscribeSettingService.Save(Map(activity));
+                 });
+        }
+
         private IOrderedEnumerable<Event> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
 
@@ -165,6 +186,7 @@ namespace Compent.uIntra.Core.Events
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
+                _activitySubscribeSettingService.FillSubscribeSettings(entity);
             }
         }
 
@@ -376,6 +398,12 @@ namespace Compent.uIntra.Core.Events
             var searchableActivity = @event.Map<SearchableActivity>();
             searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
             return searchableActivity;
+        }
+
+        private ActivitySubscribeSettingDto Map(IIntranetActivity activity)
+        {
+            var @event = (Event)activity;
+            return @event.Map<ActivitySubscribeSettingDto>();
         }
     }
 }

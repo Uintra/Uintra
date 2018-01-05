@@ -82,7 +82,7 @@ namespace uIntra.Subscribe
 
         public virtual bool HasNotification(IIntranetType type)
         {
-            return type.Id == (int) IntranetActivityTypeEnum.Events;
+            return type.Id == (int)IntranetActivityTypeEnum.Events;
         }
 
         public virtual void FillSubscribers(ISubscribable entity)
