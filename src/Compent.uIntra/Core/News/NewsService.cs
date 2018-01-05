@@ -9,6 +9,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -48,6 +49,7 @@ namespace Compent.uIntra.Core.News
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly IActivityLocationService _activityLocationService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -67,8 +69,9 @@ namespace Compent.uIntra.Core.News
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
+            INotifierDataHelper notifierDataHelper,
+            IActivityLocationService activityLocationService)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -86,6 +89,7 @@ namespace Compent.uIntra.Core.News
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _activityLocationService = activityLocationService;
         }
 
         protected List<string> OverviewXPath => new List<string> {_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType)};
@@ -138,6 +142,7 @@ namespace Compent.uIntra.Core.News
             foreach (var activity in cached)
             {
                 var entity = activity;
+                entity.Location = _activityLocationService.Get(entity.Id);
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);

@@ -5,6 +5,10 @@
 @{
     var pinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
+@if (Model.Location != null)
+{
+<h1>@Model.Location.ShortAddress</h1>
+}
 
 <div class="feed__item @pinnedClass">
     <div class="clearfix">

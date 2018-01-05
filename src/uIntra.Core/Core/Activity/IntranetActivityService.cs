@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 
@@ -17,18 +18,20 @@ namespace uIntra.Core.Activity
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
+        private readonly IActivityLocationService _activityLocationService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService
-            )
+            IIntranetMediaService intranetMediaService,
+            IActivityLocationService activityLocationService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
+            _activityLocationService = activityLocationService;
         }
 
         public TActivity Get(Guid id)
@@ -86,18 +89,25 @@ namespace uIntra.Core.Activity
             return true;
         }
 
-        public Guid Create(IIntranetActivity activity)
+        public virtual Guid Create(IIntranetActivity activity)
         {
             var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
 
             var newActivityId = newActivity.Id;
+
+            if (activity is IHaveLocation activityWithLocation)
+            {
+                var location = activityWithLocation.Location;
+                _activityLocationService.Set(newActivityId, location);
+            }
+
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
             UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
 
-        public void Save(IIntranetActivity activity)
+        public virtual void Save(IIntranetActivity activity)
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();

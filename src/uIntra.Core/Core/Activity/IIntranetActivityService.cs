@@ -13,8 +13,7 @@ namespace uIntra.Core.Activity
         Guid Create(IIntranetActivity activity);
         void Save(IIntranetActivity activity);
         bool CanEdit(IIntranetActivity cached);
-    }
-
+    }    
 
     public interface IIntranetActivityService : ITypedService
     {

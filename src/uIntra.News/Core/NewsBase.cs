@@ -15,7 +15,7 @@ namespace uIntra.News
         DateTime? UnpublishDate { get; set; }
     }
 
-    public class NewsBase : IntranetActivity, IHaveCreator, IHaveOwner, INewsBase
+    public class NewsBase : IntranetActivity, IHaveCreator, IHaveOwner, INewsBase, IHaveLocation
     {
         public int? UmbracoCreatorId { get; set; }
         public Guid CreatorId { get; set; }
