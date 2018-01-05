@@ -33,6 +33,8 @@
         }
 
         @media(--for-tablet-portrait-down){
+            margin:0;
+
             ._notifications-expanded &{
                 background-color:var(--color-light-gray-2);
                 color:var(--text-color-dark);
@@ -66,7 +68,6 @@
             width:570px;
             display:none;
             transform:translate(-62%);
-            margin:7px 0 0 -1px;
 
             ._notifications-expanded &{
                 display:block;
@@ -133,12 +134,9 @@
         &__icon {
             position:relative;
             z-index:3;
-            flex: 1 1 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            padding: 0;
+            display:block;
+            text-align:center;
+            padding:22px 0 13px;
             transition:opacity 0.4s ease;
             opacity:1;
 
