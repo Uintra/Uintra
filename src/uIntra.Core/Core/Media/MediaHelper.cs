@@ -44,7 +44,7 @@ namespace uIntra.Core.Media
         {
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
-            var mediaIds = model.NewMedia.Split(';').Where(s => s.IsNotNullOrEmpty()).Select(Guid.Parse);
+            var mediaIds = model.NewMedia.Split(';').Where(s => s.HasValue()).Select(Guid.Parse);
             var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
             var rootMediaId = model.MediaRootId ?? -1;
 
