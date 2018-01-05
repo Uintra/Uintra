@@ -96,12 +96,7 @@ namespace uIntra.Core.Activity
 
             var newActivityId = newActivity.Id;
 
-            if (activity is IHaveLocation activityWithLocation)
-            {
-                var location = activityWithLocation.Location;
-                _activityLocationService.Set(newActivityId, location);
-            }
-
+            _activityLocationService.Set(newActivityId, activity.Location);
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
             UpdateCachedEntity(newActivityId);
             return newActivityId;
@@ -111,6 +106,8 @@ namespace uIntra.Core.Activity
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
+
+            _activityLocationService.Set(activity.Id, activity.Location);
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
             UpdateCachedEntity(activity.Id);
@@ -182,6 +179,7 @@ namespace uIntra.Core.Activity
             cachedActivity.ModifyDate = activity.ModifyDate;
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);
             cachedActivity.MediaIds = _intranetMediaService.GetEntityMedia(cachedActivity.Id);
+            cachedActivity.Location = _activityLocationService.Get(activity.Id);
             return cachedActivity;
         }       
 

@@ -41,7 +41,6 @@ namespace uIntra.Events
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventCreateModel, EventBase>()
-                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())

@@ -9,9 +9,11 @@ namespace uIntra.Core.Web
     {
         protected virtual string ActivityLocationEditViewPath { get; } = "~/App_Plugins/Core/ActivityLocation/Edit/EditView.cshtml";
 
-        public virtual ActionResult Edit(ActivityLocation location)
+        private ActivityLocationEditModel EmptyEditModel => new ActivityLocationEditModel();
+
+        public virtual ActionResult Edit(ActivityLocationEditModel location)
         {
-            var model = location.Map<ActivityLocationEditModel>();
+            var model = location ?? EmptyEditModel;
             return PartialView(ActivityLocationEditViewPath, model);
         }
     }
