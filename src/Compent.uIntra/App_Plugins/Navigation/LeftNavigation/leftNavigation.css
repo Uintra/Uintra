@@ -292,6 +292,9 @@
         margin:0 10px 0 -40px;
         border-radius:50%;
         float:left;
+        width:30px;
+        height:30px;
+        object-fit:cover;
     }
 
     @media (--for-tablet-portrait-down) {       
@@ -311,27 +314,5 @@
                 visibility:visible;
             }
         }
-
-        /*& & {
-
-            &__link {
-                &._with-icon{
-                    padding-right:0;
-                    padding-left:35px;
-                    background:none;
-
-                    .icon{
-                        display:inline-block;
-                        vertical-align:middle;
-                        width:30px;
-                        margin-right:15px;
-                    }
-
-                    img{
-                        margin-right:15px;
-                    }
-                }
-            }
-        }*/
     }
 }

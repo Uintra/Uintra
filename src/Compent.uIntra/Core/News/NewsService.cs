@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -244,7 +245,7 @@ namespace Compent.uIntra.Core.News
                 case (int) NotificationTypeEnum.ActivityLikeAdded:
                 {
                     var news = Get(entityId);
-                    data.ReceiverIds = news.OwnerId.ToEnumerableOfOne();
+                    data.ReceiverIds = news.OwnerId.ToEnumerable();
                     data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
                 }
                     break;
@@ -255,7 +256,7 @@ namespace Compent.uIntra.Core.News
                     var news = Get(comment.ActivityId);
                     data.ReceiverIds = currentUser.Id == comment.UserId
                         ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerableOfOne();
+                        : comment.UserId.ToEnumerable();
 
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
                 }
@@ -266,7 +267,7 @@ namespace Compent.uIntra.Core.News
                 {
                     var comment = _commentsService.Get(entityId);
                     var news = Get(comment.ActivityId);
-                    data.ReceiverIds = news.OwnerId.ToEnumerableOfOne();
+                    data.ReceiverIds = news.OwnerId.ToEnumerable();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
                 }
                     break;
@@ -275,7 +276,7 @@ namespace Compent.uIntra.Core.News
                 {
                     var comment = _commentsService.Get(entityId);
                     var news = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                    data.ReceiverIds = comment.UserId.ToEnumerable();
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
                 }
                     break;

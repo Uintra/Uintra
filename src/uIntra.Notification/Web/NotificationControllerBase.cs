@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
+using BCLExtensions;
+using Extensions;
 using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
@@ -107,9 +109,11 @@ namespace uIntra.Notification.Web
         {
             var result = notification.Map<NotificationViewModel>();
 
-            Guid id;
-            if (Guid.TryParse((string)result.Value.notifierId, out id))
-                result.Notifier = GetNotifierViewModel(id);
+            result.Notifier = ((string)result.Value.notifierId)
+                .TryParseOptional<Guid>(Guid.TryParse)
+                .Match(
+                    some: notifierId => _intranetUserService.Get(notifierId),
+                    none: () => null);
 
             return result;
         }
@@ -122,19 +126,6 @@ namespace uIntra.Notification.Web
             };
 
             return PartialView(PreviewViewPath, result);
-        }
-
-        protected NotifierViewModel GetNotifierViewModel(Guid notifierId)
-        {
-            var notifier = _intranetUserService.Get(notifierId);
-            var result = new NotifierViewModel()
-            {
-                Id = notifierId,
-                ProfileLink = _profileLinkProvider.GetProfileLink(notifierId),
-                Name = notifier.DisplayedName,
-                Photo = notifier.Photo
-            };
-            return result;
         }
     }
 }

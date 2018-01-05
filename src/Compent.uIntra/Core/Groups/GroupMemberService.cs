@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Groups;
@@ -24,7 +25,7 @@ namespace Compent.uIntra.Core.Groups
 
         public override void Add(Guid groupId, Guid memberId)
         {
-            AddMany(groupId, memberId.ToEnumerableOfOne());
+            AddMany(groupId, memberId.ToEnumerable());
         }
 
         public override void AddMany(Guid groupId, IEnumerable<Guid> memberIds)

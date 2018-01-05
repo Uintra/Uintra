@@ -6,6 +6,10 @@ var holder;
 var userSelect;
 var editor;
 
+var initUserSelect = function () {
+    userSelect = holder.find('.js-user-select').select2({});
+}
+
 var initSubmitButton = function () {
     var form = holder.find('#createForm');
     var btn = holder.find('._submit');
@@ -31,10 +35,6 @@ var initSubmitButton = function () {
     });
 }
 
-var initUserSelect = function () {
-    userSelect = holder.find('.js-user-select').select2({});
-}
-
 var initDescriptionControl = function () {
     var dataStorage = holder.find('#js-hidden-description-container');
     var descriptionElem = holder.find('#description');
@@ -47,7 +47,8 @@ var initDescriptionControl = function () {
         ['clean']
     ];
 
-    editor = helpers.initQuill(descriptionElem[0], dataStorage[0], { 
+    editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
+        placeholder: dataStorage.first().data('placeholder') || '',
         modules: {
             toolbar: toolbarOptions
         },

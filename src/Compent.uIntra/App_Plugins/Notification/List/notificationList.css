@@ -41,6 +41,7 @@
             }
         }
     }
+    
     &__number{
         display: none;
         position:absolute;
@@ -71,18 +72,16 @@
                 display:block;
             }
 
-            @media(--for-tablet-portrait-down){
-                &{
-                    width:calc(100vw - 17px);
-                    transform:translate(0, -100%);
-                    transition: transform linear 200ms;
-                    display:block;
-                    left:auto;
-                    right:0;
+            @media (--for-tablet-portrait-down){
+                width:calc(100vw - 17px);
+                transform:translate(0, -100%);
+                transition: transform linear 200ms;
+                display:block;
+                left:auto;
+                right:0;
 
-                    ._notifications-expanded &{
-                        transform:translate(0, 0);
-                    }
+                ._notifications-expanded &{
+                    transform:translate(0, 0);
                 }
             }
         }
@@ -248,13 +247,15 @@
                 align-items:center;
 
                 &:first-child{
-                                 background:#f6f6f6;
-                             }
+                    background:#f6f6f6;
 
-                @media(--for-tablet-portrait-down){
-                    &{
-                        align-items:flex-start;
+                    .avatar__letter{
+                        background:#fff;
                     }
+                }
+
+                @media (--for-tablet-portrait-down){
+                    align-items:flex-start;
                 }
             }
 
@@ -273,6 +274,10 @@
             &[data-viewed='false']{
                 .notification &{
                     background:#f6f6f6;
+
+                    .avatar__letter{
+                        background:#fff;
+                    }
                 }
 
                 &:after{
@@ -282,35 +287,6 @@
                         display:none;
                     }
                 }
-            }
-        }
-
-        &-avatar{
-            width:60px;
-            min-width:60px;
-            max-width:60px;
-            height:60px;
-            margin:7px 50px 0 0;
-            position:relative;
-            overflow:hidden;
-            border-radius:50%;
-
-	        .notification & {
-		        margin: 3px 20px 0 0;
-	        }
-
-            &-img{
-                height: auto !important;
-                left: 50%;
-                position: absolute;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                width:60px;
-                max-width:100%;
-            }
-
-            .notification-page &{
-                margin-top:0;
             }
         }
 

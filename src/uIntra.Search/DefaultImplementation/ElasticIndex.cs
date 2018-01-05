@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using Nest;
 using uIntra.Core.Extensions;
 
@@ -100,10 +101,10 @@ namespace uIntra.Search
         protected virtual QueryContainer[] GetQueryContainers(string query)
         {
             var containers = new List<QueryContainer>();
-            containers.AddRange(GetBaseDescriptor(query).ToEnumerableOfOne());
+            containers.AddRange(GetBaseDescriptor(query).ToEnumerable());
             containers.AddRange(GetContentDescriptors(query));
-            containers.AddRange(GetActivityDescriptor(query).ToEnumerableOfOne());
-            containers.AddRange(GetDocumentsDescriptor(query).ToEnumerableOfOne());
+            containers.AddRange(GetActivityDescriptor(query).ToEnumerable());
+            containers.AddRange(GetDocumentsDescriptor(query).ToEnumerable());
             return containers.ToArray();
         }
 

@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extensions
-@using uIntra.Core.User
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extensions
 @model uIntra.Notification.NotificationListViewModel
 
 <ul class="notification__list" id="notification_list">
@@ -7,21 +7,26 @@
     {
         foreach (var notification in Model.Notifications)
         {
-            <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-href="@notification.Value.url" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                <div class="notification__list-avatar">
-                    <img class="notification__list-avatar-img" src="@notification.Notifier?.Photo">
-                </div>
-                <div class="notification__list-meta">
-                    <div class="notification__list-description">
-                        <div class="notification__list-row">
-                            <span class="notification__list-date">@notification.Date</span>
-                            <div class="notification__list-heading">
-                                @Html.Raw(notification.Value.message)
-                            </div>
-                        </div>
+    <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-href="@notification.Value.url" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+
+        @if (notification.Notifier != null)
+        {
+            @Html.Action("Photo", "User", new
+            {
+                user = notification.Notifier
+            })
+        }
+        <div class="notification__list-meta">
+            <div class="notification__list-description">
+                <div class="notification__list-row">
+                    <span class="notification__list-date">@notification.Date</span>
+                    <div class="notification__list-heading">
+                        @Html.Raw(notification.Value.message)
                     </div>
                 </div>
-            </li>
+            </div>
+        </div>
+    </li>
         }
     }
     else

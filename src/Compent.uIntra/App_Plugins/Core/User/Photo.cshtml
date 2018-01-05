@@ -24,6 +24,6 @@ else
         }
         else
         {
-            <img class="avatar__img" src="@avatar.PhotoUrl?width=@Model.PhotoWidth" alt="@avatar.AltText" />
+            <img class="avatar__img js-object-fit" src="@avatar.PhotoUrl?width=@Model.PhotoWidth&height=@Model.PhotoWidth&mode=min" alt="@avatar.AltText" />
         }
 }

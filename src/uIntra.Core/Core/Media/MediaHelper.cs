@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Caching;
 using uIntra.Core.Constants;
 using uIntra.Core.Controls.FileUpload;
