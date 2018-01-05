@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.User;
 
 namespace uIntra.Notification
 {
@@ -8,5 +9,6 @@ namespace uIntra.Notification
         public string Name { get; set; }
         public string Photo { get; set; }
         public string ProfileLink { get; set; }
+        public IIntranetUser User { get; set; }
     }
 }

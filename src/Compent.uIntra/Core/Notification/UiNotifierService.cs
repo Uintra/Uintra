@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
+﻿using System.Linq;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
