@@ -5,10 +5,6 @@
 @{
     var pinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
-@if (Model.Location != null)
-{
-<h1>@Model.Location.ShortAddress</h1>
-}
 
 <div class="feed__item @pinnedClass">
     <div class="clearfix">
@@ -17,7 +13,17 @@
             <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
         }
 
-        @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+        @if (Model.Location != null)
+        {
+            <div class="with-address">
+                @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
+            </div>
+        }
+        else
+        {
+            @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+        }
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))

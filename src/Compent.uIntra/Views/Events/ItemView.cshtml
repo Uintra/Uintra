@@ -10,7 +10,17 @@
             <span class="pinned__item">@Html.Localize("EventsItemView.Pinned.lbl")</span>
         }
 
-        @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+        @if (Model.Location != null)
+        {
+            <div class="with-address">
+                @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
+            </div>
+        }
+        else
+        {
+            @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+        }
         @if (Model.IsSubscribed)
         {
             <span class="feed__item-subscribed js-feed__item-subscribed"><i class="icon-check"></i> @Html.Localize("CentralFeed.IsSubscribed.lbl")</span>

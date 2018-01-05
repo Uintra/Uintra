@@ -11,20 +11,30 @@
     </header>
 
     <div class="feed__item _details">
-        @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        @if (Model.Location != null)
+        {
+        <div class="with-address">
+            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+            @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
+        </div>
+        }
+        else
+        {
+            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        }
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)
         </div>
         <div class="feed__item-feed">
             <div class="feed__item-feed-holder">
-                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+                @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
             </div>
         </div>
         <div class="feed__item-images">
-            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
         </div>
         <div class="comments">
-            @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+            @{ Html.RenderAction("OverView", "Comments", new {commentsInfo = Model.CommentsInfo});}
         </div>
     </div>
 </section>

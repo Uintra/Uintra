@@ -12,7 +12,17 @@
         <a class="link__back" href="@Model.Links.Overview">@Html.Localize("DetailsView.GoToList.lbl")</a>
     </div>
     <div class="feed__item _details">
-        @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        @if (Model.Location != null)
+        {
+            <div class="with-address">
+                @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
+            </div>
+        }
+        else
+        {
+            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        }
         <div class="feed__item-txt">
             <div>
                 <span>@Model.StartDate.Day</span>

@@ -1116,6 +1116,7 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051205504_Add_ActivityLocation.resx">
       <DependentUpon>201801051205504_Add_ActivityLocation.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
