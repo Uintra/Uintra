@@ -7,11 +7,6 @@ namespace uIntra.Core.Extensions
     public static class EnumerableExtensions
     {
 
-        public static bool IsEmpty<T>(this IEnumerable<T> enumerable)
-        {
-            return !enumerable.Any();
-        }
-
         public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> source, int divider = 2)
         {
             return source
