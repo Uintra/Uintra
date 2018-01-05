@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using uIntra.Core.Location;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity

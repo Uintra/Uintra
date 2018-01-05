@@ -1,5 +1,7 @@
 using System;
+using Newtonsoft.Json;
 using uIntra.Core.Activity;
+using uIntra.Core.Location;
 using uIntra.Core.User;
 
 namespace uIntra.News
@@ -20,5 +22,8 @@ namespace uIntra.News
         public Guid OwnerId { get; set; }
         public DateTime PublishDate { get; set; }
         public DateTime? UnpublishDate { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public ActivityLocation Location { get; set; }
     }
 }

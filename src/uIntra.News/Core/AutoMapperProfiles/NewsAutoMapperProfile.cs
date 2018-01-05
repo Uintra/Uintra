@@ -1,6 +1,7 @@
 using AutoMapper;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.Location;
 using uIntra.News.Dashboard;
 
 namespace uIntra.News
@@ -26,6 +27,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<NewsBase, NewsEditModel>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
@@ -83,6 +85,7 @@ namespace uIntra.News
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<NewsBackofficeCreateModel, NewsBase>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -98,7 +101,12 @@ namespace uIntra.News
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
+            Mapper.CreateMap<ActivityLocationEditModel, ActivityLocation>();
+            Mapper.CreateMap<ActivityLocation, ActivityLocationEditModel>();
+
             Mapper.CreateMap<NewsBackofficeSaveModel, NewsBase>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
+
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
