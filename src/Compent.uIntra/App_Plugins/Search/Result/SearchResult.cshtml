@@ -8,6 +8,7 @@
 }
 
 <input type="hidden" class="js-type-search-counts" data-all-types-placeholder="@Model.AllTypesPlaceholder" data-types="@Model.FilterItems.ToJson()">
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <h1 class="search-result__result">@queryLabel @countLabel</h1>
 @foreach (var result in Model.Results)
 {
