@@ -9,7 +9,7 @@
 <div class="likes-wrapper" id="likes_@entityId">
     @if (Model.ShowTitle)
     {
-        <h3>@Html.Localize("Likes.Title.lbl")</h3>
+        <h3 class="like__title">@Html.Localize("Likes.Title.lbl")</h3>
     }
 
     <div class="like js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
