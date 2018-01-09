@@ -84,7 +84,6 @@ namespace uIntra.News
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<NewsBackofficeCreateModel, NewsBase>()
-                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -100,11 +99,11 @@ namespace uIntra.News
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
+            // TODO: move from here
             Mapper.CreateMap<ActivityLocationEditModel, ActivityLocation>();
             Mapper.CreateMap<ActivityLocation, ActivityLocationEditModel>();
 
             Mapper.CreateMap<NewsBackofficeSaveModel, NewsBase>()
-                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())

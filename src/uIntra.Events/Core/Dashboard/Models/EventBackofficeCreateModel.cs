@@ -1,4 +1,5 @@
 using System;
+using uIntra.Core.Location;
 
 namespace uIntra.Events.Dashboard
 {
@@ -12,5 +13,6 @@ namespace uIntra.Events.Dashboard
         public DateTime EndDate { get; set; }
         public DateTime PublishDate { get; set; }
         public bool IsHidden { get; set; }
+        public ActivityLocationEditModel Location { get; set; }
     }
 }

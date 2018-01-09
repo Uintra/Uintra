@@ -95,8 +95,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 
-            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
-               .ForMember(dst => dst.Location, o => o.Ignore())
+            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()       
                .ForMember(dst => dst.MediaIds, o => o.Ignore())
                .ForMember(dst => dst.Type, o => o.Ignore())
                .ForMember(dst => dst.Id, o => o.Ignore())
@@ -114,7 +113,6 @@ namespace uIntra.Events
                });
 
             Mapper.CreateMap<EventBackofficeSaveModel, EventBase>()
-                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
