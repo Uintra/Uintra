@@ -246,15 +246,26 @@ h5{
 }
 
 .holder {
-    padding: 15px 0 15px 305px;
+    padding: 0 0 0 305px;
     flex-grow: 1;
 
     @media (--for-tablet-portrait-down) {
         padding:0;
     }
 
-    @media (--for-desktop-up){
+    @media (--for-desktop-up) {
         padding-left:330px;
+    }
+
+    #header &{
+        padding:15px 0 15px 305px;
+        @media (--for-tablet-portrait-down) {
+            padding:0;
+        }
+
+        @media (--for-desktop-up) {
+            padding-left:330px;
+        }
     }
 }
 
