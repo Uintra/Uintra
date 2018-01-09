@@ -1,4 +1,4 @@
-﻿function initActivityLocationEdit(addressHolder, shortAddressHolder, mapContainer) {
+﻿window.initActivityLocationEdit = function (addressHolder, shortAddressHolder, mapContainer) {
 
     var defaultMapOptions = {
         center: { lat: 55.676098, lng: 12.568337 },
@@ -85,5 +85,3 @@
         });
     }
 }
-
-export default initActivityLocationEdit;
