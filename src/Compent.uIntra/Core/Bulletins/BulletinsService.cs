@@ -329,7 +329,7 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var searchableActivity = bulletin.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
-            searchableActivity.UserTagNames = _userTagService.GetRelatedTags(bulletin.Id).Select(t => t.Text);
+            searchableActivity.UserTagNames = _userTagService.Get(bulletin.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

@@ -1362,6 +1362,7 @@
     <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
     <Compile Include="Core\Search\Entities\SearchableUser.cs" />
     <Compile Include="Core\Search\Entities\SearchScoreModel.cs" />
+    <Compile Include="Core\Search\Entities\ISerachibleTaggedActivity.cs" />
     <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
     <Compile Include="Core\Search\Indexes\ActivityUserTagIndex.cs" />
     <Compile Include="Core\Search\Indexes\ElasticUintraContentIndex.cs" />

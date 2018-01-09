@@ -391,7 +391,7 @@ namespace Compent.uIntra.Core.Events
         {
             var searchableActivity = @event.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
-            searchableActivity.UserTagNames = _userTagService.GetRelatedTags(@event.Id).Select(t => t.Text);
+            searchableActivity.UserTagNames = _userTagService.Get(@event.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

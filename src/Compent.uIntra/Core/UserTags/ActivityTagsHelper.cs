@@ -24,7 +24,7 @@ namespace Compent.uIntra.Core.UserTags
             var tagIds = collectionString.ParseStringCollection(Guid.Parse).ToList();
             var tags = _userTagProvider.Get(tagIds);
 
-            _userTagService.ReplaceRelations(entityId, tagIds);
+            _userTagService.Replace(entityId, tagIds);
             _userTagIndex.Update(entityId, tags.Select(t => t.Text));
         }
     }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using uIntra.Core;
+using uIntra.Core.Extensions;
 using uIntra.Tagging.UserTags;
 using uIntra.Tagging.UserTags.Models;
 using Umbraco.Web.Mvc;
@@ -31,9 +34,9 @@ namespace uIntra.Tagging.Web
         {
             var pickerViewModel = new TagPickerViewModel
             {
-                UserTagCollection = _tagProvider.GetAll(),
+                UserTagCollection = _tagProvider.GetAll().Map<IEnumerable<LabeledIdentity<Guid>>>(),
                 TagIdsData = entityId.HasValue
-                    ? _tagsService.GetRelatedTags(entityId.Value).Select(t => t.Id)
+                    ? _tagsService.Get(entityId.Value).Select(t => t.Id)
                     : Enumerable.Empty<Guid>()
             };
             return pickerViewModel;

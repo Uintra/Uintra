@@ -26,7 +26,7 @@ namespace uIntra.Tagging.UserTags
                 .Select(arg => arg.Entity.Key)
                 .ToList();
 
-            _userTagRelationService.RemoveRelationsForTags(trashedUserTagIds);
+            _userTagRelationService.RemoveForTags(trashedUserTagIds);
         }
 
         private bool IsUserTag(MoveEventInfo<IContent> arg) => 

@@ -17,7 +17,6 @@ namespace Compent.uIntra.Core.Search.Indexes
         {
             var activity = _activityIndex.Get(activityId);
             activity.UserTagNames = tagNames;
-            //_activityIndex.Delete(activityId);
             _activityIndex.Index(activity);
         }
     }

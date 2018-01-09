@@ -31,7 +31,7 @@ namespace Compent.uIntra.Controllers
         {
             var searchPage = _searchUmbracoHelper.GetSearchPage();
             var tags = _tagsService
-                .GetRelatedTags(entityId)
+                .Get(entityId)
                 .Select(tag => MapToViewModel(tag, searchPage.Url))
                 .ToList();
             return PartialView(EntityTagsViewPath, tags);

@@ -302,7 +302,7 @@ namespace Compent.uIntra.Core.News
         {
             var searchableActivity = news.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(news.Id).Details;
-            searchableActivity.UserTagNames = _userTagService.GetRelatedTags(news.Id).Select(t => t.Text);
+            searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

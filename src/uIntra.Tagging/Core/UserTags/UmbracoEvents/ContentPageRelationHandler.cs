@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
@@ -29,11 +28,10 @@ namespace uIntra.Tagging.UserTags
 
             foreach (var (_, tagIds, entityId) in contentPagesWithTags)
             {
-                _userTagService.ReplaceRelations(entityId, tagIds);
+                _userTagService.Replace(entityId, tagIds);
             }
         }
 
-        // TODO
         private IEnumerable<(IContent content, IEnumerable<Guid> tagIds, Guid entityId)> ParseUserTags(IEnumerable<IContent> affectedContent)
         {
             foreach (var content in affectedContent)
@@ -71,7 +69,7 @@ namespace uIntra.Tagging.UserTags
 
             foreach (var (_, _, entityId) in contentPagesWithTags)
             {
-                _userTagService.ReplaceRelations(entityId, Enumerable.Empty<Guid>());
+                _userTagService.DeleteAllFor(entityId);
             }
         }
     }

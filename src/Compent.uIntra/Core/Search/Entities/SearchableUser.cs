@@ -4,7 +4,7 @@ using uIntra.Search;
 
 namespace Compent.uIntra.Core.Search.Entities
 {
-    public class SearchableUser : SearchableBase
+    public class SearchableUser : SearchableBase , ISearchibleTaggedActivity
     {
         public string Photo { get; set; }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Tagging.UserTags
@@ -28,17 +27,17 @@ namespace uIntra.Tagging.UserTags
             return _relationRepository.GetAll().Select(r => (r.UserTagId, r.EntityId));
         }
 
-        public virtual void AddRelation(Guid entityId, Guid tagId)
+        public virtual void Add(Guid entityId, Guid tagId)
         {
-            AddRelations(entityId, tagId.ToEnumerable());
+            Add(entityId, tagId.ToEnumerable());
         }
 
-        public virtual void RemoveRelation(Guid entityId, Guid tagId)
+        public virtual void Remove(Guid entityId, Guid tagId)
         {
-            RemoveRelations(entityId, tagId.ToEnumerable());
+            Remove(entityId, tagId.ToEnumerable());
         }
 
-        public virtual void AddRelations(Guid entityId, IEnumerable<Guid> tagIds)
+        public virtual void Add(Guid entityId, IEnumerable<Guid> tagIds)
         {
             var entities = tagIds.Select(tagId => MapToEntity(entityId, tagId));
             _relationRepository.Add(entities);
@@ -53,16 +52,20 @@ namespace uIntra.Tagging.UserTags
             };
         }
 
-        public virtual void RemoveRelations(Guid entityId, IEnumerable<Guid> tagIds)
+        public virtual void Remove(Guid entityId, IEnumerable<Guid> tagIds)
         {
-            var tagIdHashSet = new HashSet<Guid>(tagIds);
-            _relationRepository.Delete(e => tagIdHashSet.Contains(e.UserTagId) && e.EntityId == entityId);
+            var tagIdsList = tagIds.AsList();
+            if (tagIdsList.IsEmpty()) return;
+            var uniqueTagIds = tagIdsList.Distinct().AsList();
+            _relationRepository.Delete(e => uniqueTagIds.Contains(e.UserTagId) && e.EntityId == entityId);
         }
 
-        public virtual void RemoveRelationsForTags(IEnumerable<Guid> tagIds)
+        public virtual void RemoveForTags(IEnumerable<Guid> tagIds)
         {
-            var tagIdHashSet = new HashSet<Guid>(tagIds);
-            _relationRepository.Delete(rel => tagIdHashSet.Contains(rel.UserTagId));
+            var tagIdsList = tagIds.AsList();
+            if (tagIdsList.IsEmpty()) return;
+            var uniqueTagIds = tagIdsList.Distinct().AsList();
+            _relationRepository.Delete(rel => uniqueTagIds.Contains(rel.UserTagId));
         }
     }
 }

@@ -14,7 +14,7 @@ namespace uIntra.Tagging.Web
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IUserTagProvider _userTagProvider;
 
-        public UserTagsApiControllerBase(UserTagService userTagService, UmbracoHelper umbracoHelper, IUserTagProvider userTagProvider)
+        protected UserTagsApiControllerBase(UserTagService userTagService, UmbracoHelper umbracoHelper, IUserTagProvider userTagProvider)
         {
             _userTagService = userTagService;
             _umbracoHelper = umbracoHelper;
@@ -29,7 +29,7 @@ namespace uIntra.Tagging.Web
             var allTags = _userTagProvider.GetAll();
 
             var selectedTagsDictionary = _userTagService
-                .GetRelatedTags(content.GetKey())
+                .Get(content.GetKey())
                 .ToDictionary(tag => tag.Id);
 
             var result = allTags.Select(tag => new UserTagBackofficeViewModel

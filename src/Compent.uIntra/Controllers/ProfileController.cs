@@ -66,7 +66,7 @@ namespace Compent.uIntra.Controllers
         {
             var user = MapToUserDTO(model);
             var tagIds = model.TagIdsData.ParseStringCollection(Guid.Parse);
-            _userTagService.ReplaceRelations(user.Id, tagIds);
+            _userTagService.Replace(user.Id, tagIds);
             _intranetUserService.Save(user);
             return RedirectToCurrentUmbracoPage();
         }

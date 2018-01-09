@@ -77,7 +77,7 @@ namespace Compent.uIntra.Core.Users
         {
             var searchableUser = user.Map<SearchableUser>();
             searchableUser.Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(user.Id);
-            searchableUser.UserTagNames = _userTagService.GetRelatedTags(user.Id).Select(t => t.Text).ToList();
+            searchableUser.UserTagNames = _userTagService.Get(user.Id).Select(t => t.Text).ToList();
             return searchableUser;
         }
     }

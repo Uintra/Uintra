@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Tagging.UserTags.Models;
 
 namespace uIntra.Tagging.UserTags
@@ -16,23 +17,29 @@ namespace uIntra.Tagging.UserTags
             _tagProvider = tagProvider;
         }
 
-        public virtual IEnumerable<UserTag> GetRelatedTags(Guid entityId)
+        public virtual IEnumerable<UserTag> Get(Guid entityId)
         {
             var tagIds = _relationService.GetForEntity(entityId);
             var tags = _tagProvider.Get(tagIds);
             return tags;
         }
 
-        public virtual void ReplaceRelations(Guid entityId, IEnumerable<Guid> tagIds)
+        public virtual void Replace(Guid entityId, IEnumerable<Guid> tagIds)
         {
-            var tagIdsList = tagIds as IList<Guid> ?? tagIds.ToList();
+            var tagIdsList = tagIds.AsList();
 
             var existedTagIds = _relationService.GetForEntity(entityId).ToList();
             var tagsToDelete = existedTagIds.Except(tagIdsList);
             var tagsToAdd = tagIdsList.Except(existedTagIds);
 
-            _relationService.RemoveRelations(entityId, tagsToDelete);
-            _relationService.AddRelations(entityId, tagsToAdd);
+            _relationService.Remove(entityId, tagsToDelete);
+            _relationService.Add(entityId, tagsToAdd);
+        }
+
+        public virtual void DeleteAllFor(Guid entityId)
+        {
+            var existedTagIds = _relationService.GetForEntity(entityId).ToList();
+            _relationService.Remove(entityId, existedTagIds);
         }
     }
 }
