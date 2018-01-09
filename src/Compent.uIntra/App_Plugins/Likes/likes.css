@@ -16,6 +16,13 @@
         }
     }
 
+    .content-page .comments__block & {
+        margin: 0;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+    }
+
     &__set{
         color: #b2b2b2;
         display:inline-block;
