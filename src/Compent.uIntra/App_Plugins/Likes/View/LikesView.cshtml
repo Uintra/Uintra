@@ -3,47 +3,46 @@
 @model uIntra.Likes.LikesViewModel
 @{
     var isLiked = Model.CanAddLike || Model.IsReadOnly ? "" : "_isLiked";
-    var entityId = Model.CommentId.HasValue ? Model.CommentId.Value : Model.ActivityId;
+    var entityId = Model.CommentId ?? Model.ActivityId;
 }
 
-<div class="like js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly" id="likes_@entityId">
-    <input type="hidden" name="readonlyClickTitle" value="@Html.Localize("Likes.ReadonlyClick.Title.lbl")" />
-    <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Likes.ReadonlyClick.Message.lbl")" />
-
-    <span class="like__set @isLiked">
-        <i class="icon-like"></i>
-        @if (Model.Users.Any() && !Model.IsReadOnly)
-        {
-            <span>@Model.Users.Count()</span>
-        }
-    </span>
-
-    @if (!Model.IsReadOnly)
+<div class="likes-wrapper" id="likes_@entityId">
+    @if (Model.ShowTitle)
     {
-        if (Model.Users.Count() <= 0)
-        {
-            @(Model.CanAddLike
-              ? Ajax.ActionLink("Like", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link" })
-              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link _remove" }))
-        }
-
-        else
-        {
-            @(Model.CanAddLike
-              ? Ajax.ActionLink("Like", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link _hasLikes" })
-              : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = string.Concat("likes_", entityId) }, new { @class = "like__link _remove _hasLikes" }))
-        }
-
-        if (Model.Users.Any())
-        {
-            <div class="like__popup">
-                <ul class="like__list">
-                    @foreach (var name in Model.Users)
-                    {
-                        <li class="like__list-item">@name</li>
-                    }
-                </ul>
-            </div>
-        }
+        <h3>@Html.Localize("Likes.Title.lbl")</h3>
     }
+
+    <div class="like js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
+        <input type="hidden" name="readonlyClickTitle" value="@Html.Localize("Likes.ReadonlyClick.Title.lbl")" />
+        <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Likes.ReadonlyClick.Message.lbl")" />
+
+        <span class="like__set @isLiked">
+            <i class="icon-like"></i>
+            @if (Model.Users.Any() && !Model.IsReadOnly)
+            {
+                <span>@Model.Users.Count()</span>
+            }
+        </span>
+
+        @if (!Model.IsReadOnly)
+        {
+            var hasLikesClass = Model.Users.Any() ? "_hasLikes" : string.Empty;
+
+            @(Model.CanAddLike 
+                ? Ajax.ActionLink("Like", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = $"likes_{entityId}" }, new { @class = $"like__link {hasLikesClass}" }) 
+                : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = $"likes_{entityId}" }, new { @class = $"like__link _remove {hasLikesClass}" }))
+
+            if (Model.Users.Any())
+            {
+                <div class="like__popup">
+                    <ul class="like__list">
+                        @foreach (var name in Model.Users)
+                        {
+                            <li class="like__list-item">@name</li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
+    </div>
 </div>
