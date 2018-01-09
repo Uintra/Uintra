@@ -9,7 +9,7 @@
             var addressHolder = findModelHolder('address');
             var shortAddressHolder = findModelHolder('shortAddress');
             var mapContainer = find('#js-map-container');
-            debugger;
+
             initActivityLocationEdit(addressHolder, shortAddressHolder, mapContainer);
         }
 

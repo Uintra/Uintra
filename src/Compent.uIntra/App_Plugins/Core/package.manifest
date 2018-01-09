@@ -50,11 +50,11 @@
     "~/App_Plugins/Core/Content/backoffice/EditorConfig/editorConfigService.js",
     "~/App_Plugins/Core/User/backoffice/intranetUserService.js",
     "~/App_Plugins/Core/PagePromotion/backoffice/page-promotion.controller.js",
-    "~/App_Plugins/Core/ActivityLocation/backoffice/location-edit.controller.js",
     "~/App_Plugins/Core/ActivityLocation/backoffice/location-edit.directive.js"
   ],
   "css": [
     "~/App_Plugins/Core/Content/backoffice/dummy-plugin-view.directive.css",
-    "~/App_Plugins/Core/Content/backoffice/debug-helper/debug-helper.css"
+    "~/App_Plugins/Core/Content/backoffice/debug-helper/debug-helper.css",
+    "~/App_Plugins/Core/ActivityLocation/backoffice/location-edit.css"
   ]
 }
