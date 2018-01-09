@@ -93,16 +93,32 @@
                     <date-picker model="vm.selected.publishDate" config="vm.config.publishDate" picker="vm.publishDatePicker"></date-picker>
                     <input type="hidden" ng-model="vm.selected.publishDate" required="" name="Publish date" />
                 </div>
-
-                <div class="control-group">
-                    <h5 class="control-label">Location title:</h5>
-                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.locationTitle" ng-maxlength="200" name="LocationTitle" />
+                
+                
+                <div class="js-location-edit" ng-init="init()">
+                    <input id="js-map-short" type="hidden" ng-model="vm.selected.location.shortAddress" ng-maxlength="200" name="LocationAddress" style="height: 500px;margin-top: 10px;" />
+                    <input id="js-map-address" class="umbraco-panel__text-field" type="text" ng-model="vm.selected.location.address" ng-maxlength="200" name="LocationTitle" />
+                </div>
+                <location-edit></location-edit>
+                <!--<div class="control-group">
+                    <h5 class="control-label">Location address:</h5>
+                    <input id="js-map-address" class="umbraco-panel__text-field" type="text" ng-model="vm.selected.location.address" ng-maxlength="200" name="LocationTitle" />
                 </div>
                 
                 <div class="control-group">
-                    <h5 class="control-label">Location address:</h5>
-                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.locationAddress" ng-maxlength="200" name="LocationAddress" />
-                </div>
+                    <input id="js-map-short" type="hidden" ng-model="vm.selected.location.shortAddress" ng-maxlength="200" name="LocationAddress" />
+                </div>-->
+                
+                
+                <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYsiyBtRRDhGvCkNkdpUJq2KdZJDyhCHg"></script>-->
+                
+                
+                
+                
+                
+
+                
+
 
                 <div class="control-group">
                     <h5 class="control-label">Media:</h5>
