@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace uIntra.Notification.Base
+﻿namespace uIntra.Notification.Base
 {
     public interface INotifierDataValue
     {

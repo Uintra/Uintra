@@ -75,11 +75,7 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-        private static string GetNotifierDataTitle(IIntranetActivity activity)
-        {
-            return activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ?
-                activity.Description?.StripHtml().TrimByWordEnd(100) :
-                activity.Title;
-        }
+        private static string GetNotifierDataTitle(IIntranetActivity activity) 
+            => activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? activity.Description : activity.Title;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Base;
 
