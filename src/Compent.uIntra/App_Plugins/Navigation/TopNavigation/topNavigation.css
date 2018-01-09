@@ -14,7 +14,6 @@
     &__username {
         font-family: var(--font-custom);
         font-weight: bold;
-        margin: 0 0 0 15px;
         color:var(--color-white);
     }
     &__role {
@@ -275,7 +274,6 @@
 }
 
 .user {
-    float:right;
     position:relative;
     padding:6px 0 0;
     margin:0;
@@ -293,15 +291,6 @@
         padding:2px 2px 4px 17px;
         cursor:pointer;
         margin-right:3px;
-
-        &._with-avatar{
-            margin-top:-5px;
-            margin-bottom:-5px;
-
-            @media (--for-tablet-portrait-down){
-                margin:0;
-            }
-        }
 
 	    &:not(._with-avatar) {
 		    .user__avatar {

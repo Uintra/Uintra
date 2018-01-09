@@ -11,7 +11,9 @@ const quillOptions = {
         toolbar: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
     }
     /*modules: {
-        toolbar: ['emoji', 'bold', 'italic', 'link']
+        toolbar: {
+            container: toolbarSelector
+        }
     },
     theme: 'snow',
     placeholder: 'Tilføj kommentar'*/
