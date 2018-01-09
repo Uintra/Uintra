@@ -29,7 +29,7 @@ namespace uIntra.Core.Extensions
 
         public static IEnumerable<int> ToIntCollection(this string str)
         {
-            return str.IsNullOrEmpty() ? Enumerable.Empty<int>() : str.Split(',').Where(s => s.IsNotNullOrEmpty()).Select(int.Parse);
+            return str.IsNullOrEmpty() ? Enumerable.Empty<int>() : str.Split(',').Where(s => s.HasValue()).Select(int.Parse);
         }
 
         public static string GetMedia(this string str, int count)

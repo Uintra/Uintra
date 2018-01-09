@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Notification
 {
-    public class UiNotificationService: IUiNotificationService
+    public class UiNotificationService : IUiNotificationService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
 
@@ -37,7 +38,7 @@ namespace uIntra.Notification
                     IsNotified = false,
                     IsViewed = false,
                     Type = el.NotificationType.Id,
-                    Value = new { el.Message, el.Url }.ToJson(),
+                    Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
 
@@ -58,12 +59,13 @@ namespace uIntra.Notification
 
         public void Notify(IEnumerable<Notification> notifications)
         {
-            foreach (var n in notifications)
+            var notificationsList = notifications.AsList();
+            foreach (var n in notificationsList)
             {
                 n.IsNotified = true;
             }
 
-            _notificationRepository.Update(notifications);
+            _notificationRepository.Update(notificationsList);
         }
     }
 }

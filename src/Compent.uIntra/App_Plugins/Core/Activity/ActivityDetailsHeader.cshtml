@@ -1,8 +1,9 @@
-﻿@using uIntra.Core.Extensions
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extensions
 @using Extensions
 @model uIntra.Core.Activity.IntranetActivityDetailsHeaderViewModel
 @{
-    var inactiveUser = Model.Owner.Inactive ? "_inactive" : String.Empty;
+    var inactiveUser = Model.Owner.Inactive ? "_inactive" : string.Empty;
 }
 
 <header class="feed__item-heading @inactiveUser">
@@ -25,7 +26,7 @@
         </p>
     </div>
 </header>
-@if (Model.Title.IsNotNullOrEmpty())
+@if (Model.Title.HasValue())
 {
     <h2 class="feed__item-title">@Model.Title</h2>
 }

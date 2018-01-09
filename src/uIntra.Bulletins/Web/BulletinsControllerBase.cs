@@ -217,7 +217,7 @@ namespace uIntra.Bulletins.Web
             bulletin.PublishDate = DateTime.UtcNow;
             bulletin.CreatorId = bulletin.OwnerId = _userService.GetCurrentUserId();
 
-            if (model.NewMedia.IsNotNullOrEmpty())
+            if (model.NewMedia.HasValue())
             {
                 bulletin.MediaIds = _mediaHelper.CreateMedia(model);
             }

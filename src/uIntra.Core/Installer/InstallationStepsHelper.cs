@@ -151,7 +151,7 @@ namespace uIntra.Core.Installer
             page.Icon = model.Icon;
 
             contentService.Save(page);
-            if (model.ParentAlias.IsNotNullOrEmpty())
+            if (model.ParentAlias.HasValue())
             {
                 AddAllowedChildNode(model.ParentAlias, model.Alias);
             }

@@ -76,6 +76,7 @@
 
         ._full-size &{
             height:auto !important;
+            max-width: 100%;
         }
     }
 
