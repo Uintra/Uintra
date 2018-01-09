@@ -39,7 +39,7 @@ namespace uIntra.Likes.Web
         public virtual PartialViewResult ContentLikes()
         {
             var guid = CurrentPage.GetGuidKey();
-            return Likes(_likesService.GetLikeModels(guid), guid);
+            return Likes(_likesService.GetLikeModels(guid), guid, showTitle: true);
         }
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
@@ -63,7 +63,8 @@ namespace uIntra.Likes.Web
 
             if (IsForPagePromotion(model))
             {
-                return AddActivityLike(model.ActivityId);
+                var pagePromotionLikeInfo = AddActivityLike(model.ActivityId);
+                return Likes(pagePromotionLikeInfo.Likes, pagePromotionLikeInfo.Id, showTitle: true);
             }
 
             if (IsForContentPage(model))
@@ -72,7 +73,8 @@ namespace uIntra.Likes.Web
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
             }
 
-            return AddActivityLike(model.ActivityId);
+            var activityLikeInfo = AddActivityLike(model.ActivityId);
+            return Likes(activityLikeInfo.Likes, activityLikeInfo.Id);
         }
 
         [HttpPost]
@@ -86,7 +88,8 @@ namespace uIntra.Likes.Web
 
             if (IsForPagePromotion(model))
             {
-                return RemoveActivityLike(model.ActivityId);
+                var pagePromotionLikeInfo = RemoveActivityLike(model.ActivityId);
+                return Likes(pagePromotionLikeInfo.Likes, pagePromotionLikeInfo.Id, showTitle: true);
             }
 
             if (IsForContentPage(model))
@@ -95,7 +98,8 @@ namespace uIntra.Likes.Web
                 return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
             }
 
-            return RemoveActivityLike(model.ActivityId);
+            var activityLikeInfo = RemoveActivityLike(model.ActivityId);
+            return Likes(activityLikeInfo.Likes, activityLikeInfo.Id);
         }
 
         protected virtual bool IsForComment(AddRemoveLikeModel model)
@@ -114,7 +118,7 @@ namespace uIntra.Likes.Web
             return _umbracoHelper.TypedContent(model.ActivityId)?.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
         }
 
-        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null, bool isReadOnly = false)
+        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null, bool isReadOnly = false, bool showTitle = false)
         {
             var currentUserId = GetCurrentUserId();
             var likeModels = likes as IList<LikeModel> ?? likes.ToList();
@@ -127,30 +131,24 @@ namespace uIntra.Likes.Web
                 Count = likeModels.Count,
                 CanAddLike = canAddLike,
                 Users = likeModels.Select(el => el.User),
-                IsReadOnly = isReadOnly
+                IsReadOnly = isReadOnly,
+                ShowTitle = showTitle
             };
             return PartialView(LikesViewPath, model);
         }
 
-        protected virtual PartialViewResult AddActivityLike(Guid activityId)
+        protected virtual Guid GetCurrentUserId() => _intranetUserService.GetCurrentUserId();
+
+        protected ILikeable AddActivityLike(Guid activityId)
         {
             var service = _activitiesServiceFactory.GetService<ILikeableService>(activityId);
-            var likeInfo = service.AddLike(GetCurrentUserId(), activityId);
-
-            return Likes(likeInfo.Likes, likeInfo.Id);
+            return service.AddLike(GetCurrentUserId(), activityId);
         }
 
-        protected virtual PartialViewResult RemoveActivityLike(Guid activityId)
+        protected ILikeable RemoveActivityLike(Guid activityId)
         {
             var service = _activitiesServiceFactory.GetService<ILikeableService>(activityId);
-            var likeInfo = service.RemoveLike(GetCurrentUserId(), activityId);
-
-            return Likes(likeInfo.Likes, likeInfo.Id);
-        }
-
-        protected virtual Guid GetCurrentUserId()
-        {
-            return _intranetUserService.GetCurrentUserId();
+            return service.RemoveLike(GetCurrentUserId(), activityId);
         }
     }
 }

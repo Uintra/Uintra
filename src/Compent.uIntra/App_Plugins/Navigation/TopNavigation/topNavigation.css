@@ -14,7 +14,6 @@
     &__username {
         font-family: var(--font-custom);
         font-weight: bold;
-        margin: 0 0 0 15px;
         color:var(--color-white);
     }
     &__role {
@@ -176,7 +175,7 @@
 .autocomplete-suggestions{
     background-color:var(--color-white);
     box-shadow:2px 3px 5px rgba(0,0,0,0.3);
-    max-height: 450px !important;
+    max-height: 500px !important;
     overflow:auto;
     border:1px solid var(--color-light-gray-3);
     border-top:none;
@@ -275,9 +274,8 @@
 }
 
 .user {
-    float:right;
     position:relative;
-    padding:12px 0 0;
+    padding:6px 0 0;
     margin:0;
 
 	@media (--for-tablet-portrait-down){
@@ -293,15 +291,6 @@
         padding:2px 2px 4px 17px;
         cursor:pointer;
         margin-right:3px;
-
-        &._with-avatar{
-            margin-top:-5px;
-            margin-bottom:-5px;
-
-            @media (--for-tablet-portrait-down){
-                margin:0;
-            }
-        }
 
 	    &:not(._with-avatar) {
 		    .user__avatar {

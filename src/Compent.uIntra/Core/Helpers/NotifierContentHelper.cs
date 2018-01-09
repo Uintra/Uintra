@@ -27,7 +27,9 @@ namespace Compent.uIntra.Core.Helpers
                 NotificationType = notificationType,
                 NotifierId = notifierId,
                 Title = GetNotifierDataTitle(activity),
-                Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id)
+                Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id),
+                IsPinned = activity.IsPinned,
+                IsPinActual = activity.IsPinActual
             };
         }
 
@@ -39,7 +41,9 @@ namespace Compent.uIntra.Core.Helpers
                 ActivityType = activity.Type,
                 Title = GetNotifierDataTitle(activity),
                 Url = _linkService.GetLinks(activity.Id).Details,
-                NotifierId = notifierId
+                NotifierId = notifierId,
+                IsPinned = activity.IsPinned,
+                IsPinActual = activity.IsPinActual
             };
         }
 
@@ -52,7 +56,9 @@ namespace Compent.uIntra.Core.Helpers
                 ActivityType = activity.Type,
                 NotifierId = notifierId,
                 CreatedDate = DateTime.Now,
-                Url = _linkService.GetLinks(activity.Id).Details
+                Url = _linkService.GetLinks(activity.Id).Details,
+                IsPinned = activity.IsPinned,
+                IsPinActual = activity.IsPinActual
             };
         }
 
@@ -63,15 +69,13 @@ namespace Compent.uIntra.Core.Helpers
                 Url = _linkService.GetLinks(activity.Id).Details,
                 Title = activity.Title,
                 NotificationType = activityType,
-                ActivityType = activity.Type
+                ActivityType = activity.Type,
+                IsPinned = activity.IsPinned,
+                IsPinActual = activity.IsPinActual
             };
         }
 
-        private static string GetNotifierDataTitle(IIntranetActivity activity)
-        {
-            return activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ?
-                activity.Description?.StripHtml().TrimByWordEnd(100) :
-                activity.Title;
-        }
+        private static string GetNotifierDataTitle(IIntranetActivity activity) 
+            => activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? activity.Description : activity.Title;
     }
 }
