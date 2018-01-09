@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -28,18 +30,17 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                      {
                         (Url, model.Url),
-                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
+                        (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
-
                     break;
                 case ActivityReminderDataModel model:
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
+                        (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.Name),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
@@ -56,7 +57,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
+                        (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
@@ -77,5 +78,8 @@ namespace Compent.uIntra.Core.Notification
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
 
         private static string GetHtmlLink(string title, string url) => $"<a href=\"{url.ToAbsoluteUrl()}\">{title}</a>";
+
+        private static string GetTitle(IIntranetType activityType, string title)
+            => activityType.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? title?.StripHtml().TrimByWordEnd(100) : title;
     }
 }

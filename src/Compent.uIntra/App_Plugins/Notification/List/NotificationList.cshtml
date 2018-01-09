@@ -26,6 +26,12 @@
                 </div>
             </div>
         </div>
+                @if (notification.Value.IsPinned != null)
+                {
+                    <span class="@(notification.Value.IsPinActual ? "_pinned" : string.Empty)">
+                        <span class="pinned__item"></span>
+                    </span>
+                }
     </li>
         }
     }
