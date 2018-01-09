@@ -81,6 +81,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="BCLExtensions, Version=0.2.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\BCLExtensions.0.2.8\lib\net452\BCLExtensions.dll</HintPath>
     </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
