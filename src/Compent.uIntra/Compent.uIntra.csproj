@@ -520,6 +520,8 @@
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\activityLocation.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\activityLocationEdit.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.controller.js" />
     <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.directive.js" />
     <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.html" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\styles.css" />
