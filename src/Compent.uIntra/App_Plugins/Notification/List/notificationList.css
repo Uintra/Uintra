@@ -74,10 +74,10 @@
         &-holder{
             position:absolute;
             top:100%;
-            left:0;
+            right:-190px;
             width:570px;
             display:none;
-            transform:translate(-62%);
+            margin:8px 0 0;
 
             ._notifications-expanded &{
                 display:block;
@@ -92,6 +92,7 @@
                 right:0;
                 max-height:calc(100vh - 60px);
                 overflow:auto;
+                margin:0;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
