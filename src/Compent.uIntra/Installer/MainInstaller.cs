@@ -9,7 +9,7 @@ using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
 using uIntra.Core;
 using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+using Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;

@@ -9,21 +9,6 @@
     background:var(--color-white);
     z-index:10;
     min-height:92px;
-    height:50px;
-    display:flex;
-    justify-content:flex-end;
-    flex-wrap:nowrap;
-    align-items:center;
-
-    @media (--for-tablet-portrait-down) {
-        display: block;
-        border-bottom:0;
-    }
-
-    ._with-sub-nav &{
-        align-items:flex-start;
-        height:auto;
-    }
 
     &:after{
         display:block;
@@ -50,20 +35,6 @@
             padding-top:0;
         }
     }
-
-    /*&__logo{
-        max-width:118px;
-        margin:0;
-        order:2;
-
-        ._with-sub-nav &{
-            margin:30px 0 0;
-        }
-
-        @media (--for-tablet-portrait-down) {
-            display: none;
-        }
-    }*/
 
     &__title{
         overflow:hidden;
@@ -284,7 +255,7 @@
         z-index:initial;
         min-height:0;
         height:auto;
-        z-index:99;
+        z-index:2;
 
         &:before {
             display: none;

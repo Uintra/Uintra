@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Localization.Umbraco.Attributes;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
@@ -11,6 +12,7 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
+    [ThreadCulture]
     public class LikesController : LikesControllerBase
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
@@ -32,10 +34,11 @@ namespace Compent.uIntra.Controllers
         public override PartialViewResult AddLike(AddRemoveLikeModel model)
         {
             var like = base.AddLike(model);
-            if (IsForContentPage(model))
+            if (IsForContentPage(model) || IsForPagePromotion(model))
             {
                 return like;
             }
+
             var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
             if (notifiableService != null)
             {
@@ -50,6 +53,7 @@ namespace Compent.uIntra.Controllers
                     notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }
+
             return like;
         }
     }

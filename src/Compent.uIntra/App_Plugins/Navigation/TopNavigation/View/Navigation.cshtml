@@ -1,8 +1,9 @@
 ﻿@using uIntra.Core.Extensions
+@using Extensions
 @model uIntra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatar = Model.CurrentUser.Photo.IsNotNullOrEmpty() ? "_with-avatar" : "";
+    var userAvatar = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : "";
 }
 
 <div class="menu _for-mobile">
@@ -22,7 +23,7 @@
             <div class="user">
                 <a class="user__opener icon-user @userAvatar">
                     <div class="user__avatar">
-                        <img class="user__avatar-img" src="@Model.CurrentUser.Photo?width=30" width="30">
+                        <img class="user__avatar-img" src="@Model.CurrentUser.Photo?width=30&height=30&mode=min" width="30">
                     </div>
                     <span class="user__opener-arrow"></span>
                     <div class="greeting">

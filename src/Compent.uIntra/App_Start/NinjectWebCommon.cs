@@ -160,7 +160,7 @@ namespace Compent.uIntra
                 RegisterEntityFrameworkServices(kernel);
                 RegisterServices(kernel);
                 RegisterModelBinders();
-                RegisterGlobalFilters(kernel);
+                RegisterGlobalFilters();
                 RegisterLocalizationServices(kernel);
                 RegisterSearchServices(kernel);
 
@@ -249,11 +249,17 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedLinkService>().To<ActivityLinkService>();
             kernel.Bind<IGroupFeedLinkService>().To<ActivityLinkService>();
 
-
             kernel.Bind<IFeedActivityHelper>().To<FeedActivityHelper>();
             kernel.Bind<IGroupActivityService>().To<GroupActivityService>();
             kernel.Bind<IActivityTypeHelper>().To<ActivityTypeHelper>();
-            kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>().InRequestScope();
+
+            kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>()
+                .WhenInjectedInto<CentralFeedLinkProvider>()
+                .WithConstructorArgument(typeof(IEnumerable<string>), c => CentralFeedLinkProviderHelper.GetFeedActivitiesXPath(c.Kernel.Get<IDocumentTypeAliasProvider>()));
+
+            kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>()
+                .WhenInjectedInto<GroupFeedLinkProvider>()
+                .WithConstructorArgument(typeof(IEnumerable<string>), c => GroupFeedLinkProviderHelper.GetFeedActivitiesXPath(c.Kernel.Get<IDocumentTypeAliasProvider>()));
 
             kernel.Bind<ICentralFeedContentService>().To<CentralFeedContentService>().InRequestScope();
             kernel.Bind<IGroupFeedContentService>().To<GroupFeedContentService>().InRequestScope();
@@ -263,7 +269,6 @@ namespace Compent.uIntra
             kernel.Bind<ICentralFeedHelper>().To<CentralFeedHelper>().InRequestScope();
             kernel.Bind<IGroupHelper>().To<GroupHelper>().InRequestScope();
             kernel.Bind<IFeedFilterStateService>().To<CentralFeedFilterStateService>().InRequestScope();
-
 
             kernel.Bind(typeof(IIntranetActivityService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IIntranetActivityService<>)).To<EventsService>().InRequestScope();
@@ -280,12 +285,13 @@ namespace Compent.uIntra
             kernel.Bind<ILikeableService>().To<NewsService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<EventsService>().InRequestScope();
             kernel.Bind<ILikeableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ILikeableService>().To<PagePromotionService>().InRequestScope();
 
             kernel.Bind<ICommentableService>().To<NewsService>().InRequestScope();
             kernel.Bind<ICommentableService>().To<EventsService>().InRequestScope();
             kernel.Bind<ICommentableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<ICommentableService>().To<PagePromotionService>().InRequestScope();
             kernel.Bind<ICustomCommentableService>().To<CustomCommentableService>().InRequestScope();
-
 
             kernel.Bind<INotifyableService>().To<NewsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<EventsService>().InRequestScope();
@@ -311,7 +317,6 @@ namespace Compent.uIntra
             kernel.Bind<ISystemLinksModelBuilder>().To<SystemLinksModelBuilder>().InRequestScope();
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
             kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
-
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
@@ -381,7 +386,6 @@ namespace Compent.uIntra
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
-
             //umbraco events subscriptions
             kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<SearchContentEventService>().InRequestScope();
@@ -403,7 +407,6 @@ namespace Compent.uIntra
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
         {
-
             kernel.Bind(typeof(IDbContextFactory<DbObjectContext>)).To<DbContextFactory>().WithConstructorArgument(typeof(string), "umbracoDbDSN");
             kernel.Bind<DbContext>().ToMethod(c => kernel.Get<IDbContextFactory<DbObjectContext>>().Create()).InRequestScope();
             kernel.Bind<IntranetDbContext>().To<DbObjectContext>();
@@ -412,7 +415,7 @@ namespace Compent.uIntra
             kernel.Bind(typeof(ISqlRepository<>)).To(typeof(SqlRepository<>));
         }
 
-        private static void RegisterGlobalFilters(IKernel kernel)
+        private static void RegisterGlobalFilters()
         {
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
         }

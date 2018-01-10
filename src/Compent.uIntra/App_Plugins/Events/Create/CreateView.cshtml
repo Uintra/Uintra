@@ -16,16 +16,22 @@
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsCreate.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
+                   placeholder="@Html.Localize("Events.Title.placeholder")"
                    data-val-required="@Html.Localize("CreateEvents.TitleRequired.lbl")"
-                   data-val-length-max="400" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 400)" data-val="true" />
+                   data-val-length-max="400"
+                   data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 400)"
+                   data-val="true" />
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("EventsCreate.Description.lbl") <span class="form__required">*</span></label>
             <div id="description">
                 @Html.Raw(Model.Description)
             </div>
-            <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
-                   data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")" data-val="true" />
+            <input type="hidden" id="js-hidden-description-container" name="description"
+                   value="@(Model.Description)"
+                   data-placeholder="@Html.Localize("Events.Description.placeholder")"
+                   data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")"
+                   data-val="true" />
         </div>
         <div class="form__row clearfix">
             <div class="row">
@@ -64,6 +70,7 @@
         </div>
         <div class="form__row clearfix">
             <div class="check">
+                <label class="form__label">@Html.Localize("EventsCreate.Participation.lbl")</label>
                 <label class="check__label">
                     @Html.CheckBoxFor(m => m.CanSubscribe, new { @class = "check__box" })
                     <span class="check__fake-input icon-check"></span>
@@ -78,10 +85,8 @@
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-        <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
-        <div class="form__row clearfix">
+        @Html.ValidationSummary()
+        <div class="form__row form__row--no-indent clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
             @Html.PassLinks(Model.Links)
             <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")"/>
