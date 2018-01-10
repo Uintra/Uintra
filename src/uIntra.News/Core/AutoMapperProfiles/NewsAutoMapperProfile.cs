@@ -99,10 +99,6 @@ namespace uIntra.News
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
-            // TODO: move from here
-            Mapper.CreateMap<ActivityLocationEditModel, ActivityLocation>();
-            Mapper.CreateMap<ActivityLocation, ActivityLocationEditModel>();
-
             Mapper.CreateMap<NewsBackofficeSaveModel, NewsBase>()
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
