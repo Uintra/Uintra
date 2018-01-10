@@ -5,7 +5,6 @@
     var groupId = Request.QueryString.Get("groupId");
 }
 <div class="table-holder block" id="js-group-members">
-    <h2 class="members__title">@Html.Localize("GroupMembers.Title")</h2>
     <table class="members-table">
         <tr class="members-table__row">
             <th colspan="2" class="members-table__head">@Html.Localize("GroupMembers.Table.Name.lbl")</th>
@@ -17,7 +16,9 @@
             {
             <tr class="members-table__row">
                 <td class="members-table__cell">
-                    <img class="members-table__img" src="@member.Photo" height="60" />
+                    <div class="members-table__avatar">
+                        <img class="members-table__img" src="@member.Photo" height="60" />
+                    </div>
                 </td>
                 <td class="members-table__cell">
                     <span class="members-table__name">@member.Name</span>
