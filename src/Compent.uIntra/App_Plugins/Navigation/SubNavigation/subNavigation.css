@@ -9,7 +9,7 @@
     background:var(--color-white);
     z-index:10;
     min-height:92px;
-    height:50px;
+    /*height:50px;
     display:flex;
     justify-content:flex-end;
     flex-wrap:nowrap;
@@ -23,7 +23,7 @@
     ._with-sub-nav &{
         align-items:flex-start;
         height:auto;
-    }
+    }*/
 
     &:after{
         display:block;
