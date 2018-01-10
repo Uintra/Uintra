@@ -1,8 +1,27 @@
-﻿.like{
-    display:inline-block;
-    vertical-align:top;
-    position:relative;
-    line-height:1.3;
+﻿.like {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    line-height: 1.3;
+
+    .content-page &{
+        display: block;
+        margin: 0 0 22px;
+        padding: 20px 20px 19px;
+        background: var(--color-white);
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
+
+        @media (--for-tablet-portrait-down) {
+            margin:0 -20px 10px;
+        }
+    }
+
+    .content-page .comments__block & {
+        margin: 0;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+    }
 
     &__set{
         color: #b2b2b2;
@@ -41,7 +60,7 @@
     }
 
     &__link{
-        color:var(--text-color-dark);
+        color:#aaa;
         padding:0 0 0 25px;
         display:inline-block;
         vertical-align:top;

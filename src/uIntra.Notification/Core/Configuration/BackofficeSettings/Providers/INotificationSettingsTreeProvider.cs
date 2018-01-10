@@ -1,9 +1,9 @@
-﻿using uIntra.Core.Extensions;
+﻿using BCLExtensions.Trees;
 
 namespace uIntra.Notification.Configuration
 {
     public interface INotificationSettingsTreeProvider
     {
-        Tree<TreeNodeModel> GetSettingsTree();
+        ITree<TreeNodeModel> GetSettingsTree();
     }
 }

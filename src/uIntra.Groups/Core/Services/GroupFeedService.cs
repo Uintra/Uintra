@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
@@ -58,7 +59,7 @@ namespace uIntra.Groups
 
         private bool IsGroupActivity(Guid groupId, IFeedItem item)
         {
-            return IsGroupActivity(groupId.ToEnumerableOfOne(), item);
+            return IsGroupActivity(groupId.ToEnumerable(), item);
         }
     }
 }

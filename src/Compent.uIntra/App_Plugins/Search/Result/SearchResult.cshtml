@@ -8,6 +8,7 @@
 }
 
 <input type="hidden" class="js-type-search-counts" data-all-types-placeholder="@Model.AllTypesPlaceholder" data-types="@Model.FilterItems.ToJson()">
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <h1 class="search-result__result">@queryLabel @countLabel</h1>
 @foreach (var result in Model.Results)
 {
@@ -16,9 +17,11 @@
 
         <h2 class="search-result__item-title">@Html.Raw(result.Title)</h2>
         
-        @if (result.IsPinned || result.IsPinActual)
+        @if (result.IsPinned)
         {
-            <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+            <span class="@(result.IsPinActual ? "_pinned" : string.Empty)">
+                <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+            </span>
         }
 
         @if (result.PanelContent.Any())

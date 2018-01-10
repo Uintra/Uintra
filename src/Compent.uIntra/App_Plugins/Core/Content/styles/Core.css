@@ -241,14 +241,12 @@ h5{
     position:relative;
 
     @media (--for-tablet-portrait-down) {
-        &{
-            position:static;
-        }
+        position:static;
     }
 }
 
 .holder {
-    padding: 0 0 0 305px;
+    padding: 15px 0 15px 305px;
     flex-grow: 1;
 
     @media (--for-tablet-portrait-down) {
@@ -375,10 +373,8 @@ h5{
 	padding:0;
 
     @media (--for-tablet-portrait-down) {
-	    display: flex;
 	    flex-direction: row-reverse;
 	    min-height: 60px;
-        padding:0;
 
         &:before {
             position: absolute;
@@ -398,7 +394,6 @@ h5{
     }
 
     @media (--for-tablet-landscape-up) {
-        padding:0;
         min-height:70px;
     }
 
@@ -414,7 +409,7 @@ h5{
     position: absolute;
     top: 0;
     left: 20px;
-    padding: 11px 0;
+    padding: 16px 0;
     z-index: 2;
 
     @media (--for-tablet-portrait-down){
@@ -513,10 +508,25 @@ h5{
 }
 
 .alertify{
+    &.ajs-closable{
+        .ajs-commands{
+            button.ajs-close{
+                vertical-align: top;
+            }
+        }
+    } 
     .ajs-modal{
         .ajs-commands{
             margin-right:10px;
         }
+    }
+    .ajs-header{
+        background: none;
+    }
+
+    .ajs-footer{
+        background: none;
+        border: 0;
     }
 }
 
@@ -528,58 +538,42 @@ h5{
         padding:0 10px;
     }
 
-    .ajs-button{
-        border:1px solid;
-        padding:4px 20px 5px;
-        margin:0 20px 0 0;
-        display:inline-block;
-        vertical-align:top;
-        border-radius:3px;
-        font:bold 16px/20px var(--font-custom);
-        text-transform:uppercase;
-        cursor:pointer;
-        max-width:100%;
-        overflow:hidden;
-        white-space:nowrap;
-        text-overflow:ellipsis;
-        border-color:var(--color-light-gray);
-        background:var(--color-light-gray);
-        color:var(--text-color-dark);
+    .ajs-button {
+        background: var(--color-white);
+        color: #555;
+        border: 1px solid #8f8f8f;
+        border-radius: 20px;
+        display: inline-block;
+        vertical-align: top;
+        font: bold 12px/17px var(--font-custom);
+        height: 30px;
+        margin: 0 6px 0 0;
+        max-width: 100%;
+        overflow: hidden;
+        padding: 7px 15px 6px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        position: relative;
+        text-transform: uppercase;
+        min-height: 0;
 
         &:hover,
         &:active,
         &:focus{
-            background:var(--text-color-dark);
-            border-color:var(--text-color-dark);
-            color:var(--color-white);
-            text-decoration:none;
+            background-color: #dedede;
+            color: var(--text-color-dark);
+            text-decoration: none;
         }
 
-        &.ajs-cancel{
-            border-color:var(--text-color-dark);
-            background:var(--color-white);
-            color:var(--text-color-dark);
-
-            &:hover,
-            &:active,
-            &:focus{
-                background:#e2e2e2;
-                text-decoration:none;
-                border-color:#d4d4d4;
-            }
-        }
+        @mixin btn-focus-color #8f8f8f;
 
         &.ajs-ok{
-            border-color:var(--color-black);
-            background:var(--color-black);
-            color:var(--color-white);
+            color:#555;
 
             &:hover,
             &:active,
             &:focus{
-                background:var(--text-color-dark);
-                border-color:var(--text-color-dark);
-                text-decoration:none;
+                color: var(--text-color-dark);
             }
         }
 
@@ -608,6 +602,7 @@ h5{
     white-space: nowrap;
     position: relative;
     text-transform:uppercase;
+    cursor:pointer;
 
     &:hover{
         background-color:#dedede;
@@ -756,12 +751,10 @@ h5{
     }
 
     &__img{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        height: auto;
-        transform: translate(-50%, -50%);
-        max-width:100%;
+        height:100%;
+        width:100%;
+        object-fit:cover;
+        display:block;
     }
 
     &__letter{

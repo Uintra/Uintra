@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.User;
 
@@ -27,7 +28,8 @@ namespace uIntra.Users
         public virtual IRole GetActualRole(IEnumerable<string> roleNames)
         {
             var roles = roleNames.Select(Get).OrderBy(x => x.Priority);
-            return roles.IsEmpty() ? GetDefaultRole() : roles.First();
+            var rolesList = roles.AsList();
+            return rolesList.IsEmpty() ? GetDefaultRole() : rolesList.First();
         }
 
         public virtual IEnumerable<IRole> GetAll()
