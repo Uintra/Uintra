@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Extensions;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -244,7 +245,7 @@ namespace Compent.uIntra.Core.Bulletins
                 case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var bulletinsEntity = Get(entityId);
-                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerableOfOne();
+                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetLikesNotifierDataModel(bulletinsEntity, notificationType, currentUser.Id);
                     }
                     break;
@@ -254,7 +255,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerableOfOne();
+                        data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, comment.UserId);
                     }
                     break;
@@ -263,7 +264,7 @@ namespace Compent.uIntra.Core.Bulletins
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
+                        data.ReceiverIds = comment.UserId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, currentUser.Id);
                     }
                     break;
@@ -274,7 +275,7 @@ namespace Compent.uIntra.Core.Bulletins
                         var bulletinsEntity = Get(comment.ActivityId);
                         data.ReceiverIds = currentUser.Id == comment.UserId
                             ? Enumerable.Empty<Guid>()
-                            : comment.UserId.ToEnumerableOfOne();
+                            : comment.UserId.ToEnumerable();
 
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(bulletinsEntity, comment, notificationType, currentUser.Id);
                     }

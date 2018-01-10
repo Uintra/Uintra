@@ -2,7 +2,7 @@
 @using uIntra.Core.Extensions
 @model uIntra.Comments.CommentsOverviewModel
 
-<div id="@Model.ElementId" data-activity-id="@Model.ActivityId" class="js-comments-overview">
+<div id="@Model.ElementId" data-activity-id="@Model.ActivityId" class="comments__block js-comments-overview">
     <h3 class="comments__title">@Html.Localize("CommentsOverView.Title.lbl")</h3>
     @if (Model.IsReadOnly)
     {

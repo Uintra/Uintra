@@ -1,4 +1,5 @@
 using AutoMapper;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 
@@ -74,7 +75,7 @@ namespace uIntra.Bulletins
             Mapper.CreateMap<BulletinBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerableOfOne()));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerable()));
 
             Mapper.CreateMap<BulletinBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<BulletinBase, IntranetActivityDetailsHeaderViewModel>()

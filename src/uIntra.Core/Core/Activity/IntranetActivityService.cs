@@ -142,7 +142,7 @@ namespace uIntra.Core.Activity
 
             if (activity != null)
             {
-                MapBeforeCache((activity).ToListOfOne());
+                MapBeforeCache(activity.ToListOfOne());
                 cachedList.Add(activity);
             }
 

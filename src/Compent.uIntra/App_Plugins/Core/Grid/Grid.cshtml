@@ -1,13 +1,21 @@
 ﻿@inherits UmbracoViewPage<IPublishedContent>
+
 @using Newtonsoft.Json.Linq
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using System.Web.Routing
+@using Newtonsoft.Json.Linq
+@using uIntra.Navigation
+@using Umbraco.Web
 
 @{
     var grid = Model.GetPropertyValue<dynamic>("grid");
+    var cssModifier = Model.IsContentPage() ? "content-page" : string.Empty;
 }
 
 @if (grid != null && grid.sections != null)
 {
-    <div class="row">
+    <div class="row @cssModifier">
         @{
             var sectionOffsetNumber = 12;
             for (var i = 0; i < grid.sections.Count; i++)
@@ -44,42 +52,42 @@
 }
 
 @helper RenderControl(string partialViewName, dynamic control)
-{
-    try
     {
-        var config = control.editor?.config;
-        if (config == null || config.action == null || config.controller == null)
+        try
         {
-            var controlObject = control as object;
-            @Html.Partial(partialViewName, controlObject)
-            return;
-        }
+            var config = control.editor?.config;
+            if (config == null || config.action == null || config.controller == null)
+            {
+                var controlObject = control as object;
+                @Html.Partial(partialViewName, controlObject)
+                return;
+            }
 
-        string action = config.action;
-        string controller = config.controller;
+            string action = config.action;
+            string controller = config.controller;
 
-        if (config.includeUmbracoValues != null && (bool)config.includeUmbracoValues)
-        {
-            var controllerParams =  new RouteValueDictionary(ParseUmbracoValues(control));
-            @Html.Action(action, controller, controllerParams);
+            if (config.includeUmbracoValues != null && (bool)config.includeUmbracoValues)
+            {
+                var controllerParams = new RouteValueDictionary(ParseUmbracoValues(control));
+                @Html.Action(action, controller, controllerParams);
+            }
+            else if (config.includeParams != null && (bool)config.includeParams)
+            {
+                var controllerParams = new RouteValueDictionary(ParseParams(config));
+                @Html.Action(action, controller, controllerParams);
+            }
+            else
+            {
+                @Html.Action(action, controller)
+            }
         }
-        else if (config.includeParams != null && (bool)config.includeParams)
+        catch (Exception ex)
         {
-            var controllerParams =  new RouteValueDictionary(ParseParams(config));
-            @Html.Action(action, controller, controllerParams);        
+            if (HttpContext.Current.IsDebuggingEnabled)
+            {
+                <pre>@ex.ToString()</pre>
+            }
         }
-        else
-        {
-            @Html.Action(action, controller)
-        }
-    }
-    catch (Exception ex)
-    {
-        if (HttpContext.Current.IsDebuggingEnabled)
-        {
-            <pre>@ex.ToString()</pre>
-        }
-    }
 }
 
 @functions {
@@ -126,7 +134,7 @@
 
     private static IDictionary<string, object> ParseControl(dynamic control, string key)
     {
-        var result = ((Newtonsoft.Json.Linq.JToken) control)[key].ToObject<Dictionary<string, object>>();
+        var result = ((Newtonsoft.Json.Linq.JToken)control)[key].ToObject<Dictionary<string, object>>();
         return result == null
             ? new Dictionary<string, object>()
             : result;

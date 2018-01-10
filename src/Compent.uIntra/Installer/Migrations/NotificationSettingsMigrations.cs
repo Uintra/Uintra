@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
@@ -104,13 +105,13 @@ namespace Compent.uIntra.Installer.Migrations
             if (mailTemplate == null) return;
 
             var mailSubject = mailTemplate.GetPropertyValue<string>("subject");
-            if (mailSubject.IsNotNullOrEmpty())
+            if (mailSubject.HasValue())
             {
                 notifierSettings.Template.Subject = mailSubject;
             }
 
             var mailBody = mailTemplate.GetPropertyValue<string>("body");
-            if (mailBody.IsNotNullOrEmpty())
+            if (mailBody.HasValue())
             {
                 notifierSettings.Template.Body = mailBody;
             }
@@ -146,7 +147,7 @@ namespace Compent.uIntra.Installer.Migrations
             }
 
             var uiNotificationMessage = GetUiNotificationMessage(notificationType);
-            if (uiNotificationMessage.IsNotNullOrEmpty())
+            if (uiNotificationMessage.HasValue())
             {
                 notifierSettings.Template.Message = uiNotificationMessage;
             }

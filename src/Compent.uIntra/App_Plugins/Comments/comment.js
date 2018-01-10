@@ -10,6 +10,13 @@ const quillOptions = {
     modules: {
         toolbar: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
     }
+    /*modules: {
+        toolbar: {
+            container: toolbarSelector
+        }
+    },
+    theme: 'snow',
+    placeholder: 'Tilføj kommentar'*/
 };
 
 var initSubmitButton  = function(holder) {

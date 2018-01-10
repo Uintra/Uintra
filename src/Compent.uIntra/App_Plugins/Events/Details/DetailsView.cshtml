@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using uIntra.Core.Extensions
+@using Extensions
 @model uIntra.Events.EventViewModel
 
 <section class="content">
@@ -9,7 +10,7 @@
         {
             <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
         }
-        <a class="link__back" href="@Model.Links.Overview">@Html.Localize("DetailsView.GoToList.lbl")</a>
+        <a class="link__back" href="/">@Html.Localize("DetailsView.GoToList.lbl")</a>
     </div>
     <div class="feed__item _details">
         @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
@@ -21,6 +22,14 @@
             <div>
                 <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
             </div>
+            @if (Model.LocationTitle.HasValue())
+            {
+                <div>@Model.LocationTitle</div>
+            }
+            @if (Model.LocationAddress.HasValue())
+            {
+                <div>@Model.LocationAddress</div>
+            }
         </div>
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)

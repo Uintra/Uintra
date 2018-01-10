@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Extensions;
 using Localization.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
@@ -35,7 +36,7 @@ namespace Compent.uIntra.Installer
             var newLocalizations = fileContent.Deserialize<List<ResourceModel>>();
 
             var parentKeys = newLocalizations
-                .Where(loc => loc.ParentKey.IsNotNullOrEmpty())
+                .Where(loc => loc.ParentKey.HasValue())
                 .Select(loc => loc.ParentKey)
                 .Distinct();
 

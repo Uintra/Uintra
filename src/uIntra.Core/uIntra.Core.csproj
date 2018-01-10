@@ -80,6 +80,9 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BCLExtensions, Version=0.2.8.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCLExtensions.0.2.8.1\lib\net452\BCLExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
@@ -356,6 +359,7 @@
     <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\Helpers\PagePromotionPageHelper.cs" />
     <Compile Include="Core\Activity\ITypedService.cs" />
     <Compile Include="Core\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredVirtualAttribute.cs" />
@@ -363,8 +367,6 @@
     <Compile Include="Core\Constants\GridEditorConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\EditorConfigProvider.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IEditorConfigProvider.cs" />
-    <Compile Include="Core\Extensions\Tree.cs" />
-    <Compile Include="Core\Extensions\TreeExtensions.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Attributes\RequiredIfAllEmptyAttribute.cs" />
@@ -393,6 +395,7 @@
     <Compile Include="Core\PagePromotion\Models\PagePromotionItemViewModel.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionHelper.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionConstants.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionServiceBase.cs" />
     <Compile Include="Core\Providers\IDocumentTypeProvider.cs" />
     <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />

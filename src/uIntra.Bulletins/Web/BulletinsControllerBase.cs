@@ -13,6 +13,7 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Web.Mvc;
+using Extensions;
 
 namespace uIntra.Bulletins.Web
 {
@@ -136,7 +137,7 @@ namespace uIntra.Bulletins.Web
             {
                 Title = currentUser.DisplayedName,
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
-                Dates = DateTime.UtcNow.ToDateFormat().ToEnumerableOfOne(),
+                Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable(),
                 Creator = currentUser,
                 Links = links,
                 AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions,
@@ -166,7 +167,7 @@ namespace uIntra.Bulletins.Web
             model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerableOfOne();
+            model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = _userService.Get(bulletin);
             model.HeaderInfo.Links = options.Links;
 
@@ -216,7 +217,7 @@ namespace uIntra.Bulletins.Web
             bulletin.PublishDate = DateTime.UtcNow;
             bulletin.CreatorId = bulletin.OwnerId = _userService.GetCurrentUserId();
 
-            if (model.NewMedia.IsNotNullOrEmpty())
+            if (model.NewMedia.HasValue())
             {
                 bulletin.MediaIds = _mediaHelper.CreateMedia(model);
             }

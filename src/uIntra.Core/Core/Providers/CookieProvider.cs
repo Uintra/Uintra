@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using Extensions;
 using uIntra.Core.Extensions;
 
 namespace uIntra.Core
@@ -39,7 +40,7 @@ namespace uIntra.Core
         public bool Exists(string name)
         {
             var cookie = Get(name);
-            return cookie != null && cookie.Value.IsNotNullOrEmpty();
+            return cookie != null && cookie.Value.HasValue();
         }
 
         public void Delete(string name)

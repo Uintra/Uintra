@@ -38,11 +38,7 @@
                 }
             }
         }
-
-        &__input{
-            padding-bottom:9px;
-        }
-
+        
         &__link{
             color:var(--color-contrast);
             font-size:13px;

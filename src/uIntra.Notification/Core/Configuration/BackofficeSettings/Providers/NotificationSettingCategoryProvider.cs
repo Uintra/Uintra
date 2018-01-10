@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
@@ -22,7 +23,7 @@ namespace uIntra.Notification.Configuration
 
         public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
         {
-            return GetBulletinSettings().ToEnumerableOfOne().Append(GetNewsSettings()).Append(GetEventSettings());
+            return GetBulletinSettings().ToEnumerable().Append(GetNewsSettings()).Append(GetEventSettings());
         }
 
         protected virtual IIntranetType[] CommentNotificationTypes => new[]

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Users;
+using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Extensions;
@@ -127,7 +128,7 @@ namespace Compent.uIntra.Controllers
 
                 groupNavigationModel.ActivityTabs = _groupFeedContentService
                     .GetMainFeedTab(CurrentPage, groupId.Value)
-                    .ToEnumerableOfOne()
+                    .ToEnumerable()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();

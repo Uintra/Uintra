@@ -1,12 +1,10 @@
 ﻿.search-result{
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
-    padding:37px 20px 0;
+    padding:37px 20px 1px;
 
     @media (--for-tablet-portrait-down){
-        &{
-            margin:0 -20px;
-        }
+        margin:0 -20px;
     }
 
     &__title{
@@ -71,7 +69,7 @@
             position:absolute;
             top:13px;
             left:10px;
-            color:var(--color-light-gray);
+            color:#999;
         }
     }
 

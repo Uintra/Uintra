@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
@@ -163,7 +164,7 @@ namespace uIntra.CentralFeed.Web
         }
 
         protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
-            tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.IsNotNullOrEmpty());
+            tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.HasValue());
 
         protected static bool IsTypeForAllActivities(IIntranetType type) =>
             type.Id == CentralFeedTypeEnum.All.ToInt();

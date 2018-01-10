@@ -20,7 +20,9 @@ namespace Compent.uIntra.Core.Notification
         {
             var message = new UiNotificationMessage
             {
-                ReceiverId = receiver.Id
+                ReceiverId = receiver.Id,
+                IsPinned = notifierData.IsPinned,
+                IsPinActual = notifierData.IsPinActual
             };
             (string, string)[] tokens;
             switch (notifierData)
@@ -28,6 +30,7 @@ namespace Compent.uIntra.Core.Notification
                 case ActivityNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
+                    message.NotifierId = model.NotifierId;
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
@@ -49,6 +52,7 @@ namespace Compent.uIntra.Core.Notification
                 case CommentNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
+                    message.NotifierId = model.NotifierId;
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
@@ -58,6 +62,7 @@ namespace Compent.uIntra.Core.Notification
                 case LikesNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
+                    message.NotifierId = model.NotifierId;
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
