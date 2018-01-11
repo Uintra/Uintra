@@ -135,5 +135,8 @@ namespace uIntra.Core.Extensions
 
         public static string SplitOnUpperCaseLetters(this string str) =>
              str.IsNullOrEmpty() ? string.Empty : Regex.Split(str, @"(?<!^)(?=[A-Z])").JoinWithSeparator(" ");
+
+        public static string ReplaceLineBreaksForHtml(this string src)
+            => src.IsNullOrEmpty() ? string.Empty : src.Replace("\r\n", "<br />").Replace("\n", "<br />").Replace("\r", "<br />");
     }
 }

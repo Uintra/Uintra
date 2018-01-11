@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Search;
@@ -15,7 +16,8 @@ namespace Compent.uIntra.Core.Events
                 .IncludeBase<EventBase, EventViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
-                .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
+                .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.SubscribeNotes, o => o.MapFrom(s => s.SubscribeNotes.ReplaceLineBreaksForHtml()));
 
             Mapper.CreateMap<Event, EventExtendedItemModel>()
                 .IncludeBase<EventBase, EventItemViewModel>()
