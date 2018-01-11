@@ -1,6 +1,7 @@
 ﻿@using uIntra.Core.Activity
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions;
+@using uIntra.Subscribe
 @using Umbraco.Web
 @model Compent.uIntra.Core.Events.EventExtendedCreateModel
 
@@ -59,7 +60,7 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="locationTitle">@Html.Localize("EventsCreate.LocationTitle.lbl")</label>
-            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsCreate.LocationTitlePlaceholder.lbl")" 
+            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsCreate.LocationTitlePlaceholder.lbl")"
                    data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
         </div>
         <div class="form__row clearfix">
@@ -71,14 +72,12 @@
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
         </div>
         <div class="form__row clearfix">
-            <div class="check">
-                <label class="form__label">@Html.Localize("EventsCreate.Participation.lbl")</label>
-                <label class="check__label">
-                    @Html.CheckBoxFor(m => m.CanSubscribe, new { @class = "check__box" })
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("EventsCreate.CanSubscribe.lbl")</span>
-                </label>
-            </div>
+            @{ Html.RenderAction("ActivitySubscribeSettings", "Subscribe", new ActivitySubscribeSettingsModel
+                {
+                    CanSubscribe = Model.CanSubscribe,
+                    CanEditSubscribe = Model.CanEditSubscribe,
+                    SubscribeNotes = Model.SubscribeNotes
+                });}
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("EventsCreate.UploadFiles.lbl")</label>

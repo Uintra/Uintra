@@ -16,8 +16,12 @@
                 }
                 else
                 {
-                    <div class="groups__list-image">
-                        @Html.Action("Photo", "User", new { user = group.Creator })
+                    <div class="groups__list-image groups__list-image--avatar">
+                        <div class="avatar">
+                            <div class="avatar__letter">
+                                @group.Creator.DisplayedName.First()
+                            </div>
+                        </div>
                     </div>
                 }
                 <div class="groups__list-holder">
@@ -33,7 +37,7 @@
                     <dl class="groups__list-meta">
                         @if (group.MembersCount > 0)
                         {
-                            <dt class="groups__list-meta-count"><span id='membersCount'>@group.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
+                            <dt class="groups__list-meta-count"><span>@group.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
                         }
                         <dd class="groups__list-meta-name">@Html.Localize("GroupInfo.CreatorName") <span class="groups__list-meta-name-title">@group.Creator.DisplayedName</span></dd>
                     </dl>

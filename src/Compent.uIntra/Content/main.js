@@ -19,6 +19,7 @@ import confirmOnBeforeUnload from './../App_Plugins/Core/Content/Scripts/Confirm
 import initGroups from './../App_Plugins/Groups/groups';
 import latestActivities from './../App_Plugins/LatestActivities/latestActivities';
 import initFaqPanel from "./../App_Plugins/Panels/FaqPanel/faqPanel";
+import activitySubscribeSettings from "./../App_Plugins/Subscribe/activitySubscribeSettings";
 
 initCore();
 centralFeed.init();
@@ -39,3 +40,4 @@ browserCompatibility.init();
 initGroups();
 initFaqPanel();
 latestActivities.init();
+activitySubscribeSettings.init();

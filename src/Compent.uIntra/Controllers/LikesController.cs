@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Localization.Umbraco.Attributes;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
@@ -11,6 +12,7 @@ using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers
 {
+    [ThreadCulture]
     public class LikesController : LikesControllerBase
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;

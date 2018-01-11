@@ -1,8 +1,11 @@
 ﻿@using uIntra.Core.Extensions
 @using Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
+
 <nav class="tabset">
     <div class="tabset__holder">
+        @{ Html.RenderAction("Breadcrumbs", "Navigation"); }
+
         <h1 class="tabset__title">
             @if (Model.GroupUrl.IsNullOrEmpty())
             {
@@ -30,7 +33,7 @@
                         <a class="tabset__navigation-link " href="@tab.Link">
                             @tab.Title
                         </a>
-                    </li>                
+                    </li>
                 }
             </ul>
         </div>

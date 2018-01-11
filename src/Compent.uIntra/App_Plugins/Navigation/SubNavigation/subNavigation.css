@@ -9,21 +9,6 @@
     background:var(--color-white);
     z-index:10;
     min-height:92px;
-    height:50px;
-    display:flex;
-    justify-content:flex-end;
-    flex-wrap:nowrap;
-    align-items:center;
-
-    @media (--for-tablet-portrait-down) {
-        display: block;
-        border-bottom:0;
-    }
-
-    ._with-sub-nav &{
-        align-items:flex-start;
-        height:auto;
-    }
 
     &:after{
         display:block;

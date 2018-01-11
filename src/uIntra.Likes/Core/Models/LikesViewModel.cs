@@ -16,13 +16,10 @@ namespace uIntra.Likes
 
         public bool CanAddLike { get; set; }
 
-        public IEnumerable<string> Users { get; set; }
+        public IEnumerable<string> Users { get; set; } = Enumerable.Empty<string>();
 
         public bool IsReadOnly { get; set; }
 
-        public LikesViewModel()
-        {
-            Users = Enumerable.Empty<string>();
-        }
+        public bool ShowTitle { get; set; }
     }
 }
