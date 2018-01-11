@@ -16,9 +16,9 @@
         <span class="check__fake-input icon-check"></span>
         <span class="check__fake-label">@Html.Localize("SubscribeSettings.CanSubscribe.lbl")</span>
     </label>
-    <div class="js-subscribe-notes-holder">
+    <div class="check__area js-subscribe-notes-holder">
         <label class="form__label" for="subscribeNotes">@Html.Localize("SubscribeSettings.SubscribeNotes.lbl")</label>
-        <textarea class="form__input" id="subscribeNotes" type="text" name="subscribeNotes" data-val-length-max="200"
+        <textarea class="form__textarea" id="subscribeNotes" type="text" name="subscribeNotes" data-val-length-max="200"
                   data-val-length="@string.Format(Html.Localize("SubscribeSettings.SubscribeNotesMaxLength.lbl"), 200)" data-val="true">@Model.SubscribeNotes</textarea>
     </div>
 </div>
