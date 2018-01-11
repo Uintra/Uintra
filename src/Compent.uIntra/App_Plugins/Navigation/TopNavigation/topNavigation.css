@@ -538,9 +538,7 @@
             display:none;
 
             @media (--for-tablet-portrait-down){
-                &{
-                    display:block;
-                }
+                display:block;
             }
         }
     }

@@ -14,31 +14,47 @@
     </div>
     <div class="feed__item _details">
         @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-        <div class="feed__item-txt">
-            <div>
-                <span>@Model.StartDate.Day</span>
-                <span>@Model.StartDate.ToString("MMM")</span>
+        <div class="event-details">
+            <time class="date date--event-details" datetime="@Model.StartDate"><span class="date__day">@Model.StartDate.ToString("dd")</span> @Model.StartDate.ToString("MMM")</time>
+            <div class="event-details__text">
+                @if (Model.StartDate.DayOfYear == Model.EndDate.DayOfYear)
+                {
+                    <p>
+                        @Model.StartDate.ToString("dddd d. MMMM yyyy"), <br />
+                        @Model.StartDate.ToString("htt").ToLower() - @Model.EndDate.ToString("htt").ToLower()
+                    </p>
+                }
+                else
+                {
+                    <p>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</p>
+                }
+                @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
+                {
+                    <p>
+                        @if (Model.LocationTitle.HasValue())
+                        {
+                            @Model.LocationTitle <br />
+                        }
+                        @if (Model.LocationAddress.HasValue())
+                        {
+                            @Model.LocationAddress
+                        }
+                    </p>
+                }
             </div>
-            <div>
-                <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
-            </div>
-            @if (Model.LocationTitle.HasValue())
-            {
-                <div>@Model.LocationTitle</div>
-            }
-            @if (Model.LocationAddress.HasValue())
-            {
-                <div>@Model.LocationAddress</div>
-            }
+
             @if (!Model.IsReadOnly && Model.CanSubscribe)
             {
-                if (Model.SubscribeNotes.HasValue())
-                {
-                    <div>@Model.SubscribeNotes</div>
-                }
+                <div class="event-details__subscribe">
+                    @if (Model.SubscribeNotes.HasValue())
+                    {
+                        <div>@Html.Raw(Model.SubscribeNotes)</div>
+                    }
 
-                Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
+                    @{Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });}
+                </div>
             }
+
         </div>
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)

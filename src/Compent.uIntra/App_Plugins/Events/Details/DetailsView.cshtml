@@ -14,11 +14,8 @@
     </div>
     <div class="feed__item _details">
         @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-        <div class="feed__item-txt">
-            <div>
-                <span>@Model.StartDate.Day</span>
-                <span>@Model.StartDate.ToString("MMM")</span>
-            </div>
+        <div class="event-details">
+            <time class="date" datetime="@Model.StartDate"><span class="date__day">@Model.StartDate.Day</span> @Model.StartDate.ToString("MMM")</time>
             <div>
                 <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
             </div>

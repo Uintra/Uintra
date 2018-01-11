@@ -78,3 +78,42 @@
 .dropzone .dz-preview .dz-image {
     z-index: 9;
 }
+
+.event-details{
+    display:flex;
+    border:solid #d6d6d6;
+    border-width:1px 0;
+    padding:17px 0 1px;
+    margin:0 0 20px;
+
+    &__text{
+        flex-grow:1;
+    }
+
+    &__subscribe{
+        flex-grow:1;
+        text-align:center;
+    }
+}
+
+.date{
+    width:60px;
+    height:60px;
+    background:#f6f6f6;
+    font-size:16px;
+    line-height:1.12;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    text-transform:uppercase;
+
+    &--event-details{
+        margin:3px 19px 0 0;
+    }
+
+    &__day{
+        font-size:25px;
+        font-weight:bold;
+    }
+}

@@ -566,6 +566,13 @@
     &__btns{
         padding-right:10px;
         max-width:736px;
+        padding:5px 0;
+        margin-bottom:9px;
+
+        .btn{
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
     }
 }
 

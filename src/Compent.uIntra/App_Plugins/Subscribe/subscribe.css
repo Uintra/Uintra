@@ -3,10 +3,6 @@
     vertical-align:middle;
     margin:0 0 10px;
 
-    ._details &{
-        float:right;
-    }
-
     & &{
         margin:0;
     }
@@ -42,7 +38,7 @@
         }
     }
 
-    &__btn{
+    /*&__btn{
         display:inline-block;
         border: 1px solid #e3e3e3;
         padding:7px 10px 8px 33px;
@@ -82,7 +78,7 @@
                 content: "\e903";
             }
         }
-    }
+    }*/
 }
 
 .subscribe-list {
@@ -96,7 +92,7 @@
 }
 
 .subscribe-overview {
-	clear: both;
+    clear: both;
     color:var(--text-color-dark);
     padding:10px 0 0;
     

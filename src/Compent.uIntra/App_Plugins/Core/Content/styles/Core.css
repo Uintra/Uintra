@@ -616,10 +616,10 @@ h5{
     cursor:pointer;
 
     &:hover{
-        background-color:#dedede;
-        color: var(--text-color-dark);
+        border-color:#261d43;
+        color: #261d43;
         text-decoration:none;
-    }    
+    }
 
     @mixin btn-focus-color #8f8f8f;
 

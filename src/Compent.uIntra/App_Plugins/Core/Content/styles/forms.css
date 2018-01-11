@@ -47,6 +47,7 @@
             cursor:default;
             pointer-events:none;
         }
+
         .login &{
             height:34px;
             line-height:1;
