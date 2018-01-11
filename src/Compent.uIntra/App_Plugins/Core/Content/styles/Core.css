@@ -241,9 +241,7 @@ h5{
     position:relative;
 
     @media (--for-tablet-portrait-down) {
-        &{
-            position:static;
-        }
+        position:static;
     }
 }
 
@@ -255,8 +253,19 @@ h5{
         padding:0;
     }
 
-    @media (--for-desktop-up){
+    @media (--for-desktop-up) {
         padding-left:330px;
+    }
+
+    #header &{
+        padding:15px 0 15px 305px;
+        @media (--for-tablet-portrait-down) {
+            padding:0;
+        }
+
+        @media (--for-desktop-up) {
+            padding-left:330px;
+        }
     }
 }
 
@@ -375,10 +384,8 @@ h5{
 	padding:0;
 
     @media (--for-tablet-portrait-down) {
-	    display: flex;
 	    flex-direction: row-reverse;
 	    min-height: 60px;
-        padding:0;
 
         &:before {
             position: absolute;
@@ -398,7 +405,6 @@ h5{
     }
 
     @media (--for-tablet-landscape-up) {
-        padding:0;
         min-height:70px;
     }
 
@@ -414,7 +420,7 @@ h5{
     position: absolute;
     top: 0;
     left: 20px;
-    padding: 11px 0;
+    padding: 16px 0;
     z-index: 2;
 
     @media (--for-tablet-portrait-down){
@@ -663,7 +669,7 @@ h5{
             background:url(../images/arrow-left.svg) no-repeat 0 0 / 100% auto;
             top:50%;
             left:0;
-            margin-top:-5px;
+            margin-top:-7px;
             content:'';
         }
         &:hover,

@@ -1,3 +1,4 @@
+using Localization.Umbraco.Attributes;
 using uIntra.Core.Links;
 using uIntra.Core.User;
 using uIntra.Notification;
@@ -5,6 +6,7 @@ using uIntra.Notification.Web;
 
 namespace Compent.uIntra.Controllers
 {
+    [ThreadCulture]
     public class NotificationController : NotificationControllerBase
     {
         protected override int ItemsPerPage { get; } = 10;

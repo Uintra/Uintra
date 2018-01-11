@@ -36,7 +36,7 @@ namespace Compent.uIntra.Installer
             var newLocalizations = fileContent.Deserialize<List<ResourceModel>>();
 
             var parentKeys = newLocalizations
-                .Where(loc => loc.ParentKey.IsNotNullOrEmpty())
+                .Where(loc => loc.ParentKey.HasValue())
                 .Select(loc => loc.ParentKey)
                 .Distinct();
 

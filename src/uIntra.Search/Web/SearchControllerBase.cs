@@ -149,7 +149,8 @@ namespace uIntra.Search.Web
                 Results = searchResultViewModels,
                 ResultsCount = (int)searchResult.TotalHits,
                 FilterItems = filterItems,
-                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalHits)
+                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalHits),
+                BlockScrolling = searchResult.TotalHits <= searchResultViewModels.Count
             };
 
             return result;

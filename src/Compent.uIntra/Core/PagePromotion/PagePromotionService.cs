@@ -78,13 +78,15 @@ namespace Compent.uIntra.Core.PagePromotion
         public ILikeable AddLike(Guid userId, Guid activityId)
         {
             _likesService.Add(userId, activityId);
-            return UpdateCachedEntity(activityId);
+            UpdateCachedEntity(activityId);
+            return Get(activityId);
         }
 
         public ILikeable RemoveLike(Guid userId, Guid activityId)
         {
             _likesService.Remove(userId, activityId);
-            return UpdateCachedEntity(activityId);
+            UpdateCachedEntity(activityId);
+            return Get(activityId);
         }
 
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
