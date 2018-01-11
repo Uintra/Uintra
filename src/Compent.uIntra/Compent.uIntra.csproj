@@ -1164,7 +1164,6 @@
     <Content Include="Views\News\ItemView.cshtml" />
     <Content Include="Views\News\CreateView.cshtml" />
     <Content Include="Views\News\EditView.cshtml" />
-    <Content Include="Views\TestWithLinkPicker.cshtml" />
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
@@ -1250,13 +1249,9 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
-    <Compile Include="Controllers\CommentsEditPageController.cs" />
-    <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SubscribeController.cs" />
-    <Compile Include="Controllers\SubscribePageController.cs" />
-    <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
