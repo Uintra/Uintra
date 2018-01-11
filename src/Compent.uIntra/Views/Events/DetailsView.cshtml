@@ -20,13 +20,14 @@
                 @if (Model.StartDate.DayOfYear == Model.EndDate.DayOfYear)
                 {
                     <p>
-                        @Model.StartDate.ToString("dddd d. MMMM yyyy"), <br />
-                        @Model.StartDate.ToString("htt").ToLower() - @Model.EndDate.ToString("htt").ToLower()
+                        @Model.StartDate.ToEventDetailsDateFormat()<br />
+                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
                     </p>
                 }
                 else
                 {
-                    <p>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</p>
+                    <p>@Model.StartDate.ToEventDetailsDateFormat() - @Model.EndDate.ToEventDetailsDateFormat()</p>
+                    <p>@Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()</p>
                 }
                 @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
                 {
