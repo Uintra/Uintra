@@ -1,6 +1,5 @@
 ﻿using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core;
 
 namespace uIntra.Notification.DefaultImplementation
 {

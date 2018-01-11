@@ -6,8 +6,6 @@ using System.Web;
 using Extensions;
 using Localization.Core;
 using uIntra.Core.Extensions;
-using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using uIntra.Core.Utils;
 
 namespace Compent.uIntra.Installer
