@@ -329,6 +329,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\AutoMapperProfiles\SubscribeSettingAutoMapperProfiles.cs" />
     <Compile Include="Core\AutoMapperProfiles\SubscribeAutoMapperProfiles.cs" />
     <Compile Include="Core\ISubscribeSettings.cs" />
     <Compile Include="Core\ISubscribable.cs" />

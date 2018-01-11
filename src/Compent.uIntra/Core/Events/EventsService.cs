@@ -159,19 +159,19 @@ namespace Compent.uIntra.Core.Events
 
         public override Guid Create(IIntranetActivity activity)
         {
-            return base.Create(activity, (activityId) =>
+            return base.Create(activity, activityId =>
                 {
-                    var @event = Map(activity);
-                    @event.ActivityId = activityId;
-                    _activitySubscribeSettingService.Create(@event);
+                    var subscribeSettings = Map(activity);
+                    subscribeSettings.ActivityId = activityId;
+                    _activitySubscribeSettingService.Create(subscribeSettings);
                 });
         }
 
         public override void Save(IIntranetActivity activity)
         {
-            base.Save(activity, () =>
+            base.Save(activity, savedActivity =>
                  {
-                     _activitySubscribeSettingService.Save(Map(activity));
+                     _activitySubscribeSettingService.Save(Map(savedActivity));
                  });
         }
 
@@ -300,7 +300,7 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerable();
+                        data.ReceiverIds = comment.UserId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
                     }
                     break;
@@ -308,7 +308,7 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
+                        data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
 
                     }
@@ -317,14 +317,14 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
-                    data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerable()).Distinct();
+                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerable()).Distinct();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                     }
                     break;
                 case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var currentEvent = Get(entityId);
-                    data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
+                        data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                     }
                     break;

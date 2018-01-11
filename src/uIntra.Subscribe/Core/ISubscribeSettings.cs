@@ -4,7 +4,7 @@ namespace uIntra.Subscribe
 {
     public interface ISubscribeSettings
     {
-        Guid Id { get; set; }
+        Guid Id { get; }
 
         bool CanSubscribe { get; set; }
 

@@ -178,6 +178,7 @@ namespace Compent.uIntra.Controllers
 
             @event.SubscribeNotes = extendedEditModel.SubscribeNotes;
 
+            // not allow change CanSubscribe, if someone subscribes while event was editing
             if (_eventsService.CanEditSubscribe(@event.Id))
             {
                 @event.CanSubscribe = extendedEditModel.CanSubscribe;

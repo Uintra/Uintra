@@ -16,7 +16,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                     SubscribeNotes = c.String(),
                 })
                 .PrimaryKey(t => t.Id, name: "PK_uIntra_ActivitySubscribeSetting_Id")
-                .ForeignKey("dbo.uIntra_Activity", c => c.ActivityId);
+                .ForeignKey("dbo.uIntra_Activity", c => c.ActivityId, name: "FK_uIntra_ActivitySubscribeSetting_ActivityId_uIntra_Activity_Id");
         }
 
         public override void Down()

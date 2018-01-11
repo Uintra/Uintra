@@ -4,7 +4,6 @@ using uIntra.Core.Activity;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Search;
-using uIntra.Subscribe;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -96,9 +95,6 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
-
-            Mapper.CreateMap<Event, ActivitySubscribeSettingDto>()
-                .ForMember(dst => dst.ActivityId, o => o.MapFrom(s => s.Id));
         }
     }
 }

@@ -91,14 +91,14 @@ namespace uIntra.Core.Activity
             return Create(activity, null);
         }
 
-        protected virtual Guid Create(IIntranetActivity activity, Action<Guid> beforeUpdateCacheAction)
+        protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
             var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
             var newActivityId = newActivity.Id;
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
 
-            beforeUpdateCacheAction?.Invoke(newActivityId);
+            afterCreateAction?.Invoke(newActivityId);
 
             UpdateCachedEntity(newActivityId);
             return newActivityId;
@@ -109,14 +109,14 @@ namespace uIntra.Core.Activity
             Save(activity, null);
         }
 
-        protected virtual void Save(IIntranetActivity activity, Action beforeUpdateCacheAction)
+        protected virtual void Save(IIntranetActivity activity, Action<IIntranetActivity> afterSaveAction)
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
 
-            beforeUpdateCacheAction?.Invoke();
+            afterSaveAction?.Invoke(activity);
 
             UpdateCachedEntity(activity.Id);
         }
