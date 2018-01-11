@@ -31,11 +31,13 @@ namespace Compent.uIntra.Core.Events
 
             Mapper.CreateMap<Event, EventExtendedEditModel>()
                 .IncludeBase<EventBase, EventEditModel>()
-                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
             Mapper.CreateMap<Event, EventExtendedCreateModel>()
                 .IncludeBase<EventBase, EventCreateModel>()
-                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
@@ -103,6 +105,7 @@ namespace Compent.uIntra.Core.Events
             Mapper.CreateMap<EventEditModel, EventExtendedEditModel>()
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty))
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
         }
     }

@@ -15,7 +15,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                         UserTagId = c.Guid(nullable: false),
                         EntityId = c.Guid(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.Id, name: "PK_uIntra_UserTagRelation_Id")
                 .Index(t => new { t.UserTagId, t.EntityId }, unique: true, name: "UQ_UserTagRelation_UserTagId_EntityId");
             
         }

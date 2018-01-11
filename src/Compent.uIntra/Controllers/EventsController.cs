@@ -81,30 +81,25 @@ namespace Compent.uIntra.Controllers
             return Json(new { HasConfirmation = @event.Subscribers.Any() }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult EditExtended(EventExtendedEditModel editModel)
-        {
-            return Edit(editModel);
-        }
-
         protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
         {
-            var baseModel = base.GetEditViewModel(@event, links);
-            var extendedModel = baseModel.Map<EventExtendedEditModel>();
-            return extendedModel;
+            var eventExtended = (Event)@event;
+            var model = base.GetEditViewModel(@event, links).Map<EventExtendedEditModel>();
+
+            model.CanSubscribe = eventExtended.CanSubscribe;
+            model.SubscribeNotes = eventExtended.SubscribeNotes;
+            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
+
+            return model;
         }
 
         protected override EventCreateModel GetCreateModel(IActivityCreateLinks links)
         {
-            var baseModel = base.GetCreateModel(links);
-            var extendedModel = baseModel.Map<EventExtendedCreateModel>();
-            return extendedModel;
-        }
+            var extendedCreateModel = base.GetCreateModel(links).Map<EventExtendedCreateModel>();
+            extendedCreateModel.CanSubscribe = true;
+            extendedCreateModel.CanEditSubscribe = true;
 
-        [HttpPost]
-        public ActionResult CreateExtended(EventExtendedCreateModel createModel)
-        {
-            return Create(createModel);
+            return extendedCreateModel;
         }
 
         private EventExtendedItemModel GetItemViewModel(Event item, ActivityFeedOptionsWithGroups options)
@@ -181,26 +176,8 @@ namespace Compent.uIntra.Controllers
             }
         }
 
-        protected override EventCreateModel GetCreateModel(IActivityCreateLinks links)
-        {
-            var extendedCreateModel = base.GetCreateModel(links).Map<EventExtendedCreateModel>();
-            extendedCreateModel.CanSubscribe = true;
-            extendedCreateModel.CanEditSubscribe = true;
 
-            return extendedCreateModel;
-        }
 
-        protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
-        {
-            var eventExtended = (Event)@event;
-            var model = base.GetEditViewModel(@event, links).Map<EventExtendedEditModel>();
-
-            model.CanSubscribe = eventExtended.CanSubscribe;
-            model.SubscribeNotes = eventExtended.SubscribeNotes;
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-
-            return model;
-        }
 
         protected override EventBase MapToEvent(EventCreateModel createModel)
         {
