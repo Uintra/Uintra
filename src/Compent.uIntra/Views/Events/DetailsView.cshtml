@@ -32,7 +32,7 @@
             }
             @if (!Model.IsReadOnly && Model.CanSubscribe)
             {
-                if (Model.SubscribeNotes.IsNotNullOrEmpty())
+                if (Model.SubscribeNotes.HasValue())
                 {
                     <div>@Model.SubscribeNotes</div>
                 }
