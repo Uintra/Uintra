@@ -329,15 +329,22 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\AutoMapperProfiles\SubscribeSettingAutoMapperProfiles.cs" />
     <Compile Include="Core\AutoMapperProfiles\SubscribeAutoMapperProfiles.cs" />
+    <Compile Include="Core\ISubscribeSettings.cs" />
     <Compile Include="Core\ISubscribable.cs" />
+    <Compile Include="Core\Model\ActivitySubscribeSettingDto.cs" />
+    <Compile Include="Core\Model\ActivitySubscribeSettingsModel.cs" />
+    <Compile Include="Core\Services\IActivitySubscribeSettingService.cs" />
     <Compile Include="Core\Services\ISubscribableService.cs" />
     <Compile Include="Core\Services\ISubscribeService.cs" />
     <Compile Include="Core\Model\SubscribeItemModel.cs" />
     <Compile Include="Core\Model\SubscribeNotificationDisableUpdateModel.cs" />
     <Compile Include="Core\Model\SubscribeOverviewModel.cs" />
     <Compile Include="Core\Model\SubscribeViewModel.cs" />
+    <Compile Include="Core\Sql\ActivitySubscribeSetting.cs" />
     <Compile Include="Core\Sql\Subscribe.cs" />
+    <Compile Include="DefaultImplementation\ActivitySubscribeSettingService.cs" />
     <Compile Include="Web\SubscribeControllerBase.cs" />
     <Compile Include="Core\Services\SubscribeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -362,6 +369,7 @@
       <Link>App_Plugins\Subscribe\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

@@ -30,6 +30,15 @@
             {
                 <div>@Model.LocationAddress</div>
             }
+            @if (!Model.IsReadOnly && Model.CanSubscribe)
+            {
+                if (Model.SubscribeNotes.HasValue())
+                {
+                    <div>@Model.SubscribeNotes</div>
+                }
+
+                Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
+            }
         </div>
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)
@@ -38,14 +47,12 @@
             <div class="feed__item-feed-holder">
                 @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             </div>
-            @if (!Model.IsReadOnly && Model.CanSubscribe)
-            {
-                Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
-                Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });
-            }
         </div>
         <div class="feed__item-images">
             @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+        </div>
+        <div>
+            @{ Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });}
         </div>
         <div class="comments">
             @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
