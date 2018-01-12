@@ -1186,6 +1186,30 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "SubscribeSettings.CanSubscribe.lbl",
+    "translations": {
+      "en-US": "It should be possible to subscribe"
+    },
+    "parentKey": "SubscribeSettings",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "SubscribeSettings.SubscribeNotes.lbl",
+    "translations": {
+      "en-US": "Subscribe notes"
+    },
+    "parentKey": "SubscribeSettings",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "SubscribeSettings.SubscribeNotesMaxLength.lbl",
+    "translations": {
+      "en-US": "Subscribe notes are must be shorter than {0} characters"
+    },
+    "parentKey": "SubscribeSettings",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "SubscribeView.NotificationIsDisabled.lbl",
     "translations": {
       "en-US": "Uncheck to enable notifications"

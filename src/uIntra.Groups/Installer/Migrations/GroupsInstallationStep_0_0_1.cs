@@ -1,7 +1,5 @@
-﻿using System.Reflection;
-using uIntra.Core.Constants;
+﻿using uIntra.Core.Constants;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 

@@ -32,16 +32,22 @@
         margin:0;
         padding:10px 10px 9px;
         font:13px/22px var(--font-general);
-        color: #999;
+        color: var(--text-color-dark);
         background: #fff;
         border: 1px solid #c7c7c7;
         position: relative;
+
+        &::placeholder{
+            color:#999;
+            opacity:1;
+        }
 
         &[:disabled]{
             background:#eee;
             cursor:default;
             pointer-events:none;
         }
+
         .login &{
             height:34px;
             line-height:1;
@@ -92,6 +98,10 @@
 
 .check{
     margin:0;
+
+    @media (max-width: 900px) {
+        margin:0 0 19px;
+    }
 
     .form & {
         margin: 0;
@@ -154,7 +164,7 @@
         font-weight:normal;
     }
 
-    @media (max-width: 900px) {
-        margin:0 0 19px;
+    &__area{
+        padding:10px 39px;
     }
 }

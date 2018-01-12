@@ -112,7 +112,7 @@ using ReminderJob = uIntra.Notification.ReminderJob;
 
 namespace Compent.uIntra
 {
-    public static class NinjectWebCommon
+    public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -121,6 +121,7 @@ namespace Compent.uIntra
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbObjectContext, Persistence.Sql.Migrations.Configuration>());
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             GlobalConfiguration.Configure((config) =>
             {
@@ -298,6 +299,7 @@ namespace Compent.uIntra
             kernel.Bind<INotifyableService>().To<BulletinsService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
+            kernel.Bind<IActivitySubscribeSettingService>().To<ActivitySubscribeSettingService>().InRequestScope();
             kernel.Bind<IMigrationHistoryService>().To<MigrationHistoryService>().InRequestScope();
 
             kernel.Bind<IUmbracoContentHelper>().To<UmbracoContentHelper>().InRequestScope();

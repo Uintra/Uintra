@@ -61,8 +61,8 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BCLExtensions, Version=0.2.8.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BCLExtensions.0.2.8.1\lib\net452\BCLExtensions.dll</HintPath>
+    <Reference Include="BCLExtensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCLExtensions.0.2.8.5\lib\net452\BCLExtensions.dll</HintPath>
     </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
@@ -957,6 +957,7 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
+    <Content Include="App_Plugins\Subscribe\activitySubscribeSettings.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
@@ -1110,7 +1111,11 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
+      <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1159,7 +1164,6 @@
     <Content Include="Views\News\ItemView.cshtml" />
     <Content Include="Views\News\CreateView.cshtml" />
     <Content Include="Views\News\EditView.cshtml" />
-    <Content Include="Views\TestWithLinkPicker.cshtml" />
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
@@ -1246,13 +1250,9 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
-    <Compile Include="Controllers\CommentsEditPageController.cs" />
-    <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SubscribeController.cs" />
-    <Compile Include="Controllers\SubscribePageController.cs" />
-    <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
@@ -1282,7 +1282,9 @@
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedCreateModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
@@ -1354,6 +1356,8 @@
     </Compile>
     <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
+    <Compile Include="Installer\Migrations\OldSubscribeSettings\OldEventBase.cs" />
+    <Compile Include="Installer\Migrations\OldSubscribeSettings\OldSubscribeSettingsMigration.cs" />
     <Compile Include="Installer\Migrations\EventPublishDateMigration.cs" />
     <Compile Include="Installer\Migrations\NotificationSettingsMigrations.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\Helpers.cs" />
@@ -1370,6 +1374,10 @@
     <Compile Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.cs" />
     <Compile Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.Designer.cs">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.Designer.cs">
+      <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

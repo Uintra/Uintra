@@ -3,7 +3,6 @@ using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
-using uIntra.Notification.Core;
 using uIntra.Notification.Core.Sql;
 
 namespace uIntra.Notification

@@ -6,10 +6,10 @@ using EmailWorker.Data.Domain;
 using EmailWorker.Data.Model;
 using EmailWorker.Data.Services.Interfaces;
 using EmailWorker.Web.Helper;
-using uIntra.Notification;
-using uIntra.Notification.Base;
 using uIntra.Core;
 using uIntra.Core.Extensions;
+using uIntra.Notification;
+using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using Umbraco.Web;
 

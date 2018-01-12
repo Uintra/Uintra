@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 using uIntra.Groups;
 using uIntra.Groups.Sql;

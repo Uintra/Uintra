@@ -53,11 +53,14 @@
         height:19px;
         background:var(--color-contrast);
         color:var(--color-white);
-        font-size:12px;
-        line-height:18px;
+        font-size:11px;
+        line-height:19px;
+        font-weight:bold;
         text-align:center;
         border-radius:50%;
         font-family:var(--font-general);
+        text-overflow: ellipsis;
+        overflow: hidden;
 
         @media (--for-tablet-portrait-down) {
             top: 13px;
@@ -71,10 +74,10 @@
         &-holder{
             position:absolute;
             top:100%;
-            left:0;
+            right:-190px;
             width:570px;
             display:none;
-            transform:translate(-62%);
+            margin:8px 0 0;
 
             ._notifications-expanded &{
                 display:block;
@@ -89,6 +92,7 @@
                 right:0;
                 max-height:calc(100vh - 60px);
                 overflow:auto;
+                margin:0;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);

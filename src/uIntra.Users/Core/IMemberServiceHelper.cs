@@ -3,7 +3,7 @@ using Umbraco.Core.Models;
 
 namespace uIntra.Users
 {
-   public  interface IMemberServiceHelper
+    public  interface IMemberServiceHelper
     {
         Dictionary<IMember, int?> GetRelatedUserIdsForMembers(IEnumerable<IMember> users);
     }

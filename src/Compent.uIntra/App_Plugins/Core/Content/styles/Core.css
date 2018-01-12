@@ -374,7 +374,7 @@ h5{
 
 #header {
 	position:fixed;
-	z-index:12;
+	z-index:13;
 	top:0;
 	left:0;
 	right:0;
@@ -616,10 +616,10 @@ h5{
     cursor:pointer;
 
     &:hover{
-        background-color:#dedede;
-        color: var(--text-color-dark);
+        border-color:#261d43;
+        color: #261d43;
         text-decoration:none;
-    }    
+    }
 
     @mixin btn-focus-color #8f8f8f;
 

@@ -2,7 +2,6 @@
 using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
-using uIntra.Events;
 using uIntra.Notification;
 
 namespace Compent.uIntra.Core.Helpers

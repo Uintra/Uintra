@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
@@ -13,7 +14,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Web.Mvc;
-using Extensions;
 
 namespace uIntra.Bulletins.Web
 {

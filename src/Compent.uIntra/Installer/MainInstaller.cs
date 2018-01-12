@@ -4,12 +4,13 @@ using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
 using Compent.uIntra.Installer.Migrations;
+using Compent.uIntra.Installer.Migrations.OldSubscribeSettings;
 using EmailWorker.Data.Services.Interfaces;
+using Extensions;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Installer;
 using uIntra.Core;
 using uIntra.Core.Activity;
-using Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
@@ -36,6 +37,7 @@ namespace Compent.uIntra.Installer
         private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
         private readonly Version PagePromotionUIntraVersion = new Version("0.2.8.0");
         private readonly Version EventsPublishDateUIntraVersion = new Version("0.2.12.0");
+        private readonly Version OldSubscribeSettingsUIntraVersion = new Version("0.2.13.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -95,6 +97,12 @@ namespace Compent.uIntra.Installer
             {
                 var eventPublishDateMigration = new EventPublishDateMigration();
                 eventPublishDateMigration.Execute();
+            }
+
+            if (installedVersion < OldSubscribeSettingsUIntraVersion && UIntraVersion >= OldSubscribeSettingsUIntraVersion)
+            {
+                var oldSubscribeSettingsMigration = new OldSubscribeSettingsMigration();
+                oldSubscribeSettingsMigration.Execute();
             }
 
             if (UIntraVersion > installedVersion)

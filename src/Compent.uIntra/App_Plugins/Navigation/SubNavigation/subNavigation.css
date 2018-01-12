@@ -250,12 +250,12 @@
     @media (--for-tablet-portrait-down) {
         position: absolute;
         top: 60px;
-        padding: 0;
-        background:var(--color-white);
+        padding: 0 0 20px;
+        background:#f6f6f6;
         z-index:initial;
         min-height:0;
         height:auto;
-        z-index:2;
+        z-index:12;
 
         &:before {
             display: none;
@@ -263,6 +263,7 @@
                     
         &__holder{
             padding:0;
+            background:var(--color-white);
 
             ._with-sub-nav &{
                 padding:0;
@@ -421,18 +422,19 @@
 
     @media (--for-tablet-portrait-down){
         margin:0;
-        padding:10px 50px 10px 19px;
+        padding:14px 50px 14px 19px;
         position:relative;
         z-index:initial;
+        min-height:50px;
 
         + .tabset__frame{
             display:none;
 
-            .sidebar__opener{
+            /*.sidebar__opener{
                 position:absolute;
                 right:0;
                 top:0;
-            }
+            }*/
         }
     }
 
