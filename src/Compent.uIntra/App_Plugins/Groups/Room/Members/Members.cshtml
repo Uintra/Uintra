@@ -16,9 +16,12 @@
             {
             <tr class="members-table__row">
                 <td class="members-table__cell">
-                    <div class="members-table__avatar">
-                        <img class="members-table__img" src="@member.Photo" height="60" />
-                    </div>
+                    @*@Html.Action("Photo", "User", new
+                    {
+                        user = member,
+                        сssModificator = "avatar--group-member",
+                        photoWidth = 30
+                    })*@
                 </td>
                 <td class="members-table__cell">
                     <span class="members-table__name">@member.Name</span>
