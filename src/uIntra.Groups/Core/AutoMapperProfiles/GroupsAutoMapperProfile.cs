@@ -82,10 +82,10 @@ namespace uIntra.Groups
             Mapper.CreateMap<PageTabModel, GroupNavigationPageTabViewModel>()
                 .ForMember(d => d.AlignRight, o => o.Ignore());
 
-            Mapper.CreateMap<IIntranetUser, GroupMemberViewModel>()
+            Mapper.CreateMap<IGroupMember, GroupMemberViewModel>()
                 .ForMember(d => d.IsGroupAdmin, o => o.Ignore())
                 .ForMember(d => d.CanUnsubscribe, o => o.Ignore())
-                .ForMember(d => d.Name, o => o.MapFrom(s => s.DisplayedName));
+                .ForMember(d => d.GroupMember, o => o.MapFrom(member => member));
         }
     }
 }
