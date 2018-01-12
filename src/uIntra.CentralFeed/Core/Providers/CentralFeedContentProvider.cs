@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core;
-using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Extensions;
 
 namespace uIntra.CentralFeed.Providers
 {

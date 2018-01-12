@@ -446,7 +446,7 @@
 .sidebar {
     @media (--for-tablet-portrait-down) {
         position: absolute;
-        top: 0;
+        top: 131px;
         left: 0;
         right: 0;
         padding: 0;
@@ -457,10 +457,10 @@
 
         ._sidebar-expanded & {
             transform: translate(0, 0);
-            top:0;
+            /*top:0;*/
             overflow:hidden;
             overflow-y:auto;
-            height:calc(100vh - 111px);
+            height:calc(100vh - 131px);
 
             &__opener {
                 background: var(--color-submit);
@@ -479,16 +479,20 @@
         }
 
         &__opener {
-            float: right;
-            width: 51px;
-            max-width:51px;
-            min-width:51px;
+            position:absolute;
+            top:0;
+            right:0;
             height: 50px;
+            width: 51px;
+            /*max-width:51px;
+            min-width:51px;
+            float: right;
+            position: relative;
+            */
             background: var(--color-white);
             border-left:2px solid #f6f6f6;
-            position: relative;
-            z-index:10;
             cursor: pointer;
+            z-index:10;
 
             &:before,
             &:after {
@@ -515,11 +519,11 @@
                 display:none;
             }
 
-            .bulletin__btn-holder &{
+            /*.bulletin__btn-holder &{
                 position:absolute;
                 top:0;
                 right:0;
-            }
+            }*/
         }
     }
 }

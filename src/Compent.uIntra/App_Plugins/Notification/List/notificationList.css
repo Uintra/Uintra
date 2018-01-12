@@ -3,7 +3,7 @@
     box-shadow:0 0 2px rgba(0,0,0,0.2);
     padding:36px 21px 0;
 
-    @media(--for-tablet-portrait-down){
+    @media (--for-tablet-portrait-down){
         margin:0 -20px;
     }
 
@@ -53,33 +53,46 @@
         height:19px;
         background:var(--color-contrast);
         color:var(--color-white);
-        font-size:12px;
-        line-height:18px;
+        font-size:11px;
+        line-height:19px;
+        font-weight:bold;
         text-align:center;
         border-radius:50%;
         font-family:var(--font-general);
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        @media (--for-tablet-portrait-down) {
+            top: 13px;
+            margin: 0 0 0 5px;
+            left: auto;
+            right:9px;
+        }
     }
 
     &__list{
         &-holder{
             position:absolute;
             top:100%;
-            left:0;
+            right:-190px;
             width:570px;
             display:none;
-            transform:translate(-62%);
+            margin:8px 0 0;
 
             ._notifications-expanded &{
                 display:block;
             }
 
             @media (--for-tablet-portrait-down){
-                width:calc(100vw - 17px);
+                width:100vw;
                 transform:translate(0, -100%);
                 transition: transform linear 200ms;
                 display:block;
                 left:auto;
                 right:0;
+                max-height:calc(100vh - 60px);
+                overflow:auto;
+                margin:0;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
@@ -129,7 +142,7 @@
     @media (--for-tablet-portrait-down) {
         position:absolute;
         width: 57px;
-        right:-5px;        
+        right:-5px;
 
         &__icon {
             position:relative;
@@ -143,16 +156,6 @@
             ._menu-expanded &{
                 opacity:0;
             }
-
-            span {
-                margin: 0 0 0 5px;
-            }
-        }
-
-        &__number {
-            top: -10px;
-            margin: -15px 0 0 5px;
-            left: 50%;
         }
 
         &__list{
@@ -187,7 +190,7 @@
         background:var(--color-white);
         border:1px solid var(--color-light-gray);
 
-        @media(--for-tablet-portrait-down){
+        @media (--for-tablet-portrait-down){
             border:none;
         }
 

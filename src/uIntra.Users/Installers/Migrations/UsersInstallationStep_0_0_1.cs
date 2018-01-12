@@ -1,5 +1,4 @@
 ﻿using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 

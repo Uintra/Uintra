@@ -12,6 +12,7 @@ using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
 using uIntra.Search;
+using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
@@ -44,6 +45,8 @@ namespace Compent.uIntra
             Mapper.AddProfile<PagePromotionAutoMapperProfile>();
             Mapper.AddProfile<Core.PagePromotion.PagePromotionAutoMapperProfile>();
             Mapper.AddProfile<JobAutoMapperProfile>();
+            Mapper.AddProfile<SubscribeAutoMapperProfiles>();
+            Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
 
             var typeMaps = Mapper.GetAllTypeMaps();
 

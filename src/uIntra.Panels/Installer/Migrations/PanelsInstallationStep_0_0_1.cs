@@ -2,7 +2,6 @@
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;

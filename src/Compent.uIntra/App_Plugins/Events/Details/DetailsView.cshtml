@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
-@using uIntra.Core.Extensions
 @using Extensions
-@model uIntra.Events.EventViewModel
+@using uIntra.Core.Extensions
+@model Compent.uIntra.Core.Events.EventExtendedViewModel
 
 <section class="content">
     <div class="feed__btns clearfix">
@@ -14,22 +14,35 @@
     </div>
     <div class="feed__item _details">
         @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-        <div class="feed__item-txt">
-            <div>
-                <span>@Model.StartDate.Day</span>
-                <span>@Model.StartDate.ToString("MMM")</span>
+        <div class="event-details">
+            <time class="date date--event-details" datetime="@Model.StartDate"><span class="date__day">@Model.StartDate.ToString("dd")</span> @Model.StartDate.ToString("MMM")</time>
+            <div class="event-details__text">
+                @if (Model.StartDate.DayOfYear == Model.EndDate.DayOfYear)
+                {
+                    <p>
+                        @Model.StartDate.ToEventDetailsDateFormat()<br />
+                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                    </p>
+                }
+                else
+                {
+                    <p>@Model.StartDate.ToEventDetailsDateFormat() - @Model.EndDate.ToEventDetailsDateFormat()</p>
+                    <p>@Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()</p>
+                }
+                @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
+                {
+                    <p>
+                        @if (Model.LocationTitle.HasValue())
+                        {
+                            @Model.LocationTitle <br />
+                        }
+                        @if (Model.LocationAddress.HasValue())
+                        {
+                            @Model.LocationAddress
+                        }
+                    </p>
+                }
             </div>
-            <div>
-                <span>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</span>
-            </div>
-            @if (Model.LocationTitle.HasValue())
-            {
-                <div>@Model.LocationTitle</div>
-            }
-            @if (Model.LocationAddress.HasValue())
-            {
-                <div>@Model.LocationAddress</div>
-            }
         </div>
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)

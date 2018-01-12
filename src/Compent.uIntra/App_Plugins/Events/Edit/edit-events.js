@@ -10,6 +10,7 @@ let userSelect;
 let editor;
 let form;
 
+
 let initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
