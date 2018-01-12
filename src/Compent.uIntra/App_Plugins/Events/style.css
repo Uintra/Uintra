@@ -133,6 +133,17 @@
             text-align:left;
             padding:0 0 10px 79px;
         }
+
+        .subscribe{
+            display:block;
+
+            &__label{
+                display:block;
+                text-align:left;
+                color:var(--text-color-dark);
+                margin-top:10px;
+            }
+        }
     }
 }
 
