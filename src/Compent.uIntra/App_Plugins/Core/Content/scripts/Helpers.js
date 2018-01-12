@@ -2,11 +2,11 @@
 var Delta = require('quill-delta');
 var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
+
 require('simple-scrollbar');
-
-
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+
 
 var easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
