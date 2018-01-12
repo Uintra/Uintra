@@ -296,7 +296,6 @@
         float:left;
         width:30px;
         height:30px;
-        object-fit:cover;
     }
 
     @media (--for-tablet-portrait-down) {       
