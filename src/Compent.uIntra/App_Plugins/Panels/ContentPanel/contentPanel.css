@@ -31,6 +31,9 @@
         &.coming-events{
             padding-bottom:0;
         }
+        @media (--for-tablet-portrait-down) {
+            margin:0 -20px 31px;
+        }
 
         &__title{
             background:var(--color-submit);
@@ -445,25 +448,24 @@
 .sidebar {
     @media (--for-tablet-portrait-down) {
         position: absolute;
-        top: 110px;
+        top: 130px;
         left: 0;
         right: 0;
-        padding: 20px 0 0;
         transform: translate(0, -100%);
         transition: transform linear 300ms;
         background:#f6f6f6;
         z-index:5;
         overflow:hidden;
         overflow-y:auto;
-        height:calc(100vh - 110px);
+        height:calc(100vh - 130px);
 
         ._sidebar-expanded & {
             transform: translate(0, 0);
         }
         
         ._with-sub-nav._with-subtitle &{
-            top:199px;
-            height:calc(100vh - 199px);
+            top:219px;
+            height:calc(100vh - 219px);
         }
 
         &__opener {

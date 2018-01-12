@@ -287,19 +287,23 @@ h5{
     min-height:100%;
     background:#f6f6f6;
 
-    ._with-sub-nav._with-subtitle &{
-        padding-top:172px;
-    }
-    
     @media (--for-tablet-portrait-down) {
         padding: 60px 0 0;
+    }
 
-        ._with-sub-nav & {
-            padding: 111px 0 0;
+    ._with-sub-nav &{
+        padding-top:162px;
+
+        @media (--for-tablet-portrait-down) {
+            padding-top: 130px;
         }
+    }
 
-        ._with-sub-nav._with-subtitle &{
-            padding:181px 0 0;
+    ._with-sub-nav._with-subtitle &{
+        padding-top:181px;
+
+        @media (--for-tablet-portrait-down) {
+            padding-top: 149px;
         }
     }
 }
