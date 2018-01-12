@@ -19,14 +19,23 @@
             <div class="event-details__text">
                 @if (Model.StartDate.DayOfYear == Model.EndDate.DayOfYear)
                 {
-                    <p>
-                        @Model.StartDate.ToString("dddd d. MMMM yyyy"), <br />
-                        @Model.StartDate.ToString("htt").ToLower() - @Model.EndDate.ToString("htt").ToLower()
-                    </p>
+                    <div class="event-details__date">
+                        @Model.StartDate.ToEventDetailsDateFormat()<br />
+                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                    </div>
                 }
                 else
                 {
-                    <p>@Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()</p>
+                    <div class="event-details__date">
+                        <div class="event-details__day">
+                            @Model.StartDate.ToEventDetailsDateFormat()<br />
+                            @Model.StartDate.ToEventDetailsTimeFormat().ToLower()
+                        </div>
+                        <div class="event-details__day">
+                            @Model.EndDate.ToEventDetailsDateFormat()<br />
+                            @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                        </div>
+                    </div>
                 }
                 @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
                 {
@@ -48,7 +57,7 @@
                 <div class="event-details__subscribe">
                     @if (Model.SubscribeNotes.HasValue())
                     {
-                        <div>@Html.Raw(Model.SubscribeNotes)</div>
+                        <p>@Html.Raw(Model.SubscribeNotes)</p>
                     }
 
                     @{Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });}

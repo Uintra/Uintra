@@ -1,9 +1,9 @@
-﻿using Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using Extensions;
 
 namespace uIntra.Core.Extensions
 {
@@ -141,6 +141,8 @@ namespace uIntra.Core.Extensions
         public static string SplitOnUpperCaseLetters(this string str) =>
              str.IsNullOrEmpty() ? string.Empty : Regex.Split(str, @"(?<!^)(?=[A-Z])").JoinWithSeparator(" ");
 
+        public static string ReplaceLineBreaksForHtml(this string src)
+            => src.IsNullOrEmpty() ? string.Empty : src.Replace("\r\n", "<br />").Replace("\n", "<br />").Replace("\r", "<br />");
 
         public static IEnumerable<TResult> ParseStringCollection<TResult>(this string collection, Func<string, TResult> parserFunc, char separator = ',')
         {

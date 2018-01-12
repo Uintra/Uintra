@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Web.Mvc;
 using AutoMapper;
+using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Bulletins;
+using Compent.uIntra.Core.Feed;
 using uIntra.Bulletins;
 using uIntra.Bulletins.Web;
 using uIntra.Core.Extensions;
+using uIntra.Core.Feed;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
-using uIntra.Navigation;
-using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Feed;
 using Compent.uIntra.Core.UserTags;
-using uIntra.Core.Feed;
 using uIntra.Groups.Extensions;
+using uIntra.Navigation;
 
 namespace Compent.uIntra.Controllers
 {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Extensions;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Extensions;
 using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;

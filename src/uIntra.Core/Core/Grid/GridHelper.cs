@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ClientDependency.Core;
 using Newtonsoft.Json.Linq;
+using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using System.Linq;
-using uIntra.Core.Extensions;
 
 namespace uIntra.Core.Grid
 {

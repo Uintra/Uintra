@@ -99,6 +99,10 @@
 .check{
     margin:0;
 
+    @media (max-width: 900px) {
+        margin:0 0 19px;
+    }
+
     .form & {
         margin: 0;
     }
@@ -160,7 +164,7 @@
         font-weight:normal;
     }
 
-    @media (max-width: 900px) {
-        margin:0 0 19px;
+    &__area{
+        padding:10px 39px;
     }
 }

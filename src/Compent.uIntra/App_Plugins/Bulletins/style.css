@@ -261,7 +261,7 @@
             padding-right:70px;
             background: var(--color-white);
             position: relative;
-            z-index: 5;
+            z-index: 12;
             min-height:50px;
 
             @media (--for-tablet-portrait-down) {

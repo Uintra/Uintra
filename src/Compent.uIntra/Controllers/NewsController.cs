@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
+using Compent.uIntra.Core.Activity.Models;
+using Compent.uIntra.Core.Feed;
 using Compent.uIntra.Core.News.Entities;
 using Compent.uIntra.Core.News.Models;
 using uIntra.Core.Extensions;
@@ -10,13 +12,11 @@ using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups;
+using uIntra.Groups.Extensions;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
-using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Feed;
 using Compent.uIntra.Core.UserTags;
-using uIntra.Groups.Extensions;
 using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Controllers
