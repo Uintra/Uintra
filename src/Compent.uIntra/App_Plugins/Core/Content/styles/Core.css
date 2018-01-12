@@ -449,12 +449,11 @@ h5{
 
         ._menu-expanded &{
             visibility:hidden;
-            background:
         }
     }
 
     @media (--for-desktop-up){
-       padding-top:50px; 
+       padding-top:47px; 
     }
 
     &::before{
