@@ -18,11 +18,11 @@
             <tr class="members-table__row">
                 <td class="members-table__cell">
                     @Html.Action("Photo", "User", new
-               {
-                   user = member.GroupMember,
-                   cssModificator = "avatar--group-member",
-                   photoWidth = 30
-               })
+                    {
+                        user = member.GroupMember,
+                        cssModificator = "avatar--group-member",
+                        photoWidth = 30
+                    })
                 </td>
                 <td class="members-table__cell">
                     <span class="members-table__name">@member.GroupMember.DisplayedName</span>
