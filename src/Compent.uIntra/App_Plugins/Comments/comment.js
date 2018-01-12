@@ -51,6 +51,9 @@ var initCreateControl = function (holder) {
         var dataStorage = $this.find('.js-hidden-comment-create-description')[0];
         var descriptionElem = $this.find('.js-comment-create-description')[0];
         var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
+
+        quill.onLinkDetected(function (link) { alert('Link detected!' + link) });
+
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
         let emojiContainer = $this.find(".js-emoji");
@@ -165,6 +168,7 @@ var initReply = function (holder) {
     var dataStorage = findControl(holder, '.js-hidden-comment-create-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-create-description')[0];
     var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
+
     var button = holder.find('.js-comment-create-btn');
 
     var toolbarBtns = commentReply.find('.ql-formats button');

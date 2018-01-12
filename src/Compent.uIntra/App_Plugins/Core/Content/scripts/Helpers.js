@@ -30,6 +30,16 @@ var helpers = {
 
         var quill = new Quill(source, options);
 
+        let onLinkDetectedCallbacks = [];
+
+        quill.onLinkDetected = function(cb) { debugger
+            onLinkDetectedCallbacks.push(cb);
+        }
+
+        function triggerLinkDetectedEvent(link) { debugger
+            onLinkDetectedCallbacks.forEach((cb) => cb(link));
+        }
+
         quill.on('text-change', (delta, oldDelta, source) => {
             var n = quill.container.querySelectorAll("img").length;
             if (!quill.getText().trim() && n < 1) {
@@ -47,8 +57,9 @@ var helpers = {
                 var match = regexes.map(regex => text.match(regex)).find(m => m!== null);
                     
 
-                if (match) {
+                if (match) {                    
                     var url = match[0];
+                    triggerLinkDetectedEvent(url);
 
                     var ops = [];
                     if (endRetain > url.length) {
