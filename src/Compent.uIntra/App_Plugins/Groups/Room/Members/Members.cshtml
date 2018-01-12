@@ -14,12 +14,15 @@
             <th class="members-table__head"></th>
         </tr>
         @foreach (var member in Model.Members)
-            {
+        {
             <tr class="members-table__row">
                 <td class="members-table__cell">
-                    <div class="members-table__avatar">
-                        @Html.Action("Photo", "User", new { user = member.GroupMember })
-                    </div>
+                    @Html.Action("Photo", "User", new
+                    {
+                        user = member.GroupMember,
+                        сssModificator = "avatar--group-member",
+                        photoWidth = 30
+                    })
                 </td>
                 <td class="members-table__cell">
                     <span class="members-table__name">@member.GroupMember.DisplayedName</span>
@@ -45,6 +48,6 @@
                     }
                 </td>
             </tr>
-                        }
+        }
     </table>
 </div>
