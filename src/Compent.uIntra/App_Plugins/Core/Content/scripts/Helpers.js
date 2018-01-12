@@ -60,9 +60,13 @@ var helpers = {
                         { insert: url, attributes: { link: url } }
                     ]);
 
+                    var selectionBeforeUpdate = quill.getSelection();
+
                     quill.updateContents({
                         ops: ops
                     });
+
+                    quill.setSelection(selectionBeforeUpdate);
                 }
             }
 
