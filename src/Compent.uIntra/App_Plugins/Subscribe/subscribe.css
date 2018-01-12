@@ -29,7 +29,7 @@
     &__label{
         display:inline-block;
         vertical-align:top;
-        margin:4px 0 0;
+        margin:6px 0 0;
         color:var(--color-contrast);
         font-size:12px;
 
@@ -38,47 +38,37 @@
         }
     }
 
-    /*&__btn{
-        display:inline-block;
-        border: 1px solid #e3e3e3;
-        padding:7px 10px 8px 33px;
-        background-color:var(--color-white);
-        font: 12px/14px var(--font-custom);
-        text-transform:uppercase;
-        position:relative;
-        color:var(--text-color-dark);
-        vertical-align:top;
-        min-width:95px;
+    .btn{
 
         &:before{
             font-family:icomoon;
-            position:absolute;
-            top:7px;
-            left:11px;
+            font-size:14px;
+            vertical-align:top;
+            color:#261d43;
+            margin-right:5px;
+            display:none;
         }
 
         &:hover{
-            color:var(--text-color-dark);
-        }
-
-        &._subscribe{
             &:before{
-                font-size:10px;
-                content: "\e902";
+                display:inline-block;
             }
         }
+    }
+}
 
-        &._unsubscribe{
-            ._details &{
-                margin:0 10px 0 0;
-            }
-
-            &:before{
-                font-size:14px;
-                content: "\e903";
-            }
+.btn{
+    &._subscribe{
+        &:before{
+            content: "\e902";
         }
-    }*/
+    }
+
+    &._unsubscribe{
+        &:before{
+            content: "\e903";
+        }
+    }
 }
 
 .subscribe-list {
@@ -94,10 +84,11 @@
 .subscribe-overview {
     clear: both;
     color:var(--text-color-dark);
-    padding:10px 0 0;
+    padding:0 0 35px;
     
     &__title {
-        font:bold 16px/23px var(--font-general);
+        font: 18px/23px var(--font-general);
+        color:#000026;
         margin:0 0 11px;
     }
 }
