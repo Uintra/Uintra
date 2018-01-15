@@ -33,6 +33,10 @@
     &__title{
         font:20px/25px var(--font-general);
         margin:0 0 36px;
+
+         .feed__item-feed-holder & {
+             display:none;
+         }
     }
 
     &__set{
