@@ -58,5 +58,10 @@ namespace uIntra.Core.Location
                 }
             }
         }
+
+        public void DeleteForActivity(Guid activityId)
+        {
+            _locationRepository.Delete(l => l.ActivityId == activityId);
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace uIntra.Core.Location
         ActivityLocation Get(Guid activityId);
 
         void Set(Guid activityId, ActivityLocation location);
+
+        void DeleteForActivity(Guid activityId);
     }
 }

@@ -115,6 +115,7 @@ namespace uIntra.Core.Activity
 
         public void Delete(Guid id)
         {
+            _activityLocationService.DeleteForActivity(id);
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
             UpdateCachedEntity(id);
