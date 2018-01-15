@@ -368,6 +368,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Events.Description.placeholder",
+    "translations": {
+      "en-US": "Description"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Events.Title.placeholder",
+    "translations": {
+      "en-US": "Title"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CreateEvents.TitleRequired.lbl",
     "translations": {
       "en-US": "A title is required"
@@ -429,11 +443,74 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "EventsCreate.LocationAddress.lbl",
+    "translations": {
+      "en-US": "Location address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationAddressMaxLength.lbl",
+    "translations": {
+      "en-US": "The location address is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationAddressPlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitle.lbl",
+    "translations": {
+      "en-US": "Location title"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitleMaxLength.lbl",
+    "translations": {
+      "en-US": "The location title is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.LocationTitlePlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter name of the location"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "EventsCreate.StartDate.lbl",
     "translations": {
       "en-US": "Event Start date and time"
     },
     "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.PublishDate.lbl",
+    "translations": {
+      "en-US": "Event Publish date and time"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsCreate.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
+    },
     "updateDate": "0001-01-01T00:00:00"
   },
   {
@@ -461,7 +538,7 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
-    "key": "EventsEdir.StartDate.lbl",
+    "key": "EventsEdit.StartDate.lbl",
     "translations": {
       "en-US": "Event Start date and time"
     },
@@ -472,6 +549,21 @@
     "key": "EventsEdit.StartDateRequired.lbl",
     "translations": {
       "en-US": "Start date required"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.PublishDate.lbl",
+    "translations": {
+      "en-US": "Event Publish date and time"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.PublishDateRequired.lbl",
+    "translations": {
+      "en-US": "Publish date required"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -566,6 +658,54 @@
     "key": "EventsEdit.DescriptionRequired.lbl",
     "translations": {
       "en-US": "A description is required"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationAddress.lbl",
+    "translations": {
+      "en-US": "Location address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationAddressMaxLength.lbl",
+    "translations": {
+      "en-US": "The location address is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationAddressPlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter address"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationTitle.lbl",
+    "translations": {
+      "en-US": "Location title"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationTitleMaxLength.lbl",
+    "translations": {
+      "en-US": "The location title is must be shorter than {0} characters"
+    },
+    "parentKey": "Events",
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "EventsEdit.LocationTitlePlaceholder.lbl",
+    "translations": {
+      "en-US": "Enter name of the location"
     },
     "parentKey": "Events",
     "updateDate": "0001-01-01T00:00:00"
@@ -864,6 +1004,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Pin.Activity.lbl",
+    "translations": {
+      "en-US": "Set as Important"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Pin.EndPinDate.lbl",
     "translations": {
       "en-US": "Set date for Unpin"
@@ -881,6 +1028,13 @@
     "key": "Profile.EmailNotifications.lbl",
     "translations": {
       "en-US": "Check to disable all Email notifications"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.FirstName.Placeholder",
+    "translations": {
+      "en-US": "Enter your First name"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1060,6 +1214,27 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "SubscribeSettings.CanSubscribe.lbl",
+    "translations": {
+      "en-US": "Event participation"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "SubscribeSettings.SubscribeNotes.lbl",
+    "translations": {
+      "en-US": "Make it possible for people to subscribe to your event"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "SubscribeSettings.SubscribeNotesMaxLength.lbl",
+    "translations": {
+      "en-US": "Subscribe notes are must be shorter than {0} characters"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "SubscribeView.NotificationIsDisabled.lbl",
     "translations": {
       "en-US": "Uncheck to enable notifications"
@@ -1206,6 +1381,13 @@
     "key": "GroupCreate.FormTitle.lbl",
     "translations": {
       "en-US": "FormTitle"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupActivity.lbl",
+    "translations": {
+      "en-US": "Group"
     },
     "updateDate": "0001-01-01T00:00:00"
   },

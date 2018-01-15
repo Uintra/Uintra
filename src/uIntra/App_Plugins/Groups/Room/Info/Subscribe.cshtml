@@ -17,7 +17,7 @@
                     <span class="content__item-is-subscribed">@Html.Localize("GroupInfo.IsSubscribed.lbl")</span>
                 }
                 <input type="submit" 
-                       class="@(Model.IsMember ? "form__btn _submit _unsubscribe" : "form__btn _submit _subscribe")"
+                       class="@(Model.IsMember ? "btn _submit _unsubscribe" : "btn _submit _subscribe")"
                        value="@(Model.IsMember ? Html.Localize("GroupInfo.Unsubscribe.lnk") : Html.Localize("GroupInfo.Subscribe.lnk"))"
                        data-title="@Html.Localize("GroupInfo.Unsubscribe.Title.lnk")"
                        data-message="@Html.Localize("GroupInfo.Unsubscribe.Message.lnk")"

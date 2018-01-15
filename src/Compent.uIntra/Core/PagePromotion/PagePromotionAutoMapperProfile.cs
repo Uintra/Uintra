@@ -36,6 +36,7 @@ namespace Compent.uIntra.Core.PagePromotion
                .ForMember(dst => dst.IsReadOnly, src => src.Ignore());
 
             Mapper.CreateMap<PagePromotionConfig, Entities.PagePromotion>()
+                .ForMember(dst => dst.IsHidden, o => o.MapFrom(el => !el.PromoteOnCentralFeed))
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
@@ -50,9 +51,10 @@ namespace Compent.uIntra.Core.PagePromotion
                 .ForMember(dst => dst.CreatedDate, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.Likeable, o => o.Ignore())
+                .ForMember(dst => dst.Commentable, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Files.ToIntCollection();

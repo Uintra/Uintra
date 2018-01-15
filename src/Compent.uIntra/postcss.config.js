@@ -7,21 +7,21 @@ module.exports = {
                 customProperties: {
                     variables: {
                         '--color-white': '#fff',
-                        '--color-contrast': '#d97400',
+                        '--color-contrast': '#ed7872',
                         '--color-red': '#dd0a2d',
                         '--color-dark-red': '#c00927',
                         '--color-black': '#000',
                         '--color-light-gray': '#ccc',
                         '--color-light-gray-2': '#eee',
                         '--color-light-gray-3': '#c7c7c7',
-                        '--color-light-gray-4': '#aaa',
-                        '--text-color-light': '#8f8f8f',
-                        '--text-color-dark': '#333',
-                        '--color-submit': '#003693',
-                        '--color-submit-hover': '#1f4a93',
-                        '--header-bg': '#373737',
-                        '--font-custom': '"Open Sans", Arial, Helvetica, sans-serif',
-                        '--font-general': '"Open Sans", Arial, Helvetica, sans-serif'
+                        '--color-light-gray-4': '#bbb',
+                        '--text-color-light': '#b6b6b6',
+                        '--text-color-dark': '#555',
+                        '--color-submit': '#261d43',
+                        '--color-submit-hover': '#5c5573',
+                        '--header-bg': '#5776f9',
+                        '--font-custom': 'muli, Arial, Helvetica, sans-serif',
+                        '--font-general': 'muli, Arial, Helvetica, sans-serif'
                     }
                 },
                 customMedia: {

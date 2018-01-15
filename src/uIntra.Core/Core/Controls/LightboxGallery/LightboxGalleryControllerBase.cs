@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
@@ -18,9 +19,9 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IActivityLinkService _linkService;
-        private readonly ImageHelper _imageHelper;
+        private readonly IImageHelper _imageHelper;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, ImageHelper imageHelper)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, IImageHelper imageHelper)
         {
             _umbracoHelper = umbracoHelper;
             _linkService = linkService;
@@ -80,7 +81,9 @@ namespace uIntra.Core.Controls.LightboxGallery
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
-                result.PreviewUrl = totalMediasCount == 1 ? _imageHelper.ToPreviewImage(media.Url) : _imageHelper.ToThumbnailImage(media.Url);
+                result.PreviewUrl = totalMediasCount == 1 ?
+                    _imageHelper.GetImageWithPreset(media.Url, UmbracoAliases.ImagePresets.Preview) :
+                    _imageHelper.GetImageWithPreset(media.Url, UmbracoAliases.ImagePresets.Thumbnail);
             }
 
             return result;
@@ -89,9 +92,8 @@ namespace uIntra.Core.Controls.LightboxGallery
         protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
         {
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
-
-            var totalMediasCount = medias.Count();
-            var galleryViewModelList = medias.Select(m => MapToMedia(m, totalMediasCount)).ToList();
+            var mediasList = medias.AsList();
+            var galleryViewModelList = mediasList.Select(m => MapToMedia(m, mediasList.Count)).ToList();
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());

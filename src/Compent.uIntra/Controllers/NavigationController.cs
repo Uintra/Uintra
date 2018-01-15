@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Users;
+using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Core;
 using uIntra.Core.Extensions;
@@ -23,12 +24,12 @@ namespace Compent.uIntra.Controllers
     public class NavigationController : NavigationControllerBase
     {
         protected override string TopNavigationViewPath { get; } = "~/Views/Navigation/TopNavigation/Navigation.cshtml";
+        private string GroupNavigationViewPath { get; } = "~/Views/Groups/GroupNavigation.cshtml";
 
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override string SystemLinksContentXPath { get; }
-        private string GroupNavigationViewPath { get; } = "~/App_Plugins/Groups/GroupNavigation.cshtml";
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
@@ -56,7 +57,8 @@ namespace Compent.uIntra.Controllers
             ICentralFeedHelper centralFeedHelper,
             IProfileLinkProvider profileLinkProvider,
             IPermissionsService permissionsService,
-            IUserService userService)
+            IUserService userService,
+            IGroupContentProvider contentProvider)
             : base(
                 leftSideNavigationModelBuilder,
                 subNavigationModelBuilder,
@@ -115,6 +117,20 @@ namespace Compent.uIntra.Controllers
             return Content($" - {result}");
         }
 
+        protected override List<BreadcrumbItemViewModel> GetBreadcrumbsItems()
+        {
+            var result = base.GetBreadcrumbsItems();
+
+            if (!_groupHelper.IsGroupRoomPage(CurrentPage)) return result;
+
+            var groupId = Request.QueryString.GetGroupId();
+            var groupRoomPageUrl = _groupContentProvider.GetGroupRoomPage().Url;
+            var groupRoomBreadcrumbItem = result.Single(el => el.Url.Equals(groupRoomPageUrl));
+            groupRoomBreadcrumbItem.Url = _groupLinkProvider.GetGroupLink(groupId.Value);
+
+            return result;
+        }
+
         private ActionResult RenderGroupNavigation()
         {
             var groupId = Request.QueryString.GetGroupId();
@@ -127,7 +143,7 @@ namespace Compent.uIntra.Controllers
 
                 groupNavigationModel.ActivityTabs = _groupFeedContentService
                     .GetMainFeedTab(CurrentPage, groupId.Value)
-                    .ToEnumerableOfOne()
+                    .ToEnumerable()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
                 var currentUser = _intranetUserService.GetCurrentUser();

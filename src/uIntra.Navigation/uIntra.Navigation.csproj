@@ -77,6 +77,9 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BCLExtensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCLExtensions.0.2.8.5\lib\net452\BCLExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
@@ -412,7 +415,6 @@
     <Compile Include="Core\ModelBuilders\SubMenu\ISubNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\LeftSideMenu\LeftSideNavigationModelBuilder.cs" />
     <Compile Include="Core\ModelBuilders\NavigationModelBuilderBase.cs" />
-    <Compile Include="Core\ModelBuilders\SubMenu\SubNavigationModelBuilder.cs" />
     <Compile Include="Core\Models\MenuItemModel.cs" />
     <Compile Include="Core\Models\MenuModel.cs" />
     <Compile Include="Core\Models\SubNavigationMenuModel.cs" />

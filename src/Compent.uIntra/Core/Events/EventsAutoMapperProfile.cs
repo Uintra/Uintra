@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Search;
@@ -12,19 +13,30 @@ namespace Compent.uIntra.Core.Events
         protected override void Configure()
         {
             Mapper.CreateMap<Event, EventExtendedViewModel>()
-                  .IncludeBase<EventBase, EventViewModel>()
-                  .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                  .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
-                  .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el));
-
+                .IncludeBase<EventBase, EventViewModel>()
+                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.SubscribeNotes, o => o.MapFrom(s => s.SubscribeNotes.ReplaceLineBreaksForHtml()));
 
             Mapper.CreateMap<Event, EventExtendedItemModel>()
                 .IncludeBase<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.IsSubscribed, o => o.Ignore());
 
+            Mapper.CreateMap<Event, EventExtendedEditModel>()
+                .IncludeBase<EventBase, EventEditModel>()
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+
+            Mapper.CreateMap<Event, EventExtendedCreateModel>()
+                .IncludeBase<EventBase, EventCreateModel>()
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
-                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
+                .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
+
+            Mapper.CreateMap<Event, IntranetActivityDetailsHeaderViewModel>()
+                .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>();
 
             Mapper.CreateMap<EventEditModel, Event>()
                 .IncludeBase<EventEditModel, EventBase>()
@@ -37,6 +49,7 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
@@ -52,11 +65,13 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
                 .ForMember(dst => dst.Subscribers, o => o.Ignore())
-                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
+                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore());
 
             Mapper.CreateMap<Event, SearchableActivity>()
-                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
-                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
+                .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate))
+                .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate))
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
@@ -72,6 +87,16 @@ namespace Compent.uIntra.Core.Events
 
             Mapper.CreateMap<Event, GroupActivityTransferModel>()
                 .IncludeBase<Event, GroupActivityTransferCreateModel>();
+
+            Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>()
+                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+
+            Mapper.CreateMap<EventEditModel, EventExtendedEditModel>()
+                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
         }
     }
 }

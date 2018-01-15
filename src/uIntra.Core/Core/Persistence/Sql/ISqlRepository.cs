@@ -1,26 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace uIntra.Core.Persistence
 {
     public interface ISqlRepository<TKey, T> : IDisposable
     {
+        IQueryable<T> AsQueryable();
+
         T Get(TKey id);
 
-        IEnumerable<T> GetMany(IEnumerable<TKey> ids);
+        IList<T> GetMany(IEnumerable<TKey> ids);
 
-        IEnumerable<T> GetAll();
+        IList<T> GetAll();
 
         T Find(Expression<Func<T, bool>> predicate);
 
-        IEnumerable<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue);
+        IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue);
 
         long Count(Expression<Func<T, bool>> predicate);
 
         bool Exists(Expression<Func<T, bool>> predicate);
 
-        void DeleteById(TKey id);
+        void Delete(TKey id);
 
         void Delete(IEnumerable<T> entities);
 

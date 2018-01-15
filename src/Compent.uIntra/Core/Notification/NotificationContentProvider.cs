@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using uIntra.Core;
+﻿using uIntra.Core;
 using uIntra.Notification;
 using Umbraco.Core.Models;
 using Umbraco.Web;

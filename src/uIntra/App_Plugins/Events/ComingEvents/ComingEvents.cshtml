@@ -1,4 +1,4 @@
-﻿@model IEnumerable<uIntra.Events.ComingEventViewModel>
+﻿@model IEnumerable<Compent.uIntra.Controllers.ComingEventViewModel>
 @{
     Layout = null;
 }
@@ -6,6 +6,6 @@
 @foreach (var comingEvent in Model)
 {
     <div>@comingEvent.Title</div>
-    <div>@comingEvent.Owner.DisplayedName</div>
+    <div>@comingEvent.Creator.DisplayedName</div>
     <div>@comingEvent.StartDate - @comingEvent.EndDate</div>
 }

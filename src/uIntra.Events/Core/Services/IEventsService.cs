@@ -5,7 +5,7 @@ using uIntra.Core.Media;
 
 namespace uIntra.Events
 {
-    public interface IEventsService<out TEvent> : IIntranetActivityService<TEvent> where TEvent: EventBase
+    public interface IEventsService<out TEvent> : IIntranetActivityService<TEvent> where TEvent : EventBase
     {
         IEnumerable<TEvent> GetPastEvents();
 
@@ -15,7 +15,7 @@ namespace uIntra.Events
 
         bool CanEditSubscribe(Guid activityId);
 
-        bool CanSubscribe(EventBase activity);
+        bool CanSubscribe(Guid activityId);
 
         MediaSettings GetMediaSettings();
     }

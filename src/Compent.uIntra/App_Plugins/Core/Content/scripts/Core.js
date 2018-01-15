@@ -1,14 +1,12 @@
-﻿window.$ = jQuery;
-
-if (!window.Promise) {
+﻿if (!window.Promise) {
     window.Promise = require('promise-polyfill');
 }
 
 import {} from './Polyfill';
 import {} from './QuillExtender';
 import {uIntra} from './Namespace';
-﻿import showContent from './ShowContent';
-﻿import blockOnSubmit from './BlockOnSubmit';
+import showContent from './ShowContent';
+import blockOnSubmit from './BlockOnSubmit';
 import anchorScroll from './AnchorScroll';
 import validationExtensions from './ValidationExtensions';
 import scrollToTop from './ScrollToTop';

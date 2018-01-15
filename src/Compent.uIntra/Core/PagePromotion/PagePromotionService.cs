@@ -6,6 +6,7 @@ using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Caching;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
@@ -13,21 +14,24 @@ using uIntra.Core.PagePromotion;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Likes;
+using uIntra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Core.PagePromotion
 {
-    public class PagePromotionService : IPagePromotionService<Entities.PagePromotion>, IFeedItemService
+    public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>,
+        IFeedItemService,
+        ILikeableService,
+        ICommentableService
     {
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGridHelper _gridHelper;
+        private readonly IDocumentIndexer _documentIndexer;
 
         public PagePromotionService(
             IActivityTypeProvider activityTypeProvider,
@@ -37,19 +41,21 @@ namespace Compent.uIntra.Core.PagePromotion
             ILikesService likesService,
             ICommentsService commentsService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IGridHelper gridHelper)
+            IGridHelper gridHelper,
+            ICacheService cacheService,
+            IDocumentIndexer documentIndexer)
+            : base(cacheService, umbracoHelper, documentTypeAliasProvider)
         {
             _activityTypeProvider = activityTypeProvider;
             _feedTypeProvider = feedTypeProvider;
-            _umbracoHelper = umbracoHelper;
             _userService = userService;
             _likesService = likesService;
             _commentsService = commentsService;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _gridHelper = gridHelper;
+            _documentIndexer = documentIndexer;
         }
 
-        public IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
 
         public FeedSettings GetFeedSettings()
         {
@@ -64,149 +70,101 @@ namespace Compent.uIntra.Core.PagePromotion
             };
         }
 
-        public Entities.PagePromotion Get(Guid id)
+        public IEnumerable<IFeedItem> GetItems()
         {
-            var content = _umbracoHelper.TypedContent(id);
-            if (content == null) return null;
-
-            var config = GetPagePromotionConfig(content);
-            return GetPagePromotion(content, config);
+            return GetOrderedActualItems();
         }
 
-        public IEnumerable<Entities.PagePromotion> GetManyActual()
+        public ILikeable AddLike(Guid userId, Guid activityId)
         {
-            return GetActualContentAndConfigs()
-                .Select(contentAndConfig => GetPagePromotion(contentAndConfig.content, contentAndConfig.config));
+            _likesService.Add(userId, activityId);
+            UpdateCachedEntity(activityId);
+            return Get(activityId);
         }
 
-        public IEnumerable<Entities.PagePromotion> GetAll(bool includeHidden = false)
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
         {
-            return GetAllContentAndConfigs()
-                .Select(contentAndConfig => GetPagePromotion(contentAndConfig.content, contentAndConfig.config));
+            _likesService.Remove(userId, activityId);
+            UpdateCachedEntity(activityId);
+            return Get(activityId);
         }
 
-        public virtual IEnumerable<IFeedItem> GetItems()
+        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
-            return GetActualContentAndConfigs()
-                .Select(contentAndConfig => GetCentralFeedItem(contentAndConfig.content, contentAndConfig.config))
-                .OrderByDescending(i => i.PublishDate);
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
         }
 
-        protected virtual IEnumerable<(IPublishedContent content, PagePromotionConfig config)> GetAllContentAndConfigs()
+        public void UpdateComment(Guid id, string text)
         {
-            var homePage = _umbracoHelper.TypedContentAtRoot().Single(pc => pc.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetHomePage()));
-
-            var contentAndPagePromotionConfigs = homePage
-                .Descendants()
-                .Where(IsPagePromotion)
-                .Select(GetContentAndConfig);
-
-            return contentAndPagePromotionConfigs;
+            var comment = _commentsService.Update(id, text);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
-        protected virtual IEnumerable<(IPublishedContent content, PagePromotionConfig config)> GetActualContentAndConfigs()
+        public void DeleteComment(Guid id)
         {
-            return GetAllContentAndConfigs().Where(contentAndConfig => IsActual(contentAndConfig.config));
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
         }
 
-        protected virtual (IPublishedContent content, PagePromotionConfig config) GetContentAndConfig(IPublishedContent content)
+        public ICommentable GetCommentsInfo(Guid activityId)
         {
-            var pagePromotionConfig = GetPagePromotionConfig(content);
-            return (content, pagePromotionConfig);
+            return Get(activityId);
         }
 
-        protected virtual Entities.PagePromotion GetPagePromotion(IPublishedContent content, PagePromotionConfig config)
+        protected override Entities.PagePromotion UpdateCachedEntity(Guid id)
+        {
+            var cachedEntity = Get(id);
+
+            var activity = base.UpdateCachedEntity(id);
+            if (IsPagePromotionHidden(activity))
+            {
+                _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
+                return null;
+            }
+
+            var cachedEntityMediaIds = cachedEntity?.MediaIds ?? Enumerable.Empty<int>();
+            _documentIndexer.DeleteFromIndex(cachedEntityMediaIds.Except(activity.MediaIds));
+            _documentIndexer.Index(activity.MediaIds);
+            return activity;
+        }
+
+        protected override void MapBeforeCache(IList<Entities.PagePromotion> cached)
+        {
+            foreach (var activity in cached)
+            {
+                var entity = activity;
+                if (entity.Likeable)
+                {
+                    _likesService.FillLikes(entity);
+                }
+
+                if (entity.Commentable)
+                {
+                    _commentsService.FillComments(entity);
+                }
+            }
+        }
+
+        protected override Entities.PagePromotion MapInternal(IPublishedContent content)
         {
             var pagePromotion = content.Map<Entities.PagePromotion>();
+            var config = PagePromotionHelper.GetConfig(content);
+
             Mapper.Map(config, pagePromotion);
 
-            pagePromotion.Type = new IntranetType
-            {
-                Id = ActivityType.Id,
-                Name = ActivityType.Name
-            };
-
+            pagePromotion.Type = ActivityType;
             pagePromotion.CreatorId = _userService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
+
+            var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
+            pagePromotion.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
+            pagePromotion.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
 
             return pagePromotion;
         }
 
-        protected virtual PagePromotionConfig GetPagePromotionConfig(IPublishedContent content)
-        {
-            var config = PagePromotionHelper.GetConfig(content);
-            if (config == null) return null;
-
-            var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
-
-            config.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
-            config.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
-            return config;
-        }
-
-        protected virtual IFeedItem GetCentralFeedItem(IPublishedContent content, PagePromotionConfig config)
-        {
-            var centralFeedItem = GetPagePromotion(content, config);
-
-            if (centralFeedItem.Likeable)
-            {
-                _likesService.FillLikes(centralFeedItem);
-            }
-
-            if (centralFeedItem.Commentable)
-            {
-                _commentsService.FillComments(centralFeedItem);
-            }
-
-            return centralFeedItem;
-        }
-
-        protected virtual bool IsPagePromotion(IPublishedContent content)
-        {
-            return content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
-        }
-
-        protected virtual bool IsActual(PagePromotionConfig config)
-        {
-            return config != null && config.PromoteOnCentralFeed && config.PublishDate <= DateTime.Now;
-        }
-
-        #region NotImplemented
-
-        public bool CanEdit(IIntranetActivity cached)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected void MapBeforeCache(IList<Entities.PagePromotion> cached)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanEdit(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsActual(IIntranetActivity cachedActivity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid Create(IIntranetActivity activity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(IIntranetActivity activity)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+        private IOrderedEnumerable<Entities.PagePromotion> GetOrderedActualItems() => GetManyActual().OrderByDescending(i => i.PublishDate);
     }
 }

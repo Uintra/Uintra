@@ -74,23 +74,50 @@ namespace uIntra.Core.Activity
             return !cachedActivity.IsHidden;
         }
 
-        public Guid Create(IIntranetActivity activity)
+        public virtual bool IsPinActual(IIntranetActivity activity)
+        {
+            if (!activity.IsPinned) return false;
+
+            if (activity.EndPinDate.HasValue)
+            {
+                return activity.EndPinDate.Value.ToUniversalTime() > DateTime.UtcNow;
+            }
+
+            return true;
+        }
+
+        public virtual Guid Create(IIntranetActivity activity)
+        {
+            return Create(activity, null);
+        }
+
+        protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
             var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
-
             var newActivityId = newActivity.Id;
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
+
+            afterCreateAction?.Invoke(newActivityId);
+
             UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
 
-        public void Save(IIntranetActivity activity)
+        public virtual void Save(IIntranetActivity activity)
+        {
+            Save(activity, null);
+        }
+
+        protected virtual void Save(IIntranetActivity activity, Action<IIntranetActivity> afterSaveAction)
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
+
+            afterSaveAction?.Invoke(activity);
+
             UpdateCachedEntity(activity.Id);
         }
 
@@ -123,7 +150,7 @@ namespace uIntra.Core.Activity
 
             if (activity != null)
             {
-                MapBeforeCache((activity).ToListOfOne());
+                MapBeforeCache(activity.ToListOfOne());
                 cachedList.Add(activity);
             }
 
@@ -163,18 +190,7 @@ namespace uIntra.Core.Activity
             return cachedActivity;
         }
 
-        private static bool IsPinActual(IIntranetActivity activity)
-        {
-            if (!activity.IsPinned) return false;
-
-            if (activity.EndPinDate.HasValue)
-            {
-                return activity.EndPinDate.Value.ToUniversalTime() > DateTime.UtcNow;
-            }
-
-            return true;
-        }
-
         protected abstract void MapBeforeCache(IList<TActivity> cached);
+
     }
 }

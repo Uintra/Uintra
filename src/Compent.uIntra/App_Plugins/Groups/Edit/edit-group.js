@@ -6,7 +6,7 @@ var Alertify = require('alertifyjs/build/alertify.min');
 var holder;
 
 var initDescriptionControl = function () {    
-    helpers.initActivityDescription(holder, '#js-hidden-description-container', '#description', '.form__btn._submit');    
+    helpers.initActivityDescription(holder, '#js-hidden-description-container', '#description', '.js-submit');    
 }
 
 var initHideControl = function () {

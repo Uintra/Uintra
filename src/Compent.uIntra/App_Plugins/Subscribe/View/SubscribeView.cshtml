@@ -12,8 +12,8 @@
         <input type="hidden" class="js-subscribe-activity-id" value="@Model.ActivityId" />
         <div class="subscribe__set">
             @(Model.IsSubscribed
-                  ? Ajax.ActionLink(Html.Localize("SubscribeView.Unsubscribe.lnk"), "Unsubscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"subscribe.init('#{elementId}');subscribe.notify(true);" }, new { @class = "subscribe__btn _unsubscribe" })
-                  : Ajax.ActionLink(Html.Localize("SubscribeView.Subscribe.lnk"), "Subscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"subscribe.init('#{elementId}');subscribe.notify(false);" }, new { @class = "subscribe__btn _subscribe" }))
+                  ? Ajax.ActionLink(Html.Localize("SubscribeView.Unsubscribe.lnk"), "Unsubscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"subscribe.init('#{elementId}');subscribe.notify(true);" }, new { @class = "btn _unsubscribe" })
+                  : Ajax.ActionLink(Html.Localize("SubscribeView.Subscribe.lnk"), "Subscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"subscribe.init('#{elementId}');subscribe.notify(false);" }, new { @class = "btn _subscribe" }))
         </div>
         @if (Model.IsSubscribed && Model.HasNotification)
         {

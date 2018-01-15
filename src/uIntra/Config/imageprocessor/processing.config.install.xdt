@@ -2,6 +2,7 @@
 <processing xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <presets>
     <preset name="thumbnail" value="width=200&amp;height=470;mode=max" xdt:Locator="Condition(@name='thumbnail')" xdt:Transform="InsertIfMissing"/>
-    <preset name="preview" value="width=600&amp;height=1410&amp;mode=min" xdt:Locator="Condition(@name='preview')" xdt:Transform="InsertIfMissing"/>
+    <preset name="preview" value="width=1410&amp;height=600&amp;mode=min" xdt:Locator="Condition(@name='preview')" xdt:Transform="InsertIfMissing"/>
+    <preset name="groupImageThumbnail" value="width=700&amp;height=330&amp;mode=max" xdt:Locator="Condition(@name='groupImageThumbnail')" xdt:Transform="InsertIfMissing"/>
   </presets>
 </processing>

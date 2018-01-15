@@ -2,11 +2,11 @@
 var Delta = require('quill-delta');
 var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
+
 require('simple-scrollbar');
-
-
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+
 
 var easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
@@ -38,13 +38,16 @@ var helpers = {
             }
             dataStorage.value = quill.container.firstChild.innerHTML;
 
-            var regex = /https?:\/\/[^\s]+$/;
+            var regexes = [
+                /https?:\/\/[^\s]+$/
+            ];
             if (delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
                 var endRetain = delta.ops[0].retain;
                 var text = quill.getText().substr(0, endRetain);
-                var match = text.match(regex);
+                var match = regexes.map(regex => text.match(regex)).find(m => m!== null);
+                    
 
-                if (match !== null) {
+                if (match) {
                     var url = match[0];
 
                     var ops = [];
@@ -57,9 +60,13 @@ var helpers = {
                         { insert: url, attributes: { link: url } }
                     ]);
 
+                    var selectionBeforeUpdate = quill.getSelection();
+
                     quill.updateContents({
                         ops: ops
                     });
+
+                    quill.setSelection(selectionBeforeUpdate);
                 }
             }
 

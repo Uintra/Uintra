@@ -63,8 +63,8 @@
         <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
             @Html.PassLinks(Model.Links)
-            <input class="form__btn _submit _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")"/>
-            <a class="form__btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
+            <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")"/>
+            <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
                 }
 </div>

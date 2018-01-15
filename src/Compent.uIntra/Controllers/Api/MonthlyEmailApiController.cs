@@ -1,6 +1,6 @@
-﻿using uIntra.Notification;
+﻿using System.Web.Http;
+using uIntra.Notification;
 using Umbraco.Web.WebApi;
-using System.Web.Http;
 
 namespace Compent.uIntra.Controllers.Api
 {
