@@ -451,6 +451,12 @@
     <Content Include="..\Compent.uIntra\build\head_css.js">
       <Link>build\head_css.js</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\build\vendors.css">
+      <Link>build\vendors.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\vendors.js">
+      <Link>build\vendors.js</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
       <Link>Content\images\calendar.svg</Link>
     </Content>
@@ -1656,6 +1662,47 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\build\44292ed560e7e199955f9759e4f09f19.woff2">
+      <Link>build\44292ed560e7e199955f9759e4f09f19.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\448c34a56d699c29117adc64c43affeb.woff2">
+      <Link>build\448c34a56d699c29117adc64c43affeb.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\4f064ae96bbce82336e715aa26ec48d5.woff2">
+      <Link>build\4f064ae96bbce82336e715aa26ec48d5.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\502b15c5d93f297e24d2195f4f031647.woff">
+      <Link>build\502b15c5d93f297e24d2195f4f031647.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\638a998bed6c38ae5dc18ab4cfa9447b.woff">
+      <Link>build\638a998bed6c38ae5dc18ab4cfa9447b.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\65244917465a672e70ec190a27489fdd.woff2">
+      <Link>build\65244917465a672e70ec190a27489fdd.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\968fd034b46313cc9c4c40c77af71fb5.woff">
+      <Link>build\968fd034b46313cc9c4c40c77af71fb5.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\ac922757bc3d357bc296666c9382ec22.woff2">
+      <Link>build\ac922757bc3d357bc296666c9382ec22.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\c5c06d4cc579bac66ade7fb1eaec3a9e.woff">
+      <Link>build\c5c06d4cc579bac66ade7fb1eaec3a9e.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\e18bbf611f2a2e43afc071aa2f4e1512.ttf">
+      <Link>build\e18bbf611f2a2e43afc071aa2f4e1512.ttf</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\ebc18fb1cf09179b74971d943bce6f20.woff">
+      <Link>build\ebc18fb1cf09179b74971d943bce6f20.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\f4769f9bdb7466be65088239c12046d1.eot">
+      <Link>build\f4769f9bdb7466be65088239c12046d1.eot</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\fa2772327f55d8198301fdb8bcfc8158.woff">
+      <Link>build\fa2772327f55d8198301fdb8bcfc8158.woff</Link>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
