@@ -57,7 +57,7 @@ var helpers = {
                 var match = regexes.map(regex => text.match(regex)).find(m => m!== null);
                     
 
-                if (match !== null) {
+                if (match) {
                     var url = match[0];
                     triggerLinkDetectedEvent(url);
 
