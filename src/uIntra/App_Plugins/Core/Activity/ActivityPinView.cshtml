@@ -3,6 +3,7 @@
 @model uIntra.Core.Activity.IntranetPinActivityModel
 
 <div class="check">
+    <label class="form__label">@Html.Localize("Pin.Activity.lbl")</label>
     <label class="check__label">
         @Html.CheckBox("IsPinned", new { @class = "pin-control check__box" })
         <span class="check__fake-input icon-check"></span>

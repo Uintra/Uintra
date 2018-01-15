@@ -5,10 +5,11 @@
     var medias = Model.GalleryItems.ToLookup(m => m.Type.Id);
     var images = medias[(int)MediaTypeEnum.Image];
     var documents = medias[(int)MediaTypeEnum.Document];
+    var fullSizeClass = images.Count() > 1 ? String.Empty : "_full-size";
 }
 @if (images.Any())
 {
-    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery clearfix">
+    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery @fullSizeClass">
         @foreach (var image in images)
         {
             var originalSize = $"{image.Width}x{image.Height}";

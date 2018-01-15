@@ -19,7 +19,7 @@
         <div class="login">
             <div class="form">
                 <div class="form__row">
-                    <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" /></strong>
+                    <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" width="130" /></strong>
                 </div>
                 <div class="form__row">
                     @Html.TextBoxFor(m => Model.Login, new { data_val_required = Html.Localize("Login.Login.Required"),
@@ -30,7 +30,7 @@
                    @class = "form__input", placeholder = Html.Localize("Login.Password.ph"), value = Model.Password })
                 </div>
                 <div class="form__row">
-                    <input class="form__btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
+                    <input class="btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
                 </div>
                 <div class="form__row">
                     @Html.ValidationSummary()
