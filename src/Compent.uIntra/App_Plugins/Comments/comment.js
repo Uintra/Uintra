@@ -52,11 +52,27 @@ var initCreateControl = function (holder) {
         var descriptionElem = $this.find('.js-comment-create-description')[0];
         var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
 
-        quill.onLinkDetected(function (link) { alert('Link detected!' + link) });
+        quill.onLinkDetected(function(link) {
+            showLinkPreview(link);
+        });
+
+
 
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
         let emojiContainer = $this.find(".js-emoji");
+
+        function showLinkPreview(link) {
+            $.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link,
+                function (data) {
+                    console.log(data);
+                    var imageElem = getImageElem(data);
+                });
+        }
+
+        function getImageElem(data) {
+            debugger;
+        }
 
         toolbarBtns.each(function(){
             var className = $(this).attr('class').split("-");
