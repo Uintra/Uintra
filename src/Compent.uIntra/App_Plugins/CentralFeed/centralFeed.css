@@ -166,6 +166,7 @@
                 &:focus,
                 &:active{
                     color:#262626;
+                    text-decoration:none;
                 }
             }
         }
