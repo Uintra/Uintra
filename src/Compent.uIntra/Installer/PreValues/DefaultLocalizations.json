@@ -368,6 +368,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Events.Description.placeholder",
+    "translations": {
+      "en-US": "Description"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Events.Title.placeholder",
+    "translations": {
+      "en-US": "Title"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CreateEvents.TitleRequired.lbl",
     "translations": {
       "en-US": "A title is required"
@@ -990,6 +1004,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Pin.Activity.lbl",
+    "translations": {
+      "en-US": "Set as Important"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Pin.EndPinDate.lbl",
     "translations": {
       "en-US": "Set date for Unpin"
@@ -1007,6 +1028,13 @@
     "key": "Profile.EmailNotifications.lbl",
     "translations": {
       "en-US": "Check to disable all Email notifications"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.FirstName.Placeholder",
+    "translations": {
+      "en-US": "Enter your First name"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1188,7 +1216,7 @@
   {
     "key": "SubscribeSettings.CanSubscribe.lbl",
     "translations": {
-      "en-US": "It should be possible to subscribe"
+      "en-US": "Event participation"
     },
     "parentKey": "SubscribeSettings",
     "updateDate": "0001-01-01T00:00:00"
@@ -1196,7 +1224,7 @@
   {
     "key": "SubscribeSettings.SubscribeNotes.lbl",
     "translations": {
-      "en-US": "Subscribe notes"
+      "en-US": "Make it possible for people to subscribe to your event"
     },
     "parentKey": "SubscribeSettings",
     "updateDate": "0001-01-01T00:00:00"
@@ -1356,6 +1384,13 @@
     "key": "GroupCreate.FormTitle.lbl",
     "translations": {
       "en-US": "FormTitle"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "GroupActivity.lbl",
+    "translations": {
+      "en-US": "Group"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
