@@ -12,5 +12,16 @@
     <input class="js-hidden-comment-create-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />
     <input type="hidden" name="activityId" value="@Model.ActivityId" />
     <input type="hidden" name="parentId" value="@Model.ParentId" />
+    @*<div class="create-comment__toolbar ql-toolbar ql-snow js-comment-create__toolbar ">
+        <span class="ql-formats">
+            <button type="button" class="ql-bold" title="bold"></button>
+            <button type="button" class="ql-italic" title="italic"></button>
+            <button type="button" class="ql-link" title="link"></button>
+            <button type="button" class="ql-emoji" title="emoji"></button>
+        </span>
+        <span class="ql-formats">
+            <button disabled="disabled" class="btn btn-black js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
+        </span>
+    </div>*@
     <button disabled="disabled" class="btn btn-black js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
 }

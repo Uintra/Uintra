@@ -43,9 +43,10 @@
         &:before{
             font-family:icomoon;
             font-size:14px;
+            line-height:14px;
             vertical-align:top;
             color:#261d43;
-            margin-right:5px;
+            margin:1px 5px 0 0;
             display:none;
         }
 
@@ -58,16 +59,12 @@
 }
 
 .btn{
-    &._subscribe{
-        &:before{
-            content: "\e902";
-        }
+    &._subscribe::before{
+        content: "\e902";
     }
 
-    &._unsubscribe{
-        &:before{
-            content: "\e903";
-        }
+    &._unsubscribe::before{
+        content: "\e903";
     }
 }
 

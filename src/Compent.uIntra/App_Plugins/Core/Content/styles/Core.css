@@ -287,19 +287,23 @@ h5{
     min-height:100%;
     background:#f6f6f6;
 
-    ._with-sub-nav._with-subtitle &{
-        padding-top:172px;
-    }
-    
     @media (--for-tablet-portrait-down) {
         padding: 60px 0 0;
+    }
 
-        ._with-sub-nav & {
-            padding: 111px 0 0;
+    ._with-sub-nav &{
+        padding-top:162px;
+
+        @media (--for-tablet-portrait-down) {
+            padding-top: 130px;
         }
+    }
 
-        ._with-sub-nav._with-subtitle &{
-            padding:181px 0 0;
+    ._with-sub-nav._with-subtitle &{
+        padding-top:181px;
+
+        @media (--for-tablet-portrait-down) {
+            padding-top: 149px;
         }
     }
 }
@@ -374,7 +378,7 @@ h5{
 
 #header {
 	position:fixed;
-	z-index:12;
+	z-index:13;
 	top:0;
 	left:0;
 	right:0;
@@ -445,12 +449,11 @@ h5{
 
         ._menu-expanded &{
             visibility:hidden;
-            background:
         }
     }
 
     @media (--for-desktop-up){
-       padding-top:50px; 
+       padding-top:47px; 
     }
 
     &::before{
@@ -614,6 +617,7 @@ h5{
     position: relative;
     text-transform:uppercase;
     cursor:pointer;
+    -webkit-appearance: none;
 
     &:hover{
         border-color:#261d43;
@@ -764,7 +768,6 @@ h5{
     &__img{
         height:100%;
         width:100%;
-        object-fit:cover;
         display:block;
     }
 

@@ -94,21 +94,7 @@ namespace uIntra.Navigation.Web
 
         public virtual ActionResult Breadcrumbs()
         {
-            var result = new List<BreadcrumbItemViewModel>();
-            var currentPage = CurrentPage;
-            while (currentPage != null)
-            {
-                result.Add(new BreadcrumbItemViewModel
-                {
-                    Name = currentPage.GetNavigationName(),
-                    Url = currentPage.Url,
-                    IsClickable = CurrentPage.Url != currentPage.Url && !currentPage.IsHeading()
-                });
-
-                currentPage = currentPage.Parent;
-            }
-            result.Reverse();
-            return PartialView(BreadcrumbsViewPath, result);
+            return PartialView(BreadcrumbsViewPath, GetBreadcrumbsItems());
         }
 
         public virtual ActionResult LeftNavigationUserMenu()
@@ -148,6 +134,26 @@ namespace uIntra.Navigation.Web
 
             UmbracoContext.Security.PerformLogin(umbracoUser.Id);  // back office user always isn't logged in
             return Redirect(pageUrl);
+        }
+
+        protected virtual List<BreadcrumbItemViewModel> GetBreadcrumbsItems()
+        {
+            var result = new List<BreadcrumbItemViewModel>();
+            var currentPage = CurrentPage;
+            while (currentPage != null)
+            {
+                result.Add(new BreadcrumbItemViewModel
+                {
+                    Name = currentPage.GetNavigationName(),
+                    Url = currentPage.Url,
+                    IsClickable = CurrentPage.Url != currentPage.Url && !currentPage.IsHeading()
+                });
+
+                currentPage = currentPage.Parent;
+            }
+
+            result.Reverse();
+            return result;
         }
     }
 }
