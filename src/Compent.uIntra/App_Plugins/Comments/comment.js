@@ -67,11 +67,37 @@ var initCreateControl = function (holder) {
                 function (data) {
                     console.log(data);
                     var imageElem = getImageElem(data);
+                    debugger
+                    $this.append(imageElem);
                 });
         }
 
         function getImageElem(data) {
-            debugger;
+            var titleElem = createParagraph(data.title);
+            var descriptionElem = createParagraph(data.description);
+            var imgElem = createImg(data.image);
+
+            var divElem = document.createElement('div');
+            divElem.appendChild(imgElem);
+            divElem.appendChild(titleElem);
+            divElem.appendChild(descriptionElem);
+
+            return divElem;
+        }
+
+        function createImg(base64Img) {
+            var imgElem = document.createElement('img');
+            var srcAttr = document.createAttribute('src');
+            srcAttr.value = `data:image/png;base64, ${base64Img}`;
+            imgElem.setAttributeNode(srcAttr);
+            return imgElem;
+        }
+
+        function createParagraph(content) {
+            var paragraph = document.createElement('p');
+            var contentNode = document.createTextNode(content);
+            paragraph.appendChild(contentNode);
+            return paragraph;
         }
 
         toolbarBtns.each(function(){
@@ -232,10 +258,6 @@ function findControl(holder, selector) {
 
 function quillTextChangeEventHandler(quill, button, delta, oldDelta, source) {
     setButtonDisableState(quill, button);
-
-    // if (isTimeForLinkPreview)
-    showLinkPreview();
-
 }
 
 function setButtonDisableState(quill, button) {
@@ -244,19 +266,6 @@ function setButtonDisableState(quill, button) {
         button.removeAttr("disabled");
     } else {
         button.attr("disabled", "disabled");
-    }
-}
-
-var flag = true;
-function showLinkPreview() {
-    if (flag) {
-
-        $.get('/umbraco/api/LinkPreviewApi/Preview?url=https://github.com',
-            function(data) {
-                console.log(data);
-            });
-
-        flag = false;
     }
 }
 
