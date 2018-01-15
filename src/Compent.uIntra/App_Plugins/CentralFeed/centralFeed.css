@@ -615,19 +615,18 @@
 
 .pinned {
 	&__item {
-        float:right;
-        max-width: 150px;
         word-wrap: break-word;
-        margin: 10px 0 0 15px;
         padding: 6px 14px 4px;
-        background-color: #ed7872;
+        background: #ed7872;
         color: #fff;
         font-size: 11px;
         line-height: 15px;
         opacity:0.5;
         border-radius:15px;
         text-transform:uppercase;
-        align-self: flex-start;
+        margin:0 0 0 10px;
+        float:right;
+        max-width: 150px;
 
         ._pinned &{
             opacity:1;
@@ -637,9 +636,9 @@
             float:none;
             display:inline-block;
             vertical-align:top;
-            margin:0 0 15px;
+            max-width:none;
+            margin:0 0 10px;
             white-space:nowrap;
-            min-width:0;
             padding:3px 11px 2px;
 
             .feed__item &{
@@ -669,6 +668,7 @@
         &:focus,
         &:hover {
             color: #333;
+            text-decoration:none;
         }
         
         body._show-filters & {
