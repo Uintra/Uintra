@@ -36,6 +36,7 @@
         background: #fff;
         border: 1px solid #c7c7c7;
         position: relative;
+        -webkit-appearance: none;
 
         &::placeholder{
             color:#999;

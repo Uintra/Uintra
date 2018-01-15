@@ -617,6 +617,7 @@ h5{
     position: relative;
     text-transform:uppercase;
     cursor:pointer;
+    -webkit-appearance: none;
 
     &:hover{
         border-color:#261d43;
