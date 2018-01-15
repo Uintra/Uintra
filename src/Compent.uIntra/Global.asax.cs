@@ -16,7 +16,7 @@ namespace Compent.uIntra
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             AreaRegistration.RegisterAllAreas();
-            MapperConfig.RegisterMappings();           
+            MapperConfig.RegisterMappings();
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
@@ -29,7 +29,9 @@ namespace Compent.uIntra
 
             RegisterRoutes();
 
-            JobManager.Initialize(new JobsRegistry());
+            JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
+            JobManager.Initialize(new JobsRegistry());            
+
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }
 
