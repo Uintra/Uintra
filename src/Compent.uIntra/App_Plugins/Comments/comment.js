@@ -67,7 +67,6 @@ var initCreateControl = function (holder) {
                 function (data) {
                     console.log(data);
                     var imageElem = getImageElem(data);
-                    debugger
                     $this.append(imageElem);
                 });
         }
