@@ -388,7 +388,7 @@
     }
 
     &__name{
-        color:var(--color-red);
+        color:var(--header-bg);
     }
 
     &__delete{

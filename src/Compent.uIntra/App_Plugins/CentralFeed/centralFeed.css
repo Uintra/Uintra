@@ -242,10 +242,10 @@
             }
 
             a{
-                color:var(--color-red);
+                color:var(--header-bg);
 
                 &:hover{
-                    color:var(--color-red);
+                    color:var(--header-bg);
                 }
             }
 
