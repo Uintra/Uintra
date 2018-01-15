@@ -451,11 +451,29 @@
     <Content Include="..\Compent.uIntra\build\head_css.js">
       <Link>build\head_css.js</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
+      <Link>Content\images\calendar.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
+      <Link>Content\images\default-avatar.png</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Content\images\group.svg">
       <Link>Content\images\group.svg</Link>
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\groups.gif">
       <Link>Content\images\groups.gif</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\logo.png">
+      <Link>Content\images\logo.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\logo.svg">
+      <Link>Content\images\logo.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\sort.svg">
+      <Link>Content\images\sort.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\vendors.js">
+      <Link>Content\vendors.js</Link>
     </Content>
     <Content Include="..\Compent.uIntra\licence.html">
       <Link>licence.html</Link>
@@ -994,15 +1012,6 @@
     <Content Include="..\Compent.uIntra\Content\css\styles.css">
       <Link>Content\css\styles.css</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
-      <Link>Content\images\default-avatar.png</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\images\logo.png">
-      <Link>Content\images\logo.png</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\images\sort.svg">
-      <Link>Content\images\sort.svg</Link>
-    </Content>
     <Content Include="..\Compent.uIntra\Content\main.js">
       <Link>Content\main.js</Link>
     </Content>
@@ -1011,18 +1020,6 @@
     </Content>
     <Content Include="..\Compent.uIntra\Global.asax">
       <Link>Global.asax</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-700.woff">
-      <Link>Content\fonts\open-sans-700.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-700.woff2">
-      <Link>Content\fonts\open-sans-700.woff2</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-regular.woff">
-      <Link>Content\fonts\open-sans-regular.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\fonts\open-sans-regular.woff2">
-      <Link>Content\fonts\open-sans-regular.woff2</Link>
     </Content>
     <Content Include="config\404handlers.config.install.xdt" />
     <Content Include="config\404handlers.config.uninstall.xdt" />
@@ -1322,7 +1319,38 @@
   <ItemGroup>
     <Content Include="config\imageprocessor\processing.config.install.xdt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-bold-webfont.ttf">
+      <Link>Content\fonts\muli-bold-webfont.ttf</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-bold-webfont.woff">
+      <Link>Content\fonts\muli-bold-webfont.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-bold-webfont.woff2">
+      <Link>Content\fonts\muli-bold-webfont.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-italic.woff">
+      <Link>Content\fonts\muli-italic.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-italic.woff2">
+      <Link>Content\fonts\muli-italic.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-regular-webfont.ttf">
+      <Link>Content\fonts\muli-regular-webfont.ttf</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-regular-webfont.woff">
+      <Link>Content\fonts\muli-regular-webfont.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-regular-webfont.woff2">
+      <Link>Content\fonts\muli-regular-webfont.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-semibold-webfont.woff">
+      <Link>Content\fonts\muli-semibold-webfont.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\fonts\muli-semibold-webfont.woff2">
+      <Link>Content\fonts\muli-semibold-webfont.woff2</Link>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
