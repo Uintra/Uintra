@@ -15,15 +15,15 @@ else
 }
 
 @helper getImage(UserPhotoViewModel avatar)
-    {   
-        if (string.IsNullOrEmpty(avatar.PhotoUrl))
-        {
+{
+    if (string.IsNullOrEmpty(avatar.PhotoUrl))
+    {
             <div class="avatar__letter">
                 @avatar.AltText.First()
             </div>
-        }
-        else
-        {
-            <img class="avatar__img js-object-fit" src="@avatar.PhotoUrl?width=@Model.PhotoWidth&height=@Model.PhotoWidth&mode=min" alt="@avatar.AltText" />
-        }
+    }
+    else
+    {
+            <img class="avatar__img" src="@avatar.PhotoUrl?width=@Model.PhotoWidth&height=@Model.PhotoWidth&mode=crop" alt="@avatar.AltText" />
+    }
 }

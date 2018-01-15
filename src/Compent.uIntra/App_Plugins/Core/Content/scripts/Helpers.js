@@ -2,11 +2,11 @@
 var Delta = require('quill-delta');
 var Dotdotdot = require('dotdotdot');
 var Flatpickr = require('flatpickr');
+
 require('simple-scrollbar');
-
-
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+
 
 var easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
@@ -32,11 +32,11 @@ var helpers = {
 
         let onLinkDetectedCallbacks = [];
 
-        quill.onLinkDetected = function(cb) { debugger
+        quill.onLinkDetected = function(cb) {
             onLinkDetectedCallbacks.push(cb);
         }
 
-        function triggerLinkDetectedEvent(link) { debugger
+        function triggerLinkDetectedEvent(link) {
             onLinkDetectedCallbacks.forEach((cb) => cb(link));
         }
 
@@ -57,7 +57,7 @@ var helpers = {
                 var match = regexes.map(regex => text.match(regex)).find(m => m!== null);
                     
 
-                if (match) {                    
+                if (match !== null) {
                     var url = match[0];
                     triggerLinkDetectedEvent(url);
 

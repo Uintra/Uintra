@@ -17,16 +17,16 @@ if ($title.length > 0) {
     $body.addClass('_with-subtitle');
 }
 
-const initSubMenuPosition = function () {
-    if(!$tabset || !$header){
+//const initSubMenuPosition = function () {
+    /*if(!$tabset || !$header){
         return;
-    }
+    }*/
 
-    let height = $header.outerHeight() + $tabset.outerHeight();
+    //let height = $header.outerHeight() + $tabset.outerHeight();
 
-    $wrapper.css({
+    /*$wrapper.css({
         'padding-top': height + 'px'
-    });
+    });*/
 
     // if($subMenu.length > 1){
     //     $wrapper.css({
@@ -38,7 +38,7 @@ const initSubMenuPosition = function () {
     //         'padding-top': height + 'px'
     //     });
     // }
-}
+//}
     
 // const initMobileMenu = function() {
 //     const opener = $subMenu.find('.tabset__navigation-link');
@@ -79,10 +79,10 @@ const initSubMenuPosition = function () {
 
 const controller = {
     init: function () {
-        initSubMenuPosition();
+        /*initSubMenuPosition();
         $(window).resize(function(){
             initSubMenuPosition();
-        });
+        });*/
 
         if (mobileMediaQuery.matches) {
             //initMobileMenu();
