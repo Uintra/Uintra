@@ -4,6 +4,8 @@
 
 <nav class="tabset tabset--group">
     <div class="tabset__holder">
+        @{ Html.RenderAction("Breadcrumbs", "Navigation"); }
+
         <h1 class="tabset__title">
             @if (Model.GroupUrl.IsNullOrEmpty())
             {
