@@ -1,0 +1,135 @@
+﻿@inherits UmbracoViewPage<IPublishedContent>
+@using Newtonsoft.Json.Linq
+
+@{
+    var grid = Model.GetPropertyValue<dynamic>("grid");
+}
+
+@if (grid != null && grid.sections != null)
+{
+    <div class="row">
+        @{
+            var sectionOffsetNumber = 12;
+            for (var i = 0; i < grid.sections.Count; i++)
+            {
+                var section = grid.sections[i];
+                sectionOffsetNumber -= int.Parse(section.grid.ToString());
+                var renderOffset = i == grid.sections.Count - 1;
+
+                <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "" )">
+                    @foreach (var row in section.rows)
+                    {
+
+                        <div class="row">
+                            @foreach (var area in row.areas)
+                            {
+                                <div class="col-md-@area.grid">
+                                    <div @RenderElementAttributes(area)>
+                                        @foreach (var control in area.controls)
+                                        {
+                                            if (control != null && control.editor != null && control.editor.view != null)
+                                            {
+                                                string editor = EditorPath(control);
+                                                @RenderControl(editor, control)
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+}
+
+@helper RenderControl(string partialViewName, dynamic control)
+{
+    try
+    {
+        var config = control.editor?.config;
+        if (config == null || config.action == null || config.controller == null)
+        {
+            var controlObject = control as object;
+            @Html.Partial(partialViewName, controlObject)
+            return;
+        }
+
+        string action = config.action;
+        string controller = config.controller;
+
+        if (config.includeUmbracoValues != null && (bool)config.includeUmbracoValues)
+        {
+            var controllerParams =  new RouteValueDictionary(ParseUmbracoValues(control));
+            @Html.Action(action, controller, controllerParams);
+        }
+        else if (config.includeParams != null && (bool)config.includeParams)
+        {
+            var controllerParams =  new RouteValueDictionary(ParseParams(config));
+            @Html.Action(action, controller, controllerParams);        
+        }
+        else
+        {
+            @Html.Action(action, controller)
+        }
+    }
+    catch (Exception ex)
+    {
+        if (HttpContext.Current.IsDebuggingEnabled)
+        {
+            <pre>@ex.ToString()</pre>
+        }
+    }
+}
+
+@functions {
+    public static MvcHtmlString RenderElementAttributes(dynamic contentItem)
+    {
+        var attrs = new List<string>();
+        JObject cfg = contentItem.config;
+
+        if (cfg != null)
+        {
+            attrs.AddRange(cfg.Properties().Select(p => p.Name + "=\"" + p.Value + "\""));
+        }
+
+        JObject style = contentItem.styles;
+        if (style != null)
+        {
+            var cssVals = style.Properties().Select(p => p.Name + ":" + p.Value + ";").ToList();
+            if (cssVals.Any())
+                attrs.Add("style=\"" + string.Join(" ", cssVals) + "\"");
+        }
+
+        return new MvcHtmlString(string.Join(" ", attrs));
+    }
+
+    public static string EditorPath(dynamic control)
+    {
+        var render = control.editor.render.ToString();
+        var view = control.editor.view.ToString();
+
+        var chosen = string.IsNullOrEmpty(render) ? view : render;
+        var path = chosen.ToString().ToLower().Replace(".html", ".cshtml");
+        return path.Contains("/") ? path : "grid/editors/" + path;
+    }
+
+    public static IDictionary<string, object> ParseUmbracoValues(dynamic control)
+    {
+        return ParseControl(control, "value");
+    }
+
+    public static IDictionary<string, object> ParseParams(dynamic control)
+    {
+        return ParseControl(control, "params");
+    }
+
+    private static IDictionary<string, object> ParseControl(dynamic control, string key)
+    {
+        var result = ((Newtonsoft.Json.Linq.JToken) control)[key].ToObject<Dictionary<string, object>>();
+        return result == null
+            ? new Dictionary<string, object>()
+            : result;
+    }
+}

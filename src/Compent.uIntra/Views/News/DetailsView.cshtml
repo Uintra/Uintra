@@ -2,31 +2,29 @@
 @using uIntra.Core.Extensions
 @model Compent.uIntra.Core.News.Models.NewsExtendedViewModel
 <section class="content">
-    <div class="row clearfix">
-        <header class="feed__header clearfix">
-            @if (Model.CanEdit)
-            {
-                <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
-            }
-            <a class="link__back" href="@Model.Links.Overview">@Html.Localize("DetailsView.GoToList.lbl")</a>
-        </header>
+    <header class="feed__header clearfix">
+        @if (Model.CanEdit)
+        {
+            <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
+        }
+        <a class="link__back" href="/">@Html.Localize("DetailsView.GoToList.lbl")</a>
+    </header>
 
-        <div class="feed__item _details">
-            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-            <div class="feed__item-txt">
-                @Html.Raw(Model.Description)
+    <div class="feed__item _details">
+        @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        <div class="feed__item-txt">
+            @Html.Raw(Model.Description)
+        </div>
+        <div class="feed__item-feed">
+            <div class="feed__item-feed-holder">
+                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             </div>
-            <div class="feed__item-images">
-                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
-            </div>
-            <div class="feed__item-feed">
-                <div class="feed__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                </div>
-            </div>
-            <div class="comments">
-                @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
-            </div>
+        </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+        </div>
+        <div class="comments">
+            @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
         </div>
     </div>
 </section>

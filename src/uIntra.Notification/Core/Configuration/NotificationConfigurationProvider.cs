@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Configuration;
-using uIntra.Core.Extensions;
 using uIntra.Notification.Exceptions;
 
 namespace uIntra.Notification.Configuration
@@ -29,7 +29,7 @@ namespace uIntra.Notification.Configuration
         {
             var configuration = GetSettings();
             var notifierTypes = configuration.NotificationTypeConfigurations.SelectMany(nc => nc.NotifierTypes)
-                                    .Concat(configuration.DefaultNotifier.ToEnumerableOfOne()).Distinct();
+                                    .Concat(configuration.DefaultNotifier.ToEnumerable()).Distinct();
 
             foreach (var @notifierType in notifierTypes)
             {

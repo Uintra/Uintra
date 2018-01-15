@@ -82,6 +82,9 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BCLExtensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCLExtensions.0.2.8.5\lib\net452\BCLExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
@@ -323,21 +326,37 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Configuration\BackofficeSettings\Providers\IBackofficeNotificationSettingsProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingCategoryProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\INotificationSettingsTreeProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingCategoryProvider.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsCategoryDto.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Providers\NotificationSettingsTreeProvider.cs" />
+    <Compile Include="Core\Configuration\NotificationConfiguration.cs" />
     <Compile Include="Core\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\Providers\IBackofficeNotificationSettingsProvider.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
+    <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
+    <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
+    <Compile Include="Core\Configuration\NotifierConfiguration.cs" />
+    <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
+    <Compile Include="Core\Configuration\ReminderConfiguration.cs" />
+    <Compile Include="Core\Configuration\ReminderTypeConfiguration.cs" />
+    <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
+    <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
     <Compile Include="Core\Entities\Base\IReminderable.cs" />
+    <Compile Include="Core\Entities\Base\Mails\MailAttachmentFile.cs" />
+    <Compile Include="Core\Entities\Base\Mails\MailBase.cs" />
+    <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
+    <Compile Include="Core\Entities\Base\NotifierData.cs" />
     <Compile Include="Core\Entities\CommentNotifierDataModel.cs" />
     <Compile Include="Core\Entities\LikesNotifierDataModel.cs" />
     <Compile Include="Core\Exceptions\MissingNotificationException.cs" />
@@ -347,15 +366,15 @@
     <Compile Include="Core\Exceptions\ReminderIsAlreadyDeliveredException.cs" />
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\INotifierTypeProvider.cs" />
+    <Compile Include="Core\Jobs\MontlyMailJob.cs" />
+    <Compile Include="Core\Jobs\ReminderJob.cs" />
+    <Compile Include="Core\Jobs\SendEmailJob.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
     <Compile Include="Core\Models\ActivityEventIdentityExtensions.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
     <Compile Include="Core\Models\Configuration\NotificationSettingDefaults.cs" />
-    <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
-    <Compile Include="Core\Models\NotificationValue.cs" />
-    <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
-    <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingModel.cs" />
+    <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingsModel.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
@@ -367,54 +386,42 @@
     <Compile Include="Core\Models\MailModels\EventMailBase.cs" />
     <Compile Include="Core\Models\MailModels\EventUpdatedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\IdeaMailBase.cs" />
-    <Compile Include="Core\Entities\Base\Mails\MailAttachmentFile.cs" />
-    <Compile Include="Core\Entities\Base\Mails\MailBase.cs" />
-    <Compile Include="Core\Entities\Base\Mails\MailRecipient.cs" />
     <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
     <Compile Include="Core\Models\NotificationMessage.cs" />
+    <Compile Include="Core\Models\NotificationValue.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\UiNotifierTemplate.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationPreviewViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationViewModel.cs" />
-    <Compile Include="Core\Configuration\NotificationConfiguration.cs" />
-    <Compile Include="Core\Configuration\NotificationTypeConfiguration.cs" />
-    <Compile Include="Core\Configuration\NotificationTypeEnum.cs" />
-    <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
-    <Compile Include="Core\Models\NotifierTemplates\UiNotifierTemplate.cs" />
     <Compile Include="Core\Models\ViewModels\NotifierViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
+    <Compile Include="Core\NotifierTypeProvider.cs" />
+    <Compile Include="Core\Services\IMailService.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
     <Compile Include="Core\Services\IMonthlyEmailService.cs" />
     <Compile Include="Core\Services\INotificationContentProvider.cs" />
     <Compile Include="Core\Services\INotificationModelBuilder.cs" />
     <Compile Include="Core\Services\INotificationSettingsService.cs" />
     <Compile Include="Core\Services\INotificationsService.cs" />
-    <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
     <Compile Include="Core\Services\INotifierService.cs" />
     <Compile Include="Core\Services\INotifyableService.cs" />
     <Compile Include="Core\Services\IReminderableService.cs" />
     <Compile Include="Core\Services\IReminderJob.cs" />
     <Compile Include="Core\Services\IReminderService.cs" />
     <Compile Include="Core\Services\IUiNotifierService.cs" />
-    <Compile Include="Core\Configuration\NotifierConfiguration.cs" />
-    <Compile Include="Core\Configuration\ReminderConfiguration.cs" />
-    <Compile Include="Core\Configuration\ReminderTypeConfiguration.cs" />
-    <Compile Include="Core\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Sql\MemberNotifierSettingDataModel.cs" />
+    <Compile Include="Core\Sql\Notification.cs" />
     <Compile Include="Core\Sql\NotificationSetting.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
-    <Compile Include="Core\Services\IMailService.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
     <Compile Include="DefaultImplementation\NotificationSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
-    <Compile Include="Core\Entities\Base\NotifierData.cs" />
-    <Compile Include="Core\Configuration\NotifierTypeEnum.cs" />
-    <Compile Include="Core\NotifierTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
-    <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
-    <Compile Include="Core\Sql\Notification.cs" />
     <Compile Include="DefaultImplementation\UiNotificationsService.cs" />
     <Compile Include="Installer\NotificationInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
@@ -424,7 +431,6 @@
     <Compile Include="Web\NotificationJobControllerBase.cs" />
     <Compile Include="Web\NotificationSettingsController.cs" />
     <Compile Include="Web\NotificationSettingsTreeController.cs" />
-    <Compile Include="Core\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -460,6 +466,9 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
+    <Content Include="Web.config.install.xdt">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\App_Plugins\NotificationSettings\**\*">

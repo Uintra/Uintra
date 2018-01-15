@@ -10,7 +10,7 @@
         </ul>
     </li>
     <li class="side-nav__item">
-        <div class="form__btn-holder">
+        <div class="btn-holder">
             <a class="btn _add js-myLinks-add-btn @(Model.CurrentMyLinkId.HasValue ? "_disabled" : string.Empty)" data-url="@Url.Action("Add", "MyLinks")" data-mylink-id="@Model.CurrentMyLinkId" data-content-id="@Model.ContentId">@Html.Localize("MyLinks.Add.lbl")</a>
         </div>
     </li>

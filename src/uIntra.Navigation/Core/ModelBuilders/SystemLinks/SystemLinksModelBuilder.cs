@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using Newtonsoft.Json;
-using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -17,8 +17,12 @@ namespace uIntra.Navigation.SystemLinks
             _systemLinksService = systemLinksService;
         }
 
-        public IEnumerable<SystemLinksModel> Get(string contentXPath, string titleNodePropertyAlias,
-            string linksNodePropertyAlias, string sortOrderNodePropertyAlias, Func<SystemLinksModel, int> sort)
+        public IEnumerable<SystemLinksModel> Get(
+            string contentXPath,
+            string titleNodePropertyAlias,
+            string linksNodePropertyAlias,
+            string sortOrderNodePropertyAlias,
+            Func<SystemLinksModel, int> sort)
         {
             var result = Enumerable.Empty<SystemLinksModel>();
 
@@ -27,12 +31,8 @@ namespace uIntra.Navigation.SystemLinks
                 return result;
             }
 
-            result =
-                _systemLinksService.GetMany(contentXPath)
-                    .Select(
-                        x =>
-                            ParseToSystemLinksModel(titleNodePropertyAlias, linksNodePropertyAlias,
-                                sortOrderNodePropertyAlias, x))
+            result = _systemLinksService.GetMany(contentXPath)
+                    .Select(x => ParseToSystemLinksModel(titleNodePropertyAlias, linksNodePropertyAlias, sortOrderNodePropertyAlias, x))
                     .OrderBy(sort);
 
             return result;
@@ -54,6 +54,7 @@ namespace uIntra.Navigation.SystemLinks
 
         private List<SystemLinkItemModel> ParseToSystemLinkItems(string json)
         {
+            
             var result = new List<SystemLinkItemModel>();
 
             try

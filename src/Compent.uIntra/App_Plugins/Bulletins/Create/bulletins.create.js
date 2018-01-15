@@ -22,6 +22,7 @@ let expandBulletinBtn;
 let closeBulletinBtn;
 let wrapper;
 let emojiContainer;
+let dimmedBg;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -39,6 +40,7 @@ function initElements() {
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
     emojiContainer = document.querySelector(".js-emoji");
+    dimmedBg = holder.querySelector(".js-create-bulletin__dimmed-bg");
 }
 
 function initEditor() {
@@ -53,9 +55,6 @@ function initEditor() {
     });
 
     var toolbar = editor.getModule('toolbar');
-    toolbar.addHandler('emoji', function() {
-        console.log('emoji');
-    });
 
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
@@ -73,6 +72,9 @@ function initEventListeners() {
     closeBulletinBtn.addEventListener("click", function(ev){
         closeBulletin(ev);
     });
+    dimmedBg.addEventListener("click", function (ev) {
+        closeBulletin(ev);
+    })
     body.addEventListener("click", function (ev) {
         if (bulletin.classList.contains("_expanded")) {
             isOutsideClick(bulletin, ev.target, function () {
@@ -80,6 +82,12 @@ function initEventListeners() {
             });
         }
     });
+
+    if(!mobileMediaQuery.matches) {
+        window.addEventListener("scroll", function (ev) {
+            closeBulletin(ev);
+        });
+    }
 }
 
 function initFileUploader() {

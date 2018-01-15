@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace uIntra.Core.Extensions
 {
     public static class ObjectExtensions
     {
-        public static bool In<T>(this T value, params T[] items)
-        {
-            if (items == null || (object)value == null)
-                return false;
-            return ((IEnumerable<T>) items).Contains<T>(value);
-        }
 
         public static int? TryCastToInt(this object value) => 
             value is int converted ? converted : default;

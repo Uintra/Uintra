@@ -1,3 +1,4 @@
+using System;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
@@ -6,8 +7,8 @@ namespace uIntra.Core.Activity
     {
         IIntranetType ActivityType { get; }
         string GetOverviewPageUrl();
-        string GetDetailsPageUrl();
+        string GetDetailsPageUrl(Guid? activityId = null);
         string GetCreatePageUrl();
-        string GetEditPageUrl();
+        string GetEditPageUrl(Guid activityId);
     }
 }

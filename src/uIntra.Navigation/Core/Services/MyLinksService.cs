@@ -54,7 +54,7 @@ namespace uIntra.Navigation
 
         public void Delete(Guid id)
         {
-            _myLinksRepository.DeleteById(id);
+            _myLinksRepository.Delete(id);
         }
 
         public void DeleteByActivityId(Guid activityId)

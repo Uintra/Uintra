@@ -1,38 +1,86 @@
 ﻿@using System.Web.Mvc.Html
+@using Extensions
 @using uIntra.Core.Extensions
 @model Compent.uIntra.Core.Events.EventExtendedViewModel
 
 <section class="content">
-    <div class="row clearfix">
-        <div class="feed__btns clearfix">
-            <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
-            @if (Model.CanEdit)
-            {
-                <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
-            }
-            <a class="link__back" href="@Model.Links.Overview">@Html.Localize("DetailsView.GoToList.lbl")</a>
-        </div>
-        <div class="feed__item _details">
-            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
-            <div class="feed__item-txt">
-                @Html.Raw(Model.Description)
-            </div>
-            <div class="feed__item-images">
-                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
-            </div>
-            <div class="feed__item-feed">
-                <div class="feed__item-feed-holder">
-                    @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-                </div>
-                @if (!Model.IsReadOnly && Model.CanSubscribe)
+    <div class="feed__btns clearfix">
+        <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+        @if (Model.CanEdit)
+        {
+            <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
+        }
+        <a class="link__back" href="/">@Html.Localize("DetailsView.GoToList.lbl")</a>
+    </div>
+    <div class="feed__item _details">
+        @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        <div class="event-details">
+            <time class="date date--event-details" datetime="@Model.StartDate"><span class="date__day">@Model.StartDate.ToString("dd")</span> @Model.StartDate.ToString("MMM")</time>
+            <div class="event-details__text">
+                @if (Model.StartDate.DayOfYear == Model.EndDate.DayOfYear)
                 {
-                    Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
-                    Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });
+                    <div class="event-details__date">
+                        @Model.StartDate.ToEventDetailsDateFormat()<br />
+                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                    </div>
+                }
+                else
+                {
+                    <div class="event-details__date">
+                        <div class="event-details__day">
+                            @Model.StartDate.ToEventDetailsDateFormat()<br />
+                            @Model.StartDate.ToEventDetailsTimeFormat().ToLower()
+                        </div>
+                        <div class="event-details__day">
+                            @Model.EndDate.ToEventDetailsDateFormat()<br />
+                            @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                        </div>
+                    </div>
+                }
+                @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
+                {
+                    <p>
+                        @if (Model.LocationTitle.HasValue())
+                        {
+                            @Model.LocationTitle <br />
+                        }
+                        @if (Model.LocationAddress.HasValue())
+                        {
+                            @Model.LocationAddress
+                        }
+                    </p>
                 }
             </div>
-            <div class="comments">
-                @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+
+            @if (!Model.IsReadOnly && Model.CanSubscribe)
+            {
+                <div class="event-details__subscribe">
+                    @if (Model.SubscribeNotes.HasValue())
+                    {
+                        <p>@Html.Raw(Model.SubscribeNotes)</p>
+                    }
+
+                    @{Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });}
+                </div>
+            }
+
+        </div>
+        <div class="feed__item-txt">
+            @Html.Raw(Model.Description)
+        </div>
+        <div class="feed__item-feed">
+            <div class="feed__item-feed-holder">
+                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             </div>
+        </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+        </div>
+        <div>
+            @{ Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });}
+        </div>
+        <div class="comments">
+            @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
         </div>
     </div>
 </section>

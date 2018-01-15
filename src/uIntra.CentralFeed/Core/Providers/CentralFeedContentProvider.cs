@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core;
-using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -22,7 +22,7 @@ namespace uIntra.CentralFeed.Providers
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activityTypeProvider = activityTypeProvider;
 
-            OverviewXPath = documentTypeAliasProvider.GetHomePage().ToEnumerableOfOne();
+            OverviewXPath = documentTypeAliasProvider.GetHomePage().ToEnumerable();
         }
 
         public override IEnumerable<IPublishedContent> GetRelatedPages()

@@ -4,7 +4,7 @@
     var inactiveUser = Model.Owner.Inactive ? "_inactive" : String.Empty;
 }
 
-<header class="feed__item-heading clearfix @inactiveUser">
+<header class="feed__item-heading @inactiveUser">
     @Html.Action("Photo", "User", new { user = Model.Owner })
     <div class="feed__item-title-holder">
         <h2 class="feed__item-title"><a class="feed__item-title-link" href="@Model.Links.Details">@Model.Title</a></h2>
@@ -30,7 +30,7 @@
                     <span>@Model.GroupInfo.Value.Title</span>                    
                     <span class="feed__item-group">
                         <img src="~/Content/images/group.svg">
-                        <em class="feed__item-tooltip">@Html.Localize("IdeasList.HasGroup.lbl")</em>
+                        <em class="feed__item-tooltip">@Html.Localize("GroupActivity.lbl")</em>
                     </span>
                 </a>
             }

@@ -3,23 +3,21 @@
 @model uIntra.Bulletins.BulletinViewModel
 
 <section class="content">
-    <div class="row clearfix">
-        <div class="feed__btns clearfix">
-            <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
-            @if (Model.CanEdit)
-            {
-                <a class="btn pull-right _edit-bulletin" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
-            }
-            <a class="link__back" href="@Model.Links.Overview">@Html.Localize("DetailsView.GoToList.lbl")</a>
+    <div class="feed__btns clearfix">
+        <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+        @if (Model.CanEdit)
+        {
+            <a class="btn pull-right _edit-bulletin" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
+        }
+        <a class="link__back" href="/">@Html.Localize("DetailsView.GoToList.lbl")</a>
+    </div>
+    <div class="feed__item _details">
+        @{ Html.RenderAction("DetailsHeader", "Activity", Model.HeaderInfo); }
+        <div class="feed__item-txt">
+            @Html.Raw(Model.Description)
         </div>
-        <div class="feed__item _details">
-            @{ Html.RenderAction("DetailsHeader", "Activity", Model.HeaderInfo); }
-            <div class="feed__item-txt">
-                @Html.Raw(Model.Description)
-            </div>
-            <div class="feed__item-images">
-                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
-            </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new {mediaIds = Model.Media}); }
         </div>
     </div>
 </section>

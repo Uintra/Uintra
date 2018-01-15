@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using Extensions;
 using uIntra.Core.Constants;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
@@ -87,7 +88,7 @@ namespace uIntra.Core.Extensions
         public static string UrlWithQueryString(this IPublishedContent content, string key, object value)
         {
             var result = content.Url;
-            if (key.IsNotNullOrEmpty() && value != null)
+            if (key.HasValue() && value != null)
             {
                 var keyValue = $"{key}={value}";
                 result = $"{result.TrimEnd('/')}?{keyValue}";
@@ -99,7 +100,7 @@ namespace uIntra.Core.Extensions
         public static string UrlWithQueryString(this string url, string key, object value)
         {
             var result = url;
-            if (key.IsNotNullOrEmpty() && value != null)
+            if (key.HasValue() && value != null)
             {
                 var keyValue = $"{key}={value}";
                 result = $"{result.TrimEnd('/')}?{keyValue}";

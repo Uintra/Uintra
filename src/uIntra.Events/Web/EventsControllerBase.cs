@@ -176,7 +176,7 @@ namespace uIntra.Events.Web
             {
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
-                CanSubscribe = true,
+                PublishDate = DateTime.UtcNow,
                 OwnerId = _intranetUserService.GetCurrentUserId(),
                 ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,
@@ -219,8 +219,6 @@ namespace uIntra.Events.Web
             model.MediaRootId = mediaSettings.MediaRootId;
             FillMediaSettingsData(mediaSettings);
 
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-
             model.Links = links;
             return model;
         }
@@ -235,12 +233,11 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventViewModel>();
 
             model.CanEdit = _eventsService.CanEdit(@event);
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.CanSubscribe = _eventsService.CanSubscribe(@event.Id);
             model.Links = options.Links;
             model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = new[] { @event.StartDate.ToDateTimeFormat(), @event.EndDate.ToDateTimeFormat() };
             model.HeaderInfo.Owner = _intranetUserService.Get(@event);
             model.HeaderInfo.Links = options.Links;
 
@@ -252,7 +249,7 @@ namespace uIntra.Events.Web
             var model = @event.Map<EventItemViewModel>();
 
             model.MediaIds = @event.MediaIds;
-            model.CanSubscribe = _eventsService.CanSubscribe(@event);
+            model.CanSubscribe = _eventsService.CanSubscribe(@event.Id);
             model.LightboxGalleryPreviewInfo = GetGalleryPreviewInfo(@event);
             model.Links = links;
 
@@ -295,11 +292,6 @@ namespace uIntra.Events.Web
             @event.StartDate = editModel.StartDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
-
-            if (_eventsService.CanEditSubscribe(@event.Id))
-            {
-                @event.CanSubscribe = editModel.CanSubscribe;
-            }
 
             return @event;
         }

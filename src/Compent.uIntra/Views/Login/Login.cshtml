@@ -9,7 +9,6 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/build/head_css.js"></script>
     <link type="text/css" href="/build/app.css" rel="stylesheet" />
     <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
 </head>
@@ -19,7 +18,7 @@
     <div class="login">
         <div class="form">
             <div class="form__row">
-                <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" /></strong>
+                <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" width="130" /></strong>
             </div>
             <div class="form__row">
                 @Html.TextBoxFor(m => Model.Login, new { data_val_required = Html.Localize("Login.Login.Required"),
@@ -30,7 +29,7 @@
                     @class = "form__input", placeholder = Html.Localize("Login.Password.ph"), value = Model.Password })
             </div>
             <div class="form__row">
-                <input class="form__btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
+                <input class="btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
             </div>
             <div class="form__row">
                 @Html.ValidationSummary()

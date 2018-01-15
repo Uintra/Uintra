@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Extensions;
+using Extensions;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Tagging
@@ -48,12 +48,13 @@ namespace uIntra.Tagging
         public void SaveRelations(Guid activityId, IEnumerable<TagDTO> tags)
         {
             _tagActivityRelationRepository.Delete(el => el.ActivityId == activityId);
-            if (tags.IsEmpty())
+            var tagsList = tags.AsList();
+            if (tagsList.IsEmpty())
             {
                 return;
             }
 
-            var newTags = tags.Where(tag => tag.Id == null).ToList();
+            var newTags = tagsList.Where(tag => tag.Id == null).ToList();
             var newTagTexts = newTags.Select(t => t.Text).ToList();
             var existedTags = _tagRepository.FindAll(el => newTagTexts.Contains(el.Text)).ToList();
 
@@ -75,7 +76,7 @@ namespace uIntra.Tagging
 
             _tagRepository.Add(newTagsWithoutIds);
 
-            var activityTagIds = tags
+            var activityTagIds = tagsList
                 .Where(tag => tag.Id.HasValue)
                 .Select(tag => tag.Id.Value)
                 .Concat(newTagsWithoutIds.Select(el => el.Id))

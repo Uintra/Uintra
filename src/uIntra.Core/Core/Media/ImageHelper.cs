@@ -108,7 +108,6 @@ namespace uIntra.Core.Media
             }
         }
 
-
         private MemoryStream ToStream(Image image, ImageFormat format)
         {
             var stream = new MemoryStream();
@@ -117,9 +116,9 @@ namespace uIntra.Core.Media
             return stream;
         }
 
-        public string ToThumbnailImage(string source)
+        public string GetImageWithPreset(string source, string preset)
         {
-            return GetImagePath(source, "thumbnail");
+            return GetImagePath(source, preset);
         }
 
         private string GetImagePath(string source, string imageGenClass)
@@ -131,7 +130,6 @@ namespace uIntra.Core.Media
         {
             return $"{source}?{paramName}={value}";
         }
-
     }
 }
 

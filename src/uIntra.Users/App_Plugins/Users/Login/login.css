@@ -1,0 +1,59 @@
+﻿.login{
+    background:#f6f6f6;
+    display:flex;
+    width:100%;
+    height:100%;
+    align-items:center;
+
+    .form{
+        max-width:460px;
+        margin:0 auto;
+        padding:43px 101px 21px 95px;
+        width:100%;
+        background:var(--color-white);
+        box-shadow:0 0 3px rgba(0,0,0,0.2);
+
+        @media (--for-phone-only) {
+            &{
+                max-width:100%;
+                padding:49px 20px 24px;
+                margin:0 20px;
+            }
+        }
+
+        &__logo{
+            display:block;
+            text-align:center;
+            margin:0 0 39px;
+        }
+
+        &__row{
+            margin:0 0 20px;
+
+            &._bottom{
+                padding:21px 20px 0;
+                margin:0 -95px 19px;
+                text-align:center;
+
+                @media (--for-phone-only) {
+                    &{
+                        margin:0 -20px 19px;
+                    }
+                }
+            }
+        }
+
+        &__input{
+            padding-bottom:9px;
+        }
+
+        &__link{
+            color:var(--color-contrast);
+            font-size:13px;
+            margin:6px 0 0;
+            display:inline-block;
+            vertical-align:top;
+            cursor:pointer;
+        }
+    }
+}

@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using Extensions;
 
 namespace uIntra.Core.Extensions
 {
     public static class StringExtensions
     {
         public const string GroupIdQueryParam = "groupId";
-
-        public static bool IsNullOrEmpty(this string str)
-        {
-            return string.IsNullOrEmpty(str);
-        }
 
         public static string Take(this string str, int n)
         {
@@ -26,14 +22,9 @@ namespace uIntra.Core.Extensions
             return str.Substring(str.IndexOf(substring) + substring.Length);
         }
 
-        public static bool IsNotNullOrEmpty(this string str)
-        {
-            return !str.IsNullOrEmpty();
-        }
-
         public static IEnumerable<int> ToIntCollection(this string str)
         {
-            return str.IsNullOrEmpty() ? Enumerable.Empty<int>() : str.Split(',').Where(s => s.IsNotNullOrEmpty()).Select(int.Parse);
+            return str.IsNullOrEmpty() ? Enumerable.Empty<int>() : str.Split(',').Where(s => s.HasValue()).Select(int.Parse);
         }
 
         public static string GetMedia(this string str, int count)
@@ -105,8 +96,7 @@ namespace uIntra.Core.Extensions
 
         public static int? ToNullableInt(this string str)
         {
-            int result;
-            return int.TryParse(str, out result) ? result : new int?();
+            return int.TryParse(str, out var result) ? result : new int?();
         }
 
         public static string AddGroupId(this string url, Guid groupId)
@@ -145,5 +135,8 @@ namespace uIntra.Core.Extensions
 
         public static string SplitOnUpperCaseLetters(this string str) =>
              str.IsNullOrEmpty() ? string.Empty : Regex.Split(str, @"(?<!^)(?=[A-Z])").JoinWithSeparator(" ");
+
+        public static string ReplaceLineBreaksForHtml(this string src)
+            => src.IsNullOrEmpty() ? string.Empty : src.Replace("\r\n", "<br />").Replace("\n", "<br />").Replace("\r", "<br />");
     }
 }

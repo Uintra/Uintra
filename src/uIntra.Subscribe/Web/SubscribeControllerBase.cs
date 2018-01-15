@@ -14,6 +14,7 @@ namespace uIntra.Subscribe.Web
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersOverView.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribersList.cshtml";
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Subscribe/View/SubscribeView.cshtml";
+        protected virtual string ActivitySubscribeSettingsViewPath { get; } = "~/App_Plugins/Subscribe/View/ActivitySubscribeSettingsView.cshtml";
 
         private readonly ISubscribeService _subscribeService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -51,6 +52,11 @@ namespace uIntra.Subscribe.Web
                 : Enumerable.Empty<string>();
 
             return PartialView(ListViewPath, subscribersNames);
+        }
+
+        public virtual ActionResult ActivitySubscribeSettings(ActivitySubscribeSettingsModel model)
+        {
+            return PartialView(ActivitySubscribeSettingsViewPath, model);
         }
 
         [HttpPost]

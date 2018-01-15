@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
@@ -18,9 +19,9 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IActivityLinkService _linkService;
-        private readonly ImageHelper _imageHelper;
+        private readonly IImageHelper _imageHelper;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, ImageHelper imageHelper)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, IImageHelper imageHelper)
         {
             _umbracoHelper = umbracoHelper;
             _linkService = linkService;
@@ -60,38 +61,39 @@ namespace uIntra.Core.Controls.LightboxGallery
 
             var ids = mediaIds.ToIntCollection();
             var medias = _umbracoHelper.TypedMedia(ids).ToList();
-            result.GalleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type.Id);
+            result.GalleryItems = medias.Select(m => MapToMedia(m, medias.Count)).OrderBy(s => s.Type.Id);
 
             return result;
         }
 
-        protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
+        protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media, int totalMediasCount)
         {
-            var result = new LightboxGalleryItemViewModel()
+            var result = new LightboxGalleryItemViewModel
             {
                 Id = media.Id,
                 Url = media.Url,
                 Name = media.GetFileName(),
                 Extension = media.GetMediaExtension(),
-                Type = media.GetMediaType(),
+                Type = media.GetMediaType()
             };
 
             if (result.Type.Id == MediaTypeEnum.Image.ToInt())
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
-                result.PreviewUrl = _imageHelper.ToThumbnailImage(media.Url);
+                result.PreviewUrl = totalMediasCount == 1 ?
+                    _imageHelper.GetImageWithPreset(media.Url, UmbracoAliases.ImagePresets.Preview) :
+                    _imageHelper.GetImageWithPreset(media.Url, UmbracoAliases.ImagePresets.Thumbnail);
             }
+
             return result;
         }
-
-
-
 
         protected virtual LightboxGalleryPreviewViewModel GetGalleryPreviewModel(LightboxGalleryPreviewModel model, IEnumerable<IPublishedContent> medias)
         {
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
-            var galleryViewModelList = medias.Select(MapToMedia).ToList();
+            var mediasList = medias.AsList();
+            var galleryViewModelList = mediasList.Select(m => MapToMedia(m, mediasList.Count)).ToList();
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
