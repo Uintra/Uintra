@@ -55,9 +55,6 @@ function initEditor() {
     });
 
     var toolbar = editor.getModule('toolbar');
-    toolbar.addHandler('emoji', function() {
-        console.log('emoji');
-    });
 
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
@@ -86,9 +83,11 @@ function initEventListeners() {
         }
     });
 
-    window.addEventListener("scroll", function (ev) {
-        closeBulletin(ev);
-    });
+    if(!mobileMediaQuery.matches) {
+        window.addEventListener("scroll", function (ev) {
+            closeBulletin(ev);
+        });
+    }
 }
 
 function initFileUploader() {
