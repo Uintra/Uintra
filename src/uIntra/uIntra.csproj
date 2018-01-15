@@ -481,6 +481,15 @@
     <Content Include="..\Compent.uIntra\Content\vendors.js">
       <Link>Content\vendors.js</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\favicon-16x16.png">
+      <Link>favicon-16x16.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\favicon-32x32.png">
+      <Link>favicon-32x32.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\favicon.ico">
+      <Link>favicon.ico</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\licence.html">
       <Link>licence.html</Link>
     </Content>
