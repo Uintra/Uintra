@@ -22,10 +22,14 @@
             {
                 var section = grid.sections[i];
                 sectionOffsetNumber -= int.Parse(section.grid.ToString());
-                var renderOffset = grid.sections.Count > 1 && i == grid.sections.Count - 1;
-                if (section.rows.Count > 0)
+                var isRenderOffsetRequared = grid.sections.Count > 1 && i == grid.sections.Count - 1;
+
+                if (isRenderOffsetRequared && IsEmptySection(section))
                 {
-                    <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "")">
+                    continue;
+                }
+
+                    <div class="col-md-@(section.grid) @(isRenderOffsetRequared ? "sidebar" : "")">
                         @foreach (var row in section.rows)
                         {
 
@@ -48,11 +52,12 @@
                             </div>
                         }
                     </div>
-                }
             }
-        }
+            }
     </div>
-}
+ }
+
+
 
 @helper RenderControl(string partialViewName, dynamic control)
     {
@@ -94,6 +99,12 @@
 }
 
 @functions {
+    public static bool IsEmptySection(dynamic section)
+    {
+        return section.rows[0].areas[0].controls.Count == 0;
+    }
+
+
     public static MvcHtmlString RenderElementAttributes(dynamic contentItem)
     {
         var attrs = new List<string>();
