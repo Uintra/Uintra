@@ -80,8 +80,8 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BCLExtensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BCLExtensions.0.2.8.5\lib\net452\BCLExtensions.dll</HintPath>
+    <Reference Include="BCLExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BCLExtensions.1.2.0\lib\netstandard1.0\BCLExtensions.dll</HintPath>
     </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
@@ -97,6 +97,9 @@
     </Reference>
     <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
