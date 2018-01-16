@@ -19,10 +19,8 @@ namespace uIntra.Core.Attributes
                 activityId = obj as Guid?;
             }
 
-            if (!activityId.HasValue) return;
-
             var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
-            var activity = activityServices.Select(service => service.Get(activityId.Value)).FirstOrDefault(a => a != null);
+            var activity = activityServices.Select(service => service.Get(activityId.GetValueOrDefault())).FirstOrDefault(a => a != null);
 
             if (activity == null || activity.IsHidden)
             {
