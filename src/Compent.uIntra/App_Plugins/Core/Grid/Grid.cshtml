@@ -23,29 +23,32 @@
                 var section = grid.sections[i];
                 sectionOffsetNumber -= int.Parse(section.grid.ToString());
                 var renderOffset = grid.sections.Count > 1 && i == grid.sections.Count - 1;
+                if (section.rows.Count > 0)
+                {
+                    <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "")">
+                        @foreach (var row in section.rows)
+                        {
 
-                <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "" )">
-                    @foreach (var row in section.rows)
-                    {
-                        <div class="row">
-                            @foreach (var area in row.areas)
-                            {
-                                <div class="col-md-@area.grid">
-                                    <div @RenderElementAttributes(area)>
-                                        @foreach (var control in area.controls)
-                                        {
-                                            if (control != null && control.editor != null && control.editor.view != null)
+                            <div class="row">
+                                @foreach (var area in row.areas)
+                                {
+                                    <div class="col-md-@area.grid">
+                                        <div @RenderElementAttributes(area)>
+                                            @foreach (var control in area.controls)
                                             {
-                                                string editor = EditorPath(control);
-                                                @RenderControl(editor, control)
+                                                if (control != null && control.editor != null && control.editor.view != null)
+                                                {
+                                                    string editor = EditorPath(control);
+                                                    @RenderControl(editor, control)
+                                                }
                                             }
-                                        }
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
             }
         }
     </div>
