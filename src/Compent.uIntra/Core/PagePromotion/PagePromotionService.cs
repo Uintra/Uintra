@@ -121,7 +121,11 @@ namespace Compent.uIntra.Core.PagePromotion
             var activity = base.UpdateCachedEntity(id);
             if (IsPagePromotionHidden(activity))
             {
-                _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
+                if (cachedEntity != null)
+                {
+                    _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
+                }
+
                 return null;
             }
 
