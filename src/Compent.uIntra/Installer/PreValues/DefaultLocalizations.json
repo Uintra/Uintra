@@ -785,6 +785,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Likes.Title.lbl",
+    "translations": {
+      "en-US": "Likes"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "MyLinks.Add.lbl",
     "translations": {
       "en-US": "Add to My Links"
@@ -983,6 +990,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Notifications.Pinned.lbl",
+    "translations": {
+      "en-US": "Important"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "NotificationPreview.ShowAllNotifications.lbl",
     "translations": {
       "en-US": "See all notifications"
@@ -1032,9 +1046,23 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Profile.FirstName.lbl",
+    "translations": {
+      "en-US": "First Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Profile.FirstName.Placeholder",
     "translations": {
       "en-US": "Enter your First name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.LastName.lbl",
+    "translations": {
+      "en-US": "Last Name"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1436,7 +1464,7 @@
   {
     "key": "GroupRoom.Label",
     "translations": {
-      "en-US": "Label"
+      "en-US": "Group Room"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
