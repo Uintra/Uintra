@@ -291,6 +291,7 @@ namespace uIntra.Events.Web
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             @event.StartDate = editModel.StartDate.ToUniversalTime();
+            @event.PublishDate = editModel.PublishDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 
