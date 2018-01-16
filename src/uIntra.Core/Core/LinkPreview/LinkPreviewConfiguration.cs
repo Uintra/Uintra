@@ -1,10 +1,12 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using Compent.LinkPreview.Client;
 
 namespace uIntra.Core.LinkPreview
 {
     public class LinkPreviewConfiguration : ILinkPreviewConfiguration
     {
         private const string ConfigKey = "linkPreviewServiceUri";
-        public string LinkPreviewServiceUrl => ConfigurationManager.AppSettings[ConfigKey];
+        public Uri ServiceUri => new Uri(ConfigurationManager.AppSettings[ConfigKey]);
     }
 }

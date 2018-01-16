@@ -1,5 +1,6 @@
-﻿using System.Web.Http;
-using uIntra.Core.LinkPreview;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
+using Compent.LinkPreview.Client;
 using Umbraco.Web.WebApi;
 
 namespace uIntra.Core.Web
@@ -14,9 +15,9 @@ namespace uIntra.Core.Web
         }
 
         [HttpGet, AllowAnonymous]
-        public LinkPreview.LinkPreview Preview(string url)
+        public async Task<Compent.LinkPreview.Client.LinkPreview> Preview(string url)
         {
-            return _linkPreviewService.GetLinkPreview(url);
+            return await _linkPreviewService.GetLinkPreview(url);
         }
     }
 }

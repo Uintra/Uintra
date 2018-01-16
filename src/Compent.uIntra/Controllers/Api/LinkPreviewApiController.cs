@@ -1,4 +1,5 @@
-﻿using uIntra.Core.LinkPreview;
+﻿using Compent.LinkPreview.Client;
+using uIntra.Core.LinkPreview;
 using uIntra.Core.Web;
 
 namespace Compent.uIntra.Controllers.Api

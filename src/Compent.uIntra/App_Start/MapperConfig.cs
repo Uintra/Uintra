@@ -46,7 +46,6 @@ namespace Compent.uIntra
             Mapper.AddProfile<PagePromotionAutoMapperProfile>();
             Mapper.AddProfile<Core.PagePromotion.PagePromotionAutoMapperProfile>();
             Mapper.AddProfile<JobAutoMapperProfile>();
-            Mapper.AddProfile<LinkPreviewAutomapperProfile>();
             Mapper.AddProfile<SubscribeAutoMapperProfiles>();
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
 

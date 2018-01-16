@@ -79,6 +79,15 @@
     <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.0\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Core.1.0.0\lib\net452\Compent.LinkPreview.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Utils.1.0.0\lib\net452\Compent.LinkPreview.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
     </Reference>
@@ -231,8 +240,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
