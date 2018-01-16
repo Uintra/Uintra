@@ -327,53 +327,53 @@
     <Reference Include="uIntra.BaseControls, Version=2.4.2.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.9\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.3.1\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.3.2\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.3.3\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.3.4\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.10\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Comments.1.1.11\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.8\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.4.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.4.9\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.3\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.2.1\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="uIntra.Groups, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.2.2\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.8\lib\net452\uIntra.Likes.dll</HintPath>
+    <Reference Include="uIntra.Likes, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Likes.1.1.9\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.9\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.10\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.3.1\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.News.1.3.2\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Notification, Version=1.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Notification.1.3.6\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.11\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.12\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.2.1\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.2.2\lib\net452\uIntra.Search.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Subscribe, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Subscribe.1.1.8\lib\net452\uIntra.Subscribe.dll</HintPath>
+    <Reference Include="uIntra.Subscribe, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.9\lib\net452\uIntra.Subscribe.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Tagging, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Tagging.1.1.8\lib\net452\uIntra.Tagging.dll</HintPath>
+    <Reference Include="uIntra.Tagging, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Tagging.1.1.9\lib\net452\uIntra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.6.2\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.6.3\lib\net452\uIntra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
@@ -1373,6 +1373,131 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Compent.uIntra\build\44292ed560e7e199955f9759e4f09f19.woff2">
+      <Link>build\44292ed560e7e199955f9759e4f09f19.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\448c34a56d699c29117adc64c43affeb.woff2">
+      <Link>build\448c34a56d699c29117adc64c43affeb.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\4f064ae96bbce82336e715aa26ec48d5.woff2">
+      <Link>build\4f064ae96bbce82336e715aa26ec48d5.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\502b15c5d93f297e24d2195f4f031647.woff">
+      <Link>build\502b15c5d93f297e24d2195f4f031647.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\638a998bed6c38ae5dc18ab4cfa9447b.woff">
+      <Link>build\638a998bed6c38ae5dc18ab4cfa9447b.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\65244917465a672e70ec190a27489fdd.woff2">
+      <Link>build\65244917465a672e70ec190a27489fdd.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\968fd034b46313cc9c4c40c77af71fb5.woff">
+      <Link>build\968fd034b46313cc9c4c40c77af71fb5.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\ac922757bc3d357bc296666c9382ec22.woff2">
+      <Link>build\ac922757bc3d357bc296666c9382ec22.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\c5c06d4cc579bac66ade7fb1eaec3a9e.woff">
+      <Link>build\c5c06d4cc579bac66ade7fb1eaec3a9e.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\e18bbf611f2a2e43afc071aa2f4e1512.ttf">
+      <Link>build\e18bbf611f2a2e43afc071aa2f4e1512.ttf</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\ebc18fb1cf09179b74971d943bce6f20.woff">
+      <Link>build\ebc18fb1cf09179b74971d943bce6f20.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\f4769f9bdb7466be65088239c12046d1.eot">
+      <Link>build\f4769f9bdb7466be65088239c12046d1.eot</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\build\fa2772327f55d8198301fdb8bcfc8158.woff">
+      <Link>build\fa2772327f55d8198301fdb8bcfc8158.woff</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1469,6 +1594,42 @@
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Navigation\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1514,158 +1675,6 @@
     <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Members\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Compent.uIntra\build\44292ed560e7e199955f9759e4f09f19.woff2">
-      <Link>build\44292ed560e7e199955f9759e4f09f19.woff2</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\448c34a56d699c29117adc64c43affeb.woff2">
-      <Link>build\448c34a56d699c29117adc64c43affeb.woff2</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\4f064ae96bbce82336e715aa26ec48d5.woff2">
-      <Link>build\4f064ae96bbce82336e715aa26ec48d5.woff2</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\502b15c5d93f297e24d2195f4f031647.woff">
-      <Link>build\502b15c5d93f297e24d2195f4f031647.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\638a998bed6c38ae5dc18ab4cfa9447b.woff">
-      <Link>build\638a998bed6c38ae5dc18ab4cfa9447b.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\65244917465a672e70ec190a27489fdd.woff2">
-      <Link>build\65244917465a672e70ec190a27489fdd.woff2</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\968fd034b46313cc9c4c40c77af71fb5.woff">
-      <Link>build\968fd034b46313cc9c4c40c77af71fb5.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\ac922757bc3d357bc296666c9382ec22.woff2">
-      <Link>build\ac922757bc3d357bc296666c9382ec22.woff2</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\c5c06d4cc579bac66ade7fb1eaec3a9e.woff">
-      <Link>build\c5c06d4cc579bac66ade7fb1eaec3a9e.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\e18bbf611f2a2e43afc071aa2f4e1512.ttf">
-      <Link>build\e18bbf611f2a2e43afc071aa2f4e1512.ttf</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\ebc18fb1cf09179b74971d943bce6f20.woff">
-      <Link>build\ebc18fb1cf09179b74971d943bce6f20.woff</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\f4769f9bdb7466be65088239c12046d1.eot">
-      <Link>build\f4769f9bdb7466be65088239c12046d1.eot</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\build\fa2772327f55d8198301fdb8bcfc8158.woff">
-      <Link>build\fa2772327f55d8198301fdb8bcfc8158.woff</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1690,37 +1699,28 @@
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Users\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
+    <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
