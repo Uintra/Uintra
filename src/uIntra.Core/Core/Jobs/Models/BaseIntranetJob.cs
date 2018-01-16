@@ -10,18 +10,23 @@ namespace uIntra.Core.Jobs.Models
 
         public BaseIntranetJob()
         {
-
             HostingEnvironment.RegisterObject(this);
         }
 
         public void Execute()
         {
-            lock (_lock)
+            try
             {
-                if (_shuttingDown)
-                    return;
-
-                Action();
+                lock (_lock)
+                {
+                    if (_shuttingDown)
+                        return;
+                    Action();
+                }
+            }
+            finally
+            {             
+                HostingEnvironment.UnregisterObject(this);
             }
         }
 
@@ -33,7 +38,7 @@ namespace uIntra.Core.Jobs.Models
             }
 
             HostingEnvironment.UnregisterObject(this);
-        }       
+        }
 
         public virtual void Action()
         {
