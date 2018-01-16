@@ -443,7 +443,7 @@ h5{
     min-height:190px;
 
     @media (--for-tablet-portrait-down) {
-        padding: 0;
+        padding: 0 0 46px;
         overflow: visible;
         position:static;
 
