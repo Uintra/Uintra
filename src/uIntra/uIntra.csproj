@@ -1195,6 +1195,9 @@
     <Compile Include="..\Compent.uIntra\Installer\Migrations\EventPublishDateMigration.cs">
       <Link>Installer\Migrations\EventPublishDateMigration.cs</Link>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs">
+      <Link>Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs</Link>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Installer\Migrations\NotificationSettingsMigrations.cs">
       <Link>Installer\Migrations\NotificationSettingsMigrations.cs</Link>
     </Compile>
