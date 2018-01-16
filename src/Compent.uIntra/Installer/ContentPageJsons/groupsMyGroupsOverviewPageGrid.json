@@ -2,7 +2,7 @@
   "name": "1 column layout",
   "sections": [
     {
-      "grid": 8,
+      "grid": 12,
       "allowAll": false,
       "allowed": [
         "Main"
@@ -69,36 +69,6 @@
           "id": "c4239b79-7cad-f905-e47d-b34c32eb8fb6",
           "hasActiveChild": true,
           "active": true
-        }
-      ]
-    },
-    {
-      "grid": 4,
-      "allowAll": false,
-      "allowed": [
-        "Right side"
-      ],
-      "rows": [
-        {
-          "label": "",
-          "name": "Right side",
-          "areas": [
-            {
-              "grid": 12,
-              "allowAll": false,
-              "allowed": [
-                "custom.ContentPanel",
-                "custom.GlobalPanelPicker",
-                "custom.DocumentLibraryPanel",
-                "custom.LatestActivities",
-                "custom.ComingEvents"
-              ],
-              "hasConfig": false,
-              "controls": []
-            }
-          ],
-          "hasConfig": false,
-          "id": "69653ec1-8bbb-76f4-c4e8-871ecf1bc269"
         }
       ]
     }
