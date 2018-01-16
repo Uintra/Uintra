@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.User;
@@ -142,9 +143,11 @@ namespace uIntra.Navigation.Web
             var currentPage = CurrentPage;
             while (currentPage != null)
             {
+                var navigationName = currentPage.GetNavigationName();
+
                 result.Add(new BreadcrumbItemViewModel
                 {
-                    Name = currentPage.GetNavigationName(),
+                    Name = navigationName.HasValue() ? navigationName : currentPage.Name,
                     Url = currentPage.Url,
                     IsClickable = CurrentPage.Url != currentPage.Url && !currentPage.IsHeading()
                 });
