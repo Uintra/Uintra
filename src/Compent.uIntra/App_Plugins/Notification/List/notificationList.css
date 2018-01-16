@@ -298,8 +298,6 @@
 	    &-heading{
 		    font:13px/20px var(--font-general);
 		    color:#333;
-            max-height:60px;
-            overflow:hidden;
 
 		    &:hover {
 			    color:#333;
@@ -315,8 +313,8 @@
 
             .notification-page &{
                 padding:0 170px 0 0;
-                @media (--for-tablet-portrait-down){
-                   padding:0;
+                @media (--for-desktop-down){
+                   padding:7px 0 0;
                 }
             }
 	    }
