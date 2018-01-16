@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
@@ -50,6 +51,7 @@ namespace uIntra.Events.Web
             _activityLinkService = activityLinkService;
         }
 
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var @event = _eventsService.Get(id);
