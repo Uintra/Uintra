@@ -152,6 +152,7 @@ namespace Compent.uIntra.Core.PagePromotion
         {
             var pagePromotion = content.Map<Entities.PagePromotion>();
             var config = PagePromotionHelper.GetConfig(content);
+            if (config == null) return null;
 
             Mapper.Map(config, pagePromotion);
 
