@@ -197,6 +197,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Comments.ReadonlyClick.Message.lbl",
+    "translations": {
+      "en-US": "Only subscribed person can comment activity in the group"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Comments.ReadonlyClick.Title.lbl",
+    "translations": {
+      "en-US": "Notification"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CommentsOverView.AddComment.lbl",
     "translations": {
       "en-US": "Add comment"
@@ -1063,6 +1077,13 @@
     "key": "Profile.LastName.lbl",
     "translations": {
       "en-US": "Last Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.LastName.Placeholder",
+    "translations": {
+      "en-US": "Enter your Last name "
     },
     "updateDate": "0001-01-01T00:00:00"
   },
