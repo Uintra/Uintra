@@ -11,7 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uIntra Bulletins Controls BulletinsControls</tags>
     <dependencies>
-      <dependency id="uIntra.Core" version="1.4.7" />
+      <dependency id="uIntra.Core" version="1.4.9.0" />
       <dependency id="uIntra.BaseControls" version="2.3.0.1" />
     </dependencies>
   </metadata>
