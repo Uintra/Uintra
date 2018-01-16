@@ -26,7 +26,7 @@
             "grid": 8
           },
           {
-            "grid": 3,
+            "grid": 4,
             "allowAll": false,
             "allowed": [
               "One column row"
