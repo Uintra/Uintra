@@ -242,7 +242,7 @@ namespace Compent.uIntra.Core.Events
             return Get(activityId).Likes;
         }
 
-        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             UpdateCachedEntity(activityId);

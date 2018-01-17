@@ -10,7 +10,7 @@ namespace Compent.uIntra.Core.Helpers
     {
         ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId);
         ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, IIntranetType notificationType);
-        CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType notificationType, Guid notifierId);
+        CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, IIntranetType notificationType, Guid notifierId);
         LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId);
     }
 }
