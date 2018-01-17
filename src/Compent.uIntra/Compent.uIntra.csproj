@@ -970,20 +970,18 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Tagging\dummy.txt" />
-    <Content Include="App_Plugins\Tagging\taggle.css" />
-    <Content Include="App_Plugins\Tagging\tags.css" />
-    <Content Include="App_Plugins\Tagging\tags.js" />
-    <Content Include="App_Plugins\Tagging\tagsEdit.js" />
-    <Content Include="App_Plugins\Tagging\tagsView.js" />
     <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
+    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.overlay.html" />
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.view.html" />
+    <Content Include="App_Plugins\UsersTags\backoffice\usersTagsController.js" />
+    <Content Include="App_Plugins\UsersTags\backoffice\usersTagsService.js" />
+    <Content Include="App_Plugins\UsersTags\userTags.js" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
     <Content Include="App_Plugins\Users\package.manifest" />
@@ -1108,6 +1106,9 @@
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
+    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
+    <Content Include="Views\UserTags\EntityTags.cshtml" />
     <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
@@ -1117,10 +1118,14 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Tagging\Views\TagPicker.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801111246169_UserTags.resx">
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
@@ -1211,8 +1216,12 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
+    <Content Include="Views\Bulletins\EditView.cshtml" />
     <Content Include="Views\Groups\GroupNavigation.cshtml" />
+    <Content Include="Views\Bulletins\CreationForm.cshtml" />
+    <Content Include="Views\Search\SearchResult.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1233,6 +1242,7 @@
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
     <Compile Include="Controllers\Api\RteConfigController.cs" />
     <Compile Include="Controllers\Api\UserApiController.cs" />
+    <Compile Include="Controllers\Api\UsersTagsApiController.cs" />
     <Compile Include="Controllers\BrowserCompatibilityController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\BulletinsSectionController.cs" />
@@ -1250,6 +1260,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\UserTagsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -1271,6 +1282,7 @@
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedCreateModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedEditModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedService.cs" />
@@ -1313,6 +1325,8 @@
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedCreateModel.cs" />
+    <Compile Include="Core\News\Models\NewsExtendedEditModel.cs" />
     <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\Navigation\SubNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
@@ -1348,13 +1362,48 @@
     <Compile Include="Core\PagePromotion\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionEventService.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
+    <Compile Include="Core\Search\Entities\SearchableTag.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUser.cs" />
+    <Compile Include="Core\Search\Entities\SearchScoreModel.cs" />
+    <Compile Include="Core\Search\Entities\ISerachibleTaggedActivity.cs" />
+    <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
+    <Compile Include="Core\Search\Indexes\ActivityUserTagIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticUintraContentIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticUserIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IActivityUserTagIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticUintraContentIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticUserIndex.cs" />
+    <Compile Include="Core\Search\Indexes\UintraContentIndexer.cs" />
+    <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
+    <Compile Include="Core\Search\ISearchScoreProvider.cs" />
+    <Compile Include="Core\Search\Models\SearchInfoListItemModel.cs" />
+    <Compile Include="Core\Search\Models\UintraSearchAutocompleteResultViewModel.cs" />
+    <Compile Include="Core\Search\Models\UintraSearchResultsOverviewViewModel.cs" />
+    <Compile Include="Core\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
+    <Compile Include="Core\Search\UintraSearchableTypeProvider.cs" />
+    <Compile Include="Core\Search\UintraSearchResultViewModel.cs" />
+    <Compile Include="Core\Search\SearchScoreProvider.cs" />
     <Compile Include="Core\Search\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\UserTags\ActivityTagsHelper.cs" />
+    <Compile Include="Core\UserTags\ElasticTagIndex.cs" />
+    <Compile Include="Core\UserTags\IActivityTagsHelper.cs" />
+    <Compile Include="Core\UserTags\IElasticTagIndex.cs" />
+    <Compile Include="Core\UserTags\Indexers\ElasticUintraActivityIndex.cs" />
+    <Compile Include="Core\UserTags\Indexers\IElasticUintraActivityIndex.cs" />
+    <Compile Include="Core\UserTags\UserTagsSearchIndexer.cs" />
+    <Compile Include="Core\UserTags\ViewModels\UserTagViewModel.cs" />
+    <Compile Include="Core\XPathProvider.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />
     <Compile Include="Global.asax.cs">
@@ -1374,6 +1423,8 @@
     <Compile Include="Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs" />
     <Compile Include="Installer\Migrations\PagePromotionInstallationConstants.cs" />
     <Compile Include="Installer\Migrations\PagePromotionMigration.cs" />
+    <Compile Include="Installer\Migrations\TaggingInstallationConstants.cs" />
+    <Compile Include="Installer\Migrations\TaggingMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
@@ -1385,6 +1436,10 @@
     <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.cs" />
     <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.Designer.cs">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801111246169_UserTags.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs">
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

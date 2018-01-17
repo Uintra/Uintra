@@ -1,0 +1,10 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using uIntra.Core.Extensions
+@model uIntra.Tagging.UserTags.Models.TagPickerViewModel
+
+<div class="file-tree__holder js-user-tag-picker-holder">
+    @Html.Hidden("TagIdsData", Html.Raw(Model.TagIdsData.JoinToString()), new { id = "selectedTagIds" })
+    @Html.Hidden("UserTagCollection", Html.Raw(Model.UserTagCollection.ToJson()), new { id = "userTagCollection" })
+    @Html.DropDownList("user-tags-picker", new List<SelectListItem>(), new { @class = "js-user-tags-picker", multiple = "multiple", placeholder = Html.Localize("UserTagsPicker.Placeholder.lbl") })
+</div> 
