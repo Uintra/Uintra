@@ -23,8 +23,7 @@
         }
     }
 
-    .aside &,
-    .sidebar &{
+    .aside &{
         margin:0 0 31px;
 
         &._latest-activities,
@@ -148,8 +147,7 @@
         p{
             margin:0 0 10px;
 
-            .aside &,
-            .sidebar &{
+            .aside &{
                 margin:0 0 18px;
             }
         }
@@ -159,8 +157,7 @@
             line-height:22px;
             margin:0 0 19px;
 
-            .aside &,
-            .sidebar &{
+            .aside &{
                 font-size:16px;
                 line-height:1.4em;
                 margin:0 0 19px;
@@ -192,8 +189,7 @@
             }
         }
         
-        .aside &,
-        .sidebar &{
+        .aside &{
             font-size:14px;
             line-height:1.43;
             padding:0;
@@ -207,8 +203,7 @@
     &__image{
         margin:-1px -20px 17px;
 
-        .aside &,
-        .sidebar &{
+        .aside &{
             margin:-20px -20px 17px;
         }
 
@@ -222,8 +217,7 @@
 			    width:50%;
 			    margin:5px 0 22px 20px;
 
-                .aside &,
-			    .sidebar &{
+                .aside &{
 				    margin:5px -5px 20px 10px;
 			    }
 		    }
@@ -272,8 +266,7 @@
         margin:0 -20px 20px;
         position:relative;
 
-        .aside &,
-        .sidebar &{
+        .aside &{
             margin:-20px -20px 20px;
         }
 
@@ -358,8 +351,7 @@
 			    width:50%;
 			    margin:5px 0 22px 20px;
 
-                .aside &,
-			    .sidebar &{
+                .aside &{
 				    margin:5px -5px 20px 10px;
 			    }
 		    }
@@ -427,8 +419,7 @@
             .documents{
                 padding-bottom:20px;
 
-                .aside &,
-                .sidebar &{
+                .aside &{
                     padding-top:5px;
                 }
             }
@@ -449,57 +440,39 @@
     }
 }
 
-._aside-expanded,
-._sidebar-expanded{
+._aside-expanded{
     height: 100vh;
     overflow:hidden;
 }
 
-.aside,
-.sidebar {
+.aside{
     @media (--for-tablet-portrait-down) {
         position:fixed;
-        top:110px;
+        top:60px;
         left:0;
         right:0;
         transition: all linear 300ms;
         max-height:0;
         overflow:hidden;
         z-index:12;
-        /*position: absolute;
-        top: 110px;
-        left: 0;
-        right: 0;
-        transform: translate(0, -100%);
-        transition: transform linear 300ms;
-        background:#f6f6f6;
-        z-index:12;
-        overflow:hidden;
-        overflow-y:auto;
-        height:calc(100vh - 130px);*/
-        ._sidebar-expanded & {
-            max-height: calc(100vh - 110px);
-            /*transform: translate(0, 0);*/
+
+        ._aside-expanded & {
+            max-height: calc(100vh - 60px);
         }
 
         & > div {
             transition: transform linear 300ms;
             transform: translate(0, -100%);
             background: #f6f6f6;
-            padding-top: 20px;
+            padding-top: 70px;
             overflow:hidden;
             overflow-y: auto;
-            height:calc(100vh - 110px);
+            height:calc(100vh - 60px);
 
-            ._sidebar-expanded & {
+            ._aside-expanded & {
                 transform: translate(0, 0);
             }
         }
-        
-        /*._with-sub-nav._with-subtitle &{
-            top:219px;
-            height:calc(100vh - 219px);
-        }*/
 
         &__opener {
             position:absolute;
@@ -536,15 +509,11 @@
                 margin: -8px 0 0 -3px;
             }
 
-            /*._hide-sidepanel-opener &{
-                display:none;
-            }*/
             ._show-aside-opener &{
                 display:block;
             }
 
-            ._aside-expanded &,
-            ._sidebar-expanded & {
+            ._aside-expanded &{
                 background: var(--color-submit);
 
                 &:before,
