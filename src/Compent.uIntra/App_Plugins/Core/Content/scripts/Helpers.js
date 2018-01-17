@@ -99,6 +99,7 @@ var helpers = {
                 var ops = [];
                 var str = node.data;
                 matches.forEach(function (match) {
+                    triggerLinkDetectedEvent(match);
                     var split = str.split(match);
                     var beforeLink = split.shift();
                     ops.push({ insert: beforeLink });
