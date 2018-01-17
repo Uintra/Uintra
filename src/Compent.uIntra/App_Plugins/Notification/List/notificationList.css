@@ -1,7 +1,7 @@
 ﻿.notification-page{
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
-    padding:36px 21px 0;
+    padding:36px 20px 25px;
 
     @media (--for-tablet-portrait-down){
         margin:0 -20px;
@@ -53,11 +53,14 @@
         height:19px;
         background:var(--color-contrast);
         color:var(--color-white);
-        font-size:12px;
-        line-height:18px;
+        font-size:11px;
+        line-height:19px;
+        font-weight:bold;
         text-align:center;
         border-radius:50%;
         font-family:var(--font-general);
+        text-overflow: ellipsis;
+        overflow: hidden;
 
         @media (--for-tablet-portrait-down) {
             top: 13px;
@@ -71,10 +74,10 @@
         &-holder{
             position:absolute;
             top:100%;
-            left:0;
+            right:-190px;
             width:570px;
             display:none;
-            transform:translate(-62%);
+            margin:8px 0 0;
 
             ._notifications-expanded &{
                 display:block;
@@ -89,6 +92,7 @@
                 right:0;
                 max-height:calc(100vh - 60px);
                 overflow:auto;
+                margin:0;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
@@ -193,6 +197,10 @@
         .notification-page &{
             background:none;
             border:none;
+
+            @media (--for-tablet-portrait-down){
+                margin:0 -20px;
+            }
         }
 
         &-item{
@@ -201,7 +209,7 @@
             position:relative;
             display:flex;
             width:100%;
-            padding:13px 20px 14px;
+            padding:13px 18px 13px 20px;
             color:#333;
 
             &:first-child{
@@ -290,8 +298,6 @@
 	    &-heading{
 		    font:13px/20px var(--font-general);
 		    color:#333;
-            max-height:60px;
-            overflow:hidden;
 
 		    &:hover {
 			    color:#333;
@@ -307,6 +313,9 @@
 
             .notification-page &{
                 padding:0 170px 0 0;
+                @media (--for-desktop-down){
+                   padding:7px 0 0;
+                }
             }
 	    }
 
@@ -334,7 +343,6 @@
 
 	    &-meta{
 		    flex-grow:2;
-		    max-width: calc(100% - 110px);
 		    margin:0;
 		    font-size: 13px;
 
@@ -414,6 +422,11 @@
             font-size:11px;
             line-height:20px;
             display:block;
+            padding:2px 0 0;
 	    }
+
+        .avatar {
+            margin-top: 5px;
+        }
     }
 }

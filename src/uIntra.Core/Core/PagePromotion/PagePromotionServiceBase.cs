@@ -126,6 +126,7 @@ namespace uIntra.Core.PagePromotion
                 .Descendants()
                 .Where(PagePromotionHelper.IsPagePromotion)
                 .Select(MapInternal)
+                .Where(pp => pp != null)
                 .ToList();
 
             return activities;

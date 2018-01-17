@@ -5,23 +5,23 @@ namespace uIntra.Comments
 {
     public interface ICommentsService
     {
-        Comment Get(Guid id);
+        CommentModel Get(Guid id);
 
-        IEnumerable<Comment> GetMany(Guid activityId);
+        IEnumerable<CommentModel> GetMany(Guid activityId);
 
         int GetCount(Guid activityId);
 
-        bool CanEdit(Comment comment, Guid editorId);
+        bool CanEdit(CommentModel comment, Guid editorId);
 
-        bool CanDelete(Comment comment, Guid editorId);
+        bool CanDelete(CommentModel comment, Guid editorId);
 
-        bool WasChanged(Comment comment);
+        bool WasChanged(CommentModel comment);
 
-        bool IsReply(Comment comment);
+        bool IsReply(CommentModel comment);
 
-        Comment Create(Guid userId, Guid activityId, string text, Guid? parentId);
+        CommentModel Create(Guid userId, Guid activityId, string text, Guid? parentId);
 
-        Comment Update(Guid id, string text);
+        CommentModel Update(Guid id, string text);
 
         void Delete(Guid id);
 

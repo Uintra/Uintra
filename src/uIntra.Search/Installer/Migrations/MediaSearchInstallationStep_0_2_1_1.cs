@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Constants;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;

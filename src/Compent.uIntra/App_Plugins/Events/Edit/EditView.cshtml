@@ -65,23 +65,6 @@
             @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
         </div>
         <div class="form__row clearfix">
-            <div class="check">
-                <label class="form__label">@Html.Localize("EventsEdit.Participation.lbl")</label>
-                <label class="check__label">
-                    @{
-                        var canSubscribeAttrs = new RouteValueDictionary(new { @class = "check__box" });
-                        if (!Model.CanEditSubscribe)
-                        {
-                            canSubscribeAttrs.Add("disabled", "disabled");
-                        }
-                    }
-                    @Html.CheckBoxFor(m => m.CanSubscribe, canSubscribeAttrs)
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("EventsEdit.CanSubscribe.lbl")</span>
-                </label>
-            </div>
-        </div>
-        <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("EventsEdit.UploadFiles.lbl")</label>
             @{
                 var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };

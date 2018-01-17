@@ -6,7 +6,9 @@ namespace uIntra.Comments
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Comment, CommentViewModel>()
+            Mapper.CreateMap<Comment, CommentModel>();
+
+            Mapper.CreateMap<CommentModel, CommentViewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CreatorProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanDelete, o => o.Ignore())

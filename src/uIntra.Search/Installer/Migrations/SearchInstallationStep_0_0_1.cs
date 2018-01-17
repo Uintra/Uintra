@@ -1,8 +1,6 @@
 ﻿using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static uIntra.Search.Installer.SearchInstallationConstants.DocumentTypeAliases;
 
 namespace uIntra.Search.Installer.Migrations
 {

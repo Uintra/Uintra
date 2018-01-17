@@ -145,7 +145,7 @@ var initPanel = function (selector) {
 
 var initMobileBanners = function () {
     var opener = document.querySelector("#js-sidepanel-opener");
-    var container = document.querySelector('.sidebar');
+    var sidebar = document.querySelector('.sidebar');
     var tabset = document.querySelector('.tabset');
     var header = document.getElementById('header');
     var bulletinBtn = document.querySelector('.bulletin__btn-holder');
@@ -159,15 +159,12 @@ var initMobileBanners = function () {
         height += bulletinBtn.clientHeight;
     }
 
-    if (!opener || !container) {
+    if (!opener || !sidebar) {
         body.classList.add('_hide-sidepanel-opener');
         return
     };
-
-    var sideBlock = container.querySelectorAll('.block');
-    //container.style.top = height + 'px';
-
-    if (sideBlock.length > 0) {
+    
+    if (sidebar) {
         opener.addEventListener('click',
             () => {
                 body.classList.toggle('_sidebar-expanded');
@@ -180,7 +177,7 @@ var initMobileBanners = function () {
 
                 body.addEventListener('click',
                     function (ev) {
-                        isOutsideClick(container, opener, ev.target, '_sidebar-expanded');
+                        isOutsideClick(sidebar, opener, ev.target, '_sidebar-expanded');
                     });
             });
     }

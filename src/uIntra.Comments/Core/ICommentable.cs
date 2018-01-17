@@ -7,7 +7,7 @@ namespace uIntra.Comments
     {
         Guid Id { get; }
 
-        IEnumerable<Comment> Comments { get; set; }
+        IEnumerable<CommentModel> Comments { get; set; }
 
         bool IsReadOnly { get; set; }
     }

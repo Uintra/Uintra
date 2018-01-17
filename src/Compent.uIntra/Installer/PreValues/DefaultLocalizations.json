@@ -197,6 +197,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Comments.ReadonlyClick.Message.lbl",
+    "translations": {
+      "en-US": "Only subscribed person can comment activity in the group"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Comments.ReadonlyClick.Title.lbl",
+    "translations": {
+      "en-US": "Notification"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CommentsOverView.AddComment.lbl",
     "translations": {
       "en-US": "Add comment"
@@ -364,6 +378,20 @@
     "key": "Events",
     "translations": {
       "en-US": "Events"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Events.Description.placeholder",
+    "translations": {
+      "en-US": "Description"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Events.Title.placeholder",
+    "translations": {
+      "en-US": "Title"
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -771,6 +799,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Likes.Title.lbl",
+    "translations": {
+      "en-US": "Likes"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "MyLinks.Add.lbl",
     "translations": {
       "en-US": "Add to My Links"
@@ -969,6 +1004,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Notifications.Pinned.lbl",
+    "translations": {
+      "en-US": "Important"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "NotificationPreview.ShowAllNotifications.lbl",
     "translations": {
       "en-US": "See all notifications"
@@ -990,6 +1032,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Pin.Activity.lbl",
+    "translations": {
+      "en-US": "Set as Important"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Pin.EndPinDate.lbl",
     "translations": {
       "en-US": "Set date for Unpin"
@@ -1007,6 +1056,34 @@
     "key": "Profile.EmailNotifications.lbl",
     "translations": {
       "en-US": "Check to disable all Email notifications"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.FirstName.lbl",
+    "translations": {
+      "en-US": "First Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.FirstName.Placeholder",
+    "translations": {
+      "en-US": "Enter your First name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.LastName.lbl",
+    "translations": {
+      "en-US": "Last Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.LastName.Placeholder",
+    "translations": {
+      "en-US": "Enter your Last name "
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1186,6 +1263,27 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "SubscribeSettings.CanSubscribe.lbl",
+    "translations": {
+      "en-US": "Event participation"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "SubscribeSettings.SubscribeNotes.lbl",
+    "translations": {
+      "en-US": "Make it possible for people to subscribe to your event"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "SubscribeSettings.SubscribeNotesMaxLength.lbl",
+    "translations": {
+      "en-US": "Subscribe notes are must be shorter than {0} characters"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "SubscribeView.NotificationIsDisabled.lbl",
     "translations": {
       "en-US": "Uncheck to enable notifications"
@@ -1336,6 +1434,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "GroupActivity.lbl",
+    "translations": {
+      "en-US": "Group"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "GroupCreate.GroupTitle.lbl",
     "translations": {
       "en-US": "GroupTitle"
@@ -1380,7 +1485,7 @@
   {
     "key": "GroupRoom.Label",
     "translations": {
-      "en-US": "Label"
+      "en-US": "Group Room"
     },
     "updateDate": "0001-01-01T00:00:00"
   },

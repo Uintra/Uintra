@@ -27,8 +27,6 @@ namespace uIntra.Events
 
         public string NewMedia { get; set; }
 
-        public bool CanSubscribe { get; set; }
-
         public int? MediaRootId { get; set; }
 
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]

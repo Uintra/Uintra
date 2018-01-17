@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
+using Extensions;
 using uIntra.Core.Exceptions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using File = System.IO.File;
 using static uIntra.Core.Constants.UmbracoAliases.Media;
-using Extensions;
+using File = System.IO.File;
 
 namespace uIntra.Search
 {

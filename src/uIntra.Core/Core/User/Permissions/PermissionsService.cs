@@ -4,10 +4,7 @@ using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
 using uIntra.Core.TypeProviders;
-using umbraco.cms.businesslogic.web;
-using Umbraco.Core;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 
 namespace uIntra.Core.User.Permissions
 {

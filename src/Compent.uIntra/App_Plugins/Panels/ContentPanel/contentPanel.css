@@ -9,7 +9,6 @@
     }
 
     &._important{
-        padding:0 20px 20px;
         margin:0 0 20px;
     }
 
@@ -31,6 +30,9 @@
         &._document-panel,
         &.coming-events{
             padding-bottom:0;
+        }
+        @media (--for-tablet-portrait-down) {
+            margin:0 -20px 31px;
         }
 
         &__title{
@@ -446,49 +448,36 @@
 .sidebar {
     @media (--for-tablet-portrait-down) {
         position: absolute;
-        top: 0;
+        top: 130px;
         left: 0;
         right: 0;
-        padding: 0;
         transform: translate(0, -100%);
         transition: transform linear 300ms;
         background:#f6f6f6;
         z-index:5;
+        overflow:hidden;
+        overflow-y:auto;
+        height:calc(100vh - 130px);
 
         ._sidebar-expanded & {
             transform: translate(0, 0);
-            top:0;
-            overflow:hidden;
-            overflow-y:auto;
-            height:calc(100vh - 111px);
-
-            &__opener {
-                background: var(--color-submit);
-
-                &:before,
-                &:after {
-                    background: var(--color-submit);
-                    border-color: var(--color-white);
-                }
-            }
         }
-
-        ._with-sub-nav._with-subtitle._sidebar-expanded &{
-            height:calc(100vh - 110px);
-            top:1px;
+        
+        ._with-sub-nav._with-subtitle &{
+            top:219px;
+            height:calc(100vh - 219px);
         }
 
         &__opener {
-            float: right;
-            width: 51px;
-            max-width:51px;
-            min-width:51px;
+            position:absolute;
+            top:0;
+            right:0;
             height: 50px;
+            width: 51px;
             background: var(--color-white);
             border-left:2px solid #f6f6f6;
-            position: relative;
-            z-index:10;
             cursor: pointer;
+            z-index:10;
 
             &:before,
             &:after {
@@ -515,10 +504,14 @@
                 display:none;
             }
 
-            .bulletin__btn-holder &{
-                position:absolute;
-                top:0;
-                right:0;
+            ._sidebar-expanded & {
+                background: var(--color-submit);
+
+                &:before,
+                &:after {
+                    background: var(--color-submit);
+                    border-color: var(--color-white);
+                }
             }
         }
     }

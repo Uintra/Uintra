@@ -270,7 +270,7 @@ namespace uIntra.Groups.Web
             var groupMembersViewModel = groupUsers
                 .Select(m => MapToMemberViewModel(m, group, currentUserId))
                 .OrderByDescending(s => s.IsGroupAdmin)
-                .ThenBy(s => s.Name)
+                .ThenBy(s => s.GroupMember.DisplayedName)
                 .ToList();
 
             var model = new GroupMemberOverviewViewModel
@@ -308,7 +308,7 @@ namespace uIntra.Groups.Web
         {
             var viewModel = m.Map<GroupMemberViewModel>();
             viewModel.IsGroupAdmin = IsGroupCreator(m.Id, groupModel);
-            viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != groupModel.CreatorId;
+            viewModel.CanUnsubscribe = viewModel.GroupMember.Id == currentUserId && currentUserId != groupModel.CreatorId;
             return viewModel;
         }
 

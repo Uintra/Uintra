@@ -50,6 +50,7 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<GroupDocument> GroupDocuments { get; set; }
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
+        public DbSet<ActivitySubscribeSetting> ActivitySubscribeSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

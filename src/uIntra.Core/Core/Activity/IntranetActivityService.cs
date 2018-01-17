@@ -91,18 +91,30 @@ namespace uIntra.Core.Activity
 
         public virtual Guid Create(IIntranetActivity activity)
         {
+            return Create(activity, null);
+        }
+
+        protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
+        {
             var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
-
             var newActivityId = newActivity.Id;
 
             _activityLocationService.Set(newActivityId, activity.Location);
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
+
+            afterCreateAction?.Invoke(newActivityId);
+
             UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
 
         public virtual void Save(IIntranetActivity activity)
+        {
+            Save(activity, null);
+        }
+
+        protected virtual void Save(IIntranetActivity activity, Action<IIntranetActivity> afterSaveAction)
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
@@ -110,6 +122,9 @@ namespace uIntra.Core.Activity
             _activityLocationService.Set(activity.Id, activity.Location);
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
+
+            afterSaveAction?.Invoke(activity);
+
             UpdateCachedEntity(activity.Id);
         }
 
@@ -150,7 +165,7 @@ namespace uIntra.Core.Activity
             _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
-        }       
+        }
 
         private TActivity GetFromSql(Guid id)
         {
@@ -182,9 +197,9 @@ namespace uIntra.Core.Activity
             cachedActivity.MediaIds = _intranetMediaService.GetEntityMedia(cachedActivity.Id);
             cachedActivity.Location = _activityLocationService.Get(activity.Id);
             return cachedActivity;
-        }       
+        }
 
         protected abstract void MapBeforeCache(IList<TActivity> cached);
-       
+
     }
 }

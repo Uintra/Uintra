@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using uIntra.Core.Constants;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using uIntra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;

@@ -24,12 +24,12 @@ namespace Compent.uIntra.Controllers
     public class NavigationController : NavigationControllerBase
     {
         protected override string TopNavigationViewPath { get; } = "~/Views/Navigation/TopNavigation/Navigation.cshtml";
+        private string GroupNavigationViewPath { get; } = "~/Views/Groups/GroupNavigation.cshtml";
 
         protected override string SystemLinkTitleNodePropertyAlias { get; } = "linksGroupTitle";
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override string SystemLinksContentXPath { get; }
-        private string GroupNavigationViewPath { get; } = "~/App_Plugins/Groups/GroupNavigation.cshtml";
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
@@ -57,7 +57,8 @@ namespace Compent.uIntra.Controllers
             ICentralFeedHelper centralFeedHelper,
             IProfileLinkProvider profileLinkProvider,
             IPermissionsService permissionsService,
-            IUserService userService)
+            IUserService userService,
+            IGroupContentProvider contentProvider)
             : base(
                 leftSideNavigationModelBuilder,
                 subNavigationModelBuilder,
@@ -114,6 +115,24 @@ namespace Compent.uIntra.Controllers
             }
 
             return Content($" - {result}");
+        }
+
+        protected override List<BreadcrumbItemViewModel> GetBreadcrumbsItems()
+        {
+            var result = base.GetBreadcrumbsItems();
+
+            if (!_groupHelper.IsGroupRoomPage(CurrentPage)) return result;
+
+            var groupId = Request.QueryString.GetGroupId();
+            var groupRoomPageUrl = _groupContentProvider.GetGroupRoomPage().Url;
+
+            var groupRoomItems = result.SkipWhile(el => !el.Url.Equals(groupRoomPageUrl));
+            foreach (var item in groupRoomItems)
+            {
+                item.Url = item.Url.AddGroupId(groupId.Value);
+            }
+
+            return result;
         }
 
         private ActionResult RenderGroupNavigation()

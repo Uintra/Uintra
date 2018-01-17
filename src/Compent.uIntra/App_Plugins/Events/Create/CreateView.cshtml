@@ -59,16 +59,6 @@
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
         </div>
         <div class="form__row clearfix">
-            <div class="check">
-                <label class="form__label">@Html.Localize("EventsCreate.Participation.lbl")</label>
-                <label class="check__label">
-                    @Html.CheckBoxFor(m => m.CanSubscribe, new { @class = "check__box" })
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("EventsCreate.CanSubscribe.lbl")</span>
-                </label>
-            </div>
-        </div>
-        <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("EventsCreate.UploadFiles.lbl")</label>
             @{
                 var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };

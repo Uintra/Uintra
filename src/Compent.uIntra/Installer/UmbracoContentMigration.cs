@@ -6,7 +6,6 @@ using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
 using uIntra.Core.Utils;
 using uIntra.Navigation;
 using uIntra.Notification.Configuration;
@@ -690,7 +689,7 @@ namespace Compent.uIntra.Installer
             _contentService.SaveAndPublishWithStatus(content);
         }
 
-        private void SetGridValueAndSaveAndPublishContent(IContent content, string gridEmbeddedResourceFileName)
+        public void SetGridValueAndSaveAndPublishContent(IContent content, string gridEmbeddedResourceFileName)
         {
             var gridContent = EmbeddedResourcesUtils.ReadResourceContent($"{Assembly.GetExecutingAssembly().GetName().Name}.Installer.ContentPageJsons.{gridEmbeddedResourceFileName}");
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);

@@ -61,9 +61,6 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BCLExtensions, Version=0.2.8.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BCLExtensions.0.2.8.1\lib\net452\BCLExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
@@ -78,6 +75,9 @@
     </Reference>
     <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -260,22 +260,28 @@
     <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Reflection.Metadata, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
@@ -964,6 +970,7 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
+    <Content Include="App_Plugins\Subscribe\activitySubscribeSettings.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
@@ -1123,6 +1130,9 @@
     </EmbeddedResource>
     <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
+      <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1171,7 +1181,6 @@
     <Content Include="Views\News\ItemView.cshtml" />
     <Content Include="Views\News\CreateView.cshtml" />
     <Content Include="Views\News\EditView.cshtml" />
-    <Content Include="Views\TestWithLinkPicker.cshtml" />
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
@@ -1214,6 +1223,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
+    <Content Include="Views\Groups\GroupNavigation.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1258,13 +1268,9 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
-    <Compile Include="Controllers\CommentsEditPageController.cs" />
-    <Compile Include="Controllers\CommentsPageController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SubscribeController.cs" />
-    <Compile Include="Controllers\SubscribePageController.cs" />
-    <Compile Include="Controllers\LikesPageController.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
@@ -1294,7 +1300,9 @@
     <Compile Include="Core\Events\Entities\Event.cs" />
     <Compile Include="Core\Events\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\Events\EventsService.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedCreateModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedItemModel.cs" />
+    <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
@@ -1366,6 +1374,9 @@
     </Compile>
     <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
+    <Compile Include="Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs" />
+    <Compile Include="Installer\Migrations\OldSubscribeSettings\OldEventBase.cs" />
+    <Compile Include="Installer\Migrations\OldSubscribeSettings\OldSubscribeSettingsMigration.cs" />
     <Compile Include="Installer\Migrations\EventPublishDateMigration.cs" />
     <Compile Include="Installer\Migrations\NotificationSettingsMigrations.cs" />
     <Compile Include="Installer\Migrations\OldNotifications\Helpers.cs" />
@@ -1386,6 +1397,10 @@
     <Compile Include="Persistence\Sql\Migrations\201801051205504_Add_ActivityLocation.cs" />
     <Compile Include="Persistence\Sql\Migrations\201801051205504_Add_ActivityLocation.Designer.cs">
       <DependentUpon>201801051205504_Add_ActivityLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.Designer.cs">
+      <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

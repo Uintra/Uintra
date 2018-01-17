@@ -1,11 +1,12 @@
 ﻿@using uIntra.Core.Activity
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions;
+@using uIntra.Subscribe
 @using Umbraco.Web
-@model uIntra.Events.EventCreateModel
+@model Compent.uIntra.Core.Events.EventExtendedCreateModel
 
 <div class="form js-check-before-unload" id="js-events-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Events", FormMethod.Post, new { id = "createForm" }))
+    @using (Html.BeginUmbracoForm("CreateExtended", "Events", FormMethod.Post, new { id = "createForm" }))
     {
         <h1 class="form__title">@Html.Localize("EventsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -63,14 +64,12 @@
             @Html.Action("PinActivity", "Activity", new { isPinned = false })
         </div>
         <div class="form__row clearfix">
-            <div class="check">
-                <label class="form__label">@Html.Localize("EventsCreate.Participation.lbl")</label>
-                <label class="check__label">
-                    @Html.CheckBoxFor(m => m.CanSubscribe, new { @class = "check__box" })
-                    <span class="check__fake-input icon-check"></span>
-                    <span class="check__fake-label">@Html.Localize("EventsCreate.CanSubscribe.lbl")</span>
-                </label>
-            </div>
+            @{ Html.RenderAction("ActivitySubscribeSettings", "Subscribe", new ActivitySubscribeSettingsModel
+                {
+                    CanSubscribe = Model.CanSubscribe,
+                    CanEditSubscribe = Model.CanEditSubscribe,
+                    SubscribeNotes = Model.SubscribeNotes
+                });}
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("EventsCreate.UploadFiles.lbl")</label>

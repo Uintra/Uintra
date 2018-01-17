@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Web.Http;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.Events.Dashboard;
-using System.Web.Http;
 using uIntra.Navigation;
 
 namespace Compent.uIntra.Controllers

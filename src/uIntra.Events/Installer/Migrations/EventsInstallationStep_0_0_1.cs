@@ -1,6 +1,4 @@
 ﻿using uIntra.Core.Installer;
-using uIntra.Core.Installer.Migrations;
-using Umbraco.Core;
 
 namespace uIntra.Events.Installer.Migrations
 {
