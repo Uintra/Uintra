@@ -74,7 +74,7 @@ var initCreateControl = function (holder) {
         function getImageElem(data) {
             var titleElem = createParagraph(data.title);
             var descriptionElem = createParagraph(data.description);
-            var imgElem = createImg(data.image);
+            var imgElem = createImg(data.imageUri);
 
             var divElem = document.createElement('div');
             divElem.appendChild(imgElem);
@@ -84,10 +84,10 @@ var initCreateControl = function (holder) {
             return divElem;
         }
 
-        function createImg(base64Img) {
+        function createImg(imageUri) {
             var imgElem = document.createElement('img');
             var srcAttr = document.createAttribute('src');
-            srcAttr.value = `data:image/png;base64, ${base64Img}`;
+            srcAttr.value = imageUri;
             imgElem.setAttributeNode(srcAttr);
             return imgElem;
         }
