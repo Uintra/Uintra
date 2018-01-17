@@ -5,6 +5,7 @@ using AutoMapper;
 using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
@@ -55,6 +56,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(CreationFormViewPath, result);
         }
 
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var bulletin = _bulletinsService.Get(id);

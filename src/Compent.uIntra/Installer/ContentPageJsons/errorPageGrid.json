@@ -1,15 +1,20 @@
 ﻿{
-  "name": "",
+  "name": "1 column layout",
   "sections": [
     {
       "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
       "rows": [
         {
-          "name": "One column row",
+          "label": "",
+          "name": "Main",
           "areas": [
             {
               "grid": 12,
-              "allowAll": false,
+              "allowAll": true,
               "allowed": [
                 "custom.ContentPanel",
                 "custom.GlobalPanelPicker"
@@ -52,11 +57,12 @@
       "grid": 3,
       "allowAll": false,
       "allowed": [
-        "One column row"
+        "Right side"
       ],
       "rows": [
         {
-          "name": "One column row",
+          "label": "",
+          "name": "Right side",
           "areas": [
             {
               "grid": 12,

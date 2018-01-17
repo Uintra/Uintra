@@ -33,6 +33,7 @@ using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
+using FluentScheduler;
 using Localization.Core;
 using Localization.Core.Configuration;
 using Localization.Storage.UDictionary;
@@ -113,7 +114,7 @@ using ReminderJob = uIntra.Notification.ReminderJob;
 
 namespace Compent.uIntra
 {
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -402,10 +403,11 @@ namespace Compent.uIntra
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
 
             //Jobs 
-            kernel.Bind<BaseIntranetJob>().To<global::uIntra.Notification.Jobs.ReminderJob>().InRequestScope();
-            kernel.Bind<BaseIntranetJob>().To<MontlyMailJob>().InRequestScope();
-            kernel.Bind<BaseIntranetJob>().To<SendEmailJob>().InRequestScope();            
-            kernel.Bind<BaseIntranetJob>().To<UpdateActivityCacheJob>().InRequestScope();
+            kernel.Bind<global::uIntra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
+            kernel.Bind<MontlyMailJob>().ToSelf().InRequestScope();
+            kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
+            kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
+            kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

@@ -443,7 +443,7 @@ h5{
     min-height:190px;
 
     @media (--for-tablet-portrait-down) {
-        padding: 0;
+        padding: 0 0 46px;
         overflow: visible;
         position:static;
 
@@ -617,6 +617,7 @@ h5{
     position: relative;
     text-transform:uppercase;
     cursor:pointer;
+    -webkit-appearance: none;
 
     &:hover{
         border-color:#261d43;
@@ -783,7 +784,6 @@ h5{
         display:flex;
         justify-content: center;
         align-items:center;
-        padding:0 0 0 3px;
     }
 }
 

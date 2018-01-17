@@ -552,10 +552,6 @@
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.min.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
-    <Content Include="App_Plugins\Core\Content\libs\object-fit-polyfill\polyfill.object-fit.css" />
-    <Content Include="App_Plugins\Core\Content\libs\object-fit-polyfill\polyfill.object-fit.js" />
-    <Content Include="App_Plugins\Core\Content\libs\object-fit-polyfill\polyfill.object-fit.min.css" />
-    <Content Include="App_Plugins\Core\Content\libs\object-fit-polyfill\polyfill.object-fit.min.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
@@ -1218,6 +1214,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
+    <Content Include="Views\Groups\GroupNavigation.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

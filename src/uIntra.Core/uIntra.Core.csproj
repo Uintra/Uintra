@@ -385,6 +385,7 @@
     <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
     <Compile Include="Core\Jobs\Enums\JobRunTypeEnum.cs" />
     <Compile Include="Core\Jobs\JobConfiguration.cs" />
+    <Compile Include="Core\Jobs\IntranetJobFactory.cs" />
     <Compile Include="Core\Jobs\JobsRegistry.cs" />
     <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
