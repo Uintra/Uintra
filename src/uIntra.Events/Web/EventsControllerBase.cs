@@ -120,7 +120,7 @@ namespace uIntra.Events.Web
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
 
-            var redirectUrl = createModel.Links.DetailsNoId.AddIdParameter(activityId);
+            var redirectUrl = _activityLinkService.GetLinks(activityId).Details;
             return Redirect(redirectUrl);
         }
 

@@ -41,8 +41,11 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentProvider intranetUserContentProvider,
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
-            IGroupActivityService groupActivityService, UserTagService userTagService, IActivityTagsHelper activityTagsHelper)
-            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider)
+            IGroupActivityService groupActivityService,
+            UserTagService userTagService,
+            IActivityTagsHelper activityTagsHelper,
+            IActivityLinkService activityLinkService)
+            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider, activityLinkService)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;
