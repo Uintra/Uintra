@@ -69,8 +69,8 @@ namespace Compent.uIntra.Core.Events
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            IActivityLocationService activityLocationService, I
-            ActivitySubscribeSettingService activitySubscribeSettingService)
+            IActivityLocationService activityLocationService, 
+            IActivitySubscribeSettingService activitySubscribeSettingService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;

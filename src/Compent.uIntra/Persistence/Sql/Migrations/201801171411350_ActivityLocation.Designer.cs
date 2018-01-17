@@ -7,13 +7,13 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Add_ActivityLocation : IMigrationMetadata
+    public sealed partial class ActivityLocation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_ActivityLocation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ActivityLocation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801051205504_Add_ActivityLocation"; }
+            get { return "201801171411350_ActivityLocation"; }
         }
         
         string IMigrationMetadata.Source
