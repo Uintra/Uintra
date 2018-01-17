@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using uIntra.CentralFeed;
 using uIntra.CentralFeed.Web;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
 using uIntra.Core.TypeProviders;
@@ -69,6 +70,7 @@ namespace uIntra.Groups.Web
         }
 
         [HttpGet]
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id, Guid groupId)
         {
             var viewModel = GetDetailsViewModel(id, groupId);

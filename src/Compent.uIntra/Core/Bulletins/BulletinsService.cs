@@ -159,17 +159,16 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var cachedBulletin = Get(id);
             var bulletin = base.UpdateCachedEntity(id);
-            if (IsBulletinHidden(bulletin))
+            if (IsCacheable(bulletin))
             {
-                _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
-                _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
-                return null;
+                _activityIndex.Index(Map(bulletin));
+                _documentIndexer.Index(bulletin.MediaIds);
+                return bulletin;
             }
-
-            _activityIndex.Index(Map(bulletin));
-            _documentIndexer.Index(bulletin.MediaIds);
-            return bulletin;
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
+            return null;
         }
 
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
@@ -225,7 +224,7 @@ namespace Compent.uIntra.Core.Bulletins
 
         public void FillIndex()
         {
-            var activities = GetAll().Where(s => !IsBulletinHidden(s));
+            var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
 
             var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Bulletins.ToInt());
@@ -323,6 +322,16 @@ namespace Compent.uIntra.Core.Bulletins
         private bool IsBulletinHidden(Bulletin bulletin)
         {
             return bulletin == null || bulletin.IsHidden;
+        }
+
+        private bool IsCacheable(Bulletin bulletin)
+        {
+            return !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
+        }
+
+        private bool IsActualPublishDate(Bulletin bulletin)
+        {
+            return DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
         }
 
         private SearchableUintraActivity Map(Bulletin bulletin)

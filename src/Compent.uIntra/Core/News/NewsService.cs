@@ -95,8 +95,8 @@ namespace Compent.uIntra.Core.News
             _userTagService = userTagService;
         }
 
-        protected List<string> OverviewXPath => new List<string> {_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType)};
-        public override IIntranetType ActivityType => _activityTypeProvider.Get((int) IntranetActivityTypeEnum.News);
+        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
 
         public MediaSettings GetMediaSettings()
         {
@@ -162,17 +162,16 @@ namespace Compent.uIntra.Core.News
         {
             var cachedNews = Get(id);
             var news = base.UpdateCachedEntity(id);
-            if (IsNewsHidden(news))
+            if (IsInCache(news))
             {
-                _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
-                _mediaHelper.DeleteMedia(cachedNews.MediaIds);
-                return null;
+                _activityIndex.Index(Map(news));
+                _documentIndexer.Index(news.MediaIds);
+                return news;
             }
-
-            _activityIndex.Index(Map(news));
-            _documentIndexer.Index(news.MediaIds);
-            return news;
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
+            _mediaHelper.DeleteMedia(cachedNews.MediaIds);
+            return null;
         }
 
         public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
@@ -228,7 +227,7 @@ namespace Compent.uIntra.Core.News
 
         public void FillIndex()
         {
-            var activities = GetAll().Where(s => !IsNewsHidden(s));
+            var activities = GetAll().Where(IsInCache);
             var searchableActivities = activities.Select(Map);
 
             var seachableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.News.ToInt());
@@ -248,43 +247,43 @@ namespace Compent.uIntra.Core.News
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
-                {
-                    var news = Get(entityId);
-                    data.ReceiverIds = news.OwnerId.ToEnumerable();
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                    {
+                        var news = Get(entityId);
+                        data.ReceiverIds = news.OwnerId.ToEnumerable();
+                        data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentLikeAdded:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var news = Get(comment.ActivityId);
-                    data.ReceiverIds = currentUser.Id == comment.UserId
-                        ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerable();
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var news = Get(comment.ActivityId);
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerable();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
-                }
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentAdded:
-                case (int) NotificationTypeEnum.CommentEdited:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var news = Get(comment.ActivityId);
-                    data.ReceiverIds = news.OwnerId.ToEnumerable();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
-                }
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var news = Get(comment.ActivityId);
+                        data.ReceiverIds = news.OwnerId.ToEnumerable();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentReplied:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var news = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerable();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.CommentReplied:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var news = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerable();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
                 default:
@@ -293,9 +292,19 @@ namespace Compent.uIntra.Core.News
             return data;
         }
 
+        private bool IsInCache(Entities.News news)
+        {
+            return !IsNewsHidden(news) && IsActualPublishDate(news);
+        }
+
         private bool IsNewsHidden(Entities.News news)
         {
             return news == null || news.IsHidden;
+        }
+
+        private bool IsActualPublishDate(Entities.News news)
+        {
+            return DateTime.Compare(news.PublishDate, DateTime.Now) <= 0;
         }
 
         private SearchableUintraActivity Map(Entities.News news)

@@ -39,6 +39,7 @@ namespace Compent.uIntra.Installer
         private readonly Version EventsPublishDateUIntraVersion = new Version("0.2.12.0");
         private readonly Version TaggingUIntraVersion = new Version("0.2.13.0");
         private readonly Version OldSubscribeSettingsUIntraVersion = new Version("0.2.13.0");
+        private readonly Version MoveMyGroupsDocTypeMigrationVersion = new Version("0.2.20.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -104,6 +105,12 @@ namespace Compent.uIntra.Installer
             {
                 var oldSubscribeSettingsMigration = new OldSubscribeSettingsMigration();
                 oldSubscribeSettingsMigration.Execute();
+            }
+
+            if (installedVersion < MoveMyGroupsDocTypeMigrationVersion && UIntraVersion >= MoveMyGroupsDocTypeMigrationVersion)
+            {
+                var moveMyGroupsDocTypeMigration = new MoveMyGroupsOverviewDocTypeMigration();
+                moveMyGroupsDocTypeMigration.Execute();
             }
 
             if (installedVersion < TaggingUIntraVersion && UIntraVersion >= TaggingUIntraVersion)

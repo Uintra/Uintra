@@ -11,7 +11,7 @@ namespace uIntra.Tagging
         protected override void Configure()
         {
             Mapper.CreateMap<UserTag, LabeledIdentity<Guid>>()
-                .ForMember(f => f.Label, d => d.MapFrom(i => i.Text));
+                .ForMember(f => f.Text, d => d.MapFrom(i => i.Text));
         }
     }
 }

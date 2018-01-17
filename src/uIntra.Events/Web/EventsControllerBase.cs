@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
@@ -50,6 +51,7 @@ namespace uIntra.Events.Web
             _activityLinkService = activityLinkService;
         }
 
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var @event = _eventsService.Get(id);
@@ -277,6 +279,7 @@ namespace uIntra.Events.Web
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.StartDate = createModel.StartDate.ToUniversalTime();
+            @event.PublishDate = createModel.PublishDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
@@ -290,6 +293,7 @@ namespace uIntra.Events.Web
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             @event.StartDate = editModel.StartDate.ToUniversalTime();
+            @event.PublishDate = editModel.PublishDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 

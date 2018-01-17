@@ -207,17 +207,16 @@ namespace Compent.uIntra.Core.Events
         {
             var cachedEvent = Get(id);
             var @event = base.UpdateCachedEntity(id);
-            if (IsEventHidden(@event))
+            if (IsCacheable(@event))
             {
-                _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
-                _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
-                return null;
+                _activityIndex.Index(Map(@event));
+                _documentIndexer.Index(@event.MediaIds);
+                return @event;                
             }
-
-            _activityIndex.Index(Map(@event));
-            _documentIndexer.Index(@event.MediaIds);
-            return @event;
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
+            return null;
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
@@ -387,12 +386,22 @@ namespace Compent.uIntra.Core.Events
 
         public void FillIndex()
         {
-            var activities = GetAll().Where(s => !IsEventHidden(s));
+            var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
 
             var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Events.ToInt());
             _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
+        }
+
+        private bool IsCacheable(Event @event)
+        {
+            return !IsEventHidden(@event) && IsActualPublishDate(@event);
+        }
+
+        private bool IsActualPublishDate(Event @event)
+        {
+            return DateTime.Compare(@event.PublishDate, DateTime.Now) <= 0;
         }
 
         private bool IsEventHidden(Event @event)

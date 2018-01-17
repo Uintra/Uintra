@@ -1,4 +1,5 @@
-﻿@using uIntra.Core.Extensions
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extensions
 @model uIntra.Groups.GroupMemberOverviewViewModel
 @{
     Layout = null;
@@ -13,18 +14,21 @@
             <th class="members-table__head"></th>
         </tr>
         @foreach (var member in Model.Members)
-            {
+        {
             <tr class="members-table__row">
                 <td class="members-table__cell">
-                    <div class="members-table__avatar">
-                        <img class="members-table__img" src="@member.Photo" height="60" />
-                    </div>
+                    @Html.Action("Photo", "User", new
+                    {
+                        user = member.GroupMember,
+                        cssModificator = "avatar--group-member",
+                        photoWidth = 30
+                    })
                 </td>
                 <td class="members-table__cell">
-                    <span class="members-table__name">@member.Name</span>
+                    <span class="members-table__name">@member.GroupMember.DisplayedName</span>
                 </td>
                 <td class="members-table__cell">
-                    <a class="members-table__link" href="mailto:@member.Email">@member.Email</a>
+                    <a class="members-table__link" href="mailto:@member.GroupMember.Email">@member.GroupMember.Email</a>
                 </td>
                 <td class="members-table__cell _role">
                     @{var role = member.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
@@ -40,10 +44,10 @@
                             data_ok = Html.Localize("GroupMembers.Delete.Confirm.btn"),
                             data_cancel = Html.Localize("GroupMembers.Delete.ConfirmCancel.btn")
                         };
-                        @Html.ActionLink("x", "ExcludeMember", "Group", new { memberId = member.Id, groupId }, htmlAttributes);
+                        @Html.ActionLink("x", "ExcludeMember", "Group", new { memberId = member.GroupMember.Id, groupId }, htmlAttributes);
                     }
                 </td>
             </tr>
-                        }
+        }
     </table>
 </div>
