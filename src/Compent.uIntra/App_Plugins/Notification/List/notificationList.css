@@ -17,6 +17,10 @@
 .notification{
     position:relative;
 
+    /*._notifications-expanded &{
+        z-index:11;
+    }*/
+
     /* Notification popup styles */
     &__icon{
         color:var(--color-white);
@@ -96,6 +100,7 @@
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
+                    z-index:11;
                 }
             }
         }
@@ -146,7 +151,7 @@
 
         &__icon {
             position:relative;
-            z-index:3;
+            z-index:12;
             display:block;
             text-align:center;
             padding:22px 0 13px;

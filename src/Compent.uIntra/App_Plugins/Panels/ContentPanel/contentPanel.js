@@ -144,8 +144,10 @@ var initPanel = function (selector) {
 }
 
 var initMobileBanners = function () {
-    var opener = document.querySelector("#js-sidepanel-opener");
-    var sidebar = document.querySelector('.sidebar');
+    //var opener = document.querySelector("#js-sidepanel-opener");
+    var opener = document.querySelector("#js-aside-opener");
+    //var sidebar = document.querySelector('.sidebar');
+    var aside = document.querySelector('.aside');
     var tabset = document.querySelector('.tabset');
     var header = document.getElementById('header');
     var bulletinBtn = document.querySelector('.bulletin__btn-holder');
@@ -159,12 +161,13 @@ var initMobileBanners = function () {
         height += bulletinBtn.clientHeight;
     }
 
-    if (!opener || !sidebar) {
+    /*if (!opener || !aside) {
         body.classList.add('_hide-sidepanel-opener');
         return
-    };
+    };*/
     
-    if (sidebar) {
+    if (aside) {
+        body.classList.add('_show-aside-opener');
         opener.addEventListener('click',
             () => {
                 body.classList.toggle('_sidebar-expanded');
@@ -177,13 +180,13 @@ var initMobileBanners = function () {
 
                 body.addEventListener('click',
                     function (ev) {
-                        isOutsideClick(sidebar, opener, ev.target, '_sidebar-expanded');
+                        isOutsideClick(aside, opener, ev.target, '_sidebar-expanded');
                     });
             });
     }
-    else {
+    /*else {
         body.classList.add('_hide-sidepanel-opener');
-    }
+    }*/
 }
 
 var isOutsideClick = function (el, opener, target, className) {
