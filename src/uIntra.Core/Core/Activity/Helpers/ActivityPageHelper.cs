@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
@@ -12,6 +13,7 @@ namespace uIntra.Core.Activity
         public IIntranetType ActivityType { get; }
 
         private readonly IEnumerable<string> _activityXPath;
+        private readonly string[] _baseXPath;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
@@ -19,10 +21,13 @@ namespace uIntra.Core.Activity
         {
             _umbracoHelper = umbracoHelper;
             _aliasProvider = documentTypeAliasProvider;
+            _baseXPath = baseXPath.ToArray();
             ActivityType = activityType;
 
-            _activityXPath = baseXPath.Append(_aliasProvider.GetOverviewPage(ActivityType));
+            _activityXPath = _baseXPath.Append(_aliasProvider.GetOverviewPage(ActivityType));
         }
+
+        public string GetFeedUrl() => GetPageUrl(_baseXPath);
 
         public string GetOverviewPageUrl()
         {

@@ -18,6 +18,7 @@ namespace uIntra.CentralFeed
 
             return new ActivityLinks
             {
+                Feed = helper.GetFeedUrl(),
                 Overview = helper.GetOverviewPageUrl(),
                 Create = helper.GetCreatePageUrl(),
                 Details = helper.GetDetailsPageUrl(activity.Id),
@@ -33,6 +34,7 @@ namespace uIntra.CentralFeed
 
             return new ActivityCreateLinks
             {
+                Feed = helper.GetFeedUrl(),
                 Overview = helper.GetOverviewPageUrl(),
                 Create = helper.GetCreatePageUrl(),
                 Owner = GetProfileLink(model.OwnerId),
