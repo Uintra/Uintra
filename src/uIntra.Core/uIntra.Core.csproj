@@ -392,6 +392,7 @@
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\LinkPreview\LinkPreviewConfiguration.cs" />
+    <Compile Include="Core\LinkPreview\Models\LinkPreviewViewModel.cs" />
     <Compile Include="Core\LinkPreview\Sql\LinkPreviewEntity.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
