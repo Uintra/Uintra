@@ -144,9 +144,7 @@ var initPanel = function (selector) {
 }
 
 var initMobileBanners = function () {
-    //var opener = document.querySelector("#js-sidepanel-opener");
     var opener = document.querySelector("#js-aside-opener");
-    //var sidebar = document.querySelector('.sidebar');
     var aside = document.querySelector('.aside');
     var tabset = document.querySelector('.tabset');
     var header = document.getElementById('header');
@@ -160,17 +158,12 @@ var initMobileBanners = function () {
     if (bulletinBtn) {
         height += bulletinBtn.clientHeight;
     }
-
-    /*if (!opener || !aside) {
-        body.classList.add('_hide-sidepanel-opener');
-        return
-    };*/
-    
+        
     if (aside) {
         body.classList.add('_show-aside-opener');
         opener.addEventListener('click',
             () => {
-                body.classList.toggle('_sidebar-expanded');
+                body.classList.toggle('_aside-expanded');
                 if (body.classList.contains('_search-expanded')) {
                     body.classList.remove('_search-expanded');
                 }
@@ -180,13 +173,10 @@ var initMobileBanners = function () {
 
                 body.addEventListener('click',
                     function (ev) {
-                        isOutsideClick(aside, opener, ev.target, '_sidebar-expanded');
+                        isOutsideClick(aside, opener, ev.target, '_aside-expanded');
                     });
             });
     }
-    /*else {
-        body.classList.add('_hide-sidepanel-opener');
-    }*/
 }
 
 var isOutsideClick = function (el, opener, target, className) {
