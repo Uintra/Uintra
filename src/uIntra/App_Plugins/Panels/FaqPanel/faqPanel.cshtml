@@ -17,17 +17,15 @@
     <div class="faq-panel__holder">
         @foreach (var question in viewModel.questions)
         {
-            <div class="js-faq-panel">
-                <div class="content">
-                    <div class="faq-panel__area">
-                        <div class="faq-panel__heading">
-                            <h3 class="faq-panel__title js-toggler"><span class="icon-arrow-left"></span> @question.question</h3>
-                        </div>
-                        <div class="faq-panel__body js-body">
-                            <div class="faq-panel__holder js-holder">
-                                <div class="rich-text-editor RTE-blue">
-                                    @Html.Raw((string)question.answer)
-                                </div>
+            <div class="js-faq-panel faq-panel__content">
+                <div class="faq-panel__area">
+                    <div class="faq-panel__heading">
+                        <h3 class="faq-panel__title js-toggler"><span class="icon-arrow-left"></span> @question.question</h3>
+                    </div>
+                    <div class="faq-panel__body js-body">
+                        <div class="faq-panel__holder js-holder">
+                            <div class="rich-text-editor RTE-blue">
+                                @Html.Raw((string)question.answer)
                             </div>
                         </div>
                     </div>

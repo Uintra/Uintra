@@ -2,6 +2,7 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
     <section name="userPermissions" type="uIntra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
+    <section name="uIntraJobs" type="uIntra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='uIntraJobs')" xdt:Transform="InsertIfMissing" />
     <section name="elasticConfiguration" type="uIntra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />

@@ -89,7 +89,7 @@ namespace Compent.uIntra.Core.PagePromotion
             return Get(activityId);
         }
 
-        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             UpdateCachedEntity(comment.ActivityId);
@@ -121,7 +121,11 @@ namespace Compent.uIntra.Core.PagePromotion
             var activity = base.UpdateCachedEntity(id);
             if (IsPagePromotionHidden(activity))
             {
-                _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
+                if (cachedEntity != null)
+                {
+                    _documentIndexer.DeleteFromIndex(cachedEntity.MediaIds);
+                }
+
                 return null;
             }
 
@@ -152,6 +156,7 @@ namespace Compent.uIntra.Core.PagePromotion
         {
             var pagePromotion = content.Map<Entities.PagePromotion>();
             var config = PagePromotionHelper.GetConfig(content);
+            if (config == null) return null;
 
             Mapper.Map(config, pagePromotion);
 

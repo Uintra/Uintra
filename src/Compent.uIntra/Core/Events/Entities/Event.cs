@@ -18,7 +18,7 @@ namespace Compent.uIntra.Core.Events
         [JsonIgnore]
         public IEnumerable<LikeModel> Likes { get; set; }
         [JsonIgnore]
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<CommentModel> Comments { get; set; }
         [JsonIgnore]
         public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 

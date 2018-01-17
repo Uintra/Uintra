@@ -1,6 +1,6 @@
-﻿.block{
+﻿.block._document-panel {
     &__title{
-        font:bold 20px/25px var(--font-custom);
+        font:bold 16px/20px var(--font-custom);
         text-transform:uppercase;
         margin:0 0 9px;
         color:var(--text-color-dark);
@@ -31,42 +31,49 @@
 
     &__item{
         overflow:hidden;
-        margin:0 0 10px;
+        padding:10px 0;
+        
+        ._content-panel &{
+            border-bottom:1px solid #d6d6d6;
+
+            &:first-child{
+                border-top:1px solid #d6d6d6;
+            }
+        }
 
         ._vertical &{
             overflow:hidden;
-            margin:0 0 16px;
+            border-bottom:1px solid #d6d6d6;
+
+            &:first-child{
+                border-top:1px solid #d6d6d6;
+            }
         }
         
         ._horizontal &{
             text-align:center;
-            width:100%;
-            max-width:150px;
-            min-width:100px;
-            padding:0 0 10px 20px;
-
-            @media (--for-desktop-up){
-                &{
-                    width:33%;
-                }
-            }
+            width:50%;
+            padding:0 0 20px 20px;
         }
 
         &-link{
             color:var(--text-color-dark);
+            display: block;
+            overflow: hidden;
 
             &:hover{
                 color:var(--text-color-dark);
             }
 
             ._horizontal &{
-                background:#fbfbfb;
-                display:block;
+                display:flex;
+                flex-direction:column;
+                justify-content:space-around;
                 height:100%;
-                border:1px solid var(--color-light-gray-2);
-                border-radius:2px;
-                padding:11px 10px 8px;
+                border:1px solid #d6d6d6;
+                padding:20px 10px;
                 color:var(--text-color-dark);
+                height:107px;
 
                 &:hover,
                 &:active,
@@ -76,9 +83,11 @@
                 }
             }
         }
+
         &-name{
             display:block;
             overflow:hidden;
+            text-overflow: ellipsis;
 
             ._horizontal &{
                 font-size:11px;
@@ -91,8 +100,8 @@
     }
 
     &__icon{
-        width: 24px;
-        height: 24px;
+        width: 40px;
+        height: 19px;
         float:left;
         margin:0 10px 0 0;
 
@@ -102,9 +111,7 @@
 
         ._horizontal &{
             float:none;
-            margin:0 auto 3px;
-            width: 30px;
-            height: 30px;
+            margin:0 auto 5px;
         }
     }
 

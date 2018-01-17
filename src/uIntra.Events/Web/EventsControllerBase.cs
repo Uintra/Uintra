@@ -279,6 +279,7 @@ namespace uIntra.Events.Web
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
             @event.StartDate = createModel.StartDate.ToUniversalTime();
+            @event.PublishDate = createModel.PublishDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
             @event.CreatorId = _intranetUserService.GetCurrentUserId();
@@ -292,6 +293,7 @@ namespace uIntra.Events.Web
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             @event.StartDate = editModel.StartDate.ToUniversalTime();
+            @event.PublishDate = editModel.PublishDate.ToUniversalTime();
             @event.EndDate = editModel.EndDate.ToUniversalTime();
             @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
 

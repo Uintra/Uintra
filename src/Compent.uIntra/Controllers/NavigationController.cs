@@ -125,8 +125,12 @@ namespace Compent.uIntra.Controllers
 
             var groupId = Request.QueryString.GetGroupId();
             var groupRoomPageUrl = _groupContentProvider.GetGroupRoomPage().Url;
-            var groupRoomBreadcrumbItem = result.Single(el => el.Url.Equals(groupRoomPageUrl));
-            groupRoomBreadcrumbItem.Url = _groupLinkProvider.GetGroupLink(groupId.Value);
+
+            var groupRoomItems = result.SkipWhile(el => !el.Url.Equals(groupRoomPageUrl));
+            foreach (var item in groupRoomItems)
+            {
+                item.Url = item.Url.AddGroupId(groupId.Value);
+            }
 
             return result;
         }
