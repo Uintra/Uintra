@@ -1,20 +1,16 @@
 @using uIntra.Core.Extensions
 @model Compent.uIntra.Core.Events.EventExtendedItemModel
 @{
-    var pinnedClass = Model.IsPinActual ? "_pinned" : "";
+    var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
-<div class="feed__item @pinnedClass">
+<div class="feed__item @currentPinnedClass">
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
-            <span class="pinned__item">@Html.Localize("EventsItemView.Pinned.lbl")</span>
+            <span class="pinned__item">@Html.Localize("EventItemView.Pinned.lbl")</span>
         }
 
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
-        @if (Model.IsSubscribed)
-        {
-            <span class="feed__item-subscribed js-feed__item-subscribed"><i class="icon-check"></i> @Html.Localize("CentralFeed.IsSubscribed.lbl")</span>
-        }
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
@@ -24,10 +20,4 @@
     <div class="feed__item-images">
         @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
     </div>
-    <div class="feed__item-feed">
-        <div class="feed__item-feed-holder">
-            @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
-            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.Links.Details, isReadOnly = Model.IsReadOnly }); }
-        </div>
-    </div>
-</div> 
+</div>

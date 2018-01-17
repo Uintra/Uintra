@@ -5,7 +5,7 @@ import initSearch from './../App_Plugins/Search/search';
 import initActionLinkWithConfirm from "../App_Plugins/Core/Content/scripts/ActionLinkWithConfirm";
 import initUsers from './../App_Plugins/Users/users';
 import initNotification from './../App_Plugins/Notification/notification';
-import initTags from './../App_Plugins/Tagging/tags';
+import initTags from './../App_Plugins/UsersTags/userTags';
 import subscribe from "./../App_Plugins/Subscribe/subscribe";
 import initNavigation from './../App_Plugins/Navigation/navigation';
 import comment from "./../App_Plugins/Comments/comment";

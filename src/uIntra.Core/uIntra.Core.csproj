@@ -389,6 +389,7 @@
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
+    <Compile Include="Core\LabeledIdentity.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
@@ -409,7 +410,11 @@
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
-    <Compile Include="Core\UmbracoEventServices\IUmbracoEventService.cs" />
+    <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaTrashedEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
@@ -439,6 +444,8 @@
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
     <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberDeletingEventService.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />

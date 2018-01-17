@@ -2,19 +2,17 @@
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions
 @using Umbraco.Web
-@model uIntra.News.NewsEditModel
+@model Compent.uIntra.Core.News.Models.NewsExtendedEditModel
 
 <div class="form js-check-before-unload" id="js-news-edit-page">
-    @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("EditExtended", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsEditPage.Title.lbl")</h1>
-        <input type="hidden" name="id" value="@Model.Id" />
-
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsEdit.Creator.lbl")</label>
             @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.News, links = Model.Links })
         </div>
-
+        <input type="hidden" name="id" value="@Model.Id" />
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("NewsEdit.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
@@ -27,9 +25,9 @@
                 @Html.Raw(Model.Description)
             </div>
             <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
-                   data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true"/>
+                   data-val-required="@Html.Localize("NewsEdit.DescriptionRequired.lbl")" data-val="true" />
         </div>
-
+        @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
         <div class="form__row clearfix">
             <div class="row">
                 <div class="col-md-6">
@@ -59,15 +57,14 @@
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-
         <div class="form__row clearfix">
             @Html.ValidationSummary()
         </div>
         <div class="form__row clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             @Html.PassLinks(Model.Links)
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
-            <input class="btn _submit _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")"/>
+            <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />
             <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
-                }
+    }
 </div>

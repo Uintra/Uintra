@@ -18,6 +18,13 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.SubscribeInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.SubscribeNotes, o => o.MapFrom(s => s.SubscribeNotes.ReplaceLineBreaksForHtml()));
+            
+            Mapper.CreateMap<EventEditModel, EventExtendedEditModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
+            Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
 
             Mapper.CreateMap<Event, EventExtendedItemModel>()
                 .IncludeBase<EventBase, EventItemViewModel>()
@@ -26,14 +33,18 @@ namespace Compent.uIntra.Core.Events
 
             Mapper.CreateMap<Event, EventExtendedEditModel>()
                 .IncludeBase<EventBase, EventEditModel>()
-                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
             Mapper.CreateMap<Event, EventExtendedCreateModel>()
                 .IncludeBase<EventBase, EventCreateModel>()
-                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
+                .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
+
+            
 
             Mapper.CreateMap<Event, IntranetActivityDetailsHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>();
@@ -96,6 +107,7 @@ namespace Compent.uIntra.Core.Events
             Mapper.CreateMap<EventEditModel, EventExtendedEditModel>()
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty))
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
         }
     }
