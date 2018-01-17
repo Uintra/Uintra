@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using uIntra.Comments;
 using uIntra.Core.Activity;
+using uIntra.Core.LinkPreview.Sql;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories.Sql;
 using uIntra.Core.Persistence;
@@ -49,6 +50,8 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<GroupDocument> GroupDocuments { get; set; }
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
         public DbSet<ActivitySubscribeSetting> ActivitySubscribeSettings { get; set; }
+        public DbSet<LinkPreviewEntity> LinkPreview { get; set; }
+        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreview { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
