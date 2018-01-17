@@ -327,6 +327,9 @@
     <Compile Include="Core\Navigation\Models\GroupLeftNavigationItemViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationPageTabViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupNavigationTabViewModelBase.cs" />
+    <Compile Include="Core\Permissions\GroupPermissionsService.cs" />
+    <Compile Include="Core\Permissions\GroupRestrictedActionAttribute.cs" />
+    <Compile Include="Core\Permissions\IGroupPermissionsService.cs" />
     <Compile Include="Core\Services\GroupActivityService.cs" />
     <Compile Include="Core\Services\GroupFeedService.cs" />
     <Compile Include="Core\Services\GroupMediaService.cs" />

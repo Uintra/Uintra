@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using uIntra.Core.Configuration;
+using uIntra.Core.User;
 using uIntra.Groups;
+using uIntra.Groups.Permissions;
 using uIntra.Navigation;
 using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
@@ -14,14 +16,20 @@ namespace Compent.uIntra.Core.Navigation
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {
         private readonly IGroupHelper _groupHelper;
+        private readonly IGroupPermissionsService _groupPermissionsService;
+        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
 
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IGroupPermissionsService groupPermissionsService,
+            IIntranetUserService<IGroupMember> intranetUserService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _groupHelper = groupHelper;
+            _groupPermissionsService = groupPermissionsService;
+            _intranetUserService = intranetUserService;
         }
 
         public override SubNavigationMenuModel GetMenu()
@@ -41,7 +49,7 @@ namespace Compent.uIntra.Core.Navigation
 
             var model = new SubNavigationMenuModel
             {
-                Rows = GetSubNavigationMenuRows(subMenuStartPage),
+                Rows = GetSubNavigationMenuRows(subMenuStartPage, _groupHelper.IsGroupPage(subMenuStartPage)),
                 Parent = IsHomePage(CurrentPage.Parent) || IsContentUnavailable(CurrentPage.Parent)
                     ? null
                     : MapToMenuItemModel(CurrentPage.Parent),
@@ -84,7 +92,7 @@ namespace Compent.uIntra.Core.Navigation
             return content.DocumentTypeAlias == NavigationConfiguration.HomePageAlias;
         }
 
-        protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage)
+        protected virtual IEnumerable<SubNavigationMenuRowModel> GetSubNavigationMenuRows(IPublishedContent subMenuStartPage, bool isGroupSubNavigation)
         {
             if (!subMenuStartPage.IsContentPage() && !_groupHelper.IsGroupPage(subMenuStartPage))
             {
@@ -94,7 +102,15 @@ namespace Compent.uIntra.Core.Navigation
             var activeItems = CurrentPage.AncestorsOrSelf().Where(pc => !pc.IsHeading() && !IsHomePage(pc)).ToList();
 
             var menuRows = activeItems
-                .Select(selectedItem => GetAvailableContent(selectedItem.Children).Select(MapToSubNavigationMenuItemModel))
+                .Select(selectedItem =>
+                {
+                    var availableContent = GetAvailableContent(selectedItem.Children);
+                    if (isGroupSubNavigation)
+                    {
+                        return ValidateGroupSubNavigationItems(availableContent).Select(MapToSubNavigationMenuItemModel);
+                    }
+                    return availableContent.Select(MapToSubNavigationMenuItemModel);
+                })
                 .Select(menuItems => new SubNavigationMenuRowModel
                 {
                     Items = menuItems.ToList()
@@ -134,6 +150,20 @@ namespace Compent.uIntra.Core.Navigation
             };
 
             return result;
+        }
+
+        protected virtual IEnumerable<IPublishedContent> ValidateGroupSubNavigationItems(IEnumerable<IPublishedContent> items)
+        {
+            var role = _intranetUserService.GetCurrentUser().Role;
+
+            foreach (var item in items)
+            {
+                var validatePermission = _groupPermissionsService.ValidatePermission(item, role);
+                if (validatePermission)
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }
