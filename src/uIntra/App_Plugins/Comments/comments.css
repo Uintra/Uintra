@@ -3,13 +3,23 @@
     padding:24px 0 0;
     border-top:1px solid var(--color-light-gray);
 
-    &__title{
-        font:bold 16px/23px var(--font-general);
-        margin:40px 0 38px;
+    &__block{
+        .content-page &{
+            display: block;
+            margin: 0 0 22px;
+            padding: 20px 20px 19px;
+            background: var(--color-white);
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
-        .comments &{
-            margin-top:0;
+            @media (--for-tablet-portrait-down) {
+                margin:0 -20px 10px;
+            }
         }
+    }
+
+    &__title{
+        font:20px/25px var(--font-general);
+        margin:0 0 36px;
     }
 
     &__list{
@@ -19,7 +29,7 @@
         position: relative;
 
         &._inner{
-            margin:22px 0 0 -14px;
+            margin:14px 0 0 -14px;
             padding:0 0 0 10px;
             border-left: 2px solid var(--color-light-gray-2);
         }
@@ -46,8 +56,7 @@
         }
         &-text{
             position:relative;
-            padding-bottom:27px;
-            line-height:1.4em;
+            padding-bottom:10px;
 
             p{
                 margin:0;
@@ -95,6 +104,7 @@
         &-name{
             font-weight: bold;
             font-family:var(--font-general);
+            color:var(--text-color-dark);
         }
             
         &-about{
@@ -138,7 +148,7 @@
 
         &:before {
             position:absolute;
-            top:6px;
+            top:5px;
             right:15px;
             width:7px;
             height:7px;
@@ -210,12 +220,6 @@
                 }
             }
         }
-
-        @media (--for-tablet-portrait-down){
-            &{
-                display:none;
-            }
-        }
     }
 
     &__subtitle{
@@ -245,7 +249,9 @@
         color: var(--text-color-dark);
         text-decoration: underline;
         cursor: pointer;
-        font-size: 12px;
+        float:left;
+        font-size: 13px;
+        margin:0 13px 0 7px;
 
         &:active,
         &:focus,
@@ -298,11 +304,11 @@
         &:active,
         &:focus,
         &:hover{
-            color:var(--text-color-dark);
-            text-decoration:underline;
+            color:#5776f9;
+            text-decoration:none;
 
             .icon-comment{
-                color:var(--text-color-dark);
+                color:#b2b2b2;
                 text-decoration:none;
             }
         }
@@ -310,7 +316,7 @@
 
     .icon-comment{
         font-size:16px;
-        margin:2px 9px 0 0;
+        margin:1px 9px 1px 0;
         vertical-align:top;
         display:inline-block;
         color: #b2b2b2;
@@ -320,7 +326,13 @@
 .comments-preview._hasComments .comments-preview__link {
     color: var(--text-color-dark);
 
+    &:active,
+    &:focus,
+    &:hover{
+        color:#5776f9;
+    }
+
     .icon-comment{
-        color: var(--text-color-dark);
+        color: #b2b2b2;
     }
 }

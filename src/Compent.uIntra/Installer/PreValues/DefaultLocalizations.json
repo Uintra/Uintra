@@ -197,6 +197,20 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Comments.ReadonlyClick.Message.lbl",
+    "translations": {
+      "en-US": "Only subscribed person can comment activity in the group"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Comments.ReadonlyClick.Title.lbl",
+    "translations": {
+      "en-US": "Notification"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "CommentsOverView.AddComment.lbl",
     "translations": {
       "en-US": "Add comment"
@@ -785,6 +799,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Likes.Title.lbl",
+    "translations": {
+      "en-US": "Likes"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "MyLinks.Add.lbl",
     "translations": {
       "en-US": "Add to My Links"
@@ -983,6 +1004,13 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Notifications.Pinned.lbl",
+    "translations": {
+      "en-US": "Important"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "NotificationPreview.ShowAllNotifications.lbl",
     "translations": {
       "en-US": "See all notifications"
@@ -1032,9 +1060,30 @@
     "updateDate": "0001-01-01T00:00:00"
   },
   {
+    "key": "Profile.FirstName.lbl",
+    "translations": {
+      "en-US": "First Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "Profile.FirstName.Placeholder",
     "translations": {
       "en-US": "Enter your First name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.LastName.lbl",
+    "translations": {
+      "en-US": "Last Name"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Profile.LastName.Placeholder",
+    "translations": {
+      "en-US": "Enter your Last name "
     },
     "updateDate": "0001-01-01T00:00:00"
   },
@@ -1218,7 +1267,6 @@
     "translations": {
       "en-US": "Event participation"
     },
-    "parentKey": "SubscribeSettings",
     "updateDate": "0001-01-01T00:00:00"
   },
   {
@@ -1226,7 +1274,6 @@
     "translations": {
       "en-US": "Make it possible for people to subscribe to your event"
     },
-    "parentKey": "SubscribeSettings",
     "updateDate": "0001-01-01T00:00:00"
   },
   {
@@ -1234,7 +1281,6 @@
     "translations": {
       "en-US": "Subscribe notes are must be shorter than {0} characters"
     },
-    "parentKey": "SubscribeSettings",
     "updateDate": "0001-01-01T00:00:00"
   },
   {
@@ -1439,7 +1485,7 @@
   {
     "key": "GroupRoom.Label",
     "translations": {
-      "en-US": "Label"
+      "en-US": "Group Room"
     },
     "updateDate": "0001-01-01T00:00:00"
   },

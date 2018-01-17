@@ -10,6 +10,7 @@ let userSelect;
 let editor;
 let form;
 
+
 let initUserSelect = function () {
     userSelect = holder.find('.js-user-select').select2({});
 }
@@ -80,6 +81,7 @@ let initDescriptionControl = function () {
     ];
 
     editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
+        placeholder: dataStorage.first().data('placeholder') || '',
         modules: {
             toolbar: toolbarOptions
         },
@@ -169,6 +171,7 @@ function showNotifyAllSubscribersDialog(callbacks) {
 let initDatePickers = function () {
     let start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     let end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
+    let publish = helpers.initDatePicker(holder, '#js-publish-date', '#js-publish-date-value');
     let pin = pinActivity.initPinDate(holder);
 
     function startOnChange(newDates) {

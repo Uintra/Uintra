@@ -11,7 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uIntra News Controls NewsControls</tags>
     <dependencies>
-      <dependency id="uIntra.Core" version="1.4.2" />
+      <dependency id="uIntra.Core" version="1.4.10.0" />
       <dependency id="uIntra.BaseControls" version="1.4.1.3" />
     </dependencies>
   </metadata>
