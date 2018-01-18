@@ -210,6 +210,12 @@
             margin:17px 0 16px;
         }
 
+        &-note{
+            padding:8px 0;
+            line-height:1.38;
+            color:#262626;
+        }
+
         &-txt{
             margin:0 0 21px;
             line-height:1.4;

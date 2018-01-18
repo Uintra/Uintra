@@ -40,6 +40,11 @@
 }
 
 <div class="feed__list">
+    @*<div class="feed__item">
+        <div class="feed__item-note">
+            <p>Nothing has been posted yet</p>
+        </div>
+    </div>*@
     @foreach (var item in Model.Feed)
     {
         <div data-anchor="@item.Activity.Id">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Links;
@@ -34,8 +35,7 @@ namespace Compent.uIntra.Controllers
             UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IImageHelper imageHelper,
-            IGroupPermissionsService groupPermissionsService
-            )
+            IGroupPermissionsService groupPermissionsService)
             : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider, imageHelper)
         {
             _intranetUserService = intranetUserService;
@@ -62,13 +62,15 @@ namespace Compent.uIntra.Controllers
 
             return PartialView(LeftNavigationPath, result);
         }
-
+         
         private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(IPublishedContent rootGroupPage)
         {
             var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
             var role = _intranetUserService.GetCurrentUser().Role;
 
-            foreach (var subPage in rootGroupPage.Children)
+            var groupPageChildren = rootGroupPage.Children.Where(el => el.IsShowPageInSubNavigation()).ToList();
+
+            foreach (var subPage in groupPageChildren)
             {
                 if (subPage.IsShowPageInSubNavigation())
                 {
@@ -82,7 +84,6 @@ namespace Compent.uIntra.Controllers
                     yield return MapToLeftNavigationItem(subPage, isPageActive);
                 }
             }
-
         }
 
         private static Func<IPublishedContent, bool> GetIsPageActiveFunc(IPublishedContent currentPage)
