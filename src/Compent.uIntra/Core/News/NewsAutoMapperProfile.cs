@@ -23,6 +23,12 @@ namespace Compent.uIntra.Core.News
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
+            Mapper.CreateMap<NewsEditModel, NewsExtendedEditModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
+            Mapper.CreateMap<NewsCreateModel, NewsExtendedCreateModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
             Mapper.CreateMap<Entities.News, NewsBackofficeViewModel>()
                 .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 

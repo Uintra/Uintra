@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BCLExtensions.Trees;
-using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using static BCLExtensions.Trees.TreeExtensions;
@@ -70,8 +69,8 @@ namespace uIntra.Notification.Configuration
                     node.Name,
                     node.Icon,
                     node.ViewPath,
-                    children.Select(c => Node(AddActivityTypeParameter(c.Value, node.Id), c.GetChildren()))),
-                leaf => Leaf(AddNotificationTypeParameter(leaf).WithIcon("icon-navigation-right")));
+                    children.Select(c => Tree(AddActivityTypeParameter(c.Value, node.Id), c.GetChildren()))),
+                leaf => Tree(AddNotificationTypeParameter(leaf).WithIcon("icon-navigation-right")));
 
             return mappedTree.Select(n => n.WithViewPath(n.ViewPath + "&id=" + n.Id));
         }
@@ -79,13 +78,8 @@ namespace uIntra.Notification.Configuration
         protected ITree<TreeNodeModel> GetNode(object id, object name, string icon, string viewPath, params ITree<TreeNodeModel>[] children) =>
             GetNode(id, name, icon, viewPath, children.AsEnumerable());
 
-        protected ITree<TreeNodeModel> GetNode(object id, object name, string icon, string viewPath, IEnumerable<ITree<TreeNodeModel>> children)
-        {
-            var childrenList = children.AsList();
-            return childrenList.Any()
-                ? Node(new TreeNodeModel(id.ToString(), name.ToString(), icon, viewPath), childrenList)
-                : Leaf(new TreeNodeModel(id.ToString(), name.ToString(), icon, viewPath));
-        }
+        protected ITree<TreeNodeModel> GetNode(object id, object name, string icon, string viewPath, IEnumerable<ITree<TreeNodeModel>> children) =>
+            Tree(new TreeNodeModel(id.ToString(), name.ToString(), icon, viewPath), children);
 
         protected string SplitOnUpperCaseLetters(string name) => name.SplitOnUpperCaseLetters();
 

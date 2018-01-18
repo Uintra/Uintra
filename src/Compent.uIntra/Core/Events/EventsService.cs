@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
 using Extensions;
+using Compent.uIntra.Core.UserTags.Indexers;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Activity;
@@ -21,6 +23,7 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -41,12 +44,13 @@ namespace Compent.uIntra.Core.Events
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly UserTagService _userTagService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
 
@@ -60,7 +64,7 @@ namespace Compent.uIntra.Core.Events
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex,
+            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             ISearchableTypeProvider searchableTypeProvider,
@@ -68,6 +72,7 @@ namespace Compent.uIntra.Core.Events
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
+            UserTagService userTagService,
             IActivitySubscribeSettingService activitySubscribeSettingService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
@@ -85,6 +90,7 @@ namespace Compent.uIntra.Core.Events
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _userTagService = userTagService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
         }
 
@@ -201,17 +207,16 @@ namespace Compent.uIntra.Core.Events
         {
             var cachedEvent = Get(id);
             var @event = base.UpdateCachedEntity(id);
-            if (IsEventHidden(@event))
+            if (IsCacheable(@event))
             {
-                _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
-                _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
-                return null;
+                _activityIndex.Index(Map(@event));
+                _documentIndexer.Index(@event.MediaIds);
+                return @event;                
             }
-
-            _activityIndex.Index(Map(@event));
-            _documentIndexer.Index(@event.MediaIds);
-            return @event;
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
+            return null;
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
@@ -243,7 +248,7 @@ namespace Compent.uIntra.Core.Events
             return Get(activityId).Likes;
         }
 
-        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             UpdateCachedEntity(activityId);
@@ -381,12 +386,22 @@ namespace Compent.uIntra.Core.Events
 
         public void FillIndex()
         {
-            var activities = GetAll().Where(s => !IsEventHidden(s));
+            var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
 
-            var searchableType = _searchableTypeProvider.Get(SearchableTypeEnum.Events.ToInt());
+            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Events.ToInt());
             _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
+        }
+
+        private bool IsCacheable(Event @event)
+        {
+            return !IsEventHidden(@event) && IsActualPublishDate(@event);
+        }
+
+        private bool IsActualPublishDate(Event @event)
+        {
+            return DateTime.Compare(@event.PublishDate, DateTime.Now) <= 0;
         }
 
         private bool IsEventHidden(Event @event)
@@ -394,10 +409,11 @@ namespace Compent.uIntra.Core.Events
             return @event == null || @event.IsHidden;
         }
 
-        private SearchableActivity Map(Event @event)
+        private SearchableUintraActivity Map(Event @event)
         {
-            var searchableActivity = @event.Map<SearchableActivity>();
+            var searchableActivity = @event.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(@event.Id).Select(t => t.Text);
             return searchableActivity;
         }
 

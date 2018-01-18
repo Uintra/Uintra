@@ -9,7 +9,6 @@
     }
 
     &._important{
-        padding:0 20px 20px;
         margin:0 0 20px;
     }
 
@@ -24,13 +23,16 @@
         }
     }
 
-    .sidebar &{
+    .aside &{
         margin:0 0 31px;
 
         &._latest-activities,
         &._document-panel,
         &.coming-events{
             padding-bottom:0;
+        }
+        @media (--for-tablet-portrait-down) {
+            margin:0 -20px 31px;
         }
 
         &__title{
@@ -145,7 +147,7 @@
         p{
             margin:0 0 10px;
 
-            .sidebar &{
+            .aside &{
                 margin:0 0 18px;
             }
         }
@@ -155,7 +157,7 @@
             line-height:22px;
             margin:0 0 19px;
 
-            .sidebar &{
+            .aside &{
                 font-size:16px;
                 line-height:1.4em;
                 margin:0 0 19px;
@@ -186,8 +188,8 @@
                 }
             }
         }
-
-        .sidebar &{
+        
+        .aside &{
             font-size:14px;
             line-height:1.43;
             padding:0;
@@ -201,7 +203,7 @@
     &__image{
         margin:-1px -20px 17px;
 
-        .sidebar &{
+        .aside &{
             margin:-20px -20px 17px;
         }
 
@@ -215,7 +217,7 @@
 			    width:50%;
 			    margin:5px 0 22px 20px;
 
-			    .sidebar &{
+                .aside &{
 				    margin:5px -5px 20px 10px;
 			    }
 		    }
@@ -264,7 +266,7 @@
         margin:0 -20px 20px;
         position:relative;
 
-        .sidebar &{
+        .aside &{
             margin:-20px -20px 20px;
         }
 
@@ -349,7 +351,7 @@
 			    width:50%;
 			    margin:5px 0 22px 20px;
 
-			    .sidebar &{
+                .aside &{
 				    margin:5px -5px 20px 10px;
 			    }
 		    }
@@ -417,7 +419,7 @@
             .documents{
                 padding-bottom:20px;
 
-                .sidebar &{
+                .aside &{
                     padding-top:5px;
                 }
             }
@@ -438,57 +440,53 @@
     }
 }
 
-._sidebar-expanded{
+._aside-expanded{
     height: 100vh;
     overflow:hidden;
 }
 
-.sidebar {
+.aside{
     @media (--for-tablet-portrait-down) {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding: 0;
-        transform: translate(0, -100%);
-        transition: transform linear 300ms;
-        background:#f6f6f6;
-        z-index:5;
+        position:fixed;
+        top:60px;
+        left:0;
+        right:0;
+        transition: all linear 300ms;
+        max-height:0;
+        overflow:hidden;
+        z-index:12;
 
-        ._sidebar-expanded & {
-            transform: translate(0, 0);
-            top:0;
+        ._aside-expanded & {
+            max-height: calc(100vh - 60px);
+        }
+
+        & > div {
+            transition: transform linear 300ms;
+            transform: translate(0, -100%);
+            background: #f6f6f6;
+            padding-top: 70px;
             overflow:hidden;
-            overflow-y:auto;
-            height:calc(100vh - 111px);
+            overflow-y: auto;
+            height:calc(100vh - 60px);
 
-            &__opener {
-                background: var(--color-submit);
-
-                &:before,
-                &:after {
-                    background: var(--color-submit);
-                    border-color: var(--color-white);
-                }
+            ._aside-expanded & {
+                transform: translate(0, 0);
             }
         }
 
-        ._with-sub-nav._with-subtitle._sidebar-expanded &{
-            height:calc(100vh - 110px);
-            top:1px;
-        }
-
         &__opener {
-            float: right;
-            width: 51px;
-            max-width:51px;
-            min-width:51px;
+            position:absolute;
+            top:60px;
+            right:0;
+            display:none;
+            transition:opacity 0.4s ease;
+            opacity:1;
             height: 50px;
+            width: 51px;
             background: var(--color-white);
             border-left:2px solid #f6f6f6;
-            position: relative;
-            z-index:10;
             cursor: pointer;
+            z-index:10;
 
             &:before,
             &:after {
@@ -511,14 +509,22 @@
                 margin: -8px 0 0 -3px;
             }
 
-            ._hide-sidepanel-opener &{
-                display:none;
+            ._show-aside-opener &{
+                display:block;
             }
 
-            .bulletin__btn-holder &{
-                position:absolute;
-                top:0;
-                right:0;
+            ._aside-expanded &{
+                background: var(--color-submit);
+
+                &:before,
+                &:after {
+                    background: var(--color-submit);
+                    border-color: var(--color-white);
+                }
+            }
+            
+            ._menu-expanded &{
+                opacity:0;
             }
         }
     }

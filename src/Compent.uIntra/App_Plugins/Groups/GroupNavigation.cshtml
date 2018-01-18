@@ -2,10 +2,8 @@
 @using Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
 
-<nav class="tabset">
+<nav class="tabset tabset--group">
     <div class="tabset__holder">
-        @{ Html.RenderAction("Breadcrumbs", "Navigation"); }
-
         <h1 class="tabset__title">
             @if (Model.GroupUrl.IsNullOrEmpty())
             {
@@ -17,7 +15,7 @@
             }
             <span class="tabset__group-label"> - @Html.Localize("GroupRoom.Label")</span>
         </h1>
-        <div class="tabset__inner">
+        <div class="tabset__inner _for-desktop">
             <ul class="tabset__navigation _groups clearfix js-feed-links">
                 @foreach (var tab in Model.ActivityTabs)
                 {

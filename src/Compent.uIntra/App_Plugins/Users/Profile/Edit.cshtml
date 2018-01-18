@@ -44,13 +44,13 @@
             <div class="check">
                 <label class="check__label">
                     @Html.CheckBox("js-member-notifier-setting",
-                Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
-                new
-                {
-                    notifiertype = NotifierTypeEnum.EmailNotifier,
-                    @class = "check__box",
-                    dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
-                })
+                     Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+                     new
+                     {
+                         notifiertype = NotifierTypeEnum.EmailNotifier,
+                         @class = "check__box",
+                         dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
+                     })
                     <span class="check__fake-input icon-check"></span>
                     <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
                 </label>
@@ -62,5 +62,4 @@
         </div>
         @Html.ValidationSummary()
     }
-    
 </div>

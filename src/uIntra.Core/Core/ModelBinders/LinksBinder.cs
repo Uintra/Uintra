@@ -6,6 +6,7 @@ namespace uIntra.Core.ModelBinders
 {
     class LinksBinder : ICustomModelBinder
     {
+        public const string FeedFormKey = "links.Form";
         public const string OverviewFormKey = "links.Overview";
         public const string DetailsFormKey = "links.Details";
         public const string EditFormKey = "links.Edit";
@@ -16,6 +17,7 @@ namespace uIntra.Core.ModelBinders
         public object BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext,
             PropertyDescriptor propertyDescriptor)
         {
+            var feedLink = GetValue(bindingContext.ValueProvider, FeedFormKey);
             var overviewLink = GetValue(bindingContext.ValueProvider, OverviewFormKey);
             var createLink = GetValue(bindingContext.ValueProvider, CreateFormKey);
             var detailsLink = GetValue(bindingContext.ValueProvider, DetailsFormKey);
@@ -25,6 +27,7 @@ namespace uIntra.Core.ModelBinders
 
             var result = new ActivityLinks
             {
+                Feed = feedLink,
                 Overview = overviewLink,
                 Create = createLink,
                 Details = detailsLink,

@@ -1,7 +1,7 @@
-﻿using Umbraco.Web.WebApi;
-using System.Web.Http;
+﻿using System.Web.Http;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
+using Umbraco.Web.WebApi;
 
 namespace uIntra.Notification.Web
 {

@@ -28,10 +28,12 @@ using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.PagePromotion;
 using Compent.uIntra.Core.Search;
+using Compent.uIntra.Core.Search.Indexes;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Core.Users;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
+using FluentScheduler;
 using Localization.Core;
 using Localization.Core.Configuration;
 using Localization.Storage.UDictionary;
@@ -69,7 +71,6 @@ using uIntra.Core.ModelBinders;
 using uIntra.Core.PagePromotion;
 using uIntra.Core.Persistence;
 using uIntra.Core.TypeProviders;
-using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
@@ -95,15 +96,19 @@ using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
-using Umbraco.Core.Events;
-using Umbraco.Core.Models;
-using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
+using uIntra.Core.UmbracoEventServices;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
+using uIntra.Tagging.UserTags;
 using ReminderJob = uIntra.Notification.ReminderJob;
+using Compent.uIntra.Core.UserTags;
+using Compent.uIntra.Core.UserTags.Indexers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.Search.Entities.Mappings;
+using uIntra.Groups.Permissions;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -111,7 +116,7 @@ using ReminderJob = uIntra.Notification.ReminderJob;
 
 namespace Compent.uIntra
 {
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -342,6 +347,13 @@ namespace Compent.uIntra
 
             kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
 
+            // User tags
+            kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();
+            kernel.Bind<IUserTagRelationService>().To<UserTagRelationService>().InRequestScope();
+            kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
+            kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
+            
+
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
 
@@ -370,32 +382,39 @@ namespace Compent.uIntra
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
             kernel.Bind<IGroupContentProvider>().To<GroupContentProvider>().InRequestScope();
             kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
+            kernel.Bind<IGroupPermissionsService>().To<GroupPermissionsService>().InRequestScope();
 
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
-            kernel.Bind<ISearchableTypeProvider>().To<SearchableTypeProvider>().InRequestScope();
+            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
             kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
             //umbraco events subscriptions
-            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<ContentIndexer>().InRequestScope();
-            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<SearchContentEventService>().InRequestScope();
-            kernel.Bind<IUmbracoEventService<IPublishingStrategy, PublishEventArgs<IContent>>>().To<PagePromotionEventService>().InRequestScope();
-            kernel.Bind<IUmbracoEventService<IMediaService, SaveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
-            kernel.Bind<IUmbracoEventService<IMediaService, MoveEventArgs<IMedia>>>().To<SearchMediaEventService>().InRequestScope();
-            kernel.Bind<IUmbracoEventService<IMemberService, DeleteEventArgs<IMember>>>().To<MemberEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentUnPublishedEventService>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<PagePromotionEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMediaTrashedEventService>().To<SearchMediaEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberDeletingEventService>().To<MemberEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
+
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
+            kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
+            
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
 
             //Jobs 
-            kernel.Bind<BaseIntranetJob>().To<global::uIntra.Notification.Jobs.ReminderJob>().InRequestScope();
-            kernel.Bind<BaseIntranetJob>().To<MontlyMailJob>().InRequestScope();
-            kernel.Bind<BaseIntranetJob>().To<SendEmailJob>().InRequestScope();            
-            kernel.Bind<BaseIntranetJob>().To<UpdateActivityCacheJob>().InRequestScope();
+            kernel.Bind<global::uIntra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
+            kernel.Bind<MontlyMailJob>().ToSelf().InRequestScope();
+            kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
+            kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
+            kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
@@ -436,18 +455,33 @@ namespace Compent.uIntra
             kernel.Bind<IIndexer>().To<BulletinsService>().InRequestScope();
             kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
-            kernel.Bind<IContentIndexer>().To<ContentIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<UintraContentIndexer>().InRequestScope();
+            kernel.Bind<IIndexer>().To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind<IContentIndexer>().To<UintraContentIndexer>().InRequestScope();
             kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
             kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
             kernel.Bind(typeof(IElasticSearchRepository<>)).To(typeof(ElasticSearchRepository<>)).InRequestScope().WithConstructorArgument(typeof(string), "intranet");
             kernel.Bind(typeof(PropertiesDescriptor<SearchableActivity>)).To<SearchableActivityMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableUintraActivity>)).To<SearchableUintraActivityMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableTag>)).To<SearchableTagMap>().InSingletonScope();
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticUintraActivityIndex>().To<ElasticUintraActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
             kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
-            kernel.Bind<IElasticIndex>().To<ElasticIndex>().InRequestScope();
+            kernel.Bind<IElasticTagIndex>().To<ElasticTagIndex>().InRequestScope();
+            kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
+            kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
+            kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
+
+
+
+            kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
+            kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
+            
 
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }

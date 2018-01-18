@@ -3,17 +3,19 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using uIntra.Core;
+using uIntra.Core.Activity;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
+using uIntra.Groups.Permissions;
 using Umbraco.Web.Mvc;
 
 namespace uIntra.Groups.Web
 {
     public abstract class GroupControllerBase : SurfaceController
-    {
+    {        
         protected virtual string OverviewPath => "~/App_Plugins/Groups/List/Overview.cshtml";
         protected virtual string ListViewPath => "~/App_Plugins/Groups/List/List.cshtml";
         protected virtual string DisabledGroupViewPath => "~/App_Plugins/Groups/DisabledGroupView/DisabledGroup.cshtml";
@@ -106,6 +108,7 @@ namespace uIntra.Groups.Web
             return Redirect(_groupLinkProvider.GetGroupLink(group.Id));
         }
 
+        [GroupRestrictedAction(IntranetActivityActionEnum.Create)]
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();
@@ -270,7 +273,7 @@ namespace uIntra.Groups.Web
             var groupMembersViewModel = groupUsers
                 .Select(m => MapToMemberViewModel(m, group, currentUserId))
                 .OrderByDescending(s => s.IsGroupAdmin)
-                .ThenBy(s => s.Name)
+                .ThenBy(s => s.GroupMember.DisplayedName)
                 .ToList();
 
             var model = new GroupMemberOverviewViewModel
@@ -299,8 +302,7 @@ namespace uIntra.Groups.Web
 
         protected virtual GroupsOverviewModel GetOverViewModel(bool isMyGroupsPage)
         {
-            var createGroupUrl = _groupLinkProvider.GetCreateGroupLink();
-            var groupsOverviewModel = new GroupsOverviewModel { IsMyGroupsPage = isMyGroupsPage, CreatePageUrl = createGroupUrl };
+            var groupsOverviewModel = new GroupsOverviewModel { IsMyGroupsPage = isMyGroupsPage };
             return groupsOverviewModel;
         }
 
@@ -308,7 +310,7 @@ namespace uIntra.Groups.Web
         {
             var viewModel = m.Map<GroupMemberViewModel>();
             viewModel.IsGroupAdmin = IsGroupCreator(m.Id, groupModel);
-            viewModel.CanUnsubscribe = viewModel.Id == currentUserId && currentUserId != groupModel.CreatorId;
+            viewModel.CanUnsubscribe = viewModel.GroupMember.Id == currentUserId && currentUserId != groupModel.CreatorId;
             return viewModel;
         }
 

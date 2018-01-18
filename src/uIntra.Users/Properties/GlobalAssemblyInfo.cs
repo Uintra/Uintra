@@ -6,7 +6,7 @@
 [assembly: AssemblyCopyright("Copyright © compent.dk 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
- 
+
 
 //Change MAJOR version before release
 //Change MINOR version when you add functionality in a backwards-compatible manner

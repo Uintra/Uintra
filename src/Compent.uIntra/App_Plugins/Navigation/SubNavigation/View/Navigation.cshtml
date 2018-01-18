@@ -16,7 +16,6 @@
             @if (Model.Rows.Any())
             {
                 <div class="tabset__frame">
-                    <a id="js-sidepanel-opener" class="sidebar__opener _for-mobile"></a>
                     @{ 
                         var topLevelMenu = Model.Rows.First();
                         if (topLevelMenu.Items.Count > 0)

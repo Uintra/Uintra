@@ -7,7 +7,7 @@
         {
             <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
         }
-        <a class="link__back" href="/">@Html.Localize("DetailsView.GoToList.lbl")</a>
+        <a class="link__back" href="@Model.Links.Feed">@Html.Localize("DetailsView.GoToList.lbl")</a>
     </header>
 
     <div class="feed__item _details">
@@ -19,7 +19,8 @@
             <div class="feed__item-feed-holder">
                 @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
             </div>
-        </div>
+        </div>            
+        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
         <div class="feed__item-images">
             @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
         </div>

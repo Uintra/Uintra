@@ -53,6 +53,7 @@
           <permission key="BulletinsEdit" />
           <permission key="BulletinsDelete" />
           <permission key="CanEditOwner" />
+          <permission key="GroupCreate" />
         </permissions>
       </role>
       <role key="UiPublisher">
@@ -68,6 +69,7 @@
           <permission key="BulletinsCreate" />
           <permission key="BulletinsEdit" />
           <permission key="BulletinsDelete" />
+          <permission key="GroupCreate" />
         </permissions>
       </role>
       <role key="UiUser">

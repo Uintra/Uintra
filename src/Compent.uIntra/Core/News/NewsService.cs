@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
 using Extensions;
+using Compent.uIntra.Core.UserTags.Indexers;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -22,6 +24,7 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core.News
 {
@@ -40,7 +43,7 @@ namespace Compent.uIntra.Core.News
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
@@ -49,6 +52,7 @@ namespace Compent.uIntra.Core.News
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly UserTagService _userTagService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -59,7 +63,7 @@ namespace Compent.uIntra.Core.News
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex,
+            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
@@ -68,7 +72,8 @@ namespace Compent.uIntra.Core.News
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper)
+            INotifierDataHelper notifierDataHelper,
+            UserTagService userTagService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -87,10 +92,11 @@ namespace Compent.uIntra.Core.News
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _userTagService = userTagService;
         }
 
-        protected List<string> OverviewXPath => new List<string> {_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType)};
-        public override IIntranetType ActivityType => _activityTypeProvider.Get((int) IntranetActivityTypeEnum.News);
+        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
 
         public MediaSettings GetMediaSettings()
         {
@@ -156,20 +162,19 @@ namespace Compent.uIntra.Core.News
         {
             var cachedNews = Get(id);
             var news = base.UpdateCachedEntity(id);
-            if (IsNewsHidden(news))
+            if (IsInCache(news))
             {
-                _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
-                _mediaHelper.DeleteMedia(cachedNews.MediaIds);
-                return null;
+                _activityIndex.Index(Map(news));
+                _documentIndexer.Index(news.MediaIds);
+                return news;
             }
-
-            _activityIndex.Index(Map(news));
-            _documentIndexer.Index(news.MediaIds);
-            return news;
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
+            _mediaHelper.DeleteMedia(cachedNews.MediaIds);
+            return null;
         }
 
-        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             UpdateCachedEntity(comment.ActivityId);
@@ -222,10 +227,10 @@ namespace Compent.uIntra.Core.News
 
         public void FillIndex()
         {
-            var activities = GetAll().Where(s => !IsNewsHidden(s));
+            var activities = GetAll().Where(IsInCache);
             var searchableActivities = activities.Select(Map);
 
-            var seachableType = _searchableTypeProvider.Get(SearchableTypeEnum.News.ToInt());
+            var seachableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.News.ToInt());
             _activityIndex.DeleteByType(seachableType);
             _activityIndex.Index(searchableActivities);
         }
@@ -242,43 +247,43 @@ namespace Compent.uIntra.Core.News
 
             switch (notificationType.Id)
             {
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
-                {
-                    var news = Get(entityId);
-                    data.ReceiverIds = news.OwnerId.ToEnumerable();
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                    {
+                        var news = Get(entityId);
+                        data.ReceiverIds = news.OwnerId.ToEnumerable();
+                        data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentLikeAdded:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var news = Get(comment.ActivityId);
-                    data.ReceiverIds = currentUser.Id == comment.UserId
-                        ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerable();
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var news = Get(comment.ActivityId);
+                        data.ReceiverIds = currentUser.Id == comment.UserId
+                            ? Enumerable.Empty<Guid>()
+                            : comment.UserId.ToEnumerable();
 
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
-                }
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentAdded:
-                case (int) NotificationTypeEnum.CommentEdited:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var news = Get(comment.ActivityId);
-                    data.ReceiverIds = news.OwnerId.ToEnumerable();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
-                }
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var news = Get(comment.ActivityId);
+                        data.ReceiverIds = news.OwnerId.ToEnumerable();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
+                    }
                     break;
 
-                case (int) NotificationTypeEnum.CommentReplied:
-                {
-                    var comment = _commentsService.Get(entityId);
-                    var news = Get(comment.ActivityId);
-                    data.ReceiverIds = comment.UserId.ToEnumerable();
-                    data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
-                }
+                case (int)NotificationTypeEnum.CommentReplied:
+                    {
+                        var comment = _commentsService.Get(entityId);
+                        var news = Get(comment.ActivityId);
+                        data.ReceiverIds = comment.UserId.ToEnumerable();
+                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
+                    }
                     break;
 
                 default:
@@ -287,15 +292,26 @@ namespace Compent.uIntra.Core.News
             return data;
         }
 
+        private bool IsInCache(Entities.News news)
+        {
+            return !IsNewsHidden(news) && IsActualPublishDate(news);
+        }
+
         private bool IsNewsHidden(Entities.News news)
         {
             return news == null || news.IsHidden;
         }
 
-        private SearchableActivity Map(Entities.News news)
+        private bool IsActualPublishDate(Entities.News news)
         {
-            var searchableActivity = news.Map<SearchableActivity>();
+            return DateTime.Compare(news.PublishDate, DateTime.Now) <= 0;
+        }
+
+        private SearchableUintraActivity Map(Entities.News news)
+        {
+            var searchableActivity = news.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(news.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

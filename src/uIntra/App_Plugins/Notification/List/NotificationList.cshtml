@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extensions
-@using uIntra.Core.User
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Extensions
 @model uIntra.Notification.NotificationListViewModel
 
 <ul class="notification__list" id="notification_list">
@@ -8,9 +8,11 @@
         foreach (var notification in Model.Notifications)
         {
             <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-href="@notification.Value.url" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
-                <div class="notification__list-avatar">
-                    <img class="notification__list-avatar-img" src="@UserPhotoHelper.GetUserPhotoOrDefaultAvatar(notification.Notifier?.Photo)">
-                </div>
+
+                @if (notification.Notifier != null)
+                {
+                    @Html.Action("Photo", "User", new { user = notification.Notifier })
+                }
                 <div class="notification__list-meta">
                     <div class="notification__list-description">
                         <div class="notification__list-row">
@@ -21,6 +23,10 @@
                         </div>
                     </div>
                 </div>
+                @if (notification.Value.IsPinned == true)
+                {
+                    <span class="pinned__item @(notification.Value.IsPinActual ? "_pinned" : string.Empty)">@Html.Localize("Notifications.Pinned.lbl")</span>
+                }
             </li>
         }
     }

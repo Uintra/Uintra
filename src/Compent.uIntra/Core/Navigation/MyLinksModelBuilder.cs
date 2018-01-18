@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Configuration;
 using uIntra.Core.Extensions;
@@ -11,7 +12,6 @@ using uIntra.Navigation.Configuration;
 using uIntra.Navigation.MyLinks;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Extensions;
 
 namespace Compent.uIntra.Core.Navigation
 {

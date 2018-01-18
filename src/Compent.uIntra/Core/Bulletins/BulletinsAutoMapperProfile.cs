@@ -22,6 +22,15 @@ namespace Compent.uIntra.Core.Bulletins
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
+            Mapper.CreateMap<BulletinCreateModel, BulletinExtendedCreateModel>()
+                .ForMember(dst => dst.GroupId, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
+            Mapper.CreateMap<BulletinEditModel, BulletinExtendedEditModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
+
+
             Mapper.CreateMap<Bulletin, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<BulletinBase, IntranetActivityItemHeaderViewModel>();
 

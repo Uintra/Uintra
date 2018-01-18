@@ -19,7 +19,7 @@ namespace Compent.uIntra.Core.Helpers
             _commentLinkHelper = commentLinkHelper;
         }
 
-        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, Comment comment, IIntranetType notificationType, Guid notifierId)
+        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, IIntranetType notificationType, Guid notifierId)
         {
             return new CommentNotifierDataModel
             {

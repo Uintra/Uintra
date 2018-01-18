@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
@@ -13,7 +15,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions.Web;
 using Umbraco.Web.Mvc;
-using Extensions;
 
 namespace uIntra.Bulletins.Web
 {
@@ -55,6 +56,7 @@ namespace uIntra.Bulletins.Web
             return PartialView(CreationFormViewPath, result);
         }
 
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var bulletin = _bulletinsService.Get(id);

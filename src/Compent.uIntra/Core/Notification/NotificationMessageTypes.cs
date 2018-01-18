@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using EmailWorker.Data.Model;
-using uIntra.Core.TypeProviders;
 using uIntra.Notification;
 using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;

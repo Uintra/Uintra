@@ -1,5 +1,3 @@
-using System;
-
 namespace uIntra.Notification
 {
     public class NotificationSettingDefaults<T>

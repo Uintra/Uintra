@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core.Constants;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
@@ -8,7 +9,6 @@ using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
-using Extensions;
 
 namespace uIntra.Core.Controls.LightboxGallery
 {

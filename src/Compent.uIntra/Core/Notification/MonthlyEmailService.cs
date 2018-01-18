@@ -11,7 +11,7 @@ using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.News;
 using uIntra.Notification;
-using uIntra.Tagging;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core.Notification
 {
@@ -20,7 +20,7 @@ namespace Compent.uIntra.Core.Notification
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IEventsService<EventBase> _eventsService;
         private readonly INewsService<NewsBase> _newsService;
-        private readonly TagsService _tagsService;
+        private readonly IUserTagRelationService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
 
         public MonthlyEmailService(IMailService mailService,
@@ -30,48 +30,37 @@ namespace Compent.uIntra.Core.Notification
             IBulletinsService<BulletinBase> bulletinsService,
             IEventsService<EventBase> eventsService,
             INewsService<NewsBase> newsService,
-            TagsService tagsService, IActivityLinkService activityLinkService) 
+            IUserTagRelationService userTagService,
+            IActivityLinkService activityLinkService) 
             : base(mailService, intranetUserService, logger, applicationSettings)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
             _newsService = newsService;
-            _tagsService = tagsService;
+            _userTagService = userTagService;
             _activityLinkService = activityLinkService;
         }
 
-        protected virtual IEnumerable<Tag> GetUserTags(Guid userId)
+        protected virtual IEnumerable<Guid> GetUserTags(Guid userId)
         {
-            return _tagsService.GetAllForActivity(userId);
+            return _userTagService.GetForEntity(userId);
         }
 
-        protected virtual IEnumerable<Tag> GetActivityTags(Guid activityId)
+
+        protected override IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId)
         {
-            return _tagsService.GetAllForActivity(activityId);
-        }
+            var allActivities = GetAllActivities()
+                .Select(activity => (activity, activityTagIds: _userTagService.GetForEntity(activity.Id)));
 
-        protected override List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId)
-        {
-            var allActivitiesRelatedToUserTags = new List<Tuple<IIntranetActivity, string>>();
+            var userTagIds = _userTagService
+                .GetForEntity(userId)
+                .ToList();
 
-            var allActivities = GetAllActivities();
-            var userTags = GetUserTags(userId);
+            var result = allActivities
+                .Where(pair => userTagIds.Intersect(pair.activityTagIds).Any())
+                .Select(pair => (pair.activity, detailsLink: _activityLinkService.GetLinks(pair.activity.Id).Details));
 
-            if (userTags != null && userTags.Any())
-            {
-                foreach (var activity in allActivities)
-                {
-                    var activityTags = GetActivityTags(activity.Id);
-                    if (activityTags != null && activityTags.Any(a => userTags.FirstOrDefault(tag => tag.Id == a.Id) != null))
-                    {
-                        string activityDetailsPageUrl = _activityLinkService.GetLinks(activity.Id).Details;
-                        var activityData = Tuple.Create(activity, activityDetailsPageUrl);
-                        allActivitiesRelatedToUserTags.Add(activityData);
-                    }
-                }
-            }
-
-            return allActivitiesRelatedToUserTags;
+            return result;
         }
 
         protected override T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user)

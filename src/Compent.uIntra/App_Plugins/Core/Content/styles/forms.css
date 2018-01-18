@@ -36,6 +36,7 @@
         background: #fff;
         border: 1px solid #c7c7c7;
         position: relative;
+        -webkit-appearance: none;
 
         &::placeholder{
             color:#999;
@@ -47,6 +48,7 @@
             cursor:default;
             pointer-events:none;
         }
+
         .login &{
             height:34px;
             line-height:1;
@@ -97,6 +99,10 @@
 
 .check{
     margin:0;
+
+    @media (max-width: 900px) {
+        margin:0 0 19px;
+    }
 
     .form & {
         margin: 0;
@@ -159,7 +165,7 @@
         font-weight:normal;
     }
 
-    @media (max-width: 900px) {
-        margin:0 0 19px;
+    &__area{
+        padding:10px 39px;
     }
 }

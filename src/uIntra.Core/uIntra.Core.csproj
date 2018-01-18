@@ -80,9 +80,6 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BCLExtensions, Version=0.2.8.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BCLExtensions.0.2.8.1\lib\net452\BCLExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
@@ -97,6 +94,9 @@
     </Reference>
     <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -237,6 +237,7 @@
       <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -247,17 +248,22 @@
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Reflection.Metadata, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
@@ -377,11 +383,13 @@
     <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
     <Compile Include="Core\Jobs\Enums\JobRunTypeEnum.cs" />
     <Compile Include="Core\Jobs\JobConfiguration.cs" />
+    <Compile Include="Core\Jobs\IntranetJobFactory.cs" />
     <Compile Include="Core\Jobs\JobsRegistry.cs" />
     <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
+    <Compile Include="Core\LabeledIdentity.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
@@ -402,7 +410,11 @@
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
-    <Compile Include="Core\UmbracoEventServices\IUmbracoEventService.cs" />
+    <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaTrashedEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
@@ -432,6 +444,8 @@
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
     <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberDeletingEventService.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />

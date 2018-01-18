@@ -6,6 +6,7 @@ using AutoMapper;
 using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
@@ -32,6 +33,7 @@ namespace uIntra.News.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IActivityLinkService _activityLinkService;
          
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
 
@@ -39,14 +41,17 @@ namespace uIntra.News.Web
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
-            IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider,
+            IActivityLinkService activityLinkService)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
             _activityTypeProvider = activityTypeProvider;
+            _activityLinkService = activityLinkService;
         }
 
+        [NotFoundActivity]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var news = _newsService.Get(id);
@@ -74,8 +79,8 @@ namespace uIntra.News.Web
             var activityId = _newsService.Create(newsBaseCreateModel);
              
             OnNewsCreated(activityId, createModel);
-
-            string redirectUri = createModel.Links.DetailsNoId.AddIdParameter(activityId);
+           
+            string redirectUri = _activityLinkService.GetLinks(activityId).Details; 
             return Redirect(redirectUri);
         }
 
