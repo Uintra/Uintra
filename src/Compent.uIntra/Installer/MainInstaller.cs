@@ -40,6 +40,7 @@ namespace Compent.uIntra.Installer
         private readonly Version TaggingUIntraVersion = new Version("0.2.14.0");
         private readonly Version OldSubscribeSettingsUIntraVersion = new Version("0.2.13.0");
         private readonly Version MoveMyGroupsDocTypeMigrationVersion = new Version("0.2.20.0");
+        private readonly Version UpdateDataFolderNamesMigrationVersion = new Version("0.2.25.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -78,7 +79,6 @@ namespace Compent.uIntra.Installer
                 var uiNotificationMigration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
                 uiNotificationMigration.Execute();
             }
-
 
             if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
             {
@@ -119,15 +119,17 @@ namespace Compent.uIntra.Installer
                 taggingMigration.Execute();
             }
 
+            if (installedVersion < UpdateDataFolderNamesMigrationVersion && UIntraVersion >= UpdateDataFolderNamesMigrationVersion)
+            {
+                new UpdateDataFolderNamesMigration().Execute();
+            }
+
             if (UIntraVersion > installedVersion)
             {
                 migrationHistoryService.Create(UIntraVersion.ToString());
             }
 
             AddDefaultMailSettings();
-
-
-
         }
 
         private static void SetCurrentCulture()

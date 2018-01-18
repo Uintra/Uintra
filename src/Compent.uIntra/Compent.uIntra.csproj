@@ -567,6 +567,7 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\hungry.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\inlove.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\laughing.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\neutral.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\relaxed.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
@@ -1285,7 +1286,6 @@
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
     <Compile Include="Core\Comments\ICustomCommentableService.cs" />
-    <Compile Include="Core\Constants\AppSettingConstants.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
@@ -1404,6 +1404,8 @@
     </Compile>
     <Compile Include="Installer\MainInstaller.cs" />
     <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
+    <Compile Include="Installer\Migrations\MailInstallationConstants.cs" />
+    <Compile Include="Installer\Migrations\UpdateDataFolderNamesMigration.cs" />
     <Compile Include="Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs" />
     <Compile Include="Installer\Migrations\OldSubscribeSettings\OldEventBase.cs" />
     <Compile Include="Installer\Migrations\OldSubscribeSettings\OldSubscribeSettingsMigration.cs" />

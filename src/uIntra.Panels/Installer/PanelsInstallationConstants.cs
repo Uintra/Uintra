@@ -7,15 +7,23 @@
             public const string Panel = "Panel";
             public const string GlobalPanelFolder = "Global Panel Folder";
         }
+
         public class DocumentTypeAliases
         {
             public const string Panel = "panel";
             public const string GlobalPanelFolder = "globalPanelFolder";
         }
+
         public class DocumentTypePropertyNames
         {
             public const string PanelConfig = "Panel Config";
         }
+
+        public class ContentDefaultName
+        {
+            public const string GlobalPanelFolder = "Global Panel Folder";
+        }
+
         public class DocumentTypePropertyAliases
         {
             public const string PanelConfig = uIntra.Core.Constants.GridEditorConstants.PanelConfigPropertyAlias;

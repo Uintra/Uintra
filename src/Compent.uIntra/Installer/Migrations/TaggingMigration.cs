@@ -88,7 +88,7 @@ namespace Compent.uIntra.Installer.Migrations
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity(DocumentTypeNames.UserTagFolder, dataFolder.Id, DocumentTypeAliases.UserTagFolder);
+            var content = _contentService.CreateContentWithIdentity(ContentDefaultName.UserTagFolder, dataFolder.Id, DocumentTypeAliases.UserTagFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }

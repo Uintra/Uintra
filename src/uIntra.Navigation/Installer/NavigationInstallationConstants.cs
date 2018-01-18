@@ -71,5 +71,10 @@
             public const string Assembly = "assembly";
             public const string Enum = "enum";
         }
+
+        public class ContentDefaultName
+        {
+            public const string SystemLinkFolder = "System Link Folder";
+        }
     }
 }
