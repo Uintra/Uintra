@@ -962,7 +962,6 @@
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
@@ -1110,7 +1109,6 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Tagging\Views\TagPicker.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
