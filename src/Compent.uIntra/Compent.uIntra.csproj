@@ -1286,7 +1286,6 @@
     <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
     <Compile Include="Core\Comments\ICustomCommentableService.cs" />
-    <Compile Include="Core\Constants\AppSettingConstants.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
