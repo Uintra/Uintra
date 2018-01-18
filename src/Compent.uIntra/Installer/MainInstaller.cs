@@ -37,7 +37,7 @@ namespace Compent.uIntra.Installer
         private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
         private readonly Version PagePromotionUIntraVersion = new Version("0.2.8.0");
         private readonly Version EventsPublishDateUIntraVersion = new Version("0.2.12.0");
-        private readonly Version TaggingUIntraVersion = new Version("0.2.13.0");
+        private readonly Version TaggingUIntraVersion = new Version("0.2.14.0");
         private readonly Version OldSubscribeSettingsUIntraVersion = new Version("0.2.13.0");
         private readonly Version MoveMyGroupsDocTypeMigrationVersion = new Version("0.2.20.0");
 

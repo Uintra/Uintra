@@ -451,7 +451,6 @@ namespace Compent.uIntra
             kernel.Bind<IIndexer>().To<NewsService>().InRequestScope();
             kernel.Bind<IIndexer>().To<EventsService>().InRequestScope();
             kernel.Bind<IIndexer>().To<BulletinsService>().InRequestScope();
-            kernel.Bind<IIndexer>().To<ContentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UintraContentIndexer>().InRequestScope();
