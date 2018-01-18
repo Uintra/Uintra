@@ -2,14 +2,17 @@
 using System.Reflection;
 using System.Web;
 using Compent.uIntra.Core.Constants;
+using Compent.uIntra.Installer.Migrations;
 using EmailWorker.Data.Services.Interfaces;
 using uIntra.Core;
 using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using uIntra.Core.Utils;
 using uIntra.Navigation;
+using uIntra.Navigation.Installer;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Installer;
+using uIntra.Panels.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -395,7 +398,7 @@ namespace Compent.uIntra.Installer
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Data folder", -1, DocumentTypeAliasConstants.DataFolder);
+            var content = _contentService.CreateContentWithIdentity(CoreInstallationConstants.ContentDefaultName.DataFolder, -1, DocumentTypeAliasConstants.DataFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
@@ -403,12 +406,12 @@ namespace Compent.uIntra.Installer
         private void CreateGlobalPanelFolder()
         {
             var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.DataFolder));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GlobalPanelFolder)))
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Global Panel Folder", dataFolder.Id, DocumentTypeAliasConstants.GlobalPanelFolder);
+            var content = _contentService.CreateContentWithIdentity(PanelsInstallationConstants.ContentDefaultName.GlobalPanelFolder, dataFolder.Id, PanelsInstallationConstants.DocumentTypeAliases.GlobalPanelFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
@@ -416,12 +419,12 @@ namespace Compent.uIntra.Installer
         private void CreateSystemLinkFolder()
         {
             var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.DataFolder));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.SystemLinkFolder)))
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(NavigationInstallationConstants.DocumentTypeAliases.SystemLinkFolder)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("System Link Folder", dataFolder.Id, DocumentTypeAliasConstants.SystemLinkFolder);
+            var content = _contentService.CreateContentWithIdentity(NavigationInstallationConstants.ContentDefaultName.SystemLinkFolder, dataFolder.Id, NavigationInstallationConstants.DocumentTypeAliases.SystemLinkFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
@@ -472,12 +475,12 @@ namespace Compent.uIntra.Installer
         private void CreateMailTemplatesFolder()
         {
             var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.DataFolder));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.MailTemplatesFolder)))
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(MailInstallationConstants.DocumentTypeAliases.MailTemplatesFolder)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity("Mail Templates Folder", dataFolder.Id, DocumentTypeAliasConstants.MailTemplatesFolder);
+            var content = _contentService.CreateContentWithIdentity(MailInstallationConstants.ContentDefaultName.MailTemplatesFolder, dataFolder.Id, MailInstallationConstants.DocumentTypeAliases.MailTemplatesFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }

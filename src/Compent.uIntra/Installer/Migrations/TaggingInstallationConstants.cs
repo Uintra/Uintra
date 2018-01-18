@@ -39,5 +39,10 @@ namespace Compent.uIntra.Installer.Migrations
         {
             public const string UserTag = "icon-tag";
         }
+
+        public class ContentDefaultName
+        {
+            public const string UserTagFolder = "User Tags Folder";
+        }
     }
 }
