@@ -22,7 +22,7 @@
             public const string NewsCreatePage = "icon-page-add";
             public const string NewsDetailsPage = "icon-eye";
             public const string NewsEditPage = "icon-edit";
-            public const string NewsOverviewPage = "icon-calendar-alt";
+            public const string NewsOverviewPage = "icon-newspaper-alt";
         }
     }
 }

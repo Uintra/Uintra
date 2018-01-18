@@ -19,7 +19,7 @@
         {
             public const string BulletinsDetailsPage = "icon-eye";
             public const string BulletinsEditPage = "icon-edit";
-            public const string BulletinsOverviewPage = "icon-calendar-alt";
+            public const string BulletinsOverviewPage = "icon-notepad";
         }
     }
 }
