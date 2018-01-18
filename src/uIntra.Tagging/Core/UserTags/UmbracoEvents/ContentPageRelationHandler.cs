@@ -43,12 +43,14 @@ namespace uIntra.Tagging.UserTags
                     var grid = JObject.Parse(json);
                     var data = _gridHelper.GetValues(grid, "custom.UsersTags").FirstOrDefault();
 
-
-                    foreach (var systemTag in data.value.usersTags)
+                    if (data.value != null)
                     {
-                        if ((bool) systemTag.selected)
+                        foreach (var systemTag in data.value.usersTags)
                         {
-                            tags.Add(Guid.Parse((string) systemTag.id));
+                            if ((bool)systemTag.selected)
+                            {
+                                tags.Add(Guid.Parse((string)systemTag.id));
+                            }
                         }
                     }
 
@@ -59,7 +61,6 @@ namespace uIntra.Tagging.UserTags
 
         public void ProcessContentUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e)
         {
-
         }
 
         public void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> args)
