@@ -1271,8 +1271,6 @@
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
     <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityItemHeaderViewModel.cs" />
-    <Compile Include="Core\ApplicationSettings\IuIntraApplicationSettings.cs" />
-    <Compile Include="Core\ApplicationSettings\UintraApplicationSettings.cs" />
     <Compile Include="Core\Bulletins\BulletinsAutoMapperProfile.cs" />
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />

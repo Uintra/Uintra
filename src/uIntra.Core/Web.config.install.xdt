@@ -42,7 +42,6 @@
       <role key="WebMaster">
         <permissions>
           <permission key="CanEditNews" />
-          <permission key="CanFlyToSpace" />
           <permission key="NewsView" />
           <permission key="NewsCreate" />
           <permission key="NewsEdit" />
@@ -58,7 +57,6 @@
       </role>
       <role key="UiPublisher">
         <permissions>
-          <permission key="CanEatBanana" />
           <permission key="CanEditNews" />
           <permission key="NewsView" />
           <permission key="NewsCreate" />

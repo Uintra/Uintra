@@ -10,7 +10,6 @@ using System.Web.Routing;
 using Compent.uIntra;
 using Compent.uIntra.Core;
 using Compent.uIntra.Core.Activity;
-using Compent.uIntra.Core.ApplicationSettings;
 using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.CentralFeed;
 using Compent.uIntra.Core.Comments;
@@ -28,9 +27,13 @@ using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
 using Compent.uIntra.Core.PagePromotion;
 using Compent.uIntra.Core.Search;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.Search.Entities.Mappings;
 using Compent.uIntra.Core.Search.Indexes;
 using Compent.uIntra.Core.Subscribe;
 using Compent.uIntra.Core.Users;
+using Compent.uIntra.Core.UserTags;
+using Compent.uIntra.Core.UserTags.Indexers;
 using Compent.uIntra.Persistence.Sql;
 using EmailWorker.Ninject;
 using FluentScheduler;
@@ -62,7 +65,6 @@ using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
 using uIntra.Core.Jobs;
 using uIntra.Core.Jobs.Configuration;
-using uIntra.Core.Jobs.Models;
 using uIntra.Core.Links;
 using uIntra.Core.Localization;
 using uIntra.Core.Media;
@@ -71,11 +73,13 @@ using uIntra.Core.ModelBinders;
 using uIntra.Core.PagePromotion;
 using uIntra.Core.Persistence;
 using uIntra.Core.TypeProviders;
+using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
 using uIntra.Events;
 using uIntra.Groups;
+using uIntra.Groups.Permissions;
 using uIntra.LicenceService.ApiClient;
 using uIntra.LicenceService.ApiClient.Interfaces;
 using uIntra.Likes;
@@ -93,22 +97,16 @@ using uIntra.Notification.Jobs;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 using uIntra.Users;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
-using uIntra.Core.UmbracoEventServices;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
-using uIntra.Tagging.UserTags;
 using ReminderJob = uIntra.Notification.ReminderJob;
-using Compent.uIntra.Core.UserTags;
-using Compent.uIntra.Core.UserTags.Indexers;
-using Compent.uIntra.Core.Search.Entities;
-using Compent.uIntra.Core.Search.Entities.Mappings;
-using uIntra.Groups.Permissions;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -353,7 +351,6 @@ namespace Compent.uIntra
             kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
             kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
             
-
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
 
@@ -364,8 +361,7 @@ namespace Compent.uIntra
 
             kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
 
-            kernel.Bind<IApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
-            kernel.Bind<IuIntraApplicationSettings>().To<UintraApplicationSettings>().InSingletonScope();
+            kernel.Bind<IApplicationSettings>().To<ApplicationSettings>().InSingletonScope();
             kernel.Bind<ISearchApplicationSettings>().To<SearchApplicationSettings>().InSingletonScope();
             kernel.Bind<INavigationApplicationSettings>().To<NavigationApplicationSettings>().InSingletonScope();
 
@@ -476,12 +472,9 @@ namespace Compent.uIntra
             kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
 
-
-
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
             
-
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }
 
