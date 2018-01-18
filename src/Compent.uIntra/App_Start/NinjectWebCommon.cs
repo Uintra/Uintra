@@ -108,6 +108,7 @@ using Compent.uIntra.Core.UserTags;
 using Compent.uIntra.Core.UserTags.Indexers;
 using Compent.uIntra.Core.Search.Entities;
 using Compent.uIntra.Core.Search.Entities.Mappings;
+using uIntra.Groups.Permissions;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -381,6 +382,7 @@ namespace Compent.uIntra
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
             kernel.Bind<IGroupContentProvider>().To<GroupContentProvider>().InRequestScope();
             kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
+            kernel.Bind<IGroupPermissionsService>().To<GroupPermissionsService>().InRequestScope();
 
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();

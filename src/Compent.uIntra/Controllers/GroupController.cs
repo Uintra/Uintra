@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
 using uIntra.Core.User;
 using uIntra.Groups;
+using uIntra.Groups.Permissions;
 using uIntra.Groups.Web;
 using uIntra.Navigation;
 using Umbraco.Core.Models;
@@ -16,8 +17,10 @@ namespace Compent.uIntra.Controllers
 {
     public class GroupController : GroupControllerBase
     {
+        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly IGroupPermissionsService _groupPermissionsService;
 
         public GroupController(
             IGroupService groupService,
@@ -26,15 +29,19 @@ namespace Compent.uIntra.Controllers
             IGroupLinkProvider groupLinkProvider,
             IUserService userService,
             IGroupMediaService groupMediaService,
-            IIntranetUserService<IGroupMember> intranetUserService, 
+            IIntranetUserService<IGroupMember> intranetUserService,
             IProfileLinkProvider profileLinkProvider,
-            UmbracoHelper umbracoHelper, 
+            UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IImageHelper imageHelper)
+            IImageHelper imageHelper,
+            IGroupPermissionsService groupPermissionsService
+            )
             : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider, imageHelper)
         {
+            _intranetUserService = intranetUserService;
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _groupPermissionsService = groupPermissionsService;
         }
 
         public override ActionResult LeftNavigation()
@@ -43,10 +50,8 @@ namespace Compent.uIntra.Controllers
             var groupPage = _umbracoHelper.TypedContentSingleAtXPath(groupPageXpath);
 
             var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
-                
-            var menuItems = groupPage.Children
-                .Where(child => child.IsShowPageInSubNavigation())
-                .Select(p => MapToLeftNavigationItem(p, isPageActive));
+
+            var menuItems = GetMenuItems(groupPage);
 
             var result = new GroupLeftNavigationMenuViewModel
             {
@@ -56,6 +61,28 @@ namespace Compent.uIntra.Controllers
             };
 
             return PartialView(LeftNavigationPath, result);
+        }
+
+        private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(IPublishedContent rootGroupPage)
+        {
+            var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
+            var role = _intranetUserService.GetCurrentUser().Role;
+
+            foreach (var subPage in rootGroupPage.Children)
+            {
+                if (subPage.IsShowPageInSubNavigation())
+                {
+                    if (_groupPermissionsService.ValidatePermission(subPage, role))
+                    {
+                        yield return MapToLeftNavigationItem(subPage, isPageActive);
+                    }
+                }
+                else
+                {
+                    yield return MapToLeftNavigationItem(subPage, isPageActive);
+                }
+            }
+
         }
 
         private static Func<IPublishedContent, bool> GetIsPageActiveFunc(IPublishedContent currentPage)

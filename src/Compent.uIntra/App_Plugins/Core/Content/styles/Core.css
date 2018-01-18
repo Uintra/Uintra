@@ -398,7 +398,7 @@ h5{
             right: 0;
             bottom: 0;
             background:var(--header-bg);
-            z-index: 2;
+            z-index: 12;
             content: '';
         }
 
@@ -425,7 +425,7 @@ h5{
     top: 0;
     left: 20px;
     padding: 16px 0;
-    z-index: 2;
+    z-index: 12;
 
     @media (--for-tablet-portrait-down){
         &{

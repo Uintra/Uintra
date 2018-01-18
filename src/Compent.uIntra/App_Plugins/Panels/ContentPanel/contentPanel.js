@@ -144,8 +144,8 @@ var initPanel = function (selector) {
 }
 
 var initMobileBanners = function () {
-    var opener = document.querySelector("#js-sidepanel-opener");
-    var sidebar = document.querySelector('.sidebar');
+    var opener = document.querySelector("#js-aside-opener");
+    var aside = document.querySelector('.aside');
     var tabset = document.querySelector('.tabset');
     var header = document.getElementById('header');
     var bulletinBtn = document.querySelector('.bulletin__btn-holder');
@@ -158,16 +158,12 @@ var initMobileBanners = function () {
     if (bulletinBtn) {
         height += bulletinBtn.clientHeight;
     }
-
-    if (!opener || !sidebar) {
-        body.classList.add('_hide-sidepanel-opener');
-        return
-    };
-    
-    if (sidebar) {
+        
+    if (aside) {
+        body.classList.add('_show-aside-opener');
         opener.addEventListener('click',
             () => {
-                body.classList.toggle('_sidebar-expanded');
+                body.classList.toggle('_aside-expanded');
                 if (body.classList.contains('_search-expanded')) {
                     body.classList.remove('_search-expanded');
                 }
@@ -177,12 +173,9 @@ var initMobileBanners = function () {
 
                 body.addEventListener('click',
                     function (ev) {
-                        isOutsideClick(sidebar, opener, ev.target, '_sidebar-expanded');
+                        isOutsideClick(aside, opener, ev.target, '_aside-expanded');
                     });
             });
-    }
-    else {
-        body.classList.add('_hide-sidepanel-opener');
     }
 }
 

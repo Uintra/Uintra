@@ -20,6 +20,8 @@ namespace uIntra.Core.Activity
         public string GetDetailsPageUrl(Guid? activityId = null) =>
             activityId.HasValue ? _pagePromotionService.Get(activityId.Value).Url : null;
 
+        public string GetFeedUrl() => null;
+
         public string GetOverviewPageUrl() => null;
 
         public string GetCreatePageUrl() => null;
