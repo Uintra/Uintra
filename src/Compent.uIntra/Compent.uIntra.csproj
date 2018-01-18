@@ -567,6 +567,7 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\hungry.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\inlove.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\laughing.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\neutral.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\relaxed.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
