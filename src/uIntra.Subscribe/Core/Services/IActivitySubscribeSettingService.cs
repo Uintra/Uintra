@@ -7,6 +7,7 @@ namespace uIntra.Subscribe
         ActivitySubscribeSetting Get(Guid activityId);
         ActivitySubscribeSetting Create(ActivitySubscribeSettingDto setting);
         void Save(ActivitySubscribeSettingDto setting);
+        void Delete(Guid activityId);
         void FillSubscribeSettings(ISubscribeSettings activity);
     }
 }

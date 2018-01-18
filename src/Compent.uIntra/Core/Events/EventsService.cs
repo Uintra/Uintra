@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.Search.Entities;
-using Extensions;
 using Compent.uIntra.Core.UserTags.Indexers;
+using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Activity;
@@ -124,10 +124,7 @@ namespace Compent.uIntra.Core.Events
             return IsActual(@event) && @event.CanSubscribe;
         }
 
-        public MediaSettings GetMediaSettings()
-        {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
-        }
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
 
         public FeedSettings GetFeedSettings()
         {
@@ -145,10 +142,7 @@ namespace Compent.uIntra.Core.Events
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmaster)
-            {
-                return true;
-            }
+            if (isWebmaster) return true;
 
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
@@ -157,11 +151,7 @@ namespace Compent.uIntra.Core.Events
             return isOwner && isUserHasPermissions;
         }
 
-        public IEnumerable<IFeedItem> GetItems()
-        {
-            var items = GetOrderedActualItems();
-            return items;
-        }
+        public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
         public override Guid Create(IIntranetActivity activity)
         {
@@ -175,10 +165,13 @@ namespace Compent.uIntra.Core.Events
 
         public override void Save(IIntranetActivity activity)
         {
-            base.Save(activity, savedActivity =>
-                 {
-                     _activitySubscribeSettingService.Save(Map(savedActivity));
-                 });
+            base.Save(activity, savedActivity => _activitySubscribeSettingService.Save(Map(savedActivity)));
+        }
+
+        public override void Delete(Guid id)
+        {
+            _activitySubscribeSettingService.Delete(id);
+            base.Delete(id);
         }
 
         private IOrderedEnumerable<Event> GetOrderedActualItems() =>
@@ -211,7 +204,7 @@ namespace Compent.uIntra.Core.Events
             {
                 _activityIndex.Index(Map(@event));
                 _documentIndexer.Index(@event.MediaIds);
-                return @event;                
+                return @event;
             }
             _activityIndex.Delete(id);
             _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
@@ -268,15 +261,9 @@ namespace Compent.uIntra.Core.Events
             UpdateCachedEntity(comment.ActivityId);
         }
 
-        public ICommentable GetCommentsInfo(Guid activityId)
-        {
-            return Get(activityId);
-        }
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
 
-        public bool CanEditSubscribe(Guid activityId)
-        {
-            return !Get(activityId).Subscribers.Any();
-        }
+        public bool CanEditSubscribe(Guid activityId) => !Get(activityId).Subscribers.Any();
 
         public void Notify(Guid entityId, IIntranetType notificationType)
         {
@@ -296,7 +283,6 @@ namespace Compent.uIntra.Core.Events
             {
                 NotificationType = notificationType,
                 ActivityType = ActivityType
-
             };
 
             switch (notificationType.Id)
@@ -315,7 +301,6 @@ namespace Compent.uIntra.Core.Events
                         var currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
-
                     }
                     break;
                 case (int)NotificationTypeEnum.CommentAdded:
@@ -337,10 +322,7 @@ namespace Compent.uIntra.Core.Events
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = currentUser.Id == comment.UserId
-                            ? Enumerable.Empty<Guid>()
-                        : comment.UserId.ToEnumerable();
-
+                        data.ReceiverIds = currentUser.Id == comment.UserId ? Enumerable.Empty<Guid>() : comment.UserId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
                     }
                     break;
@@ -394,20 +376,11 @@ namespace Compent.uIntra.Core.Events
             _activityIndex.Index(searchableActivities);
         }
 
-        private bool IsCacheable(Event @event)
-        {
-            return !IsEventHidden(@event) && IsActualPublishDate(@event);
-        }
+        private bool IsCacheable(Event @event) => !IsEventHidden(@event) && IsActualPublishDate(@event);
 
-        private bool IsActualPublishDate(Event @event)
-        {
-            return DateTime.Compare(@event.PublishDate, DateTime.Now) <= 0;
-        }
+        private bool IsActualPublishDate(Event @event) => DateTime.Compare(@event.PublishDate, DateTime.Now) <= 0;
 
-        private bool IsEventHidden(Event @event)
-        {
-            return @event == null || @event.IsHidden;
-        }
+        private bool IsEventHidden(Event @event) => @event == null || @event.IsHidden;
 
         private SearchableUintraActivity Map(Event @event)
         {
