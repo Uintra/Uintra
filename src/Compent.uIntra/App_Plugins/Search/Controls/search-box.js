@@ -67,7 +67,7 @@ function initSearchBox() {
         const filteredData = data.filter((item) => { return item.Name === "Photo" });
         if (!filteredData.length || !filteredData[0].Value) return "";
 
-        return `<img class="icon" src="${filteredData[0].Value}" />`;
+        return `<img class="icon" src="${filteredData[0].Value}?width=20&height=20&mode=crop" />`;
     }
 
     function renderAdditionData(data) {
@@ -100,32 +100,6 @@ function initSearchBox() {
     });
 }
 
-//function initMobileSearch() {
-//    var opener = document.querySelector("#js-search-opener");
-//    if (!opener) {
-//        return;
-//    }
-
-//    var searchContainer = document.querySelector('.search');
-
-//    opener.addEventListener('click',
-//        () => {
-//            body.classList.toggle('_search-expanded');
-//            if (body.classList.contains('_sidebar-expanded')) {
-//                body.classList.remove('_sidebar-expanded');
-//            }
-//            if (body.classList.contains('_menu-expanded')) {
-//                body.classList.remove('_menu-expanded');
-//            }
-//        });
-
-//    body.addEventListener("click", function(ev) {
-//        isOutsideClick(searchContainer, opener, ev.target, "_search-expanded", function() {
-//            body.classList.remove("_search-expanded");
-//        });
-//    });
-//};
-
 function isOutsideClick(el, trigger, target, className, callback) {
     if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(className)) {
         if (typeof callback === "function") {
@@ -136,5 +110,4 @@ function isOutsideClick(el, trigger, target, className, callback) {
 
 export default function () {
     initSearchBox();
-    //initMobileSearch();
 }

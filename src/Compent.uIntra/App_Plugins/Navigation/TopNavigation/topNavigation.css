@@ -215,26 +215,27 @@
             }
         }
 
-	    &__list {
-		    display: inline-block;
-		    margin: 0 5px 0 0;
-		    padding: 0;
-		    list-style: none;
-	    }
+        &__list {
+            display: inline-block;
+            margin: 0 5px 0 0;
+            padding: 0;
+            list-style: none;
+        }
 
-	    &__frame {
-		    display: inline-block;
-		    margin: 0 5px;
-	    }
+        &__frame {
+            display: inline-block;
+            margin: 0 5px;
+        }
 
-	    .icon {
-		    width: 20px;
-		    height: 20px;
-		    margin: 0 10px 0 0;
-	    }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin: 0 10px 0 0;
+            border-radius:20px;
+        }
 
         .type{
-	        margin: 0 0 0 auto;
+            margin: 0 0 0 auto;
             font-size:12px;
             font-family:var(--font-custom);
             text-transform:uppercase;
@@ -248,10 +249,10 @@
             order:0;
 
             &._all{
-	            position: relative;
-	            flex-grow: 1;
+                position: relative;
+                flex-grow: 1;
                 font-size: 13px;
-	            padding:8px 0 9px;
+                padding:8px 0 9px;
 
                 &:after{
                     position:absolute;
@@ -278,11 +279,11 @@
     padding:3px 0 0;
     margin:0;
 
-	@media (--for-tablet-portrait-down){
-		position:static;
-		display: flex;
-		padding:0;
-	}
+    @media (--for-tablet-portrait-down){
+        position:static;
+        display: flex;
+        padding:0;
+    }
 
     &__opener{
         color:var(--color-white);
@@ -292,11 +293,11 @@
         cursor:pointer;
         margin-right:3px;
 
-	    &:not(._with-avatar) {
-		    .user__avatar {
-			    display: none !important;
-		    }
-	    }
+        &:not(._with-avatar) {
+            .user__avatar {
+                display: none !important;
+            }
+        }
 
         &:active,
         &:focus,
@@ -306,13 +307,13 @@
         }
 
         @media (--for-tablet-portrait-down){
-	        display: flex;
-	        justify-content: center;
-	        align-items: center;
-	        padding:26px 15px 25px;
-	        position:relative;
-	        z-index:3;
-	        margin:0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding:26px 15px 25px;
+            position:relative;
+            z-index:3;
+            margin:0;
 
             ._usermenu-expanded &{
                 background-color:var(--color-light-gray-2);
