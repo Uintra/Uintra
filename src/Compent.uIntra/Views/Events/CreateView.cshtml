@@ -90,7 +90,6 @@
         <div class="form__row form__row--no-indent clearfix">
             @Html.PassLinks(Model.Links)
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
             <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
             <a class="btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
