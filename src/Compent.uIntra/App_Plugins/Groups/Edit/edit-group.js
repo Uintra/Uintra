@@ -5,10 +5,6 @@ var Alertify = require('alertifyjs/build/alertify.min');
 
 var holder;
 
-var initDescriptionControl = function () {    
-    helpers.initActivityDescription(holder, '#js-hidden-description-container', '#description', '.js-submit');    
-}
-
 var initHideControl = function () {
     var hideControl = holder.find('.js-group-hide');
 
@@ -38,7 +34,6 @@ var controller = {
             return;
         }
             
-        initDescriptionControl();
         initHideControl();
         fileUploadController.init(holder);
     }
