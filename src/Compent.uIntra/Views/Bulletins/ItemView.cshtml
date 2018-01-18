@@ -10,6 +10,12 @@
         <div class="feed__item-txt _clamp" data-url="@Model.Links.Details">@Html.Raw(Model.Description)</div>
     }
     <div class="feed__item-images">
-        @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+        @{ Html.RenderAction("Preview", "LightboxGallery", new {model = Model.LightboxGalleryPreviewInfo}); }
+    </div>
+    <div class="feed__item-feed">
+        <div class="feed__item-feed-holder">
+            @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
+            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.Links.Details, isReadOnly = Model.IsReadOnly }); }
+        </div>
     </div>
 </div>

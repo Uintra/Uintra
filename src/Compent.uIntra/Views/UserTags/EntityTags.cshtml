@@ -5,7 +5,6 @@
 @if (Model.Any())
 {
     <div class="tags">
-        @*@Html.Label("title-lbl", Html.Localize("UserTagsView.Title.lbl"), new { @class = "sub-title" })*@
         <strong class="tags__title">@Html.Localize("UserTagsView.Title.lbl")</strong>
         <div class="tags__list">
             @foreach (var tag in Model)
