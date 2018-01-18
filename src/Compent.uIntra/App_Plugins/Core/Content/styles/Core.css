@@ -731,6 +731,10 @@ h5{
     ._profile &{
         width: 100px;
         height: 100px;
+        @media(--for-phone-only){
+            width: 60px;
+            height: 60px;
+        }
     }    
 
     .comments__list &,
