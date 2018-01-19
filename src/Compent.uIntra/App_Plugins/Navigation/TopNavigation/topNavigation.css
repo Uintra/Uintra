@@ -104,7 +104,7 @@
 
     @media (--for-tablet-portrait-down) {
         background: var(--header-bg);
-        padding:10px 0 10px 10px;
+        padding:10px 60px 10px 10px;
         z-index:5;
     }
 
