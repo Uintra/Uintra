@@ -53,7 +53,7 @@ namespace Compent.uIntra.Core.News
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
-        private readonly UserTagService _userTagService;
+        private readonly IUserTagService _userTagService;
         private readonly IActivityLocationService _activityLocationService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
@@ -75,7 +75,8 @@ namespace Compent.uIntra.Core.News
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            IActivityLocationService activityLocationService)
+            IActivityLocationService activityLocationService,
+            IUserTagService userTagService)
             : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;

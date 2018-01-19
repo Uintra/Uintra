@@ -1123,8 +1123,11 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201801171411350_ActivityLocation.resx">
-      <DependentUpon>201801171411350_ActivityLocation.cs</DependentUpon>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801111246169_UserTags.resx">
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.resx">
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
@@ -1437,9 +1440,13 @@
     <Compile Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.Designer.cs">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201801171411350_ActivityLocation.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201801171411350_ActivityLocation.Designer.cs">
-      <DependentUpon>201801171411350_ActivityLocation.cs</DependentUpon>
+    <Compile Include="Persistence\Sql\Migrations\201801111246169_UserTags.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs">
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.Designer.cs">
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

@@ -51,7 +51,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
-        private readonly UserTagService _userTagService;
+        private readonly IUserTagService _userTagService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -72,7 +72,8 @@ namespace Compent.uIntra.Core.Bulletins
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            IActivityLocationService activityLocationService)
+            IActivityLocationService activityLocationService,
+            IUserTagService userTagService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
