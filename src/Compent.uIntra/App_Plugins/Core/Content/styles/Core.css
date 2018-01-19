@@ -929,6 +929,7 @@ h5{
 
 .ql-container .ql-editor img{
     margin:0 4px;
+    vertical-align:top;
 }
 
 /* end emoji styles */
