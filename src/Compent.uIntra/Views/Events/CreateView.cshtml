@@ -13,7 +13,6 @@
             <label class="form__label">@Html.Localize("EventsCreate.Creator.lbl")</label>
             @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.Events, links = Model.Links })
         </div>
-
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsCreate.Title.lbl") <span class="form__required">*</span></label>
             <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
@@ -33,6 +32,9 @@
                    data-placeholder="@Html.Localize("Events.Description.placeholder")"
                    data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")"
                    data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            @Html.Action("TagPicker", "UserTags", new { })
         </div>
         <div class="form__row clearfix">
             <div class="row">
@@ -82,7 +84,7 @@
         <div class="form__row form__row--no-indent clearfix">
             @Html.PassLinks(Model.Links)
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
+            <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsCreate.Create.btn")" />
             <a class="btn _default" href="@Context.GetBackLink(Model.Links.Overview)">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }

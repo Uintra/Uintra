@@ -210,6 +210,12 @@
             margin:17px 0 16px;
         }
 
+        &-note{
+            padding:8px 0;
+            line-height:1.38;
+            color:#262626;
+        }
+
         &-txt{
             margin:0 0 21px;
             line-height:1.4;
@@ -698,4 +704,32 @@
 
 body:not(._show-filters) .filter__body {
     display: none !important;
+}
+.tags{
+    margin:0 0 20px;
+    &__title{
+        display:block;
+        margin:0 0 5px;
+    }
+    &__list {
+        font-size: 13px;
+        line-height: 1.384;
+        overflow: hidden;
+        margin: -8px 0 0 -8px;
+        &-item{
+            float:left;
+            margin:8px 0 0 8px;
+            background:#4c6cf4;
+            color:#fff;
+            border-radius:20px;
+            padding:3px 8px;
+            &:hover,
+            &:active,
+            &:focus{
+                background: #5776f9;
+                color:#fff;
+                text-decoration:none;
+            }
+        }
+    }
 }

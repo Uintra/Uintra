@@ -6,5 +6,6 @@
 		<key alias="SentMails">Sent Mails</key>
 		<key alias="Localization">Localization</key>
 		<key alias="bulletins">Bulletins</key>
+	  <key alias="groups">Groups</key>
 	</area>
 </language>

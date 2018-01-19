@@ -9,6 +9,7 @@
             public const string Folders = "Folders";
             public const string Pages = "Pages";
         }
+
         public class DocumentTypeNames
         {
             public const string DataFolder = "DataFolder";
@@ -59,7 +60,6 @@
             public const string ImageCropperPresetDictionaryName = "galleryPreview";
             public const int ImageCropperPresetHeigth = 100;
             public const int ImageCropperPresetWidth = 200;
-
         }
 
         public class DataTypePropertyEditors
@@ -80,6 +80,11 @@
         public class DataTypePropertyGroupNames
         {
             public const string Content = "Content";
+        }
+
+        public class ContentDefaultName
+        {
+            public const string DataFolder = "Data folder";
         }
     }
 }

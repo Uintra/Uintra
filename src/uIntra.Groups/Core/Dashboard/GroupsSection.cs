@@ -6,7 +6,7 @@ namespace uIntra.Groups.Dashboard
     {
         protected const string Alias = "groups";
         protected const string Name = "Groups";
-        protected const string Icon = "icon-chat _groups-section-color";
+        protected const string Icon = "icon-chat color-red";
 
         public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {

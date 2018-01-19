@@ -398,7 +398,7 @@ h5{
             right: 0;
             bottom: 0;
             background:var(--header-bg);
-            z-index: 2;
+            z-index: 12;
             content: '';
         }
 
@@ -425,7 +425,7 @@ h5{
     top: 0;
     left: 20px;
     padding: 16px 0;
-    z-index: 2;
+    z-index: 12;
 
     @media (--for-tablet-portrait-down){
         &{
@@ -554,7 +554,7 @@ h5{
 
     .ajs-button {
         background: var(--color-white);
-        color: #555;
+        color: var(--text-color-dark);
         border: 1px solid #8f8f8f;
         border-radius: 20px;
         display: inline-block;
@@ -570,24 +570,24 @@ h5{
         position: relative;
         text-transform: uppercase;
         min-height: 0;
-
+        
         &:hover,
         &:active,
         &:focus{
-            background-color: #dedede;
-            color: var(--text-color-dark);
-            text-decoration: none;
+            border-color:var(--color-submit);
+            color:var(--color-submit);
+            text-decoration:none;
         }
 
         @mixin btn-focus-color #8f8f8f;
 
         &.ajs-ok{
-            color:#555;
+            color:var(--text-color-dark);
 
             &:hover,
             &:active,
             &:focus{
-                color: var(--text-color-dark);
+                color: var(--color-submit);
             }
         }
 
@@ -731,6 +731,10 @@ h5{
     ._profile &{
         width: 100px;
         height: 100px;
+        @media(--for-phone-only){
+            width: 60px;
+            height: 60px;
+        }
     }    
 
     .comments__list &,

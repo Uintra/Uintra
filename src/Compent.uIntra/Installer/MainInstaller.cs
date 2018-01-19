@@ -37,8 +37,10 @@ namespace Compent.uIntra.Installer
         private readonly Version DeleteMailTemplates = new Version("0.2.5.6");
         private readonly Version PagePromotionUIntraVersion = new Version("0.2.8.0");
         private readonly Version EventsPublishDateUIntraVersion = new Version("0.2.12.0");
+        private readonly Version TaggingUIntraVersion = new Version("0.2.14.0");
         private readonly Version OldSubscribeSettingsUIntraVersion = new Version("0.2.13.0");
         private readonly Version MoveMyGroupsDocTypeMigrationVersion = new Version("0.2.20.0");
+        private readonly Version UpdateDataFolderNamesMigrationVersion = new Version("0.2.25.0");
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
@@ -78,7 +80,6 @@ namespace Compent.uIntra.Installer
                 uiNotificationMigration.Execute();
             }
 
-
             if (installedVersion < DeleteMailTemplates && UIntraVersion >= DeleteMailTemplates)
             {
                 DeleteExistedMailTemplates();
@@ -110,6 +111,17 @@ namespace Compent.uIntra.Installer
             {
                 var moveMyGroupsDocTypeMigration = new MoveMyGroupsOverviewDocTypeMigration();
                 moveMyGroupsDocTypeMigration.Execute();
+            }
+
+            if (installedVersion < TaggingUIntraVersion && UIntraVersion >= TaggingUIntraVersion)
+            {
+                var taggingMigration = new TaggingMigration();
+                taggingMigration.Execute();
+            }
+
+            if (installedVersion < UpdateDataFolderNamesMigrationVersion && UIntraVersion >= UpdateDataFolderNamesMigrationVersion)
+            {
+                new UpdateDataFolderNamesMigration().Execute();
             }
 
             if (UIntraVersion > installedVersion)

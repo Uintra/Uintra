@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Feed;
+using Compent.uIntra.Core.UserTags;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -18,6 +19,7 @@ using uIntra.Groups.Extensions;
 using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Controllers
 {
@@ -34,6 +36,7 @@ namespace Compent.uIntra.Controllers
         private readonly IDocumentIndexer _documentIndexer;
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IActivityTagsHelper _activityTagsHelper;
 
         public EventsController(
             IEventsService<Event> eventsService,
@@ -46,7 +49,9 @@ namespace Compent.uIntra.Controllers
             IDocumentIndexer documentIndexer,
             INotificationTypeProvider notificationTypeProvider,
             IGroupActivityService groupActivityService,
-            IActivityLinkService activityLinkService)
+            IActivityLinkService activityLinkService,
+            UserTagService userTagService,
+            IActivityTagsHelper activityTagsHelper)
             : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
@@ -55,6 +60,7 @@ namespace Compent.uIntra.Controllers
             _documentIndexer = documentIndexer;
             _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
+            _activityTagsHelper = activityTagsHelper;
         }
 
         [HttpPost]
@@ -73,6 +79,27 @@ namespace Compent.uIntra.Controllers
         {
             var @event = _eventsService.Get(id);
             return Json(new { HasConfirmation = @event.Subscribers.Any() }, JsonRequestBehavior.AllowGet);
+        }
+
+        protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
+        {
+            var eventExtended = (Event)@event;
+            var model = base.GetEditViewModel(@event, links).Map<EventExtendedEditModel>();
+
+            model.CanSubscribe = eventExtended.CanSubscribe;
+            model.SubscribeNotes = eventExtended.SubscribeNotes;
+            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
+
+            return model;
+        }
+
+        protected override EventCreateModel GetCreateModel(IActivityCreateLinks links)
+        {
+            var extendedCreateModel = base.GetCreateModel(links).Map<EventExtendedCreateModel>();
+            extendedCreateModel.CanSubscribe = true;
+            extendedCreateModel.CanEditSubscribe = true;
+
+            return extendedCreateModel;
         }
 
         private EventExtendedItemModel GetItemViewModel(Event item, ActivityFeedOptionsWithGroups options)
@@ -106,6 +133,7 @@ namespace Compent.uIntra.Controllers
 
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
         {
+
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
 
             var groupId = Request.QueryString.GetGroupId();
@@ -114,6 +142,10 @@ namespace Compent.uIntra.Controllers
                 _groupActivityService.AddRelation(groupId.Value, activityId);
                 var @event = _eventsService.Get(activityId);
                 @event.GroupId = groupId;
+            }
+            if (model is EventExtendedCreateModel extendedModel)
+            {
+                _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
             }
         }
 
@@ -125,6 +157,11 @@ namespace Compent.uIntra.Controllers
             {
                 var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventUpdated.ToInt());
                 ((INotifyableService)_eventsService).Notify(@event.Id, notificationType);
+            }
+
+            if (model is EventExtendedEditModel extendedModel)
+            {
+                _activityTagsHelper.ReplaceTags(@event.Id, extendedModel.TagIdsData);
             }
 
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
@@ -139,26 +176,8 @@ namespace Compent.uIntra.Controllers
             }
         }
 
-        protected override EventCreateModel GetCreateModel(IActivityCreateLinks links)
-        {
-            var extendedCreateModel = base.GetCreateModel(links).Map<EventExtendedCreateModel>();
-            extendedCreateModel.CanSubscribe = true;
-            extendedCreateModel.CanEditSubscribe = true;
 
-            return extendedCreateModel;
-        }
 
-        protected override EventEditModel GetEditViewModel(EventBase @event, ActivityLinks links)
-        {
-            var eventExtended = (Event)@event;
-            var model = base.GetEditViewModel(@event, links).Map<EventExtendedEditModel>();
-
-            model.CanSubscribe = eventExtended.CanSubscribe;
-            model.SubscribeNotes = eventExtended.SubscribeNotes;
-            model.CanEditSubscribe = _eventsService.CanEditSubscribe(@event.Id);
-
-            return model;
-        }
 
         protected override EventBase MapToEvent(EventCreateModel createModel)
         {

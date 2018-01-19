@@ -42,7 +42,6 @@
       <role key="WebMaster">
         <permissions>
           <permission key="CanEditNews" />
-          <permission key="CanFlyToSpace" />
           <permission key="NewsView" />
           <permission key="NewsCreate" />
           <permission key="NewsEdit" />
@@ -53,11 +52,11 @@
           <permission key="BulletinsEdit" />
           <permission key="BulletinsDelete" />
           <permission key="CanEditOwner" />
+          <permission key="GroupCreate" />
         </permissions>
       </role>
       <role key="UiPublisher">
         <permissions>
-          <permission key="CanEatBanana" />
           <permission key="CanEditNews" />
           <permission key="NewsView" />
           <permission key="NewsCreate" />
@@ -68,6 +67,7 @@
           <permission key="BulletinsCreate" />
           <permission key="BulletinsEdit" />
           <permission key="BulletinsDelete" />
+          <permission key="GroupCreate" />
         </permissions>
       </role>
       <role key="UiUser">

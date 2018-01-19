@@ -1,13 +1,13 @@
 @using uIntra.Core.Extensions
 @model Compent.uIntra.Core.Events.EventExtendedItemModel
 @{
-    var pinnedClass = Model.IsPinActual ? "_pinned" : "";
+    var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
-<div class="feed__item @pinnedClass">
+<div class="feed__item @currentPinnedClass">
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
-            <span class="pinned__item">@Html.Localize("EventsItemView.Pinned.lbl")</span>
+            <span class="pinned__item">@Html.Localize("EventItemView.Pinned.lbl")</span>
         }
 
         @if (Model.Location != null)
@@ -40,4 +40,4 @@
             @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = Model.Links.Details, isReadOnly = Model.IsReadOnly }); }
         </div>
     </div>
-</div> 
+</div>

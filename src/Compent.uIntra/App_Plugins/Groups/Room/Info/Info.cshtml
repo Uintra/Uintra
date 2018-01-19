@@ -9,7 +9,11 @@
             <img class="img-responsive" src="@Model.GroupImageUrl" />
         </div>
     }
-    <div class="block__description">@Html.Raw(Model.Description)</div>
+    <div class="block__description">
+        <p>
+            @Html.Raw(Model.Description.ReplaceLineBreaksForHtml())
+        </p>
+    </div>
     <div class="block__meta">
         <dl class="block__meta-info">
             @if (Model.MembersCount > 0)
@@ -18,16 +22,16 @@
             }
             <dd class="block__meta-name">
                 @Html.Localize("GroupInfo.CreatorName"):
-            <a href="@Model.CreatorProfileUrl">
-                <span class="block__meta-name-title">@Model.Creator.DisplayedName</span>
-            </a>
-        </dd>
-    </dl>
-</div>
-@if (Model.CanUnsubscribe)
-{
-    <div>
-        @{ Html.RenderAction("GroupSubscribe", "Group", new { groupId = Model.Id }); }
+                <a href="@Model.CreatorProfileUrl">
+                    <span class="block__meta-name-title">@Model.Creator.DisplayedName</span>
+                </a>
+            </dd>
+        </dl>
     </div>
-}
+    @if (Model.CanUnsubscribe)
+    {
+        <div>
+            @{ Html.RenderAction("GroupSubscribe", "Group", new { groupId = Model.Id }); }
+        </div>
+    }
 </section>

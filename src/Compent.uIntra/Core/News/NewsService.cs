@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
 using Extensions;
+using Compent.uIntra.Core.UserTags.Indexers;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -23,6 +25,7 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core.News
 {
@@ -41,7 +44,7 @@ namespace Compent.uIntra.Core.News
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
@@ -50,6 +53,7 @@ namespace Compent.uIntra.Core.News
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly UserTagService _userTagService;
         private readonly IActivityLocationService _activityLocationService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
@@ -61,7 +65,7 @@ namespace Compent.uIntra.Core.News
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticActivityIndex activityIndex,
+            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
@@ -90,6 +94,7 @@ namespace Compent.uIntra.Core.News
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _userTagService = userTagService;
             _activityLocationService = activityLocationService;
         }
 
@@ -229,7 +234,7 @@ namespace Compent.uIntra.Core.News
             var activities = GetAll().Where(IsInCache);
             var searchableActivities = activities.Select(Map);
 
-            var seachableType = _searchableTypeProvider.Get(SearchableTypeEnum.News.ToInt());
+            var seachableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.News.ToInt());
             _activityIndex.DeleteByType(seachableType);
             _activityIndex.Index(searchableActivities);
         }
@@ -306,10 +311,11 @@ namespace Compent.uIntra.Core.News
             return DateTime.Compare(news.PublishDate, DateTime.Now) <= 0;
         }
 
-        private SearchableActivity Map(Entities.News news)
+        private SearchableUintraActivity Map(Entities.News news)
         {
-            var searchableActivity = news.Map<SearchableActivity>();
+            var searchableActivity = news.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(news.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

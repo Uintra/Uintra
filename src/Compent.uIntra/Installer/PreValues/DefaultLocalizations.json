@@ -1,5 +1,26 @@
 [
   {
+    "key": "UserTagsPicker.Placeholder.lbl",
+    "translations": {
+      "en-US": "Select tags"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "UserTagsPicker.AddTags.lbl",
+    "translations": {
+      "en-US": "Add tags"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "UserTagsView.Title.lbl",
+    "translations": {
+      "en-US": "Related tags"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
     "key": "ActivityLikeAdded",
     "translations": {
       "en-US": "liked your activity"
@@ -1112,6 +1133,20 @@
     "key": "Search.OnlyPinned",
     "translations": {
       "en-US": "Only pinned"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Search.Tag",
+    "translations": {
+      "en-US": "Tag"
+    },
+    "updateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "key": "Search.User",
+    "translations": {
+      "en-US": "User"
     },
     "updateDate": "0001-01-01T00:00:00"
   },

@@ -5,12 +5,15 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@Html.Localize("SitePrefix.lbl") @{Html.RenderAction("GetTitle", "Navigation");}</title>
-    <link type="text/css" href="/build/vendors.css" rel="stylesheet" />
-    <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
-    <link type="text/css" href="/build/app.css" rel="stylesheet" />
+    
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" href="/favicon.ico">
+
+    <!-- tells htmlWebpackPlugin where to incject css files -->
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
 </head>
 <body>
     <div id="wrapper" class="_loading">
@@ -21,6 +24,7 @@
                     <a class="logo__link" href="/"><img src="~/Content/images/logo.svg" class="logo__img" width="21" height="33"></a>
                 </strong>
                 @{Html.RenderAction("TopNavigation", "Navigation");}
+                <a id="js-aside-opener" class="aside__opener _for-mobile"></a>
                 <div class="side-nav__overlay _for-mobile js-side-nav__overlay"></div>
             </div>
         </header>
@@ -78,7 +82,8 @@
             </div>
         </div>
     </div>
-    <script src="/build/vendors.js"></script>
-    <script src="/build/app.js"></script>
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+    <% } %>
 </body>
 </html>

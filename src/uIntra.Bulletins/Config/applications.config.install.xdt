@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <applications xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <add alias="bulletins" name="Bulletins" icon="icon-notepad _bulletins-section-color" sortOrder="1" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="InsertIfMissing"/>
+  <add alias="bulletins" name="Bulletins" icon="icon-notepad color-red" sortOrder="1" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="InsertIfMissing"/>
 </applications>

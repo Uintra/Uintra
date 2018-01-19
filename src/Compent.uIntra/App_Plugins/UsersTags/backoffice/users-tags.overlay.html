@@ -1,0 +1,4 @@
+﻿﻿<div ng-repeat="tag in control.value.usersTags">
+    <input id="selectedTag_{{tag.id}}" type="checkbox" value="{{tag.id}}" ng-model="tag.selected">
+    <label for="selectedTag_{{tag.id}}">{{tag.text}}</label>
+</div>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Compent.uIntra.Core.Activity;
+using Compent.uIntra.Core.Search.SearchAutoMapperProfile;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -13,6 +14,7 @@ using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
 using uIntra.Search;
+using uIntra.Tagging;
 using uIntra.Subscribe;
 using uIntra.Users;
 using Umbraco.Core.Models.Identity;
@@ -45,7 +47,9 @@ namespace Compent.uIntra
             Mapper.AddProfile<ActivityAutoMapperProfile>();
             Mapper.AddProfile<PagePromotionAutoMapperProfile>();
             Mapper.AddProfile<Core.PagePromotion.PagePromotionAutoMapperProfile>();
+            Mapper.AddProfile<SearchAutoMapperProfile>();
             Mapper.AddProfile<JobAutoMapperProfile>();
+            Mapper.AddProfile<UserTagsAutoMapperProfile>();
             Mapper.AddProfile<SubscribeAutoMapperProfiles>();
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
             Mapper.AddProfile<LocationAutoMapperProfile>();

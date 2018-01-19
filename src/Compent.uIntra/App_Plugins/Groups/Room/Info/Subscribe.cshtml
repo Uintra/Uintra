@@ -14,7 +14,7 @@
             {
                 if (Model.IsMember)
                 {
-                    <span class="content__item-is-subscribed">@Html.Localize("GroupInfo.IsSubscribed.lbl")</span>
+                    <p class="content__item-is-subscribed">@Html.Localize("GroupInfo.IsSubscribed.lbl")</p>
                 }
                 <input type="submit" 
                        class="@(Model.IsMember ? "btn _submit _unsubscribe" : "btn _submit _subscribe")"

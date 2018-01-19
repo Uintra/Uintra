@@ -1,0 +1,54 @@
+﻿@using uIntra.Core.Extensions
+@using uIntra.Search
+@model Compent.uIntra.Core.Search.Models.UintraSearchResultsOverviewViewModel
+
+@{
+    var queryLabel = string.Format(Html.Localize("SearchResult.YouSearchedFor.lbl"), Model.Query);
+    var countLabel = string.Format(Html.Localize("SearchResult.Count.lbl"), Model.ResultsCount);
+}
+
+<input type="hidden" class="js-type-search-counts" data-all-types-placeholder="@Model.AllTypesPlaceholder" data-types="@Model.FilterItems.ToJson()">
+<h1 class="search-result__result">@queryLabel @countLabel</h1>
+@foreach (var result in Model.Results)
+{
+    <div class="search-result__item">
+        <a class="search-result__item-link" href="@result.Url"></a>
+
+        <h2 class="search-result__item-title">@Html.Raw(result.Title)</h2>
+        
+        @if (result.IsPinned || result.IsPinActual)
+        {
+            <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+        }
+
+        @if (result.PanelContent.Any())
+        {
+            foreach (var pc in result.PanelContent)
+            {
+                <div class="search-result__item-teaser">@Html.Raw(pc.CropText(SearchConstants.Global.FragmentSize)) </div>
+            }
+        }
+        else
+        {
+            <div class="search-result__item-teaser">@Html.Raw(result.Description.CropText(SearchConstants.Global.FragmentSize))</div>
+        }
+        @if (result.TagsHighlighted)
+        {
+            foreach (var tag in result.UserTagNames)
+            {
+                <span class="tags__item">@Html.Raw(tag)</span>
+            }
+        }
+        <div class="search-result__item-meta">
+            <span class="search-result__item-type">@Html.Raw(result.Type)</span>
+            @if (result.PublishedDate.HasValue)
+            {
+                <span class="search-result__item-date">@result.PublishedDate.Value.ToDateTimeFormat()</span>
+            }
+            else if (result.StartDate.HasValue)
+            {
+                <span class="search-result__item-date">@result.StartDate.Value.ToDateTimeFormat() - @result.EndDate.Value.ToDateTimeFormat()</span>
+            }
+        </div>
+    </div>
+}

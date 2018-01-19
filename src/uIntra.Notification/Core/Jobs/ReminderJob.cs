@@ -12,7 +12,7 @@ namespace uIntra.Notification.Jobs
         }
         public override void Action()
         {
-            _reminderJob.Run();
+          //  _reminderJob.Run();
         }
     }
 }
