@@ -136,10 +136,12 @@
         margin:-1px 0 0;
         color:var(--text-color-dark);
 
-        &:hover{
+        &:hover,
+        &:active,
+        &:focus{
             color:var(--text-color-dark);
             text-decoration:none;
-            background:#eef2fb;
+            background:#f6f6f6;
         }
 
         .hide + &{
