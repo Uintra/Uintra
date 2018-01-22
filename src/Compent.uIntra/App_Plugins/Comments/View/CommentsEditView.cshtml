@@ -13,5 +13,6 @@
     <input class="js-hidden-comment-edit-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />
     <input type="hidden" name="id" value="@Model.Id" />
     <button disabled="disabled" class="btn btn-black js-comment-edit-btn js-disable-submit" type="button">@Html.Localize("CommentsOverView.EditComment.btn")</button>
+    <input class="btn _submit js-comment-hideEditLink" type="button" value="@Html.Localize("CommentsView.HideBtn.text")" />
     @Html.ValidationMessageFor(model => model.Text)
 }
