@@ -1,4 +1,10 @@
-﻿.notification-page{
+﻿._notifications-expanded {
+    @media(--for-tablet-portrait-down){
+        overflow:hidden;
+    }
+}
+
+.notification-page{
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
     padding:36px 20px 25px;
@@ -16,10 +22,6 @@
 
 .notification{
     position:relative;
-
-    /*._notifications-expanded &{
-        z-index:11;
-    }*/
 
     /* Notification popup styles */
     &__icon{
@@ -94,9 +96,10 @@
                 display:block;
                 left:auto;
                 right:0;
-                max-height:calc(100vh - 60px);
+                height:calc(100vh - 60px);
                 overflow:auto;
                 margin:0;
+                background:#f6f6f6;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
@@ -133,10 +136,12 @@
         margin:-1px 0 0;
         color:var(--text-color-dark);
 
-        &:hover{
+        &:hover,
+        &:active,
+        &:focus{
             color:var(--text-color-dark);
             text-decoration:none;
-            background:#eef2fb;
+            background:#f6f6f6;
         }
 
         .hide + &{

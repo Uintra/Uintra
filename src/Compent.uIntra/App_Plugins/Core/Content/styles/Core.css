@@ -321,11 +321,9 @@ h5{
         position: fixed;
         top: 0;
         left: 0;
-        width:calc(100% - 60px);
-        transform:translate(-101%, 0);
         bottom: 0;
-        background: var(--header-bg);
-        padding:0;
+        transform:translate(-100%, 0);
+        width:100%;
         height: auto;
         transition: transform linear 250ms;
         z-index:9999;
@@ -373,6 +371,26 @@ h5{
             opacity:1;
             visibility:visible;
         }
+    }
+}
+
+.sidebar-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 6;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    color: var(--color-white);
+    font-size: 26px;
+    font-weight: bold;
+    padding: 17px;
+    &:hover,
+    &:active,
+    &:focus{
+        color: var(--color-white);
+        text-decoration:none;
     }
 }
 

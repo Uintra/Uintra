@@ -8,6 +8,7 @@ var logout = $('.js-logout');
 
 function initMobileNav() {
     var opener = document.querySelector(".js-menu-opener");
+    var closeBtn = document.querySelector(".js-sidebar-close");
     var container = document.querySelector('#sidebar');
     var overlay = document.querySelector(".js-side-nav__overlay");
 
@@ -15,17 +16,20 @@ function initMobileNav() {
         opener.addEventListener('click', () => {
             toggleMobileMenu(opener, container);
         });
+        closeBtn.addEventListener('click', () => {
+            toggleMobileMenu(closeBtn, container);
+        });
     }
 };
 
 function toggleMobileMenu(element, container){
     body.toggleClass(className).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
 
-    body.on("click.nav", function(ev) {
+    /*body.on("click.nav", function(ev) {
         isOutsideClick(container, element, ev.target, '_menu-expanded', function() {
             body.removeClass(className).off("click.nav");
         });
-    });
+    });*/
 }
 
 function toggleUserMenu(){
