@@ -105,7 +105,7 @@ namespace Compent.uIntra.Core.Events
         {
             var events = GetAll()
                 .Where(e => e.StartDate > fromDate)
-                .OrderBy(e => e.PublishDate);
+                .OrderBy(e => e.StartDate);
             return events;
         }
 
