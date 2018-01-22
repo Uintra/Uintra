@@ -454,6 +454,7 @@
         
         &-subtitle{
             font:18px/22px var(--font-general);
+            color:#262626;
             margin:0 0 24px;
         }
 
