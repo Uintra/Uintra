@@ -146,7 +146,7 @@
 }
 
 ._hide {
-	display: none;
+	display: none !important;
 }
 
 ._for-desktop{
