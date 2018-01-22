@@ -890,20 +890,13 @@ h5{
     overflow:hidden;
     background:var(--color-white);
     bottom:100%;
-    margin:0 0 -9px;
     z-index:9999;
-
-    .form &,
-    .comments &{
-        bottom:auto;
-        top:100%;
-        margin:0;
-        transform:translate(calc(100% - 28px));
-
-        &._in-top{
-            bottom: 100%;
-            top: auto;
-        }
+    right:auto !important;
+    left:50%;
+    margin:0 0 -4px -157px;
+    @media(--for-phone-only){
+        width:262px;
+        margin:0 0 -4px -131px;
     }
 
     &__list{
