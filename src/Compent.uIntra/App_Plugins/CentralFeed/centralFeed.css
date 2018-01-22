@@ -707,29 +707,34 @@
 body:not(._show-filters) .filter__body {
     display: none !important;
 }
-.tags{
-    margin:0 0 20px;
+.tags {
+    margin: 0 0 20px;
+    font-size: 13px;
+    line-height: 1.384;
     &__title{
-        display:block;
-        margin:0 0 5px;
+        display:inline-block;
+        vertical-align:middle;
+        color:#262626;
+        font-weight:400;
+        margin:3px 16px 0 0;
     }
     &__list {
-        font-size: 13px;
-        line-height: 1.384;
+        display:inline-block;
+        vertical-align:middle;
         overflow: hidden;
-        margin: -8px 0 0 -8px;
+        margin: -8px 0 0 -10px;
         &-item{
             float:left;
-            margin:8px 0 0 8px;
-            background:#4c6cf4;
-            color:#fff;
-            border-radius:20px;
-            padding:3px 8px;
+            margin:8px 0 0 10px;
+            background:#ddd;
+            color: var(--text-color-dark);
+            border-radius:2px;
+            padding:5px 10px 3px 9px;
             &:hover,
             &:active,
             &:focus{
-                background: #5776f9;
-                color:#fff;
+                background: #ddd;
+                color: var(--text-color-dark);
                 text-decoration:none;
             }
         }
