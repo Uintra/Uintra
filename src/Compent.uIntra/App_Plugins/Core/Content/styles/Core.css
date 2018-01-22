@@ -512,7 +512,11 @@ h5{
     }
 }
 
-
+.content {
+    &__loader{
+        margin:0 0 44px;
+    }
+}
 .content:not(._central-feed) {
     padding: 26px 21px 10px;
     background: var(--color-white);
