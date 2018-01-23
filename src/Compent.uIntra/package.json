@@ -41,7 +41,7 @@
     "quill-delta": "3.4.3",
     "select2": "4.0.3",
     "simple-scrollbar": "0.2.1",
-    "sortablejs": "1.5.1",
+    "sortablejs": "^1.7.0",
     "taggle": "1.11.2"
   },
   "description": ""
