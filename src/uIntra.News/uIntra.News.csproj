@@ -463,8 +463,6 @@
     <Compile Include="Core\Dashboard\Models\NewsBackofficeViewModel.cs" />
     <Compile Include="Core\Dashboard\NewsSection.cs" />
     <Compile Include="Core\NewsServiceBase.cs" />
-    <Compile Include="Installer\NewsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\NewsInstallationStep_0_0_1.cs" />
     <Compile Include="Web\NewsControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Config\Lang\da-DK.user.xml.install.xdt" />
