@@ -3,36 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
     public class MemberNotifiersSettingsService : IMemberNotifiersSettingsService
     {
         private readonly ISqlRepository<MemberNotifierSetting> _memberNotifierSettingRepository;
+        private readonly INotifierTypeProvider _notifierTypeProvider;
 
-        public MemberNotifiersSettingsService(ISqlRepository<MemberNotifierSetting> repository)
+        public MemberNotifiersSettingsService(ISqlRepository<MemberNotifierSetting> repository, INotifierTypeProvider notifierTypeProvider)
         {
             _memberNotifierSettingRepository = repository;
+            _notifierTypeProvider = notifierTypeProvider;
         }
 
-        public IDictionary<NotifierTypeEnum, bool> GetForMember(Guid memberId)
+        public IDictionary<Enum, bool> GetForMember(Guid memberId)
         {
             var dbNotifiers = _memberNotifierSettingRepository.FindAll(r => r.MemberId == memberId).ToList();
-            var createdNotifiers = CreateAbsentSettings(memberId, dbNotifiers.Select(e => e.NotifierType));
-            return dbNotifiers.Concat(createdNotifiers).ToDictionary(e => e.NotifierType, e => e.IsEnabled);
+            var createdNotifiers = CreateAbsentSettings(memberId, dbNotifiers.Select(e => _notifierTypeProvider.Get(e.NotifierType)));
+            return dbNotifiers.Concat(createdNotifiers).ToDictionary(e => _notifierTypeProvider.Get(e.NotifierType), e => e.IsEnabled);
         }
 
-        public void SetForMember(Guid memberId, NotifierTypeEnum notifierType, bool isEnabled)
+        public void SetForMember(Guid memberId, Enum notifierType, bool isEnabled)
         {
             var dbEntry = _memberNotifierSettingRepository
                 .FindAll(e => e.MemberId == memberId)
-                .First(e => e.NotifierType == notifierType);
+                .First(e => e.NotifierType == notifierType.ToInt());
             dbEntry.IsEnabled = isEnabled;
             _memberNotifierSettingRepository.Update(dbEntry);
         }
 
-        public IDictionary<Guid, IEnumerable<NotifierTypeEnum>> GetForMembers(IEnumerable<Guid> memberIds)
+        public IDictionary<Guid, IEnumerable<Enum>> GetForMembers(IEnumerable<Guid> memberIds)
         {
             var memberIdsList = memberIds.ToList();
             memberIdsList.ForEach(SetupAbsentSettings);
@@ -41,7 +42,7 @@ namespace uIntra.Notification
                 .GroupBy(e => e.MemberId)
                 .ToDictionary(e => e.Key, e => e
                     .Where(n => n.IsEnabled)
-                    .Select(n => n.NotifierType));
+                    .Select(n => _notifierTypeProvider.Get(n.NotifierType)));
             return result;
         }
 
@@ -49,19 +50,19 @@ namespace uIntra.Notification
         private void SetupAbsentSettings(Guid memberId)
         {
             var dbNotifiers = _memberNotifierSettingRepository.FindAll(r => r.MemberId == memberId).ToList();
-            CreateAbsentSettings(memberId, dbNotifiers.Select(e => e.NotifierType));
+            CreateAbsentSettings(memberId, dbNotifiers.Select(e => _notifierTypeProvider.Get(e.NotifierType)));
         }
 
         private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(Guid memberId,
-            IEnumerable<NotifierTypeEnum> existingSettings)
+            IEnumerable<Enum> existingSettings)
         {
-            var absentSettings = EnumExtensions.GetEnumCases<NotifierTypeEnum>().Except(existingSettings);
+            var absentSettings = _notifierTypeProvider.GetAll().Except(existingSettings);
             var newEntities = absentSettings
                 .Select(s => new MemberNotifierSetting()
                 {
                     Id = Guid.NewGuid(),
                     MemberId = memberId,
-                    NotifierType = s,
+                    NotifierType = s.ToInt(),
                     IsEnabled = true
                 })
                 .ToList();

@@ -188,7 +188,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
         private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(NotifierTypeEnum notifierType, IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
         {
             var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider.Get(activityType.ToInt()), _notificationTypeProvider.Get(notificationType.ToInt()));
-            return new ActivityEventNotifierIdentity(activityEventIdentity, _notifierTypeProvider.Get(notifierType.ToInt()));
+            return new ActivityEventNotifierIdentity(activityEventIdentity, notifierType);
         }
     }
 }

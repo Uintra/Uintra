@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using uIntra.Core.User;
 using uIntra.Notification;
 using uIntra.Notification.Base;
@@ -16,7 +17,7 @@ namespace Compent.uIntra.Core.Notification
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly UiNotificationService _notificationsService;
 
-        public NotifierTypeEnum Type => NotifierTypeEnum.UiNotifier;
+        public Enum Type => NotifierTypeEnum.UiNotifier;
 
         public UiNotifierService(
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
@@ -33,8 +34,7 @@ namespace Compent.uIntra.Core.Notification
 
         public void Notify(NotifierData data)
         {
-            var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType)
-                .AddNotifierIdentity(_notifierTypeProvider.Get((int)Type));
+            var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType).AddNotifierIdentity(Type);
 
             var settings = _notificationSettingsService.Get<UiNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;

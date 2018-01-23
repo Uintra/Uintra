@@ -3,7 +3,7 @@ using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification.DefaultImplementation
 {
-    public class NotifierTypeProvider : IntranetTypeProviderBase<NotifierTypeEnum>, INotifierTypeProvider
+    public class NotifierTypeProvider : EnumTypeProviderBase<NotifierTypeEnum>, INotifierTypeProvider
     {
     }
 }

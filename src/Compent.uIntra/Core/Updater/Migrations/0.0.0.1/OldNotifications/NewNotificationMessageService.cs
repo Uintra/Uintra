@@ -23,7 +23,7 @@ namespace Compent.uIntra.Installer.Migrations
             _intranetUserService = intranetUserService;
         }
 
-        private IIntranetType UiNotifierType => _notifierTypeProvider.Get(NotifierTypeEnum.UiNotifier.ToInt());
+        private Enum UiNotifierType => NotifierTypeEnum.UiNotifier;
 
         internal UiNotificationMessage GetUiNotificationMessage(
             Guid receiverId,
