@@ -943,6 +943,7 @@ h5{
         height:149px;
         overflow:auto;
         font:13px/22px var(--font-general);
+        color:var(--text-color-dark);
     }
 
     .ql-tooltip {
