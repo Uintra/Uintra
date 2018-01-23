@@ -64,6 +64,9 @@
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\ClientDependency.1.9.2\lib\net45\ClientDependency.Core.dll</HintPath>
@@ -234,17 +237,23 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Common">
-      <HintPath>..\..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.3.0\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Mvc">
-      <HintPath>..\..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -1145,50 +1154,50 @@
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
-    <Content Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1391,7 +1400,7 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
-    <Compile Include="Core\Updater\GroupStep.cs" />
+    <EmbeddedResource Include="Core\Updater\GroupStep.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
     <Compile Include="Core\Updater\IMigrationStepsResolver.cs" />
