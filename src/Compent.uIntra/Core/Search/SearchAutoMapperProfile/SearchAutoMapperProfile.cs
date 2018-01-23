@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Compent.uIntra.Core.Bulletins;
+using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Search.Entities;
 using Compent.uIntra.Core.Search.Models;
 using Compent.uIntra.Core.Users;
@@ -119,15 +121,69 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore());
 
             Mapper.CreateMap<IntranetActivity, SearchableUintraActivity>()
+                .ForMember(dst => dst.Description, src => src.MapFrom(el => el.Description))
                 .ForMember(dst => dst.Url, src => src.Ignore())
                 .ForMember(dst => dst.StartDate, src => src.Ignore())
                 .ForMember(dst => dst.EndDate, src => src.Ignore())
                 .ForMember(dst => dst.PublishedDate, src => src.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, src => src.Ignore())
                 .ForMember(dst => dst.Type, src => src.Ignore())
-                .ForMember(dst => dst.Description, src => src.MapFrom(el => el.Description))
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
                 .AfterMap((src, dst) => { dst.Type = src.Type.Id; });
+
+            Mapper.CreateMap<Bulletin, SearchableActivity>()
+                .IncludeBase<IntranetActivity, SearchableActivity>()
+                .ForMember(dst => dst.PublishedDate, o => o.MapFrom(s => s.PublishDate))
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                {
+                    dst.Title = src.Description?.StripHtml().TrimByWordEnd(50);
+                });
+
+            Mapper.CreateMap<Bulletin, SearchableUintraActivity>()
+                .IncludeBase<Bulletin, SearchableActivity>()
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.UserTagNames, src => src.Ignore())
+                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
+
+            Mapper.CreateMap<News.Entities.News, SearchableActivity>()
+                .IncludeBase<IntranetActivity, SearchableActivity>()
+                .ForMember(dst => dst.PublishedDate, o => o.MapFrom(s => s.PublishDate))
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore());
+
+            Mapper.CreateMap<News.Entities.News, SearchableUintraActivity>()
+                .IncludeBase<News.Entities.News, SearchableActivity>()
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.UserTagNames, src => src.Ignore())
+                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
+
+            Mapper.CreateMap<Event, SearchableActivity>()
+                .IncludeBase<IntranetActivity, SearchableActivity>()
+                .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate))
+                .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate))
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.PublishedDate, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore());
+
+            Mapper.CreateMap<Event, SearchableUintraActivity>()
+                .IncludeBase<Event, SearchableActivity>()
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.PublishedDate, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.UserTagNames, src => src.Ignore())
+                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
 
             base.Configure();
         }

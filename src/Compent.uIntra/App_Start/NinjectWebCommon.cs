@@ -31,6 +31,7 @@ using Compent.uIntra.Core.Search.Entities;
 using Compent.uIntra.Core.Search.Entities.Mappings;
 using Compent.uIntra.Core.Search.Indexes;
 using Compent.uIntra.Core.Subscribe;
+using Compent.uIntra.Core.Updater;
 using Compent.uIntra.Core.Users;
 using Compent.uIntra.Core.UserTags;
 using Compent.uIntra.Core.UserTags.Indexers;
@@ -105,8 +106,10 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
+using Ninject.Extensions.Conventions;
 using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
 using ReminderJob = uIntra.Notification.ReminderJob;
+using Ninject.Web.Common.WebHost;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -184,6 +187,16 @@ namespace Compent.uIntra
 
         private static void RegisterServices(IKernel kernel)
         {
+            //migration
+            kernel.Bind(x => x.FromThisAssembly()
+                .SelectAllClasses()
+                .InheritedFrom(typeof(IMigration))
+                .BindSingleInterface());
+
+            kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
+
+            //security
+
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();

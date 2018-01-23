@@ -33,6 +33,12 @@ namespace uIntra.Core.PagePromotion
             return config.Files.ToIntCollection();
         }
 
+        public static bool IsPromoted(IPublishedContent content)
+        {
+            var config = GetConfig(content);
+            return config != null && config.PromoteOnCentralFeed;
+        }
+
         private static PagePromotionConfig GetConfig(string propertyValue)
         {
             return propertyValue.IsNullOrEmpty() ? null : propertyValue.Deserialize<PagePromotionConfig>();

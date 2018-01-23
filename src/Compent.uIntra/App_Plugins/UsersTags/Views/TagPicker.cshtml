@@ -3,7 +3,7 @@
 @using uIntra.Core.Extensions
 @model uIntra.Tagging.UserTags.Models.TagPickerViewModel
 
-<div class="file-tree__holder js-user-tag-picker-holder">
+<div class="form__row js-user-tag-picker-holder">
     <label class="form__label" for="user-tags-picker">@Html.Localize("UserTagsPicker.AddTags.lbl")</label>
     @Html.Hidden("TagIdsData", Html.Raw(Model.TagIdsData.JoinToString()), new { id = "selectedTagIds" })
     @Html.Hidden("UserTagCollection", Html.Raw(Model.UserTagCollection.ToJson()), new { id = "userTagCollection" })

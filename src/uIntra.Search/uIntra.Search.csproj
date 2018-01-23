@@ -379,9 +379,6 @@
     <Compile Include="Core\Queries\SearchTextQuery.cs" />
     <Compile Include="Core\SearchConstants.cs" />
     <Compile Include="Core\Entities\SearchResult.cs" />
-    <Compile Include="Installer\Migrations\MediaSearchInstallationStep_0_2_1_1.cs" />
-    <Compile Include="Installer\SearchInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\SearchInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\SearchControllerBase.cs" />
     <Compile Include="Core\Models\SearchFilterItemViewModel.cs" />

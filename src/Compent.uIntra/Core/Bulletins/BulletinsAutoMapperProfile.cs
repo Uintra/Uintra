@@ -2,9 +2,7 @@
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
 using uIntra.Groups;
-using uIntra.Search;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -29,23 +27,8 @@ namespace Compent.uIntra.Core.Bulletins
             Mapper.CreateMap<BulletinEditModel, BulletinExtendedEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
-
-
             Mapper.CreateMap<Bulletin, IntranetActivityItemHeaderViewModel>()
                  .IncludeBase<BulletinBase, IntranetActivityItemHeaderViewModel>();
-
-            Mapper.CreateMap<Bulletin, SearchableActivity>()
-                .IncludeBase<IntranetActivity, SearchableActivity>()
-                .ForMember(dst => dst.StartDate, o => o.Ignore())
-                .ForMember(dst => dst.EndDate, o => o.Ignore())
-                .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
-                .AfterMap((src, dst) =>
-                {
-                    var description = src.Description?.StripHtml();
-                    dst.Title = description.TrimByWordEnd(50);
-                });
 
             Mapper.CreateMap<Bulletin, ActivityTransferCreateModel>();
 

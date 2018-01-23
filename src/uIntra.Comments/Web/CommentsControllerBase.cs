@@ -55,10 +55,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.ActivityId);
             }
 
-            if (IsForPagePromotion(model.ActivityId))
-            {
-                return AddActivityComment(model);
-            }
+            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(model);
 
             if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
@@ -79,10 +76,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.Id);
             }
 
-            if (IsForPagePromotion(comment.ActivityId))
-            {
-                return EditActivityComment(model, comment);
-            }
+            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
@@ -104,10 +98,7 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
-            if (IsForPagePromotion(comment.ActivityId))
-            {
-                return RemoveActivityComment(comment);
-            }
+            if (IsForPagePromotion(comment.ActivityId)) return RemoveActivityComment(comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
@@ -245,7 +236,7 @@ namespace uIntra.Comments.Web
         protected virtual bool IsForPagePromotion(Guid entityId)
         {
             var content = _umbracoHelper.TypedContent(entityId);
-            return content != null && PagePromotionHelper.IsPagePromotion(content);
+            return content != null && PagePromotionHelper.IsPagePromotion(content) && PagePromotionHelper.IsPromoted(content);
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)
