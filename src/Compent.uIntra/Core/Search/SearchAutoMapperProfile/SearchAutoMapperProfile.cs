@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Compent.uIntra.Core.Bulletins;
 using Compent.uIntra.Core.Search.Entities;
 using Compent.uIntra.Core.Search.Models;
 using Compent.uIntra.Core.Users;
@@ -128,6 +129,27 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Description, src => src.MapFrom(el => el.Description))
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
                 .AfterMap((src, dst) => { dst.Type = src.Type.Id; });
+
+            Mapper.CreateMap<Bulletin, SearchableActivity>()
+                .IncludeBase<IntranetActivity, SearchableActivity>()
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.PublishedDate, o => o.MapFrom(s => s.PublishDate))
+                .AfterMap((src, dst) =>
+                {
+                    dst.Title = src.Description?.StripHtml().TrimByWordEnd(50);
+                });
+
+            Mapper.CreateMap<Bulletin, SearchableUintraActivity>()
+                .IncludeBase<Bulletin, SearchableActivity>()
+                .ForMember(dst => dst.StartDate, o => o.Ignore())
+                .ForMember(dst => dst.EndDate, o => o.Ignore())
+                .ForMember(dst => dst.Url, o => o.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.UserTagNames, src => src.Ignore())
+                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
 
             base.Configure();
         }
