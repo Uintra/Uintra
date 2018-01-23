@@ -508,7 +508,8 @@
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\loader.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_greybg.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_whitebg.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
