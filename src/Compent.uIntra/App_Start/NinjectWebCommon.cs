@@ -399,7 +399,6 @@ namespace Compent.uIntra
             kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
-            kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();

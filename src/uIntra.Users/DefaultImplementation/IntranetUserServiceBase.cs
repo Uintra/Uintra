@@ -191,8 +191,8 @@ namespace uIntra.Users
 
         protected virtual string GetGroupNameFromRole(int role)
         {
-            var roleMode = _intranetRoleTypeProvider.Get(role);
-            return roleMode.Name;
+            var roleMode = _intranetRoleTypeProvider[role];
+            return roleMode.ToString();
         }
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
